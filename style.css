@@ -3,10 +3,11 @@ background-blend-mode
 mix-blend-mode */
 
 body {
-    background: url("assets/character/wallpaper/Fontaine.png") no-repeat center center fixed;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
+  background: url("assets/character/wallpaper/Fontaine.png") no-repeat center
+    center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
 }
 
 nav {
@@ -141,9 +142,20 @@ img[name="question"] {
 }
 
 #background-image {
-    img {
-        width: 200px;
-    }
+  img {
+    width: 200px;
+  }
+}
+
+.version {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: black;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke: 0.5px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 /* transformacia, vyrezanie a zobrazenie obrazku spolu s textom

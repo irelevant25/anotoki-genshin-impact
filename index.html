@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="quiz-manager.js"></script>
     <script src="background-image.js"></script>
+    <script src="changelog.js"></script>
 </head>
 
 <body>
@@ -60,6 +61,12 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new QuizManager('quiz-banners').init();
+            new BackgroundManager('background-image').init();
+            document.querySelector('.version').textContent = `v${changelogData[0].version}`;
+        });
+
         function getRandomInt(min, max) {
             return Math.round(Math.random() * (max - min) + min);
         }
@@ -89,11 +96,60 @@
             content.style.display = content.style.display === 'none' ? 'inherit' : 'none';
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            new QuizManager('quiz-banners').init();
-            new BackgroundManager('background-image').init();
-        });
+        function renderChangelog() {
+            const container = document.getElementById("changelogContent");
+            container.innerHTML = ""; // Clear any existing content
+
+            // Iterate over the changelog data; newest entry is assumed to be first
+            changelogData.forEach((entry, index) => {
+                const entryDiv = document.createElement("div");
+                entryDiv.className = "changelog-entry mb-3";
+
+                // Create the header with version and date
+                const header = document.createElement("h6");
+                header.textContent = `Version ${entry.version} - ${entry.date}`;
+                entryDiv.appendChild(header);
+
+                // Create an unordered list of changes
+                const ul = document.createElement("ul");
+                entry.changes.forEach(change => {
+                    const li = document.createElement("li");
+                    li.textContent = change;
+                    ul.appendChild(li);
+                });
+                entryDiv.appendChild(ul);
+
+                container.appendChild(entryDiv);
+
+                // Append a horizontal line between entries except after the last one
+                if (index < changelogData.length - 1) {
+                    const hr = document.createElement("hr");
+                    container.appendChild(hr);
+                }
+            });
+        }
     </script>
+
+    <!-- Updated clickable element to open modal -->
+    <div class="version" data-bs-toggle="modal" data-bs-target="#versionModal" onclick="renderChangelog()"></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="versionModal" tabindex="-1" aria-labelledby="versionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="versionModalLabel">Changelog</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="changelogContent">
+                    <!-- Changelog entries will be dynamically injected here -->
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
