@@ -140,6 +140,12 @@ img[name="question"] {
   background-color: rgba(255, 255, 255, 0.6);
 }
 
+#background-image {
+    img {
+        width: 200px;
+    }
+}
+
 /* transformacia, vyrezanie a zobrazenie obrazku spolu s textom
 .autocomplete-item img {
     object-fit: none;
