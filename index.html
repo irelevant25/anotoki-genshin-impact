@@ -98,36 +98,74 @@
 
         function renderChangelog() {
             const container = document.getElementById("changelogContent");
-            container.innerHTML = ""; // Clear any existing content
+            container.innerHTML = ""; // Clear existing content
 
-            // Iterate over the changelog data; newest entry is assumed to be first
-            changelogData.forEach((entry, index) => {
-                const entryDiv = document.createElement("div");
-                entryDiv.className = "changelog-entry mb-3";
+            changelogData.forEach(entry => {
+                // Outer container for this version
+                const versionContainer = document.createElement("div");
+                versionContainer.className = "mb-5";
 
-                // Create the header with version and date
-                const header = document.createElement("h6");
-                header.textContent = `Version ${entry.version} - ${entry.date}`;
-                entryDiv.appendChild(header);
+                // Header with version and date
+                const headerDiv = document.createElement("div");
+                headerDiv.className = "d-flex align-items-baseline mb-4";
 
-                // Create an unordered list of changes
-                const ul = document.createElement("ul");
-                entry.changes.forEach(change => {
-                    const li = document.createElement("li");
-                    li.textContent = change;
-                    ul.appendChild(li);
+                const versionTag = document.createElement("h2");
+                versionTag.className = "version-tag me-3";
+                versionTag.textContent = entry.version;
+                headerDiv.appendChild(versionTag);
+
+                const dateSpan = document.createElement("span");
+                dateSpan.className = "changelog-date";
+                dateSpan.textContent = entry.date;
+                headerDiv.appendChild(dateSpan);
+
+                versionContainer.appendChild(headerDiv);
+
+                // Container for the list of changes
+                const entriesContainer = document.createElement("div");
+                entriesContainer.className = "bg-white shadow-sm rounded";
+
+                // Process each change category in a fixed order
+                const changeTypes = ["added", "fixed", "updated"];
+                changeTypes.forEach(type => {
+                    const changesForType = entry.changes[type];
+                    if (changesForType.length === 0) return;
+                    const changeEntry = document.createElement("div");
+                    changeEntry.className = "changelog-entry position-relative p-4";
+
+                    // Indicator for change type
+                    const changeTypeIndicator = document.createElement("div");
+                    changeTypeIndicator.className = "change-type " + type;
+                    changeEntry.appendChild(changeTypeIndicator);
+
+                    // Text container
+                    const textContainer = document.createElement("div");
+                    textContainer.className = "ms-3";
+
+                    const titleEl = document.createElement("h6");
+                    titleEl.className = "fw-bold mb-3";
+                    // Capitalize the first letter
+                    titleEl.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+                    textContainer.appendChild(titleEl);
+                    
+                    const listEl = document.createElement("ul");
+                    changesForType.forEach(change => {
+                        const descriptionEl = document.createElement("li");
+                        descriptionEl.className = "text-muted mb-0";
+                        descriptionEl.textContent = change;
+                        listEl.appendChild(descriptionEl);
+                    });
+                    changeEntry.appendChild(textContainer);
+                    textContainer.appendChild(listEl);
+                    entriesContainer.appendChild(changeEntry);
                 });
-                entryDiv.appendChild(ul);
 
-                container.appendChild(entryDiv);
-
-                // Append a horizontal line between entries except after the last one
-                if (index < changelogData.length - 1) {
-                    const hr = document.createElement("hr");
-                    container.appendChild(hr);
-                }
+                versionContainer.appendChild(entriesContainer);
+                container.appendChild(versionContainer);
             });
         }
+
+
     </script>
 
     <!-- Updated clickable element to open modal -->
@@ -141,7 +179,7 @@
                     <h5 class="modal-title" id="versionModalLabel">Changelog</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="changelogContent">
+                <div class="modal-body p-4" id="changelogContent">
                     <!-- Changelog entries will be dynamically injected here -->
                 </div>
                 <!-- <div class="modal-footer">
