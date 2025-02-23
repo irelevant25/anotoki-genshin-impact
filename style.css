@@ -117,15 +117,8 @@ div[name="tries-display"] {
     margin-right: 2.5px;
   }
 
-  .tries-characters .try {
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    width: 60px;
-    height: 75px;
-    border-radius: 100px;
-    margin-left: 2.5px;
-    margin-right: 2.5px;
+  &.tries-characters .try img {
+    height: 100px;
   }
 }
 
