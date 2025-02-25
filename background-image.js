@@ -42,12 +42,12 @@ class BackgroundManager {
         else this.defaultState();
         this.alreadyRendered = true;
 
-        const characters = [];
+        const charactersWithWallpaper = [];
         const imagePromises = characters.map(character => {
             return new Promise(resolve => {
                 const preloader = new Image();
                 preloader.onload = () => {
-                    characters.push(character);
+                    charactersWithWallpaper.push(character);
                     resolve();
                 };
                 preloader.onerror = () => {
@@ -58,7 +58,7 @@ class BackgroundManager {
             });
         });
         Promise.all(imagePromises).then(() => {
-            characters.sort((a, b) => a.name.localeCompare(b.name)).forEach(character => {
+            charactersWithWallpaper.sort((a, b) => a.name.localeCompare(b.name)).forEach(character => {
                 const imgElement = document.createElement('img');
                 imgElement.src = this.getCharacterImageUrl(character.name);
                 this.containerElement.appendChild(imgElement);
