@@ -10,6 +10,9 @@ class QuizManager {
     daily = true;
     triesDisplayMethod = QuizManager.TriesDisplayMethodEnum.Icons;
     triesEffects = []; // structure example: { try: 1, class: 'trieda1 trieda2'}
+    questionCallback = null;
+    effectsAppliedCallback = null;
+    questionEntity = null;
 
     constructor(idSelector) {
         if (!idSelector) {
@@ -28,7 +31,7 @@ class QuizManager {
         this.autocompleteElement = this.containerElement.querySelector('div[name="autocomplete"]');
         this.autocompleteInputElement = this.containerElement.querySelector('input');
         this.autocompleteDropdownElement = this.containerElement.querySelector('div.dropdown-menu');
-        this.questionElement = this.containerElement.querySelector('img[name="question"]');
+        this.questionElement = this.containerElement.querySelector('[name="question"]');
         this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
         this.nextButtonElement = this.containerElement.querySelector('button');
         this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
@@ -136,21 +139,27 @@ class QuizManager {
         this.triesDisplayElement.classList.add(this.triesDisplayMethod);
     }
 
+    get isQuestionComplete() { 
+        return this.autocompleteElement.style.display === 'none';
+    }
+
     applyEffects(currentTry) {
         // remove all effects
         this.triesEffects.forEach(effect => {
             effect.class.split(" ").forEach(effect => this.questionElement.classList.remove(effect));
         });
 
-        // apply no effect if the question is complete
-        if (this.autocompleteElement.style.display === 'none') {
-            return;
+        // apply effects only if the question is not complete
+        if (!this.isQuestionComplete) {
+            // add effects for try
+            const effects = this.triesEffects.find(x => x.try === currentTry);
+            if (effects) {
+                effects.class.split(" ").forEach(effect => this.questionElement.classList.add(effect));
+            }
         }
 
-        // add effects for try
-        const effects = this.triesEffects.find(x => x.try === currentTry);
-        if (effects) {
-            effects.class.split(" ").forEach(effect => this.questionElement.classList.add(effect));
+        if (this.effectsAppliedCallback) {
+            this.effectsAppliedCallback(this.questionEntity, currentTry);
         }
     }
 
@@ -228,7 +237,10 @@ class QuizManager {
     }
 
     startStateQuestion(character) {
-        this.questionElement.src = character.namecard_banner;
+        this.questionEntity = character;
+        if (this.questionCallback) {
+            this.questionCallback(character);
+        }
         this.questionElement.dataset.answer = character.name;
         this.defaultState();
     }
