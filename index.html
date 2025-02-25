@@ -58,10 +58,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const triesEffects = [
-            { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3 difficulty-4'},
-            { try: 1, class: 'difficulty-1 difficulty-2 difficulty-3'},
-            { try: 2, class: 'difficulty-1 difficulty-2'},
-            { try: 3, class: 'difficulty-1'},
+            { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3'},
+            { try: 1, class: 'difficulty-1 difficulty-2'},
+            { try: 2, class: 'difficulty-1'},
             ];
             const triesDisplayMethod = QuizManager.TriesDisplayMethodEnum.Characters;
             new QuizManager('quiz-banners',).init({ triesDisplayMethod, triesEffects });

@@ -128,16 +128,13 @@ img[name="question"] {
     filter: grayscale(1);
   }
   &.difficulty-2 {
-    background-color: transparent;
+    filter: grayscale(1) blur(2.5px);
   }
   &.difficulty-3 {
     /* hide left side */
     /* clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); */
     /* hide right side */
     clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
-  }
-  &.difficulty-4 {
-    filter: grayscale(1) blur(5px);
   }
 }
 
