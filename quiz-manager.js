@@ -9,6 +9,7 @@ class QuizManager {
     triesMax = 5;
     daily = true;
     triesDisplayMethod = QuizManager.TriesDisplayMethodEnum.Icons;
+    triesEffects = []; // structure example: { try: 1, class: 'trieda1 trieda2'}
 
     constructor(idSelector) {
         if (!idSelector) {
@@ -17,10 +18,11 @@ class QuizManager {
         this.idSelector = idSelector;
     }
 
-    init({ triesMax = this.triesMax, daily = this.daily, triesDisplayMethod = this.triesDisplayMethod } = {}) {
+    init({ triesMax = this.triesMax, daily = this.daily, triesDisplayMethod = this.triesDisplayMethod, triesEffects = this.triesEffects } = {}) {
         this.triesMax = triesMax;
         this.daily = daily;
         this.triesDisplayMethod = triesDisplayMethod;
+        this.triesEffects = triesEffects;
 
         this.containerElement = document.querySelector(`#${this.idSelector}`);
         this.autocompleteElement = this.containerElement.querySelector('div[name="autocomplete"]');
@@ -33,23 +35,23 @@ class QuizManager {
         this.triesDisplayElement = this.containerElement.querySelector('div[name="tries-display"]');
         this.triesScoreCurrentElement = this.containerElement.querySelector('div[name="tries-score"] > p[name="tries-current"]');
         this.triesScoreMaxElement = this.containerElement.querySelector('div[name="tries-score"] > p[name="tries-max"]');
-        
+
         this.menuItemElement.removeEventListener('click', this.prepareQuestion);
         this.nextButtonElement.removeEventListener('click', this.prepareQuestion);
-        this.autocompleteDropdownElement.removeEventListener('mouseover', this.markActiveCharacter);
-        this.autocompleteInputElement.removeEventListener('keydown', this.markActiveCharacter);
+        this.autocompleteDropdownElement.removeEventListener('mouseover', this.markActiveItemOfAutocomplete);
+        this.autocompleteInputElement.removeEventListener('keydown', this.markActiveItemOfAutocomplete);
 
         this.menuItemElement.addEventListener('click', this.prepareQuestion.bind(this));
         this.nextButtonElement.addEventListener('click', this.prepareQuestion.bind(this));
-        this.autocompleteDropdownElement.addEventListener('mouseover', this.markActiveCharacter.bind(this));
-        this.autocompleteInputElement.addEventListener('keydown', this.markActiveCharacter.bind(this));
+        this.autocompleteDropdownElement.addEventListener('mouseover', this.markActiveItemOfAutocomplete.bind(this));
+        this.autocompleteInputElement.addEventListener('keydown', this.markActiveItemOfAutocomplete.bind(this));
 
         this.autocompleteInit();
         this.triesDisplayInit();
         this.triesScoreReset();
     }
 
-    markActiveCharacter(event) {
+    markActiveItemOfAutocomplete(event) {
         if (event instanceof MouseEvent) {
             const element = event.target;
             if (!element.classList.contains('autocomplete-item')) {
@@ -101,12 +103,12 @@ class QuizManager {
     }
 
     getCharacterIconImageUrl(characterName) {
-        return data.find(character => character.name === characterName)?.icon;
+        return characters.find(character => character.name === characterName)?.icon;
     }
 
     autocompleteFilter() {
         const query = this.autocompleteInputElement.value.toLowerCase();
-        const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
+        const filteredData = characters.filter(character => character.name.toLowerCase().includes(query));
 
         Array.from(this.autocompleteDropdownElement.children).forEach(item => item.remove());
         if (filteredData.length) {
@@ -134,6 +136,24 @@ class QuizManager {
         this.triesDisplayElement.classList.add(this.triesDisplayMethod);
     }
 
+    applyEffects(currentTry) {
+        // remove all effects
+        this.triesEffects.forEach(effect => {
+            effect.class.split(" ").forEach(effect => this.questionElement.classList.remove(effect));
+        });
+
+        // apply no effect if the question is complete
+        if (this.autocompleteElement.style.display === 'none') {
+            return;
+        }
+
+        // add effects for try
+        const effects = this.triesEffects.find(x => x.try === currentTry);
+        if (effects) {
+            effects.class.split(" ").forEach(effect => this.questionElement.classList.add(effect));
+        }
+    }
+
     triesScoreReset() {
         this.triesScoreCurrentElement.textContent = 0;
         this.triesScoreMaxElement.textContent = this.triesMax;
@@ -152,7 +172,7 @@ class QuizManager {
         }
         emptyTryElement.appendChild(iconElement);
         if (success || this.containerElement.querySelectorAll('div.try i').length === 5) {
-            this.endStateQuestion(data.find(character => character.name === answer));
+            this.endStateQuestion(characters.find(character => character.name === answer));
         }
     }
 
@@ -169,13 +189,14 @@ class QuizManager {
         }
         emptyTryElement.appendChild(imgElement);
         if (success || this.containerElement.querySelectorAll('div.try img').length === 5) {
-            this.endStateQuestion(data.find(character => character.name === answer));
+            this.endStateQuestion(characters.find(character => character.name === answer));
         }
     }
 
     triesScoreUpdate() {
         const currentTries = this.containerElement.querySelectorAll('div.try > *').length;
         this.triesScoreCurrentElement.textContent = currentTries;
+        this.applyEffects(currentTries);
     }
 
     triesDisplay(selectedCharacter) {
@@ -189,7 +210,12 @@ class QuizManager {
     }
 
     triesDisplayReset() {
-        this.triesDisplayElement.querySelectorAll('div.try > *').forEach(element => element.remove());
+        this.triesDisplayElement.querySelectorAll('& > *').forEach(element => element.remove());
+        for (let i = 0; i < this.triesMax; i++) {
+            const tryElement = document.createElement('div');
+            tryElement.classList.add('try');
+            this.triesDisplayElement.appendChild(tryElement);
+        }
     }
 
     defaultState() {
@@ -218,5 +244,6 @@ class QuizManager {
         else this.defaultState();
         const randomCharacter = getRandomCharacter();
         this.startStateQuestion(randomCharacter);
+        this.triesScoreUpdate();
     }
 }

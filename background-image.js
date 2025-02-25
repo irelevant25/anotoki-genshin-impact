@@ -43,7 +43,7 @@ class BackgroundManager {
         this.alreadyRendered = true;
 
         const characters = [];
-        const imagePromises = data.map(character => {
+        const imagePromises = characters.map(character => {
             return new Promise(resolve => {
                 const preloader = new Image();
                 preloader.onload = () => {

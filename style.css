@@ -1,7 +1,3 @@
-/* moznosti upravy obrazku -> dalsie quizy
-background-blend-mode
-mix-blend-mode */
-
 body {
   background: url("assets/character/wallpaper/Fontaine.png") no-repeat center
     center fixed;
@@ -123,10 +119,26 @@ div[name="tries-display"] {
 }
 
 img[name="question"] {
-  /* background-color: wheat;
-  border-radius: 1000px; */
+  background-color: white;
+  border-radius: 1000px;
   max-width: 100%;
   height: auto;
+
+  &.difficulty-1 {
+    filter: grayscale(1);
+  }
+  &.difficulty-2 {
+    background-color: transparent;
+  }
+  &.difficulty-3 {
+    /* hide left side */
+    /* clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); */
+    /* hide right side */
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  }
+  &.difficulty-4 {
+    filter: grayscale(1) blur(5px);
+  }
 }
 
 .container {

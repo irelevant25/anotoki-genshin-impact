@@ -2,7 +2,7 @@ function renderChangelog() {
     const container = document.getElementById("changelogContent");
     container.innerHTML = ""; // Clear existing content
 
-    changelogData.forEach(entry => {
+    changelog.forEach(log => {
         // Outer container for this version
         const versionContainer = document.createElement("div");
         versionContainer.className = "mb-5";
@@ -13,12 +13,12 @@ function renderChangelog() {
 
         const versionTag = document.createElement("h2");
         versionTag.className = "version-tag me-3";
-        versionTag.textContent = entry.version;
+        versionTag.textContent = log.version;
         headerDiv.appendChild(versionTag);
 
         const dateSpan = document.createElement("span");
         dateSpan.className = "changelog-date";
-        dateSpan.textContent = entry.date;
+        dateSpan.textContent = log.date;
         headerDiv.appendChild(dateSpan);
 
         versionContainer.appendChild(headerDiv);
@@ -30,7 +30,7 @@ function renderChangelog() {
         // Process each change category in a fixed order
         const changeTypes = ["added", "fixed", "updated"];
         changeTypes.forEach(type => {
-            const changesForType = entry.changes[type];
+            const changesForType = log.changes[type];
             if (changesForType.length === 0) return;
             const changeEntry = document.createElement("div");
             changeEntry.className = "changelog-entry position-relative p-4";
