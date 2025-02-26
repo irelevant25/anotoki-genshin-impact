@@ -1,3 +1,14 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const triesDisplayMethod = QuizManager.TriesDisplayMethodEnum.Characters;
+    const quizManager = new QuizManager('quiz-characters-pixelate');
+    quizManager.effectsAppliedCallback = (questionCharacter, currentTry) => {
+        let size = 7 + currentTry * 4;
+        if (quizManager.isQuestionComplete) size = 256;
+        pixelateImage(quizManager.questionElement, questionCharacter.icon, size, size);
+    };
+    quizManager.init({ triesDisplayMethod });
+});
+
 function pixelateImage(canvas, imgUrl, width, height) {
     const ctx = canvas.getContext("2d");
 

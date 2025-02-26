@@ -15,10 +15,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <!-- Custom -->
     <link rel="stylesheet" href="style.css">
-    <script src="quiz-manager.js"></script>
-    <script src="background-image.js"></script>
-    <script src="changelog-manager.js"></script>
-    <script src="image-pixelate-manager.js"></script>
+    <!-- Managers -->
+    <script src="managers/quiz-manager.js"></script>
+    <script src="managers/background-image-manager.js"></script>
+    <script src="managers/changelog-manager.js"></script>
+    <!-- Quizzes -->
+    <script src="quizzes/banners.js"></script>
+    <script src="quizzes/characters-mismatch.js"></script>
+    <script src="quizzes/characters-pixelate.js"></script>
 </head>
 
 <body>
@@ -27,8 +31,11 @@
             <li onclick="menuItemClick(this)" data-id="quiz-banners">
                 <a>Banners</a>
             </li>
-            <li onclick="menuItemClick(this)" data-id="quiz-characters">
-                <a>Characters</a>
+            <li onclick="menuItemClick(this)" data-id="quiz-characters-pixelate">
+                <a>Characters pixelate </a>
+            </li>
+            <li onclick="menuItemClick(this)" data-id="quiz-characters-mismatch">
+                <a>Characters mismatch</a>
             </li>
             <li onclick="menuItemClick(this)" data-id="background-image">
                 <a>Background</a>
@@ -56,7 +63,7 @@
         <img name="answer-success" class="d-block mx-auto" style="max-height: 700px;">
     </div>
 
-    <div id="quiz-characters" class="container text-center p-3" style="display: none;">
+    <div id="quiz-characters-pixelate" class="container text-center p-3" style="display: none;">
         <canvas name="question" class="d-block mx-auto" width="256" height="256"></canvas>
         <div class="pt-3" style="display: inline-flex;">
             <div name="autocomplete" class="position-relative" style="width: 300px;">
@@ -76,44 +83,34 @@
         <img name="answer-success" class="d-block mx-auto" style="max-height: 700px;">
     </div>
 
+    <div id="quiz-characters-mismatch" class="container text-center p-3" style="display: none;">
+        <div name="question" class="d-block mx-auto"></div>
+        <div class="pt-3" style="display: inline-flex;">
+            <button class="btn btn-primary ms-3" style="height: fit-content;">Next</button>
+        </div> <br>
+        <div class="d-flex justify-content-center" name="tries-score">Tries:
+            <p name="tries-current" class="ms-1">0</p>
+            /
+            <p name="tries-max">5</p>
+        </div>
+        <img name="answer-success" class="d-block mx-auto" style="max-height: 700px;">
+    </div>
+
     <div id="background-image" class="container text-center p-3" style="display: none;">
     </div>
 
     <script>
-        var quizBannerManager =
-
-            document.addEventListener('DOMContentLoaded', () => {
-                // initialize quiz manager for quiz content
-                {
-                    const triesEffects = [
-                        { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3' },
-                        { try: 1, class: 'difficulty-1 difficulty-2' },
-                        { try: 2, class: 'difficulty-1' },
-                    ];
-                    const triesDisplayMethod = QuizManager.TriesDisplayMethodEnum.Characters;
-                    const quizManager = new QuizManager('quiz-banners');
-                    quizManager.questionCallback = (character) => {
-                        quizManager.questionElement.src = character.namecard_banner;
-                    };
-                    quizManager.init({ triesDisplayMethod, triesEffects });
-                }
-                {
-                    const triesDisplayMethod = QuizManager.TriesDisplayMethodEnum.Characters;
-                    const quizManager = new QuizManager('quiz-characters');
-                    quizManager.effectsAppliedCallback = (questionCharacter, currentTry) => {
-                        let size = 7 + currentTry * 4;
-                        if (quizManager.isQuestionComplete) size = 256;
-                        pixelateImage(quizManager.questionElement, questionCharacter.icon, size, size);
-                    };
-                    quizManager.init({ triesDisplayMethod });
-                }
-
-                new BackgroundManager('background-image').init();
-                document.querySelector('.version').textContent = `v${changelog[0].version}`;
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            new BackgroundManager('background-image').init();
+            document.querySelector('.version').textContent = `v${changelog[0].version}`;
+        });
 
         function getRandomInt(min, max) {
             return Math.round(Math.random() * (max - min) + min);
+        }
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
         }
 
         function getRandomCharacter() {
