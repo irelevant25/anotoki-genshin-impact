@@ -17,3 +17,4 @@
 - Add google analytics
 - Add Event Tracking or Tag Manager for capturing user interaction with website.
 - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
+- New quiz: recognision of characters based on trailer music

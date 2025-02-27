@@ -49,7 +49,8 @@ function frequency(arr, prop) {
 
 // Non-deterministic quiz set builder for count = 4.
 function getRandomQuizSet(count = 4) {
-    const properties = ["element", "weapon_type", "rarity", "region"];
+    // model_type, rarity, version (max count = 3)
+    const properties = ["element", "weapon_type", "region"];
     // Shuffle properties to randomize the order in which we try them.
     const shuffledProperties = shuffleArray([...properties]);
 
