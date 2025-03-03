@@ -3,17 +3,15 @@
 - Add more wallpapers
 - New quiz: Signature weapon quiz
 - New quiz: Voice lines quiz
-- Add difficulties options for quizes (like time or more distorsive effects)
+- Add difficulties option for quizes (like time or more distorsive effects)
 - Add dailies quizes (separate them from infinite tries quizzes)
 - Add stats per quiz and global (tries and winrate for every character)
 - Inform user about a new version (require saving current version or last visit to local storage)
 - Inform user about current game version from what characters are from (newest may be missing)
 - New quiz: Cliped part from character ingame image and guessing who is it. (difficulties with size changing)
-- Add information icons to the menu items (how it works, what it is about etc.)
 - Add button to the bottom to remove all elements from website so the background/wallpaper will be clear.
 - Add saving selected wallpaper.
-- Add Fontainer wallpaper to the list of wallpaper.
-- Add optimization to Background checking images (create a list with all available wallpapers).
+- Add more optimized implementation for backgrounds (preview should have lower resoltion).
 - Add google analytics
 - Add Event Tracking or Tag Manager for capturing user interaction with website.
 - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
