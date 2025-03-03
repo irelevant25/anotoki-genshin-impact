@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> -->
     <!-- Custom -->
     <link rel="stylesheet" href="style.css">
     <!-- Managers -->
@@ -29,19 +29,215 @@
     <nav>
         <ul>
             <li onclick="menuItemClick(this)" data-id="quiz-banners">
+                <div class="help-icon" data-bs-toggle="tooltip" data-bs-placement="left" title="Learn about Banners"
+                    data-bs-custom-class="custom-tooltip">
+                    <i class="bi bi-question-circle-fill" data-bs-toggle="modal" data-bs-target="#quiz-banners-modal"
+                        data-item-id="quiz-banners" onclick="event.stopPropagation()"></i>
+                </div>
                 <a>Banners</a>
             </li>
             <li onclick="menuItemClick(this)" data-id="quiz-characters-pixelate">
-                <a>Characters pixelate </a>
+                <div class="help-icon" data-bs-toggle="tooltip" data-bs-placement="left"
+                    title="Learn about Characters pixelate" data-bs-custom-class="custom-tooltip">
+                    <i class="bi bi-question-circle-fill" data-bs-toggle="modal"
+                        data-bs-target="#quiz-characters-pixelate-modal" data-item-id="quiz-banners"
+                        onclick="event.stopPropagation()"></i>
+                </div>
+                <a>Characters pixelate</a>
             </li>
             <li onclick="menuItemClick(this)" data-id="quiz-characters-mismatch">
+                <div class="help-icon" data-bs-toggle="tooltip" data-bs-placement="left"
+                    title="Learn about Characters mismatch" data-bs-custom-class="custom-tooltip">
+                    <i class="bi bi-question-circle-fill" data-bs-toggle="modal"
+                        data-bs-target="#quiz-characters-mismatch-modal" data-item-id="quiz-banners"
+                        onclick="event.stopPropagation()"></i>
+                </div>
                 <a>Characters mismatch</a>
             </li>
             <li onclick="menuItemClick(this)" data-id="background-image">
+                <div class="help-icon" data-bs-toggle="tooltip" data-bs-placement="left" title="Learn about Background"
+                    data-bs-custom-class="custom-tooltip">
+                    <i class="bi bi-question-circle-fill" data-bs-toggle="modal"
+                        data-bs-target="#background-image-modal" data-item-id="quiz-banners"
+                        onclick="event.stopPropagation()"></i>
+                </div>
                 <a>Background</a>
             </li>
         </ul>
     </nav>
+
+    <!-- Modals for each menu item -->
+    <!-- Banner Info Modal -->
+    <div class="modal fade" id="quiz-banners-modal" tabindex="-1" aria-labelledby="quiz-banners-modal-label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quiz-banners-modal-label">About Banners</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <h6 class="fw-bold">What is the Banners Quiz?</h6>
+                        <p>Test your knowledge by identifying characters from their namecards/banners. These are the
+                            decorative banners players receive after reaching Friendship Level 10 with a character.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="fw-bold">How to Play</h6>
+                        <ol>
+                            <li>A character's namecard banner will be displayed with visual effects</li>
+                            <li>Type or select a character name from the dropdown</li>
+                            <li>You have up to 5 attempts to guess correctly</li>
+                            <li>With each failed attempt, the banner becomes clearer</li>
+                        </ol>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Difficulty Progression</h6>
+                        <ul>
+                            <li><span class="badge bg-danger">Hard</span> - First attempt: Banner is grayscale, blurred,
+                                and partially hidden</li>
+                            <li><span class="badge bg-warning">Medium</span> - Second attempt: Banner is grayscale and
+                                blurred</li>
+                            <li><span class="badge bg-info">Easy</span> - Third attempt: Banner is grayscale only</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Characters Pixelate Info Modal -->
+    <div class="modal fade" id="quiz-characters-pixelate-modal" tabindex="-1"
+        aria-labelledby="quiz-characters-pixelate-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quiz-characters-pixelate-modal-label">About Characters Pixelate</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <h6 class="fw-bold">What is the Characters Pixelate Quiz?</h6>
+                        <p>Challenge yourself to identify characters from their heavily pixelated portraits. The fewer
+                            guesses you need, the more skilled you are!</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="fw-bold">How to Play</h6>
+                        <ol>
+                            <li>A character's portrait will be displayed with extreme pixelation</li>
+                            <li>Type or select a character name from the dropdown</li>
+                            <li>You have up to 5 attempts to guess correctly</li>
+                            <li>With each failed attempt, the pixelation reduces gradually</li>
+                        </ol>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Pixelation Levels</h6>
+                        <ul>
+                            <li><span class="badge bg-danger">Level 1</span> - 7×7 pixels (extremely pixelated)</li>
+                            <li><span class="badge bg-warning">Level 2</span> - 11×11 pixels</li>
+                            <li><span class="badge bg-info">Level 3</span> - 15×15 pixels</li>
+                            <li><span class="badge bg-success">Level 4</span> - 19×19 pixels</li>
+                            <li><span class="badge bg-primary">Level 5</span> - 23×23 pixels</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h6 class="fw-bold">Scoring</h6>
+                        <p>The earlier you guess correctly, the more impressive your character recognition skills!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Characters Mismatch Info Modal -->
+    <div class="modal fade" id="quiz-characters-mismatch-modal" tabindex="-1"
+        aria-labelledby="quiz-characters-mismatch-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quiz-characters-mismatch-modal-label">About Characters Mismatch</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <h6 class="fw-bold">What is the Characters Mismatch Quiz?</h6>
+                        <p>Test your character knowledge by finding the "odd one out" among four character icons. One
+                            character doesn't belong with the others based on a common attribute.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="fw-bold">How to Play</h6>
+                        <ol>
+                            <li>Four character icons will be displayed</li>
+                            <li>Three characters share a common attribute (element, weapon type, or region)</li>
+                            <li>One character is different - click on the character that doesn't belong</li>
+                            <li>You have only one attempt per question</li>
+                        </ol>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Possible Categories</h6>
+                        <ul>
+                            <li><span class="fw-semibold">Element:</span> Find the character with a different element
+                            </li>
+                            <li><span class="fw-semibold">Weapon Type:</span> Find the character using a different
+                                weapon</li>
+                            <li><span class="fw-semibold">Region:</span> Find the character from a different region</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h6 class="fw-bold">Challenge Level</h6>
+                        <p>The quiz is designed to be challenging - the selection is randomized and the category isn't
+                            revealed. You need to analyze the characters and discover the pattern yourself!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Info Modal -->
+    <div class="modal fade" id="background-image-modal" tabindex="-1" aria-labelledby="background-image-modal-label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="background-image-modal-label">About Background</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <h6 class="fw-bold">What is the Background Feature?</h6>
+                        <p>Customize your quiz experience by choosing different character-themed wallpapers as the app
+                            background.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="fw-bold">How to Use</h6>
+                        <ol>
+                            <li>Click on the "Background" menu item to view available wallpapers</li>
+                            <li>Browse through the character thumbnails</li>
+                            <li>Click on any character thumbnail to set their wallpaper as the background</li>
+                            <li>The background will instantly change to your selection</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h6 class="fw-bold">Available Backgrounds</h6>
+                        <p>Backgrounds are available for characters that have wallpaper assets. The selection varies
+                            depending on the assets included in your installation.</p>
+                        <p class="text-muted fst-italic">Note: You can continue playing quizzes with any background of
+                            your choice.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="quiz-banners" class="container text-center p-3" style="display: none;">
         <img name="question" class="d-block mx-auto">
@@ -60,7 +256,7 @@
         <div name="tries-display" class="mb-3 d-flex justify-content-center tries-icons">
             <!-- Tries icons will be dynamically injected here as divs with class 'try' -->
         </div>
-        <img name="answer-success" class="d-block mx-auto" style="max-height: 700px;">
+        <img name="answer-success" class="d-block mx-auto">
     </div>
 
     <div id="quiz-characters-pixelate" class="container text-center p-3" style="display: none;">
@@ -80,7 +276,7 @@
         <div name="tries-display" class="mb-3 d-flex justify-content-center tries-icons">
             <!-- Tries icons will be dynamically injected here as divs with class 'try' -->
         </div>
-        <img name="answer-success" class="d-block mx-auto" style="max-height: 700px;">
+        <img name="answer-success" class="d-block mx-auto">
     </div>
 
     <div id="quiz-characters-mismatch" class="container text-center p-3" style="display: none;">
@@ -93,7 +289,7 @@
             /
             <p name="tries-max">5</p>
         </div>
-        <img name="answer-success" class="d-block mx-auto" style="max-height: 700px;">
+        <img name="answer-success" class="d-block mx-auto">
     </div>
 
     <div id="background-image" class="container text-center p-3" style="display: none;">
@@ -101,6 +297,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
             new BackgroundManager('background-image').init();
             document.querySelector('.version').textContent = `v${changelog[0].version}`;
         });

@@ -16,9 +16,11 @@ nav {
     rgba(255, 255, 255, 0) 100%
   );
   margin: 0 auto;
-  padding: 60px 0;
+  padding: 20px 0 20px 0;
 
   ul {
+    padding: 0;
+    margin: 0;
     text-align: center;
     background: linear-gradient(
       90deg,
@@ -56,6 +58,55 @@ nav {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1),
         inset 0 0 1px rgba(255, 255, 255, 0.6);
       background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.help-icon {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+nav ul li:hover .help-icon {
+  opacity: 1;
+}
+
+.help-icon i {
+  color: #0d6efd;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.help-icon i:hover {
+  transform: scale(1.2);
+}
+
+/* Custom tooltip styling */
+.custom-tooltip {
+  --bs-tooltip-bg: #0d6efd;
+  --bs-tooltip-color: white;
+  --bs-tooltip-max-width: 250px;
+}
+
+nav ul li {
+  position: relative;
+}
+
+@media only screen and (max-width: 800px) {
+  nav {
+    ul {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
@@ -99,25 +150,6 @@ nav {
   font-size: 16px;
 }
 
-div[name="tries-display"] {
-  font-size: 45px;
-
-  &.tries-icons .try {
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    width: 60px;
-    height: 75px;
-    border-radius: 100px;
-    margin-left: 2.5px;
-    margin-right: 2.5px;
-  }
-
-  &.tries-characters .try img {
-    height: 100px;
-  }
-}
-
 img[name="question"] {
   background-color: white;
   border-radius: 1000px;
@@ -150,7 +182,7 @@ img[name="question"] {
 }
 
 .version {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   color: black;
@@ -208,7 +240,7 @@ img[name="question"] {
 }
 
 #versionModal .modal-content {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 /* transformacia, vyrezanie a zobrazenie obrazku spolu s textom
@@ -229,3 +261,46 @@ img[name="question"] {
     font-size: 16px;
   }
 */
+
+div[name="tries-display"] {
+  font-size: 45px;
+
+  &.tries-icons .try {
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    width: 60px;
+    height: 75px;
+    border-radius: 100px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+  }
+
+  &.tries-characters .try {
+    min-width: 0;
+
+    img {
+      max-height: 100px;
+      width: -webkit-fill-available;
+    }
+  }
+}
+
+/* answer-success */
+
+[name="answer-success"] {
+  max-height: 15rem;
+  max-width: -webkit-fill-available;
+}
+
+@media only screen and (min-height: 900px) {
+  [name="answer-success"] {
+    max-height: 25rem;
+  }
+}
+
+@media only screen and (min-height: 1200px) {
+  [name="answer-success"] {
+    max-height: 44rem;
+  }
+}
