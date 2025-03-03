@@ -1,0 +1,18 @@
+/* Tooltip component styling */
+.custom-tooltip {
+  --bs-tooltip-bg: #0d6efd;
+  --bs-tooltip-color: white;
+  --bs-tooltip-max-width: 250px;
+  --bs-tooltip-padding-x: 10px;
+  --bs-tooltip-padding-y: 8px;
+  --bs-tooltip-font-size: 0.9rem;
+  --bs-tooltip-opacity: 0.95;
+  --bs-tooltip-arrow-width: 10px;
+  --bs-tooltip-arrow-height: 6px;
+}
+
+.tooltip {
+  font-weight: normal;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}

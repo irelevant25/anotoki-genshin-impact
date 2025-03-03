@@ -1,0 +1,22 @@
+#background-image {
+  padding: 1.5rem;
+  justify-content: center;
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+
+  img {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  img:hover {
+    transform: scale(1.05);
+    border-color: #0d6efd;
+  }
+}

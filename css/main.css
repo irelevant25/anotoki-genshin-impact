@@ -1,0 +1,29 @@
+/* Main CSS file that imports component styles */
+@import "components/menu.css";
+@import "components/quiz.css";
+@import "components/modal.css";
+@import "components/tooltip.css";
+
+body {
+  background: url("../assets/wallpaper/Fontaine.png") no-repeat center
+    center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.version {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: black;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke: 0.5px;
+  font-size: 20px;
+  cursor: pointer;
+}

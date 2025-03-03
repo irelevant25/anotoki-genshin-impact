@@ -1,4 +1,8 @@
-const changelog = [
+/**
+ * Changelog Content
+ * Contains content for the changelog
+ */
+const CHANGELOG = [
     {
         version: "0.2",
         date: "2025-02-26",

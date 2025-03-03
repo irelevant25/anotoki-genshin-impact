@@ -1,0 +1,130 @@
+/* Quiz component styling */
+.quiz-container {
+  padding: 1.5rem;
+  text-align: center !important;
+}
+
+/* Question styling */
+img[name="question"] {
+  background-color: white;
+  border-radius: 1000px;
+  max-width: 100%;
+  height: auto;
+}
+
+img[name="question"].difficulty-1 {
+  filter: grayscale(1);
+}
+
+img[name="question"].difficulty-2 {
+  filter: grayscale(1) blur(2.5px);
+}
+
+img[name="question"].difficulty-3 {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+/* Search container */
+.search-container {
+  display: inline-flex;
+}
+
+/* Autocomplete */
+.dropdown-menu {
+  padding: 0;
+}
+
+[name="autocomplete"] {
+  width: 300px;
+}
+
+.autocomplete-dropdown {
+  max-height: 301px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  height: 100px;
+  border-bottom: 1px solid #eee;
+}
+
+.autocomplete-item.active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-item img {
+  width: 100px;
+}
+
+.autocomplete-item span {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+/* Tries display */
+div[name="tries-display"] {
+  font-size: 45px;
+}
+
+div[name="tries-display"].tries-icons .try {
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  width: 60px;
+  height: 75px;
+  border-radius: 100px;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+div[name="tries-display"].tries-characters .try {
+  min-width: 0;
+}
+
+div[name="tries-display"].tries-characters .try img {
+  max-height: 100px;
+  width: -webkit-fill-available;
+}
+
+/* Answer success */
+[name="answer-success"] {
+  max-height: 15rem;
+  max-width: -webkit-fill-available;
+}
+
+/* Character grid for mismatch quiz */
+.character-grid {
+  margin: 0 auto;
+}
+
+.character-grid img {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+.character-grid img:hover {
+  transform: scale(1.05);
+  border-color: #0d6efd;
+}
+
+/* Responsive adjustments */
+@media only screen and (min-height: 900px) {
+  [name="answer-success"] {
+    max-height: 25rem;
+  }
+}
+
+@media only screen and (min-height: 1200px) {
+  [name="answer-success"] {
+    max-height: 44rem;
+  }
+}

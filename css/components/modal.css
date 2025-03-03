@@ -1,0 +1,52 @@
+/* Modal component styling */
+.modal-content {
+  background-color: #fafafa;
+}
+
+.version-tag {
+  font-family: monospace;
+  color: #6c757d;
+}
+
+.changelog-date {
+  color: #adb5bd;
+  font-size: 0.875rem;
+}
+
+.change-type {
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.change-type.added {
+  background-color: #28a745;
+}
+
+.change-type.fixed {
+  background-color: #dc3545;
+}
+
+.change-type.updated {
+  background-color: #ffc107;
+}
+
+.changelog-entry {
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.changelog-entry:hover {
+  background-color: #f8f9fa;
+}
+
+.changelog-entry:last-child {
+  border-bottom: none;
+}
+
+#changelogContent ul {
+  padding-left: 1.2rem;
+}
