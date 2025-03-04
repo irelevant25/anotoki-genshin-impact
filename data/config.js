@@ -19,7 +19,13 @@ const APP_CONFIG = {
             id: 'quiz-characters-pixelate',
             triesMax: 5,
             triesDisplayMethod: 'tries-characters',
-            pixelSizes: [7, 11, 15, 19, 23]
+            triesEffects: [
+                { try: 0, data: 7 },
+                { try: 1, data: 11 },
+                { try: 2, data: 15 },
+                { try: 3, data: 19 },
+                { try: 4, data: 23 },
+            ]
         },
         charactersMismatch: {
             id: 'quiz-characters-mismatch',

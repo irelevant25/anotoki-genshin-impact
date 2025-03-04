@@ -229,10 +229,9 @@ class QuizManager {
     applyEffects() {
         const currentTry = Number(this.triesScoreCurrentElement.textContent);
 
-        // Remove all effects
+        // Remove all classes
         this.triesEffects.forEach(effect => {
-            effect.class.split(" ").forEach(cls =>
-                this.questionElement.classList.remove(cls));
+            effect.class?.split(" ").forEach(cls => this.questionElement.classList.remove(cls));
         });
 
         // Apply effects only if the question is not complete
@@ -240,14 +239,13 @@ class QuizManager {
             // Add effects for current try
             const effects = this.triesEffects.find(x => x.try === currentTry);
             if (effects) {
-                effects.class.split(" ").forEach(cls =>
-                    this.questionElement.classList.add(cls));
+                effects.class?.split(" ").forEach(cls => this.questionElement.classList.add(cls));
             }
         }
 
         // Call callback if defined
         if (this.effectsAppliedCallback) {
-            this.effectsAppliedCallback(this.questionEntity, currentTry);
+            this.effectsAppliedCallback(this.questionEntity, this.triesEffects.find(x => x.try === currentTry));
         }
     }
 
@@ -380,7 +378,7 @@ class QuizManager {
      */
     startStateQuestion() {
         this.isQuestionComplete = false;
-        
+
         if (this.questionCallback) {
             this.questionEntity = this.questionCallback();
         } else {

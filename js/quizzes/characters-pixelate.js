@@ -56,10 +56,9 @@
         quizManager = new QuizManager(config.id);
 
         // Set up the effects callback
-        quizManager.effectsAppliedCallback = (questionCharacter, currentTry) => {
+        quizManager.effectsAppliedCallback = (questionCharacter, effect) => {
             // Calculate pixel size based on current try
-            const pixelSizes = config.pixelSizes || [7, 11, 15, 19, 23];
-            let size = pixelSizes[currentTry] || pixelSizes[0];
+            const size = effect.data;
 
             // Full resolution when complete
             if (quizManager.isQuestionComplete) size = 256;
@@ -71,7 +70,8 @@
         // Initialize with configuration
         quizManager.init({
             triesMax: config.triesMax,
-            triesDisplayMethod: config.triesDisplayMethod
+            triesDisplayMethod: config.triesDisplayMethod,
+            triesEffects: config.triesEffects
         });
 
         console.log('Pixelate quiz initialized');
