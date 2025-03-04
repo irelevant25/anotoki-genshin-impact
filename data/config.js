@@ -24,7 +24,7 @@ const APP_CONFIG = {
         charactersMismatch: {
             id: 'quiz-characters-mismatch',
             triesMax: 1,
-            triesDisplayMethod: 'None'
+            triesDisplayMethod: 'none'
         }
     },
 

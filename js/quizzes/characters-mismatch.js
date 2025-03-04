@@ -135,6 +135,7 @@
                 image.alt = character.name;
                 image.title = character.name;
                 image.addEventListener('click', () => {
+                    if (quizManager.isQuestionComplete) return;
                     quizManager.triesDisplay(character);
                 });
                 quizManager.questionElement.appendChild(image);

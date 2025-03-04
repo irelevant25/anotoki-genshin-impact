@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize UI components
     initializeMenu();
     initializeTooltips();
+    initializeChangelog();
 
     // Initialize quizzes
     initializeBannersQuiz();

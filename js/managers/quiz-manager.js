@@ -36,6 +36,7 @@ class QuizManager {
         this.questionCallback = null;
         this.effectsAppliedCallback = null;
         this.questionEntity = null;
+        this.isQuestionComplete = false;
     }
 
     /**
@@ -43,12 +44,7 @@ class QuizManager {
      * 
      * @param {Object} options - Initialization options
      */
-    init({
-        triesMax = this.triesMax,
-        daily = this.daily,
-        triesDisplayMethod = this.triesDisplayMethod,
-        triesEffects = this.triesEffects
-    } = {}) {
+    init({ triesMax = this.triesMax, daily = this.daily, triesDisplayMethod = this.triesDisplayMethod, triesEffects = this.triesEffects } = {}) {
         // Set properties
         this.triesMax = triesMax;
         this.daily = daily;
@@ -228,16 +224,6 @@ class QuizManager {
     }
 
     /**
-     * Checks if the question is complete
-     * 
-     * @returns {boolean} True if the question is complete
-     */
-    get isQuestionComplete() {
-        return this.autocompleteElement &&
-            this.autocompleteElement.style.display === 'none';
-    }
-
-    /**
      * Applies visual effects based on current try
      */
     applyEffects() {
@@ -393,6 +379,8 @@ class QuizManager {
      * Sets up the question
      */
     startStateQuestion() {
+        this.isQuestionComplete = false;
+        
         if (this.questionCallback) {
             this.questionEntity = this.questionCallback();
         } else {
@@ -417,6 +405,7 @@ class QuizManager {
         if (this.autocompleteElement) {
             this.autocompleteElement.style.display = 'none';
         }
+        this.isQuestionComplete = true;
     }
 
     /**

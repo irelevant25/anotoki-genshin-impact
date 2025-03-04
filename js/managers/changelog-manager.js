@@ -6,31 +6,31 @@
 /**
  * Renders the changelog in the modal
  */
-window.renderChangelog = function () {
+window.initializeChangelog = function () {
     const container = document.getElementById("changelogContent");
-    if (!container || !changelog) return;
+    if (!container || !CHANGELOG) return;
 
     // Clear existing content
     container.innerHTML = "";
 
     // Process each changelog entry
-    changelog.forEach(log => {
+    CHANGELOG.forEach(log => {
         // Create version container
         const versionContainer = createElement('div', {
-            className: 'mb-5'
+            classList: ['mb-5']
         });
 
         // Add header with version and date
         const headerDiv = createElement('div', {
-            className: 'd-flex align-items-baseline mb-4'
+            classList: ['d-flex', 'align-items-baseline','mb-4']
         });
 
         const versionTag = createElement('h2', {
-            className: 'version-tag me-3'
+            classList: ['version-tag', 'me-3']
         }, log.version);
 
         const dateSpan = createElement('span', {
-            className: 'changelog-date'
+            classList: ['changelog-date']
         }, log.date);
 
         headerDiv.appendChild(versionTag);
@@ -39,7 +39,7 @@ window.renderChangelog = function () {
 
         // Create entries container
         const entriesContainer = createElement('div', {
-            className: 'bg-white shadow-sm rounded'
+            classList: ['bg-white', 'shadow-sm', 'rounded']
         });
 
         // Process each change category in a fixed order
@@ -50,23 +50,23 @@ window.renderChangelog = function () {
 
             // Create change entry
             const changeEntry = createElement('div', {
-                className: 'changelog-entry position-relative p-4'
+                classList: ['changelog-entry', 'position-relative', 'p-4']
             });
 
             // Add type indicator
             const changeTypeIndicator = createElement('div', {
-                className: `change-type ${type}`
+                classList: ['change-type', type]
             });
             changeEntry.appendChild(changeTypeIndicator);
 
             // Add text container
             const textContainer = createElement('div', {
-                className: 'ms-3'
+                classList: ['ms-3']
             });
 
             // Add title
             const titleEl = createElement('h6', {
-                className: 'fw-bold mb-3'
+                classList: ['fw-bold', 'mb-3']
             }, type.charAt(0).toUpperCase() + type.slice(1));
             textContainer.appendChild(titleEl);
 
@@ -74,7 +74,7 @@ window.renderChangelog = function () {
             const listEl = createElement('ul');
             changesForType.forEach(change => {
                 const descriptionEl = createElement('li', {
-                    className: 'text-muted mb-0'
+                    classList: ['text-muted', 'mb-0']
                 }, change);
                 listEl.appendChild(descriptionEl);
             });
