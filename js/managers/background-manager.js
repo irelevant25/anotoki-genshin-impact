@@ -18,7 +18,7 @@ class BackgroundManager {
         // Default properties
         this.max_choices = null;
         this.random = false;
-        this.previewType = QuizManager.PreviewTypeEnum.Wish;
+        this.previewType = QuizManager.PREVIEW_TYPES.Wish;
         this.alreadyRendered = false;
     }
 
@@ -70,7 +70,6 @@ class BackgroundManager {
                     click: () => this.changeBackground(background.wallpaper),
                 }
             });
-            imgElement.onload = () => {console.log("loaded")}
             this.containerElement.appendChild(imgElement);
         });
     }
@@ -83,5 +82,6 @@ class BackgroundManager {
     changeBackground(imgUrl) {
         const encodedPath = encodeURI(imgUrl);
         document.body.style.backgroundImage = `url(${encodedPath})`;
+        storageManager.saveBackground(imgUrl);
     }
 }

@@ -4,13 +4,13 @@
  */
 
 class QuizManager {
-    static TriesDisplayMethodEnum = {
+    static TRIES_DISPLAY_METHOD = {
         Icons: 'tries-icons',
         Characters: 'tries-characters',
         None: 'none'
     };
 
-    static PreviewTypeEnum = {
+    static PREVIEW_TYPES = {
         Wish: 'wish',
         InGame: 'ingame',
         Card: 'card',
@@ -31,7 +31,7 @@ class QuizManager {
         // Default properties
         this.triesMax = 5;
         this.daily = true;
-        this.triesDisplayMethod = QuizManager.TriesDisplayMethodEnum.Icons;
+        this.triesDisplayMethod = QuizManager.TRIES_DISPLAY_METHOD.Icons;
         this.triesEffects = [];
         this.questionCallback = null;
         this.effectsAppliedCallback = null;
@@ -215,9 +215,9 @@ class QuizManager {
         if (!this.triesDisplayElement) return;
 
         // Remove existing classes
-        this.triesDisplayElement.classList.remove(QuizManager.TriesDisplayMethodEnum.Icons);
-        this.triesDisplayElement.classList.remove(QuizManager.TriesDisplayMethodEnum.Characters);
-        this.triesDisplayElement.classList.remove(QuizManager.TriesDisplayMethodEnum.None);
+        this.triesDisplayElement.classList.remove(QuizManager.TRIES_DISPLAY_METHOD.Icons);
+        this.triesDisplayElement.classList.remove(QuizManager.TRIES_DISPLAY_METHOD.Characters);
+        this.triesDisplayElement.classList.remove(QuizManager.TRIES_DISPLAY_METHOD.None);
 
         // Add appropriate class
         this.triesDisplayElement.classList.add(this.triesDisplayMethod);
@@ -327,11 +327,11 @@ class QuizManager {
     triesDisplay(selectedCharacter) {
         this.triesScoreUpdate();
 
-        if (this.triesDisplayMethod === QuizManager.TriesDisplayMethodEnum.Icons) {
+        if (this.triesDisplayMethod === QuizManager.TRIES_DISPLAY_METHOD.Icons) {
             this.triesDisplayIcons(selectedCharacter);
-        } else if (this.triesDisplayMethod === QuizManager.TriesDisplayMethodEnum.Characters) {
+        } else if (this.triesDisplayMethod === QuizManager.TRIES_DISPLAY_METHOD.Characters) {
             this.triesDisplayCharacters(selectedCharacter);
-        } else if (this.triesDisplayMethod === QuizManager.TriesDisplayMethodEnum.None) {
+        } else if (this.triesDisplayMethod === QuizManager.TRIES_DISPLAY_METHOD.None) {
             const answer = this.questionEntity.name;
             const success = selectedCharacter.name === answer;
 

@@ -7,6 +7,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Application initializing with config:', APP_CONFIG);
 
+    // Initialize storage manager
+    const storageManager = new StorageManager();
+    window.storageManager = storageManager;
+    console.log('Storage loaded with data:', storageManager.init());
+
+    // Initialize data from storage
+    document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.png'}")`;
+    if (!storageManager.getLastVersion()) {
+        renderVersionNotification();
+        storageManager.saveLastVersion(CHANGELOG[0].version);
+    }
+
     // Initialize UI components
     initializeMenu();
     initializeTooltips();

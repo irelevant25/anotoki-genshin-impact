@@ -36,7 +36,7 @@ window.initializeMenu = function () {
     document.body.appendChild(helpModals);
     Object.values(MENU_ITEMS).forEach(menuItem => {
         helpModals.innerHTML += `
-                <div class="modal fade" id="${menuItem.id}-modal" tabindex="-1" aria-labelledby="${menuItem.id}-modal-label">
+                <div class="modal fade" id="${menuItem.id}-modal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
