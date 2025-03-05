@@ -6,20 +6,21 @@
      * @param {string} targetElementId - The ID of the element to inject content into
      */
     function renderVersionNotification(modalId = 'versionNotificationModal') {
+        initializeChangelog([CHANGELOG[0]], 'versionNotificationContent');
         const modalElement = document.getElementById(modalId);
-        if (!modalElement || !CHANGELOG || CHANGELOG.length === 0) return;
+        // if (!modalElement || !CHANGELOG || CHANGELOG.length === 0) return;
 
-        // Get only the latest version
-        const latestVersion = CHANGELOG[0];
+        // // Get only the latest version
+        // const latestVersion = CHANGELOG[0];
 
-        modalElement.querySelector('.version-tag').textContent = `v${latestVersion.version}`;
-        modalElement.querySelector('.changelog-date').textContent = `v${latestVersion.date}`;
+        // modalElement.querySelector('.version-tag').textContent = `v${latestVersion.version}`;
+        // modalElement.querySelector('.changelog-date').textContent = `v${latestVersion.date}`;
 
-        let html = '';
-        html += generateItemHtml(latestVersion.changes.added, 'added', 'plus-circle-fill');
-        html += generateItemHtml(latestVersion.changes.fixed, 'fixed', 'bug-fill');
-        html += generateItemHtml(latestVersion.changes.updated, 'updated', 'arrow-repeat');
-        modalElement.querySelector('#versionNotificationItems').innerHTML = html;
+        // let html = '';
+        // html += generateItemHtml(latestVersion.changes.added, 'added', 'plus-circle-fill');
+        // html += generateItemHtml(latestVersion.changes.fixed, 'fixed', 'bug-fill');
+        // html += generateItemHtml(latestVersion.changes.updated, 'updated', 'arrow-repeat');
+        // modalElement.querySelector('#versionNotificationItems').innerHTML = html;
 
         var myModal = new bootstrap.Modal(modalElement);
         myModal.show();

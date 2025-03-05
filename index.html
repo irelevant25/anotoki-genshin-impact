@@ -21,7 +21,6 @@
     <script src="js/core/utils.js"></script>
     <!-- JS managers -->
     <script src="js/managers/background-manager.js"></script>
-    <script src="js/managers/changelog-manager.js"></script>
     <script src="js/managers/quiz-manager.js"></script>
     <script src="js/managers/storage-manager.js"></script>
     <!-- JS quizzes -->
@@ -34,6 +33,7 @@
     <!-- JS app -->
     <script src="js/app.js"></script>
     <script src="js/version-notification.js"></script>
+    <script src="js/changelog.js"></script>
 </head>
 
 <body>
@@ -110,7 +110,7 @@
                     <h5 class="modal-title" id="versionModalLabel">Changelog</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4" id="changelogContent">
+                <div class="modal-body changelog-container p-4" id="changelogContent">
                     <!-- Changelog entries will be dynamically injected here -->
                 </div>
             </div>
@@ -126,30 +126,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4" id="versionNotificationContent">
-                    <div class="changelog-entry latest animate-in">
-                        <div class="version-header">
-                            <div>
-                                <span class="version-tag"></span>
-                                <span class="changelog-date"></span>
-                            </div>
-                        </div>
-
-                        <p class="mb-2">Check out the latest features and improvements!</p>
-
-                        <div class="version-progress">
-                            <div class="version-progress-bar"></div>
-                        </div>
-
-                        <div id="versionNotificationItems">
-                            <!-- Changelog entry will be dynamically injected here -->
-                        </div>
-
-                        <div class="text-center mt-4">
-                            <button class="try-now-btn" data-bs-dismiss="modal">
-                                Try it now <i class="bi bi-arrow-right-circle"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <!-- Version notification content will be dynamically injected here -->
                 </div>
             </div>
         </div>

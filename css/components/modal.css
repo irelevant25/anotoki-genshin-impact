@@ -1,255 +1,123 @@
-/* Modal component base styling */
-.modal-content {
-    background-color: #fafafa;
+.changelog-container {
+    max-width: 800px;
+    margin: 0 auto;
   }
   
-  /* Version notification enhancements */
-  #versionNotificationContent {
-    position: relative;
-  }
-  
-  /* Version tag styling */
-  .version-tag {
-    font-family: monospace;
-    color: #6c757d;
-    font-weight: 600;
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    background-color: rgba(108, 117, 125, 0.1);
-    border-radius: 4px;
-    margin-right: 0.5rem;
-    transition: all 0.2s ease;
-  }
-  
-  .version-tag:hover {
-    background-color: rgba(13, 110, 253, 0.1);
-    color: #0d6efd;
-  }
-  
-  /* Date styling */
-  .changelog-date {
-    color: #adb5bd;
-    font-size: 0.875rem;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  
-  /* Change type indicators */
-  .change-type {
-    width: 4px;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  
-  .change-type.added {
-    background-color: #28a745;
-  }
-  
-  .change-type.fixed {
-    background-color: #dc3545;
-  }
-  
-  .change-type.updated {
-    background-color: #ffc107;
-  }
-  
-  /* Change type headings (new) */
-  .change-heading {
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    padding-left: 0.5rem;
-  }
-  
-  .change-heading.added {
-    color: #28a745;
-  }
-  
-  .change-heading.fixed {
-    color: #dc3545;
-  }
-  
-  .change-heading.updated {
-    color: #ffc107;
-  }
-  
-  .change-heading i {
-    margin-right: 0.5rem;
-    font-size: 1.1rem;
-  }
-  
-  /* Changelog entry styling */
-  .changelog-entry {
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.2s, transform 0.2s;
-    position: relative;
-    padding: 1rem;
-    padding-left: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .changelog-entry:hover {
-    background-color: #f8f9fa;
-    transform: translateX(3px);
-  }
-  
-  .changelog-entry:last-child {
-    border-bottom: none;
-  }
-  
-  /* Latest version highlight (new) */
-  .changelog-entry.latest {
-    background-color: rgba(13, 110, 253, 0.05);
-    border-radius: 6px;
+  .version-card {
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   }
   
-  .changelog-entry.latest::before {
-    content: "NEW";
+  .version-card::before {
+    content: "";
     position: absolute;
     top: 0;
-    right: 0;
-    background-color: #dc3545;
-    color: white;
-    font-size: 0.7rem;
-    font-weight: bold;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0 0 0 6px;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--primary-light));
   }
   
-  /* List styling */
-  #changelogContent ul,
-  #versionNotificationContent ul {
-    padding-left: 1.2rem;
-    list-style-type: none;
-    margin-bottom: 0;
-  }
-  
-  #changelogContent ul li,
-  #versionNotificationContent ul li {
-    position: relative;
-    padding: 0.25rem 0;
-    transition: transform 0.2s;
-  }
-  
-  #changelogContent ul li:hover,
-  #versionNotificationContent ul li:hover {
-    transform: translateX(3px);
-  }
-  
-  #changelogContent ul li::before,
-  #versionNotificationContent ul li::before {
-    content: "•";
-    color: #0d6efd;
-    font-weight: bold;
-    position: absolute;
-    left: -1rem;
-  }
-  
-  /* Version header (new) */
   .version-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
   
-  /* Progress bar for latest version (new) */
-  .version-progress {
-    height: 3px;
-    background-color: rgba(13, 110, 253, 0.1);
-    border-radius: 1.5px;
-    overflow: hidden;
-    margin: 1rem 0;
+  .version-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
   }
   
-  .version-progress-bar {
-    height: 100%;
-    background-color: #0d6efd;
-    border-radius: 1.5px;
-    animation: progressAnimation 1.5s ease-in-out;
-    width: 100%;
-  }
-  
-  /* Try now button styling (new) */
-  .try-now-btn {
-    display: inline-block;
-    background-color: #0d6efd;
+  .version-number span {
+    background-color: var(--primary);
     color: white;
-    border: none;
-    padding: 0.5rem 1.25rem;
+    border-radius: 1rem;
+    padding: 0.2rem 0.8rem;
     font-size: 1rem;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(13, 110, 253, 0.25);
-    margin-top: 1rem;
-  }
-  
-  .try-now-btn:hover {
-    background-color: #0b5ed7;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
-  }
-  
-  .try-now-btn i {
     margin-left: 0.5rem;
-    transition: transform 0.2s ease;
   }
   
-  .try-now-btn:hover i {
-    transform: translateX(3px);
+  .version-date {
+    font-size: 0.9rem;
+    color: var(--text-light);
   }
   
-  /* Animations */
-  @keyframes progressAnimation {
-    0% { width: 0%; }
-    100% { width: 100%; }
+  .changes-section {
+    margin-bottom: 1.5rem;
   }
   
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .changes-section:last-child {
+    margin-bottom: 0;
   }
   
-  /* Animation classes */
-  .animate-in {
-    animation: fadeInUp 0.5s forwards;
-    opacity: 0;
-  }
-
-  .delay {
-    animation-delay: 300ms;
+  .section-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
   }
   
-  /* Utility classes for the version notification */
-  .text-center {
-    text-align: center;
-  }
-
-  .capitalize {
-    text-transform: capitalize;
+  .section-title.added {
+    color: var(--added);
   }
   
-  .mb-1 { margin-bottom: 0.25rem; }
-  .mb-2 { margin-bottom: 0.5rem; }
-  .mb-3 { margin-bottom: 1rem; }
-  .mb-4 { margin-bottom: 1.5rem; }
-  .mt-1 { margin-top: 0.25rem; }
-  .mt-2 { margin-top: 0.5rem; }
-  .mt-3 { margin-top: 1rem; }
-  .mt-4 { margin-top: 1.5rem; }
+  .section-title.fixed {
+    color: var(--fixed);
+  }
+  
+  .section-title.updated {
+    color: var(--updated);
+  }
+  
+  .section-title svg {
+    margin-right: 0.5rem;
+  }
+  
+  .changes-list {
+    list-style: none;
+    padding-left: 2rem;
+  }
+  
+  .changes-list li {
+    position: relative;
+    padding-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .changes-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+  }
+  
+  .changes-list.added li::before {
+    color: var(--added);
+  }
+  
+  .changes-list.fixed li::before {
+    color: var(--fixed);
+  }
+  
+  .changes-list.updated li::before {
+    color: var(--updated);
+  }
+  
+  .empty-notice {
+    color: var(--text-light);
+    font-style: italic;
+    padding-left: 2rem;
+  }
