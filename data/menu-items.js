@@ -107,34 +107,6 @@ const MENU_ITEMS = {
                 <p>The quiz is designed to be challenging - the selection is randomized and the category isn't revealed. You need to analyze the characters and discover the pattern yourself!</p>
             </div>
         `
-    },
-    backgroundImage: {
-        id: "background-image",
-        title: "Background",
-        helpIconPlacement: "left",
-        modalTitle: "About Background",
-        modalContent: `
-            <div class="mb-4">
-                <h6 class="fw-bold">What is the Background Feature?</h6>
-                <p>Customize your quiz experience by choosing different character-themed wallpapers as the app background.</p>
-            </div>
-            
-            <div class="mb-4">
-                <h6 class="fw-bold">How to Use</h6>
-                <ol>
-                    <li>Click on the "Background" menu item to view available wallpapers</li>
-                    <li>Browse through the character thumbnails</li>
-                    <li>Click on any character thumbnail to set their wallpaper as the background</li>
-                    <li>The background will instantly change to your selection</li>
-                </ol>
-            </div>
-            
-            <div>
-                <h6 class="fw-bold">Available Backgrounds</h6>
-                <p>Backgrounds are available for characters that have wallpaper assets. The selection varies depending on the assets included in your installation.</p>
-                <p class="text-muted fst-italic">Note: You can continue playing quizzes with any background of your choice.</p>
-            </div>
-        `
     }
 };
 

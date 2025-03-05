@@ -26,7 +26,7 @@ window.initializeMenu = function () {
 
     // Add click handler to each menu item
     menuItems.forEach(item => {
-        item.addEventListener('click', () => menuItemClick(item));
+        item.addEventListener('click', () => topMenuItemClick(item));
     });
 
     console.log('Menu initialized with', menuItems.length, 'items');
@@ -57,9 +57,9 @@ window.initializeMenu = function () {
 /**
  * Handles menu item clicks
  * 
- * @param {HTMLElement} menuItem - The clicked menu item
+ * @param {Object} menuItem - The clicked menu item from MENU_ITEMS dataset
  */
-window.menuItemClick = function (menuItem) {
+window.topMenuItemClick = function (menuItem) {
     // Skip if no data-id
     if (!menuItem.dataset.id) return;
 

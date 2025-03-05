@@ -15,6 +15,11 @@ const BACKGROUNDS = [
         wallpaper: "assets/wallpaper/Arlecchino.png"
     },
     {
+        name: "Arlecchino",
+        preview: "assets/character/wish/Arlecchino.png",
+        wallpaper: "assets/wallpaper/Arlecchino2.png"
+    },
+    {
         name: "Furina",
         preview: "assets/character/wish/Furina.png",
         wallpaper: "assets/wallpaper/Furina.png"

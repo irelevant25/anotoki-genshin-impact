@@ -20,7 +20,6 @@
     <!-- JS Core -->
     <script src="js/core/utils.js"></script>
     <!-- JS managers -->
-    <script src="js/managers/background-manager.js"></script>
     <script src="js/managers/quiz-manager.js"></script>
     <script src="js/managers/storage-manager.js"></script>
     <!-- JS quizzes -->
@@ -34,6 +33,7 @@
     <script src="js/app.js"></script>
     <script src="js/version-notification.js"></script>
     <script src="js/changelog.js"></script>
+    <script src="js/backgrounds.js"></script>
 </head>
 
 <body>
@@ -94,13 +94,52 @@
         <img name="answer-success" class="d-block mx-auto">
     </div>
 
-    <!-- Background images -->
-    <div id="background-image" class="container d-none">
-        <!-- Background images will be dynamically loaded here -->
+    <!-- Bottom menu -->
+    <div class="bottom-container">
+        <div class="item" data-bs-toggle="modal" data-bs-target="#whatsNewModal" onclick="loadWhatsNew()">What's new</div>
+        <div class="item" data-bs-toggle="modal" data-bs-target="#backgroundImageModal" onclick="loadBackgrounds()">Backgrounds</div>
+        <div id="version" class="item" data-bs-toggle="modal" data-bs-target="#versionModal" onclick="loadChangelog()">v0.2</div>
     </div>
 
-    <!-- Version -->
-    <div class="version" data-bs-toggle="modal" data-bs-target="#versionModal"></div>
+    <!-- Background selector Modal -->
+    <div class="modal fade" id="backgroundImageModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="backgroundImageModalLabel">Backgrounds</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <h6 class="fw-bold">What is the Background Feature?</h6>
+                        <p>Customize your quiz experience by choosing different character-themed wallpapers as the app
+                            background.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="fw-bold">How to Use</h6>
+                        <ol>
+                            <li>Click on the "Background" menu item to view available wallpapers</li>
+                            <li>Browse through the character thumbnails</li>
+                            <li>Click on any character thumbnail to set their wallpaper as the background</li>
+                            <li>The background will instantly change to your selection</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h6 class="fw-bold">Available Backgrounds</h6>
+                        <p>Backgrounds are available for characters that have wallpaper assets. The selection varies
+                            depending on the assets included in your installation.</p>
+                        <p class="text-muted fst-italic">Note: You can continue playing quizzes with any background of
+                            your choice.</p>
+                    </div>
+                    <div id="backgroundImage">
+                        <!-- Background images will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Changelog Modal -->
     <div class="modal fade" id="versionModal" tabindex="-1">
@@ -117,15 +156,15 @@
         </div>
     </div>
 
-    <!-- Version notification Modal -->
-    <div class="modal fade" id="versionNotificationModal" tabindex="-1">
+    <!-- What's new Modal -->
+    <div class="modal fade" id="whatsNewModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="versionNotificationModalLabel">New version</h5>
+                    <h5 class="modal-title" id="whatsNewModalLabel">New version</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4" id="versionNotificationContent">
+                <div class="modal-body p-4" id="whatsNewContent">
                     <!-- Version notification content will be dynamically injected here -->
                 </div>
             </div>

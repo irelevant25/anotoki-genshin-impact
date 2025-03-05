@@ -1,6 +1,7 @@
 /* Main CSS file that imports component styles */
 @import "components/background.css";
-@import "components/menu.css";
+@import "components/top-menu.css";
+@import "components/bottom-menu.css";
 @import "components/modal.css";
 @import "components/quiz.css";
 @import "components/tooltip.css";
@@ -61,17 +62,6 @@ h1 {
 .container {
   border-radius: 50px;
   background-color: rgba(255, 255, 255, 0.6);
-}
-
-.version {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  color: black;
-  -webkit-text-fill-color: white;
-  -webkit-text-stroke: 0.5px;
-  font-size: 20px;
-  cursor: pointer;
 }
 
 .badge {

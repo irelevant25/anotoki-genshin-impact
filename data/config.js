@@ -34,11 +34,6 @@ const APP_CONFIG = {
         }
     },
 
-    backgrounds: {
-        id: 'background-image',
-        previewType: 'wish'
-    },
-
     tooltips: {
         placement: 'top',
         customClass: 'custom-tooltip',

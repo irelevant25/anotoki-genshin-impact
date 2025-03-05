@@ -15,25 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize data from storage
     document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.png'}")`;
     if (!storageManager.getLastVersion()) {
-        renderVersionNotification();
+        loadWhatsNew();
         storageManager.saveLastVersion(CHANGELOG[0].version);
     }
 
     // Initialize UI components
     initializeMenu();
     initializeTooltips();
-    initializeChangelog();
 
     // Initialize quizzes
     initializeBannersQuiz();
     initializePixelateQuiz();
     initializeMismatchQuiz();
 
-    // Initialize background manager
-    new BackgroundManager('background-image').init();
-
     // Set version display
-    document.querySelector('.version').textContent = `v${CHANGELOG[0].version}`;
+    document.querySelector('#version').textContent = `v${CHANGELOG[0].version}`;
 
     console.log('Application initialization complete');
 });

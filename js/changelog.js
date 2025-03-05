@@ -6,8 +6,10 @@
     }
 
     // Function to render the changelog
-    function renderChangelog(providedChangelog, targetElementId = 'changelogContent') {
+    function loadChangelog(providedChangelog, targetElementId = 'changelogContent') {
         const container = document.getElementById(targetElementId);
+
+        if (container.children.length > 0) return;
 
         (providedChangelog ?? CHANGELOG).forEach((entry, index) => {
             const versionCard = document.createElement('div');
@@ -154,5 +156,5 @@
     }
 
     // Render the changelog on page load
-    window.initializeChangelog = renderChangelog;
+    window.loadChangelog = loadChangelog;
 })();
