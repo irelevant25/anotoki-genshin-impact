@@ -16,3 +16,4 @@
 - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
 - New quiz: recognision of characters based on trailer music
 - New quiz: with description about the character like eye color, length of hair, hair color, height, element, region, something from the story...
+- New activity: (cahracter tournament) best character (pick random n cahracters) by dueling each other and selecting the winne of the duel

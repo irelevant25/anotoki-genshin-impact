@@ -24,7 +24,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "December 23, 2020",
         "version": "1.2",
-        "icon": "assets/character/icon/Albedo.png"
+        "icon": "assets/character/icon/Albedo.png",
+        "demo_music_name": "Contemplation in Snow",
+        "demo_music": "assets/character/demo_music/Albedo.mp3"
     },
     {
         "name": "Alhaitham",
@@ -47,7 +49,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "January 18, 2023",
         "version": "3.4",
-        "icon": "assets/character/icon/Alhaitham.png"
+        "icon": "assets/character/icon/Alhaitham.png",
+        "demo_music_name": "Cogitation of Epochs",
+        "demo_music": "assets/character/demo_music/Alhaitham.mp3"
     },
     {
         "name": "Aloy",
@@ -70,7 +74,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 01, 2021",
         "version": "2.1",
-        "icon": "assets/character/icon/Aloy.png"
+        "icon": "assets/character/icon/Aloy.png",
+        "demo_music_name": "Good Hunting on a New Horizon",
+        "demo_music": "assets/character/demo_music/Aloy.mp3"
     },
     {
         "name": "Amber",
@@ -93,7 +99,8 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Amber.png"
+        "icon": "assets/character/icon/Amber.png",
+        "demo_music": null
     },
     {
         "name": "Arlecchino",
@@ -116,7 +123,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "April 24, 2024",
         "version": "4.6",
-        "icon": "assets/character/icon/Arlecchino.png"
+        "icon": "assets/character/icon/Arlecchino.png",
+        "demo_music_name": "Offertorium of Fortuitum",
+        "demo_music": "assets/character/demo_music/Arlecchino.mp3"
     },
     {
         "name": "Baizhu",
@@ -139,7 +148,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "May 02, 2023",
         "version": "3.6",
-        "icon": "assets/character/icon/Baizhu.png"
+        "icon": "assets/character/icon/Baizhu.png",
+        "demo_music_name": "In the Wake of Rain",
+        "demo_music": "assets/character/demo_music/Baizhu.mp3"
     },
     {
         "name": "Barbara",
@@ -162,7 +173,8 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Barbara.png"
+        "icon": "assets/character/icon/Barbara.png",
+        "demo_music": null
     },
     {
         "name": "Beidou",
@@ -185,7 +197,8 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Beidou.png"
+        "icon": "assets/character/icon/Beidou.png",
+        "demo_music": null
     },
     {
         "name": "Bennett",
@@ -208,7 +221,8 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Bennett.png"
+        "icon": "assets/character/icon/Bennett.png",
+        "demo_music": null
     },
     {
         "name": "Candace",
@@ -231,7 +245,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "September 28, 2022",
         "version": "3.1",
-        "icon": "assets/character/icon/Candace.png"
+        "icon": "assets/character/icon/Candace.png",
+        "demo_music_name": "Nephrite of Deshret",
+        "demo_music": "assets/character/demo_music/Candace.mp3"
     },
     {
         "name": "Charlotte",
@@ -254,7 +270,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "November 08, 2023",
         "version": "4.2",
-        "icon": "assets/character/icon/Charlotte.png"
+        "icon": "assets/character/icon/Charlotte.png",
+        "demo_music_name": "Video Not Available",
+        "demo_music": "assets/character/demo_music/Charlotte.mp3"
     },
     {
         "name": "Chasca",
@@ -277,7 +295,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "November 20, 2024",
         "version": "5.2",
-        "icon": "assets/character/icon/Chasca.png"
+        "icon": "assets/character/icon/Chasca.png",
+        "demo_music_name": "Viajadora's Verse",
+        "demo_music": "assets/character/demo_music/Chasca.mp3"
     },
     {
         "name": "Chevreuse",
@@ -300,7 +320,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "January 09, 2024",
         "version": "4.3",
-        "icon": "assets/character/icon/Chevreuse.png"
+        "icon": "assets/character/icon/Chevreuse.png",
+        "demo_music_name": "Voici la grenadiere !",
+        "demo_music": "assets/character/demo_music/Chevreuse.mp3"
     },
     {
         "name": "Tartaglia",
@@ -323,7 +345,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "November 11, 2020",
         "version": "1.1",
-        "icon": "assets/character/icon/Tartaglia.png"
+        "icon": "assets/character/icon/Tartaglia.png",
+        "demo_music_name": "Letter From Ajax",
+        "demo_music": "assets/character/demo_music/Tartaglia.mp3"
     },
     {
         "name": "Chiori",
@@ -346,7 +370,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "March 13, 2024",
         "version": "4.5",
-        "icon": "assets/character/icon/Chiori.png"
+        "icon": "assets/character/icon/Chiori.png",
+        "demo_music_name": "Le cramoisi coulant comme Cin",
+        "demo_music": "assets/character/demo_music/Chiori.mp3"
     },
     {
         "name": "Chongyun",
@@ -369,7 +395,8 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Chongyun.png"
+        "icon": "assets/character/icon/Chongyun.png",
+        "demo_music": null
     },
     {
         "name": "Citlali",
@@ -392,7 +419,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "January 01, 2025",
         "version": "5.3",
-        "icon": "assets/character/icon/Citlali.png"
+        "icon": "assets/character/icon/Citlali.png",
+        "demo_music_name": "Interstellar Drift",
+        "demo_music": "assets/character/demo_music/Citlali.mp3"
     },
     {
         "name": "Clorinde",
@@ -415,7 +444,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "June 05, 2024",
         "version": "4.7",
-        "icon": "assets/character/icon/Clorinde.png"
+        "icon": "assets/character/icon/Clorinde.png",
+        "demo_music_name": "Non si levava ancor",
+        "demo_music": "assets/character/demo_music/Clorinde.mp3"
     },
     {
         "name": "Collei",
@@ -438,7 +469,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "August 24, 2022",
         "version": "3.0",
-        "icon": "assets/character/icon/Collei.png"
+        "icon": "assets/character/icon/Collei.png",
+        "demo_music_name": "Caprice of the Leaves",
+        "demo_music": "assets/character/demo_music/Collei.mp3"
     },
     {
         "name": "Cyno",
@@ -461,7 +494,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "September 28, 2022",
         "version": "3.1",
-        "icon": "assets/character/icon/Cyno.png"
+        "icon": "assets/character/icon/Cyno.png",
+        "demo_music_name": "Order of Silence",
+        "demo_music": "assets/character/demo_music/Cyno.mp3"
     },
     {
         "name": "Dehya",
@@ -484,7 +519,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "March 01, 2023",
         "version": "3.5",
-        "icon": "assets/character/icon/Dehya.png"
+        "icon": "assets/character/icon/Dehya.png",
+        "demo_music_name": "Fervent Flare",
+        "demo_music": "assets/character/demo_music/Dehya.mp3"
     },
     {
         "name": "Diluc",
@@ -507,7 +544,8 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Diluc.png"
+        "icon": "assets/character/icon/Diluc.png",
+        "demo_music": null
     },
     {
         "name": "Diona",
@@ -530,7 +568,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "November 11, 2020",
         "version": "1.1",
-        "icon": "assets/character/icon/Diona.png"
+        "icon": "assets/character/icon/Diona.png",
+        "demo_music_name": "Exclusive Specialty",
+        "demo_music": "assets/character/demo_music/Diona.mp3"
     },
     {
         "name": "Dori",
@@ -553,7 +593,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "September 09, 2022",
         "version": "3.0",
-        "icon": "assets/character/icon/Dori.png"
+        "icon": "assets/character/icon/Dori.png",
+        "demo_music_name": "Thanks for Your Patronage!",
+        "demo_music": "assets/character/demo_music/Dori.mp3"
     },
     {
         "name": "Emilie",
@@ -576,7 +618,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "August 06, 2024",
         "version": "4.8",
-        "icon": "assets/character/icon/Emilie.png"
+        "icon": "assets/character/icon/Emilie.png",
+        "demo_music_name": "Notes Aeriennes",
+        "demo_music": "assets/character/demo_music/Emilie.mp3"
     },
     {
         "name": "Eula",
@@ -599,7 +643,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "May 18, 2021",
         "version": "1.5",
-        "icon": "assets/character/icon/Eula.png"
+        "icon": "assets/character/icon/Eula.png",
+        "demo_music_name": "Dance of Aphros",
+        "demo_music": "assets/character/demo_music/Eula.mp3"
     },
     {
         "name": "Faruzan",
@@ -622,7 +668,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "December 07, 2022",
         "version": "3.3",
-        "icon": "assets/character/icon/Faruzan.png"
+        "icon": "assets/character/icon/Faruzan.png",
+        "demo_music_name": "Whirling of Vairambhaka",
+        "demo_music": "assets/character/demo_music/Faruzan.mp3"
     },
     {
         "name": "Fischl",
@@ -645,7 +693,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Fischl.png"
+        "icon": "assets/character/icon/Fischl.png",
+        "demo_music_name": "Ouvertüre der ewigen Nacht",
+        "demo_music": "assets/character/demo_music/Fischl.mp3"
     },
     {
         "name": "Freminet",
@@ -668,7 +718,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "September 05, 2023",
         "version": "4.0",
-        "icon": "assets/character/icon/Freminet.png"
+        "icon": "assets/character/icon/Freminet.png",
+        "demo_music_name": "Frigid Reverie",
+        "demo_music": "assets/character/demo_music/Freminet.mp3"
     },
     {
         "name": "Furina",
@@ -691,7 +743,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "November 08, 2023",
         "version": "4.2",
-        "icon": "assets/character/icon/Furina.png"
+        "icon": "assets/character/icon/Furina.png",
+        "demo_music_name": "Se mettre sur son trente-et-un !",
+        "demo_music": "assets/character/demo_music/Furina.mp3"
     },
     {
         "name": "Gaming",
@@ -714,7 +768,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "January 31, 2024",
         "version": "4.4",
-        "icon": "assets/character/icon/Gaming.png"
+        "icon": "assets/character/icon/Gaming.png",
+        "demo_music_name": "Propitious Ardor",
+        "demo_music": "assets/character/demo_music/Gaming.mp3"
     },
     {
         "name": "Ganyu",
@@ -737,7 +793,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "January 12, 2021",
         "version": "1.2",
-        "icon": "assets/character/icon/Ganyu.png"
+        "icon": "assets/character/icon/Ganyu.png",
+        "demo_music_name": "Qilin's Prance",
+        "demo_music": "assets/character/demo_music/Ganyu.mp3"
     },
     {
         "name": "Gorou",
@@ -760,7 +818,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "December 14, 2021",
         "version": "2.3",
-        "icon": "assets/character/icon/Gorou.png"
+        "icon": "assets/character/icon/Gorou.png",
+        "demo_music_name": "Astute and Fearless Leader",
+        "demo_music": "assets/character/demo_music/Gorou.mp3"
     },
     {
         "name": "Hu Tao",
@@ -783,7 +843,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "March 02, 2021",
         "version": "1.3",
-        "icon": "assets/character/icon/Hu Tao.png"
+        "icon": "assets/character/icon/Hu Tao.png",
+        "demo_music_name": "Any Last Words_",
+        "demo_music": "assets/character/demo_music/Hu Tao.mp3"
     },
     {
         "name": "Arataki Itto",
@@ -806,7 +868,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "December 14, 2021",
         "version": "2.3",
-        "icon": "assets/character/icon/Arataki Itto.png"
+        "icon": "assets/character/icon/Arataki Itto.png",
+        "demo_music_name": "Time to Shine",
+        "demo_music": "assets/character/demo_music/Arataki Itto.mp3"
     },
     {
         "name": "Jean",
@@ -829,7 +893,8 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Jean.png"
+        "icon": "assets/character/icon/Jean.png",
+        "demo_music": null
     },
     {
         "name": "Kachina",
@@ -852,7 +917,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "August 28, 2024",
         "version": "5.0",
-        "icon": "assets/character/icon/Kachina.png"
+        "icon": "assets/character/icon/Kachina.png",
+        "demo_music_name": "Pirouette of Pika's Pike",
+        "demo_music": "assets/character/demo_music/Kachina.mp3"
     },
     {
         "name": "Kaedehara Kazuha",
@@ -875,7 +942,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "June 29, 2021",
         "version": "1.6",
-        "icon": "assets/character/icon/Kaedehara Kazuha.png"
+        "icon": "assets/character/icon/Kaedehara Kazuha.png",
+        "demo_music_name": "Flow of Autumn Wind",
+        "demo_music": "assets/character/demo_music/Kaedehara Kazuha.mp3"
     },
     {
         "name": "Kaeya",
@@ -898,7 +967,8 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Kaeya.png"
+        "icon": "assets/character/icon/Kaeya.png",
+        "demo_music": null
     },
     {
         "name": "Kamisato Ayaka",
@@ -921,7 +991,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "July 21, 2021",
         "version": "2.0",
-        "icon": "assets/character/icon/Kamisato Ayaka.png"
+        "icon": "assets/character/icon/Kamisato Ayaka.png",
+        "demo_music_name": "Shirasagi Princess",
+        "demo_music": "assets/character/demo_music/Kamisato Ayaka.mp3"
     },
     {
         "name": "Kamisato Ayato",
@@ -944,7 +1016,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "March 30, 2022",
         "version": "2.6",
-        "icon": "assets/character/icon/Kamisato Ayato.png"
+        "icon": "assets/character/icon/Kamisato Ayato.png",
+        "demo_music_name": "Serene and Fathomless",
+        "demo_music": "assets/character/demo_music/Kamisato Ayato.mp3"
     },
     {
         "name": "Kaveh",
@@ -967,7 +1041,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "May 02, 2023",
         "version": "3.6",
-        "icon": "assets/character/icon/Kaveh.png"
+        "icon": "assets/character/icon/Kaveh.png",
+        "demo_music_name": "Empyrean Stairway",
+        "demo_music": "assets/character/demo_music/Kaveh.mp3"
     },
     {
         "name": "Keqing",
@@ -990,7 +1066,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Keqing.png"
+        "icon": "assets/character/icon/Keqing.png",
+        "demo_music_name": "Nimble as Lightning",
+        "demo_music": "assets/character/demo_music/Keqing.mp3"
     },
     {
         "name": "Kinich",
@@ -1013,7 +1091,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "September 17, 2024",
         "version": "5.0",
-        "icon": "assets/character/icon/Kinich.png"
+        "icon": "assets/character/icon/Kinich.png",
+        "demo_music_name": "Note of Effective Settlements",
+        "demo_music": "assets/character/demo_music/Kinich.mp3"
     },
     {
         "name": "Kirara",
@@ -1036,7 +1116,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "May 24, 2023",
         "version": "3.7",
-        "icon": "assets/character/icon/Kirara.png"
+        "icon": "assets/character/icon/Kirara.png",
+        "demo_music_name": "Cat's Cosy Course",
+        "demo_music": "assets/character/demo_music/Kirara.mp3"
     },
     {
         "name": "Klee",
@@ -1059,7 +1141,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "October 20, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Klee.png"
+        "icon": "assets/character/icon/Klee.png",
+        "demo_music_name": "Let's Go, Crimson Knight!",
+        "demo_music": "assets/character/demo_music/Klee.mp3"
     },
     {
         "name": "Kujou Sara",
@@ -1082,7 +1166,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "September 01, 2021",
         "version": "2.1",
-        "icon": "assets/character/icon/Kujou Sara.png"
+        "icon": "assets/character/icon/Kujou Sara.png",
+        "demo_music_name": "Will of Thunder",
+        "demo_music": "assets/character/demo_music/Kujou Sara.mp3"
     },
     {
         "name": "Kuki Shinobu",
@@ -1105,7 +1191,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "June 21, 2022",
         "version": "2.7",
-        "icon": "assets/character/icon/Kuki Shinobu.png"
+        "icon": "assets/character/icon/Kuki Shinobu.png",
+        "demo_music_name": "Adroit Deputy",
+        "demo_music": "assets/character/demo_music/Kuki Shinobu.mp3"
     },
     {
         "name": "Lan Yan",
@@ -1128,7 +1216,8 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "January 21, 2025",
         "version": "5.3",
-        "icon": "assets/character/icon/Lan Yan.png"
+        "icon": "assets/character/icon/Lan Yan.png",
+        "demo_music": null
     },
     {
         "name": "Layla",
@@ -1151,7 +1240,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "November 18, 2022",
         "version": "3.2",
-        "icon": "assets/character/icon/Layla.png"
+        "icon": "assets/character/icon/Layla.png",
+        "demo_music_name": "Surreal Noctivaga",
+        "demo_music": "assets/character/demo_music/Layla.mp3"
     },
     {
         "name": "Lisa",
@@ -1174,7 +1265,8 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Lisa.png"
+        "icon": "assets/character/icon/Lisa.png",
+        "demo_music": null
     },
     {
         "name": "Lynette",
@@ -1197,7 +1289,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "August 16, 2023",
         "version": "4.0",
-        "icon": "assets/character/icon/Lynette.png"
+        "icon": "assets/character/icon/Lynette.png",
+        "demo_music_name": "Chasing the Wind",
+        "demo_music": "assets/character/demo_music/Lynette.mp3"
     },
     {
         "name": "Lyney",
@@ -1220,7 +1314,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "August 16, 2023",
         "version": "4.0",
-        "icon": "assets/character/icon/Lyney.png"
+        "icon": "assets/character/icon/Lyney.png",
+        "demo_music_name": "Lustrous Trick",
+        "demo_music": "assets/character/demo_music/Lyney.mp3"
     },
     {
         "name": "Mavuika",
@@ -1243,7 +1339,8 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "January 01, 2025",
         "version": "5.3",
-        "icon": "assets/character/icon/Mavuika.png"
+        "icon": "assets/character/icon/Mavuika.png",
+        "demo_music": null
     },
     {
         "name": "Mika",
@@ -1266,7 +1363,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "March 21, 2023",
         "version": "3.5",
-        "icon": "assets/character/icon/Mika.png"
+        "icon": "assets/character/icon/Mika.png",
+        "demo_music_name": "Sunfrost Breeze",
+        "demo_music": "assets/character/demo_music/Mika.mp3"
     },
     {
         "name": "Mona",
@@ -1289,7 +1388,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Mona.png"
+        "icon": "assets/character/icon/Mona.png",
+        "demo_music_name": "Surge of Prophecies",
+        "demo_music": "assets/character/demo_music/Mona.mp3"
     },
     {
         "name": "Mualani",
@@ -1312,7 +1413,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "August 28, 2024",
         "version": "5.0",
-        "icon": "assets/character/icon/Mualani.png"
+        "icon": "assets/character/icon/Mualani.png",
+        "demo_music_name": "Hot Spring Affection",
+        "demo_music": "assets/character/demo_music/Mualani.mp3"
     },
     {
         "name": "Nahida",
@@ -1335,7 +1438,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "November 02, 2022",
         "version": "3.2",
-        "icon": "assets/character/icon/Nahida.png"
+        "icon": "assets/character/icon/Nahida.png",
+        "demo_music_name": "Surreal Noctivaga",
+        "demo_music": "assets/character/demo_music/Nahida.mp3"
     },
     {
         "name": "Navia",
@@ -1358,7 +1463,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "December 20, 2023",
         "version": "4.3",
-        "icon": "assets/character/icon/Navia.png"
+        "icon": "assets/character/icon/Navia.png",
+        "demo_music_name": "Largo alla donzella",
+        "demo_music": "assets/character/demo_music/Navia.mp3"
     },
     {
         "name": "Neuvillette",
@@ -1381,7 +1488,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "September 27, 2023",
         "version": "4.1",
-        "icon": "assets/character/icon/Neuvillette.png"
+        "icon": "assets/character/icon/Neuvillette.png",
+        "demo_music_name": "Parousia Diluvi",
+        "demo_music": "assets/character/demo_music/Neuvillette.mp3"
     },
     {
         "name": "Nilou",
@@ -1404,7 +1513,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "October 14, 2022",
         "version": "3.1",
-        "icon": "assets/character/icon/Nilou.png"
+        "icon": "assets/character/icon/Nilou.png",
+        "demo_music_name": "Lotus of Haftkarsvar",
+        "demo_music": "assets/character/demo_music/Nilou.mp3"
     },
     {
         "name": "Ningguang",
@@ -1427,7 +1538,8 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Ningguang.png"
+        "icon": "assets/character/icon/Ningguang.png",
+        "demo_music": null
     },
     {
         "name": "Noelle",
@@ -1450,7 +1562,8 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Noelle.png"
+        "icon": "assets/character/icon/Noelle.png",
+        "demo_music": null
     },
     {
         "name": "Ororon",
@@ -1473,7 +1586,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "November 20, 2024",
         "version": "5.2",
-        "icon": "assets/character/icon/Ororon.png"
+        "icon": "assets/character/icon/Ororon.png",
+        "demo_music_name": "Rain of Seven Curtains",
+        "demo_music": "assets/character/demo_music/Ororon.mp3"
     },
     {
         "name": "Qiqi",
@@ -1496,7 +1611,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Qiqi.png"
+        "icon": "assets/character/icon/Qiqi.png",
+        "demo_music_name": "Preserver of Fortune",
+        "demo_music": "assets/character/demo_music/Qiqi.mp3"
     },
     {
         "name": "Raiden Shogun",
@@ -1519,7 +1636,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "September 01, 2021",
         "version": "2.1",
-        "icon": "assets/character/icon/Raiden Shogun.png"
+        "icon": "assets/character/icon/Raiden Shogun.png",
+        "demo_music_name": "Termination of Desires",
+        "demo_music": "assets/character/demo_music/Raiden Shogun.mp3"
     },
     {
         "name": "Razor",
@@ -1542,7 +1661,8 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Razor.png"
+        "icon": "assets/character/icon/Razor.png",
+        "demo_music": null
     },
     {
         "name": "Rosaria",
@@ -1565,7 +1685,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "April 06, 2021",
         "version": "1.4",
-        "icon": "assets/character/icon/Rosaria.png"
+        "icon": "assets/character/icon/Rosaria.png",
+        "demo_music_name": "Shadow of Nemesis",
+        "demo_music": "assets/character/demo_music/Rosaria.mp3"
     },
     {
         "name": "Sangonomiya Kokomi",
@@ -1588,7 +1710,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 21, 2021",
         "version": "2.1",
-        "icon": "assets/character/icon/Sangonomiya Kokomi.png"
+        "icon": "assets/character/icon/Sangonomiya Kokomi.png",
+        "demo_music_name": "A Glorious Awakening",
+        "demo_music": "assets/character/demo_music/Sangonomiya Kokomi.mp3"
     },
     {
         "name": "Sayu",
@@ -1611,7 +1735,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "August 10, 2021",
         "version": "2.0",
-        "icon": "assets/character/icon/Sayu.png"
+        "icon": "assets/character/icon/Sayu.png",
+        "demo_music_name": "Muji-Muji Chaos!",
+        "demo_music": "assets/character/demo_music/Sayu.mp3"
     },
     {
         "name": "Sethos",
@@ -1634,7 +1760,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "June 05, 2024",
         "version": "4.7",
-        "icon": "assets/character/icon/Sethos.png"
+        "icon": "assets/character/icon/Sethos.png",
+        "demo_music_name": "Menmaatre's Parade",
+        "demo_music": "assets/character/demo_music/Sethos.mp3"
     },
     {
         "name": "Shenhe",
@@ -1657,7 +1785,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "January 05, 2022",
         "version": "2.4",
-        "icon": "assets/character/icon/Shenhe.png"
+        "icon": "assets/character/icon/Shenhe.png",
+        "demo_music_name": "The Crane Cries",
+        "demo_music": "assets/character/demo_music/Shenhe.mp3"
     },
     {
         "name": "Shikanoin Heizou",
@@ -1680,7 +1810,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "July 13, 2022",
         "version": "2.8",
-        "icon": "assets/character/icon/Shikanoin Heizou.png"
+        "icon": "assets/character/icon/Shikanoin Heizou.png",
+        "demo_music_name": "Storm Chaser",
+        "demo_music": "assets/character/demo_music/Shikanoin Heizou.mp3"
     },
     {
         "name": "Sigewinne",
@@ -1703,7 +1835,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "June 25, 2024",
         "version": "4.7",
-        "icon": "assets/character/icon/Sigewinne.png"
+        "icon": "assets/character/icon/Sigewinne.png",
+        "demo_music_name": "Romari Time!",
+        "demo_music": "assets/character/demo_music/Sigewinne.mp3"
     },
     {
         "name": "Sucrose",
@@ -1726,7 +1860,8 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Sucrose.png"
+        "icon": "assets/character/icon/Sucrose.png",
+        "demo_music": null
     },
     {
         "name": "Thoma",
@@ -1749,7 +1884,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "November 02, 2021",
         "version": "2.2",
-        "icon": "assets/character/icon/Thoma.png"
+        "icon": "assets/character/icon/Thoma.png",
+        "demo_music_name": "Devotion of the Keeper",
+        "demo_music": "assets/character/demo_music/Thoma.mp3"
     },
     {
         "name": "Tighnari",
@@ -1772,7 +1909,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "August 24, 2022",
         "version": "3.0",
-        "icon": "assets/character/icon/Tighnari.png"
+        "icon": "assets/character/icon/Tighnari.png",
+        "demo_music_name": "Winding Through Avidya",
+        "demo_music": "assets/character/demo_music/Tighnari.mp3"
     },
     {
         "name": "Venti",
@@ -1795,7 +1934,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Venti.png"
+        "icon": "assets/character/icon/Venti.png",
+        "demo_music_name": "Bard's Adventure",
+        "demo_music": "assets/character/demo_music/Venti.mp3"
     },
     {
         "name": "Wanderer",
@@ -1818,7 +1959,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "December 07, 2022",
         "version": "3.3",
-        "icon": "assets/character/icon/Wanderer.png"
+        "icon": "assets/character/icon/Wanderer.png",
+        "demo_music_name": "Novatio Novena",
+        "demo_music": "assets/character/demo_music/Wanderer.mp3"
     },
     {
         "name": "Wriothesley",
@@ -1841,7 +1984,9 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "October 17, 2023",
         "version": "4.1",
-        "icon": "assets/character/icon/Wriothesley.png"
+        "icon": "assets/character/icon/Wriothesley.png",
+        "demo_music_name": "Nippy Bout",
+        "demo_music": "assets/character/demo_music/Wriothesley.mp3"
     },
     {
         "name": "Xiangling",
@@ -1864,7 +2009,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Xiangling.png"
+        "icon": "assets/character/icon/Xiangling.png",
+        "demo_music_name": "Flaming Fry",
+        "demo_music": "assets/character/demo_music/Xiangling.mp3"
     },
     {
         "name": "Xianyun",
@@ -1887,7 +2034,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "January 31, 2024",
         "version": "4.4",
-        "icon": "assets/character/icon/Xianyun.png"
+        "icon": "assets/character/icon/Xianyun.png",
+        "demo_music_name": "Borrowing Winds of Harmony",
+        "demo_music": "assets/character/demo_music/Xianyun.mp3"
     },
     {
         "name": "Xiao",
@@ -1910,7 +2059,9 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "February 03, 2021",
         "version": "1.3",
-        "icon": "assets/character/icon/Xiao.png"
+        "icon": "assets/character/icon/Xiao.png",
+        "demo_music_name": "Path of Yaksha",
+        "demo_music": "assets/character/demo_music/Xiao.mp3"
     },
     {
         "name": "Xilonen",
@@ -1933,7 +2084,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "October 09, 2024",
         "version": "5.1",
-        "icon": "assets/character/icon/Xilonen.png"
+        "icon": "assets/character/icon/Xilonen.png",
+        "demo_music_name": "Lights on Me",
+        "demo_music": "assets/character/demo_music/Xilonen.mp3"
     },
     {
         "name": "Xingqiu",
@@ -1956,7 +2109,8 @@ const CHARACTERS = [
         "model_type": "Medium Male",
         "release_date": "September 28, 2020",
         "version": "1.0",
-        "icon": "assets/character/icon/Xingqiu.png"
+        "icon": "assets/character/icon/Xingqiu.png",
+        "demo_music": null
     },
     {
         "name": "Xinyan",
@@ -1979,7 +2133,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "December 01, 2020",
         "version": "1.1",
-        "icon": "assets/character/icon/Xinyan.png"
+        "icon": "assets/character/icon/Xinyan.png",
+        "demo_music_name": "Rockin' With Fire",
+        "demo_music": "assets/character/demo_music/Xinyan.mp3"
     },
     {
         "name": "Yae Miko",
@@ -2002,7 +2158,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "February 16, 2022",
         "version": "2.5",
-        "icon": "assets/character/icon/Yae Miko.png"
+        "icon": "assets/character/icon/Yae Miko.png",
+        "demo_music_name": "Nothing but Trickery",
+        "demo_music": "assets/character/demo_music/Yae Miko.mp3"
     },
     {
         "name": "Yanfei",
@@ -2025,7 +2183,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "April 28, 2021",
         "version": "1.5",
-        "icon": "assets/character/icon/Yanfei.png"
+        "icon": "assets/character/icon/Yanfei.png",
+        "demo_music_name": "Marching of Xiezhi",
+        "demo_music": "assets/character/demo_music/Yanfei.mp3"
     },
     {
         "name": "Yaoyao",
@@ -2048,7 +2208,9 @@ const CHARACTERS = [
         "model_type": "Short Female",
         "release_date": "January 18, 2023",
         "version": "3.4",
-        "icon": "assets/character/icon/Yaoyao.png"
+        "icon": "assets/character/icon/Yaoyao.png",
+        "demo_music_name": "Immaculate Ardency",
+        "demo_music": "assets/character/demo_music/Yaoyao.mp3"
     },
     {
         "name": "Yelan",
@@ -2071,7 +2233,9 @@ const CHARACTERS = [
         "model_type": "Tall Female",
         "release_date": "May 31, 2022",
         "version": "2.7",
-        "icon": "assets/character/icon/Yelan.png"
+        "icon": "assets/character/icon/Yelan.png",
+        "demo_music_name": "Graceful Dexterity",
+        "demo_music": "assets/character/demo_music/Yelan.mp3"
     },
     {
         "name": "Yoimiya",
@@ -2094,7 +2258,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "August 10, 2021",
         "version": "2.0",
-        "icon": "assets/character/icon/Yoimiya.png"
+        "icon": "assets/character/icon/Yoimiya.png",
+        "demo_music_name": "Blossoms of Summer Night",
+        "demo_music": "assets/character/demo_music/Yoimiya.mp3"
     },
     {
         "name": "Yumemizuki Mizuki",
@@ -2117,7 +2283,8 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "February 12, 2025",
         "version": "5.4",
-        "icon": "assets/character/icon/Yumemizuki Mizuki.png"
+        "icon": "assets/character/icon/Yumemizuki Mizuki.png",
+        "demo_music": null
     },
     {
         "name": "Yun Jin",
@@ -2140,7 +2307,9 @@ const CHARACTERS = [
         "model_type": "Medium Female",
         "release_date": "January 05, 2022",
         "version": "2.4",
-        "icon": "assets/character/icon/Yun Jin.png"
+        "icon": "assets/character/icon/Yun Jin.png",
+        "demo_music_name": "Chapter of a New Era",
+        "demo_music": "assets/character/demo_music/Yun Jin.mp3"
     },
     {
         "name": "Zhongli",
@@ -2163,6 +2332,8 @@ const CHARACTERS = [
         "model_type": "Tall Male",
         "release_date": "December 01, 2020",
         "version": "1.1",
-        "icon": "assets/character/icon/Zhongli.png"
+        "icon": "assets/character/icon/Zhongli.png",
+        "demo_music_name": "Rex Incognito",
+        "demo_music": "assets/character/demo_music/Zhongli.mp3"
     }
 ];
