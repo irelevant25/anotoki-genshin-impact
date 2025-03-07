@@ -1,62 +1,62 @@
 const BACKGROUNDS = [
     {
         name: "Fontaine",
-        preview: "assets/wallpaper/Fontaine.png",
+        preview: "assets/wallpaper/Fontaine - preview.png",
         wallpaper: "assets/wallpaper/Fontaine.png"
     },
     {
         name: "Liyue",
-        preview: "assets/wallpaper/Liyue.png",
+        preview: "assets/wallpaper/Liyue - preview.png",
         wallpaper: "assets/wallpaper/Liyue.png"
     },
     {
         name: "Arlecchino",
-        preview: "assets/character/wish/Arlecchino.png",
+        preview: "assets/wallpaper/Arlecchino - preview.png",
         wallpaper: "assets/wallpaper/Arlecchino.png"
     },
     {
         name: "Arlecchino",
-        preview: "assets/character/wish/Arlecchino.png",
+        preview: "assets/wallpaper/Arlecchino2 - preview.png",
         wallpaper: "assets/wallpaper/Arlecchino2.png"
     },
     {
         name: "Furina",
-        preview: "assets/character/wish/Furina.png",
+        preview: "assets/wallpaper/Furina - preview.png",
         wallpaper: "assets/wallpaper/Furina.png"
     },
     {
         name: "Kamisato Ayaka",
-        preview: "assets/character/wish/Kamisato Ayaka.png",
+        preview: "assets/wallpaper/Kamisato Ayaka - preview.png",
         wallpaper: "assets/wallpaper/Kamisato Ayaka.png"
     },
     {
         name: "Kirara",
-        preview: "assets/character/wish/Kirara.png",
+        preview: "assets/wallpaper/Kirara - preview.png",
         wallpaper: "assets/wallpaper/Kirara.png"
     },
     {
         name: "Raiden Shogun",
-        preview: "assets/character/wish/Raiden Shogun.png",
+        preview: "assets/wallpaper/Raiden Shogun - preview.png",
         wallpaper: "assets/wallpaper/Raiden Shogun.png"
     },
     {
         name: "Sayu",
-        preview: "assets/character/wish/Sayu.png",
+        preview: "assets/wallpaper/Sayu - preview.png",
         wallpaper: "assets/wallpaper/Sayu.png"
     },
     {
         name: "Xiangling",
-        preview: "assets/character/wish/Xiangling.png",
+        preview: "assets/wallpaper/Xiangling - preview.png",
         wallpaper: "assets/wallpaper/Xiangling.png"
     },
     {
         name: "Yae Miko",
-        preview: "assets/character/wish/Yae Miko.png",
+        preview: "assets/wallpaper/Yae Miko - preview.png",
         wallpaper: "assets/wallpaper/Yae Miko.png"
     },
     {
         name: "Zhongli",
-        preview: "assets/character/wish/Zhongli.png",
+        preview: "assets/wallpaper/Zhongli - preview.png",
         wallpaper: "assets/wallpaper/Zhongli.png"
     }
 ]

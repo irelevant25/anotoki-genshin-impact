@@ -18,7 +18,7 @@
 
         BACKGROUNDS.forEach(background => {
             const imgElement = createElement('img', {
-                src: background.wallpaper,
+                src: background.preview,
                 alt: background.name,
                 title: background.name,
                 events: {
