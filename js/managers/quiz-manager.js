@@ -58,7 +58,7 @@ class QuizManager {
         this.autocompleteDropdownElement = this.containerElement.querySelector('div.dropdown-menu');
         this.questionElement = this.containerElement.querySelector('[name="question"]');
         this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
-        this.nextButtonElement = this.containerElement.querySelector('button');
+        this.nextButtonElement = this.containerElement.querySelector('button.next-button');
         this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
         this.triesDisplayElement = this.containerElement.querySelector('div[name="tries-display"]');
         this.triesScoreCurrentElement = this.containerElement.querySelector('div[name="tries-score"] > p[name="tries-current"]');

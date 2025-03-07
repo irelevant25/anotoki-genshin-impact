@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeBannersQuiz();
     initializePixelateQuiz();
     initializeMismatchQuiz();
+    initializeTournamentQuiz();
 
     // Set version display
     document.querySelector('#version').textContent = `v${CHANGELOG[0].version}`;

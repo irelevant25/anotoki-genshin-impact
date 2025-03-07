@@ -26,6 +26,7 @@
     <script src="js/quizzes/banners.js"></script>
     <script src="js/quizzes/characters-mismatch.js"></script>
     <script src="js/quizzes/characters-pixelate.js"></script>
+    <script src="js/quizzes/characters-tournament.js"></script>
     <!-- JS components -->
     <script src="js/components/menu.js"></script>
     <script src="js/components/tooltips.js"></script>
@@ -65,7 +66,9 @@
 
     <!-- Characters Pixelate -->
     <div id="quiz-characters-pixelate" class="container quiz-container d-none">
-        <canvas name="question" class="d-block mx-auto" width="256" height="256"></canvas>
+        <canvas name="question" class="d-block mx-auto" width="256" height="256">
+            <!-- Canvas for pixelate will be dynamically injected here -->
+        </canvas>
         <div class="pt-3 search-container">
             <div name="autocomplete" class="position-relative">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -84,7 +87,9 @@
 
     <!-- Characters mismatch -->
     <div id="quiz-characters-mismatch" class="container quiz-container d-none">
-        <div name="question" class="d-block mx-auto character-grid"></div>
+        <div name="question" class="d-block mx-auto character-grid">
+            <!-- Characters for mismatch will be dynamically injected here -->
+        </div>
         <div class="pt-3 search-container">
             <button class="btn btn-primary ms-3 next-button">Next</button>
         </div>
@@ -94,11 +99,51 @@
         <img name="answer-success" class="d-block mx-auto">
     </div>
 
+    <!-- Characters tournament -->
+    <div id="quiz-characters-tournament" class="container quiz-container d-none">
+        <div name="tournament-setup" class="col-4 mx-auto pt-3">
+            <div class="">
+                <label class="form-label">Tournament type</label>
+                <select name="tournament-type" class="form-select">
+                    <!-- Tournament types will be dynamically injected here -->
+                </select>
+                <div class="form-text">
+                    Select tournament type.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Characters</label>
+                <select name="character-count" class="form-select">
+                    <!-- Character counts will be dynamically injected here -->
+                </select>
+                <div class="form-text">
+                    Select character count.
+                </div>
+            </div>
+            <div class="text-center">
+                <button name="start-tournament" class="btn btn-primary">Start Tournament</button>
+            </div>
+        </div>
+        <div name="match" class="mx-auto character-grid pt-2">
+            <!-- Match characters will be dynamically injected here -->
+        </div>
+        <div class="d-flex justify-content-center tries-score">
+            Matches: <p name="matches-current" class="ms-1">0</p> / <p name="matches-max">5</p>
+        </div>
+        <div name="result" class="d-block mx-auto">
+            <!-- Tournament result will be dynamically injected here -->
+        </div>
+        <button class="btn btn-primary next-button d-none">Back to setup</button>
+    </div>
+
     <!-- Bottom menu -->
     <div class="bottom-container">
-        <div class="item" data-bs-toggle="modal" data-bs-target="#whatsNewModal" onclick="loadWhatsNew()">What's new</div>
-        <div class="item" data-bs-toggle="modal" data-bs-target="#backgroundImageModal" onclick="loadBackgrounds()">Backgrounds</div>
-        <div id="version" class="item" data-bs-toggle="modal" data-bs-target="#versionModal" onclick="loadChangelog()">v0.2</div>
+        <div class="item" data-bs-toggle="modal" data-bs-target="#whatsNewModal" onclick="loadWhatsNew()">What's new
+        </div>
+        <div class="item" data-bs-toggle="modal" data-bs-target="#backgroundImageModal" onclick="loadBackgrounds()">
+            Backgrounds</div>
+        <div id="version" class="item" data-bs-toggle="modal" data-bs-target="#versionModal" onclick="loadChangelog()">
+            v0.2</div>
     </div>
 
     <!-- Background selector Modal -->

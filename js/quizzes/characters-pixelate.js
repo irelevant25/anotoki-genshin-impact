@@ -58,7 +58,7 @@
         // Set up the effects callback
         quizManager.effectsAppliedCallback = (questionCharacter, effect) => {
             // Calculate pixel size based on current try
-            const size = effect.data;
+            let size = effect?.data;
 
             // Full resolution when complete
             if (quizManager.isQuestionComplete) size = 256;

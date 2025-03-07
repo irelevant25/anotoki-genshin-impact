@@ -36,7 +36,7 @@ const MENU_ITEMS = {
     },
     quizCharactersPixelate: {
         id: "quiz-characters-pixelate",
-        title: "Characters pixelate",
+        title: "Pixelate",
         helpIconPlacement: "left",
         modalTitle: "About Characters Pixelate",
         modalContent: `
@@ -74,7 +74,7 @@ const MENU_ITEMS = {
     },
     quizCharactersMismatch: {
         id: "quiz-characters-mismatch",
-        title: "Characters mismatch",
+        title: "Mismatch",
         helpIconPlacement: "left",
         modalTitle: "About Characters Mismatch",
         modalContent: `
@@ -105,6 +105,47 @@ const MENU_ITEMS = {
             <div>
                 <h6 class="fw-bold">Challenge Level</h6>
                 <p>The quiz is designed to be challenging - the selection is randomized and the category isn't revealed. You need to analyze the characters and discover the pattern yourself!</p>
+            </div>
+        `
+    },
+    quizCharacterTournament: {
+        id: "quiz-characters-tournament",
+        title: "Tournament",
+        helpIconPlacement: "left",
+        modalTitle: "About Characters Tournament",
+        modalContent: `
+            <div class="mb-4">
+                <h6 class="fw-bold">What is the Character Tournament?</h6>
+                <p>Pit your favorite characters against each other in a tournament-style competition. Characters are randomly selected and matched up, and you decide who advances to the next round!</p>
+            </div>
+
+            <div class="mb-4">
+                <h6 class="fw-bold">How to Play</h6>
+                <ol>
+                    <li>Select the number of characters to include in the tournament</li>
+                    <li>Choose your preferred tournament type</li>
+                    <li>Click "Start Tournament" to begin</li>
+                    <li>For each match-up, select your preferred character to advance</li>
+                    <li>Continue until the tournament concludes and winners are displayed</li>
+                </ol>
+            </div>
+
+            <div class="mb-4">
+                <h6 class="fw-bold">Tournament Types</h6>
+                <ul>
+                    <li><span class="badge bg-primary">Single Elimination</span> Characters compete in a knockout format. Lose once and you're out. Only the champion is displayed at the end.</li>
+                    <li><span class="badge bg-primary">Double Elimination</span> Characters get a second chance after their first loss. The top 3 winners are displayed at the end.</li>
+                    <li><span class="badge bg-primary">Round-Robin (all-play-all)</span> Every character plays against every other character once. All characters are ranked by points at the end (1 point per win).</li>
+                </ul>
+            </div>
+
+            <div>
+                <h6 class="fw-bold">Tournament Settings</h6>
+                <p>Before starting, you can customize your tournament with these options:</p>
+                <ul>
+                    <li><span class="badge bg-success">Number of Characters</span> Select how many characters will participate</li>
+                    <li><span class="badge bg-primary">Tournament Type</span> Choose the format that determines how matches are structured</li>
+                </ul>
             </div>
         `
     }

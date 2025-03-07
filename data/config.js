@@ -31,6 +31,10 @@ const APP_CONFIG = {
             id: 'quiz-characters-mismatch',
             triesMax: 1,
             triesDisplayMethod: 'none'
+        },
+        charactersTournament: {
+            id: 'quiz-characters-tournament',
+            triesDisplayMethod: 'tries-characters',
         }
     },
 

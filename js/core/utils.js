@@ -25,12 +25,53 @@ function shuffleArray(array) {
 }
 
 /**
+ * Generates all unique combinations of a specified size from an array.
+ *
+ * @param {Array} arr - The array of elements to combine.
+ * @param {number} k - The number of elements each combination should have.
+ * @returns {Array} - An array of combinations, where each combination is an array.
+ */
+function combinations(arr, k) {
+    const result = [];
+
+    /**
+     * Recursive helper function to build combinations.
+     *
+     * @param {number} start - The starting index in the array for the current recursion.
+     * @param {Array} combo - The current combination being constructed.
+     */
+    function helper(start, combo) {
+        if (combo.length === k) {
+            result.push([...combo]);
+            return;
+        }
+        for (let i = start; i < arr.length; i++) {
+            combo.push(arr[i]);
+            helper(i + 1, combo);
+            combo.pop();
+        }
+    }
+
+    helper(0, []);
+    return result;
+}
+
+function capitalize(s)
+{
+    return s && String(s[0]).toUpperCase() + String(s).slice(1);
+}
+
+/**
  * Gets a random character from the characters array
  * 
  * @returns {Object} Random character object
  */
 function getRandomCharacter() {
     return CHARACTERS[getRandomInt(0, CHARACTERS.length - 1)];
+}
+
+function getRandomCharacters(count) {
+    return shuffleArray(CHARACTERS).slice(0, count);
 }
 
 /**
