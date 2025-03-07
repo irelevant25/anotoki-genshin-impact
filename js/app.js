@@ -14,9 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize data from storage
     document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.png'}")`;
-    if (!storageManager.getLastVersion()) {
-        loadWhatsNew();
-        storageManager.saveLastVersion(CHANGELOG[0].version);
+    const lastVisitedVersion = storageManager.getLastVersion();
+    const currentVersion = CHANGELOG[0].version;
+    if (!lastVisitedVersion || lastVisitedVersion !== currentVersion) {
+        loadChangelog([CHANGELOG[0]], 'whatsNewContent');
+        const whatsNewModal = new bootstrap.Modal(document.getElementById('whatsNewModal'));
+        whatsNewModal.show();
+        storageManager.saveLastVersion(currentVersion);
     }
 
     // Initialize UI components
