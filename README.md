@@ -14,6 +14,29 @@
 - Add google analytics
 - Add Event Tracking or Tag Manager for capturing user interaction with website.
 - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
-- New quiz: recognision of characters based on trailer music
+- New quiz: recognition of characters based on trailer music
 - New quiz: with description about the character like eye color, length of hair, hair color, height, element, region, something from the story...
 - New activity: (cahracter tournament) best character (pick random n cahracters) by dueling each other and selecting the winne of the duel
+- New activity: character racing like, with x random character fighting each other, display chance of winning base on stats, betting option, daily cash in
+- New activity: catching a character like a pokemon, it should take some time and user can level it up (need to think the mechanism) and need to think of usage
+
+# Next version 0.4
+- Bugs: 
+  - What new not working (error in the console)
+- Improvements:
+  - Hight size jump on quizzes when new images are not loaded yet (setup init hight)
+  - Too narrow modals
+  - Display result explanaition for Mismach quiz
+  - Lower heighs of images/question for Pixelate and Mismatch (it is too heigh with result together)
+  - Tries: x/y is not visible enough
+  - Remove :hover effect on mismatch and tournament after result
+- Features:
+  - Dailies
+  - Demo music quiz
+
+# Future version
+- Features:
+  - Adding match history to the Tournament
+  - Voice lines quiz
+- Improvements:
+  - Visualize the win/lose/wrong/correct answers in a additional way in quizzes
