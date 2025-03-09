@@ -6,7 +6,7 @@
 const APP_CONFIG = {
     quizzes: {
         banners: {
-            id: 'quiz-banners',
+            id: 'site-banners',
             triesMax: 5,
             triesDisplayMethod: 'tries-characters',
             triesEffects: [
@@ -16,7 +16,7 @@ const APP_CONFIG = {
             ]
         },
         charactersPixelate: {
-            id: 'quiz-characters-pixelate',
+            id: 'site-pixelate',
             triesMax: 5,
             triesDisplayMethod: 'tries-characters',
             triesEffects: [
@@ -28,12 +28,12 @@ const APP_CONFIG = {
             ]
         },
         charactersMismatch: {
-            id: 'quiz-characters-mismatch',
+            id: 'site-mismatch',
             triesMax: 1,
             triesDisplayMethod: 'none'
         },
         charactersTournament: {
-            id: 'quiz-characters-tournament',
+            id: 'site-tournament',
             triesDisplayMethod: 'tries-characters',
         }
     },

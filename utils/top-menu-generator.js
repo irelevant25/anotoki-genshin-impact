@@ -59,7 +59,7 @@ window.initializeMenu = function () {
  * 
  * @param {Object} menuItem - The clicked menu item from MENU_ITEMS dataset
  */
-window.topMenuItemClick = function (menuItem) {
+function topMenuItemClick(menuItem) {
     // Skip if no data-id
     if (!menuItem.dataset.id) return;
 
@@ -77,7 +77,7 @@ window.topMenuItemClick = function (menuItem) {
     const content = document.querySelector('#' + menuItem.dataset.id);
 
     // Hide other content
-    document.querySelectorAll("div.container").forEach(element => {
+    document.querySelectorAll("body > div[id^='site-']").forEach(element => {
         if (element !== content) {
             element.classList.add('d-none');
         }

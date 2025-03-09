@@ -4,7 +4,7 @@
  */
 const MENU_ITEMS = {
     quizBanners: {
-        id: "quiz-banners",
+        id: "site-banners",
         title: "Banners",
         helpIconPlacement: "left",
         modalTitle: "About Banners",
@@ -35,7 +35,7 @@ const MENU_ITEMS = {
         `
     },
     quizCharactersPixelate: {
-        id: "quiz-characters-pixelate",
+        id: "site-pixelate",
         title: "Pixelate",
         helpIconPlacement: "left",
         modalTitle: "About Characters Pixelate",
@@ -73,7 +73,7 @@ const MENU_ITEMS = {
         `
     },
     quizCharactersMismatch: {
-        id: "quiz-characters-mismatch",
+        id: "site-mismatch",
         title: "Mismatch",
         helpIconPlacement: "left",
         modalTitle: "About Characters Mismatch",
@@ -109,7 +109,7 @@ const MENU_ITEMS = {
         `
     },
     quizCharacterTournament: {
-        id: "quiz-characters-tournament",
+        id: "site-tournament",
         title: "Tournament",
         helpIconPlacement: "left",
         modalTitle: "About Characters Tournament",

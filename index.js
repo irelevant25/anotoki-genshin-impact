@@ -7,21 +7,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Application initializing with config:', APP_CONFIG);
 
-    // Initialize storage manager
-    const storageManager = new StorageManager();
-    window.storageManager = storageManager;
-    console.log('Storage loaded with data:', storageManager.init());
-
     // Initialize data from storage
     document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.png'}")`;
-    const lastVisitedVersion = storageManager.getLastVersion();
-    const currentVersion = CHANGELOG[0].version;
-    loadChangelog([CHANGELOG[0]], 'whatsNewContent');
-    if (!lastVisitedVersion || lastVisitedVersion !== currentVersion) {
-        const whatsNewModal = new bootstrap.Modal(document.getElementById('whatsNewModal'));
-        whatsNewModal.show();
-        storageManager.saveLastVersion(currentVersion);
-    }
 
     // Initialize UI components
     initializeMenu();
