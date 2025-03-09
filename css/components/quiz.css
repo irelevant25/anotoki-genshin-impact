@@ -95,6 +95,7 @@ div[name="tries-display"].tries-characters .try img {
 
 /* Answer success */
 [name="answer-success"] {
+  margin-top: 15px;
   max-height: 15rem;
   max-width: -webkit-fill-available;
 }
@@ -251,6 +252,15 @@ div[name="tries-display"].tries-characters .try img {
   color: #333;
 }
 
+.tries-score {
+  align-items: center;
+  gap: 5px;
+  > * {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
 /* Responsive adjustments */
 @media only screen and (min-height: 900px) {
   [name="answer-success"] {
@@ -260,6 +270,6 @@ div[name="tries-display"].tries-characters .try img {
 
 @media only screen and (min-height: 1200px) {
   [name="answer-success"] {
-    max-height: 44rem;
+    max-height: 42rem;
   }
 }

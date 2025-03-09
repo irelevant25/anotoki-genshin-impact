@@ -61,8 +61,8 @@ class QuizManager {
         this.nextButtonElement = this.containerElement.querySelector('button.next-button');
         this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
         this.triesDisplayElement = this.containerElement.querySelector('div[name="tries-display"]');
-        this.triesScoreCurrentElement = this.containerElement.querySelector('div[name="tries-score"] > p[name="tries-current"]');
-        this.triesScoreMaxElement = this.containerElement.querySelector('div[name="tries-score"] > p[name="tries-max"]');
+        this.triesScoreCurrentElement = this.containerElement.querySelector('div.tries-score > p[name="tries-current"]');
+        this.triesScoreMaxElement = this.containerElement.querySelector('div.tries-score > p[name="tries-max"]');
 
         // Remove any existing event listeners
         this._removeEventListeners();

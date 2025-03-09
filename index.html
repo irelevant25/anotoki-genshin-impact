@@ -54,8 +54,8 @@
             </div>
             <button class="btn btn-primary ms-3 next-button">Next</button>
         </div>
-        <div class="d-flex justify-content-center tries-score" name="tries-score">
-            Tries: <p name="tries-current" class="ms-1">0</p> / <p name="tries-max">5</p>
+        <div class="d-flex justify-content-center tries-score my-2">
+            Tries: <p name="tries-current">0</p> / <p name="tries-max">5</p>
         </div>
         <div name="tries-display" class="d-flex justify-content-center tries-icons">
             <!-- Tries icons will be dynamically injected here -->
@@ -75,8 +75,8 @@
             </div>
             <button class="btn btn-primary ms-3 next-button">Next</button>
         </div>
-        <div class="d-flex justify-content-center tries-score" name="tries-score">
-            Tries: <p name="tries-current" class="ms-1">0</p> / <p name="tries-max">5</p>
+        <div class="d-flex justify-content-center tries-score my-2">
+            Tries: <p name="tries-current">0</p> / <p name="tries-max">5</p>
         </div>
         <div name="tries-display" class="d-flex justify-content-center tries-icons">
             <!-- Tries icons will be dynamically injected here -->
@@ -92,8 +92,8 @@
         <div class="pt-3 search-container">
             <button class="btn btn-primary ms-3 next-button">Next</button>
         </div>
-        <div class="d-flex justify-content-center tries-score" name="tries-score">
-            Tries: <p name="tries-current" class="ms-1">0</p> / <p name="tries-max">5</p>
+        <div class="d-flex justify-content-center tries-score my-2">
+            Tries: <p name="tries-current">0</p> / <p name="tries-max">5</p>
         </div>
         <img name="answer-success" class="d-block mx-auto">
     </div>
@@ -126,8 +126,8 @@
         <div name="match" class="mx-auto character-grid pt-2">
             <!-- Match characters will be dynamically injected here -->
         </div>
-        <div class="d-flex justify-content-center tries-score">
-            Matches: <p name="matches-current" class="ms-1">0</p> / <p name="matches-max">5</p>
+        <div class="d-flex justify-content-center tries-score my-2">
+            Matches: <p name="matches-current">0</p> / <p name="matches-max">5</p>
         </div>
         <div name="result" class="d-block mx-auto">
             <!-- Tournament result will be dynamically injected here -->
@@ -137,7 +137,7 @@
 
     <!-- Bottom menu -->
     <div class="bottom-container">
-        <div class="item" data-bs-toggle="modal" data-bs-target="#whatsNewModal" onclick="loadWhatsNew()">What's new
+        <div class="item" data-bs-toggle="modal" data-bs-target="#whatsNewModal">What's new
         </div>
         <div class="item" data-bs-toggle="modal" data-bs-target="#backgroundImageModal" onclick="loadBackgrounds()">
             Backgrounds</div>
@@ -187,7 +187,7 @@
 
     <!-- Changelog Modal -->
     <div class="modal fade" id="versionModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="versionModalLabel">Changelog</h5>
@@ -202,7 +202,7 @@
 
     <!-- What's new Modal -->
     <div class="modal fade" id="whatsNewModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="whatsNewModalLabel">New version</h5>

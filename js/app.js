@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.png'}")`;
     const lastVisitedVersion = storageManager.getLastVersion();
     const currentVersion = CHANGELOG[0].version;
+    loadChangelog([CHANGELOG[0]], 'whatsNewContent');
     if (!lastVisitedVersion || lastVisitedVersion !== currentVersion) {
-        loadChangelog([CHANGELOG[0]], 'whatsNewContent');
         const whatsNewModal = new bootstrap.Modal(document.getElementById('whatsNewModal'));
         whatsNewModal.show();
         storageManager.saveLastVersion(currentVersion);

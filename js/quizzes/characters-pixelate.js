@@ -20,8 +20,8 @@
         const ctx = canvas.getContext("2d");
 
         // Set canvas dimensions
-        canvas.width = 256;
-        canvas.height = 256;
+        canvas.width = 175;
+        canvas.height = 175;
 
         // Create offscreen canvas for low resolution
         const offCanvas = document.createElement("canvas");
@@ -61,7 +61,7 @@
             let size = effect?.data;
 
             // Full resolution when complete
-            if (quizManager.isQuestionComplete) size = 256;
+            if (quizManager.isQuestionComplete) size = 175;
 
             // Apply pixelation
             pixelateImage(quizManager.questionElement, questionCharacter.icon, size, size);

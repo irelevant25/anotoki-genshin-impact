@@ -37,7 +37,7 @@ window.initializeMenu = function () {
     Object.values(MENU_ITEMS).forEach(menuItem => {
         helpModals.innerHTML += `
                 <div class="modal fade" id="${menuItem.id}-modal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="${menuItem.id}-modal-label">${menuItem.modalTitle}</h5>
