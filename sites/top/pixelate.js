@@ -451,8 +451,8 @@
      * Initializes the pixelate quiz
      */
 
-    window.initializePixelateQuiz = function () {
-        const config = APP_CONFIG.quizzes.charactersPixelate;
+    window.initializePixelate = function () {
+        const config = APP_CONFIG.topMenu.pixelate;
 
         quizManager = new QuizManager(config.id);
 

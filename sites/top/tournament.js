@@ -261,8 +261,8 @@
     /**
      * Initializes the tournament quiz
      */
-    window.initializeTournamentQuiz = function () {
-        const config = APP_CONFIG.quizzes.charactersTournament;
+    window.initializeTournament = function () {
+        const config = APP_CONFIG.topMenu.tournament;
 
         calculateTournamentLength();
 

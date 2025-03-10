@@ -56,8 +56,7 @@ function combinations(arr, k) {
     return result;
 }
 
-function capitalize(s)
-{
+function capitalize(s) {
     return s && String(s[0]).toUpperCase() + String(s).slice(1);
 }
 
@@ -66,8 +65,19 @@ function capitalize(s)
  * 
  * @returns {Object} Random character object
  */
-function getRandomCharacter() {
-    return CHARACTERS[getRandomInt(0, CHARACTERS.length - 1)];
+function getRandomCharacter(filterFn) {
+    // Determine which array to choose from
+    const pool = (typeof filterFn === 'function')
+        ? CHARACTERS.filter(filterFn)
+        : CHARACTERS;
+
+    // Handle the case where no items match the filter
+    if (pool.length === 0) {
+        throw new Error("No characters found matching the filter criteria.");
+    }
+
+    // Return a random element from the chosen pool
+    return pool[getRandomInt(0, pool.length - 1)];
 }
 
 function getRandomCharacters(count) {

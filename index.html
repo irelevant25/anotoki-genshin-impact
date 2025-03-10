@@ -35,6 +35,8 @@
     <script src="sites/top/mismatch.js"></script>
     <link rel="stylesheet" href="sites/top/tournament.css">
     <script src="sites/top/tournament.js"></script>
+    <link rel="stylesheet" href="sites/top/music.css">
+    <script src="sites/top/music.js"></script>
     <!-- BOTTOM MENU -->
     <link rel="stylesheet" href="sites/bottom/version.css">
     <script src="sites/bottom/version.js"></script>
@@ -45,7 +47,6 @@
 </head>
 
 <body>
-
     <nav id="main-nav">
         <!-- Menu items and help modals are generated dynamically in js/managers/menu-manager.js -->
     </nav>
@@ -73,7 +74,7 @@
         </div>
     </div>
 
-    <!-- Characters Pixelate -->
+    <!-- Pixelate -->
     <div id="site-pixelate" class="d-none">
         <div class="container quiz-container">
             <canvas name="question" class="d-block mx-auto" width="256" height="256">
@@ -96,7 +97,7 @@
         </div>
     </div>
 
-    <!-- Characters mismatch -->
+    <!-- Mismatch -->
     <div id="site-mismatch" class="d-none">
         <div class="container quiz-container">
             <div name="question" class="d-block mx-auto character-grid">
@@ -112,7 +113,7 @@
         </div>
     </div>
 
-    <!-- Characters tournament -->
+    <!-- Tournament -->
     <div id="site-tournament" class="d-none">
         <div class="container quiz-container">
             <div name="tournament-setup" class="col-4 mx-auto pt-3">
@@ -148,6 +149,48 @@
                 <!-- Tournament result will be dynamically injected here -->
             </div>
             <button class="btn btn-primary next-button d-none">Back to setup</button>
+        </div>
+    </div>
+
+    <!-- Music -->
+    <div id="site-music" class="d-none">
+        <div class="container quiz-container">
+            <div class="player-container d-block mx-auto">
+                <!-- Hidden audio element -->
+                <audio preload="metadata" name="question" src="assets/character/demo_music/Albedo.mp3"></audio>
+                
+                <!-- Custom progress bar -->
+                <div class="progress-container">
+                    <div class="progress-bar" name="progressBar"></div>
+                </div>
+
+                <!-- Time display -->
+                <div class="time-display">
+                    <span name="currentTime">00:00</span>
+                    <span name="duration">00:00</span>
+                </div>
+
+                <!-- Controls -->
+                <div class="controls">
+                    <button name="playButton">Play</button>
+                    <button name="pauseButton" disabled>Pause</button>
+                    <button name="restartButton">Restart</button>
+                </div>
+            </div>
+            <div class="pt-3 search-container">
+                <div name="autocomplete" class="position-relative">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <div class="dropdown-menu autocomplete-dropdown"></div>
+                </div>
+                <button class="btn btn-primary ms-3 next-button">Next</button>
+            </div>
+            <div class="d-flex justify-content-center tries-score my-2">
+                Tries: <p name="tries-current">0</p> / <p name="tries-max">5</p>
+            </div>
+            <div name="tries-display" class="d-flex justify-content-center tries-characters">
+                <!-- Tries icons will be dynamically injected here -->
+            </div>
+            <img name="answer-success" class="d-block mx-auto">
         </div>
     </div>
 

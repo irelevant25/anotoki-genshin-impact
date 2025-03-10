@@ -100,6 +100,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Amber.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -174,6 +175,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Barbara.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -198,6 +200,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Beidou.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -222,6 +225,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Bennett.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -396,6 +400,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Chongyun.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -545,6 +550,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Diluc.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -894,6 +900,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Jean.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -968,6 +975,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Kaeya.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -1217,6 +1225,7 @@ const CHARACTERS = [
         "release_date": "January 21, 2025",
         "version": "5.3",
         "icon": "assets/character/icon/Lan Yan.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -1266,6 +1275,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Lisa.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -1340,6 +1350,7 @@ const CHARACTERS = [
         "release_date": "January 01, 2025",
         "version": "5.3",
         "icon": "assets/character/icon/Mavuika.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -1539,6 +1550,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Ningguang.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -1563,6 +1575,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Noelle.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -1662,6 +1675,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Razor.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -1861,6 +1875,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Sucrose.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -2110,6 +2125,7 @@ const CHARACTERS = [
         "release_date": "September 28, 2020",
         "version": "1.0",
         "icon": "assets/character/icon/Xingqiu.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {
@@ -2284,6 +2300,7 @@ const CHARACTERS = [
         "release_date": "February 12, 2025",
         "version": "5.4",
         "icon": "assets/character/icon/Yumemizuki Mizuki.png",
+        "demo_music_name": null,
         "demo_music": null
     },
     {

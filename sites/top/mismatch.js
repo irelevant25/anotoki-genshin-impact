@@ -517,8 +517,8 @@
     /**
      * Initializes the mismatch quiz
      */
-    window.initializeMismatchQuiz = function () {
-        const config = APP_CONFIG.quizzes.charactersMismatch;
+    window.initializeMismatch = function () {
+        const config = APP_CONFIG.topMenu.mismatch;
 
         quizManager = new QuizManager(config.id);
 

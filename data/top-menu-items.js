@@ -3,7 +3,7 @@
  * Contains content for the modals
  */
 const MENU_ITEMS = {
-    quizBanners: {
+    banners: {
         id: "site-banners",
         title: "Banners",
         helpIconPlacement: "left",
@@ -34,7 +34,7 @@ const MENU_ITEMS = {
             </div>
         `
     },
-    quizCharactersPixelate: {
+    pixelate: {
         id: "site-pixelate",
         title: "Pixelate",
         helpIconPlacement: "left",
@@ -72,7 +72,7 @@ const MENU_ITEMS = {
             </div>
         `
     },
-    quizCharactersMismatch: {
+    mismatch: {
         id: "site-mismatch",
         title: "Mismatch",
         helpIconPlacement: "left",
@@ -108,7 +108,7 @@ const MENU_ITEMS = {
             </div>
         `
     },
-    quizCharacterTournament: {
+    tournament: {
         id: "site-tournament",
         title: "Tournament",
         helpIconPlacement: "left",
@@ -145,6 +145,40 @@ const MENU_ITEMS = {
                 <ul>
                     <li><span class="badge bg-success">Number of Characters</span> Select how many characters will participate</li>
                     <li><span class="badge bg-primary">Tournament Type</span> Choose the format that determines how matches are structured</li>
+                </ul>
+            </div>
+        `
+    },
+    music: {
+        id: "site-music",
+        title: "Music",
+        helpIconPlacement: "left",
+        modalTitle: "About Music Quiz",
+        modalContent: `
+            <div class="mb-4">
+                <h6 class="fw-bold">What is the Music Quiz?</h6>
+                <p>Test your music knowledge by identifying characters from their demo music.</p>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">How to Play</h6>
+                <ol>
+                    <li>Music players will be displayed</li>
+                    <li>Click the play button to listen to the music</li>
+                    <li>Type or select a character name from the dropdown</li>
+                    <li>You have up to 5 attempts to guess correctly</li>
+                    <li>With each failed attempt, the music becomes longer</li>
+                </ol>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">Difficulty Progression</h6>
+                <ul>
+                    <li><span class="badge bg-danger">Very hard</span> - First attempt: Music is only 5 seconds long</li>
+                    <li><span class="badge bg-danger">Hard</span> - First attempt: Music is 10 seconds long</li>
+                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Music is 15 seconds long</li>
+                    <li><span class="badge bg-info">Easy</span> - Third attempt: Music is 20 seconds long</li>
+                    <li><span class="badge bg-info">Very easy</span> - Third attempt: Music is without a length limit</li>
                 </ul>
             </div>
         `

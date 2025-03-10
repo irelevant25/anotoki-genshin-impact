@@ -15,10 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeTooltips();
 
     // Initialize quizzes
-    initializeBannersQuiz();
-    initializePixelateQuiz();
-    initializeMismatchQuiz();
-    initializeTournamentQuiz();
+    initializeBanners();
+    initializePixelate();
+    initializeMismatch();
+    initializeTournament();
+    initializeMusic();
 
     // Set version display
     document.querySelector('#version').textContent = `v${CHANGELOG[0].version}`;

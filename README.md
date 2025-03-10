@@ -22,17 +22,18 @@
 
 # Next version 0.4
 - Bugs: 
-  - What new not working (error in the console)
+  - [x] What new not working (error in the console)
 - Improvements:
   - Hight size jump on quizzes when new images are not loaded yet (setup init hight)
-  - Too narrow modals
+  - [x] Too narrow modals
   - Display result explanaition for Mismach quiz
-  - Lower heighs of images/question for Pixelate and Mismatch (it is too heigh with result together)
+  - [x] Lower heighs of images/question for Pixelate and Mismatch (it is too heigh with result together)
   - Tries: x/y is not visible enough
   - Remove :hover effect on mismatch and tournament after result
 - Features:
   - Dailies
   - Demo music quiz
+  - Databse (with character level up and talents materials upgrades)
 
 # Future version
 - Features:
