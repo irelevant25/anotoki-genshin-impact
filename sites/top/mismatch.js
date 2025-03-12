@@ -212,12 +212,8 @@
         return null;
     }
 
-    /**
-     * Initializes the mismatch quiz
-     */
-    window.initializeMismatch = function () {
+    document.addEventListener('DOMContentLoaded', () => {
         const config = APP_CONFIG.topMenu.mismatch;
-
         quizManager = new QuizManager(config.id);
 
         // Set up the question callback
@@ -249,8 +245,11 @@
         };
 
         // Initialize with configuration
-        quizManager.init();
+        quizManager.init({
+            triesMax: config.triesMax,
+            triesEffects: config.triesEffects
+        });
 
         console.log('Mismatch quiz initialized');
-    }
+    });
 })();

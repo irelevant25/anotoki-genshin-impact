@@ -1,69 +1,28 @@
-/**
- * Characters Pixelate Quiz Implementation
- * Initializes and configures the pixelate quiz
- */
-
 (() => {
     'use strict';
 
     let quizManager;
 
-    /**
-     * Quiz Manager Class
-     * Handles common functionality for all quiz types
-     */
-
     class QuizManager {
-        static TRIES_DISPLAY_METHOD = {
-            Icons: 'tries-icons',
-            Characters: 'tries-characters',
-            None: 'none'
-        };
-
-        static PREVIEW_TYPES = {
-            Wish: 'wish',
-            InGame: 'ingame',
-            Card: 'card',
-            Icon: 'icon',
-        };
-
-        /**
-         * Creates a new QuizManager instance
-         * 
-         * @param {string} idSelector - ID of the quiz container
-         */
-        constructor(idSelector) {
-            if (!idSelector) {
-                throw new Error('idSelector is required');
-            }
+        constructor(idSelector, daily = false) {
             this.idSelector = idSelector;
+            this.daily = daily;
 
             // Default properties
             this.triesMax = 5;
-            this.daily = true;
-            this.triesDisplayMethod = QuizManager.TRIES_DISPLAY_METHOD.Icons;
             this.triesEffects = [];
-            this.questionCallback = null;
-            this.effectsAppliedCallback = null;
             this.questionEntity = null;
             this.isQuestionComplete = false;
         }
 
-        /**
-         * Initializes the quiz manager
-         * 
-         * @param {Object} options - Initialization options
-         */
-        init({ triesMax = this.triesMax, daily = this.daily, triesDisplayMethod = this.triesDisplayMethod, triesEffects = this.triesEffects } = {}) {
+        init({ triesMax = this.triesMax, triesEffects = this.triesEffects } = {}) {
             // Set properties
             this.triesMax = triesMax;
-            this.daily = daily;
-            this.triesDisplayMethod = triesDisplayMethod;
             this.triesEffects = triesEffects;
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
-            
+
             this.autocompleteContainerElement = this.containerElement.querySelector('div[name="autocomplete"]');
             new Autocomplete(this.autocompleteContainerElement, (selectedCharacter) => {
                 this.triesDisplay(selectedCharacter);
@@ -82,54 +41,16 @@
             this.nextButtonElement?.addEventListener('click', this._boundPrepareQuestion);
 
             // Initialize components
-            this.triesDisplayInit();
             this.triesScoreReset();
         }
 
-        /**
-         * Initializes the tries display
-         */
-        triesDisplayInit() {
-            if (!this.triesDisplayElement) return;
-
-            // Remove existing classes
-            this.triesDisplayElement.classList.remove(QuizManager.TRIES_DISPLAY_METHOD.Icons);
-            this.triesDisplayElement.classList.remove(QuizManager.TRIES_DISPLAY_METHOD.Characters);
-            this.triesDisplayElement.classList.remove(QuizManager.TRIES_DISPLAY_METHOD.None);
-
-            // Add appropriate class
-            this.triesDisplayElement.classList.add(this.triesDisplayMethod);
-        }
-
-        /**
-         * Applies visual effects based on current try
-         */
         applyEffects() {
             const currentTry = Number(this.triesScoreCurrentElement.textContent);
-
-            // Remove all classes
-            this.triesEffects.forEach(effect => {
-                effect.class?.split(" ").forEach(cls => this.questionElement.classList.remove(cls));
-            });
-
-            // Apply effects only if the question is not complete
-            if (!this.isQuestionComplete) {
-                // Add effects for current try
-                const effects = this.triesEffects.find(x => x.try === currentTry);
-                if (effects) {
-                    effects.class?.split(" ").forEach(cls => this.questionElement.classList.add(cls));
-                }
-            }
-
-            // Call callback if defined
-            if (this.effectsAppliedCallback) {
-                this.effectsAppliedCallback(this.questionEntity, this.triesEffects.find(x => x.try === currentTry));
-            }
+            let size = this.triesEffects.find(x => x.try === currentTry)?.data;                  
+            if (quizManager.isQuestionComplete) size = 175;
+            pixelateImage(quizManager.questionElement, this.questionEntity.icon, size, size);
         }
 
-        /**
-         * Resets the tries score
-         */
         triesScoreReset() {
             if (this.triesScoreCurrentElement) {
                 this.triesScoreCurrentElement.textContent = 0;
@@ -139,35 +60,6 @@
             }
         }
 
-        /**
-         * Displays icons for tries
-         * 
-         * @param {Object} selectedCharacter - The character selected by the user
-         */
-        triesDisplayIcons(selectedCharacter) {
-            const answer = this.questionEntity.name;
-            const success = selectedCharacter.name === answer;
-            const iconElement = document.createElement('i');
-            const emptyTryElement = this.containerElement.querySelector(`div.try:not(:has(i))`);
-
-            if (success) {
-                iconElement.classList.add('bi', 'bi-check-lg', 'text-success');
-            } else {
-                iconElement.classList.add('bi', 'bi-x-lg', 'text-danger');
-            }
-
-            emptyTryElement.appendChild(iconElement);
-
-            if (success || Number(this.triesScoreCurrentElement.textContent) === this.triesMax) {
-                this.endStateQuestion(CHARACTERS.find(character => character.name === answer));
-            }
-        }
-
-        /**
-         * Displays character icons for tries
-         * 
-         * @param {Object} selectedCharacter - The character selected by the user
-         */
         triesDisplayCharacters(selectedCharacter) {
             const answer = this.questionEntity.name;
             const success = selectedCharacter.name === answer;
@@ -187,9 +79,6 @@
             }
         }
 
-        /**
-         * Updates the tries score
-         */
         triesScoreUpdate() {
             const currentTries = Number(this.triesScoreCurrentElement.textContent) + 1;
             if (this.triesScoreCurrentElement) {
@@ -197,33 +86,12 @@
             }
         }
 
-        /**
-         * Displays tries based on the selected display method
-         * 
-         * @param {Object} selectedCharacter - The character selected by the user
-         */
         triesDisplay(selectedCharacter) {
             this.triesScoreUpdate();
-
-            if (this.triesDisplayMethod === QuizManager.TRIES_DISPLAY_METHOD.Icons) {
-                this.triesDisplayIcons(selectedCharacter);
-            } else if (this.triesDisplayMethod === QuizManager.TRIES_DISPLAY_METHOD.Characters) {
-                this.triesDisplayCharacters(selectedCharacter);
-            } else if (this.triesDisplayMethod === QuizManager.TRIES_DISPLAY_METHOD.None) {
-                const answer = this.questionEntity.name;
-                const success = selectedCharacter.name === answer;
-
-                if (success || Number(this.triesScoreCurrentElement.textContent) === this.triesMax) {
-                    this.endStateQuestion(CHARACTERS.find(character => character.name === answer));
-                }
-            }
-
+            this.triesDisplayCharacters(selectedCharacter);
             this.applyEffects();
         }
 
-        /**
-         * Resets the tries display
-         */
         triesDisplayReset() {
             if (!this.triesDisplayElement) return;
 
@@ -238,9 +106,6 @@
             }
         }
 
-        /**
-         * Sets the quiz to its default state
-         */
         defaultState() {
             if (this.answerSuccessElement) this.answerSuccessElement.src = '';
             if (this.nextButtonElement) this.nextButtonElement.style.display = 'none';
@@ -250,26 +115,12 @@
             this.triesScoreReset();
         }
 
-        /**
-         * Sets up the question
-         */
         startStateQuestion() {
             this.isQuestionComplete = false;
-
-            if (this.questionCallback) {
-                this.questionEntity = this.questionCallback();
-            } else {
-                this.questionEntity = getRandomCharacter();
-            }
-
+            this.questionEntity = getRandomCharacter();
             this.applyEffects();
         }
 
-        /**
-         * Shows the end state when the question is complete
-         * 
-         * @param {Object} character - The correct character
-         */
         endStateQuestion(character) {
             if (this.answerSuccessElement) {
                 this.answerSuccessElement.src = character.wish;
@@ -283,11 +134,6 @@
             this.isQuestionComplete = true;
         }
 
-        /**
-         * Prepares the next question
-         * 
-         * @param {Event} menuItem - The event object
-         */
         prepareQuestion(menuItem) {
             if (menuItem &&
                 menuItem.currentTarget.localName !== 'button' &&
@@ -338,34 +184,13 @@
         };
     }
 
-    /**
-     * Initializes the pixelate quiz
-     */
-
-    window.initializePixelate = function () {
+    document.addEventListener('DOMContentLoaded', () => {
         const config = APP_CONFIG.topMenu.pixelate;
-
         quizManager = new QuizManager(config.id);
-
-        // Set up the effects callback
-        quizManager.effectsAppliedCallback = (questionCharacter, effect) => {
-            // Calculate pixel size based on current try
-            let size = effect?.data;
-
-            // Full resolution when complete
-            if (quizManager.isQuestionComplete) size = 175;
-
-            // Apply pixelation
-            pixelateImage(quizManager.questionElement, questionCharacter.icon, size, size);
-        };
-
-        // Initialize with configuration
         quizManager.init({
             triesMax: config.triesMax,
-            triesDisplayMethod: config.triesDisplayMethod,
             triesEffects: config.triesEffects
         });
-
         console.log('Pixelate quiz initialized');
-    }
+    });
 })();

@@ -33,5 +33,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         loadBackgrounds();
+        
+        // Initialize data from storage
+        document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.png'}")`;
     });
 })();

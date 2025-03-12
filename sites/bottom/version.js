@@ -159,5 +159,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         loadChangelog();
+        // Initialize current version from CHANGELOG
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.versions.id}`).textContent = `v${CHANGELOG[0].version}`;
     });
 })();

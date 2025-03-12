@@ -1,8 +1,3 @@
-/**
- * Characters Tournament Quiz Implementation
- * Initializes and configures the tournament quiz
- */
-
 (() => {
     'use strict';
 
@@ -261,7 +256,7 @@
     /**
      * Initializes the tournament quiz
      */
-    window.initializeTournament = function () {
+    document.addEventListener('DOMContentLoaded', () => {
         const config = APP_CONFIG.topMenu.tournament;
 
         calculateTournamentLength();
@@ -330,5 +325,5 @@
         });
 
         console.log('Tournament quiz initialized');
-    }
+    });
 })();

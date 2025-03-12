@@ -7,12 +7,12 @@
     'use strict';
 
     class QuizManager {
-        constructor() {
-            this.idSelector = APP_CONFIG.topMenu.music.id;
+        constructor(idSelector, daily = false) {
+            this.idSelector = idSelector;
+            this.daily = daily;
 
             // Default properties
             this.triesMax = APP_CONFIG.topMenu.music.triesMax ?? 5;
-            this.daily = true;
             this.triesEffects = APP_CONFIG.topMenu.music.triesEffects ?? [];
             this.questionEntity = null;
             this.rafId;
@@ -89,10 +89,8 @@
 
         refreshPlayerTime(done = false) {
             const currentTry = Number(this.triesScoreCurrentElement.textContent);
-            const endTime = this.triesEffects.find(x => x.try === currentTry)?.data || 0;
-
             this.startTime = 0;
-            this.endTime = done ? this.audioElement.duration : endTime;
+            this.endTime = this.triesEffects.find(x => x.try === currentTry)?.data ?? this.audioElement.duration;
             this.audioElement.currentTime = this.startTime;
             this.durationDisplay.textContent = this.formatTime(this.endTime);
         }
@@ -214,11 +212,8 @@
         }
     }
 
-    /**
-     * Initializes the banners quiz
-     */
-    window.initializeMusic = function () {
-        new QuizManager();
-        console.log('Banners quiz initialized');
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        new QuizManager(APP_CONFIG.topMenu.music.id);
+        console.log('Pixelate quiz initialized');
+    });
 })();
