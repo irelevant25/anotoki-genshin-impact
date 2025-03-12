@@ -162,7 +162,7 @@
         const currentVersion = CHANGELOG[0].version;
         loadChangelog();
         if (!lastVisitedVersion || lastVisitedVersion !== currentVersion) {
-            const whatsNewModal = new bootstrap.Modal(document.getElementById('whatsNewModal'));
+            const whatsNewModal = new bootstrap.Modal(document.querySelector(`#${MENU_ITEMS_BOTTOM.whatsnew.id}-modal`));
             whatsNewModal.show();
             storageManager.saveLastVersion(currentVersion);
         }

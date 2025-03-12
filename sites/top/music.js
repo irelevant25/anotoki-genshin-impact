@@ -90,7 +90,7 @@
         refreshPlayerTime(done = false) {
             const currentTry = Number(this.triesScoreCurrentElement.textContent);
             this.startTime = 0;
-            this.endTime = this.triesEffects.find(x => x.try === currentTry)?.data ?? this.audioElement.duration;
+            this.endTime = done ? this.audioElement.duration : this.triesEffects.find(x => x.try === currentTry)?.data ?? this.audioElement.duration;
             this.audioElement.currentTime = this.startTime;
             this.durationDisplay.textContent = this.formatTime(this.endTime);
         }
@@ -175,6 +175,8 @@
             if (this.answerSuccessElement) this.answerSuccessElement.src = '';
             if (this.nextButtonElement) this.nextButtonElement.style.display = 'none';
             if (this.autocompleteContainerElement) this.autocompleteContainerElement.style.display = 'block';
+            this.playButton.disabled = false;
+            this.pauseButton.disabled = true;
 
             this.triesDisplayReset();
 

@@ -105,7 +105,7 @@
 
                 // Add active class to clicked button and corresponding content
                 button.classList.add('active');
-                containerElement.querySelector(`#button.dataset.tab`).classList.add('active');
+                containerElement.querySelector(`#${button.dataset.tab}`).classList.add('active');
             });
         });
     }
