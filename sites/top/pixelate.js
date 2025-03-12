@@ -63,9 +63,12 @@
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
-            this.autocompleteElement = this.containerElement.querySelector('div[name="autocomplete"]');
-            this.autocompleteInputElement = this.containerElement.querySelector('input');
-            this.autocompleteDropdownElement = this.containerElement.querySelector('div.dropdown-menu');
+            
+            this.autocompleteContainerElement = this.containerElement.querySelector('div[name="autocomplete"]');
+            new Autocomplete(this.autocompleteContainerElement, (selectedCharacter) => {
+                this.triesDisplay(selectedCharacter);
+            });
+
             this.questionElement = this.containerElement.querySelector('[name="question"]');
             this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
             this.nextButtonElement = this.containerElement.querySelector('button.next-button');
@@ -75,123 +78,12 @@
             this.triesScoreMaxElement = this.containerElement.querySelector('div.tries-score > p[name="tries-max"]');
 
             this._boundPrepareQuestion = this.prepareQuestion.bind(this);
-            this._boundMarkActiveItemOfAutocomplete = this.markActiveItemOfAutocomplete.bind(this);
             this.menuItemElement.addEventListener('click', this._boundPrepareQuestion);
             this.nextButtonElement?.addEventListener('click', this._boundPrepareQuestion);
-            this.autocompleteDropdownElement?.addEventListener('mouseover', this._boundMarkActiveItemOfAutocomplete);
-            this.autocompleteInputElement?.addEventListener('keydown', this._boundMarkActiveItemOfAutocomplete);
 
             // Initialize components
-            this.autocompleteInit();
             this.triesDisplayInit();
             this.triesScoreReset();
-        }
-
-        /**
-         * Marks the active item in autocomplete dropdown
-         * 
-         * @param {Event} event - Mouse or keyboard event
-         */
-        markActiveItemOfAutocomplete(event) {
-            if (event instanceof MouseEvent) {
-                const element = event.target.closest('.autocomplete-item');
-                if (!element) return;
-
-                this.containerElement.querySelectorAll('div.dropdown-menu div.autocomplete-item')
-                    .forEach(item => item.classList.remove('active'));
-                element.classList.add('active');
-            }
-            else if (event instanceof KeyboardEvent) {
-                const currentActiveElement = this.autocompleteDropdownElement.querySelector('div.autocomplete-item.active');
-                if (!currentActiveElement) return;
-
-                let newActiveElement;
-                switch (event.key) {
-                    case 'ArrowUp':
-                        newActiveElement = currentActiveElement.previousElementSibling;
-                        break;
-                    case 'ArrowDown':
-                        newActiveElement = currentActiveElement.nextElementSibling;
-                        break;
-                    case 'Enter':
-                        currentActiveElement.click();
-                        return;
-                }
-
-                if (newActiveElement) {
-                    currentActiveElement.classList.remove('active');
-                    newActiveElement.classList.add('active');
-                    newActiveElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
-            }
-        }
-
-        /**
-         * Initializes the autocomplete functionality
-         */
-        autocompleteInit() {
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!this.autocompleteInputElement?.contains(e.target) &&
-                    !this.autocompleteDropdownElement?.contains(e.target)) {
-                    this.autocompleteDropdownElement?.classList.remove('show');
-                }
-            });
-
-            this.autocompleteInputElement?.addEventListener('input', () => {
-                this.autocompleteFilter();
-            });
-
-            this.autocompleteInputElement?.addEventListener('click', () => {
-                this.autocompleteFilter();
-            });
-        }
-
-        /**
-         * Gets the URL for a character icon
-         * 
-         * @param {string} characterName - Name of the character
-         * @returns {string} URL of the character icon
-         */
-        getCharacterIconImageUrl(characterName) {
-            return CHARACTERS.find(character => character.name === characterName)?.icon;
-        }
-
-        /**
-         * Filters the autocomplete dropdown based on input
-         */
-        autocompleteFilter() {
-            const query = this.autocompleteInputElement?.value.toLowerCase();
-            const filteredData = CHARACTERS.filter(character =>
-                character.name.toLowerCase().includes(query));
-
-            // Clear existing options
-            Array.from(this.autocompleteDropdownElement?.children ?? [])
-                .forEach(item => item.remove());
-
-            if (filteredData.length) {
-                // Add new options
-                filteredData.forEach(character => {
-                    const option = document.createElement('div');
-                    option.classList.add('autocomplete-item');
-                    option.innerHTML = `
-                    <img src="${this.getCharacterIconImageUrl(character.name)}" alt="${character.name}">
-                    <span>${character.name}</span>
-                `;
-                    option.addEventListener('click', () => {
-                        this.autocompleteInputElement.value = '';
-                        this.autocompleteDropdownElement.classList.remove('show');
-                        this.triesDisplay(character);
-                    });
-                    this.autocompleteDropdownElement.appendChild(option);
-                });
-
-                // Show dropdown and highlight first item
-                this.autocompleteDropdownElement.classList.add('show');
-                this.autocompleteDropdownElement.children[0].classList.add('active');
-            } else {
-                this.autocompleteDropdownElement.classList.remove('show');
-            }
         }
 
         /**
@@ -283,9 +175,9 @@
             const emptyTryElement = this.containerElement.querySelector(`div.try:not(:has(img))`);
 
             if (success) {
-                imgElement.src = this.getCharacterIconImageUrl(answer);
+                imgElement.src = getCharacterIconImageUrl(answer);
             } else {
-                imgElement.src = this.getCharacterIconImageUrl(selectedCharacter.name);
+                imgElement.src = getCharacterIconImageUrl(selectedCharacter.name);
             }
 
             emptyTryElement.appendChild(imgElement);
@@ -351,9 +243,8 @@
          */
         defaultState() {
             if (this.answerSuccessElement) this.answerSuccessElement.src = '';
-            if (this.autocompleteInputElement) this.autocompleteInputElement.value = '';
             if (this.nextButtonElement) this.nextButtonElement.style.display = 'none';
-            if (this.autocompleteElement) this.autocompleteElement.style.display = 'block';
+            if (this.autocompleteContainerElement) this.autocompleteContainerElement.style.display = 'block';
 
             this.triesDisplayReset();
             this.triesScoreReset();
@@ -386,8 +277,8 @@
             if (this.nextButtonElement) {
                 this.nextButtonElement.style.display = 'inherit';
             }
-            if (this.autocompleteElement) {
-                this.autocompleteElement.style.display = 'none';
+            if (this.autocompleteContainerElement) {
+                this.autocompleteContainerElement.style.display = 'none';
             }
             this.isQuestionComplete = true;
         }

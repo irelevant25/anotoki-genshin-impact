@@ -8,12 +8,12 @@
     }
 
     // Function to render the changelog
-    function loadChangelog(providedChangelog, targetElementId) {
-        const container = document.getElementById(targetElementId);
+    function loadChangelog() {
+        const container = document.querySelector(`#${MENU_ITEMS_BOTTOM.whatsnew.id}-modal-content`);
 
         if (container.children.length > 0) return;
 
-        (providedChangelog ?? CHANGELOG).forEach((entry, index) => {
+        [CHANGELOG[0]].forEach((entry, index) => {
             const versionCard = document.createElement('div');
             versionCard.className = 'version-card';
             if (index === 0) versionCard.classList.add('highlight');
@@ -160,7 +160,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const lastVisitedVersion = storageManager.getLastVersion();
         const currentVersion = CHANGELOG[0].version;
-        loadChangelog([CHANGELOG[0]], 'whatsNewContent');
+        loadChangelog();
         if (!lastVisitedVersion || lastVisitedVersion !== currentVersion) {
             const whatsNewModal = new bootstrap.Modal(document.getElementById('whatsNewModal'));
             whatsNewModal.show();

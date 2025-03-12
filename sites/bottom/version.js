@@ -8,12 +8,12 @@
     }
 
     // Function to render the changelog
-    function loadChangelog(providedChangelog, targetElementId = 'changelogContent') {
-        const container = document.getElementById(targetElementId);
+    function loadChangelog() {
+        const container = document.querySelector(`#${MENU_ITEMS_BOTTOM.versions.id}-modal-content`);
 
         if (container.children.length > 0) return;
 
-        (providedChangelog ?? CHANGELOG).forEach((entry, index) => {
+        CHANGELOG.forEach((entry, index) => {
             const versionCard = document.createElement('div');
             versionCard.className = 'version-card';
             if (index === 0) versionCard.classList.add('highlight');
@@ -158,6 +158,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        loadChangelog(undefined, 'changelogContent');
+        loadChangelog();
     });
 })();

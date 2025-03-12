@@ -3,15 +3,20 @@
  * Handles menu selection and navigation
  */
 
-/**
- * Initializes the menu functionality
- */
-window.initializeMenu = function () {
-    // Generate menu items
-    const ul = document.createElement('ul');
-    document.querySelector("nav").appendChild(ul);
-    Object.values(MENU_ITEMS).forEach(menuItem => {
-        ul.innerHTML += `
+(() => {
+    'use strict';
+
+    let topMenuElement;
+
+    /**
+     * Initializes the menu functionality
+     */
+    function initializeMenu() {
+        // Generate menu items
+        const ul = document.createElement('ul');
+        topMenuElement.appendChild(ul);
+        Object.values(MENU_ITEMS_TOP).forEach(menuItem => {
+            ul.innerHTML += `
                 <li data-id="${menuItem.id}">
                     <div class="help-icon" data-bs-toggle="tooltip" data-bs-placement="${menuItem.helpIconPlacement}" title="${menuItem.modalTitle}">
                         <i class="bi bi-question-circle-fill" data-bs-toggle="modal" data-bs-target="#${menuItem.id}-modal"
@@ -20,22 +25,22 @@ window.initializeMenu = function () {
                     <a>${menuItem.title}</a>
                 </li>
             `;
-    });
+        });
 
-    const menuItems = document.querySelectorAll('nav > ul > li');
+        const menuItems = topMenuElement.querySelectorAll('ul > li');
 
-    // Add click handler to each menu item
-    menuItems.forEach(item => {
-        item.addEventListener('click', () => topMenuItemClick(item));
-    });
+        // Add click handler to each menu item
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => menuItemClick(item));
+        });
 
-    console.log('Menu initialized with', menuItems.length, 'items');
+        console.log('Menu initialized with', menuItems.length, 'items');
 
-    // Generate menu items help modals
-    const helpModals = document.createElement('div');
-    document.body.appendChild(helpModals);
-    Object.values(MENU_ITEMS).forEach(menuItem => {
-        helpModals.innerHTML += `
+        // Generate menu items help modals
+        const helpModals = document.createElement('div');
+        document.body.appendChild(helpModals);
+        Object.values(MENU_ITEMS_TOP).forEach(menuItem => {
+            helpModals.innerHTML += `
                 <div class="modal fade" id="${menuItem.id}-modal" tabindex="-1">
                     <div class="modal-dialog modal-lg modal-dialog-scrollable">
                         <div class="modal-content">
@@ -48,44 +53,50 @@ window.initializeMenu = function () {
                     </div>
                 </div>
             `;
-    });
+        });
 
-    const modalItems = document.querySelectorAll('div > div.modal');
-    console.log('Menu items help modals initialized with', modalItems.length, 'items');
-}
-
-/**
- * Handles menu item clicks
- * 
- * @param {Object} menuItem - The clicked menu item from MENU_ITEMS dataset
- */
-function topMenuItemClick(menuItem) {
-    // Skip if no data-id
-    if (!menuItem.dataset.id) return;
-
-    // Deactivate other menu items
-    document.querySelectorAll("nav > ul > li").forEach(element => {
-        if (element !== menuItem) {
-            element.classList.remove('active');
-        }
-    });
-
-    // Toggle active state of clicked item
-    menuItem.classList.toggle('active');
-
-    // Get the associated content element
-    const content = document.querySelector('#' + menuItem.dataset.id);
-
-    // Hide other content
-    document.querySelectorAll("body > div[id^='site-']").forEach(element => {
-        if (element !== content) {
-            element.classList.add('d-none');
-        }
-    });
-
-    // Toggle this content
-    if (content) {
-        // d-none
-        content.classList.contains('d-none') ? content.classList.remove('d-none') : content.classList.add('d-none');
+        const modalItems = document.querySelectorAll('div > div.modal');
+        console.log('Menu items help modals initialized with', modalItems.length, 'items');
     }
-}
+
+    /**
+     * Handles menu item clicks
+     * 
+     * @param {Object} menuItem - The clicked menu item from MENU_ITEMS_TOP dataset
+     */
+    function menuItemClick(menuItem) {
+        // Skip if no data-id
+        if (!menuItem.dataset.id) return;
+
+        // Deactivate other menu items
+        topMenuElement.querySelectorAll("ul > li").forEach(element => {
+            if (element !== menuItem) {
+                element.classList.remove('active');
+            }
+        });
+
+        // Toggle active state of clicked item
+        menuItem.classList.toggle('active');
+
+        // Get the associated content element
+        const content = document.querySelector('#' + menuItem.dataset.id);
+
+        // Hide other content
+        document.querySelectorAll("body > div[id^='site-']").forEach(element => {
+            if (element !== content) {
+                element.classList.add('d-none');
+            }
+        });
+
+        // Toggle this content
+        if (content) {
+            // d-none
+            content.classList.contains('d-none') ? content.classList.remove('d-none') : content.classList.add('d-none');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        topMenuElement = document.querySelector("#top-menu");
+        initializeMenu();
+    });
+})();

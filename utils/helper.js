@@ -56,6 +56,10 @@ function combinations(arr, k) {
     return result;
 }
 
+function getCharacterIconImageUrl(characterName) {
+    return CHARACTERS.find(character => character.name === characterName)?.icon;
+}
+
 function capitalize(s) {
     return s && String(s[0]).toUpperCase() + String(s).slice(1);
 }

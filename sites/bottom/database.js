@@ -3,8 +3,6 @@
 
     let character;
     let containerElement;
-    let autocompleteInputElement;
-    let autocompleteDropdownElement;
 
     // Main function to display character info
     function displayCharacterInfo() {
@@ -22,7 +20,7 @@
 
     // Create the character header section
     function createCharacterHeader() {
-        const headerElement = document.getElementById('character-header');
+        const headerElement = containerElement.querySelector('#character-header');
 
         // Create character image and basic info sections
         const headerHTML = `
@@ -97,24 +95,24 @@
 
     // Setup tab functionality
     function setupTabs() {
-        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabButtons = containerElement.querySelectorAll('.tab-button');
 
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Remove active class from all buttons and content
                 tabButtons.forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                containerElement.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
                 // Add active class to clicked button and corresponding content
                 button.classList.add('active');
-                document.getElementById(button.dataset.tab).classList.add('active');
+                containerElement.querySelector(`#button.dataset.tab`).classList.add('active');
             });
         });
     }
 
     // Create Ascensions tab content
     function createAscensionsTab() {
-        const ascensionTableElement = document.querySelector('.ascension-table');
+        const ascensionTableElement = containerElement.querySelector('.ascension-table');
 
         // Create ascension table
         let tableHTML = `
@@ -242,8 +240,8 @@
 
     // Create Talents tab content
     function createTalentsTab() {
-        const talentsInfoElement = document.querySelector('.talents-info');
-        const talentTableElement = document.querySelector('.talent-level-table');
+        const talentsInfoElement = containerElement.querySelector('.talents-info');
+        const talentTableElement = containerElement.querySelector('.talent-level-table');
 
         // Display talents information
         let talentsHTML = '';
@@ -335,7 +333,7 @@
 
     // Create Constellations tab content
     function createConstellationsTab() {
-        const constellationsElement = document.querySelector('.constellations-info');
+        const constellationsElement = containerElement.querySelector('.constellations-info');
 
         // Display constellations information
         let constellationsHTML = '';
@@ -357,12 +355,12 @@
 
     // Update total materials calculation
     function updateTotalMaterials(type) {
-        const materialsTotalElement = document.getElementById(`${type}-materials`);
+        const materialsTotalElement = containerElement.querySelector(`#${type}-materials`);
         const totalMaterials = new Map();
 
         if (type === 'ascension') {
             // Get all checked ascension checkboxes
-            const checkedRows = document.querySelectorAll(`.ascension-checkbox[data-type="${type}"]:checked`);
+            const checkedRows = containerElement.querySelectorAll(`.ascension-checkbox[data-type="${type}"]:checked`);
 
             // Calculate total materials based on checked rows
             checkedRows.forEach(checkbox => {
@@ -388,7 +386,7 @@
             });
         } else if (type === 'talent') {
             // Get all checked talent checkboxes
-            const checkedRows = document.querySelectorAll(`.talent-checkbox[data-type="${type}"]:checked`);
+            const checkedRows = containerElement.querySelectorAll(`.talent-checkbox[data-type="${type}"]:checked`);
 
             // Calculate total materials based on checked rows
             checkedRows.forEach(checkbox => {
@@ -436,105 +434,14 @@
         materialsTotalElement.innerHTML = totalHTML;
     }
 
-    function getCharacterIconImageUrl(characterName) {
-        return CHARACTERS.find(character => character.name === characterName)?.icon;
-    }
-
-    function autocompleteFilter() {
-        const query = autocompleteInputElement?.value.toLowerCase();
-        const filteredData = CHARACTERS.filter(character =>
-            character.name.toLowerCase().includes(query));
-
-        // Clear existing options
-        Array.from(autocompleteDropdownElement?.children ?? [])
-            .forEach(item => item.remove());
-
-        if (filteredData.length) {
-            // Add new options
-            filteredData.forEach(selectedCharacter => {
-                const option = document.createElement('div');
-                option.classList.add('autocomplete-item');
-                option.innerHTML = `
-                    <img src="${getCharacterIconImageUrl(selectedCharacter.name)}" alt="${selectedCharacter.name}">
-                    <span>${selectedCharacter.name}</span>
-                `;
-                option.addEventListener('click', () => {
-                    autocompleteDropdownElement.classList.remove('show');
-                    autocompleteInputElement.value = '';
-                    character = selectedCharacter;
-                    displayCharacterInfo();
-                });
-                autocompleteDropdownElement.appendChild(option);
-            });
-
-            // Show dropdown and highlight first item
-            autocompleteDropdownElement.classList.add('show');
-            autocompleteDropdownElement.children[0].classList.add('active');
-        } else {
-            autocompleteDropdownElement.classList.remove('show');
-        }
-    }
-
-    function markActiveItemOfAutocomplete(event) {
-        if (event instanceof MouseEvent) {
-            const element = event.target.closest('.autocomplete-item');
-            if (!element) return;
-
-            containerElement.querySelectorAll('div.dropdown-menu div.autocomplete-item')
-                .forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
-        }
-        else if (event instanceof KeyboardEvent) {
-            const currentActiveElement = autocompleteDropdownElement.querySelector('div.autocomplete-item.active');
-            if (!currentActiveElement) return;
-
-            let newActiveElement;
-            switch (event.key) {
-                case 'ArrowUp':
-                    newActiveElement = currentActiveElement.previousElementSibling;
-                    break;
-                case 'ArrowDown':
-                    newActiveElement = currentActiveElement.nextElementSibling;
-                    break;
-                case 'Enter':
-                    currentActiveElement.click();
-                    return;
-            }
-
-            if (newActiveElement) {
-                currentActiveElement.classList.remove('active');
-                newActiveElement.classList.add('active');
-                newActiveElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-    }
-
     // Process data when page loads
     document.addEventListener('DOMContentLoaded', () => {
+        containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}-modal`);
         character = getRandomCharacter();
         displayCharacterInfo();
-        containerElement = document.querySelector(`#database-content`);
-        autocompleteInputElement = containerElement.querySelector('input');
-        autocompleteDropdownElement = containerElement.querySelector('div.dropdown-menu');
-
-        const _boundMarkActiveItemOfAutocomplete = markActiveItemOfAutocomplete.bind(this);
-        autocompleteDropdownElement?.addEventListener('mouseover', _boundMarkActiveItemOfAutocomplete);
-        autocompleteInputElement?.addEventListener('keydown', _boundMarkActiveItemOfAutocomplete);
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!autocompleteInputElement?.contains(e.target) &&
-                !autocompleteDropdownElement?.contains(e.target)) {
-                autocompleteDropdownElement?.classList.remove('show');
-            }
-        });
-
-        autocompleteInputElement?.addEventListener('input', () => {
-            autocompleteFilter();
-        });
-
-        autocompleteInputElement?.addEventListener('click', () => {
-            autocompleteFilter();
+        new Autocomplete(containerElement, (selectedCharacter) => {
+            character = selectedCharacter;
+            displayCharacterInfo();
         });
     });
 })();

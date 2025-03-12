@@ -1,4 +1,4 @@
-#database-content {
+#site-database-modal-content {
   /* Character Header */
   .character-header {
     display: flex;
@@ -311,7 +311,7 @@
     padding: 0;
   }
 
-  [name="autocomplete"] {
+  .autocomplete {
     width: 300px;
   }
 

@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.png'}")`;
 
     // Initialize UI components
-    initializeMenu();
     initializeTooltips();
 
     // Initialize quizzes
@@ -22,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeMusic();
 
     // Set version display
-    document.querySelector('#version').textContent = `v${CHANGELOG[0].version}`;
+    document.querySelector(`#${MENU_ITEMS_BOTTOM.versions.id}`).textContent = `v${CHANGELOG[0].version}`;
 
     console.log('Application initialization complete');
 });

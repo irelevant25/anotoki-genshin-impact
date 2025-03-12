@@ -84,7 +84,7 @@
     padding: 0;
   }
 
-  [name="autocomplete"] {
+  .autocomplete {
     width: 300px;
   }
 

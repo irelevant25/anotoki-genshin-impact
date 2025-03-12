@@ -13,8 +13,8 @@
     }
 
     // Function to render the backgrounds
-    function loadBackgrounds(targetElementId = 'site-background') {
-        const container = document.getElementById(targetElementId);
+    function loadBackgrounds() {
+        const container = document.querySelector(`#${MENU_ITEMS_BOTTOM.backgrounds.id}-modal-content`);
 
         if (container.children.length > 0) return;
 

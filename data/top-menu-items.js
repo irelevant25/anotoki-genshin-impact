@@ -1,8 +1,4 @@
-/**
- * Modal Content
- * Contains content for the modals
- */
-const MENU_ITEMS = {
+const MENU_ITEMS_TOP = {
     banners: {
         id: "site-banners",
         title: "Banners",
@@ -184,21 +180,3 @@ const MENU_ITEMS = {
         `
     }
 };
-
-// Load modal content function
-window.loadModalContent = function () {
-    Object.keys(MENU_ITEMS).forEach(key => {
-        const modalId = `${key}-modal`;
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            const modalBody = modal.querySelector('.modal-body');
-            const modalTitle = modal.querySelector('.modal-title');
-
-            if (modalBody) modalBody.innerHTML = MENU_ITEMS[key].content;
-            if (modalTitle) modalTitle.textContent = MENU_ITEMS[key].title;
-        }
-    });
-};
-
-// Call this function on initial page load
-document.addEventListener('DOMContentLoaded', window.loadModalContent);

@@ -22,6 +22,7 @@
     <script src="utils/top-menu-generator.js"></script>
     <script src="utils/tooltips-generator.js"></script>
     <script src="utils/storage-manager.js"></script>
+    <script src="utils/autocomplete.js"></script>
     <!-- GLOBAL -->
     <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
@@ -49,21 +50,19 @@
 </head>
 
 <body>
-    <nav id="main-nav">
-        <!-- Menu items and help modals are generated dynamically in js/managers/menu-manager.js -->
+    <!-- Top menu items -->
+    <nav id="top-menu">
+        <!-- Menu items and help modals are generated dynamically in utils/top-menu-generator.js -->
     </nav>
 
-    <!-- Quiz Containers -->
+    <!-- Top menu content -->
 
     <!-- Banners -->
     <div id="site-banners" class="d-none">
         <div class="container quiz-container">
             <img name="question" class="d-block mx-auto">
             <div class="pt-3 search-container">
-                <div name="autocomplete" class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <div class="dropdown-menu autocomplete-dropdown"></div>
-                </div>
+                <div name="autocomplete"></div>
                 <button class="btn btn-primary ms-3 next-button">Next</button>
             </div>
             <div class="d-flex justify-content-center tries-score my-2">
@@ -83,10 +82,7 @@
                 <!-- Canvas for pixelate will be dynamically injected here -->
             </canvas>
             <div class="pt-3 search-container">
-                <div name="autocomplete" class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <div class="dropdown-menu autocomplete-dropdown"></div>
-                </div>
+                <div name="autocomplete"></div>
                 <button class="btn btn-primary ms-3 next-button">Next</button>
             </div>
             <div class="d-flex justify-content-center tries-score my-2">
@@ -105,12 +101,7 @@
             <div name="question" class="d-block mx-auto character-grid">
                 <!-- Characters for mismatch will be dynamically injected here -->
             </div>
-            <div class="pt-3 search-container">
-                <button class="btn btn-primary ms-3 next-button">Next</button>
-            </div>
-            <div class="d-flex justify-content-center tries-score my-2">
-                Tries: <p name="tries-current">0</p> / <p name="tries-max">5</p>
-            </div>
+            <button class="btn btn-primary my-3 next-button">Next</button>
             <img name="answer-success" class="d-block mx-auto">
         </div>
     </div>
@@ -180,10 +171,7 @@
                 </div>
             </div>
             <div class="pt-3 search-container">
-                <div name="autocomplete" class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <div class="dropdown-menu autocomplete-dropdown"></div>
-                </div>
+                <div name="autocomplete"></div>
                 <button class="btn btn-primary ms-3 next-button">Next</button>
             </div>
             <div class="d-flex justify-content-center tries-score my-2">
@@ -196,24 +184,17 @@
         </div>
     </div>
 
-    <!-- Bottom menu -->
-    <div class="bottom-container">
-        <div class="item" data-bs-toggle="modal" data-bs-target="#databaseModal">Database
-        </div>
-        <div class="item" data-bs-toggle="modal" data-bs-target="#whatsNewModal">What's new
-        </div>
-        <div class="item" data-bs-toggle="modal" data-bs-target="#backgroundImageModal">
-            Backgrounds</div>
-        <div id="version" class="item" data-bs-toggle="modal" data-bs-target="#versionModal">
-            v0.2</div>
+    <!-- Bottom menu items -->
+    <div id="bottom-menu" class="bottom-container">
+        <!-- Menu items are generated dynamically in utils/bottom-menu-generator.js -->
     </div>
 
     <!-- Background selector Modal -->
-    <div class="modal fade" id="backgroundImageModal" tabindex="-1">
+    <div class="modal fade" id="site-backgrounds-modal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="backgroundImageModalLabel">Backgrounds</h5>
+                    <h5 class="modal-title" id="site-backgrounds-modal-label">Backgrounds</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
@@ -240,7 +221,7 @@
                         <p class="text-muted fst-italic">Note: You can continue playing quizzes with any background of
                             your choice.</p>
                     </div>
-                    <div id="site-background">
+                    <div id="site-backgrounds-modal-content">
                         <!-- Background images will be dynamically loaded here -->
                     </div>
                 </div>
@@ -248,30 +229,30 @@
         </div>
     </div>
 
-    <!-- Changelog Modal -->
-    <div class="modal fade" id="versionModal" tabindex="-1">
+    <!-- Version Modal -->
+    <div class="modal fade" id="site-versions-modal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="versionModalLabel">Changelog</h5>
+                    <h5 class="modal-title" id="site-versions-modal-label">Changelog</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body changelog-container p-4" id="changelogContent">
-                    <!-- Changelog entries will be dynamically injected here -->
+                <div class="modal-body changelog-container p-4" id="site-versions-modal-content">
+                    <!-- Version entries will be dynamically injected here -->
                 </div>
             </div>
         </div>
     </div>
 
     <!-- What's new Modal -->
-    <div class="modal fade" id="whatsNewModal" tabindex="-1">
+    <div class="modal fade" id="site-whatsnew-modal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="whatsNewModalLabel">New version</h5>
+                    <h5 class="modal-title" id="site-whatsnew-modal-label">New version</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4" id="whatsNewContent">
+                <div class="modal-body p-4" id="site-whatsnew-modal-content">
                     <!-- Version notification content will be dynamically injected here -->
                 </div>
             </div>
@@ -279,20 +260,15 @@
     </div>
 
     <!-- Database Modal -->
-    <div class="modal fade" id="databaseModal" tabindex="-1">
+    <div class="modal fade" id="site-database-modal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="databaseModalLabel">Database</h5>
+                    <h5 class="modal-title" id="site-database-modal-label">Database</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4" id="database-content">
-                    <div class="mb-3 d-flex justify-content-center">
-                        <div name="autocomplete" class="position-relative">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <div class="dropdown-menu autocomplete-dropdown"></div>
-                        </div>
-                    </div>
+                <div class="modal-body p-4" id="site-database-modal-content">
+                    <div class="mb-3 d-flex justify-content-center" name="autocomplete"></div>
 
                     <!-- Character Header Section -->
                     <div id="character-header" class="character-header"></div>
