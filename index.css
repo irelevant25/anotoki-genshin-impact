@@ -10,16 +10,114 @@
   --updated: #3b82f6;
   --card-bg: #ffffff;
   --shadow: rgba(0, 0, 0, 0.05);
+
+  /* Anemo (Wind) - Green */
+  --anemo-primary-white: #74c2a8;
+  --anemo-secondary-white: #59a990;
+  --anemo-accent-white: #3d7d69;
+
+  /* Geo (Earth) - Yellow/Brown */
+  --geo-primary-white: #fab632;
+  --geo-secondary-white: #d89b20;
+  --geo-accent-white: #9e6e17;
+
+  /* Electro (Lightning) - Purple */
+  --electro-primary-white: #a757cb;
+  --electro-secondary-white: #8445a3;
+  --electro-accent-white: #62317a;
+
+  /* Dendro (Nature) - Green */
+  --dendro-primary-white: #7ec236;
+  --dendro-secondary-white: #68a42b;
+  --dendro-accent-white: #4e7a20;
+
+  /* Hydro (Water) - Blue */
+  --hydro-primary-white: #4cc2f1;
+  --hydro-secondary-white: #30a6d8;
+  --hydro-accent-white: #1f7ca3;
+
+  /* Pyro (Fire) - Red */
+  --pyro-primary-white: #ef674a;
+  --pyro-secondary-white: #d94e2f;
+  --pyro-accent-white: #a83a22;
+
+  /* Cryo (Ice) - Light Blue */
+  --cryo-primary-white: #9fd6e3;
+  --cryo-secondary-white: #7bbecf;
+  --cryo-accent-white: #5a9cab;
+}
+
+.anemo {
+    color: var(--anemo-secondary-white);
+}
+
+.geo {
+    color: var(--geo-secondary-white);
+}
+
+.electro {
+    color: var(--electro-secondary-white);
+}
+
+.dendro {
+    color: var(--dendro-secondary-white);
+}
+
+.hydro {
+    color: var(--hydro-secondary-white);
+}
+
+.pyro {
+    color: var(--pyro-secondary-white);
+}
+
+.cryo {
+    color: var(--cryo-secondary-white);
 }
 
 /* Dark theme colors - will be applied when .dark-theme class is added */
-/* .dark-theme {
-  --bg: #111827;
+.dark-theme {
+  /* --bg: #111827;
   --text: #f9fafb;
   --text-light: #9ca3af;
   --card-bg: #1f2937;
-  --shadow: rgba(0, 0, 0, 0.3);
-} */
+  --shadow: rgba(0, 0, 0, 0.3); */
+
+  /* Anemo (Wind) - Green */
+  /* --anemo-primary-black-bg: #A0E5D0;
+  --anemo-secondary-black-bg: #74C2A8;
+  --anemo-accent-black-bg: #59A990; */
+
+  /* Geo (Earth) - Yellow/Brown */
+  /* --geo-primary-black-bg: #FFDA85;
+  --geo-secondary-black-bg: #FAB632;
+  --geo-accent-black-bg: #D89B20; */
+
+  /* Electro (Lightning) - Purple */
+  /* --electro-primary-black-bg: #D19BEF;
+  --electro-secondary-black-bg: #A757CB;
+  --electro-accent-black-bg: #8445A3; */
+
+  /* Dendro (Nature) - Green */
+  /* --dendro-primary-black-bg: #A3E462;
+  --dendro-secondary-black-bg: #7EC236;
+  --dendro-accent-black-bg: #68A42B; */
+
+  /* Hydro (Water) - Blue */
+  /* --hydro-primary-black-bg: #7DD5FF;
+  --hydro-secondary-black-bg: #4CC2F1;
+  --hydro-accent-black-bg: #30A6D8; */
+
+  /* Pyro (Fire) - Red */
+  /* --pyro-primary-black-bg: #FF8D74;
+  --pyro-secondary-black-bg: #EF674A;
+  --pyro-accent-black-bg: #D94E2F; */
+
+  /* Cryo (Ice) - Light Blue */
+  /* --cryo-primary-black-bg: #C5E9F3;
+  --cryo-secondary-black-bg: #9FD6E3;
+  --cryo-accent-black-bg: #7BBECF; */
+}
 
 * {
   margin: 0;

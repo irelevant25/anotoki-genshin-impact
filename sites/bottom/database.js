@@ -1,22 +1,27 @@
 (() => {
     'use strict';
 
+    let character;
+    let containerElement;
+    let autocompleteInputElement;
+    let autocompleteDropdownElement;
+
     // Main function to display character info
-    function displayCharacterInfo(character) {
+    function displayCharacterInfo() {
         // Create header section
-        createCharacterHeader(character);
+        createCharacterHeader();
 
         // Setup tabs
         setupTabs();
 
         // Create content for each tab
-        createAscensionsTab(character);
-        createTalentsTab(character);
-        createConstellationsTab(character);
+        createAscensionsTab();
+        createTalentsTab();
+        createConstellationsTab();
     }
 
     // Create the character header section
-    function createCharacterHeader(character) {
+    function createCharacterHeader() {
         const headerElement = document.getElementById('character-header');
 
         // Create character image and basic info sections
@@ -24,7 +29,7 @@
         <img src="${character.card}" alt="${character.name}" class="character-image">
         
         <div class="character-basics">
-            <h1 class="character-name">
+            <h1 class="character-name ${character.element.toLowerCase()}">
                 ${character.name}
                 <span class="rarity-stars">${'★'.repeat(parseInt(character.rarity))}</span>
             </h1>
@@ -108,7 +113,7 @@
     }
 
     // Create Ascensions tab content
-    function createAscensionsTab(character) {
+    function createAscensionsTab() {
         const ascensionTableElement = document.querySelector('.ascension-table');
 
         // Create ascension table
@@ -208,7 +213,7 @@
 
         ascensionTableElement.innerHTML = tableHTML;
         // Adding ascension data to the element programatically instead of manual to avoid json parsing error
-        ascensionTableElement.querySelectorAll('tr').forEach((row, index) => {
+        ascensionTableElement.querySelectorAll('tbody > tr').forEach((row, index) => {
             const ascension = character.ascensions_materials_and_stats[index];
             let materialsJSON = '';
 
@@ -236,7 +241,7 @@
     }
 
     // Create Talents tab content
-    function createTalentsTab(character) {
+    function createTalentsTab() {
         const talentsInfoElement = document.querySelector('.talents-info');
         const talentTableElement = document.querySelector('.talent-level-table');
 
@@ -301,7 +306,7 @@
 
         talentTableElement.innerHTML = tableHTML;
         // Adding level data to the element programatically instead of manual to avoid json parsing error
-        talentTableElement.querySelectorAll('tr').forEach((row, index) => {
+        talentTableElement.querySelectorAll('tbody > tr').forEach((row, index) => {
             const level = character.talents_materials[index];
             let materialsJSON = '';
 
@@ -329,7 +334,7 @@
     }
 
     // Create Constellations tab content
-    function createConstellationsTab(character) {
+    function createConstellationsTab() {
         const constellationsElement = document.querySelector('.constellations-info');
 
         // Display constellations information
@@ -446,16 +451,18 @@
 
         if (filteredData.length) {
             // Add new options
-            filteredData.forEach(character => {
+            filteredData.forEach(selectedCharacter => {
                 const option = document.createElement('div');
                 option.classList.add('autocomplete-item');
                 option.innerHTML = `
-                    <img src="${getCharacterIconImageUrl(character.name)}" alt="${character.name}">
-                    <span>${character.name}</span>
+                    <img src="${getCharacterIconImageUrl(selectedCharacter.name)}" alt="${selectedCharacter.name}">
+                    <span>${selectedCharacter.name}</span>
                 `;
                 option.addEventListener('click', () => {
                     autocompleteDropdownElement.classList.remove('show');
-                    displayCharacterInfo(character);
+                    autocompleteInputElement.value = '';
+                    character = selectedCharacter;
+                    displayCharacterInfo();
                 });
                 autocompleteDropdownElement.appendChild(option);
             });
@@ -502,14 +509,10 @@
         }
     }
 
-    let containerElement;
-    let autocompleteInputElement;
-    let autocompleteDropdownElement;
-
     // Process data when page loads
     document.addEventListener('DOMContentLoaded', () => {
-        const randomCharacter = getRandomCharacter();
-        displayCharacterInfo(randomCharacter);
+        character = getRandomCharacter();
+        displayCharacterInfo();
         containerElement = document.querySelector(`#database-content`);
         autocompleteInputElement = containerElement.querySelector('input');
         autocompleteDropdownElement = containerElement.querySelector('div.dropdown-menu');

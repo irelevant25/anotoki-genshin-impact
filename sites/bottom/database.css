@@ -49,7 +49,7 @@
   .character-info {
     display: grid;
     /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 15px;
   }
 
@@ -139,9 +139,14 @@
   .ascension-table td,
   .talent-level-table th,
   .talent-level-table td {
-    padding: 12px 15px;
+    padding: 10px 13px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+  }
+
+  .talent-level-table th,
+  .talent-level-table td {
+    min-width: 90px;
   }
 
   .ascension-table th,
@@ -180,7 +185,12 @@
     margin-right: 5px;
   }
 
-  .materials-container {
+  #talents .materials-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  #ascensions .materials-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
