@@ -48,31 +48,31 @@
 }
 
 .anemo {
-    color: var(--anemo-secondary-white);
+  color: var(--anemo-secondary-white);
 }
 
 .geo {
-    color: var(--geo-secondary-white);
+  color: var(--geo-secondary-white);
 }
 
 .electro {
-    color: var(--electro-secondary-white);
+  color: var(--electro-secondary-white);
 }
 
 .dendro {
-    color: var(--dendro-secondary-white);
+  color: var(--dendro-secondary-white);
 }
 
 .hydro {
-    color: var(--hydro-secondary-white);
+  color: var(--hydro-secondary-white);
 }
 
 .pyro {
-    color: var(--pyro-secondary-white);
+  color: var(--pyro-secondary-white);
 }
 
 .cryo {
-    color: var(--cryo-secondary-white);
+  color: var(--cryo-secondary-white);
 }
 
 /* Dark theme colors - will be applied when .dark-theme class is added */
@@ -177,15 +177,14 @@ h1 {
   justify-content: flex-end;
   padding: 8px 15px;
   width: 30%;
-  min-width: 250px;
+  min-width: 450px;
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0),
     rgba(0, 0, 0, 0.8) 40%
   );
   border-top-left-radius: 8px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  /* backdrop-filter: blur(4px); */
   z-index: 1000;
 }
 
@@ -475,5 +474,15 @@ nav ul li:hover .help-icon {
 
   nav ul li {
     padding-top: 10px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .bottom-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0px;
+    background: rgba(0, 0, 0, 0.8);
   }
 }
