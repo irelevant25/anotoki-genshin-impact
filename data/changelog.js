@@ -12,7 +12,7 @@ const CHANGELOG = [
                 "Database for characters information"
             ],
             fixed: [
-                "Not content after manual opening What's new modal.",
+                "Not showing content after manual opening What's new modal.",
             ],
             updated: [
                 "Wider modals.",
