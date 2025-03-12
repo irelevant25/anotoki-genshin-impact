@@ -82,11 +82,12 @@
         const content = document.querySelector('#' + menuItem.dataset.id);
 
         // Hide other content
-        document.querySelectorAll("body > div[id^='site-']").forEach(element => {
-            if (element !== content) {
-                element.classList.add('d-none');
+        Object.values(MENU_ITEMS_TOP).forEach(x => {
+            const contentElement = document.querySelector(`#${x.id}`)
+            if (contentElement !== content) {
+                contentElement.classList.add('d-none');
             }
-        });
+        })
 
         // Toggle this content
         if (content) {
