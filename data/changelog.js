@@ -4,6 +4,24 @@
  */
 const CHANGELOG = [
     {
+        version: "0.4",
+        date: "2025-03-12",
+        changes: {
+            added: [
+                "Music quiz.",
+                "Database for characters information"
+            ],
+            fixed: [
+                "Not content after manual opening What's new modal.",
+            ],
+            updated: [
+                "Wider modals.",
+                "Change margins and sizes of the images in quizzes so there are not scrollbar anymore.",
+                "Adding responsiveness for lower resolution for bottom menu.",
+            ]
+        }
+    },
+    {
         version: "0.3",
         date: "2025-03-07",
         changes: {
@@ -13,7 +31,7 @@ const CHANGELOG = [
                 "New background “Liyue” and “Arlecchino”",
                 "Saving and loading of background and version settings.",
                 "Notification for new versions.",
-                "Bottom menu item called “What’s New.”",
+                "Bottom menu item called “What's New.”",
 
             ],
             fixed: [

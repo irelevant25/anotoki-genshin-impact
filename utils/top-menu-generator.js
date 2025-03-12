@@ -37,7 +37,7 @@ window.initializeMenu = function () {
     Object.values(MENU_ITEMS).forEach(menuItem => {
         helpModals.innerHTML += `
                 <div class="modal fade" id="${menuItem.id}-modal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="${menuItem.id}-modal-label">${menuItem.modalTitle}</h5>
@@ -59,7 +59,7 @@ window.initializeMenu = function () {
  * 
  * @param {Object} menuItem - The clicked menu item from MENU_ITEMS dataset
  */
-window.topMenuItemClick = function (menuItem) {
+function topMenuItemClick(menuItem) {
     // Skip if no data-id
     if (!menuItem.dataset.id) return;
 
@@ -77,7 +77,7 @@ window.topMenuItemClick = function (menuItem) {
     const content = document.querySelector('#' + menuItem.dataset.id);
 
     // Hide other content
-    document.querySelectorAll("div.container").forEach(element => {
+    document.querySelectorAll("body > div[id^='site-']").forEach(element => {
         if (element !== content) {
             element.classList.add('d-none');
         }

@@ -1,4 +1,6 @@
 (() => {
+    'use strict';
+
     /**
      * Changes the background to the specified image
      * 
@@ -11,7 +13,7 @@
     }
 
     // Function to render the backgrounds
-    function loadBackgrounds(targetElementId = 'backgroundImage') {
+    function loadBackgrounds(targetElementId = 'site-background') {
         const container = document.getElementById(targetElementId);
 
         if (container.children.length > 0) return;
@@ -29,6 +31,7 @@
         });
     }
 
-    // Render the backgrounds on page load
-    window.loadBackgrounds = loadBackgrounds;
+    document.addEventListener('DOMContentLoaded', () => {
+        loadBackgrounds();
+    });
 })();

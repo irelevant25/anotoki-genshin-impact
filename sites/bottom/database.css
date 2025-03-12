@@ -1,0 +1,347 @@
+#database-content {
+  /* Character Header */
+  .character-header {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .character-image {
+    width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+  }
+
+  .character-basics {
+    flex: 1;
+    margin-left: 30px;
+  }
+
+  .character-name {
+    font-size: 36px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .rarity-stars {
+    display: inline-flex;
+    margin-left: 10px;
+  }
+
+  .star {
+    color: gold;
+    font-size: 24px;
+    margin-right: 2px;
+  }
+
+  .character-title {
+    font-size: 18px;
+    color: #777;
+    margin-bottom: 15px;
+  }
+
+  .character-info {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .info-label {
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 70px;
+  }
+
+  .info-value {
+    display: flex;
+    align-items: center;
+  }
+
+  .element-icon,
+  .weapon-icon,
+  .region-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+
+  .voice-actors {
+    margin-top: 20px;
+  }
+
+  .voice-actor {
+    margin-bottom: 5px;
+  }
+
+  /* Tabs */
+  .tabs-navigation {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+  }
+
+  .tab-button {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #777;
+    position: relative;
+  }
+
+  .tab-button.active {
+    color: #4a6fa5;
+  }
+
+  .tab-button.active::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #4a6fa5;
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Ascension Tab */
+  .ascension-table,
+  .talent-level-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed;
+  }
+
+  .ascension-table th,
+  .ascension-table td,
+  .talent-level-table th,
+  .talent-level-table td {
+    padding: 10px 13px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .talent-level-table th,
+  .talent-level-table td {
+    min-width: 90px;
+  }
+
+  .ascension-table th,
+  .talent-level-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .ascension-table tr:hover,
+  .talent-level-table tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  .ascension-table th.checkbox-column,
+  .ascension-table td.checkbox-column,
+  .talent-level-table th.checkbox-column,
+  .talent-level-table td.checkbox-column {
+    width: 50px;
+    text-align: center;
+  }
+
+  .material-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-bottom: 5px;
+  }
+
+  .material-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
+  }
+
+  .material-name {
+    margin-right: 5px;
+  }
+
+  #talents .materials-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  #ascensions .materials-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ascension-checkbox,
+  .talent-checkbox {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+  }
+
+  /* Total Materials */
+  .total-materials {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+
+  .total-materials h3 {
+    margin-bottom: 15px;
+    color: #4a6fa5;
+  }
+
+  .total-material-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .total-material-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Talents Tab */
+  .talent {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  .talent-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .talent-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+  }
+
+  .talent-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .talent-type {
+    margin-left: 10px;
+    background-color: #4a6fa5;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+  }
+
+  .talent-description {
+    line-height: 1.6;
+  }
+
+  /* Constellations Tab */
+  .constellation {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  .constellation-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .constellation-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+  }
+
+  .constellation-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .constellation-level {
+    margin-left: 10px;
+    background-color: #6a4a95;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+  }
+
+  .constellation-description {
+    line-height: 1.6;
+  }
+
+  /* Autocomplete */
+  .dropdown-menu {
+    padding: 0;
+  }
+
+  [name="autocomplete"] {
+    width: 300px;
+  }
+
+  .autocomplete-dropdown {
+    max-height: 301px;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  .autocomplete-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 100px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .autocomplete-item.active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .autocomplete-item img {
+    width: 100px;
+  }
+
+  .autocomplete-item span {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+}

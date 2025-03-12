@@ -4,9 +4,9 @@
  */
 
 const APP_CONFIG = {
-    quizzes: {
+    topMenu: {
         banners: {
-            id: 'quiz-banners',
+            id: 'site-banners',
             triesMax: 5,
             triesDisplayMethod: 'tries-characters',
             triesEffects: [
@@ -15,8 +15,8 @@ const APP_CONFIG = {
                 { try: 2, class: 'difficulty-1' }
             ]
         },
-        charactersPixelate: {
-            id: 'quiz-characters-pixelate',
+        pixelate: {
+            id: 'site-pixelate',
             triesMax: 5,
             triesDisplayMethod: 'tries-characters',
             triesEffects: [
@@ -27,14 +27,25 @@ const APP_CONFIG = {
                 { try: 4, data: 23 },
             ]
         },
-        charactersMismatch: {
-            id: 'quiz-characters-mismatch',
+        mismatch: {
+            id: 'site-mismatch',
             triesMax: 1,
             triesDisplayMethod: 'none'
         },
-        charactersTournament: {
-            id: 'quiz-characters-tournament',
+        tournament: {
+            id: 'site-tournament',
             triesDisplayMethod: 'tries-characters',
+        },
+        music: {
+            id: 'site-music',
+            triesMax: 5,
+            triesDisplayMethod: 'tries-characters',
+            triesEffects: [
+                { try: 0, data: 5 },
+                { try: 1, data: 10 },
+                { try: 2, data: 15 },
+                { try: 3, data: 20 },
+            ]
         }
     },
 
