@@ -22,13 +22,14 @@
   - Display result explanaition for Mismach quiz
   - Tries: x/y is not visible enough
   - Remove :hover effect on mismatch and tournament after result
+  - [x] Change design/visibility of the custom music player
 - Features:
   - Dailies
   - Difficulties
   - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
   - Github link (to the bottom next to version)
-  - Add demo music, special dish, banner, affiliations, titles and boss (for ascension) to the Database character header
-  - Add new tab Build to the Database
+  - [x] Add demo music, special dish, banner, affiliations and titles to the Database character header
+  - [x] Add new tab Build to the Database
 
 # Future version
 - Features:
