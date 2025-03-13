@@ -27,6 +27,8 @@
   - Difficulties
   - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
   - Github link (to the bottom next to version)
+  - Add demo music, special dish, banner, affiliations, titles and boss (for ascension) to the Database character header
+  - Add new tab Build to the Database
 
 # Future version
 - Features:

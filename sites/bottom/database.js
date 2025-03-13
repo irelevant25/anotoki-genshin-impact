@@ -16,6 +16,7 @@
         createAscensionsTab();
         createTalentsTab();
         createConstellationsTab();
+        createBuildTab();
     }
 
     // Create the character header section
@@ -24,73 +25,103 @@
 
         // Create character image and basic info sections
         const headerHTML = `
-        <img src="${character.card}" alt="${character.name}" class="character-image">
-        
-        <div class="character-basics">
-            <h1 class="character-name ${character.element.toLowerCase()}">
-                ${character.name}
-                <span class="rarity-stars">${'★'.repeat(parseInt(character.rarity))}</span>
-            </h1>
+            <img src="${character.card}" alt="${character.name}" class="character-image">
             
-            ${character.titles && character.titles.length ? `<div class="character-title">${character.titles[0]}</div>` : ''}
-            
-            <div class="character-info">
-                <div class="info-item">
-                    <span class="info-label">Element:</span>
-                    <span class="info-value">
-                        <img src="${character.element_icon}" alt="${character.element}" class="element-icon">
-                        ${character.element}
-                    </span>
+            <div class="character-basics">
+                <h1 class="character-name ${character.element.toLowerCase()}">
+                    ${character.name}
+                    <span class="rarity-stars">${'★'.repeat(parseInt(character.rarity))}</span>
+                </h1>
+                
+                ${character.titles && character.titles.length ? `<div class="character-title">${character.titles[0]}</div>` : ''}
+                
+                <div class="character-info">
+                    <div class="info-item">
+                        <span class="info-label">Element:</span>
+                        <span class="info-value">
+                            <img src="${character.element_icon}" alt="${character.element}" class="element-icon">
+                            ${character.element}
+                        </span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">Weapon:</span>
+                        <span class="info-value">
+                            <img src="${character.weapont_type_icon}" alt="${character.weapon_type}" class="weapon-icon">
+                            ${character.weapon_type}
+                        </span>
+                    </div>
+                    
+                    ${character.region ? `
+                    <div class="info-item">
+                        <span class="info-label">Region:</span>
+                        <span class="info-value">
+                            ${character.region_icon ? `<img src="${character.region_icon}" alt="${character.region}" class="region-icon">` : ''}
+                            ${character.region}
+                        </span>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="info-item">
+                        <span class="info-label">Model:</span>
+                        <span class="info-value">${character.model_type}</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">Birthday:</span>
+                        <span class="info-value">${character.birthday}</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">Released:</span>
+                        <span class="info-value">${character.release_date} (v${character.version})</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Titles:</span>
+                        <span class="info-value">${character.titles.join(', ')}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Affiliations:</span>
+                        <span class="info-value">${character.affiliations.join(', ')}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Special dish:</span>
+                        <span class="info-value">
+                            <img src="${character.special_dish.icon}" alt="${character.special_dish.name}" class="element-icon">
+                            ${character.special_dish.name}
+                        </span>
+                    </div>
                 </div>
                 
-                <div class="info-item">
-                    <span class="info-label">Weapon:</span>
-                    <span class="info-value">
-                        <img src="${character.weapont_type_icon}" alt="${character.weapon_type}" class="weapon-icon">
-                        ${character.weapon_type}
-                    </span>
-                </div>
-                
-                ${character.region ? `
-                <div class="info-item">
-                    <span class="info-label">Region:</span>
-                    <span class="info-value">
-                        ${character.region_icon ? `<img src="${character.region_icon}" alt="${character.region}" class="region-icon">` : ''}
-                        ${character.region}
-                    </span>
+                ${character.voice_actors && character.voice_actors.length ? `
+                <div class="xcol-2">
+                    <div class="voice-actors">
+                        <h3>Voice Actors</h3>
+                        ${character.voice_actors.map(va => `
+                            <div class="voice-actor">
+                                <strong>${va.language}:</strong> ${va.actor}
+                            </div>
+                        `).join('')}
+                    </div>
+                    ${character.demo_music ? `
+                        <div class="demo-music">
+                            <h3>Demo Music</h3>
+                            <audio preload="metadata" controls src="${character.demo_music}"></audio>
+                        </div>
+                    ` : ''}
                 </div>
                 ` : ''}
-                
-                <div class="info-item">
-                    <span class="info-label">Model:</span>
-                    <span class="info-value">${character.model_type}</span>
-                </div>
-                
-                <div class="info-item">
-                    <span class="info-label">Birthday:</span>
-                    <span class="info-value">${character.birthday}</span>
-                </div>
-                
-                <div class="info-item">
-                    <span class="info-label">Released:</span>
-                    <span class="info-value">${character.release_date} (v${character.version})</span>
-                </div>
             </div>
-            
-            ${character.voice_actors && character.voice_actors.length ? `
-            <div class="voice-actors">
-                <h3>Voice Actors</h3>
-                ${character.voice_actors.map(va => `
-                    <div class="voice-actor">
-                        <strong>${va.language}:</strong> ${va.actor}
-                    </div>
-                `).join('')}
-            </div>
-            ` : ''}
-        </div>
-    `;
+        `;
 
         headerElement.innerHTML = headerHTML;
+
+        const bannerElement = containerElement.querySelector('#banner');
+        bannerElement.src = character.namecard_banner;
+        bannerElement.alt = character.name;
     }
 
     // Setup tab functionality
@@ -351,6 +382,12 @@
         });
 
         constellationsElement.innerHTML = constellationsHTML;
+    }
+
+    // Create Build tab content
+    function createBuildTab() {
+        const buildElement = containerElement.querySelector('#build > img');
+        buildElement.src = character.build.infographic;
     }
 
     // Update total materials calculation

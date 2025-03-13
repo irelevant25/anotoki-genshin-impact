@@ -486,3 +486,8 @@ nav ul li:hover .help-icon {
     background: rgba(0, 0, 0, 0.8);
   }
 }
+
+.xcol-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
