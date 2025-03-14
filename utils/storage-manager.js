@@ -1,75 +1,105 @@
 (() => {
     'use strict';
 
-    /**
-     * storage-manager.js
-     * A simple local storage manager for saving and loading application data
-     */
-
     class StorageManager {
-        // Storage key in localStorage
         static STORAGE_KEY = 'app_data';
-
-        // Default data structure
         static DEFAULT_DATA = {
-            background: '',
-            lastVersion: '',
-            quizBanners: [],
-            quizPixelate: [],
-            quizMismatch: [],
-            daily: {
-                quizBanners: false,
-                quizPixelate: false,
-                quizMismatch: false
+            version: '0.2',
+            bottomMenu: {
+                background: '',
+                difficulty: '',
+                version: ''
+            },
+            topMenu: {
+                banners: {
+                    dailyState: {
+                        triesMax: 0,
+                        triesEffects: []
+                    },
+                    state: {
+                        triesMax: 0,
+                        triesEffects: []
+                    }
+                },
+                pixelate: {
+                    dailyState: {
+                        triesMax: 0,
+                        triesEffects: []
+                    },
+                    state: {
+                        triesMax: 0,
+                        triesEffects: []
+                    }
+                },
+                mismatch: {
+                    dailyState: {
+                        triesMax: 0,
+                        triesEffects: []
+                    },
+                    state: {
+                        triesMax: 0,
+                        triesEffects: []
+                    }
+                },
+                tournament: {
+                    dailyState: {
+                        triesMax: 0,
+                        triesEffects: []
+                    },
+                    state: {
+                        triesMax: 0,
+                        triesEffects: []
+                    }
+                },
+                music: {
+                    dailyState: {
+                        triesMax: 0,
+                        triesEffects: []
+                    },
+                    state: {
+                        triesMax: 0,
+                        triesEffects: []
+                    }
+                }
             }
         };
 
-        // In-memory data cache
-        dataCache = null;
+        data = null;
 
-        /**
-         * Initialize the data structure
-         * @returns {Object} The initialized data
-         */
         init() {
-            const savedData = this.loadData();
-            if (!savedData) {
+            const data = this._loadData();
+            if (!data) {
                 this.saveData(StorageManager.DEFAULT_DATA);
-                return { ...StorageManager.DEFAULT_DATA };
             }
-            return this.savedData;
+            else if (!data.version || data.version !== StorageManager.DEFAULT_DATA.version) {
+                data.version = data.version ?? StorageManager.DEFAULT_DATA.version;
+                data = migrate(data);
+                this.saveData(data);
+            }
+            return this.data;
         }
 
-        /**
-         * Load all data from localStorage
-         * @returns {Object|null} The loaded data or null if no data exists
-         */
-        loadData() {
+        _loadData() {
             try {
-                if (this.dataCache) return { ...this.dataCache };
+                if (this.data) return { ...this.data };
 
                 const data = localStorage.getItem(StorageManager.STORAGE_KEY);
                 if (!data) return null;
 
                 const parsedData = JSON.parse(data);
-                this.dataCache = parsedData;
-                return { ...parsedData };
+                this.data = parsedData;
+                return this.data;
             } catch (error) {
                 console.error('Error loading data from localStorage:', error);
-                return StorageManager.DEFAULT_DATA;
+                this.data = StorageManager.DEFAULT_DATA;
+                return this.data;
             }
         }
 
-        /**
-         * Save all data to localStorage
-         * @param {Object} data - The data to save
-         * @returns {boolean} True if successful, false otherwise
-         */
         saveData(data) {
             try {
-                const dataToSave = { ...data };
+                const dataToSave = data;
                 localStorage.setItem(StorageManager.STORAGE_KEY, JSON.stringify(dataToSave));
-                this.dataCache = { ...dataToSave };
                 return true;
             } catch (error) {
                 console.error('Error saving data to localStorage:', error);
@@ -77,130 +107,72 @@
             }
         }
 
-        /**
-         * Get the background setting
-         * @returns {string} The background value
-         */
         getBackground() {
-            const data = this.loadData();
-            return data.background === '' ? null : data.background;
+            const data = this._loadData();
+            return data.bottomMenu.background === '' ? null : data.bottomMenu.background;
         }
 
-        /**
-         * Save the background setting
-         * @param {string} background - The background value to save
-         * @returns {boolean} True if successful, false otherwise
-         */
         saveBackground(background) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.background = background;
+            const data = this._loadData();
+            data.bottomMenu.background = background;
             return this.saveData(data);
         }
 
-        /**
-         * Get the last version
-         * @returns {string} The last version value
-         */
         getLastVersion() {
-            const data = this.loadData();
-            return data.lastVersion === '' ? null : data.lastVersion;
+            const data = this._loadData();
+            return data.bottomMenu.lastVersion === '' ? null : data.bottomMenu.lastVersion;
         }
 
-        /**
-         * Save the last version
-         * @param {string} version - The version to save
-         * @returns {boolean} True if successful, false otherwise
-         */
         saveLastVersion(version) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
+            const data = this._loadData();
             data.lastVersion = version;
             return this.saveData(data);
         }
 
-        /**
-         * Get quiz banners data
-         * @returns {Array} Array of quiz banner objects
-         */
-        getQuizBanners() {
-            const data = this.loadData();
-            return [...data.quizBanners];
-        }
+        // getQuizBanners() {
+        //     const data = this._loadData();
+        //     return [...data.quizBanners];
+        // }
 
-        /**
-         * Save quiz banners data
-         * @param {Array} quizBanners - Array of quiz banner objects
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveQuizBanners(quizBanners) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.quizBanners = [...quizBanners];
-            return this.saveData(data);
-        }
+        // saveQuizBanners(quizBanners) {
+        //     const data = this._loadData();
+        //     data.quizBanners = [...quizBanners];
+        //     return this.saveData(data);
+        // }
 
-        /**
-         * Get quiz pixelate data
-         * @returns {Array} Array of quiz pixelate objects
-         */
-        getQuizPixelate() {
-            const data = this.loadData();
-            return [...data.quizPixelate];
-        }
+        // getQuizPixelate() {
+        //     const data = this._loadData();
+        //     return [...data.quizPixelate];
+        // }
 
-        /**
-         * Save quiz pixelate data
-         * @param {Array} quizPixelate - Array of quiz pixelate objects
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveQuizPixelate(quizPixelate) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.quizPixelate = [...quizPixelate];
-            return this.saveData(data);
-        }
+        // saveQuizPixelate(quizPixelate) {
+        //     const data = this._loadData();
+        //     data.quizPixelate = [...quizPixelate];
+        //     return this.saveData(data);
+        // }
 
-        /**
-         * Get quiz mismatch data
-         * @returns {Array} Array of quiz mismatch objects
-         */
-        getQuizMismatch() {
-            const data = this.loadData();
-            return [...data.quizMismatch];
-        }
+        // getQuizMismatch() {
+        //     const data = this._loadData();
+        //     return [...data.quizMismatch];
+        // }
 
-        /**
-         * Save quiz mismatch data
-         * @param {Array} quizMismatch - Array of quiz mismatch objects
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveQuizMismatch(quizMismatch) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.quizMismatch = [...quizMismatch];
-            return this.saveData(data);
-        }
+        // saveQuizMismatch(quizMismatch) {
+        //     const data = this._loadData();
+        //     data.quizMismatch = [...quizMismatch];
+        //     return this.saveData(data);
+        // }
 
-        /**
-         * Get daily quiz status
-         * @returns {Object} The daily quiz status object
-         */
-        getDailyStatus() {
-            const data = this.loadData();
-            return { ...data.daily };
-        }
+        // getDailyStatus() {
+        //     const data = this._loadData();
+        //     return { ...data.daily };
+        // }
 
-        /**
-         * Save daily quiz status
-         * @param {Object} dailyStatus - The daily status object
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveDailyStatus(dailyStatus) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.daily = { ...dailyStatus };
-            return this.saveData(data);
-        }
+        // saveDailyStatus(dailyStatus) {
+        //     const data = this._loadData();
+        //     data.daily = { ...dailyStatus };
+        //     return this.saveData(data);
+        // }
 
-        /**
-         * Clear all data from storage
-         * @returns {boolean} True if successful, false otherwise
-         */
         clearData() {
             try {
                 localStorage.removeItem(StorageManager.STORAGE_KEY);
@@ -213,7 +185,9 @@
         }
     }
 
+    window.storageManager = new StorageManager();
+
     document.addEventListener('DOMContentLoaded', () => {
-        window.storageManager = new StorageManager();
+        window.storageManager.init();
     });
 })();

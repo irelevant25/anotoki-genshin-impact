@@ -1,8 +1,6 @@
 (() => {
     'use strict';
 
-    let quizManager;
-
     class QuizManager {
         constructor(idSelector, daily = false) {
             this.idSelector = idSelector;
@@ -25,7 +23,7 @@
 
             this.autocompleteContainerElement = this.containerElement.querySelector('div[name="autocomplete"]');
             new Autocomplete(this.autocompleteContainerElement, (selectedCharacter) => {
-                this.triesDisplay(selectedCharacter);
+                this.triesDisplayCharacters(selectedCharacter);
             });
 
             this.questionElement = this.containerElement.querySelector('[name="question"]');
@@ -36,28 +34,15 @@
             this.triesScoreCurrentElement = this.containerElement.querySelector('div.tries-score > p[name="tries-current"]');
             this.triesScoreMaxElement = this.containerElement.querySelector('div.tries-score > p[name="tries-max"]');
 
-            this._boundPrepareQuestion = this.prepareQuestion.bind(this);
-            this.menuItemElement.addEventListener('click', this._boundPrepareQuestion);
-            this.nextButtonElement?.addEventListener('click', this._boundPrepareQuestion);
-
-            // Initialize components
-            this.triesScoreReset();
+            this.menuItemElement?.addEventListener('click', () => this.startQuestion());
+            this.nextButtonElement?.addEventListener('click', () => this.startQuestion());
         }
 
         applyEffects() {
             const currentTry = Number(this.triesScoreCurrentElement.textContent);
-            let size = this.triesEffects.find(x => x.try === currentTry)?.data;                  
-            if (quizManager.isQuestionComplete) size = 175;
-            pixelateImage(quizManager.questionElement, this.questionEntity.icon, size, size);
-        }
-
-        triesScoreReset() {
-            if (this.triesScoreCurrentElement) {
-                this.triesScoreCurrentElement.textContent = 0;
-            }
-            if (this.triesScoreMaxElement) {
-                this.triesScoreMaxElement.textContent = this.triesMax;
-            }
+            let size = this.triesEffects.find(x => x.try === currentTry)?.data;
+            if (this.isQuestionComplete) size = 175;
+            this.pixelateImage(this.questionElement, this.questionEntity.icon, size, size);
         }
 
         triesDisplayCharacters(selectedCharacter) {
@@ -66,39 +51,26 @@
             const imgElement = document.createElement('img');
             const emptyTryElement = this.containerElement.querySelector(`div.try:not(:has(img))`);
 
-            if (success) {
-                imgElement.src = getCharacterIconImageUrl(answer);
-            } else {
-                imgElement.src = getCharacterIconImageUrl(selectedCharacter.name);
-            }
-
+            this.triesScoreCurrentElement.textContent = Number(this.triesScoreCurrentElement.textContent) + 1;
+            imgElement.src = getCharacterIconImageUrl(success ? answer : selectedCharacter.name);
             emptyTryElement.appendChild(imgElement);
 
             if (success || Number(this.triesScoreCurrentElement.textContent) === this.triesMax) {
-                this.endStateQuestion(CHARACTERS.find(character => character.name === answer));
+                this.endQuestion(CHARACTERS.find(character => character.name === answer));
             }
-        }
-
-        triesScoreUpdate() {
-            const currentTries = Number(this.triesScoreCurrentElement.textContent) + 1;
-            if (this.triesScoreCurrentElement) {
-                this.triesScoreCurrentElement.textContent = currentTries;
-            }
-        }
-
-        triesDisplay(selectedCharacter) {
-            this.triesScoreUpdate();
-            this.triesDisplayCharacters(selectedCharacter);
             this.applyEffects();
         }
 
-        triesDisplayReset() {
-            if (!this.triesDisplayElement) return;
+        defaultState() {
+            this.isQuestionComplete = false;
+            this.answerSuccessElement.src = '';
+            this.nextButtonElement.style.display = 'none';
+            this.autocompleteContainerElement.style.display = 'block';
 
-            // Clear existing tries
+            this.triesScoreCurrentElement.textContent = 0;
+            this.triesScoreMaxElement.textContent = this.triesMax;
+
             this.triesDisplayElement.innerHTML = '';
-
-            // Create new empty tries
             for (let i = 0; i < this.triesMax; i++) {
                 const tryElement = document.createElement('div');
                 tryElement.classList.add('try');
@@ -106,87 +78,55 @@
             }
         }
 
-        defaultState() {
-            if (this.answerSuccessElement) this.answerSuccessElement.src = '';
-            if (this.nextButtonElement) this.nextButtonElement.style.display = 'none';
-            if (this.autocompleteContainerElement) this.autocompleteContainerElement.style.display = 'block';
-
-            this.triesDisplayReset();
-            this.triesScoreReset();
-        }
-
-        startStateQuestion() {
-            this.isQuestionComplete = false;
-            this.questionEntity = getRandomCharacter();
+        startQuestion(character) {
+            this.defaultState();
+            this.questionEntity = character ?? getRandomCharacter();
             this.applyEffects();
         }
 
-        endStateQuestion(character) {
-            if (this.answerSuccessElement) {
-                this.answerSuccessElement.src = character.wish;
-            }
-            if (this.nextButtonElement) {
-                this.nextButtonElement.style.display = 'inherit';
-            }
-            if (this.autocompleteContainerElement) {
-                this.autocompleteContainerElement.style.display = 'none';
-            }
+        endQuestion(character) {
+            this.answerSuccessElement.src = character.wish;
+            if (!this.daily) this.nextButtonElement.style.display = 'inherit';
+            this.autocompleteContainerElement.style.display = 'none';
             this.isQuestionComplete = true;
         }
 
-        prepareQuestion(menuItem) {
-            if (menuItem &&
-                menuItem.currentTarget.localName !== 'button' &&
-                !menuItem.currentTarget.classList.contains('active')) {
-                return;
-            }
+        pixelateImage(canvas, imgUrl, width, height) {
+            const ctx = canvas.getContext("2d");
 
-            this.defaultState();
-            this.startStateQuestion();
+            // Set canvas dimensions
+            canvas.width = 175;
+            canvas.height = 175;
+
+            // Create offscreen canvas for low resolution
+            const offCanvas = document.createElement("canvas");
+            offCanvas.width = width;
+            offCanvas.height = height;
+            const offCtx = offCanvas.getContext("2d");
+
+            // Load the image
+            const img = new Image();
+            img.src = imgUrl;
+
+            img.onload = function () {
+                // Draw at low resolution
+                offCtx.drawImage(img, 0, 0, width, height);
+
+                // Clear main canvas and set settings
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.imageSmoothingEnabled = false;  // Disable smoothing for pixelated look
+
+                // Draw the low-res image scaled up
+                ctx.drawImage(offCanvas, 0, 0, canvas.width, canvas.height);
+            };
         }
     }
 
-    /**
-     * Pixelates an image on a canvas
-     * 
-     * @param {HTMLCanvasElement} canvas - The canvas to draw on
-     * @param {string} imgUrl - URL of the image to pixelate
-     * @param {number} width - Pixelation width
-     * @param {number} height - Pixelation height
-     */
-    function pixelateImage(canvas, imgUrl, width, height) {
-        const ctx = canvas.getContext("2d");
-
-        // Set canvas dimensions
-        canvas.width = 175;
-        canvas.height = 175;
-
-        // Create offscreen canvas for low resolution
-        const offCanvas = document.createElement("canvas");
-        offCanvas.width = width;
-        offCanvas.height = height;
-        const offCtx = offCanvas.getContext("2d");
-
-        // Load the image
-        const img = new Image();
-        img.src = imgUrl;
-
-        img.onload = function () {
-            // Draw at low resolution
-            offCtx.drawImage(img, 0, 0, width, height);
-
-            // Clear main canvas and set settings
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.imageSmoothingEnabled = false;  // Disable smoothing for pixelated look
-
-            // Draw the low-res image scaled up
-            ctx.drawImage(offCanvas, 0, 0, canvas.width, canvas.height);
-        };
-    }
+    window.PixelateQuizManager = QuizManager;
 
     document.addEventListener('DOMContentLoaded', () => {
         const config = APP_CONFIG.topMenu.pixelate;
-        quizManager = new QuizManager(config.id);
+        const quizManager = new QuizManager(config.id);
         quizManager.init({
             triesMax: config.triesMax,
             triesEffects: config.triesEffects

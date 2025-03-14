@@ -21,7 +21,7 @@
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
-            
+
             this.autocompleteContainerElement = this.containerElement.querySelector('div[name="autocomplete"]');
             new Autocomplete(this.autocompleteContainerElement, (selectedCharacter) => {
                 this.triesDisplayCharacters(selectedCharacter);
@@ -42,9 +42,8 @@
             this.pauseButton = this.containerElement.querySelector('[name="pauseButton"]');
             this.restartButton = this.containerElement.querySelector('[name="restartButton"]');
 
-            this._boundPrepareQuestion = this.prepareQuestion.bind(this);
-            this.menuItemElement.addEventListener('click', this._boundPrepareQuestion);
-            this.nextButtonElement?.addEventListener('click', this._boundPrepareQuestion);
+            this.menuItemElement?.addEventListener('click', () => this.startQuestion());
+            this.nextButtonElement?.addEventListener('click', () => this.startQuestion());
             this.audioElement.addEventListener('loadedmetadata', function () {
                 this.refreshPlayerTime();
             }.bind(this));
@@ -133,86 +132,55 @@
         }
 
         triesDisplayCharacters(selectedCharacter) {
-            const currentTries = Number(this.triesScoreCurrentElement.textContent) + 1;
-            if (this.triesScoreCurrentElement) {
-                this.triesScoreCurrentElement.textContent = currentTries;
-            }
-
             const answer = this.questionEntity.name;
             const success = selectedCharacter.name === answer;
             const imgElement = document.createElement('img');
             const emptyTryElement = this.containerElement.querySelector(`div.try:not(:has(img))`);
 
-            if (success) {
-                imgElement.src = getCharacterIconImageUrl(answer);
-            } else {
-                imgElement.src = getCharacterIconImageUrl(selectedCharacter.name);
-            }
-
+            this.triesScoreCurrentElement.textContent = Number(this.triesScoreCurrentElement.textContent) + 1;
+            imgElement.src = getCharacterIconImageUrl(success ? answer : selectedCharacter.name);
             emptyTryElement.appendChild(imgElement);
 
             if (success || Number(this.triesScoreCurrentElement.textContent) === this.triesMax) {
-                this.endStateQuestion(CHARACTERS.find(character => character.name === answer));
+                this.endQuestion(CHARACTERS.find(character => character.name === answer));
                 this.refreshPlayerTime(true);
             } else {
                 this.refreshPlayerTime();
             }
         }
 
-        triesDisplayReset() {
-            if (!this.triesDisplayElement) return;
+        defaultState() {
+            this.answerSuccessElement.src = '';
+            this.nextButtonElement.style.display = 'none';
+            this.autocompleteContainerElement.style.display = 'block';
+            this.playButton.disabled = false;
+            this.pauseButton.disabled = true;
 
             this.triesDisplayElement.innerHTML = '';
-
             for (let i = 0; i < this.triesMax; i++) {
                 const tryElement = document.createElement('div');
                 tryElement.classList.add('try');
                 this.triesDisplayElement.appendChild(tryElement);
             }
+
+            this.triesScoreCurrentElement.textContent = 0;
+            this.triesScoreMaxElement.textContent = this.triesMax;
         }
 
-        defaultState() {
-            if (this.answerSuccessElement) this.answerSuccessElement.src = '';
-            if (this.nextButtonElement) this.nextButtonElement.style.display = 'none';
-            if (this.autocompleteContainerElement) this.autocompleteContainerElement.style.display = 'block';
-            this.playButton.disabled = false;
-            this.pauseButton.disabled = true;
-
-            this.triesDisplayReset();
-
-            if (this.triesScoreCurrentElement) {
-                this.triesScoreCurrentElement.textContent = 0;
-            }
-            if (this.triesScoreMaxElement) {
-                this.triesScoreMaxElement.textContent = this.triesMax;
-            }
+        endQuestion(character) {
+            this.answerSuccessElement.src = character.wish;
+            if (!this.daily) this.nextButtonElement.style.display = 'inherit';
+            this.autocompleteContainerElement.style.display = 'none';
         }
 
-        endStateQuestion(character) {
-            if (this.answerSuccessElement) {
-                this.answerSuccessElement.src = character.wish;
-            }
-            if (this.nextButtonElement) {
-                this.nextButtonElement.style.display = 'inherit';
-            }
-            if (this.autocompleteContainerElement) {
-                this.autocompleteContainerElement.style.display = 'none';
-            }
-        }
-
-        prepareQuestion(menuItem) {
-            if (menuItem &&
-                menuItem.currentTarget.localName !== 'button' &&
-                !menuItem.currentTarget.classList.contains('active')) {
-                return;
-            }
-
+        startQuestion(character) {
             this.defaultState();
-
-            this.questionEntity = getRandomCharacter(x => x.demo_music !== null);
+            this.questionEntity = character ?? getRandomCharacter(x => x.demo_music !== null);
             this.audioElement.src = this.questionEntity.demo_music;
         }
     }
+
+    window.MusicQuizManager = QuizManager;
 
     document.addEventListener('DOMContentLoaded', () => {
         new QuizManager(APP_CONFIG.topMenu.music.id);

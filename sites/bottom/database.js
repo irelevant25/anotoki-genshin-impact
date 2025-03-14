@@ -6,6 +6,9 @@
 
     // Main function to display character info
     function displayCharacterInfo() {
+        const characterDatabase = DATABASE.find(c => c.name === character.name);
+        Object.assign(character, characterDatabase);
+
         // Create header section
         createCharacterHeader();
 
@@ -90,8 +93,8 @@
                     <div class="info-item">
                         <span class="info-label">Special dish:</span>
                         <span class="info-value">
-                            <img src="${character.special_dish.icon}" alt="${character.special_dish.name}" class="element-icon">
-                            ${character.special_dish.name}
+                            ${character.special_dish ? `<img src="${character.special_dish.icon}" alt="${character.special_dish.name}" class="element-icon">` : ''}
+                            ${character.special_dish?.name ?? 'N/A'}
                         </span>
                     </div>
                 </div>
@@ -471,14 +474,28 @@
         materialsTotalElement.innerHTML = totalHTML;
     }
 
+    function initLoader() {
+        const script = document.createElement('script');
+        script.src = 'data/database.js';
+        script.onload = function () {
+            setTimeout(() => {
+                document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).removeEventListener('click', initLoader);
+                containerElement.querySelector('.loader').remove();
+                displayCharacterInfo();
+            }, 750)
+        };
+        document.head.appendChild(script);
+    }
+
     // Process data when page loads
     document.addEventListener('DOMContentLoaded', () => {
         containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}-modal`);
         character = getRandomCharacter();
-        displayCharacterInfo();
         new Autocomplete(containerElement, (selectedCharacter) => {
             character = selectedCharacter;
             displayCharacterInfo();
         });
+
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', initLoader);
     });
 })();

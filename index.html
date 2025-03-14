@@ -17,6 +17,9 @@
     <script src="data/bottom-menu-items.js"></script>
     <script src="data/config.js"></script>
     <script src="data/backgrounds.js"></script>
+    <script src="data/difficulties.js"></script>
+    <!-- MIGRATIONS -->
+    <script src="migrations/0.1-0.2.js"></script>
     <!-- GLOBAL -->
     <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
@@ -29,6 +32,8 @@
     <script src="utils/autocomplete.js"></script>
     <!-- SITES -->
     <!-- TOP MENU -->
+    <link rel="stylesheet" href="sites/top/daily.css">
+    <script src="sites/top/daily.js"></script>
     <link rel="stylesheet" href="sites/top/banners.css">
     <script src="sites/top/banners.js"></script>
     <link rel="stylesheet" href="sites/top/pixelate.css">
@@ -40,6 +45,8 @@
     <link rel="stylesheet" href="sites/top/music.css">
     <script src="sites/top/music.js"></script>
     <!-- BOTTOM MENU -->
+    <link rel="stylesheet" href="sites/bottom/difficulty.css">
+    <script src="sites/bottom/difficulty.js"></script>
     <link rel="stylesheet" href="sites/bottom/version.css">
     <script src="sites/bottom/version.js"></script>
     <link rel="stylesheet" href="sites/bottom/whats-new.css">
@@ -51,12 +58,21 @@
 </head>
 
 <body>
+
     <!-- Top menu items -->
     <nav id="top-menu">
         <!-- Menu items and help modals are generated dynamically in utils/top-menu-generator.js -->
     </nav>
 
     <!-- Top menu content -->
+
+    <!-- Daily -->
+    <div id="site-daily" class="d-none">
+        <div class="container quiz-container">
+            <div name="daily-quizzes" class="d-flex justify-content-center gap-3 py-3"></div>
+            <div name="quiz"></div>
+        </div>
+    </div>
 
     <!-- Banners -->
     <div id="site-banners" class="d-none">
@@ -190,6 +206,35 @@
         <!-- Menu items are generated dynamically in utils/bottom-menu-generator.js -->
     </div>
 
+    <!-- Difficulties Modal -->
+    <div class="modal fade" id="site-difficulties-modal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="#site-difficulties-modal-label">Select Difficulty</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4" id="site-difficulties-modal-content">
+                    <div class="domain-container">
+                        <div class="difficulty-section">
+                            <div class="domain-levels">
+                                <!-- Render difficulty levels dynamically -->
+                            </div>
+                        </div>
+
+                        <div name="levels-difficulties">
+                            <!-- Render difficulty levels descriptions dynamically -->
+                        </div>
+
+                        <div class="challenge-container">
+                            <button class="btn btn-primary ms-3">Potvrdiť</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Background selector Modal -->
     <div class="modal fade" id="site-backgrounds-modal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -264,6 +309,11 @@
     <div class="modal fade" id="site-database-modal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
+                <div class="d-flex align-items-center loader">
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                    <strong class="ms-3 me-auto">Loading...</strong>
+                </div>
+
                 <div class="modal-header">
                     <h5 class="modal-title" id="site-database-modal-label">Database</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

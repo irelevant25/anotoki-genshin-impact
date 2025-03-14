@@ -1,4 +1,28 @@
 const MENU_ITEMS_TOP = {
+    daily: {
+        id: "site-daily",
+        title: "Daily",
+        helpIconPlacement: "left",
+        modalTitle: "About Daily",
+        modalContent: `
+            <div class="mb-4">
+                <h6 class="fw-bold">What is the Daily?</h6>
+                <p>Two random quizzes will be displayed each day with only one question. Possible quizzes include <b>banners</b>, <b>pixelate</b>, <b>mismatch</b> and <b>music</b>.</p>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">How it Works</h6>
+                <ol>
+                    <li>Two random quizzes will be displayed each day</li>
+                    <li>Each question has a time limit</li>
+                    <li>Each question has a difficulty level</li>
+                    <li>You can only attempt in a daily quizz once per day.</li>
+                    <li>Reset of daily is at 00:00 UTC.</li>
+                    <li>After completing all daily quizzes, you can still play the quizzes separately.</li>
+                </ol>
+            </div>
+        `
+    },
     banners: {
         id: "site-banners",
         title: "Banners",

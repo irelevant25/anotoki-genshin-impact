@@ -1,4 +1,8 @@
 const MENU_ITEMS_BOTTOM = {
+    difficulties: {
+        id: "site-difficulties",
+        title: "Difficulties",
+    },
     database: {
         id: "site-database",
         title: "Database",

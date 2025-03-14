@@ -1,0 +1,7 @@
+#site-daily {
+    div[name="quiz"] {
+        .quiz-container {
+            background-color: transparent;
+        }
+    }
+}
