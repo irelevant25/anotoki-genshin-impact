@@ -2,25 +2,54 @@
     'use strict';
 
     class QuizManager {
-        constructor(idSelector, daily = false) {
+        constructor(idSelector, options = {}, daily = false) {
             this.idSelector = idSelector;
             this.daily = daily;
+            this.options = options;
 
-            // Default properties
-            this.questionEntity = null;
-            this.isQuestionComplete = false;
-        }
-
-        init() {
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
             this.questionElement = this.containerElement.querySelector('[name="question"]');
             this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
             this.nextButtonElement = this.containerElement.querySelector('button.next-button');
-            this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
-
-            this.menuItemElement?.addEventListener('click', () => this.startQuestion());
+            // this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
             this.nextButtonElement?.addEventListener('click', () => this.startQuestion());
+
+            this.nextButtonElement?.addEventListener('click', () => {
+                this.state = null;
+                this.init();
+            });
+
+            this.state = storageManager.getTopMenuMismatchState(this.daily);
+            console.log(`daily: ${this.daily}, getTopMenuMismatchState: `, this.state);
+        }
+
+        init() {
+            this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
+            this.quizSet = this.state?.quizSet ? {
+                options: this.state.quizSet.options.map(x => CHARACTERS.find(character => character.name === x)),
+                answer: CHARACTERS.find(character => character.name === this.state.quizSet.answer),
+                commonValue: this.state.quizSet.commonValue,
+                quizProperty: this.state.quizSet.quizProperty
+            } : this.getRandomQuizSet(4);
+
+            this.defaultState();
+            this.startQuestion();
+            if (this.isQuestionComplete) this.endQuestion(this.quizSet.answer);
+            if (!this.state) this.saveState();
+        }
+
+        saveState() {
+            this.state = {
+                isQuestionComplete: this.isQuestionComplete,
+                quizSet: {
+                    options: this.quizSet.options.map(x => x.name),
+                    answer: this.quizSet.answer.name,
+                    commonValue: this.quizSet.commonValue,
+                    quizProperty: this.quizSet.quizProperty
+                }
+            };
+            storageManager.saveTopMenuMismatchState(this.state, this.daily);
         }
 
         defaultState() {
@@ -29,33 +58,26 @@
         }
 
         startQuestion() {
-            this.defaultState();
-            this.isQuestionComplete = false;
-
             // Clear previous question
             this.questionElement.innerHTML = "";
 
-            // Generate a new quiz set
-            const quizSet = this.getRandomQuizSet(4);
-
             // Add character options to the UI
-            quizSet.options.forEach(character => {
+            this.quizSet.options.forEach(character => {
                 const image = document.createElement("img");
                 image.src = character.icon;
                 image.alt = character.name;
                 image.title = character.name;
                 image.addEventListener('click', () => {
-                    this.endQuestion(quizSet.answer);
+                    this.endQuestion(this.quizSet.answer);
+                    this.saveState();
                 });
                 this.questionElement.appendChild(image);
             });
 
             // Log quiz info for debugging
-            console.log("Quiz Options:", quizSet.options);
-            console.log("Odd One Out (Answer):", quizSet.answer);
-            console.log("Quiz based on property:", quizSet.quizProperty, "with common value:", quizSet.commonValue);
-
-            this.questionEntity = quizSet.answer;
+            console.log("Quiz Options:", this.quizSet.options);
+            console.log("Odd One Out (Answer):", this.quizSet.answer);
+            console.log("Quiz based on property:", this.quizSet.quizProperty, "with common value:", this.quizSet.commonValue);
         }
 
         endQuestion(character) {
@@ -157,8 +179,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         const config = APP_CONFIG.topMenu.mismatch;
-        const quizManager = new QuizManager(config.id);
-        quizManager.init();
+        new QuizManager(config.id, config).init();
         console.log('Mismatch quiz initialized');
     });
 })();

@@ -11,70 +11,43 @@
                 version: ''
             },
             topMenu: {
+                daily: {
+                    date: '',
+                    subjects: []
+                },
                 banners: {
-                    dailyState: {
-                        triesMax: 0,
-                        triesEffects: []
-                    },
-                    state: {
-                        triesMax: 0,
-                        triesEffects: []
-                    }
+                    dailyState: null,
+                    state: null
                 },
                 pixelate: {
-                    dailyState: {
-                        triesMax: 0,
-                        triesEffects: []
-                    },
-                    state: {
-                        triesMax: 0,
-                        triesEffects: []
-                    }
+                    dailyState: null,
+                    state: null
                 },
                 mismatch: {
-                    dailyState: {
-                        triesMax: 0,
-                        triesEffects: []
-                    },
-                    state: {
-                        triesMax: 0,
-                        triesEffects: []
-                    }
-                },
-                tournament: {
-                    dailyState: {
-                        triesMax: 0,
-                        triesEffects: []
-                    },
-                    state: {
-                        triesMax: 0,
-                        triesEffects: []
-                    }
+                    dailyState: null,
+                    state: null
                 },
                 music: {
-                    dailyState: {
-                        triesMax: 0,
-                        triesEffects: []
-                    },
-                    state: {
-                        triesMax: 0,
-                        triesEffects: []
-                    }
+                    dailyState: null,
+                    state: null
+                },
+                tournament: {
+                    dailyState: null,
+                    state: null
                 }
             }
         };
 
-        data = null;
+        constructor() {
+            this.data = null;
+        }
 
         init() {
-            const data = this._loadData();
-            if (!data) {
-                this.saveData(StorageManager.DEFAULT_DATA);
-            }
-            else if (!data.version || data.version !== StorageManager.DEFAULT_DATA.version) {
-                data.version = data.version ?? StorageManager.DEFAULT_DATA.version;
-                data = migrate(data);
-                this.saveData(data);
+            this._loadData();
+            if (!this.data.version || this.data.version !== StorageManager.DEFAULT_DATA.version) {
+                this.data.version = this.data.version ?? StorageManager.DEFAULT_DATA.version;
+                this.data = migrate(this.data);
+                this.saveData(this.data);
             }
             return this.data;
         }
@@ -84,94 +57,31 @@
                 if (this.data) return { ...this.data };
 
                 const data = localStorage.getItem(StorageManager.STORAGE_KEY);
-                if (!data) return null;
+                if (!data) {
+                    this.data = StorageManager.DEFAULT_DATA;
+                    this.saveData(this.data);
+                    return;
+                }
 
-                const parsedData = JSON.parse(data);
-                this.data = parsedData;
+                this.data = JSON.parse(data);
                 return this.data;
             } catch (error) {
                 console.error('Error loading data from localStorage:', error);
                 this.data = StorageManager.DEFAULT_DATA;
+                this.saveData(this.data);
                 return this.data;
             }
         }
 
         saveData(data) {
             try {
-                const dataToSave = data;
-                localStorage.setItem(StorageManager.STORAGE_KEY, JSON.stringify(dataToSave));
+                localStorage.setItem(StorageManager.STORAGE_KEY, JSON.stringify(data));
                 return true;
             } catch (error) {
                 console.error('Error saving data to localStorage:', error);
                 return false;
             }
         }
-
-        getBackground() {
-            const data = this._loadData();
-            return data.bottomMenu.background === '' ? null : data.bottomMenu.background;
-        }
-
-        saveBackground(background) {
-            const data = this._loadData();
-            data.bottomMenu.background = background;
-            return this.saveData(data);
-        }
-
-        getLastVersion() {
-            const data = this._loadData();
-            return data.bottomMenu.lastVersion === '' ? null : data.bottomMenu.lastVersion;
-        }
-
-        saveLastVersion(version) {
-            const data = this._loadData();
-            data.lastVersion = version;
-            return this.saveData(data);
-        }
-
-        // getQuizBanners() {
-        //     const data = this._loadData();
-        //     return [...data.quizBanners];
-        // }
-
-        // saveQuizBanners(quizBanners) {
-        //     const data = this._loadData();
-        //     data.quizBanners = [...quizBanners];
-        //     return this.saveData(data);
-        // }
-
-        // getQuizPixelate() {
-        //     const data = this._loadData();
-        //     return [...data.quizPixelate];
-        // }
-
-        // saveQuizPixelate(quizPixelate) {
-        //     const data = this._loadData();
-        //     data.quizPixelate = [...quizPixelate];
-        //     return this.saveData(data);
-        // }
-
-        // getQuizMismatch() {
-        //     const data = this._loadData();
-        //     return [...data.quizMismatch];
-        // }
-
-        // saveQuizMismatch(quizMismatch) {
-        //     const data = this._loadData();
-        //     data.quizMismatch = [...quizMismatch];
-        //     return this.saveData(data);
-        // }
-
-        // getDailyStatus() {
-        //     const data = this._loadData();
-        //     return { ...data.daily };
-        // }
-
-        // saveDailyStatus(dailyStatus) {
-        //     const data = this._loadData();
-        //     data.daily = { ...dailyStatus };
-        //     return this.saveData(data);
-        // }
 
         clearData() {
             try {
@@ -183,11 +93,80 @@
                 return false;
             }
         }
+
+        getBackground() {
+            return this.data.bottomMenu.background === '' ? null : this.data.bottomMenu.background;
+        }
+
+        saveBackground(background) {
+            this.data.bottomMenu.background = background;
+            return this.saveData(this.data);
+        }
+
+        getLastVersion() {
+            return this.data.bottomMenu.lastVersion === '' ? null : this.data.bottomMenu.lastVersion;
+        }
+
+        saveLastVersion(version) {
+            this.data.bottomMenu.lastVersion = version;
+            return this.saveData(this.data);
+        }
+
+        getTopMenuBannersState(daily = false) {
+            if (daily === true) return this.data.topMenu.banners.dailyState;
+            else return this.data.topMenu.banners.state;
+        }
+
+        saveTopMenuBannersState(state, daily = false) {
+            if (daily === true) this.data.topMenu.banners.dailyState = { ...state };
+            else this.data.topMenu.banners.state = { ...state };
+            return this.saveData(this.data);
+        }
+
+        getTopMenuPixelateState(daily = false) {
+            if (daily === true) return this.data.topMenu.pixelate.dailyState;
+            else return this.data.topMenu.pixelate.state;
+        }
+
+        saveTopMenuPixelateState(state, daily = false) {            
+            if (daily === true) this.data.topMenu.pixelate.dailyState = { ...state };
+            else this.data.topMenu.pixelate.state = { ...state };
+            return this.saveData(this.data);
+        }
+
+        getTopMenuMismatchState(daily = false) {
+            if (daily === true) return this.data.topMenu.mismatch.dailyState;
+            else return this.data.topMenu.mismatch.state;
+        }
+
+        saveTopMenuMismatchState(state, daily = false) {            
+            console.log(`daily: ${daily}, saveTopMenuMismatchState: `, state);
+            if (daily === true) this.data.topMenu.mismatch.dailyState = { ...state };
+            else this.data.topMenu.mismatch.state = { ...state };
+            return this.saveData(this.data);
+        }
+
+        getTopMenuMusicState(daily = false) {
+            if (daily === true) return this.data.topMenu.music.dailyState;
+            else return this.data.topMenu.music.state;
+        }
+
+        saveTopMenuMusicState(state, daily = false) {            
+            console.log(`daily: ${daily}, saveTopMenuMusicState: `, state);
+            if (daily === true) this.data.topMenu.music.dailyState = { ...state };
+            else this.data.topMenu.music.state = { ...state };
+            return this.saveData(this.data);
+        }
     }
 
     window.storageManager = new StorageManager();
 
     document.addEventListener('DOMContentLoaded', () => {
         window.storageManager.init();
+
+        // storageManager.saveTopMenuBannersState({
+        //     triesMax: 0,
+        //     triesEffects: []
+        // });
     });
 })();
