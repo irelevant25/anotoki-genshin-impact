@@ -1,3 +1,5 @@
+/* full-hd dimensions: width 1920, height 911 */
+
 :root {
   --primary: #6366f1;
   --primary-light: #818cf8;
@@ -365,7 +367,7 @@ h1 {
 .tooltip {
   font-weight: normal;
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); */
 }
 
 /* Menu component styling */
@@ -425,11 +427,35 @@ nav ul li.active {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.badge {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &.left {
+    left: 10px;
+  }
+
+  &.right {
+    right: 10px;
+  }
+}
+
 /* Help icon styling */
 .help-icon {
   position: absolute;
   top: 0;
-  right: 10px;
   width: 20px;
   height: 20px;
   display: flex;
@@ -439,6 +465,18 @@ nav ul li.active {
   z-index: 10;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.2s ease;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &.left {
+    left: 10px;
+  }
+
+  &.right {
+    right: 10px;
+  }
 }
 
 nav ul li:hover .help-icon {

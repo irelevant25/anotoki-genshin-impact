@@ -2,10 +2,16 @@
     'use strict';
 
     class QuizManager {
-        constructor(idSelector, options = {}, daily = false) {
+        get isSuccess() {
+            return this.questionEntity.name === this.tries[this.tries.length - 1];
+        }
+
+        constructor(idSelector, options = {}, daily = false, onCompleteQuestion) {
             this.idSelector = idSelector;
             this.daily = daily;
             this.options = options;
+            this.onCompleteQuestion = onCompleteQuestion;
+            this.difficulty = storageManager.getDifficulty();
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
@@ -28,16 +34,16 @@
                 this.triesDisplayCharacters(selectedCharacter);
                 this.saveState();
             });
-            
+
             this.state = storageManager.getTopMenuBannersState(this.daily);
         }
 
         init() {
+            this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
             this.triesMax = this.state ? this.state.triesMax : this.options.triesMax ?? 5;
             this.triesEffects = this.state?.triesEffects ?? this.options.triesEffects ?? [];
             this.tries = this.state?.tries ?? [];
             this.questionEntity = this.state ? CHARACTERS.find(character => character.name === this.state.questionEntity) : getRandomCharacter();
-            this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
 
             this.defaultState();
             this.startQuestion();
@@ -53,6 +59,7 @@
                 isQuestionComplete: this.isQuestionComplete,
                 tries: this.tries
             };
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuBannersState(this.state, this.daily);
         }
 
@@ -76,16 +83,15 @@
 
         triesDisplayCharacters(selectedCharacter) {
             const answer = this.questionEntity.name;
-            const success = selectedCharacter.name === answer;
             const imgElement = document.createElement('img');
             const emptyTryElement = this.containerElement.querySelector(`div.try:not(:has(img))`);
-            
-            const currentTry = this.tries.length;            
+
+            const currentTry = this.tries.length;
             this.triesScoreCurrentElement.textContent = currentTry;
-            imgElement.src = getCharacterIconImageUrl(success ? answer : selectedCharacter.name);
+            imgElement.src = getCharacterIconImageUrl(selectedCharacter.name);
             emptyTryElement.appendChild(imgElement);
 
-            if (success || currentTry === this.triesMax) {
+            if (this.isSuccess || currentTry === this.triesMax) {
                 this.endQuestion(CHARACTERS.find(character => character.name === answer));
             }
             this.applyEffects();
@@ -123,8 +129,11 @@
     window.BannersQuizManager = QuizManager;
 
     document.addEventListener('DOMContentLoaded', () => {
-        const config = APP_CONFIG.topMenu.banners;
-        new QuizManager(config.id, config).init();
+        const siteName = 'banners';
+        const config = APP_CONFIG.topMenu[siteName];
+        new QuizManager(config.id, config, false, (questionEntity, difficulty, isSuccess) => {
+            storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
+        }).init();
         console.log('Banners quiz initialized');
     });
 })();

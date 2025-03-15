@@ -4,4 +4,11 @@
             background-color: transparent;
         }
     }
+
+    div[name="daily-quizzes"] {
+        button.done {
+            background-color: #4caf50;
+            border-color: #4caa44;
+        }
+    }
 }

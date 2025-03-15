@@ -2,10 +2,14 @@
     'use strict';
 
     class QuizManager {
-        constructor(idSelector, options = {}, daily = false) {
+        isSuccess;
+
+        constructor(idSelector, options = {}, daily = false, onCompleteQuestion) {
             this.idSelector = idSelector;
             this.daily = daily;
             this.options = options;
+            this.onCompleteQuestion = onCompleteQuestion;
+            this.difficulty = storageManager.getDifficulty();
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
@@ -21,7 +25,6 @@
             });
 
             this.state = storageManager.getTopMenuMismatchState(this.daily);
-            console.log(`daily: ${this.daily}, getTopMenuMismatchState: `, this.state);
         }
 
         init() {
@@ -49,6 +52,7 @@
                     quizProperty: this.quizSet.quizProperty
                 }
             };
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuMismatchState(this.state, this.daily);
         }
 
@@ -68,7 +72,9 @@
                 image.alt = character.name;
                 image.title = character.name;
                 image.addEventListener('click', () => {
+                    if (this.isQuestionComplete) return;
                     this.endQuestion(this.quizSet.answer);
+                    this.isSuccess = character.name === this.quizSet.answer.name;
                     this.saveState();
                 });
                 this.questionElement.appendChild(image);
@@ -178,8 +184,11 @@
     window.MismatchQuizManager = QuizManager;
 
     document.addEventListener('DOMContentLoaded', () => {
-        const config = APP_CONFIG.topMenu.mismatch;
-        new QuizManager(config.id, config).init();
+        const siteName = 'mismatch';
+        const config = APP_CONFIG.topMenu[siteName];
+        new QuizManager(config.id, config, false, (questionEntity, difficulty, isSuccess) => {
+            storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
+        }).init();
         console.log('Mismatch quiz initialized');
     });
 })();

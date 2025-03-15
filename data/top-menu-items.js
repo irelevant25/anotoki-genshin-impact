@@ -2,7 +2,8 @@ const MENU_ITEMS_TOP = {
     daily: {
         id: "site-daily",
         title: "Daily",
-        helpIconPlacement: "left",
+        notificationIcon: true,
+        helpIcon: true,
         modalTitle: "About Daily",
         modalContent: `
             <div class="mb-4">
@@ -26,7 +27,8 @@ const MENU_ITEMS_TOP = {
     banners: {
         id: "site-banners",
         title: "Banners",
-        helpIconPlacement: "left",
+        notificationIcon: false,
+        helpIcon: true,
         modalTitle: "About Banners",
         modalContent: `
             <div class="mb-4">
@@ -57,7 +59,8 @@ const MENU_ITEMS_TOP = {
     pixelate: {
         id: "site-pixelate",
         title: "Pixelate",
-        helpIconPlacement: "left",
+        notificationIcon: false,
+        helpIcon: true,
         modalTitle: "About Characters Pixelate",
         modalContent: `
             <div class="mb-4">
@@ -95,7 +98,8 @@ const MENU_ITEMS_TOP = {
     mismatch: {
         id: "site-mismatch",
         title: "Mismatch",
-        helpIconPlacement: "left",
+        notificationIcon: false,
+        helpIcon: true,
         modalTitle: "About Characters Mismatch",
         modalContent: `
             <div class="mb-4">
@@ -131,7 +135,8 @@ const MENU_ITEMS_TOP = {
     music: {
         id: "site-music",
         title: "Music",
-        helpIconPlacement: "left",
+        notificationIcon: false,
+        helpIcon: true,
         modalTitle: "About Music Quiz",
         modalContent: `
             <div class="mb-4">
@@ -165,7 +170,8 @@ const MENU_ITEMS_TOP = {
     tournament: {
         id: "site-tournament",
         title: "Tournament",
-        helpIconPlacement: "left",
+        notificationIcon: false,
+        helpIcon: true,
         modalTitle: "About Characters Tournament",
         modalContent: `
             <div class="mb-4">

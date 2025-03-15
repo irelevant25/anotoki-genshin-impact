@@ -56,6 +56,10 @@ function combinations(arr, k) {
     return result;
 }
 
+function getTodayString() {
+    return new Date().toJSON().slice(0, 10);
+}
+
 function getCharacterIconImageUrl(characterName) {
     return CHARACTERS.find(character => character.name === characterName)?.icon;
 }
