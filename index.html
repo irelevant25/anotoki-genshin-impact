@@ -33,6 +33,8 @@
     <script src="utils/autocomplete.js"></script>
     <script src="utils/notification.js"></script>
     <link rel="stylesheet" href="utils/notification.css">
+    <script src="utils/loading.js"></script>
+    <link rel="stylesheet" href="utils/loading.css">
     <!-- TOP MENU -->
     <link rel="stylesheet" href="sites/top/daily.css">
     <script src="sites/top/daily.js"></script>
@@ -327,8 +329,37 @@
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="d-flex align-items-center loader">
-                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
-                    <strong class="ms-3 me-auto">Loading...</strong>
+                    <div class="loading-container">
+                        <div class="teleport-waypoint">
+                            <div class="waypoint-outer"></div>
+                            <div class="waypoint-inner"></div>
+                            <div class="waypoint-star">
+                                <div class="star-point"></div>
+                                <div class="star-point"></div>
+                                <div class="star-point"></div>
+                                <div class="star-point"></div>
+                                <div class="star-point"></div>
+                            </div>
+                        </div>
+
+                        <div class="element-symbols">
+                            <div class="element"></div>
+                            <div class="element"></div>
+                            <div class="element"></div>
+                            <div class="element"></div>
+                            <div class="element"></div>
+                            <div class="element"></div>
+                            <div class="element"></div>
+                        </div>
+
+                        <div class="particles" id="particles"></div>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+
+                        <div class="loading-text">TEYVAT AWAITS</div>
+                    </div>
                 </div>
 
                 <div class="modal-header">

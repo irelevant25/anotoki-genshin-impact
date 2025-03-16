@@ -1,6 +1,8 @@
 /* full-hd dimensions: width 1920, height 911 */
 
 :root {
+  --genshin-blue: #69c0de;
+  --genshin-gold: #f7cf33;
   --primary: #6366f1;
   --primary-light: #818cf8;
   --primary-dark: #4f46e5;
@@ -574,9 +576,11 @@ nav ul li:hover .help-icon {
 }
 
 .loader {
+  flex-direction: column;
+  justify-content: center;
   z-index: 100000;
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(128, 128, 128, 0.75);
+  background: rgb(45 45 45 / 75%);
 }

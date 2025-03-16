@@ -482,7 +482,7 @@
                 document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).removeEventListener('click', initLoader);
                 containerElement.querySelector('.loader').remove();
                 displayCharacterInfo();
-            }, 750)
+            }, 1500)
         };
         document.head.appendChild(script);
     }
