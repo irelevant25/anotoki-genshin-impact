@@ -30,6 +30,7 @@
       width: 0;
       transition: width 0.05s linear;
       will-change: width;
+      margin: 0;
       transform: translateZ(0);
     }
     .time-display {
