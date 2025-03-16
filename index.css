@@ -1,4 +1,8 @@
+/* full-hd dimensions: width 1920, height 911 */
+
 :root {
+  --genshin-blue: #69c0de;
+  --genshin-gold: #f7cf33;
   --primary: #6366f1;
   --primary-light: #818cf8;
   --primary-dark: #4f46e5;
@@ -177,7 +181,7 @@ h1 {
   justify-content: flex-end;
   padding: 8px 15px;
   width: 30%;
-  min-width: 450px;
+  min-width: 550px;
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0),
@@ -349,6 +353,49 @@ h1 {
   padding-left: 2rem;
 }
 
+.backdrop {
+  background: rgb(0 0 0 / 30%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.recommended-ar {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: #1e293b;
+  padding: 3px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 2;
+  border: 2px solid white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+div[name="quiz-difficulty-display"] {
+  padding-bottom: 1rem;
+}
+
+.level-easy .recommended-ar {
+  background-color: #10b981;
+  color: white;
+}
+
+.level-medium .recommended-ar {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.level-hard .recommended-ar {
+  background-color: #8b5cf6;
+  color: white;
+}
+
 /* Tooltip component styling */
 .custom-tooltip {
   --bs-tooltip-bg: #0d6efd;
@@ -365,12 +412,12 @@ h1 {
 .tooltip {
   font-weight: normal;
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); */
 }
 
 /* Menu component styling */
 nav {
-  max-width: 960px;
+  max-width: 1100px;
   mask-image: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
@@ -425,11 +472,35 @@ nav ul li.active {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.badge {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &.left {
+    left: 10px;
+  }
+
+  &.right {
+    right: 10px;
+  }
+}
+
 /* Help icon styling */
 .help-icon {
   position: absolute;
   top: 0;
-  right: 10px;
   width: 20px;
   height: 20px;
   display: flex;
@@ -439,6 +510,18 @@ nav ul li.active {
   z-index: 10;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.2s ease;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &.left {
+    left: 10px;
+  }
+
+  &.right {
+    right: 10px;
+  }
 }
 
 nav ul li:hover .help-icon {
@@ -485,4 +568,19 @@ nav ul li:hover .help-icon {
     min-width: 0px;
     background: rgba(0, 0, 0, 0.8);
   }
+}
+
+.xcol-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.loader {
+  flex-direction: column;
+  justify-content: center;
+  z-index: 100000;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(45 45 45 / 75%);
 }

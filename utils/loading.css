@@ -1,0 +1,263 @@
+.loading-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.teleport-waypoint {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  animation: rotate 8s linear infinite;
+}
+
+.waypoint-outer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--genshin-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--genshin-blue);
+}
+
+.waypoint-inner {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  border: 2px solid var(--genshin-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--genshin-blue);
+}
+
+.waypoint-star {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.star-point {
+  position: absolute;
+  width: 2px;
+  height: 50%;
+  background: var(--genshin-gold);
+  transform-origin: bottom center;
+  box-shadow: 0 0 5px var(--genshin-gold);
+}
+
+.star-point:nth-child(1) {
+  transform: rotate(0deg);
+}
+.star-point:nth-child(2) {
+  transform: rotate(72deg);
+}
+.star-point:nth-child(3) {
+  transform: rotate(144deg);
+}
+.star-point:nth-child(4) {
+  transform: rotate(216deg);
+}
+.star-point:nth-child(5) {
+  transform: rotate(288deg);
+}
+
+.element-symbols {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.element {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: fadeInOut 4s infinite;
+}
+
+.element:nth-child(1) {
+  top: 10%;
+  left: 20%;
+  background: var(--anemo-secondary-white);
+  animation-delay: 0s;
+}
+
+.element:nth-child(2) {
+  top: 70%;
+  left: 15%;
+  background: var(--geo-secondary-white);
+  animation-delay: 0.5s;
+}
+
+.element:nth-child(3) {
+  top: 20%;
+  right: 15%;
+  background: var(--electro-secondary-white);
+  animation-delay: 1s;
+}
+
+.element:nth-child(4) {
+  top: 65%;
+  right: 20%;
+  background: var(--hydro-secondary-white);
+  animation-delay: 1.5s;
+}
+
+.element:nth-child(5) {
+  top: 40%;
+  left: 10%;
+  background: var(--pyro-secondary-white);
+  animation-delay: 2s;
+}
+
+.element:nth-child(6) {
+  bottom: 15%;
+  left: 50%;
+  background: var(--cryo-secondary-white);
+  animation-delay: 2.5s;
+}
+
+.element:nth-child(7) {
+  top: 15%;
+  left: 50%;
+  background: var(--dendro-secondary-white);
+  animation-delay: 3s;
+}
+
+.loading-text {
+  margin-top: 30px;
+  color: var(--genshin-blue);
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px var(--genshin-blue);
+  position: relative;
+}
+
+.loading-text:after {
+  content: "";
+  animation: loadingDots 1.5s infinite;
+}
+
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--genshin-gold);
+  border-radius: 50%;
+  opacity: 0;
+  animation: floatParticle 3s infinite;
+  box-shadow: 0 0 5px var(--genshin-gold);
+}
+
+.progress-bar {
+  position: relative;
+  width: 200px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    to right,
+    var(--genshin-blue),
+    var(--genshin-gold)
+  );
+  border-radius: 3px;
+  animation: fillProgress 3s infinite;
+  box-shadow: 0 0 8px var(--genshin-blue);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes loadingDots {
+  0%,
+  20% {
+    content: "";
+  }
+  40% {
+    content: ".";
+  }
+  60% {
+    content: "..";
+  }
+  80%,
+  100% {
+    content: "...";
+  }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) translateX(var(--x-distance));
+    opacity: 0;
+  }
+}
+
+@keyframes fillProgress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}

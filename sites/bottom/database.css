@@ -54,9 +54,9 @@
   }
 
   .info-item {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 10px; */
   }
 
   .info-label {
@@ -79,6 +79,10 @@
   }
 
   .voice-actors {
+    margin-top: 20px;
+  }
+
+  .demo-music {
     margin-top: 20px;
   }
 
@@ -300,6 +304,10 @@
     padding: 3px 8px;
     border-radius: 12px;
     font-size: 12px;
+  }
+
+  #build > img {
+    width: 100%;
   }
 
   .constellation-description {

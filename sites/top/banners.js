@@ -1,50 +1,80 @@
 (() => {
     'use strict';
-    let quizManager;
 
     class QuizManager {
-        constructor(idSelector, daily) {
-            this.idSelector = idSelector;
-            this.daily = daily;
-
-            // Default properties
-            this.triesMax = 5;
-            this.triesEffects = [];
-            this.questionEntity = null;
-            this.isQuestionComplete = false;
+        get isSuccess() {
+            return this.questionEntity.name === this.tries[this.tries.length - 1];
         }
 
-        init({ triesMax = this.triesMax, triesEffects = this.triesEffects } = {}) {
-            // Set properties
-            this.triesMax = triesMax;
-            this.triesEffects = triesEffects;
+        constructor(idSelector, options = {}, daily = false, onCompleteQuestion) {
+            this.idSelector = idSelector;
+            this.daily = daily;
+            this.options = options;
+            this.onCompleteQuestion = onCompleteQuestion;
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
-
             this.autocompleteContainerElement = this.containerElement.querySelector('div[name="autocomplete"]');
-            new Autocomplete(this.autocompleteContainerElement, (selectedCharacter) => {
-                this.triesDisplay(selectedCharacter);
-            });
-
             this.questionElement = this.containerElement.querySelector('[name="question"]');
             this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
             this.nextButtonElement = this.containerElement.querySelector('button.next-button');
-            this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
+            // this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
             this.triesDisplayElement = this.containerElement.querySelector('div[name="tries-display"]');
             this.triesScoreCurrentElement = this.containerElement.querySelector('div.tries-score > p[name="tries-current"]');
             this.triesScoreMaxElement = this.containerElement.querySelector('div.tries-score > p[name="tries-max"]');
+            this.levelElement = this.containerElement.querySelector('div[name="quiz-difficulty-display"]');
 
-            this._boundPrepareQuestion = this.prepareQuestion.bind(this);
-            this.menuItemElement.addEventListener('click', this._boundPrepareQuestion);
-            this.nextButtonElement?.addEventListener('click', this._boundPrepareQuestion);
+            this.nextButtonElement?.addEventListener('click', () => {
+                this.state = null;
+                this.init();
+            });
 
-            // Initialize components
-            this.triesScoreReset();
+            new Autocomplete(this.autocompleteContainerElement, (selectedCharacter) => {
+                this.tries.push(selectedCharacter.name);
+                this.triesDisplayCharacters(selectedCharacter);
+                this.saveState();
+            });
+
+            this.state = storageManager.getTopMenuBannersState(this.daily);
+            if (this.daily) this.levelElement.classList.add('d-none');
+            else this.levelElement.classList.remove('d-none');
+        }
+
+        init() {
+            this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
+            this.difficulty = this.state ? this.state.difficulty : this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() ?? 1;
+            this.triesMax = this.state ? this.state.triesMax : this.options[this.difficulty].triesMax ?? 5;
+            this.triesEffects = this.state?.triesEffects ?? this.options[this.difficulty].triesEffects ?? [];
+            this.tries = this.state?.tries ?? [];
+            this.questionEntity = this.state ? CHARACTERS.find(character => character.name === this.state.questionEntity) : getRandomCharacter();
+
+            if (!this.daily) {
+                this.levelElement.className = '';
+                this.levelElement.classList.add(`level-${difficultyFromNumberToString(this.difficulty)}`);
+                this.levelElement.querySelector('span').textContent = difficultyFromNumberToString(this.difficulty);
+            }
+
+            this.defaultState();
+            this.startQuestion();
+            this.tries.forEach(character => this.triesDisplayCharacters(CHARACTERS.find(x => x.name === character)));
+            if (!this.state) this.saveState();
+        }
+
+        saveState() {
+            this.state = {
+                triesMax: this.triesMax,
+                triesEffects: this.triesEffects,
+                questionEntity: this.questionEntity.name,
+                isQuestionComplete: this.isQuestionComplete,
+                tries: this.tries,
+                difficulty: this.difficulty
+            };
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
+            storageManager.saveTopMenuBannersState(this.state, this.daily);
         }
 
         applyEffects() {
-            const currentTry = Number(this.triesScoreCurrentElement.textContent);
+            const currentTry = this.tries.length;
 
             // Remove all classes
             this.triesEffects.forEach(effect => {
@@ -61,54 +91,31 @@
             }
         }
 
-        triesScoreReset() {
-            if (this.triesScoreCurrentElement) {
-                this.triesScoreCurrentElement.textContent = 0;
-            }
-            if (this.triesScoreMaxElement) {
-                this.triesScoreMaxElement.textContent = this.triesMax;
-            }
-        }
-
         triesDisplayCharacters(selectedCharacter) {
             const answer = this.questionEntity.name;
-            const success = selectedCharacter.name === answer;
             const imgElement = document.createElement('img');
             const emptyTryElement = this.containerElement.querySelector(`div.try:not(:has(img))`);
 
-            if (success) {
-                imgElement.src = getCharacterIconImageUrl(answer);
-            } else {
-                imgElement.src = getCharacterIconImageUrl(selectedCharacter.name);
-            }
-
+            const currentTry = this.tries.length;
+            this.triesScoreCurrentElement.textContent = currentTry;
+            imgElement.src = getCharacterIconImageUrl(selectedCharacter.name);
             emptyTryElement.appendChild(imgElement);
 
-            if (success || Number(this.triesScoreCurrentElement.textContent) === this.triesMax) {
-                this.endStateQuestion(CHARACTERS.find(character => character.name === answer));
+            if (this.isSuccess || currentTry === this.triesMax) {
+                this.endQuestion(CHARACTERS.find(character => character.name === answer));
             }
-        }
-
-        triesScoreUpdate() {
-            const currentTries = Number(this.triesScoreCurrentElement.textContent) + 1;
-            if (this.triesScoreCurrentElement) {
-                this.triesScoreCurrentElement.textContent = currentTries;
-            }
-        }
-
-        triesDisplay(selectedCharacter) {
-            this.triesScoreUpdate();
-            this.triesDisplayCharacters(selectedCharacter);
             this.applyEffects();
         }
 
-        triesDisplayReset() {
-            if (!this.triesDisplayElement) return;
+        defaultState() {
+            this.answerSuccessElement.src = '';
+            this.nextButtonElement.style.display = 'none';
+            this.autocompleteContainerElement.style.display = 'block';
 
-            // Clear existing tries
+            this.triesScoreCurrentElement.textContent = 0;
+            this.triesScoreMaxElement.textContent = this.triesMax;
+
             this.triesDisplayElement.innerHTML = '';
-
-            // Create new empty tries
             for (let i = 0; i < this.triesMax; i++) {
                 const tryElement = document.createElement('div');
                 tryElement.classList.add('try');
@@ -116,58 +123,27 @@
             }
         }
 
-        defaultState() {
-            if (this.answerSuccessElement) this.answerSuccessElement.src = '';
-            if (this.nextButtonElement) this.nextButtonElement.style.display = 'none';
-            if (this.autocompleteContainerElement) this.autocompleteContainerElement.style.display = 'block';
-
-            this.triesDisplayReset();
-            this.triesScoreReset();
-        }
-
-        startStateQuestion() {
-            this.isQuestionComplete = false;
-            this.questionEntity = getRandomCharacter();
+        startQuestion() {
             this.questionElement.src = this.questionEntity.namecard_banner;
             this.applyEffects();
         }
 
-        endStateQuestion(character) {
-            if (this.answerSuccessElement) {
-                this.answerSuccessElement.src = character.wish;
-            }
-            if (this.nextButtonElement) {
-                this.nextButtonElement.style.display = 'inherit';
-            }
-            if (this.autocompleteContainerElement) {
-                this.autocompleteContainerElement.style.display = 'none';
-            }
+        endQuestion(character) {
+            this.answerSuccessElement.src = character.wish;
+            if (!this.daily) this.nextButtonElement.style.display = 'inherit';
+            this.autocompleteContainerElement.style.display = 'none';
             this.isQuestionComplete = true;
-        }
-
-        prepareQuestion(menuItem) {
-            if (menuItem &&
-                menuItem.currentTarget.localName !== 'button' &&
-                !menuItem.currentTarget.classList.contains('active')) {
-                return;
-            }
-
-            this.defaultState();
-            this.startStateQuestion();
         }
     }
 
+    window.BannersQuizManager = QuizManager;
+
     document.addEventListener('DOMContentLoaded', () => {
-        const config = APP_CONFIG.topMenu.banners;
-
-        quizManager = new QuizManager(config.id);
-
-        // Initialize with configuration
-        quizManager.init({
-            triesMax: config.triesMax,
-            triesEffects: config.triesEffects
-        });
-
+        const siteName = 'banners';
+        const config = APP_CONFIG.topMenu[siteName];
+        new QuizManager(config.id, config, false, (questionEntity, difficulty, isSuccess) => {
+            storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
+        }).init();
         console.log('Banners quiz initialized');
     });
 })();

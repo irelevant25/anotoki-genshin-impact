@@ -1,75 +1,100 @@
 (() => {
     'use strict';
 
-    /**
-     * storage-manager.js
-     * A simple local storage manager for saving and loading application data
-     */
-
     class StorageManager {
-        // Storage key in localStorage
         static STORAGE_KEY = 'app_data';
-
-        // Default data structure
         static DEFAULT_DATA = {
-            background: '',
-            lastVersion: '',
-            quizBanners: [],
-            quizPixelate: [],
-            quizMismatch: [],
-            daily: {
-                quizBanners: false,
-                quizPixelate: false,
-                quizMismatch: false
+            version: '0.2',
+            stats: {
+                // 1, 2 and 3  (1 - easy, 2 - medium, 3 - hard), [0, 0] - [looses, wins]
+                characters: CHARACTERS.map(x => ({
+                    name: x.name,
+                    banners: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
+                    pixelate: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
+                    mismatch: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
+                    music: { 1: [0, 0], 2: [0, 0], 3: [0, 0] }
+                })),
+                // array of objects d - date and q - quizzes { d: string date 'YYYY-MM-DD', q: array of quiz names (strings) } with q suffix
+                // '1' or '2' or '3' for difficulty (1 - easy, 2 - medium, 3 - hard) }
+                // and with prefix
+                // '-' if not completed or '+' if completed
+                daily: [],
+            },
+            bottomMenu: {
+                background: '',
+                difficulty: '1',
+                version: ''
+            },
+            topMenu: {
+                daily: {
+                    // string date 'YYYY-MM-DD'
+                    date: '',
+                    // array of quiz names (strings)
+                    dailyQuizzes: [],
+                    // array of quiz names (strings)
+                    done: []
+                },
+                banners: {
+                    dailyState: null,
+                    state: null
+                },
+                pixelate: {
+                    dailyState: null,
+                    state: null
+                },
+                mismatch: {
+                    dailyState: null,
+                    state: null
+                },
+                music: {
+                    dailyState: null,
+                    state: null
+                },
+                tournament: {
+                    dailyState: null,
+                    state: null
+                }
             }
         };
 
-        // In-memory data cache
-        dataCache = null;
-
-        /**
-         * Initialize the data structure
-         * @returns {Object} The initialized data
-         */
-        init() {
-            const savedData = this.loadData();
-            if (!savedData) {
-                this.saveData(StorageManager.DEFAULT_DATA);
-                return { ...StorageManager.DEFAULT_DATA };
-            }
-            return this.savedData;
+        constructor() {
+            this.data = null;
         }
 
-        /**
-         * Load all data from localStorage
-         * @returns {Object|null} The loaded data or null if no data exists
-         */
-        loadData() {
+        init() {
+            this._loadData();
+            if (!this.data.version || this.data.version !== StorageManager.DEFAULT_DATA.version) {
+                this.data.version = this.data.version ?? StorageManager.DEFAULT_DATA.version;
+                this.data = migrate(this.data);
+                this.saveData(this.data);
+            }
+            return this.data;
+        }
+
+        _loadData() {
             try {
-                if (this.dataCache) return { ...this.dataCache };
+                if (this.data) return { ...this.data };
 
                 const data = localStorage.getItem(StorageManager.STORAGE_KEY);
-                if (!data) return null;
+                if (!data) {
+                    this.data = StorageManager.DEFAULT_DATA;
+                    this.saveData(this.data);
+                    return;
+                }
 
-                const parsedData = JSON.parse(data);
-                this.dataCache = parsedData;
-                return { ...parsedData };
+                this.data = JSON.parse(data);
+                return this.data;
             } catch (error) {
                 console.error('Error loading data from localStorage:', error);
-                return StorageManager.DEFAULT_DATA;
+                this.data = StorageManager.DEFAULT_DATA;
+                this.saveData(this.data);
+                return this.data;
             }
         }
 
-        /**
-         * Save all data to localStorage
-         * @param {Object} data - The data to save
-         * @returns {boolean} True if successful, false otherwise
-         */
         saveData(data) {
             try {
-                const dataToSave = { ...data };
-                localStorage.setItem(StorageManager.STORAGE_KEY, JSON.stringify(dataToSave));
-                this.dataCache = { ...dataToSave };
+                localStorage.setItem(StorageManager.STORAGE_KEY, JSON.stringify(data ?? this.data));
                 return true;
             } catch (error) {
                 console.error('Error saving data to localStorage:', error);
@@ -77,130 +102,6 @@
             }
         }
 
-        /**
-         * Get the background setting
-         * @returns {string} The background value
-         */
-        getBackground() {
-            const data = this.loadData();
-            return data.background === '' ? null : data.background;
-        }
-
-        /**
-         * Save the background setting
-         * @param {string} background - The background value to save
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveBackground(background) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.background = background;
-            return this.saveData(data);
-        }
-
-        /**
-         * Get the last version
-         * @returns {string} The last version value
-         */
-        getLastVersion() {
-            const data = this.loadData();
-            return data.lastVersion === '' ? null : data.lastVersion;
-        }
-
-        /**
-         * Save the last version
-         * @param {string} version - The version to save
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveLastVersion(version) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.lastVersion = version;
-            return this.saveData(data);
-        }
-
-        /**
-         * Get quiz banners data
-         * @returns {Array} Array of quiz banner objects
-         */
-        getQuizBanners() {
-            const data = this.loadData();
-            return [...data.quizBanners];
-        }
-
-        /**
-         * Save quiz banners data
-         * @param {Array} quizBanners - Array of quiz banner objects
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveQuizBanners(quizBanners) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.quizBanners = [...quizBanners];
-            return this.saveData(data);
-        }
-
-        /**
-         * Get quiz pixelate data
-         * @returns {Array} Array of quiz pixelate objects
-         */
-        getQuizPixelate() {
-            const data = this.loadData();
-            return [...data.quizPixelate];
-        }
-
-        /**
-         * Save quiz pixelate data
-         * @param {Array} quizPixelate - Array of quiz pixelate objects
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveQuizPixelate(quizPixelate) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.quizPixelate = [...quizPixelate];
-            return this.saveData(data);
-        }
-
-        /**
-         * Get quiz mismatch data
-         * @returns {Array} Array of quiz mismatch objects
-         */
-        getQuizMismatch() {
-            const data = this.loadData();
-            return [...data.quizMismatch];
-        }
-
-        /**
-         * Save quiz mismatch data
-         * @param {Array} quizMismatch - Array of quiz mismatch objects
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveQuizMismatch(quizMismatch) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.quizMismatch = [...quizMismatch];
-            return this.saveData(data);
-        }
-
-        /**
-         * Get daily quiz status
-         * @returns {Object} The daily quiz status object
-         */
-        getDailyStatus() {
-            const data = this.loadData();
-            return { ...data.daily };
-        }
-
-        /**
-         * Save daily quiz status
-         * @param {Object} dailyStatus - The daily status object
-         * @returns {boolean} True if successful, false otherwise
-         */
-        saveDailyStatus(dailyStatus) {
-            const data = this.loadData() || { ...DEFAULT_DATA };
-            data.daily = { ...dailyStatus };
-            return this.saveData(data);
-        }
-
-        /**
-         * Clear all data from storage
-         * @returns {boolean} True if successful, false otherwise
-         */
         clearData() {
             try {
                 localStorage.removeItem(StorageManager.STORAGE_KEY);
@@ -211,9 +112,142 @@
                 return false;
             }
         }
+
+        /////////////////
+        // BOTTOM MENU //
+        /////////////////
+
+        // DOFFICULTY
+
+        getDifficulty() {
+            return this.data.bottomMenu.difficulty;
+        }
+
+        saveDifficulty(difficulty) {
+            this.data.bottomMenu.difficulty = difficulty;
+            return this.saveData(this.data);
+        }
+
+        // BACKGROUND
+
+        getBackground() {
+            return this.data.bottomMenu.background === '' ? null : this.data.bottomMenu.background;
+        }
+
+        saveBackground(background) {
+            this.data.bottomMenu.background = background;
+            return this.saveData(this.data);
+        }
+
+        // VERSION
+
+        getLastVersion() {
+            return this.data.bottomMenu.lastVersion === '' ? null : this.data.bottomMenu.lastVersion;
+        }
+
+        saveLastVersion(version) {
+            this.data.bottomMenu.lastVersion = version;
+            return this.saveData(this.data);
+        }
+
+        // STATS
+
+        getStats(quizName, daily = false) {
+            if (daily === true) return this.data.stats.daily.filter(x => x.quizzes.includes(quizName));
+            else return this.data.stats.characters.map(x => x[quizName]);
+        }
+
+        saveStats(quizName, character, isSuccess, difficulty, daily = false, quizzes = []) {
+            const characterStats = this.data.stats.characters.find(x => x.name === character);
+            characterStats[quizName][difficulty][isSuccess ? 1 : 0] += 1;
+            if (daily === true) {
+                const date = getTodayString();
+                let dailyStats = this.data.stats.daily.find(x => x.date === date);
+                if (!dailyStats) {
+                    dailyStats = { date, quizzes: [...quizzes] };
+                    this.data.stats.daily.push(dailyStats);
+                }
+                const quizIndex = dailyStats.quizzes.findIndex(x => x.includes(quizName));
+                dailyStats.quizzes[quizIndex] = `${isSuccess ? '+' : '-'}${quizName}${difficulty}`;
+                if (!this.data.topMenu.daily.done.includes(quizName)) this.data.topMenu.daily.done.push(quizName);
+            }
+            return this.saveData(this.data);
+        }
+
+        //////////////
+        // TOP MENU //
+        //////////////
+
+        // BANNERS
+
+        getTopMenuBannersState(daily = false) {
+            if (daily === true) return this.data.topMenu.banners.dailyState;
+            else return this.data.topMenu.banners.state;
+        }
+
+        saveTopMenuBannersState(state, daily = false) {
+            if (daily === true) this.data.topMenu.banners.dailyState = { ...state };
+            else this.data.topMenu.banners.state = { ...state };
+            return this.saveData(this.data);
+        }
+
+        // PIXELATE
+
+        getTopMenuPixelateState(daily = false) {
+            if (daily === true) return this.data.topMenu.pixelate.dailyState;
+            else return this.data.topMenu.pixelate.state;
+        }
+
+        saveTopMenuPixelateState(state, daily = false) {
+            if (daily === true) this.data.topMenu.pixelate.dailyState = { ...state };
+            else this.data.topMenu.pixelate.state = { ...state };
+            return this.saveData(this.data);
+        }
+
+        // MISMATCH
+
+        getTopMenuMismatchState(daily = false) {
+            if (daily === true) return this.data.topMenu.mismatch.dailyState;
+            else return this.data.topMenu.mismatch.state;
+        }
+
+        saveTopMenuMismatchState(state, daily = false) {
+            console.log(`daily: ${daily}, saveTopMenuMismatchState: `, state);
+            if (daily === true) this.data.topMenu.mismatch.dailyState = { ...state };
+            else this.data.topMenu.mismatch.state = { ...state };
+            return this.saveData(this.data);
+        }
+
+        // MUSIC
+
+        getTopMenuMusicState(daily = false) {
+            if (daily === true) return this.data.topMenu.music.dailyState;
+            else return this.data.topMenu.music.state;
+        }
+
+        saveTopMenuMusicState(state, daily = false) {
+            console.log(`daily: ${daily}, saveTopMenuMusicState: `, state);
+            if (daily === true) this.data.topMenu.music.dailyState = { ...state };
+            else this.data.topMenu.music.state = { ...state };
+            return this.saveData(this.data);
+        }
+
+        // DAILY
+
+        getTopMenuDailyState() {
+            return this.data.topMenu.daily;
+        }
+
+        saveTopMenuDailyState(state) {
+            console.log(`saveTopMenuDailyState: `, state);
+            this.data.topMenu.daily = { ...state };
+            return this.saveData(this.data);
+        }
     }
 
+    window.storageManager = new StorageManager();
+
     document.addEventListener('DOMContentLoaded', () => {
-        window.storageManager = new StorageManager();
+        window.storageManager.init();
     });
 })();

@@ -1,28 +1,16 @@
-#site-mismatch {
+#site-mismatch,
+#daily-mismatch {
   /* Quiz component styling */
   .quiz-container {
     padding: 1.5rem;
     text-align: center !important;
   }
 
-  /* Question styling */
-  img[name="question"] {
-    background-color: white;
-    border-radius: 1000px;
-    max-width: 100%;
-    height: auto;
-  }
-
-  img[name="question"].difficulty-1 {
-    filter: grayscale(1);
-  }
-
-  img[name="question"].difficulty-2 {
-    filter: grayscale(1) blur(2.5px);
-  }
-
-  img[name="question"].difficulty-3 {
-    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  [name="question"] img {
+    min-width: 0;
+    /* width: -webkit-fill-available; */
+    max-height: 225px;
+    /* object-fit: scale-down; */
   }
 
   /* Search container */

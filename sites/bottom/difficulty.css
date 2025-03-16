@@ -1,0 +1,420 @@
+#site-difficulties-modal .modal-body{
+  .difficulty-container {
+    /* max-width: 1000px;
+    width: 100%; */
+    margin-top: 30px 0;
+  }
+
+  .difficulty-header {
+    text-align: center;
+    /* margin-bottom: 40px; */
+    color: #1e293b;
+    position: relative;
+  }
+
+  .difficulty-header::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #64748b, transparent);
+  }
+
+  .difficulty-title {
+    font-size: 36px;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    color: #1e293b;
+  }
+
+  .difficulty-title::before,
+  .difficulty-title::after {
+    content: "❖";
+    color: #d97706;
+    font-size: 24px;
+    vertical-align: middle;
+    margin: 0 12px;
+    opacity: 0.8;
+  }
+
+  .difficulty-subtitle {
+    font-size: 18px;
+    color: #64748b;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .difficulty-section {
+    /* margin-bottom: 30px; */
+  }
+
+  .difficulty-header {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 22px;
+    color: #334155;
+  }
+
+  .difficulty-levels {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    /* margin-bottom: 40px; */
+    padding: 0 20px;
+  }
+
+  .difficulty-level {
+    flex: 1;
+    /* max-width: 280px; */
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .difficulty-level:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .difficulty-level.selected {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .level-header {
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .level-header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.2));
+    z-index: 1;
+  }
+
+  .level-easy .level-header {
+    background: linear-gradient(to bottom, #34d399, #10b981);
+  }
+
+  .level-medium .level-header {
+    background: linear-gradient(to bottom, #60a5fa, #3b82f6);
+  }
+
+  .level-hard .level-header {
+    background: linear-gradient(to bottom, #a78bfa, #8b5cf6);
+  }
+
+  .level-number {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #1e293b;
+    font-size: 14px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    z-index: 2;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .level-icon {
+    font-size: 48px;
+    color: white;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Element symbols in background */
+  .level-easy .level-header::before {
+    content: "⚜";
+    position: absolute;
+    font-size: 120px;
+    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #064e3b;
+  }
+
+  .level-medium .level-header::before {
+    content: "❄";
+    position: absolute;
+    font-size: 120px;
+    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #1e40af;
+  }
+
+  .level-hard .level-header::before {
+    content: "⚡";
+    position: absolute;
+    font-size: 120px;
+    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #5b21b6;
+  }
+
+  .level-content {
+    padding: 25px;
+    text-align: center;
+    position: relative;
+    background-color: white;
+  }
+
+  .level-name {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .level-easy .level-name {
+    color: #059669;
+  }
+
+  .level-medium .level-name {
+    color: #2563eb;
+  }
+
+  .level-hard .level-name {
+    color: #7c3aed;
+  }
+
+  .level-banner {
+    background-color: rgba(0, 0, 0, 0.05);
+    margin: -25px -25px 20px;
+    padding: 12px;
+    font-size: 14px;
+    font-style: italic;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .level-easy .level-banner {
+    color: #059669;
+  }
+
+  .level-medium .level-banner {
+    color: #2563eb;
+  }
+
+  .level-hard .level-banner {
+    color: #7c3aed;
+  }
+
+  .level-description {
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  /* Quiz selection section */
+  .quiz-selection {
+    display: none;
+    padding: 20px 20px 0 20px;
+    /* margin-top: 30px;
+    border-radius: 16px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
+  }
+
+  .quiz-selection-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #334155;
+  }
+
+  .quiz-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .quiz-card {
+    border-radius: 12px;
+    background-color: #f8fafc;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* cursor: pointer; */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .quiz-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .quiz-card.selected {
+    border-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .quiz-header {
+    padding: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .quiz-easy .quiz-header {
+    background-color: rgba(16, 185, 129, 0.1);
+  }
+
+  .quiz-medium .quiz-header {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+
+  .quiz-hard .quiz-header {
+    background-color: rgba(139, 92, 246, 0.1);
+  }
+
+  .quiz-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .quiz-easy .quiz-title {
+    color: #059669;
+  }
+
+  .quiz-medium .quiz-title {
+    color: #2563eb;
+  }
+
+  .quiz-hard .quiz-title {
+    color: #7c3aed;
+  }
+
+  .quiz-content {
+    padding: 15px;
+  }
+
+  .quiz-description {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 15px;
+  }
+
+  .quiz-obstacles {
+    font-size: 14px;
+  }
+
+  .obstacle-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #334155;
+  }
+
+  .obstacle-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+
+  .obstacle-icon {
+    flex-shrink: 0;
+    margin-right: 8px;
+    color: #d97706;
+  }
+
+  .start-btn {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border: none;
+    color: white;
+    padding: 16px 40px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* margin-top: 30px; */
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+    display: none;
+    font-size: 20px;
+    letter-spacing: 1px;
+    position: relative;
+  }
+
+  .start-btn::after {
+    content: "❯";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .start-btn:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    box-shadow: 0 6px 15px rgba(217, 119, 6, 0.4);
+    transform: translateY(-3px);
+  }
+
+  .start-btn:active {
+    transform: translateY(2px);
+  }
+
+  .difficulty-container button {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  /* Glow effects */
+  .level-easy.selected {
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .level-medium.selected {
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+  }
+
+  .level-hard.selected {
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 900px) {
+    .difficulty-levels {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .difficulty-level {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-list {
+      grid-template-columns: 1fr;
+    }
+  }
+}

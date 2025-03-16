@@ -3,6 +3,25 @@
 
     let topMenuElement;
 
+    function getBadgeIcon(menuItem) {
+        if (!menuItem.badgeIcon) return '';
+        return `
+            <div id="${menuItem.id}-badge-icon" class="left">
+                <div class="badge rounded-pill bg-danger visible" style="width: 20px; height: 20px;">?</div>
+            </div>
+        `;
+    }
+
+    function getHelpIcon(menuItem) {
+        if (!menuItem.helpIcon) return '';
+        return `
+            <div id="${menuItem.id}-help-icon" class="help-icon right" data-bs-toggle="tooltip" data-bs-placement="left" title="${menuItem.modalTitle}">
+                <i class="bi bi-question-circle-fill" data-bs-toggle="modal" data-bs-target="#${menuItem.id}-modal"
+                    onclick="event.stopPropagation()"></i>
+            </div>
+        `;
+    }
+
     function initializeMenu() {
         // Generate menu items
         const ul = document.createElement('ul');
@@ -10,10 +29,8 @@
         Object.values(MENU_ITEMS_TOP).forEach(menuItem => {
             ul.innerHTML += `
                 <li data-id="${menuItem.id}">
-                    <div class="help-icon" data-bs-toggle="tooltip" data-bs-placement="${menuItem.helpIconPlacement}" title="${menuItem.modalTitle}">
-                        <i class="bi bi-question-circle-fill" data-bs-toggle="modal" data-bs-target="#${menuItem.id}-modal"
-                            onclick="event.stopPropagation()"></i>
-                    </div>
+                    ${getBadgeIcon(menuItem)}
+                    ${getHelpIcon(menuItem)}
                     <a>${menuItem.title}</a>
                 </li>
             `;

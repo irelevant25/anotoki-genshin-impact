@@ -1,8 +1,34 @@
 const MENU_ITEMS_TOP = {
+    daily: {
+        id: "site-daily",
+        title: "Daily",
+        badgeIcon: true,
+        helpIcon: true,
+        modalTitle: "About Daily",
+        modalContent: `
+            <div class="mb-4">
+                <h6 class="fw-bold">What is the Daily?</h6>
+                <p>Two random quizzes will be displayed each day with only one question. Possible quizzes include <b>banners</b>, <b>pixelate</b>, <b>mismatch</b> and <b>music</b>.</p>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">How it Works</h6>
+                <ol>
+                    <li>Two random quizzes will be displayed each day</li>
+                    <li>Each question has a time limit</li>
+                    <li>Each question has a difficulty level</li>
+                    <li>You can only attempt in a daily quizz once per day.</li>
+                    <li>Reset of daily is at 00:00 UTC.</li>
+                    <li>After completing all daily quizzes, you can still play the quizzes separately.</li>
+                </ol>
+            </div>
+        `
+    },
     banners: {
         id: "site-banners",
         title: "Banners",
-        helpIconPlacement: "left",
+        badgeIcon: false,
+        helpIcon: true,
         modalTitle: "About Banners",
         modalContent: `
             <div class="mb-4">
@@ -33,7 +59,8 @@ const MENU_ITEMS_TOP = {
     pixelate: {
         id: "site-pixelate",
         title: "Pixelate",
-        helpIconPlacement: "left",
+        badgeIcon: false,
+        helpIcon: true,
         modalTitle: "About Characters Pixelate",
         modalContent: `
             <div class="mb-4">
@@ -71,7 +98,8 @@ const MENU_ITEMS_TOP = {
     mismatch: {
         id: "site-mismatch",
         title: "Mismatch",
-        helpIconPlacement: "left",
+        badgeIcon: false,
+        helpIcon: true,
         modalTitle: "About Characters Mismatch",
         modalContent: `
             <div class="mb-4">
@@ -104,10 +132,46 @@ const MENU_ITEMS_TOP = {
             </div>
         `
     },
+    music: {
+        id: "site-music",
+        title: "Music",
+        badgeIcon: false,
+        helpIcon: true,
+        modalTitle: "About Music Quiz",
+        modalContent: `
+            <div class="mb-4">
+                <h6 class="fw-bold">What is the Music Quiz?</h6>
+                <p>Test your music knowledge by identifying characters from their demo music.</p>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">How to Play</h6>
+                <ol>
+                    <li>Music players will be displayed</li>
+                    <li>Click the play button to listen to the music</li>
+                    <li>Type or select a character name from the dropdown</li>
+                    <li>You have up to 5 attempts to guess correctly</li>
+                    <li>With each failed attempt, the music becomes longer</li>
+                </ol>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">Difficulty Progression</h6>
+                <ul>
+                    <li><span class="badge bg-danger">Very hard</span> - First attempt: Music is only 5 seconds long</li>
+                    <li><span class="badge bg-danger">Hard</span> - First attempt: Music is 10 seconds long</li>
+                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Music is 15 seconds long</li>
+                    <li><span class="badge bg-info">Easy</span> - Third attempt: Music is 20 seconds long</li>
+                    <li><span class="badge bg-info">Very easy</span> - Third attempt: Music is without a length limit</li>
+                </ul>
+            </div>
+        `
+    },
     tournament: {
         id: "site-tournament",
         title: "Tournament",
-        helpIconPlacement: "left",
+        badgeIcon: false,
+        helpIcon: true,
         modalTitle: "About Characters Tournament",
         modalContent: `
             <div class="mb-4">
@@ -141,40 +205,6 @@ const MENU_ITEMS_TOP = {
                 <ul>
                     <li><span class="badge bg-success">Number of Characters</span> Select how many characters will participate</li>
                     <li><span class="badge bg-primary">Tournament Type</span> Choose the format that determines how matches are structured</li>
-                </ul>
-            </div>
-        `
-    },
-    music: {
-        id: "site-music",
-        title: "Music",
-        helpIconPlacement: "left",
-        modalTitle: "About Music Quiz",
-        modalContent: `
-            <div class="mb-4">
-                <h6 class="fw-bold">What is the Music Quiz?</h6>
-                <p>Test your music knowledge by identifying characters from their demo music.</p>
-            </div>
-            
-            <div class="mb-4">
-                <h6 class="fw-bold">How to Play</h6>
-                <ol>
-                    <li>Music players will be displayed</li>
-                    <li>Click the play button to listen to the music</li>
-                    <li>Type or select a character name from the dropdown</li>
-                    <li>You have up to 5 attempts to guess correctly</li>
-                    <li>With each failed attempt, the music becomes longer</li>
-                </ol>
-            </div>
-            
-            <div class="mb-4">
-                <h6 class="fw-bold">Difficulty Progression</h6>
-                <ul>
-                    <li><span class="badge bg-danger">Very hard</span> - First attempt: Music is only 5 seconds long</li>
-                    <li><span class="badge bg-danger">Hard</span> - First attempt: Music is 10 seconds long</li>
-                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Music is 15 seconds long</li>
-                    <li><span class="badge bg-info">Easy</span> - Third attempt: Music is 20 seconds long</li>
-                    <li><span class="badge bg-info">Very easy</span> - Third attempt: Music is without a length limit</li>
                 </ul>
             </div>
         `
