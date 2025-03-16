@@ -473,6 +473,11 @@ nav ul li.active {
 }
 
 .badge-daily {
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  color: white;
   position: absolute;
   top: 0;
   width: 20px;
