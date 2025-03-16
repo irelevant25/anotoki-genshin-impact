@@ -64,7 +64,6 @@
         init() {
             this._loadData();
             if (!this.data.version || this.data.version !== StorageManager.DEFAULT_DATA.version) {
-                this.data.version = this.data.version ?? StorageManager.DEFAULT_DATA.version;
                 this.data = migrate(this.data);
                 this.saveData(this.data);
             }
