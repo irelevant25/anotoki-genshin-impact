@@ -45,11 +45,11 @@
         const date = getTodayString();
         const dailies = 2;
         const state = storageManager.getTopMenuDailyState();
-        const difficulty = state ? state.difficulty : storageManager.getDifficulty() ?? 1;
+        const difficulty = state?.difficulty ?? storageManager.getDifficulty() ?? 1;
         let quizPool = shuffleArray(['banners', 'pixelate', 'mismatch', 'music']);
 
         dailyQuizzes = [];
-        if (state && state.date === date) dailyQuizzes.push(...state.dailyQuizzes);
+        if (state?.date === date) dailyQuizzes.push(...state.dailyQuizzes);
         else {
             for (let i = 0; i < dailies; i++) {
                 dailyQuizzes.push(quizPool.pop());
