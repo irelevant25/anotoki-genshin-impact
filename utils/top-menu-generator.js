@@ -7,7 +7,7 @@
         if (!menuItem.badgeIcon) return '';
         return `
             <div id="${menuItem.id}-badge-icon" class="left">
-                <div class="badge rounded-pill bg-danger visible" style="width: 20px; height: 20px;">?</div>
+                <div class="badge-daily rounded-pill bg-danger visible" style="width: 20px; height: 20px;">?</div>
             </div>
         `;
     }

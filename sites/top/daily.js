@@ -69,7 +69,7 @@
         containerElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}`);
         dailyQuiz = containerElement.querySelector('div[name="quiz"]');
         dailyQuizzesElement = containerElement.querySelector('[name="daily-quizzes"]');
-        badgeElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}-badge-icon div.badge`);
+        badgeElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}-badge-icon div.badge-daily`);
         levelElement = containerElement.querySelector('div[name="quiz-difficulty-display"]');
 
         dailyQuizzes.forEach((quiz) => {

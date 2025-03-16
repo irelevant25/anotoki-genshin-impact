@@ -472,7 +472,7 @@ nav ul li.active {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.badge {
+.badge-daily {
   position: absolute;
   top: 0;
   width: 20px;
