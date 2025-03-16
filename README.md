@@ -27,7 +27,7 @@
   - [x] Optimizing big characters data. Split to two (characters and database) and load database only if needed.
   - [x] Data migrations after visiting the website after new updates
 - Features:
-  - [x] Dailies + badge notification about the amount of non completed dailies
+  - [x] Dailies + badge icon about the amount of non completed dailies
   - Difficulties
   - [x] Saving progress for the sites: Daily, Banners, Pixelate, Mismatch and Music
   - [x] Saving statis for daily and quizzes per character and quiz separately

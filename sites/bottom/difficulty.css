@@ -1,18 +1,18 @@
-#site-difficulties-modal-content {
-  .domain-container {
+#site-difficulties-modal .modal-body{
+  .difficulty-container {
     /* max-width: 1000px;
     width: 100%; */
     margin-top: 30px 0;
   }
 
-  .domain-header {
+  .difficulty-header {
     text-align: center;
     /* margin-bottom: 40px; */
     color: #1e293b;
     position: relative;
   }
 
-  .domain-header::after {
+  .difficulty-header::after {
     content: "";
     position: absolute;
     bottom: -15px;
@@ -23,7 +23,7 @@
     background: linear-gradient(to right, transparent, #64748b, transparent);
   }
 
-  .domain-title {
+  .difficulty-title {
     font-size: 36px;
     margin-bottom: 12px;
     letter-spacing: 2px;
@@ -32,8 +32,8 @@
     color: #1e293b;
   }
 
-  .domain-title::before,
-  .domain-title::after {
+  .difficulty-title::before,
+  .difficulty-title::after {
     content: "❖";
     color: #d97706;
     font-size: 24px;
@@ -42,7 +42,7 @@
     opacity: 0.8;
   }
 
-  .domain-subtitle {
+  .difficulty-subtitle {
     font-size: 18px;
     color: #64748b;
     font-weight: 400;
@@ -62,7 +62,7 @@
     color: #334155;
   }
 
-  .domain-levels {
+  .difficulty-levels {
     display: flex;
     justify-content: center;
     gap: 24px;
@@ -70,7 +70,7 @@
     padding: 0 20px;
   }
 
-  .domain-level {
+  .difficulty-level {
     flex: 1;
     /* max-width: 280px; */
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -83,12 +83,12 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
-  .domain-level:hover {
+  .difficulty-level:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
 
-  .domain-level.selected {
+  .difficulty-level.selected {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(-8px);
     border-color: rgba(0, 0, 0, 0.2);
@@ -234,37 +234,6 @@
     color: #64748b;
     margin-bottom: 20px;
     line-height: 1.6;
-  }
-
-  .recommended-ar {
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    color: #1e293b;
-    padding: 3px 15px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    z-index: 2;
-    border: 2px solid white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .level-easy .recommended-ar {
-    background-color: #10b981;
-    color: white;
-  }
-
-  .level-medium .recommended-ar {
-    background-color: #3b82f6;
-    color: white;
-  }
-
-  .level-hard .recommended-ar {
-    background-color: #8b5cf6;
-    color: white;
   }
 
   /* Quiz selection section */
@@ -413,7 +382,7 @@
     transform: translateY(2px);
   }
 
-  .challenge-container {
+  .difficulty-container button {
     margin-top: 20px;
     text-align: center;
   }
@@ -433,12 +402,12 @@
 
   /* Mobile responsive */
   @media (max-width: 900px) {
-    .domain-levels {
+    .difficulty-levels {
       flex-direction: column;
       align-items: center;
     }
 
-    .domain-level {
+    .difficulty-level {
       width: 100%;
       max-width: 400px;
       margin-bottom: 20px;

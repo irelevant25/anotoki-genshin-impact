@@ -6,19 +6,20 @@
     let dailyQuizzesElement;
     let dailyQuizzes;
     let badgeElement;
+    let levelElement;
 
-    function updateNotification() {
+    function updateBadge() {
         const doneNotifications = storageManager.data.topMenu.daily.done;
         const remainingDailies = dailyQuizzes.length - doneNotifications.length;
         badgeElement.textContent = remainingDailies;
         if (remainingDailies === 0) badgeElement.classList.remove('visible');
         else badgeElement.classList.add('visible');
-        dailyQuizzesElement.querySelectorAll('button').forEach((item, index) => item.classList.toggle('done', doneNotifications.includes(dailyQuizzes[index])));        
+        dailyQuizzesElement.querySelectorAll('button').forEach((item, index) => item.classList.toggle('done', doneNotifications.includes(dailyQuizzes[index])));
     }
 
     function updateStats(quizName, character, difficulty, isSuccess) {
         storageManager.saveStats(quizName, character.name, isSuccess, difficulty, true, dailyQuizzes);
-        updateNotification();
+        updateBadge();
     }
 
     function renderQuiz(quizName) {
@@ -44,6 +45,7 @@
         const date = getTodayString();
         const dailies = 2;
         const state = storageManager.getTopMenuDailyState();
+        const difficulty = state ? state.difficulty : storageManager.getDifficulty() ?? 1;
         let quizPool = shuffleArray(['banners', 'pixelate', 'mismatch', 'music']);
 
         dailyQuizzes = [];
@@ -59,14 +61,16 @@
             storageManager.saveTopMenuDailyState({
                 date,
                 dailyQuizzes,
-                done: []
+                done: [],
+                difficulty
             });
         }
 
         containerElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}`);
         dailyQuiz = containerElement.querySelector('div[name="quiz"]');
         dailyQuizzesElement = containerElement.querySelector('[name="daily-quizzes"]');
-        badgeElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}-notification-icon div.badge`);
+        badgeElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}-badge-icon div.badge`);
+        levelElement = containerElement.querySelector('div[name="quiz-difficulty-display"]');
 
         dailyQuizzes.forEach((quiz) => {
             const button = document.createElement('button');
@@ -78,6 +82,10 @@
             dailyQuizzesElement.appendChild(button);
         });
 
-        updateNotification();
+        levelElement.className = '';
+        levelElement.classList.add(`level-${difficultyFromNumberToString(difficulty)}`);
+        levelElement.querySelector('span').textContent = difficultyFromNumberToString(difficulty);
+
+        updateBadge();
     });
 })();

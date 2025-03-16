@@ -2,7 +2,7 @@ const MENU_ITEMS_TOP = {
     daily: {
         id: "site-daily",
         title: "Daily",
-        notificationIcon: true,
+        badgeIcon: true,
         helpIcon: true,
         modalTitle: "About Daily",
         modalContent: `
@@ -27,7 +27,7 @@ const MENU_ITEMS_TOP = {
     banners: {
         id: "site-banners",
         title: "Banners",
-        notificationIcon: false,
+        badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Banners",
         modalContent: `
@@ -59,7 +59,7 @@ const MENU_ITEMS_TOP = {
     pixelate: {
         id: "site-pixelate",
         title: "Pixelate",
-        notificationIcon: false,
+        badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Characters Pixelate",
         modalContent: `
@@ -98,7 +98,7 @@ const MENU_ITEMS_TOP = {
     mismatch: {
         id: "site-mismatch",
         title: "Mismatch",
-        notificationIcon: false,
+        badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Characters Mismatch",
         modalContent: `
@@ -135,7 +135,7 @@ const MENU_ITEMS_TOP = {
     music: {
         id: "site-music",
         title: "Music",
-        notificationIcon: false,
+        badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Music Quiz",
         modalContent: `
@@ -170,7 +170,7 @@ const MENU_ITEMS_TOP = {
     tournament: {
         id: "site-tournament",
         title: "Tournament",
-        notificationIcon: false,
+        badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Characters Tournament",
         modalContent: `

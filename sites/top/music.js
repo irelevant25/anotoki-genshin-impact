@@ -12,7 +12,6 @@
             this.daily = daily;
             this.options = options;
             this.onCompleteQuestion = onCompleteQuestion;
-            this.difficulty = storageManager.getDifficulty();
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
@@ -38,6 +37,7 @@
             this.playButton = this.containerElement.querySelector('[name="playButton"]');
             this.pauseButton = this.containerElement.querySelector('[name="pauseButton"]');
             this.restartButton = this.containerElement.querySelector('[name="restartButton"]');
+            this.levelElement = this.containerElement.querySelector('div[name="quiz-difficulty-display"]');
 
             this.nextButtonElement?.addEventListener('click', () => {
                 this.state = null;
@@ -88,11 +88,18 @@
         }
 
         init() {
-            this.triesMax = this.state ? this.state.triesMax : this.options.triesMax ?? 5;
-            this.triesEffects = this.state?.triesEffects ?? this.options.triesEffects ?? [];
+            this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
+            this.difficulty = this.state ? this.state.difficulty : this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() ?? 1;
+            this.triesMax = this.state ? this.state.triesMax : this.options[this.difficulty].triesMax ?? 5;
+            this.triesEffects = this.state?.triesEffects ?? this.options[this.difficulty].triesEffects ?? [];
             this.tries = this.state?.tries ?? [];
             this.questionEntity = this.state ? CHARACTERS.find(character => character.name === this.state.questionEntity) : getRandomCharacter(x => x.demo_music !== null);
-            this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
+
+            if (!this.daily) {
+                this.levelElement.className = '';
+                this.levelElement.classList.add(`level-${difficultyFromNumberToString(this.difficulty)}`);
+                this.levelElement.querySelector('span').textContent = difficultyFromNumberToString(this.difficulty);
+            }
 
             this.rafId;
             this.startTime = 0;
@@ -110,7 +117,8 @@
                 triesEffects: this.triesEffects,
                 questionEntity: this.questionEntity.name,
                 isQuestionComplete: this.isQuestionComplete,
-                tries: this.tries
+                tries: this.tries,
+                difficulty: this.difficulty
             };
             if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuMusicState(this.state, this.daily);

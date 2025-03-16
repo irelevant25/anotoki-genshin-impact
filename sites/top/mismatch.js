@@ -9,7 +9,6 @@
             this.daily = daily;
             this.options = options;
             this.onCompleteQuestion = onCompleteQuestion;
-            this.difficulty = storageManager.getDifficulty();
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
@@ -18,6 +17,7 @@
             this.nextButtonElement = this.containerElement.querySelector('button.next-button');
             // this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
             this.nextButtonElement?.addEventListener('click', () => this.startQuestion());
+            this.levelElement = this.containerElement.querySelector('div[name="quiz-difficulty-display"]');
 
             this.nextButtonElement?.addEventListener('click', () => {
                 this.state = null;
@@ -29,12 +29,20 @@
 
         init() {
             this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
+            this.difficulty = this.state ? this.state.difficulty : this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() ?? 1;
+            this.choicesAmount = this.state ? this.state.choicesAmount : this.options[this.difficulty].choicesAmount ?? 4;
             this.quizSet = this.state?.quizSet ? {
                 options: this.state.quizSet.options.map(x => CHARACTERS.find(character => character.name === x)),
                 answer: CHARACTERS.find(character => character.name === this.state.quizSet.answer),
                 commonValue: this.state.quizSet.commonValue,
                 quizProperty: this.state.quizSet.quizProperty
-            } : this.getRandomQuizSet(4);
+            } : this.getRandomQuizSet(this.choicesAmount);
+
+            if (!this.daily) {
+                this.levelElement.className = '';
+                this.levelElement.classList.add(`level-${difficultyFromNumberToString(this.difficulty)}`);
+                this.levelElement.querySelector('span').textContent = difficultyFromNumberToString(this.difficulty);
+            }
 
             this.defaultState();
             this.startQuestion();
@@ -45,14 +53,16 @@
         saveState() {
             this.state = {
                 isQuestionComplete: this.isQuestionComplete,
+                choicesAmount: this.choicesAmount,
                 quizSet: {
                     options: this.quizSet.options.map(x => x.name),
                     answer: this.quizSet.answer.name,
                     commonValue: this.quizSet.commonValue,
                     quizProperty: this.quizSet.quizProperty
-                }
+                },
+                difficulty: this.difficulty
             };
-            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.quizSet.answer, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuMismatchState(this.state, this.daily);
         }
 

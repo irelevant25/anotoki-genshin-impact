@@ -56,6 +56,16 @@ function combinations(arr, k) {
     return result;
 }
 
+function difficultyFromNumberToString(number) {
+    const strings = ['easy', 'medium', 'hard'];
+    return strings[Number(number) - 1];
+}
+
+function difficultyFromStringToNumber(string) {
+    const numbers = ['1', '2', '3'];
+    return numbers.indexOf(string) + 1;
+}
+
 function getTodayString() {
     return new Date().toJSON().slice(0, 10);
 }

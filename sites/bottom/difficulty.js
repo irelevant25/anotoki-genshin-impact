@@ -1,12 +1,16 @@
 (() => {
     'use strict';
 
+    let containerElement;
     let levelContainerElement;
     let levelsDifficultiesElement;
+    let selectedDifficulty;
+    let modal;
 
     function render(level) {
         levelContainerElement.innerHTML += `
-            <div class="domain-level level-${level.name}" data-difficulty="${level.name}">
+            <div class="difficulty-level level-${level.name}" data-difficulty="${level.id}">
+                <div class="backdrop"></div>
                 <div class="level-header">
                     <!-- <span class="level-number">${level.numer}</span> -->
                     <div class="level-icon">${level.icon}</div>
@@ -27,7 +31,7 @@
         `;
         level.quizzes.forEach(quiz => {
             html += `
-                <div class="quiz-card quiz-${level.name}" data-quiz="${quiz.name}">
+                <div class="quiz-card quiz-${level.name}">
                     <div class="quiz-header">
                         <div class="quiz-title">${quiz.title}</div>
                     </div>
@@ -57,61 +61,79 @@
         levelsDifficultiesElement.innerHTML += html;
     }
 
+    function showLevel(difficulty) {
+        selectedDifficulty = difficulty;
+
+        const levelCards = containerElement.querySelectorAll('.difficulty-level');
+        const quizCards = containerElement.querySelectorAll('.quiz-card');
+        const easyQuizzes = containerElement.querySelector('#easy-quizzes');
+        const mediumQuizzes = containerElement.querySelector('#medium-quizzes');
+        const hardQuizzes = containerElement.querySelector('#hard-quizzes');
+        const validationElement = containerElement.querySelector('[name="validation"]');
+        const cardLevelElement = containerElement.querySelector(`[data-difficulty="${selectedDifficulty}"]`);
+        
+        validationElement.classList.add('d-none');
+
+        // Hide all quiz selections first
+        easyQuizzes.style.display = 'none';
+        mediumQuizzes.style.display = 'none';
+        hardQuizzes.style.display = 'none';
+
+        // Remove selected class from all cards
+        levelCards.forEach(c => {
+            c.classList.remove('selected');
+            c.querySelector('div.backdrop').classList.remove('d-none');
+        });
+
+        // Add selected class to clicked card
+        cardLevelElement.classList.add('selected');
+        cardLevelElement.querySelector('div.backdrop').classList.add('d-none');
+
+        // Show appropriate quiz selection
+        if (selectedDifficulty === '1') {
+            easyQuizzes.style.display = 'block';
+        } else if (selectedDifficulty === '2') {
+            mediumQuizzes.style.display = 'block';
+        } else if (selectedDifficulty === '3') {
+            hardQuizzes.style.display = 'block';
+        }
+
+        // Clear previously selected quiz
+        quizCards.forEach(q => {
+            q.classList.remove('selected');
+        });
+    }
+
     function init() {
         DIFFICULTIES.forEach(level => {
             render(level);
         });
 
         // Get all elements
-        const levelCards = document.querySelectorAll('.domain-level');
-        const quizCards = document.querySelectorAll('.quiz-card');
-        const easyQuizzes = document.getElementById('easy-quizzes');
-        const mediumQuizzes = document.getElementById('medium-quizzes');
-        const hardQuizzes = document.getElementById('hard-quizzes');
-
-        let selectedDifficulty = null;
-        let selectedQuiz = null;
+        const levelCards = containerElement.querySelectorAll('.difficulty-level');
+        const buttonElement = containerElement.querySelector(`div.difficulty-container button`);
 
         // Add click event to each level card
         levelCards.forEach(card => {
-            card.addEventListener('click', function () {
-                // Hide all quiz selections first
-                easyQuizzes.style.display = 'none';
-                mediumQuizzes.style.display = 'none';
-                hardQuizzes.style.display = 'none';
-
-                // Remove selected class from all cards
-                levelCards.forEach(c => {
-                    c.classList.remove('selected');
-                });
-
-                // Add selected class to clicked card
-                this.classList.add('selected');
-
-                // Store selected difficulty
-                selectedDifficulty = this.dataset.difficulty;
-
-                // Show appropriate quiz selection
-                if (selectedDifficulty === 'easy') {
-                    easyQuizzes.style.display = 'block';
-                } else if (selectedDifficulty === 'medium') {
-                    mediumQuizzes.style.display = 'block';
-                } else if (selectedDifficulty === 'hard') {
-                    hardQuizzes.style.display = 'block';
-                }
-
-                // Clear previously selected quiz
-                quizCards.forEach(q => {
-                    q.classList.remove('selected');
-                });
-                selectedQuiz = null;
-            });
+            card.addEventListener('click', (event) => showLevel(event.currentTarget.dataset.difficulty));
         });
+
+        buttonElement.addEventListener('click', function () {
+            if (selectedDifficulty) {
+                storageManager.saveDifficulty(selectedDifficulty);
+                modal.hide();
+            }
+        });
+
+        selectedDifficulty = storageManager.getDifficulty();
+        if (selectedDifficulty) showLevel(selectedDifficulty);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        levelContainerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.difficulties.id}-modal-content .domain-levels`);
-        levelsDifficultiesElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.difficulties.id}-modal-content div[name="levels-difficulties"]`);
+        containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.difficulties.id}-modal`);
+        modal = new bootstrap.Modal(containerElement)
+        levelContainerElement = containerElement.querySelector('.difficulty-levels');
+        levelsDifficultiesElement = containerElement.querySelector('div[name="levels-difficulties"]');
         init();
     });
 })();

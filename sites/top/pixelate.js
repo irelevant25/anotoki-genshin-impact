@@ -11,7 +11,6 @@
             this.daily = daily;
             this.options = options;
             this.onCompleteQuestion = onCompleteQuestion;
-            this.difficulty = storageManager.getDifficulty();
 
             // Get DOM elements
             this.containerElement = document.querySelector(`#${this.idSelector}`);
@@ -23,6 +22,7 @@
             this.triesScoreCurrentElement = this.containerElement.querySelector('div.tries-score > p[name="tries-current"]');
             this.triesScoreMaxElement = this.containerElement.querySelector('div.tries-score > p[name="tries-max"]');
             this.autocompleteContainerElement = this.containerElement.querySelector('div[name="autocomplete"]');
+            this.levelElement = this.containerElement.querySelector('div[name="quiz-difficulty-display"]');
 
             this.nextButtonElement?.addEventListener('click', () => {
                 this.state = null;
@@ -40,10 +40,17 @@
 
         init() {
             this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
-            this.triesMax = this.state ? this.state.triesMax : this.options.triesMax ?? 5;
-            this.triesEffects = this.state?.triesEffects ?? this.options.triesEffects ?? [];
+            this.difficulty = this.state ? this.state.difficulty : this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() ?? 1;
+            this.triesMax = this.state ? this.state.triesMax : this.options[this.difficulty].triesMax ?? 5;
+            this.triesEffects = this.state?.triesEffects ?? this.options[this.difficulty].triesEffects ?? [];
             this.tries = this.state?.tries ?? [];
             this.questionEntity = this.state ? CHARACTERS.find(character => character.name === this.state.questionEntity) : getRandomCharacter();
+
+            if (!this.daily) {
+                this.levelElement.className = '';
+                this.levelElement.classList.add(`level-${difficultyFromNumberToString(this.difficulty)}`);
+                this.levelElement.querySelector('span').textContent = difficultyFromNumberToString(this.difficulty);
+            }
 
             this.defaultState();
             this.startQuestion();
@@ -57,7 +64,8 @@
                 triesEffects: this.triesEffects,
                 questionEntity: this.questionEntity.name,
                 isQuestionComplete: this.isQuestionComplete,
-                tries: this.tries
+                tries: this.tries,
+                difficulty: this.difficulty
             };
             if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuPixelateState(this.state, this.daily);
@@ -75,7 +83,7 @@
             const imgElement = document.createElement('img');
             const emptyTryElement = this.containerElement.querySelector(`div.try:not(:has(img))`);
 
-            const currentTry = this.tries.length;    
+            const currentTry = this.tries.length;
             this.triesScoreCurrentElement.textContent = currentTry;
             imgElement.src = getCharacterIconImageUrl(selectedCharacter.name);
             emptyTryElement.appendChild(imgElement);

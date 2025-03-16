@@ -1,5 +1,6 @@
 const DIFFICULTIES = [
     {
+        id: 1,
         name: 'easy',
         numer: 'I',
         icon: '✦',
@@ -8,48 +9,50 @@ const DIFFICULTIES = [
         description: 'Perfect for new travelers to Teyvat who are still learning about the world. Focuses on fundamental knowledge.',
         quizzes: [
             {
-                name: 'characters',
-                title: 'Character Quiz',
-                description: 'Test your knowledge of Genshin Impact\'s iconic characters.',
+                title: 'Banners',
+                description: 'Test your knowledge of character\'s banner namecard.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 5',
+                    '1. You will see only left 50% of the namecard.',
+                    '2-5. You will see whole original namecard.',
                 ]
             },
             {
-                name: 'regions',
-                title: 'Regions Quiz',
-                description: 'Test your knowledge of Teyvat\'s beautiful regions.',
+                title: 'Pixelate',
+                description: 'Test your knowledge of characters\'s icon.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 5',
+                    '1. 7x7 - 49 pixels.',
+                    '2. 12x12 - 144 pixels.',
+                    '3. 17x17 - 289 pixels.',
+                    '4. 22x22 - 484 pixels.',
+                    '5. 27.27 - 729 pixels.'
                 ]
             },
             {
-                name: 'elements',
-                title: 'Elements Quiz',
-                description: 'Test your knowledge of the seven elements.',
+                title: 'Mismatch',
+                description: 'Test your knowledge of character\'s elements, regions and weapon types.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 1',
+                    '1. 3 choices amount.'
                 ]
             },
             {
-                name: 'items',
-                title: 'Items Quiz',
-                description: 'Test your knowledge of Teyvat\'s beautiful items.',
+                title: 'Music',
+                description: 'Test your knowledge of character\'s demo music.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 5',
+                    '1. 5 seconds long.',
+                    '2. 10 seconds long.',
+                    '3. 15 seconds long.',
+                    '4. 20 seconds long.',
+                    '5. No length limit.'
                 ]
             }
         ]
     },
     {
+        id: 2,
         name: 'medium',
         numer: 'II',
         icon: '✦✦',
@@ -58,48 +61,49 @@ const DIFFICULTIES = [
         description: 'Designed for regular adventurers who have explored much of Teyvat. Tests deeper knowledge of the world.',
         quizzes: [
             {
-                name: 'characters',
-                title: 'Character Quiz',
-                description: 'Test your knowledge of Genshin Impact\'s iconic characters.',
+                title: 'Banners',
+                description: 'Test your knowledge of character\'s banner namecard.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 4',
+                    '1. Only left 50% of the namecard, grayscale and blur effects.',
+                    '2. Grayscale and blur effects.',
+                    '3-4. You will see whole original namecard.',
                 ]
             },
             {
-                name: 'regions',
-                title: 'Regions Quiz',
-                description: 'Test your knowledge of Teyvat\'s beautiful regions.',
+                title: 'Pixelate',
+                description: 'Test your knowledge of characters\'s icon.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 4',
+                    '1. 6x6 - 36 pixels.',
+                    '2. 11x11 - 121 pixels.',
+                    '3. 16x16 - 256 pixels.',
+                    '4. 21x21 - 441 pixels.',
                 ]
             },
             {
-                name: 'elements',
-                title: 'Elements Quiz',
-                description: 'Test your knowledge of the seven elements.',
+                title: 'Mismatch',
+                description: 'Test your knowledge of character\'s elements, regions and weapon types.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 1',
+                    '1. 4 choices amount.'
                 ]
             },
             {
-                name: 'items',
-                title: 'Items Quiz',
-                description: 'Test your knowledge of Teyvat\'s beautiful items.',
+                title: 'Music',
+                description: 'Test your knowledge of character\'s demo music.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 4',
+                    '1. 5 seconds long.',
+                    '2. 10 seconds long.',
+                    '3. 15 seconds long.',
+                    '4. 20 seconds long.'
                 ]
             }
         ]
     },
     {
+        id: 3,
         name: 'hard',
         numer: 'III',
         icon: '✦✦✦',
@@ -108,43 +112,41 @@ const DIFFICULTIES = [
         description: 'Created for the most dedicated Genshin Impact players. Delves into obscure lore and hidden connections.',
         quizzes: [
             {
-                name: 'characters',
-                title: 'Character Quiz',
-                description: 'Test your knowledge of Genshin Impact\'s iconic characters.',
+                title: 'Banners',
+                description: 'Test your knowledge of character\'s banner namecard.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 3',
+                    '1. Only left 50% of the namecard, grayscale and blurred effects.',
+                    '2. Grayscale and blur effects.',
+                    '3. Grayscale effect only.',
                 ]
             },
             {
-                name: 'regions',
-                title: 'Regions Quiz',
-                description: 'Test your knowledge of Teyvat\'s beautiful regions.',
+                title: 'Pixelate',
+                description: 'Test your knowledge of characters\'s icon.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 3',
+                    '1. 5x5 - 25 pixels.',
+                    '2. 10x10 - 100 pixels.',
+                    '3. 15x15 - 225 pixels.',
                 ]
             },
             {
-                name: 'elements',
-                title: 'Elements Quiz',
-                description: 'Test your knowledge of the seven elements.',
+                title: 'Mismatch',
+                description: 'Test your knowledge of character\'s elements, regions and weapon types.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 1',
+                    '1. Only 5 choices amount.'
                 ]
             },
             {
-                name: 'items',
-                title: 'Items Quiz',
-                description: 'Test your knowledge of Teyvat\'s beautiful items.',
+                title: 'Music',
+                description: 'Test your knowledge of character\'s demo music.',
                 difficulties: [
-                    'Identify character visions and weapons',
-                    'Match characters to their regions',
-                    'Recognize character talents'
+                    'Total tries: 3',
+                    '1. 5 seconds long.',
+                    '2. 10 seconds long.',
+                    '3. 15 seconds long.'
                 ]
             }
         ]
