@@ -25,7 +25,7 @@
     function renderQuiz(quizName) {
         const config = APP_CONFIG.topMenu[quizName];
         dailyQuiz.id = `daily-${quizName}`;
-        dailyQuiz.innerHTML = document.querySelector(`#${MENU_ITEMS_TOP[quizName].id}`).innerHTML;
+        dailyQuiz.innerHTML = document.querySelector(`#${QUIZZES[quizName].id}`).innerHTML;
 
         if (quizName === 'banners') {
             new BannersQuizManager(dailyQuiz.id, config, true, (...args) => updateStats(quizName, ...args)).init();
