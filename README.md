@@ -26,12 +26,11 @@
   - New quiz: Special dish
   - New quiz: Signature weapon
   - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
+  - Github link (to the bottom next to version)
 
 # Future version
 - Features:
   - Adding match history to the Tournament
-  - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
-  - Github link (to the bottom next to version)
   - New quiz: Voice lines
 - Improvements:
-  - Visualize the win/lose/wrong/correct answers in a additional way in quizzes
+  - Visualize the win/lose/wrong/correct answers in a additional way in quizzes especially for mismatch
