@@ -14,6 +14,7 @@
 - Achievements
 - Languages: EN/SK
 - Anime: voice lines (single - character name, multi - character name), pixelate (single - character name), music (single - music name, multi - anime name), OP/EN (single - EP/ED number, multi - anime name)
+- Optimize images by using: https://squoosh.app
 
 # Next version 0.6
 - Bugs: 
