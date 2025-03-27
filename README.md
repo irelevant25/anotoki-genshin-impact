@@ -20,11 +20,11 @@
 - Bugs: 
 - Improvements:
   - [x] Group all quizes under single top menu item Quizzes
-  - Hight size jump on quizzes when new images are not loaded yet (setup init hight)
-  - Display result explanaition for Mismach quiz
-  - Tries: x/y is not visible enough
+  - [ ] Hight size jump on quizzes when new images are not loaded yet (setup init hight)
+  - [ ] Display result explanaition for Mismach quiz
   - [x] Optimize wallpapers and wallpapers preview size
-  - Load wallpapers after openining background modal
+  - [ ] Load top sites content after click (optimize resources)
+  - [x] Load wallpapers after openining background modal
   - [x] Load character database per character using specified character database script
   - [x] Optimize assets sizes (wishes 87% reduction, namecard banners 88% reduction, icons 91% reduction, cards 95% reduction)
 - Features:
@@ -40,3 +40,4 @@
   - Adding match history to the Tournament
 - Improvements:
   - Visualize the win/lose/wrong/correct answers in a additional way in quizzes especially for mismatch
+  - Tries: x/y is not visible enough

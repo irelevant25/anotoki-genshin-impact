@@ -14,6 +14,7 @@
 
     // Function to render the backgrounds
     function loadBackgrounds() {
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.backgrounds.id}`).removeEventListener('click', loadBackgrounds);
         const container = document.querySelector(`#${MENU_ITEMS_BOTTOM.backgrounds.id}-modal-content`);
 
         if (container.children.length > 0) return;
@@ -31,10 +32,10 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        loadBackgrounds();
-        
+    document.addEventListener('DOMContentLoaded', () => {        
         // Initialize data from storage
         document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.avif'}")`;
+        // loadBackgrounds
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.backgrounds.id}`).addEventListener('click', loadBackgrounds);
     });
 })();
