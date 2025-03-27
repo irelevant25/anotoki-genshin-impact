@@ -26,7 +26,7 @@
   - [x] Optimize wallpapers and wallpapers preview size
   - Load wallpapers after openining background modal
   - [x] Load character database per character using specified character database script
-  - Optimize all pngs in assets
+  - Optimize all pngs in assets (wishes, namecard banners, icons, cards - 87% size reduction)
 - Features:
   - New quiz: Special dish
   - New quiz: Signature weapon
