@@ -14,7 +14,31 @@
         `;
     }
 
+    function defaultState() {
+        quizzesListElement.classList.remove('d-none');
+        quizzesElement.querySelectorAll("& > div[id^='site-']").forEach(element => {
+            element.classList.add('d-none');
+        });
+    }
+
+    function itemClick(quizItem) {
+        // Skip if no data-id
+        if (!quizItem.dataset.id) return;
+
+        defaultState();
+
+        // Toggle active state of clicked item
+        quizzesElement.querySelector(`#${quizItem.dataset.id}`).classList.remove('d-none');
+        quizzesListElement.classList.add('d-none');
+    }
+
     function init() {
+        quizzesElement = document.querySelector(`#${MENU_ITEMS_TOP.quizzes.id}`);
+        quizzesListElement = document.querySelector("#quizzes-list");
+        document.querySelector(`li[data-id="${MENU_ITEMS_TOP.quizzes.id}"]`).addEventListener('click', () => {
+            defaultState();
+        });
+
         // Generate list
         let quizzesListHtml = '';
         Object.values(QUIZZES).forEach(quizItem => {
@@ -63,30 +87,7 @@
         console.log('Menu items help modals initialized with', modalItems.length, 'items');
     }
 
-    function defaultState() {
-        quizzesListElement.classList.remove('d-none');
-        quizzesElement.querySelectorAll("& > div[id^='site-']").forEach(element => {
-            element.classList.add('d-none');
-        });
-    }
-
-    function itemClick(quizItem) {
-        // Skip if no data-id
-        if (!quizItem.dataset.id) return;
-
-        defaultState();
-
-        // Toggle active state of clicked item
-        quizzesElement.querySelector(`#${quizItem.dataset.id}`).classList.remove('d-none');
-        quizzesListElement.classList.add('d-none');
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
-        quizzesElement = document.querySelector(`#${MENU_ITEMS_TOP.quizzes.id}`);
-        quizzesListElement = document.querySelector("#quizzes-list");
-        document.querySelector(`li[data-id="${MENU_ITEMS_TOP.quizzes.id}"]`).addEventListener('click', () => {
-            defaultState();
-        });
-        init();
+        document.querySelector(`[data-id="${MENU_ITEMS_TOP.quizzes.id}"`).addEventListener('click', init, { once: true });
     });
 })();

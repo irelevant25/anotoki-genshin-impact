@@ -476,7 +476,7 @@
     function loadCharacterScript(characterToLoad) {
         const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
         const scriptSrc = `data/databse/${characterScript}.js`;
-        
+
         if (isScriptLoaded(scriptSrc)) {
             const characterDatabase = window[characterScript];
             displayCharacterInfo(characterDatabase);
@@ -494,16 +494,15 @@
     }
 
     function init() {
-        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).removeEventListener('click', init);
+        containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}-modal`);
+        new Autocomplete(containerElement, (selectedCharacter) => {
+            loadCharacterScript(selectedCharacter);
+        });
         loadCharacterScript(getRandomCharacter());
     }
 
     // Process data when page loads
     document.addEventListener('DOMContentLoaded', () => {
-        containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}-modal`);
-        new Autocomplete(containerElement, (selectedCharacter) => {
-            loadCharacterScript(selectedCharacter);
-        });
-        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', init);
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', init, { once: true });
     });
 })();
