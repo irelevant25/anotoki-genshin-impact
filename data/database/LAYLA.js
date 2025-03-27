@@ -1,4 +1,4 @@
-const LAYLA = {
+var LAYLA = {
     "name": "Layla",
     "namecard_name": "Daydream",
     "namecard_description": "'The starry sky in your dreams will illuminate your way forward, on the premise that the crystal in your heart reflects clear lights.''",

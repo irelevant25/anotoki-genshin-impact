@@ -1,4 +1,4 @@
-const NAHIDA = {
+var NAHIDA = {
     "name": "Nahida",
     "namecard_name": "Crescent",
     "namecard_description": "The rising moon admires the sun, because her light can shine all over the earth. On the other hand, the setting sun is envious of the moon, for she can be accompanied by the sweetest of dreams.'",

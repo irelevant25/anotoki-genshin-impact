@@ -1,4 +1,4 @@
-const MAVUIKA = {
+var MAVUIKA = {
     "name": "Mavuika",
     "namecard_name": "Sun-Crowned",
     "namecard_description": "No Pyro Archon has ever intended to contest the sun. But as ordinary people see it, this 'solar ring' is the crown of leaders as radiant as the sun.'",

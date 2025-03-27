@@ -1,4 +1,4 @@
-const CHASCA = {
+var CHASCA = {
     "name": "Chasca",
     "namecard_name": "Fully Loaded",
     "namecard_description": "Fear not, she's here to make peace, not to fight. The only question is whether to save a few bullets... Y'know, the type that get fired into the sky as warning shots.'",

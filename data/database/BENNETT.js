@@ -1,4 +1,4 @@
-const BENNETT = {
+var BENNETT = {
     "name": "Bennett",
     "namecard_name": "Recognition",
     "namecard_description": "A sign of recognition from Benny's Adventure Team.'",

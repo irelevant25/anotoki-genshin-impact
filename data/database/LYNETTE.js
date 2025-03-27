@@ -1,4 +1,4 @@
-const LYNETTE = {
+var LYNETTE = {
     "name": "Lynette",
     "namecard_name": "Earnestness",
     "namecard_description": "One major type of magic revolves around 'appearing suddenly.' Lynette is usually conserving her energy, but her serious side can 'appear' as abruptly as pigeons from a hat.'",

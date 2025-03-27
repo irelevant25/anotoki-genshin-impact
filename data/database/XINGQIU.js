@@ -1,4 +1,4 @@
-const XINGQIU = {
+var XINGQIU = {
     "name": "Xingqiu",
     "namecard_name": "Rainbow",
     "namecard_description": "Come watch the night rain that brings no rainbow.'",

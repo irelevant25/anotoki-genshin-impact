@@ -1,4 +1,4 @@
-const FARUZAN = {
+var FARUZAN = {
     "name": "Faruzan",
     "namecard_name": "Sealed Secret",
     "namecard_description": "'A—Anyway! Next time, remember to refer to me as Madam Faruzan before you ask a question! Seriously...''",

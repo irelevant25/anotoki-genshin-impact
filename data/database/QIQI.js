@@ -1,4 +1,4 @@
-const QIQI = {
+var QIQI = {
     "name": "Qiqi",
     "namecard_name": "Cold Storage",
     "namecard_description": "What should be kept in the fridge? Dr. Baizhu's herbs, coconut milk... and Hu Tao.'",

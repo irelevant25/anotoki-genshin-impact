@@ -1,4 +1,4 @@
-const SHENHE = {
+var SHENHE = {
     "name": "Shenhe",
     "namecard_name": "Comb",
     "namecard_description": "The early onset of white hair is often correlated to one's sorrows. Since 'comb' and 'scatter' are similarly read in Liyue's language, they believe that combing one's hair is the same as scattering one's misfortunes.'",

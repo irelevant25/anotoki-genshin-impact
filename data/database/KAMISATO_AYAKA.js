@@ -1,4 +1,4 @@
-const KAMISATO_AYAKA = {
+var KAMISATO_AYAKA = {
     "name": "Kamisato Ayaka",
     "namecard_name": "Folding Fan",
     "namecard_description": "Ayaka does constantly change out the fans she carries with her, of course. If you're buying her some as gifts, remember not to send summer fans or throwing fans. Dancing fans or tea fans are good choices, though.'",

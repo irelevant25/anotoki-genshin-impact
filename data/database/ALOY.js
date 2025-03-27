@@ -1,4 +1,4 @@
-const ALOY = {
+var ALOY = {
     "name": "Aloy",
     "namecard_name": "Dawn",
     "namecard_description": "'Everything I do is in the service of life, not death.''",

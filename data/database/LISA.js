@@ -1,4 +1,4 @@
-const LISA = {
+var LISA = {
     "name": "Lisa",
     "namecard_name": "Tempus Fugit",
     "namecard_description": "An hourglass marks the end of the work day for Lisa. Its sand moves fast.'",

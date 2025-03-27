@@ -1,4 +1,4 @@
-const SETHOS = {
+var SETHOS = {
     "name": "Sethos",
     "namecard_name": "Ba Fragment",
     "namecard_description": "Each Ba Fragment has its unique symbol. While this one resembles an hourglass, it represents King Deshret's rule over both Upper and Lower Setekh. As for the light within, it stands for the wisdom of Hermanubis.'",

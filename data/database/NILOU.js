@@ -1,4 +1,4 @@
-const NILOU = {
+var NILOU = {
     "name": "Nilou",
     "namecard_name": "Lotus Dance",
     "namecard_description": "The lotus that blooms amidst the pure water is naught but a flash of light beneath her toes.'",

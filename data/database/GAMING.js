@@ -1,4 +1,4 @@
-const GAMING = {
+var GAMING = {
     "name": "Gaming",
     "namecard_name": "Man Chai",
     "namecard_description": "'Don't stop believing, Man Chai. One day, we'll soar high, with nary a patched hole in our trousers.''",

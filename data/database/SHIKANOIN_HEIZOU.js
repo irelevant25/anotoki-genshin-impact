@@ -1,4 +1,4 @@
-const SHIKANOIN_HEIZOU = {
+var SHIKANOIN_HEIZOU = {
     "name": "Shikanoin Heizou",
     "namecard_name": "Temari",
     "namecard_description": "A Temari of entwining strings in various colors. It must have taken someone's great effort to make such an item, yet Heizou only sees it as a simple game to untangle each string.'",

@@ -1,4 +1,4 @@
-const KAEYA = {
+var KAEYA = {
     "name": "Kaeya",
     "namecard_name": "Pavo Ocellus",
     "namecard_description": "The pattern of peacock feathers resembles eyes that never shut. Can we really say that this Pavo Ocellus is missing an eye...?'",

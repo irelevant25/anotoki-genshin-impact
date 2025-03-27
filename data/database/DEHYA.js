@@ -1,4 +1,4 @@
-const DEHYA = {
+var DEHYA = {
     "name": "Dehya",
     "namecard_name": "Purifying Flame",
     "namecard_description": "Those that should be burned will be reduced to fly ash, so that all the precious things that should be preserved can be revealed.'",

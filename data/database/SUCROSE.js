@@ -1,4 +1,4 @@
-const SUCROSE = {
+var SUCROSE = {
     "name": "Sucrose",
     "namecard_name": "Bio-Alchemy",
     "namecard_description": "If you closely examine an Anemo Hypostasis before it disappears, you will discover that they are actually quite square.'",

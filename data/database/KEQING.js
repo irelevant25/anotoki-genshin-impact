@@ -1,4 +1,4 @@
-const KEQING = {
+var KEQING = {
     "name": "Keqing",
     "namecard_name": "Lightning Stiletto",
     "namecard_description": "It was originally invented to just test out one's surroundings and climb to high places, really...'",

@@ -1,4 +1,4 @@
-const CHEVREUSE = {
+var CHEVREUSE = {
     "name": "Chevreuse",
     "namecard_name": "Type II",
     "namecard_description": "The standard issue weapon of the Special Security and Surveillance Patrol is known as the 'Special Security and Surveillance Patrol Type II Standard Musket.' Yet, though there may be countless flowers in this world, the one you treasure is special, even if it should be known to the world as nothing at all special.'",

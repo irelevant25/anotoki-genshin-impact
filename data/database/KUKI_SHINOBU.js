@@ -1,4 +1,4 @@
-const KUKI_SHINOBU = {
+var KUKI_SHINOBU = {
     "name": "Kuki Shinobu",
     "namecard_name": "Net",
     "namecard_description": "'You know those Naku Weed rings they have in Inazuma? You know, the kind that can drive out evil? Shinobu got the idea that since wicked things won't cross their boundaries willingly, we could make them into items that could be actively used. Ah, her talent for being a shrine maiden is truly frightening...''",

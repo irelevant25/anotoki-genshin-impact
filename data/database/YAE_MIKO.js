@@ -1,4 +1,4 @@
-const YAE_MIKO = {
+var YAE_MIKO = {
     "name": "Yae Miko",
     "namecard_name": "Kitsune Dreaming",
     "namecard_description": "Where can Yae Miko's fox form be found? In your dreams, that's where.'",

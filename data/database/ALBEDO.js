@@ -1,4 +1,4 @@
-const ALBEDO = {
+var ALBEDO = {
     "name": "Albedo",
     "namecard_name": "Sun Blossom",
     "namecard_description": "Allow me to bear witness to this miracle.'",

@@ -1,4 +1,4 @@
-const COLLEI = {
+var COLLEI = {
     "name": "Collei",
     "namecard_name": "Good Virtue",
     "namecard_description": "'I—It's Cuilein-Anbar! I, uh...''",

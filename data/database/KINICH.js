@@ -1,4 +1,4 @@
-const KINICH = {
+var KINICH = {
     "name": "Kinich",
     "namecard_name": "Ajaw",
     "namecard_description": "At first glance, you might think that the Almighty Dragonlord, K'uhul Ajaw had finally succeeded in turning the puny Kinich into a vessel of his will. Sadly, though, this is just the way namecards are named.'",

@@ -25,7 +25,8 @@
   - Tries: x/y is not visible enough
   - [x] Optimize wallpapers and wallpapers preview size
   - Load wallpapers after openining background modal
-  - Load cahracter database per character using specified character database script
+  - [x] Load character database per character using specified character database script
+  - Optimize all pngs in assets
 - Features:
   - New quiz: Special dish
   - New quiz: Signature weapon

@@ -1,4 +1,4 @@
-const FURINA = {
+var FURINA = {
     "name": "Furina",
     "namecard_name": "Banquet",
     "namecard_description": "Can one person eat every cake? If they eat one per day, they should be able to enjoy cake for a week or so, right? But will the cakes stay fresh that long? Hmm... Well, don't worry, because there will be friends coming to eat the cakes together.'",

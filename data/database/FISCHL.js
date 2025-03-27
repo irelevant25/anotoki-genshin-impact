@@ -1,4 +1,4 @@
-const FISCHL = {
+var FISCHL = {
     "name": "Fischl",
     "namecard_name": "Night Raven",
     "namecard_description": "A raven dark as midnight with wings that can block out the sun. 'I permit thee to conceive his likeness upon such decoration!''",

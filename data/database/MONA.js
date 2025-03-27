@@ -1,4 +1,4 @@
-const MONA = {
+var MONA = {
     "name": "Mona",
     "namecard_name": "Starry Sky",
     "namecard_description": "A girl gazes down at the stars' reflection on the water, pondering the joys and sorrows of life.'",

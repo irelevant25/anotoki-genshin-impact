@@ -1,4 +1,4 @@
-const ALHAITHAM = {
+var ALHAITHAM = {
     "name": "Alhaitham",
     "namecard_name": "Enlightenment",
     "namecard_description": "'The only things researchers should abide by are debates and dialectics. Only by questioning everything at all times can one avoid falling into prejudice.''",

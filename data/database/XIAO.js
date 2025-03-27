@@ -1,4 +1,4 @@
-const XIAO = {
+var XIAO = {
     "name": "Xiao",
     "namecard_name": "Mask",
     "namecard_description": "He longs for a day to come when he will wear the mask and dance — not to conquer demons, but to the tune of that flute amid a sea of flowers.'",

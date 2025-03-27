@@ -1,4 +1,4 @@
-const CANDACE = {
+var CANDACE = {
     "name": "Candace",
     "namecard_name": "Gray Heron",
     "namecard_description": "The burning winds of the past ruffle the heron's feathers, but the bird has eyes only for the morning star at first light.'",

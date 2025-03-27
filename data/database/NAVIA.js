@@ -1,4 +1,4 @@
-const NAVIA = {
+var NAVIA = {
     "name": "Navia",
     "namecard_name": "Rosula",
     "namecard_description": "Roses shall bloom, and thus does Ms. Navia's umbrella flower. Yet beware, for roses have thorns, and Navia's booming brolly packs a powerful punch.'",

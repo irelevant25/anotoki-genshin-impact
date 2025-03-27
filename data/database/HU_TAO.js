@@ -1,4 +1,4 @@
-const HU_TAO = {
+var HU_TAO = {
     "name": "Hu Tao",
     "namecard_name": "Spirit Soother",
     "namecard_description": "Director Hu Tao isn't scary at all. Probably.'",

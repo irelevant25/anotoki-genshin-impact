@@ -1,4 +1,4 @@
-const MIKA = {
+var MIKA = {
     "name": "Mika",
     "namecard_name": "Index",
     "namecard_description": "Every time he holds the map he illustrated in his hands, the boy feels like he is holding a small piece of rubbing of this world.'",

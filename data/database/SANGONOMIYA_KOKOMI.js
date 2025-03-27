@@ -1,4 +1,4 @@
-const SANGONOMIYA_KOKOMI = {
+var SANGONOMIYA_KOKOMI = {
     "name": "Sangonomiya Kokomi",
     "namecard_name": "The Deep",
     "namecard_description": "All Watatsumi islanders know this tale: that deep beneath the waves lies their former home.'",

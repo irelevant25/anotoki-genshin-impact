@@ -1,4 +1,4 @@
-const LAN_YAN = {
+var LAN_YAN = {
     "name": "Lan Yan",
     "namecard_name": "Silver Swallow",
     "namecard_description": "The swallow's arrival shall bring forth cleansing rains, washing the worries of wizened winter away.'",

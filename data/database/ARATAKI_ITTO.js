@@ -1,4 +1,4 @@
-const ARATAKI_ITTO = {
+var ARATAKI_ITTO = {
     "name": "Arataki Itto",
     "namecard_name": "Oni Face",
     "namecard_description": "A real man puts sorrow and anger behind him and smiles brightly for the world to see!'",

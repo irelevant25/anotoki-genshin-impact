@@ -476,15 +476,17 @@
     function loadCharacterScript(characterToLoad) {
         const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
         const scriptSrc = `data/databse/${characterScript}.js`;
+        
         if (isScriptLoaded(scriptSrc)) {
-            const characterDatabase = eval(characterScript);
+            const characterDatabase = window[characterScript];
             displayCharacterInfo(characterDatabase);
             return;
         }
+
         containerElement.querySelector('.loader').classList.remove('d-none');
         loadScript(`data/database/${characterScript}.js`, () => {
             setTimeout(() => {
-                const characterDatabase = eval(characterScript);
+                const characterDatabase = window[characterScript];
                 displayCharacterInfo(characterDatabase);
                 containerElement.querySelector('.loader').classList.add('d-none');
             }, 1000)

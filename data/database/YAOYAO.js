@@ -1,4 +1,4 @@
-const YAOYAO = {
+var YAOYAO = {
     "name": "Yaoyao",
     "namecard_name": "Yuegui",
     "namecard_description": "'Can you guess which one here is Yuegui? That's right, all of them are!''",

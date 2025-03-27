@@ -1,4 +1,4 @@
-const NEUVILLETTE = {
+var NEUVILLETTE = {
     "name": "Neuvillette",
     "namecard_name": "Surge",
     "namecard_description": "The water's surface may seem placid as a pristine gem, but it may yet be lying in wait for an opportune moment to gush forth.'",

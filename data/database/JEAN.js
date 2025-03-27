@@ -1,4 +1,4 @@
-const JEAN = {
+var JEAN = {
     "name": "Jean",
     "namecard_name": "The Winds' Course",
     "namecard_description": "The dandelion, also called 'lion's fang' by some, is the flower most sensitive to the direction of the wind.'",

@@ -1,4 +1,4 @@
-const KUJOU_SARA = {
+var KUJOU_SARA = {
     "name": "Kujou Sara",
     "namecard_name": "Tengu",
     "namecard_description": "Kujou Sara may have forsaken the arrogant life of the tengu race, but she has never neglected their brilliance with the sword or their supernatural might.'",

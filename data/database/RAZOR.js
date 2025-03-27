@@ -1,4 +1,4 @@
-const RAZOR = {
+var RAZOR = {
     "name": "Razor",
     "namecard_name": "Wolvensprint",
     "namecard_description": "It's quite a sight to behold Razor and the wolves prepare their dinner, but they won't let Klee or the Traveler see the slightly gruesome affair.'",

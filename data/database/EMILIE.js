@@ -1,4 +1,4 @@
-const EMILIE = {
+var EMILIE = {
     "name": "Emilie",
     "namecard_name": "Base Note",
     "namecard_description": "'The top note is sweet, the middle rich but not distracting, and the base — Ah! Such a faint fragrance! Such an exquisite perfume.'Orders flow in and out in an endless stream, and to prevent any scents from disturbing her work, Emilie very seldom uses perfume herself. Alas. When will she have the chance to delight in those base notes?'",

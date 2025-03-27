@@ -1,4 +1,4 @@
-const KACHINA = {
+var KACHINA = {
     "name": "Kachina",
     "namecard_name": "Twirly",
     "namecard_description": "The upper half of the Turbo Twirly is very stable, but if the lower half gets stuck, there's a high chance you'll end up with one very dizzy rider.'",

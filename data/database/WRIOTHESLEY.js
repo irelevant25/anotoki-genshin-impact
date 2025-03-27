@@ -1,4 +1,4 @@
-const WRIOTHESLEY = {
+var WRIOTHESLEY = {
     "name": "Wriothesley",
     "namecard_name": "Detention",
     "namecard_description": "Maintaining order at the Fortress of Meropide is no simple affair. As such, a deft and sometimes firm hand is needed — along with a small pinch of truly regrettable cruelty.'",

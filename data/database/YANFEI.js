@@ -1,4 +1,4 @@
-const YANFEI = {
+var YANFEI = {
     "name": "Yanfei",
     "namecard_name": "Impartial",
     "namecard_description": "Justice, signed in scarlet.'",

@@ -1,4 +1,4 @@
-const DORI = {
+var DORI = {
     "name": "Dori",
     "namecard_name": "Jinni",
     "namecard_description": "If you wipe the lamp she gave you and then scrub the Mora you gave her, no wish is unattainable... right?'",

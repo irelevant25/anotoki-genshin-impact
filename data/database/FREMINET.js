@@ -1,4 +1,4 @@
-const FREMINET = {
+var FREMINET = {
     "name": "Freminet",
     "namecard_name": "Progress",
     "namecard_description": "As the clockwork devices do naught but round and round in circles turn, the dolls march forward.'",

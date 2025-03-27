@@ -1,4 +1,4 @@
-const KIRARA = {
+var KIRARA = {
     "name": "Kirara",
     "namecard_name": "Neko Box",
     "namecard_description": "'To Kirara, the smiles on her customers' faces are the best rewards possible.''",

@@ -1,4 +1,4 @@
-const GANYU = {
+var GANYU = {
     "name": "Ganyu",
     "namecard_name": "Qilin",
     "namecard_description": "Do no harm to plant nor insect.'",

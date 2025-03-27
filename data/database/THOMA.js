@@ -1,4 +1,4 @@
-const THOMA = {
+var THOMA = {
     "name": "Thoma",
     "namecard_name": "Blazing Guard",
     "namecard_description": "Blazing armor, flaming guards.'",

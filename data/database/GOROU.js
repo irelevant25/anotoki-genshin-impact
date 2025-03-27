@@ -1,4 +1,4 @@
-const GOROU = {
+var GOROU = {
     "name": "Gorou",
     "namecard_name": "Leisurely Hound",
     "namecard_description": "As long as you believe in the path you are walking, then everything you encounter on your journey will be a source of happiness.'",

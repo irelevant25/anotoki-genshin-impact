@@ -1,4 +1,4 @@
-const TIGHNARI = {
+var TIGHNARI = {
     "name": "Tighnari",
     "namecard_name": "Dew-Kissed",
     "namecard_description": "Tighnari takes good care of his big, fluffy tail. The essential oil he uses was extracted from flowers and mixed together meticulously. It gives off a faint, calming scent.'",

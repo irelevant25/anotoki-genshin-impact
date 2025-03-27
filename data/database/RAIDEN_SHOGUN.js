@@ -1,4 +1,4 @@
-const RAIDEN_SHOGUN = {
+var RAIDEN_SHOGUN = {
     "name": "Raiden Shogun",
     "namecard_name": "Enlightenment",
     "namecard_description": "Not simply Ei, and not merely the Raiden Shogun. Observe yourself also with one stormy eye, and you will someday reach a breakthrough.'",

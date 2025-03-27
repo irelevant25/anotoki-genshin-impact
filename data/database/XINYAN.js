@@ -1,4 +1,4 @@
-const XINYAN = {
+var XINYAN = {
     "name": "Xinyan",
     "namecard_name": "Song's End",
     "namecard_description": "Xinyan only has time to examine her instrument carefully after the performance is over. Even in silence, it is a beauty.'",

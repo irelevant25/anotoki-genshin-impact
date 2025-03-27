@@ -1,4 +1,4 @@
-const CYNO = {
+var CYNO = {
     "name": "Cyno",
     "namecard_name": "Silence",
     "namecard_description": "Whenever Cyno falls into a profound silence, he must be considering some weighty judgment... Or perhaps he is simply considering something amusing.'",

@@ -1,4 +1,4 @@
-const WANDERER = {
+var WANDERER = {
     "name": "Wanderer",
     "namecard_name": "Drifter's Ballad",
     "namecard_description": "In a world most transient does the past hide, and in the whims of floating flowers does thin snow abide.'",

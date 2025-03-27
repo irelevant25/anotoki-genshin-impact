@@ -1,4 +1,4 @@
-const DILUC = {
+var DILUC = {
     "name": "Diluc",
     "namecard_name": "Flames",
     "namecard_description": "Master Crepus painted many eagles during his lifetime, but he never could've foreseen creating an eagle with such fire.'",

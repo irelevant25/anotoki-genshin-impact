@@ -1,4 +1,4 @@
-const YUN_JIN = {
+var YUN_JIN = {
     "name": "Yun Jin",
     "namecard_name": "Rhyme",
     "namecard_description": "Ms. Yun has two sorts of teachers. The critics of her onstage performances are one, and the books on rhyme she references while writing are the other.'",

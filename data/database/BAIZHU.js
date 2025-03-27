@@ -1,4 +1,4 @@
-const BAIZHU = {
+var BAIZHU = {
     "name": "Baizhu",
     "namecard_name": "Relief",
     "namecard_description": "Sincerity begets longevity.'",

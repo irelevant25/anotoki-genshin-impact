@@ -1,4 +1,4 @@
-const KAEDEHARA_KAZUHA = {
+var KAEDEHARA_KAZUHA = {
     "name": "Kaedehara Kazuha",
     "namecard_name": "Autumn Maple-Viewing",
     "namecard_description": "'The pine-song ripples as red leaves billow.''",

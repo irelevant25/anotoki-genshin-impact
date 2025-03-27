@@ -1,4 +1,4 @@
-const EULA = {
+var EULA = {
     "name": "Eula",
     "namecard_name": "Ice-Sealed",
     "namecard_description": "A cold heart is but a shell to protect oneself.'",

@@ -1,4 +1,4 @@
-const ORORON = {
+var ORORON = {
     "name": "Ororon",
     "namecard_name": "Nightshade",
     "namecard_description": "Just as starlight cannot overpower the darkness of night, so too do shadows linger beneath the candle's light. Likewise, the heart's emptiness cannot easily be filled.'",

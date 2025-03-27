@@ -1,4 +1,4 @@
-const YELAN = {
+var YELAN = {
     "name": "Yelan",
     "namecard_name": "Throw",
     "namecard_description": "'Dice are always quite hard to make 'fair.' That goes double for dice with shoddier workmanship. The weighting on each numbered side will almost certainly be unbalanced.''",

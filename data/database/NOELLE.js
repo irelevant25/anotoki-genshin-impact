@@ -1,4 +1,4 @@
-const NOELLE = {
+var NOELLE = {
     "name": "Noelle",
     "namecard_name": "Protector",
     "namecard_description": "Noelle is quite special. Noelle won't let any harm come to you.'",

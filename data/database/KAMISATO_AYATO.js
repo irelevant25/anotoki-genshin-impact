@@ -1,4 +1,4 @@
-const KAMISATO_AYATO = {
+var KAMISATO_AYATO = {
     "name": "Kamisato Ayato",
     "namecard_name": "Ripple",
     "namecard_description": "The camellia alights upon the mirrored pond, sending ripples throughout the water.'",

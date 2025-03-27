@@ -1,4 +1,4 @@
-const KLEE = {
+var KLEE = {
     "name": "Klee",
     "namecard_name": "Explosive",
     "namecard_description": "Klee's lucky explosive — can you tell if it's Jumpy Dumpty or Dodoco? (Hint: Look carefully at the tail...)'",

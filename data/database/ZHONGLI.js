@@ -1,4 +1,4 @@
-const ZHONGLI = {
+var ZHONGLI = {
     "name": "Zhongli",
     "namecard_name": "Planet Befall",
     "namecard_description": "Stars fall, light dims.'",

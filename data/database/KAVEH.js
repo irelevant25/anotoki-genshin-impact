@@ -1,4 +1,4 @@
-const KAVEH = {
+var KAVEH = {
     "name": "Kaveh",
     "namecard_name": "Domed Court",
     "namecard_description": "'When conceptualizing architecture, there is nothing wrong with imagining that the structure we build will surmount the firmament and outlast the stars.''",

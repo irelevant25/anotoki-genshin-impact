@@ -1,4 +1,4 @@
-const SIGEWINNE = {
+var SIGEWINNE = {
     "name": "Sigewinne",
     "namecard_name": "Treatment",
     "namecard_description": "Sigewinne will take good care of her patients. Don't worry, her injections aren't that painful — and while the medicines aren't very tasty, you'd take them over the barren wasteland that special blend milkshakes represent.'",

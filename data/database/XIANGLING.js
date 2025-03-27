@@ -1,4 +1,4 @@
-const XIANGLING = {
+var XIANGLING = {
     "name": "Xiangling",
     "namecard_name": "Fresh from the Pan",
     "namecard_description": "Try saying this three times fast: 'Guoba sears sea snails by Liyue's sea shore.''",

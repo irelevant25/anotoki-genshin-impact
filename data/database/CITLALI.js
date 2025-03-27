@@ -1,4 +1,4 @@
-const CITLALI = {
+var CITLALI = {
     "name": "Citlali",
     "namecard_name": "Opalstar",
     "namecard_description": "The black one is akin to obsidian, and is thus called 'Itzpapa.' The white one is white as a star, and has thus been named 'Citlalin.''",

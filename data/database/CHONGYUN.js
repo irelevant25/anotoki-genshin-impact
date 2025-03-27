@@ -1,4 +1,4 @@
-const CHONGYUN = {
+var CHONGYUN = {
     "name": "Chongyun",
     "namecard_name": "Spirit Blade",
     "namecard_description": "This was originally a peachwood sword made of ice. But a big enough ice block makes a better exorcist's tool than peachwood.'",

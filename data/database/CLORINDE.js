@@ -1,4 +1,4 @@
-const CLORINDE = {
+var CLORINDE = {
     "name": "Clorinde",
     "namecard_name": "Roleplay",
     "namecard_description": "Dedicated Game Masters at the Tabletop Troupe will sometimes switch hats to indicate their change in role. Hmm, in that case, does Clorinde—Forget about it! She doesn't even take that hat off when swimming.'",

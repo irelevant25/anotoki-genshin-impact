@@ -1,4 +1,4 @@
-const YOIMIYA = {
+var YOIMIYA = {
     "name": "Yoimiya",
     "namecard_name": "Auratus Spark",
     "namecard_description": "Even momentarily sparks can leave beautiful, unquenchable flames in the hearts of those who watch the night sky.'",

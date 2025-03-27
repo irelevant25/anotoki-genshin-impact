@@ -1,4 +1,4 @@
-const DIONA = {
+var DIONA = {
     "name": "Diona",
     "namecard_name": "Meow!",
     "namecard_description": "All who have Kätzlein blood will have such feline features. An ancient prank played by a certain someone, perhaps?'",

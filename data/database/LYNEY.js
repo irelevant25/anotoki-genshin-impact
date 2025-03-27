@@ -1,4 +1,4 @@
-const LYNEY = {
+var LYNEY = {
     "name": "Lyney",
     "namecard_name": "Pretense",
     "namecard_description": "One major type of magic revolves around making things 'vanish.' Lyney has an arsenal of tricks up his sleeve. As his accomplice, as long as you are willing to turn a blind eye, all your problems may vanish as well.'",

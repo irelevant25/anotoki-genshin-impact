@@ -1,4 +1,4 @@
-const AMBER = {
+var AMBER = {
     "name": "Amber",
     "namecard_name": "Bunny",
     "namecard_description": "'It's Baron Bunny!''",

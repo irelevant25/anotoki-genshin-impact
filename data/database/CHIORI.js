@@ -1,4 +1,4 @@
-const CHIORI = {
+var CHIORI = {
     "name": "Chiori",
     "namecard_name": "Spectacular Sleeves",
     "namecard_description": "The doll known as 'Tamoto-chan' was one of Chiori's earliest works, and is also the model that requires the least fabric and tailoring.'",

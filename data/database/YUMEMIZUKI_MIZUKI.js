@@ -1,4 +1,4 @@
-const YUMEMIZUKI_MIZUKI = {
+var YUMEMIZUKI_MIZUKI = {
     "name": "Yumemizuki Mizuki",
     "namecard_name": "Nightmare Devourer",
     "namecard_description": "The yumekui-baku consume nightmares and leave only pleasant dreams. But what if dreams are to be understood in reverse? Faced with such conjecture, her warm-natured response: A truly beautiful dream, even if turned upside down through reality's lens, would still remain beautiful.'",

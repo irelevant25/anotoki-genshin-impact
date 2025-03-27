@@ -1,4 +1,4 @@
-const BEIDOU = {
+var BEIDOU = {
     "name": "Beidou",
     "namecard_name": "Weighing Anchor",
     "namecard_description": "'Weighing anchor out to sea, one is wont to waver. But look to the skies, and the stars shall light the way.''",

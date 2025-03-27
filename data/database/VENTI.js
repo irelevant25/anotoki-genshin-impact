@@ -1,4 +1,4 @@
-const VENTI = {
+var VENTI = {
     "name": "Venti",
     "namecard_name": "Azure Sky",
     "namecard_description": "The bright blue of a cloudless sky and the melodious tone of Der Frühling complement each other perfectly.'",

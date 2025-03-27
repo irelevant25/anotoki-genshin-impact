@@ -1,4 +1,4 @@
-const XILONEN = {
+var XILONEN = {
     "name": "Xilonen",
     "namecard_name": "Cue Point",
     "namecard_description": "Right on cue, the mountains echo with the rhythm of Xilonen's forge-hammer. When the final echo fades, she has already long ceased her toil and found a sunlit spot for her afternoon nap.'",

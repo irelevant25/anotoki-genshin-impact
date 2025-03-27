@@ -1,4 +1,4 @@
-const SAYU = {
+var SAYU = {
     "name": "Sayu",
     "namecard_name": "Muji-Muji Daruma",
     "namecard_description": "It is even smaller than Sayu, sure, but it can help her do the things she doesn't want to do.'",

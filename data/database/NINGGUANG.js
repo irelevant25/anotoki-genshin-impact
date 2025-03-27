@@ -1,4 +1,4 @@
-const NINGGUANG = {
+var NINGGUANG = {
     "name": "Ningguang",
     "namecard_name": "Phoenix",
     "namecard_description": "They say that 'more's the pity that phoenixes are few.' But seriously, one Ningguang is more than enough...'",

@@ -1,4 +1,4 @@
-const ARLECCHINO = {
+var ARLECCHINO = {
     "name": "Arlecchino",
     "namecard_name": "Edict",
     "namecard_description": "'Father' laid down the harsh strictures of the House of the Hearth, and some of these seem almost unreasonable. Those familiar with her can use these rules to trace the outline of the ideals she so rarely speaks of.'",
