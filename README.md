@@ -26,11 +26,12 @@
   - [x] Optimize wallpapers and wallpapers preview size
   - Load wallpapers after openining background modal
   - [x] Load character database per character using specified character database script
-  - Optimize assets sizes (wishes 87% reduction, namecard banners 88% reduction, icons 91% reduction, cards 95% reduction)
+  - [x] Optimize assets sizes (wishes 87% reduction, namecard banners 88% reduction, icons 91% reduction, cards 95% reduction)
 - Features:
   - New quiz: Special dish
   - New quiz: Signature weapon
   - New quiz: Voice lines
+  - New quiz: Constellation image (not icons)
   - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
   - Github link (to the bottom next to version)
 

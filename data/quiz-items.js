@@ -5,7 +5,7 @@ const QUIZZES = {
         badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Banners",
-        cardImage: 'assets/character/wish/Venti.png',
+        cardImage: 'assets/character/wish/Venti.avif',
         cardInfo: 'Test your knowledge by identifying characters from their namecards/banners.',
         modalContent: `
             <div class="mb-4">
@@ -39,7 +39,7 @@ const QUIZZES = {
         badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Characters Pixelate",
-        cardImage: 'assets/character/wish/Klee.png',
+        cardImage: 'assets/character/wish/Klee.avif',
         cardInfo: 'Challenge yourself to identify characters from their heavily pixelated portraits.',
         modalContent: `
             <div class="mb-4">
@@ -60,11 +60,11 @@ const QUIZZES = {
             <div class="mb-4">
                 <h6 class="fw-bold">Pixelation Levels</h6>
                 <ul>
-                    <li><span class="badge bg-danger">Level 1</span> - 7×7 pixels (extremely pixelated)</li>
-                    <li><span class="badge bg-warning">Level 2</span> - 11×11 pixels</li>
-                    <li><span class="badge bg-info">Level 3</span> - 15×15 pixels</li>
-                    <li><span class="badge bg-success">Level 4</span> - 19×19 pixels</li>
-                    <li><span class="badge bg-primary">Level 5</span> - 23×23 pixels</li>
+                    <li><span class="badge bg-danger">Level 1</span> - 7x7 pixels (extremely pixelated)</li>
+                    <li><span class="badge bg-warning">Level 2</span> - 11x11 pixels</li>
+                    <li><span class="badge bg-info">Level 3</span> - 15x15 pixels</li>
+                    <li><span class="badge bg-success">Level 4</span> - 19x19 pixels</li>
+                    <li><span class="badge bg-primary">Level 5</span> - 23x23 pixels</li>
                 </ul>
             </div>
             
@@ -80,7 +80,7 @@ const QUIZZES = {
         badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Characters Mismatch",
-        cardImage: 'assets/character/wish/Arlecchino.png',
+        cardImage: 'assets/character/wish/Arlecchino.avif',
         cardInfo: 'Test your character knowledge by finding the "odd one out" among four character icons.',
         modalContent: `
             <div class="mb-4">
@@ -119,7 +119,7 @@ const QUIZZES = {
         badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Music Quiz",
-        cardImage: 'assets/character/wish/Yun Jin.png',
+        cardImage: 'assets/character/wish/Yun Jin.avif',
         cardInfo: 'Test your music knowledge by identifying characters from their demo music.',
         modalContent: `
             <div class="mb-4">
