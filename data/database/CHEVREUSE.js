@@ -75,7 +75,7 @@ const CHEVREUSE = {
             "description": "After 12s of the healing effect from Short-Range Rapid Interdiction Fire, all nearby party members recover HP equivalent to 10% of Chevreuse's Max HP once.After a party member is healed by Short-Range Rapid Interdiction Fire, they gain a 20% Pyro DMG Bonus and Electro DMG Bonus for 8s. Max 3 stacks. Each stack's duration is counted independently."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Special Security and Surveillance Patrol"
     ],
     "special_dish": {
@@ -2356,5 +2356,8 @@ const CHEVREUSE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Chevreuse.png"
     }
 }

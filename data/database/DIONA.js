@@ -71,7 +71,7 @@ const DIONA = {
             "description": "Characters within Signature Mix's radius will gain the following effects based on their HP amounts:Increases Incoming Healing Bonus by 30% when HP falls below or is equal to 50%.Elemental Mastery increased by 200 when HP is above 50%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "The Cat's Tail",
         "Kätzlein Bloodline"
     ],
@@ -2593,5 +2593,8 @@ const DIONA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Diona.png"
     }
 }

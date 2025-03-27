@@ -71,7 +71,7 @@ const KAVEH = {
             "description": "When Kaveh's Normal, Charged, or Plunging Attacks hit opponents during Painted Dome, they will unleash Pairidaeza's Light upon the opponent's position, dealing 61.8% of Kaveh's ATK as AoE Dendro DMG and causing all Dendro Cores within that AoE to burst. This effect can be triggered once every 3s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Kshahrewar"
     ],
     "special_dish": {
@@ -2304,5 +2304,8 @@ const KAVEH = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kaveh.png"
     }
 }

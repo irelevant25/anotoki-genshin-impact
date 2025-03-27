@@ -75,7 +75,7 @@ const NAHIDA = {
             "description": "When Nahida hits an opponent affected by All Schemes to Know's Seeds of Skandha with Normal or Charged Attacks after unleashing Illusory Heart, she will use Tri-Karma Purification: Karmic Oblivion on this opponent and all connected opponents, dealing Dendro DMG based on 200% of Nahida's ATK and 400% of her Elemental Mastery.DMG dealt by Tri-Karma Purification: Karmic Oblivion is considered Elemental Skill DMG and can be triggered once every 0.2s.This effect can last up to 10s and will be removed after Nahida has unleashed 6 instances of Tri-Karma Purification: Karmic Oblivion."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Sumeru City",
         "The Seven",
         "Sumeru Akademiya"
@@ -2502,5 +2502,8 @@ const NAHIDA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Nahida.png"
     }
 }

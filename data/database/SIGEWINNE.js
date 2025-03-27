@@ -75,7 +75,7 @@ const SIGEWINNE = {
             "description": "When Sigewinne performs healing, she will increase the CRIT Rate and CRIT DMG of her Super Saturated Syringing based on her Max HP. Every 1,000 Max HP she has will increase CRIT Rate by 0.4% and CRIT DMG by 2.2% for 15s. The maximum increase achievable this way is 20% CRIT Rate and 110% CRIT DMG."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Fortress of Meropide"
     ],
     "special_dish": {
@@ -2476,5 +2476,8 @@ const SIGEWINNE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Sigewinne.png"
     }
 }

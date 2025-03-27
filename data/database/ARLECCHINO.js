@@ -71,7 +71,7 @@ const ARLECCHINO = {
             "description": "The DMG of Balemoon Rising is increased by Arlecchino's ATK multiplied by 700% of Arlecchino's current Bond of Life percentage.For 20s after Arlecchino uses All Is Ash, both her Normal Attacks and Elemental Burst gain 10% increased CRIT Rate and 70% increased CRIT DMG. This effect can be triggered up to once every 15s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Fatui",
         "House of the Hearth",
         "Eleven Fatui Harbingers"
@@ -2450,5 +2450,8 @@ const ARLECCHINO = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Arlecchino.png"
     }
 }

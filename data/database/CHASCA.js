@@ -71,7 +71,7 @@ const CHASCA = {
             "description": "Chasca's Multitarget Fire charge time is decreased, and after the Passive Talent \"Bullet Trick\"'s \"Spiritbinding Conversion\" is triggered, Chasca will gain the \"Fatal Rounds\" state: For the next 3s, the next time Chasca uses Spirit Reins, Shadow Hunt's Multitarget Fire, the shots will finish charging instantly, and the CRIT DMG of that instance of Multitarget Fire's Shadowhunt Shells and Shining Shadowhunt Shells increases by 120%. 1 \"Fatal Rounds\" effect can be gained once every 3s.You must first unlock the Passive Talent \"Bullet Trick\" to gain access to the above effect."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Tlalocan"
     ],
     "special_dish": {
@@ -2388,5 +2388,8 @@ const CHASCA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Chasca.png"
     }
 }

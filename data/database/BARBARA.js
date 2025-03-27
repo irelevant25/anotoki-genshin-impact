@@ -71,7 +71,7 @@ const BARBARA = {
             "description": "When Barbara is in the party but not on the field, and one of your own party members falls:Automatically revives the fallen character.Fully restores the revived character's HP to 100%.This effect can only occur once every 15 mins."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Church of Favonius"
     ],
     "special_dish": {
@@ -2352,5 +2352,8 @@ const BARBARA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Barbara.png"
     }
 }

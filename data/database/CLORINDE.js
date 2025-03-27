@@ -71,7 +71,7 @@ const CLORINDE = {
             "description": "For 12s after Hunter's Vigil is used, Clorinde's CRIT Rate will be increased by 10%, and her CRIT DMG by 70%.Additionally, while Night Vigil is active, a Glimbright Shade will appear under specific circumstances, executing an attack that deals 200% of Clorinde's ATK as Electro DMG. DMG dealt this way is considered Normal Attack DMG.The Glimbright Shade will appear under the following circumstances: When Clorinde is about to be hit by an attack. When Clorinde uses Impale the Night: Pact.1 Glimbright Shade can be summoned in the aforementioned ways every 1s. 6 Shades can be summoned per single Night Vigil duration.In addition, while Night Vigil is active, the DMG Clorinde receives is decreased by 80% and her interruption resistance is increased. This effect will disappear after the Night Vigil state ends or 1s after she summons 6 Glimbright Shades."
         }
     ],
-    "affiliation": [],
+    "affiliations": [],
     "special_dish": {
         "name": "\"Tagged and Bagged\"",
         "icon": "assets/foods/Tagged and Bagged.png"
@@ -2350,5 +2350,8 @@ const CLORINDE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Clorinde.png"
     }
 }

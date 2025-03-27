@@ -71,7 +71,7 @@ const SHENHE = {
             "description": "When characters trigger Icy Quill's effects using Normal and Charged Attack DMG, it does not count toward the Trigger Quota."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Cloud Retainer's Abode",
         "Adepti",
         "[Note 1]",
@@ -2373,5 +2373,8 @@ const SHENHE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Shenhe.png"
     }
 }

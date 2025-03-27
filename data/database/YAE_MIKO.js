@@ -71,7 +71,7 @@ const YAE_MIKO = {
             "description": "The Sesshou Sakura's attacks will ignore 60% of the opponent's DEF."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Grand Narukami Shrine",
         "Yae Publishing House"
     ],
@@ -2455,5 +2455,8 @@ const YAE_MIKO = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Yae Miko.png"
     }
 }

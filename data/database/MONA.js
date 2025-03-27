@@ -71,7 +71,7 @@ const MONA = {
             "description": "Upon entering Illusory Torrent, Mona gains a 60% increase to the DMG of her next Charged Attack per second of movement.A maximum DMG Bonus of 180% can be achieved in this manner. The effect lasts for no more than 8s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Mondstadt",
         "The Steambird"
     ],
@@ -2287,5 +2287,8 @@ const MONA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Mona.png"
     }
 }

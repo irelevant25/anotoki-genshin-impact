@@ -71,7 +71,7 @@ const SAYU = {
             "description": "The Muji-Muji Daruma created by Sayu's Yoohoo Art: Mujina Flurry will now also benefit from her Elemental Mastery. Each point of Sayu's Elemental Mastery will produce the following effects:Increases the damage dealt by the Muji-Muji Daruma's attacks by 0.2% ATK. A maximum DMG increase of 400% ATK can be gained via this method.Increases the HP restored by the Muji-Muji Daruma by 3. A maximum of 6,000 additional HP can be restored in this manner."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Shuumatsuban",
         "Yashiro Commission"
     ],
@@ -2521,5 +2521,8 @@ const SAYU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Sayu.png"
     }
 }

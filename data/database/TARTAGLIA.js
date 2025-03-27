@@ -71,7 +71,7 @@ const TARTAGLIA = {
             "description": "When Havoc: Obliteration is cast in Melee Stance, the CD of Foul Legacy: Raging Tide is reset.This effect will only take place once Tartaglia returns to his Ranged Stance."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Fatui",
         "Eleven Fatui Harbingers"
     ],
@@ -2641,5 +2641,8 @@ const TARTAGLIA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Tartaglia.png"
     }
 }

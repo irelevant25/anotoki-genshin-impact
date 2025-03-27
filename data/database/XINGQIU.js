@@ -75,7 +75,7 @@ const XINGQIU = {
             "description": "Activating 2 of Guhua Sword: Raincutter's sword rain attacks greatly enhances the third sword rain attack. On hit, the third sword rain attack also regenerates 3 Energy for Xingqiu."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Feiyun Commerce Guild",
         "Guhua Clan",
         "Yae Publishing House"
@@ -2526,5 +2526,8 @@ const XINGQIU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Xingqiu.png"
     }
 }

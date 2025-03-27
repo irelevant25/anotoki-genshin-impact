@@ -71,7 +71,7 @@ const ORORON = {
             "description": "After triggering Hypersense through the Passive Talent, Nightshade Synesthesia, your current active character's ATK is increased by 10% for 9s. Max 3 stacks, each stack is counted independently.Additionally, when you use the Elemental Burst Dark Voices Echo, you will trigger one instance of an effect equivalent to Hypersense, dealing 200% of its original DMG.You must unlock the Passive Talent \"Nightshade Synesthesia\" first."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Mictlan",
         "Fatui"
     ],
@@ -2305,5 +2305,8 @@ const ORORON = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Ororon.png"
     }
 }

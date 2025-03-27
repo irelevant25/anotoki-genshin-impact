@@ -71,7 +71,7 @@ const NEUVILLETTE = {
             "description": "When using Charged Attack: Equitable Judgment, Neuvillette can absorb nearby Sourcewater Droplets in an AoE. Each absorbed Droplet will increase the duration of Charged Attack: Equitable Judgment by 1s.Additionally, when Equitable Judgment hits opponents, it will fire off 2 additional currents every 2s, each of which will deal 10% of Neuvillette's Max HP as Hydro DMG. DMG dealt this way will count as DMG dealt by Equitable Judgment."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Court of Fontaine",
         "Marechaussee Phantom",
         "Palais Mermonia",
@@ -2475,5 +2475,8 @@ const NEUVILLETTE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Neuvillette.png"
     }
 }

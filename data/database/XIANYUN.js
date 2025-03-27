@@ -75,7 +75,7 @@ const XIANYUN = {
             "description": "After Xianyun uses 1/2/3 Skyladders within one Cloud Transmogrification caused by White Clouds at Dawn, the CRIT DMG of a Driftcloud Wave created in this instance of Cloud Transmogrification will be increased by 15%/35%/70%.Within 16s after Xianyun has used Stars Gather at Dusk, White Clouds at Dawn will not enter CD. This effect will be canceled once she has used White Clouds at Dawn 8 times."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Mt. Aocang",
         "Adepti"
     ],
@@ -2333,5 +2333,8 @@ const XIANYUN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Xianyun.png"
     }
 }

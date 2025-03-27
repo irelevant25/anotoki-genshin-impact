@@ -71,7 +71,7 @@ const GANYU = {
             "description": "Using Trail of the Qilin causes the next Frostflake Arrow shot within 30s to not require charging."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Yuehai Pavilion",
         "Liyue Qixing Employees",
         "Adepti"
@@ -2540,5 +2540,8 @@ const GANYU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Ganyu.png"
     }
 }

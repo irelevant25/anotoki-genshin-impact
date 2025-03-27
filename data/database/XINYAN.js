@@ -71,7 +71,7 @@ const XINYAN = {
             "description": "Decreases the Stamina Consumption of Xinyan's Charged Attacks by 30%. Additionally, Xinyan's Charged Attacks gain an ATK Bonus equal to 50% of her DEF."
         }
     ],
-    "affiliation": [],
+    "affiliations": [],
     "special_dish": {
         "name": "Rockin' Riffin' Chicken!",
         "icon": "assets/foods/Rockin' Riffin' Chicken!.png"
@@ -2332,5 +2332,8 @@ const XINYAN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Xinyan.png"
     }
 }

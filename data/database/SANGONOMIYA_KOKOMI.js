@@ -75,7 +75,7 @@ const SANGONOMIYA_KOKOMI = {
             "description": "While donning the Ceremonial Garment created by Nereid's Ascension, Sangonomiya Kokomi gains a 40% Hydro DMG Bonus for 4s when her Normal and Charged Attacks heal, or would heal, any party member with 80% or more HP."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Watatsumi Island",
         "Sangonomiya Clan",
         "Watatsumi Army"
@@ -2340,5 +2340,8 @@ const SANGONOMIYA_KOKOMI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Sangonomiya Kokomi.png"
     }
 }

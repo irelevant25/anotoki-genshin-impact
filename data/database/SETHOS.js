@@ -71,7 +71,7 @@ const SETHOS = {
             "description": "After Shadowpiercing Shot strikes an opponent, the Elemental Energy consumed by the Passive Talent \"Black Kite's Enigma\" will be returned. This effect can be triggered up to once every 15s. You must first unlock the Passive Talent \"Black Kite's Enigma.\""
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Temple of Silence"
     ],
     "special_dish": {
@@ -2328,5 +2328,8 @@ const SETHOS = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Sethos.png"
     }
 }

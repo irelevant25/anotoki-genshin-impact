@@ -71,7 +71,7 @@ const NAVIA = {
             "description": "If more than 3 stacks of Crystal Shrapnel are consumed when using Ceremonial Crystalshot, each stack consumed beyond the first 3 increases the CRIT DMG of that Ceremonial Crystalshot by 45%, and any stacks consumed beyond the first 3 are returned to Navia."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Spina di Rosula",
         "House of Caspar"
     ],
@@ -2449,5 +2449,8 @@ const NAVIA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Navia.png"
     }
 }

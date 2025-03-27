@@ -71,7 +71,7 @@ const COLLEI = {
             "description": "When the Floral Ring hits, it will create a miniature Cuilein-Anbar that will deal 200% of Collei's ATK as Dendro DMG.Each Floral Brush can only create one such miniature Cuilein-Anbar."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Gandharva Ville",
         "Forest Rangers"
     ],
@@ -2335,5 +2335,8 @@ const COLLEI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Collei.png"
     }
 }

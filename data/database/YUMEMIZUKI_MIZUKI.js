@@ -75,7 +75,7 @@ const YUMEMIZUKI_MIZUKI = {
             "description": "While Yumemizuki Mizuki is in the Dreamdrifter state, Swirl DMG dealt by nearby party members can Crit, with CRIT Rate fixed at 30%, and CRIT DMG fixed at 100%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Inazuma",
         "Aisa Bathhouse"
     ],
@@ -2405,5 +2405,8 @@ const YUMEMIZUKI_MIZUKI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Yumemizuki Mizuki.png"
     }
 }

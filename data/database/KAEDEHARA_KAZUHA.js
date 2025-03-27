@@ -71,7 +71,7 @@ const KAEDEHARA_KAZUHA = {
             "description": "After using Chihayaburu or Kazuha Slash, Kaedehara Kazuha gains an Anemo Infusion for 5s. Additionally, each point of Elemental Mastery will increase the DMG dealt by Kaedehara Kazuha's Normal, Charged, and Plunging Attacks by 0.2%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "The Crux",
         "Kaedehara Clan",
         "Watatsumi Army"
@@ -2426,5 +2426,8 @@ const KAEDEHARA_KAZUHA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kaedehara Kazuha.png"
     }
 }

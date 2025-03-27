@@ -71,7 +71,7 @@ const EMILIE = {
             "description": "When using Fragrance Extraction or Aromatic Explication, Emilie will gain Abiding Fragrance for 5s.While this is active, after Emilie uses Normal or Charged Attacks, she will generate 1 Scent, and her Normal and Charged Attack DMG will be converted into Dendro DMG that cannot be overridden, and the DMG dealt will be increased by 300% of Emilie's ATK.The Abiding Fragrance effect will be removed after 4 Scents are created this way or after its duration expires. Abiding Fragrance can be triggered once every 12s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Court of Fontaine",
         "Maison Gardiennage"
     ],
@@ -2305,5 +2305,8 @@ const EMILIE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Emilie.png"
     }
 }

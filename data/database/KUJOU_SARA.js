@@ -71,7 +71,7 @@ const KUJOU_SARA = {
             "description": "The Electro DMG of characters who have had their ATK increased by Tengu Juurai has its Crit DMG increased by 60%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Tenryou Commission"
     ],
     "special_dish": {
@@ -2448,5 +2448,8 @@ const KUJOU_SARA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kujou Sara.png"
     }
 }

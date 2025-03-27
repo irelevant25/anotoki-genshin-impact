@@ -71,7 +71,7 @@ const KAEYA = {
             "description": "Glacial Waltz will generate 1 additional icicle, and will regenerate 15 Energy when cast."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius",
         "Khaenri'ah",
         "Alberich Clan"
@@ -2450,5 +2450,8 @@ const KAEYA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kaeya.png"
     }
 }

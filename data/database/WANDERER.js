@@ -71,7 +71,7 @@ const WANDERER = {
             "description": "When the Wanderer actively hits an opponent with Kuugo: Fushoudan while in the Windfavored state, the following effects will occur:Deals an additional instance of Kuugo: Fushoudan at the position hit, dealing 40% of the attack's original DMG. This DMG will be considered Normal Attack DMG.When the Wanderer falls below 40 Kuugoryoku Points, restores 4 Points to him. Kuugoryoku Points can be restored in this manner once every 0.2s. This restoration can occur up to 5 times within one Windfavored duration."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Vahumana",
         "[1]",
         "Fatui",
@@ -2691,5 +2691,8 @@ const WANDERER = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Wanderer.png"
     }
 }

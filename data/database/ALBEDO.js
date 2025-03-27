@@ -71,7 +71,7 @@ const ALBEDO = {
             "description": "Active party members within the Solar Isotoma field who are protected by a shield created by Crystallize have their DMG increased by 17%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius",
         "Yae Publishing House"
     ],
@@ -2233,5 +2233,8 @@ const ALBEDO = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Albedo.png"
     }
 }

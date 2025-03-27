@@ -71,7 +71,7 @@ const JEAN = {
             "description": "Incoming DMG is decreased by 35% within the Field created by Dandelion Breeze. Upon leaving the Dandelion Field, this effect lasts for 3 attacks or 10s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius",
         "Four Winds",
         "Gunnhildr Clan"
@@ -2402,5 +2402,8 @@ const JEAN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Jean.png"
     }
 }

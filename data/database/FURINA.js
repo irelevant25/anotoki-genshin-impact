@@ -79,7 +79,7 @@ const FURINA = {
             "description": "When using Salon Solitaire, Furina gains \"Center of Attention\" for 10s.Throughout the duration, Furina's Normal Attacks, Charged Attacks, and Plunging Attacks are converted into Hydro DMG which cannot be overridden by any other elemental infusion. DMG is also increased by an amount equivalent to 18% of Furina's max HP.Throughout the duration, Furina's Normal Attacks (not including Arkhe: Seats Sacred and Secular Attacks), Charged Attacks, and the impact of Plunging Attacks will cause different effects up to every 0.1s after hitting opponents depending on her current Arkhe alignment:Arkhe: OusiaEvery 1s, all nearby characters in the party will be healed by 4% of Furina's max HP, for a duration of 2.9s. Triggering this effect again will extend its duration.Arkhe: PneumaThis Normal Attack (not including Arkhe: Seats Sacred and Secular Attacks), Charged Attack, or Plunging Attack ground impact DMG will be further increased by an amount equivalent to 25% of Furina's max HP. When any of the attacks mentioned previously hit an opponent, all nearby characters in the party will consume 1% of their current HP.During the duration of each instance of \"Center of Attention,\" the above effects can be triggered up to 6 times. \"Center of Attention\" will end when its effects have triggered 6 times or when the duration expires."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Court of Fontaine",
         "Opera Epiclese",
         "The Seven",
@@ -2364,5 +2364,8 @@ const FURINA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Furina.png"
     }
 }

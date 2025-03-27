@@ -71,7 +71,7 @@ const KACHINA = {
             "description": "When your active character's shield is replaced or destroyed for any reason, Kachina will deal 200% of her DEF as AoE Geo DMG. This effect can be triggered once every 5s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Nanatzcayan"
     ],
     "special_dish": {
@@ -2406,5 +2406,8 @@ const KACHINA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kachina.png"
     }
 }

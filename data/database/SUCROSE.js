@@ -71,7 +71,7 @@ const SUCROSE = {
             "description": "If Forbidden Creation - Isomer 75 / Type II triggers an Elemental Absorption, all party members gain a 20% Elemental DMG Bonus for the corresponding absorbed element during its duration."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
@@ -2352,5 +2352,8 @@ const SUCROSE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Sucrose.png"
     }
 }

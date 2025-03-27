@@ -71,7 +71,7 @@ const KAMISATO_AYATO = {
             "description": "After using Kamisato Art: Kyouka, Ayato's next Shunsuiken attack will create 2 extra Shunsuiken strikes when they hit opponents, each one dealing 450% of Ayato's ATK as DMG.Both these Shunsuiken attacks will not be affected by Namisen."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Yashiro Commission",
         "Kamisato Clan",
         "Shuumatsuban"
@@ -2282,5 +2282,8 @@ const KAMISATO_AYATO = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kamisato Ayato.png"
     }
 }

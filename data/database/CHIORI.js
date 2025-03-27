@@ -71,7 +71,7 @@ const CHIORI = {
             "description": "After triggering a follow-up effect of the Passive Talent \"Tailor-Made,\" Chiori's own Fluttering Hasode's CD is decreased by 12s. Must unlock the Passive \"Tailor-Made\" first.In addition, the DMG dealt by Chiori's own Normal Attacks is increased by an amount equal to 235% of her own DEF."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Court of Fontaine",
         "Chioriya Boutique"
     ],
@@ -2305,5 +2305,8 @@ const CHIORI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Chiori.png"
     }
 }

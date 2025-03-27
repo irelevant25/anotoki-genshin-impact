@@ -71,7 +71,7 @@ const CHARLOTTE = {
             "description": "When the active character's Normal and Charged Attacks hit an opponent marked by Framing: Freezing Point Composition's Focused Impression, Monsieur Verite will initiate a coordinated attack that deals 180% of Charlotte's ATK as AoE Cryo DMG and heals active character(s) within the AoE for 42% of Charlotte's ATK. This effect can be triggered once every 6s and both DMG and healing dealt in this way will be considered as having been done by Charlotte's Elemental Burst."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "The Steambird"
     ],
     "special_dish": {
@@ -2304,5 +2304,8 @@ const CHARLOTTE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Charlotte.png"
     }
 }

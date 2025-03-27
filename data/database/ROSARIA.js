@@ -71,7 +71,7 @@ const ROSARIA = {
             "description": "Rites of Termination's attack decreases opponents' Physical RES by 20% for 10s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Church of Favonius"
     ],
     "special_dish": {
@@ -2328,5 +2328,8 @@ const ROSARIA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Rosaria.png"
     }
 }

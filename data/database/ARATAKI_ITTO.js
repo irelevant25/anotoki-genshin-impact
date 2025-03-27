@@ -71,7 +71,7 @@ const ARATAKI_ITTO = {
             "description": "Arataki Itto's Charged Attacks deal +70% Crit DMG. Additionally, when he uses Arataki Kesagiri, he has a 50% chance to not consume stacks of Superlative Superstrength."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Arataki Gang"
     ],
     "special_dish": {
@@ -2424,5 +2424,8 @@ const ARATAKI_ITTO = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Arataki Itto.png"
     }
 }

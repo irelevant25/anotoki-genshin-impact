@@ -71,7 +71,7 @@ const YOIMIYA = {
             "description": "During Niwabi Fire-Dance, Yoimiya's Normal Attacks have a 50% chance of firing an extra Blazing Arrow that deals 60% of its original DMG. This DMG is considered Normal Attack DMG."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Naganohara Fireworks"
     ],
     "special_dish": {
@@ -2472,5 +2472,8 @@ const YOIMIYA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Yoimiya.png"
     }
 }

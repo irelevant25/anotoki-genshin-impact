@@ -71,7 +71,7 @@ const MUALANI = {
             "description": "The DMG increase from the Constellation \"The Leisurely 'Meztli'...\" is no longer limited to being triggered once every Nightsoul's Blessing."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Meztli",
         "Leisurely Puffer"
     ],
@@ -2503,5 +2503,8 @@ const MUALANI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Mualani.png"
     }
 }

@@ -71,7 +71,7 @@ const SHIKANOIN_HEIZOU = {
             "description": "Each Declension stack will increase the CRIT Rate of the Heartstopper Strike unleashed by 4%. When Heizou possesses Conviction, this Heartstopper Strike's CRIT DMG is increased by 32%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Tenryou Commission",
         "Bantan Sango Detective Agency"
     ],
@@ -2305,5 +2305,8 @@ const SHIKANOIN_HEIZOU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Shikanoin Heizou.png"
     }
 }

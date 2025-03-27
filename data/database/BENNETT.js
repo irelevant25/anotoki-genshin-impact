@@ -75,7 +75,7 @@ const BENNETT = {
             "description": "Sword, Claymore, or Polearm-wielding characters inside Fantastic Voyage's radius gain a 15% Pyro DMG Bonus and their weapons are infused with Pyro."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Adventurers' Guild",
         "Benny's Adventure Team"
     ],
@@ -2429,5 +2429,8 @@ const BENNETT = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Bennett.png"
     }
 }

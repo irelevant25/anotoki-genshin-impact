@@ -75,7 +75,7 @@ const LAN_YAN = {
             "description": "Swallow-Wisp Pinion Dance gains 1 additional charge."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Chenyu Vale"
     ],
     "special_dish": {
@@ -2308,5 +2308,8 @@ const LAN_YAN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Lan Yan.png"
     }
 }

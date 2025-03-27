@@ -71,7 +71,7 @@ const FARUZAN = {
             "description": "Characters affected by The Wind's Secret Ways' Prayerful Wind's Benefit have 40% increased CRIT DMG when they deal Anemo DMG. When the active character deals DMG while affected by Prayerful Wind's Benefit, they will apply Pressurized Collapse to the opponent damaged. This effect can be triggered once every 3s. This CD is shared between all party members."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Haravatat"
     ],
     "special_dish": {
@@ -2304,5 +2304,8 @@ const FARUZAN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Faruzan.png"
     }
 }

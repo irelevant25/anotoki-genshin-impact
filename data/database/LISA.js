@@ -71,7 +71,7 @@ const LISA = {
             "description": "When Lisa takes the field, she applies 3 stacks of Violet Arc's Conductive status onto nearby opponents.This effect can only occur once every 5s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius",
         "Spantamad"
     ],
@@ -2449,5 +2449,8 @@ const LISA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Lisa.png"
     }
 }

@@ -62,7 +62,7 @@ const NOELLE = {
             "description": "Sweeping Time increases Noelle's ATK by an additional 50% of her DEF.Additionally, every opponent defeated during the skill's duration adds 1s to the duration, up to 10s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
@@ -2319,5 +2319,8 @@ const NOELLE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Noelle.png"
     }
 }

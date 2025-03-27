@@ -71,7 +71,7 @@ const THOMA = {
             "description": "When a Blazing Barrier is obtained or refreshed, the DMG dealt by all party members' Normal, Charged, and Plunging Attacks is increased by 15% for 6s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Yashiro Commission",
         "Kamisato Clan"
     ],
@@ -2401,5 +2401,8 @@ const THOMA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Thoma.png"
     }
 }

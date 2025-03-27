@@ -71,7 +71,7 @@ const FREMINET = {
             "description": "After Freminet triggers Frozen, Shatter, or Superconduct against opponents, his CRIT DMG will be increased by 12% for 6s. Max 3 stacks. This can be triggered once every 0.3s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Hotel Bouffes d'ete",
         "House of the Hearth",
         "Fatui"
@@ -2402,5 +2402,8 @@ const FREMINET = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Freminet.png"
     }
 }

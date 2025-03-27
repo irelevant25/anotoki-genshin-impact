@@ -75,7 +75,7 @@ const XILONEN = {
             "description": "When Xilonen is in the Nightsoul's Blessing state, when she sprints, leaps, or uses Normal or Plunging Attacks, she will gain Imperishable Night's Blessing, ignoring the limitations of her Nightsoul's Blessing state and increasing the DMG dealt by her Normal and Plunging Attacks for 5s.During this time:Her Nightsoul's Blessing time limit countdown will be paused. Xilonen's Nightsoul points, Phlogiston, and Stamina will not decrease, and when her Nightsoul points reach the maximum, her Nightsoul's Blessing state will not end either.Xilonen deals 300% of her DEF as increased Normal and Plunging Attack DMG while in the Nightsoul's Blessing state.She heals nearby party members for 120% of her DEF every 1.5s.She can gain 1 Imperishable Night's Blessing once every 15s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Nanatzcayan"
     ],
     "special_dish": {
@@ -2290,5 +2290,8 @@ const XILONEN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Xilonen.png"
     }
 }

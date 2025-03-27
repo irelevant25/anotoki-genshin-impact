@@ -75,7 +75,7 @@ const VENTI = {
             "description": "Targets who take DMG from Wind's Grand Ode have their Anemo RES decreased by 20%.If an Elemental Absorption occurred, then their RES towards the corresponding Element is also decreased by 20%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Mondstadt",
         "The Seven",
         "Thousand Winds"
@@ -2454,5 +2454,8 @@ const VENTI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Venti.png"
     }
 }

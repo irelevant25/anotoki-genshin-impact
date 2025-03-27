@@ -71,7 +71,7 @@ const QIQI = {
             "description": "Using Adeptus Art: Preserver of Fortune revives all fallen party members nearby and regenerates 50% of their HP.This effect can only occur once every 15 mins."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Bubu Pharmacy",
         "Adepti",
         "[Note 1]"
@@ -2330,5 +2330,8 @@ const QIQI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Qiqi.png"
     }
 }

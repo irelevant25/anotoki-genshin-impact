@@ -75,7 +75,7 @@ const CHONGYUN = {
             "description": "Spirit Blade: Cloud-Parting Star deals 15% more DMG to opponents with a lower percentage of their Max HP remaining than Chongyun.This skill will also summon 1 additional spirit blade."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Tianheng Thaumaturges"
     ],
     "special_dish": {
@@ -2284,5 +2284,8 @@ const CHONGYUN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Chongyun.png"
     }
 }

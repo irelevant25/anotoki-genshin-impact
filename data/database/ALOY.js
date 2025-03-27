@@ -71,7 +71,7 @@ const ALOY = {
             "description": "The time has not yet come for this person's corner of the night sky to light up."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Adventurers' Guild",
         "[1]"
     ],
@@ -2041,5 +2041,8 @@ const ALOY = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Aloy.png"
     }
 }

@@ -71,7 +71,7 @@ const AMBER = {
             "description": "Fiery Rain increases all party members' Movement SPD by 15% and ATK by 15% for 10s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
@@ -2568,5 +2568,8 @@ const AMBER = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Amber.png"
     }
 }

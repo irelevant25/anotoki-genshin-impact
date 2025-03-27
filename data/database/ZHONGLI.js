@@ -75,7 +75,7 @@ const ZHONGLI = {
             "description": "When the Jade Shield takes DMG, 40% of that incoming DMG is converted to HP for the current character.A single instance of regeneration cannot exceed 8% of that character's Max HP."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Liyue Harbor",
         "Wangsheng Funeral Parlor",
         "The Seven",
@@ -2509,5 +2509,8 @@ const ZHONGLI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Zhongli.png"
     }
 }

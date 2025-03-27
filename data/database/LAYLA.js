@@ -71,7 +71,7 @@ const LAYLA = {
             "description": "Shooting Stars from Nights of Formal Focus deal 40% increased DMG, and Starlight Slugs from Dream of the Star-Stream Shaker deal 40% increased DMG.Additionally, the interval between the creation of Night Stars via Nights of Formal Focus is decreased by 20%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Rtawahist"
     ],
     "special_dish": {
@@ -2256,5 +2256,8 @@ const LAYLA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Layla.png"
     }
 }

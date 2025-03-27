@@ -71,7 +71,7 @@ const KUKI_SHINOBU = {
             "description": "When Kuki Shinobu takes lethal DMG, this instance of DMG will not take her down. This effect will automatically trigger when her HP reaches 1 and will trigger once every 60s.When Shinobu's HP drops below 25%, she will gain 150 Elemental Mastery for 15s. This effect will trigger once every 60s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Arataki Gang",
         "Kuki Clan",
         "Grand Narukami Shrine"
@@ -2282,5 +2282,8 @@ const KUKI_SHINOBU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kuki Shinobu.png"
     }
 }

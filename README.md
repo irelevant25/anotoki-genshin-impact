@@ -23,15 +23,18 @@
   - Hight size jump on quizzes when new images are not loaded yet (setup init hight)
   - Display result explanaition for Mismach quiz
   - Tries: x/y is not visible enough
+  - [x] Optimize wallpapers and wallpapers preview size
+  - Load wallpapers after openining background modal
+  - Load cahracter database per character using specified character database script
 - Features:
   - New quiz: Special dish
   - New quiz: Signature weapon
+  - New quiz: Voice lines
   - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
   - Github link (to the bottom next to version)
 
 # Future version
 - Features:
   - Adding match history to the Tournament
-  - New quiz: Voice lines
 - Improvements:
   - Visualize the win/lose/wrong/correct answers in a additional way in quizzes especially for mismatch

@@ -71,7 +71,7 @@ const EULA = {
             "description": "Lightfall Swords created by Glacial Illumination start with 5 stacks of energy. Normal Attacks, Elemental Skills, and Elemental Bursts have a 50% chance to grant the Lightfall Sword an additional stack of energy."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius",
         "Lawrence Clan"
     ],
@@ -2569,5 +2569,8 @@ const EULA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Eula.png"
     }
 }

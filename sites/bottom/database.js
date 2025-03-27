@@ -5,9 +5,8 @@
     let containerElement;
 
     // Main function to display character info
-    function displayCharacterInfo() {
-        const characterDatabase = DATABASE.find(c => c.name === character.name);
-        Object.assign(character, characterDatabase);
+    function displayCharacterInfo(characterDatabase) {
+        character = characterDatabase;
 
         // Create header section
         createCharacterHeader();
@@ -474,28 +473,35 @@
         materialsTotalElement.innerHTML = totalHTML;
     }
 
-    function initLoader() {
-        const script = document.createElement('script');
-        script.src = 'data/database.js';
-        script.onload = function () {
+    function loadCharacterScript(characterToLoad) {
+        const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
+        const scriptSrc = `data/databse/${characterScript}.js`;
+        if (isScriptLoaded(scriptSrc)) {
+            const characterDatabase = eval(characterScript);
+            displayCharacterInfo(characterDatabase);
+            return;
+        }
+        containerElement.querySelector('.loader').classList.remove('d-none');
+        loadScript(`data/database/${characterScript}.js`, () => {
             setTimeout(() => {
-                document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).removeEventListener('click', initLoader);
-                containerElement.querySelector('.loader').remove();
-                displayCharacterInfo();
-            }, 1500)
-        };
-        document.head.appendChild(script);
+                const characterDatabase = eval(characterScript);
+                displayCharacterInfo(characterDatabase);
+                containerElement.querySelector('.loader').classList.add('d-none');
+            }, 1000)
+        });
+    }
+
+    function init() {
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).removeEventListener('click', init);
+        loadCharacterScript(getRandomCharacter());
     }
 
     // Process data when page loads
     document.addEventListener('DOMContentLoaded', () => {
         containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}-modal`);
-        character = getRandomCharacter();
         new Autocomplete(containerElement, (selectedCharacter) => {
-            character = selectedCharacter;
-            displayCharacterInfo();
+            loadCharacterScript(selectedCharacter);
         });
-
-        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', initLoader);
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', init);
     });
 })();

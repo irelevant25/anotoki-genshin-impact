@@ -71,7 +71,7 @@ const XIAO = {
             "description": "While under the effects of Bane of All Evil, hitting at least 2 opponents with Xiao's Plunging Attack will immediately grant him 1 charge of Lemniscatic Wind Cycling, and for the next 1s, he may use Lemniscatic Wind Cycling while ignoring its CD."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Liyue Adeptus",
         "Yakshas"
     ],
@@ -2431,5 +2431,8 @@ const XIAO = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Xiao.png"
     }
 }

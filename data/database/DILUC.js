@@ -71,7 +71,7 @@ const DILUC = {
             "description": "After casting Searing Onslaught, the next 2 Normal Attacks within the next 6s will have their DMG and ATK SPD increased by 30%.Additionally, Searing Onslaught will not interrupt the Normal Attack combo."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Dawn Winery",
         "Knights of Favonius"
     ],
@@ -2263,5 +2263,8 @@ const DILUC = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Diluc.png"
     }
 }

@@ -71,7 +71,7 @@ const CYNO = {
             "description": "After using Sacred Rite: Wolf's Swiftness or triggering the Judication effect of the Passive Talent \"Featherfall Judgment,\" Cyno will gain 4 stacks of the \"Day of the Jackal\" effect. When he hits opponents with Normal Attacks, he will consume 1 stack of \"Day of the Jackal\" to fire off one Duststalker Bolt.\"Day of the Jackal\" lasts for 8s. Max 8 stacks. It will be canceled once Pactsworn Pathclearer ends.A maximum of 1 Duststalker Bolt can be unleashed this way every 0.4s.You must first unlock the Passive Talent \"Featherfall Judgment.\""
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Temple of Silence",
         "Matra",
         "Spantamad",
@@ -2499,5 +2499,8 @@ const CYNO = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Cyno.png"
     }
 }

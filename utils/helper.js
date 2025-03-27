@@ -56,32 +56,66 @@ function combinations(arr, k) {
     return result;
 }
 
+/**
+ * Converts a numerical difficulty level to its corresponding string representation.
+ *
+ * @param {number} number - The numerical difficulty level (1, 2, or 3).
+ * @returns {string} The string representation of the difficulty ('easy', 'medium', or 'hard').
+ */
 function difficultyFromNumberToString(number) {
     const strings = ['easy', 'medium', 'hard'];
     return strings[Number(number) - 1];
 }
 
+/**
+ * Converts a string representation of a difficulty level to its corresponding numerical value.
+ *
+ * @param {string} string - The string representation of the difficulty ('1', '2', or '3').
+ * @returns {number} The numerical difficulty level (1, 2, or 3).
+ */
 function difficultyFromStringToNumber(string) {
     const numbers = ['1', '2', '3'];
     return numbers.indexOf(string) + 1;
 }
 
+/**
+ * Returns today's date as a string in the format 'YYYY-MM-DD'.
+ *
+ * @returns {string} Today's date as a string in the format 'YYYY-MM-DD'.
+ */
 function getTodayString() {
     return new Date().toJSON().slice(0, 10);
 }
 
+/**
+ * Gets the URL of the icon image for a character.
+ *
+ * @param {string} characterName - The name of the character.
+ * @returns {string} The URL of the icon image, or undefined if the character is not found.
+ */
 function getCharacterIconImageUrl(characterName) {
     return CHARACTERS.find(character => character.name === characterName)?.icon;
 }
+
+/**
+ * Capitalizes the first character of a string.
+ *
+ * @param {string} s - The string to be capitalized.
+ * @returns {string} The input string with the first character converted to uppercase.
+ */
 
 function capitalize(s) {
     return s && String(s[0]).toUpperCase() + String(s).slice(1);
 }
 
+
 /**
- * Gets a random character from the characters array
- * 
- * @returns {Object} Random character object
+ * Gets a random character from the given array or from the full list of characters
+ * if no filter is provided.
+ *
+ * @param {Function} [filterFn] - Optional filter function to filter the characters
+ * @returns {Object} A random character object from the filtered array
+ * @throws {Error} If no characters match the filter criteria
  */
 function getRandomCharacter(filterFn) {
     // Determine which array to choose from
@@ -98,6 +132,12 @@ function getRandomCharacter(filterFn) {
     return pool[getRandomInt(0, pool.length - 1)];
 }
 
+/**
+ * Gets a specified number of random characters from the full list of characters.
+ *
+ * @param {number} count - The number of characters to return
+ * @returns {Array} An array of random character objects
+ */
 function getRandomCharacters(count) {
     return shuffleArray(CHARACTERS).slice(0, count);
 }
@@ -169,4 +209,31 @@ function createElement(tag, attributes = {}, children = []) {
  */
 function getCharacterImageUrl(characterName, type = 'icon') {
     return `assets/character/${type}/${characterName}.png`;
+}
+
+/**
+ * Loads a JavaScript script from a given URL
+ * 
+ * @param {string} src - URL of the script to load
+ * @param {Function} callback - Function to call when the script has been loaded
+ */
+function loadScript(src, callback) {
+    if (isScriptLoaded(src)) {
+        callback();
+        return;
+    }
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = () => callback();
+    document.head.appendChild(script);
+}
+
+/**
+ * Checks if a script with the specified source URL is already loaded in the document.
+ * 
+ * @param {string} src - The source URL of the script to check.
+ * @returns {boolean} True if the script is loaded, false otherwise.
+ */
+function isScriptLoaded(src) {
+    return !!document.querySelector(`script[src="${src}"]`);
 }

@@ -71,7 +71,7 @@ const KLEE = {
             "description": "While under the effects of Sparks 'n' Splash, Klee will regenerate 3 Energy for all members of the party (excluding Klee) every 3s.When Sparks 'n' Splash is used, all party members will gain a 10% Pyro DMG Bonus for 25s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
@@ -2376,5 +2376,8 @@ const KLEE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Klee.png"
     }
 }

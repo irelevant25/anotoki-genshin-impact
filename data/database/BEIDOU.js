@@ -75,7 +75,7 @@ const BEIDOU = {
             "description": "During the duration of Stormbreaker, the Electro RES of surrounding opponents is decreased by 15%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "The Crux"
     ],
     "special_dish": {
@@ -2392,5 +2392,8 @@ const BEIDOU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Beidou.png"
     }
 }

@@ -71,7 +71,7 @@ const NINGGUANG = {
             "description": "When Starshatter is used, Ningguang gains 7 Star Jades."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Liyue Qixing"
     ],
     "special_dish": {
@@ -2496,5 +2496,8 @@ const NINGGUANG = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Ningguang.png"
     }
 }

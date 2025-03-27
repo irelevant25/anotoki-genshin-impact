@@ -71,7 +71,7 @@ const RAZOR = {
             "description": "Every 10s, Razor's sword charges up, causing the next Normal Attack to release lightning that deals 100% of Razor's ATK as Electro DMG.When Razor is not using Lightning Fang, a lightning strike on an opponent will grant Razor an Electro Sigil for Claw and Thunder."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Wolvendom",
         "Boreas"
     ],
@@ -2257,5 +2257,8 @@ const RAZOR = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Razor.png"
     }
 }

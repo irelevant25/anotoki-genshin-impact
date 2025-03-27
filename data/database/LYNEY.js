@@ -71,7 +71,7 @@ const LYNEY = {
             "description": "When Lyney fires a Prop Arrow, he will fire a Pyrotechnic Strike: Reprised that will deal 80% of a Pyrotechnic Strike's DMG. This DMG is considered Charged Attack DMG."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Hotel Bouffes d'ete",
         "House of the Hearth",
         "Fatui"
@@ -2402,5 +2402,8 @@ const LYNEY = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Lyney.png"
     }
 }

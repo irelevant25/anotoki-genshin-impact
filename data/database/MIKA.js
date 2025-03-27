@@ -75,7 +75,7 @@ const MIKA = {
             "description": "The maximum number of Detector stacks that Starfrost Swirl's Soulwind can gain is increased by 1. You need to have unlocked the Passive Talent \"Suppressive Barrage\" first.Additionally, active characters affected by Soulwind will deal 60% more Physical CRIT DMG."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
@@ -2500,5 +2500,8 @@ const MIKA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Mika.png"
     }
 }

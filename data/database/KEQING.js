@@ -71,7 +71,7 @@ const KEQING = {
             "description": "When initiating a Normal Attack, a Charged Attack, Elemental Skill or Elemental Burst, Keqing gains a 6% Electro DMG Bonus for 8s.Effects triggered by Normal Attacks, Charged Attacks, Elemental Skills and Elemental Bursts are considered independent entities."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Liyue Qixing"
     ],
     "special_dish": {
@@ -2688,5 +2688,8 @@ const KEQING = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Keqing.png"
     }
 }

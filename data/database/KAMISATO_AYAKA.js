@@ -71,7 +71,7 @@ const KAMISATO_AYAKA = {
             "description": "Kamisato Ayaka gains Usurahi Butou every 10s, increasing her Charged Attack DMG by 298%. This buff will be cleared 0.5s after Ayaka's Charged ATK hits an opponent, after which the timer for this ability will restart."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Yashiro Commission",
         "Kamisato Clan"
     ],
@@ -2383,5 +2383,8 @@ const KAMISATO_AYAKA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kamisato Ayaka.png"
     }
 }

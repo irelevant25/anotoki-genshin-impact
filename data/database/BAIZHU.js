@@ -75,7 +75,7 @@ const BAIZHU = {
             "description": "Increases the DMG dealt by Holistic Revivification's Spiritveins by 8% of Baizhu's Max HP.Additionally, when a Gossamer Sprite or Gossamer Sprite: Splice hits opponents, there is a 100% chance of generating one of Holistic Revivification's Seamless Shields. This effect can only be triggered once by each Gossamer Sprite or Gossamer Sprite: Splice."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Bubu Pharmacy"
     ],
     "special_dish": {
@@ -2380,5 +2380,8 @@ const BAIZHU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Baizhu.png"
     }
 }

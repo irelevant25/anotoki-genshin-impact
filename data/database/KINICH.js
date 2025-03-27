@@ -71,7 +71,7 @@ const KINICH = {
             "description": "After Scalespiker Cannon hits an opponent, it will bounce between opponents once, dealing 700% of Kinich's ATK as Dendro DMG.If this Scalespiker Cannon triggers the buffs that Passive Talent \"Flame Spirit Pact\" or the Constellation \"Tiger Beetle's Palm\" grant to the Cannon, the bouncing attack will also obtain the relevant buffs."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Huitztlan"
     ],
     "special_dish": {
@@ -2550,5 +2550,8 @@ const KINICH = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kinich.png"
     }
 }

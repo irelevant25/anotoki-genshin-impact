@@ -75,7 +75,7 @@ const CITLALI = {
             "description": "After being summoned with the Elemental Skill Dawnfrost Darkstar, Itzpapa will always be in the Opal Fire state, and when Nightsoul points are exhausted, this state will not end.Additionally, when Dawnfrost Darkstar is used, Itzpapa will consume all Nightsoul points, and while it is on the field, it will continuously consume Nightsoul points. Each Nightsoul point consumed in this way will grant Citlali 1 \"Cifra of the Secret Law\" point.A maximum of 40 such points can be gained, and each point Citlali possesses will grant all nearby party members a 1.5% Pyro and Hydro DMG Bonus, and increase the DMG Citlali deals by 2.5%.When Itzpapa leaves the field, or upon using Citlali's Elemental Skill again, all \"Cifra of the Secret Law\" points she has will be removed."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Mictlan"
     ],
     "special_dish": {
@@ -2362,5 +2362,8 @@ const CITLALI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Citlali.png"
     }
 }

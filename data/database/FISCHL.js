@@ -71,7 +71,7 @@ const FISCHL = {
             "description": "Extends the duration of Oz's presence on the field by 2s. Additionally, Oz performs coordinated attacks with your active character when present, dealing 30% of Fischl's ATK as Electro DMG."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Adventurers' Guild"
     ],
     "special_dish": {
@@ -2304,5 +2304,8 @@ const FISCHL = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Fischl.png"
     }
 }

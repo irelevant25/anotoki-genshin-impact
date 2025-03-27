@@ -79,7 +79,7 @@ const MAVUIKA = {
             "description": "The All-Fire Armaments from the Elemental Skill The Named Moment receive all-round improvements: Ring of Searing Radiance: When the Ring's attacks hit opponents, a Flamestrider will crash into the struck opponent, dealing 200% of ATK as Nightsoul-aligned AoE Pyro DMG. Flamestrider: When Mavuika is riding the Flamestrider, she will also summon a Scorching Ring of Searing Radiance to follow her, which will decrease nearby opponents' DEF by 20% and deal 500% of ATK as Nightsoul-aligned AoE Pyro DMG to nearby opponents once every 3s. Mavuika's terrain-crossing abilities will also be further improved.Additionally, when Mavuika is riding her Flamestrider and is not in combat, when her Nightsoul points drop to 5, she will gain 80 Nightsoul points. This effect can trigger once every 15s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Huitztlan",
         "Speaker's Chamber",
         "The Seven"
@@ -2512,5 +2512,8 @@ const MAVUIKA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Mavuika.png"
     }
 }

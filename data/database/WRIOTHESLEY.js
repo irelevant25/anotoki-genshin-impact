@@ -71,7 +71,7 @@ const WRIOTHESLEY = {
             "description": "The CRIT Rate of Rebuke: Vaulting Fist will be increased by 10%, and its CRIT DMG by 80%. When unleashed, it will also create an additional icicle that deals 100% of Rebuke: Vaulting Fist's Base DMG as Cryo DMG. DMG dealt this way is regarded as Charged Attack DMG.You must first unlock the Passive Talent \"There Shall Be a Plea for Justice.\""
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Fortress of Meropide"
     ],
     "special_dish": {
@@ -2256,5 +2256,8 @@ const WRIOTHESLEY = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Wriothesley.png"
     }
 }

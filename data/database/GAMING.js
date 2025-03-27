@@ -71,7 +71,7 @@ const GAMING = {
             "description": "Bestial Ascent's Plunging Attack: Charmed Cloudstrider CRIT Rate increased by 20% and CRIT DMG increased by 40%, and its attack radius will be increased."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Sword and Strongbox Secure Transport Agency",
         "Mighty Mythical Beasts"
     ],
@@ -2377,5 +2377,8 @@ const GAMING = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Gaming.png"
     }
 }

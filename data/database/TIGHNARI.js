@@ -62,7 +62,7 @@ const TIGHNARI = {
             "description": "Wreath Arrow's charging time is decreased by 0.9s, and will produce 1 additional Clusterbloom Arrow upon hit. This arrow deals 150% of Tighnari's ATK as DMG."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Gandharva Ville",
         "Forest Rangers",
         "Amurta"
@@ -2489,5 +2489,8 @@ const TIGHNARI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Tighnari.png"
     }
 }

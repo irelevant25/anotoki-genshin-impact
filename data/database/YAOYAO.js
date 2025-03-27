@@ -71,7 +71,7 @@ const YAOYAO = {
             "description": "For every 2 White Jade Radishes Yuegui: Throwing Mode throws out, it will also throw a Mega Radish that will have a larger AoE than the standard White Jade Radish and have the following effects upon exploding:Deals AoE Dendro DMG based on 75% of Yaoyao's ATK.Restores HP for the active character based on 7.5% of Yaoyao's Max HP.Every Yuegui: Throwing Mode can throw out a maximum of 2 Mega Radishes."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Adepti"
     ],
     "special_dish": {
@@ -2352,5 +2352,8 @@ const YAOYAO = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Yaoyao.png"
     }
 }

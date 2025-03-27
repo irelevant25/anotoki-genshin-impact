@@ -71,7 +71,7 @@ const YANFEI = {
             "description": "Increases the maximum number of Scarlet Seals by 1."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Adepti"
     ],
     "special_dish": {
@@ -2280,5 +2280,8 @@ const YANFEI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Yanfei.png"
     }
 }

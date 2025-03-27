@@ -75,7 +75,7 @@ const RAIDEN_SHOGUN = {
             "description": "While in the Musou Isshin state applied by Secret Art: Musou Shinsetsu, attacks by the Raiden Shogun that are considered part of her Elemental Burst will decrease all nearby party members' (but not including the Raiden Shogun herself) Elemental Burst CD by 1s when they hit opponents.This effect can trigger once every 1s, and can trigger a total of 5 times during the state's duration."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Inazuma City",
         "Inazuma Shogunate",
         "The Seven"
@@ -2547,5 +2547,8 @@ const RAIDEN_SHOGUN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Raiden Shogun.png"
     }
 }

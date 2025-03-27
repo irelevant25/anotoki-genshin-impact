@@ -62,7 +62,7 @@ const KIRARA = {
             "description": "All nearby party members will gain 12% All Elemental DMG Bonus within 15s after Kirara uses her Elemental Skill or Burst."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Komaniya Express"
     ],
     "special_dish": {
@@ -2343,5 +2343,8 @@ const KIRARA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Kirara.png"
     }
 }

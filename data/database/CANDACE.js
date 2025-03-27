@@ -71,7 +71,7 @@ const CANDACE = {
             "description": "When characters (excluding Candace herself) affected by the Prayer of the Crimson Crown caused by Sacred Rite: Wagtail's Tide deal Elemental DMG to opponents using Normal Attacks, an attack wave will be unleashed that deals AoE Hydro DMG equal to 15% of Candace's Max HP.This effect can trigger once every 2.3s and is considered Elemental Burst DMG."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Aaru Village"
     ],
     "special_dish": {
@@ -2352,5 +2352,8 @@ const CANDACE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Candace.png"
     }
 }

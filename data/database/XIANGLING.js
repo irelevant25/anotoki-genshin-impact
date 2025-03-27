@@ -71,7 +71,7 @@ const XIANGLING = {
             "description": "For the duration of Pyronado, all party members receive a 15% Pyro DMG Bonus."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Wanmin Restaurant",
         "The Crux"
     ],
@@ -2425,5 +2425,8 @@ const XIANGLING = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Xiangling.png"
     }
 }

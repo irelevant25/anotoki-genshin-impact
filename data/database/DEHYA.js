@@ -75,7 +75,7 @@ const DEHYA = {
             "description": "The CRIT Rate of Leonine Bite is increased by 10%.Additionally, after a Flame-Mane's Fist attack hits an opponent and deals CRIT Hits during a single Blazing Lioness state, it will cause the CRIT DMG of Leonine Bite to increase by 15% for the rest of Blazing Lioness's duration and extend that duration by 0.5s. This effect can be triggered every 0.2s. The duration can be extended for a maximum of 2s and CRIT DMG can be increased by a maximum of 60% this way."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "The Eremites",
         "Corps of Thirty"
     ],
@@ -2333,5 +2333,8 @@ const DEHYA = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Dehya.png"
     }
 }

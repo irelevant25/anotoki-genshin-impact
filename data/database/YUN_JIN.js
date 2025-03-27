@@ -71,7 +71,7 @@ const YUN_JIN = {
             "description": "Characters under the effects of the Flying Cloud Flag Formation have their Normal ATK SPD increased by 12%."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Yun-Han Opera Troupe",
         "Heyu Tea House",
         "Yun Family"
@@ -2330,5 +2330,8 @@ const YUN_JIN = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Yun Jin.png"
     }
 }

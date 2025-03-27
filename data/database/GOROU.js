@@ -71,7 +71,7 @@ const GOROU = {
             "description": "For 12s after using Inuzaka All-Round Defense or Juuga: Forward Unto Victory, increases the CRIT DMG of all nearby party members' Geo DMG based on the buff level of the skill's field at the time of use:\"Standing Firm\": +10%\"Impregnable\": +20%\"Crunch\": +40%This effect cannot stack and will take reference from the last instance of the effect that is triggered."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Watatsumi Island",
         "Watatsumi Army",
         "Yae Publishing House"
@@ -2378,5 +2378,8 @@ const GOROU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Gorou.png"
     }
 }

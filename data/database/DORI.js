@@ -71,7 +71,7 @@ const DORI = {
             "description": "Dori gains the following effects for 3s after using Spirit-Warding Lamp: Troubleshooter Cannon:Electro Infusion.When Normal Attacks hit opponents, all nearby party members will heal HP equivalent to 4% of Dori's Max HP. This type of healing can occur once every 0.1s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "The Palace of Alcazarzaray"
     ],
     "special_dish": {
@@ -2358,5 +2358,8 @@ const DORI = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Dori.png"
     }
 }

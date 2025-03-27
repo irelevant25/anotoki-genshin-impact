@@ -71,7 +71,7 @@ const LYNETTE = {
             "description": "When Lynette uses Enigmatic Feint's Enigma Thrust, she will gain an Anemo Infusion and 20% Anemo DMG Bonus for 6s."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Hotel Bouffes d'ete",
         "House of the Hearth",
         "Fatui"
@@ -2378,5 +2378,8 @@ const LYNETTE = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Lynette.png"
     }
 }

@@ -75,7 +75,7 @@ const NILOU = {
             "description": "For every 1,000 points of Max HP, Nilou's CRIT Rate and CRIT DMG will increase by 0.6% and 1.2% respectively.The maximum increase in CRIT Rate and CRIT DMG via this method is 30% and 60% respectively."
         }
     ],
-    "affiliation": [
+    "affiliations": [
         "Zubayr Theater"
     ],
     "special_dish": {
@@ -2284,5 +2284,8 @@ const NILOU = {
                 }
             ]
         }
+    },
+    "build": {
+        "infographic": "assets/character/builds/Nilou.png"
     }
 }
