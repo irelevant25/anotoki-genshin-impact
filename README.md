@@ -15,15 +15,21 @@
 - Languages: EN/SK
 - Anime: voice lines (single - character name, multi - character name), pixelate (single - character name), music (single - music name, multi - anime name), OP/EN (single - EP/ED number, multi - anime name)
 - Optimize images by using: https://squoosh.app
+- Add visual weather effect and daytime effect like snow, rain, thunder, sunlight, cloudy... With sound effects.
+- Weapons database
+- Materials database
+- NPC database
+- Monsters/Wild database
 
 # Next version 0.6
 - Bugs: 
+  - [x] Wrong difficulty generation for daily.
 - Improvements:
   - [x] Group all quizes under single top menu item Quizzes
   - [ ] Hight size jump on quizzes when new images are not loaded yet (setup init hight)
   - [ ] Display result explanaition for Mismach quiz
   - [x] Optimize wallpapers and wallpapers preview size
-  - [ ] Load top sites content after click (optimize resources)
+  - [x] Load top sites content after click (optimize resources)
   - [x] Load wallpapers after openining background modal
   - [x] Load character database per character using specified character database script
   - [x] Optimize assets sizes (wishes 87% reduction, namecard banners 88% reduction, icons 91% reduction, cards 95% reduction)

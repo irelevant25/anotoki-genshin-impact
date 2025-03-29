@@ -62,7 +62,7 @@
                 date,
                 dailyQuizzes,
                 done: [],
-                difficulty
+                difficulty: storageManager.getDifficulty() ?? 1
             });
         }
 
