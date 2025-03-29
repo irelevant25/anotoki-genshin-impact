@@ -1,0 +1,13 @@
+{
+  // Editor
+  "prettier.configPath": ".prettierrc",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "off",
+  "editor.detectIndentation": true,
+  "editor.insertSpaces": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}
