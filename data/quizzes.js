@@ -39,7 +39,7 @@ const QUIZZES = {
         badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Characters Pixelate",
-        cardImage: 'assets/character/wish/Klee.avif',
+        cardImage: 'assets/character/wish/Kinich.avif',
         cardInfo: 'Challenge yourself to identify characters from their heavily pixelated portraits.',
         modalContent: `
             <div class="mb-4">
@@ -119,7 +119,7 @@ const QUIZZES = {
         badgeIcon: false,
         helpIcon: true,
         modalTitle: "About Music Quiz",
-        cardImage: 'assets/character/wish/Yun Jin.avif',
+        cardImage: 'assets/character/wish/Xinyan.avif',
         cardInfo: 'Test your music knowledge by identifying characters from their demo music.',
         modalContent: `
             <div class="mb-4">
@@ -149,5 +149,76 @@ const QUIZZES = {
                 </ul>
             </div>
         `
-    }
+    },
+    dish: {
+        id: "site-dish",
+        title: "Dish",
+        badgeIcon: false,
+        helpIcon: true,
+        modalTitle: "About Dish",
+        cardImage: 'assets/character/wish/Xiangling.avif',
+        cardInfo: 'Test your knowledge by identifying characters from their namecards/dish.',
+        modalContent: `
+            <div class="mb-4">
+                <h6 class="fw-bold">What is the Dish Quiz?</h6>
+                <p>Test your knowledge by identifying characters from their namecards/dish. These are the decorative dish players receive after reaching Friendship Level 10 with a character.</p>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">How to Play</h6>
+                <ol>
+                    <li>A character's namecard banner will be displayed with visual effects</li>
+                    <li>Type or select a character name from the dropdown</li>
+                    <li>You have up to 5 attempts to guess correctly</li>
+                    <li>With each failed attempt, the banner becomes clearer</li>
+                </ol>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">Difficulty Progression</h6>
+                <ul>
+                    <li><span class="badge bg-danger">Hard</span> - First attempt: Banner is grayscale, blurred, and partially hidden</li>
+                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Banner is grayscale and blurred</li>
+                    <li><span class="badge bg-info">Easy</span> - Third attempt: Banner is grayscale only</li>
+                </ul>
+            </div>
+        `
+    },
+    voice: {
+        id: "site-voice",
+        title: "Voice",
+        badgeIcon: false,
+        helpIcon: true,
+        modalTitle: "About Voice Quiz",
+        cardImage: 'assets/character/wish/Yun Jin.avif',
+        cardInfo: 'Test your voice knowledge by identifying characters from their demo voice.',
+        modalContent: `
+            <div class="mb-4">
+                <h6 class="fw-bold">What is the Voice Quiz?</h6>
+                <p>Test your voice knowledge by identifying characters from their demo voice.</p>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">How to Play</h6>
+                <ol>
+                    <li>Voice players will be displayed</li>
+                    <li>Click the play button to listen to the voice</li>
+                    <li>Type or select a character name from the dropdown</li>
+                    <li>You have up to 5 attempts to guess correctly</li>
+                    <li>With each failed attempt, the voice becomes longer</li>
+                </ol>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="fw-bold">Difficulty Progression</h6>
+                <ul>
+                    <li><span class="badge bg-danger">Very hard</span> - First attempt: Voice is only 5 seconds long</li>
+                    <li><span class="badge bg-danger">Hard</span> - First attempt: Voice is 10 seconds long</li>
+                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Voice is 15 seconds long</li>
+                    <li><span class="badge bg-info">Easy</span> - Third attempt: Voice is 20 seconds long</li>
+                    <li><span class="badge bg-info">Very easy</span> - Third attempt: Voice is without a length limit</li>
+                </ul>
+            </div>
+        `
+    },
 };

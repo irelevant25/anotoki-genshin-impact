@@ -1,4 +1,5 @@
 # Roadmap
+
 - New quiz: Signature weapon quiz
 - New quiz: Voice lines quiz
 - Add stats per quiz and global (tries and winrate for every character)
@@ -20,9 +21,11 @@
 - Materials database
 - NPC database
 - Monsters/Wild database
+- Food database
 
 # Next version 0.6
-- Bugs: 
+
+- Bugs:
   - [x] Wrong difficulty generation for daily.
 - Improvements:
   - [x] Group all quizes under single top menu item Quizzes
@@ -35,15 +38,16 @@
   - [x] Optimize assets sizes (wishes 87% reduction, namecard banners 88% reduction, icons 91% reduction, cards 95% reduction)
 - Features:
   - New quiz: Special dish
-  - New quiz: Signature weapon
   - New quiz: Voice lines
-  - New quiz: Constellation image (not icons)
   - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
   - Github link (to the bottom next to version)
 
 # Future version
+
 - Features:
   - Adding match history to the Tournament
+  - New quiz: Signature weapon
+  - New quiz: Constellation image (not icons)
 - Improvements:
   - Visualize the win/lose/wrong/correct answers in a additional way in quizzes especially for mismatch
   - Tries: x/y is not visible enough

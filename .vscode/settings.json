@@ -5,6 +5,7 @@
   "editor.formatOnSave": true,
   "editor.wordWrap": "off",
   "editor.detectIndentation": true,
+  "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.trimAutoWhitespace": true,
   "editor.codeActionsOnSave": {

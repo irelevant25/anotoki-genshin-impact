@@ -211,7 +211,6 @@
         }
 
         saveTopMenuMismatchState(state, daily = false) {
-            console.log(`daily: ${daily}, saveTopMenuMismatchState: `, state);
             if (daily === true) this.data.topMenu.mismatch.dailyState = { ...state };
             else this.data.topMenu.mismatch.state = { ...state };
             return this.saveData(this.data);
@@ -225,7 +224,6 @@
         }
 
         saveTopMenuMusicState(state, daily = false) {
-            console.log(`daily: ${daily}, saveTopMenuMusicState: `, state);
             if (daily === true) this.data.topMenu.music.dailyState = { ...state };
             else this.data.topMenu.music.state = { ...state };
             return this.saveData(this.data);

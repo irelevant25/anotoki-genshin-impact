@@ -23,6 +23,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Albedo.avif",
         "demo_music_name": "Contemplation in Snow",
         "demo_music": "assets/character/demo_music/Albedo.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "Good morning. Are we going to search for ancient relics today?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Albedo/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -91,6 +97,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Alhaitham.avif",
         "demo_music_name": "Cogitation of Epochs",
         "demo_music": "assets/character/demo_music/Alhaitham.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "It's a little early for me... Let me get a cup of coffee first.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Alhaitham/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -159,6 +171,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Aloy.avif",
         "demo_music_name": "Good Hunting on a New Horizon",
         "demo_music": "assets/character/demo_music/Aloy.mp3",
+        "voice_over": {
+            "title": "About Us: Action",
+            "text": "Everything I do is in the service of life, not death. That's why I'm here with you.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Aloy/story/en/About Us - Action.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -227,6 +245,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Amber.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "When It Rains: Worries",
+            "text": "Oh no, it's raining... now my uniform will get all wet...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Amber/story/en/When It Rains - Worries.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -294,6 +318,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Arlecchino.avif",
         "demo_music_name": "Offertorium of Fortuitum",
         "demo_music": "assets/character/demo_music/Arlecchino.mp3",
+        "voice_over": {
+            "title": "Good Night",
+            "text": "Time to retire for the night. Oh? \"Can't sleep,\" you say? Well, I'm afraid you'll have to figure something out for yourself. I have a certain suspicion my solution won't be to your liking.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Arlecchino/story/en/Good Night.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -363,6 +393,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Baizhu.avif",
         "demo_music_name": "In the Wake of Rain",
         "demo_music": "assets/character/demo_music/Baizhu.mp3",
+        "voice_over": {
+            "title": "About the Vision",
+            "text": "Hehe, the gods have somehow allowed a delusional person such as myself to explore the nature of life and death. This Vision was just the thing I need, and I'm most thankful.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Baizhu/story/en/About the Vision.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -434,6 +470,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Barbara.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "When It Rains",
+            "text": "Don't stay out in the rain for too long, you'll catch a cold!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Barbara/story/en/When It Rains.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -501,6 +543,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Beidou.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "Good Night",
+            "text": "Time moves quickly. Haha, go, may the wind be at your back.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Beidou/story/en/Good Night.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -572,6 +620,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Bennett.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "Favorite Food",
+            "text": "Meat! Meat is the best sustenance there is. Chicken-Mushroom Skewers, Steaks, and Sweet Madames are all my specialties. You won't go hungry if you come adventuring with me, that's for sure!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Bennett/story/en/Favorite Food.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -644,6 +698,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Candace.avif",
         "demo_music_name": "Nephrite of Deshret",
         "demo_music": "assets/character/demo_music/Candace.mp3",
+        "voice_over": {
+            "title": "In the Desert",
+            "text": "I am right by your side. But if you're still nervous, just take my hand.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Candace/story/en/In the Desert.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -711,6 +771,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Charlotte.avif",
         "demo_music_name": "Video Not Available",
         "demo_music": "assets/character/demo_music/Charlotte.mp3",
+        "voice_over": {
+            "title": "About the Vision",
+            "text": "To be honest... I'd prefer to have an Anemo Vision. Being able to fly around freely would make getting to interviews sooo much easier! A Cryo Vision's not too bad, though. At least I don't need to worry about my Kamera overheating.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Charlotte/story/en/About the Vision.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -778,6 +844,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Chasca.avif",
         "demo_music_name": "Viajadora's Verse",
         "demo_music": "assets/character/demo_music/Chasca.mp3",
+        "voice_over": {
+            "title": "About the Vision",
+            "text": "This Vision played a major part in my fight against the Abyss. If it hadn't shown up when it did, I don't know who I would be today.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Chasca/story/en/About the Vision.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -845,6 +917,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Chevreuse.avif",
         "demo_music_name": "Voici la grenadiere !",
         "demo_music": "assets/character/demo_music/Chevreuse.mp3",
+        "voice_over": {
+            "title": "When the Sun Is Out",
+            "text": "What nice weather! Especially good for keeping an eye on things.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Chevreuse/story/en/When the Sun Is Out.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -916,6 +994,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Tartaglia.avif",
         "demo_music_name": "Letter From Ajax",
         "demo_music": "assets/character/demo_music/Tartaglia.mp3",
+        "voice_over": {
+            "title": "When It Snows: Foreign Country",
+            "text": "Haha, ahh... could it be snowing in Snezhnaya too?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Tartaglia/story/en/When It Snows - Foreign Country.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -984,6 +1068,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Chiori.avif",
         "demo_music_name": "Le cramoisi coulant comme Cin",
         "demo_music": "assets/character/demo_music/Chiori.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "...This reminds me of home.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Chiori/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1052,6 +1142,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Chongyun.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Before the resounding thunder, evil must cower in fear.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Chongyun/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1123,6 +1219,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Citlali.avif",
         "demo_music_name": "Interstellar Drift",
         "demo_music": "assets/character/demo_music/Citlali.mp3",
+        "voice_over": {
+            "title": "Chat: Trance",
+            "text": "Going into a trance is risky for most people, so don't get any ideas.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Citlali/story/en/Chat - Trance.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1194,6 +1296,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Clorinde.avif",
         "demo_music_name": "Non si levava ancor",
         "demo_music": "assets/character/demo_music/Clorinde.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Hopefully, that was the sound of one more villain being removed from the world.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Clorinde/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -1261,6 +1369,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Collei.avif",
         "demo_music_name": "Caprice of the Leaves",
         "demo_music": "assets/character/demo_music/Collei.mp3",
+        "voice_over": {
+            "title": "After the Rain",
+            "text": "Even though the rain has stopped, you still need to watch out for puddles. Just like how the past stays in the memory, long after... Ah, ahem, sorry!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Collei/story/en/After the Rain.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1329,6 +1443,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Cyno.avif",
         "demo_music_name": "Order of Silence",
         "demo_music": "assets/character/demo_music/Cyno.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "In some legends, thunderbolts are a form of judgment from the gods above.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Cyno/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -1399,6 +1519,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Dehya.avif",
         "demo_music_name": "Fervent Flare",
         "demo_music": "assets/character/demo_music/Dehya.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "Ready to roll? Good. Then let's pack up and move out.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Dehya/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1471,6 +1597,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Diluc.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "About Us: Proof",
+            "text": "You have already proven your determination. Well then, it is now time for you to witness my resolve.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Diluc/story/en/About Us - Proof.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -1539,6 +1671,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Diona.avif",
         "demo_music_name": "Exclusive Specialty",
         "demo_music": "assets/character/demo_music/Diona.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Ahh!!! Uhh, um... I'm not shaking, I'm not... Ohhhh...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Diona/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1607,6 +1745,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Dori.avif",
         "demo_music_name": "Thanks for Your Patronage!",
         "demo_music": "assets/character/demo_music/Dori.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "Oh oh oh! Check out my fully-automatic snowball maker! It's one of a kind! Wanna give it a try? I'll even throw in a 5% discount on the rental!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Dori/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1674,6 +1818,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Emilie.avif",
         "demo_music_name": "Notes Aeriennes",
         "demo_music": "assets/character/demo_music/Emilie.mp3",
+        "voice_over": {
+            "title": "Chat: Newspaper",
+            "text": "Would you mind coming with me to buy a copy of today's newspaper?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Emilie/story/en/Chat - Newspaper.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1742,6 +1892,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Eula.avif",
         "demo_music_name": "Dance of Aphros",
         "demo_music": "assets/character/demo_music/Eula.mp3",
+        "voice_over": {
+            "title": "When the Sun Is Out",
+            "text": "Visibility is excellent! If we head to higher ground, we can do a full recon of enemy activity in the area.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Eula/story/en/When the Sun Is Out.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -1810,6 +1966,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Faruzan.avif",
         "demo_music_name": "Whirling of Vairambhaka",
         "demo_music": "assets/character/demo_music/Faruzan.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "How beautiful... How awe-inspiring... Achoo! *sniffle* Yes, and very cold-inducing as well...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Faruzan/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1877,6 +2039,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Fischl.avif",
         "demo_music_name": "Ouvertüre der ewigen Nacht",
         "demo_music": "assets/character/demo_music/Fischl.mp3",
+        "voice_over": {
+            "title": "Good Morning: Greet Fischl",
+            "text": "Dusk and dawn but fleeting shadows are. Once more, the twists of fate have led you into my everlasting night.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Fischl/story/en/Good Morning - Greet Fischl.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -1944,6 +2112,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Freminet.avif",
         "demo_music_name": "Frigid Reverie",
         "demo_music": "assets/character/demo_music/Freminet.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Don't be scared, Pers. I'll keep you safe.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Freminet/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2013,6 +2187,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Furina.avif",
         "demo_music_name": "Se mettre sur son trente-et-un !",
         "demo_music": "assets/character/demo_music/Furina.mp3",
+        "voice_over": {
+            "title": "About Us: Our Story Together",
+            "text": "My story has already come to an end, and so the next act shall be about OUR story... In which case, we should probably start charging double for public appearances... Oh, I'm so happy!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Furina/story/en/About Us - Our Story Together.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -2092,6 +2272,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Gaming.avif",
         "demo_music_name": "Propitious Ardor",
         "demo_music": "assets/character/demo_music/Gaming.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "Ahhh... Eh? Why can't I catch any in my mouth?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Gaming/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2160,6 +2346,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Ganyu.avif",
         "demo_music_name": "Qilin's Prance",
         "demo_music": "assets/character/demo_music/Ganyu.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "Morning! What's wrong, is there something stuck in my hair? ...Oh. Please don't stare at my h—hairpiece.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Ganyu/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2229,6 +2421,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Gorou.avif",
         "demo_music_name": "Astute and Fearless Leader",
         "demo_music": "assets/character/demo_music/Gorou.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "Whew *shivering*... it's cold. These conditions are unsuitable for outdoor maneuvers.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Gorou/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -2298,6 +2496,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Hu Tao.avif",
         "demo_music_name": "Any Last Words_",
         "demo_music": "assets/character/demo_music/Hu Tao.mp3",
+        "voice_over": {
+            "title": "Good Night",
+            "text": "Oh, you sleepy? Get some rest, I'm gonna take a walk by myself...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Hu Tao/story/en/Good Night.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2366,6 +2570,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Arataki Itto.avif",
         "demo_music_name": "Time to Shine",
         "demo_music": "assets/character/demo_music/Arataki Itto.mp3",
+        "voice_over": {
+            "title": "When It Rains",
+            "text": "Pff, real men don't carry umbrellas... Oh boy, wow, it's really starting to pick up. Uh quick, c'mon, get yours out! C'mon, quick, quick, quick!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Arataki Itto/story/en/When It Rains.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2433,6 +2643,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Jean.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "Snow. Remember — tend to your boots when we return.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Jean/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -2502,6 +2718,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kachina.avif",
         "demo_music_name": "Pirouette of Pika's Pike",
         "demo_music": "assets/character/demo_music/Kachina.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Aaah!! Um... I—I'm not scared! I was just... caught off guard!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kachina/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -2569,6 +2791,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kaedehara Kazuha.avif",
         "demo_music_name": "Flow of Autumn Wind",
         "demo_music": "assets/character/demo_music/Kaedehara Kazuha.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "The birdsong at daybreak is nature's gift to us. Let us go. Our journey begins anew.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kaedehara Kazuha/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -2638,6 +2866,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kaeya.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "When It Snows: Anecdote",
+            "text": "How about a ghost story to go with the snow?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kaeya/story/en/When It Snows - Anecdote.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -2707,6 +2941,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kamisato Ayaka.avif",
         "demo_music_name": "Shirasagi Princess",
         "demo_music": "assets/character/demo_music/Kamisato Ayaka.mp3",
+        "voice_over": {
+            "title": "When the Sun Is Out",
+            "text": "There's a pleasant breeze and glorious sunshine... So, where shall we go for a walk?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kamisato Ayaka/story/en/When the Sun Is Out.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2775,6 +3015,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kamisato Ayato.avif",
         "demo_music_name": "Serene and Fathomless",
         "demo_music": "assets/character/demo_music/Kamisato Ayato.mp3",
+        "voice_over": {
+            "title": "When It's Windy",
+            "text": "Sometimes, what appears at first to be nothing but a passing breeze can ultimately be that which alters the course of events... Hehe.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kamisato Ayato/story/en/When It's Windy.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2844,6 +3090,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kaveh.avif",
         "demo_music_name": "Empyrean Stairway",
         "demo_music": "assets/character/demo_music/Kaveh.mp3",
+        "voice_over": {
+            "title": "Chat: Beauty",
+            "text": "The ability to appreciate beauty is an important virtue.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kaveh/story/en/Chat - Beauty.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2911,6 +3163,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Keqing.avif",
         "demo_music_name": "Nimble as Lightning",
         "demo_music": "assets/character/demo_music/Keqing.mp3",
+        "voice_over": {
+            "title": "Chat: Opportunity",
+            "text": "In adventuring, as in business, you always have to seize the opportunity while it's there.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Keqing/story/en/Chat - Opportunity.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -2978,6 +3236,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kinich.avif",
         "demo_music_name": "Note of Effective Settlements",
         "demo_music": "assets/character/demo_music/Kinich.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "Morning. I'm about to head out, and I won't be back until tomorrow morning. Don't wait up for me.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kinich/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -3045,6 +3309,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kirara.avif",
         "demo_music_name": "Cat's Cosy Course",
         "demo_music": "assets/character/demo_music/Kirara.mp3",
+        "voice_over": {
+            "title": "When the Sun Is Out",
+            "text": "The sunlight feels really cozy. Napping in a tree would be nice... Ohh, just the thought of it is making me sleepy.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kirara/story/en/When the Sun Is Out.mp3"
+        },
         "roles": [],
         "birthday": "January 22nd",
         "affiliations": [
@@ -3103,6 +3373,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Klee.avif",
         "demo_music_name": "Let's Go, Crimson Knight!",
         "demo_music": "assets/character/demo_music/Klee.mp3",
+        "voice_over": {
+            "title": "Good Afternoon",
+            "text": "Lunchtime! What do you wanna eat today? Let me see if the Teyvat Travel Guide has any suggestions...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Klee/story/en/Good Afternoon.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -3170,6 +3446,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kujou Sara.avif",
         "demo_music_name": "Will of Thunder",
         "demo_music": "assets/character/demo_music/Kujou Sara.mp3",
+        "voice_over": {
+            "title": "When It Rains",
+            "text": "The sound of rain masks the enemy's footsteps. Stay alert.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kujou Sara/story/en/When It Rains.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -3237,6 +3519,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Kuki Shinobu.avif",
         "demo_music_name": "Adroit Deputy",
         "demo_music": "assets/character/demo_music/Kuki Shinobu.mp3",
+        "voice_over": {
+            "title": "When the Sun Is Out",
+            "text": "It's a nice day, but I can't seem to shake this strange feeling... Huh, let's just hope it's my imagination.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Kuki Shinobu/story/en/When the Sun Is Out.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -3306,6 +3594,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Lan Yan.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "When the Sun Is Out",
+            "text": "Look! Everything the sun touches is coated in gold!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Lan Yan/story/en/When the Sun Is Out.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -3377,6 +3671,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Layla.avif",
         "demo_music_name": "Surreal Noctivaga",
         "demo_music": "assets/character/demo_music/Layla.mp3",
+        "voice_over": {
+            "title": "In the Desert",
+            "text": "Scorching hot days and freezing cold nights... I—I don't think I'm gonna make it...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Layla/story/en/In the Desert.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -3444,6 +3744,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Lisa.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "When It's Windy",
+            "text": "Such a calming breeze... Perfect for taking a nap, don't you think?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Lisa/story/en/When It's Windy.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -3512,6 +3818,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Lynette.avif",
         "demo_music_name": "Chasing the Wind",
         "demo_music": "assets/character/demo_music/Lynette.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Ow... that hurts my ears.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Lynette/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -3581,6 +3893,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Lyney.avif",
         "demo_music_name": "Lustrous Trick",
         "demo_music": "assets/character/demo_music/Lyney.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "...C'mon, just five more minutes... Huh? Oh! It's you! I thought it was the radiance of the sunlight on my skin that I felt — turns out it was your radiance all along!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Lyney/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -3650,6 +3968,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Mavuika.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "Chat: Light",
+            "text": "Many insects have a compulsion to follow the light, and humans are the same — except we call that light, \"hope.\"",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Mavuika/story/en/Chat - Light.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -3727,6 +4051,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Mika.avif",
         "demo_music_name": "Sunfrost Breeze",
         "demo_music": "assets/character/demo_music/Mika.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Thunder can mask the sound of movement, which is why it's our friend.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Mika/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -3798,6 +4128,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Mona.avif",
         "demo_music_name": "Surge of Prophecies",
         "demo_music": "assets/character/demo_music/Mona.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "Your arrival is untimely. The morning star has just waned... Breakfast? No, I—I've already eaten.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Mona/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -3866,6 +4202,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Mualani.avif",
         "demo_music_name": "Hot Spring Affection",
         "demo_music": "assets/character/demo_music/Mualani.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Whoa! Did you see that? Where did it strike!?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Mualani/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -3934,6 +4276,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Nahida.avif",
         "demo_music_name": "Surreal Noctivaga",
         "demo_music": "assets/character/demo_music/Nahida.mp3",
+        "voice_over": {
+            "title": "About Nahida: Knowledge",
+            "text": "Oh, the Mare Jivari? A place without anything at all, completely empty — just like a Shroomboar's brain. Of course I know it. ...Hmm? I, uh... It's true, I've never seen it with my own eyes. It's one of the many places beyond my reach.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Nahida/story/en/About Nahida - Knowledge.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -4007,6 +4355,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Navia.avif",
         "demo_music_name": "Largo alla donzella",
         "demo_music": "assets/character/demo_music/Navia.mp3",
+        "voice_over": {
+            "title": "When the Sun Is Out",
+            "text": "Quick, look! Up in the sky! Look at that scorching sun, it's like a blast furnace! You know what this means? It means we have to drop everything, right now, and make a run for the ice cream store! We need to get two of the biggest cones they sell, and then it's an all-out race to see who can finish before it melts!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Navia/story/en/When the Sun Is Out.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -4075,6 +4429,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Neuvillette.avif",
         "demo_music_name": "Parousia Diluvi",
         "demo_music": "assets/character/demo_music/Neuvillette.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "Good morning. I hope you have a wonderful day.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Neuvillette/story/en/Good Morning.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -4145,6 +4505,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Nilou.avif",
         "demo_music_name": "Lotus of Haftkarsvar",
         "demo_music": "assets/character/demo_music/Nilou.mp3",
+        "voice_over": {
+            "title": "Chat: Rest",
+            "text": "Relaxing days like this are nice... Let's take it easy.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Nilou/story/en/Chat - Rest.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -4216,6 +4582,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Ningguang.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "Chat: Trade War",
+            "text": "In a trade war, the perfect hunter leaves no trace.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Ningguang/story/en/Chat - Trade War.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -4283,6 +4655,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Noelle.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "Good Afternoon",
+            "text": "Ready for your tea break? Please wait here while I get it ready. Oh yes, I also made Lighter-Than-Air Pancakes! You simply must try one, it's my specialty.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Noelle/story/en/Good Afternoon.mp3"
+        },
         "roles": [],
         "birthday": "March 21st",
         "affiliations": [
@@ -4341,6 +4719,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Ororon.avif",
         "demo_music_name": "Rain of Seven Curtains",
         "demo_music": "assets/character/demo_music/Ororon.mp3",
+        "voice_over": {
+            "title": "Chat: Smoke",
+            "text": "Sometimes, a shrouded path is not meant to be walked. Move forward with blind ambition, and the smoke might suffocate you.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Ororon/story/en/Chat - Smoke.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -4409,6 +4793,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Qiqi.avif",
         "demo_music_name": "Preserver of Fortune",
         "demo_music": "assets/character/demo_music/Qiqi.mp3",
+        "voice_over": {
+            "title": "Chat: Afraid of Heat",
+            "text": "Let's go somewhere cooler.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Qiqi/story/en/Chat - Afraid of Heat.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -4478,6 +4868,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Raiden Shogun.avif",
         "demo_music_name": "Termination of Desires",
         "demo_music": "assets/character/demo_music/Raiden Shogun.mp3",
+        "voice_over": {
+            "title": "Chat: Idleness",
+            "text": "Inactivity serves no purpose whatsoever. Hmph.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Raiden Shogun/story/en/Chat - Idleness.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -4548,6 +4944,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Razor.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "Something to Share",
+            "text": "I like the stars at night. So many stars. In the sky, in the lake. And in the city.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Razor/story/en/Something to Share.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -4616,6 +5018,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Rosaria.avif",
         "demo_music_name": "Shadow of Nemesis",
         "demo_music": "assets/character/demo_music/Rosaria.mp3",
+        "voice_over": {
+            "title": "Chat: Overtime",
+            "text": "Everything is negotiable, except overtime.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Rosaria/story/en/Chat - Overtime.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -4683,6 +5091,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
         "demo_music_name": "A Glorious Awakening",
         "demo_music": "assets/character/demo_music/Sangonomiya Kokomi.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "The snow... have you ever seen such beauty?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Sangonomiya Kokomi/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -4756,6 +5170,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Sayu.avif",
         "demo_music_name": "Muji-Muji Chaos!",
         "demo_music": "assets/character/demo_music/Sayu.mp3",
+        "voice_over": {
+            "title": "When It Rains",
+            "text": "Eek, let's find shelter, quick! Watering works on plants, but not people...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Sayu/story/en/When It Rains.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -4824,6 +5244,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Sethos.avif",
         "demo_music_name": "Menmaatre's Parade",
         "demo_music": "assets/character/demo_music/Sethos.mp3",
+        "voice_over": {
+            "title": "When the Sun Is Out",
+            "text": "The weather's so perfect, it would be such a waste not to go camping. How does fishing in an oasis sound?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Sethos/story/en/When the Sun Is Out.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -4891,6 +5317,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Shenhe.avif",
         "demo_music_name": "The Crane Cries",
         "demo_music": "assets/character/demo_music/Shenhe.mp3",
+        "voice_over": {
+            "title": "After the Rain",
+            "text": "The sky is clearing up, and so is my mood. I just hope no one shows up to bother me... if they do, I'll just make them disappear.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Shenhe/story/en/After the Rain.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -4961,6 +5393,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Shikanoin Heizou.avif",
         "demo_music_name": "Storm Chaser",
         "demo_music": "assets/character/demo_music/Shikanoin Heizou.mp3",
+        "voice_over": {
+            "title": "Good Afternoon",
+            "text": "Alright. Now that lunch is over, whaddya say we play a game to keep our minds sharp? Relay Stones? Hehe... okay, I guess we can warm up with that.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Shikanoin Heizou/story/en/Good Afternoon.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -5029,6 +5467,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Sigewinne.avif",
         "demo_music_name": "Romari Time!",
         "demo_music": "assets/character/demo_music/Sigewinne.mp3",
+        "voice_over": {
+            "title": "Chat: Stickers",
+            "text": "No... I didn't put a sticker on your back.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Sigewinne/story/en/Chat - Stickers.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5100,6 +5544,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Sucrose.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "Chat: Deep Breaths",
+            "text": "Ahhh! I haven't been out in a while.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Sucrose/story/en/Chat - Deep Breaths.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5167,6 +5617,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Thoma.avif",
         "demo_music_name": "Devotion of the Keeper",
         "demo_music": "assets/character/demo_music/Thoma.mp3",
+        "voice_over": {
+            "title": "Chat: Thoma's Treat",
+            "text": "Hey... how about we go for a nice meal some time? My treat, of course.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Thoma/story/en/Chat - Thoma's Treat.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5235,6 +5691,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Tighnari.avif",
         "demo_music_name": "Winding Through Avidya",
         "demo_music": "assets/character/demo_music/Tighnari.mp3",
+        "voice_over": {
+            "title": "Good Morning",
+            "text": "Shh, listen! That's the sound of dew dripping upon the leaves.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Tighnari/story/en/Good Morning.mp3"
+        },
         "roles": [],
         "birthday": "December 29th",
         "affiliations": [
@@ -5295,6 +5757,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Venti.avif",
         "demo_music_name": "Bard's Adventure",
         "demo_music": "assets/character/demo_music/Venti.mp3",
+        "voice_over": {
+            "title": "When It Rains",
+            "text": "Let's go jumping in puddles and see who can make the biggest splash!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Venti/story/en/When It Rains.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5368,6 +5836,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Wanderer.avif",
         "demo_music_name": "Novatio Novena",
         "demo_music": "assets/character/demo_music/Wanderer.mp3",
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Huh. How irritating.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Wanderer/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -5438,6 +5912,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Wriothesley.avif",
         "demo_music_name": "Nippy Bout",
         "demo_music": "assets/character/demo_music/Wriothesley.mp3",
+        "voice_over": {
+            "title": "Chat: Stickers",
+            "text": "If you ever see any stickers on my back, do me a favor and take them off... Melusines like to play pranks sometimes.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Wriothesley/story/en/Chat - Stickers.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -5505,6 +5985,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Xiangling.avif",
         "demo_music_name": "Flaming Fry",
         "demo_music": "assets/character/demo_music/Xiangling.mp3",
+        "voice_over": {
+            "title": "When It's Windy",
+            "text": "Anemo Slimes always come out in this weather. If you catch some, I'll make you a Slime Slushie!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Xiangling/story/en/When It's Windy.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5573,6 +6059,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Xianyun.avif",
         "demo_music_name": "Borrowing Winds of Harmony",
         "demo_music": "assets/character/demo_music/Xianyun.mp3",
+        "voice_over": {
+            "title": "Good Afternoon",
+            "text": "Hmm? Spare me that look, is it not your turn to prepare luncheon today?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Xianyun/story/en/Good Afternoon.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5645,6 +6137,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Xiao.avif",
         "demo_music_name": "Path of Yaksha",
         "demo_music": "assets/character/demo_music/Xiao.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "Once the snow is thick enough, we can eat it.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Xiao/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -5713,6 +6211,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Xilonen.avif",
         "demo_music_name": "Lights on Me",
         "demo_music": "assets/character/demo_music/Xilonen.mp3",
+        "voice_over": {
+            "title": "Chat: Potted Plant",
+            "text": "*sigh* My potted plant on the porch has died again. I was watering it every day... Don't tell me I overdid it this time?",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Xilonen/story/en/Chat - Potted Plant.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5784,6 +6288,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Xingqiu.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "Chat: Taking a Break",
+            "text": "Now this is what I call, \"a moment of solitude.\"",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Xingqiu/story/en/Chat - Taking a Break.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5857,6 +6367,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Xinyan.avif",
         "demo_music_name": "Rockin' With Fire",
         "demo_music": "assets/character/demo_music/Xinyan.mp3",
+        "voice_over": {
+            "title": "Good Afternoon",
+            "text": "Alright, that's a wrap! *yawns* If there's nothin' else, I'll go take a nap somewhere...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Xinyan/story/en/Good Afternoon.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5922,6 +6438,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Yae Miko.avif",
         "demo_music_name": "Nothing but Trickery",
         "demo_music": "assets/character/demo_music/Yae Miko.mp3",
+        "voice_over": {
+            "title": "Chat: Mortal World",
+            "text": "Personally, I think the idea of things staying the same forever is quite beautiful. *sigh* But alas, that is simply not the way the world works.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Yae Miko/story/en/Chat - Mortal World.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -5990,6 +6512,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Yanfei.avif",
         "demo_music_name": "Marching of Xiezhi",
         "demo_music": "assets/character/demo_music/Yanfei.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "What the... What kind of injurious weather is this!? It's c—cold... Achoo...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Yanfei/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -6057,6 +6585,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Yaoyao.avif",
         "demo_music_name": "Immaculate Ardency",
         "demo_music": "assets/character/demo_music/Yaoyao.mp3",
+        "voice_over": {
+            "title": "When It Rains",
+            "text": "Hey, can you hear the frogs croaking? Hehe, silly frogs! They're singing along to the sound of the rain! Ribbit, ribbit, ribbit~",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Yaoyao/story/en/When It Rains.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -6124,6 +6658,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Yelan.avif",
         "demo_music_name": "Graceful Dexterity",
         "demo_music": "assets/character/demo_music/Yelan.mp3",
+        "voice_over": {
+            "title": "Chat: Truancy",
+            "text": "Good roll... Alright, maybe I'll take one more day off, and knock out the rest of the work once I'm feeling up to it.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Yelan/story/en/Chat - Truancy.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -6192,6 +6732,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Yoimiya.avif",
         "demo_music_name": "Blossoms of Summer Night",
         "demo_music": "assets/character/demo_music/Yoimiya.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "Haha, watch me make a snowball... pew!",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Yoimiya/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -6259,6 +6805,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Yumemizuki Mizuki.avif",
         "demo_music_name": null,
         "demo_music": null,
+        "voice_over": {
+            "title": "When Thunder Strikes",
+            "text": "Ah, I wonder if the Almighty Shogun is having a bad day...",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Yumemizuki Mizuki/story/en/When Thunder Strikes.mp3"
+        },
         "roles": [
             {
                 "name": "On-Field",
@@ -6331,6 +6883,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Yun Jin.avif",
         "demo_music_name": "Chapter of a New Era",
         "demo_music": "assets/character/demo_music/Yun Jin.mp3",
+        "voice_over": {
+            "title": "When It Snows",
+            "text": "(Translated) Fie! This cold shall be mine end!",
+            "reading": "(Actual Voice-Over: 喂呀，冻煞我了。)Actual Romanization: Wèi ya, dòng shā wǒ liǎo.",
+            "audio": "assets/character/voice_overs/Yun Jin/story/en/When It Snows.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
@@ -6400,6 +6958,12 @@ const CHARACTERS = [
         "icon": "assets/character/icon/Zhongli.avif",
         "demo_music_name": "Rex Incognito",
         "demo_music": "assets/character/demo_music/Zhongli.mp3",
+        "voice_over": {
+            "title": "Chat: Journeys",
+            "text": "Every journey has its final day. Don't rush.",
+            "reading": null,
+            "audio": "assets/character/voice_overs/Zhongli/story/en/Chat - Journeys.mp3"
+        },
         "roles": [
             {
                 "name": "Off-Field",
