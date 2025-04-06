@@ -191,14 +191,19 @@
         }
     }
 
-    window.MismatchQuizManager = QuizManager;
-
-    document.addEventListener('DOMContentLoaded', () => {
+    function init() {
         const siteName = 'mismatch';
         const config = APP_CONFIG.topMenu[siteName];
         new QuizManager(config.id, config, false, (questionEntity, difficulty, isSuccess) => {
             storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
         }).init();
-        console.log('Mismatch quiz initialized');
+    }
+
+    window.MismatchQuizManager = QuizManager;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector(`[data-id="${MENU_ITEMS_TOP.quizzes.id}"`).addEventListener('click', () => {
+            document.querySelector(`[data-id="${QUIZZES.mismatch.id}"]`).addEventListener('click', init, { once: true });
+        }, { once: true });
     });
 })();

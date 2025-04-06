@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Template-Based SPA Router</title>
+        <!-- EXTERNAL -->
+        <link rel="stylesheet" href="vendor/bootstrap.min.css" />
+        <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css" />
+        <script src="vendor/bootstrap.bundle.min.js"></script>
+        <!-- GLOBAL -->
+        <script src="routes.js"></script>
+        <script src="router.js"></script>
+    </head>
+
+    <body>
+        <h1>Single Page Application Router (Template-Based)</h1>
+
+        <nav id="main-nav">
+            <a href="#/" data-link>Home</a>
+            <a href="#/about" data-link>About</a>
+            <a href="#/contact" data-link>Contact</a>
+            <a href="#/projects" data-link>Projects</a>
+        </nav>
+
+        <div id="app"></div>
+
+        <!-- HTML Templates - These are properly syntax highlighted in VS Code -->
+        <!-- Home Page Template -->
+        <template id="template-home">
+            <div class="page-content">
+                <h2>Home Page</h2>
+                <p>Welcome to our website! This is the home page content.</p>
+                <p>This template has proper syntax highlighting in your editor!</p>
+            </div>
+        </template>
+
+        <!-- About Page Template -->
+        <template id="template-about">
+            <div class="page-content">
+                <h2>About Us</h2>
+                <p>We are a company dedicated to creating amazing web experiences.</p>
+                <p>This page demonstrates dynamic content loading using HTML templates.</p>
+            </div>
+        </template>
+
+        <!-- Contact Page Template -->
+        <template id="template-contact">
+            <div class="page-content">
+                <h2>Contact Us</h2>
+                <p>You can reach us at contact@example.com</p>
+                <p>
+                    <button id="contact-btn">Send Message</button>
+                </p>
+            </div>
+        </template>
+
+        <!-- Projects Page Template -->
+        <template id="template-projects">
+            <div class="page-content">
+                <h2>Projects</h2>
+                <p>Here are some of our latest projects:</p>
+                <ul>
+                    <li>Single Page Application Router</li>
+                    <li>E-commerce Platform</li>
+                    <li>Portfolio Website</li>
+                </ul>
+            </div>
+        </template>
+    </body>
+</html>

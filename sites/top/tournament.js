@@ -253,10 +253,7 @@
         resetValues();
     }
 
-    /**
-     * Initializes the tournament quiz
-     */
-    document.addEventListener('DOMContentLoaded', () => {
+    function init() {
         const config = APP_CONFIG.topMenu.tournament;
 
         calculateTournamentLength();
@@ -323,7 +320,12 @@
                 roundRobinManager();
             }
         });
+    }
 
-        console.log('Tournament quiz initialized');
+    /**
+     * Initializes the tournament quiz
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector(`[data-id="${MENU_ITEMS_TOP.tournament.id}"`).addEventListener('click', init, { once: true });
     });
 })();

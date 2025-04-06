@@ -23,7 +23,6 @@
                 this.saveState();
             });
 
-            this.questionElement = this.containerElement.querySelector('[name="question"]');
             this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
             this.nextButtonElement = this.containerElement.querySelector('button.next-button');
             // this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
@@ -215,14 +214,19 @@
         }
     }
 
-    window.MusicQuizManager = QuizManager;
-
-    document.addEventListener('DOMContentLoaded', () => {
+    function init() {
         const siteName = 'music';
         const config = APP_CONFIG.topMenu[siteName];
         new QuizManager(config.id, config, false, (questionEntity, difficulty, isSuccess) => {
             storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
         }).init();
-        console.log('Pixelate quiz initialized');
+    }
+
+    window.MusicQuizManager = QuizManager;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector(`[data-id="${MENU_ITEMS_TOP.quizzes.id}"`).addEventListener('click', () => {
+            document.querySelector(`[data-id="${QUIZZES.music.id}"]`).addEventListener('click', init, { once: true });
+        }, { once: true });
     });
 })();

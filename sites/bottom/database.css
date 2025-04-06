@@ -352,4 +352,203 @@
     margin-left: 10px;
     font-size: 16px;
   }
+
+  .voiceover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .voiceover-filters {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--light-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .filter-group-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--dark-color);
+    opacity: 0.7;
+  }
+
+  .filter-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .filter-btn:hover {
+    background-color: rgba(74, 110, 189, 0.1);
+  }
+
+  .filter-btn.active {
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .filter-btn[data-type="story"].active {
+    background-color: var(--story-color);
+  }
+
+  .filter-btn[data-type="combat"].active {
+    background-color: var(--combat-color);
+  }
+
+  .voicelines-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .voiceline-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+  }
+
+  .voiceline-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .voiceline-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+  }
+
+  .voiceline-title {
+    font-weight: bold;
+    color: var(--primary);
+  }
+
+  .voiceline-content {
+    padding: 15px;
+  }
+
+  .voiceline-text {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .audio-player {
+    width: 100%;
+    height: 40px;
+    background-color: var(--light-color);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .audio-player audio {
+    width: 100%;
+    height: 100%;
+  }
+
+  .story-badge,
+  .combat-badge {
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .story-badge {
+    background-color: rgba(120, 169, 219, 0.2);
+    color: var(--story-color);
+  }
+
+  .combat-badge {
+    background-color: rgba(224, 122, 95, 0.2);
+    color: var(--combat-color);
+  }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--dark-color);
+    opacity: 0.7;
+  }
+
+  /* Audio container styles */
+  .audio-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* Play button styles */
+  .play-button {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #4a6ebd; /* Primary blue color */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Play icon using CSS */
+  .play-button::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent white;
+  }
+
+  /* Hover state */
+  .play-button:hover {
+    background-color: #3d5da0; /* Slightly darker blue */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* Focus state for accessibility */
+  .play-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 110, 189, 0.4);
+  }
+
+  /* Style for when audio is loaded/playing */
+  .audio-container audio {
+    width: 100%;
+    height: 36px;
+    border-radius: 18px;
+    margin-top: 5px;
+  }
 }

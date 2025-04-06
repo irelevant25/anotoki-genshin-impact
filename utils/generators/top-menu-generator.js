@@ -1,7 +1,7 @@
 (() => {
     'use strict';
 
-    let topMenuElement;
+    let container;
 
     function getBadgeIcon(menuItem) {
         if (!menuItem.badgeIcon) return '';
@@ -22,10 +22,10 @@
         `;
     }
 
-    function initializeMenu() {
+    function init() {
         // Generate menu items
         const ul = document.createElement('ul');
-        topMenuElement.appendChild(ul);
+        container.appendChild(ul);
         Object.values(MENU_ITEMS_TOP).forEach(menuItem => {
             ul.innerHTML += `
                 <li data-id="${menuItem.id}">
@@ -36,7 +36,7 @@
             `;
         });
 
-        const menuItems = topMenuElement.querySelectorAll('ul > li');
+        const menuItems = container.querySelectorAll('ul > li');
 
         // Add click handler to each menu item
         menuItems.forEach(item => {
@@ -67,18 +67,13 @@
         const modalItems = document.querySelectorAll('div > div.modal');
         console.log('Menu items help modals initialized with', modalItems.length, 'items');
     }
-
-    /**
-     * Handles menu item clicks
-     * 
-     * @param {Object} menuItem - The clicked menu item from MENU_ITEMS_TOP dataset
-     */
+    
     function menuItemClick(menuItem) {
         // Skip if no data-id
         if (!menuItem.dataset.id) return;
 
         // Deactivate other menu items
-        topMenuElement.querySelectorAll("ul > li").forEach(element => {
+        container.querySelectorAll("ul > li").forEach(element => {
             if (element !== menuItem) {
                 element.classList.remove('active');
             }
@@ -106,7 +101,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        topMenuElement = document.querySelector("#top-menu");
-        initializeMenu();
+        container = document.querySelector("#top-menu");
+        init();
     });
 })();

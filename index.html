@@ -1,409 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="favicon.png" />
+        <title>Quiz App</title>
+        <!-- EXTERNAL -->
+        <link rel="stylesheet" href="vendor/bootstrap.min.css" />
+        <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css" />
+        <script src="vendor/bootstrap.bundle.min.js"></script>
+        <!-- Data -->
+        <script src="data/changelog.js"></script>
+        <script src="data/characters.js"></script>
+        <script src="data/top-menu-items.js"></script>
+        <script src="data/bottom-menu-items.js"></script>
+        <script src="data/config.js"></script>
+        <script src="data/backgrounds.js"></script>
+        <script src="data/difficulties.js"></script>
+        <script src="data/quizzes.js"></script>
+        <!-- MIGRATIONS -->
+        <script src="migrations/migrations.js"></script>
+        <script src="migrations/0.1-0.2.js"></script>
+        <script src="migrations/0.2-0.3.js"></script>
+        <!-- GLOBAL -->
+        <link rel="stylesheet" href="index.css" />
+        <script src="index.js"></script>
+        <!-- UTILS -->
+        <script src="utils/helper.js"></script>
+        <script src="utils/storage-manager.js"></script>
+        <script src="utils/autocomplete.js"></script>
+        <script src="utils/notification.js"></script>
+        <link rel="stylesheet" href="utils/notification.css" />
+        <script src="utils/loading.js"></script>
+        <link rel="stylesheet" href="utils/loading.css" />
+        <script src="utils/generators/bottom-menu-generator.js"></script>
+        <script src="utils/generators/top-menu-generator.js"></script>
+        <script src="utils/generators/tooltips-generator.js"></script>
+        <!-- TOP MENU -->
+        <link rel="stylesheet" href="sites/top/daily.css" />
+        <script src="sites/top/daily.js"></script>
+        <link rel="stylesheet" href="sites/top/quizzes.css" />
+        <script src="sites/top/quizzes.js"></script>
+        <link rel="stylesheet" href="sites/top/tournament.css" />
+        <script src="sites/top/tournament.js"></script>
+        <!-- TOP MENU QUIZZES -->
+        <link rel="stylesheet" href="sites/top/quizzes/banners.css" />
+        <script src="sites/top/quizzes/banners.js"></script>
+        <link rel="stylesheet" href="sites/top/quizzes/pixelate.css" />
+        <script src="sites/top/quizzes/pixelate.js"></script>
+        <link rel="stylesheet" href="sites/top/quizzes/mismatch.css" />
+        <script src="sites/top/quizzes/mismatch.js"></script>
+        <link rel="stylesheet" href="sites/top/quizzes/music.css" />
+        <script src="sites/top/quizzes/music.js"></script>
+        <link rel="stylesheet" href="sites/top/quizzes/voice.css" />
+        <script src="sites/top/quizzes/voice.js"></script>
+        <link rel="stylesheet" href="sites/top/quizzes/dish.css" />
+        <script src="sites/top/quizzes/dish.js"></script>
+        <!-- BOTTOM MENU -->
+        <link rel="stylesheet" href="sites/bottom/difficulty.css" />
+        <script src="sites/bottom/difficulty.js"></script>
+        <link rel="stylesheet" href="sites/bottom/version.css" />
+        <script src="sites/bottom/version.js"></script>
+        <link rel="stylesheet" href="sites/bottom/whats-new.css" />
+        <script src="sites/bottom/whats-new.js"></script>
+        <link rel="stylesheet" href="sites/bottom/background.css" />
+        <script src="sites/bottom/backgrounds.js"></script>
+        <link rel="stylesheet" href="sites/bottom/database.css" />
+        <script src="sites/bottom/database.js"></script>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.png">
-    <title>Quiz App</title>
-    <!-- EXTERNAL -->
-    <link rel="stylesheet" href="vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
-    <script src="vendor/bootstrap.bundle.min.js"></script>
-    <!-- Data -->
-    <script src="data/changelog.js"></script>
-    <script src="data/characters.js"></script>
-    <script src="data/top-menu-items.js"></script>
-    <script src="data/bottom-menu-items.js"></script>
-    <script src="data/config.js"></script>
-    <script src="data/backgrounds.js"></script>
-    <script src="data/difficulties.js"></script>
-    <!-- MIGRATIONS -->
-    <script src="migrations/migrations.js"></script>
-    <script src="migrations/0.1-0.2.js"></script>
-    <!-- GLOBAL -->
-    <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
-    <!-- UTILS -->
-    <script src="utils/helper.js"></script>
-    <script src="utils/bottom-menu-generator.js"></script>
-    <script src="utils/top-menu-generator.js"></script>
-    <script src="utils/tooltips-generator.js"></script>
-    <script src="utils/storage-manager.js"></script>
-    <script src="utils/autocomplete.js"></script>
-    <script src="utils/notification.js"></script>
-    <link rel="stylesheet" href="utils/notification.css">
-    <script src="utils/loading.js"></script>
-    <link rel="stylesheet" href="utils/loading.css">
-    <!-- TOP MENU -->
-    <link rel="stylesheet" href="sites/top/daily.css">
-    <script src="sites/top/daily.js"></script>
-    <link rel="stylesheet" href="sites/top/banners.css">
-    <script src="sites/top/banners.js"></script>
-    <link rel="stylesheet" href="sites/top/pixelate.css">
-    <script src="sites/top/pixelate.js"></script>
-    <link rel="stylesheet" href="sites/top/mismatch.css">
-    <script src="sites/top/mismatch.js"></script>
-    <link rel="stylesheet" href="sites/top/tournament.css">
-    <script src="sites/top/tournament.js"></script>
-    <link rel="stylesheet" href="sites/top/music.css">
-    <script src="sites/top/music.js"></script>
-    <!-- BOTTOM MENU -->
-    <link rel="stylesheet" href="sites/bottom/difficulty.css">
-    <script src="sites/bottom/difficulty.js"></script>
-    <link rel="stylesheet" href="sites/bottom/version.css">
-    <script src="sites/bottom/version.js"></script>
-    <link rel="stylesheet" href="sites/bottom/whats-new.css">
-    <script src="sites/bottom/whats-new.js"></script>
-    <link rel="stylesheet" href="sites/bottom/background.css">
-    <script src="sites/bottom/backgrounds.js"></script>
-    <link rel="stylesheet" href="sites/bottom/database.css">
-    <script src="sites/bottom/database.js"></script>
-</head>
+    <body>
+        <!-- Top menu items -->
+        <nav id="top-menu">
+            <!-- Menu items and help modals are generated dynamically in utils/top-menu-generator.js -->
+        </nav>
 
-<body>
+        <!-- Top menu content -->
 
-    <!-- Top menu items -->
-    <nav id="top-menu">
-        <!-- Menu items and help modals are generated dynamically in utils/top-menu-generator.js -->
-    </nav>
+        <!-- Quizzes -->
+        <div id="site-quizzes" class="container d-none">
+            <div id="quizzes-list" class="row justify-content-center text-center d-flex gap-3 p-4">
+                <!-- List of quizzes are generated dynamically in utils/generators/quizzes-generator.js -->
+            </div>
 
-    <!-- Top menu content -->
-
-    <!-- Daily -->
-    <div id="site-daily" class="d-none">
-        <div class="container quiz-container">
-            <div class="level-medium d-none" name="quiz-difficulty-display">
-                <span class="recommended-ar">Medium</span>
-            </div>
-            <div name="daily-quizzes" class="d-flex justify-content-center gap-3 py-3"></div>
-            <div name="quiz" style="margin-top: -2rem;"></div>
-        </div>
-    </div>
-
-    <!-- Banners -->
-    <div id="site-banners" class="d-none">
-        <div class="container quiz-container">
-            <div class="level-medium d-none" name="quiz-difficulty-display">
-                <span class="recommended-ar">Medium</span>
-            </div>
-            <img name="question" class="d-block mx-auto">
-            <div class="pt-3 search-container">
-                <div name="autocomplete"></div>
-                <button class="btn btn-primary ms-3 next-button">Next</button>
-            </div>
-            <div class="d-flex justify-content-center tries-score my-2">
-                Tries: <p name="tries-current">0</p> / <p name="tries-max">5</p>
-            </div>
-            <div name="tries-display" class="d-flex justify-content-center tries-characters">
-                <!-- Tries icons will be dynamically injected here -->
-            </div>
-            <img name="answer-success" class="d-block mx-auto">
-        </div>
-    </div>
-
-    <!-- Pixelate -->
-    <div id="site-pixelate" class="d-none">
-        <div class="container quiz-container">
-            <div class="level-medium d-none" name="quiz-difficulty-display">
-                <span class="recommended-ar">Medium</span>
-            </div>
-            <canvas name="question" class="d-block mx-auto" width="256" height="256">
-                <!-- Canvas for pixelate will be dynamically injected here -->
-            </canvas>
-            <div class="pt-3 search-container">
-                <div name="autocomplete"></div>
-                <button class="btn btn-primary ms-3 next-button">Next</button>
-            </div>
-            <div class="d-flex justify-content-center tries-score my-2">
-                Tries: <p name="tries-current">0</p> / <p name="tries-max">5</p>
-            </div>
-            <div name="tries-display" class="d-flex justify-content-center tries-characters">
-                <!-- Tries icons will be dynamically injected here -->
-            </div>
-            <img name="answer-success" class="d-block mx-auto">
-        </div>
-    </div>
-
-    <!-- Mismatch -->
-    <div id="site-mismatch" class="d-none">
-        <div class="container quiz-container">
-            <div class="level-medium d-none" name="quiz-difficulty-display">
-                <span class="recommended-ar">Medium</span>
-            </div>
-            <div name="question" class="mx-auto character-grid">
-                <!-- Characters for mismatch will be dynamically injected here -->
-            </div>
-            <button class="btn btn-primary my-3 next-button">Next</button>
-            <img name="answer-success" class="d-block mx-auto">
-        </div>
-    </div>
-
-    <!-- Music -->
-    <div id="site-music" class="d-none">
-        <div class="container quiz-container">
-            <div class="level-medium d-none" name="quiz-difficulty-display">
-                <span class="recommended-ar">Medium</span>
-            </div>
-            <div class="player-container d-block mx-auto">
-                <!-- Hidden audio element -->
-                <audio preload="metadata" name="question" src="assets/character/demo_music/Albedo.mp3"></audio>
-
-                <!-- Custom progress bar -->
-                <div class="progress-container">
-                    <div class="progress-bar" name="progressBar"></div>
-                </div>
-
-                <!-- Time display -->
-                <div class="time-display">
-                    <span name="currentTime">00:00</span>
-                    <span name="duration">00:00</span>
-                </div>
-
-                <!-- Controls -->
-                <div class="controls">
-                    <button name="playButton" class="btn">Play</button>
-                    <button name="pauseButton" class="btn" disabled>Pause</button>
-                    <button name="restartButton" class="btn">Restart</button>
+            <!-- Banners -->
+            <div id="site-banners" class="d-none">
+                <div class="quiz-container">
+                    <div class="level-medium d-none" name="quiz-difficulty-display">
+                        <span class="recommended-ar">Medium</span>
+                    </div>
+                    <img name="question" class="d-block mx-auto" />
+                    <div class="pt-3 search-container">
+                        <div name="autocomplete"></div>
+                        <button class="btn btn-primary ms-3 next-button">Next</button>
+                    </div>
+                    <div class="d-flex justify-content-center tries-score my-2">
+                        Tries:
+                        <p name="tries-current">0</p>
+                        /
+                        <p name="tries-max">5</p>
+                    </div>
+                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
+                        <!-- Tries icons will be dynamically injected here -->
+                    </div>
+                    <img name="answer-success" class="d-block mx-auto" />
                 </div>
             </div>
-            <div class="pt-3 search-container">
-                <div name="autocomplete"></div>
-                <button class="btn btn-primary ms-3 next-button">Next</button>
-            </div>
-            <div class="d-flex justify-content-center tries-score my-2">
-                Tries: <p name="tries-current">0</p> / <p name="tries-max">5</p>
-            </div>
-            <div name="tries-display" class="d-flex justify-content-center tries-characters">
-                <!-- Tries icons will be dynamically injected here -->
-            </div>
-            <img name="answer-success" class="d-block mx-auto">
-        </div>
-    </div>
 
-    <!-- Tournament -->
-    <div id="site-tournament" class="d-none">
-        <div class="container quiz-container">
-            <div name="tournament-setup" class="col-4 mx-auto pt-3">
-                <div class="">
-                    <label class="form-label">Tournament type</label>
-                    <select name="tournament-type" class="form-select">
-                        <!-- Tournament types will be dynamically injected here -->
-                    </select>
-                    <div class="form-text">
-                        Select tournament type.
+            <!-- Pixelate -->
+            <div id="site-pixelate" class="d-none">
+                <div class="quiz-container">
+                    <div class="level-medium d-none" name="quiz-difficulty-display">
+                        <span class="recommended-ar">Medium</span>
+                    </div>
+                    <canvas name="question" class="d-block mx-auto" width="256" height="256">
+                        <!-- Canvas for pixelate will be dynamically injected here -->
+                    </canvas>
+                    <div class="pt-3 search-container">
+                        <div name="autocomplete"></div>
+                        <button class="btn btn-primary ms-3 next-button">Next</button>
+                    </div>
+                    <div class="d-flex justify-content-center tries-score my-2">
+                        Tries:
+                        <p name="tries-current">0</p>
+                        /
+                        <p name="tries-max">5</p>
+                    </div>
+                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
+                        <!-- Tries icons will be dynamically injected here -->
+                    </div>
+                    <img name="answer-success" class="d-block mx-auto" />
+                </div>
+            </div>
+
+            <!-- Mismatch -->
+            <div id="site-mismatch" class="d-none">
+                <div class="quiz-container">
+                    <div class="level-medium d-none" name="quiz-difficulty-display">
+                        <span class="recommended-ar">Medium</span>
+                    </div>
+                    <div name="question" class="mx-auto character-grid">
+                        <!-- Characters for mismatch will be dynamically injected here -->
+                    </div>
+                    <button class="btn btn-primary my-3 next-button">Next</button>
+                    <img name="answer-success" class="d-block mx-auto" />
+                </div>
+            </div>
+
+            <!-- Music -->
+            <div id="site-music" class="d-none">
+                <div class="quiz-container">
+                    <div class="level-medium d-none" name="quiz-difficulty-display">
+                        <span class="recommended-ar">Medium</span>
+                    </div>
+                    <div class="player-container d-block mx-auto">
+                        <!-- Hidden audio element -->
+                        <audio preload="metadata"></audio>
+
+                        <!-- Custom progress bar -->
+                        <div class="progress-container">
+                            <div class="progress-bar" name="progressBar"></div>
+                        </div>
+
+                        <!-- Time display -->
+                        <div class="time-display">
+                            <span name="currentTime">00:00</span>
+                            <span name="duration">00:00</span>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="controls">
+                            <button name="playButton" class="btn">Play</button>
+                            <button name="pauseButton" class="btn" disabled>Pause</button>
+                            <button name="restartButton" class="btn">Restart</button>
+                        </div>
+                    </div>
+                    <div class="pt-3 search-container">
+                        <div name="autocomplete"></div>
+                        <button class="btn btn-primary ms-3 next-button">Next</button>
+                    </div>
+                    <div class="d-flex justify-content-center tries-score my-2">
+                        Tries:
+                        <p name="tries-current">0</p>
+                        /
+                        <p name="tries-max">5</p>
+                    </div>
+                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
+                        <!-- Tries icons will be dynamically injected here -->
+                    </div>
+                    <img name="answer-success" class="d-block mx-auto" />
+                </div>
+            </div>
+
+            <!-- Dish -->
+            <div id="site-dish" class="d-none">
+                <div class="quiz-container">
+                    <div class="level-medium d-none" name="quiz-difficulty-display">
+                        <span class="recommended-ar">Medium</span>
+                    </div>
+                    <img name="question" class="d-block mx-auto" />
+                    <div class="pt-3 search-container">
+                        <div name="autocomplete"></div>
+                        <button class="btn btn-primary ms-3 next-button">Next</button>
+                    </div>
+                    <div class="d-flex justify-content-center tries-score my-2">
+                        Tries:
+                        <p name="tries-current">0</p>
+                        /
+                        <p name="tries-max">5</p>
+                    </div>
+                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
+                        <!-- Tries icons will be dynamically injected here -->
+                    </div>
+                    <img name="answer-success" class="d-block mx-auto" />
+                </div>
+            </div>
+
+            <!-- Voice -->
+            <div id="site-voice" class="d-none">
+                <div class="quiz-container">
+                    <div class="level-medium d-none" name="quiz-difficulty-display">
+                        <span class="recommended-ar">Medium</span>
+                    </div>
+                    <p class="d-inline-flex justify-content-center my-0">
+                        <span name="question" class="half-text"></span>
+                    </p>
+                    <div class="player-container mx-auto">
+                        <!-- Hidden audio element -->
+                        <audio preload="metadata"></audio>
+
+                        <!-- Custom progress bar -->
+                        <div class="progress-container">
+                            <div class="progress-bar" name="progressBar"></div>
+                        </div>
+
+                        <!-- Time display -->
+                        <div class="time-display">
+                            <span name="currentTime">00:00</span>
+                            <span name="duration">00:00</span>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="controls">
+                            <button name="playButton" class="btn">Play</button>
+                            <button name="pauseButton" class="btn" disabled>Pause</button>
+                            <button name="restartButton" class="btn">Restart</button>
+                        </div>
+                    </div>
+                    <div class="pt-3 search-container">
+                        <div name="autocomplete"></div>
+                        <button class="btn btn-primary ms-3 next-button">Next</button>
+                    </div>
+                    <div class="d-flex justify-content-center tries-score my-2">
+                        Tries:
+                        <p name="tries-current">0</p>
+                        /
+                        <p name="tries-max">5</p>
+                    </div>
+                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
+                        <!-- Tries icons will be dynamically injected here -->
+                    </div>
+                    <img name="answer-success" class="d-block mx-auto" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily -->
+        <div id="site-daily" class="d-none">
+            <div class="container quiz-container">
+                <div class="level-medium d-none" name="quiz-difficulty-display">
+                    <span class="recommended-ar">Medium</span>
+                </div>
+                <div name="daily-quizzes" class="d-flex justify-content-center gap-3 py-3"></div>
+                <div name="quiz" style="margin-top: -2rem"></div>
+            </div>
+        </div>
+
+        <!-- Tournament -->
+        <div id="site-tournament" class="d-none">
+            <div class="container quiz-container">
+                <div name="tournament-setup" class="col-4 mx-auto pt-3">
+                    <div class="">
+                        <label class="form-label">Tournament type</label>
+                        <select name="tournament-type" class="form-select">
+                            <!-- Tournament types will be dynamically injected here -->
+                        </select>
+                        <div class="form-text">Select tournament type.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Characters</label>
+                        <select name="character-count" class="form-select">
+                            <!-- Character counts will be dynamically injected here -->
+                        </select>
+                        <div class="form-text">Select character count.</div>
+                    </div>
+                    <div class="text-center">
+                        <button name="start-tournament" class="btn btn-primary">Start Tournament</button>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Characters</label>
-                    <select name="character-count" class="form-select">
-                        <!-- Character counts will be dynamically injected here -->
-                    </select>
-                    <div class="form-text">
-                        Select character count.
+                <div name="match" class="mx-auto character-grid pt-2">
+                    <!-- Match characters will be dynamically injected here -->
+                </div>
+                <div class="d-flex justify-content-center tries-score my-2">
+                    Matches:
+                    <p name="matches-current">0</p>
+                    /
+                    <p name="matches-max">5</p>
+                </div>
+                <div name="result" class="d-block mx-auto">
+                    <!-- Tournament result will be dynamically injected here -->
+                </div>
+                <button class="btn btn-primary next-button d-none">Back to setup</button>
+            </div>
+        </div>
+
+        <!-- Bottom menu items -->
+        <div id="bottom-menu" class="bottom-container">
+            <!-- Menu items are generated dynamically in utils/bottom-menu-generator.js -->
+        </div>
+
+        <!-- Difficulties Modal -->
+        <div class="modal fade" id="site-difficulties-modal" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Select Difficulty</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="difficulty-container">
+                            <div class="difficulty-section">
+                                <div class="difficulty-levels">
+                                    <!-- Render difficulty levels dynamically -->
+                                </div>
+                            </div>
+
+                            <div name="levels-difficulties">
+                                <!-- Render difficulty levels descriptions dynamically -->
+                            </div>
+
+                            <p name="validation" class="text-center text-danger mt-3">Please, select a difficulty level.</p>
+
+                            <button class="btn btn-primary d-flex mx-auto">Submit</button>
+                        </div>
                     </div>
                 </div>
-                <div class="text-center">
-                    <button name="start-tournament" class="btn btn-primary">Start Tournament</button>
-                </div>
             </div>
-            <div name="match" class="mx-auto character-grid pt-2">
-                <!-- Match characters will be dynamically injected here -->
-            </div>
-            <div class="d-flex justify-content-center tries-score my-2">
-                Matches: <p name="matches-current">0</p> / <p name="matches-max">5</p>
-            </div>
-            <div name="result" class="d-block mx-auto">
-                <!-- Tournament result will be dynamically injected here -->
-            </div>
-            <button class="btn btn-primary next-button d-none">Back to setup</button>
         </div>
-    </div>
 
-    <!-- Bottom menu items -->
-    <div id="bottom-menu" class="bottom-container">
-        <!-- Menu items are generated dynamically in utils/bottom-menu-generator.js -->
-    </div>
+        <!-- Background selector Modal -->
+        <div class="modal fade" id="site-backgrounds-modal" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Backgrounds</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="mb-4">
+                            <h6 class="fw-bold">What is the Background Feature?</h6>
+                            <p>Customize your quiz experience by choosing different character-themed wallpapers as the app background.</p>
+                        </div>
 
-    <!-- Difficulties Modal -->
-    <div class="modal fade" id="site-difficulties-modal" tabindex="-1">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Select Difficulty</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="mb-4">
+                            <h6 class="fw-bold">How to Use</h6>
+                            <ol>
+                                <li>Click on the "Background" menu item to view available wallpapers</li>
+                                <li>Browse through the character thumbnails</li>
+                                <li>Click on any character thumbnail to set their wallpaper as the background</li>
+                                <li>The background will instantly change to your selection</li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h6 class="fw-bold">Available Backgrounds</h6>
+                            <p>Backgrounds are available for characters that have wallpaper assets. The selection varies depending on the assets included in your installation.</p>
+                            <p class="text-muted fst-italic">Note: You can continue playing quizzes with any background of your choice.</p>
+                        </div>
+                        <div id="site-backgrounds-modal-content">
+                            <!-- Background images will be dynamically loaded here -->
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body p-4">
-                    <div class="difficulty-container">
-                        <div class="difficulty-section">
-                            <div class="difficulty-levels">
-                                <!-- Render difficulty levels dynamically -->
+            </div>
+        </div>
+
+        <!-- Version Modal -->
+        <div class="modal fade" id="site-versions-modal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="site-versions-modal-label">Changelog</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body changelog-container p-4" id="site-versions-modal-content">
+                        <!-- Version entries will be dynamically injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What's new Modal -->
+        <div class="modal fade" id="site-whatsnew-modal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="site-whatsnew-modal-label">New version</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4" id="site-whatsnew-modal-content">
+                        <!-- Version modal content will be dynamically injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Modal -->
+        <div class="modal fade" id="site-database-modal" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="d-flex align-items-center loader">
+                        <div class="loading-container">
+                            <div class="teleport-waypoint">
+                                <div class="waypoint-outer"></div>
+                                <div class="waypoint-inner"></div>
+                                <div class="waypoint-star">
+                                    <div class="star-point"></div>
+                                    <div class="star-point"></div>
+                                    <div class="star-point"></div>
+                                    <div class="star-point"></div>
+                                    <div class="star-point"></div>
+                                </div>
+                            </div>
+
+                            <div class="element-symbols">
+                                <div class="element"></div>
+                                <div class="element"></div>
+                                <div class="element"></div>
+                                <div class="element"></div>
+                                <div class="element"></div>
+                                <div class="element"></div>
+                                <div class="element"></div>
+                            </div>
+
+                            <div class="particles" id="particles"></div>
+
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+
+                            <div class="loading-text">TEYVAT AWAITS</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="site-database-modal-label">Database</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4" id="site-database-modal-content">
+                        <div class="mb-3 d-flex justify-content-center" name="autocomplete"></div>
+
+                        <img id="banner" style="width: 100%" />
+
+                        <!-- Character Header Section -->
+                        <div id="character-header" class="character-header"></div>
+
+                        <!-- Tabs Navigation -->
+                        <div class="tabs-navigation">
+                            <button class="tab-button active" data-tab="ascensions">Ascensions</button>
+                            <button class="tab-button" data-tab="talents">Talents</button>
+                            <button class="tab-button" data-tab="constellations">Constellations</button>
+                            <button class="tab-button" data-tab="build">Build infographic</button>
+                            <button class="tab-button" data-tab="voice-overs">Voice overs</button>
+                        </div>
+
+                        <!-- Tabs Content -->
+                        <div class="tabs-content">
+                            <div id="ascensions" class="tab-content active">
+                                <div class="ascension-table"></div>
+                                <div class="total-materials" id="ascension-materials"></div>
+                            </div>
+                            <div id="talents" class="tab-content">
+                                <div class="talents-info"></div>
+                                <div class="talent-level-table"></div>
+                                <div class="total-materials" id="talent-materials"></div>
+                            </div>
+                            <div id="constellations" class="tab-content">
+                                <div class="constellations-info"></div>
+                            </div>
+                            <div id="build" class="tab-content">
+                                <img />
+                            </div>
+                            <div id="voice-overs" class="tab-content">
+                                <div class="voiceover-container">
+                                    <div class="voiceover-header">
+                                        <div class="voiceover-filters">
+                                            <div class="filter-group" name="filter-language">
+                                                <span class="filter-group-label">Language:</span>
+                                                <button class="filter-btn active" data-lang="en">EN</button>
+                                                <button class="filter-btn" data-lang="ja">JP</button>
+                                                <button class="filter-btn" data-lang="ko">KR</button>
+                                                <button class="filter-btn" data-lang="zh">CN</button>
+                                            </div>
+                                            <div class="filter-group" name="filter-type">
+                                                <span class="filter-group-label">Type:</span>
+                                                <button class="filter-btn active" data-type="story">Story</button>
+                                                <button class="filter-btn" data-type="combat">Combat</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="voicelines-container">
+                                        <div class="voiceline-card">
+                                            <div class="voiceline-header">
+                                                <div class="voiceline-title">About Rex Lapis</div>
+                                                <div class="story-badge">Story</div>
+                                            </div>
+                                            <div class="voiceline-content">
+                                                <div class="voiceline-text">
+                                                    Rex Lapis passed away, and Liyue has lost its god. But the people of Liyue Harbor have not descended into chaos. All has continued as before.
+                                                </div>
+                                                <div class="audio-player">
+                                                    <audio controls>
+                                                        <source src="#" type="audio/mpeg" />
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div name="levels-difficulties">
-                            <!-- Render difficulty levels descriptions dynamically -->
-                        </div>
-
-                        <p name="validation" class="text-center text-danger mt-3">Please, select a difficulty level.</p>
-
-                        <button class="btn btn-primary d-flex mx-auto">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Background selector Modal -->
-    <div class="modal fade" id="site-backgrounds-modal" tabindex="-1">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Backgrounds</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <div class="mb-4">
-                        <h6 class="fw-bold">What is the Background Feature?</h6>
-                        <p>Customize your quiz experience by choosing different character-themed wallpapers as the app
-                            background.</p>
-                    </div>
-
-                    <div class="mb-4">
-                        <h6 class="fw-bold">How to Use</h6>
-                        <ol>
-                            <li>Click on the "Background" menu item to view available wallpapers</li>
-                            <li>Browse through the character thumbnails</li>
-                            <li>Click on any character thumbnail to set their wallpaper as the background</li>
-                            <li>The background will instantly change to your selection</li>
-                        </ol>
-                    </div>
-
-                    <div>
-                        <h6 class="fw-bold">Available Backgrounds</h6>
-                        <p>Backgrounds are available for characters that have wallpaper assets. The selection varies
-                            depending on the assets included in your installation.</p>
-                        <p class="text-muted fst-italic">Note: You can continue playing quizzes with any background of
-                            your choice.</p>
-                    </div>
-                    <div id="site-backgrounds-modal-content">
-                        <!-- Background images will be dynamically loaded here -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Version Modal -->
-    <div class="modal fade" id="site-versions-modal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="site-versions-modal-label">Changelog</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body changelog-container p-4" id="site-versions-modal-content">
-                    <!-- Version entries will be dynamically injected here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- What's new Modal -->
-    <div class="modal fade" id="site-whatsnew-modal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="site-whatsnew-modal-label">New version</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4" id="site-whatsnew-modal-content">
-                    <!-- Version modal content will be dynamically injected here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Database Modal -->
-    <div class="modal fade" id="site-database-modal" tabindex="-1">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="d-flex align-items-center loader">
-                    <div class="loading-container">
-                        <div class="teleport-waypoint">
-                            <div class="waypoint-outer"></div>
-                            <div class="waypoint-inner"></div>
-                            <div class="waypoint-star">
-                                <div class="star-point"></div>
-                                <div class="star-point"></div>
-                                <div class="star-point"></div>
-                                <div class="star-point"></div>
-                                <div class="star-point"></div>
-                            </div>
-                        </div>
-
-                        <div class="element-symbols">
-                            <div class="element"></div>
-                            <div class="element"></div>
-                            <div class="element"></div>
-                            <div class="element"></div>
-                            <div class="element"></div>
-                            <div class="element"></div>
-                            <div class="element"></div>
-                        </div>
-
-                        <div class="particles" id="particles"></div>
-
-                        <div class="progress-bar">
-                            <div class="progress-fill"></div>
-                        </div>
-
-                        <div class="loading-text">TEYVAT AWAITS</div>
-                    </div>
-                </div>
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="site-database-modal-label">Database</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4" id="site-database-modal-content">
-                    <div class="mb-3 d-flex justify-content-center" name="autocomplete"></div>
-
-                    <img id="banner" style="width: 100%;">
-
-                    <!-- Character Header Section -->
-                    <div id="character-header" class="character-header"></div>
-
-                    <!-- Tabs Navigation -->
-                    <div class="tabs-navigation">
-                        <button class="tab-button active" data-tab="ascensions">Ascensions</button>
-                        <button class="tab-button" data-tab="talents">Talents</button>
-                        <button class="tab-button" data-tab="constellations">Constellations</button>
-                        <button class="tab-button" data-tab="build">Build infographic</button>
-                    </div>
-
-                    <!-- Tabs Content -->
-                    <div class="tabs-content">
-                        <div id="ascensions" class="tab-content active">
-                            <div class="ascension-table"></div>
-                            <div class="total-materials" id="ascension-materials"></div>
-                        </div>
-                        <div id="talents" class="tab-content">
-                            <div class="talents-info"></div>
-                            <div class="talent-level-table"></div>
-                            <div class="total-materials" id="talent-materials"></div>
-                        </div>
-                        <div id="constellations" class="tab-content">
-                            <div class="constellations-info"></div>
-                        </div>
-                        <div id="build" class="tab-content">
-                            <img>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-
+    </body>
 </html>

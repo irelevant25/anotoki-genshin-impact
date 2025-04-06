@@ -1,62 +1,62 @@
 const BACKGROUNDS = [
     {
         name: "Fontaine",
-        preview: "assets/wallpaper/Fontaine - preview.png",
-        wallpaper: "assets/wallpaper/Fontaine.png"
+        preview: "assets/wallpaper/Fontaine - preview.avif",
+        wallpaper: "assets/wallpaper/Fontaine.avif"
     },
     {
         name: "Liyue",
-        preview: "assets/wallpaper/Liyue - preview.png",
-        wallpaper: "assets/wallpaper/Liyue.png"
+        preview: "assets/wallpaper/Liyue - preview.avif",
+        wallpaper: "assets/wallpaper/Liyue.avif"
     },
     {
         name: "Arlecchino",
-        preview: "assets/wallpaper/Arlecchino - preview.png",
-        wallpaper: "assets/wallpaper/Arlecchino.png"
+        preview: "assets/wallpaper/Arlecchino - preview.avif",
+        wallpaper: "assets/wallpaper/Arlecchino.avif"
     },
     {
         name: "Arlecchino",
-        preview: "assets/wallpaper/Arlecchino2 - preview.png",
-        wallpaper: "assets/wallpaper/Arlecchino2.png"
+        preview: "assets/wallpaper/Arlecchino2 - preview.avif",
+        wallpaper: "assets/wallpaper/Arlecchino2.avif"
     },
     {
         name: "Furina",
-        preview: "assets/wallpaper/Furina - preview.png",
-        wallpaper: "assets/wallpaper/Furina.png"
+        preview: "assets/wallpaper/Furina - preview.avif",
+        wallpaper: "assets/wallpaper/Furina.avif"
     },
     {
         name: "Kamisato Ayaka",
-        preview: "assets/wallpaper/Kamisato Ayaka - preview.png",
-        wallpaper: "assets/wallpaper/Kamisato Ayaka.png"
+        preview: "assets/wallpaper/Kamisato Ayaka - preview.avif",
+        wallpaper: "assets/wallpaper/Kamisato Ayaka.avif"
     },
     {
         name: "Kirara",
-        preview: "assets/wallpaper/Kirara - preview.png",
-        wallpaper: "assets/wallpaper/Kirara.png"
+        preview: "assets/wallpaper/Kirara - preview.avif",
+        wallpaper: "assets/wallpaper/Kirara.avif"
     },
     {
         name: "Raiden Shogun",
-        preview: "assets/wallpaper/Raiden Shogun - preview.png",
-        wallpaper: "assets/wallpaper/Raiden Shogun.png"
+        preview: "assets/wallpaper/Raiden Shogun - preview.avif",
+        wallpaper: "assets/wallpaper/Raiden Shogun.avif"
     },
     {
         name: "Sayu",
-        preview: "assets/wallpaper/Sayu - preview.png",
-        wallpaper: "assets/wallpaper/Sayu.png"
+        preview: "assets/wallpaper/Sayu - preview.avif",
+        wallpaper: "assets/wallpaper/Sayu.avif"
     },
     {
         name: "Xiangling",
-        preview: "assets/wallpaper/Xiangling - preview.png",
-        wallpaper: "assets/wallpaper/Xiangling.png"
+        preview: "assets/wallpaper/Xiangling - preview.avif",
+        wallpaper: "assets/wallpaper/Xiangling.avif"
     },
     {
         name: "Yae Miko",
-        preview: "assets/wallpaper/Yae Miko - preview.png",
-        wallpaper: "assets/wallpaper/Yae Miko.png"
+        preview: "assets/wallpaper/Yae Miko - preview.avif",
+        wallpaper: "assets/wallpaper/Yae Miko.avif"
     },
     {
         name: "Zhongli",
-        preview: "assets/wallpaper/Zhongli - preview.png",
-        wallpaper: "assets/wallpaper/Zhongli.png"
+        preview: "assets/wallpaper/Zhongli - preview.avif",
+        wallpaper: "assets/wallpaper/Zhongli.avif"
     }
 ]

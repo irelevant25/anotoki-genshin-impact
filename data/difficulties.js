@@ -48,6 +48,26 @@ const DIFFICULTIES = [
                     '4. 20 seconds long.',
                     '5. No length limit.'
                 ]
+            },
+            {
+                title: 'Dish',
+                description: 'Test your knowledge of character\'s dish.',
+                difficulties: [
+                    'Total tries: 5',
+                    '1. You will see only left 50% of the dish.',
+                    '2-5. You will see whole original dish.',
+                ]
+            },
+            {
+                title: 'Voice',
+                description: 'Test your knowledge of character\'s voice.',
+                difficulties: [
+                    'Total tries: 5',
+                    '1. Half voice line length. No voice over.',
+                    '2. Full voice line length. No voice over.',
+                    '3. Full voice line length. Half voice over length,',
+                    '4-5. Full voice line length. Full voice over length.'
+                ]
             }
         ]
     },
@@ -99,6 +119,27 @@ const DIFFICULTIES = [
                     '3. 15 seconds long.',
                     '4. 20 seconds long.'
                 ]
+            },
+            {
+                title: 'Dish',
+                description: 'Test your knowledge of character\'s dish.',
+                difficulties: [
+                    'Total tries: 4',
+                    '1. Only left 50% of the dish, grayscale and blur effects.',
+                    '2. Grayscale and blur effects.',
+                    '3-4. You will see whole original dish.',
+                ]
+            },
+            {
+                title: 'Voice',
+                description: 'Test your knowledge of character\'s voice.',
+                difficulties: [
+                    'Total tries: 4',
+                    '1. Half voice line length. No voice over.',
+                    '2. Full voice line length. No voice over.',
+                    '3. Full voice line length. Half voice over length,',
+                    '4. Full voice line length. Full voice over length.'
+                ]
             }
         ]
     },
@@ -147,6 +188,26 @@ const DIFFICULTIES = [
                     '1. 5 seconds long.',
                     '2. 10 seconds long.',
                     '3. 15 seconds long.'
+                ]
+            },
+            {
+                title: 'Dish',
+                description: 'Test your knowledge of character\'s dish.',
+                difficulties: [
+                    'Total tries: 3',
+                    '1. Only left 50% of the dish, grayscale and blurred effects.',
+                    '2. Grayscale and blur effects.',
+                    '3. Grayscale effect only.',
+                ]
+            },
+            {
+                title: 'Voice',
+                description: 'Test your knowledge of character\'s voice.',
+                difficulties: [
+                    'Total tries: 3',
+                    '1. Half voice line length. No voice over.',
+                    '2. Full voice line length. No voice over.',
+                    '3. Full voice line length. Half voice over length,'
                 ]
             }
         ]

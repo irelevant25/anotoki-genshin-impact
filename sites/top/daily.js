@@ -25,7 +25,7 @@
     function renderQuiz(quizName) {
         const config = APP_CONFIG.topMenu[quizName];
         dailyQuiz.id = `daily-${quizName}`;
-        dailyQuiz.innerHTML = document.querySelector(`#${MENU_ITEMS_TOP[quizName].id}`).innerHTML;
+        dailyQuiz.innerHTML = document.querySelector(`#${QUIZZES[quizName].id}`).innerHTML;
 
         if (quizName === 'banners') {
             new BannersQuizManager(dailyQuiz.id, config, true, (...args) => updateStats(quizName, ...args)).init();
@@ -46,7 +46,7 @@
         const dailies = 2;
         const state = storageManager.getTopMenuDailyState();
         const difficulty = state?.difficulty ?? storageManager.getDifficulty() ?? 1;
-        let quizPool = shuffleArray(['banners', 'pixelate', 'mismatch', 'music']);
+        let quizPool = shuffleArray(Object.keys(QUIZZES));
 
         dailyQuizzes = [];
         if (state?.date === date) dailyQuizzes.push(...state.dailyQuizzes);
@@ -62,7 +62,7 @@
                 date,
                 dailyQuizzes,
                 done: [],
-                difficulty
+                difficulty: storageManager.getDifficulty() ?? 1
             });
         }
 

@@ -136,14 +136,19 @@
         }
     }
 
-    window.BannersQuizManager = QuizManager;
-
-    document.addEventListener('DOMContentLoaded', () => {
+    function init() {
         const siteName = 'banners';
         const config = APP_CONFIG.topMenu[siteName];
         new QuizManager(config.id, config, false, (questionEntity, difficulty, isSuccess) => {
             storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
         }).init();
-        console.log('Banners quiz initialized');
+    }
+
+    window.BannersQuizManager = QuizManager;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector(`[data-id="${MENU_ITEMS_TOP.quizzes.id}"`).addEventListener('click', () => {
+            document.querySelector(`[data-id="${QUIZZES.banners.id}"]`).addEventListener('click', init, { once: true });
+        }, { once: true });
     });
 })();

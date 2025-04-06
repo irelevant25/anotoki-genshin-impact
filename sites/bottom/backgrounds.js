@@ -13,7 +13,7 @@
     }
 
     // Function to render the backgrounds
-    function loadBackgrounds() {
+    function init() {
         const container = document.querySelector(`#${MENU_ITEMS_BOTTOM.backgrounds.id}-modal-content`);
 
         if (container.children.length > 0) return;
@@ -31,10 +31,9 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        loadBackgrounds();
-        
+    document.addEventListener('DOMContentLoaded', () => {        
         // Initialize data from storage
-        document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.png'}")`;
+        document.body.style.backgroundImage = `url("${storageManager.getBackground() ?? 'assets/wallpaper/Fontaine.avif'}")`;
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.backgrounds.id}`).addEventListener('click', init, { once: true });
     });
 })();

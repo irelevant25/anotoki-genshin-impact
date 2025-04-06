@@ -95,6 +95,60 @@ const APP_CONFIG = {
                 ]
             }
         },
+        dish: {
+            id: 'site-dish',
+            1: {
+                triesMax: 5,
+                triesEffects: [
+                    { try: 0, class: 'difficulty-3' }
+                ]
+            },
+            2: {
+                triesMax: 4,
+                triesEffects: [
+                    { try: 0, class: 'difficulty-2 difficulty-3' },
+                    { try: 1, class: 'difficulty-2' }
+                ]
+            },
+            3: {
+                triesMax: 3,
+                triesEffects: [
+                    { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3' },
+                    { try: 1, class: 'difficulty-1 difficulty-2' },
+                    { try: 2, class: 'difficulty-1' }
+                ]
+            }
+        },
+        voice: {
+            id: 'site-voice',
+            1: {
+                triesMax: 5,
+                triesEffects: [
+                    { try: 0, class: 'half-text hidden-audio' },
+                    { try: 1, class: 'hidden-audio' },
+                    { try: 2, data: 0.5 },
+                    { try: 3 },
+                    { try: 4 },
+                ]
+            },
+            2: {
+                triesMax: 4,
+                triesEffects: [
+                    { try: 0, class: 'half-text hidden-audio' },
+                    { try: 1, class: 'hidden-audio' },
+                    { try: 2, data: 0.5 },
+                    { try: 3 },
+                ]
+            },
+            3: {
+                triesMax: 3,
+                triesEffects: [
+                    { try: 0, class: 'half-text hidden-audio' },
+                    { try: 1, class: 'hidden-audio' },
+                    { try: 2, data: 0.5 },
+                ]
+            }
+        },
         tournament: {
             id: 'site-tournament',
         }

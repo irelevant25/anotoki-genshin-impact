@@ -5,9 +5,8 @@
     let containerElement;
 
     // Main function to display character info
-    function displayCharacterInfo() {
-        const characterDatabase = DATABASE.find(c => c.name === character.name);
-        Object.assign(character, characterDatabase);
+    function displayCharacterInfo(characterDatabase) {
+        character = characterDatabase;
 
         // Create header section
         createCharacterHeader();
@@ -20,6 +19,7 @@
         createTalentsTab();
         createConstellationsTab();
         createBuildTab();
+        createVoiceOversTab();
     }
 
     // Create the character header section
@@ -393,6 +393,80 @@
         buildElement.src = character.build.infographic;
     }
 
+    function createVoiceOversTab() {
+        const voiceOversElement = containerElement.querySelector('#voice-overs .voiceover-header');
+        const languageButtons = voiceOversElement.querySelectorAll('.filter-btn[data-lang]');
+        const typeButtons = voiceOversElement.querySelectorAll('.filter-btn[data-type]');
+        languageButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                languageButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                generateVoiceLines();
+            });
+        });
+        typeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                typeButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                generateVoiceLines();
+            });
+        });
+        generateVoiceLines();
+    }
+
+    function generateVoiceLines() {
+        const voiceOversElement = containerElement.querySelector('#voice-overs .voicelines-container');
+        const selectedType = document.querySelector('[name="filter-type"] .active').dataset.type;
+        const selectedLanguage = document.querySelector('[name="filter-language"] .active').dataset.lang;
+        let voicelinesHTML = '';
+        character.voice_overs[selectedType][selectedLanguage].forEach(voice_line => {
+            voicelinesHTML += `
+                <div class="voiceline-card">
+                    <div class="voiceline-header">
+                        <div class="voiceline-title">${voice_line.title}</div>
+                        <div class="${selectedType}-badge">${capitalize(selectedType)}</div>
+                    </div>
+                    <div class="voiceline-content">
+                        <div class="voiceline-text">${voice_line.text}</div>
+                        <div class="audio-container" data-audio-url="${voice_line.audio}">
+                            <button class="play-button">Play</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        voiceOversElement.innerHTML = voicelinesHTML;
+
+        const voicelinesContents = voiceOversElement.querySelectorAll('.voiceline-content');
+        voicelinesContents.forEach(content => {
+            const audioContainer = content.querySelector('.audio-container');
+            const playButton = content.querySelector('.play-button');
+            playButton.addEventListener('click', function () {
+                if (!audioContainer.querySelector('audio')) {
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.src = audioContainer.dataset.audioUrl;
+
+                    // Replace button with audio element
+                    audioContainer.innerHTML = '';
+                    audioContainer.appendChild(audio);
+
+                    // Play automatically after loading
+                    audio.addEventListener('canplaythrough', () => audio.play());
+                    audio.load();
+                } else {
+                    // If audio already exists, just play/pause it
+                    const audio = audioContainer.querySelector('audio');
+                    if (audio.paused) {
+                        audio.play();
+                    } else {
+                        audio.pause();
+                    }
+                }
+            });
+        });
+    }
+
     // Update total materials calculation
     function updateTotalMaterials(type) {
         const materialsTotalElement = containerElement.querySelector(`#${type}-materials`);
@@ -474,28 +548,36 @@
         materialsTotalElement.innerHTML = totalHTML;
     }
 
-    function initLoader() {
-        const script = document.createElement('script');
-        script.src = 'data/database.js';
-        script.onload = function () {
+    function loadCharacterScript(characterToLoad) {
+        const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
+        const scriptSrc = `data/databse/${characterScript}.js`;
+
+        if (isScriptLoaded(scriptSrc)) {
+            const characterDatabase = window[characterScript];
+            displayCharacterInfo(characterDatabase);
+            return;
+        }
+
+        containerElement.querySelector('.loader').classList.remove('d-none');
+        loadScript(`data/database/${characterScript}.js`, () => {
             setTimeout(() => {
-                document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).removeEventListener('click', initLoader);
-                containerElement.querySelector('.loader').remove();
-                displayCharacterInfo();
-            }, 1500)
-        };
-        document.head.appendChild(script);
+                const characterDatabase = window[characterScript];
+                displayCharacterInfo(characterDatabase);
+                containerElement.querySelector('.loader').classList.add('d-none');
+            }, 1000)
+        });
+    }
+
+    function init() {
+        containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}-modal`);
+        new Autocomplete(containerElement, (selectedCharacter) => {
+            loadCharacterScript(selectedCharacter);
+        });
+        loadCharacterScript(getRandomCharacter());
     }
 
     // Process data when page loads
     document.addEventListener('DOMContentLoaded', () => {
-        containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}-modal`);
-        character = getRandomCharacter();
-        new Autocomplete(containerElement, (selectedCharacter) => {
-            character = selectedCharacter;
-            displayCharacterInfo();
-        });
-
-        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', initLoader);
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', init, { once: true });
     });
 })();
