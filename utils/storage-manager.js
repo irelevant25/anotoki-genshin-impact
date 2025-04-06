@@ -239,6 +239,32 @@
             return this.saveData(this.data);
         }
 
+        // DISH
+
+        getTopMenuDishState(daily = false) {
+            if (daily === true) return this.data.topMenu.dish.dailyState;
+            else return this.data.topMenu.dish.state;
+        }
+
+        saveTopMenuDishState(state, daily = false) {
+            if (daily === true) this.data.topMenu.dish.dailyState = { ...state };
+            else this.data.topMenu.dish.state = { ...state };
+            return this.saveData(this.data);
+        }
+
+        // VOICE
+
+        getTopMenVoiceState(daily = false) {
+            if (daily === true) return this.data.topMenu.voice.dailyState;
+            else return this.data.topMenu.voice.state;
+        }
+
+        saveTopMenuVoiceState(state, daily = false) {
+            if (daily === true) this.data.topMenu.voice.dailyState = { ...state };
+            else this.data.topMenu.voice.state = { ...state };
+            return this.saveData(this.data);
+        }
+
         // DAILY
 
         getTopMenuDailyState() {

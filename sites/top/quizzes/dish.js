@@ -35,7 +35,7 @@
         this.saveState();
       });
 
-      this.state = storageManager.getTopMenuBannersState(this.daily);
+      this.state = storageManager.getTopMenuDishState(this.daily);
       if (this.daily) this.levelElement.classList.add('d-none');
       else this.levelElement.classList.remove('d-none');
     }
@@ -70,7 +70,7 @@
         difficulty: this.difficulty
       };
       if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
-      storageManager.saveTopMenuBannersState(this.state, this.daily);
+      storageManager.saveTopMenuDishState(this.state, this.daily);
     }
 
     applyEffects() {

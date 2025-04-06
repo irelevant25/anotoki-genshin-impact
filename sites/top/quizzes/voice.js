@@ -85,7 +85,7 @@
         }
       }.bind(this));
 
-      this.state = storageManager.getTopMenuMusicState(this.daily);
+      this.state = storageManager.getTopMenuVoiceState(this.daily);
     }
 
     init() {
@@ -122,7 +122,7 @@
         difficulty: this.difficulty
       };
       if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
-      storageManager.saveTopMenuMusicState(this.state, this.daily);
+      storageManager.saveTopMenuVoiceState(this.state, this.daily);
     }
 
     refreshPlayerTime() {
