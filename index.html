@@ -21,6 +21,7 @@
         <!-- MIGRATIONS -->
         <script src="migrations/migrations.js"></script>
         <script src="migrations/0.1-0.2.js"></script>
+        <script src="migrations/0.2-0.3.js"></script>
         <!-- GLOBAL -->
         <link rel="stylesheet" href="index.css" />
         <script src="index.js"></script>
@@ -221,7 +222,10 @@
                     <div class="level-medium d-none" name="quiz-difficulty-display">
                         <span class="recommended-ar">Medium</span>
                     </div>
-                    <div class="player-container d-block mx-auto">
+                    <p class="d-inline-flex justify-content-center my-0">
+                        <span name="question" class="half-text"></span>
+                    </p>
+                    <div class="player-container mx-auto">
                         <!-- Hidden audio element -->
                         <audio preload="metadata"></audio>
 
@@ -467,6 +471,7 @@
                             <button class="tab-button" data-tab="talents">Talents</button>
                             <button class="tab-button" data-tab="constellations">Constellations</button>
                             <button class="tab-button" data-tab="build">Build infographic</button>
+                            <button class="tab-button" data-tab="voice-overs">Voice overs</button>
                         </div>
 
                         <!-- Tabs Content -->
@@ -485,6 +490,46 @@
                             </div>
                             <div id="build" class="tab-content">
                                 <img />
+                            </div>
+                            <div id="voice-overs" class="tab-content">
+                                <div class="voiceover-container">
+                                    <div class="voiceover-header">
+                                        <div class="voiceover-filters">
+                                            <div class="filter-group" name="filter-language">
+                                                <span class="filter-group-label">Language:</span>
+                                                <button class="filter-btn active" data-lang="en">EN</button>
+                                                <button class="filter-btn" data-lang="ja">JP</button>
+                                                <button class="filter-btn" data-lang="ko">KR</button>
+                                                <button class="filter-btn" data-lang="zh">CN</button>
+                                            </div>
+                                            <div class="filter-group" name="filter-type">
+                                                <span class="filter-group-label">Type:</span>
+                                                <button class="filter-btn active" data-type="story">Story</button>
+                                                <button class="filter-btn" data-type="combat">Combat</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="voicelines-container">
+                                        <div class="voiceline-card">
+                                            <div class="voiceline-header">
+                                                <div class="voiceline-title">About Rex Lapis</div>
+                                                <div class="story-badge">Story</div>
+                                            </div>
+                                            <div class="voiceline-content">
+                                                <div class="voiceline-text">
+                                                    Rex Lapis passed away, and Liyue has lost its god. But the people of Liyue Harbor have not descended into chaos. All has continued as before.
+                                                </div>
+                                                <div class="audio-player">
+                                                    <audio controls>
+                                                        <source src="#" type="audio/mpeg" />
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

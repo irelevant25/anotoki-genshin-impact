@@ -26,6 +26,8 @@
       this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
       this.nextButtonElement = this.containerElement.querySelector('button.next-button');
       // this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
+      this.questionTextElement = this.containerElement.querySelector('[name="question"]');
+      this.playerContainerElement = this.containerElement.querySelector('div.player-container');
       this.triesDisplayElement = this.containerElement.querySelector('div[name="tries-display"]');
       this.triesScoreCurrentElement = this.containerElement.querySelector('div.tries-score > p[name="tries-current"]');
       this.triesScoreMaxElement = this.containerElement.querySelector('div.tries-score > p[name="tries-max"]');
@@ -126,7 +128,7 @@
     refreshPlayerTime() {
       const currentTry = Number(this.triesScoreCurrentElement.textContent);
       this.startTime = 0;
-      const newEndTime = this.triesEffects.find(x => x.try === currentTry)?.data ?? this.audioElement.duration
+      const newEndTime = this.audioElement.duration * (this.triesEffects.find(x => x.try === currentTry)?.data ?? 1);
       this.endTime = this.isQuestionComplete || newEndTime > this.audioElement.duration ? this.audioElement.duration : newEndTime;
       this.audioElement.currentTime = this.startTime;
       this.durationDisplay.textContent = this.formatTime(this.endTime);
@@ -169,6 +171,30 @@
       }
     }
 
+    applyEffects() {
+      const currentTry = this.tries.length;
+
+      // tries effects styles/classes
+      this.triesEffects.forEach(effect => {
+        effect.class?.split(" ").forEach(cls => {
+          this.questionTextElement.classList.remove(cls)
+          this.playerContainerElement.classList.remove(cls);
+        });
+      });
+
+      // Apply effects only if the question is not complete
+      if (!this.isQuestionComplete) {
+        // Add effects for current try
+        const effects = this.triesEffects.find(x => x.try === currentTry);
+        if (effects) {
+          effects.class?.split(" ").forEach(cls => {
+            this.questionTextElement.classList.add(cls);
+            this.playerContainerElement.classList.add(cls);
+          });
+        }
+      }
+    }
+
     triesDisplayCharacters(selectedCharacter) {
       const answer = this.questionEntity.name;
       const imgElement = document.createElement('img');
@@ -183,6 +209,7 @@
         this.endQuestion(CHARACTERS.find(character => character.name === answer));
       }
       this.refreshPlayerTime();
+      this.applyEffects();
     }
 
     defaultState() {
@@ -205,6 +232,8 @@
 
     startQuestion() {
       this.audioElement.src = this.questionEntity.voice_over.audio;
+      this.questionTextElement.textContent = this.questionEntity.voice_over.text;
+      this.applyEffects();
     }
 
     endQuestion(character) {

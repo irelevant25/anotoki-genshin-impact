@@ -22,15 +22,6 @@ const QUIZZES = {
                     <li>With each failed attempt, the banner becomes clearer</li>
                 </ol>
             </div>
-            
-            <div class="mb-4">
-                <h6 class="fw-bold">Difficulty Progression</h6>
-                <ul>
-                    <li><span class="badge bg-danger">Hard</span> - First attempt: Banner is grayscale, blurred, and partially hidden</li>
-                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Banner is grayscale and blurred</li>
-                    <li><span class="badge bg-info">Easy</span> - Third attempt: Banner is grayscale only</li>
-                </ul>
-            </div>
         `
     },
     pixelate: {
@@ -55,22 +46,6 @@ const QUIZZES = {
                     <li>You have up to 5 attempts to guess correctly</li>
                     <li>With each failed attempt, the pixelation reduces gradually</li>
                 </ol>
-            </div>
-            
-            <div class="mb-4">
-                <h6 class="fw-bold">Pixelation Levels</h6>
-                <ul>
-                    <li><span class="badge bg-danger">Level 1</span> - 7x7 pixels (extremely pixelated)</li>
-                    <li><span class="badge bg-warning">Level 2</span> - 11x11 pixels</li>
-                    <li><span class="badge bg-info">Level 3</span> - 15x15 pixels</li>
-                    <li><span class="badge bg-success">Level 4</span> - 19x19 pixels</li>
-                    <li><span class="badge bg-primary">Level 5</span> - 23x23 pixels</li>
-                </ul>
-            </div>
-            
-            <div>
-                <h6 class="fw-bold">Scoring</h6>
-                <p>The earlier you guess correctly, the more impressive your character recognition skills!</p>
             </div>
         `
     },
@@ -137,17 +112,6 @@ const QUIZZES = {
                     <li>With each failed attempt, the music becomes longer</li>
                 </ol>
             </div>
-            
-            <div class="mb-4">
-                <h6 class="fw-bold">Difficulty Progression</h6>
-                <ul>
-                    <li><span class="badge bg-danger">Very hard</span> - First attempt: Music is only 5 seconds long</li>
-                    <li><span class="badge bg-danger">Hard</span> - First attempt: Music is 10 seconds long</li>
-                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Music is 15 seconds long</li>
-                    <li><span class="badge bg-info">Easy</span> - Third attempt: Music is 20 seconds long</li>
-                    <li><span class="badge bg-info">Very easy</span> - Third attempt: Music is without a length limit</li>
-                </ul>
-            </div>
         `
     },
     dish: {
@@ -157,30 +121,21 @@ const QUIZZES = {
         helpIcon: true,
         modalTitle: "About Dish",
         cardImage: 'assets/character/wish/Xiangling.avif',
-        cardInfo: 'Test your knowledge by identifying characters from their namecards/dish.',
+        cardInfo: 'Test your knowledge by identifying characters from their dish.',
         modalContent: `
             <div class="mb-4">
                 <h6 class="fw-bold">What is the Dish Quiz?</h6>
-                <p>Test your knowledge by identifying characters from their namecards/dish. These are the decorative dish players receive after reaching Friendship Level 10 with a character.</p>
+                <p>Test your knowledge by identifying characters from their dish.</p>
             </div>
             
             <div class="mb-4">
                 <h6 class="fw-bold">How to Play</h6>
                 <ol>
-                    <li>A character's namecard banner will be displayed with visual effects</li>
+                    <li>A character's dish will be displayed with visual effects</li>
                     <li>Type or select a character name from the dropdown</li>
                     <li>You have up to 5 attempts to guess correctly</li>
-                    <li>With each failed attempt, the banner becomes clearer</li>
+                    <li>With each failed attempt, the dish becomes clearer</li>
                 </ol>
-            </div>
-            
-            <div class="mb-4">
-                <h6 class="fw-bold">Difficulty Progression</h6>
-                <ul>
-                    <li><span class="badge bg-danger">Hard</span> - First attempt: Banner is grayscale, blurred, and partially hidden</li>
-                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Banner is grayscale and blurred</li>
-                    <li><span class="badge bg-info">Easy</span> - Third attempt: Banner is grayscale only</li>
-                </ul>
             </div>
         `
     },
@@ -191,33 +146,23 @@ const QUIZZES = {
         helpIcon: true,
         modalTitle: "About Voice Quiz",
         cardImage: 'assets/character/wish/Yun Jin.avif',
-        cardInfo: 'Test your voice knowledge by identifying characters from their demo voice.',
+        cardInfo: 'Test your voice knowledge by identifying characters from their voice.',
         modalContent: `
             <div class="mb-4">
                 <h6 class="fw-bold">What is the Voice Quiz?</h6>
-                <p>Test your voice knowledge by identifying characters from their demo voice.</p>
+                <p>Test your voice knowledge by identifying characters from their voice.</p>
             </div>
             
             <div class="mb-4">
                 <h6 class="fw-bold">How to Play</h6>
                 <ol>
-                    <li>Voice players will be displayed</li>
+                    <li>Voice line will be displayed</li>
+                    <li>Voice over as a music player will be displayed</li>
                     <li>Click the play button to listen to the voice</li>
                     <li>Type or select a character name from the dropdown</li>
                     <li>You have up to 5 attempts to guess correctly</li>
-                    <li>With each failed attempt, the voice becomes longer</li>
+                    <li>With each failed attempt, the voice line and voice over becomes longer</li>
                 </ol>
-            </div>
-            
-            <div class="mb-4">
-                <h6 class="fw-bold">Difficulty Progression</h6>
-                <ul>
-                    <li><span class="badge bg-danger">Very hard</span> - First attempt: Voice is only 5 seconds long</li>
-                    <li><span class="badge bg-danger">Hard</span> - First attempt: Voice is 10 seconds long</li>
-                    <li><span class="badge bg-warning">Medium</span> - Second attempt: Voice is 15 seconds long</li>
-                    <li><span class="badge bg-info">Easy</span> - Third attempt: Voice is 20 seconds long</li>
-                    <li><span class="badge bg-info">Very easy</span> - Third attempt: Voice is without a length limit</li>
-                </ul>
             </div>
         `
     },

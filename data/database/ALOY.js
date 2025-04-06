@@ -73,7 +73,6 @@ var ALOY = {
     ],
     "affiliations": [
         "Adventurers' Guild",
-        "[1]"
     ],
     "special_dish": {
         "name": "Satiety Gel",

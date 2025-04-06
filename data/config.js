@@ -124,27 +124,28 @@ const APP_CONFIG = {
             1: {
                 triesMax: 5,
                 triesEffects: [
-                    { try: 0, data: 5 },
-                    { try: 1, data: 10 },
-                    { try: 2, data: 15 },
-                    { try: 3, data: 20 },
+                    { try: 0, class: 'half-text hidden-audio' },
+                    { try: 1, class: 'hidden-audio' },
+                    { try: 2, data: 0.5 },
+                    { try: 3 },
+                    { try: 4 },
                 ]
             },
             2: {
                 triesMax: 4,
                 triesEffects: [
-                    { try: 0, data: 5 },
-                    { try: 1, data: 10 },
-                    { try: 2, data: 15 },
-                    { try: 3, data: 20 },
+                    { try: 0, class: 'half-text hidden-audio' },
+                    { try: 1, class: 'hidden-audio' },
+                    { try: 2, data: 0.5 },
+                    { try: 3 },
                 ]
             },
             3: {
                 triesMax: 3,
                 triesEffects: [
-                    { try: 0, data: 5 },
-                    { try: 1, data: 10 },
-                    { try: 2, data: 15 },
+                    { try: 0, class: 'half-text hidden-audio' },
+                    { try: 1, class: 'hidden-audio' },
+                    { try: 2, data: 0.5 },
                 ]
             }
         },

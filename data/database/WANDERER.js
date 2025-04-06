@@ -73,7 +73,6 @@ var WANDERER = {
     ],
     "affiliations": [
         "Vahumana",
-        "[1]",
         "Fatui",
         "Eleven Fatui Harbingers"
     ],

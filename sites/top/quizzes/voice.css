@@ -64,6 +64,18 @@
     }
   }
 
+  .player-container.hidden-audio {
+    display: none;
+  }
+
+  span.half-text {
+    width: 50%;
+    overflow: hidden;
+    text-wrap-mode: nowrap;
+    text-overflow: ellipsis;
+    display: table-caption;
+  }
+
   /* Question styling */
   img[name="question"] {
     background-color: white;
@@ -86,7 +98,7 @@
 
   /* Search container */
   .search-container {
-    display: inline-flex;
+    justify-self: center;
   }
 
   /* Autocomplete */

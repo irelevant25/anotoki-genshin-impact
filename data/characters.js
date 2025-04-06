@@ -190,7 +190,6 @@ const CHARACTERS = [
         "birthday": "April 4th",
         "affiliations": [
             "Adventurers' Guild",
-            "[1]"
         ],
         "special_dish": {
             "name": "Satiety Gel",
@@ -1464,7 +1463,6 @@ const CHARACTERS = [
             "Temple of Silence",
             "Matra",
             "Spantamad",
-            "[1]"
         ],
         "special_dish": {
             "name": "Duel Soul",
@@ -2893,7 +2891,7 @@ const CHARACTERS = [
             "icon": "assets/foods/Fruity Skewers.png"
         },
         "titles": [
-            "Quartermaster of the Knights[1]"
+            "Quartermaster of the Knights"
         ],
         "voice_actors": [
             {
@@ -5855,7 +5853,6 @@ const CHARACTERS = [
         "birthday": "January 3rd",
         "affiliations": [
             "Vahumana",
-            "[1]",
             "Fatui",
             "Eleven Fatui Harbingers"
         ],

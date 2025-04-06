@@ -81,7 +81,7 @@ var KAEYA = {
         "icon": "assets/foods/Fruity Skewers.png"
     },
     "titles": [
-        "Quartermaster of the Knights[1]"
+        "Quartermaster of the Knights"
     ],
     "voice_actors": [
         {

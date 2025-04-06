@@ -75,7 +75,6 @@ var CYNO = {
         "Temple of Silence",
         "Matra",
         "Spantamad",
-        "[1]"
     ],
     "special_dish": {
         "name": "Duel Soul",

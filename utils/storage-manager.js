@@ -4,7 +4,7 @@
     class StorageManager {
         static STORAGE_KEY = 'app_data';
         static DEFAULT_DATA = {
-            version: '0.2',
+            version: '0.3',
             stats: {
                 // 1, 2 and 3  (1 - easy, 2 - medium, 3 - hard), [0, 0] - [looses, wins]
                 characters: CHARACTERS.map(x => ({
@@ -12,7 +12,9 @@
                     banners: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
                     pixelate: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
                     mismatch: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
-                    music: { 1: [0, 0], 2: [0, 0], 3: [0, 0] }
+                    music: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
+                    dish: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
+                    voice: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
                 })),
                 // array of objects d - date and q - quizzes { d: string date 'YYYY-MM-DD', q: array of quiz names (strings) } with q suffix
                 // '1' or '2' or '3' for difficulty (1 - easy, 2 - medium, 3 - hard) }
@@ -51,6 +53,14 @@
                     state: null
                 },
                 tournament: {
+                    dailyState: null,
+                    state: null
+                },
+                dish: {
+                    dailyState: null,
+                    state: null
+                },
+                voice: {
                     dailyState: null,
                     state: null
                 }

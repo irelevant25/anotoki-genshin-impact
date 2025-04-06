@@ -46,7 +46,7 @@
         const dailies = 2;
         const state = storageManager.getTopMenuDailyState();
         const difficulty = state?.difficulty ?? storageManager.getDifficulty() ?? 1;
-        let quizPool = shuffleArray(['banners', 'pixelate', 'mismatch', 'music']);
+        let quizPool = shuffleArray(Object.keys(QUIZZES));
 
         dailyQuizzes = [];
         if (state?.date === date) dailyQuizzes.push(...state.dailyQuizzes);
