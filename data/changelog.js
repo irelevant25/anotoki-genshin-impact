@@ -1,5 +1,23 @@
 const CHANGELOG = [
     {
+        version: "0.6",
+        date: "2025-04-06",
+        changes: {
+            added: [
+                "New quiz: character special dish",
+                "new quiz: character voice over"
+            ],
+            fixed: [
+                "Issue with daily after difficulty change.",
+            ],
+            updated: [
+                "Big optimization of all assets by reducing their size about 85%.",
+                "Loading backgrounds only when needed.",
+                "Optimizing database by loading selected character instead of whole database."
+            ]
+        }
+    },
+    {
         version: "0.5",
         date: "2025-03-17",
         changes: {
