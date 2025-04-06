@@ -254,7 +254,7 @@
 
         // VOICE
 
-        getTopMenVoiceState(daily = false) {
+        getTopMenuVoiceState(daily = false) {
             if (daily === true) return this.data.topMenu.voice.dailyState;
             else return this.data.topMenu.voice.state;
         }
