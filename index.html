@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="vendor/bootstrap.min.css" />
         <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css" />
         <script src="vendor/bootstrap.bundle.min.js"></script>
+        <script src="vendor/vue3.global.min.js"></script>
         <!-- Data -->
         <script src="data/changelog.js"></script>
         <script src="data/characters.js"></script>
@@ -22,20 +23,21 @@
         <script src="migrations/migrations.js"></script>
         <script src="migrations/0.1-0.2.js"></script>
         <script src="migrations/0.2-0.3.js"></script>
+        <!-- UTILS -->
+        <script src="shared/utils/helper.js"></script>
+        <script src="shared/utils/storage-manager.js"></script>
+        <script src="shared/utils/autocomplete.js"></script>
+        <script src="shared/utils/notification.js"></script>
+        <link rel="stylesheet" href="shared/utils/notification.css" />
+        <script src="shared/utils/loading.js"></script>
+        <link rel="stylesheet" href="shared/utils/loading.css" />
+        <script src="shared/utils/generators/bottom-menu-generator.js"></script>
+        <script src="shared/utils/generators/tooltips-generator.js"></script>
         <!-- GLOBAL -->
         <link rel="stylesheet" href="index.css" />
         <script src="index.js"></script>
-        <!-- UTILS -->
-        <script src="utils/helper.js"></script>
-        <script src="utils/storage-manager.js"></script>
-        <script src="utils/autocomplete.js"></script>
-        <script src="utils/notification.js"></script>
-        <link rel="stylesheet" href="utils/notification.css" />
-        <script src="utils/loading.js"></script>
-        <link rel="stylesheet" href="utils/loading.css" />
-        <script src="utils/generators/bottom-menu-generator.js"></script>
-        <script src="utils/generators/top-menu-generator.js"></script>
-        <script src="utils/generators/tooltips-generator.js"></script>
+        <!-- COMMON -->
+        <script src="common/top-menu.js"></script>
         <!-- TOP MENU -->
         <link rel="stylesheet" href="sites/top/daily.css" />
         <script src="sites/top/daily.js"></script>
@@ -70,9 +72,8 @@
     </head>
 
     <body>
-        <!-- Top menu items -->
         <nav id="top-menu">
-            <!-- Menu items and help modals are generated dynamically in utils/top-menu-generator.js -->
+            <!-- common/top-menu.js -->
         </nav>
 
         <!-- Top menu content -->
@@ -85,52 +86,12 @@
 
             <!-- Banners -->
             <div id="site-banners" class="d-none">
-                <div class="quiz-container">
-                    <div class="level-medium d-none" name="quiz-difficulty-display">
-                        <span class="recommended-ar">Medium</span>
-                    </div>
-                    <img name="question" class="d-block mx-auto" />
-                    <div class="pt-3 search-container">
-                        <div name="autocomplete"></div>
-                        <button class="btn btn-primary ms-3 next-button">Next</button>
-                    </div>
-                    <div class="d-flex justify-content-center tries-score my-2">
-                        Tries:
-                        <p name="tries-current">0</p>
-                        /
-                        <p name="tries-max">5</p>
-                    </div>
-                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
-                        <!-- Tries icons will be dynamically injected here -->
-                    </div>
-                    <img name="answer-success" class="d-block mx-auto" />
-                </div>
+                <!-- sites/top/quizzes/banners.js -->
             </div>
 
             <!-- Pixelate -->
             <div id="site-pixelate" class="d-none">
-                <div class="quiz-container">
-                    <div class="level-medium d-none" name="quiz-difficulty-display">
-                        <span class="recommended-ar">Medium</span>
-                    </div>
-                    <canvas name="question" class="d-block mx-auto" width="256" height="256">
-                        <!-- Canvas for pixelate will be dynamically injected here -->
-                    </canvas>
-                    <div class="pt-3 search-container">
-                        <div name="autocomplete"></div>
-                        <button class="btn btn-primary ms-3 next-button">Next</button>
-                    </div>
-                    <div class="d-flex justify-content-center tries-score my-2">
-                        Tries:
-                        <p name="tries-current">0</p>
-                        /
-                        <p name="tries-max">5</p>
-                    </div>
-                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
-                        <!-- Tries icons will be dynamically injected here -->
-                    </div>
-                    <img name="answer-success" class="d-block mx-auto" />
-                </div>
+                <!-- sites/top/quizzes/pixelate.js -->
             </div>
 
             <!-- Mismatch -->
@@ -149,120 +110,17 @@
 
             <!-- Music -->
             <div id="site-music" class="d-none">
-                <div class="quiz-container">
-                    <div class="level-medium d-none" name="quiz-difficulty-display">
-                        <span class="recommended-ar">Medium</span>
-                    </div>
-                    <div class="player-container d-block mx-auto">
-                        <!-- Hidden audio element -->
-                        <audio preload="metadata"></audio>
-
-                        <!-- Custom progress bar -->
-                        <div class="progress-container">
-                            <div class="progress-bar" name="progressBar"></div>
-                        </div>
-
-                        <!-- Time display -->
-                        <div class="time-display">
-                            <span name="currentTime">00:00</span>
-                            <span name="duration">00:00</span>
-                        </div>
-
-                        <!-- Controls -->
-                        <div class="controls">
-                            <button name="playButton" class="btn">Play</button>
-                            <button name="pauseButton" class="btn" disabled>Pause</button>
-                            <button name="restartButton" class="btn">Restart</button>
-                        </div>
-                    </div>
-                    <div class="pt-3 search-container">
-                        <div name="autocomplete"></div>
-                        <button class="btn btn-primary ms-3 next-button">Next</button>
-                    </div>
-                    <div class="d-flex justify-content-center tries-score my-2">
-                        Tries:
-                        <p name="tries-current">0</p>
-                        /
-                        <p name="tries-max">5</p>
-                    </div>
-                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
-                        <!-- Tries icons will be dynamically injected here -->
-                    </div>
-                    <img name="answer-success" class="d-block mx-auto" />
-                </div>
+                <!-- sites/top/quizzes/music.js -->
             </div>
 
             <!-- Dish -->
             <div id="site-dish" class="d-none">
-                <div class="quiz-container">
-                    <div class="level-medium d-none" name="quiz-difficulty-display">
-                        <span class="recommended-ar">Medium</span>
-                    </div>
-                    <img name="question" class="d-block mx-auto" />
-                    <div class="pt-3 search-container">
-                        <div name="autocomplete"></div>
-                        <button class="btn btn-primary ms-3 next-button">Next</button>
-                    </div>
-                    <div class="d-flex justify-content-center tries-score my-2">
-                        Tries:
-                        <p name="tries-current">0</p>
-                        /
-                        <p name="tries-max">5</p>
-                    </div>
-                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
-                        <!-- Tries icons will be dynamically injected here -->
-                    </div>
-                    <img name="answer-success" class="d-block mx-auto" />
-                </div>
+                <!-- sites/top/quizzes/dish.js -->
             </div>
 
             <!-- Voice -->
             <div id="site-voice" class="d-none">
-                <div class="quiz-container">
-                    <div class="level-medium d-none" name="quiz-difficulty-display">
-                        <span class="recommended-ar">Medium</span>
-                    </div>
-                    <p class="d-inline-flex justify-content-center my-0">
-                        <span name="question" class="half-text"></span>
-                    </p>
-                    <div class="player-container mx-auto">
-                        <!-- Hidden audio element -->
-                        <audio preload="metadata"></audio>
-
-                        <!-- Custom progress bar -->
-                        <div class="progress-container">
-                            <div class="progress-bar" name="progressBar"></div>
-                        </div>
-
-                        <!-- Time display -->
-                        <div class="time-display">
-                            <span name="currentTime">00:00</span>
-                            <span name="duration">00:00</span>
-                        </div>
-
-                        <!-- Controls -->
-                        <div class="controls">
-                            <button name="playButton" class="btn">Play</button>
-                            <button name="pauseButton" class="btn" disabled>Pause</button>
-                            <button name="restartButton" class="btn">Restart</button>
-                        </div>
-                    </div>
-                    <div class="pt-3 search-container">
-                        <div name="autocomplete"></div>
-                        <button class="btn btn-primary ms-3 next-button">Next</button>
-                    </div>
-                    <div class="d-flex justify-content-center tries-score my-2">
-                        Tries:
-                        <p name="tries-current">0</p>
-                        /
-                        <p name="tries-max">5</p>
-                    </div>
-                    <div name="tries-display" class="d-flex justify-content-center tries-characters">
-                        <!-- Tries icons will be dynamically injected here -->
-                    </div>
-                    <img name="answer-success" class="d-block mx-auto" />
-                </div>
-            </div>
+                <!-- sites/top/quizzes/voice.js -->
         </div>
 
         <!-- Daily -->

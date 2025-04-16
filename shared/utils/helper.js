@@ -3,6 +3,8 @@
  * Common helper functions used throughout the application
  */
 
+const html = String.raw;
+
 /**
  * Gets a random integer between min and max (inclusive)
  * 
