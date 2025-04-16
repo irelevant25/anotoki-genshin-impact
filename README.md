@@ -1,4 +1,4 @@
-# Roadmap
+# Roadmap/Ideas
 
 - New quiz: Signature weapon quiz
 - New quiz: Voice lines quiz
@@ -22,23 +22,16 @@
 - NPC database
 - Monsters/Wild database
 - Food database
+- Elements svg icon: online editor - https://www.svgviewer.dev/
 
-# Next version 0.6
+# Next version 0.7
 
 - Bugs:
-  - [x] Wrong difficulty generation for daily.
 - Improvements:
-  - [x] Group all quizes under single top menu item Quizzes
   - [ ] Hight size jump on quizzes when new images are not loaded yet (setup init hight)
   - [ ] Display result explanaition for Mismach quiz
-  - [x] Optimize wallpapers and wallpapers preview size
-  - [x] Load top sites content after click (optimize resources)
-  - [x] Load wallpapers after openining background modal
-  - [x] Load character database per character using specified character database script
-  - [x] Optimize assets sizes (wishes 87% reduction, namecard banners 88% reduction, icons 91% reduction, cards 95% reduction)
 - Features:
-  - New quiz: Special dish
-  - New quiz: Voice lines
+  - New game: Minesweeper
   - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
   - Github link (to the bottom next to version)
 
