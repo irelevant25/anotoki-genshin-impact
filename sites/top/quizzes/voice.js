@@ -1,262 +1,326 @@
-(() => {
-  'use strict';
+const SITES_TOP_QUIZZES_VOICE = {
+    props: {
+        daily: {
+            type: Boolean,
+            default: false,
+        },
+        onCompleteQuestion: {
+            type: Function,
+            default: null,
+        },
+    },
 
-  class QuizManager {
+    template: html`
+        <div class="quiz-container">
+            <div :class="['level-' + difficultyString, { 'd-none': daily }]" name="quiz-difficulty-display">
+                <span class="recommended-ar">{{ difficultyString }}</span>
+            </div>
+            <p class="d-inline-flex justify-content-center my-0">
+                <span name="question" :class="questionTextClasses">{{ questionText }}</span>
+            </p>
+            <div class="player-container d-block mx-auto" :class="playerContainerClasses">
+                <!-- Hidden audio element -->
+                <audio ref="audioElement" preload="metadata" @loadedmetadata="onAudioLoadedMetadata" @play="onAudioPlay" @pause="onAudioPause" @timeupdate="onAudioTimeUpdate"></audio>
 
-    get isSuccess() {
-      return this.questionEntity.name === this.tries[this.tries.length - 1];
-    }
+                <!-- Custom progress bar -->
+                <div class="progress-container">
+                    <div name="progressBar" class="progress-bar" :style="{ width: progressPercentage + '%' }"></div>
+                </div>
 
-    constructor(idSelector, options = {}, daily = false, onCompleteQuestion) {
-      this.idSelector = idSelector;
-      this.daily = daily;
-      this.options = options;
-      this.onCompleteQuestion = onCompleteQuestion;
+                <!-- Time display -->
+                <div class="time-display">
+                    <span name="currentTime">{{ currentTimeFormatted }}</span>
+                    <span name="duration">{{ durationFormatted }}</span>
+                </div>
 
-      // Get DOM elements
-      this.containerElement = document.querySelector(`#${this.idSelector}`);
+                <!-- Controls -->
+                <div class="controls">
+                    <button name="playButton" class="btn" @click="playAudio" :disabled="isPlaying">Play</button>
+                    <button name="pauseButton" class="btn" @click="pauseAudio" :disabled="!isPlaying">Pause</button>
+                    <button name="restartButton" class="btn" @click="restartAudio">Restart</button>
+                </div>
+            </div>
+            <div class="pt-3 search-container">
+                <div name="autocomplete" v-show="!isQuestionComplete" ref="autocomplete"></div>
+                <button class="btn btn-primary ms-3 next-button" v-show="!daily && isQuestionComplete" @click="resetQuiz">Next</button>
+            </div>
+            <div class="d-flex justify-content-center tries-score my-2">
+                Tries:
+                <p name="tries-current">{{ tries.length }}</p>
+                /
+                <p name="tries-max">{{ triesMax }}</p>
+            </div>
+            <div name="tries-display" class="d-flex justify-content-center tries-characters">
+                <div class="try" v-for="(tryChar, index) in displayTries" :key="index">
+                    <img v-if="tryChar" :src="getCharacterIconImageUrl(tryChar)" />
+                </div>
+            </div>
+            <img name="answer-success" class="d-block mx-auto" :src="isQuestionComplete ? questionEntity?.wish : ''" />
+        </div>
+    `,
 
-      this.autocompleteContainerElement = this.containerElement.querySelector('div[name="autocomplete"]');
-      new Autocomplete(this.autocompleteContainerElement, (selectedCharacter) => {
-        this.tries.push(selectedCharacter.name);
-        this.triesDisplayCharacters(selectedCharacter);
-        this.saveState();
-      });
+    data() {
+        const siteId = 'voice';
+        const config = APP_CONFIG.topMenu[siteId];
+        const state = storageManager.getTopMenuVoiceState(this.daily);
+        const difficulty = state?.difficulty || (this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() || 1);
 
-      this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
-      this.nextButtonElement = this.containerElement.querySelector('button.next-button');
-      // this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
-      this.questionTextElement = this.containerElement.querySelector('[name="question"]');
-      this.playerContainerElement = this.containerElement.querySelector('div.player-container');
-      this.triesDisplayElement = this.containerElement.querySelector('div[name="tries-display"]');
-      this.triesScoreCurrentElement = this.containerElement.querySelector('div.tries-score > p[name="tries-current"]');
-      this.triesScoreMaxElement = this.containerElement.querySelector('div.tries-score > p[name="tries-max"]');
-      this.audioElement = this.containerElement.querySelector('audio');
-      this.progressBar = this.containerElement.querySelector('[name="progressBar"]');
-      this.currentTimeDisplay = this.containerElement.querySelector('[name="currentTime"]');
-      this.durationDisplay = this.containerElement.querySelector('[name="duration"]');
-      this.playButton = this.containerElement.querySelector('[name="playButton"]');
-      this.pauseButton = this.containerElement.querySelector('[name="pauseButton"]');
-      this.restartButton = this.containerElement.querySelector('[name="restartButton"]');
-      this.levelElement = this.containerElement.querySelector('div[name="quiz-difficulty-display"]');
+        return {
+            siteId,
+            config,
+            questionEntity: state ? CHARACTERS.find((character) => character.name === state.questionEntity) : getRandomCharacter(),
+            questionText: '',
+            tries: state?.tries || [],
+            triesMax: state?.triesMax || config[difficulty]?.triesMax || 5,
+            triesEffects: state?.triesEffects || config[difficulty]?.triesEffects || [],
+            isQuestionComplete: state?.isQuestionComplete || false,
+            difficulty,
+            autocompleteInstance: null,
 
-      this.nextButtonElement?.addEventListener('click', () => {
-        this.state = null;
-        this.init();
-      });
-      this.audioElement.addEventListener('loadedmetadata', function () {
-        this.refreshPlayerTime();
-      }.bind(this));
-      this.audioElement.addEventListener('play', function () {
-        this.rafId = requestAnimationFrame(this.updateProgress.bind(this));
-      }.bind(this));
-      this.audioElement.addEventListener('pause', function () {
-        cancelAnimationFrame(this.rafId);
-      }.bind(this));
-      this.audioElement.addEventListener('timeupdate', function () {
-        if (this.audioElement.currentTime >= this.endTime) {
-          this.audioElement.pause();
-          this.playButton.disabled = false;
-          this.pauseButton.disabled = true;
-          this.restartButton.click();
+            // Audio player related
+            isPlaying: false,
+            currentTime: 0,
+            duration: 0,
+            progressPercentage: 0,
+            rafId: null,
+            startTime: 0,
+            endTime: 0,
+
+            // Classes for effects
+            questionTextClasses: [],
+            playerContainerClasses: [],
+        };
+    },
+
+    computed: {
+        isSuccess() {
+            return this.tries.length > 0 && this.questionEntity?.name === this.tries[this.tries.length - 1];
+        },
+
+        difficultyString() {
+            return difficultyFromNumberToString(this.difficulty);
+        },
+
+        displayTries() {
+            const result = Array(this.triesMax).fill(null);
+            this.tries.forEach((tryName, index) => {
+                if (index < this.triesMax) result[index] = tryName;
+            });
+            return result;
+        },
+
+        currentTimeFormatted() {
+            return this.formatTime(this.currentTime - this.startTime);
+        },
+
+        durationFormatted() {
+            return this.formatTime(this.endTime - this.startTime);
+        },
+    },
+
+    watch: {
+        tries: {
+            handler(newTries) {
+                if (newTries.length > 0) {
+                    this.refreshPlayerTime();
+                    this.applyEffects();
+                    if (this.isSuccess || newTries.length >= this.triesMax) {
+                        this.endQuestion();
+                    }
+                }
+                this.saveState();
+            },
+            deep: true,
+        },
+    },
+
+    mounted() {
+        this.autocompleteInstance = new Autocomplete(this.$refs.autocomplete, this.handleCharacterSelection);
+        this.startQuestion();
+        if (!this.state) this.saveState();
+    },
+
+    methods: {
+        handleCharacterSelection(selectedCharacter) {
+            this.tries.push(selectedCharacter.name);
+        },
+
+        getCharacterIconImageUrl: (characterName) => getCharacterIconImageUrl(characterName),
+
+        resetQuiz() {
+            Object.assign(this, {
+                tries: [],
+                isQuestionComplete: false,
+                questionEntity: getRandomCharacter(),
+                triesMax: this.config[this.difficulty].triesMax || 5,
+                triesEffects: this.config[this.difficulty].triesEffects || [],
+                isPlaying: false,
+                currentTime: 0,
+                progressPercentage: 0,
+                questionTextClasses: [],
+                playerContainerClasses: [],
+            });
+
+            this.startQuestion();
+            this.saveState();
+        },
+
+        startQuestion() {
+            this.$refs.audioElement.src = this.questionEntity.voice_over.audio;
+            this.questionText = this.questionEntity.voice_over.text;
+            this.applyEffects();
+        },
+
+        endQuestion() {
+            this.isQuestionComplete = true;
+            this.refreshPlayerTime();
+            storageManager.saveStats(this.siteId, this.questionEntity.name, this.isSuccess, this.difficulty);
+        },
+
+        saveState() {
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
+            storageManager.saveTopMenuVoiceState(
+                {
+                    triesMax: this.triesMax,
+                    triesEffects: this.triesEffects,
+                    questionEntity: this.questionEntity?.name,
+                    isQuestionComplete: this.isQuestionComplete,
+                    tries: this.tries,
+                    difficulty: this.difficulty,
+                },
+                this.daily
+            );
+        },
+
+        applyEffects() {
+            this.questionTextClasses = [];
+            this.playerContainerClasses = [];
+
+            if (!this.isQuestionComplete) {
+                const effects = this.triesEffects.find((x) => x.try === this.tries.length);
+                if (effects && effects.class) {
+                    const classes = effects.class.split(' ');
+                    this.questionTextClasses = classes;
+                    this.playerContainerClasses = classes;
+                }
+            }
+        },
+
+        onAudioLoadedMetadata() {
+            this.duration = this.$refs.audioElement.duration;
+            this.refreshPlayerTime();
+        },
+
+        onAudioPlay() {
+            this.isPlaying = true;
+            this.rafId = requestAnimationFrame(this.updateProgress);
+        },
+
+        onAudioPause() {
+            this.isPlaying = false;
+            if (this.rafId) {
+                cancelAnimationFrame(this.rafId);
+                this.rafId = null;
+            }
+        },
+
+        onAudioTimeUpdate() {
+            const audio = this.$refs.audioElement;
+            if (!audio) return;
+            this.currentTime = audio.currentTime;
+
+            if (audio.currentTime >= this.endTime) {
+                this.pauseAudio();
+                this.restartAudio();
+            }
+        },
+
+        updateProgress() {
+            const audio = this.$refs.audioElement;
+
+            // Calculate relative position within the clip
+            const relativePosition = audio.currentTime - this.startTime;
+            const clipDuration = this.endTime - this.startTime;
+
+            if (relativePosition >= 0) {
+                // Update progress bar
+                this.progressPercentage = (relativePosition / clipDuration) * 100;
+
+                // Stop playback if we've reached the end time
+                if (audio.currentTime >= this.endTime) {
+                    this.pauseAudio();
+                    return;
+                }
+            }
+
+            // Continue animation loop if audio is playing
+            if (this.isPlaying) {
+                this.rafId = requestAnimationFrame(this.updateProgress);
+            }
+        },
+
+        playAudio() {
+            const audio = this.$refs.audioElement;
+            if (audio.currentTime >= this.endTime) {
+                audio.currentTime = this.startTime;
+            }
+            audio.play();
+        },
+
+        pauseAudio() {
+            this.$refs.audioElement.pause();
+        },
+
+        restartAudio() {
+            const audio = this.$refs.audioElement;
+            audio.currentTime = this.startTime;
+            this.progressPercentage = 0;
+            this.currentTime = this.startTime;
+        },
+
+        formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        },
+
+        refreshPlayerTime() {
+            const audio = this.$refs.audioElement;
+            if (!audio) return;
+
+            this.startTime = 0;
+
+            // voice.js has a slightly different effect calculation than music.js
+            const currentTryEffectData = this.triesEffects.find((x) => x.try === this.tries.length)?.data ?? 1;
+            const newEndTime = audio.duration * currentTryEffectData;
+
+            this.endTime = this.isQuestionComplete || newEndTime > audio.duration ? audio.duration : newEndTime;
+
+            audio.currentTime = this.startTime;
+            this.currentTime = this.startTime;
+            this.progressPercentage = 0;
+        },
+    },
+
+    beforeUnmount() {
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
         }
-      }.bind(this));
-      this.playButton.addEventListener('click', function () {
-        if (this.audioElement.currentTime >= this.endTime) {
-          this.audioElement.currentTime = this.startTime;
+
+        const audio = this.$refs.audioElement;
+        if (audio) {
+            audio.pause();
+            audio.src = '';
         }
-        this.audioElement.play();
-        this.playButton.disabled = true;
-        this.pauseButton.disabled = false;
-        requestAnimationFrame(this.updateProgress.bind(this));
-      }.bind(this));
-      this.pauseButton.addEventListener('click', function () {
-        this.audioElement.pause();
-        this.playButton.disabled = false;
-        this.pauseButton.disabled = true;
-      }.bind(this));
-      this.restartButton.addEventListener('click', function () {
-        this.audioElement.currentTime = this.startTime;
-        this.progressBar.style.width = '0%';
-        this.currentTimeDisplay.textContent = '00:00';
+    },
+};
 
-        if (!this.audioElement.paused) {
-          this.audioElement.play();
-        }
-      }.bind(this));
-
-      this.state = storageManager.getTopMenuVoiceState(this.daily);
-    }
-
-    init() {
-      this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
-      this.difficulty = this.state ? this.state.difficulty : this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() ?? 1;
-      this.triesMax = this.state ? this.state.triesMax : this.options[this.difficulty].triesMax ?? 5;
-      this.triesEffects = this.state?.triesEffects ?? this.options[this.difficulty].triesEffects ?? [];
-      this.tries = this.state?.tries ?? [];
-      this.questionEntity = this.state ? CHARACTERS.find(character => character.name === this.state.questionEntity) : getRandomCharacter();
-
-      if (!this.daily) {
-        this.levelElement.className = '';
-        this.levelElement.classList.add(`level-${difficultyFromNumberToString(this.difficulty)}`);
-        this.levelElement.querySelector('span').textContent = difficultyFromNumberToString(this.difficulty);
-      }
-
-      this.rafId;
-      this.startTime = 0;
-      this.endTime = 0;
-
-      this.defaultState();
-      this.startQuestion();
-      this.tries.forEach(character => this.triesDisplayCharacters(CHARACTERS.find(x => x.name === character)));
-      if (!this.state) this.saveState();
-    }
-
-    saveState() {
-      this.state = {
-        triesMax: this.triesMax,
-        triesEffects: this.triesEffects,
-        questionEntity: this.questionEntity.name,
-        isQuestionComplete: this.isQuestionComplete,
-        tries: this.tries,
-        difficulty: this.difficulty
-      };
-      if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
-      storageManager.saveTopMenuVoiceState(this.state, this.daily);
-    }
-
-    refreshPlayerTime() {
-      const currentTry = Number(this.triesScoreCurrentElement.textContent);
-      this.startTime = 0;
-      const newEndTime = this.audioElement.duration * (this.triesEffects.find(x => x.try === currentTry)?.data ?? 1);
-      this.endTime = this.isQuestionComplete || newEndTime > this.audioElement.duration ? this.audioElement.duration : newEndTime;
-      this.audioElement.currentTime = this.startTime;
-      this.durationDisplay.textContent = this.formatTime(this.endTime);
-    }
-
-    formatTime(seconds) {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = Math.floor(seconds % 60);
-      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
-
-    updateProgress() {
-      // Calculate relative position within the clip
-      const relativePosition = this.audioElement.currentTime - this.startTime;
-      const clipDuration = this.endTime - this.startTime;
-
-      if (relativePosition >= 0) {
-        // Update progress bar
-        const progressPercentage = (relativePosition / clipDuration) * 100;
-        this.progressBar.style.width = `${Math.min(progressPercentage, 100)}%`;
-
-        // Update current time display (less frequently to avoid performance issues)
-        if (Math.floor(relativePosition * 4) % 4 === 0) {
-          this.currentTimeDisplay.textContent = this.formatTime(relativePosition);
-        }
-
-        // Stop playback if we've reached the end time
-        if (this.audioElement.currentTime >= this.endTime) {
-          this.audioElement.pause();
-          this.playButton.disabled = false;
-          this.pauseButton.disabled = true;
-          cancelAnimationFrame(this.rafId);
-          return;
-        }
-      }
-
-      // Continue animation loop if audio is playing
-      if (!this.audioElement.paused) {
-        this.rafId = requestAnimationFrame(this.updateProgress.bind(this));
-      }
-    }
-
-    applyEffects() {
-      const currentTry = this.tries.length;
-
-      // tries effects styles/classes
-      this.triesEffects.forEach(effect => {
-        effect.class?.split(" ").forEach(cls => {
-          this.questionTextElement.classList.remove(cls)
-          this.playerContainerElement.classList.remove(cls);
-        });
-      });
-
-      // Apply effects only if the question is not complete
-      if (!this.isQuestionComplete) {
-        // Add effects for current try
-        const effects = this.triesEffects.find(x => x.try === currentTry);
-        if (effects) {
-          effects.class?.split(" ").forEach(cls => {
-            this.questionTextElement.classList.add(cls);
-            this.playerContainerElement.classList.add(cls);
-          });
-        }
-      }
-    }
-
-    triesDisplayCharacters(selectedCharacter) {
-      const answer = this.questionEntity.name;
-      const imgElement = document.createElement('img');
-      const emptyTryElement = this.containerElement.querySelector(`div.try:not(:has(img))`);
-
-      const currentTry = this.tries.length;
-      this.triesScoreCurrentElement.textContent = currentTry;
-      imgElement.src = getCharacterIconImageUrl(selectedCharacter.name);
-      emptyTryElement.appendChild(imgElement);
-
-      if (this.isSuccess || currentTry === this.triesMax) {
-        this.endQuestion(CHARACTERS.find(character => character.name === answer));
-      }
-      this.refreshPlayerTime();
-      this.applyEffects();
-    }
-
-    defaultState() {
-      this.answerSuccessElement.src = '';
-      this.nextButtonElement.style.display = 'none';
-      this.autocompleteContainerElement.style.display = 'block';
-      this.playButton.disabled = false;
-      this.pauseButton.disabled = true;
-
-      this.triesDisplayElement.innerHTML = '';
-      for (let i = 0; i < this.triesMax; i++) {
-        const tryElement = document.createElement('div');
-        tryElement.classList.add('try');
-        this.triesDisplayElement.appendChild(tryElement);
-      }
-
-      this.triesScoreCurrentElement.textContent = 0;
-      this.triesScoreMaxElement.textContent = this.triesMax;
-    }
-
-    startQuestion() {
-      this.audioElement.src = this.questionEntity.voice_over.audio;
-      this.questionTextElement.textContent = this.questionEntity.voice_over.text;
-      this.applyEffects();
-    }
-
-    endQuestion(character) {
-      this.answerSuccessElement.src = character.wish;
-      if (!this.daily) this.nextButtonElement.style.display = 'inherit';
-      this.autocompleteContainerElement.style.display = 'none';
-      this.isQuestionComplete = true;
-    }
-  }
-
-  function init() {
-    const siteName = 'voice';
-    const config = APP_CONFIG.topMenu[siteName];
-    new QuizManager(config.id, config, false, (questionEntity, difficulty, isSuccess) => {
-      storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
-    }).init();
-  }
-
-  window.MusicQuizManager = QuizManager;
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector(`[data-id="${MENU_ITEMS_TOP.quizzes.id}"`).addEventListener('click', () => {
-      document.querySelector(`[data-id="${QUIZZES.voice.id}"]`).addEventListener('click', init, { once: true });
-    }, { once: true });
-  });
-})();
+document.addEventListener('DOMContentLoaded', () => {
+    const quiz = Vue.createApp({
+        components: {
+            'base-component': createComponent(SITES_TOP_QUIZZES_VOICE, {}),
+        },
+        template: html` <base-component :daily="false"></base-component> `,
+    });
+    quiz.mount('#site-quizzes #site-voice');
+});

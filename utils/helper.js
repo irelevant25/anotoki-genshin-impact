@@ -3,9 +3,11 @@
  * Common helper functions used throughout the application
  */
 
+const html = String.raw;
+
 /**
  * Gets a random integer between min and max (inclusive)
- * 
+ *
  * @param {number} min - Minimum value
  * @param {number} max - Maximum value
  * @returns {number} Random integer
@@ -16,7 +18,7 @@ function getRandomInt(min, max) {
 
 /**
  * Shuffles array elements randomly
- * 
+ *
  * @param {Array} array - Array to shuffle
  * @returns {Array} Shuffled array
  */
@@ -94,7 +96,7 @@ function getTodayString() {
  * @returns {string} The URL of the icon image, or undefined if the character is not found.
  */
 function getCharacterIconImageUrl(characterName) {
-    return CHARACTERS.find(character => character.name === characterName)?.icon;
+    return CHARACTERS.find((character) => character.name === characterName)?.icon;
 }
 
 /**
@@ -108,7 +110,6 @@ function capitalize(s) {
     return s && String(s[0]).toUpperCase() + String(s).slice(1);
 }
 
-
 /**
  * Gets a random character from the given array or from the full list of characters
  * if no filter is provided.
@@ -119,13 +120,11 @@ function capitalize(s) {
  */
 function getRandomCharacter(filterFn) {
     // Determine which array to choose from
-    const pool = (typeof filterFn === 'function')
-        ? CHARACTERS.filter(filterFn)
-        : CHARACTERS;
+    const pool = typeof filterFn === 'function' ? CHARACTERS.filter(filterFn) : CHARACTERS;
 
     // Handle the case where no items match the filter
     if (pool.length === 0) {
-        throw new Error("No characters found matching the filter criteria.");
+        throw new Error('No characters found matching the filter criteria.');
     }
 
     // Return a random element from the chosen pool
@@ -144,7 +143,7 @@ function getRandomCharacters(count) {
 
 /**
  * Debounces a function to limit how often it can be called
- * 
+ *
  * @param {Function} func - Function to debounce
  * @param {number} wait - Milliseconds to wait
  * @returns {Function} Debounced function
@@ -160,7 +159,7 @@ function debounce(func, wait) {
 
 /**
  * Creates an element with attributes and children
- * 
+ *
  * @param {string} tag - Element tag name
  * @param {Object} attributes - Element attributes
  * @param {Array|string|Node} children - Child elements or text
@@ -171,7 +170,7 @@ function createElement(tag, attributes = {}, children = []) {
 
     Object.entries(attributes).forEach(([key, value]) => {
         if (key === 'classList' && Array.isArray(value)) {
-            value.forEach(cls => element.classList.add(cls));
+            value.forEach((cls) => element.classList.add(cls));
         } else if (key === 'events' && typeof value === 'object') {
             Object.entries(value).forEach(([event, handler]) => {
                 element.addEventListener(event, handler);
@@ -183,7 +182,7 @@ function createElement(tag, attributes = {}, children = []) {
 
     if (children) {
         if (Array.isArray(children)) {
-            children.forEach(child => {
+            children.forEach((child) => {
                 if (child instanceof Node) {
                     element.appendChild(child);
                 } else {
@@ -202,7 +201,7 @@ function createElement(tag, attributes = {}, children = []) {
 
 /**
  * Gets a URL for a character image
- * 
+ *
  * @param {string} characterName - Name of the character
  * @param {string} type - Type of image (icon, wish, ingame, etc.)
  * @returns {string} URL of the character image
@@ -213,7 +212,7 @@ function getCharacterImageUrl(characterName, type = 'icon') {
 
 /**
  * Loads a JavaScript script from a given URL
- * 
+ *
  * @param {string} src - URL of the script to load
  * @param {Function} callback - Function to call when the script has been loaded
  */
@@ -228,12 +227,39 @@ function loadScript(src, callback) {
     document.head.appendChild(script);
 }
 
+function createComponent(base, options = {}) {
+    return {
+        extends: base,
+        ...options,
+    };
+}
+
 /**
  * Checks if a script with the specified source URL is already loaded in the document.
- * 
+ *
  * @param {string} src - The source URL of the script to check.
  * @returns {boolean} True if the script is loaded, false otherwise.
  */
 function isScriptLoaded(src) {
     return !!document.querySelector(`script[src="${src}"]`);
 }
+
+Array.prototype.unique = function (keySelector) {
+    if (typeof keySelector === 'function') {
+        const seen = new Map();
+        return this.filter((item) => {
+            const key = keySelector(item);
+            if (seen.has(key)) {
+                return false;
+            }
+            seen.set(key, true);
+            return true;
+        });
+    } else {
+        return this.filter((value, index, self) => self.indexOf(value) === index);
+    }
+};
+
+Array.prototype.includesAll = function (arr) {
+    return arr.every((item) => this.includes(item));
+};

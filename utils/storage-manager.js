@@ -4,10 +4,10 @@
     class StorageManager {
         static STORAGE_KEY = 'app_data';
         static DEFAULT_DATA = {
-            version: '0.3',
+            version: '0.4',
             stats: {
                 // 1, 2 and 3  (1 - easy, 2 - medium, 3 - hard), [0, 0] - [looses, wins]
-                characters: CHARACTERS.map(x => ({
+                characters: CHARACTERS.map((x) => ({
                     name: x.name,
                     banners: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
                     pixelate: { 1: [0, 0], 2: [0, 0], 3: [0, 0] },
@@ -25,7 +25,7 @@
             bottomMenu: {
                 background: '',
                 difficulty: '1',
-                version: ''
+                version: '',
             },
             topMenu: {
                 daily: {
@@ -34,37 +34,39 @@
                     // array of quiz names (strings)
                     dailyQuizzes: [],
                     // array of quiz names (strings)
-                    done: []
+                    done: [],
                 },
                 banners: {
                     dailyState: null,
-                    state: null
+                    state: null,
                 },
                 pixelate: {
                     dailyState: null,
-                    state: null
+                    state: null,
                 },
                 mismatch: {
                     dailyState: null,
-                    state: null
+                    state: null,
                 },
                 music: {
                     dailyState: null,
-                    state: null
+                    state: null,
                 },
                 tournament: {
-                    dailyState: null,
-                    state: null
+                    state: null,
                 },
                 dish: {
                     dailyState: null,
-                    state: null
+                    state: null,
                 },
                 voice: {
                     dailyState: null,
-                    state: null
-                }
-            }
+                    state: null,
+                },
+                minesweeper: {
+                    state: null,
+                },
+            },
         };
 
         constructor() {
@@ -162,21 +164,21 @@
         // STATS
 
         getStats(quizName, daily = false) {
-            if (daily === true) return this.data.stats.daily.filter(x => x.quizzes.includes(quizName));
-            else return this.data.stats.characters.map(x => x[quizName]);
+            if (daily === true) return this.data.stats.daily.filter((x) => x.quizzes.includes(quizName));
+            else return this.data.stats.characters.map((x) => x[quizName]);
         }
 
         saveStats(quizName, character, isSuccess, difficulty, daily = false, quizzes = []) {
-            const characterStats = this.data.stats.characters.find(x => x.name === character);
+            const characterStats = this.data.stats.characters.find((x) => x.name === character);
             characterStats[quizName][difficulty][isSuccess ? 1 : 0] += 1;
             if (daily === true) {
                 const date = getTodayString();
-                let dailyStats = this.data.stats.daily.find(x => x.date === date);
+                let dailyStats = this.data.stats.daily.find((x) => x.date === date);
                 if (!dailyStats) {
                     dailyStats = { date, quizzes: [...quizzes] };
                     this.data.stats.daily.push(dailyStats);
                 }
-                const quizIndex = dailyStats.quizzes.findIndex(x => x.includes(quizName));
+                const quizIndex = dailyStats.quizzes.findIndex((x) => x.includes(quizName));
                 dailyStats.quizzes[quizIndex] = `${isSuccess ? '+' : '-'}${quizName}${difficulty}`;
                 if (!this.data.topMenu.daily.done.includes(quizName)) this.data.topMenu.daily.done.push(quizName);
             }
@@ -274,6 +276,17 @@
         saveTopMenuDailyState(state) {
             console.log(`saveTopMenuDailyState: `, state);
             this.data.topMenu.daily = { ...state };
+            return this.saveData(this.data);
+        }
+
+        // MINESWEEPER
+
+        getTopMenuMinesweeperState() {
+            return this.data.topMenu.minesweeper.state;
+        }
+
+        saveTopMenuMinesweeperState(state) {
+            this.data.topMenu.minesweeper.state = { ...state };
             return this.saveData(this.data);
         }
     }

@@ -1,0 +1,94 @@
+:root {
+  --primary: #6c5ce7;
+  --secondary: #a29bfe;
+  --background: #f5f6fa;
+  --text: #2d3436;
+  --error: #e74c3c;
+  --success: #2ecc71;
+  --border: #dfe6e9;
+}
+
+#site-feedback-modal {
+  .feedback-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+  }
+
+  .final-note {
+    text-align: center;
+  }
+
+  .feedback-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .feedback-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .feedback-tab.active {
+    border-bottom: 3px solid var(--primary);
+    color: var(--primary);
+    font-weight: bold;
+  }
+
+  .submission-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .submission-method {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .submission-method:hover {
+    border-color: var(--primary);
+    background-color: rgba(108, 92, 231, 0.05);
+  }
+
+  .submission-method.selected {
+    border-color: var(--primary);
+    background-color: rgba(108, 92, 231, 0.1);
+  }
+
+  .method-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .method-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .method-desc {
+    font-size: 14px;
+    color: #7f8c8d;
+  }
+
+  .required:after {
+    content: "*";
+    color: var(--error);
+    margin-left: 3px;
+  }
+}

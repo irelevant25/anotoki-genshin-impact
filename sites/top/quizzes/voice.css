@@ -65,7 +65,7 @@
   }
 
   .player-container.hidden-audio {
-    display: none;
+    display: none !important;
   }
 
   span.half-text {

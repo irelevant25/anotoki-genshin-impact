@@ -1,106 +1,132 @@
-(() => {
-    'use strict';
+const SITES_TOP_QUIZZES_MISMATCH = {
+    props: {
+        daily: {
+            type: Boolean,
+            default: false,
+        },
+        onCompleteQuestion: {
+            type: Function,
+            default: null,
+        },
+    },
 
-    class QuizManager {
-        isSuccess;
+    template: html`
+        <div class="quiz-container">
+            <div :class="levelClass" name="quiz-difficulty-display" v-if="!daily">
+                <span class="recommended-ar">{{ difficultyText }}</span>
+            </div>
+            <div name="question" class="mx-auto character-grid">
+                <img v-for="character in quizSet.options" :src="character.icon" :alt="character.name" :title="character.name" @click="handleCharacterClick(character)" />
+            </div>
+            <button class="btn btn-primary my-3 next-button" v-show="isQuestionComplete && !daily" @click="startNextQuestion">Next</button>
+            <img name="answer-success" class="d-block mx-auto" :src="answerImageSrc" />
+        </div>
+    `,
 
-        constructor(idSelector, options = {}, daily = false, onCompleteQuestion) {
-            this.idSelector = idSelector;
-            this.daily = daily;
-            this.options = options;
-            this.onCompleteQuestion = onCompleteQuestion;
+    data() {
+        return {
+            options: {},
+            isQuestionComplete: false,
+            difficulty: 1,
+            choicesAmount: 4,
+            quizSet: {
+                options: [],
+                answer: null,
+                commonValue: '',
+                quizProperty: '',
+            },
+            answerImageSrc: '',
+            isSuccess: false,
+            state: null,
+        };
+    },
 
-            // Get DOM elements
-            this.containerElement = document.querySelector(`#${this.idSelector}`);
-            this.questionElement = this.containerElement.querySelector('[name="question"]');
-            this.answerSuccessElement = this.containerElement.querySelector('img[name="answer-success"]');
-            this.nextButtonElement = this.containerElement.querySelector('button.next-button');
-            // this.menuItemElement = document.querySelector(`nav > ul > li[data-id="${this.idSelector}"]`);
-            this.nextButtonElement?.addEventListener('click', () => this.startQuestion());
-            this.levelElement = this.containerElement.querySelector('div[name="quiz-difficulty-display"]');
+    computed: {
+        levelClass() {
+            return this.daily ? '' : `level-${difficultyFromNumberToString(this.difficulty)}`;
+        },
+        difficultyText() {
+            return difficultyFromNumberToString(this.difficulty);
+        },
+    },
 
-            this.nextButtonElement?.addEventListener('click', () => {
-                this.state = null;
-                this.init();
-            });
+    mounted() {
+        this.initializeQuiz();
+    },
 
+    methods: {
+        initializeQuiz() {
+            const siteName = 'mismatch';
+            const config = APP_CONFIG.topMenu[siteName];
+            this.options = config;
             this.state = storageManager.getTopMenuMismatchState(this.daily);
-        }
+            this.init();
+        },
 
         init() {
             this.isQuestionComplete = this.state ? this.state.isQuestionComplete : false;
             this.difficulty = this.state ? this.state.difficulty : this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() ?? 1;
-            this.choicesAmount = this.state ? this.state.choicesAmount : this.options[this.difficulty].choicesAmount ?? 4;
-            this.quizSet = this.state?.quizSet ? {
-                options: this.state.quizSet.options.map(x => CHARACTERS.find(character => character.name === x)),
-                answer: CHARACTERS.find(character => character.name === this.state.quizSet.answer),
-                commonValue: this.state.quizSet.commonValue,
-                quizProperty: this.state.quizSet.quizProperty
-            } : this.getRandomQuizSet(this.choicesAmount);
 
-            if (!this.daily) {
-                this.levelElement.className = '';
-                this.levelElement.classList.add(`level-${difficultyFromNumberToString(this.difficulty)}`);
-                this.levelElement.querySelector('span').textContent = difficultyFromNumberToString(this.difficulty);
+            this.choicesAmount = this.state ? this.state.choicesAmount : this.options[this.difficulty]?.choicesAmount ?? 4;
+
+            if (this.state?.quizSet) {
+                this.quizSet = {
+                    options: this.state.quizSet.options.map((x) => CHARACTERS.find((character) => character.name === x)),
+                    answer: CHARACTERS.find((character) => character.name === this.state.quizSet.answer),
+                    commonValue: this.state.quizSet.commonValue,
+                    quizProperty: this.state.quizSet.quizProperty,
+                };
+            } else {
+                this.quizSet = this.getRandomQuizSet(this.choicesAmount);
             }
 
-            this.defaultState();
-            this.startQuestion();
-            if (this.isQuestionComplete) this.endQuestion(this.quizSet.answer);
-            if (!this.state) this.saveState();
-        }
+            this.answerImageSrc = '';
+
+            // console.log('Quiz Options:', this.quizSet.options);
+            // console.log('Odd One Out (Answer):', this.quizSet.answer);
+            // console.log('Quiz based on property:', this.quizSet.quizProperty, 'with common value:', this.quizSet.commonValue);
+
+            if (this.isQuestionComplete) {
+                this.endQuestion(this.quizSet.answer);
+            }
+
+            if (!this.state) {
+                this.saveState();
+            }
+        },
 
         saveState() {
             this.state = {
                 isQuestionComplete: this.isQuestionComplete,
                 choicesAmount: this.choicesAmount,
                 quizSet: {
-                    options: this.quizSet.options.map(x => x.name),
+                    options: this.quizSet.options.map((x) => x.name),
                     answer: this.quizSet.answer.name,
                     commonValue: this.quizSet.commonValue,
-                    quizProperty: this.quizSet.quizProperty
+                    quizProperty: this.quizSet.quizProperty,
                 },
-                difficulty: this.difficulty
+                difficulty: this.difficulty,
             };
             if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.quizSet.answer, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuMismatchState(this.state, this.daily);
-        }
+        },
 
-        defaultState() {
-            this.answerSuccessElement.src = '';
-            this.nextButtonElement.style.display = 'none';
-        }
+        startNextQuestion() {
+            this.state = null;
+            this.init();
+        },
 
-        startQuestion() {
-            // Clear previous question
-            this.questionElement.innerHTML = "";
-
-            // Add character options to the UI
-            this.quizSet.options.forEach(character => {
-                const image = document.createElement("img");
-                image.src = character.icon;
-                image.alt = character.name;
-                image.title = character.name;
-                image.addEventListener('click', () => {
-                    if (this.isQuestionComplete) return;
-                    this.endQuestion(this.quizSet.answer);
-                    this.isSuccess = character.name === this.quizSet.answer.name;
-                    this.saveState();
-                });
-                this.questionElement.appendChild(image);
-            });
-
-            // Log quiz info for debugging
-            console.log("Quiz Options:", this.quizSet.options);
-            console.log("Odd One Out (Answer):", this.quizSet.answer);
-            console.log("Quiz based on property:", this.quizSet.quizProperty, "with common value:", this.quizSet.commonValue);
-        }
+        handleCharacterClick(character) {
+            if (this.isQuestionComplete) return;
+            this.endQuestion(this.quizSet.answer);
+            this.isSuccess = character.name === this.quizSet.answer.name;
+            this.saveState();
+        },
 
         endQuestion(character) {
-            this.answerSuccessElement.src = character.wish;
-            if (!this.daily) this.nextButtonElement.style.display = 'inline';
+            this.answerImageSrc = character.wish;
             this.isQuestionComplete = true;
-        }
+        },
 
         // Gets all combinations of elements taken count at a time
         getCombinations(array, count) {
@@ -120,7 +146,7 @@
 
             combine(0, []);
             return results;
-        }
+        },
 
         // Builds a frequency map for a property in an array of objects
         frequency(arr, prop) {
@@ -129,81 +155,113 @@
                 freq[obj[prop]] = (freq[obj[prop]] || 0) + 1;
             }
             return freq;
-        }
+        },
 
         // Generates a random quiz set for the mismatch quiz
         getRandomQuizSet(count = 4) {
             // Properties to use for quiz
-            const properties = ["element", "weapon_type", "region"];
+            const properties = ['element', 'weapon_type', 'region'];
             const shuffledProperties = shuffleArray([...properties]);
 
-            // Try each property
-            for (const p of shuffledProperties) {
-                // Get distinct values for property
-                const distinctValues = shuffleArray([...new Set(CHARACTERS.map(c => c[p]))]);
+            // Step 1: Find viable property-value combinations
+            const viableOptions = [];
 
-                for (const v of distinctValues) {
-                    // Find characters with this property value
-                    const majorityCandidates = CHARACTERS.filter(c => c[p] === v);
-                    if (majorityCandidates.length < count - 1) continue;
+            for (const prop of shuffledProperties) {
+                // Count distribution of each property value
+                const valueDistribution = {};
+                for (const char of CHARACTERS) {
+                    const value = char[prop];
+                    valueDistribution[value] = (valueDistribution[value] || 0) + 1;
+                }
 
-                    // Generate combinations of count-1 characters
-                    const triples = this.getCombinations(majorityCandidates, count - 1);
-                    const shuffledTriples = shuffleArray([...triples]);
-
-                    for (const triple of shuffledTriples) {
-                        // Find candidates with different property value
-                        const oddCandidates = CHARACTERS.filter(c => c[p] !== v);
-                        const shuffledOddCandidates = shuffleArray([...oddCandidates]);
-
-                        for (const odd of shuffledOddCandidates) {
-                            const candidateSet = [...triple, odd];
-
-                            // Verify the set has good distribution of other properties
-                            let valid = true;
-                            for (const q of properties) {
-                                if (q === p) continue;
-                                const freqQ = this.frequency(candidateSet, q);
-                                const maxFreq = Math.max(...Object.values(freqQ));
-                                if (maxFreq >= count - 1) {
-                                    valid = false;
-                                    break;
-                                }
-                            }
-
-                            if (valid) {
-                                // Return the quiz set
-                                const options = shuffleArray(candidateSet);
-                                return {
-                                    options,         // Quiz options
-                                    answer: odd,     // Odd one out
-                                    quizProperty: p, // Property for the quiz
-                                    commonValue: v   // Common value
-                                };
-                            }
-                        }
+                // Get values that have enough characters (at least count-1)
+                for (const [value, frequency] of Object.entries(valueDistribution)) {
+                    if (frequency >= count - 1) {
+                        viableOptions.push({ property: prop, value });
                     }
                 }
             }
 
-            console.warn("No valid random quiz set found.");
+            // Step 2: Try each viable option until we find a valid quiz
+            const shuffledOptions = shuffleArray(viableOptions);
+
+            for (const { property, value } of shuffledOptions) {
+                // Get matching characters for the majority set
+                const matchingChars = CHARACTERS.filter((char) => char[property] === value);
+
+                // Get non-matching characters for the odd one out
+                const nonMatchingChars = CHARACTERS.filter((char) => char[property] !== value);
+
+                // Skip if we don't have enough characters
+                if (matchingChars.length < count - 1 || nonMatchingChars.length === 0) {
+                    continue;
+                }
+
+                // Try a limited number of random combinations
+                const maxAttempts = 30;
+
+                for (let attempt = 0; attempt < maxAttempts; attempt++) {
+                    // Randomly select count-1 characters with matching property
+                    const majority = this.selectRandomSubset(matchingChars, count - 1);
+
+                    // Randomly select an odd character
+                    const oddOneOut = this.selectRandom(nonMatchingChars);
+
+                    // Create the full candidate set
+                    const candidateSet = [...majority, oddOneOut];
+
+                    // Verify the set has good distribution of other properties
+                    let valid = true;
+                    for (const prop of properties) {
+                        if (prop === property) continue;
+
+                        // Check frequencies of values for this property
+                        const freqMap = this.frequency(candidateSet, prop);
+                        const maxFreq = Math.max(...Object.values(freqMap));
+
+                        // If any value appears count-1 or more times, it's not valid
+                        if (maxFreq >= count - 1) {
+                            valid = false;
+                            break;
+                        }
+                    }
+
+                    if (valid) {
+                        // Return the valid quiz set
+                        const options = shuffleArray(candidateSet);
+                        return {
+                            options, // Quiz options
+                            answer: oddOneOut, // Odd one out
+                            quizProperty: property, // Property for the quiz
+                            commonValue: value, // Common value
+                        };
+                    }
+                }
+            }
+
+            console.warn('No valid random quiz set found.');
             return null;
-        }
-    }
+        },
 
-    function init() {
-        const siteName = 'mismatch';
-        const config = APP_CONFIG.topMenu[siteName];
-        new QuizManager(config.id, config, false, (questionEntity, difficulty, isSuccess) => {
-            storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
-        }).init();
-    }
+        // Helper method to select a random subset of an array
+        selectRandomSubset(array, size) {
+            const shuffled = shuffleArray([...array]);
+            return shuffled.slice(0, size);
+        },
 
-    window.MismatchQuizManager = QuizManager;
+        // Helper method to select a random element from an array
+        selectRandom(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        },
+    },
+};
 
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelector(`[data-id="${MENU_ITEMS_TOP.quizzes.id}"`).addEventListener('click', () => {
-            document.querySelector(`[data-id="${QUIZZES.mismatch.id}"]`).addEventListener('click', init, { once: true });
-        }, { once: true });
+document.addEventListener('DOMContentLoaded', () => {
+    const quiz = Vue.createApp({
+        components: {
+            'base-component': createComponent(SITES_TOP_QUIZZES_MISMATCH, {}),
+        },
+        template: html` <base-component :daily="false"></base-component> `,
     });
-})();
+    quiz.mount('#site-quizzes #site-mismatch');
+});
