@@ -53,7 +53,6 @@
                     state: null,
                 },
                 tournament: {
-                    dailyState: null,
                     state: null,
                 },
                 dish: {
@@ -62,6 +61,9 @@
                 },
                 voice: {
                     dailyState: null,
+                    state: null,
+                },
+                minesweeper: {
                     state: null,
                 },
             },
@@ -274,6 +276,17 @@
         saveTopMenuDailyState(state) {
             console.log(`saveTopMenuDailyState: `, state);
             this.data.topMenu.daily = { ...state };
+            return this.saveData(this.data);
+        }
+
+        // MINESWEEPER
+
+        getTopMenuMinesweeperState() {
+            return this.data.topMenu.minesweeper.state;
+        }
+
+        saveTopMenuMinesweeperState(state) {
+            this.data.topMenu.minesweeper.state = { ...state };
             return this.saveData(this.data);
         }
     }
