@@ -32,7 +32,7 @@
   - [ ] Display result explanaition for Mismach quiz
 - Features:
   - New game: Minesweeper
-  - Add buttons like report bug or add suggestion. Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)
+  - Add buttons like report bug or add suggestion. => Feedback [Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)]
   - Github link (to the bottom next to version)
 
 # Future version

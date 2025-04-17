@@ -1,331 +1,377 @@
-(() => {
-    'use strict';
+const SITES_TOP_GAMES_TOURNAMENT = Vue.createApp({
+    template: html`
+        <div class="container quiz-container">
+            <div name="tournament-setup" class="col-4 mx-auto pt-3" v-show="showSetup">
+                <div class="">
+                    <label class="form-label">Tournament type</label>
+                    <select name="tournament-type" class="form-select" v-model="tournamentType">
+                        <option v-for="type in TOURNAMENT_TYPES" :value="type" :key="type">{{ type }}</option>
+                    </select>
+                    <div class="form-text">Select tournament type.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Characters</label>
+                    <select name="character-count" class="form-select" v-model="tournamentSize">
+                        <option v-for="size in Object.values(TOURNAMENT_SIZES)" :value="size" :key="size">{{ size }}</option>
+                    </select>
+                    <div class="form-text">Select character count.</div>
+                </div>
+                <div class="text-center">
+                    <button name="start-tournament" class="btn btn-primary" @click="startTournament">Start Tournament</button>
+                </div>
+            </div>
+            <div name="match" class="mx-auto character-grid pt-2">
+                <div v-for="(character, index) in currentMatchCharacters" :key="index" :class="{'winner': character.isWinner, 'loser': character.isLoser}">
+                    <img :src="character.icon" :alt="character.name" :title="character.name" @click="selectWinner(character)" />
+                </div>
+            </div>
+            <div class="d-flex justify-content-center tries-score my-2">
+                Matches:
+                <p name="matches-current">{{ currentMatch }}</p>
+                /
+                <p name="matches-max">{{ matches }}</p>
+            </div>
+            <div name="result" class="d-block mx-auto" v-html="resultHtml">
+                <!-- Tournament result will be dynamically injected here -->
+            </div>
+            <button class="btn btn-primary next-button" v-show="!showSetup" @click="resetTournament">Back to setup</button>
+        </div>
+    `,
 
-    const TOURNAMENT_TYPES = {
-        SingleElimination: 'Single elimination',
-        DoubleElimination: 'Double elimination',
-        RoundRobin: 'Round robin (all play all)'
-    };
+    data() {
+        return {
+            TOURNAMENT_TYPES: {
+                SingleElimination: 'Single elimination',
+                DoubleElimination: 'Double elimination',
+                RoundRobin: 'Round robin (all play all)',
+            },
+            TOURNAMENT_SIZES: {
+                Size8: 8,
+                Size16: 16,
+                Size32: 32,
+                Size64: 64,
+            },
+            tournamentType: 'Single elimination',
+            tournamentSize: 8,
+            showSetup: true,
+            rounds: 0,
+            currentRound: 0,
+            matches: 0,
+            currentMatch: 0,
+            competitors: [],
+            roundMatches: [],
+            winners: [],
+            losers: [],
+            history: [],
+            currentMatchCharacters: [],
+            resultHtml: '',
+            tournamentInProgress: false,
+        };
+    },
 
-    const TOURNAMENT_SIZES = {
-        Size8: 8,
-        Size16: 16,
-        Size32: 32,
-        Size64: 64
-    };
+    computed: {},
 
-    let tournamentSetupElement;
-    let matchesCurrentElement;
-    let matchesMaxElement;
-    let tournamentTypeElement;
-    let tournamentSizeElement;
-    let startTournamentButtonElement;
-    let matchElement;
-    let resultElement;
-    let menuItemElement;
-    let backToSetupElement;
+    mounted() {
+        this.calculateTournamentLength();
+    },
 
-    let rounds = 0;
-    let currentRound = 0;
-    let matches = 0;
-    let currentMatch = 1;
-    let tournamentSize = TOURNAMENT_SIZES.Size8;
-    let tournamentType = TOURNAMENT_TYPES.SingleElimination;
+    watch: {
+        tournamentType() {
+            this.calculateTournamentLength();
+        },
+        tournamentSize() {
+            this.calculateTournamentLength();
+        },
+    },
 
-    let competitors = [];
-    let roundMatches = [];
-    let winners = [];
-    let losers = [];
-    let history = [];
+    methods: {
+        resetValues() {
+            this.currentRound = 0;
+            this.currentMatch = 0;
+            this.competitors = [];
+            this.roundMatches = [];
+            this.winners = [];
+            this.losers = [];
+            this.history = [];
+            this.currentMatchCharacters = [];
+            this.resultHtml = '';
+            this.tournamentInProgress = false;
+        },
 
-    function resetValues() {
-        currentRound = 0;
-        currentMatch = 1;
-        competitors = [];
-        roundMatches = [];
-        winners = [];
-        losers = [];
-        history = [];
-    }
-
-    function calculateTournamentLength() {
-        resetValues();
-        if (tournamentType === TOURNAMENT_TYPES.SingleElimination) {
-            matches = tournamentSize - 1;
-            rounds = Math.ceil(Math.log2(tournamentSize));
-        }
-        else if (tournamentType === TOURNAMENT_TYPES.DoubleElimination) {
-            matches = tournamentSize * 2 - 2;
-            rounds = Math.ceil(Math.log2(tournamentSize)) + 2;
-        }
-        else if (tournamentType === TOURNAMENT_TYPES.RoundRobin) {
-            matches = tournamentSize * (tournamentSize - 1) / 2;
-            rounds = matches;
-        }
-    }
-
-    function generateRoundMatches(characters) {
-        if (characters.length === 1) return;
-        for (let i = 0; i < characters.length; i += 2) {
-            roundMatches.push([characters[i], characters[i + 1]]);
-        }
-        currentRound++;
-    }
-
-    function incrementCurrentMatch() {
-        if (currentMatch < matches) currentMatch++;
-        matchesCurrentElement.textContent = currentMatch;
-    }
-
-    function renderMatch(matchCharacters, clickCallback) {
-        const controller = new AbortController();
-        const { signal } = controller;
-
-        matchCharacters.forEach(character => {
-            const imageContainer = document.createElement("div");
-            const image = document.createElement("img");
-            image.src = character.icon;
-            image.alt = character.name;
-            image.title = character.name;
-            image.addEventListener('click', () => {
-                const winnerCharacter = character;
-                const loserCharacter = matchCharacters.find(c => c.name !== character.name);
-                const winnerElement = matchElement.querySelector('img[alt="' + winnerCharacter.name + '"]');
-                const loserElement = matchElement.querySelector('img[alt="' + loserCharacter.name + '"]');
-                winnerElement.parentNode.classList.add('winner');
-                loserElement.parentNode.classList.add('loser');
-                setTimeout(() => {
-                    matchElement.innerHTML = '';
-                    incrementCurrentMatch();
-                    clickCallback(winnerCharacter, loserCharacter);
-                }, 500);
-                controller.abort();
-            }, { signal });
-            imageContainer.appendChild(image);
-            matchElement.appendChild(imageContainer);
-        });
-    }
-
-    function renderPodiumHtml(winners, winsCount) {
-        let html = '<div class="podium">';
-        const places = ['second', 'first', 'third'];
-        const medals = ['Silver', 'Gold', 'Bronze'];
-        winners.forEach((character, index) => {
-            const placeClass = places[index];
-            const medal = medals[index];
-            const placeString = capitalize(placeClass);
-            html += `
-             <div class="podium-place ${placeClass}-place">
-                 <div style="position: relative;">
-                     <img src="${character.wish}" alt="${placeString} Place" class="podium-image">
-                     <div class="medal">${index + 1}</div>
-                 </div>
-                 <div class="podium-block">${placeString} Place${winsCount ? ' (' + winsCount[index] + ' wins)' : ''}</div>
-                 <div class="place-label">${medal}</div>
-             </div>`;
-        });
-        html += '</div>';
-        return html;
-    }
-
-    function singleEliminationNext() {
-        if (currentRound === 0) {
-            competitors = getRandomCharacters(tournamentSize);
-            generateRoundMatches(competitors);
-        }
-        if (competitors.length === 0) return;
-
-        if (roundMatches.length > 0) {
-            const [player1, player2] = roundMatches.pop();
-            renderMatch([player1, player2], (winner, loser) => {
-                winners.push(winner);
-                losers.push(loser);
-                history.push({ round: currentRound, match: currentMatch, player1: player1, player2: player2, winner: winner });
-                singleEliminationNext();
-            });
-        }
-        else if (winners.length % 2 === 0) {
-            generateRoundMatches(winners);
-            winners = [];
-            currentRound++;
-            singleEliminationNext();
-        }
-        else {
-            const winner = winners.pop();
-            const image = document.createElement("img");
-            image.name = 'answer-success';
-            image.src = winner.wish;
-            image.alt = winner.name;
-            image.title = winner.name;
-            resultElement.appendChild(image);
-        }
-    }
-
-    function doubleEliminationManager(isUpperBracket = true) {
-        if (currentRound === 0) {
-            competitors = getRandomCharacters(tournamentSize);
-            generateRoundMatches(competitors);
-        }
-        if (competitors.length === 0) return;
-
-        if (roundMatches.length > 0) {
-            const [player1, player2] = roundMatches.pop();
-            renderMatch([player1, player2], (winner, loser) => {
-                if (isUpperBracket) {
-                    winners.push(winner);
-                    losers.push(loser);
-                }
-                else {
-                    losers.push(winner);
-                }
-                history.push({ round: currentRound, match: currentMatch, isUpperBracket: isUpperBracket, player1: player1, player2: player2, winner: winner, loser: loser });
-                doubleEliminationManager(isUpperBracket);
-            });
-        }
-        else if (winners.length % 2 === 0 || losers.length % 2 === 0) {
-            if (isUpperBracket || losers.length === 2 && winners.length === 2) {
-                generateRoundMatches(losers);
-                losers = [];
-                doubleEliminationManager(false);
+        calculateTournamentLength() {
+            this.resetValues();
+            if (this.tournamentType === this.TOURNAMENT_TYPES.SingleElimination) {
+                this.matches = this.tournamentSize - 1;
+                this.rounds = Math.ceil(Math.log2(this.tournamentSize));
+            } else if (this.tournamentType === this.TOURNAMENT_TYPES.DoubleElimination) {
+                this.matches = this.tournamentSize * 2 - 2;
+                this.rounds = Math.ceil(Math.log2(this.tournamentSize)) + 2;
+            } else if (this.tournamentType === this.TOURNAMENT_TYPES.RoundRobin) {
+                this.matches = (this.tournamentSize * (this.tournamentSize - 1)) / 2;
+                this.rounds = this.matches;
             }
-            else {
-                generateRoundMatches(winners);
-                winners = [];
-                doubleEliminationManager(true);
+        },
+
+        generateRoundMatches(characters) {
+            if (characters.length === 1) return;
+            for (let i = 0; i < characters.length; i += 2) {
+                this.roundMatches.push([characters[i], characters[i + 1]]);
             }
-            currentRound++;
-        }
-        else if (!isUpperBracket && winners.length === 1 && losers.length === 1) {
-            generateRoundMatches(winners.concat(losers));
-            winners = [];
-            losers = [];
-            doubleEliminationManager(true);
-        }
-        else {
-            const first = history[history.length - 1].winner;
-            const second = history[history.length - 1].loser;
-            const third = history[history.length - 2].loser;
-            resultElement.innerHTML = renderPodiumHtml([second, first, third]);
-        }
-    }
+            this.currentRound++;
+        },
 
-    function roundRobinManager() {
-        if (currentRound === 0) {
-            competitors = getRandomCharacters(tournamentSize);
-            generateRoundMatches(combinations(competitors, 2).flat());
-        }
-        if (competitors.length === 0) return;
+        incrementCurrentMatch() {
+            if (this.currentMatch < this.matches) this.currentMatch++;
+        },
 
-        if (roundMatches.length > 0) {
-            const [player1, player2] = roundMatches.pop();
-            renderMatch([player1, player2], (winner, loser) => {
-                winners.push(winner);
-                losers.push(loser);
-                history.push({ round: currentRound, match: currentMatch, player1: player1, player2: player2, winner: winner, loser: loser });
-                roundRobinManager();
-            });
-        }
-        else {
-            const winsCount = winners.reduce((acc, obj) => {
-                const key = obj.name;
-                if (acc[key]) {
-                    acc[key].count++;
+        startTournament() {
+            this.showSetup = false;
+            this.currentMatch = 1;
+            this.tournamentInProgress = true;
+
+            if (this.tournamentType === this.TOURNAMENT_TYPES.SingleElimination) {
+                this.singleEliminationNext();
+            } else if (this.tournamentType === this.TOURNAMENT_TYPES.DoubleElimination) {
+                this.doubleEliminationManager();
+            } else if (this.tournamentType === this.TOURNAMENT_TYPES.RoundRobin) {
+                this.roundRobinManager();
+            }
+        },
+
+        selectWinner(winner) {
+            if (!this.tournamentInProgress) return;
+
+            const loser = this.currentMatchCharacters.find((c) => c.name !== winner.name);
+
+            // Mark winner and loser for visual indication
+            this.currentMatchCharacters.forEach((char) => {
+                if (char.name === winner.name) {
+                    char.isWinner = true;
                 } else {
-                    acc[key] = { obj, count: 1 };
+                    char.isLoser = true;
                 }
-                return acc;
-            }, {});
+            });
 
-            const resultTable = Object.values(winsCount).sort((a, b) => b.count - a.count);
-            const first = resultTable[0];
-            const second = resultTable[1];
-            const third = resultTable[2];
-            resultElement.innerHTML = renderPodiumHtml([second.obj, first.obj, third.obj], [second.count, first.count, third.count]);
-        }
-    }
+            // Process after a short delay for animation
+            setTimeout(() => {
+                this.processMatchResult(winner, loser);
+            }, 500);
+        },
 
-    function defaultState() {
-        tournamentSetupElement.classList.remove('d-none');
-        backToSetupElement.classList.add('d-none');
-        matchElement.innerHTML = '';
-        resultElement.innerHTML = '';
-        matchesCurrentElement.textContent = 0;
-        resetValues();
-    }
+        processMatchResult(winner, loser) {
+            this.incrementCurrentMatch();
 
-    function init() {
-        const config = APP_CONFIG.topMenu.tournament;
+            if (this.tournamentType === this.TOURNAMENT_TYPES.SingleElimination) {
+                this.winners.push(winner);
+                this.losers.push(loser);
+                this.history.push({
+                    round: this.currentRound,
+                    match: this.currentMatch,
+                    player1: this.currentMatchCharacters[0],
+                    player2: this.currentMatchCharacters[1],
+                    winner: winner,
+                });
+                this.currentMatchCharacters = [];
+                this.singleEliminationNext();
+            } else if (this.tournamentType === this.TOURNAMENT_TYPES.DoubleElimination) {
+                if (this.currentIsUpperBracket) {
+                    this.winners.push(winner);
+                    this.losers.push(loser);
+                } else {
+                    this.losers.push(winner);
+                }
 
-        calculateTournamentLength();
+                this.history.push({
+                    round: this.currentRound,
+                    match: this.currentMatch,
+                    isUpperBracket: this.currentIsUpperBracket,
+                    player1: this.currentMatchCharacters[0],
+                    player2: this.currentMatchCharacters[1],
+                    winner: winner,
+                    loser: loser,
+                });
 
-        tournamentSetupElement = document.querySelector(`#${config.id} div[name="tournament-setup"]`);
-        matchesCurrentElement = document.querySelector(`#${config.id} p[name="matches-current"]`);
-        matchElement = document.querySelector(`#${config.id} div[name="match"]`);
-        resultElement = document.querySelector(`#${config.id} div[name="result"]`);
+                this.currentMatchCharacters = [];
+                this.doubleEliminationManager(this.currentIsUpperBracket);
+            } else if (this.tournamentType === this.TOURNAMENT_TYPES.RoundRobin) {
+                this.winners.push(winner);
+                this.losers.push(loser);
+                this.history.push({
+                    round: this.currentRound,
+                    match: this.currentMatch,
+                    player1: this.currentMatchCharacters[0],
+                    player2: this.currentMatchCharacters[1],
+                    winner: winner,
+                    loser: loser,
+                });
 
-        backToSetupElement = document.querySelector(`#${config.id} button.next-button`);
-        backToSetupElement.addEventListener('click', () => {
-            defaultState();
-        });
-
-        menuItemElement = document.querySelector(`nav > ul > li[data-id="${config.id}"]`);
-        menuItemElement.addEventListener('click', () => {
-            defaultState();
-        });
-
-        matchesMaxElement = document.querySelector(`#${config.id} p[name="matches-max"]`);
-        matchesMaxElement.textContent = matches;
-
-        tournamentTypeElement = document.querySelector(`#${config.id} select[name="tournament-type"]`);
-        Object.values(TOURNAMENT_TYPES).forEach(tournamentType => {
-            const opt = document.createElement('option');
-            opt.value = tournamentType;
-            opt.innerHTML = tournamentType;
-            tournamentTypeElement.appendChild(opt);
-        });
-        tournamentTypeElement.value = tournamentType;
-        tournamentTypeElement.addEventListener('change', (event) => {
-            tournamentType = event.target.value;
-            calculateTournamentLength();
-            matchesMaxElement.textContent = matches;
-        });
-
-        tournamentSizeElement = document.querySelector(`#${config.id} select[name="character-count"]`);
-        Object.values(TOURNAMENT_SIZES).forEach(tournamentSize => {
-            const opt = document.createElement('option');
-            opt.value = tournamentSize;
-            opt.innerHTML = tournamentSize;
-            tournamentSizeElement.appendChild(opt);
-        })
-        tournamentSizeElement.value = tournamentSize;
-        tournamentSizeElement.addEventListener('change', (event) => {
-            tournamentSize = Number(event.target.value);
-            calculateTournamentLength();
-            matchesMaxElement.textContent = matches;
-        });
-
-        startTournamentButtonElement = document.querySelector(`#${config.id} button[name="start-tournament"]`);
-        startTournamentButtonElement.addEventListener('click', () => {
-            tournamentSetupElement.classList.contains('d-none') ? tournamentSetupElement.classList.remove('d-none') : tournamentSetupElement.classList.add('d-none');
-            backToSetupElement.classList.remove('d-none');
-            matchesCurrentElement.textContent = 1;
-
-            if (tournamentType === TOURNAMENT_TYPES.SingleElimination) {
-                singleEliminationNext();
+                this.currentMatchCharacters = [];
+                this.roundRobinManager();
             }
-            else if (tournamentType === TOURNAMENT_TYPES.DoubleElimination) {
-                doubleEliminationManager();
-            }
-            else if (tournamentType === TOURNAMENT_TYPES.RoundRobin) {
-                roundRobinManager();
-            }
-        });
-    }
+        },
 
-    /**
-     * Initializes the tournament quiz
-     */
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelector(`[data-id="${MENU_ITEMS_TOP.tournament.id}"`).addEventListener('click', init, { once: true });
-    });
-})();
+        singleEliminationNext() {
+            if (this.currentRound === 0) {
+                this.competitors = getRandomCharacters(this.tournamentSize);
+                this.generateRoundMatches(this.competitors);
+            }
+
+            if (this.competitors.length === 0) return;
+
+            if (this.roundMatches.length > 0) {
+                const [player1, player2] = this.roundMatches.pop();
+                this.currentMatchCharacters = [
+                    { ...player1, isWinner: false, isLoser: false },
+                    { ...player2, isWinner: false, isLoser: false },
+                ];
+            } else if (this.winners.length % 2 === 0 && this.winners.length > 1) {
+                this.generateRoundMatches(this.winners);
+                this.winners = [];
+                this.singleEliminationNext();
+            } else if (this.winners.length === 1) {
+                const winner = this.winners[0];
+                this.resultHtml = `<img name="answer-success" src="${winner.wish}" alt="${winner.name}" title="${winner.name}">`;
+                this.tournamentInProgress = false;
+            }
+        },
+
+        doubleEliminationManager(isUpperBracket = true) {
+            this.currentIsUpperBracket = isUpperBracket;
+
+            if (this.currentRound === 0) {
+                this.competitors = getRandomCharacters(this.tournamentSize);
+                this.generateRoundMatches(this.competitors);
+            }
+
+            if (this.competitors.length === 0) return;
+
+            if (this.roundMatches.length > 0) {
+                const [player1, player2] = this.roundMatches.pop();
+                this.currentMatchCharacters = [
+                    { ...player1, isWinner: false, isLoser: false },
+                    { ...player2, isWinner: false, isLoser: false },
+                ];
+            } else if (this.winners.length % 2 === 0 || this.losers.length % 2 === 0) {
+                if (isUpperBracket || (this.losers.length === 2 && this.winners.length === 2)) {
+                    this.generateRoundMatches(this.losers);
+                    this.losers = [];
+                    this.doubleEliminationManager(false);
+                } else {
+                    this.generateRoundMatches(this.winners);
+                    this.winners = [];
+                    this.doubleEliminationManager(true);
+                }
+                this.currentRound++;
+            } else if (!isUpperBracket && this.winners.length === 1 && this.losers.length === 1) {
+                this.generateRoundMatches(this.winners.concat(this.losers));
+                this.winners = [];
+                this.losers = [];
+                this.doubleEliminationManager(true);
+            } else {
+                const first = this.history[this.history.length - 1].winner;
+                const second = this.history[this.history.length - 1].loser;
+                const third = this.history[this.history.length - 2].loser;
+                this.resultHtml = this.renderPodiumHtml([second, first, third]);
+                this.tournamentInProgress = false;
+            }
+        },
+
+        roundRobinManager() {
+            if (this.currentRound === 0) {
+                this.competitors = getRandomCharacters(this.tournamentSize);
+                this.generateRoundMatches(this.combinations(this.competitors, 2).flat());
+                this.roundMatches = this.shuffleArray(this.roundMatches);
+            }
+
+            if (this.competitors.length === 0) return;
+
+            if (this.roundMatches.length > 0) {
+                const [player1, player2] = this.roundMatches.pop();
+                this.currentMatchCharacters = [
+                    { ...player1, isWinner: false, isLoser: false },
+                    { ...player2, isWinner: false, isLoser: false },
+                ];
+            } else {
+                const winsCount = this.winners.reduce((acc, obj) => {
+                    const key = obj.name;
+                    if (acc[key]) {
+                        acc[key].count++;
+                    } else {
+                        acc[key] = { obj, count: 1 };
+                    }
+                    return acc;
+                }, {});
+
+                const resultTable = Object.values(winsCount).sort((a, b) => b.count - a.count);
+                const first = resultTable[0];
+                const second = resultTable[1];
+                const third = resultTable[2];
+                this.resultHtml = this.renderPodiumHtml([second.obj, first.obj, third.obj], [second.count, first.count, third.count]);
+                this.tournamentInProgress = false;
+            }
+        },
+
+        renderPodiumHtml(winners, winsCount) {
+            let html = '<div class="podium">';
+            const places = ['second', 'first', 'third'];
+            const medals = ['Silver', 'Gold', 'Bronze'];
+            winners.forEach((character, index) => {
+                const placeClass = places[index];
+                const medal = medals[index];
+                const placeString = this.capitalize(placeClass);
+                html += `
+                 <div class="podium-place ${placeClass}-place">
+                     <div style="position: relative;">
+                         <img src="${character.wish}" alt="${placeString} Place" class="podium-image">
+                         <div class="medal">${index + 1}</div>
+                     </div>
+                     <div class="podium-block">${placeString} Place${winsCount ? ' (' + winsCount[index] + ' wins)' : ''}</div>
+                     <div class="place-label">${medal}</div>
+                 </div>`;
+            });
+            html += '</div>';
+            return html;
+        },
+
+        resetTournament() {
+            this.showSetup = true;
+            this.resetValues();
+        },
+
+        combinations(arr, k) {
+            const result = [];
+
+            function backtrack(start, current) {
+                if (current.length === k) {
+                    result.push([...current]);
+                    return;
+                }
+
+                for (let i = start; i < arr.length; i++) {
+                    current.push(arr[i]);
+                    backtrack(i + 1, current);
+                    current.pop();
+                }
+            }
+
+            backtrack(0, []);
+            return result;
+        },
+
+        shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        },
+
+        capitalize(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        },
+    },
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    SITES_TOP_GAMES_TOURNAMENT.mount('#site-tournament');
+});

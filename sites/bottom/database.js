@@ -1,583 +1,562 @@
-(() => {
-    'use strict';
+const CharacterHeader = {
+    props: {
+        character: Object,
+    },
+    template: html`
+        <div class="character-header">
+            <img :src="character.card" :alt="character.name" class="character-image" />
 
-    let character;
-    let containerElement;
-
-    // Main function to display character info
-    function displayCharacterInfo(characterDatabase) {
-        character = characterDatabase;
-
-        // Create header section
-        createCharacterHeader();
-
-        // Setup tabs
-        setupTabs();
-
-        // Create content for each tab
-        createAscensionsTab();
-        createTalentsTab();
-        createConstellationsTab();
-        createBuildTab();
-        createVoiceOversTab();
-    }
-
-    // Create the character header section
-    function createCharacterHeader() {
-        const headerElement = containerElement.querySelector('#character-header');
-
-        // Create character image and basic info sections
-        const headerHTML = `
-            <img src="${character.card}" alt="${character.name}" class="character-image">
-            
             <div class="character-basics">
-                <h1 class="character-name ${character.element.toLowerCase()}">
-                    ${character.name}
-                    <span class="rarity-stars">${'★'.repeat(parseInt(character.rarity))}</span>
+                <h1 :class="['character-name', character.element.toLowerCase()]">
+                    {{ character.name }}
+                    <span class="rarity-stars">{{ '★'.repeat(parseInt(character.rarity)) }}</span>
                 </h1>
-                
-                ${character.titles && character.titles.length ? `<div class="character-title">${character.titles[0]}</div>` : ''}
-                
+
+                <div v-if="character.titles && character.titles.length" class="character-title">{{ character.titles[0] }}</div>
+
                 <div class="character-info">
                     <div class="info-item">
                         <span class="info-label">Element:</span>
                         <span class="info-value">
-                            <img src="${character.element_icon}" alt="${character.element}" class="element-icon">
-                            ${character.element}
+                            <img :src="character.element_icon" :alt="character.element" class="element-icon" />
+                            {{ character.element }}
                         </span>
                     </div>
-                    
+
                     <div class="info-item">
                         <span class="info-label">Weapon:</span>
                         <span class="info-value">
-                            <img src="${character.weapont_type_icon}" alt="${character.weapon_type}" class="weapon-icon">
-                            ${character.weapon_type}
+                            <img :src="character.weapont_type_icon" :alt="character.weapon_type" class="weapon-icon" />
+                            {{ character.weapon_type }}
                         </span>
                     </div>
-                    
-                    ${character.region ? `
-                    <div class="info-item">
+
+                    <div v-if="character.region" class="info-item">
                         <span class="info-label">Region:</span>
                         <span class="info-value">
-                            ${character.region_icon ? `<img src="${character.region_icon}" alt="${character.region}" class="region-icon">` : ''}
-                            ${character.region}
+                            <img v-if="character.region_icon" :src="character.region_icon" :alt="character.region" class="region-icon" />
+                            {{ character.region }}
                         </span>
                     </div>
-                    ` : ''}
-                    
+
                     <div class="info-item">
                         <span class="info-label">Model:</span>
-                        <span class="info-value">${character.model_type}</span>
+                        <span class="info-value">{{ character.model_type }}</span>
                     </div>
-                    
+
                     <div class="info-item">
                         <span class="info-label">Birthday:</span>
-                        <span class="info-value">${character.birthday}</span>
+                        <span class="info-value">{{ character.birthday }}</span>
                     </div>
-                    
+
                     <div class="info-item">
                         <span class="info-label">Released:</span>
-                        <span class="info-value">${character.release_date} (v${character.version})</span>
+                        <span class="info-value">{{ character.release_date }} (v{{ character.version }})</span>
                     </div>
 
                     <div class="info-item">
                         <span class="info-label">Titles:</span>
-                        <span class="info-value">${character.titles.join(', ')}</span>
+                        <span class="info-value">{{ character.titles.join(', ') }}</span>
                     </div>
 
                     <div class="info-item">
                         <span class="info-label">Affiliations:</span>
-                        <span class="info-value">${character.affiliations.join(', ')}</span>
+                        <span class="info-value">{{ character.affiliations.join(', ') }}</span>
                     </div>
 
                     <div class="info-item">
                         <span class="info-label">Special dish:</span>
                         <span class="info-value">
-                            ${character.special_dish ? `<img src="${character.special_dish.icon}" alt="${character.special_dish.name}" class="element-icon">` : ''}
-                            ${character.special_dish?.name ?? 'N/A'}
+                            <img v-if="character.special_dish" :src="character.special_dish.icon" :alt="character.special_dish.name" class="element-icon" />
+                            {{ character.special_dish?.name ?? 'N/A' }}
                         </span>
                     </div>
                 </div>
-                
-                ${character.voice_actors && character.voice_actors.length ? `
-                <div class="xcol-2">
+
+                <div v-if="character.voice_actors && character.voice_actors.length" class="xcol-2">
                     <div class="voice-actors">
                         <h3>Voice Actors</h3>
-                        ${character.voice_actors.map(va => `
-                            <div class="voice-actor">
-                                <strong>${va.language}:</strong> ${va.actor}
-                            </div>
-                        `).join('')}
+                        <div v-for="va in character.voice_actors" class="voice-actor"><strong>{{ va.language }}:</strong> {{ va.actor }}</div>
                     </div>
-                    ${character.demo_music ? `
-                        <div class="demo-music">
-                            <h3>Demo Music</h3>
-                            <audio preload="metadata" controls src="${character.demo_music}"></audio>
-                        </div>
-                    ` : ''}
+                    <div v-if="character.demo_music" class="demo-music">
+                        <h3>Demo Music</h3>
+                        <audio preload="metadata" controls :src="character.demo_music"></audio>
+                    </div>
                 </div>
-                ` : ''}
             </div>
-        `;
+        </div>
+    `,
+};
 
-        headerElement.innerHTML = headerHTML;
+const AscensionTab = {
+    props: {
+        character: Object,
+    },
+    data() {
+        return {
+            totalMaterials: new Map(),
+        };
+    },
+    mounted() {
+        this.updateTotalMaterials();
+    },
+    methods: {
+        updateTotalMaterials() {
+            this.totalMaterials.clear();
 
-        const bannerElement = containerElement.querySelector('#banner');
-        bannerElement.src = character.namecard_banner;
-        bannerElement.alt = character.name;
-    }
-
-    // Setup tab functionality
-    function setupTabs() {
-        const tabButtons = containerElement.querySelectorAll('.tab-button');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons and content
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                containerElement.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-                // Add active class to clicked button and corresponding content
-                button.classList.add('active');
-                containerElement.querySelector(`#${button.dataset.tab}`).classList.add('active');
-            });
-        });
-    }
-
-    // Create Ascensions tab content
-    function createAscensionsTab() {
-        const ascensionTableElement = containerElement.querySelector('.ascension-table');
-
-        // Create ascension table
-        let tableHTML = `
-        <table>
-            <thead>
-                <tr>
-                    <th class="checkbox-column"></th>
-                    <th>Phase</th>
-                    <th>Levels</th>
-                    <th>HP</th>
-                    <th>ATK</th>
-                    <th>DEF</th>
-                    <th>${character.ascensions_materials_and_stats[0].primary_stat.name}</th>
-                    <th>Materials</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
-
-        // Add rows for each ascension phase
-        character.ascensions_materials_and_stats.forEach(ascension => {
-            const phaseNumber = ascension.phase;
-
-            if (phaseNumber === 0) {
-                // Base stats, no materials needed
-                tableHTML += `
-                <tr>
-                    <td class="checkbox-column"></td>
-                    <td>${phaseNumber}</td>
-                    <td>
-                        ${ascension.levels.map(level => `<div>${level.level}</div>`).join('')}
-                    </td>
-                    <td>
-                        ${ascension.levels.map(level => `<div>${Math.round(level.hp)}</div>`).join('')}
-                    </td>
-                    <td>
-                        ${ascension.levels.map(level => `<div>${Math.round(level.atk)}</div>`).join('')}
-                    </td>
-                    <td>
-                        ${ascension.levels.map(level => `<div>${Math.round(level.def)}</div>`).join('')}
-                    </td>
-                    <td>
-                        ${ascension.primary_stat.value}
-                    </td>
-                    <td>-</td>
-                </tr>
-            `;
-            } else {
-                // Ascension phase with materials
-                let materialsHTML = '';
-
-                if (ascension.cost && ascension.cost.length) {
-                    materialsHTML = `
-                        <div class="materials-container">
-                            ${ascension.cost.map(material => `
-                                <div class="material-item" data-material="${material.name}">
-                                    <img src="${material.icon}" alt="${material.name}" class="material-icon">
-                                    <span class="material-name">${material.name} x${material.value}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                }
-
-                tableHTML += `
-                    <tr data-phase="${phaseNumber}">
-                        <td class="checkbox-column">
-                            <input type="checkbox" class="ascension-checkbox" data-phase="${phaseNumber}" data-type="ascension" checked>
-                        </td>
-                        <td>${phaseNumber}</td>
-                        <td>
-                            ${ascension.levels.map(level => `<div>${level.level}</div>`).join('')}
-                        </td>
-                        <td>
-                            ${ascension.levels.map(level => `<div>${Math.round(level.hp)}</div>`).join('')}
-                        </td>
-                        <td>
-                            ${ascension.levels.map(level => `<div>${Math.round(level.atk)}</div>`).join('')}
-                        </td>
-                        <td>
-                            ${ascension.levels.map(level => `<div>${Math.round(level.def)}</div>`).join('')}
-                        </td>
-                        <td>
-                            ${ascension.primary_stat.value}
-                        </td>
-                        <td>${materialsHTML}</td>
-                    </tr>
-                `;
-            }
-        });
-
-        tableHTML += `
-                </tbody>
-            </table>
-        `;
-
-        ascensionTableElement.innerHTML = tableHTML;
-        // Adding ascension data to the element programatically instead of manual to avoid json parsing error
-        ascensionTableElement.querySelectorAll('tbody > tr').forEach((row, index) => {
-            const ascension = character.ascensions_materials_and_stats[index];
-            let materialsJSON = '';
-
-            if (ascension?.cost && ascension?.cost.length) {
-                // Create JSON representation of materials for data attribute
-                materialsJSON = JSON.stringify(ascension.cost.map(material => ({
-                    name: material.name,
-                    value: material.value,
-                    icon: material.icon
-                })));
-                row.dataset.materials = materialsJSON;
-            }
-        });
-
-        // Add event listeners to checkboxes
-        const checkboxes = ascensionTableElement.querySelectorAll('.ascension-checkbox');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                updateTotalMaterials('ascension');
-            });
-        });
-
-        // Initial calculation of total materials
-        updateTotalMaterials('ascension');
-    }
-
-    // Create Talents tab content
-    function createTalentsTab() {
-        const talentsInfoElement = containerElement.querySelector('.talents-info');
-        const talentTableElement = containerElement.querySelector('.talent-level-table');
-
-        // Display talents information
-        let talentsHTML = '';
-        character.talents.forEach(talent => {
-            talentsHTML += `
-            <div class="talent">
-                <div class="talent-header">
-                    <img src="${talent.icon}" alt="${talent.name}" class="talent-icon">
-                    <h3 class="talent-name">${talent.name}</h3>
-                    <span class="talent-type">${talent.type}</span>
-                </div>
-                <div class="talent-description">${talent.description}</div>
-            </div>
-        `;
-        });
-
-        talentsInfoElement.innerHTML = talentsHTML;
-
-        // Create talent level-up materials table
-        let tableHTML = `
-        <h3>Talent Level-Up Materials</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th class="checkbox-column"></th>
-                    <th>Level</th>
-                    <th>Materials</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
-
-        // Add rows for each talent level
-        character.talents_materials.forEach(level => {
-            tableHTML += `
-            <tr data-level="${level.level}">
-                <td class="checkbox-column">
-                    <input type="checkbox" class="talent-checkbox" data-level="${level.level}" data-type="talent" checked>
-                </td>
-                <td>Level ${level.level}</td>
-                <td>
-                    <div class="materials-container">
-                    ${level.cost.map(material => `
-                        <div class="material-item" data-material="${material.name}">
-                            <img src="${material.icon}" alt="${material.name}" class="material-icon">
-                            <span class="material-name">${material.name} x${material.value}</span>
-                        </div>
-                    `).join('')}
-                    </div>
-                </td>
-            </tr>
-        `;
-        });
-
-        tableHTML += `
-            </tbody>
-        </table>
-        <p><em>Note: These materials are for leveling up one talent. For all three talents, multiply by 3.</em></p>
-    `;
-
-        talentTableElement.innerHTML = tableHTML;
-        // Adding level data to the element programatically instead of manual to avoid json parsing error
-        talentTableElement.querySelectorAll('tbody > tr').forEach((row, index) => {
-            const level = character.talents_materials[index];
-            let materialsJSON = '';
-
-            if (level?.cost && level?.cost?.length) {
-                // Create JSON representation of materials for data attribute
-                materialsJSON = JSON.stringify(level.cost.map(material => ({
-                    name: material.name,
-                    value: material.value,
-                    icon: material.icon
-                })));
-                row.dataset.materials = materialsJSON;
-            }
-        });
-
-        // Add event listeners to checkboxes
-        const checkboxes = talentTableElement.querySelectorAll('.talent-checkbox');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                updateTotalMaterials('talent');
-            });
-        });
-
-        // Initial calculation of total materials
-        updateTotalMaterials('talent');
-    }
-
-    // Create Constellations tab content
-    function createConstellationsTab() {
-        const constellationsElement = containerElement.querySelector('.constellations-info');
-
-        // Display constellations information
-        let constellationsHTML = '';
-        character.constellations.forEach(constellation => {
-            constellationsHTML += `
-            <div class="constellation">
-                <div class="constellation-header">
-                    <img src="${constellation.icon}" alt="${constellation.name}" class="constellation-icon">
-                    <h3 class="constellation-name">${constellation.name}</h3>
-                    <span class="constellation-level">Level ${constellation.level}</span>
-                </div>
-                <div class="constellation-description">${constellation.description}</div>
-            </div>
-        `;
-        });
-
-        constellationsElement.innerHTML = constellationsHTML;
-    }
-
-    // Create Build tab content
-    function createBuildTab() {
-        const buildElement = containerElement.querySelector('#build > img');
-        buildElement.src = character.build.infographic;
-    }
-
-    function createVoiceOversTab() {
-        const voiceOversElement = containerElement.querySelector('#voice-overs .voiceover-header');
-        const languageButtons = voiceOversElement.querySelectorAll('.filter-btn[data-lang]');
-        const typeButtons = voiceOversElement.querySelectorAll('.filter-btn[data-type]');
-        languageButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                languageButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                generateVoiceLines();
-            });
-        });
-        typeButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                typeButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                generateVoiceLines();
-            });
-        });
-        generateVoiceLines();
-    }
-
-    function generateVoiceLines() {
-        const voiceOversElement = containerElement.querySelector('#voice-overs .voicelines-container');
-        const selectedType = document.querySelector('[name="filter-type"] .active').dataset.type;
-        const selectedLanguage = document.querySelector('[name="filter-language"] .active').dataset.lang;
-        let voicelinesHTML = '';
-        character.voice_overs[selectedType][selectedLanguage].forEach(voice_line => {
-            voicelinesHTML += `
-                <div class="voiceline-card">
-                    <div class="voiceline-header">
-                        <div class="voiceline-title">${voice_line.title}</div>
-                        <div class="${selectedType}-badge">${capitalize(selectedType)}</div>
-                    </div>
-                    <div class="voiceline-content">
-                        <div class="voiceline-text">${voice_line.text}</div>
-                        <div class="audio-container" data-audio-url="${voice_line.audio}">
-                            <button class="play-button">Play</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        voiceOversElement.innerHTML = voicelinesHTML;
-
-        const voicelinesContents = voiceOversElement.querySelectorAll('.voiceline-content');
-        voicelinesContents.forEach(content => {
-            const audioContainer = content.querySelector('.audio-container');
-            const playButton = content.querySelector('.play-button');
-            playButton.addEventListener('click', function () {
-                if (!audioContainer.querySelector('audio')) {
-                    const audio = document.createElement('audio');
-                    audio.controls = true;
-                    audio.src = audioContainer.dataset.audioUrl;
-
-                    // Replace button with audio element
-                    audioContainer.innerHTML = '';
-                    audioContainer.appendChild(audio);
-
-                    // Play automatically after loading
-                    audio.addEventListener('canplaythrough', () => audio.play());
-                    audio.load();
-                } else {
-                    // If audio already exists, just play/pause it
-                    const audio = audioContainer.querySelector('audio');
-                    if (audio.paused) {
-                        audio.play();
-                    } else {
-                        audio.pause();
-                    }
-                }
-            });
-        });
-    }
-
-    // Update total materials calculation
-    function updateTotalMaterials(type) {
-        const materialsTotalElement = containerElement.querySelector(`#${type}-materials`);
-        const totalMaterials = new Map();
-
-        if (type === 'ascension') {
             // Get all checked ascension checkboxes
-            const checkedRows = containerElement.querySelectorAll(`.ascension-checkbox[data-type="${type}"]:checked`);
+            const checkedBoxes = this.$el.querySelectorAll('.ascension-checkbox:checked');
 
-            // Calculate total materials based on checked rows
-            checkedRows.forEach(checkbox => {
+            checkedBoxes.forEach((checkbox) => {
                 const row = checkbox.closest('tr');
 
                 if (row.hasAttribute('data-materials')) {
                     const materials = JSON.parse(row.getAttribute('data-materials'));
 
-                    materials.forEach(material => {
-                        if (totalMaterials.has(material.name)) {
-                            totalMaterials.set(material.name, {
-                                value: totalMaterials.get(material.name).value + material.value,
-                                icon: material.icon
+                    materials.forEach((material) => {
+                        if (this.totalMaterials.has(material.name)) {
+                            this.totalMaterials.set(material.name, {
+                                value: this.totalMaterials.get(material.name).value + material.value,
+                                icon: material.icon,
                             });
                         } else {
-                            totalMaterials.set(material.name, {
+                            this.totalMaterials.set(material.name, {
                                 value: material.value,
-                                icon: material.icon
+                                icon: material.icon,
                             });
                         }
                     });
                 }
             });
-        } else if (type === 'talent') {
+
+            // Force re-render of total materials
+            this.$forceUpdate();
+        },
+    },
+    template: html`
+        <div id="ascensions">
+            <div class="ascension-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="checkbox-column"></th>
+                            <th>Phase</th>
+                            <th>Levels</th>
+                            <th>HP</th>
+                            <th>ATK</th>
+                            <th>DEF</th>
+                            <th>{{ character.ascensions_materials_and_stats[0].primary_stat.name }}</th>
+                            <th>Materials</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            v-for="(ascension, index) in character.ascensions_materials_and_stats"
+                            :key="'ascension-' + ascension.phase"
+                            :data-phase="ascension.phase"
+                            :data-materials="ascension.phase > 0 && ascension.cost ? JSON.stringify(ascension.cost.map(m => ({name: m.name, value: m.value, icon: m.icon}))) : ''"
+                        >
+                            <td class="checkbox-column">
+                                <input
+                                    v-if="ascension.phase > 0"
+                                    type="checkbox"
+                                    class="ascension-checkbox"
+                                    :data-phase="ascension.phase"
+                                    data-type="ascension"
+                                    checked
+                                    @change="updateTotalMaterials"
+                                />
+                            </td>
+                            <td>{{ ascension.phase }}</td>
+                            <td>
+                                <div v-for="level in ascension.levels">{{ level.level }}</div>
+                            </td>
+                            <td>
+                                <div v-for="level in ascension.levels">{{ Math.round(level.hp) }}</div>
+                            </td>
+                            <td>
+                                <div v-for="level in ascension.levels">{{ Math.round(level.atk) }}</div>
+                            </td>
+                            <td>
+                                <div v-for="level in ascension.levels">{{ Math.round(level.def) }}</div>
+                            </td>
+                            <td>{{ ascension.primary_stat.value }}</td>
+                            <td v-if="ascension.phase === 0">-</td>
+                            <td v-else-if="ascension.cost && ascension.cost.length">
+                                <div class="materials-container">
+                                    <div v-for="material in ascension.cost" class="material-item" :data-material="material.name">
+                                        <img :src="material.icon" :alt="material.name" class="material-icon" />
+                                        <span class="material-name">{{ material.name }} x{{ material.value }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-materials" id="ascension-materials">
+                <h3>Total Ascension Materials</h3>
+                <div class="total-material-list">
+                    <div v-for="[name, material] in totalMaterials" class="total-material-item">
+                        <img :src="material.icon" :alt="name" class="material-icon" />
+                        <span class="material-name">{{ name }} x{{ material.value }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+};
+
+const TalentsTab = {
+    props: {
+        character: Object,
+    },
+    data() {
+        return {
+            totalMaterials: new Map(),
+        };
+    },
+    mounted() {
+        this.updateTotalMaterials();
+    },
+    methods: {
+        updateTotalMaterials() {
+            this.totalMaterials.clear();
+
             // Get all checked talent checkboxes
-            const checkedRows = containerElement.querySelectorAll(`.talent-checkbox[data-type="${type}"]:checked`);
+            const checkedBoxes = this.$el.querySelectorAll('.talent-checkbox:checked');
 
-            // Calculate total materials based on checked rows
-            checkedRows.forEach(checkbox => {
+            checkedBoxes.forEach((checkbox) => {
                 const row = checkbox.closest('tr');
 
                 if (row.hasAttribute('data-materials')) {
                     const materials = JSON.parse(row.getAttribute('data-materials'));
 
-                    materials.forEach(material => {
-                        if (totalMaterials.has(material.name)) {
-                            totalMaterials.set(material.name, {
-                                value: totalMaterials.get(material.name).value + material.value,
-                                icon: material.icon
+                    materials.forEach((material) => {
+                        if (this.totalMaterials.has(material.name)) {
+                            this.totalMaterials.set(material.name, {
+                                value: this.totalMaterials.get(material.name).value + material.value,
+                                icon: material.icon,
                             });
                         } else {
-                            totalMaterials.set(material.name, {
+                            this.totalMaterials.set(material.name, {
                                 value: material.value,
-                                icon: material.icon
+                                icon: material.icon,
                             });
                         }
                     });
                 }
             });
-        }
 
-        // Create the HTML for total materials
-        let totalHTML = `
-            <h3>Total ${type === 'ascension' ? 'Ascension' : 'Talent Level-Up'} Materials</h3>
-            <div class="total-material-list">
-        `;
-
-        // Add each material to the total
-        totalMaterials.forEach((material, name) => {
-            totalHTML += `
-            <div class="total-material-item">
-                <img src="${material.icon}" alt="${name}" class="material-icon">
-                <span class="material-name">${name} x${material.value}</span>
+            // Force re-render of total materials
+            this.$forceUpdate();
+        },
+    },
+    template: html`
+        <div id="talents">
+            <div class="talents-info">
+                <div v-for="talent in character.talents" class="talent">
+                    <div class="talent-header">
+                        <img :src="talent.icon" :alt="talent.name" class="talent-icon" />
+                        <h3 class="talent-name">{{ talent.name }}</h3>
+                        <span class="talent-type">{{ talent.type }}</span>
+                    </div>
+                    <div class="talent-description">{{ talent.description }}</div>
+                </div>
             </div>
-            `;
-        });
 
-        totalHTML += `
+            <div class="talent-level-table">
+                <h3>Talent Level-Up Materials</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="checkbox-column"></th>
+                            <th>Level</th>
+                            <th>Materials</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            v-for="level in character.talents_materials"
+                            :key="'talent-' + level.level"
+                            :data-level="level.level"
+                            :data-materials="JSON.stringify(level.cost.map(m => ({name: m.name, value: m.value, icon: m.icon})))"
+                        >
+                            <td class="checkbox-column">
+                                <input type="checkbox" class="talent-checkbox" :data-level="level.level" data-type="talent" checked @change="updateTotalMaterials" />
+                            </td>
+                            <td>Level {{ level.level }}</td>
+                            <td>
+                                <div class="materials-container">
+                                    <div v-for="material in level.cost" class="material-item" :data-material="material.name">
+                                        <img :src="material.icon" :alt="material.name" class="material-icon" />
+                                        <span class="material-name">{{ material.name }} x{{ material.value }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><em>Note: These materials are for leveling up one talent. For all three talents, multiply by 3.</em></p>
             </div>
-        `;
-        materialsTotalElement.innerHTML = totalHTML;
-    }
 
-    function loadCharacterScript(characterToLoad) {
-        const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
-        const scriptSrc = `data/databse/${characterScript}.js`;
+            <div class="total-materials" id="talent-materials">
+                <h3>Total Talent Level-Up Materials</h3>
+                <div class="total-material-list">
+                    <div v-for="[name, material] in totalMaterials" class="total-material-item">
+                        <img :src="material.icon" :alt="name" class="material-icon" />
+                        <span class="material-name">{{ name }} x{{ material.value }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+};
 
-        if (isScriptLoaded(scriptSrc)) {
-            const characterDatabase = window[characterScript];
-            displayCharacterInfo(characterDatabase);
-            return;
-        }
+const ConstellationsTab = {
+    props: {
+        character: Object,
+    },
+    template: html`
+        <div id="constellations">
+            <div class="constellations-info">
+                <div v-for="constellation in character.constellations" class="constellation">
+                    <div class="constellation-header">
+                        <img :src="constellation.icon" :alt="constellation.name" class="constellation-icon" />
+                        <h3 class="constellation-name">{{ constellation.name }}</h3>
+                        <span class="constellation-level">Level {{ constellation.level }}</span>
+                    </div>
+                    <div class="constellation-description">{{ constellation.description }}</div>
+                </div>
+            </div>
+        </div>
+    `,
+};
 
-        containerElement.querySelector('.loader').classList.remove('d-none');
-        loadScript(`data/database/${characterScript}.js`, () => {
-            setTimeout(() => {
-                const characterDatabase = window[characterScript];
-                displayCharacterInfo(characterDatabase);
-                containerElement.querySelector('.loader').classList.add('d-none');
-            }, 1000)
-        });
-    }
+const BuildTab = {
+    props: {
+        character: Object,
+    },
+    template: html`
+        <div id="build">
+            <img :src="character.build.infographic" />
+        </div>
+    `,
+};
 
-    function init() {
-        containerElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}-modal`);
-        new Autocomplete(containerElement, (selectedCharacter) => {
-            loadCharacterScript(selectedCharacter);
-        });
-        loadCharacterScript(getRandomCharacter());
-    }
+const VoiceOversTab = {
+    props: {
+        character: Object,
+    },
+    data() {
+        return {
+            selectedLanguage: 'en',
+            selectedType: 'story',
+        };
+    },
+    computed: {
+        filteredVoiceLines() {
+            if (!this.character.voice_overs) return [];
+            return this.character.voice_overs[this.selectedType]?.[this.selectedLanguage] || [];
+        },
+    },
+    methods: {
+        setLanguage(lang) {
+            this.selectedLanguage = lang;
+        },
+        setType(type) {
+            this.selectedType = type;
+        },
+        playAudio(event, audioUrl) {
+            const button = event.target;
+            const audioContainer = button.closest('.audio-container');
 
-    // Process data when page loads
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', init, { once: true });
-    });
-})();
+            if (!audioContainer.querySelector('audio')) {
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                audio.src = audioUrl;
+
+                // Replace button with audio element
+                audioContainer.innerHTML = '';
+                audioContainer.appendChild(audio);
+
+                // Play automatically
+                audio.addEventListener('canplaythrough', () => audio.play());
+                audio.load();
+            } else {
+                // Toggle play/pause if audio already exists
+                const audio = audioContainer.querySelector('audio');
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            }
+        },
+        capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        },
+    },
+    template: html`
+        <div id="voice-overs">
+            <div class="voiceover-container">
+                <div class="voiceover-header">
+                    <div class="voiceover-filters">
+                        <div class="filter-group" name="filter-language">
+                            <span class="filter-group-label">Language:</span>
+                            <button v-for="lang in ['en', 'ja', 'ko', 'zh']" :key="lang" :class="['filter-btn', { active: selectedLanguage === lang }]" :data-lang="lang" @click="setLanguage(lang)">
+                                {{ lang.toUpperCase() }}
+                            </button>
+                        </div>
+                        <div class="filter-group" name="filter-type">
+                            <span class="filter-group-label">Type:</span>
+                            <button v-for="type in ['story', 'combat']" :key="type" :class="['filter-btn', { active: selectedType === type }]" :data-type="type" @click="setType(type)">
+                                {{ capitalize(type) }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="voicelines-container">
+                    <div v-for="voiceLine in filteredVoiceLines" class="voiceline-card">
+                        <div class="voiceline-header">
+                            <div class="voiceline-title">{{ voiceLine.title }}</div>
+                            <div :class="[selectedType + '-badge']">{{ capitalize(selectedType) }}</div>
+                        </div>
+                        <div class="voiceline-content">
+                            <div class="voiceline-text">{{ voiceLine.text }}</div>
+                            <div class="audio-container" :data-audio-url="voiceLine.audio">
+                                <button class="play-button" @click="playAudio($event, voiceLine.audio)">Play</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+};
+
+// MAIN
+const SITES_BOTTOM_DATABASE = Vue.createApp({
+    components: {
+        'character-header': CharacterHeader,
+        'ascension-tab': AscensionTab,
+        'talents-tab': TalentsTab,
+        'constellations-tab': ConstellationsTab,
+        'build-tab': BuildTab,
+        'voice-overs-tab': VoiceOversTab,
+        'loading-spinner': LoadingSpinner,
+    },
+    data() {
+        return {
+            character: null,
+            activeTab: 'ascensions',
+            isLoading: true,
+            autocomplete: null,
+        };
+    },
+    mounted() {
+        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', this.initAutocomplete, { once: true });
+    },
+    methods: {
+        initAutocomplete() {
+            const autocompleteContainer = this.$el.querySelector('[name="autocomplete"]');
+            this.autocomplete = new Autocomplete(autocompleteContainer, (selectedCharacter) => {
+                this.loadCharacterScript(selectedCharacter);
+            });
+            this.loadCharacterScript(getRandomCharacter());
+        },
+
+        loadRandomCharacter() {
+            const randomCharacter = getRandomCharacter();
+            this.loadCharacterScript(randomCharacter);
+        },
+
+        loadCharacterScript(characterToLoad) {
+            this.isLoading = true;
+            const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
+            const scriptSrc = `data/database/${characterScript}.js`;
+
+            if (this.isScriptLoaded(scriptSrc)) {
+                this.displayCharacterInfo(window[characterScript]);
+                return;
+            }
+
+            this.loadScript(`data/database/${characterScript}.js`, () => {
+                setTimeout(() => {
+                    this.displayCharacterInfo(window[characterScript]);
+                }, 1000);
+            });
+        },
+
+        displayCharacterInfo(characterData) {
+            this.character = characterData;
+            this.isLoading = false;
+        },
+
+        setActiveTab(tabName) {
+            this.activeTab = tabName;
+        },
+
+        isScriptLoaded(src) {
+            return document.querySelector(`script[src="${src}"]`) !== null;
+        },
+
+        loadScript(src, callback) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = callback;
+            document.head.appendChild(script);
+        },
+    },
+    template: html`
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content" style="min-height: 250px;">
+                <loading-spinner :isLoading="isLoading" />
+                <div class="modal-header">
+                    <h5 class="modal-title" id="site-database-modal-label">Database</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4" id="site-database-modal-content">
+                    <!-- Header section -->
+                    <div class="mb-3 d-flex justify-content-center" name="autocomplete"></div>
+
+                    <img v-if="character" id="banner" style="width: 100%" :src="character.namecard_banner" :alt="character.name" />
+
+                    <!-- Character header component -->
+                    <character-header v-if="character" :character="character" />
+
+                    <!-- Tabs Navigation -->
+                    <div v-if="character" class="tabs-navigation">
+                        <button
+                            v-for="(tabName, index) in ['ascensions', 'talents', 'constellations', 'build', 'voice-overs']"
+                            :key="tabName"
+                            :class="['tab-button', { active: activeTab === tabName }]"
+                            :data-tab="tabName"
+                            @click="setActiveTab(tabName)"
+                        >
+                            {{ tabName.charAt(0).toUpperCase() + tabName.slice(1).replace('-', ' ') }}
+                        </button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div v-if="character" class="tabs-content">
+                        <ascension-tab v-if="character" :character="character" v-show="activeTab === 'ascensions'" />
+
+                        <talents-tab v-if="character" :character="character" v-show="activeTab === 'talents'" />
+
+                        <constellations-tab v-if="character" :character="character" v-show="activeTab === 'constellations'" />
+
+                        <build-tab v-if="character" :character="character" v-show="activeTab === 'build'" />
+
+                        <voice-overs-tab v-if="character" :character="character" v-show="activeTab === 'voice-overs'" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    SITES_BOTTOM_DATABASE.mount('#site-database-modal');
+});

@@ -122,14 +122,6 @@
     background-color: #4a6fa5;
   }
 
-  .tab-content {
-    display: none;
-  }
-
-  .tab-content.active {
-    display: block;
-  }
-
   /* Ascension Tab */
   .ascension-table,
   .talent-level-table {
