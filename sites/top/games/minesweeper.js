@@ -13,22 +13,13 @@ const SITES_TOP_GAMES_MINESWEEPER = Vue.createApp({
             </div>
 
             <div class="grid">
-                <div
-                    class="cell"
-                    :class="[{ init: initialized, 'bomb': cell.revealed && cell.isBomb, revealed: cell.revealed, hidden: initialized && cell.hidden }, cell.revealed && cell.element ? 'color-' + cell.element : '']"
-                    v-for="cell in grid.flat()"
-                    @click="handleCellClick(cell)"
-                    ref="cellElement"
-                >
+                <div class="cell" :class="cellClasses(cell)" v-for="cell in grid.flat()" @click="handleCellClick(cell)" ref="cellElement">
                     <span v-if="cell.revealed && cell.element !== 'empty'">{{ cellContent(cell) }}</span>
                 </div>
             </div>
 
             <div class="game-stats">
-                <div>
-                    Cells Revealed: <span>{{ revealedCount }}</span> /
-                    <span>{{ gridSize * gridSize }}</span>
-                </div>
+                <div>Cells Revealed: <span>{{ revealedCount }}</span> / <span>{{ gridSize * gridSize }}</span></div>
             </div>
 
             <div class="controls">
@@ -116,9 +107,16 @@ const SITES_TOP_GAMES_MINESWEEPER = Vue.createApp({
                 return cell.isBomb ? '💣' : cell.element.charAt(0).toUpperCase();
             };
         },
+        cellClasses() {
+            return (cell) => ({
+                init: this.initialized,
+                bomb: cell.revealed && cell.isBomb,
+                revealed: cell.revealed,
+                hidden: this.initialized && cell.hidden,
+                [`color-${cell.element}`]: cell.revealed && cell.element,
+            });
+        },
     },
-
-    watch: {},
 
     mounted() {
         this.grid.forEach((row) => {
@@ -127,7 +125,6 @@ const SITES_TOP_GAMES_MINESWEEPER = Vue.createApp({
             });
         });
         this.startGame();
-        console.log(this.grid);
     },
 
     methods: {
@@ -192,10 +189,9 @@ const SITES_TOP_GAMES_MINESWEEPER = Vue.createApp({
                 this.initBoard(cell);
                 return;
             }
-            if (cell.revealed) return;
-            cell.revealed = true;
-            if (this.gameOver) return;
+            if (cell.revealed || this.gameOver) return;
 
+            cell.revealed = true;
             if (cell.isBomb) {
                 this.gameOver = 'lose';
             } else if (this.grid.every((row) => row.every((cell) => cell.revealed || cell.isBomb || cell.element === null))) {
