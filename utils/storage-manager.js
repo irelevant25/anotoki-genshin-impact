@@ -4,7 +4,7 @@
     class StorageManager {
         static STORAGE_KEY = 'app_data';
         static DEFAULT_DATA = {
-            version: '0.3',
+            version: '0.4',
             stats: {
                 // 1, 2 and 3  (1 - easy, 2 - medium, 3 - hard), [0, 0] - [looses, wins]
                 characters: CHARACTERS.map((x) => ({

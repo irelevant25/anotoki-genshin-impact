@@ -1,5 +1,20 @@
 const CHANGELOG = [
     {
+        version: "0.7",
+        date: "2025-04-17",
+        changes: {
+            added: [
+                "Implemented minesweeper game",
+                "Added feedback section",
+                "Added GitHub icon with redirect on the bottom menu"
+            ],
+            fixed: [],
+            updated: [
+                "Major refactoring to Vue 3 (no build framework) for future optimizations and new features.",
+            ]
+        }
+    },
+    {
         version: "0.6",
         date: "2025-04-06",
         changes: {
