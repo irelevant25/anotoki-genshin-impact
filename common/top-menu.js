@@ -1,4 +1,4 @@
-const COMPONENT_TOP_MENU = Vue.createApp({
+const TOP_MENU = Vue.createApp({
     template: html`
         <ul>
             <li v-for="menuItem in menuItems" :data-id="menuItem.id" @click="menuItemClick($event)" ref="menuItemElement">
@@ -75,5 +75,5 @@ const COMPONENT_TOP_MENU = Vue.createApp({
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    COMPONENT_TOP_MENU.mount('#top-menu');
+    TOP_MENU.mount('#top-menu');
 });

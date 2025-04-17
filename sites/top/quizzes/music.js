@@ -65,7 +65,7 @@ const SITES_TOP_QUIZZES_MUSIC = {
         return {
             siteId,
             config,
-            questionEntity: state ? CHARACTERS.find((character) => character.name === state.questionEntity) : getRandomCharacter(),
+            questionEntity: state ? CHARACTERS.find((character) => character.name === state.questionEntity) : getRandomCharacter((x) => x.demo_music !== null),
             tries: state?.tries || [],
             triesMax: state?.triesMax || config[difficulty]?.triesMax || 5,
             triesEffects: state?.triesEffects || config[difficulty]?.triesEffects || [],
@@ -201,6 +201,7 @@ const SITES_TOP_QUIZZES_MUSIC = {
 
         onAudioTimeUpdate() {
             const audio = this.$refs.audioElement;
+            if (!audio) return;
             this.currentTime = audio.currentTime;
 
             if (audio.currentTime >= this.endTime) {

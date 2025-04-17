@@ -1,18 +1,18 @@
-#site-difficulties-modal .modal-body{
-  .difficulty-container {
+#site-difficulties-modal .modal-body {
+  .difficulties-container {
     /* max-width: 1000px;
     width: 100%; */
     margin-top: 30px 0;
   }
 
-  .difficulty-header {
+  .difficulties-header {
     text-align: center;
     /* margin-bottom: 40px; */
     color: #1e293b;
     position: relative;
   }
 
-  .difficulty-header::after {
+  .difficulties-header::after {
     content: "";
     position: absolute;
     bottom: -15px;
@@ -23,7 +23,7 @@
     background: linear-gradient(to right, transparent, #64748b, transparent);
   }
 
-  .difficulty-title {
+  .difficulties-title {
     font-size: 36px;
     margin-bottom: 12px;
     letter-spacing: 2px;
@@ -32,8 +32,8 @@
     color: #1e293b;
   }
 
-  .difficulty-title::before,
-  .difficulty-title::after {
+  .difficulties-title::before,
+  .difficulties-title::after {
     content: "❖";
     color: #d97706;
     font-size: 24px;
@@ -42,7 +42,7 @@
     opacity: 0.8;
   }
 
-  .difficulty-subtitle {
+  .difficulties-subtitle {
     font-size: 18px;
     color: #64748b;
     font-weight: 400;
@@ -51,18 +51,18 @@
     line-height: 1.5;
   }
 
-  .difficulty-section {
+  .difficulties-section {
     /* margin-bottom: 30px; */
   }
 
-  .difficulty-header {
+  .difficulties-header {
     text-align: center;
     margin-bottom: 24px;
     font-size: 22px;
     color: #334155;
   }
 
-  .difficulty-levels {
+  .difficulties-levels {
     display: flex;
     justify-content: center;
     gap: 24px;
@@ -70,7 +70,7 @@
     padding: 0 20px;
   }
 
-  .difficulty-level {
+  .difficulties-level {
     flex: 1;
     /* max-width: 280px; */
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -83,12 +83,12 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
-  .difficulty-level:hover {
+  .difficulties-level:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
 
-  .difficulty-level.selected {
+  .difficulties-level.selected {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(-8px);
     border-color: rgba(0, 0, 0, 0.2);
@@ -382,7 +382,7 @@
     transform: translateY(2px);
   }
 
-  .difficulty-container button {
+  .difficulties-container button {
     margin-top: 20px;
     text-align: center;
   }
@@ -402,12 +402,12 @@
 
   /* Mobile responsive */
   @media (max-width: 900px) {
-    .difficulty-levels {
+    .difficulties-levels {
       flex-direction: column;
       align-items: center;
     }
 
-    .difficulty-level {
+    .difficulties-level {
       width: 100%;
       max-width: 400px;
       margin-bottom: 20px;

@@ -5,7 +5,7 @@ const SITES_TOP_QUIZZES = Vue.createApp({
                 <span class="recommended-ar">{{ difficultyText }}</span>
             </div>
             <div name="daily-quizzes" class="d-flex justify-content-center gap-3 py-3">
-                <button v-for="quiz in dailyQuizzes" :key="quiz" type="button" class="btn btn-primary" :class="{ 'done': doneQuizzes.includes(quiz) }" :data-quiz="quiz" @click="renderQuiz(quiz)">
+                <button v-for="quiz in dailyQuizzes" :key="quiz" type="button" class="btn btn-primary" :class="{ 'done': buttonDone(quiz) }" :data-quiz="quiz" @click="renderQuiz(quiz)">
                     {{ quiz }}
                 </button>
             </div>
@@ -21,6 +21,9 @@ const SITES_TOP_QUIZZES = Vue.createApp({
             doneQuizzes: [],
             difficulty: 1,
             currentQuiz: null,
+            state: storageManager.getTopMenuDailyState(),
+            dailies: 2,
+            difficulty: this.state?.difficulty ?? storageManager.getDifficulty() ?? 1,
         };
     },
 
@@ -33,8 +36,10 @@ const SITES_TOP_QUIZZES = Vue.createApp({
             return difficultyFromNumberToString(this.difficulty);
         },
 
-        remainingDailies() {
-            return this.dailyQuizzes.length - this.doneQuizzes.length;
+        buttonDone() {
+            return (quiz) => {
+                return this.state?.done?.includes(quiz);
+            };
         },
     },
 
@@ -45,20 +50,15 @@ const SITES_TOP_QUIZZES = Vue.createApp({
     methods: {
         initializeDailyQuizzes() {
             const date = getTodayString();
-            const dailies = 2;
-            const state = storageManager.getTopMenuDailyState();
-            this.difficulty = state?.difficulty ?? storageManager.getDifficulty() ?? 1;
-
-            if (state?.date === date) {
+            if (this.state?.date === date) {
                 // Use saved daily quizzes if date matches
-                this.dailyQuizzes = state.dailyQuizzes;
-                this.doneQuizzes = state.done;
+                this.dailyQuizzes = this.state.dailyQuizzes;
             } else {
                 // Generate new daily quizzes
                 let quizPool = shuffleArray(Object.keys(QUIZZES));
                 this.dailyQuizzes = [];
 
-                for (let i = 0; i < dailies; i++) {
+                for (let i = 0; i < this.dailies; i++) {
                     this.dailyQuizzes.push(quizPool.pop());
                 }
 
@@ -74,8 +74,7 @@ const SITES_TOP_QUIZZES = Vue.createApp({
                     done: [],
                     difficulty: storageManager.getDifficulty() ?? 1,
                 });
-
-                this.doneQuizzes = [];
+                this.state = storageManager.getTopMenuDailyState();
             }
 
             // Update badge count
@@ -114,14 +113,8 @@ const SITES_TOP_QUIZZES = Vue.createApp({
 
         updateStats(character, difficulty, isSuccess) {
             storageManager.saveStats(this.currentQuiz, character.name, isSuccess, difficulty, true, this.dailyQuizzes);
-
-            // Update local state from storage
-            const state = storageManager.getTopMenuDailyState();
-            if (state && state.done) {
-                this.doneQuizzes = state.done;
-            }
-
             this.updateBadge();
+            this.$forceUpdate();
         },
 
         updateBadge() {
@@ -129,9 +122,10 @@ const SITES_TOP_QUIZZES = Vue.createApp({
             const badgeElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}-badge-icon div.badge-daily`);
 
             if (badgeElement) {
-                badgeElement.textContent = this.remainingDailies;
+                const remainingDailies = this.dailyQuizzes.length - this.state?.done?.length;
+                badgeElement.textContent = remainingDailies;
 
-                if (this.remainingDailies === 0) {
+                if (remainingDailies === 0) {
                     badgeElement.classList.remove('visible');
                 } else {
                     badgeElement.classList.add('visible');

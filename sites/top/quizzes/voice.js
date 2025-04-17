@@ -226,6 +226,7 @@ const SITES_TOP_QUIZZES_VOICE = {
 
         onAudioTimeUpdate() {
             const audio = this.$refs.audioElement;
+            if (!audio) return;
             this.currentTime = audio.currentTime;
 
             if (audio.currentTime >= this.endTime) {
