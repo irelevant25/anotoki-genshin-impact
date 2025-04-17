@@ -1,4 +1,15 @@
-const SITES_TOP_QUIZZES_MISMATCH = Vue.createApp({
+const SITES_TOP_QUIZZES_MISMATCH = {
+    props: {
+        daily: {
+            type: Boolean,
+            default: false,
+        },
+        onCompleteQuestion: {
+            type: Function,
+            default: null,
+        },
+    },
+
     template: html`
         <div class="quiz-container">
             <div :class="levelClass" name="quiz-difficulty-display" v-if="!daily">
@@ -14,8 +25,6 @@ const SITES_TOP_QUIZZES_MISMATCH = Vue.createApp({
 
     data() {
         return {
-            idSelector: 'site-banners',
-            daily: false,
             options: {},
             isQuestionComplete: false,
             difficulty: 1,
@@ -50,10 +59,6 @@ const SITES_TOP_QUIZZES_MISMATCH = Vue.createApp({
             const siteName = 'mismatch';
             const config = APP_CONFIG.topMenu[siteName];
             this.options = config;
-            this.onCompleteQuestion = (questionEntity, difficulty, isSuccess) => {
-                storageManager.saveStats(siteName, questionEntity.name, isSuccess, difficulty);
-            };
-
             this.state = storageManager.getTopMenuMismatchState(this.daily);
             this.init();
         },
@@ -102,11 +107,7 @@ const SITES_TOP_QUIZZES_MISMATCH = Vue.createApp({
                 },
                 difficulty: this.difficulty,
             };
-
-            if (this.isQuestionComplete && this.onCompleteQuestion) {
-                this.onCompleteQuestion(this.quizSet.answer, this.difficulty, this.isSuccess);
-            }
-
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.quizSet.answer, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuMismatchState(this.state, this.daily);
         },
 
@@ -253,8 +254,14 @@ const SITES_TOP_QUIZZES_MISMATCH = Vue.createApp({
             return array[Math.floor(Math.random() * array.length)];
         },
     },
-});
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-    SITES_TOP_QUIZZES_MISMATCH.mount('#site-mismatch');
+    const quiz = Vue.createApp({
+        components: {
+            'base-component': createComponent(SITES_TOP_QUIZZES_MISMATCH, {}),
+        },
+        template: html` <base-component :daily="false"></base-component> `,
+    });
+    quiz.mount('#site-quizzes #site-mismatch');
 });

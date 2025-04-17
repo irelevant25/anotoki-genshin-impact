@@ -1,4 +1,15 @@
-const SITES_TOP_QUIZZES_MUSIC = Vue.createApp({
+const SITES_TOP_QUIZZES_MUSIC = {
+    props: {
+        daily: {
+            type: Boolean,
+            default: false,
+        },
+        onCompleteQuestion: {
+            type: Function,
+            default: null,
+        },
+    },
+
     template: html`
         <div class="quiz-container">
             <div :class="['level-' + difficultyString, { 'd-none': daily }]" name="quiz-difficulty-display">
@@ -47,15 +58,13 @@ const SITES_TOP_QUIZZES_MUSIC = Vue.createApp({
 
     data() {
         const siteId = 'music';
-        const daily = false;
         const config = APP_CONFIG.topMenu[siteId];
-        const state = storageManager.getTopMenuMusicState(daily);
-        const difficulty = state?.difficulty || (daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() || 1);
+        const state = storageManager.getTopMenuMusicState(this.daily);
+        const difficulty = state?.difficulty || (this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() || 1);
 
         return {
             siteId,
             config,
-            daily,
             questionEntity: state ? CHARACTERS.find((character) => character.name === state.questionEntity) : getRandomCharacter(),
             tries: state?.tries || [],
             triesMax: state?.triesMax || config[difficulty]?.triesMax || 5,
@@ -158,6 +167,7 @@ const SITES_TOP_QUIZZES_MUSIC = Vue.createApp({
         },
 
         saveState() {
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuMusicState(
                 {
                     triesMax: this.triesMax,
@@ -272,8 +282,14 @@ const SITES_TOP_QUIZZES_MUSIC = Vue.createApp({
             audio.src = '';
         }
     },
-});
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-    SITES_TOP_QUIZZES_MUSIC.mount('#site-music');
+    const quiz = Vue.createApp({
+        components: {
+            'base-component': createComponent(SITES_TOP_QUIZZES_MUSIC, {}),
+        },
+        template: html` <base-component :daily="false"></base-component> `,
+    });
+    quiz.mount('#site-quizzes #site-music');
 });

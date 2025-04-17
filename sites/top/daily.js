@@ -1,91 +1,146 @@
-(() => {
-    'use strict';
+const SITES_TOP_QUIZZES = Vue.createApp({
+    template: html`
+        <div class="container quiz-container">
+            <div :class="levelClass" name="quiz-difficulty-display">
+                <span class="recommended-ar">{{ difficultyText }}</span>
+            </div>
+            <div name="daily-quizzes" class="d-flex justify-content-center gap-3 py-3">
+                <button v-for="quiz in dailyQuizzes" :key="quiz" type="button" class="btn btn-primary" :class="{ 'done': doneQuizzes.includes(quiz) }" :data-quiz="quiz" @click="renderQuiz(quiz)">
+                    {{ quiz }}
+                </button>
+            </div>
+            <div :id="'daily-' + currentQuiz" style="margin-top: -2rem">
+                <div id="quiz"></div>
+            </div>
+        </div>
+    `,
 
-    let containerElement;
-    let dailyQuiz;
-    let dailyQuizzesElement;
-    let dailyQuizzes;
-    let badgeElement;
-    let levelElement;
+    data() {
+        return {
+            dailyQuizzes: [],
+            doneQuizzes: [],
+            difficulty: 1,
+            currentQuiz: null,
+        };
+    },
 
-    function updateBadge() {
-        const doneNotifications = storageManager.data.topMenu.daily.done;
-        const remainingDailies = dailyQuizzes.length - doneNotifications.length;
-        badgeElement.textContent = remainingDailies;
-        if (remainingDailies === 0) badgeElement.classList.remove('visible');
-        else badgeElement.classList.add('visible');
-        dailyQuizzesElement.querySelectorAll('button').forEach((item, index) => item.classList.toggle('done', doneNotifications.includes(dailyQuizzes[index])));
-    }
+    computed: {
+        levelClass() {
+            return `level-${difficultyFromNumberToString(this.difficulty)}`;
+        },
 
-    function updateStats(quizName, character, difficulty, isSuccess) {
-        storageManager.saveStats(quizName, character.name, isSuccess, difficulty, true, dailyQuizzes);
-        updateBadge();
-    }
+        difficultyText() {
+            return difficultyFromNumberToString(this.difficulty);
+        },
 
-    function renderQuiz(quizName) {
-        const config = APP_CONFIG.topMenu[quizName];
-        dailyQuiz.id = `daily-${quizName}`;
-        dailyQuiz.innerHTML = document.querySelector(`#${QUIZZES[quizName].id}`).innerHTML;
+        remainingDailies() {
+            return this.dailyQuizzes.length - this.doneQuizzes.length;
+        },
+    },
 
-        if (quizName === 'banners') {
-            new BannersQuizManager(dailyQuiz.id, config, true, (...args) => updateStats(quizName, ...args)).init();
-        }
-        else if (quizName === 'pixelate') {
-            new PixelateQuizManager(dailyQuiz.id, config, true, (...args) => updateStats(quizName, ...args)).init();
-        }
-        else if (quizName === 'mismatch') {
-            new MismatchQuizManager(dailyQuiz.id, config, true, (...args) => updateStats(quizName, ...args)).init();
-        }
-        else if (quizName === 'music') {
-            new MusicQuizManager(dailyQuiz.id, config, true, (...args) => updateStats(quizName, ...args)).init();
-        }
-    }
+    mounted() {
+        this.initializeDailyQuizzes();
+    },
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const date = getTodayString();
-        const dailies = 2;
-        const state = storageManager.getTopMenuDailyState();
-        const difficulty = state?.difficulty ?? storageManager.getDifficulty() ?? 1;
-        let quizPool = shuffleArray(Object.keys(QUIZZES));
+    methods: {
+        initializeDailyQuizzes() {
+            const date = getTodayString();
+            const dailies = 2;
+            const state = storageManager.getTopMenuDailyState();
+            this.difficulty = state?.difficulty ?? storageManager.getDifficulty() ?? 1;
 
-        dailyQuizzes = [];
-        if (state?.date === date) dailyQuizzes.push(...state.dailyQuizzes);
-        else {
-            for (let i = 0; i < dailies; i++) {
-                dailyQuizzes.push(quizPool.pop());
+            if (state?.date === date) {
+                // Use saved daily quizzes if date matches
+                this.dailyQuizzes = state.dailyQuizzes;
+                this.doneQuizzes = state.done;
+            } else {
+                // Generate new daily quizzes
+                let quizPool = shuffleArray(Object.keys(QUIZZES));
+                this.dailyQuizzes = [];
+
+                for (let i = 0; i < dailies; i++) {
+                    this.dailyQuizzes.push(quizPool.pop());
+                }
+
+                // Reset daily states in storage
+                Object.values(storageManager.data.topMenu).forEach((item) => {
+                    if (item.dailyState) item.dailyState = null;
+                });
+
+                storageManager.saveData();
+                storageManager.saveTopMenuDailyState({
+                    date,
+                    dailyQuizzes: this.dailyQuizzes,
+                    done: [],
+                    difficulty: storageManager.getDifficulty() ?? 1,
+                });
+
+                this.doneQuizzes = [];
             }
-            Object.values(storageManager.data.topMenu).forEach((item) => {
-                if (item.dailyState) item.dailyState = null;
+
+            // Update badge count
+            this.updateBadge();
+        },
+
+        generateCompnent(BASE) {
+            const daily = Vue.createApp({
+                components: {
+                    'base-component': createComponent(BASE, {}),
+                },
+                template: html`<base-component :daily="true" :onCompleteQuestion="updateStats"></base-component>`,
+                methods: {
+                    updateStats: (...args) => this.updateStats(...args),
+                },
             });
-            storageManager.saveData();
-            storageManager.saveTopMenuDailyState({
-                date,
-                dailyQuizzes,
-                done: [],
-                difficulty: storageManager.getDifficulty() ?? 1
-            });
-        }
+            daily.mount('#quiz');
+        },
 
-        containerElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}`);
-        dailyQuiz = containerElement.querySelector('div[name="quiz"]');
-        dailyQuizzesElement = containerElement.querySelector('[name="daily-quizzes"]');
-        badgeElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}-badge-icon div.badge-daily`);
-        levelElement = containerElement.querySelector('div[name="quiz-difficulty-display"]');
+        renderQuiz(quizName) {
+            this.currentQuiz = quizName;
+            if (quizName === 'banners') {
+                this.generateCompnent(SITES_TOP_QUIZZES_BANNERS);
+            } else if (quizName === 'pixelate') {
+                this.generateCompnent(SITES_TOP_QUIZZES_PIXELATE);
+            } else if (quizName === 'mismatch') {
+                this.generateCompnent(SITES_TOP_QUIZZES_MISMATCH);
+            } else if (quizName === 'music') {
+                this.generateCompnent(SITES_TOP_QUIZZES_MUSIC);
+            } else if (quizName === 'dish') {
+                this.generateCompnent(SITES_TOP_QUIZZES_DISH);
+            } else if (quizName === 'voice') {
+                this.generateCompnent(SITES_TOP_QUIZZES_VOICE);
+            }
+        },
 
-        dailyQuizzes.forEach((quiz) => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.classList.add('btn', 'btn-primary');
-            button.dataset.quiz = quiz;
-            button.textContent = quiz;
-            button.addEventListener('click', () => renderQuiz(quiz));
-            dailyQuizzesElement.appendChild(button);
-        });
+        updateStats(character, difficulty, isSuccess) {
+            storageManager.saveStats(this.currentQuiz, character.name, isSuccess, difficulty, true, this.dailyQuizzes);
 
-        levelElement.className = '';
-        levelElement.classList.add(`level-${difficultyFromNumberToString(difficulty)}`);
-        levelElement.querySelector('span').textContent = difficultyFromNumberToString(difficulty);
+            // Update local state from storage
+            const state = storageManager.getTopMenuDailyState();
+            if (state && state.done) {
+                this.doneQuizzes = state.done;
+            }
 
-        updateBadge();
-    });
-})();
+            this.updateBadge();
+        },
+
+        updateBadge() {
+            // Update the badge element in the DOM
+            const badgeElement = document.querySelector(`#${MENU_ITEMS_TOP.daily.id}-badge-icon div.badge-daily`);
+
+            if (badgeElement) {
+                badgeElement.textContent = this.remainingDailies;
+
+                if (this.remainingDailies === 0) {
+                    badgeElement.classList.remove('visible');
+                } else {
+                    badgeElement.classList.add('visible');
+                }
+            }
+        },
+    },
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    SITES_TOP_QUIZZES.mount('#site-daily');
+});

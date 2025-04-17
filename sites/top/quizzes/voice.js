@@ -1,4 +1,15 @@
-const SITES_TOP_QUIZZES_VOICE = Vue.createApp({
+const SITES_TOP_QUIZZES_VOICE = {
+    props: {
+        daily: {
+            type: Boolean,
+            default: false,
+        },
+        onCompleteQuestion: {
+            type: Function,
+            default: null,
+        },
+    },
+
     template: html`
         <div class="quiz-container">
             <div :class="['level-' + difficultyString, { 'd-none': daily }]" name="quiz-difficulty-display">
@@ -50,15 +61,13 @@ const SITES_TOP_QUIZZES_VOICE = Vue.createApp({
 
     data() {
         const siteId = 'voice';
-        const daily = false;
         const config = APP_CONFIG.topMenu[siteId];
-        const state = storageManager.getTopMenuVoiceState(daily);
-        const difficulty = state?.difficulty || (daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() || 1);
+        const state = storageManager.getTopMenuVoiceState(this.daily);
+        const difficulty = state?.difficulty || (this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() || 1);
 
         return {
             siteId,
             config,
-            daily,
             questionEntity: state ? CHARACTERS.find((character) => character.name === state.questionEntity) : getRandomCharacter(),
             questionText: '',
             tries: state?.tries || [],
@@ -169,6 +178,7 @@ const SITES_TOP_QUIZZES_VOICE = Vue.createApp({
         },
 
         saveState() {
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuVoiceState(
                 {
                     triesMax: this.triesMax,
@@ -302,8 +312,14 @@ const SITES_TOP_QUIZZES_VOICE = Vue.createApp({
             audio.src = '';
         }
     },
-});
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-    SITES_TOP_QUIZZES_VOICE.mount('#site-voice');
+    const quiz = Vue.createApp({
+        components: {
+            'base-component': createComponent(SITES_TOP_QUIZZES_VOICE, {}),
+        },
+        template: html` <base-component :daily="false"></base-component> `,
+    });
+    quiz.mount('#site-quizzes #site-voice');
 });

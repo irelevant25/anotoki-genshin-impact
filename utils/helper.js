@@ -227,6 +227,13 @@ function loadScript(src, callback) {
     document.head.appendChild(script);
 }
 
+function createComponent(base, options = {}) {
+    return {
+        extends: base,
+        ...options,
+    };
+}
+
 /**
  * Checks if a script with the specified source URL is already loaded in the document.
  *

@@ -1,4 +1,15 @@
-const SITES_TOP_QUIZZES_DISH = Vue.createApp({
+const SITES_TOP_QUIZZES_DISH = {
+    props: {
+        daily: {
+            type: Boolean,
+            default: false,
+        },
+        onCompleteQuestion: {
+            type: Function,
+            default: null,
+        },
+    },
+
     template: html`
         <div class="quiz-container">
             <div :class="['level-' + difficultyString, { 'd-none': daily }]" name="quiz-difficulty-display">
@@ -26,15 +37,13 @@ const SITES_TOP_QUIZZES_DISH = Vue.createApp({
 
     data() {
         const siteId = 'dish';
-        const daily = false;
         const config = APP_CONFIG.topMenu[siteId];
-        const state = storageManager.getTopMenuDishState(daily);
-        const difficulty = state?.difficulty || (daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() || 1);
+        const state = storageManager.getTopMenuDishState(this.daily);
+        const difficulty = state?.difficulty || (this.daily ? storageManager.getTopMenuDailyState().difficulty : storageManager.getDifficulty() || 1);
 
         return {
             siteId,
             config,
-            daily,
             questionEntity: state ? CHARACTERS.find((character) => character.name === state.questionEntity) : getRandomCharacter(),
             tries: state?.tries || [],
             triesMax: state?.triesMax || config[difficulty]?.triesMax || 5,
@@ -121,6 +130,7 @@ const SITES_TOP_QUIZZES_DISH = Vue.createApp({
         },
 
         saveState() {
+            if (this.isQuestionComplete && this.onCompleteQuestion) this.onCompleteQuestion(this.questionEntity, this.difficulty, this.isSuccess);
             storageManager.saveTopMenuDishState(
                 {
                     triesMax: this.triesMax,
@@ -134,8 +144,14 @@ const SITES_TOP_QUIZZES_DISH = Vue.createApp({
             );
         },
     },
-});
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-    SITES_TOP_QUIZZES_DISH.mount('#site-dish');
+    const quiz = Vue.createApp({
+        components: {
+            'base-component': createComponent(SITES_TOP_QUIZZES_DISH, {}),
+        },
+        template: html` <base-component :daily="false"></base-component> `,
+    });
+    quiz.mount('#site-quizzes #site-dish');
 });
