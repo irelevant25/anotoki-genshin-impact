@@ -90,7 +90,7 @@ const SITES_BOTTOM_VERSION = Vue.createApp({
 
         updateVersionDisplay() {
             if (this.changelog && this.changelog.length > 0) {
-                const versionElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.versions.id}`);
+                const versionElement = document.querySelector(`#${MENU_ITEMS_BOTTOM.versions.id} > div`);
                 if (versionElement) {
                     versionElement.textContent = `v${this.changelog[0].version}`;
                 }

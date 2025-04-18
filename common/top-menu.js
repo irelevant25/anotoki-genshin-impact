@@ -13,16 +13,14 @@ const TOP_MENU = Vue.createApp({
         </ul>
         <!-- Modals -->
         <Teleport to="body">
-            <div v-for="menuItem in menuItems" :id="menuItem.id + '-modal'">
-                <div class="modal fade" :id="menuItem.id + '-modal'" tabindex="-1">
-                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" :id="menuItem.id + '-modal-label'">{{ menuItem.modalTitle }}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-4" v-html="menuItem.modalContent"></div>
+            <div v-for="menuItem in menuItems" class="modal fade" :id="menuItem.id + '-modal'" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" :id="menuItem.id + '-modal-label'">{{ menuItem.modalTitle }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <div class="modal-body p-4" v-html="menuItem.modalContent"></div>
                     </div>
                 </div>
             </div>

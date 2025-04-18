@@ -174,7 +174,7 @@ const SITES_TOP_GAMES_MINESWEEPER = Vue.createApp({
             const dangerousElements = this.dangerousReactions[0].elements;
             const nonDangerousElements = this.elements.filter((element) => !dangerousElements.includes(element));
             const baseChance = dangerousElements.length / this.elements.length; // 1/7 - 14%
-            const generateDangerousElement = Math.random() < baseChance * 2; // chance of generating a dangerous element
+            const generateDangerousElement = Math.random() < baseChance * 4; // chance of generating a dangerous element
             if (generateDangerousElement) {
                 const randomIndex = Math.floor(Math.random() * dangerousElements.length);
                 cell.element = dangerousElements[randomIndex];
@@ -194,10 +194,13 @@ const SITES_TOP_GAMES_MINESWEEPER = Vue.createApp({
             cell.revealed = true;
             if (cell.isBomb) {
                 this.gameOver = 'lose';
-            } else if (this.grid.every((row) => row.every((cell) => cell.revealed || cell.isBomb || cell.element === null))) {
-                this.gameOver = 'win';
+                return;
             } else {
                 this.refreshVisibleCells();
+            }
+
+            if (this.grid.every((row) => row.every((cell) => cell.revealed || cell.isBomb || cell.element === null))) {
+                this.gameOver = 'win';
             }
         },
 
