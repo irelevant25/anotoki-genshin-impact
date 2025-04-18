@@ -28,19 +28,21 @@
 
 - Bugs:
 - Improvements:
-  - [ ] Hight size jump on quizzes when new images are not loaded yet (setup init hight)
-  - [ ] Display result explanaition for Mismach quiz
 - Features:
-  - New game: Minesweeper
-  - Add buttons like report bug or add suggestion. => Feedback [Provide possibilities like: github issues (not anonym), mail:to (not anonym) or google form (anonym)]
-  - Github link (to the bottom next to version)
 
 # Future version
 
 - Features:
-  - Adding match history to the Tournament
-  - New quiz: Signature weapon
-  - New quiz: Constellation image (not icons)
+  - Profile with stats from quizzes and characters
+  - Add settings for selecting dailies quizzes
+  - Add difficulties for Minesweeper
+    - Changing reactions per click
+    - Displaying only reactions and not element (geo and anemo have to be excluded)
+    - Adding time limit per click or global time
+  - Add score for Minesweeper based on difficulty and time and maybe revealed cells or avoided bombs
+  - Move Database to top menu
+  - Making Database as a group of databases of: Food, Weapons, Characters, Wish banners...
+  - Add global routing for linking weapons names, characters, foods... between themselfs
 - Improvements:
   - Visualize the win/lose/wrong/correct answers in a additional way in quizzes especially for mismatch
   - Tries: x/y is not visible enough
