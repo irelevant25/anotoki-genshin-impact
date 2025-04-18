@@ -78,6 +78,16 @@ const SITES_BOTTOM_WHATS_NEW = Vue.createApp({
         };
     },
 
+    mounted() {
+        const lastVersion = storageManager.getLastVersion();
+        const currentVersion = CHANGELOG[0].version;
+        if (lastVersion !== currentVersion) {
+            storageManager.saveLastVersion(currentVersion);
+            const modal = new bootstrap.Modal(this.$el.parentElement);
+            modal.show();
+        }
+    },
+
     methods: {
         formatDate(dateString) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };

@@ -24,7 +24,7 @@
 - Food database
 - Elements svg icon: online editor - https://www.svgviewer.dev/
 
-# Next version 0.7
+# Next version 0.8
 
 - Bugs:
 - Improvements:
