@@ -86,46 +86,46 @@
 
 /* Dark theme colors - will be applied when .dark-theme class is added */
 .dark-theme {
-  /* --bg: #111827;
+  --bg: #111827;
   --text: #f9fafb;
   --text-light: #9ca3af;
   --card-bg: #1f2937;
-  --shadow: rgba(0, 0, 0, 0.3); */
+  --shadow: rgba(0, 0, 0, 0.3);
 
   /* Anemo (Wind) - Green */
-  /* --anemo-primary-black-bg: #A0E5D0;
-  --anemo-secondary-black-bg: #74C2A8;
-  --anemo-accent-black-bg: #59A990; */
+  --anemo-primary-black-bg: #a0e5d0;
+  --anemo-secondary-black-bg: #74c2a8;
+  --anemo-accent-black-bg: #59a990;
 
   /* Geo (Earth) - Yellow/Brown */
-  /* --geo-primary-black-bg: #FFDA85;
-  --geo-secondary-black-bg: #FAB632;
-  --geo-accent-black-bg: #D89B20; */
+  --geo-primary-black-bg: #ffda85;
+  --geo-secondary-black-bg: #fab632;
+  --geo-accent-black-bg: #d89b20;
 
   /* Electro (Lightning) - Purple */
-  /* --electro-primary-black-bg: #D19BEF;
-  --electro-secondary-black-bg: #A757CB;
-  --electro-accent-black-bg: #8445A3; */
+  --electro-primary-black-bg: #d19bef;
+  --electro-secondary-black-bg: #a757cb;
+  --electro-accent-black-bg: #8445a3;
 
   /* Dendro (Nature) - Green */
-  /* --dendro-primary-black-bg: #A3E462;
-  --dendro-secondary-black-bg: #7EC236;
-  --dendro-accent-black-bg: #68A42B; */
+  --dendro-primary-black-bg: #a3e462;
+  --dendro-secondary-black-bg: #7ec236;
+  --dendro-accent-black-bg: #68a42b;
 
   /* Hydro (Water) - Blue */
-  /* --hydro-primary-black-bg: #7DD5FF;
-  --hydro-secondary-black-bg: #4CC2F1;
-  --hydro-accent-black-bg: #30A6D8; */
+  --hydro-primary-black-bg: #7dd5ff;
+  --hydro-secondary-black-bg: #4cc2f1;
+  --hydro-accent-black-bg: #30a6d8;
 
   /* Pyro (Fire) - Red */
-  /* --pyro-primary-black-bg: #FF8D74;
-  --pyro-secondary-black-bg: #EF674A;
-  --pyro-accent-black-bg: #D94E2F; */
+  --pyro-primary-black-bg: #ff8d74;
+  --pyro-secondary-black-bg: #ef674a;
+  --pyro-accent-black-bg: #d94e2f;
 
   /* Cryo (Ice) - Light Blue */
-  /* --cryo-primary-black-bg: #C5E9F3;
-  --cryo-secondary-black-bg: #9FD6E3;
-  --cryo-accent-black-bg: #7BBECF; */
+  --cryo-primary-black-bg: #c5e9f3;
+  --cryo-secondary-black-bg: #9fd6e3;
+  --cryo-accent-black-bg: #7bbecf;
 }
 
 * {
