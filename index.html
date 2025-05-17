@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css" />
         <script src="vendor/bootstrap.bundle.min.js"></script>
         <script src="vendor/vue3.global.min.js"></script>
+        <!-- TOP SCRIPTS -->
+        <script src="utils/helper.js"></script>
         <!-- Data -->
         <script src="data/changelog.js"></script>
         <script src="data/characters.js"></script>
@@ -19,25 +21,30 @@
         <script src="data/backgrounds.js"></script>
         <script src="data/difficulties.js"></script>
         <script src="data/quizzes.js"></script>
+        <script src="data/games.js"></script>
+        <script src="data/database.js"></script>
+        <!-- UTILS -->
+        <script src="utils/observable.js"></script>
+        <script src="utils/storage-manager.js"></script>
+        <script src="utils/autocomplete.js"></script>
+        <link rel="stylesheet" href="utils/autocomplete.css" />
+        <script src="utils/notification.js"></script>
+        <link rel="stylesheet" href="utils/notification.css" />
+        <script src="utils/loading.js"></script>
+        <link rel="stylesheet" href="utils/loading.css" />
         <!-- MIGRATIONS -->
         <script src="migrations/migrations.js"></script>
         <script src="migrations/0.1-0.2.js"></script>
         <script src="migrations/0.2-0.3.js"></script>
         <script src="migrations/0.3-0.4.js"></script>
-        <!-- UTILS -->
-        <script src="utils/helper.js"></script>
-        <script src="utils/storage-manager.js"></script>
-        <script src="utils/autocomplete.js"></script>
-        <script src="utils/notification.js"></script>
-        <link rel="stylesheet" href="utils/notification.css" />
-        <script src="utils/loading.js"></script>
-        <link rel="stylesheet" href="utils/loading.css" />
         <!-- GLOBAL -->
         <link rel="stylesheet" href="index.css" />
         <!-- COMMON -->
         <script src="common/top-menu.js"></script>
         <script src="common/bottom-menu.js"></script>
         <script src="common/tooltips.js"></script>
+        <script src="common/exception.js"></script>
+        <script src="common/home.js"></script>
         <!-- TOP MENU -->
         <link rel="stylesheet" href="sites/top/daily.css" />
         <script src="sites/top/daily.js"></script>
@@ -45,6 +52,8 @@
         <script src="sites/top/quizzes.js"></script>
         <link rel="stylesheet" href="sites/top/games.css" />
         <script src="sites/top/games.js"></script>
+        <link rel="stylesheet" href="sites/top/database.css" />
+        <script src="sites/top/database.js"></script>
         <!-- TOP MENU GAMES -->
         <link rel="stylesheet" href="sites/top/games/minesweeper.css" />
         <script src="sites/top/games/minesweeper.js"></script>
@@ -63,6 +72,15 @@
         <script src="sites/top/quizzes/voice.js"></script>
         <link rel="stylesheet" href="sites/top/quizzes/dish.css" />
         <script src="sites/top/quizzes/dish.js"></script>
+        <!-- TOP MENU DATABASE -->
+        <link rel="stylesheet" href="sites/top/database/characters.css" />
+        <script src="sites/top/database/characters.js"></script>
+        <link rel="stylesheet" href="sites/top/database/materials.css" />
+        <script src="sites/top/database/materials.js"></script>
+        <link rel="stylesheet" href="sites/top/database/weapons.css" />
+        <script src="sites/top/database/weapons.js"></script>
+        <link rel="stylesheet" href="sites/top/database/wishes.css" />
+        <script src="sites/top/database/wishes.js"></script>
         <!-- BOTTOM MENU -->
         <link rel="stylesheet" href="sites/bottom/difficulties.css" />
         <script src="sites/bottom/difficulties.js"></script>
@@ -72,10 +90,11 @@
         <script src="sites/bottom/whatsnew.js"></script>
         <link rel="stylesheet" href="sites/bottom/background.css" />
         <script src="sites/bottom/backgrounds.js"></script>
-        <link rel="stylesheet" href="sites/bottom/database.css" />
-        <script src="sites/bottom/database.js"></script>
         <link rel="stylesheet" href="sites/bottom/feedback.css" />
         <script src="sites/bottom/feedback.js"></script>
+        <!-- ROUTING -->
+        <script src="routes.js"></script>
+        <script src="utils/router.js"></script>
     </head>
 
     <body>
@@ -83,6 +102,14 @@
         <nav id="top-menu">
             <!-- common/top-menu.js -->
         </nav>
+
+        <div id="home" class="container d-none">
+            <!-- common/home.js -->
+        </div>
+
+        <div id="exception" class="container d-none">
+            <!-- common/exception.js -->
+        </div>
 
         <!-- Top menu content -->
 
@@ -128,14 +155,48 @@
             <!-- sites/top/daily.js -->
         </div>
 
-        <!-- Tournament -->
-        <div id="site-tournament" class="d-none">
-            <!-- sites/top/games/tournament.js -->
+        <!-- Games -->
+        <div id="site-games" class="container d-none">
+            <div id="games-list" class="row justify-content-center text-center d-flex gap-3 p-4">
+                <!-- List of games are generated dynamically in sites/top/games.js -->
+            </div>
+
+            <!-- Tournament -->
+            <div id="site-tournament" class="d-none">
+                <!-- sites/top/games/tournament.js -->
+            </div>
+
+            <!-- Minesweeper -->
+            <div id="site-minesweeper" class="d-none">
+                <!-- sites/top/games/minesweeper.js -->
+            </div>
         </div>
 
-        <!-- Minesweeper -->
-        <div id="site-minesweeper" class="d-none">
-            <!-- sites/top/games/minesweeper.js -->
+        <!-- Database -->
+        <div id="site-database" class="container d-none p-0">
+            <div id="database-list" class="row justify-content-center text-center d-flex gap-3 p-4">
+                <!-- List of databases are generated dynamically in sites/top/database.js -->
+            </div>
+
+            <!-- Characters -->
+            <div id="site-characters" class="d-none">
+                <!-- sites/top/database/characters.js -->
+            </div>
+
+            <!-- Materials -->
+            <div id="site-materials" class="d-none">
+                <!-- sites/top/database/materials.js -->
+            </div>
+
+            <!-- Weapons -->
+            <div id="site-weapons" class="d-none">
+                <!-- sites/top/database/weapons.js -->
+            </div>
+
+            <!-- Wishes -->
+            <div id="site-wishes" class="d-none">
+                <!-- sites/top/database/wishes.js -->
+            </div>
         </div>
 
         <!-- Bottom menu items -->
@@ -168,11 +229,6 @@
         <!-- Feedback Modal -->
         <div class="modal fade" id="site-feedback-modal" tabindex="-1">
             <!-- sites/bottom/feedback.js -->
-        </div>
-
-        <!-- Database Modal -->
-        <div class="modal fade" id="site-database-modal" tabindex="-1">
-            <!-- sites/bottom/database.js -->
         </div>
     </body>
 </html>

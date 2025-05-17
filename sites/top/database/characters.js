@@ -4,12 +4,12 @@ const CharacterHeader = {
     },
     template: html`
         <div class="character-header">
-            <img :src="character.card" :alt="character.name" class="character-image" />
+            <img :src="character.card_icon" :alt="character.name" class="character-image" />
 
             <div class="character-basics">
-                <h1 :class="['character-name', character.element.toLowerCase()]">
+                <h1 :class="['character-name', character.element.name.toLowerCase()]">
                     {{ character.name }}
-                    <span class="rarity-stars">{{ '★'.repeat(parseInt(character.rarity)) }}</span>
+                    <span class="rarity-stars">{{ '★'.repeat(parseInt(character.quality)) }}</span>
                 </h1>
 
                 <div v-if="character.titles && character.titles.length" class="character-title">{{ character.titles[0] }}</div>
@@ -18,30 +18,30 @@ const CharacterHeader = {
                     <div class="info-item">
                         <span class="info-label">Element:</span>
                         <span class="info-value">
-                            <img :src="character.element_icon" :alt="character.element" class="element-icon" />
-                            {{ character.element }}
+                            <img :src="character.element.icon" :alt="character.element.name" class="element-icon" />
+                            {{ character.element.name }}
                         </span>
                     </div>
 
                     <div class="info-item">
                         <span class="info-label">Weapon:</span>
                         <span class="info-value">
-                            <img :src="character.weapont_type_icon" :alt="character.weapon_type" class="weapon-icon" />
-                            {{ character.weapon_type }}
+                            <img :src="character.weapon.icon" :alt="character.weapon.name" class="weapon-icon" />
+                            {{ character.weapon.name }}
                         </span>
                     </div>
 
                     <div v-if="character.region" class="info-item">
                         <span class="info-label">Region:</span>
                         <span class="info-value">
-                            <img v-if="character.region_icon" :src="character.region_icon" :alt="character.region" class="region-icon" />
-                            {{ character.region }}
+                            <img v-if="character.region.icon" :src="character.region.icon" :alt="character.region.name" class="region-icon" />
+                            {{ character.region.name }}
                         </span>
                     </div>
 
                     <div class="info-item">
                         <span class="info-label">Model:</span>
-                        <span class="info-value">{{ character.model_type }}</span>
+                        <span class="info-value">{{ character.model }}</span>
                     </div>
 
                     <div class="info-item">
@@ -80,7 +80,8 @@ const CharacterHeader = {
                     </div>
                     <div v-if="character.demo_music" class="demo-music">
                         <h3>Demo Music</h3>
-                        <audio preload="metadata" controls :src="character.demo_music"></audio>
+                        <audio preload="metadata" controls :src="character.demo_music.url"></audio>
+                        <p>{{ character.demo_music.name }}</p>
                     </div>
                 </div>
             </div>
@@ -436,92 +437,26 @@ const VoiceOversTab = {
     `,
 };
 
-// MAIN
-const SITES_BOTTOM_DATABASE = Vue.createApp({
-    components: {
-        'character-header': CharacterHeader,
-        'ascension-tab': AscensionTab,
-        'talents-tab': TalentsTab,
-        'constellations-tab': ConstellationsTab,
-        'build-tab': BuildTab,
-        'voice-overs-tab': VoiceOversTab,
-        'loading-spinner': LoadingSpinner,
-    },
-    data() {
-        return {
-            character: null,
-            activeTab: 'ascensions',
-            isLoading: true,
-            autocomplete: null,
-        };
-    },
-    mounted() {
-        document.querySelector(`#${MENU_ITEMS_BOTTOM.database.id}`).addEventListener('click', this.initAutocomplete, { once: true });
-    },
-    methods: {
-        initAutocomplete() {
-            const autocompleteContainer = this.$el.querySelector('[name="autocomplete"]');
-            this.autocomplete = new Autocomplete(autocompleteContainer, (selectedCharacter) => {
-                this.loadCharacterScript(selectedCharacter);
-            });
-            this.loadCharacterScript(getRandomCharacter());
+const SITES_TOP_DATABASE_CHARACTERS_COMPONENT = {
+    VUE_COMPONENT: Vue.createApp({
+        components: {
+            'character-header': CharacterHeader,
+            'ascension-tab': AscensionTab,
+            'talents-tab': TalentsTab,
+            'constellations-tab': ConstellationsTab,
+            'build-tab': BuildTab,
+            'voice-overs-tab': VoiceOversTab,
+            'loading-spinner': LoadingSpinner,
         },
 
-        loadRandomCharacter() {
-            const randomCharacter = getRandomCharacter();
-            this.loadCharacterScript(randomCharacter);
-        },
-
-        loadCharacterScript(characterToLoad) {
-            this.isLoading = true;
-            const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
-            const scriptSrc = `data/database/${characterScript}.js`;
-
-            if (this.isScriptLoaded(scriptSrc)) {
-                this.displayCharacterInfo(window[characterScript]);
-                return;
-            }
-
-            this.loadScript(`data/database/${characterScript}.js`, () => {
-                setTimeout(() => {
-                    this.displayCharacterInfo(window[characterScript]);
-                }, 1000);
-            });
-        },
-
-        displayCharacterInfo(characterData) {
-            this.character = characterData;
-            this.isLoading = false;
-        },
-
-        setActiveTab(tabName) {
-            this.activeTab = tabName;
-        },
-
-        isScriptLoaded(src) {
-            return document.querySelector(`script[src="${src}"]`) !== null;
-        },
-
-        loadScript(src, callback) {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = callback;
-            document.head.appendChild(script);
-        },
-    },
-    template: html`
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content" style="min-height: 250px;">
-                <loading-spinner :isLoading="isLoading" />
-                <div class="modal-header">
-                    <h5 class="modal-title" id="site-database-modal-label">Database</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4" id="site-database-modal-content">
+        template: html`
+            <div style="min-height: 250px; position: relative">
+                <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
+                <div class="body p-4">
                     <!-- Header section -->
                     <div class="mb-3 d-flex justify-content-center" name="autocomplete"></div>
 
-                    <img v-if="character" id="banner" style="width: 100%" :src="character.namecard_banner" :alt="character.name" />
+                    <img v-if="character" id="banner" style="width: 100%" :src="character.namecard.banner" :alt="character.name" />
 
                     <!-- Character header component -->
                     <character-header v-if="character" :character="character" />
@@ -553,10 +488,83 @@ const SITES_BOTTOM_DATABASE = Vue.createApp({
                     </div>
                 </div>
             </div>
-        </div>
-    `,
-});
+        `,
+
+        data() {
+            return {
+                character: null,
+                activeTab: 'ascensions',
+                isLoading: true,
+                autocomplete: null,
+            };
+        },
+
+        mounted() {
+            document.querySelector(`#${MENU_ITEMS_TOP.database.id}`).addEventListener('click', this.initAutocomplete, { once: true });
+        },
+
+        methods: {
+            initAutocomplete() {
+                const autocompleteContainer = this.$el.querySelector('[name="autocomplete"]');
+                this.autocomplete = new Autocomplete(autocompleteContainer, (selectedCharacter) => {
+                    this.loadCharacterScript(selectedCharacter);
+                });
+                this.loadCharacterScript(getRandomCharacter());
+            },
+
+            loadRandomCharacter() {
+                const randomCharacter = getRandomCharacter();
+                this.loadCharacterScript(randomCharacter);
+            },
+
+            loadCharacterScript(characterToLoad) {
+                this.isLoading = true;
+                const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
+                const scriptSrc = `data/database/characters/${characterScript}.js`;
+
+                if (this.isScriptLoaded(scriptSrc)) {
+                    this.displayCharacterInfo(window[characterScript]);
+                    return;
+                }
+
+                this.loadScript(`data/database/characters/${characterScript}.js`, () => {
+                    setTimeout(() => {
+                        this.displayCharacterInfo(window[characterScript]);
+                    }, 1000);
+                });
+            },
+
+            displayCharacterInfo(characterData) {
+                this.character = characterData;
+                this.isLoading = false;
+            },
+
+            setActiveTab(tabName) {
+                this.activeTab = tabName;
+            },
+
+            isScriptLoaded(src) {
+                return document.querySelector(`script[src="${src}"]`) !== null;
+            },
+
+            loadScript(src, callback) {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = callback;
+                document.head.appendChild(script);
+            },
+        },
+    }),
+
+    onShow() {
+        document.querySelector(`#${DATABASE.characters.id}`).classList.remove('d-none');
+    },
+
+    onHide() {
+        document.querySelector(`#${DATABASE.characters.id}`).classList.add('d-none');
+    },
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-    SITES_BOTTOM_DATABASE.mount('#site-database-modal');
+    SITES_TOP_DATABASE_CHARACTERS_COMPONENT.VUE_COMPONENT.mount(`#${MENU_ITEMS_TOP.database.id} #${DATABASE.characters.id}`);
 });

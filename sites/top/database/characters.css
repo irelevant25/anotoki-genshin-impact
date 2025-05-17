@@ -1,13 +1,18 @@
-#site-database-modal-content {
+#site-characters {
   /* Character Header */
   .character-header {
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
     margin-bottom: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    /* background-color: #f9f9f9;
+    border-radius: 8px; */
     position: relative;
+  }
+
+  td,
+  th {
+    border-bottom: 1px solid #000 !important;
   }
 
   .character-image {
@@ -55,8 +60,8 @@
 
   .info-item {
     /* display: flex;
-    align-items: center;
-    margin-bottom: 10px; */
+  align-items: center;
+  margin-bottom: 10px; */
   }
 
   .info-label {
@@ -94,7 +99,7 @@
   .tabs-navigation {
     display: flex;
     margin-bottom: 20px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #000000;
   }
 
   .tab-button {
@@ -104,7 +109,7 @@
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    color: #777;
+    color: var(--text);
     position: relative;
   }
 
@@ -129,6 +134,10 @@
     border-collapse: collapse;
     margin-bottom: 20px;
     table-layout: fixed;
+
+    table {
+      width: -webkit-fill-available;
+    }
   }
 
   .ascension-table th,
@@ -147,13 +156,13 @@
 
   .ascension-table th,
   .talent-level-table th {
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
     font-weight: bold;
   }
 
   .ascension-table tr:hover,
   .talent-level-table tr:hover {
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
   }
 
   .ascension-table th.checkbox-column,
@@ -169,12 +178,12 @@
     align-items: center;
     margin-right: 15px;
     margin-bottom: 5px;
-  }
 
-  .material-icon {
-    width: 32px;
-    height: 32px;
-    margin-right: 5px;
+    img {
+      width: 32px;
+      height: 32px;
+      margin-right: 5px;
+    }
   }
 
   .material-name {
@@ -200,9 +209,9 @@
 
   /* Total Materials */
   .total-materials {
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9;
+    border-radius: 8px; */
     padding: 20px;
-    border-radius: 8px;
     margin-top: 20px;
   }
 
@@ -219,19 +228,26 @@
 
   .total-material-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+    img {
+      width: 128px;
+      height: 128px;
+      margin-right: 5px;
+    }
   }
 
   /* Talents Tab */
   .talent {
     margin-bottom: 30px;
     padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    /* background-color: #f9f9f9;
+    border-radius: 8px; */
   }
 
   .talent-header {
@@ -268,8 +284,8 @@
   .constellation {
     margin-bottom: 25px;
     padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    /* background-color: #f9f9f9;
+    border-radius: 8px; */
   }
 
   .constellation-header {
@@ -306,45 +322,6 @@
     line-height: 1.6;
   }
 
-  /* Autocomplete */
-  .dropdown-menu {
-    padding: 0;
-  }
-
-  .autocomplete {
-    width: 300px;
-  }
-
-  .autocomplete-dropdown {
-    max-height: 301px;
-    overflow-y: auto;
-    width: 100%;
-  }
-
-  .autocomplete-item {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    height: 100px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .autocomplete-item.active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .autocomplete-item img {
-    width: 100px;
-  }
-
-  .autocomplete-item span {
-    margin-left: 10px;
-    font-size: 16px;
-  }
-
   .voiceover-header {
     display: flex;
     justify-content: space-between;
@@ -365,7 +342,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: var(--light-color);
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 5px 10px;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -412,7 +389,7 @@
   }
 
   .voiceline-card {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);

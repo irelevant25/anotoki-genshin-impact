@@ -1,10 +1,8 @@
-(() => {
-    'use strict';
+const SITES_TOP_QUIZZES_COMPONENT = {
+    quizzesElement: null,
+    quizzesListElement: null,
 
-    let quizzesElement;
-    let quizzesListElement;
-
-    function getHelpIcon(quizItem) {
+    getHelpIcon(quizItem) {
         if (!quizItem.helpIcon) return '';
         return `
             <div id="${quizItem.id}-help-icon" class="help-icon right" data-bs-toggle="tooltip" data-bs-placement="left" title="${quizItem.modalTitle}">
@@ -12,39 +10,39 @@
                     onclick="event.stopPropagation()"></i>
             </div>
         `;
-    }
+    },
 
-    function defaultState() {
-        quizzesListElement.classList.remove('d-none');
-        quizzesElement.querySelectorAll("& > div[id^='site-']").forEach(element => {
+    defaultState() {
+        this.quizzesListElement.classList.remove('d-none');
+        this.quizzesElement.querySelectorAll("& > div[id^='site-']").forEach((element) => {
             element.classList.add('d-none');
         });
-    }
+    },
 
-    function itemClick(quizItem) {
+    itemClick(quizItem) {
         // Skip if no data-id
         if (!quizItem.dataset.id) return;
 
-        defaultState();
+        this.defaultState();
 
         // Toggle active state of clicked item
-        quizzesElement.querySelector(`#${quizItem.dataset.id}`).classList.remove('d-none');
-        quizzesListElement.classList.add('d-none');
-    }
+        this.quizzesElement.querySelector(`#${quizItem.dataset.id}`).classList.remove('d-none');
+        this.quizzesListElement.classList.add('d-none');
+    },
 
-    function init() {
-        quizzesElement = document.querySelector(`#${MENU_ITEMS_TOP.quizzes.id}`);
-        quizzesListElement = document.querySelector("#quizzes-list");
+    init() {
+        this.quizzesElement = document.querySelector(`#${MENU_ITEMS_TOP.quizzes.id}`);
+        this.quizzesListElement = document.querySelector('#quizzes-list');
         document.querySelector(`li[data-id="${MENU_ITEMS_TOP.quizzes.id}"]`).addEventListener('click', () => {
-            defaultState();
+            this.defaultState();
         });
 
         // Generate list
         let quizzesListHtml = '';
-        Object.values(QUIZZES).forEach(quizItem => {
+        Object.values(QUIZZES).forEach((quizItem) => {
             quizzesListHtml += `
-                <div class="card" data-id="${quizItem.id}">
-                    ${getHelpIcon(quizItem)}
+                <div class="card" data-id="${quizItem.id}" data-link="${quizItem.id}">
+                    ${this.getHelpIcon(quizItem)}
                     <img src="${quizItem.cardImage}">
                     <div class="card-body">
                         <h5 class="card-title">${quizItem.title}</h5>
@@ -53,21 +51,19 @@
                 </div>    
             `;
         });
-        quizzesListElement.innerHTML = quizzesListHtml;
+        this.quizzesListElement.innerHTML = quizzesListHtml;
 
-        const items = quizzesListElement.querySelectorAll('div.card');
-
-        // Add click handler to each menu item
-        items.forEach(item => {
-            item.addEventListener('click', () => itemClick(item));
-        });
-
-        console.log(`${items.length} quizzes initialized.`);
+        const items = this.quizzesListElement.querySelectorAll('div.card');
+        console.log(
+            `${items.length} quizzes initialized: ${Array.from(items)
+                .map((item) => item.dataset.id)
+                .join(', ')}`
+        );
 
         // Generate menu items help modals
         const helpModals = document.createElement('div');
         document.body.appendChild(helpModals);
-        Object.values(QUIZZES).forEach(quizItem => {
+        Object.values(QUIZZES).forEach((quizItem) => {
             helpModals.innerHTML += `
                 <div class="modal fade" id="${quizItem.id}-modal" tabindex="-1">
                     <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -82,12 +78,27 @@
                 </div>
             `;
         });
+    },
 
-        const modalItems = document.querySelectorAll('div.modal');
-        console.log('Menu items help modals initialized with', modalItems.length, 'items');
-    }
+    onInit() {
+        onPathChange.subscribe((path) => {
+            if (path === MENU_ITEMS_TOP.quizzes.id) {
+                this.quizzesListElement.classList.remove('d-none');
+            } else {
+                this.quizzesListElement.classList.add('d-none');
+            }
+        });
+    },
 
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelector(`[data-id="${MENU_ITEMS_TOP.quizzes.id}"`).addEventListener('click', init, { once: true });
-    });
-})();
+    onShow() {
+        this.quizzesElement.classList.remove('d-none');
+    },
+
+    onHide() {
+        this.quizzesElement.classList.add('d-none');
+    },
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    SITES_TOP_QUIZZES_COMPONENT.init();
+});

@@ -1,7 +1,7 @@
 const TOP_MENU = Vue.createApp({
     template: html`
         <ul>
-            <li v-for="menuItem in menuItems" :data-id="menuItem.id" @click="menuItemClick($event)" ref="menuItemElement">
+            <li v-for="menuItem in menuItems" :data-id="menuItem.id" :data-link="'/' + menuItem.id" ref="menuItemElement">
                 <div v-if="menuItem.badgeIcon" :id="menuItem.id + '-badge-icon'" class="left">
                     <div class="badge-daily rounded-pill bg-danger visible" style="width: 20px; height: 20px;">?</div>
                 </div>
@@ -27,48 +27,18 @@ const TOP_MENU = Vue.createApp({
         </Teleport>
     `,
 
-    data: () => ({
-        menuItems: Object.values(MENU_ITEMS_TOP),
-    }),
-
-    methods: {
-        menuItemClick(event) {
-            const menuItem = event.currentTarget || event.srcElement;
-            if (!menuItem.dataset.id) return;
-
-            // Toggle active state and handle content visibility
-            this.toggleActiveMenuItem(menuItem);
-            this.toggleContentVisibility(menuItem.dataset.id);
-        },
-
-        toggleActiveMenuItem(clickedItem) {
-            // Deactivate all other menu items
+    data() {
+        onPathChange.subscribe((path) => {
+            const activeMenuItem = this.$refs.menuItemElement.find((element) => element.dataset.id === path.split('/')[0]);
             this.$refs.menuItemElement.forEach((element) => {
-                if (element !== clickedItem) element.classList.remove('active');
+                element.classList.remove('active');
             });
+            activeMenuItem?.classList.add('active');
+        });
 
-            // Toggle the clicked item
-            clickedItem.classList.toggle('active');
-        },
-
-        toggleContentVisibility(itemId) {
-            const content = document.querySelector('#' + itemId);
-            if (!content) return;
-
-            // Hide all other content elements
-            Object.values(MENU_ITEMS_TOP).forEach((item) => {
-                const el = document.querySelector(`#${item.id}`);
-                if (el && el !== content) el.classList.add('d-none');
-            });
-
-            // Toggle this content's visibility
-            content.classList.toggle('d-none');
-        },
-    },
-
-    mounted() {
-        const modalCount = document.querySelectorAll('div > div.modal').length;
-        console.log(`Menu items help modals initialized with ${modalCount} items`);
+        return {
+            menuItems: Object.values(MENU_ITEMS_TOP),
+        };
     },
 });
 
