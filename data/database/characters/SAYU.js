@@ -1,28 +1,28 @@
 var SAYU = {
     "name": "Sayu",
     "secondary_title": "Mujina Ninja",
-    "card_icon": "assets/character/card/Sayu.png",
-    "wish_icon": "assets/character/wish/Sayu.png",
-    "ingame_icon": "assets/character/ingame/Sayu.png",
-    "icon": "assets/character/icon/Sayu.png",
+    "card_icon": "assets/character/card/Sayu.avif",
+    "wish_icon": "assets/character/wish/Sayu.avif",
+    "ingame_icon": "assets/character/ingame/Sayu.avif",
+    "icon": "assets/character/icon/Sayu.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Short Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "October 19th",
@@ -30,43 +30,43 @@ var SAYU = {
         {
             "name": "Multi-Task no Jutsu",
             "level": 1,
-            "icon": "assets/character/constellations/Multi-Task no Jutsu.png",
+            "icon": "assets/character/constellations/Multi-Task no Jutsu.avif",
             "description": "The Muji-Muji Daruma created by Yoohoo Art: Mujina Flurry will ignore HP limits and can simultaneously attack nearby opponents and heal characters."
         },
         {
             "name": "Egress Prep",
             "level": 2,
-            "icon": "assets/character/constellations/Egress Prep.png",
+            "icon": "assets/character/constellations/Egress Prep.avif",
             "description": "Yoohoo Art: Fuuin Dash gains the following effects:DMG of Fuufuu Whirlwind Kick in (PressPressText for mouse and keyboard and controller/TappingTappingText for touch screen) Mode increased by 3.3%.Every 0.5s in the Fuufuu Windwheel state will increase the DMG of this Fuufuu Whirlwind Kick by 3.3%. The maximum DMG increase possible through this method is 66%."
         },
         {
             "name": "Eh, the Bunshin Can Handle It",
             "level": 3,
-            "icon": "assets/character/constellations/Eh, the Bunshin Can Handle It.png",
+            "icon": "assets/character/constellations/Eh, the Bunshin Can Handle It.avif",
             "description": "Increases the Level of Yoohoo Art: Mujina Flurry by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Skiving: New and Improved",
             "level": 4,
-            "icon": "assets/character/constellations/Skiving New and Improved.png",
+            "icon": "assets/character/constellations/Skiving New and Improved.avif",
             "description": "Sayu recovers 1.2 Energy when she triggers a Swirl reaction.This effect occurs once every 2s."
         },
         {
             "name": "Speed Comes First",
             "level": 5,
-            "icon": "assets/character/constellations/Speed Comes First.png",
+            "icon": "assets/character/constellations/Speed Comes First.avif",
             "description": "Increases the Level of Yoohoo Art: Fuuin Dash by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sleep O'Clock",
             "level": 6,
-            "icon": "assets/character/constellations/Sleep O'Clock.png",
+            "icon": "assets/character/constellations/Sleep O'Clock.avif",
             "description": "The Muji-Muji Daruma created by Sayu's Yoohoo Art: Mujina Flurry will now also benefit from her Elemental Mastery. Each point of Sayu's Elemental Mastery will produce the following effects:Increases the damage dealt by the Muji-Muji Daruma's attacks by 0.2% ATK. A maximum DMG increase of 400% ATK can be gained via this method.Increases the HP restored by the Muji-Muji Daruma by 3. A maximum of 6,000 additional HP can be restored in this manner."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Shuumatsuban",
@@ -74,12 +74,12 @@ var SAYU = {
     ],
     "special_dish": {
         "name": "Dizziness-Be-Gone no Jutsu Version 2.0",
-        "icon": "assets/foods/Sayu.png"
+        "icon": "assets/foods/Sayu.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Sayu.png",
-        "background": "assets/character/namecard_background/Sayu.png",
-        "banner": "assets/character/namecard_banner/Sayu.png",
+        "icon": "assets/character/namecard_icon/Sayu.avif",
+        "background": "assets/character/namecard_background/Sayu.avif",
+        "banner": "assets/character/namecard_banner/Sayu.avif",
         "description": "It is even smaller than Sayu, sure, but it can help her do the things she doesn't want to do.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 3,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 2,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 10,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 4,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 20,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 8,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 30,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 12,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 45,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 20,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 60,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var SAYU = {
         {
             "name": "Shuumatsuban Ninja Blade",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Shuumatsuban Ninja Blade.png",
+            "icon": "assets/character/talents/Shuumatsuban Ninja Blade.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Yoohoo Art: Fuuin Dash",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Yoohoo Art Fuuin Dash.png",
+            "icon": "assets/character/talents/Yoohoo Art Fuuin Dash.avif",
             "description": "The special technique of the Yoohoo Ninja Arts!Sayu curls up into a rolling Fuufuu Windwheel and smashes into opponents at high speed, dealing Anemo DMG. When the duration ends, she unleashes a Fuufuu Whirlwind Kick, dealing AoE Anemo DMG.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Enters the Fuufuu Windwheel state, rolling forward a short distance before using the Fuufuu Whirlwind Kick.HoldRolls about continuously in the Fuufuu Windwheel state, increasing Sayu's resistance to interruption while within that state.During this time, Sayu can control the direction of her roll, and can use the skill again to end her Windwheel state early and unleash a stronger version of the Fuufuu Whirlwind Kick.The Hold version of this skill can trigger Elemental Absorption.This skill has a maximum duration of 10s and enters CD once its effects end.The longer Sayu remains in her Windwheel state, the longer the CD.Elemental AbsorptionIf Sayu comes into contact with Hydro/Pyro/Cryo/Electro while in her Windwheel state, she will deal additional elemental DMG of that type.Elemental Absorption may only occur once per use of this skill."
         },
         {
             "name": "Yoohoo Art: Mujina Flurry",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Yoohoo Art Mujina Flurry.png",
+            "icon": "assets/character/talents/Yoohoo Art Mujina Flurry.avif",
             "description": "The other super special technique of the Yoohoo Ninja Arts! It summons a pair of helping hands for Sayu.Deals Anemo DMG to nearby opponents and heals all nearby party members. The amount of HP restored is based on Sayu's ATK. This skill then summons a Muji-Muji Daruma.Muji-Muji DarumaAt specific intervals, the Daruma will take one of several actions based on the situation around it:If the HP of nearby characters is above 70%, it will attack a nearby opponent, dealing Anemo DMG.If there are active characters with 70% or less HP nearby, it will heal the active character with the lowest percentage HP left. If there are no opponents nearby, it will heal active characters nearby even if they have 70% HP or more."
         },
         {
             "name": "Someone More Capable",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Someone More Capable.png",
+            "icon": "assets/character/talents/Someone More Capable.avif",
             "description": "When Sayu triggers a Swirl reaction while active, she heals all your characters and nearby allies for 300 HP. She will also heal an additional 1.2 HP for every point of Elemental Mastery she has.This effect can be triggered once every 2s."
         },
         {
             "name": "No Work Today!",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/No Work Today!.png",
+            "icon": "assets/character/talents/No Work Today!.avif",
             "description": "The Muji-Muji Daruma created by Yoohoo Art: Mujina Flurry gains the following effects:When healing a character, it will also heal characters near that healed character for 20% the amount of HP.Increases the AoE of its attack against opponents."
         },
         {
             "name": "Yoohoo Art: Silencer's Secret",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Yoohoo Art Silencer's Secret.png",
+            "icon": "assets/character/talents/Yoohoo Art Silencer's Secret.avif",
             "description": "When Sayu is in the party, your characters will not startle Crystalflies and certain other animals when getting near them.Check the \"Other\" sub-category of the \"Living Beings / Wildlife\" section in the Archive for creatures this skill works on."
         }
     ],
@@ -462,17 +491,20 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Light",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Light.png"
+                    "icon": "assets/materials/Teachings of Light.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 1,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 1,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 2,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var SAYU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 2,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2536,207 +2597,5 @@ var SAYU = {
     "demo_music": {
         "name": "Muji-Muji Chaos!",
         "url": "assets/character/demo_music/Sayu.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "Support",
-        "weapons": [
-            "Skyward Pride",
-            "Favonius Greatsword",
-            "Katsuragikiri Nagamasa",
-            "Serpent Spine",
-            "Luxurious Sea-Lord",
-            "Akuoumaru",
-            "Sacrificial Greatsword",
-            "Makhaira Aquamarine",
-            "Mailed Flower",
-            "Rainslasher",
-            "Bloodtainted Greatsword"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer",
-            "4pc Deepwood Memories",
-            "4pc Noblesse Oblige",
-            "4pc Ocean-Hued Clam"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / ATK%, o/ EM",
-            "ATK% / EM",
-            "Healing Bonus / ATK%, / EM / CRIT Rate"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "ATK%",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "ZhongliIn",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ]
-        ]
     }
 }

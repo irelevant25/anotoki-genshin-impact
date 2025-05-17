@@ -1,28 +1,28 @@
 var HU_TAO = {
     "name": "Hu Tao",
     "secondary_title": "Fragrance in Thaw",
-    "card_icon": "assets/character/card/Hu Tao.png",
-    "wish_icon": "assets/character/wish/Hu Tao.png",
-    "ingame_icon": "assets/character/ingame/Hu Tao.png",
-    "icon": "assets/character/icon/Hu Tao.png",
+    "card_icon": "assets/character/card/Hu Tao.avif",
+    "wish_icon": "assets/character/wish/Hu Tao.avif",
+    "ingame_icon": "assets/character/ingame/Hu Tao.avif",
+    "icon": "assets/character/icon/Hu Tao.avif",
     "quality": "5",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "July 15th",
@@ -30,43 +30,43 @@ var HU_TAO = {
         {
             "name": "Crimson Bouquet",
             "level": 1,
-            "icon": "assets/character/constellations/Crimson Bouquet.png",
+            "icon": "assets/character/constellations/Crimson Bouquet.avif",
             "description": "While in a Paramita Papilio state activated by Guide to Afterlife, Hu Tao's Charged Attacks do not consume Stamina."
         },
         {
             "name": "Ominous Rainfall",
             "level": 2,
-            "icon": "assets/character/constellations/Ominous Rainfall.png",
+            "icon": "assets/character/constellations/Ominous Rainfall.avif",
             "description": "Increases the Blood Blossom DMG by an amount equal to 10% of Hu Tao's Max HP at the time the effect is applied.Additionally, Spirit Soother will also apply the Blood Blossom effect."
         },
         {
             "name": "Lingering Carmine",
             "level": 3,
-            "icon": "assets/character/constellations/Lingering Carmine.png",
+            "icon": "assets/character/constellations/Lingering Carmine.avif",
             "description": "Increases the Level of Guide to Afterlife by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Garden of Eternal Rest",
             "level": 4,
-            "icon": "assets/character/constellations/Garden of Eternal Rest.png",
+            "icon": "assets/character/constellations/Garden of Eternal Rest.avif",
             "description": "Upon defeating an enemy affected by a Blood Blossom that Hu Tao applied herself, all nearby allies in the party (excluding Hu Tao herself) will have their CRIT Rate increased by 12% for 15s."
         },
         {
             "name": "Floral Incense",
             "level": 5,
-            "icon": "assets/character/constellations/Floral Incense.png",
+            "icon": "assets/character/constellations/Floral Incense.avif",
             "description": "Increases the Level of Spirit Soother by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Butterfly's Embrace",
             "level": 6,
-            "icon": "assets/character/constellations/Butterfly's Embrace.png",
+            "icon": "assets/character/constellations/Butterfly's Embrace.avif",
             "description": "Triggers when Hu Tao's HP drops below 25%, or when she suffers a lethal strike:Hu Tao will not fall as a result of the DMG sustained. Additionally, for the next 10s, all of her Elemental and Physical RES is increased by 200%, her CRIT Rate is increased by 100%, and her resistance to interruption is greatly increased.This effect triggers automatically when Hu Tao has 1 HP left.Can only occur once every 60s."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Wangsheng Funeral Parlor",
@@ -74,12 +74,12 @@ var HU_TAO = {
     ],
     "special_dish": {
         "name": "Ghostly March",
-        "icon": "assets/foods/Hu Tao.png"
+        "icon": "assets/foods/Hu Tao.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Hu Tao.png",
-        "background": "assets/character/namecard_background/Hu Tao.png",
-        "banner": "assets/character/namecard_banner/Hu Tao.png",
+        "icon": "assets/character/namecard_icon/Hu Tao.avif",
+        "background": "assets/character/namecard_background/Hu Tao.avif",
+        "banner": "assets/character/namecard_banner/Hu Tao.avif",
         "description": "Director Hu Tao isn't scary at all. Probably.",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 3,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 2,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 10,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 4,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 20,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 8,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 30,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 12,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 45,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 20,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 60,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var HU_TAO = {
         {
             "name": "Secret Spear of Wangsheng",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Secret Spear of Wangsheng.png",
+            "icon": "assets/character/talents/Secret Spear of Wangsheng.avif",
             "description": "Normal AttackPerforms up to 6 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Guide to Afterlife",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Guide to Afterlife.png",
+            "icon": "assets/character/talents/Guide to Afterlife.avif",
             "description": "Only an unwavering flame can cleanse the impurities of this world.Hu Tao consumes a set portion of her HP to knock the surrounding enemies back and enter the Paramita Papilio state.Paramita PapilioIncreases Hu Tao's ATK based on her Max HP at the time of entering this state. ATK Bonus gained this way cannot exceed 400% of Hu Tao's Base ATK.Converts attack DMG to Pyro DMG, which cannot be overridden by any other elemental infusion.Charged Attacks apply the Blood Blossom effect to the enemies hit.Increases Hu Tao's resistance to interruption.Blood BlossomEnemies affected by Blood Blossom will take Pyro DMG every 4s. This DMG is considered Elemental Skill DMG.Each enemy can be affected by only one Blood Blossom effect at a time, and its duration may only be refreshed by Hu Tao herself.Paramita Papilio ends when its duration is over, or Hu Tao has left the battlefield or fallen."
         },
         {
             "name": "Spirit Soother",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Spirit Soother.png",
+            "icon": "assets/character/talents/Spirit Soother.avif",
             "description": "Commands a blazing spirit to attack, dealing Pyro DMG in a large AoE.Upon striking the enemy, regenerates a percentage of Hu Tao's Max HP. This effect can be triggered up to 5 times, based on the number of enemies hit.If Hu Tao's HP is below or equal to 50% when the enemy is hit, both the DMG and HP Regeneration are increased."
         },
         {
             "name": "Flutter By",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Flutter By.png",
+            "icon": "assets/character/talents/Flutter By.avif",
             "description": "When a Paramita Papilio state activated by Guide to Afterlife ends, all allies in the party (excluding Hu Tao herself) will have their CRIT Rate increased by 12% for 8s."
         },
         {
             "name": "Sanguine Rouge",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Sanguine Rouge.png",
+            "icon": "assets/character/talents/Sanguine Rouge.avif",
             "description": "When Hu Tao's HP is equal to or less than 50%, her Pyro DMG Bonus is increased by 33%."
         },
         {
             "name": "The More the Merrier",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The More the Merrier.png",
+            "icon": "assets/character/talents/The More the Merrier.avif",
             "description": "When Hu Tao cooks a dish perfectly, she has a 18% chance to receive an additional \"Suspicious\" dish of the same type."
         }
     ],
@@ -466,17 +495,20 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Diligence",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Diligence.png"
+                    "icon": "assets/materials/Teachings of Diligence.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 1,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 1,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 2,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var HU_TAO = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 2,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2541,116 +2602,5 @@ var HU_TAO = {
     "demo_music": {
         "name": "Any Last Words?",
         "url": "assets/character/demo_music/Hu Tao.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "On-field DPS",
-        "weapons": [
-            "Staff of Homa",
-            "Staff of the Scarlet Sands",
-            "Ballad of the Fjords",
-            "Dragon's Bane",
-            "Deathmatch",
-            "Primordial Jade Winged-Spear",
-            "Lithic Spear",
-            "Missive Windspear R5",
-            "White Tassel R5",
-            "Blackcliff Pole"
-        ],
-        "artifacts": [
-            "4pc Crimson Witch of Flames",
-            "4pc Shimenawa's Reminiscence",
-            "4pc Gilded Dreams"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Skill",
-            "Burst"
-        ],
-        "main_stats": [
-            "EM / HP%",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "EM (100 - 150)",
-            "CRIT Rate / CRIT DMG",
-            "EM (200 - 300)",
-            "HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                }
-            ],
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,28 +1,28 @@
 var YUN_JIN = {
     "name": "Yun Jin",
     "secondary_title": "Stage Lucida",
-    "card_icon": "assets/character/card/Yun Jin.png",
-    "wish_icon": "assets/character/wish/Yun Jin.png",
-    "ingame_icon": "assets/character/ingame/Yun Jin.png",
-    "icon": "assets/character/icon/Yun Jin.png",
+    "card_icon": "assets/character/card/Yun Jin.avif",
+    "wish_icon": "assets/character/wish/Yun Jin.avif",
+    "ingame_icon": "assets/character/ingame/Yun Jin.avif",
+    "icon": "assets/character/icon/Yun Jin.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "May 21st",
@@ -30,43 +30,43 @@ var YUN_JIN = {
         {
             "name": "Thespian Gallop",
             "level": 1,
-            "icon": "assets/character/constellations/Thespian Gallop.png",
+            "icon": "assets/character/constellations/Thespian Gallop.avif",
             "description": "Opening Flourish's CD is decreased by 18%."
         },
         {
             "name": "Myriad Mise-En-Scène",
             "level": 2,
-            "icon": "assets/character/constellations/Myriad Mise-En-Scène.png",
+            "icon": "assets/character/constellations/Myriad Mise-En-Scène.avif",
             "description": "After Cliffbreaker's Banner is unleashed, all nearby party members' Normal Attack DMG is increased by 15% for 12s."
         },
         {
             "name": "Seafaring General",
             "level": 3,
-            "icon": "assets/character/constellations/Seafaring General.png",
+            "icon": "assets/character/constellations/Seafaring General.avif",
             "description": "Increases the Level of Cliffbreaker's Banner by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Flower and a Fighter",
             "level": 4,
-            "icon": "assets/character/constellations/Flower and a Fighter.png",
+            "icon": "assets/character/constellations/Flower and a Fighter.avif",
             "description": "When Yun Jin triggers the Crystallize Reaction, her DEF is increased by 20% for 12s."
         },
         {
             "name": "Famed Throughout the Land",
             "level": 5,
-            "icon": "assets/character/constellations/Famed Throughout the Land.png",
+            "icon": "assets/character/constellations/Famed Throughout the Land.avif",
             "description": "Increases the Level of Opening Flourish by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Decorous Harmony",
             "level": 6,
-            "icon": "assets/character/constellations/Decorous Harmony.png",
+            "icon": "assets/character/constellations/Decorous Harmony.avif",
             "description": "Characters under the effects of the Flying Cloud Flag Formation have their Normal ATK SPD increased by 12%."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Yun-Han Opera Troupe",
@@ -75,12 +75,12 @@ var YUN_JIN = {
     ],
     "special_dish": {
         "name": "Cloud-Shrouded Jade",
-        "icon": "assets/foods/Yun Jin.png"
+        "icon": "assets/foods/Yun Jin.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Yun Jin.png",
-        "background": "assets/character/namecard_background/Yun Jin.png",
-        "banner": "assets/character/namecard_banner/Yun Jin.png",
+        "icon": "assets/character/namecard_icon/Yun Jin.avif",
+        "background": "assets/character/namecard_background/Yun Jin.avif",
+        "banner": "assets/character/namecard_banner/Yun Jin.avif",
         "description": "Ms. Yun has two sorts of teachers. The critics of her onstage performances are one, and the books on rhyme she references while writing are the other.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 3,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 3,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 2,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 10,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 15,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 4,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 20,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 12,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 8,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 30,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 18,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 12,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 45,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 20,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 60,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 24,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var YUN_JIN = {
         {
             "name": "Cloud-Grazing Strike",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Cloud-Grazing Strike.png",
+            "icon": "assets/character/talents/Cloud-Grazing Strike.avif",
             "description": "Normal AttackPerforms up to 5 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Opening Flourish",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Opening Flourish.png",
+            "icon": "assets/character/talents/Opening Flourish.avif",
             "description": "Ms. Yun may just be acting out fights on stage, but her skills with the spear are real enough to defend against her foes.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Flourishes her polearm in a cloud-grasping stance, dealing Geo DMG.HoldTakes up the Opening Flourish stance and charges up, forming a shield. DMG Absorption is based on Yun Jin's Max HP and has 150% effectiveness against all Elemental DMG and Physical DMG. The shield lasts until she finishes unleashing her Elemental Skill.When the skill is released, when its duration ends, or when the shield breaks, Yun Jin will unleash the charged energy as an attack, dealing Geo DMG.Based on the time spent charging, it will either unleash an attack at Charge Level 1 or Level 2."
         },
         {
             "name": "Cliffbreaker's Banner",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Cliffbreaker's Banner.png",
+            "icon": "assets/character/talents/Cliffbreaker's Banner.avif",
             "description": "Deals AoE Geo DMG and grants all nearby party members a Flying Cloud Flag Formation.Flying Cloud Flag FormationWhen Normal Attack DMG is dealt to opponents, Bonus DMG will be dealt based on Yun Jin's current DEF.The effects of this skill will be cleared after a set duration or after being triggered a specific number of times.When one Normal Attack hits multiple opponents, the effect is triggered multiple times according to the number of opponents hit. The number of times that the effect is triggered is counted independently for each member of the party with Flying Cloud Flag Formation."
         },
         {
             "name": "True to Oneself",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/True to Oneself.png",
+            "icon": "assets/character/talents/True to Oneself.avif",
             "description": "Using Opening Flourish at the precise moment when Yun Jin is attacked will unleash its Level 2 Charged (Hold) form."
         },
         {
             "name": "Breaking Conventions",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Breaking Conventions.png",
+            "icon": "assets/character/talents/Breaking Conventions.avif",
             "description": "The Normal Attack DMG Bonus granted by Flying Cloud Flag Formation is further increased by 2.5%/5%/7.5%/11.5% of Yun Jin's DEF when the party contains characters of 1/2/3/4 Elemental Types, respectively."
         },
         {
             "name": "Light Nourishment",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Light Nourishment.png",
+            "icon": "assets/character/talents/Light Nourishment.avif",
             "description": "When Perfect Cooking is achieved on Food with Adventure-related effects, there is a 12% chance to obtain double the product."
         }
     ],
@@ -465,17 +494,20 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 6,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Diligence",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Diligence.png"
+                    "icon": "assets/materials/Teachings of Diligence.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 3,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 4,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 6,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 9,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 4,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 1,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 6,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 1,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 9,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 2,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var YUN_JIN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 2,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2348,95 +2409,5 @@ var YUN_JIN = {
     "demo_music": {
         "name": "Chapter of a New Era",
         "url": "assets/character/demo_music/Yun Jin.mp3"
-    },
-    "build": {
-        "version": "5.4",
-        "type": "Support",
-        "weapons": [
-            "Footprint of the Rainbow",
-            "Engulfing Lightning",
-            "Favonius Lance R5",
-            "Rightful Reward",
-            "The Catch",
-            "Prototype Starglitter"
-        ],
-        "artifacts": [
-            "4pc Husk of Opulent Dreams",
-            "4pc Noblesse Oblige",
-            "4pc Archaic Petra",
-            "4pc Scroll of the Hero of Cinder City"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "DEF% / ER",
-            "DEF%",
-            "DEF%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate",
-            "DEF%",
-            "Flat DEF"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                },
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
     }
 }

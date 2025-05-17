@@ -1,28 +1,28 @@
 var ROSARIA = {
     "name": "Rosaria",
     "secondary_title": "Thorny Benevolence",
-    "card_icon": "assets/character/card/Rosaria.png",
-    "wish_icon": "assets/character/wish/Rosaria.png",
-    "ingame_icon": "assets/character/ingame/Rosaria.png",
-    "icon": "assets/character/icon/Rosaria.png",
+    "card_icon": "assets/character/card/Rosaria.avif",
+    "wish_icon": "assets/character/wish/Rosaria.avif",
+    "ingame_icon": "assets/character/ingame/Rosaria.avif",
+    "icon": "assets/character/icon/Rosaria.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "January 24th",
@@ -30,55 +30,55 @@ var ROSARIA = {
         {
             "name": "Unholy Revelation",
             "level": 1,
-            "icon": "assets/character/constellations/Unholy Revelation.png",
+            "icon": "assets/character/constellations/Unholy Revelation.avif",
             "description": "When Rosaria deals a CRIT Hit, her ATK SPD increases by 10% and her Normal Attack DMG increases by 10% for 4s."
         },
         {
             "name": "Land Without Promise",
             "level": 2,
-            "icon": "assets/character/constellations/Land Without Promise.png",
+            "icon": "assets/character/constellations/Land Without Promise.avif",
             "description": "The duration of the Ice Lance created by Rites of Termination is increased by 4s."
         },
         {
             "name": "The Wages of Sin",
             "level": 3,
-            "icon": "assets/character/constellations/The Wages of Sin.png",
+            "icon": "assets/character/constellations/The Wages of Sin.avif",
             "description": "Increases the Level of Ravaging Confession by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Painful Grace",
             "level": 4,
-            "icon": "assets/character/constellations/Painful Grace.png",
+            "icon": "assets/character/constellations/Painful Grace.avif",
             "description": "Ravaging Confession's CRIT Hits regenerate 5 Energy for Rosaria.Can only be triggered once each time Ravaging Confession is cast."
         },
         {
             "name": "Last Rites",
             "level": 5,
-            "icon": "assets/character/constellations/Last Rites.png",
+            "icon": "assets/character/constellations/Last Rites.avif",
             "description": "Increases the Level of Rites of Termination by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Divine Retribution",
             "level": 6,
-            "icon": "assets/character/constellations/Divine Retribution.png",
+            "icon": "assets/character/constellations/Divine Retribution.avif",
             "description": "Rites of Termination's attack decreases opponents' Physical RES by 20% for 10s."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Church of Favonius"
     ],
     "special_dish": {
         "name": "Dinner of Judgment",
-        "icon": "assets/foods/Rosaria.png"
+        "icon": "assets/foods/Rosaria.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Rosaria.png",
-        "background": "assets/character/namecard_background/Rosaria.png",
-        "banner": "assets/character/namecard_banner/Rosaria.png",
+        "icon": "assets/character/namecard_icon/Rosaria.avif",
+        "background": "assets/character/namecard_background/Rosaria.avif",
+        "banner": "assets/character/namecard_banner/Rosaria.avif",
         "description": "The unselfish warmth and goodwill of the people is, to her, a kindness that she must repay, and so it is an indenture that follows her forever.",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Valberry",
                     "value": 3,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 2,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Valberry",
                     "value": 10,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 4,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Valberry",
                     "value": 20,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 8,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Valberry",
                     "value": 30,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 12,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Valberry",
                     "value": 45,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 20,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Valberry",
                     "value": 60,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,38 +449,38 @@ var ROSARIA = {
         {
             "name": "Spear of the Church",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Spear of the Church.png",
+            "icon": "assets/character/talents/Spear of the Church.avif",
             "description": "Normal AttackPerforms up to 5 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Ravaging Confession",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Ravaging Confession.png",
+            "icon": "assets/character/talents/Ravaging Confession.avif",
             "description": "Rosaria swiftly shifts her position to appear behind her opponent, then stabs and slashes them with her polearm, dealing Cryo DMG.This ability cannot be used to travel behind opponents of a larger build."
         },
         {
             "name": "Rites of Termination",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Rites of Termination.png",
+            "icon": "assets/character/talents/Rites of Termination.avif",
             "description": "Rosaria's unique take on this prayer ritual: First, she swings her weapon to slash surrounding opponents; then, she summons a frigid Ice Lance that strikes the ground. Both actions deal Cryo DMG.While active, the Ice Lance periodically releases a blast of cold air, dealing Cryo DMG to surrounding opponents."
         },
         {
             "name": "Regina Probationum",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Regina Probationum.png",
+            "icon": "assets/character/talents/Regina Probationum.avif",
             "description": "When Rosaria strikes an opponent from behind using Ravaging Confession, Rosaria's CRIT Rate increases by 12% for 5s."
         },
         {
             "name": "Shadow Samaritan",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Shadow Samaritan.png",
+            "icon": "assets/character/talents/Shadow Samaritan.avif",
             "description": "Casting Rites of Termination increases CRIT Rate of all nearby party members (except Rosaria herself) by 15% of Rosaria's CRIT Rate for 10s.CRIT Rate Bonus gained this way cannot exceed 15%."
         },
         {
             "name": "Night Walk",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Night Walk.png",
-            "description": "At night (18:00 - 6:00), your party members gain the Swift Stride effect: Movement SPD increased by 10%.Does not take effect in Domains, Trounce Domains, or Spiral Abyss. Swift Stride does not stack."
+            "icon": "assets/character/talents/Night Walk.avif",
+            "description": "At night (18:00 – 6:00), your party members gain the Swift Stride effect: Movement SPD increased by 10%.Does not take effect in Domains, Trounce Domains, or Spiral Abyss. Swift Stride does not stack."
         }
     ],
     "talents_materials": [
@@ -461,17 +490,20 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ballad",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ballad.png"
+                    "icon": "assets/materials/Teachings of Ballad.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +513,20 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +536,20 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +559,20 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +582,20 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +605,26 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 1,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +634,26 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 1,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +663,26 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 2,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +692,32 @@ var ROSARIA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 2,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -1285,7 +1346,7 @@ var ROSARIA = {
                 {
                     "title": "おはよう…",
                     "text": "おはよう、ふあ～もう朝のお祈りが始まってるの？勘弁してほしいわ。",
-                    "reading": "Ohayou, fua~ Mou asa no o-inori ga hajimatteru no? Kanben shite hoshii wa.",
+                    "reading": "Ohayou, fua~ Mou asa no o-inori ga hajimatteru no ? Kanben shite hoshii wa.",
                     "audio": "assets/character/voice_overs/Rosaria/story/ja/おはよう….mp3"
                 },
                 {
@@ -2344,277 +2405,5 @@ var ROSARIA = {
     "demo_music": {
         "name": "Shadow of Nemesis",
         "url": "assets/character/demo_music/Rosaria.mp3"
-    },
-    "build": {
-        "version": "4.3",
-        "type": "On-field DPS",
-        "weapons": [
-            "Staff of the Scarlet Sands",
-            "Staff of Homa",
-            "Ballad of the Fjords",
-            "Deathmatch",
-            "Wavebreaker's Fin",
-            "Primordial Jade Winged-Spear",
-            "Dragon's Bane",
-            "Missive Windspear",
-            "The Catch"
-        ],
-        "artifacts": [
-            "4pc Gilded Dreams",
-            "4pc Lavawalker",
-            "4pc Emblem of Severed Fate"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM / ATK%",
-            "Cryo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                }
-            ],
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Razor",
-                    "icon": "assets/character/icon/Razor.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ]
-        ]
     }
 }

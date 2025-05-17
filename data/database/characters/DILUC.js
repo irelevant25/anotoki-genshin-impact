@@ -1,28 +1,28 @@
 var DILUC = {
     "name": "Diluc",
     "secondary_title": "The Dark Side of Dawn",
-    "card_icon": "assets/character/card/Diluc.png",
-    "wish_icon": "assets/character/wish/Diluc.png",
-    "ingame_icon": "assets/character/ingame/Diluc.png",
-    "icon": "assets/character/icon/Diluc.png",
+    "card_icon": "assets/character/card/Diluc.avif",
+    "wish_icon": "assets/character/wish/Diluc.avif",
+    "ingame_icon": "assets/character/ingame/Diluc.avif",
+    "icon": "assets/character/icon/Diluc.avif",
     "quality": "5",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "April 30th",
@@ -30,43 +30,43 @@ var DILUC = {
         {
             "name": "Conviction",
             "level": 1,
-            "icon": "assets/character/constellations/Conviction.png",
+            "icon": "assets/character/constellations/Conviction.avif",
             "description": "Diluc deals 15% more DMG to opponents whose HP is above 50%."
         },
         {
             "name": "Searing Ember",
             "level": 2,
-            "icon": "assets/character/constellations/Searing Ember.png",
+            "icon": "assets/character/constellations/Searing Ember.avif",
             "description": "When Diluc takes DMG, his ATK increases by 10% and his ATK SPD increases by 5%. Lasts for 10s.This effect can stack up to 3 times and can only occur once every 1.5s."
         },
         {
             "name": "Fire and Steel",
             "level": 3,
-            "icon": "assets/character/constellations/Fire and Steel.png",
+            "icon": "assets/character/constellations/Fire and Steel.avif",
             "description": "Increases the Level of Searing Onslaught by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Flowing Flame",
             "level": 4,
-            "icon": "assets/character/constellations/Flowing Flame.png",
+            "icon": "assets/character/constellations/Flowing Flame.avif",
             "description": "Casting Searing Onslaught in rhythm greatly increases damage dealt.2s after casting Searing Onslaught, casting the next Searing Onslaught in the combo deals 40% additional DMG. This effect lasts for 2s."
         },
         {
             "name": "Phoenix, Harbinger of Dawn",
             "level": 5,
-            "icon": "assets/character/constellations/Phoenix, Harbinger of Dawn.png",
+            "icon": "assets/character/constellations/Phoenix, Harbinger of Dawn.avif",
             "description": "Increases the Level of Dawn by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Flaming Sword, Nemesis of the Dark",
             "level": 6,
-            "icon": "assets/character/constellations/Flaming Sword, Nemesis of the Dark.png",
+            "icon": "assets/character/constellations/Flaming Sword, Nemesis of the Dark.avif",
             "description": "After casting Searing Onslaught, the next 2 Normal Attacks within the next 6s will have their DMG and ATK SPD increased by 30%.Additionally, Searing Onslaught will not interrupt the Normal Attack combo."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Dawn Winery",
@@ -74,12 +74,12 @@ var DILUC = {
     ],
     "special_dish": {
         "name": "\"Once Upon a Time in Mondstadt\"",
-        "icon": "assets/foods/Diluc.png"
+        "icon": "assets/foods/Diluc.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Diluc.png",
-        "background": "assets/character/namecard_background/Diluc.png",
-        "banner": "assets/character/namecard_banner/Diluc.png",
+        "icon": "assets/character/namecard_icon/Diluc.avif",
+        "background": "assets/character/namecard_background/Diluc.avif",
+        "banner": "assets/character/namecard_banner/Diluc.avif",
         "description": "Master Crepus painted many eagles during his lifetime, but he never could've foreseen creating an eagle with such fire.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 3,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 2,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 10,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 4,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 20,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 8,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 30,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 12,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 45,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 20,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 60,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var DILUC = {
         {
             "name": "Tempered Sword",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Tempered Sword.png",
+            "icon": "assets/character/talents/Tempered Sword.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous slashes.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Searing Onslaught",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Searing Onslaught.png",
+            "icon": "assets/character/talents/Searing Onslaught.avif",
             "description": "Performs a forward slash that deals Pyro DMG.This skill can be consecutively used 3 times.Enters CD if not cast again within a short period."
         },
         {
             "name": "Dawn",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Dawn.png",
+            "icon": "assets/character/talents/Dawn.avif",
             "description": "Releases intense flames to knock back nearby opponents, dealing Pyro DMG.The flames then converge into the weapon, summoning a Phoenix that flies forward and deals massive Pyro DMG to all opponents in its path. The Phoenix explodes upon reaching its destination, causing a large amount of AoE Pyro DMG.The searing flames that run down his blade cause it to be infused with Pyro."
         },
         {
             "name": "Relentless",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Relentless.png",
+            "icon": "assets/character/talents/Relentless.avif",
             "description": "Diluc's Charged Attack Stamina Cost is decreased by 50%, and its duration is increased by 3s."
         },
         {
             "name": "Blessing of Phoenix",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Blessing of Phoenix.png",
+            "icon": "assets/character/talents/Blessing of Phoenix.avif",
             "description": "The Pyro Infusion provided by Dawn lasts for 4s longer. Additionally, Diluc gains 20% Pyro DMG Bonus during the duration of this effect."
         },
         {
             "name": "Tradition of the Dawn Knight",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Tradition of the Dawn Knight.png",
+            "icon": "assets/character/talents/Tradition of the Dawn Knight.avif",
             "description": "Refunds 15% of the ore used when crafting Claymore-type weapons."
         }
     ],
@@ -465,17 +494,20 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Resistance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Resistance.png"
+                    "icon": "assets/materials/Teachings of Resistance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Plume",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Plume.png"
+                    "icon": "assets/materials/Dvalin's Plume.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Plume",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Plume.png"
+                    "icon": "assets/materials/Dvalin's Plume.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Plume",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Plume.png"
+                    "icon": "assets/materials/Dvalin's Plume.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var DILUC = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Plume",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Plume.png"
+                    "icon": "assets/materials/Dvalin's Plume.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2278,150 +2339,5 @@ var DILUC = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "3.6",
-        "type": "On-field DPS",
-        "weapons": [
-            "Beacon of the Reed Sea",
-            "Redhorn Stonethresher",
-            "Wolf's Gravestone",
-            "The Unforged",
-            "Serpent Spine",
-            "Rainslasher",
-            "Mailed Flower",
-            "Blackcliff Slasher",
-            "Luxurious Sea-Lord",
-            "Prototype Archaic"
-        ],
-        "artifacts": [
-            "4pc Crimson Witch of Flames",
-            "4pc Gilded Dreams",
-            "4pc Gladiator's Finale"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Skill",
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK% / EM",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "EM / ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

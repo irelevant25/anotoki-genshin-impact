@@ -1,28 +1,28 @@
 var VARESA = {
     "name": "Varesa",
     "secondary_title": "Strength in Serenity",
-    "card_icon": "assets/character/card/Varesa.png",
-    "wish_icon": "assets/character/wish/Varesa.png",
-    "ingame_icon": "assets/character/ingame/Varesa.png",
-    "icon": "assets/character/icon/Varesa.png",
+    "card_icon": "assets/character/card/Varesa.avif",
+    "wish_icon": "assets/character/wish/Varesa.avif",
+    "ingame_icon": "assets/character/ingame/Varesa.avif",
+    "icon": "assets/character/icon/Varesa.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "November 15th",
@@ -30,55 +30,55 @@ var VARESA = {
         {
             "name": "Undying Passion",
             "level": 1,
-            "icon": "assets/character/constellations/Undying Passion.png",
+            "icon": "assets/character/constellations/Undying Passion.avif",
             "description": "The effects of the Passive Talent \"Tag-Team Triple Jump!\" are enhanced:When performing the Special Plunging Attack \"Thunderous Tornado Eruption,\" Varesa will also gain \"Rainbow Crash\" for 5s.When \"Rainbow Crash\" is in effect, Varesa's Plunging Attack ground impact DMG is increased by 180% of her ATK, whether she is in the Fiery Passion state or not. You must first unlock the Passive Talent \"Tag-Team Triple Jump!\" to access the above effect.Additionally, when Varesa is in the Sudden Onrush mode of her Nightsoul's Blessing, she consumes 30% less Nightsoul points or Phlogiston."
         },
         {
             "name": "Beyond the Edge of Light",
             "level": 2,
-            "icon": "assets/character/constellations/Beyond the Edge of Light.png",
+            "icon": "assets/character/constellations/Beyond the Edge of Light.avif",
             "description": "Varesa will enter Apex Drive after using a Plunging Attack, regardless of whether she is in the Fiery Passion state or not.When Apex Drive is active, Varesa's interruption resistance will also further increase.Additionally, Varesa will restore 11.5 Energy when her Plunging Attack ground impact hits an opponent."
         },
         {
             "name": "Unbowed Resolve",
             "level": 3,
-            "icon": "assets/character/constellations/Unbowed Resolve.png",
+            "icon": "assets/character/constellations/Unbowed Resolve.avif",
             "description": "Increases the Level of Guardian Vent! by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Courage to Press On",
             "level": 4,
-            "icon": "assets/character/constellations/The Courage to Press On.png",
+            "icon": "assets/character/constellations/The Courage to Press On.avif",
             "description": "Varesa will receive various buffs based on her state when using her Elemental Burst Guardian Vent! If Varesa: Has neither Fiery Passion nor Apex Drive active, she will gain Diligent Refinement for 15s, which will increase her Plunging Attack ground impact DMG by 500% of her ATK, with a maximum increase of 20,000 DMG. This effect will be canceled once the ground impact hits an opponent, or if its duration ends. If she has either Fiery Passion or Apex Drive active, this instance of her Elemental Burst Guardian Vent! deals 100% increased DMG."
         },
         {
             "name": "Thoughts Floating on the Warm Breeze",
             "level": 5,
-            "icon": "assets/character/constellations/Thoughts Floating on the Warm Breeze.png",
+            "icon": "assets/character/constellations/Thoughts Floating on the Warm Breeze.avif",
             "description": "Increases the Level of Normal Attack: By the Horns by 3.Maximum upgrade level is 15."
         },
         {
             "name": "A Hero of Justice's Triumph",
             "level": 6,
-            "icon": "assets/character/constellations/A Hero of Justice's Triumph.png",
+            "icon": "assets/character/constellations/A Hero of Justice's Triumph.avif",
             "description": "Varesa restores 30 Energy when she enters Apex Drive.Her Plunging Attacks and Elemental Burst Guardian Vent! gain 10% CRIT Rate and 100% CRIT DMG.Additionally, when Varesa uses the Hold version of her Elemental Skill Riding the Night-Rainbow, or Taps her Elemental Skill while in the Sudden Onrush mode, she will restore Nightsoul points up to her maximum."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Teteocan"
     ],
     "special_dish": {
         "name": "Mt. Mushroom (For One)",
-        "icon": "assets/foods/Varesa.png"
+        "icon": "assets/foods/Varesa.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Varesa.png",
-        "background": "assets/character/namecard_background/Varesa.png",
-        "banner": "assets/character/namecard_banner/Varesa.png",
+        "icon": "assets/character/namecard_icon/Varesa.avif",
+        "background": "assets/character/namecard_background/Varesa.avif",
+        "banner": "assets/character/namecard_banner/Varesa.avif",
         "description": "What could possibly be the secret to her immense strength? D'you think it's got something to do with her nigh-on insatiable appetite...?",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Skysplit Gembloom",
                     "value": 3,
-                    "icon": "assets/materials/Skysplit Gembloom.png"
+                    "icon": "assets/materials/Skysplit Gembloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 3,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sparkless Statue Core",
                     "value": 2,
-                    "icon": "assets/materials/Sparkless Statue Core.png"
+                    "icon": "assets/materials/Sparkless Statue Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Skysplit Gembloom",
                     "value": 10,
-                    "icon": "assets/materials/Skysplit Gembloom.png"
+                    "icon": "assets/materials/Skysplit Gembloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 15,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sparkless Statue Core",
                     "value": 4,
-                    "icon": "assets/materials/Sparkless Statue Core.png"
+                    "icon": "assets/materials/Sparkless Statue Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Skysplit Gembloom",
                     "value": 20,
-                    "icon": "assets/materials/Skysplit Gembloom.png"
+                    "icon": "assets/materials/Skysplit Gembloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 12,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sparkless Statue Core",
                     "value": 8,
-                    "icon": "assets/materials/Sparkless Statue Core.png"
+                    "icon": "assets/materials/Sparkless Statue Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Skysplit Gembloom",
                     "value": 30,
-                    "icon": "assets/materials/Skysplit Gembloom.png"
+                    "icon": "assets/materials/Skysplit Gembloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 18,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sparkless Statue Core",
                     "value": 12,
-                    "icon": "assets/materials/Sparkless Statue Core.png"
+                    "icon": "assets/materials/Sparkless Statue Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Skysplit Gembloom",
                     "value": 45,
-                    "icon": "assets/materials/Skysplit Gembloom.png"
+                    "icon": "assets/materials/Skysplit Gembloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sparkless Statue Core",
                     "value": 20,
-                    "icon": "assets/materials/Sparkless Statue Core.png"
+                    "icon": "assets/materials/Sparkless Statue Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Skysplit Gembloom",
                     "value": 60,
-                    "icon": "assets/materials/Skysplit Gembloom.png"
+                    "icon": "assets/materials/Skysplit Gembloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 24,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,43 +452,43 @@ var VARESA = {
         {
             "name": "By the Horns",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/By the Horns.png",
+            "icon": "assets/character/talents/By the Horns.avif",
             "description": "Normal AttackGotta try... to do battle like the greatest champion luchadors do! Varesa launches up to 3 strikes, dealing Electro DMG.Charged AttackConsumes a certain amount of Stamina to headbutt opponents in front, dealing Nightsoul-aligned Electro DMG and using the momentum to leap into the air.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing Nightsoul-aligned AoE Electro DMG upon impact. If Varesa is in a combat state upon landing, or if the shockwave from her plunging attack hits an opponent, she will gain 25 Nightsoul points. She enters the Fiery Passion state upon reaching maximum Nightsoul points through this method.Fiery PassionIn this state, Varesa's Normal, Charged, and Plunging Attacks will gain corresponding buffs:Normal AttackFight like a superstar champion luchador! Launches up to 3 fierce strikes, dealing greater Electro DMG.Charged AttackConsumes a certain amount of Stamina to slam into her opponents, dealing greater amounts of Nightsoul-aligned Electro DMG and using the momentum to leap into the air.Plunging AttackConsumes all her Nightsoul points and slams down on the ground from mid-air, dealing DMG to opponents in her path and dealing greater amounts of Nightsoul-aligned AoE Electro DMG upon hitting the ground."
         },
         {
             "name": "Riding the Night-Rainbow",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Riding the Night-Rainbow.png",
+            "icon": "assets/character/talents/Riding the Night-Rainbow.avif",
             "description": "With footwork swift as lightning and fierce as thunder, Varesa displays the true spirit of lucha libre, rushing forward a certain distance and dealing Nightsoul-aligned Electro DMG to opponents in her path.After using this Skill, Varesa gains 20 Nightsoul points and gains the \"Follow-Up Strike\" effect: Varesa has increased interruption resistance during this time, and upon pressing her Normal Attack, she will quickly unleash a Charged Attack that does not consume Stamina. \"Follow-Up Strike\" will be canceled after Varesa uses a Charged Attack.She will use different techniques based on whether the skill is Tapped or Held.TapQuickly rush a certain distance forward.HoldVaresa enters the Nightsoul's Blessing state and switches to Sudden Onrush mode.Sudden OnrushContinuously consumes Nightsoul points. In this state, Varesa's Movement SPD and interruption resistance are increased. She can use terrain to execute flying leaps or consume additional Nightsoul points to traverse atop water or liquid Phlogiston while remaining immune to DMG from the latter.Nightsoul's Blessing: VaresaWhen she runs out of Nightsoul points, her Nightsoul's Blessing state will be canceled. When Varesa is in the Sudden Onrush state or Fiery Passion state, she will always be counted as being in the Nightsoul's Blessing state.Has 2 charges. When Varesa enters the Fiery Passion state, she will obtain an additional Tap charge of her Elemental Skill and its DMG will be increased.Fiery Passion While not in the Fiery Passion state, Varesa can use Plunging Attacks to gain Nightsoul points. She will enter Fiery Passion when she reaches maximum Nightsoul points via this method, or when she uses her Elemental Burst Guardian Vent! While in the Fiery Passion state, her Normal Attacks, Elemental Skill, and Elemental Burst will gain unique buffs. She can also use a special Elemental Burst shortly after using a Plunging Attack. The Fiery Passion state lasts for up to 15s and will end when she runs out of Nightsoul points or after she leaves combat for a period of time."
         },
         {
             "name": "Guardian Vent!",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Guardian Vent!.png",
+            "icon": "assets/character/talents/Guardian Vent!.avif",
             "description": "Leaps into the air before using the momentum of the drop to unleash a powerful flying kick, dealing Nightsoul-aligned AoE Electro DMG to opponents — just like those heroes of justice in woven scrolls for kids!After using this Skill, Varesa's Nightsoul points will be restored to maximum and she will enter the Fiery Passion state.In the Fiery Passion state, Varesa's Elemental Burst will deal a greater amount of Nightsoul-aligned AoE Electro DMG.Additionally, she will briefly activate Apex Drive after using a Plunging Attack while in her Fiery Passion state.Apex DriveIncreases Varesa's interruption resistance. While affected by Apex Drive, Varesa can ignore her Elemental Burst CD and consume less Energy to use her special Elemental Burst, \"Guardian Vent: Volcano Kablam\": This causes her to use the especially powerful Plunging Attack, the \"Thunderous Tornado Eruption,\" which deals Nightsoul-aligned AoE Electro DMG upon landing before causing her to exit Apex Drive. This DMG is considered Plunging Attack DMG.Varesa will exit Apex Drive after using her Elemental Skill."
         },
         {
             "name": "Tag-Team Triple Jump!",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Tag-Team Triple Jump!.png",
+            "icon": "assets/character/talents/Tag-Team Triple Jump!.avif",
             "description": "After using the Elemental Skill Riding the Night-Rainbow, Varesa gains \"Rainbow Crash\" for 5s.During this time, when Varesa uses a Plunging Attack, the shockwave DMG dealt when she hits the ground is increased by 50% of her ATK. If Varesa is in the Fiery Passion state, this ground impact DMG is increased by 180% of her ATK instead.The Rainbow Crash effect will be canceled once a ground impact hits an opponent, or when its duration expires."
         },
         {
             "name": "The Hero Twice-Returned!",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/The Hero Twice-Returned!.png",
+            "icon": "assets/character/talents/The Hero Twice-Returned!.avif",
             "description": "When a nearby party member triggers a Nightsoul Burst, Varesa's ATK increases by 35% for 12s. Max 2 stacks. Each stack's duration is counted independently."
         },
         {
             "name": "A Torch That Incinerates Evil",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/A Torch That Incinerates Evil.png",
+            "icon": "assets/character/talents/A Torch That Incinerates Evil.avif",
             "description": "After Nightsoul points have been fully depleted, Varesa will switch to using Phlogiston to maintain the Sudden Onrush mode from her Nightsoul's Blessing.While in an area with Phlogiston Mechanics within Natlan, Nightsoul Transmission: Varesa can be used. When the current active character is sprinting or in movement modes caused by certain Talents, or at a certain height in the air, switching to Varesa will trigger the following: Varesa enters the Nightsoul's Blessing state, switches to Sudden Onrush mode, and obtains 20 Nightsoul points. Nightsoul Transmission can be triggered once every 10s by your own party.While in an area with Phlogiston Mechanics within Natlan, Varesa will not take fall DMG when using terrain differences to make leaps."
         },
         {
             "name": "Blazing Heart, Singular Advance!",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Blazing Heart, Singular Advance!.png",
+            "icon": "assets/character/talents/Blazing Heart, Singular Advance!.avif",
             "description": "Varesa's Sprint speed is increased. When she is not in combat, her Sprint Stamina consumption will also increase. Additionally, while in an area with Phlogiston Mechanics within Natlan, your party members will restore 20 Phlogiston when consuming food. This effect can occur once every 10s and does not take effect in Domains, Trounce Domains, or the Spiral Abyss."
         }
     ],
@@ -470,17 +499,20 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 6,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Conflict",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Conflict.png"
+                    "icon": "assets/materials/Teachings of Conflict.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -490,17 +522,20 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 3,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -510,17 +545,20 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 4,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -530,17 +568,20 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 6,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -550,17 +591,20 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 9,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -570,22 +614,26 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 4,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Scale-Feather",
                     "value": 1,
-                    "icon": "assets/materials/Eroded Scale-Feather.png"
+                    "icon": "assets/materials/Eroded Scale-Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -595,22 +643,26 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 6,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Scale-Feather",
                     "value": 1,
-                    "icon": "assets/materials/Eroded Scale-Feather.png"
+                    "icon": "assets/materials/Eroded Scale-Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -620,22 +672,26 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 9,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Scale-Feather",
                     "value": 2,
-                    "icon": "assets/materials/Eroded Scale-Feather.png"
+                    "icon": "assets/materials/Eroded Scale-Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -645,27 +701,32 @@ var VARESA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Scale-Feather",
                     "value": 2,
-                    "icon": "assets/materials/Eroded Scale-Feather.png"
+                    "icon": "assets/materials/Eroded Scale-Feather.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2566,221 +2627,5 @@ var VARESA = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "5.5",
-        "type": "On-field DPS",
-        "weapons": [
-            "Vivid Notions",
-            "Kagura's Verity",
-            "Crane's Echoing Call",
-            "The Widsith",
-            "Lost Prayer to the Sacred Winds",
-            "Flowing Purity"
-        ],
-        "artifacts": [
-            "4pc Long Night's Oath",
-            "4pc Obsidian Codex",
-            "4pc Marechaussee Hunter",
-            "4pc Desert Pavillion Chronicle"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Burst",
-            "Skill"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Electro DMG Bonus / ATK%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Pyro Traveler",
-                    "icon": "assets/character/icon/Pyro Traveler.png"
-                },
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

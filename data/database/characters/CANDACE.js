@@ -1,28 +1,28 @@
 var CANDACE = {
     "name": "Candace",
     "secondary_title": "Golden Vow",
-    "card_icon": "assets/character/card/Candace.png",
-    "wish_icon": "assets/character/wish/Candace.png",
-    "ingame_icon": "assets/character/ingame/Candace.png",
-    "icon": "assets/character/icon/Candace.png",
+    "card_icon": "assets/character/card/Candace.avif",
+    "wish_icon": "assets/character/wish/Candace.avif",
+    "ingame_icon": "assets/character/ingame/Candace.avif",
+    "icon": "assets/character/icon/Candace.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "May 3rd",
@@ -30,55 +30,55 @@ var CANDACE = {
         {
             "name": "Returning Heiress of the Scarlet Sands",
             "level": 1,
-            "icon": "assets/character/constellations/Returning Heiress of the Scarlet Sands.png",
+            "icon": "assets/character/constellations/Returning Heiress of the Scarlet Sands.avif",
             "description": "The duration of Prayer of the Crimson Crown effect triggered by Sacred Rite: Wagtail's Tide is increased by 3s."
         },
         {
             "name": "Moon-Piercing Brilliance",
             "level": 2,
-            "icon": "assets/character/constellations/Moon-Piercing Brilliance.png",
+            "icon": "assets/character/constellations/Moon-Piercing Brilliance.avif",
             "description": "When Sacred Rite: Heron's Sanctum hits opponents, Candace's Max HP will be increased by 20% for 15s."
         },
         {
             "name": "Hunter's Supplication",
             "level": 3,
-            "icon": "assets/character/constellations/Hunter's Supplication.png",
+            "icon": "assets/character/constellations/Hunter's Supplication.avif",
             "description": "Increases the Level of Sacred Rite: Wagtail's Tide by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sentinel Oath",
             "level": 4,
-            "icon": "assets/character/constellations/Sentinel Oath.png",
+            "icon": "assets/character/constellations/Sentinel Oath.avif",
             "description": "Shortens the Hold CD of Sacred Rite: Heron's Sanctum to be the same as that of the Tapping CD."
         },
         {
             "name": "Heterochromatic Gaze",
             "level": 5,
-            "icon": "assets/character/constellations/Heterochromatic Gaze.png",
+            "icon": "assets/character/constellations/Heterochromatic Gaze.avif",
             "description": "Increases the Level of Sacred Rite: Heron's Sanctum by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Overflow",
             "level": 6,
-            "icon": "assets/character/constellations/The Overflow.png",
+            "icon": "assets/character/constellations/The Overflow.avif",
             "description": "When characters (excluding Candace herself) affected by the Prayer of the Crimson Crown caused by Sacred Rite: Wagtail's Tide deal Elemental DMG to opponents using Normal Attacks, an attack wave will be unleashed that deals AoE Hydro DMG equal to 15% of Candace's Max HP.This effect can trigger once every 2.3s and is considered Elemental Burst DMG."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Aaru Village"
     ],
     "special_dish": {
         "name": "Utmost Care",
-        "icon": "assets/foods/Candace.png"
+        "icon": "assets/foods/Candace.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Candace.png",
-        "background": "assets/character/namecard_background/Candace.png",
-        "banner": "assets/character/namecard_banner/Candace.png",
+        "icon": "assets/character/namecard_icon/Candace.avif",
+        "background": "assets/character/namecard_background/Candace.avif",
+        "banner": "assets/character/namecard_banner/Candace.avif",
         "description": "The burning winds of the past ruffle the heron's feathers, but the bird has eyes only for the morning star at first light.",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 3,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 3,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 2,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 10,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 15,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 4,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 20,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 12,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 8,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 30,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 18,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 12,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 45,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 20,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 60,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 24,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,37 +449,37 @@ var CANDACE = {
         {
             "name": "Gleaming Spear - Guardian Stance",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Gleaming Spear - Guardian Stance.png",
+            "icon": "assets/character/talents/Gleaming Spear - Guardian Stance.avif",
             "description": "Normal AttackPerforms up to 4 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Sacred Rite: Heron's Sanctum",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Sacred Rite Heron's Sanctum.png",
+            "icon": "assets/character/talents/Sacred Rite Heron's Sanctum.avif",
             "description": "Candace's fighting style is capable of warding off an entire tide of foes.TapRushes forward with her shield, dealing Hydro DMG to opponents in front of her.HoldRaises her shield to block incoming attacks from nearby opponents, forming a barrier that absorbs DMG based on her Max HP and absorbs Hydro DMG 250% more effectively. This barrier lasts until the Elemental Skill is unleashed.After holding for a certain period of time, Candace will finish charging, and when the skill button is released, the skill duration expires, or when the barrier is broken, she will perform a leaping strike that deals Hydro DMG to opponents in front of her."
         },
         {
             "name": "Sacred Rite: Wagtail's Tide",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Sacred Rite Wagtail's Tide.png",
+            "icon": "assets/character/talents/Sacred Rite Wagtail's Tide.avif",
             "description": "Raising her weapon on high, Candace calls upon a divine blessing that deals AoE Hydro DMG based on her Max HP and continuously confers the Prayer of the Crimson Crown on your active character.Prayer of the Crimson CrownThis effect has the following properties:Characters deal increased Elemental DMG with their Normal Attacks.Whenever a character takes the field, they will unleash a rippling wave of water that deals Hydro DMG to nearby opponents. There is a limited number of waves that can be triggered in the duration of this skill.Sword, Claymore, and Polearm-wielding characters under this effect will obtain a Hydro Infusion."
         },
         {
             "name": "Aegis of Crossed Arrows",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Aegis of Crossed Arrows.png",
+            "icon": "assets/character/talents/Aegis of Crossed Arrows.avif",
             "description": "If Candace is hit by an attack in the Hold duration of Sacred Rite: Heron's Sanctum, that skill will finish charging instantly."
         },
         {
             "name": "Celestial Dome of Sand",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Celestial Dome of Sand.png",
+            "icon": "assets/character/talents/Celestial Dome of Sand.avif",
             "description": "Characters affected by the Prayer of the Crimson Crown caused by Sacred Rite: Wagtail's Tide will deal 0.5% increased DMG to opponents for every 1,000 points of Candace's Max HP when they deal Elemental DMG with their Normal Attacks."
         },
         {
             "name": "To Dawn's First Light",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/To Dawn's First Light.png",
+            "icon": "assets/character/talents/To Dawn's First Light.avif",
             "description": "Decreases climbing Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -461,17 +490,20 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 6,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Admonition",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Admonition.png"
+                    "icon": "assets/materials/Teachings of Admonition.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +513,20 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 3,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +536,20 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 4,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +559,20 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 6,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +582,20 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 9,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +605,26 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 4,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 1,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +634,26 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 6,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 1,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +663,26 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 9,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 2,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +692,32 @@ var CANDACE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 2,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2368,115 +2429,5 @@ var CANDACE = {
     "demo_music": {
         "name": "Nephrite of Deshret",
         "url": "assets/character/demo_music/Candace.mp3"
-    },
-    "build": {
-        "version": "5.5",
-        "type": "Hydro enabler / Support",
-        "weapons": [
-            "Favonius Lance",
-            "Engulfing Lightning",
-            "The Catch",
-            "Skyward Spine",
-            "Wavebreaker's Fin R5",
-            "Rightful Reward",
-            "Prototype Starglitter",
-            "Black Tassel R5"
-        ],
-        "artifacts": [
-            "4pc Scroll of the Hero of Cinder City",
-            "4pc Noblesse Oblige",
-            "4pc Emblem of Severed Fate",
-            "4pc Instructor",
-            "2pc Mixed Sets"
-        ],
-        "talents": [
-            "Character Level",
-            "Burst",
-            "Skill"
-        ],
-        "main_stats": [
-            "HP% / ER",
-            "HP% / Hydro DMG Bonus",
-            "HP% / CRIT"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate",
-            "HP% / CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ]
-        ]
     }
 }

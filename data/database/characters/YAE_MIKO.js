@@ -1,28 +1,28 @@
 var YAE_MIKO = {
     "name": "Yae Miko",
     "secondary_title": "Astute Amusement",
-    "card_icon": "assets/character/card/Yae Miko.png",
-    "wish_icon": "assets/character/wish/Yae Miko.png",
-    "ingame_icon": "assets/character/ingame/Yae Miko.png",
-    "icon": "assets/character/icon/Yae Miko.png",
+    "card_icon": "assets/character/card/Yae Miko.avif",
+    "wish_icon": "assets/character/wish/Yae Miko.avif",
+    "ingame_icon": "assets/character/ingame/Yae Miko.avif",
+    "icon": "assets/character/icon/Yae Miko.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "June 27th",
@@ -30,43 +30,43 @@ var YAE_MIKO = {
         {
             "name": "Yakan Offering",
             "level": 1,
-            "icon": "assets/character/constellations/Yakan Offering.png",
+            "icon": "assets/character/constellations/Yakan Offering.avif",
             "description": "Each time Great Secret Art: Tenko Kenshin activates a Tenko Thunderbolt, Yae Miko will restore 8 Elemental Energy for herself."
         },
         {
             "name": "Fox's Mooncall",
             "level": 2,
-            "icon": "assets/character/constellations/Fox's Mooncall.png",
+            "icon": "assets/character/constellations/Fox's Mooncall.avif",
             "description": "Sesshou Sakura start at Level 2 when created, their max level is increased to 4, and their attack range is increased by 60%."
         },
         {
             "name": "The Seven Glamours",
             "level": 3,
-            "icon": "assets/character/constellations/The Seven Glamours.png",
+            "icon": "assets/character/constellations/The Seven Glamours.avif",
             "description": "Increases the Level of Yakan Evocation: Sesshou Sakura by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sakura Channeling",
             "level": 4,
-            "icon": "assets/character/constellations/Sakura Channeling.png",
+            "icon": "assets/character/constellations/Sakura Channeling.avif",
             "description": "When Sesshou Sakura lightning hits opponents, the Electro DMG Bonus of all nearby party members is increased by 20% for 5s."
         },
         {
             "name": "Mischievous Teasing",
             "level": 5,
-            "icon": "assets/character/constellations/Mischievous Teasing.png",
+            "icon": "assets/character/constellations/Mischievous Teasing.avif",
             "description": "Increases the Level of Great Secret Art: Tenko Kenshin by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Forbidden Art: Daisesshou",
             "level": 6,
-            "icon": "assets/character/constellations/Forbidden Art Daisesshou.png",
+            "icon": "assets/character/constellations/Forbidden Art Daisesshou.avif",
             "description": "The Sesshou Sakura's attacks will ignore 60% of the opponent's DEF."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Grand Narukami Shrine",
@@ -74,12 +74,12 @@ var YAE_MIKO = {
     ],
     "special_dish": {
         "name": "Fukuuchi Udon",
-        "icon": "assets/foods/Yae Miko.png"
+        "icon": "assets/foods/Yae Miko.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Yae Miko.png",
-        "background": "assets/character/namecard_background/Yae Miko.png",
-        "banner": "assets/character/namecard_banner/Yae Miko.png",
+        "icon": "assets/character/namecard_icon/Yae Miko.avif",
+        "background": "assets/character/namecard_background/Yae Miko.avif",
+        "banner": "assets/character/namecard_banner/Yae Miko.avif",
         "description": "Where can Yae Miko's fox form be found? In your dreams, that's where.",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 3,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 2,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 10,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 15,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 4,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 20,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 8,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 30,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 18,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 12,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 45,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 20,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 60,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 24,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var YAE_MIKO = {
         {
             "name": "Spiritfox Sin-Eater",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Spiritfox Sin-Eater.png",
+            "icon": "assets/character/talents/Spiritfox Sin-Eater.avif",
             "description": "Normal AttackSummons forth kitsune spirits, initiating a maximum of 3 attacks that deal Electro DMG.Charged AttackConsumes a certain amount of Stamina to deal Electro DMG after a short casting time.Plunging AttackPlunges towards the ground from mid-air, damaging all opponents in her path with thunderous might. Deals AoE Electro DMG upon impact with the ground."
         },
         {
             "name": "Yakan Evocation: Sesshou Sakura",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Yakan Evocation Sesshou Sakura.png",
+            "icon": "assets/character/talents/Yakan Evocation Sesshou Sakura.avif",
             "description": "To Yae, such dull tasks as can be accomplished by driving spirits out need not be done personally.Moves swiftly, leaving a Sesshou Sakura behind.Sesshou SakuraHas the following properties:Periodically strikes one nearby opponent with lightning, dealing Electro DMGWhen there are other Sesshou Sakura nearby, their level will increase, boosting the DMG dealt by these lightning strikes.This skill has three charges.A maximum of 3 Sesshou Sakura can exist simultaneously. The initial level of each Sesshou Sakura is 1, and the initial highest level each sakura can reach is 3. If a new Sesshou Sakura is created too close to an existing one, the existing one will be destroyed."
         },
         {
             "name": "Great Secret Art: Tenko Kenshin",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Great Secret Art Tenko Kenshin.png",
+            "icon": "assets/character/talents/Great Secret Art Tenko Kenshin.avif",
             "description": "Legends of \"kitsunetsuki,\" or the manifestations of a kitsune's might, are common in Inazuma's folktales. One that particularly captures the imagination is that of the Sky Kitsune, said to cause lightning to fall down upon the foes of the Grand Narukami Shrine. Summons a lightning strike, dealing AoE Electro DMG.When she uses this skill, Yae Miko will unseal nearby Sesshou Sakura, destroying their outer forms and transforming them into Tenko Thunderbolts that descend from the skies, dealing AoE Electro DMG. Each Sesshou Sakura destroyed in this way will create one Tenko Thunderbolt."
         },
         {
             "name": "The Shrine's Sacred Shade",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/The Shrine's Sacred Shade.png",
+            "icon": "assets/character/talents/The Shrine's Sacred Shade.avif",
             "description": "When casting Great Secret Art: Tenko Kenshin, each Sesshou Sakura destroyed resets the cooldown for 1 charge of Yakan Evocation: Sesshou Sakura."
         },
         {
             "name": "Enlightened Blessing",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Enlightened Blessing.png",
+            "icon": "assets/character/talents/Enlightened Blessing.avif",
             "description": "Every point of Elemental Mastery Yae Miko possesses will increase Sesshou Sakura DMG by 0.15%."
         },
         {
             "name": "Meditations of a Yako",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Meditations of a Yako.png",
+            "icon": "assets/character/talents/Meditations of a Yako.avif",
             "description": "Has a 25% chance to get 1 regional Character Talent Material (base material excluded) when crafting. The rarity is that of the base material."
         }
     ],
@@ -464,17 +493,20 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Light",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Light.png"
+                    "icon": "assets/materials/Teachings of Light.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 1,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 1,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 2,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var YAE_MIKO = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 2,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2473,334 +2534,5 @@ var YAE_MIKO = {
     "demo_music": {
         "name": "Nothing but Trickery",
         "url": "assets/character/demo_music/Yae Miko.mp3"
-    },
-    "build": {
-        "version": "4.5",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Kagura's Verity",
-            "Solar Pearl",
-            "Tome of the Eternal Flow",
-            "Lost Prayer to the Sacred Winds",
-            "Cashflow Supervision",
-            "Oathsworn Eye R5",
-            "The Widsith",
-            "Skyward Atlas",
-            "Sacrificial Jade R5",
-            "Memory of Dust",
-            "A Thousand Floating Dreams",
-            "Hakushin Ring R5"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Golden Troupe",
-            "4pc Tenacity of the Millelith"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER / EM*",
-            "Electro DMG%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK% / EM",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                }
-            ]
-        ]
     }
 }

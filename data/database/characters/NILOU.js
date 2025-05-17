@@ -1,32 +1,32 @@
 var NILOU = {
     "name": "Nilou",
     "secondary_title": "Dance of Lotuslight",
-    "card_icon": "assets/character/card/Nilou.png",
-    "wish_icon": "assets/character/wish/Nilou.png",
-    "ingame_icon": "assets/character/ingame/Nilou.png",
-    "icon": "assets/character/icon/Nilou.png",
+    "card_icon": "assets/character/card/Nilou.avif",
+    "wish_icon": "assets/character/wish/Nilou.avif",
+    "ingame_icon": "assets/character/ingame/Nilou.avif",
+    "icon": "assets/character/icon/Nilou.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "December 3rd",
@@ -34,55 +34,55 @@ var NILOU = {
         {
             "name": "Dance of the Waning Moon",
             "level": 1,
-            "icon": "assets/character/constellations/Dance of the Waning Moon.png",
+            "icon": "assets/character/constellations/Dance of the Waning Moon.avif",
             "description": "Dance of Haftkarsvar will be enhanced as follows:Luminous Illusion DMG is increased by 65%.The Tranquility Aura's duration is extended by 6s."
         },
         {
             "name": "The Starry Skies Their Flowers Rain",
             "level": 2,
-            "icon": "assets/character/constellations/The Starry Skies Their Flowers Rain.png",
+            "icon": "assets/character/constellations/The Starry Skies Their Flowers Rain.avif",
             "description": "After characters affected by the Golden Chalice's Bounty deal Hydro DMG to an opponent, that opponent's Hydro RES will be decreased by 35% for 10s. After a triggered Bloom reaction deals DMG to opponents, their Dendro RES will be decreased by 35% for 10s.You need to have unlocked the \"Court of Dancing Petals\" Talent."
         },
         {
             "name": "Beguiling Shadowstep",
             "level": 3,
-            "icon": "assets/character/constellations/Beguiling Shadowstep.png",
+            "icon": "assets/character/constellations/Beguiling Shadowstep.avif",
             "description": "Increases the Level of Dance of Abzendegi: Distant Dreams, Listening Spring by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Fricative Pulse",
             "level": 4,
-            "icon": "assets/character/constellations/Fricative Pulse.png",
+            "icon": "assets/character/constellations/Fricative Pulse.avif",
             "description": "After the third dance step of Dance of Haftkarsvar's Pirouette hits opponents, Nilou will gain 15 Elemental Energy, and DMG from her Dance of Abzendegi: Distant Dreams, Listening Spring will be increased by 50% for 8s."
         },
         {
             "name": "Twirling Light",
             "level": 5,
-            "icon": "assets/character/constellations/Twirling Light.png",
+            "icon": "assets/character/constellations/Twirling Light.avif",
             "description": "Increases the Level of Dance of Haftkarsvar by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Frostbreaker's Melody",
             "level": 6,
-            "icon": "assets/character/constellations/Frostbreaker's Melody.png",
+            "icon": "assets/character/constellations/Frostbreaker's Melody.avif",
             "description": "For every 1,000 points of Max HP, Nilou's CRIT Rate and CRIT DMG will increase by 0.6% and 1.2% respectively.The maximum increase in CRIT Rate and CRIT DMG via this method is 30% and 60% respectively."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Zubayr Theater"
     ],
     "special_dish": {
         "name": "Swirling Steps",
-        "icon": "assets/foods/Nilou.png"
+        "icon": "assets/foods/Nilou.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Nilou.png",
-        "background": "assets/character/namecard_background/Nilou.png",
-        "banner": "assets/character/namecard_banner/Nilou.png",
+        "icon": "assets/character/namecard_icon/Nilou.avif",
+        "background": "assets/character/namecard_background/Nilou.avif",
+        "banner": "assets/character/namecard_banner/Nilou.avif",
         "description": "The lotus that blooms amidst the pure water is naught but a flash of light beneath her toes.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Padisarah",
                     "value": 3,
-                    "icon": "assets/materials/Padisarah.png"
+                    "icon": "assets/materials/Padisarah.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 3,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 2,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Padisarah",
                     "value": 10,
-                    "icon": "assets/materials/Padisarah.png"
+                    "icon": "assets/materials/Padisarah.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 15,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 4,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Padisarah",
                     "value": 20,
-                    "icon": "assets/materials/Padisarah.png"
+                    "icon": "assets/materials/Padisarah.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 12,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 8,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Padisarah",
                     "value": 30,
-                    "icon": "assets/materials/Padisarah.png"
+                    "icon": "assets/materials/Padisarah.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 18,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 12,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Padisarah",
                     "value": 45,
-                    "icon": "assets/materials/Padisarah.png"
+                    "icon": "assets/materials/Padisarah.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 20,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Padisarah",
                     "value": 60,
-                    "icon": "assets/materials/Padisarah.png"
+                    "icon": "assets/materials/Padisarah.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 24,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var NILOU = {
         {
             "name": "Dance of Samser",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Dance of Samser.png",
+            "icon": "assets/character/talents/Dance of Samser.avif",
             "description": "Normal AttackPerforms up to 3 consecutive sword strikes.Charged AttackConsumes a certain amount of Stamina to perform a twirling slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Dance of Haftkarsvar",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Dance of Haftkarsvar.png",
+            "icon": "assets/character/talents/Dance of Haftkarsvar.avif",
             "description": "Enters the Pirouette state, dealing Hydro DMG to nearby opponents based on Nilou's Max HP.While she is in the Pirouette state, Nilou's Normal Attacks and Elemental Skill will cause her to enter the Sword Dance and Whirling Steps stances respectively, causing DMG she deals to be converted to Hydro DMG that cannot be overridden and that is considered Elemental Skill DMG.In these stances, Nilou's third dance step will end Pirouette, and has the following effects:Sword Dance: unleashes a Luminous Illusion that deals Hydro DMG to opponents it touches and grants Nilou the Lunar Prayer effect. This effect converts Nilou's Normal Attacks into Sword Dance techniques, and her final hit will unleash a Luminous Illusion.Whirling Steps: Nilou unleashes a Whirling Water Wheel that deals AoE Hydro DMG and creates a Tranquility Aura that follows your active character around and applies Wet to opponents within its AoE.Nilou is unable to perform Charged Attacks when under the effect of Pirouette or Lunar Prayer. These effects will be removed once she leaves the field."
         },
         {
             "name": "Dance of Abzendegi: Distant Dreams, Listening Spring",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Dance of Abzendegi Distant Dreams, Listening Spring.png",
+            "icon": "assets/character/talents/Dance of Abzendegi Distant Dreams, Listening Spring.avif",
             "description": "Begins the dance of faraway dreams and springs that hear, causing a Lotus of Distant Waters to bloom, dealing AoE Hydro DMG based on Nilou's Max HP and applying the Lingering Aeon effect to all opponents hit.After an interval, opponents affected by Lingering Aeon will take Hydro DMG."
         },
         {
             "name": "Court of Dancing Petals",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Court of Dancing Petals.png",
+            "icon": "assets/character/talents/Court of Dancing Petals.avif",
             "description": "When all characters in the party are all Dendro or Hydro, and there are at least one Dendro character and one Hydro character:The completion of the third dance step of Nilou's Dance of Haftkarsvar will grant all nearby characters the Golden Chalice's Bounty for 30s.Characters under the effect of Golden Chalice's Bounty will increase the Elemental Mastery of all nearby characters by 100 for 10s whenever they are hit by Dendro attacks. Also, triggering the Bloom reaction will create Bountiful Cores instead of Dendro Cores.Such Cores will burst very quickly after being created, and they have larger AoEs.Bountiful Cores cannot trigger Hyperbloom or Burgeon, and they share an upper numerical limit with Dendro Cores. Bountiful Core DMG is considered DMG dealt by Dendro Cores produced by Bloom.Should the party not meet the conditions for this Passive Talent, any existing Golden Chalice's Bounty effects will be canceled."
         },
         {
             "name": "Dreamy Dance of Aeons",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Dreamy Dance of Aeons.png",
+            "icon": "assets/character/talents/Dreamy Dance of Aeons.avif",
             "description": "Every 1,000 points of Nilou's Max HP above 30,000 will cause the DMG dealt by Bountiful Cores created by characters affected by Golden Chalice's Bounty to increase by 9%.The maximum increase in Bountiful Core DMG that can be achieved this way is 400%."
         },
         {
             "name": "White Jade Lotus",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/White Jade Lotus.png",
+            "icon": "assets/character/talents/White Jade Lotus.avif",
             "description": "When Perfect Cooking is achieved on Food with Adventure-related effects, there is a 12% chance to obtain double the product."
         }
     ],
@@ -465,17 +494,20 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 6,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Praxis",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Praxis.png"
+                    "icon": "assets/materials/Teachings of Praxis.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 3,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 4,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 6,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 9,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 4,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 1,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 6,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 1,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 9,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 2,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var NILOU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 2,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2300,333 +2361,5 @@ var NILOU = {
     "demo_music": {
         "name": "Lotus of Haftkarsvar",
         "url": "assets/character/demo_music/Nilou.mp3"
-    },
-    "build": {
-        "version": "4.8",
-        "type": "Support",
-        "weapons": [
-            "Key of Khaj-Nisut",
-            "The Dockhand's Assistant",
-            "Freedom-Sworn",
-            "Xiphos' Moonlight",
-            "Iron Sting",
-            "Toukabou Shigure",
-            "Splendor of Tranquil Waters",
-            "Primordial Jade Cutter",
-            "Sapwood Blade",
-            "Favonius Sword",
-            "Sacrificial Sword"
-        ],
-        "artifacts": [
-            "4pc Flower of Paradise Lost",
-            "4pc Gilded Dreams"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP%",
-            "HP%",
-            "HP%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "HP%",
-            "Flat HP",
-            "EM",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Kokomi",
-                    "icon": "assets/character/icon/Kokomi.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Kokomi",
-                    "icon": "assets/character/icon/Kokomi.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                }
-            ]
-        ]
     }
 }

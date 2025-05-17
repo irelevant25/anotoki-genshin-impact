@@ -1,28 +1,28 @@
 var ARLECCHINO = {
     "name": "Arlecchino",
     "secondary_title": "Dire Balemoon",
-    "card_icon": "assets/character/card/Arlecchino.png",
-    "wish_icon": "assets/character/wish/Arlecchino.png",
-    "ingame_icon": "assets/character/ingame/Arlecchino.png",
-    "icon": "assets/character/icon/Arlecchino.png",
+    "card_icon": "assets/character/card/Arlecchino.avif",
+    "wish_icon": "assets/character/wish/Arlecchino.avif",
+    "ingame_icon": "assets/character/ingame/Arlecchino.avif",
+    "icon": "assets/character/icon/Arlecchino.avif",
     "quality": "5",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "August 22nd",
@@ -30,37 +30,37 @@ var ARLECCHINO = {
         {
             "name": "\"All Reprisals and Arrears, Mine to Bear...\"",
             "level": 1,
-            "icon": "assets/character/constellations/All Reprisals and Arrears, Mine to Bear....png",
+            "icon": "assets/character/constellations/All Reprisals and Arrears, Mine to Bear....avif",
             "description": "Masque of the Red Death is further enhanced, the value of the increase is 100%. Additionally, Arlecchino's interruption resistance is increased when she performs Normal or Charged Attacks while affected by the Masque of the Red Death."
         },
         {
             "name": "\"All Rewards and Retribution, Mine to Bestow...\"",
             "level": 2,
-            "icon": "assets/character/constellations/All Rewards and Retribution, Mine to Bestow....png",
+            "icon": "assets/character/constellations/All Rewards and Retribution, Mine to Bestow....avif",
             "description": "Blood-Debt Directives are now already Blood-Debt Due when first applied.When Arlecchino absorbs such a Due, she unleashes Balemoon Bloodfire in front of her, dealing 900% of her ATK as AoE Pyro DMG and increasing her All Elemental RES and Physical RES by 20% for 15s. This effect can trigger once every 10s.You must first unlock the Passive Talent \"Agony Alone May Be Repaid.\""
         },
         {
             "name": "\"You Shall Become a New Member of Our Family...\"",
             "level": 3,
-            "icon": "assets/character/constellations/You Shall Become a New Member of Our Family....png",
+            "icon": "assets/character/constellations/You Shall Become a New Member of Our Family....avif",
             "description": "Increases the Level of Normal Attack: Invitation to a Beheading by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"You Shall Love and Protect Each Other Henceforth...\"",
             "level": 4,
-            "icon": "assets/character/constellations/You Shall Love and Protect Each Other Henceforth....png",
+            "icon": "assets/character/constellations/You Shall Love and Protect Each Other Henceforth....avif",
             "description": "When Arlecchino successfully absorbs a Blood-Debt Directive, Balemoon Rising's CD will decrease by 2s and 15 Elemental Energy will be restored to her. This effect can occur once every 10s."
         },
         {
             "name": "\"For Alone, We Are as Good as Dead...\"",
             "level": 5,
-            "icon": "assets/character/constellations/For Alone, We Are as Good as Dead....png",
+            "icon": "assets/character/constellations/For Alone, We Are as Good as Dead....avif",
             "description": "Increases the Level of Balemoon Rising by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"From This Day On, We Shall Delight in New Life Together.\"",
             "level": 6,
-            "icon": "assets/character/constellations/From This Day On, We Shall Delight in New Life Together..png",
+            "icon": "assets/character/constellations/From This Day On, We Shall Delight in New Life Together..avif",
             "description": "The DMG of Balemoon Rising is increased by Arlecchino's ATK multiplied by 700% of Arlecchino's current Bond of Life percentage.For 20s after Arlecchino uses All Is Ash, both her Normal Attacks and Elemental Burst gain 10% increased CRIT Rate and 70% increased CRIT DMG. This effect can be triggered up to once every 15s."
         }
     ],
@@ -72,12 +72,12 @@ var ARLECCHINO = {
     ],
     "special_dish": {
         "name": "Hearthfire's Trail",
-        "icon": "assets/foods/Arlecchino.png"
+        "icon": "assets/foods/Arlecchino.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Arlecchino.png",
-        "background": "assets/character/namecard_background/Arlecchino.png",
-        "banner": "assets/character/namecard_banner/Arlecchino.png",
+        "icon": "assets/character/namecard_icon/Arlecchino.avif",
+        "background": "assets/character/namecard_background/Arlecchino.avif",
+        "banner": "assets/character/namecard_banner/Arlecchino.avif",
         "description": "\"Father\" laid down the harsh strictures of the House of the Hearth, and some of these seem almost unreasonable. Those familiar with her can use these rules to trace the outline of the ideals she so rarely speaks of.",
         "quality": "4",
         "sources": [
@@ -158,22 +158,26 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 3,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -201,27 +205,32 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 2,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 10,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -249,27 +258,32 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 4,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 20,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -297,27 +311,32 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 8,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 30,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -345,27 +364,32 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 12,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 45,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -393,27 +417,32 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 20,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 60,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -422,37 +451,37 @@ var ARLECCHINO = {
         {
             "name": "Invitation to a Beheading",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Invitation to a Beheading.png",
+            "icon": "assets/character/talents/Invitation to a Beheading.avif",
             "description": "Normal AttackPerforms up to 6 consecutive spear strikes.Charged AttackConsumes a fixed amount of Stamina, dashing toward a nearby opponent and cleaving once.Continuously holding this button will cause Arlecchino to consume Stamina and engage in up to 5s of high-speed movement.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact.Masque of the Red DeathWhen Arlecchino has a Bond of Life equal to or greater than 30% of her Max HP, she will enter the \"Masque of the Red Death\" state, where her Normal, Charged, and Plunging Attacks will be converted to deal Pyro DMG. This cannot be overridden.When in the \"Masque of the Red Death\" state, Arlecchino's Normal Attacks will deal extra DMG to opponents on hit that scales off her ATK multiplied by a certain ratio of her current Bond of Life percentage. This will consume 7.5% of said current Bond of Life. Her Bond of Life can be consumed this way every 0.03s. When her Bond of Life is consumed in this manner, All Is Ash's CD will decrease by 0.8s."
         },
         {
             "name": "All Is Ash",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/All Is Ash.png",
+            "icon": "assets/character/talents/All Is Ash.avif",
             "description": "Summons forth Balemoon Bloodfire, dealing Pyro DMG to multiple nearby opponents and performing a dash-cleave against one of them, dealing AoE Pyro DMG.Opponents hit by the aforementioned attack will have a Blood-Debt Directive applied to them.Blood-Debt DirectiveLasts 30s. Every 5s, it will deal 1 instance of Pyro DMG to the opponent. Max 2 instances. This DMG will be considered Elemental Skill DMG.When Arlecchino uses a Charged Attack or her Elemental Burst, Balemoon Rising, she will absorb and clear nearby Blood-Debt Directives. Each Directive absorbed grants her a Bond of Life worth 65% of her Max HP.The maximum value of the Bond of Life she can be granted through Blood-Debt Directives within 35s after using her Elemental Skill is 145% of her Max HP. Using the Elemental Skill again during this duration will restart the count on duration and the limit on the value of Bond of Life she may gain from Blood-Debt Directives."
         },
         {
             "name": "Balemoon Rising",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Balemoon Rising.png",
+            "icon": "assets/character/talents/Balemoon Rising.avif",
             "description": "Arlecchino's great wing of Balemoon Bloodfire beats as she absorbs and clears Blood-Debt Directives around her. She deals AoE Pyro DMG before clearing the CD of All Is Ash and healing herself. The healing is based on her Bond of Life value and ATK."
         },
         {
             "name": "Agony Alone May Be Repaid",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Agony Alone May Be Repaid.png",
+            "icon": "assets/character/talents/Agony Alone May Be Repaid.avif",
             "description": "Blood-Debt Directives have the following characteristics:Arlecchino will be granted a Bond of Life worth 130% of her Max HP when an opponent to which she herself applied a Directive is defeated.5s after a Directive is applied, it will be upgraded to a Blood-Debt Due. When absorbed, it will instead grant Arlecchino a Bond of Life worth 130%.A Bond of Life created in the aforementioned ways cannot exceed the original limit on the value of Bonds of Life obtained through All Is Ash."
         },
         {
             "name": "Strength Alone Can Defend",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Strength Alone Can Defend.png",
+            "icon": "assets/character/talents/Strength Alone Can Defend.avif",
             "description": "Arlecchino gains 1% All Elemental and Physical RES for every 100 ATK she has in excess of 1,000. The maximum RES increase she can gain this way for each is 20%."
         },
         {
             "name": "The Balemoon Alone May Know",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Balemoon Alone May Know.png",
+            "icon": "assets/character/talents/The Balemoon Alone May Know.avif",
             "description": "While in combat, Arlecchino gains a 40% Pyro DMG Bonus and can only be healed through Balemoon Rising."
         }
     ],
@@ -463,17 +492,20 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Order",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Order.png"
+                    "icon": "assets/materials/Teachings of Order.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -483,17 +515,20 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -503,17 +538,20 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -523,17 +561,20 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -543,17 +584,20 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -563,22 +607,26 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 1,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -588,22 +636,26 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 1,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -613,22 +665,26 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 2,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -638,27 +694,32 @@ var ARLECCHINO = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 2,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2466,225 +2527,5 @@ var ARLECCHINO = {
     "demo_music": {
         "name": "Offertorium of Fortuitum",
         "url": "assets/character/demo_music/Arlecchino.mp3"
-    },
-    "build": {
-        "version": "5.1",
-        "type": "On-field DPS",
-        "weapons": [
-            "Crimson Moon's Semblance",
-            "Primordial Jade Winged-Spear",
-            "Staff of the Scarlet Sands",
-            "Staff of Homa",
-            "Lumidouce Elegy",
-            "Deathmatch",
-            "Ballad of the Fjords",
-            "Calamity Queller",
-            "Vortex Vanquisher",
-            "White Tassel",
-            "Blackcliff Pole"
-        ],
-        "artifacts": [
-            "4pc Fragment of Harmonic Whimsy",
-            "4pc Gladiator's Finale",
-            "4pc Unfinished Reverie"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Burst",
-            "Skill"
-        ],
-        "main_stats": [
-            "ATK% / EM",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement if using Burst)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM (Vaporize)"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ]
-        ]
     }
 }

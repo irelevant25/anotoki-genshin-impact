@@ -1,29 +1,29 @@
 var WRIOTHESLEY = {
     "name": "Wriothesley",
     "secondary_title": "Emissary of Solitary Iniquity",
-    "card_icon": "assets/character/card/Wriothesley.png",
-    "wish_icon": "assets/character/wish/Wriothesley.png",
-    "ingame_icon": "assets/character/ingame/Wriothesley.png",
-    "icon": "assets/character/icon/Wriothesley.png",
+    "card_icon": "assets/character/card/Wriothesley.avif",
+    "wish_icon": "assets/character/wish/Wriothesley.avif",
+    "ingame_icon": "assets/character/ingame/Wriothesley.avif",
+    "icon": "assets/character/icon/Wriothesley.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Tall Male",
     "arkhe": "Ousia",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "November 23rd",
@@ -31,55 +31,55 @@ var WRIOTHESLEY = {
         {
             "name": "Terror for the Evildoers",
             "level": 1,
-            "icon": "assets/character/constellations/Terror for the Evildoers.png",
+            "icon": "assets/character/constellations/Terror for the Evildoers.avif",
             "description": "The Gracious Rebuke from the Passive Talent \"There Shall Be a Plea for Justice\" is changed to this:When Wriothesley's HP is less than 60% or while he is in the Chilling Penalty state caused by Icefang Rush, when the fifth attack of Repelling Fists hits, it will create a Gracious Rebuke. 1 Gracious Rebuke effect can be obtained every 2.5s.Additionally, Rebuke: Vaulting Fist will obtain the following enhancement:The DMG Bonus gained will be further increased to 200%.When it hits while Wriothesley is in the Chilling Penalty state, that state's duration is extended by 4s. 1 such extension can occur per 1 Chilling Penalty duration.You must first unlock the Passive Talent \"There Shall Be a Plea for Justice.\""
         },
         {
             "name": "Shackles for the Arrogant",
             "level": 2,
-            "icon": "assets/character/constellations/Shackles for the Arrogant.png",
+            "icon": "assets/character/constellations/Shackles for the Arrogant.avif",
             "description": "When using Darkgold Wolfbite, each Prosecution Edict stack from the Passive Talent \"There Shall Be a Reckoning for Sin\" will increase said ability's DMG dealt by 40%.You must first unlock the Passive Talent \"There Shall Be a Reckoning for Sin.\""
         },
         {
             "name": "Punishment for the Frauds",
             "level": 3,
-            "icon": "assets/character/constellations/Punishment for the Frauds.png",
+            "icon": "assets/character/constellations/Punishment for the Frauds.avif",
             "description": "Increases the Level of Normal Attack: Forceful Fists of Frost by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Redemption for the Suffering",
             "level": 4,
-            "icon": "assets/character/constellations/Redemption for the Suffering.png",
+            "icon": "assets/character/constellations/Redemption for the Suffering.avif",
             "description": "The HP restored to Wriothesley through Rebuke: Vaulting Fist will be increased to 50% of his Max HP. You must first unlock the Passive Talent \"There Shall Be a Plea for Justice.\"Additionally, when Wriothesley is healed, if the amount of healing overflows, the following effects will occur depending on whether he is on the field or not. If he is on the field, his ATK SPD will be increased by 20% for 4s. If he is off-field, all of your own party members' ATK SPD will be increased by 10% for 6s. These two methods of increasing ATK SPD cannot stack."
         },
         {
             "name": "Mercy for the Wronged",
             "level": 5,
-            "icon": "assets/character/constellations/Mercy for the Wronged.png",
+            "icon": "assets/character/constellations/Mercy for the Wronged.avif",
             "description": "Increases the Level of Darkgold Wolfbite by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Esteem for the Innocent",
             "level": 6,
-            "icon": "assets/character/constellations/Esteem for the Innocent.png",
+            "icon": "assets/character/constellations/Esteem for the Innocent.avif",
             "description": "The CRIT Rate of Rebuke: Vaulting Fist will be increased by 10%, and its CRIT DMG by 80%. When unleashed, it will also create an additional icicle that deals 100% of Rebuke: Vaulting Fist's Base DMG as Cryo DMG. DMG dealt this way is regarded as Charged Attack DMG.You must first unlock the Passive Talent \"There Shall Be a Plea for Justice.\""
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Fortress of Meropide"
     ],
     "special_dish": {
         "name": "Secret Sauce BBQ Ribs",
-        "icon": "assets/foods/Wriothesley.png"
+        "icon": "assets/foods/Wriothesley.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Wriothesley.png",
-        "background": "assets/character/namecard_background/Wriothesley.png",
-        "banner": "assets/character/namecard_banner/Wriothesley.png",
+        "icon": "assets/character/namecard_icon/Wriothesley.avif",
+        "background": "assets/character/namecard_background/Wriothesley.avif",
+        "banner": "assets/character/namecard_banner/Wriothesley.avif",
         "description": "Maintaining order at the Fortress of Meropide is no simple affair. As such, a deft and sometimes firm hand is needed — along with a small pinch of truly regrettable cruelty.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Subdetection Unit",
                     "value": 3,
-                    "icon": "assets/materials/Subdetection Unit.png"
+                    "icon": "assets/materials/Subdetection Unit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 3,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 2,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Subdetection Unit",
                     "value": 10,
-                    "icon": "assets/materials/Subdetection Unit.png"
+                    "icon": "assets/materials/Subdetection Unit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 15,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 4,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Subdetection Unit",
                     "value": 20,
-                    "icon": "assets/materials/Subdetection Unit.png"
+                    "icon": "assets/materials/Subdetection Unit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 12,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 8,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Subdetection Unit",
                     "value": 30,
-                    "icon": "assets/materials/Subdetection Unit.png"
+                    "icon": "assets/materials/Subdetection Unit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 18,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 12,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Subdetection Unit",
                     "value": 45,
-                    "icon": "assets/materials/Subdetection Unit.png"
+                    "icon": "assets/materials/Subdetection Unit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 20,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Subdetection Unit",
                     "value": 60,
-                    "icon": "assets/materials/Subdetection Unit.png"
+                    "icon": "assets/materials/Subdetection Unit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 24,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var WRIOTHESLEY = {
         {
             "name": "Forceful Fists of Frost",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Forceful Fists of Frost.png",
+            "icon": "assets/character/talents/Forceful Fists of Frost.avif",
             "description": "Normal AttackCoalescing frost about his fist, Wriothesley will unleash powerful Repelling Fists, performing up to 5 rapid attacks that deal Cryo DMG.Apart from this, Normal Attack combo count will not reset for a short time after using Icefang Rush or sprinting.Charged AttackConsumes a fixed amount of Stamina to leap and unleash a Vaulting Fist, dealing AoE Cryo DMG.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE Cryo DMG upon impact."
         },
         {
             "name": "Icefang Rush",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Icefang Rush.png",
+            "icon": "assets/character/talents/Icefang Rush.avif",
             "description": "Adjusting his breathing, rhythm, and pace, Wriothesley sprints forward a short distance, entering the Chilling Penalty state and unleashing more powerful attacks than before.Chilling PenaltyIncreases Wriothesley's interruption resistanceWhen his HP is above 50%, it will enhance the Repelling Fists of Normal Attack: Forceful Fists of Frost and increase its DMG. When such an attack hits, it will consume a fixed amount of Wriothesley's HP. HP can be lost this way once every 0.1s.This effect will be canceled should Wriothesley leave the field."
         },
         {
             "name": "Darkgold Wolfbite",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Darkgold Wolfbite.png",
+            "icon": "assets/character/talents/Darkgold Wolfbite.avif",
             "description": "Activating his boxing gloves, Wriothesley strikes out with an icy straight, then uses Icicle Impact to cause multiple instances of AoE Cryo DMG in a frontal area.Arkhe: OusiaAfter Icicle Impact ends, a Surging Blade will descend upon the opponent's position, dealing Ousia-aligned Cryo DMG."
         },
         {
             "name": "There Shall Be a Plea for Justice",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/There Shall Be a Plea for Justice.png",
+            "icon": "assets/character/talents/There Shall Be a Plea for Justice.avif",
             "description": "When Wriothesley's HP is less than 60%, he will obtain a Gracious Rebuke. The next Charged Attack of his Normal Attack: Forceful Fists of Frost will be enhanced to become Rebuke: Vaulting Fist. It will not consume Stamina, will deal 50% increased DMG, and after hitting will restore HP for Wriothesley equal to 30% of his Max HP.You can gain a Gracious Rebuke this way once every 5s."
         },
         {
             "name": "There Shall Be a Reckoning for Sin",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/There Shall Be a Reckoning for Sin.png",
+            "icon": "assets/character/talents/There Shall Be a Reckoning for Sin.avif",
             "description": "When Wriothesley's current HP increases or decreases, if he is in the Chilling Penalty state conferred by Icefang Rush, Chilling Penalty will gain one stack of Prosecution Edict. Max 5 stacks. Each stack will increase Wriothesley's ATK by 6%."
         },
         {
             "name": "The Duke's Grace",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Duke's Grace.png",
+            "icon": "assets/character/talents/The Duke's Grace.avif",
             "description": "When Wriothesley crafts Weapon Ascension Materials, he has a 10% chance to receive double the product."
         }
     ],
@@ -462,17 +491,20 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 6,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Order",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Order.png"
+                    "icon": "assets/materials/Teachings of Order.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 3,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 4,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 6,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 9,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 1,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 6,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 1,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 9,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 2,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var WRIOTHESLEY = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 2,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -836,7 +897,7 @@ var WRIOTHESLEY = {
                 },
                 {
                     "title": "More About Wriothesley: II",
-                    "text": "Hmm? Oh the scar on my body? It's from a gash I got while battling a gigantic undersea monster that tried to take over the Fortress of Meropide....Hah, just kidding.",
+                    "text": "Hmm? Oh the scar on my body? It's from a gash I got while battling a gigantic undersea monster that tried to take over the Fortress of Meropide. ...Hah, just kidding.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Wriothesley/story/en/More About Wriothesley - II.mp3"
                 },
@@ -2272,275 +2333,5 @@ var WRIOTHESLEY = {
     "demo_music": {
         "name": "Nippy Bout",
         "url": "assets/character/demo_music/Wriothesley.mp3"
-    },
-    "build": {
-        "version": "5.3",
-        "type": "On-field DPS",
-        "weapons": [
-            "Cashflow Supervision",
-            "Tulaytullah's Remembrance",
-            "The Widsith",
-            "Flowing Purity",
-            "Mappa Mare",
-            "Ballad of the Boundless Blue",
-            "Dodoco Tales",
-            "Frostbearer"
-        ],
-        "artifacts": [
-            "4pc Marechaussee Hunter ",
-            "4pc Unfinished Reverie",
-            "4pc Blizzard Strayer",
-            "4pc Shimenawa's Reminiscence"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Skill",
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK% / EM",
-            "Cryo DMG Bonus",
-            "CRIT DMG / CRIT Rate"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "ATK% / EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Pyro Traveler",
-                    "icon": "assets/character/icon/Pyro Traveler.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ]
-        ]
     }
 }

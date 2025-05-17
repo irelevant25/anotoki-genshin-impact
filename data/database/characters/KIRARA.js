@@ -1,18 +1,18 @@
 var KIRARA = {
     "name": "Kirara",
     "secondary_title": "Cat Upon the Eaves",
-    "card_icon": "assets/character/card/Kirara.png",
-    "wish_icon": "assets/character/wish/Kirara.png",
-    "ingame_icon": "assets/character/ingame/Kirara.png",
-    "icon": "assets/character/icon/Kirara.png",
+    "card_icon": "assets/character/card/Kirara.avif",
+    "wish_icon": "assets/character/wish/Kirara.avif",
+    "ingame_icon": "assets/character/ingame/Kirara.avif",
+    "icon": "assets/character/icon/Kirara.avif",
     "quality": "4",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Medium Female",
     "roles": [],
@@ -21,55 +21,55 @@ var KIRARA = {
         {
             "name": "Material Circulation",
             "level": 1,
-            "icon": "assets/character/constellations/Material Circulation.png",
+            "icon": "assets/character/constellations/Material Circulation.avif",
             "description": "Every 8,000 Max HP Kirara possesses will cause her to create 1 extra Cat Grass Cardamom when she uses Secret Art: Surprise Dispatch. A maximum of 4 extra can be created this way."
         },
         {
             "name": "Perfectly Packaged",
             "level": 2,
-            "icon": "assets/character/constellations/Perfectly Packaged.png",
+            "icon": "assets/character/constellations/Perfectly Packaged.avif",
             "description": "When Kirara is in the Urgent Neko Parcel state of Meow-teor Kick, she will grant other party members she crashes into Critical Transport Shields.The DMG absorption of Critical Transport Shield is 40% of the maximum absorption Meow-teor Kick's normal Shields of Safe Transport are capable of, and will absorb Dendro DMG with 250% effectiveness.Critical Transport Shields last 12s and can be triggered once on each character every 10s."
         },
         {
             "name": "Universal Recognition",
             "level": 3,
-            "icon": "assets/character/constellations/Universal Recognition.png",
+            "icon": "assets/character/constellations/Universal Recognition.avif",
             "description": "Increases the Level of Meow-teor Kick by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Steed of Skanda",
             "level": 4,
-            "icon": "assets/character/constellations/Steed of Skanda.png",
+            "icon": "assets/character/constellations/Steed of Skanda.avif",
             "description": "After active character(s) protected by Shields of Safe Transport or Critical Transport Shields hit opponents with Normal, Charged, or Plunging Attacks, Kirara will perform a coordinated attack with them using Small Cat Grass Cardamoms, dealing 200% of her ATK as Dendro DMG. DMG dealt this way is considered Elemental Burst DMG. This effect can be triggered once every 3.8s. This CD is shared between all party members."
         },
         {
             "name": "A Thousand Miles in a Day",
             "level": 5,
-            "icon": "assets/character/constellations/A Thousand Miles in a Day.png",
+            "icon": "assets/character/constellations/A Thousand Miles in a Day.avif",
             "description": "Increases the Level of Secret Art: Surprise Dispatch by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Countless Sights to See",
             "level": 6,
-            "icon": "assets/character/constellations/Countless Sights to See.png",
+            "icon": "assets/character/constellations/Countless Sights to See.avif",
             "description": "All nearby party members will gain 12% All Elemental DMG Bonus within 15s after Kirara uses her Elemental Skill or Burst."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Komaniya Express"
     ],
     "special_dish": {
         "name": "Energizing Bento",
-        "icon": "assets/foods/Kirara.png"
+        "icon": "assets/foods/Kirara.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kirara.png",
-        "background": "assets/character/namecard_background/Kirara.png",
-        "banner": "assets/character/namecard_banner/Kirara.png",
+        "icon": "assets/character/namecard_icon/Kirara.avif",
+        "background": "assets/character/namecard_background/Kirara.avif",
+        "banner": "assets/character/namecard_banner/Kirara.avif",
         "description": "\"To Kirara, the smiles on her customers' faces are the best rewards possible.\"",
         "quality": "4",
         "sources": [
@@ -147,22 +147,26 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 3,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -190,27 +194,32 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 2,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 10,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 15,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -238,27 +247,32 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 4,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 20,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -286,27 +300,32 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 8,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 30,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 18,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -334,27 +353,32 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 12,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 45,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -382,27 +406,32 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 20,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 60,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 24,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -411,37 +440,37 @@ var KIRARA = {
         {
             "name": "Boxcutter",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Boxcutter.png",
+            "icon": "assets/character/talents/Boxcutter.avif",
             "description": "Normal AttackPerforms up to 4 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 3 rapid claw strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Meow-teor Kick",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Meow-teor Kick.png",
+            "icon": "assets/character/talents/Meow-teor Kick.avif",
             "description": "(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Leaps into the air with all the agility of a cat passing through the bushes, and thwacks her foes with a flying kick that deals AoE Dendro DMG while creating a Shield of Safe Transport. This will also briefly apply Dendro to Kirara.The shield will absorb Dendro DMG with 250% effectiveness. The shield's DMG absorption will be based on Kirara's Max HP and will not exceed a certain percentage of that Max HP. The remaining DMG absorption on a Shield of Safe Transport will stack on a new one when it is created, and its duration will reset.HoldOut of her desire to \"deliver within half a day,\" Kirara deploys a Shield of Safe Transport identical to the one that can be created by (pressingpressingText for mouse and keyboard and controller/tappingtappingText for touch screen) the skill. She will also curl up into a special express delivery box, entering the Urgent Neko Parcel state in order to move and fight more swiftly.Urgent Neko ParcelDeals Dendro DMG to opponents she crashes into. This effect can be triggered once on each opponent every 0.5s.When in this state, Kirara's movement speed, climbing speed, and jumping power are all increased, and her Stamina Consumption from climbing is increased.When the duration ends or the skill is used again, a Flipclaw Strike more powerful than the attack in the (PressPressText for mouse and keyboard and controller/TapTapText for touch screen) Mode will be unleashed, dealing AoE Dendro DMG.The Urgent Neko Parcel state lasts a maximum of 10s. When the state ends, the skill will enter CD. The longer Kirara spends in this state, the longer the CD will be.Sprinting or actively canceling climbing will end this state early."
         },
         {
             "name": "Secret Art: Surprise Dispatch",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Secret Art Surprise Dispatch.png",
+            "icon": "assets/character/talents/Secret Art Surprise Dispatch.avif",
             "description": "Smash opponents with a Special Delivery Package used for punishing parcel thieves, dealing AoE Dendro DMG. After the Special Delivery Package explodes, it will split up into many Cat Grass Cardamoms that will explode either upon contact with opponents or after a period of time, dealing AoE Dendro DMG."
         },
         {
             "name": "Bewitching, Betwitching Tails",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Bewitching, Betwitching Tails.png",
+            "icon": "assets/character/talents/Bewitching, Betwitching Tails.avif",
             "description": "When Kirara is in the Urgent Neko Parcel state of Meow-teor Kick, each impact against an opponent will grant her a stack of Reinforced Packaging. This effect can be triggered once for each opponent hit every 0.5s. Max 3 stacks. When the Urgent Neko Parcel state ends, each stack of Reinforced Packaging will create 1 Shield of Safe Transport for Kirara. The shields that are created this way will have 20% of the DMG absorption that the Shield of Safe Transport produced by Meow-teor Kick would have. If Kirara is already protected by a Shield of Safe Transport created by Meow-teor Kick, its DMG absorption will stack with these shields and its duration will reset."
         },
         {
             "name": "Pupillary Variance",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Pupillary Variance.png",
+            "icon": "assets/character/talents/Pupillary Variance.avif",
             "description": "Every 1,000 Max HP Kirara possesses will increase the DMG dealt by Meow-teor Kick by 0.4%, and the DMG dealt by Secret Art: Surprise Dispatch by 0.3%."
         },
         {
             "name": "Cat's Creeping Carriage",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Cat's Creeping Carriage.png",
+            "icon": "assets/character/talents/Cat's Creeping Carriage.avif",
             "description": "When Kirara is in the party, animals who produce Fowl, Raw Meat, or Chilled Meat will not be startled when party members approach them."
         }
     ],
@@ -452,17 +481,20 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Transience",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Transience.png"
+                    "icon": "assets/materials/Teachings of Transience.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -472,17 +504,20 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -492,17 +527,20 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -512,17 +550,20 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -532,17 +573,20 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -552,22 +596,26 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 1,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -577,22 +625,26 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 1,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -602,22 +654,26 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 2,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -627,27 +683,32 @@ var KIRARA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 2,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -862,7 +923,7 @@ var KIRARA = {
                 },
                 {
                     "title": "More About Kirara: V",
-                    "text": "It's really important to enjoy your life! In the last few days of a long-distance trip, or on a night when all my work's done, I'll always have a hearty meal at the busiest restaurant, then look for the most comfortable rooftop and feel the breeze on my face until I fall sound asleep... There are so many little joys in the world that deserve to be savored, and it'd be such a great loss if I didn't relish every one of them. Which is why I always pick the bones clean when I'm eating fish!",
+                    "text": "It's really important to enjoy your life! In the last few days of a long-distance trip, or on a night when all my work’s done, I'll always have a hearty meal at the busiest restaurant, then look for the most comfortable rooftop and feel the breeze on my face until I fall sound asleep... There are so many little joys in the world that deserve to be savored, and it'd be such a great loss if I didn't relish every one of them. Which is why I always pick the bones clean when I'm eating fish!",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Kirara/story/en/More About Kirara - V.mp3"
                 },
@@ -2358,279 +2419,5 @@ var KIRARA = {
     "demo_music": {
         "name": "Cat's Cosy Course",
         "url": "assets/character/demo_music/Kirara.mp3"
-    },
-    "build": {
-        "version": "4.8",
-        "type": "Support",
-        "weapons": [
-            "Key of Khaj-Nisut",
-            "The Dockhand's Assistant",
-            "Favonius Sword",
-            "Sacrificial Sword",
-            "Sapwood Blade",
-            "Freedom-Sworn",
-            "Primordial Jade Cutter",
-            "Skyrider Sword",
-            "Amenoma Kageuchi",
-            "Summit Shaper"
-        ],
-        "artifacts": [
-            "4pc Instructor",
-            "4pc Tenacity of the Millelith",
-            "4pc Deepwood Memories",
-            "4pc Noblesse Oblige"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP% / ER",
-            "HP%",
-            "HP% / CRIT Rate"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "HP%",
-            "CRIT Rate",
-            "Flat HP"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kokomi",
-                    "icon": "assets/character/icon/Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ]
-        ]
     }
 }

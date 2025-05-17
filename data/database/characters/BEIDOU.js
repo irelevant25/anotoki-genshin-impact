@@ -1,32 +1,32 @@
 var BEIDOU = {
     "name": "Beidou",
     "secondary_title": "Uncrowned Lord of the Ocean",
-    "card_icon": "assets/character/card/Beidou.png",
-    "wish_icon": "assets/character/wish/Beidou.png",
-    "ingame_icon": "assets/character/ingame/Beidou.png",
-    "icon": "assets/character/icon/Beidou.png",
+    "card_icon": "assets/character/card/Beidou.avif",
+    "wish_icon": "assets/character/wish/Beidou.avif",
+    "ingame_icon": "assets/character/ingame/Beidou.avif",
+    "icon": "assets/character/icon/Beidou.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "February 14th",
@@ -34,55 +34,55 @@ var BEIDOU = {
         {
             "name": "Sea Beast's Scourge",
             "level": 1,
-            "icon": "assets/character/constellations/Sea Beast's Scourge.png",
+            "icon": "assets/character/constellations/Sea Beast's Scourge.avif",
             "description": "When Stormbreaker is used:Creates a shield that absorbs up to 16% of Beidou's Max HP for 15s.This shield absorbs Electro DMG 250% more effectively."
         },
         {
             "name": "Upon the Turbulent Sea, the Thunder Arises",
             "level": 2,
-            "icon": "assets/character/constellations/Upon the Turbulent Sea, the Thunder Arises.png",
+            "icon": "assets/character/constellations/Upon the Turbulent Sea, the Thunder Arises.avif",
             "description": "Stormbreaker's arc lightning can jump to 2 additional targets."
         },
         {
             "name": "Summoner of Storm",
             "level": 3,
-            "icon": "assets/character/constellations/Summoner of Storm.png",
+            "icon": "assets/character/constellations/Summoner of Storm.avif",
             "description": "Increases the Level of Tidecaller by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Stunning Revenge",
             "level": 4,
-            "icon": "assets/character/constellations/Stunning Revenge.png",
+            "icon": "assets/character/constellations/Stunning Revenge.avif",
             "description": "Upon being attacked, Beidou's Normal Attacks gain an additional instance of 20% Electro DMG for 10s."
         },
         {
             "name": "Crimson Tidewalker",
             "level": 5,
-            "icon": "assets/character/constellations/Crimson Tidewalker.png",
+            "icon": "assets/character/constellations/Crimson Tidewalker.avif",
             "description": "Increases the Level of Stormbreaker by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Bane of Evil",
             "level": 6,
-            "icon": "assets/character/constellations/Bane of Evil.png",
+            "icon": "assets/character/constellations/Bane of Evil.avif",
             "description": "During the duration of Stormbreaker, the Electro RES of surrounding opponents is decreased by 15%."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "The Crux"
     ],
     "special_dish": {
         "name": "Flash-Fried Filet",
-        "icon": "assets/foods/Beidou.png"
+        "icon": "assets/foods/Beidou.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Beidou.png",
-        "background": "assets/character/namecard_background/Beidou.png",
-        "banner": "assets/character/namecard_banner/Beidou.png",
+        "icon": "assets/character/namecard_icon/Beidou.avif",
+        "background": "assets/character/namecard_background/Beidou.avif",
+        "banner": "assets/character/namecard_banner/Beidou.avif",
         "description": "\"Weighing anchor out to sea, one is wont to waver. But look to the skies, and the stars shall light the way.\"",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 3,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 2,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 10,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 4,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 20,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 8,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 30,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 12,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 45,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 20,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 60,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var BEIDOU = {
         {
             "name": "Oceanborne",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Oceanborne.png",
+            "icon": "assets/character/talents/Oceanborne.avif",
             "description": "Normal AttackPerforms up to 5 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous slashes.At the end of the sequence, perform a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Tidecaller",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Tidecaller.png",
+            "icon": "assets/character/talents/Tidecaller.avif",
             "description": "Nothing to worry about. Should anyone raise a hand against her or her men, she will avenge it ten-fold with sword and thunder.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Accumulating the power of lightning, Beidou swings her blade forward fiercely, dealing Electro DMG.HoldLifts her weapon up as a shield. Max DMG absorbed scales off Beidou's Max HP.Attacks using the energy stored within the greatsword upon release or once this ability's duration expires, dealing Electro DMG. DMG dealt scales with the number of times Beidou is attacked in the skill's duration. The greatest DMG Bonus will be attained once this effect is triggered twice.The shield possesses the following properties:Has 250% Electro DMG Absorption Efficiency.Applies the Electro element to Beidou upon activation."
         },
         {
             "name": "Stormbreaker",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Stormbreaker.png",
+            "icon": "assets/character/talents/Stormbreaker.avif",
             "description": "Recalling her slaying of the great beast Haishan, Beidou calls upon that monstrous strength and the lightning to create a Thunderbeast's Targe around herself, dealing Electro DMG to nearby opponents.Thunderbeast's TargeWhen Normal and Charged Attacks hit, they create a lightning discharge that can jump between opponents, dealing Electro DMG.Increases the character's resistance to interruption, and decreases DMG taken.A maximum of 1 lightning discharge can be triggered per second."
         },
         {
             "name": "Retribution",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Retribution.png",
+            "icon": "assets/character/talents/Retribution.avif",
             "description": "Counterattacking with Tidecaller at the precise moment when the character is hit grants the maximum DMG Bonus."
         },
         {
             "name": "Lightning Storm",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Lightning Storm.png",
+            "icon": "assets/character/talents/Lightning Storm.avif",
             "description": "Gain the following effects for 10s after unleashing Tidecaller with its maximum DMG Bonus:DMG dealt by Normal and Charged Attacks is increased by 15%. ATK SPD of Normal and Charged Attacks is increased by 15%.Greatly reduced delay before unleashing Charged Attacks."
         },
         {
             "name": "Conqueror of Tides",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Conqueror of Tides.png",
+            "icon": "assets/character/talents/Conqueror of Tides.avif",
             "description": "Decreases swimming Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -465,17 +494,20 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Gold",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Gold.png"
+                    "icon": "assets/materials/Teachings of Gold.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var BEIDOU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2404,206 +2465,5 @@ var BEIDOU = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "4.7",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Serpent Spine",
-            "Wolf's Gravestone",
-            "Akuoumaru",
-            "Skyward Pride",
-            "Ultimate Overlord's Mega Magic Sword",
-            "Luxurious Sea-Lord",
-            "Tidal Shadow",
-            "The Unforged",
-            "Lithic Blade",
-            "Rainslasher",
-            "Mailed Flower"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Thundersoother"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "Electro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                }
-            ],
-            [
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

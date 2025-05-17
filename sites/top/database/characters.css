@@ -176,13 +176,16 @@
   .material-item {
     display: inline-flex;
     align-items: center;
-    margin-right: 15px;
-    margin-bottom: 5px;
+    flex-direction: column;
+    text-align: center;
+    width: 130px;
+    /* margin-right: 15px;
+    margin-bottom: 5px; */
 
     img {
-      width: 32px;
-      height: 32px;
-      margin-right: 5px;
+      width: 50px;
+      height: 50px;
+      /* margin-right: 5px; */
     }
   }
 
@@ -197,7 +200,7 @@
 
   #ascensions .materials-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 
   .ascension-checkbox,
@@ -226,14 +229,36 @@
     gap: 15px;
   }
 
+  .five-star {
+    background: var(--five-star);
+  }
+
+  .four-star {
+    background: var(--four-star);
+  }
+
+  .three-star {
+    background: var(--three-star);
+  }
+
+  .two-star {
+    background: var(--two-star);
+  }
+
+  .one-star {
+    background: var(--one-star);
+  }
+
   .total-material-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
+    /* background-color: rgba(255, 255, 255, 0.5); */
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 160px;
+    text-align: center;
 
     img {
       width: 128px;

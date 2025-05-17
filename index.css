@@ -54,6 +54,21 @@
   --cryo-primary-white: #9fd6e3;
   --cryo-secondary-white: #7bbecf;
   --cryo-accent-white: #5a9cab;
+
+  /* 5 star rarity color */
+  --five-star: #db914f;
+
+  /* 4 star rarity color */
+  --four-star: #7a6ba1;
+
+  /* 3 star rarity color */
+  --three-star: #708aaa;
+
+  /* 2 star rarity color */
+  --two-star: #638879;
+
+  /* 1 star rarity color */
+  --one-star: #7a7b7f;
 }
 
 .anemo {

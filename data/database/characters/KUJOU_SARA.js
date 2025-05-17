@@ -1,28 +1,28 @@
 var KUJOU_SARA = {
     "name": "Kujou Sara",
     "secondary_title": "Crowfeather Kaburaya",
-    "card_icon": "assets/character/card/Kujou Sara.png",
-    "wish_icon": "assets/character/wish/Kujou Sara.png",
-    "ingame_icon": "assets/character/ingame/Kujou Sara.png",
-    "icon": "assets/character/icon/Kujou Sara.png",
+    "card_icon": "assets/character/card/Kujou Sara.avif",
+    "wish_icon": "assets/character/wish/Kujou Sara.avif",
+    "ingame_icon": "assets/character/ingame/Kujou Sara.avif",
+    "icon": "assets/character/icon/Kujou Sara.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "July 14th",
@@ -30,55 +30,55 @@ var KUJOU_SARA = {
         {
             "name": "Crow's Eye",
             "level": 1,
-            "icon": "assets/character/constellations/Crow's Eye.png",
+            "icon": "assets/character/constellations/Crow's Eye.avif",
             "description": "When Tengu Juurai grant characters ATK Bonuses or hits opponents, the CD of Tengu Stormcall is decreased by 1s.This effect can be triggered once every 3s."
         },
         {
             "name": "Dark Wings",
             "level": 2,
-            "icon": "assets/character/constellations/Dark Wings.png",
+            "icon": "assets/character/constellations/Dark Wings.avif",
             "description": "Unleashing Tengu Stormcall will leave a weaker Crowfeather at Kujou Sara's original position that will deal 30% of its original DMG."
         },
         {
             "name": "The War Within",
             "level": 3,
-            "icon": "assets/character/constellations/The War Within.png",
+            "icon": "assets/character/constellations/The War Within.avif",
             "description": "Increases the Level of Subjugation: Koukou Sendou by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Conclusive Proof",
             "level": 4,
-            "icon": "assets/character/constellations/Conclusive Proof.png",
+            "icon": "assets/character/constellations/Conclusive Proof.avif",
             "description": "The number of Tengu Juurai: Stormcluster released by Subjugation: Koukou Sendou is increased to 6."
         },
         {
             "name": "Spellsinger",
             "level": 5,
-            "icon": "assets/character/constellations/Spellsinger.png",
+            "icon": "assets/character/constellations/Spellsinger.avif",
             "description": "Increases the Level of Tengu Stormcall by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sin of Pride",
             "level": 6,
-            "icon": "assets/character/constellations/Sin of Pride.png",
+            "icon": "assets/character/constellations/Sin of Pride.avif",
             "description": "The Electro DMG of characters who have had their ATK increased by Tengu Juurai has its Crit DMG increased by 60%."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Tenryou Commission"
     ],
     "special_dish": {
         "name": "Faith Eternal",
-        "icon": "assets/foods/Kujou Sara.png"
+        "icon": "assets/foods/Kujou Sara.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kujou Sara.png",
-        "background": "assets/character/namecard_background/Kujou Sara.png",
-        "banner": "assets/character/namecard_banner/Kujou Sara.png",
+        "icon": "assets/character/namecard_icon/Kujou Sara.avif",
+        "background": "assets/character/namecard_background/Kujou Sara.avif",
+        "banner": "assets/character/namecard_banner/Kujou Sara.avif",
         "description": "Kujou Sara may have forsaken the arrogant life of the tengu race, but she has never neglected their brilliance with the sword or their supernatural might.",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 3,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 3,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 2,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 10,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 15,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 4,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 20,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 12,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 8,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 30,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 18,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 12,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 45,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 20,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 60,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 24,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var KUJOU_SARA = {
         {
             "name": "Tengu Bowmanship",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Tengu Bowmanship.png",
+            "icon": "assets/character/talents/Tengu Bowmanship.avif",
             "description": "Normal AttackPerforms up to 5 consecutive shots with a bow.Charged AttackPerform a more precise Aimed Shot with increased DMG.While aiming, crackling lightning will accumulate on the arrowhead. An arrow fully charged with the storm's might will deal Electro DMG.When in the Crowfeather Cover state, a fully-charged arrow will leave a Crowfeather behind after it hits.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Tengu Stormcall",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Tengu Stormcall.png",
+            "icon": "assets/character/talents/Tengu Stormcall.avif",
             "description": "Retreats rapidly with the speed of a tengu, summoning the protection of the Crowfeather.Gains Crowfeather Cover for 18s, and when Kujou Sara fires a fully-charged Aimed Shot, Crowfeather Cover will be consumed, and will leave a Crowfeather at the target location.Crowfeathers will trigger Tengu Juurai: Ambush after a short time, dealing Electro DMG and granting the active character within its AoE an ATK Bonus based on Kujou Sara's Base ATK.The ATK Bonuses from different Tengu Juurai will not stack, and their effects and duration will be determined by the last Tengu Juurai to take effect."
         },
         {
             "name": "Subjugation: Koukou Sendou",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Subjugation Koukou Sendou.png",
+            "icon": "assets/character/talents/Subjugation Koukou Sendou.avif",
             "description": "Casts down Tengu Juurai: Titanbreaker, dealing AoE Electro DMG. Afterwards, Tengu Juurai: Titanbreaker spreads out into 4 consecutive bouts of Tengu Juurai: Stormcluster, dealing AoE Electro DMG.Tengu Juurai: Titanbreaker and Tengu Juurai: Stormcluster can provide the active character within their AoE with the same ATK Bonus as given by the Elemental Skill, Tengu Stormcall.The ATK Bonus provided by various kinds of Tengu Juurai will not stack, and their effects and duration will be determined by the last Tengu Juurai to take effect."
         },
         {
             "name": "Immovable Will",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Immovable Will.png",
+            "icon": "assets/character/talents/Immovable Will.avif",
             "description": "While in the Crowfeather Cover state provided by Tengu Stormcall, Aimed Shot charge times are decreased by 60%."
         },
         {
             "name": "Decorum",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Decorum.png",
+            "icon": "assets/character/talents/Decorum.avif",
             "description": "When Tengu Juurai: Ambush hits opponents, Kujou Sara will restore 1.2 Energy to all party members for every 100% Energy Recharge she has. This effect can be triggered once every 3s."
         },
         {
             "name": "Land Survey",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Land Survey.png",
+            "icon": "assets/character/talents/Land Survey.avif",
             "description": "When dispatched on an expedition in Inazuma, time consumed is reduced by 25%."
         }
     ],
@@ -464,17 +493,20 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 6,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Elegance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Elegance.png"
+                    "icon": "assets/materials/Teachings of Elegance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 3,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 4,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 6,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 9,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 4,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 1,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 6,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 1,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 9,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 2,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var KUJOU_SARA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 2,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2467,77 +2528,5 @@ var KUJOU_SARA = {
     "demo_music": {
         "name": "Will of Thunder",
         "url": "assets/character/demo_music/Kujou Sara.mp3"
-    },
-    "build": {
-        "version": "3.3",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Elegy for the End",
-            "Skyward Harp",
-            "Polar Star",
-            "Mouun's Moon",
-            "Fading Twilight R5",
-            "Prototype Crescent",
-            "Sacrificial Bow"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Noblesse Oblige",
-            "4pc Tenacity of the Millelith"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "Electro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Sara.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Sara.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ]
-        ]
     }
 }

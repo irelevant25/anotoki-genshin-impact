@@ -1,28 +1,28 @@
 var NINGGUANG = {
     "name": "Ningguang",
     "secondary_title": "Eclipsing Star",
-    "card_icon": "assets/character/card/Ningguang.png",
-    "wish_icon": "assets/character/wish/Ningguang.png",
-    "ingame_icon": "assets/character/ingame/Ningguang.png",
-    "icon": "assets/character/icon/Ningguang.png",
+    "card_icon": "assets/character/card/Ningguang.avif",
+    "wish_icon": "assets/character/wish/Ningguang.avif",
+    "ingame_icon": "assets/character/ingame/Ningguang.avif",
+    "icon": "assets/character/icon/Ningguang.avif",
     "quality": "4",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "August 26th",
@@ -30,55 +30,55 @@ var NINGGUANG = {
         {
             "name": "Piercing Fragments",
             "level": 1,
-            "icon": "assets/character/constellations/Piercing Fragments.png",
+            "icon": "assets/character/constellations/Piercing Fragments.avif",
             "description": "When a Normal Attack hits, it deals AoE DMG."
         },
         {
             "name": "Shock Effect",
             "level": 2,
-            "icon": "assets/character/constellations/Shock Effect.png",
+            "icon": "assets/character/constellations/Shock Effect.avif",
             "description": "When Jade Screen is shattered, its CD will reset.Can occur once every 6s."
         },
         {
             "name": "Majesty Be the Array of Stars",
             "level": 3,
-            "icon": "assets/character/constellations/Majesty Be the Array of Stars.png",
+            "icon": "assets/character/constellations/Majesty Be the Array of Stars.avif",
             "description": "Increases the Level of Starshatter by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Exquisite be the Jade, Outshining All Beneath",
             "level": 4,
-            "icon": "assets/character/constellations/Exquisite be the Jade, Outshining All Beneath.png",
+            "icon": "assets/character/constellations/Exquisite be the Jade, Outshining All Beneath.avif",
             "description": "Jade Screen increases nearby characters' Elemental RES by 10%."
         },
         {
             "name": "Invincible Be the Jade Screen",
             "level": 5,
-            "icon": "assets/character/constellations/Invincible Be the Jade Screen.png",
+            "icon": "assets/character/constellations/Invincible Be the Jade Screen.avif",
             "description": "Increases the Level of Jade Screen by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Grandeur Be the Seven Stars",
             "level": 6,
-            "icon": "assets/character/constellations/Grandeur Be the Seven Stars.png",
+            "icon": "assets/character/constellations/Grandeur Be the Seven Stars.avif",
             "description": "When Starshatter is used, Ningguang gains 7 Star Jades."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Liyue Qixing"
     ],
     "special_dish": {
         "name": "Qiankun Mora Meat",
-        "icon": "assets/foods/Ningguang.png"
+        "icon": "assets/foods/Ningguang.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Ningguang.png",
-        "background": "assets/character/namecard_background/Ningguang.png",
-        "banner": "assets/character/namecard_banner/Ningguang.png",
+        "icon": "assets/character/namecard_icon/Ningguang.avif",
+        "background": "assets/character/namecard_background/Ningguang.avif",
+        "banner": "assets/character/namecard_banner/Ningguang.avif",
         "description": "They say that \"more's the pity that phoenixes are few.\" But seriously, one Ningguang is more than enough...",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 3,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 2,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 10,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 4,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 20,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 8,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 30,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 12,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 45,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 20,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Glaze Lily",
                     "value": 60,
-                    "icon": "assets/materials/Glaze Lily.png"
+                    "icon": "assets/materials/Glaze Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,37 +449,37 @@ var NINGGUANG = {
         {
             "name": "Sparkling Scatter",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Sparkling Scatter.png",
+            "icon": "assets/character/talents/Sparkling Scatter.avif",
             "description": "Normal AttackShoots gems that deal Geo DMG.Upon hit, this grants Ningguang 1 Star Jade.Charged AttackConsumes a certain amount of stamina to fire off a giant gem that deals Geo DMG.If Ningguang has any Star Jades, unleashing a Charged Attack will cause the Star Jades to be fired at the enemy as well, dealing additional DMG.Plunging AttackGathering the might of Geo, Ningguang plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Geo DMG upon impact with the ground."
         },
         {
             "name": "Jade Screen",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Jade Screen.png",
+            "icon": "assets/character/talents/Jade Screen.avif",
             "description": "Ningguang creates a Jade Screen out of gold, obsidian and her great opulence, dealing AoE Geo DMG.Jade ScreenBlocks opponents' projectiles.Endurance scales based on Ningguang's Max HP.Jade Screen is considered a Geo Construct and can be used to block certain attacks, but cannot be climbed. Only one Jade Screen may exist at any one time."
         },
         {
             "name": "Starshatter",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Starshatter.png",
+            "icon": "assets/character/talents/Starshatter.avif",
             "description": "Gathering a great number of gems, Ningguang scatters them all at once, sending homing projectiles at her opponents that deal massive Geo DMG.If Starshatter is cast when a Jade Screen is nearby, the Jade Screen will fire additional gem projectiles at the same time."
         },
         {
             "name": "Backup Plan",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Backup Plan.png",
+            "icon": "assets/character/talents/Backup Plan.avif",
             "description": "When Ningguang is in possession of Star Jades, her Charged Attack does not consume Stamina."
         },
         {
             "name": "Strategic Reserve",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Strategic Reserve.png",
+            "icon": "assets/character/talents/Strategic Reserve.avif",
             "description": "A character that passes through the Jade Screen will gain a 12% Geo DMG Bonus for 10s."
         },
         {
             "name": "Trove of Marvelous Treasures",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Trove of Marvelous Treasures.png",
+            "icon": "assets/character/talents/Trove of Marvelous Treasures.avif",
             "description": "Displays the location of nearby ore veins used in forging on the mini-map."
         }
     ],
@@ -461,17 +490,20 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Prosperity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Prosperity.png"
+                    "icon": "assets/materials/Teachings of Prosperity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +513,20 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +536,20 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +559,20 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +582,20 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +605,26 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +634,26 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +663,26 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +692,32 @@ var NINGGUANG = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2508,177 +2569,5 @@ var NINGGUANG = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "5.4",
-        "type": "On-field DPS",
-        "weapons": [
-            "Cashflow Supervision",
-            "Lost Prayer to the Sacred Winds",
-            "Kagura's Verity",
-            "Tome of the Eternal Flow",
-            "Memory of Dust",
-            "Skyward Atlas",
-            "Surf's Up",
-            "Tulaytullah's Remembrance",
-            "Solar Pearl",
-            "The Widsith",
-            "Flowing Purity",
-            "Eye of Perception",
-            "Oathsworn Eye",
-            "Dodoco Tales"
-        ],
-        "artifacts": [
-            "4pc Nighttime Whispers in the Echoing Woods",
-            "4pc Marechaussee Hunter",
-            "4pc Unfinished Reverie",
-            "4pc Thundersoother",
-            "4pc Lavawalker",
-            "4pc Emblem of Severed Fate",
-            "4pc Archaic Petra"
-        ],
-        "talents": [
-            "Burst",
-            "Normal Attack",
-            "Skill"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Geo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

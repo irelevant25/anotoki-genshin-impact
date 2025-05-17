@@ -1,28 +1,28 @@
 var XIANGLING = {
     "name": "Xiangling",
     "secondary_title": "Exquisite Delicacy",
-    "card_icon": "assets/character/card/Xiangling.png",
-    "wish_icon": "assets/character/wish/Xiangling.png",
-    "ingame_icon": "assets/character/ingame/Xiangling.png",
-    "icon": "assets/character/icon/Xiangling.png",
+    "card_icon": "assets/character/card/Xiangling.avif",
+    "wish_icon": "assets/character/wish/Xiangling.avif",
+    "ingame_icon": "assets/character/ingame/Xiangling.avif",
+    "icon": "assets/character/icon/Xiangling.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "November 2nd",
@@ -30,43 +30,43 @@ var XIANGLING = {
         {
             "name": "Crispy Outside, Tender Inside",
             "level": 1,
-            "icon": "assets/character/constellations/Crispy Outside, Tender Inside.png",
+            "icon": "assets/character/constellations/Crispy Outside, Tender Inside.avif",
             "description": "Opponents hit by Guoba's attacks have their Pyro RES reduced by 15% for 6s."
         },
         {
             "name": "Oil Meets Fire",
             "level": 2,
-            "icon": "assets/character/constellations/Oil Meets Fire.png",
+            "icon": "assets/character/constellations/Oil Meets Fire.avif",
             "description": "The last attack in a Normal Attack sequence applies the Implode status onto the opponent for 2s. An explosion will occur once this duration ends, dealing 75% of Xiangling's ATK as AoE Pyro DMG."
         },
         {
             "name": "Deepfry",
             "level": 3,
-            "icon": "assets/character/constellations/Deepfry.png",
+            "icon": "assets/character/constellations/Deepfry.avif",
             "description": "Increases the Level of Pyronado by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Slowbake",
             "level": 4,
-            "icon": "assets/character/constellations/Slowbake.png",
+            "icon": "assets/character/constellations/Slowbake.avif",
             "description": "Pyronado's duration is increased by 40%."
         },
         {
             "name": "Guoba Mad",
             "level": 5,
-            "icon": "assets/character/constellations/Guoba Mad.png",
+            "icon": "assets/character/constellations/Guoba Mad.avif",
             "description": "Increases the Level of Guoba Attack by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Condensed Pyronado",
             "level": 6,
-            "icon": "assets/character/constellations/Condensed Pyronado.png",
+            "icon": "assets/character/constellations/Condensed Pyronado.avif",
             "description": "For the duration of Pyronado, all party members receive a 15% Pyro DMG Bonus."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Wanmin Restaurant",
@@ -74,12 +74,12 @@ var XIANGLING = {
     ],
     "special_dish": {
         "name": "Wanmin Restaurant's Boiled Fish",
-        "icon": "assets/foods/Xiangling.png"
+        "icon": "assets/foods/Xiangling.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Xiangling.png",
-        "background": "assets/character/namecard_background/Xiangling.png",
-        "banner": "assets/character/namecard_banner/Xiangling.png",
+        "icon": "assets/character/namecard_icon/Xiangling.avif",
+        "background": "assets/character/namecard_background/Xiangling.avif",
+        "banner": "assets/character/namecard_banner/Xiangling.avif",
         "description": "Try saying this three times fast: \"Guoba sears sea snails by Liyue's sea shore.\"",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 3,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 3,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 2,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 10,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 15,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 4,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 20,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 12,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 8,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 30,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 18,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 12,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 45,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 20,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 60,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 24,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var XIANGLING = {
         {
             "name": "Dough-Fu",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Dough-Fu.png",
+            "icon": "assets/character/talents/Dough-Fu.avif",
             "description": "Normal AttackPerforms up to five consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Guoba Attack",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Guoba Attack.png",
+            "icon": "assets/character/talents/Guoba Attack.avif",
             "description": "Summons Guoba, who will continuously breathe fire at opponents, dealing AoE Pyro DMG."
         },
         {
             "name": "Pyronado",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Pyronado.png",
+            "icon": "assets/character/talents/Pyronado.avif",
             "description": "Displaying her mastery over both fire and polearms, Xiangling sends a Pyronado whirling around her. The Pyronado will move with your character for the ability's duration, dealing Pyro DMG to all opponents in its path."
         },
         {
             "name": "Crossfire",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Crossfire.png",
+            "icon": "assets/character/talents/Crossfire.avif",
             "description": "Increases the flame range of Guoba by 20%."
         },
         {
             "name": "Beware, It's Super Hot!",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Beware, It's Super Hot!.png",
+            "icon": "assets/character/talents/Beware, It's Super Hot!.avif",
             "description": "When Guoba Attack's effects end, Guoba leaves a chili pepper on the spot where it disappeared. Picking up a chili pepper increases ATK by 10% for 10s."
         },
         {
             "name": "Chef de Cuisine",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Chef de Cuisine.png",
+            "icon": "assets/character/talents/Chef de Cuisine.avif",
             "description": "When Xiangling cooks an ATK-boosting dish perfectly, she has a 12% chance to receive double the product."
         }
     ],
@@ -464,17 +493,20 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Diligence",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Diligence.png"
+                    "icon": "assets/materials/Teachings of Diligence.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 3,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 4,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 6,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 9,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 4,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 9,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var XIANGLING = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -858,7 +919,7 @@ var XIANGLING = {
                     "title": "About Escoffier",
                     "text": "Oh! You mean that chef from Fontaine, right? She's great! I got to try a bunch of her new dishes the other day. They were all so... what's the word... precise! It was like she took all the flavors and ingredients in her dishes and transformed them into art! I was amazed at how meticulous everything was — every measurement, every technique executed to perfection! I kinda want Shenhe to ask Aunty Xianyun to make me a precision cooking machine of my own, so I can try out Escoffier's style of cooking!",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Xiangling/story/en/About Escoffier.mp3"
                 },
                 {
                     "title": "More About Xiangling: I",
@@ -2466,412 +2527,5 @@ var XIANGLING = {
     "demo_music": {
         "name": "Flaming Fry",
         "url": "assets/character/demo_music/Xiangling.mp3"
-    },
-    "build": {
-        "version": "4.5",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Staff of the Scarlet Sands",
-            "The Catch R5",
-            "Favonius Lance"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / EM / ATK%",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK% / EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ]
-        ]
     }
 }

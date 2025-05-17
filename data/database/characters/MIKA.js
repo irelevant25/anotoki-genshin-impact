@@ -1,32 +1,32 @@
 var MIKA = {
     "name": "Mika",
     "secondary_title": "Coordinates of Clear Frost",
-    "card_icon": "assets/character/card/Mika.png",
-    "wish_icon": "assets/character/wish/Mika.png",
-    "ingame_icon": "assets/character/ingame/Mika.png",
-    "icon": "assets/character/icon/Mika.png",
+    "card_icon": "assets/character/card/Mika.avif",
+    "wish_icon": "assets/character/wish/Mika.avif",
+    "ingame_icon": "assets/character/ingame/Mika.avif",
+    "icon": "assets/character/icon/Mika.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "August 11th",
@@ -34,55 +34,55 @@ var MIKA = {
         {
             "name": "Factor Confluence",
             "level": 1,
-            "icon": "assets/character/constellations/Factor Confluence.png",
+            "icon": "assets/character/constellations/Factor Confluence.avif",
             "description": "The Soulwind state of Starfrost Swirl can decrease the healing interval between instances caused by Skyfeather Song's Eagleplume state. This decrease percentage is equal to the ATK SPD increase provided by Soulwind."
         },
         {
             "name": "Companion's Ingress",
             "level": 2,
-            "icon": "assets/character/constellations/Companion's Ingress.png",
+            "icon": "assets/character/constellations/Companion's Ingress.avif",
             "description": "When Starfrost Swirl's Flowfrost Arrow first hits an opponent, or its Rimestar Flare hits an opponent, 1 Detector stack from Passive Talent \"Suppressive Barrage\" will be generated.You must have unlocked the Passive Talent \"Suppressive Barrage\" first."
         },
         {
             "name": "Reconnaissance Experience",
             "level": 3,
-            "icon": "assets/character/constellations/Reconnaissance Experience.png",
+            "icon": "assets/character/constellations/Reconnaissance Experience.avif",
             "description": "Increases the Level of Skyfeather Song by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sunfrost Encomium",
             "level": 4,
-            "icon": "assets/character/constellations/Sunfrost Encomium.png",
+            "icon": "assets/character/constellations/Sunfrost Encomium.avif",
             "description": "When Mika's own Skyfeather Song's Eagleplume state heals party members, this will restore 3 Energy to Mika. This form of Energy restoration can occur 5 times during the Eagleplume state created by 1 use of Skyfeather Song."
         },
         {
             "name": "Signal Arrow",
             "level": 5,
-            "icon": "assets/character/constellations/Signal Arrow.png",
+            "icon": "assets/character/constellations/Signal Arrow.avif",
             "description": "Increases the Level of Starfrost Swirl by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Companion's Counsel",
             "level": 6,
-            "icon": "assets/character/constellations/Companion's Counsel.png",
+            "icon": "assets/character/constellations/Companion's Counsel.avif",
             "description": "The maximum number of Detector stacks that Starfrost Swirl's Soulwind can gain is increased by 1. You need to have unlocked the Passive Talent \"Suppressive Barrage\" first.Additionally, active characters affected by Soulwind will deal 60% more Physical CRIT DMG."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
         "name": "Surveyor's Breakfast Sandwich",
-        "icon": "assets/foods/Mika.png"
+        "icon": "assets/foods/Mika.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Mika.png",
-        "background": "assets/character/namecard_background/Mika.png",
-        "banner": "assets/character/namecard_banner/Mika.png",
+        "icon": "assets/character/namecard_icon/Mika.avif",
+        "background": "assets/character/namecard_background/Mika.avif",
+        "banner": "assets/character/namecard_banner/Mika.avif",
         "description": "Every time he holds the map he illustrated in his hands, the boy feels like he is holding a small piece of rubbing of this world.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 3,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 2,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 10,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 4,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 20,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 8,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 30,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 12,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 45,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 20,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 60,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var MIKA = {
         {
             "name": "Spear of Favonius - Arrow's Passage",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Spear of Favonius - Arrow's Passage.png",
+            "icon": "assets/character/talents/Spear of Favonius - Arrow's Passage.avif",
             "description": "Normal AttackPerforms up to 5 consecutive strikes using his crossbow and spear.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Starfrost Swirl",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Starfrost Swirl.png",
+            "icon": "assets/character/talents/Starfrost Swirl.avif",
             "description": "Mika uses his crossbow to attack, granting all nearby characters in your party Soulwind. When characters in the Soulwind state are on the field, their ATK SPD will be increased.Will take effect in different ways if Tapped or Held.TapFires a Flowfrost Arrow that can pierce through opponents, dealing Cryo DMG to enemies it comes into contact with.HoldGoes into Aiming Mode, locking on to an opponent and firing a Rimestar Flare at them, dealing Cryo DMG. When the Rimestar Flare hits, it will rise before exploding, launching Rimestar Shards into a maximum of 3 other opponents, dealing Cryo DMG."
         },
         {
             "name": "Skyfeather Song",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Skyfeather Song.png",
+            "icon": "assets/character/talents/Skyfeather Song.avif",
             "description": "Derives the ability to spur his teammates on from the recited prayers of the knightly order, regenerating HP for all nearby party members. This healing is based on Mika's Max HP and will grant them the Eagleplume state.EagleplumeWhen the Normal Attacks of active characters affected by Eagleplume hit an opponent, Mika will help them regenerate HP based on his Max HP.Characters affected by this state can only regenerate HP in this way once per short interval of time."
         },
         {
             "name": "Suppressive Barrage",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Suppressive Barrage.png",
+            "icon": "assets/character/talents/Suppressive Barrage.avif",
             "description": "Per the following circumstances, the Soulwind state caused by Starfrost Swirl will grant characters the Detector effect, increasing their Physical DMG by 10% when they are on the field.If the Flowfrost Arrow hits more than one opponent, each additional opponent hit will generate 1 Detector stack.When a Rimestar Shard hits an opponent, it will generate 1 Detector stack. Each Rimestar Shard can trigger the effect 1 time.The Soulwind state can have a maximum of 3 Detector stacks, and if Starfrost Swirl is cast again during this duration, the pre-existing Soulwind state and all its Detector stacks will be cleared."
         },
         {
             "name": "Topographical Mapping",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Topographical Mapping.png",
+            "icon": "assets/character/talents/Topographical Mapping.avif",
             "description": "When an active character affected by both Skyfeather Song's Eagleplume and Starfrost Swirl's Soulwind at once scores a CRIT Hit with their attacks, Soulwind will grant them 1 stack of Detector from Suppressive Barrage. During a single instance of Soulwind, 1 Detector stack can be gained in this manner.Additionally, the maximum number of stacks that can be gained through Soulwind alone is increased by 1.Requires Suppressive Barrage to be unlocked first."
         },
         {
             "name": "Demarcation",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Demarcation.png",
+            "icon": "assets/character/talents/Demarcation.avif",
             "description": "Displays the location of nearby resources unique to Mondstadt on the mini-map."
         }
     ],
@@ -465,17 +494,20 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ballad",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ballad.png"
+                    "icon": "assets/materials/Teachings of Ballad.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 1,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 1,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 2,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var MIKA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 2,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2516,165 +2577,5 @@ var MIKA = {
     "demo_music": {
         "name": "Sunfrost Breeze",
         "url": "assets/character/demo_music/Mika.mp3"
-    },
-    "build": {
-        "version": "4.6",
-        "type": "Healer / Support",
-        "weapons": [
-            "Favonius Lance",
-            "Dialogues of the Desert Sages",
-            "Rightful Reward",
-            "Prototype Starglitter",
-            "Black Tassel"
-        ],
-        "artifacts": [
-            "4pc Noblesse Oblige",
-            "4pc Ocean-Hued Clam",
-            "4pc Song of Days Past",
-            "4pc The Exile"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / HP%",
-            "HP%",
-            "CRIT Rate / HP%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate",
-            "HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Freminet",
-                    "icon": "assets/character/icon/Freminet.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                },
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ]
-        ]
     }
 }

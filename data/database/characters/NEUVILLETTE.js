@@ -1,29 +1,29 @@
 var NEUVILLETTE = {
     "name": "Neuvillette",
     "secondary_title": "Ordainer of Inexorable Judgment",
-    "card_icon": "assets/character/card/Neuvillette.png",
-    "wish_icon": "assets/character/wish/Neuvillette.png",
-    "ingame_icon": "assets/character/ingame/Neuvillette.png",
-    "icon": "assets/character/icon/Neuvillette.png",
+    "card_icon": "assets/character/card/Neuvillette.avif",
+    "wish_icon": "assets/character/wish/Neuvillette.avif",
+    "ingame_icon": "assets/character/ingame/Neuvillette.avif",
+    "icon": "assets/character/icon/Neuvillette.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Tall Male",
     "arkhe": "Pneuma",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "December 18th",
@@ -31,43 +31,43 @@ var NEUVILLETTE = {
         {
             "name": "Venerable Institution",
             "level": 1,
-            "icon": "assets/character/constellations/Venerable Institution.png",
+            "icon": "assets/character/constellations/Venerable Institution.avif",
             "description": "When Neuvillette takes the field, he will obtain 1 stack of Past Draconic Glories from the Passive Talent \"Heir to the Ancient Sea's Authority.\" You must first unlock the Passive Talent \"Heir to the Ancient Sea's Authority.\"Additionally, his interruption resistance will be increased while using the Charged Attack Empowerment: Legal Evaluation and the Charged Attack: Equitable Judgment."
         },
         {
             "name": "Juridical Exhortation",
             "level": 2,
-            "icon": "assets/character/constellations/Juridical Exhortation.png",
+            "icon": "assets/character/constellations/Juridical Exhortation.avif",
             "description": "The Passive Talent \"Heir to the Ancient Sea's Authority\" will be enhanced: Each stack of Past Draconic Glories will increase the CRIT DMG of Charged Attack: Equitable Judgment by 14%. The maximum increase that can be achieved this way is 42%.You must first unlock the Passive Talent \"Heir to the Ancient Sea's Authority.\""
         },
         {
             "name": "Ancient Postulation",
             "level": 3,
-            "icon": "assets/character/constellations/Ancient Postulation.png",
+            "icon": "assets/character/constellations/Ancient Postulation.avif",
             "description": "Increases the Level of Normal Attack: As Water Seeks Equilibrium by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Crown of Commiseration",
             "level": 4,
-            "icon": "assets/character/constellations/Crown of Commiseration.png",
+            "icon": "assets/character/constellations/Crown of Commiseration.avif",
             "description": "When Neuvillette is on the field and is healed, 1 Sourcewater Droplet will be generated. This effect can occur once every 4s."
         },
         {
             "name": "Axiomatic Judgment",
             "level": 5,
-            "icon": "assets/character/constellations/Axiomatic Judgment.png",
+            "icon": "assets/character/constellations/Axiomatic Judgment.avif",
             "description": "Increases the Level of O Tides, I Have Returned by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Wrathful Recompense",
             "level": 6,
-            "icon": "assets/character/constellations/Wrathful Recompense.png",
+            "icon": "assets/character/constellations/Wrathful Recompense.avif",
             "description": "When using Charged Attack: Equitable Judgment, Neuvillette can absorb nearby Sourcewater Droplets in an AoE. Each absorbed Droplet will increase the duration of Charged Attack: Equitable Judgment by 1s.Additionally, when Equitable Judgment hits opponents, it will fire off 2 additional currents every 2s, each of which will deal 10% of Neuvillette's Max HP as Hydro DMG. DMG dealt this way will count as DMG dealt by Equitable Judgment."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Court of Fontaine",
@@ -77,12 +77,12 @@ var NEUVILLETTE = {
     ],
     "special_dish": {
         "name": "\"Consommé Purete\"",
-        "icon": "assets/foods/Neuvillette.png"
+        "icon": "assets/foods/Neuvillette.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Neuvillette.png",
-        "background": "assets/character/namecard_background/Neuvillette.png",
-        "banner": "assets/character/namecard_banner/Neuvillette.png",
+        "icon": "assets/character/namecard_icon/Neuvillette.avif",
+        "background": "assets/character/namecard_background/Neuvillette.avif",
+        "banner": "assets/character/namecard_banner/Neuvillette.avif",
         "description": "The water's surface may seem placid as a pristine gem, but it may yet be lying in wait for an opportune moment to gush forth.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 3,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 2,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 10,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 15,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 4,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 20,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 12,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 8,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 30,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 18,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 12,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 45,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 20,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 60,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 24,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var NEUVILLETTE = {
         {
             "name": "As Water Seeks Equilibrium",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/As Water Seeks Equilibrium.png",
+            "icon": "assets/character/talents/As Water Seeks Equilibrium.avif",
             "description": "Normal AttackWith light flourishes, Neuvillette commands the tides to unleash a maximum of 3 attacks, dealing Hydro DMG.Charged Attack Empowerment: Legal EvaluationWhile charging up, Neuvillette will gather the power of water, forming it into a Seal of Arbitration. In this state, Neuvillette can move and change facing, and also absorb any Sourcewater Droplets in a certain AoE.Every Droplet he absorbs will increase the formation speed of the Seal, and will heal Neuvillette.When the charging is stopped, if the Symbol has yet to be formed, then a Charged Attack will be unleashed. If it has been formed, then a Charged Attack: Equitable Judgment will be unleashed.Charged AttackConsumes a fixed amount of Stamina to attack opponents with a rupturing blast of water, dealing AoE Hydro DMG.Charged Attack: Equitable JudgmentUnleashes surging torrents, dealing continuous AoE Hydro DMG to all opponents in a straight-line area in front of him.Equitable Judgment will not consume any Stamina and lasts 3s.If Neuvillette's HP is above 50%, he will continuously lose HP while using this attack.Plunging AttackGathering the might of Hydro, Neuvillette plunges towards the ground from mid-air, damaging all opponents in his path. Deals AoE Hydro DMG upon impact with the ground."
         },
         {
             "name": "O Tears, I Shall Repay",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/O Tears, I Shall Repay.png",
+            "icon": "assets/character/talents/O Tears, I Shall Repay.avif",
             "description": "Summons a Raging Waterfall that will deal AoE Hydro DMG to opponents in front of Neuvillette based on his Max HP. After hitting an opponent, this skill will generate 3 Sourcewater Droplets near that opponent.Arkhe: PneumaAt certain intervals, when the Raging Waterfall descends, a Spiritbreath Thorn will descend that will pierce opponents, dealing Pneuma-aligned Hydro DMG."
         },
         {
             "name": "O Tides, I Have Returned",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/O Tides, I Have Returned.png",
+            "icon": "assets/character/talents/O Tides, I Have Returned.avif",
             "description": "Unleashes waves that will deal AoE Hydro DMG based on Neuvillette's Max HP. After a short interval, 2 waterfalls will descend and deal Hydro DMG in a somewhat smaller AoE, and will generate 6 Sourcewater Droplets within an area in front."
         },
         {
             "name": "Heir to the Ancient Sea's Authority",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Heir to the Ancient Sea's Authority.png",
+            "icon": "assets/character/talents/Heir to the Ancient Sea's Authority.avif",
             "description": "When a party member triggers a Vaporize, Frozen, Electro-Charged, Bloom, Hydro Swirl, or a Hydro Crystallize reaction on opponents, 1 stack of Past Draconic Glories will be granted to Neuvillette for 30s. Max 3 stacks. Past Draconic Glories causes Charged Attack: Equitable Judgment to deal 110%/125%/160% of its original DMG.The stacks of Past Draconic Glories created by each kind of Elemental Reaction exist independently."
         },
         {
             "name": "Discipline of the Supreme Arbitration",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Discipline of the Supreme Arbitration.png",
+            "icon": "assets/character/talents/Discipline of the Supreme Arbitration.avif",
             "description": "For each 1% of Neuvillette's current HP greater than 30% of Max HP, he will gain 0.6% Hydro DMG Bonus. A maximum bonus of 30% can be obtained this way."
         },
         {
             "name": "Gather Like the Tide",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Gather Like the Tide.png",
+            "icon": "assets/character/talents/Gather Like the Tide.avif",
             "description": "Increases underwater Sprint SPD for your own party members by 15%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -465,17 +494,20 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Equity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Equity.png"
+                    "icon": "assets/materials/Teachings of Equity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 4,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 9,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 4,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 1,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 6,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 1,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 9,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 2,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var NEUVILLETTE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 2,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -828,7 +889,7 @@ var NEUVILLETTE = {
                 },
                 {
                     "title": "About the Anemo Archon",
-                    "text": "I shall fulfill my vow to judge all of The Seven in turn, even if the sky should fall and the ground give way. As the recipient of the Authority of Anemo, the God of Breeze and Hope must also stand trial....Hmm? He spends most of his time being a harmless drunkard, you say? Well, even so, I must meet him for myself and proceed from there.",
+                    "text": "I shall fulfill my vow to judge all of The Seven in turn, even if the sky should fall and the ground give way. As the recipient of the Authority of Anemo, the God of Breeze and Hope must also stand trial. ...Hmm? He spends most of his time being a harmless drunkard, you say? Well, even so, I must meet him for myself and proceed from there.",
                     "reading": "(Actual Voice-Over: [...] ...Hmm? He spends most of his time being a harmless drunkard...? *sigh* Well, even so, I must meet him for myself and proceed from there.)",
                     "audio": "assets/character/voice_overs/Neuvillette/story/en/About the Anemo Archon.mp3"
                 },
@@ -2492,252 +2553,5 @@ var NEUVILLETTE = {
     "demo_music": {
         "name": "Parousia Diluvi",
         "url": "assets/character/demo_music/Neuvillette.mp3"
-    },
-    "build": {
-        "version": "5.2",
-        "type": "On-field DPS",
-        "weapons": [
-            "Tome of the Eternal Flow",
-            "Sacrificial Jade",
-            "Ash-Graven Drinking Horn",
-            "Prototype Amber"
-        ],
-        "artifacts": [
-            "4pc Marechaussee Hunter",
-            "4pc Heart of Depth"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Skill",
-            "Burst"
-        ],
-        "main_stats": [
-            "HP%",
-            "Hydro DMG Bonus / HP%",
-            "CRIT Rate / CRIT DMG / HP%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG / HP%",
-            "Flat HP"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Core Dendro",
-                    "icon": "assets/character/icon/Core Dendro.png"
-                },
-                {
-                    "name": "Secondary Dendro",
-                    "icon": "assets/character/icon/Secondary Dendro.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,32 +1,32 @@
 var CHONGYUN = {
     "name": "Chongyun",
     "secondary_title": "Frozen Ardor",
-    "card_icon": "assets/character/card/Chongyun.png",
-    "wish_icon": "assets/character/wish/Chongyun.png",
-    "ingame_icon": "assets/character/ingame/Chongyun.png",
-    "icon": "assets/character/icon/Chongyun.png",
+    "card_icon": "assets/character/card/Chongyun.avif",
+    "wish_icon": "assets/character/wish/Chongyun.avif",
+    "ingame_icon": "assets/character/ingame/Chongyun.avif",
+    "icon": "assets/character/icon/Chongyun.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "September 7th",
@@ -34,55 +34,55 @@ var CHONGYUN = {
         {
             "name": "Ice Unleashed",
             "level": 1,
-            "icon": "assets/character/constellations/Ice Unleashed.png",
+            "icon": "assets/character/constellations/Ice Unleashed.avif",
             "description": "The last attack of Chongyun's Normal Attack combo releases 3 ice blades. Each blade deals 50% of Chongyun's ATK as Cryo DMG to all opponents in its path."
         },
         {
             "name": "Atmospheric Revolution",
             "level": 2,
-            "icon": "assets/character/constellations/Atmospheric Revolution.png",
+            "icon": "assets/character/constellations/Atmospheric Revolution.avif",
             "description": "Elemental Skills and Elemental Bursts cast within the Frost Field created by Spirit Blade: Chonghua's Layered Frost have their CD time decreased by 15%."
         },
         {
             "name": "Cloudburst",
             "level": 3,
-            "icon": "assets/character/constellations/Cloudburst.png",
+            "icon": "assets/character/constellations/Cloudburst.avif",
             "description": "Increases the Level of Spirit Blade: Cloud-Parting Star by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Frozen Skies",
             "level": 4,
-            "icon": "assets/character/constellations/Frozen Skies.png",
+            "icon": "assets/character/constellations/Frozen Skies.avif",
             "description": "Chongyun regenerates 1 Energy every time he hits an opponent affected by Cryo.This effect can only occur once every 2s."
         },
         {
             "name": "The True Path",
             "level": 5,
-            "icon": "assets/character/constellations/The True Path.png",
+            "icon": "assets/character/constellations/The True Path.avif",
             "description": "Increases the Level of Spirit Blade: Chonghua's Layered Frost by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Rally of Four Blades",
             "level": 6,
-            "icon": "assets/character/constellations/Rally of Four Blades.png",
+            "icon": "assets/character/constellations/Rally of Four Blades.avif",
             "description": "Spirit Blade: Cloud-Parting Star deals 15% more DMG to opponents with a lower percentage of their Max HP remaining than Chongyun.This skill will also summon 1 additional spirit blade."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Tianheng Thaumaturges"
     ],
     "special_dish": {
         "name": "Cold Noodles with Mountain Delicacies",
-        "icon": "assets/foods/Chongyun.png"
+        "icon": "assets/foods/Chongyun.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Chongyun.png",
-        "background": "assets/character/namecard_background/Chongyun.png",
-        "banner": "assets/character/namecard_banner/Chongyun.png",
+        "icon": "assets/character/namecard_icon/Chongyun.avif",
+        "background": "assets/character/namecard_background/Chongyun.avif",
+        "banner": "assets/character/namecard_banner/Chongyun.avif",
         "description": "This was originally a peachwood sword made of ice. But a big enough ice block makes a better exorcist's tool than peachwood.",
         "quality": "4",
         "sources": [
@@ -162,22 +162,26 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 3,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 3,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -205,27 +209,32 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 2,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 10,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 15,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -253,27 +262,32 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 4,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 20,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 12,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -301,27 +315,32 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 8,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 30,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 18,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -349,27 +368,32 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 12,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 45,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -397,27 +421,32 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 20,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 60,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 24,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -426,37 +455,37 @@ var CHONGYUN = {
         {
             "name": "Demonbane",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Demonbane.png",
+            "icon": "assets/character/talents/Demonbane.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Spirit Blade: Chonghua's Layered Frost",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Spirit Blade Chonghua's Layered Frost.png",
+            "icon": "assets/character/talents/Spirit Blade Chonghua's Layered Frost.avif",
             "description": "Chongyun strikes the ground with his greatsword, causing a Cryo explosion in a circular AoE in front of him that deals Cryo DMG.After a short delay, the cold air created by the Cryo explosion will coalesce into a Chonghua Frost Field, within which all Sword, Claymore and Polearm-wielding characters' weapons will be infused with Cryo."
         },
         {
             "name": "Spirit Blade: Cloud-Parting Star",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Spirit Blade Cloud-Parting Star.png",
+            "icon": "assets/character/talents/Spirit Blade Cloud-Parting Star.avif",
             "description": "Performing the secret hand seals, Chongyun summons 3 giant spirit blades in mid-air that fall to the earth one by one after a short delay, exploding as they hit the ground.When the spirit blades explode, they will deal AoE Cryo DMG and launch opponents."
         },
         {
             "name": "Steady Breathing",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Steady Breathing.png",
+            "icon": "assets/character/talents/Steady Breathing.avif",
             "description": "Sword, Claymore, or Polearm-wielding characters within the field created by Spirit Blade: Chonghua's Layered Frost have their Normal ATK SPD increased by 8%."
         },
         {
             "name": "Rimechaser Blade",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Rimechaser Blade.png",
+            "icon": "assets/character/talents/Rimechaser Blade.avif",
             "description": "When the field created by Spirit Blade: Chonghua's Layered Frost disappears, another spirit blade will be summoned to strike nearby opponents, dealing 100% of Chonghua's Layered Frost's Skill DMG as AoE Cryo DMG.Opponents hit by this blade will have their Cryo RES decreased by 10% for 8s."
         },
         {
             "name": "Gallant Journey",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Gallant Journey.png",
+            "icon": "assets/character/talents/Gallant Journey.avif",
             "description": "When dispatched on an expedition in Liyue, time consumed is reduced by 25%."
         }
     ],
@@ -467,17 +496,20 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 6,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Diligence",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Diligence.png"
+                    "icon": "assets/materials/Teachings of Diligence.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 3,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 4,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 6,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 9,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 4,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 6,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 9,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var CHONGYUN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -1580,7 +1641,7 @@ var CHONGYUN = {
                 {
                     "title": "종려에 대해…",
                     "text": "「왕생당」의 종려 선생? 뭔가 엄청난 분이신 것 같아. 범부는 악을 저지르며 살인을 하고, 우리 도사들은 퇴마를 하는데, 그는 선인의 장사를 지내잖아",
-                    "reading": "'Wangsaengdang'ui Jongryeo seonsaeng? Mwonga eomcheongnan bunisin geot gata. Beombuneun ageul jeojireumyeo sarineul hago, urindosadeureun toemareul haneunde, geuneun seonin-ui jangsareul jinaejana",
+                    "reading": "“Wangsaengdang”ui Jongryeo seonsaeng? Mwonga eomcheongnan bunisin geot gata. Beombuneun ageul jeojireumyeo sarineul hago, urindosadeureun toemareul haneunde, geuneun seonin-ui jangsareul jinaejana",
                     "audio": "assets/character/voice_overs/Chongyun/story/ko/종려에 대해….mp3"
                 },
                 {
@@ -1598,7 +1659,7 @@ var CHONGYUN = {
                 {
                     "title": "호두에 대해…",
                     "text": "「왕생당」의 방법이라면 믿을 만하지. 하지만 마치 「너희 도사들은 신경 쓸 거 없어」라며 웃고 있는 얼굴을 생각하면 정말 짜증나… 후, 진정하자, 진정해",
-                    "reading": "'Wangsaengdang'ui bangbeobiramyeon mideul man haji. Hajiman machi 'Neohui dosadeureun singyeong sseul geo eopsseo'ramyeo utgo itneun eolgureul saenggakhamyeon jeongmal jjajeungna… hu, jinjeonghaja, jinjeonghae",
+                    "reading": "“Wangsaengdang”ui bangbeobiramyeon mideul man haji. Hajiman machi “Neohui dosadeureun singyeong sseul geo eopsseo”ramyeo utgo itneun eolgureul saenggakhamyeon jeongmal jjajeungna… hu, jinjeonghaja, jinjeonghae",
                     "audio": "assets/character/voice_overs/Chongyun/story/ko/호두에 대해….mp3"
                 },
                 {
@@ -2298,139 +2359,5 @@ var CHONGYUN = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "3.5",
-        "type": "Support",
-        "weapons": [
-            "Wolf's Gravestone",
-            "Beacon of the Reed Sea",
-            "Serpent Spine",
-            "Sacrificial Greatsword",
-            "Lithic Blade",
-            "Redhorn Stonethresher",
-            "Akuoumaru",
-            "Luxurious Sea-Lord",
-            "Mailed Flower",
-            "Bloodtainted Greatsword",
-            "Blackcliff Slasher",
-            "Prototype Archaic",
-            "Favonius Greatsword",
-            "Skyward Pride"
-        ],
-        "artifacts": [
-            "4pc Noblesse Oblige",
-            "4pc Emblem of Severed Fate",
-            "4pc Gilded Dreams",
-            "4pc Lavawalker"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / EM / ER",
-            "Cryo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

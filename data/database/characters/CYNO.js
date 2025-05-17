@@ -1,28 +1,28 @@
 var CYNO = {
     "name": "Cyno",
     "secondary_title": "Judicator of Secrets",
-    "card_icon": "assets/character/card/Cyno.png",
-    "wish_icon": "assets/character/wish/Cyno.png",
-    "ingame_icon": "assets/character/ingame/Cyno.png",
-    "icon": "assets/character/icon/Cyno.png",
+    "card_icon": "assets/character/card/Cyno.avif",
+    "wish_icon": "assets/character/wish/Cyno.avif",
+    "ingame_icon": "assets/character/ingame/Cyno.avif",
+    "icon": "assets/character/icon/Cyno.avif",
     "quality": "5",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "June 23rd",
@@ -30,43 +30,43 @@ var CYNO = {
         {
             "name": "Ordinance: Unceasing Vigil",
             "level": 1,
-            "icon": "assets/character/constellations/Ordinance Unceasing Vigil.png",
+            "icon": "assets/character/constellations/Ordinance Unceasing Vigil.avif",
             "description": "After using Sacred Rite: Wolf's Swiftness, Cyno's Normal Attack SPD will be increased by 20% for 10s. If the Judication effect of his Passive Talent Featherfall Judgment is triggered during Secret Rite: Chasmic Soulfarer, the duration of this increase will be refreshed.You need to unlock the Passive Talent \"Featherfall Judgement.\""
         },
         {
             "name": "Ceremony: Homecoming of Spirits",
             "level": 2,
-            "icon": "assets/character/constellations/Ceremony Homecoming of Spirits.png",
+            "icon": "assets/character/constellations/Ceremony Homecoming of Spirits.avif",
             "description": "When Cyno's Normal Attacks hit opponents, his Electro DMG Bonus will increase by 10% for 4s. This effect can be triggered once every 0.1s. Max 5 stacks."
         },
         {
             "name": "Precept: Lawful Enforcer",
             "level": 3,
-            "icon": "assets/character/constellations/Precept Lawful Enforcer.png",
+            "icon": "assets/character/constellations/Precept Lawful Enforcer.avif",
             "description": "Increases the Level of Sacred Rite: Wolf's Swiftness by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Austerity: Forbidding Guard",
             "level": 4,
-            "icon": "assets/character/constellations/Austerity Forbidding Guard.png",
+            "icon": "assets/character/constellations/Austerity Forbidding Guard.avif",
             "description": "When Cyno is in the Pactsworn Pathclearer state triggered by Sacred Rite: Wolf's Swiftness, after he triggers Electro-Charged, Superconduct, Overloaded, Quicken, Aggravate, Hyperbloom, or an Electro Swirl reaction, he will restore 3 Elemental Energy for all nearby party members (except himself.)This effect can occur 5 times within one use of Sacred Rite: Wolf's Swiftness."
         },
         {
             "name": "Funerary Rite: The Passing of Starlight",
             "level": 5,
-            "icon": "assets/character/constellations/Funerary Rite The Passing of Starlight.png",
+            "icon": "assets/character/constellations/Funerary Rite The Passing of Starlight.avif",
             "description": "Increases the Level of Secret Rite: Chasmic Soulfarer by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Raiment: Just Scales",
             "level": 6,
-            "icon": "assets/character/constellations/Raiment Just Scales.png",
+            "icon": "assets/character/constellations/Raiment Just Scales.avif",
             "description": "After using Sacred Rite: Wolf's Swiftness or triggering the Judication effect of the Passive Talent \"Featherfall Judgment,\" Cyno will gain 4 stacks of the \"Day of the Jackal\" effect. When he hits opponents with Normal Attacks, he will consume 1 stack of \"Day of the Jackal\" to fire off one Duststalker Bolt.\"Day of the Jackal\" lasts for 8s. Max 8 stacks. It will be canceled once Pactsworn Pathclearer ends.A maximum of 1 Duststalker Bolt can be unleashed this way every 0.4s.You must first unlock the Passive Talent \"Featherfall Judgment.\""
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Temple of Silence",
@@ -76,12 +76,12 @@ var CYNO = {
     ],
     "special_dish": {
         "name": "Duel Soul",
-        "icon": "assets/foods/Cyno.png"
+        "icon": "assets/foods/Cyno.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Cyno.png",
-        "background": "assets/character/namecard_background/Cyno.png",
-        "banner": "assets/character/namecard_banner/Cyno.png",
+        "icon": "assets/character/namecard_icon/Cyno.avif",
+        "background": "assets/character/namecard_background/Cyno.avif",
+        "banner": "assets/character/namecard_banner/Cyno.avif",
         "description": "Whenever Cyno falls into a profound silence, he must be considering some weighty judgment... Or perhaps he is simply considering something amusing.",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Scarab",
                     "value": 3,
-                    "icon": "assets/materials/Scarab.png"
+                    "icon": "assets/materials/Scarab.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 2,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Scarab",
                     "value": 10,
-                    "icon": "assets/materials/Scarab.png"
+                    "icon": "assets/materials/Scarab.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 15,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 4,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Scarab",
                     "value": 20,
-                    "icon": "assets/materials/Scarab.png"
+                    "icon": "assets/materials/Scarab.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 8,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Scarab",
                     "value": 30,
-                    "icon": "assets/materials/Scarab.png"
+                    "icon": "assets/materials/Scarab.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 18,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 12,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Scarab",
                     "value": 45,
-                    "icon": "assets/materials/Scarab.png"
+                    "icon": "assets/materials/Scarab.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 20,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Scarab",
                     "value": 60,
-                    "icon": "assets/materials/Scarab.png"
+                    "icon": "assets/materials/Scarab.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 24,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var CYNO = {
         {
             "name": "Invoker's Spear",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Invoker's Spear.png",
+            "icon": "assets/character/talents/Invoker's Spear.avif",
             "description": "Normal AttackPerforms up to 4 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Secret Rite: Chasmic Soulfarer",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Secret Rite Chasmic Soulfarer.png",
+            "icon": "assets/character/talents/Secret Rite Chasmic Soulfarer.avif",
             "description": "Performs a swift thrust, dealing Electro DMG to opponents along the path.When Cyno is under the Pathsworn Pathclearer state triggered by Sacred Rite: Wolf's Swiftness, he will instead unleash a Mortuary Rite that deals thunderous AoE Electro DMG and extends the duration of Pathsworn Pathclearer."
         },
         {
             "name": "Sacred Rite: Wolf's Swiftness",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Sacred Rite Wolf's Swiftness.png",
+            "icon": "assets/character/talents/Sacred Rite Wolf's Swiftness.avif",
             "description": "Calls upon a divine spirit to indwell him, morphing into the Pactsworn Pathclearer.Pactsworn PathclearerCyno's Normal, Charged, and Plunging Attacks will be converted to Electro DMG that cannot be overridden.Cyno's Elemental Mastery and resistance to interruption will increase, and he gains immunity to Electro-Charged DMG.This effect will be canceled when Cyno leaves the field and lasts a maximum of 18s."
         },
         {
             "name": "Featherfall Judgment",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Featherfall Judgment.png",
+            "icon": "assets/character/talents/Featherfall Judgment.avif",
             "description": "When Cyno is in the Pactsworn Pathclearer state activated by Sacred Rite: Wolf's Swiftness, Cyno will enter the Endseer stance at intervals. If he activates Secret Rite: Chasmic Soulfarer while affected by this stance, he will activate the Judication effect, increasing the DMG of this Secret Rite: Chasmic Soulfarer by 35%, and firing off 3 Duststalker Bolts that deal 100% of Cyno's ATK as Electro DMG.Duststalker Bolt DMG is considered Elemental Skill DMG."
         },
         {
             "name": "Authority Over the Nine Bows",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Authority Over the Nine Bows.png",
+            "icon": "assets/character/talents/Authority Over the Nine Bows.avif",
             "description": "Cyno's DMG values will be increased based on his Elemental Mastery as follows:Pactsworn Pathclearer's Normal Attack DMG is increased by 150% of his Elemental Mastery.Duststalker Bolt DMG from his Passive Talent Featherfall Judgment is increased by 250% of his Elemental Mastery."
         },
         {
             "name": "The Gift of Silence",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Gift of Silence.png",
+            "icon": "assets/character/talents/The Gift of Silence.avif",
             "description": "Gains 25% more rewards when dispatched on a Sumeru Expedition for 20 hours."
         }
     ],
@@ -466,17 +495,20 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Admonition",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Admonition.png"
+                    "icon": "assets/materials/Teachings of Admonition.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mudra of the Malefic General",
                     "value": 1,
-                    "icon": "assets/materials/Mudra of the Malefic General.png"
+                    "icon": "assets/materials/Mudra of the Malefic General.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mudra of the Malefic General",
                     "value": 1,
-                    "icon": "assets/materials/Mudra of the Malefic General.png"
+                    "icon": "assets/materials/Mudra of the Malefic General.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mudra of the Malefic General",
                     "value": 2,
-                    "icon": "assets/materials/Mudra of the Malefic General.png"
+                    "icon": "assets/materials/Mudra of the Malefic General.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var CYNO = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mudra of the Malefic General",
                     "value": 2,
-                    "icon": "assets/materials/Mudra of the Malefic General.png"
+                    "icon": "assets/materials/Mudra of the Malefic General.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2517,183 +2578,5 @@ var CYNO = {
     "demo_music": {
         "name": "Order of Silence",
         "url": "assets/character/demo_music/Cyno.mp3"
-    },
-    "build": {
-        "version": "4.2",
-        "type": "On-field DPS",
-        "weapons": [
-            "Staff of the Scarlet Sands",
-            "Ballad of the Fjords",
-            "Primordial Jade Winged-Spear",
-            "Kitain Cross Spear R5",
-            "White Tassel R5",
-            "Deathmatch",
-            "Missive Windspear R5"
-        ],
-        "artifacts": [
-            "4pc Thundering Fury"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM / ATK% / ER",
-            "Electro DMG Bonus / EM",
-            "CRIT Rate / CRIT DMG / EM"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ]
-        ]
     }
 }

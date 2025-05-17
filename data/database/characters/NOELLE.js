@@ -1,32 +1,32 @@
 var NOELLE = {
     "name": "Noelle",
     "secondary_title": "Chivalric Blossom",
-    "card_icon": "assets/character/card/Noelle.png",
-    "wish_icon": "assets/character/wish/Noelle.png",
-    "ingame_icon": "assets/character/ingame/Noelle.png",
-    "icon": "assets/character/icon/Noelle.png",
+    "card_icon": "assets/character/card/Noelle.avif",
+    "wish_icon": "assets/character/wish/Noelle.avif",
+    "ingame_icon": "assets/character/ingame/Noelle.avif",
+    "icon": "assets/character/icon/Noelle.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "March 21st",
@@ -34,55 +34,55 @@ var NOELLE = {
         {
             "name": "I Got Your Back",
             "level": 1,
-            "icon": "assets/character/constellations/I Got Your Back.png",
+            "icon": "assets/character/constellations/I Got Your Back.avif",
             "description": "While Sweeping Time and Breastplate are both in effect, the chance of Breastplate's healing effects activating is increased to 100%."
         },
         {
             "name": "Combat Maid",
             "level": 2,
-            "icon": "assets/character/constellations/Combat Maid.png",
+            "icon": "assets/character/constellations/Combat Maid.avif",
             "description": "Decreases the Stamina Consumption of Noelle's Charged Attacks by 20% and increases her Charged Attack DMG by 15%."
         },
         {
             "name": "Invulnerable Maid",
             "level": 3,
-            "icon": "assets/character/constellations/Invulnerable Maid.png",
+            "icon": "assets/character/constellations/Invulnerable Maid.avif",
             "description": "Increases the Level of Breastplate by 3.Maximum upgrade level is 15."
         },
         {
             "name": "To Be Cleaned",
             "level": 4,
-            "icon": "assets/character/constellations/To Be Cleaned.png",
+            "icon": "assets/character/constellations/To Be Cleaned.avif",
             "description": "When Breastplate's duration expires or it is destroyed by DMG, it will deal 400% of Noelle's ATK of Geo DMG to surrounding opponents."
         },
         {
             "name": "Favonius Sweeper Master",
             "level": 5,
-            "icon": "assets/character/constellations/Favonius Sweeper Master.png",
+            "icon": "assets/character/constellations/Favonius Sweeper Master.avif",
             "description": "Increases the Level of Sweeping Time by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Must Be Spotless",
             "level": 6,
-            "icon": "assets/character/constellations/Must Be Spotless.png",
+            "icon": "assets/character/constellations/Must Be Spotless.avif",
             "description": "Sweeping Time increases Noelle's ATK by an additional 50% of her DEF.Additionally, every opponent defeated during the skill's duration adds 1s to the duration, up to 10s."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
         "name": "Lighter-Than-Air Pancake",
-        "icon": "assets/foods/Noelle.png"
+        "icon": "assets/foods/Noelle.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Noelle.png",
-        "background": "assets/character/namecard_background/Noelle.png",
-        "banner": "assets/character/namecard_banner/Noelle.png",
+        "icon": "assets/character/namecard_icon/Noelle.avif",
+        "background": "assets/character/namecard_background/Noelle.avif",
+        "banner": "assets/character/namecard_banner/Noelle.avif",
         "description": "Noelle is quite special. Noelle won't let any harm come to you.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Valberry",
                     "value": 3,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 3,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 2,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Valberry",
                     "value": 10,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 15,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 4,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Valberry",
                     "value": 20,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 12,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 8,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Valberry",
                     "value": 30,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 18,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 12,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Valberry",
                     "value": 45,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 20,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Valberry",
                     "value": 60,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 24,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var NOELLE = {
         {
             "name": "Favonius Bladework - Maid",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Favonius Bladework - Maid.png",
+            "icon": "assets/character/talents/Favonius Bladework - Maid.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Breastplate",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Breastplate.png",
+            "icon": "assets/character/talents/Breastplate.avif",
             "description": "Summons protective stone armor, dealing Geo DMG to surrounding opponents and creating a shield. The shield's DMG Absorption scales based on Noelle's DEF.The shield has the following properties:When Noelle's Normal and Charged Attacks hit a target, they have a certain chance to regenerate HP for all characters.Possesses 150% DMG Absorption efficiency against all Elemental and Physical DMG.The amount of HP healed when regeneration is triggered scales based on Noelle's DEF."
         },
         {
             "name": "Sweeping Time",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Sweeping Time.png",
+            "icon": "assets/character/talents/Sweeping Time.avif",
             "description": "Gathering the strength of stone around her weapon, Noelle strikes the opponents surrounding her within a large AoE, dealing Geo DMG.Afterwards, Noelle gains the following effects:Larger attack AoE.Converts attack DMG to Geo DMG that cannot be overridden by any other elemental infusion.Increased ATK that scales based on her DEF."
         },
         {
             "name": "Devotion",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Devotion.png",
+            "icon": "assets/character/talents/Devotion.avif",
             "description": "When Noelle is in the party but not on the field, this ability triggers automatically when your active character's HP falls below 30%:Creates a shield for your active character that lasts for 20s and absorbs DMG equal to 400% of Noelle's DEF.The shield has a 150% DMG Absorption effectiveness against all Elemental and Physical DMG.This effect can only occur once every 60s."
         },
         {
             "name": "Nice and Clean",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Nice and Clean.png",
+            "icon": "assets/character/talents/Nice and Clean.avif",
             "description": "Every 4 Normal or Charged Attack hits will decrease the CD of Breastplate by 1s.Hitting multiple opponents with a single attack is only counted as 1 hit."
         },
         {
             "name": "Maid's Knighthood",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Maid's Knighthood.png",
+            "icon": "assets/character/talents/Maid's Knighthood.avif",
             "description": "When a Perfect Cooking is achieved on a DEF-boosting dish, Noelle has a 12% chance to obtain double the product."
         }
     ],
@@ -465,17 +494,20 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 6,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Resistance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Resistance.png"
+                    "icon": "assets/materials/Teachings of Resistance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 3,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 4,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 6,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 9,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 4,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 6,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 9,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var NOELLE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2344,240 +2405,5 @@ var NOELLE = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "4.6",
-        "type": "On-field DPS",
-        "weapons": [
-            "Redhorn Stonethresher",
-            "Serpent Spine",
-            "Verdict",
-            "Beacon of the Reed Sea",
-            "Tidal Shadow",
-            "Skyward Pride",
-            "Wolf's Gravestone",
-            "The Unforged",
-            "Favonius Greatsword"
-        ],
-        "artifacts": [
-            "4pc Husk of Opulent Dreams",
-            "4pc Marechaussee Hunter"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Burst",
-            "Skill"
-        ],
-        "main_stats": [
-            "DEF% / ATK%",
-            "Geo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "DEF%",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Geo Traveler",
-                    "icon": "assets/character/icon/Geo Traveler.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Geo Traveler",
-                    "icon": "assets/character/icon/Geo Traveler.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

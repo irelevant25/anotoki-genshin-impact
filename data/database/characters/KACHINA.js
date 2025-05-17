@@ -1,28 +1,28 @@
 var KACHINA = {
     "name": "Kachina",
     "secondary_title": "Mottled Gold Yet Unsmelted",
-    "card_icon": "assets/character/card/Kachina.png",
-    "wish_icon": "assets/character/wish/Kachina.png",
-    "ingame_icon": "assets/character/ingame/Kachina.png",
-    "icon": "assets/character/icon/Kachina.png",
+    "card_icon": "assets/character/card/Kachina.avif",
+    "wish_icon": "assets/character/wish/Kachina.avif",
+    "ingame_icon": "assets/character/ingame/Kachina.avif",
+    "icon": "assets/character/icon/Kachina.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Short Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "April 22nd",
@@ -30,55 +30,55 @@ var KACHINA = {
         {
             "name": "Shards Are Gems Too",
             "level": 1,
-            "icon": "assets/character/constellations/Shards Are Gems Too.png",
+            "icon": "assets/character/constellations/Shards Are Gems Too.avif",
             "description": "When Kachina mounts or dismounts Turbo Twirly, she will absorb nearby Elemental Shards created by Crystallize.Additionally, when a party member picks up such a Shard, 3 Energy will be restored to Kachina. Energy can be restored this way once every 5s."
         },
         {
             "name": "Never Leave Home Without... Turbo Twirly",
             "level": 2,
-            "icon": "assets/character/constellations/Never Leave Home Without... Turbo Twirly.png",
+            "icon": "assets/character/constellations/Never Leave Home Without... Turbo Twirly.avif",
             "description": "When Kachina uses \"Time to Get Serious!\", she will regain 20 Nightsoul points. If there is no Turbo Twirly belonging to her on the field, she will enter Nightsoul's Blessing and summon one."
         },
         {
             "name": "Improved Stabilizer",
             "level": 3,
-            "icon": "assets/character/constellations/Improved Stabilizer.png",
+            "icon": "assets/character/constellations/Improved Stabilizer.avif",
             "description": "Increases the Level of Go, Go Turbo Twirly! by 3.Maximum upgrade level is 15."
         },
         {
             "name": "More Foes, More Caution",
             "level": 4,
-            "icon": "assets/character/constellations/More Foes, More Caution.png",
+            "icon": "assets/character/constellations/More Foes, More Caution.avif",
             "description": "When there are 1/2/3/4 (or more) opponents within the Turbo Drill Field created by \"Time to Get Serious!\", the active character within the field gains 8%/12%/16%/20% increased DEF."
         },
         {
             "name": "All I've Collected Till Now",
             "level": 5,
-            "icon": "assets/character/constellations/All I've Collected Till Now.png",
+            "icon": "assets/character/constellations/All I've Collected Till Now.avif",
             "description": "Increases the Level of Time to Get Serious! by 3.Maximum upgrade level is 15."
         },
         {
             "name": "This Time, I've Gotta Win",
             "level": 6,
-            "icon": "assets/character/constellations/This Time, I've Gotta Win.png",
+            "icon": "assets/character/constellations/This Time, I've Gotta Win.avif",
             "description": "When your active character's shield is replaced or destroyed for any reason, Kachina will deal 200% of her DEF as AoE Geo DMG. This effect can be triggered once every 5s."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Nanatzcayan"
     ],
     "special_dish": {
         "name": "Impeccably Organized",
-        "icon": "assets/foods/Kachina.png"
+        "icon": "assets/foods/Kachina.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kachina.png",
-        "background": "assets/character/namecard_background/Kachina.png",
-        "banner": "assets/character/namecard_banner/Kachina.png",
+        "icon": "assets/character/namecard_icon/Kachina.avif",
+        "background": "assets/character/namecard_background/Kachina.avif",
+        "banner": "assets/character/namecard_banner/Kachina.avif",
         "description": "The upper half of the Turbo Twirly is very stable, but if the lower half gets stuck, there's a high chance you'll end up with one very dizzy rider.",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 3,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 2,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 10,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 15,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 4,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 20,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 8,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 30,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 18,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 12,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 45,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 20,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 60,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 24,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,43 +449,43 @@ var KACHINA = {
         {
             "name": "Cragbiter",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Cragbiter.png",
+            "icon": "assets/character/talents/Cragbiter.avif",
             "description": "Normal AttackPerforms up to 4 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Go, Go Turbo Twirly!",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Go, Go Turbo Twirly!.png",
+            "icon": "assets/character/talents/Go, Go Turbo Twirly!.avif",
             "description": "Fight alongside the turbo trusty Turbo Twirly!Summons Turbo Twirly. When the skill is Held and released, Kachina will summon and ride Turbo Twirly.After the Skill is used, Kachina will gain 60 Nightsoul points and enter the Nightsoul's Blessing state.Nightsoul's Blessing: KachinaTurbo Twirly's various actions consume Kachina's Nightsoul points.The Nightsoul's Blessing state will end when these points have been depleted.Turbo TwirlyCan exist independently or be ridden and operated by Kachina. When Turbo Twirly is present, Kachina's Elemental Skill, \"Go, Go Turbo Twirly!\", will change to an option to Mount/Dismount Turbo Twirly.When present independent of Kachina, it will slam the ground at intervals, dealing Nightsoul-aligned AoE Geo DMG based on Kachina's DEF.When Kachina is riding Turbo Twirly, she can control it to move and climb swiftly, and use Normal Attacks to slam the ground, dealing Nightsoul-aligned AoE Geo DMG based on Kachina's DEF.Turbo Twirly will disappear once Kachina's Nightsoul's Blessing state ends, and it is considered a Geo Construct. 1 Turbo Twirly can exist on the field at any one time."
         },
         {
             "name": "Time to Get Serious!",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Time to Get Serious!.png",
+            "icon": "assets/character/talents/Time to Get Serious!.avif",
             "description": "Striking the ground, Kachina deals AoE Geo DMG based on her DEF and creates a Turbo Drill Field.The Field increases Turbo Twirly's attack AoE and its movement speed when Kachina is riding it.If Kachina's own Turbo Twirly is present when this is used, Turbo Twirly will be summoned to her side."
         },
         {
             "name": "Mountain Echoes",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Mountain Echoes.png",
+            "icon": "assets/character/talents/Mountain Echoes.avif",
             "description": "When nearby party members trigger a Nightsoul Burst, Kachina's Geo DMG Bonus increases by 20% for 12s."
         },
         {
             "name": "The Weight of Stone",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/The Weight of Stone.png",
+            "icon": "assets/character/talents/The Weight of Stone.avif",
             "description": "Turbo Twirly's DMG is increased by 20% of Kachina's DEF."
         },
         {
             "name": "Heart of Unity",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Heart of Unity.png",
+            "icon": "assets/character/talents/Heart of Unity.avif",
             "description": "After her Nightsoul points are depleted, Kachina will switch to consuming Phlogiston to maintain her Nightsoul's Blessing.While in an area with Phlogiston Mechanics within Natlan, she can use Nightsoul Transmission: Kachina. When the active character is currently sprinting, climbing, in a movement mode caused by certain Talents, or at a certain height in the air, the following will trigger when switching to Kachina: Kachina will enter the Nightsoul's Blessing state and ride Turbo Twirly when taking the field while gaining 30 Nightsoul points. Nightsoul Transmission can be triggered once every 10s by your own team.Additionally, while in Natlan, Kachina will consume 90% less Stamina when climbing while riding Turbo Twirly."
         },
         {
             "name": "Boon of Crystal Flame",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Boon of Crystal Flame.png",
+            "icon": "assets/character/talents/Boon of Crystal Flame.avif",
             "description": "While in an area with Phlogiston Mechanics within Natlan, 20 Stamina will be restored when interacting with some harvestable items. Additionally, the location of nearby resources unique to Natlan will appear on your mini-map."
         }
     ],
@@ -467,17 +496,20 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Conflict",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Conflict.png"
+                    "icon": "assets/materials/Teachings of Conflict.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 1,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 1,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 2,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var KACHINA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 2,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2421,164 +2482,5 @@ var KACHINA = {
     "demo_music": {
         "name": "Pirouette of Pika's Pike",
         "url": "assets/character/demo_music/Kachina.mp3"
-    },
-    "build": {
-        "version": "5.0",
-        "type": "Support",
-        "weapons": [
-            "Favonius Lance",
-            "Footprint of the Rainbow",
-            "Deathmatch",
-            "Staff of the Scarlet Sands"
-        ],
-        "artifacts": [
-            "4pc Scroll of the Hero of Cinder City",
-            "4pc Archaic Petra",
-            "4pc Noblesse Oblige",
-            "4pc Tenacity of the Millelith",
-            "4pc Obsidian Codex"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "DEF%",
-            "Geo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "DEF% / CRIT Rate / CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Mualani",
-                    "icon": "assets/character/icon/Mualani.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ]
-        ]
     }
 }

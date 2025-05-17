@@ -1,32 +1,32 @@
 var BAIZHU = {
     "name": "Baizhu",
     "secondary_title": "Beyond Mortality",
-    "card_icon": "assets/character/card/Baizhu.png",
-    "wish_icon": "assets/character/wish/Baizhu.png",
-    "ingame_icon": "assets/character/ingame/Baizhu.png",
-    "icon": "assets/character/icon/Baizhu.png",
+    "card_icon": "assets/character/card/Baizhu.avif",
+    "wish_icon": "assets/character/wish/Baizhu.avif",
+    "ingame_icon": "assets/character/ingame/Baizhu.avif",
+    "icon": "assets/character/icon/Baizhu.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "April 25th",
@@ -34,55 +34,55 @@ var BAIZHU = {
         {
             "name": "Attentive Observation",
             "level": 1,
-            "icon": "assets/character/constellations/Attentive Observation.png",
+            "icon": "assets/character/constellations/Attentive Observation.avif",
             "description": "Universal Diagnosis gains 1 additional charge."
         },
         {
             "name": "Incisive Discernment",
             "level": 2,
-            "icon": "assets/character/constellations/Incisive Discernment.png",
+            "icon": "assets/character/constellations/Incisive Discernment.avif",
             "description": "When your own active character hits a nearby opponent with their attacks, Baizhu will unleash a Gossamer Sprite: Splice.Gossamer Sprite: Splice will initiate 1 attack before returning, dealing 250% of Baizhu's ATK as Dendro DMG and healing for 20% of Universal Diagnosis's Gossamer Sprite's normal healing.DMG dealt this way is considered Elemental Skill DMG.This effect can be triggered once every 5s."
         },
         {
             "name": "All Aspects Stabilized",
             "level": 3,
-            "icon": "assets/character/constellations/All Aspects Stabilized.png",
+            "icon": "assets/character/constellations/All Aspects Stabilized.avif",
             "description": "Increases the Level of Holistic Revivification by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Ancient Art of Perception",
             "level": 4,
-            "icon": "assets/character/constellations/Ancient Art of Perception.png",
+            "icon": "assets/character/constellations/Ancient Art of Perception.avif",
             "description": "For 15s after Holistic Revivification is used, Baizhu will increase all nearby party members' Elemental Mastery by 80."
         },
         {
             "name": "The Hidden Ebb and Flow",
             "level": 5,
-            "icon": "assets/character/constellations/The Hidden Ebb and Flow.png",
+            "icon": "assets/character/constellations/The Hidden Ebb and Flow.avif",
             "description": "Increases the Level of Universal Diagnosis by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Elimination of Malicious Qi",
             "level": 6,
-            "icon": "assets/character/constellations/Elimination of Malicious Qi.png",
+            "icon": "assets/character/constellations/Elimination of Malicious Qi.avif",
             "description": "Increases the DMG dealt by Holistic Revivification's Spiritveins by 8% of Baizhu's Max HP.Additionally, when a Gossamer Sprite or Gossamer Sprite: Splice hits opponents, there is a 100% chance of generating one of Holistic Revivification's Seamless Shields. This effect can only be triggered once by each Gossamer Sprite or Gossamer Sprite: Splice."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Bubu Pharmacy"
     ],
     "special_dish": {
         "name": "Heat-Quelling Soup",
-        "icon": "assets/foods/Baizhu.png"
+        "icon": "assets/foods/Baizhu.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Baizhu.png",
-        "background": "assets/character/namecard_background/Baizhu.png",
-        "banner": "assets/character/namecard_banner/Baizhu.png",
+        "icon": "assets/character/namecard_icon/Baizhu.avif",
+        "background": "assets/character/namecard_background/Baizhu.avif",
+        "banner": "assets/character/namecard_banner/Baizhu.avif",
         "description": "Sincerity begets longevity.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 3,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 3,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 2,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 10,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 15,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 4,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 20,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 12,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 8,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 30,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 18,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 12,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 45,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Evergloom Ring",
                     "value": 20,
-                    "icon": "assets/materials/Evergloom Ring.png"
+                    "icon": "assets/materials/Evergloom Ring.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 60,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 24,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var BAIZHU = {
         {
             "name": "The Classics of Acupuncture",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/The Classics of Acupuncture.png",
+            "icon": "assets/character/talents/The Classics of Acupuncture.avif",
             "description": "Normal AttackPerforms up to 4 attacks that deal Dendro DMG to opponents in front of him.Charged AttackConsumes a certain amount of Stamina to deal AoE Dendro DMG to opponents in front of him after a short casting time.Plunging AttackCalling upon the might of Dendro, Baizhu plunges towards the ground from mid-air, damaging all opponents in his path. Deals AoE Dendro DMG upon impact with the ground."
         },
         {
             "name": "Universal Diagnosis",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Universal Diagnosis.png",
+            "icon": "assets/character/talents/Universal Diagnosis.avif",
             "description": "Controls a Gossamer Sprite that cruises and attacks nearby opponents, dealing Dendro DMG.After it performs 3 attacks or if there are no opponents nearby, the Sprite will return, healing all nearby party members based on Baizhu's Max HP."
         },
         {
             "name": "Holistic Revivification",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Holistic Revivification.png",
+            "icon": "assets/character/talents/Holistic Revivification.avif",
             "description": "Enters the Pulsing Clarity state, creating a Seamless Shield that absorbs Dendro DMG with 250% effectiveness.While in this state, Baizhu will generate a new Seamless Shield every 2.5s.The Seamless Shield will heal your own active character based on Baizhu's Max HP and attack opponents by unleashing Spiritveins, dealing Dendro DMG under the following circumstances:When a character is under the protection of a Seamless Shield and a new Seamless Shield is generated.When the Seamless Shield's effects expire, or when it is shattered."
         },
         {
             "name": "Five Fortunes Forever",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Five Fortunes Forever.png",
+            "icon": "assets/character/talents/Five Fortunes Forever.avif",
             "description": "Baizhu gains different effects according to the current HP of your current active character:When their HP is less than 50%, Baizhu gains 20% Healing Bonus.When their HP is equal to or more than 50%, Baizhu gains 25% Dendro DMG Bonus."
         },
         {
             "name": "All Things Are of the Earth",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/All Things Are of the Earth.png",
+            "icon": "assets/character/talents/All Things Are of the Earth.avif",
             "description": "Characters who are healed by Seamless Shields will gain the Year of Verdant Favor effect: Each 1,000 Max HP that Baizhu possesses that does not exceed 50,000 will increase the Burning, Bloom, Hyperbloom, and Burgeon reaction DMG dealt by these characters by 2%, while the Aggravate and Spread reaction DMG dealt by these characters will be increased by 0.8%. This effect lasts 6s."
         },
         {
             "name": "Herbal Nourishment",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Herbal Nourishment.png",
+            "icon": "assets/character/talents/Herbal Nourishment.avif",
             "description": "When Baizhu is in the party, interacting with certain harvestable items will heal your current active character for 2.5% of Baizhu's Max HP."
         }
     ],
@@ -465,17 +494,20 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 6,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Gold",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Gold.png"
+                    "icon": "assets/materials/Teachings of Gold.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 3,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 4,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 6,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 9,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 4,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Worldspan Fern",
                     "value": 1,
-                    "icon": "assets/materials/Worldspan Fern.png"
+                    "icon": "assets/materials/Worldspan Fern.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 6,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Worldspan Fern",
                     "value": 1,
-                    "icon": "assets/materials/Worldspan Fern.png"
+                    "icon": "assets/materials/Worldspan Fern.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 9,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Worldspan Fern",
                     "value": 2,
-                    "icon": "assets/materials/Worldspan Fern.png"
+                    "icon": "assets/materials/Worldspan Fern.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var BAIZHU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Worldspan Fern",
                     "value": 2,
-                    "icon": "assets/materials/Worldspan Fern.png"
+                    "icon": "assets/materials/Worldspan Fern.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2396,510 +2457,5 @@ var BAIZHU = {
     "demo_music": {
         "name": "In the Wake of Rain",
         "url": "assets/character/demo_music/Baizhu.mp3"
-    },
-    "build": {
-        "version": "4.6",
-        "type": "Healer / Support",
-        "weapons": [
-            "Jadefall's Splendor",
-            "Prototype Amber R5",
-            "Favonius Codex",
-            "Everlasting Moonglow",
-            "Hakushin Ring R5",
-            "Thrilling Tales of Dragon Slayers R5",
-            "A Thousand Floating Dreams"
-        ],
-        "artifacts": [
-            "4pc Deepwood Memories",
-            "4pc Ocean-Hued Clam",
-            "4pc Instructor",
-            "4pc Noblesse Oblige",
-            "4pc Song of Days Past"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP% / ER",
-            "HP%",
-            "HP% / Healing Bonus"
-        ],
-        "sub_stats": [
-            "ER (until requirements)",
-            "HP% (up to 50k)",
-            "CRIT Rate"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Razor",
-                    "icon": "assets/character/icon/Razor.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                }
-            ],
-            [
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                }
-            ]
-        ]
     }
 }

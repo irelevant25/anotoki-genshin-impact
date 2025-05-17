@@ -1,29 +1,29 @@
 var CLORINDE = {
     "name": "Clorinde",
     "secondary_title": "Candlebearer, Shadowhunter",
-    "card_icon": "assets/character/card/Clorinde.png",
-    "wish_icon": "assets/character/wish/Clorinde.png",
-    "ingame_icon": "assets/character/ingame/Clorinde.png",
-    "icon": "assets/character/icon/Clorinde.png",
+    "card_icon": "assets/character/card/Clorinde.avif",
+    "wish_icon": "assets/character/wish/Clorinde.avif",
+    "ingame_icon": "assets/character/ingame/Clorinde.avif",
+    "icon": "assets/character/icon/Clorinde.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Tall Female",
     "arkhe": "Ousia",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "September 20th",
@@ -31,53 +31,53 @@ var CLORINDE = {
         {
             "name": "\"From This Day, I Pass the Candle's Shadow-Veil\"",
             "level": 1,
-            "icon": "assets/character/constellations/From This Day, I Pass the Candle's Shadow-Veil.png",
+            "icon": "assets/character/constellations/From This Day, I Pass the Candle's Shadow-Veil.avif",
             "description": "While Hunter's Vigil's Night Vigil state is active, when Electro DMG from Clorinde's Normal Attacks hit opponents, they will trigger 2 coordinated attacks from a Nightvigil Shade summoned near the hit opponent, each dealing 30% of Clorinde's ATK as Electro DMG.This effect can occur once every 1.2s. DMG dealt this way is considered Normal Attack DMG."
         },
         {
             "name": "\"Now, As We Face the Perils of the Long Night\"",
             "level": 2,
-            "icon": "assets/character/constellations/Now, As We Face the Perils of the Long Night.png",
+            "icon": "assets/character/constellations/Now, As We Face the Perils of the Long Night.avif",
             "description": "Enhance the Passive Talent \"Dark-Shattering Flame\": After a nearby party member triggers an Electro-related reaction against an opponent, Electro DMG dealt by Clorinde's Normal Attacks and Last Lightfall will be increased by 30% of Clorinde's ATK for 15s. Max 3 stacks. Each stack is counted independently. When you have 3 stacks, Clorinde's interruption resistance will be increased. The Maximum DMG increase achievable this way for the above attacks is 2,700.You must first unlock the Passive Talent \"Dark-Shattering Flame.\""
         },
         {
             "name": "\"I Pledge to Remember the Oath of Daylight\"",
             "level": 3,
-            "icon": "assets/character/constellations/I Pledge to Remember the Oath of Daylight.png",
+            "icon": "assets/character/constellations/I Pledge to Remember the Oath of Daylight.avif",
             "description": "Increases the Level of Hunter's Vigil by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"To Enshrine Tears, Life, and Love\"",
             "level": 4,
-            "icon": "assets/character/constellations/To Enshrine Tears, Life, and Love.png",
+            "icon": "assets/character/constellations/To Enshrine Tears, Life, and Love.avif",
             "description": "When Last Lightfall deals DMG to opponent(s), DMG dealt is increased based on Clorinde's Bond of Life percentage. Every 1% of her current Bond of Life will increase Last Lightfall DMG by 2%. The maximum Last Lightfall DMG increase achievable this way is 200%."
         },
         {
             "name": "\"Holding Dawn's Coming as My Votive\"",
             "level": 5,
-            "icon": "assets/character/constellations/Holding Dawn's Coming as My Votive.png",
+            "icon": "assets/character/constellations/Holding Dawn's Coming as My Votive.avif",
             "description": "Increases the Level of Last Lightfall by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"And So Shall I Never Despair\"",
             "level": 6,
-            "icon": "assets/character/constellations/And So Shall I Never Despair.png",
+            "icon": "assets/character/constellations/And So Shall I Never Despair.avif",
             "description": "For 12s after Hunter's Vigil is used, Clorinde's CRIT Rate will be increased by 10%, and her CRIT DMG by 70%.Additionally, while Night Vigil is active, a Glimbright Shade will appear under specific circumstances, executing an attack that deals 200% of Clorinde's ATK as Electro DMG. DMG dealt this way is considered Normal Attack DMG.The Glimbright Shade will appear under the following circumstances: When Clorinde is about to be hit by an attack. When Clorinde uses Impale the Night: Pact.1 Glimbright Shade can be summoned in the aforementioned ways every 1s. 6 Shades can be summoned per single Night Vigil duration.In addition, while Night Vigil is active, the DMG Clorinde receives is decreased by 80% and her interruption resistance is increased. This effect will disappear after the Night Vigil state ends or 1s after she summons 6 Glimbright Shades."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [],
     "special_dish": {
         "name": "\"Tagged and Bagged\"",
-        "icon": "assets/foods/Clorinde.png"
+        "icon": "assets/foods/Clorinde.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Clorinde.png",
-        "background": "assets/character/namecard_background/Clorinde.png",
-        "banner": "assets/character/namecard_banner/Clorinde.png",
+        "icon": "assets/character/namecard_icon/Clorinde.avif",
+        "background": "assets/character/namecard_background/Clorinde.avif",
+        "banner": "assets/character/namecard_banner/Clorinde.avif",
         "description": "Dedicated Game Masters at the Tabletop Troupe will sometimes switch hats to indicate their change in role. Hmm, in that case, does Clorinde—Forget about it! She doesn't even take that hat off when swimming.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 3,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 2,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 10,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 15,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 4,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 20,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 12,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 8,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 30,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 18,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 12,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 45,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 20,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Lumitoile",
                     "value": 60,
-                    "icon": "assets/materials/Lumitoile.png"
+                    "icon": "assets/materials/Lumitoile.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 24,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var CLORINDE = {
         {
             "name": "Oath of Hunting Shadows",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Oath of Hunting Shadows.png",
+            "icon": "assets/character/talents/Oath of Hunting Shadows.avif",
             "description": "Normal AttackPerforms up to 5 rapid strikes.Charged AttackConsumes a certain amount of Stamina and fires Suppressing Shots in a fan pattern with her pistolet.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Hunter's Vigil",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Hunter's Vigil.png",
+            "icon": "assets/character/talents/Hunter's Vigil.avif",
             "description": "Preparing her pistolet, she enters the \"Night Vigil\" state, using steel and shot together. In this state, Clorinde's Normal Attacks will be transformed into \"Swift Hunt\" pistolet attacks, and the DMG dealt is converted into Electro DMG that cannot be overridden by infusions, and she will be unable to use Charged Attacks. Using her Elemental Skill will transform it into \"Impale the Night\": Perform a lunging attack, dealing Electro DMG. The DMG done through the aforementioned method is considered Normal Attack DMG.Swift Hunt When her Bond of Life is equal to or greater than 100% of her max HP: Performs a pistolet shot. When her Bond of Life is less than 100%, firing her pistolet will grant her Bond of Life, with the amount gained based on her max HP. The shots she fires can pierce opponents, and DMG dealt to opponents in their path is increased.Impale the NightThe current percentage value of Clorinde's Bond of Life determines its effect: When the Bond of Life value is 0%, perform a normal lunging strike; When the Bond of Life value is less than 100% of her max HP, Clorinde is healed based on the Bond of Life value, and the AoE of the lunging attack and the DMG dealt is increased; When the value of the Bond of Life is equal to or greater than 100% of her max HP, use Impale the Night: Pact. The healing multiplier is increased, and the AoE and DMG dealt by the lunge is increased even further.In addition, when Clorinde is in the Night Vigil state, healing effects other than Impale the Night will not take effect and will instead be converted into a Bond of Life that is a percentage of the healing that would have been received.Clorinde will exit the \"Night Vigil\" state when she leaves the field.Arkhe: OusiaPeriodically, when Clorinde's Swift Hunt shots strike opponents, she will summon a Surging Blade at the position hit that deals Ousia-aligned Electro DMG."
         },
         {
             "name": "Last Lightfall",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Last Lightfall.png",
+            "icon": "assets/character/talents/Last Lightfall.avif",
             "description": "Grants herself a Bond of Life based upon her own max HP before swiftly evading and striking with saber and sidearm as one, dealing AoE Electro DMG."
         },
         {
             "name": "Dark-Shattering Flame",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Dark-Shattering Flame.png",
+            "icon": "assets/character/talents/Dark-Shattering Flame.avif",
             "description": "After a nearby party member triggers an Electro-related reaction against an opponent, Electro DMG dealt by Clorinde's Normal Attacks and Last Lightfall will be increased by 20% of Clorinde's ATK for 15s. Max 3 stacks. Each stack is counted independently. The Maximum DMG increase achievable this way for the above attacks is 1,800."
         },
         {
             "name": "Lawful Remuneration",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Lawful Remuneration.png",
+            "icon": "assets/character/talents/Lawful Remuneration.avif",
             "description": "If Clorinde's Bond of Life is equal to or greater than 100% of her Max HP, her CRIT Rate will increase by 10% for 15s whenever her Bond of Life value increases or decreases. Max 2 stacks. Each stack is counted independently.Additionally, Hunter's Vigil's Night Vigil state is buffed: While it is active, the percent of healing converted to Bond of Life increases to 100%."
         },
         {
             "name": "Night Vigil's Harvest",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Night Vigil's Harvest.png",
+            "icon": "assets/character/talents/Night Vigil's Harvest.avif",
             "description": "Displays the location of nearby resources unique to Fontaine on the mini-map."
         }
     ],
@@ -462,17 +491,20 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Justice",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Justice.png"
+                    "icon": "assets/materials/Teachings of Justice.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 4,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 9,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 4,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 1,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 6,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 1,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 9,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 2,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var CLORINDE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 2,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2369,185 +2430,5 @@ var CLORINDE = {
     "demo_music": {
         "name": "Non si levava ancor",
         "url": "assets/character/demo_music/Clorinde.mp3"
-    },
-    "build": {
-        "version": "4.8",
-        "type": "On-field DPS",
-        "weapons": [
-            "Absolution",
-            "Haran Geppaku Futsu",
-            "The Black Sword",
-            "Freedom-Sworn",
-            "Summit Shaper",
-            "Finale of the Deep",
-            "Lion's Roar",
-            "Harbinger of Dawn"
-        ],
-        "artifacts": [
-            "4pc Fragment of Harmonic Whimsy",
-            "4pc Thundering Fury"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / EM",
-            "Electro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM",
-            "ER"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ]
-        ]
     }
 }

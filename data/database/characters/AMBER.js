@@ -1,28 +1,28 @@
 var AMBER = {
     "name": "Amber",
     "secondary_title": "Gliding Champion",
-    "card_icon": "assets/character/card/Amber.png",
-    "wish_icon": "assets/character/wish/Amber.png",
-    "ingame_icon": "assets/character/ingame/Amber.png",
-    "icon": "assets/character/icon/Amber.png",
+    "card_icon": "assets/character/card/Amber.avif",
+    "wish_icon": "assets/character/wish/Amber.avif",
+    "ingame_icon": "assets/character/ingame/Amber.avif",
+    "icon": "assets/character/icon/Amber.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "August 10th",
@@ -30,55 +30,55 @@ var AMBER = {
         {
             "name": "One Arrow to Rule Them All",
             "level": 1,
-            "icon": "assets/character/constellations/One Arrow to Rule Them All.png",
+            "icon": "assets/character/constellations/One Arrow to Rule Them All.avif",
             "description": "Fires 2 arrows per Aimed Shot. The second arrow deals 20% of the first arrow's DMG."
         },
         {
             "name": "Bunny Triggered",
             "level": 2,
-            "icon": "assets/character/constellations/Bunny Triggered.png",
+            "icon": "assets/character/constellations/Bunny Triggered.avif",
             "description": "Baron Bunny, new and improved! Hitting Baron Bunny's foot with a fully-charged Aimed Shot manually detonates it.Explosion via manual detonation deals 200% additional DMG."
         },
         {
             "name": "It Burns!",
             "level": 3,
-            "icon": "assets/character/constellations/It Burns!.png",
+            "icon": "assets/character/constellations/It Burns!.avif",
             "description": "Increases the Level of Fiery Rain by 3.Maximum upgrade level is 15."
         },
         {
             "name": "It's Not Just Any Doll...",
             "level": 4,
-            "icon": "assets/character/constellations/It's Not Just Any Doll....png",
+            "icon": "assets/character/constellations/It's Not Just Any Doll....avif",
             "description": "Decreases Explosive Puppet's CD by 20%. Adds 1 additional charge."
         },
         {
             "name": "It's Baron Bunny!",
             "level": 5,
-            "icon": "assets/character/constellations/It's Baron Bunny!.png",
+            "icon": "assets/character/constellations/It's Baron Bunny!.avif",
             "description": "Increases the Level of Explosive Puppet by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Wildfire",
             "level": 6,
-            "icon": "assets/character/constellations/Wildfire.png",
+            "icon": "assets/character/constellations/Wildfire.avif",
             "description": "Fiery Rain increases all party members' Movement SPD by 15% and ATK by 15% for 10s."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
         "name": "Outrider's Champion Steak!",
-        "icon": "assets/foods/Amber.png"
+        "icon": "assets/foods/Amber.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Amber.png",
-        "background": "assets/character/namecard_background/Amber.png",
-        "banner": "assets/character/namecard_banner/Amber.png",
+        "icon": "assets/character/namecard_icon/Amber.avif",
+        "background": "assets/character/namecard_background/Amber.avif",
+        "banner": "assets/character/namecard_banner/Amber.avif",
         "description": "\"It's Baron Bunny!\"",
         "quality": "4",
         "sources": [
@@ -158,22 +158,26 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 3,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 3,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -201,27 +205,32 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 2,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 10,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 15,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -249,27 +258,32 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 4,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 20,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -297,27 +311,32 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 8,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 30,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 18,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -345,27 +364,32 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 12,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 45,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -393,27 +417,32 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 20,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 60,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 24,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -422,37 +451,37 @@ var AMBER = {
         {
             "name": "Sharpshooter",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Sharpshooter.png",
+            "icon": "assets/character/talents/Sharpshooter.avif",
             "description": "Normal AttackPerforms up to 5 consecutive shots with a bow.Charged AttackPerform a more precise Aimed Shot with increased DMG.While aiming, flames will accumulate on the arrowhead. A fully charged flaming arrow will deal Pyro DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Explosive Puppet",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Explosive Puppet.png",
+            "icon": "assets/character/talents/Explosive Puppet.avif",
             "description": "The ever-reliable Baron Bunny takes the stage.Baron BunnyContinuously taunts the enemy, drawing their fire.Baron Bunny's HP scales with Amber's Max HP.When destroyed or when its timer expires, Baron Bunny explodes, dealing AoE Pyro DMG.HoldAdjusts the throwing direction of Baron Bunny.The longer the button is held, the further the throw."
         },
         {
             "name": "Fiery Rain",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Fiery Rain.png",
+            "icon": "assets/character/talents/Fiery Rain.avif",
             "description": "Fires off a shower of arrows, dealing continuous AoE Pyro DMG."
         },
         {
             "name": "Every Arrow Finds Its Target",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Every Arrow Finds Its Target.png",
+            "icon": "assets/character/talents/Every Arrow Finds Its Target.avif",
             "description": "Increases the CRIT Rate of Fiery Rain by 10% and widens its AoE by 30%."
         },
         {
             "name": "Precise Shot",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Precise Shot.png",
+            "icon": "assets/character/talents/Precise Shot.avif",
             "description": "Aimed Shot hits on weak spots increase ATK by 15% for 10s."
         },
         {
             "name": "Gliding Champion",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Gliding Champion.png",
+            "icon": "assets/character/talents/Gliding Champion.avif",
             "description": "Decreases gliding Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -463,17 +492,20 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Freedom",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Freedom.png"
+                    "icon": "assets/materials/Teachings of Freedom.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -483,17 +515,20 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 3,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -503,17 +538,20 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 4,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -523,17 +561,20 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -543,17 +584,20 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 9,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -563,22 +607,26 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 4,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -588,22 +636,26 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -613,22 +665,26 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 9,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -638,27 +694,32 @@ var AMBER = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Sigh",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Sigh.png"
+                    "icon": "assets/materials/Dvalin's Sigh.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2582,73 +2643,5 @@ var AMBER = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "5.4",
-        "type": "Support",
-        "weapons": [
-            "Elegy for the End",
-            "Favonius Warbow"
-        ],
-        "artifacts": [
-            "4pc Instructor",
-            "4pc Scroll of the Hero of Cinder City",
-            "4pc Noblesse Oblige"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / ATK%",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate",
-            "CRIT DMG",
-            "ATK%",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Amber",
-                    "icon": "assets/character/icon/Amber.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Amber",
-                    "icon": "assets/character/icon/Amber.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

@@ -1,32 +1,32 @@
 var XILONEN = {
     "name": "Xilonen",
     "secondary_title": "Ardent Flames Forge the Soul",
-    "card_icon": "assets/character/card/Xilonen.png",
-    "wish_icon": "assets/character/wish/Xilonen.png",
-    "ingame_icon": "assets/character/ingame/Xilonen.png",
-    "icon": "assets/character/icon/Xilonen.png",
+    "card_icon": "assets/character/card/Xilonen.avif",
+    "wish_icon": "assets/character/wish/Xilonen.avif",
+    "ingame_icon": "assets/character/ingame/Xilonen.avif",
+    "icon": "assets/character/icon/Xilonen.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "March 13th",
@@ -34,55 +34,55 @@ var XILONEN = {
         {
             "name": "Sabbatical Phrase",
             "level": 1,
-            "icon": "assets/character/constellations/Sabbatical Phrase.png",
+            "icon": "assets/character/constellations/Sabbatical Phrase.avif",
             "description": "Xilonen's Nightsoul point and Phlogiston consumption in her Nightsoul's Blessing state is decreased by 30%, and her Nightsoul point time limit is extended by 45%.Additionally, when Xilonen's Source Samples are active, she can also increase nearby active characters' interruption resistance."
         },
         {
             "name": "Chiucue Mix",
             "level": 2,
-            "icon": "assets/character/constellations/Chiucue Mix.png",
+            "icon": "assets/character/constellations/Chiucue Mix.avif",
             "description": "Xilonen's Geo Source Sample will always remain active. Additionally, when her Source Samples activate, all nearby party members will gain effects corresponding to the active Source Sample that matches their Elemental Type:Geo: DMG +50%.Pyro: ATK +45%.Hydro: Max HP +45%.Cryo: CRIT DMG +60%.Electro: Restore 25 Energy, decrease Elemental Burst CD by 6s."
         },
         {
             "name": "Tonalpohualli's Loop",
             "level": 3,
-            "icon": "assets/character/constellations/Tonalpohualli's Loop.png",
+            "icon": "assets/character/constellations/Tonalpohualli's Loop.avif",
             "description": "Increases the Level of Yohual's Scratch by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Suchitl's Trance",
             "level": 4,
-            "icon": "assets/character/constellations/Suchitl's Trance.png",
+            "icon": "assets/character/constellations/Suchitl's Trance.avif",
             "description": "After Xilonen uses Yohual's Scratch, she will grant all nearby party members the Blooming Blessing effect for 15s.Characters with Blooming Blessing deal 65% of Xilonen's DEF as increased Normal, Charged, and Plunging Attack DMG. This effect will be removed after triggering 6 times or when the duration ends.When you hit more than one opponent, trigger counts will be consumed based on the number of opponents hit. The counts for each party member with Blooming Blessing are counted independently."
         },
         {
             "name": "Tlaltecuhtli's Crossfade",
             "level": 5,
-            "icon": "assets/character/constellations/Tlaltecuhtli's Crossfade.png",
+            "icon": "assets/character/constellations/Tlaltecuhtli's Crossfade.avif",
             "description": "Increases the Level of Ocelotlicue Point! by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Imperishable Night Carnival",
             "level": 6,
-            "icon": "assets/character/constellations/Imperishable Night Carnival.png",
+            "icon": "assets/character/constellations/Imperishable Night Carnival.avif",
             "description": "When Xilonen is in the Nightsoul's Blessing state, when she sprints, leaps, or uses Normal or Plunging Attacks, she will gain Imperishable Night's Blessing, ignoring the limitations of her Nightsoul's Blessing state and increasing the DMG dealt by her Normal and Plunging Attacks for 5s.During this time:Her Nightsoul's Blessing time limit countdown will be paused. Xilonen's Nightsoul points, Phlogiston, and Stamina will not decrease, and when her Nightsoul points reach the maximum, her Nightsoul's Blessing state will not end either.Xilonen deals 300% of her DEF as increased Normal and Plunging Attack DMG while in the Nightsoul's Blessing state.She heals nearby party members for 120% of her DEF every 1.5s.She can gain 1 Imperishable Night's Blessing once every 15s."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Nanatzcayan"
     ],
     "special_dish": {
         "name": "Fruit-Flavored Milk Candies",
-        "icon": "assets/foods/Xilonen.png"
+        "icon": "assets/foods/Xilonen.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Xilonen.png",
-        "background": "assets/character/namecard_background/Xilonen.png",
-        "banner": "assets/character/namecard_banner/Xilonen.png",
+        "icon": "assets/character/namecard_icon/Xilonen.avif",
+        "background": "assets/character/namecard_background/Xilonen.avif",
+        "banner": "assets/character/namecard_banner/Xilonen.avif",
         "description": "Right on cue, the mountains echo with the rhythm of Xilonen's forge-hammer. When the final echo fades, she has already long ceased her toil and found a sunlit spot for her afternoon nap.",
         "quality": "4",
         "sources": [
@@ -98,7 +98,7 @@ var XILONEN = {
     "voice_actors": [
         {
             "language": "English",
-            "actor": "Beth Curry"
+            "actor": "Elizabeth Dean"
         },
         {
             "language": "Chinese",
@@ -160,22 +160,26 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Brilliant Chrysanthemum",
                     "value": 3,
-                    "icon": "assets/materials/Brilliant Chrysanthemum.png"
+                    "icon": "assets/materials/Brilliant Chrysanthemum.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 2,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Brilliant Chrysanthemum",
                     "value": 10,
-                    "icon": "assets/materials/Brilliant Chrysanthemum.png"
+                    "icon": "assets/materials/Brilliant Chrysanthemum.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 15,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 4,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Brilliant Chrysanthemum",
                     "value": 20,
-                    "icon": "assets/materials/Brilliant Chrysanthemum.png"
+                    "icon": "assets/materials/Brilliant Chrysanthemum.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 8,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Brilliant Chrysanthemum",
                     "value": 30,
-                    "icon": "assets/materials/Brilliant Chrysanthemum.png"
+                    "icon": "assets/materials/Brilliant Chrysanthemum.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 18,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 12,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Brilliant Chrysanthemum",
                     "value": 45,
-                    "icon": "assets/materials/Brilliant Chrysanthemum.png"
+                    "icon": "assets/materials/Brilliant Chrysanthemum.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 20,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Brilliant Chrysanthemum",
                     "value": 60,
-                    "icon": "assets/materials/Brilliant Chrysanthemum.png"
+                    "icon": "assets/materials/Brilliant Chrysanthemum.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 24,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,43 +453,43 @@ var XILONEN = {
         {
             "name": "Ehecatl's Roar",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Ehecatl's Roar.png",
+            "icon": "assets/character/talents/Ehecatl's Roar.avif",
             "description": "Normal AttackPerforms up to 3 rapid strikes.Charged AttackConsumes a fixed amount of Stamina and performs a forward kick.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact, both based on Xilonen's DEF.Nightsoul's Blessing: Blade RollerWhen in the Nightsoul's Blessing state, Xilonen will enter the Blade Roller mode. While in this mode, Xilonen's Normal Attacks will allow her to perform up to 4 kicks using her roller blades, and she will be unable to use Charged Attacks.When she uses Normal and Plunging Attacks in this mode, they will switch to being based on her DEF, and she will deal Nightsoul-aligned Geo DMG that cannot be overridden."
         },
         {
             "name": "Yohual's Scratch",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Yohual's Scratch.png",
+            "icon": "assets/character/talents/Yohual's Scratch.avif",
             "description": "Let the rhythms of passion resound throughout the land! Xilonen switches to high-speed combat blading gear and rushes forward a certain distance before dealing Nightsoul-aligned Geo DMG based on her DEF.After using this, Xilonen will gain 45 Nightsoul points and enter the Nightsoul's Blessing state. In this state, she will shift to the Blade Roller mode.Source SamplesXilonen has 3 Samplers with her that can generate different Soundscapes based on her other party members' Elemental Types, decreasing nearby opponents' corresponding Elemental RES while active.The initial recorded Source Sample within each Sampler will be Geo, and for each party member who is Pyro/Hydro/Cryo/Electro, 1 Geo Sampler will change to that corresponding Element.While Xilonen is in the Nightsoul's Blessing state, the Geo Source Sample she carries will always be active. After unlocking her Passive Talent, \"Netotiliztli's Echoes,\" Xilonen can trigger said Passive Talent's effects to regenerate Nightsoul points for herself. When her Nightsoul points hit the maximum, she will consume all her Nightsoul points and activate the 3 Source Samples she has on hand for 15s.When the Source Samples are active, nearby opponents' corresponding Elemental RES will decrease. Source Sample effects of the same Elemental Type cannot stack. Xilonen can trigger these effects even when off-field.Nightsoul's Blessing: XilonenContinuously consume Nightsoul points. When these points are depleted or if used again, this Nightsoul's Blessing state will end. This state has the following traits:Switches to the Blade Roller mode, increasing Xilonen's Movement SPD and climbing speed, and she can perform high-speed leaps in Ocelot Form while climbing.Xilonen's Nightsoul's Blessing has the following restrictions: When in this state, Xilonen's Nightsoul points have a 9s time limit. After this limit passes, her Nightsoul points will immediately expire.After Xilonen's Nightsoul points have expired while she is in the Nightsoul's Blessing state, she will no longer be able to generate Nightsoul points via the Passive Talent \"Netotiliztli's Echoes.\""
         },
         {
             "name": "Ocelotlicue Point!",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Ocelotlicue Point!.png",
+            "icon": "assets/character/talents/Ocelotlicue Point!.avif",
             "description": "Activates the Phlogiston Stereo DJ Controller (Portable) at full power, dealing Nightsoul-aligned AoE Geo DMG based on Xilonen's DEF.Additionally, she will trigger the following effects based on her different Source Samples:If she has at least 2 Source Samples that have had their Elemental Types changed, Xilonen will play an Ebullient rhythm, healing nearby active characters at intervals based on her DEF.If she has fewer than 2 Source Samples that have had their Elemental Types changed, Xilonen will start up an Ardent rhythm, which will play two additional beats that deal Nightsoul-aligned AoE Geo DMG based on her DEF."
         },
         {
             "name": "Netotiliztli's Echoes",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Netotiliztli's Echoes.png",
+            "icon": "assets/character/talents/Netotiliztli's Echoes.avif",
             "description": "While in the Nightsoul's Blessing state:If Xilonen has at least 2 Source Samples that have had their Elemental Types changed, she gains 35 Nightsoul points when her Normal or Plunging Attacks hit opponents. Can be triggered once every 0.1s.If Xilonen has fewer than 2 Source Samples that have had their Elemental Types changed, her Normal and Plunging Attacks deal 30% increased DMG."
         },
         {
             "name": "Portable Armored Sheath",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Portable Armored Sheath.png",
+            "icon": "assets/character/talents/Portable Armored Sheath.avif",
             "description": "While in the Nightsoul's Blessing state, when Xilonen's Nightsoul points reach the maximum, she will trigger an effect equal to that of her Nightsoul Burst. This effect can be triggered once every 14s.Additionally, when nearby party members trigger a Nightsoul Burst, Xilonen's DEF is increased by 20% for 15s."
         },
         {
             "name": "Blessing of Forge-Fire",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Blessing of Forge-Fire.png",
+            "icon": "assets/character/talents/Blessing of Forge-Fire.avif",
             "description": "After her Nightsoul points are fully depleted, Xilonen will switch to consuming Phlogiston to maintain her Nightsoul's Blessing.While in an area with Phlogiston Mechanics within Natlan, she can use Nightsoul Transmission: Xilonen. When the active character is currently sprinting, climbing, in a movement mode caused by certain Talents, or at a certain height in the air, the following will trigger when switching to Xilonen: Xilonen will enter the Nightsoul's Blessing state and gain 20 Nightsoul points. In this situation, Xilonen's Nightsoul points have a 4s time limit, after which her Nightsoul points will immediately expire. After she uses Yohual's Scratch within this time limit, her Nightsoul point time limit will be extended by 9s. Nightsoul Transmission can be triggered once every 10s by your own team.Additionally, while in Natlan, Xilonen will not consume Stamina when climbing while in the Nightsoul's Blessing state."
         },
         {
             "name": "Tour of Tepeilhuitl",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Tour of Tepeilhuitl.png",
+            "icon": "assets/character/talents/Tour of Tepeilhuitl.avif",
             "description": "Triggering Nightsoul Transmission restores 15 Phlogiston."
         }
     ],
@@ -471,17 +500,20 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Kindling",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Kindling.png"
+                    "icon": "assets/materials/Teachings of Kindling.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -491,17 +523,20 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -511,17 +546,20 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -531,17 +569,20 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -551,17 +592,20 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -571,22 +615,26 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 1,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -596,22 +644,26 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 1,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -621,22 +673,26 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 2,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -646,27 +702,32 @@ var XILONEN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 2,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2306,128 +2367,5 @@ var XILONEN = {
     "demo_music": {
         "name": "Lights on Me",
         "url": "assets/character/demo_music/Xilonen.mp3"
-    },
-    "build": {
-        "version": "5.4",
-        "type": "Healer / Support",
-        "weapons": [
-            "Peak Patrol Song",
-            "Favonius Sword",
-            "Freedom-Sworn",
-            "Xiphos' Moonlight",
-            "Skyrider Sword",
-            "Flute of Ezpitzal"
-        ],
-        "artifacts": [
-            "4pc Scroll of the Hero of Cinder City"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / DEF%",
-            "DEF%",
-            "DEF% / CRIT Rate / Healing Bonus"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate",
-            "DEF%",
-            "Flat DEF"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ]
-        ]
     }
 }

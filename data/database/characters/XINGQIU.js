@@ -1,32 +1,32 @@
 var XINGQIU = {
     "name": "Xingqiu",
     "secondary_title": "Juvenile Galant",
-    "card_icon": "assets/character/card/Xingqiu.png",
-    "wish_icon": "assets/character/wish/Xingqiu.png",
-    "ingame_icon": "assets/character/ingame/Xingqiu.png",
-    "icon": "assets/character/icon/Xingqiu.png",
+    "card_icon": "assets/character/card/Xingqiu.avif",
+    "wish_icon": "assets/character/wish/Xingqiu.avif",
+    "ingame_icon": "assets/character/ingame/Xingqiu.avif",
+    "icon": "assets/character/icon/Xingqiu.avif",
     "quality": "4",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "October 9th",
@@ -34,43 +34,43 @@ var XINGQIU = {
         {
             "name": "The Scent Remained",
             "level": 1,
-            "icon": "assets/character/constellations/The Scent Remained.png",
+            "icon": "assets/character/constellations/The Scent Remained.avif",
             "description": "Increases the maximum number of Rain Swords by 1."
         },
         {
             "name": "Rainbow Upon the Azure Sky",
             "level": 2,
-            "icon": "assets/character/constellations/Rainbow Upon the Azure Sky.png",
+            "icon": "assets/character/constellations/Rainbow Upon the Azure Sky.avif",
             "description": "Extends the duration of Guhua Sword: Raincutter by 3s.Decreases the Hydro RES of opponents hit by sword rain attacks by 15% for 4s."
         },
         {
             "name": "Weaver of Verses",
             "level": 3,
-            "icon": "assets/character/constellations/Weaver of Verses.png",
+            "icon": "assets/character/constellations/Weaver of Verses.avif",
             "description": "Increases the Level of Guhua Sword: Raincutter by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Evilsoother",
             "level": 4,
-            "icon": "assets/character/constellations/Evilsoother.png",
+            "icon": "assets/character/constellations/Evilsoother.avif",
             "description": "Throughout the duration of Guhua Sword: Raincutter, the DMG dealt by Guhua Sword: Fatal Rainscreen is increased by 50%."
         },
         {
             "name": "Embrace of Rain",
             "level": 5,
-            "icon": "assets/character/constellations/Embrace of Rain.png",
+            "icon": "assets/character/constellations/Embrace of Rain.avif",
             "description": "Increases the Level of Guhua Sword: Fatal Rainscreen by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Hence, Call Them My Own Verses",
             "level": 6,
-            "icon": "assets/character/constellations/Hence, Call Them My Own Verses.png",
+            "icon": "assets/character/constellations/Hence, Call Them My Own Verses.avif",
             "description": "Activating 2 of Guhua Sword: Raincutter's sword rain attacks greatly enhances the third sword rain attack. On hit, the third sword rain attack also regenerates 3 Energy for Xingqiu."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Feiyun Commerce Guild",
@@ -79,12 +79,12 @@ var XINGQIU = {
     ],
     "special_dish": {
         "name": "All-Delicacy Parcels",
-        "icon": "assets/foods/Xingqiu.png"
+        "icon": "assets/foods/Xingqiu.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Xingqiu.png",
-        "background": "assets/character/namecard_background/Xingqiu.png",
-        "banner": "assets/character/namecard_banner/Xingqiu.png",
+        "icon": "assets/character/namecard_icon/Xingqiu.avif",
+        "background": "assets/character/namecard_background/Xingqiu.avif",
+        "banner": "assets/character/namecard_banner/Xingqiu.avif",
         "description": "Come watch the night rain that brings no rainbow.",
         "quality": "4",
         "sources": [
@@ -165,22 +165,26 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 3,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 3,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -208,27 +212,32 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 2,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 10,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 15,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -256,27 +265,32 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 4,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 20,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 12,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -304,27 +318,32 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 8,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 30,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 18,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -352,27 +371,32 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 12,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 45,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -400,27 +424,32 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 20,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Silk Flower",
                     "value": 60,
-                    "icon": "assets/materials/Silk Flower.png"
+                    "icon": "assets/materials/Silk Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 24,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -429,37 +458,37 @@ var XINGQIU = {
         {
             "name": "Guhua Style",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Guhua Style.png",
+            "icon": "assets/character/talents/Guhua Style.avif",
             "description": "Normal AttackPerforms up to 5 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 2 rapid sword strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Guhua Sword: Fatal Rainscreen",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Guhua Sword Fatal Rainscreen.png",
+            "icon": "assets/character/talents/Guhua Sword Fatal Rainscreen.avif",
             "description": "Xingqiu performs twin strikes with his sword, dealing Hydro DMG. At the same time, this ability creates the maximum number of Rain Swords, which will orbit your active character.The Rain Swords have the following properties:When a character takes DMG, the Rain Sword will shatter, reducing the amount of DMG taken.Increases the character's resistance to interruption.20% of Xingqiu's Hydro DMG Bonus will be converted to additional DMG Reduction for the Rain Swords.The maximum amount of additional DMG Reduction that can be gained this way is 24%.The initial maximum number of Rain Swords is 3.Using this ability applies the Wet status onto the character."
         },
         {
             "name": "Guhua Sword: Raincutter",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Guhua Sword Raincutter.png",
+            "icon": "assets/character/talents/Guhua Sword Raincutter.avif",
             "description": "Initiate Rainbow Bladework and fight using an illusory sword rain, while creating the maximum number of Rain Swords.Rainbow BladeworkYour active character's Normal Attacks will trigger consecutive sword rain attacks, dealing Hydro DMG.Rain Swords will remain at the maximum number throughout the ability's duration."
         },
         {
             "name": "Hydropathic",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Hydropathic.png",
+            "icon": "assets/character/talents/Hydropathic.avif",
             "description": "When a Rain Sword is shattered or when its duration expires, it regenerates the current character's HP based on 6% of Xingqiu's Max HP."
         },
         {
             "name": "Blades Amidst Raindrops",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Blades Amidst Raindrops.png",
+            "icon": "assets/character/talents/Blades Amidst Raindrops.avif",
             "description": "Xingqiu gains a 20% Hydro DMG Bonus."
         },
         {
             "name": "Flash of Genius (Xingqiu)",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Flash of Genius (Xingqiu).png",
+            "icon": "assets/character/talents/Flash of Genius (Xingqiu).avif",
             "description": "When Xingqiu crafts Character Talent Materials, he has a 25% chance to refund a portion of the crafting materials used."
         }
     ],
@@ -470,17 +499,20 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 6,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Gold",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Gold.png"
+                    "icon": "assets/materials/Teachings of Gold.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -490,17 +522,20 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 3,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -510,17 +545,20 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 4,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -530,17 +568,20 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 6,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -550,17 +591,20 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 9,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -570,22 +614,26 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 4,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tail of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Tail of Boreas.png"
+                    "icon": "assets/materials/Tail of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -595,22 +643,26 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 6,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tail of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Tail of Boreas.png"
+                    "icon": "assets/materials/Tail of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -620,22 +672,26 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 9,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tail of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Tail of Boreas.png"
+                    "icon": "assets/materials/Tail of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -645,27 +701,32 @@ var XINGQIU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tail of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Tail of Boreas.png"
+                    "icon": "assets/materials/Tail of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2541,277 +2602,5 @@ var XINGQIU = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "4.0",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Primordial Jade Cutter",
-            "Mistsplitter Reforged",
-            "Haran Geppaku Futsu",
-            "Skyward Blade",
-            "Wolf-Fang",
-            "Favonius Sword",
-            "Sacrificial Sword",
-            "Fleuve Cendre Ferryman",
-            "Festering Desire",
-            "Amenoma Kageuchi",
-            "Finale of the Deep"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Noblesse Oblige"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / ATK%",
-            "Hydro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

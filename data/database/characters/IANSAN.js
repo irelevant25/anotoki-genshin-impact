@@ -1,32 +1,32 @@
 var IANSAN = {
     "name": "Iansan",
     "secondary_title": "Tempered in Molten Stone",
-    "card_icon": "assets/character/card/Iansan.png",
-    "wish_icon": "assets/character/wish/Iansan.png",
-    "ingame_icon": "assets/character/ingame/Iansan.png",
-    "icon": "assets/character/icon/Iansan.png",
+    "card_icon": "assets/character/card/Iansan.avif",
+    "wish_icon": "assets/character/wish/Iansan.avif",
+    "ingame_icon": "assets/character/ingame/Iansan.avif",
+    "icon": "assets/character/icon/Iansan.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Short Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "August 8th",
@@ -34,55 +34,55 @@ var IANSAN = {
         {
             "name": "Starting's Never Easy",
             "level": 1,
-            "icon": "assets/character/constellations/Starting's Never Easy.png",
+            "icon": "assets/character/constellations/Starting's Never Easy.avif",
             "description": "When Iansan is in combat and is in the Nightsoul's Blessing state, she will restore 15 Elemental Energy for every 6 Nightsoul points she consumes. This effect can trigger once every 18s."
         },
         {
             "name": "Laziness is the Enemy!",
             "level": 2,
-            "icon": "assets/character/constellations/Laziness is the Enemy!.png",
+            "icon": "assets/character/constellations/Laziness is the Enemy!.avif",
             "description": "When using the Elemental Burst The Three Principles of Power, Iansan will also gain the Precise Movement effect from her Passive Talent \"Enhanced Resistance Training\" for 15s. Additionally, if Iansan is off-field while Precise Movement is active, she will also increase your current active character's ATK by 30%. You must first unlock the Passive Talent \"Enhanced Resistance Training\" to access the above effect."
         },
         {
             "name": "Scientific Diet Planning",
             "level": 3,
-            "icon": "assets/character/constellations/Scientific Diet Planning.png",
+            "icon": "assets/character/constellations/Scientific Diet Planning.avif",
             "description": "Increases the Level of Thunderbolt Rush by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Slow and Steady Wins the Race",
             "level": 4,
-            "icon": "assets/character/constellations/Slow and Steady Wins the Race.png",
+            "icon": "assets/character/constellations/Slow and Steady Wins the Race.avif",
             "description": "When the Kinetic Energy Scale is present, Iansan will gain 2 stacks of Surging Force after your current active character (excluding herself) uses their Elemental Burst. The stacks last until the Scale leaves the field, and Surging Force can be gained once per Scale summoning. Whenever Iansan restores Nightsoul points via the Scale, she will consume 1 Surging Force stack and restore 4 additional Nightsoul points.Additionally, if her Nightsoul restoration from the Scale overflows, Iansan will gain 50% of the overflow the next time she restores Nightsoul points via the Scale."
         },
         {
             "name": "We Can Push It Further!",
             "level": 5,
-            "icon": "assets/character/constellations/We Can Push It Further!.png",
+            "icon": "assets/character/constellations/We Can Push It Further!.avif",
             "description": "Increases the Level of The Three Principles of Power by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Teachings of the Collective of Plenty",
             "level": 6,
-            "icon": "assets/character/constellations/Teachings of the Collective of Plenty.png",
+            "icon": "assets/character/constellations/Teachings of the Collective of Plenty.avif",
             "description": "The Kinetic Energy Scale's duration is increased by 3s.Additionally, when Iansan triggers Nightsoul points restoration, if there is any overflow, she will gain the Extreme Force effect, which increases the DMG dealt by your current active character by 25% for 3s."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Teteocan"
     ],
     "special_dish": {
         "name": "Gold-Standard Healthy Meal",
-        "icon": "assets/foods/Iansan.png"
+        "icon": "assets/foods/Iansan.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Iansan.png",
-        "background": "assets/character/namecard_background/Iansan.png",
-        "banner": "assets/character/namecard_banner/Iansan.png",
+        "icon": "assets/character/namecard_icon/Iansan.avif",
+        "background": "assets/character/namecard_background/Iansan.avif",
+        "banner": "assets/character/namecard_banner/Iansan.avif",
         "description": "\"If you really need to, and you push yourself hard enough, you can even train in your dreams!\" Sounds great, but... Is it actually possible?",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Dracolite",
                     "value": 3,
-                    "icon": "assets/materials/Dracolite.png"
+                    "icon": "assets/materials/Dracolite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 2,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dracolite",
                     "value": 10,
-                    "icon": "assets/materials/Dracolite.png"
+                    "icon": "assets/materials/Dracolite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 15,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 4,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dracolite",
                     "value": 20,
-                    "icon": "assets/materials/Dracolite.png"
+                    "icon": "assets/materials/Dracolite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 8,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dracolite",
                     "value": 30,
-                    "icon": "assets/materials/Dracolite.png"
+                    "icon": "assets/materials/Dracolite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 18,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 12,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dracolite",
                     "value": 45,
-                    "icon": "assets/materials/Dracolite.png"
+                    "icon": "assets/materials/Dracolite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 20,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Dracolite",
                     "value": 60,
-                    "icon": "assets/materials/Dracolite.png"
+                    "icon": "assets/materials/Dracolite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 24,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,43 +453,43 @@ var IANSAN = {
         {
             "name": "Weighted Spike",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Weighted Spike.png",
+            "icon": "assets/character/talents/Weighted Spike.avif",
             "description": "Normal AttackPerforms up to 3 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact.Nightsoul State: Swift StormflightWhile in the Nightsoul's Blessing state: Iansan's Charged Attack will be transformed into the formidable Swift Stormflight, consuming a certain amount of Stamina to stomp fiercely down, dealing Nightsoul-aligned AoE Electro DMG."
         },
         {
             "name": "Thunderbolt Rush",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Thunderbolt Rush.png",
+            "icon": "assets/character/talents/Thunderbolt Rush.avif",
             "description": "Iansan charges forward a certain distance, dealing Nightsoul-aligned Electro DMG to all opponents in her path.After this Skill is used, Iansan will regain 54 Nightsoul points and enter the Nightsoul's Blessing state. Within 5s after this is done, using a Normal Attack will trigger 1 quick Swift Stormflight stomp from Iansan that will not consume Stamina.Nightsoul's Blessing: IansanContinuously consumes Nightsoul points. If she runs out, or uses this Skill again, her Nightsoul's Blessing state will end. It has the following properties:Increases Iansan's Movement SPD.Holding sprint will switch Iansan to Rushing Thunderbolt mode, greatly increasing her Movement SPD temporarily. In this mode, Iansan can make flying leaps using terrain, or consume additional Nightsoul points to move on water or liquid Phlogiston while being immune to DMG from the latter."
         },
         {
             "name": "The Three Principles of Power",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/The Three Principles of Power.png",
+            "icon": "assets/character/talents/The Three Principles of Power.avif",
             "description": "Iansan's stomping foot shatters the very earth with \"Power,\" dealing Nightsoul-aligned AoE Electro DMG. She then whips out her \"Limited-Edition Kinetic Energy Scale (For Workouts).\"When this Skill is used, Iansan will gain 15 Nightsoul points and enter the Nightsoul's Blessing state.When the Kinetic Energy Scale leaves the field, Iansan's Nightsoul's Blessing state will end.Kinetic Energy ScaleThe Kinetic Energy Scale will follow the character around, boosting the ATK of your current active party member in different ways based on Iansan's Nightsoul points. If Iansan has less than 42 Nightsoul points, the ATK bonus will be based on her Nightsoul points and ATK. If Iansan has at least 42 Nightsoul points, the Kinetic Energy Scale will switch to the \"Ardent Support!\" state, in which the ATK bonus will be stronger and based on her ATK alone.Additionally, the Scale will log the distance your current active character (excluding Iansan) has moved so long as it is active, restoring Nightsoul points to Iansan every second based on the distance moved in the previous second.The Scale will disappear once her Nightsoul's Blessing state ends. It will also disappear after 1 second when you are not in a state of combat. While it is active, Iansan's Nightsoul's Blessing state will not end even if she is not on the field."
         },
         {
             "name": "Enhanced Resistance Training",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Enhanced Resistance Training.png",
+            "icon": "assets/character/talents/Enhanced Resistance Training.avif",
             "description": "After Swift Stormflight hits opponents, Iansan will gain the Precise Movement effect for 15s.During this time, her ATK is increased by 20%, and whenever she regains Nightsoul points through the Kinetic Energy Scale in her Elemental Burst, The Three Principles of Power, she will gain 1 extra Nightsoul point. Additionally, when your current active party member consumes or restores Nightsoul points, the extra Nightsoul points Iansan gains the next time she restores Nightsoul points via the Scale will be increased to 4. This effect can occur once every 2.8s.\"Precise Movement\" will expire when Iansan's Nightsoul's Blessing state ends."
         },
         {
             "name": "Kinetic Energy Gradient Test",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Kinetic Energy Gradient Test.png",
+            "icon": "assets/character/talents/Kinetic Energy Gradient Test.avif",
             "description": "When a nearby party member triggers a Nightsoul Burst, Iansan will obtain the Warming Up effect for 10s.During this time, when Iansan restores at least 1 Nightsoul points, she will heal your current active character for 60% of her ATK. This effect can be triggered once every 2.8s."
         },
         {
             "name": "Hard Work and Drive",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Hard Work and Drive.png",
+            "icon": "assets/character/talents/Hard Work and Drive.avif",
             "description": "After Nightsoul points have been fully depleted and Iansan is on the field, she will switch to using Phlogiston to maintain her Nightsoul's Blessing.While in an area with Phlogiston Mechanics within Natlan, Nightsoul Transmission: Iansan can be used. When the current active character is sprinting or in movement modes caused by certain Talents, or at a certain height in the air, switching to Iansan will trigger the following: Iansan enters the Nightsoul's Blessing state and obtains 25 Nightsoul points. Nightsoul Transmission can be triggered once every 10s by your own party.While in an area with Phlogiston Mechanics within Natlan, Iansan will not take fall DMG when using terrain differences to make leaps."
         },
         {
             "name": "Caloric Balancing Plan",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Caloric Balancing Plan.png",
+            "icon": "assets/character/talents/Caloric Balancing Plan.avif",
             "description": "While in an area with Phlogiston Mechanics within Natlan, regain 10 Phlogiston when Phlogiston levels drop below 50%. This can occur once every 10s."
         }
     ],
@@ -471,17 +500,20 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Contention",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Contention.png"
+                    "icon": "assets/materials/Teachings of Contention.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -491,17 +523,20 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -511,17 +546,20 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -531,17 +569,20 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -551,17 +592,20 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -571,22 +615,26 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 1,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -596,22 +644,26 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 1,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -621,22 +673,26 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 2,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -646,27 +702,32 @@ var IANSAN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 2,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2327,99 +2388,5 @@ var IANSAN = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "5.5",
-        "weapons": [
-            "Calamity Queller",
-            "Engulfing Lightning",
-            "Favonius Lance",
-            "Vortex Vanquisher",
-            "Skyward Spine",
-            "Lumidouce Elegy",
-            "Staff of Homa",
-            "Missive Windspear",
-            "Tamayuratei no Ohanashi",
-            "Prospector's Drill",
-            "Wavebreaker's Fin",
-            "Lithic Spear",
-            "The Catch",
-            "Prototype Starglitter"
-        ],
-        "artifacts": [
-            "4pc Scroll of the Hero of Cinder City",
-            "4pc Noblesse Oblige"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "ATK%",
-            "ATK% / CRIT Rate"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "ATK%",
-            "CRIT Rate"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                },
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                },
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

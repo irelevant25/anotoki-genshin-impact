@@ -1,28 +1,28 @@
 var KAEYA = {
     "name": "Kaeya",
     "secondary_title": "Frostwind Swordsman",
-    "card_icon": "assets/character/card/Kaeya.png",
-    "wish_icon": "assets/character/wish/Kaeya.png",
-    "ingame_icon": "assets/character/ingame/Kaeya.png",
-    "icon": "assets/character/icon/Kaeya.png",
+    "card_icon": "assets/character/card/Kaeya.avif",
+    "wish_icon": "assets/character/wish/Kaeya.avif",
+    "ingame_icon": "assets/character/ingame/Kaeya.avif",
+    "icon": "assets/character/icon/Kaeya.avif",
     "quality": "4",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "November 30th",
@@ -30,43 +30,43 @@ var KAEYA = {
         {
             "name": "Excellent Blood",
             "level": 1,
-            "icon": "assets/character/constellations/Excellent Blood.png",
+            "icon": "assets/character/constellations/Excellent Blood.avif",
             "description": "The CRIT Rate of Kaeya's Normal and Charge Attacks against opponents affected by Cryo is increased by 15%."
         },
         {
             "name": "Never-Ending Performance",
             "level": 2,
-            "icon": "assets/character/constellations/Never-Ending Performance.png",
+            "icon": "assets/character/constellations/Never-Ending Performance.avif",
             "description": "When Glacial Waltz is in effect, for each opponent defeated, its base duration is increased by 2.5s, up to a maximum of 15s."
         },
         {
             "name": "Dance of Frost",
             "level": 3,
-            "icon": "assets/character/constellations/Dance of Frost.png",
+            "icon": "assets/character/constellations/Dance of Frost.avif",
             "description": "Increases the Level of Frostgnaw by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Frozen Kiss",
             "level": 4,
-            "icon": "assets/character/constellations/Frozen Kiss.png",
+            "icon": "assets/character/constellations/Frozen Kiss.avif",
             "description": "Triggers automatically when Kaeya's HP falls below 20%:Creates a shield that absorbs damage equal to 30% of Kaeya's Max HP. Lasts for 20s.This shield absorbs Cryo DMG with 250% efficiency.Can only occur once every 60s."
         },
         {
             "name": "Frostbiting Embrace",
             "level": 5,
-            "icon": "assets/character/constellations/Frostbiting Embrace.png",
+            "icon": "assets/character/constellations/Frostbiting Embrace.avif",
             "description": "Increases the Level of Glacial Waltz by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Glacial Whirlwind",
             "level": 6,
-            "icon": "assets/character/constellations/Glacial Whirlwind.png",
+            "icon": "assets/character/constellations/Glacial Whirlwind.avif",
             "description": "Glacial Waltz will generate 1 additional icicle, and will regenerate 15 Energy when cast."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius",
@@ -75,12 +75,12 @@ var KAEYA = {
     ],
     "special_dish": {
         "name": "Fruity Skewers",
-        "icon": "assets/foods/Kaeya.png"
+        "icon": "assets/foods/Kaeya.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kaeya.png",
-        "background": "assets/character/namecard_background/Kaeya.png",
-        "banner": "assets/character/namecard_banner/Kaeya.png",
+        "icon": "assets/character/namecard_icon/Kaeya.avif",
+        "background": "assets/character/namecard_background/Kaeya.avif",
+        "banner": "assets/character/namecard_banner/Kaeya.avif",
         "description": "The pattern of peacock feathers resembles eyes that never shut. Can we really say that this Pavo Ocellus is missing an eye...?",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 3,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 2,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 10,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 4,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 20,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 8,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 30,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 12,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 45,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 20,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 60,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var KAEYA = {
         {
             "name": "Ceremonial Bladework",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Ceremonial Bladework.png",
+            "icon": "assets/character/talents/Ceremonial Bladework.avif",
             "description": "Normal AttackPerforms up to 5 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 2 rapid sword strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Frostgnaw",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Frostgnaw.png",
+            "icon": "assets/character/talents/Frostgnaw.avif",
             "description": "Unleashes a frigid blast, dealing Cryo DMG to opponents in front of Kaeya."
         },
         {
             "name": "Glacial Waltz",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Glacial Waltz.png",
+            "icon": "assets/character/talents/Glacial Waltz.avif",
             "description": "Coalescing the frost in the air, Kaeya summons 3 icicles that revolve around him.These icicles will follow the character around and deal Cryo DMG to opponents in their path for the ability's duration."
         },
         {
             "name": "Cold-Blooded Strike",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Cold-Blooded Strike.png",
+            "icon": "assets/character/talents/Cold-Blooded Strike.avif",
             "description": "Every hit with Frostgnaw regenerates HP for Kaeya equal to 15% of his ATK."
         },
         {
             "name": "Glacial Heart",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Glacial Heart.png",
+            "icon": "assets/character/talents/Glacial Heart.avif",
             "description": "Opponents Frozen by Frostgnaw will drop additional Elemental Particles.Frostgnaw may only produce a maximum of 2 additional Elemental Particles per use."
         },
         {
             "name": "Hidden Strength",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Hidden Strength.png",
+            "icon": "assets/character/talents/Hidden Strength.avif",
             "description": "Decreases sprinting Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -466,17 +495,20 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ballad",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ballad.png"
+                    "icon": "assets/materials/Teachings of Ballad.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var KAEYA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -1704,8 +1765,8 @@ var KAEYA = {
                 },
                 {
                     "title": "디오나에 대해...",
-                    "text": "너도 디오나가 타준 칵테일 맛본 적 있어? 아~ 아직 술 마실 나이가 안 됐군. 아쉽네. 이런 즐거움을 함께할 수 없어서. 네가 빨리 어른이 되었으면 좋겠네",
-                    "reading": "Neodo dionaga tajun kakteil matbon jeok isseo? A~ Ajik sul masil naiga an dwaetgun. Aswimne. Ireon jeulgeoumeul hamkkehal su eopseoseo. Nega ppalli eoreuni doeeosseumyeon jokenne",
+                    "text": "너도 디오나가 타준 칵테일 맛본 적 있어?  아~ 아직 술 마실 나이가 안 됐군. 아쉽네. 이런 즐거움을 함께할 수 없어서. 네가 빨리 어른이 되었으면 좋겠네",
+                    "reading": "Neodo dionaga tajun kakteil matbon jeok isseo?  A~ Ajik sul masil naiga an dwaetgun. Aswimne. Ireon jeulgeoumeul hamkkehal su eopseoseo. Nega ppalli eoreuni doeeosseumyeon jokenne",
                     "audio": "assets/character/voice_overs/Kaeya/story/ko/디오나에 대해....mp3"
                 },
                 {
@@ -1782,8 +1843,8 @@ var KAEYA = {
                 },
                 {
                     "title": "케이아의 취미...",
-                    "text": "술을 음미하는 것은 예술이라고 할 수 있어, 몬드의 술은 바람의 신이 주신 선물이야. 제대로 음미할 수 있어야 이런 행운을 온전히 누릴 수 있어",
-                    "reading": "Sureul eummihaneun geoseun yesurirago hal su isseo, Mondeuui sureun baramui sini jusin seonmuriya. Jedaero eummihal su isseoya ireon haeng'uneul onjeonhi nuril su isseo",
+                    "text": "술을 음미하는 것은 예술이라고 할 수 있어,  몬드의 술은 바람의 신이 주신 선물이야. 제대로 음미할 수 있어야 이런 행운을 온전히 누릴 수 있어",
+                    "reading": "Sureul eummihaneun geoseun yesurirago hal su isseo,  Mondeuui sureun baramui sini jusin seonmuriya. Jedaero eummihal su isseoya ireon haeng'uneul onjeonhi nuril su isseo",
                     "audio": "assets/character/voice_overs/Kaeya/story/ko/케이아의 취미....mp3"
                 },
                 {
@@ -2465,116 +2526,5 @@ var KAEYA = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "3.8",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Mistsplitter Reforged",
-            "Light of Foliar Incision",
-            "Haran Geppaku Futsu",
-            "Primordial Jade Cutter",
-            "Aquila Favonia",
-            "Kagotsurube Isshin",
-            "Favonius Sword",
-            "The Alley Flash",
-            "Harbinger of Dawn",
-            "Amenoma Kageuchi"
-        ],
-        "artifacts": [
-            "4pc Blizzard Strayer",
-            "4pc Emblem of Severed Fate",
-            "4pc Noblesse Oblige"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Cryo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Kokomi",
-                    "icon": "assets/character/icon/Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

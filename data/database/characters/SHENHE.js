@@ -1,28 +1,28 @@
 var SHENHE = {
     "name": "Shenhe",
     "secondary_title": "Lonesome Transcendence",
-    "card_icon": "assets/character/card/Shenhe.png",
-    "wish_icon": "assets/character/wish/Shenhe.png",
-    "ingame_icon": "assets/character/ingame/Shenhe.png",
-    "icon": "assets/character/icon/Shenhe.png",
+    "card_icon": "assets/character/card/Shenhe.avif",
+    "wish_icon": "assets/character/wish/Shenhe.avif",
+    "ingame_icon": "assets/character/ingame/Shenhe.avif",
+    "icon": "assets/character/icon/Shenhe.avif",
     "quality": "5",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "March 10th",
@@ -30,43 +30,43 @@ var SHENHE = {
         {
             "name": "Clarity of Heart",
             "level": 1,
-            "icon": "assets/character/constellations/Clarity of Heart.png",
+            "icon": "assets/character/constellations/Clarity of Heart.avif",
             "description": "Spring Spirit Summoning can be used 1 more time."
         },
         {
             "name": "Centered Spirit",
             "level": 2,
-            "icon": "assets/character/constellations/Centered Spirit.png",
+            "icon": "assets/character/constellations/Centered Spirit.avif",
             "description": "Divine Maiden's Deliverance lasts for 6 seconds longer.Active characters within the skill's field deal 15% increased Cryo CRIT DMG."
         },
         {
             "name": "Seclusion",
             "level": 3,
-            "icon": "assets/character/constellations/Seclusion.png",
+            "icon": "assets/character/constellations/Seclusion.avif",
             "description": "Increases Level of Spring Spirit Summoning by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Insight",
             "level": 4,
-            "icon": "assets/character/constellations/Insight.png",
+            "icon": "assets/character/constellations/Insight.avif",
             "description": "When characters under the effect of Icy Quill applied by Shenhe triggers its DMG Bonus effects, Shenhe will gain a Skyfrost Mantra stack:When Shenhe uses Spring Spirit Summoning, she will consume all stacks of Skyfrost Mantra, increasing the DMG of that Spring Spirit Summoning by 5% for each stack consumed.Max 50 stacks. Stacks last for 60s."
         },
         {
             "name": "Divine Attainment",
             "level": 5,
-            "icon": "assets/character/constellations/Divine Attainment.png",
+            "icon": "assets/character/constellations/Divine Attainment.avif",
             "description": "Increases the Level of Divine Maiden's Deliverance by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Mystical Abandon",
             "level": 6,
-            "icon": "assets/character/constellations/Mystical Abandon.png",
+            "icon": "assets/character/constellations/Mystical Abandon.avif",
             "description": "When characters trigger Icy Quill's effects using Normal and Charged Attack DMG, it does not count toward the Trigger Quota."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Cloud Retainer's Abode",
@@ -76,12 +76,12 @@ var SHENHE = {
     ],
     "special_dish": {
         "name": "Heartstring Noodles",
-        "icon": "assets/foods/Shenhe.png"
+        "icon": "assets/foods/Shenhe.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Shenhe.png",
-        "background": "assets/character/namecard_background/Shenhe.png",
-        "banner": "assets/character/namecard_banner/Shenhe.png",
+        "icon": "assets/character/namecard_icon/Shenhe.avif",
+        "background": "assets/character/namecard_background/Shenhe.avif",
+        "banner": "assets/character/namecard_banner/Shenhe.avif",
         "description": "The early onset of white hair is often correlated to one's sorrows. Since \"comb\" and \"scatter\" are similarly read in Liyue's language, they believe that combing one's hair is the same as scattering one's misfortunes.",
         "quality": "4",
         "sources": [
@@ -162,22 +162,26 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Qingxin",
                     "value": 3,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -205,27 +209,32 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 2,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Qingxin",
                     "value": 10,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -253,27 +262,32 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 4,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Qingxin",
                     "value": 20,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -301,27 +315,32 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 8,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Qingxin",
                     "value": 30,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -349,27 +368,32 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 12,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Qingxin",
                     "value": 45,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -397,27 +421,32 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dragonheir's False Fin",
                     "value": 20,
-                    "icon": "assets/materials/Dragonheir's False Fin.png"
+                    "icon": "assets/materials/Dragonheir's False Fin.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Qingxin",
                     "value": 60,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -426,37 +455,37 @@ var SHENHE = {
         {
             "name": "Dawnstar Piercer",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Dawnstar Piercer.png",
+            "icon": "assets/character/talents/Dawnstar Piercer.avif",
             "description": "Normal AttackPerforms up to 5 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Spring Spirit Summoning",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Spring Spirit Summoning.png",
+            "icon": "assets/character/talents/Spring Spirit Summoning.avif",
             "description": "The frosted dew, silvery and dense, shall exorcise all demons.Grants all nearby party members the Icy Quill effect and deals Cryo DMG in different ways based on whether it is (pressedpressedText for mouse and keyboard and controller/tappedtappedText for touch screen) or held.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Rushes forward together with a Talisman Spirit, dealing Cryo DMG to opponents along the path.HoldCommands the Talisman Spirit to deal AoE Cryo DMG.Icy QuillWhen Normal, Charged, and Plunging Attacks, Elemental Skills, and Elemental Bursts deal Cryo DMG to opponents, the DMG dealt is increased based on Shenhe's current ATK.The Icy Quill's effects will be cleared once its duration ends or after being triggered a certain number of times.When held rather than (pressedpressedText for mouse and keyboard and controller/tappedtappedText for touch screen), the Icy Quill's effect lasts longer and can be triggered more times.When one Cryo DMG instance strikes multiple opponents, the effect is triggered multiple times based on the number of opponents hit. The number of times the effect is triggered is calculated independently for each party member with the Icy Quill."
         },
         {
             "name": "Divine Maiden's Deliverance",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Divine Maiden's Deliverance.png",
+            "icon": "assets/character/talents/Divine Maiden's Deliverance.avif",
             "description": "Unleashes the power of the Talisman Spirit, allowing it to roam free in this plane, dealing AoE Cryo DMG.The Talisman Spirit then creates a field that decreases the Cryo RES and Physical RES of opponents within it. It also deals periodic Cryo DMG to opponents within the field."
         },
         {
             "name": "Deific Embrace",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Deific Embrace.png",
+            "icon": "assets/character/talents/Deific Embrace.avif",
             "description": "An active character within the field created by Divine Maiden's Deliverance gains 15% Cryo DMG Bonus."
         },
         {
             "name": "Spirit Communion Seal",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Spirit Communion Seal.png",
+            "icon": "assets/character/talents/Spirit Communion Seal.avif",
             "description": "After Shenhe uses Spring Spirit Summoning, she will grant all nearby party members the following effects:(PressPressText for mouse and keyboard and controller/TapTapText for touch screen): Elemental Skill and Elemental Burst DMG increased by 15% for 10s.Hold: Normal, Charged, and Plunging Attack DMG increased by 15% for 15s."
         },
         {
             "name": "Precise Comings and Goings",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Precise Comings and Goings.png",
+            "icon": "assets/character/talents/Precise Comings and Goings.avif",
             "description": "Gains 25% more rewards when dispatched on a Liyue Expedition for 20 hours."
         }
     ],
@@ -467,17 +496,20 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Prosperity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Prosperity.png"
+                    "icon": "assets/materials/Teachings of Prosperity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 1,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 1,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 2,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var SHENHE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 2,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2446,260 +2507,5 @@ var SHENHE = {
     "demo_music": {
         "name": "The Crane Cries",
         "url": "assets/character/demo_music/Shenhe.mp3"
-    },
-    "build": {
-        "version": "3.5",
-        "type": "Support",
-        "weapons": [
-            "Calamity Queller",
-            "Favonius Lance",
-            "Engulfing Lightning",
-            "Skyward Spine",
-            "Vortex Vanquisher",
-            "Staff of Homa",
-            "Primordial Jade Winged-Spear",
-            "Wavebreaker's Fin",
-            "Missive Windspear",
-            "The Catch",
-            "Staff of the Scarlet Sands"
-        ],
-        "artifacts": [
-            "4pc Noblesse Oblige",
-            "4pc Blizzard Strayer"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "ATK% / Cryo DMG Bonus",
-            "ATK% / CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "ATK%",
-            "CRIT Rate / CRIT DMG",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ]
-        ]
     }
 }

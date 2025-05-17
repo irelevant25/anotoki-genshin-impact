@@ -1,32 +1,32 @@
 var RAIDEN_SHOGUN = {
     "name": "Raiden Shogun",
     "secondary_title": "Plane of Euthymia",
-    "card_icon": "assets/character/card/Raiden Shogun.png",
-    "wish_icon": "assets/character/wish/Raiden Shogun.png",
-    "ingame_icon": "assets/character/ingame/Raiden Shogun.png",
-    "icon": "assets/character/icon/Raiden Shogun.png",
+    "card_icon": "assets/character/card/Raiden Shogun.avif",
+    "wish_icon": "assets/character/wish/Raiden Shogun.avif",
+    "ingame_icon": "assets/character/ingame/Raiden Shogun.avif",
+    "icon": "assets/character/icon/Raiden Shogun.avif",
     "quality": "5",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "June 26th",
@@ -34,41 +34,44 @@ var RAIDEN_SHOGUN = {
         {
             "name": "Ominous Inscription",
             "level": 1,
-            "icon": "assets/character/constellations/Ominous Inscription.png",
+            "icon": "assets/character/constellations/Ominous Inscription.avif",
             "description": "Chakra Desiderata will gather Resolve even faster. When Electro characters use their Elemental Bursts, the Resolve gained is increased by 80%. When characters of other Elemental Types use their Elemental Bursts, the Resolve gained is increased by 20%."
         },
         {
             "name": "Steelbreaker",
             "level": 2,
-            "icon": "assets/character/constellations/Steelbreaker.png",
+            "icon": "assets/character/constellations/Steelbreaker.avif",
             "description": "While using Musou no Hitotachi and in the Musou Isshin state applied by Secret Art: Musou Shinsetsu, the Raiden Shogun's attacks ignore 60% of opponents' DEF."
         },
         {
             "name": "Shinkage Bygones",
             "level": 3,
-            "icon": "assets/character/constellations/Shinkage Bygones.png",
+            "icon": "assets/character/constellations/Shinkage Bygones.avif",
             "description": "Increases the Level of Secret Art: Musou Shinsetsu by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Pledge of Propriety",
             "level": 4,
-            "icon": "assets/character/constellations/Pledge of Propriety.png",
+            "icon": "assets/character/constellations/Pledge of Propriety.avif",
             "description": "When the Musou Isshin state applied by Secret Art: Musou Shinsetsu expires, all nearby party members (excluding the Raiden Shogun) gain 30% bonus ATK for 10s."
         },
         {
             "name": "Shogun's Descent",
             "level": 5,
-            "icon": "assets/character/constellations/Shogun's Descent.png",
+            "icon": "assets/character/constellations/Shogun's Descent.avif",
             "description": "Increases the Level of Transcendence: Baleful Omen by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Wishbearer",
             "level": 6,
-            "icon": "assets/character/constellations/Wishbearer.png",
+            "icon": "assets/character/constellations/Wishbearer.avif",
             "description": "While in the Musou Isshin state applied by Secret Art: Musou Shinsetsu, attacks by the Raiden Shogun that are considered part of her Elemental Burst will decrease all nearby party members' (but not including the Raiden Shogun herself) Elemental Burst CD by 1s when they hit opponents.This effect can trigger once every 1s, and can trigger a total of 5 times during the state's duration."
         }
     ],
-    "region": null,
+    "region": {
+        "name": "Inazuma",
+        "icon": "assets/regions/Inazuma.avif"
+    },
     "affiliations": [
         "Inazuma City",
         "Inazuma Shogunate",
@@ -76,9 +79,9 @@ var RAIDEN_SHOGUN = {
     ],
     "special_dish": null,
     "namecard": {
-        "icon": "assets/character/namecard_icon/Raiden Shogun.png",
-        "background": "assets/character/namecard_background/Raiden Shogun.png",
-        "banner": "assets/character/namecard_banner/Raiden Shogun.png",
+        "icon": "assets/character/namecard_icon/Raiden Shogun.avif",
+        "background": "assets/character/namecard_background/Raiden Shogun.avif",
+        "banner": "assets/character/namecard_banner/Raiden Shogun.avif",
         "description": "Not simply Ei, and not merely the Raiden Shogun. Observe yourself also with one stormy eye, and you will someday reach a breakthrough.",
         "quality": "4",
         "sources": [
@@ -156,22 +159,26 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 3,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +206,32 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 2,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 10,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 15,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +259,32 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 4,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 20,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +312,32 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 8,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 30,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 18,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +365,32 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 12,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 45,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +418,32 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Storm Beads",
                     "value": 20,
-                    "icon": "assets/materials/Storm Beads.png"
+                    "icon": "assets/materials/Storm Beads.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Amakumo Fruit",
                     "value": 60,
-                    "icon": "assets/materials/Amakumo Fruit.png"
+                    "icon": "assets/materials/Amakumo Fruit.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 24,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,37 +452,37 @@ var RAIDEN_SHOGUN = {
         {
             "name": "Origin",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Origin.png",
+            "icon": "assets/character/talents/Origin.avif",
             "description": "Normal AttackPerforms up to 5 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to perform an upward slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Transcendence: Baleful Omen",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Transcendence Baleful Omen.png",
+            "icon": "assets/character/talents/Transcendence Baleful Omen.avif",
             "description": "The Raiden Shogun unveils a shard of her Euthymia, dealing Electro DMG to nearby opponents, and granting nearby party members the Eye of Stormy Judgment.Eye of Stormy JudgmentWhen characters with this buff attack and deal DMG to opponents, the Eye will unleash a coordinated attack, dealing AoE Electro DMG at the opponent's position.Characters who gain the Eye of Stormy Judgment will have their Elemental Burst DMG increased based on the Energy Cost of the Elemental Burst during the Eye's duration.The Eye can initiate one coordinated attack every 0.9s per party.Coordinated attacks generated by characters not controlled by you deal 20% of the normal DMG."
         },
         {
             "name": "Secret Art: Musou Shinsetsu",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Secret Art Musou Shinsetsu.png",
+            "icon": "assets/character/talents/Secret Art Musou Shinsetsu.avif",
             "description": "Gathering truths unnumbered and wishes uncounted, the Raiden Shogun unleashes the Musou no Hitotachi and deals AoE Electro DMG, using Musou Isshin in combat for a certain duration afterward. The DMG dealt by Musou no Hitotachi and Musou Isshin's attacks will be increased based on the number of Chakra Desiderata's Resolve stacks consumed when this skill is used.Musou IsshinWhile in this state, the Raiden Shogun will wield her tachi in battle, while her Normal, Charged, and Plunging Attacks will be infused with Electro DMG, which cannot be overridden. When such attacks hit opponents, she will regenerate Energy for all nearby party members. Energy can be restored this way once every 1s, and this effect can be triggered 5 times throughout this skill's duration.While in this state, the Raiden Shogun's resistance to interruption is increased, and she is immune to Electro-Charged reaction DMG.While Musou Isshin is active, the Raiden Shogun's Normal, Charged, and Plunging Attack DMG will be considered Elemental Burst DMG.The effects of Musou Isshin will be cleared when the Raiden Shogun leaves the field.Chakra DesiderataWhen nearby party members (excluding the Raiden Shogun herself) use their Elemental Bursts, the Raiden Shogun will build up Resolve stacks based on the Energy Cost of these Elemental Bursts.The maximum number of Resolve stacks is 60.The Resolve gained by Chakra Desiderata will be cleared 300s after the Raiden Shogun leaves the field."
         },
         {
             "name": "Wishes Unnumbered",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Wishes Unnumbered.png",
+            "icon": "assets/character/talents/Wishes Unnumbered.avif",
             "description": "When nearby party members gain Elemental Orbs or Particles, Chakra Desiderata gains 2 Resolve stacks.This effect can occur once every 3s."
         },
         {
             "name": "Enlightened One",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Enlightened One.png",
+            "icon": "assets/character/talents/Enlightened One.avif",
             "description": "Each 1% above 100% Energy Recharge that the Raiden Shogun possesses grants her:0.6% greater Energy restoration from Musou Isshin0.4% Electro DMG Bonus."
         },
         {
             "name": "All-Preserver",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/All-Preserver.png",
+            "icon": "assets/character/talents/All-Preserver.avif",
             "description": "Mora expended when ascending Swords and Polearms is decreased by 50%."
         }
     ],
@@ -461,17 +493,20 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Light",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Light.png"
+                    "icon": "assets/materials/Teachings of Light.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +516,20 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +539,20 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +562,20 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +585,20 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +608,26 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 1,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +637,26 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 1,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +666,26 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 2,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +695,32 @@ var RAIDEN_SHOGUN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 2,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2560,220 +2624,5 @@ var RAIDEN_SHOGUN = {
     "demo_music": {
         "name": "Termination of Desires",
         "url": "assets/character/demo_music/Raiden Shogun.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "On-field DPS",
-        "weapons": [
-            "Engulfing Lightning",
-            "The Catch",
-            "Staff of the Scarlet Sands",
-            "Ballad of the Fjords",
-            "Wavebreaker's Fin",
-            "Lithic Spear",
-            "Deathmatch",
-            "Favonius Lance"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Tenacity of the Millelith"
-        ],
-        "talents": [
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK% / ER / EM",
-            "Electro DMG Bonus / ATK%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "ER",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ]
-        ]
     }
 }

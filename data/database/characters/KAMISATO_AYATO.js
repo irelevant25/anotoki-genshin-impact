@@ -1,28 +1,28 @@
 var KAMISATO_AYATO = {
     "name": "Kamisato Ayato",
     "secondary_title": "Pillar of Fortitude",
-    "card_icon": "assets/character/card/Kamisato Ayato.png",
-    "wish_icon": "assets/character/wish/Kamisato Ayato.png",
-    "ingame_icon": "assets/character/ingame/Kamisato Ayato.png",
-    "icon": "assets/character/icon/Kamisato Ayato.png",
+    "card_icon": "assets/character/card/Kamisato Ayato.avif",
+    "wish_icon": "assets/character/wish/Kamisato Ayato.avif",
+    "ingame_icon": "assets/character/ingame/Kamisato Ayato.avif",
+    "icon": "assets/character/icon/Kamisato Ayato.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "March 26th",
@@ -30,43 +30,43 @@ var KAMISATO_AYATO = {
         {
             "name": "Kyouka Fuushi",
             "level": 1,
-            "icon": "assets/character/constellations/Kyouka Fuushi.png",
+            "icon": "assets/character/constellations/Kyouka Fuushi.avif",
             "description": "Shunsuiken DMG is increased by 40% against opponents with 50% HP or less."
         },
         {
             "name": "World Source",
             "level": 2,
-            "icon": "assets/character/constellations/World Source.png",
+            "icon": "assets/character/constellations/World Source.avif",
             "description": "Namisen's maximum stack count is increased to 5. When Kamisato Ayato has at least 3 Namisen stacks, his Max HP is increased by 50%."
         },
         {
             "name": "To Admire the Flowers",
             "level": 3,
-            "icon": "assets/character/constellations/To Admire the Flowers.png",
+            "icon": "assets/character/constellations/To Admire the Flowers.avif",
             "description": "Increases the Level of Kamisato Art: Kyouka by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Endless Flow",
             "level": 4,
-            "icon": "assets/character/constellations/Endless Flow.png",
+            "icon": "assets/character/constellations/Endless Flow.avif",
             "description": "After using Kamisato Art: Suiyuu, all nearby party members will have 15% increased Normal Attack SPD for 15s."
         },
         {
             "name": "Bansui Ichiro",
             "level": 5,
-            "icon": "assets/character/constellations/Bansui Ichiro.png",
+            "icon": "assets/character/constellations/Bansui Ichiro.avif",
             "description": "Increases the Level of Kamisato Art: Suiyuu by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Boundless Origin",
             "level": 6,
-            "icon": "assets/character/constellations/Boundless Origin.png",
+            "icon": "assets/character/constellations/Boundless Origin.avif",
             "description": "After using Kamisato Art: Kyouka, Ayato's next Shunsuiken attack will create 2 extra Shunsuiken strikes when they hit opponents, each one dealing 450% of Ayato's ATK as DMG.Both these Shunsuiken attacks will not be affected by Namisen."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Yashiro Commission",
@@ -75,12 +75,12 @@ var KAMISATO_AYATO = {
     ],
     "special_dish": {
         "name": "Quiet Elegance",
-        "icon": "assets/foods/Kamisato Ayato.png"
+        "icon": "assets/foods/Kamisato Ayato.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kamisato Ayato.png",
-        "background": "assets/character/namecard_background/Kamisato Ayato.png",
-        "banner": "assets/character/namecard_banner/Kamisato Ayato.png",
+        "icon": "assets/character/namecard_icon/Kamisato Ayato.avif",
+        "background": "assets/character/namecard_background/Kamisato Ayato.avif",
+        "banner": "assets/character/namecard_banner/Kamisato Ayato.avif",
         "description": "The camellia alights upon the mirrored pond, sending ripples throughout the water.",
         "quality": "4",
         "sources": [
@@ -162,22 +162,26 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 3,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -205,27 +209,32 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 2,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 10,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 15,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -253,27 +262,32 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 4,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 20,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -301,27 +315,32 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 8,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 30,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 18,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -349,27 +368,32 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 12,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 45,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -397,27 +421,32 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 20,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 60,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 24,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -426,37 +455,37 @@ var KAMISATO_AYATO = {
         {
             "name": "Kamisato Art: Marobashi",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Kamisato Art Marobashi.png",
+            "icon": "assets/character/talents/Kamisato Art Marobashi.avif",
             "description": "Normal AttackPerforms up to 5 rapid strikes.Charged AttackConsumes a certain amount of Stamina to dash forward and perform an iai.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Kamisato Art: Kyouka",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Kamisato Art Kyouka.png",
+            "icon": "assets/character/talents/Kamisato Art Kyouka.avif",
             "description": "Kamisato Ayato shifts positions and enters the Takimeguri Kanka state.After this shift, he will leave a watery illusion at his original location. After it is formed, the watery illusion will explode if opponents are nearby or after its duration ends, dealing AoE Hydro DMG.Takimeguri KankaIn this state, Kamisato Ayato uses his Shunsuiken to engage in blindingly fast attacks, causing DMG from his Normal Attacks to be converted into AoE Hydro DMG. This cannot be overridden.It also has the following properties:After a Shunsuiken attack hits an opponent, it will grant Ayato the Namisen effect, increasing the DMG dealt by Shunsuiken based on Ayato's current Max HP. The initial maximum number of Namisen stacks is 4, and 1 stack can be gained through Shunsuiken every 0.1s. This effect will be dispelled when Takimeguri Kanka ends.Kamisato Ayato's resistance to interruption is increased.Unable to use Charged or Plunging Attacks.Takimeguri Kanka will be cleared when Ayato leaves the field. Using Kamisato Art: Kyouka again while in the Takimeguri Kanka state will reset and replace the pre-existing state."
         },
         {
             "name": "Kamisato Art: Suiyuu",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Kamisato Art Suiyuu.png",
+            "icon": "assets/character/talents/Kamisato Art Suiyuu.avif",
             "description": "Unveils a garden of purity that silences the cacophony within.While this space exists, Bloomwater Blades will constantly rain down and attack opponents within its AoE, dealing Hydro DMG and increasing the Normal Attack DMG of characters within."
         },
         {
             "name": "Kamisato Art: Mine Wo Matoishi Kiyotaki",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Kamisato Art Mine Wo Matoishi Kiyotaki.png",
+            "icon": "assets/character/talents/Kamisato Art Mine Wo Matoishi Kiyotaki.avif",
             "description": "Kamisato Art: Kyouka has the following properties:After it is used, Kamisato Ayato will gain 2 Namisen stacks.When the water illusion explodes, Ayato will gain a Namisen effect equal to the maximum number of stacks possible."
         },
         {
             "name": "Kamisato Art: Michiyuku Hagetsu",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Kamisato Art Michiyuku Hagetsu.png",
+            "icon": "assets/character/talents/Kamisato Art Michiyuku Hagetsu.avif",
             "description": "If Kamisato Ayato is not on the field and his Energy is less than 40, he will regenerate 2 Energy for himself every second."
         },
         {
             "name": "Kamisato Art: Daily Cooking",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Kamisato Art Daily Cooking.png",
+            "icon": "assets/character/talents/Kamisato Art Daily Cooking.avif",
             "description": "When Ayato cooks a dish perfectly, he has a 18% chance to receive an additional \"Suspicious\" dish of the same type."
         }
     ],
@@ -467,17 +496,20 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Elegance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Elegance.png"
+                    "icon": "assets/materials/Teachings of Elegance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mudra of the Malefic General",
                     "value": 1,
-                    "icon": "assets/materials/Mudra of the Malefic General.png"
+                    "icon": "assets/materials/Mudra of the Malefic General.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mudra of the Malefic General",
                     "value": 1,
-                    "icon": "assets/materials/Mudra of the Malefic General.png"
+                    "icon": "assets/materials/Mudra of the Malefic General.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mudra of the Malefic General",
                     "value": 2,
-                    "icon": "assets/materials/Mudra of the Malefic General.png"
+                    "icon": "assets/materials/Mudra of the Malefic General.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var KAMISATO_AYATO = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mudra of the Malefic General",
                     "value": 2,
-                    "icon": "assets/materials/Mudra of the Malefic General.png"
+                    "icon": "assets/materials/Mudra of the Malefic General.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2302,332 +2363,5 @@ var KAMISATO_AYATO = {
     "demo_music": {
         "name": "Serene and Fathomless",
         "url": "assets/character/demo_music/Kamisato Ayato.mp3"
-    },
-    "build": {
-        "version": "5.1",
-        "type": "On-field DPS",
-        "weapons": [
-            "Haran Geppaku Futsu",
-            "Primordial Jade Cutter",
-            "Mistsplitter Reforged",
-            "Splendor of Tranquil Waters",
-            "Light of Foliar Incision",
-            "Skyward Blade",
-            "Black Sword",
-            "Kagotsurube Isshin",
-            "Harbinger of Dawn",
-            "Lion's Roar"
-        ],
-        "artifacts": [
-            "4pc Heart of Depth",
-            "4pc Gladiator's Finale",
-            "4pc Nymph's Dream"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "Hydro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
     }
 }

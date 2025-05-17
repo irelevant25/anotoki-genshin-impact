@@ -1,32 +1,32 @@
 var SANGONOMIYA_KOKOMI = {
     "name": "Sangonomiya Kokomi",
     "secondary_title": "Pearl of Wisdom",
-    "card_icon": "assets/character/card/Sangonomiya Kokomi.png",
-    "wish_icon": "assets/character/wish/Sangonomiya Kokomi.png",
-    "ingame_icon": "assets/character/ingame/Sangonomiya Kokomi.png",
-    "icon": "assets/character/icon/Sangonomiya Kokomi.png",
+    "card_icon": "assets/character/card/Sangonomiya Kokomi.avif",
+    "wish_icon": "assets/character/wish/Sangonomiya Kokomi.avif",
+    "ingame_icon": "assets/character/ingame/Sangonomiya Kokomi.avif",
+    "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "February 22nd",
@@ -34,43 +34,43 @@ var SANGONOMIYA_KOKOMI = {
         {
             "name": "At Water's Edge",
             "level": 1,
-            "icon": "assets/character/constellations/At Water's Edge.png",
+            "icon": "assets/character/constellations/At Water's Edge.avif",
             "description": "While donning the Ceremonial Garment created by Nereid's Ascension, the final Normal Attack in Sangonomiya Kokomi's combo will unleash a swimming fish to deal 30% of her Max HP as Hydro DMG.This DMG is not considered Normal Attack DMG."
         },
         {
             "name": "The Clouds Like Waves Rippling",
             "level": 2,
-            "icon": "assets/character/constellations/The Clouds Like Waves Rippling.png",
+            "icon": "assets/character/constellations/The Clouds Like Waves Rippling.avif",
             "description": "Sangonomiya Kokomi gains the following Healing Bonuses with regard to characters with 50% or less HP via the following methods:Kurage's Oath Bake-Kurage: 4.5% of Kokomi's Max HP.Nereid's Ascension Normal and Charged Attacks: 0.6% of Kokomi's Max HP."
         },
         {
             "name": "The Moon, A Ship O'er the Seas",
             "level": 3,
-            "icon": "assets/character/constellations/The Moon, A Ship O'er the Seas.png",
+            "icon": "assets/character/constellations/The Moon, A Ship O'er the Seas.avif",
             "description": "Increases the Level of Nereid's Ascension by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Moon Overlooks the Waters",
             "level": 4,
-            "icon": "assets/character/constellations/The Moon Overlooks the Waters.png",
+            "icon": "assets/character/constellations/The Moon Overlooks the Waters.avif",
             "description": "While donning the Ceremonial Garment created by Nereid's Ascension, Sangonomiya Kokomi's Normal Attack SPD is increased by 10%, and Normal Attacks that hit opponents will restore 0.8 Energy for her.This effect can occur once every 0.2s."
         },
         {
             "name": "All Streams Flow to the Sea",
             "level": 5,
-            "icon": "assets/character/constellations/All Streams Flow to the Sea.png",
+            "icon": "assets/character/constellations/All Streams Flow to the Sea.avif",
             "description": "Increases the Level of Kurage's Oath by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sango Isshin",
             "level": 6,
-            "icon": "assets/character/constellations/Sango Isshin.png",
+            "icon": "assets/character/constellations/Sango Isshin.avif",
             "description": "While donning the Ceremonial Garment created by Nereid's Ascension, Sangonomiya Kokomi gains a 40% Hydro DMG Bonus for 4s when her Normal and Charged Attacks heal, or would heal, any party member with 80% or more HP."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Watatsumi Island",
@@ -79,12 +79,12 @@ var SANGONOMIYA_KOKOMI = {
     ],
     "special_dish": {
         "name": "A Stunning Stratagem",
-        "icon": "assets/foods/Sangonomiya Kokomi.png"
+        "icon": "assets/foods/Sangonomiya Kokomi.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Sangonomiya Kokomi.png",
-        "background": "assets/character/namecard_background/Sangonomiya Kokomi.png",
-        "banner": "assets/character/namecard_banner/Sangonomiya Kokomi.png",
+        "icon": "assets/character/namecard_icon/Sangonomiya Kokomi.avif",
+        "background": "assets/character/namecard_background/Sangonomiya Kokomi.avif",
+        "banner": "assets/character/namecard_banner/Sangonomiya Kokomi.avif",
         "description": "All Watatsumi islanders know this tale: that deep beneath the waves lies their former home.",
         "quality": "4",
         "sources": [
@@ -164,22 +164,26 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 3,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -207,27 +211,32 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 2,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 10,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 15,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -255,27 +264,32 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 4,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 20,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -303,27 +317,32 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 8,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 30,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 18,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -351,27 +370,32 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 12,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 45,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -399,27 +423,32 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dew of Repudiation",
                     "value": 20,
-                    "icon": "assets/materials/Dew of Repudiation.png"
+                    "icon": "assets/materials/Dew of Repudiation.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 60,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 24,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -428,43 +457,43 @@ var SANGONOMIYA_KOKOMI = {
         {
             "name": "The Shape of Water",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/The Shape of Water.png",
+            "icon": "assets/character/talents/The Shape of Water.avif",
             "description": "Normal AttackPerforms up to 3 consecutive attacks that take the form of swimming fish, dealing Hydro DMG.Charged AttackConsumes a certain amount of Stamina to deal AoE Hydro DMG after a short casting time.Plunging AttackGathering the might of Hydro, Kokomi plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Hydro DMG upon impact with the ground."
         },
         {
             "name": "Kurage's Oath",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Kurage's Oath.png",
+            "icon": "assets/character/talents/Kurage's Oath.avif",
             "description": "Summons a \"Bake-Kurage\" created from water that can heal her allies.Using this skill will apply the Wet status to Sangonomiya Kokomi.Bake-KurageDeals Hydro DMG to surrounding opponents and heal nearby active characters at fixed intervals. This healing is based on Kokomi's Max HP."
         },
         {
             "name": "Nereid's Ascension",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Nereid's Ascension.png",
+            "icon": "assets/character/talents/Nereid's Ascension.avif",
             "description": "Summons the might of Watatsumi, dealing Hydro DMG to surrounding opponents, before robing Kokomi in a Ceremonial Garment made from the flowing waters of Sangonomiya.Ceremonial GarmentSangonomiya Kokomi's Normal Attack, Charged Attack and Bake-Kurage DMG are increased based on her Max HP.When her Normal and Charged Attacks hit opponents, Kokomi will restore HP for all nearby party members, and the amount restored is based on her Max HP.Increases Sangonomiya Kokomi's resistance to interruption and allows her to walk on the water's surface.These effects will be cleared once Sangonomiya Kokomi leaves the field."
         },
         {
             "name": "Tamakushi Casket",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Tamakushi Casket.png",
+            "icon": "assets/character/talents/Tamakushi Casket.avif",
             "description": "If Sangonomiya Kokomi's own Bake-Kurage are on the field when she uses Nereid's Ascension, the Bake-Kurage's duration will be refreshed."
         },
         {
             "name": "Song of Pearls",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Song of Pearls.png",
+            "icon": "assets/character/talents/Song of Pearls.avif",
             "description": "While donning the Ceremonial Garment created by Nereid's Ascension, the Normal and Charged Attack DMG Bonus Sangonomiya Kokomi gains based on her Max HP will receive a further increase based on 15% of her Healing Bonus."
         },
         {
             "name": "Princess of Watatsumi",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Princess of Watatsumi.png",
+            "icon": "assets/character/talents/Princess of Watatsumi.avif",
             "description": "Decreases swimming Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         },
         {
             "name": "Flawless Strategy",
             "type": "Passive Talent",
-            "icon": "assets/character/talents/Flawless Strategy.png",
+            "icon": "assets/character/talents/Flawless Strategy.avif",
             "description": "Sangonomiya Kokomi has a 25% Healing Bonus, but a 100% decrease in CRIT Rate."
         }
     ],
@@ -475,17 +504,20 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Transience",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Transience.png"
+                    "icon": "assets/materials/Teachings of Transience.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -495,17 +527,20 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -515,17 +550,20 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -535,17 +573,20 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -555,17 +596,20 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -575,22 +619,26 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 1,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -600,22 +648,26 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 1,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -625,22 +677,26 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 2,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -650,27 +706,32 @@ var SANGONOMIYA_KOKOMI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 2,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2358,239 +2419,5 @@ var SANGONOMIYA_KOKOMI = {
     "demo_music": {
         "name": "A Glorious Awakening",
         "url": "assets/character/demo_music/Sangonomiya Kokomi.mp3"
-    },
-    "build": {
-        "version": "3.4",
-        "type": "Support",
-        "weapons": [
-            "Everlasting Moonglow",
-            "Prototype Amber",
-            "Thrilling Tales of Dragon Slayers",
-            "Hakushin Ring",
-            "Sacrificial Fragments",
-            "A Thousand Floating Dreams"
-        ],
-        "artifacts": [
-            "4p Ocean-Hued Clam",
-            "4p Tenacity of the Millelith",
-            "4p Deepwood Memories",
-            "4p Gilded Dreams",
-            "4p Flowers of Paradise Lost"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / HP%",
-            "HP% / Hydro DMG Bonus",
-            "HP% / Healing Bonus"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "HP%",
-            "Flat HP"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ]
-        ]
     }
 }

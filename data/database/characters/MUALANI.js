@@ -1,28 +1,28 @@
 var MUALANI = {
     "name": "Mualani",
     "secondary_title": "Splish-Splash Wavechaser",
-    "card_icon": "assets/character/card/Mualani.png",
-    "wish_icon": "assets/character/wish/Mualani.png",
-    "ingame_icon": "assets/character/ingame/Mualani.png",
-    "icon": "assets/character/icon/Mualani.png",
+    "card_icon": "assets/character/card/Mualani.avif",
+    "wish_icon": "assets/character/wish/Mualani.avif",
+    "ingame_icon": "assets/character/ingame/Mualani.avif",
+    "icon": "assets/character/icon/Mualani.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "August 3rd",
@@ -30,43 +30,43 @@ var MUALANI = {
         {
             "name": "The Leisurely \"Meztli\"...",
             "level": 1,
-            "icon": "assets/character/constellations/The Leisurely Meztli....png",
+            "icon": "assets/character/constellations/The Leisurely Meztli....avif",
             "description": "The DMG dealt by the first Sharky's Surging Bite after Mualani enters Nightsoul's Blessing and the Shark Missiles it triggers is increased by 66% of Mualani's Max HP. This instance of increased DMG is subject to the diminishing DMG rules of Surfshark Wavebreaker.In addition, while out of combat, Mualani's Nightsoul's Blessing state consumes 30% less Phlogiston and Nightsoul points."
         },
         {
             "name": "Mualani, Going All Out!",
             "level": 2,
-            "icon": "assets/character/constellations/Mualani, Going All Out!.png",
+            "icon": "assets/character/constellations/Mualani, Going All Out!.avif",
             "description": "Mualani gains 2 of Surfshark Wavebreaker's Wave Momentum stacks when she enters Nightsoul's Blessing. She will gain 1 stack when obtaining a Puffer.In addition, whenever Mualani obtains 2 Puffers within a single instance of the Nightsoul's Blessing state, she will recover an additional 12 Nightsoul points over 2s. This effect requires the Passive Talent \"Heat-Resistant Freshwater Puffer\" to be unlocked first."
         },
         {
             "name": "Surfing Atop Joyous Seas",
             "level": 3,
-            "icon": "assets/character/constellations/Surfing Atop Joyous Seas.png",
+            "icon": "assets/character/constellations/Surfing Atop Joyous Seas.avif",
             "description": "Increases the Level of Surfshark Wavebreaker by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sharky Eats Puffies",
             "level": 4,
-            "icon": "assets/character/constellations/Sharky Eats Puffies.png",
+            "icon": "assets/character/constellations/Sharky Eats Puffies.avif",
             "description": "Mualani regenerates 8 Energy when obtaining a Puffer. Must first unlock the Passive Talent \"Heat-Resistant Freshwater Puffer.\"Additionally, Boomsharka-laka deals 75% increased DMG."
         },
         {
             "name": "Same Style of Surfboard on Sale!",
             "level": 5,
-            "icon": "assets/character/constellations/Same Style of Surfboard on Sale!.png",
+            "icon": "assets/character/constellations/Same Style of Surfboard on Sale!.avif",
             "description": "Increases the Level of Boomsharka-laka by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Spirit of the Springs' People",
             "level": 6,
-            "icon": "assets/character/constellations/Spirit of the Springs' People.png",
+            "icon": "assets/character/constellations/Spirit of the Springs' People.avif",
             "description": "The DMG increase from the Constellation \"The Leisurely 'Meztli'...\" is no longer limited to being triggered once every Nightsoul's Blessing."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Meztli",
@@ -74,12 +74,12 @@ var MUALANI = {
     ],
     "special_dish": {
         "name": "Pass the Luck",
-        "icon": "assets/foods/Mualani.png"
+        "icon": "assets/foods/Mualani.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Mualani.png",
-        "background": "assets/character/namecard_background/Mualani.png",
-        "banner": "assets/character/namecard_banner/Mualani.png",
+        "icon": "assets/character/namecard_icon/Mualani.avif",
+        "background": "assets/character/namecard_background/Mualani.avif",
+        "banner": "assets/character/namecard_banner/Mualani.avif",
         "description": "Sharks that live in the sea don't actually like eating people — they prefer marine creatures. So as a shark that lives in freshwater hot springs, it's only natural that Mualani's Sharky Surfboard will only eat hot spring creatures. ...Just kidding, those Capybaras can sleep easy. Firstly, because their meat's too tough. And secondly, because... it's a surfboard?",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sprayfeather Gill",
                     "value": 3,
-                    "icon": "assets/materials/Sprayfeather Gill.png"
+                    "icon": "assets/materials/Sprayfeather Gill.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 2,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sprayfeather Gill",
                     "value": 10,
-                    "icon": "assets/materials/Sprayfeather Gill.png"
+                    "icon": "assets/materials/Sprayfeather Gill.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 15,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 4,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sprayfeather Gill",
                     "value": 20,
-                    "icon": "assets/materials/Sprayfeather Gill.png"
+                    "icon": "assets/materials/Sprayfeather Gill.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 8,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sprayfeather Gill",
                     "value": 30,
-                    "icon": "assets/materials/Sprayfeather Gill.png"
+                    "icon": "assets/materials/Sprayfeather Gill.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 18,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 12,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sprayfeather Gill",
                     "value": 45,
-                    "icon": "assets/materials/Sprayfeather Gill.png"
+                    "icon": "assets/materials/Sprayfeather Gill.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 20,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sprayfeather Gill",
                     "value": 60,
-                    "icon": "assets/materials/Sprayfeather Gill.png"
+                    "icon": "assets/materials/Sprayfeather Gill.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 24,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,43 +450,43 @@ var MUALANI = {
         {
             "name": "Cooling Treatment",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Cooling Treatment.png",
+            "icon": "assets/character/talents/Cooling Treatment.avif",
             "description": "Normal AttackPerforms up to 3 attacks that deal Hydro DMG.Charged AttackConsumes a certain amount of Stamina to smack a Pufferball into the air that deals AoE Hydro DMG upon landing.Plunging AttackGathers the power of Hydro and plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Hydro DMG upon impact with the ground."
         },
         {
             "name": "Surfshark Wavebreaker",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Surfshark Wavebreaker.png",
+            "icon": "assets/character/talents/Surfshark Wavebreaker.avif",
             "description": "Combining her mastery of speed and the waves and water, Mualani can surf anytime, anywhere.After using this skill, Mualani will gain 60 Nightsoul points and enter the Nightsoul's Blessing state.Nightsoul's Blessing: MualaniContinuously consume Nightsoul points. When they are depleted or when the skill is used again, Mualani's Nightsoul's Blessing will end. The state itself has the following traits:Mualani mounts her Sharky Surfboard, increasing Mualani's Movement SPD and interruption resistance. Mualani can move on water and Liquid Phlogiston while this state is active, and she will take no DMG from the latter.Normal Attacks will be converted to Sharky's Bites, dealing Nightsoul-aligned Hydro DMG based on Mualani's Max HP. Sharky's Bites can be used in mid-air. DMG dealt this way is considered Normal Attack DMG.When she makes contact with opponents in this state, Mualani applies \"Marked as Prey\" to them and gains 1 Wave Momentum stack. Max 3 stacks. 1 stack can be gained from the same opponent every 0.7s.Wave Momentum and Marked as PreyWhen Mualani uses Sharky's Bite, her DMG dealt increases based on Wave Momentum stacks. When she has 3 stacks, a Normal Attack will use Sharky's Surging Bite instead, further increasing her DMG and removing all her stacks afterward.When Sharky's Bites hit opponents Marked as Prey, that mark is removed, and she will fire Shark Missiles at up to 5 nearby opponents Marked as Prey, dealing DMG to them equal to this Sharky's Bite instance and clearing their Marks. If more than 1 opponent is the target of Sharky's Bite and Shark Missiles, the DMG dealt will decrease, with 28% being the maximum decrease when at least 3 opponents are targeted."
         },
         {
             "name": "Boomsharka-laka",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Boomsharka-laka.png",
+            "icon": "assets/character/talents/Boomsharka-laka.avif",
             "description": "Fires a Super Shark Missile that can track opponents, dealing Nightsoul-aligned AoE Hydro DMG based on Mualani's Max HP."
         },
         {
             "name": "Heat-Resistant Freshwater Floater",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Heat-Resistant Freshwater Floater.png",
+            "icon": "assets/character/talents/Heat-Resistant Freshwater Floater.avif",
             "description": "When Sharky's Surging Bite hits an opponent, a Puffer will be generated nearby. Mualani will restore 20 Nightsoul points when she picks up a Puffer. Only 2 such Puffers can be created in this way during a single instance of being in Nightsoul's Blessing."
         },
         {
             "name": "Natlan's Greatest Guide",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Natlan's Greatest Guide.png",
+            "icon": "assets/character/talents/Natlan's Greatest Guide.avif",
             "description": "When a nearby party member triggers a Nightsoul Burst, Mualani will gain 1 stack of Wavechaser's Exploits, which lasts for 20s. Max 3 stacks. When she uses Boomsharka-laka, Mualani will clear all Wavechaser's Exploits stacks and increase the DMG of this Boomsharka-laka by 15%/30%/45% of her Max HP based on the number of stacks cleared."
         },
         {
             "name": "Crests and Troughs",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Crests and Troughs.png",
+            "icon": "assets/character/talents/Crests and Troughs.avif",
             "description": "After her Nightsoul points are depleted, Mualani will switch to consuming Phlogiston to maintain her Nightsoul's Blessing.While in an area with Phlogiston Mechanics within Natlan, she can use Nightsoul Transmission: Mualani. When the active character is currently sprinting, swimming, in a movement mode caused by certain Talents, or at a certain height in the air, the following will trigger when switching to Mualani: Mualani will enter the Nightsoul's Blessing state and gain 40 Nightsoul points. Nightsoul Transmission can be triggered once every 10s by your own team.Additionally, Mualani's Nightsoul point or Phlogiston consumption while moving on water and Liquid Phlogiston during Nightsoul's Blessing is decreased by 75% while in Natlan, and her Nightsoul point consumption is decreased by 35% while doing the same outside Natlan."
         },
         {
             "name": "The Trick Is to Keep Smiling!",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Trick Is to Keep Smiling!.png",
+            "icon": "assets/character/talents/The Trick Is to Keep Smiling!.avif",
             "description": "While in an area with Phlogiston Mechanics within Natlan, 15 Phlogiston will be restored when interacting with some harvestable items. Additionally, the location of nearby resources unique to Natlan will appear on your mini-map."
         }
     ],
@@ -468,17 +497,20 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Contention",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Contention.png"
+                    "icon": "assets/materials/Teachings of Contention.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -488,17 +520,20 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -508,17 +543,20 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -528,17 +566,20 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -548,17 +589,20 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -568,22 +612,26 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -593,22 +641,26 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -618,22 +670,26 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -643,27 +699,32 @@ var MUALANI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2518,76 +2579,5 @@ var MUALANI = {
     "demo_music": {
         "name": "Hot Spring Affection",
         "url": "assets/character/demo_music/Mualani.mp3"
-    },
-    "build": {
-        "version": "5.0",
-        "type": "On-field DPS",
-        "weapons": [
-            "Surf's Up",
-            "Sacrificial Jade",
-            "A Thousand Floating Dreams",
-            "Tome of the Eternal Flow",
-            "The Widsith",
-            "Ring of Yaxche",
-            "Prototype Amber"
-        ],
-        "artifacts": [
-            "4pc Obsidian Codex",
-            "4pc Unfinished Reverie",
-            "4pc Heart of Depth"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP% / EM",
-            "Hydro DMG Bonus / HP%",
-            "CRIT DMG / HP%"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "HP%",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Mualani",
-                    "icon": "assets/character/icon/Mualani.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mualani",
-                    "icon": "assets/character/icon/Mualani.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                }
-            ]
-        ]
     }
 }

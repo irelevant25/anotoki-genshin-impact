@@ -1,28 +1,28 @@
 var ALHAITHAM = {
     "name": "Alhaitham",
     "secondary_title": "Admonishing Instruction",
-    "card_icon": "assets/character/card/Alhaitham.png",
-    "wish_icon": "assets/character/wish/Alhaitham.png",
-    "ingame_icon": "assets/character/ingame/Alhaitham.png",
-    "icon": "assets/character/icon/Alhaitham.png",
+    "card_icon": "assets/character/card/Alhaitham.avif",
+    "wish_icon": "assets/character/wish/Alhaitham.avif",
+    "ingame_icon": "assets/character/ingame/Alhaitham.avif",
+    "icon": "assets/character/icon/Alhaitham.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "February 11th",
@@ -30,43 +30,43 @@ var ALHAITHAM = {
         {
             "name": "Intuition",
             "level": 1,
-            "icon": "assets/character/constellations/Intuition.png",
+            "icon": "assets/character/constellations/Intuition.avif",
             "description": "When a Projection Attack hits an opponent, Universality: An Elaboration on Form's CD is decreased by 1.2s. This effect can be triggered once every 1s."
         },
         {
             "name": "Debate",
             "level": 2,
-            "icon": "assets/character/constellations/Debate.png",
+            "icon": "assets/character/constellations/Debate.avif",
             "description": "When Alhaitham generates a Chisel-Light Mirror, his Elemental Mastery will be increased by 50 for 8 seconds, max 4 stacks. Each stack's duration is counted independently. This effect can be triggered even when the maximum number of Chisel-Light Mirrors has been reached."
         },
         {
             "name": "Negation",
             "level": 3,
-            "icon": "assets/character/constellations/Negation.png",
+            "icon": "assets/character/constellations/Negation.avif",
             "description": "Increases the Level of Universality: An Elaboration on Form by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Elucidation",
             "level": 4,
-            "icon": "assets/character/constellations/Elucidation.png",
+            "icon": "assets/character/constellations/Elucidation.avif",
             "description": "When Particular Field: Fetters of Phenomena is unleashed, the following effects will become active based on the number of Chisel-Light Mirrors consumed and created this time around:Each Mirror consumed will increase the Elemental Mastery of all other nearby party members by 30 for 15s.Each Mirror generated will grant Alhaitham a 10% Dendro DMG Bonus for 15s.The pre-existing duration of the aforementioned effects will be cleared if you use Particular Field: Fetters of Phenomena again while they are in effect."
         },
         {
             "name": "Sagacity",
             "level": 5,
-            "icon": "assets/character/constellations/Sagacity.png",
+            "icon": "assets/character/constellations/Sagacity.avif",
             "description": "Increases the Level of Particular Field: Fetters of Phenomena by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Structuration",
             "level": 6,
-            "icon": "assets/character/constellations/Structuration.png",
+            "icon": "assets/character/constellations/Structuration.avif",
             "description": "Alhaitham gains the following effects:2 seconds after Particular Field: Fetters of Phenomena is unleashed, he will generate 3 Chisel-Light Mirrors regardless of the number of mirrors consumed.If Alhaitham generates Chisel-Light Mirrors when their numbers have already maxed out, his CRIT Rate and CRIT DMG will increase by 10% and 70% respectively for 6s. If this effect is triggered again during its initial duration, the duration remaining will be increased by 6s."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Sumeru Akademiya",
@@ -74,12 +74,12 @@ var ALHAITHAM = {
     ],
     "special_dish": {
         "name": "Ideal Circumstance",
-        "icon": "assets/foods/Alhaitham.png"
+        "icon": "assets/foods/Alhaitham.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Alhaitham.png",
-        "background": "assets/character/namecard_background/Alhaitham.png",
-        "banner": "assets/character/namecard_banner/Alhaitham.png",
+        "icon": "assets/character/namecard_icon/Alhaitham.avif",
+        "background": "assets/character/namecard_background/Alhaitham.avif",
+        "banner": "assets/character/namecard_banner/Alhaitham.avif",
         "description": "\"The only things researchers should abide by are debates and dialectics. Only by questioning everything at all times can one avoid falling into prejudice.\"",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 3,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 3,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 2,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 10,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 15,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 4,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 20,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 12,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 8,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 30,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 18,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 12,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 45,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Pseudo-Stamens",
                     "value": 20,
-                    "icon": "assets/materials/Pseudo-Stamens.png"
+                    "icon": "assets/materials/Pseudo-Stamens.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 60,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 24,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var ALHAITHAM = {
         {
             "name": "Abductive Reasoning",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Abductive Reasoning.png",
+            "icon": "assets/character/talents/Abductive Reasoning.avif",
             "description": "Normal AttackPerforms up to 5 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 2 rapid sword strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Universality: An Elaboration on Form",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Universality An Elaboration on Form.png",
+            "icon": "assets/character/talents/Universality An Elaboration on Form.avif",
             "description": "Rushes forward, dealing Dendro DMG to nearby opponents when the rush ends, causing a Chisel-Light Mirror to form.Holding this skill will cause it to behave differently.HoldEnters Aiming Mode to adjust the direction of Alhaitham's rush attack.Chisel-Light MirrorWhen this skill is unleashed, Alhaitham will generate 1 Chisel-Light Mirror. If there are no Mirrors at this time, he will generate 1 additional Mirror. Chisel-Light Mirrors will have the following properties:When he possesses Chisel-Light Mirrors, Alhaitham's Normal, Charged, and Plunging Attacks will be converted to Dendro DMG. This cannot be overridden.When attacks of the aforementioned kinds hit opponents, the Chisel-Light Mirrors will unleash a Projection Attack that deals AoE Dendro DMG based on the number of Mirrors on the field.A total of 3 Chisel-Light Mirrors can exist at once.The Chisel-Light Mirrors will disappear one after the other over time, and will all disappear when Alhaitham leaves the field."
         },
         {
             "name": "Particular Field: Fetters of Phenomena",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Particular Field Fetters of Phenomena.png",
+            "icon": "assets/character/talents/Particular Field Fetters of Phenomena.avif",
             "description": "Creates a Particular Binding Field and deals multiple instances of AoE Dendro DMG.If Chisel-Light Mirrors exist when this ability is unleashed, all such Mirrors will be consumed and increase the number of DMG instances dealt.2s after this ability is unleashed, if 0/1/2/3 Mirrors were consumed, Alhaitham will generate 3/2/1/0 new Mirrors in turn."
         },
         {
             "name": "Four-Causal Correction",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Four-Causal Correction.png",
+            "icon": "assets/character/talents/Four-Causal Correction.avif",
             "description": "When Alhaitham's Charged or Plunging Attacks hit opponents, they will generate 1 Chisel-Light Mirror. This effect can be triggered once every 12s."
         },
         {
             "name": "Mysteries Laid Bare",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Mysteries Laid Bare.png",
+            "icon": "assets/character/talents/Mysteries Laid Bare.avif",
             "description": "Each point of Alhaitham's Elemental Mastery will increase the DMG dealt by Projection Attacks and Particular Field: Fetters of Phenomena by 0.1%.The maximum DMG increase this way for both these abilities is 100%."
         },
         {
             "name": "Law of Reductive Overdetermination",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Law of Reductive Overdetermination.png",
+            "icon": "assets/character/talents/Law of Reductive Overdetermination.avif",
             "description": "When Alhaitham crafts Weapon Ascension Materials, he has a 10% chance to receive double the product."
         }
     ],
@@ -464,17 +493,20 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 6,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ingenuity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ingenuity.png"
+                    "icon": "assets/materials/Teachings of Ingenuity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 3,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 4,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 6,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 9,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 4,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 1,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 6,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 1,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 9,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 2,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var ALHAITHAM = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mirror of Mushin",
                     "value": 2,
-                    "icon": "assets/materials/Mirror of Mushin.png"
+                    "icon": "assets/materials/Mirror of Mushin.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2275,295 +2336,5 @@ var ALHAITHAM = {
     "demo_music": {
         "name": "Cogitation of Epochs",
         "url": "assets/character/demo_music/Alhaitham.mp3"
-    },
-    "build": {
-        "version": "4.7",
-        "type": "On-field DPS",
-        "weapons": [
-            "Light of Foliar Incision",
-            "Primordial Jade Cutter",
-            "Mistsplitter Reforged",
-            "Haran Geppaku Futsu",
-            "Uraku Misugiri",
-            "Wolf-Fang",
-            "Iron Sting",
-            "Toukabou Shigure"
-        ],
-        "artifacts": [
-            "4pc Gilded Dreams",
-            "4pc Golden Troupe",
-            "4pc Marechaussee Hunter",
-            "4pc Deepwood Memories"
-        ],
-        "talents": [
-            "Skill",
-            "Normal Attack",
-            "Burst"
-        ],
-        "main_stats": [
-            "EM > ATK%",
-            "Dendro DMG%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "EM (200 - 300)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ]
-        ]
     }
 }

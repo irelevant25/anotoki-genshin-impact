@@ -1,35 +1,35 @@
 var FURINA = {
     "name": "Furina",
     "secondary_title": "Endless Solo of Solitude",
-    "wish_icon": "assets/character/wish/Furina.png",
-    "icon": "assets/character/icon/Furina.png",
+    "wish_icon": "assets/character/wish/Furina.avif",
+    "icon": "assets/character/icon/Furina.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Medium Female",
     "arkhe": "Pneuma & Ousia",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "October 13th",
@@ -37,43 +37,43 @@ var FURINA = {
         {
             "name": "\"Love Is a Rebellious Bird That None Can Tame\"",
             "level": 1,
-            "icon": "assets/character/constellations/Love Is a Rebellious Bird That None Can Tame.png",
+            "icon": "assets/character/constellations/Love Is a Rebellious Bird That None Can Tame.avif",
             "description": "When using Let the People Rejoice, Furina will gain 150 Fanfare.Additionally, Furina's Fanfare limit is increased by 100."
         },
         {
             "name": "\"A Woman Adapts Like Duckweed in Water\"",
             "level": 2,
-            "icon": "assets/character/constellations/A Woman Adapts Like Duckweed in Water.png",
+            "icon": "assets/character/constellations/A Woman Adapts Like Duckweed in Water.avif",
             "description": "While Let the People Rejoice lasts, Furina's Fanfare gain from increases or decreases in nearby characters' HP is increased by 250%. Each point of Fanfare above the limit will increase Furina's Max HP by 0.35%. Her maximum Max HP increase is 140%."
         },
         {
             "name": "\"My Secret Is Hidden Within Me, No One Will Know My Name\"",
             "level": 3,
-            "icon": "assets/character/constellations/My Secret Is Hidden Within Me, No One Will Know My Name.png",
+            "icon": "assets/character/constellations/My Secret Is Hidden Within Me, No One Will Know My Name.avif",
             "description": "Increases the Level of Let the People Rejoice by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"They Know Not Life, Who Dwelt in the Netherworld Not!\"",
             "level": 4,
-            "icon": "assets/character/constellations/They Know Not Life, Who Dwelt in the Netherworld Not!.png",
+            "icon": "assets/character/constellations/They Know Not Life, Who Dwelt in the Netherworld Not!.avif",
             "description": "When the Salon Members from Salon Solitaire hit an opponent, or the Singer of Many Waters restores HP to nearby active characters, Furina will restore 4 Energy. This effect can be triggered once every 5s."
         },
         {
             "name": "\"His Name I Now Know, It Is...!\"",
             "level": 5,
-            "icon": "assets/character/constellations/His Name I Now Know, It Is...!.png",
+            "icon": "assets/character/constellations/His Name I Now Know, It Is...!.avif",
             "description": "Increases the Level of Salon Solitaire by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"Hear Me — Let Us Raise the Chalice of Love!\"",
             "level": 6,
-            "icon": "assets/character/constellations/Hear Me — Let Us Raise the Chalice of Love!.png",
+            "icon": "assets/character/constellations/Hear Me — Let Us Raise the Chalice of Love!.avif",
             "description": "When using Salon Solitaire, Furina gains \"Center of Attention\" for 10s.Throughout the duration, Furina's Normal Attacks, Charged Attacks, and Plunging Attacks are converted into Hydro DMG which cannot be overridden by any other elemental infusion. DMG is also increased by an amount equivalent to 18% of Furina's max HP.Throughout the duration, Furina's Normal Attacks (not including Arkhe: Seats Sacred and Secular Attacks), Charged Attacks, and the impact of Plunging Attacks will cause different effects up to every 0.1s after hitting opponents depending on her current Arkhe alignment:Arkhe: OusiaEvery 1s, all nearby characters in the party will be healed by 4% of Furina's max HP, for a duration of 2.9s. Triggering this effect again will extend its duration.Arkhe: PneumaThis Normal Attack (not including Arkhe: Seats Sacred and Secular Attacks), Charged Attack, or Plunging Attack ground impact DMG will be further increased by an amount equivalent to 25% of Furina's max HP. When any of the attacks mentioned previously hit an opponent, all nearby characters in the party will consume 1% of their current HP.During the duration of each instance of \"Center of Attention,\" the above effects can be triggered up to 6 times. \"Center of Attention\" will end when its effects have triggered 6 times or when the duration expires."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Court of Fontaine",
@@ -84,12 +84,12 @@ var FURINA = {
     ],
     "special_dish": {
         "name": "\"Pour la Justice\"",
-        "icon": "assets/foods/Furina.png"
+        "icon": "assets/foods/Furina.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Furina.png",
-        "background": "assets/character/namecard_background/Furina.png",
-        "banner": "assets/character/namecard_banner/Furina.png",
+        "icon": "assets/character/namecard_icon/Furina.avif",
+        "background": "assets/character/namecard_background/Furina.avif",
+        "banner": "assets/character/namecard_banner/Furina.avif",
         "description": "Can one person eat every cake? If they eat one per day, they should be able to enjoy cake for a week or so, right? But will the cakes stay fresh that long? Hmm... Well, don't worry, because there will be friends coming to eat the cakes together.",
         "quality": "4",
         "sources": [
@@ -167,22 +167,26 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 3,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -210,27 +214,32 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 2,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 10,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -258,27 +267,32 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 4,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 20,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -306,27 +320,32 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 8,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 30,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -354,27 +373,32 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 12,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 45,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -402,27 +426,32 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 20,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 60,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -431,37 +460,37 @@ var FURINA = {
         {
             "name": "Soloist's Solicitation",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Soloist's Solicitation.png",
+            "icon": "assets/character/talents/Soloist's Solicitation.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackConsumes a certain amount of Stamina to unleash a solo dance, dealing Physical DMG to nearby opponents and changing her Arkhe alignment. If Salon Members or Singer of Many Waters summoned by her Elemental Skill \"Salon Solitaire\" are present, their lineup will switch in response.Arkhe: Seats Sacred and SecularAt intervals, when Furina's Normal Attacks hit, a Spiritbreath Thorn or a Surging Blade will descend based on her current alignment, dealing Hydro DMG based on her current alignment.When Furina takes the field, her starting Arkhe will be Ousia.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Salon Solitaire",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Salon Solitaire.png",
+            "icon": "assets/character/talents/Salon Solitaire.avif",
             "description": "Invites the guests of the Salon Solitaire to come forth and aid in Furina's performance. Will summon either the Salon Members or the Singer of Many Waters based on Furina's current Arkhe alignment.OusiaFoaming bubbles like celebrants shall dance, dealing AoE Hydro DMG based on Furina's Max HP and summoning 3 Salon Members: the Ball Octopus-shaped Gentilhomme Usher, the Bubbly Seahorse-shaped Surintendante Chevalmarin, and the Armored Crab-shaped Mademoiselle Crabaletta.They will attack nearby opponents at intervals, prioritizing the target of the active character, dealing Hydro DMG based on Max HP.When they attack, if character(s) with more than 50% HP are nearby, the Members will increase their current attack's power based on the number of such characters, and consume said characters' HP. If the characters who meet these requirements are 1/2/3/4 (or more), the Members' attacks will deal 110%/120%/130%/140% of their original DMG.PneumaSummons the Singer of Many Waters, who will heal nearby active character(s) based on Max HP at intervals.The Salon Members and Singer of Many Waters share a duration, and when Furina uses her Charged Attack to change the guest type, the new guests will inherit the initial duration.While the Salon Members and the Singer of Many Waters are on the field, Furina can move on the water's surface."
         },
         {
             "name": "Let the People Rejoice",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Let the People Rejoice.png",
+            "icon": "assets/character/talents/Let the People Rejoice.avif",
             "description": "Rouses the impulse to revel, creating a stage of foam that will deal AoE Hydro DMG based on Furina's Max HP and cause nearby party members to enter the Universal Revelry state: During this time, when nearby party members' HP increases or decreases, 1 Fanfare point will be granted to Furina for each percentage point of their Max HP by which their HP changes.At the same time, Furina will increase the DMG dealt by and Incoming Healing Bonus of all nearby party members based on the amount of Fanfare she has.When the duration ends, Furina's Fanfare points will be cleared."
         },
         {
             "name": "Endless Waltz",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Endless Waltz.png",
+            "icon": "assets/character/talents/Endless Waltz.avif",
             "description": "When the active character in your party receives healing, if the source of the healing is not Furina herself and the healing overflows, then Furina will heal nearby party members for 2% of their Max HP once every 2s within the next 4s."
         },
         {
             "name": "Unheard Confession",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Unheard Confession.png",
+            "icon": "assets/character/talents/Unheard Confession.avif",
             "description": "Every 1,000 points of Furina's Max HP can buff the different Arkhe-aligned Salon Solitaire in the following ways:Will increase Salon Member DMG dealt by 0.7%, up to a maximum of 28%.Will decrease active character healing interval of the Singer of Many Waters by 0.4%, up to a maximum of 16%."
         },
         {
             "name": "The Sea Is My Stage",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Sea Is My Stage.png",
+            "icon": "assets/character/talents/The Sea Is My Stage.avif",
             "description": "Xenochromatic Fontemer Aberrant ability CD decreased by 30%."
         }
     ],
@@ -472,17 +501,20 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Justice",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Justice.png"
+                    "icon": "assets/materials/Teachings of Justice.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -492,17 +524,20 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -512,17 +547,20 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -532,17 +570,20 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -552,17 +593,20 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -572,22 +616,26 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -597,22 +645,26 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -622,22 +674,26 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -647,27 +703,32 @@ var FURINA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -849,7 +910,7 @@ var FURINA = {
                     "title": "About Escoffier",
                     "text": "Oh? You've met my Patissiere Supreme? Thanks to Escoffier, I used to have my pick of delectable confections, even beyond Gateau Debord. Unfortunately, after everything that happened, I can no longer afford what the Palais Mermonia was paying her. Hm? Oh, don't worry, we're still in touch. I like to send her homemade dishes of my own. I even invented a new one not too long ago — \"Harra Fruit Fish Jelly Macaroni\"... Sounds good, right? I'll make it for you sometime.",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Furina/story/en/About Escoffier.mp3"
                 },
                 {
                     "title": "More About Furina: I",
@@ -2401,276 +2462,7 @@ var FURINA = {
         }
     },
     "demo_music": {
-        "name": "Se mettre sur son trente-et-un!",
+        "name": "Se mettre sur son trente-et-un !",
         "url": "assets/character/demo_music/Furina.mp3"
-    },
-    "build": {
-        "version": "5.3",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Splendor of Tranquil Waters",
-            "Primordial Jade Cutter",
-            "Festering Desire",
-            "Key of Khaj-Nisut",
-            "Fleuve Cendre Ferryman",
-            "Favonius Sword",
-            "Uraku Misugiri",
-            "Harbinger of Dawn"
-        ],
-        "artifacts": [
-            "4pc Golden Troupe",
-            "4pc Tenacity of the Millelith"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP% / ER",
-            "HP% / Hydro DMG Bonus",
-            "CRIT / HP%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Charlotte",
-                    "icon": "assets/character/icon/Charlotte.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                }
-            ]
-        ]
     }
 }

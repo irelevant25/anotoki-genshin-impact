@@ -1,32 +1,32 @@
 var YUMEMIZUKI_MIZUKI = {
     "name": "Yumemizuki Mizuki",
     "secondary_title": "Embrace of Enchanting Dreams",
-    "card_icon": "assets/character/card/Yumemizuki Mizuki.png",
-    "wish_icon": "assets/character/wish/Yumemizuki Mizuki.png",
-    "ingame_icon": "assets/character/ingame/Yumemizuki Mizuki.png",
-    "icon": "assets/character/icon/Yumemizuki Mizuki.png",
+    "card_icon": "assets/character/card/Yumemizuki Mizuki.avif",
+    "wish_icon": "assets/character/wish/Yumemizuki Mizuki.avif",
+    "ingame_icon": "assets/character/ingame/Yumemizuki Mizuki.avif",
+    "icon": "assets/character/icon/Yumemizuki Mizuki.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "March 16th",
@@ -34,43 +34,43 @@ var YUMEMIZUKI_MIZUKI = {
         {
             "name": "In Mist-Like Waters",
             "level": 1,
-            "icon": "assets/character/constellations/In Mist-Like Waters.png",
-            "description": "When Yumemizuki Mizuki is in the Dreamdrifter state, she will continuously apply the \"Twenty-Three Nights' Awaiting\" effect to nearby opponents for 3s every 3.5s. When an opponent is affected by Anemo DMG-triggered Swirl reactions while the aforementioned effect is active, the effect will be canceled and this Swirl instance has its DMG against this opponent increased by 900% of Mizuki's Elemental Mastery."
+            "icon": "assets/character/constellations/In Mist-Like Waters.avif",
+            "description": "When Yumemizuki Mizuki is in the Dreamdrifter state, she will continuously apply the \"Twenty-Three Nights' Awaiting\" effect to nearby opponents for 3s every 3.5s. When an opponent is affected by Anemo DMG-triggered Swirl reactions while the aforementioned effect is active, the effect will be canceled and this Swirl instance has its DMG against this opponent increased by 1,100% of Mizuki's Elemental Mastery."
         },
         {
             "name": "Your Echo I Meet in Dreams",
             "level": 2,
-            "icon": "assets/character/constellations/Your Echo I Meet in Dreams.png",
+            "icon": "assets/character/constellations/Your Echo I Meet in Dreams.avif",
             "description": "When Yumemizuki Mizuki enters the Dreamdrifter state, every Elemental Mastery point she has will increase all nearby party members' Pyro, Hydro, Cryo, and Electro DMG Bonuses by 0.04% until the Dreamdrifter state ends."
         },
         {
             "name": "Till Dawn's Moon Ends Night",
             "level": 3,
-            "icon": "assets/character/constellations/Till Dawn's Moon Ends Night.png",
+            "icon": "assets/character/constellations/Till Dawn's Moon Ends Night.avif",
             "description": "Increases the Level of Aisa Utamakura Pilgrimage by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Buds Warm Lucid Springs",
             "level": 4,
-            "icon": "assets/character/constellations/Buds Warm Lucid Springs.png",
+            "icon": "assets/character/constellations/Buds Warm Lucid Springs.avif",
             "description": "Picking up a Yumemi Style Special Snack from the Elemental Burst Anraku Secret Spring Therapy will both deal DMG and heal, and will restore 5 Energy to Yumemizuki Mizuki. Energy can be restored this way 4 times per Anraku Secret Spring Therapy duration."
         },
         {
             "name": "As Setting Moon Brings Year's End",
             "level": 5,
-            "icon": "assets/character/constellations/As Setting Moon Brings Year's End.png",
+            "icon": "assets/character/constellations/As Setting Moon Brings Year's End.avif",
             "description": "Increases the Level of Anraku Secret Spring Therapy by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Heart Lingers Long",
             "level": 6,
-            "icon": "assets/character/constellations/The Heart Lingers Long.png",
+            "icon": "assets/character/constellations/The Heart Lingers Long.avif",
             "description": "While Yumemizuki Mizuki is in the Dreamdrifter state, Swirl DMG dealt by nearby party members can Crit, with CRIT Rate fixed at 30%, and CRIT DMG fixed at 100%."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Inazuma",
@@ -78,12 +78,12 @@ var YUMEMIZUKI_MIZUKI = {
     ],
     "special_dish": {
         "name": "Dreams of Healing",
-        "icon": "assets/foods/Yumemizuki Mizuki.png"
+        "icon": "assets/foods/Yumemizuki Mizuki.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Yumemizuki Mizuki.png",
-        "background": "assets/character/namecard_background/Yumemizuki Mizuki.png",
-        "banner": "assets/character/namecard_banner/Yumemizuki Mizuki.png",
+        "icon": "assets/character/namecard_icon/Yumemizuki Mizuki.avif",
+        "background": "assets/character/namecard_background/Yumemizuki Mizuki.avif",
+        "banner": "assets/character/namecard_banner/Yumemizuki Mizuki.avif",
         "description": "The yumekui-baku consume nightmares and leave only pleasant dreams. But what if dreams are to be understood in reverse? Faced with such conjecture, her warm-natured response: A truly beautiful dream, even if turned upside down through reality's lens, would still remain beautiful.",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 3,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 2,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 10,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 15,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 4,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 20,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 8,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 30,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 18,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 12,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 45,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 20,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 60,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 24,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var YUMEMIZUKI_MIZUKI = {
         {
             "name": "Pure Heart, Pure Dreams",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Pure Heart, Pure Dreams.png",
+            "icon": "assets/character/talents/Pure Heart, Pure Dreams.avif",
             "description": "Normal AttackPerforms up to 3 attacks, dealing Anemo DMG.Charged AttackConsumes a certain amount of Stamina and deals AoE Anemo DMG after a short casting time.Plunging AttackCalling upon the power of Anemo, she plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Anemo DMG upon impact with the ground."
         },
         {
             "name": "Aisa Utamakura Pilgrimage",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Aisa Utamakura Pilgrimage.png",
+            "icon": "assets/character/talents/Aisa Utamakura Pilgrimage.avif",
             "description": "Weaves memories of lovely dreams, entering a Dreamdrifter state where she floats above the ground, and dealing 1 instance of AoE Anemo DMG to nearby opponents.DreamdrifterWhile in the Dreamdrifter state, Yumemizuki Mizuki will continuously drift forward, dealing AoE Anemo DMG to nearby opponents at regular intervals.During this time, Yumemizuki Mizuki can control her direction of drift, and the pick-up distance of Yumemi Style Special Snacks from the Elemental Burst Anraku Secret Spring Therapy will be increased.Increases the Swirl DMG that nearby party members deal based on Yumemizuki Mizuki's Elemental Mastery.Dreamdrifter will end when Mizuki leaves the field or uses her Elemental Skill again."
         },
         {
             "name": "Anraku Secret Spring Therapy",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Anraku Secret Spring Therapy.png",
+            "icon": "assets/character/talents/Anraku Secret Spring Therapy.avif",
             "description": "Summons forth countless lovely dreams and nightmares that pull in nearby objects and opponents, dealing AoE Anemo DMG and summoning a Mini Baku.Mini Baku:Follows the current active character. At regular intervals, the Mini Baku will create 1 Yumemi Style Special Snack nearby. After a nearby active character picks up a Special Snack, if their HP is higher than 70%, the Snack will explode and unleash a Munen Shockwave, dealing 1 instance of AoE Anemo DMG to nearby opponents. Otherwise, it will heal the one who picked it up based on Yumemizuki Mizuki's Elemental Mastery. When Yumemizuki Mizuki triggers healing by picking up a Yumemi Style Special Snack, the amount of healing is increased by 100%. If some time passes without a Snack being picked up, it will explode and release a Munen Shockwave, dealing 1 instance of AoE Anemo DMG to surrounding opponents."
         },
         {
             "name": "Bright Moon's Restless Voice",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Bright Moon's Restless Voice.png",
+            "icon": "assets/character/talents/Bright Moon's Restless Voice.avif",
             "description": "When Yumemizuki Mizuki triggers Swirl while in her Dreamdrifter state, Dreamdrifter's duration increases by 2.5s. This effect can trigger once every 0.3s for a maximum of 2 times per Dreamdrifter state."
         },
         {
             "name": "Thoughts by Day Bring Dreams by Night",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Thoughts by Day Bring Dreams by Night.png",
+            "icon": "assets/character/talents/Thoughts by Day Bring Dreams by Night.avif",
             "description": "While Yumemizuki Mizuki is in the Dreamdrifter state, when other nearby party members hit opponents with Pyro, Hydro, Cryo, or Electro attacks, her Elemental Mastery will increase by 100 for 4s."
         },
         {
             "name": "All Ailments Banished",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/All Ailments Banished.png",
+            "icon": "assets/character/talents/All Ailments Banished.avif",
             "description": "When Yumemizuki Mizuki is in the party, party members have a chance to recover 30% additional HP when using healing foods that do not have reviving properties. The trigger chance for this effect increases with the corresponding character's Friendship Level. (This effect will always trigger if the Traveler is the character consuming healing food.)"
         }
     ],
@@ -466,17 +495,20 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Transience",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Transience.png"
+                    "icon": "assets/materials/Teachings of Transience.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 1,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 1,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 2,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var YUMEMIZUKI_MIZUKI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fading Candle",
                     "value": 2,
-                    "icon": "assets/materials/Fading Candle.png"
+                    "icon": "assets/materials/Fading Candle.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2417,109 +2478,5 @@ var YUMEMIZUKI_MIZUKI = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "5.4",
-        "type": "On-field DPS",
-        "weapons": [
-            "Hakushin Ring",
-            "Favonius Codex",
-            "A Thousand Floating Dreams",
-            "Wandering Evenstar",
-            "Sunny Morning Sleep-In",
-            "Thrilling Tales of Dragon Slayers"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM / ER",
-            "EM",
-            "EM"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Yumemizuki Mizuki",
-                    "icon": "assets/character/icon/Yumemizuki Mizuki.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yumemizuki Mizuki",
-                    "icon": "assets/character/icon/Yumemizuki Mizuki.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yumemizuki Mizuki",
-                    "icon": "assets/character/icon/Yumemizuki Mizuki.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yumemizuki Mizuki",
-                    "icon": "assets/character/icon/Yumemizuki Mizuki.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

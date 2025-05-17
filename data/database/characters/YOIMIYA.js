@@ -1,28 +1,28 @@
 var YOIMIYA = {
     "name": "Yoimiya",
     "secondary_title": "Frolicking Flames",
-    "card_icon": "assets/character/card/Yoimiya.png",
-    "wish_icon": "assets/character/wish/Yoimiya.png",
-    "ingame_icon": "assets/character/ingame/Yoimiya.png",
-    "icon": "assets/character/icon/Yoimiya.png",
+    "card_icon": "assets/character/card/Yoimiya.avif",
+    "wish_icon": "assets/character/wish/Yoimiya.avif",
+    "ingame_icon": "assets/character/ingame/Yoimiya.avif",
+    "icon": "assets/character/icon/Yoimiya.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "June 21st",
@@ -30,55 +30,55 @@ var YOIMIYA = {
         {
             "name": "Agate Ryuukin",
             "level": 1,
-            "icon": "assets/character/constellations/Agate Ryuukin.png",
+            "icon": "assets/character/constellations/Agate Ryuukin.avif",
             "description": "The Aurous Blaze created by Ryuukin Saxifrage lasts for an extra 4s.Additionally, when an opponent affected by Aurous Blaze is defeated within its duration, Yoimiya's ATK is increased by 20% for 20s."
         },
         {
             "name": "A Procession of Bonfires",
             "level": 2,
-            "icon": "assets/character/constellations/A Procession of Bonfires.png",
+            "icon": "assets/character/constellations/A Procession of Bonfires.avif",
             "description": "When Yoimiya's Pyro DMG scores a CRIT Hit, Yoimiya will gain a 25% Pyro DMG Bonus for 6s.This effect can be triggered even when Yoimiya is not the active character."
         },
         {
             "name": "Trickster's Flare",
             "level": 3,
-            "icon": "assets/character/constellations/Trickster's Flare.png",
+            "icon": "assets/character/constellations/Trickster's Flare.avif",
             "description": "Increase the Level of Niwabi Fire-Dance by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Pyrotechnic Professional",
             "level": 4,
-            "icon": "assets/character/constellations/Pyrotechnic Professional.png",
+            "icon": "assets/character/constellations/Pyrotechnic Professional.avif",
             "description": "When Yoimiya's own Aurous Blaze triggers an explosion, Niwabi Fire-Dance's CD is decreased by 1.2."
         },
         {
             "name": "A Summer Festival's Eve",
             "level": 5,
-            "icon": "assets/character/constellations/A Summer Festival's Eve.png",
+            "icon": "assets/character/constellations/A Summer Festival's Eve.avif",
             "description": "Increases the Level of Ryuukin Saxifrage by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Naganohara Meteor Swarm",
             "level": 6,
-            "icon": "assets/character/constellations/Naganohara Meteor Swarm.png",
+            "icon": "assets/character/constellations/Naganohara Meteor Swarm.avif",
             "description": "During Niwabi Fire-Dance, Yoimiya's Normal Attacks have a 50% chance of firing an extra Blazing Arrow that deals 60% of its original DMG. This DMG is considered Normal Attack DMG."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Naganohara Fireworks"
     ],
     "special_dish": {
         "name": "Summer Festival Fish",
-        "icon": "assets/foods/Yoimiya.png"
+        "icon": "assets/foods/Yoimiya.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Yoimiya.png",
-        "background": "assets/character/namecard_background/Yoimiya.png",
-        "banner": "assets/character/namecard_banner/Yoimiya.png",
+        "icon": "assets/character/namecard_icon/Yoimiya.avif",
+        "background": "assets/character/namecard_background/Yoimiya.avif",
+        "banner": "assets/character/namecard_banner/Yoimiya.avif",
         "description": "Even momentarily sparks can leave beautiful, unquenchable flames in the hearts of those who watch the night sky.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 3,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 2,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 10,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 15,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 4,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 20,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 8,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 30,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 18,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 12,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 45,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 20,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 60,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 24,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var YOIMIYA = {
         {
             "name": "Firework Flare-Up",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Firework Flare-Up.png",
+            "icon": "assets/character/talents/Firework Flare-Up.avif",
             "description": "Normal AttackPerforms up to 5 consecutive shots with a bow.Charged AttackPerform a more precise Aimed Shot with increased DMG.While aiming, flames will accumulate on the arrowhead before being fired off as an attack. Has different effects based on how long the energy has been charged:Charge Level 1: Fires off a flaming arrow that deals Pyro DMG.Charge Level 2: Generates a maximum of 3 Kindling Arrows based on time spent charging, releasing them as part of this Aimed Shot. Kindling Arrows will home in on nearby opponents, dealing Pyro DMG on hit.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Niwabi Fire-Dance",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Niwabi Fire-Dance.png",
+            "icon": "assets/character/talents/Niwabi Fire-Dance.avif",
             "description": "Yoimiya waves a sparkler and causes a ring of saltpeter to surround her.Niwabi EnshouDuring this time, arrows fired by Yoimiya's Normal Attack will be Blazing Arrows, and their DMG will be increased and converted to Pyro DMG.During this time, Normal Attack: Firework Flare-Up will not generate Kindling Arrows at Charge Level 2.This effect will deactivate when Yoimiya leaves the field."
         },
         {
             "name": "Ryuukin Saxifrage",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Ryuukin Saxifrage.png",
+            "icon": "assets/character/talents/Ryuukin Saxifrage.avif",
             "description": "Yoimiya leaps into the air along with her original creation, the \"Ryuukin Saxifrage,\" and fires forth blazing rockets bursting with surprises that deal AoE Pyro DMG and mark one of the hit opponents with Aurous Blaze.Aurous BlazeAll Normal/Charged/Plunging Attacks, Elemental Skills, and Elemental Bursts by any party member other than Yoimiya that hit an opponent marked by Aurous Blaze will trigger an explosion, dealing AoE Pyro DMG.When an opponent affected by Aurous Blaze is defeated before its duration expires, the effect will pass on to another nearby opponent, who will inherit the remaining duration.One Aurous Blaze explosion can be triggered every 2s. When Yoimiya is down, Aurous Blaze effects created through her skills will be deactivated."
         },
         {
             "name": "Tricks of the Trouble-Maker",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Tricks of the Trouble-Maker.png",
+            "icon": "assets/character/talents/Tricks of the Trouble-Maker.avif",
             "description": "During Niwabi Fire-Dance, shots from Yoimiya's Normal Attack will increase her Pyro DMG Bonus by 2% on hit. This effect lasts for 3s and can have a maximum of 10 stacks."
         },
         {
             "name": "Summer Night's Dawn",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Summer Night's Dawn.png",
+            "icon": "assets/character/talents/Summer Night's Dawn.avif",
             "description": "Using Ryuukin Saxifrage causes nearby party members (not including Yoimiya) to gain a 10% ATK increase for 15s. Additionally, a further ATK Bonus will be added on based on the number of \"Tricks of the Trouble-Maker\" stacks Yoimiya possesses when using Ryuukin Saxifrage. Each stack increases this ATK Bonus by 1%."
         },
         {
             "name": "Blazing Match",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Blazing Match.png",
+            "icon": "assets/character/talents/Blazing Match.avif",
             "description": "When Yoimiya crafts Decoration, Ornament, and Landscape-type Furnishings, she has a 100% chance to refund a portion of the materials used."
         }
     ],
@@ -465,17 +494,20 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Transience",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Transience.png"
+                    "icon": "assets/materials/Teachings of Transience.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dragon Lord's Crown",
                     "value": 1,
-                    "icon": "assets/materials/Dragon Lord's Crown.png"
+                    "icon": "assets/materials/Dragon Lord's Crown.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dragon Lord's Crown",
                     "value": 1,
-                    "icon": "assets/materials/Dragon Lord's Crown.png"
+                    "icon": "assets/materials/Dragon Lord's Crown.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dragon Lord's Crown",
                     "value": 2,
-                    "icon": "assets/materials/Dragon Lord's Crown.png"
+                    "icon": "assets/materials/Dragon Lord's Crown.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var YOIMIYA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dragon Lord's Crown",
                     "value": 2,
-                    "icon": "assets/materials/Dragon Lord's Crown.png"
+                    "icon": "assets/materials/Dragon Lord's Crown.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -1052,7 +1113,7 @@ var YOIMIYA = {
                 {
                     "title": "晚安…",
                     "text": "提问时间——！请问，当看完一整天的烟花之后，接下来要做什么？嘿嘿，答案揭晓：当然是去梦里看烟花啦！晚安，明天见。",
-                    "reading": "Tíwèn shíjiān —! qǐngwèn, dāng kàn wán yì zhěng tiān de yānhuā zhīhòu, jiē xià lái yào zuò shěnmē? Hēihei, dáàn jiēxiǎo: dāngrán shì qù mènglĭ kàn yānhuā lā! Wǎnān, míngtiān jiàn.",
+                    "reading": "Tíwèn shíjiān — ! qǐngwèn, dāng kàn wán yì zhěng tiān de yānhuā zhīhòu, jiē xià lái yào zuò shěnmē? Hēihei, dáàn jiēxiǎo: dāngrán shì qù mènglĭ kàn yānhuā lā! Wǎnān, míngtiān jiàn.",
                     "audio": "assets/character/voice_overs/Yoimiya/story/zh/晚安….mp3"
                 },
                 {
@@ -2491,184 +2552,5 @@ var YOIMIYA = {
     "demo_music": {
         "name": "Blossoms of Summer Night",
         "url": "assets/character/demo_music/Yoimiya.mp3"
-    },
-    "build": {
-        "version": "5.3",
-        "type": "On-field DPS",
-        "weapons": [
-            "Thundering Pulse",
-            "Aqua Simulacra",
-            "Rust",
-            "Slingshot"
-        ],
-        "artifacts": [
-            "4pc Shimenawa Reminiscence",
-            "4pc Echoes of an Offering",
-            "4pc Crimson Witch of Flames",
-            "4pc Gilded Dreams",
-            "4pc Marechaussee Hunter",
-            "4pc Retracing Bolide"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Skill",
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK% / EM",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "ATK% / EM",
-            "ER"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
     }
 }

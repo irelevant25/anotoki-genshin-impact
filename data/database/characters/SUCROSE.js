@@ -1,28 +1,28 @@
 var SUCROSE = {
     "name": "Sucrose",
     "secondary_title": "Harmless Sweetie",
-    "card_icon": "assets/character/card/Sucrose.png",
-    "wish_icon": "assets/character/wish/Sucrose.png",
-    "ingame_icon": "assets/character/ingame/Sucrose.png",
-    "icon": "assets/character/icon/Sucrose.png",
+    "card_icon": "assets/character/card/Sucrose.avif",
+    "wish_icon": "assets/character/wish/Sucrose.avif",
+    "ingame_icon": "assets/character/ingame/Sucrose.avif",
+    "icon": "assets/character/icon/Sucrose.avif",
     "quality": "4",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "November 26th",
@@ -30,55 +30,55 @@ var SUCROSE = {
         {
             "name": "Clustered Vacuum Field",
             "level": 1,
-            "icon": "assets/character/constellations/Clustered Vacuum Field.png",
+            "icon": "assets/character/constellations/Clustered Vacuum Field.avif",
             "description": "Astable Anemohypostasis Creation - 6308 gains 1 additional charge."
         },
         {
             "name": "Beth: Unbound Form",
             "level": 2,
-            "icon": "assets/character/constellations/Beth Unbound Form.png",
+            "icon": "assets/character/constellations/Beth Unbound Form.avif",
             "description": "The duration of Forbidden Creation - Isomer 75 / Type II is increased by 2s."
         },
         {
             "name": "Flawless Alchemistress",
             "level": 3,
-            "icon": "assets/character/constellations/Flawless Alchemistress.png",
+            "icon": "assets/character/constellations/Flawless Alchemistress.avif",
             "description": "Increases the Level of Astable Anemohypostasis Creation - 6308 by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Alchemania",
             "level": 4,
-            "icon": "assets/character/constellations/Alchemania.png",
+            "icon": "assets/character/constellations/Alchemania.avif",
             "description": "Every 7 Normal and Charged Attacks, Sucrose will reduce the CD of Astable Anemohypostasis Creation - 6308 by 1-7s."
         },
         {
             "name": "Caution: Standard Flask",
             "level": 5,
-            "icon": "assets/character/constellations/Caution Standard Flask.png",
+            "icon": "assets/character/constellations/Caution Standard Flask.avif",
             "description": "Increases the Level of Forbidden Creation - Isomer 75 / Type II by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Chaotic Entropy",
             "level": 6,
-            "icon": "assets/character/constellations/Chaotic Entropy.png",
+            "icon": "assets/character/constellations/Chaotic Entropy.avif",
             "description": "If Forbidden Creation - Isomer 75 / Type II triggers an Elemental Absorption, all party members gain a 20% Elemental DMG Bonus for the corresponding absorbed element during its duration."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
         "name": "Nutritious Meal (V.593)",
-        "icon": "assets/foods/Sucrose.png"
+        "icon": "assets/foods/Sucrose.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Sucrose.png",
-        "background": "assets/character/namecard_background/Sucrose.png",
-        "banner": "assets/character/namecard_banner/Sucrose.png",
+        "icon": "assets/character/namecard_icon/Sucrose.avif",
+        "background": "assets/character/namecard_background/Sucrose.avif",
+        "banner": "assets/character/namecard_banner/Sucrose.avif",
         "description": "If you closely examine an Anemo Hypostasis before it disappears, you will discover that they are actually quite square.",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Windwheel Aster",
                     "value": 3,
-                    "icon": "assets/materials/Windwheel Aster.png"
+                    "icon": "assets/materials/Windwheel Aster.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 2,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Windwheel Aster",
                     "value": 10,
-                    "icon": "assets/materials/Windwheel Aster.png"
+                    "icon": "assets/materials/Windwheel Aster.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 4,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Windwheel Aster",
                     "value": 20,
-                    "icon": "assets/materials/Windwheel Aster.png"
+                    "icon": "assets/materials/Windwheel Aster.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 8,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Windwheel Aster",
                     "value": 30,
-                    "icon": "assets/materials/Windwheel Aster.png"
+                    "icon": "assets/materials/Windwheel Aster.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 12,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Windwheel Aster",
                     "value": 45,
-                    "icon": "assets/materials/Windwheel Aster.png"
+                    "icon": "assets/materials/Windwheel Aster.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 20,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Windwheel Aster",
                     "value": 60,
-                    "icon": "assets/materials/Windwheel Aster.png"
+                    "icon": "assets/materials/Windwheel Aster.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,37 +449,37 @@ var SUCROSE = {
         {
             "name": "Wind Spirit Creation",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Wind Spirit Creation.png",
+            "icon": "assets/character/talents/Wind Spirit Creation.avif",
             "description": "Normal AttackPerforms up to 4 attacks using Wind Spirits, dealing Anemo DMG.Charged AttackConsumes a certain amount of Stamina and deals AoE Anemo DMG after a short casting time.Plunging AttackCalling upon the power of her Wind Spirits, Sucrose plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Anemo DMG upon impact with the ground."
         },
         {
             "name": "Astable Anemohypostasis Creation - 6308",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Astable Anemohypostasis Creation - 6308.png",
+            "icon": "assets/character/talents/Astable Anemohypostasis Creation - 6308.avif",
             "description": "Creates a small Wind Spirit that pulls opponents and objects towards its location, launches opponents within its AoE, and deals Anemo DMG."
         },
         {
             "name": "Forbidden Creation - Isomer 75 / Type II",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Forbidden Creation - Isomer 75  Type II.png",
+            "icon": "assets/character/talents/Forbidden Creation - Isomer 75  Type II.avif",
             "description": "Sucrose hurls an unstable concoction that creates a Large Wind Spirit.While it persists, the Large Wind Spirit will continuously pull in surrounding opponents and objects, launch nearby opponents, and deal Anemo DMG.Elemental AbsorptionIf the Wind Spirit comes into contact with Hydro/Pyro/Cryo/Electro energy, it will deal additional Elemental DMG of that type.Elemental Absorption may only occur once per use."
         },
         {
             "name": "Catalyst Conversion",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Catalyst Conversion.png",
+            "icon": "assets/character/talents/Catalyst Conversion.avif",
             "description": "When Sucrose triggers a Swirl effect, all characters in the party with the matching element (excluding Sucrose) have their Elemental Mastery increased by 50 for 8s."
         },
         {
             "name": "Mollis Favonius",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Mollis Favonius.png",
+            "icon": "assets/character/talents/Mollis Favonius.avif",
             "description": "When Astable Anemohypostasis Creation - 6308 or Forbidden Creation - Isomer 75 / Type II hits an opponent, increases all party members' (excluding Sucrose) Elemental Mastery based on 20% of Sucrose's Elemental Mastery for 8s."
         },
         {
             "name": "Astable Invention",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Astable Invention.png",
+            "icon": "assets/character/talents/Astable Invention.avif",
             "description": "When Sucrose crafts Character and Weapon Enhancement Materials, she has a 10% chance to obtain double the product."
         }
     ],
@@ -461,17 +490,20 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Freedom",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Freedom.png"
+                    "icon": "assets/materials/Teachings of Freedom.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +513,20 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +536,20 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +559,20 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +582,20 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +605,26 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +634,26 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +663,26 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +692,32 @@ var SUCROSE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2364,264 +2425,5 @@ var SUCROSE = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "4.3",
-        "type": "Support",
-        "weapons": [
-            "Sacrificial Fragments",
-            "A Thousand Floating Dreams",
-            "Wandering Evenstar",
-            "Magic Guide"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM",
-            "EM",
-            "EM"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Yae Miko— Fischl",
-                    "icon": "assets/character/icon/Yae Miko— Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

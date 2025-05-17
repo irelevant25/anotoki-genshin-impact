@@ -1,28 +1,28 @@
 var LYNEY = {
     "name": "Lyney",
     "secondary_title": "Spectacle of Phantasmagoria",
-    "wish_icon": "assets/character/wish/Lyney.png",
-    "ingame_icon": "assets/character/ingame/Lyney.png",
-    "icon": "assets/character/icon/Lyney.png",
+    "wish_icon": "assets/character/wish/Lyney.avif",
+    "ingame_icon": "assets/character/ingame/Lyney.avif",
+    "icon": "assets/character/icon/Lyney.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Male",
     "arkhe": "Pneuma",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "February 2nd",
@@ -30,43 +30,43 @@ var LYNEY = {
         {
             "name": "Whimsical Wonders",
             "level": 1,
-            "icon": "assets/character/constellations/Whimsical Wonders.png",
+            "icon": "assets/character/constellations/Whimsical Wonders.avif",
             "description": "Lyney can have 2 Grin-Malkin Hats present at once.Additionally, Prop Arrows will summon 2 Grin-Malkin Hats and grant Lyney 1 extra stack of Prop Surplus. This effect can occur once every 15s."
         },
         {
             "name": "Loquacious Cajoling",
             "level": 2,
-            "icon": "assets/character/constellations/Loquacious Cajoling.png",
+            "icon": "assets/character/constellations/Loquacious Cajoling.avif",
             "description": "When Lyney is on the field, he will gain a stack of Crisp Focus every 2s. This will increase his CRIT DMG by 20%. Max 3 stacks. This effect will be canceled when Lyney leaves the field."
         },
         {
             "name": "Prestidigitation",
             "level": 3,
-            "icon": "assets/character/constellations/Prestidigitation.png",
+            "icon": "assets/character/constellations/Prestidigitation.avif",
             "description": "Increases the Level of Normal Attack: Card Force Translocation by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Well-Versed, Well-Rehearsed",
             "level": 4,
-            "icon": "assets/character/constellations/Well-Versed, Well-Rehearsed.png",
+            "icon": "assets/character/constellations/Well-Versed, Well-Rehearsed.avif",
             "description": "After an opponent is hit by Lyney's Pyro Charged Attack, this opponent's Pyro RES will be decreased by 20% for 6s."
         },
         {
             "name": "To Pierce Enigmas",
             "level": 5,
-            "icon": "assets/character/constellations/To Pierce Enigmas.png",
+            "icon": "assets/character/constellations/To Pierce Enigmas.avif",
             "description": "Increases the Level of Wondrous Trick: Miracle Parade by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Guarded Smile",
             "level": 6,
-            "icon": "assets/character/constellations/Guarded Smile.png",
+            "icon": "assets/character/constellations/Guarded Smile.avif",
             "description": "When Lyney fires a Prop Arrow, he will fire a Pyrotechnic Strike: Reprised that will deal 80% of a Pyrotechnic Strike's DMG. This DMG is considered Charged Attack DMG."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Hotel Bouffes d'ete",
@@ -75,12 +75,12 @@ var LYNEY = {
     ],
     "special_dish": {
         "name": "Cubic Tricks",
-        "icon": "assets/foods/Lyney.png"
+        "icon": "assets/foods/Lyney.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Lyney.png",
-        "background": "assets/character/namecard_background/Lyney.png",
-        "banner": "assets/character/namecard_banner/Lyney.png",
+        "icon": "assets/character/namecard_icon/Lyney.avif",
+        "background": "assets/character/namecard_background/Lyney.avif",
+        "banner": "assets/character/namecard_banner/Lyney.avif",
         "description": "One major type of magic revolves around making things \"vanish.\" Lyney has an arsenal of tricks up his sleeve. As his accomplice, as long as you are willing to turn a blind eye, all your problems may vanish as well.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 3,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 2,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 10,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 4,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 20,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 8,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 30,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 12,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 45,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 20,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Rainbow Rose",
                     "value": 60,
-                    "icon": "assets/materials/Rainbow Rose.png"
+                    "icon": "assets/materials/Rainbow Rose.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var LYNEY = {
         {
             "name": "Card Force Translocation",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Card Force Translocation.png",
+            "icon": "assets/character/talents/Card Force Translocation.avif",
             "description": "Normal AttackPerforms up to 4 consecutive shots with a bow.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, flames will run across the arrowhead before being fired. Different effects will occur based on the time spent charging.Charge Level 1: Fires off a Pyro-infused arrow, dealing Pyro DMG.Charge Level 2: Fires off a Prop Arrow that deals Pyro DMG, and upon hit, it will summon a Grin-Malkin Hat.When firing the Prop Arrow, and when Lyney has more than 60% HP, he will consume a portion of his HP to obtain 1 Prop Surplus stack. Max 5 stacks. The effect will be removed after the character spends 30s out of combat.The lowest Lyney can drop to through this method is 60% of his Max HP.Grin-Malkin HatCan taunt nearby opponents and attract their attacks. Each opponent can only be taunted by the Hat once every 5s.The Hat will inherit a percentage of Lyney's Max HP.If destroyed, or if its duration expires, it will fire off a Pyrotechnic Strike at 1 nearby opponent, dealing Pyro DMG.Only 1 Hat can exist at any given time.Arkhe: PneumaAt certain intervals, the Prop Arrow will cause a Spiritbreath Thorn to descend upon its hit location, dealing Pneuma-aligned Pyro DMG."
         },
         {
             "name": "Bewildering Lights",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Bewildering Lights.png",
+            "icon": "assets/character/talents/Bewildering Lights.avif",
             "description": "Lyney does a flourish with his hat, unleashing a firework surprise!When used, he will clear all current Prop Surplus stacks and deal AoE Pyro DMG to opponents in front of him. DMG will be increased according to the stacks cleared, and this will also regenerate Lyney's HP based on his Max HP.When a Grin-Malkin Hat created by Lyney is on the field, the fireworks will cause it to explode, dealing AoE Pyro DMG equal to that of a Pyrotechnic Strike.The DMG dealt through the Grin-Malkin Hat in this way is considered Charged Attack DMG."
         },
         {
             "name": "Wondrous Trick: Miracle Parade",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Wondrous Trick Miracle Parade.png",
+            "icon": "assets/character/talents/Wondrous Trick Miracle Parade.avif",
             "description": "Unleashing his magic, Lyney turns himself into a Grin-Malkin Cat that can move around quickly. (Not to be mistaken for the Grin-Malkin Hat. They're two different props!)When the Grin-Malkin Cat gets close to opponents, it will send flames falling down on them, dealing at most 1 instance of Pyro DMG to each opponent. When the duration ends, he will dismiss the Grin-Malkin Cat and ignite fireworks that deal AoE Pyro DMG, summon 1 Grin-Malkin Hat, and grant himself 1 Prop Surplus stack.Grin-Malkin Cat can be actively canceled."
         },
         {
             "name": "Perilous Performance",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Perilous Performance.png",
+            "icon": "assets/character/talents/Perilous Performance.avif",
             "description": "If Lyney consumes HP when firing off a Prop Arrow, the Grin-Malkin hat summoned by the arrow will, upon hitting an opponent, restore 3 Energy to Lyney and increase DMG dealt by 80% of his ATK."
         },
         {
             "name": "Conclusive Ovation",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Conclusive Ovation.png",
+            "icon": "assets/character/talents/Conclusive Ovation.avif",
             "description": "The DMG Lyney deals to opponents affected by Pyro will receive the following buffs:Increases the DMG dealt by 60%.Each Pyro party member other than Lyney will cause the DMG dealt to increase by an additional 20%.Lyney can deal up to 100% increased DMG to opponents affected by Pyro in this way."
         },
         {
             "name": "Trivial Observations",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Trivial Observations.png",
+            "icon": "assets/character/talents/Trivial Observations.avif",
             "description": "Displays the location of nearby resources unique to Fontaine on the mini-map."
         }
     ],
@@ -465,17 +494,20 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Equity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Equity.png"
+                    "icon": "assets/materials/Teachings of Equity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 1,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 1,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 2,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var LYNEY = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 2,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -762,7 +823,7 @@ var LYNEY = {
                 },
                 {
                     "title": "About Us: Withholding the Truth",
-                    "text": "Wow, you're not beating around the bush!...Let me put it this way — delicious berries must often grow in areas thick with thorns, otherwise they would be devoured by greedy foxes. This is what we call self-defense! I mean, sure, I don't mind telling some small lies to others at times, but between the two of us, I've never done anything worse than omitting a minor detail here and there, right?",
+                    "text": "Wow, you're not beating around the bush! ...Let me put it this way — delicious berries must often grow in areas thick with thorns, otherwise they would be devoured by greedy foxes. This is what we call self-defense! I mean, sure, I don't mind telling some small lies to others at times, but between the two of us, I've never done anything worse than omitting a minor detail here and there, right?",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Lyney/story/en/About Us - Withholding the Truth.mp3"
                 },
@@ -2420,120 +2481,5 @@ var LYNEY = {
     "demo_music": {
         "name": "Lustrous Trick",
         "url": "assets/character/demo_music/Lyney.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "On-field DPS",
-        "weapons": [
-            "The First Great Magic",
-            "Aqua Simulacra",
-            "Thundering Pulse",
-            "Skyward Harp",
-            "Amos' Bow",
-            "Song of Stillness",
-            "Prototype Crescent",
-            "Polar Star",
-            "Hunter's Path",
-            "Blackcliff Warbow"
-        ],
-        "artifacts": [
-            "4pc Marechaussee Hunter",
-            "4pc Lavawalker",
-            "4pc Vermillion Hereafter",
-            "4pc Shimenawa's Reminiscence",
-            "4pc Wanderer's Troupe",
-            "4pc Retracing Bolide",
-            "4pc Desert Pavilion Chronicle"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "Flat ATK",
-            "ER"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                }
-            ]
-        ]
     }
 }

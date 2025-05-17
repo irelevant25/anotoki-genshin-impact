@@ -1,28 +1,28 @@
 var GAMING = {
     "name": "Gaming",
     "secondary_title": "Leonine Vanguard",
-    "card_icon": "assets/character/card/Gaming.png",
-    "wish_icon": "assets/character/wish/Gaming.png",
-    "ingame_icon": "assets/character/ingame/Gaming.png",
-    "icon": "assets/character/icon/Gaming.png",
+    "card_icon": "assets/character/card/Gaming.avif",
+    "wish_icon": "assets/character/wish/Gaming.avif",
+    "ingame_icon": "assets/character/ingame/Gaming.avif",
+    "icon": "assets/character/icon/Gaming.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "December 22nd",
@@ -30,43 +30,43 @@ var GAMING = {
         {
             "name": "Bringer of Blessing",
             "level": 1,
-            "icon": "assets/character/constellations/Bringer of Blessing.png",
+            "icon": "assets/character/constellations/Bringer of Blessing.avif",
             "description": "When the Suanni Man Chai from Suanni's Gilded Dance meets back up with Gaming, it will heal 15% of Gaming's HP."
         },
         {
             "name": "Plum Blossoms Underfoot",
             "level": 2,
-            "icon": "assets/character/constellations/Plum Blossoms Underfoot.png",
+            "icon": "assets/character/constellations/Plum Blossoms Underfoot.avif",
             "description": "When Gaming receives healing and this instance of healing overflows, his ATK will be increased by 20% for 5s."
         },
         {
             "name": "Awakening Spirit",
             "level": 3,
-            "icon": "assets/character/constellations/Awakening Spirit.png",
+            "icon": "assets/character/constellations/Awakening Spirit.avif",
             "description": "Increases the Level of Bestial Ascent by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Soar Across Mountains",
             "level": 4,
-            "icon": "assets/character/constellations/Soar Across Mountains.png",
+            "icon": "assets/character/constellations/Soar Across Mountains.avif",
             "description": "When Bestial Ascent's Plunging Attack: Charmed Cloudstrider hits an opponent, it will restore 2 Energy to Gaming. This effect can be triggered once every 0.2s."
         },
         {
             "name": "Evil-Daunting Roar",
             "level": 5,
-            "icon": "assets/character/constellations/Evil-Daunting Roar.png",
+            "icon": "assets/character/constellations/Evil-Daunting Roar.avif",
             "description": "Increases the Level of Suanni's Gilded Dance by 3.Maximum upgrade level is 15."
         },
         {
             "name": "To Tame All Beasts",
             "level": 6,
-            "icon": "assets/character/constellations/To Tame All Beasts.png",
+            "icon": "assets/character/constellations/To Tame All Beasts.avif",
             "description": "Bestial Ascent's Plunging Attack: Charmed Cloudstrider CRIT Rate increased by 20% and CRIT DMG increased by 40%, and its attack radius will be increased."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Sword and Strongbox Secure Transport Agency",
@@ -74,12 +74,12 @@ var GAMING = {
     ],
     "special_dish": {
         "name": "Yummy Yum Cha",
-        "icon": "assets/foods/Gaming.png"
+        "icon": "assets/foods/Gaming.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Gaming.png",
-        "background": "assets/character/namecard_background/Gaming.png",
-        "banner": "assets/character/namecard_banner/Gaming.png",
+        "icon": "assets/character/namecard_icon/Gaming.avif",
+        "background": "assets/character/namecard_background/Gaming.avif",
+        "banner": "assets/character/namecard_banner/Gaming.avif",
         "description": "\"Don't stop believing, Man Chai. One day, we'll soar high, with nary a patched hole in our trousers.\"",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Starconch",
                     "value": 3,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 3,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 2,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Starconch",
                     "value": 10,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 15,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 4,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Starconch",
                     "value": 20,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 12,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 8,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Starconch",
                     "value": 30,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 18,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 12,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Starconch",
                     "value": 45,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Emperor's Resolution",
                     "value": 20,
-                    "icon": "assets/materials/Emperor's Resolution.png"
+                    "icon": "assets/materials/Emperor's Resolution.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Starconch",
                     "value": 60,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 24,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,38 +453,38 @@ var GAMING = {
         {
             "name": "Stellar Rend",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Stellar Rend.png",
+            "icon": "assets/character/talents/Stellar Rend.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash. Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Bestial Ascent",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Bestial Ascent.png",
+            "icon": "assets/character/talents/Bestial Ascent.avif",
             "description": "Pounces forward using the Wushou arts, leaping high into the air after coming into contact with a target or surface.After Gaming has used Bestial Ascent to rise into the air, he will use the especially powerful Plunging Attack: Charmed Cloudstrider when performing a Plunging Attack.Plunging Attack: Charmed CloudstriderThe DMG from Plunging Attacks caused by Bestial Ascent is converted to Pyro DMG that cannot be overridden by other elemental infusions. Upon landing, Gaming will consume a fixed amount of HP. Gaming's HP cannot be reduced below 10% by this method.Charmed Cloudstrider DMG is considered Plunging Attack DMG."
         },
         {
             "name": "Suanni's Gilded Dance",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Suanni's Gilded Dance.png",
+            "icon": "assets/character/talents/Suanni's Gilded Dance.avif",
             "description": "Gaming enters Wushou Stance, briefly applying Pyro to him, recovering a fixed amount of HP, and summons his companion, the Suanni Man Chai, to smash into his target, dealing AoE Pyro DMG.After bashing its target, Man Chai will roll to a nearby location before moving towards Gaming. When it links up with Gaming, Man Chai will leave the field and reset the CD for Gaming's Elemental Skill, Bestial Ascent.While Wushou Stance is active, his resistance to interruption is increased, and when Gaming lands with Charmed Cloudstrider attack or completes the forward pounce attack from Bestial Ascent with over 50% HP, he will summon Man Chai again.Each Gaming can only have 1 Man Chai on the field simultaneously.This effect will be canceled once Gaming leaves the field."
         },
         {
             "name": "Dance of Amity",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Dance of Amity.png",
+            "icon": "assets/character/talents/Dance of Amity.avif",
             "description": "After Bestial Ascent's Plunging Attack: Charmed Cloudstrider hits an opponent, Gaming will regain 1.5% of his Max HP once every 0.2s for 0.8s."
         },
         {
             "name": "Air of Prosperity",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Air of Prosperity.png",
+            "icon": "assets/character/talents/Air of Prosperity.avif",
             "description": "When Gaming has less than 50% HP, he will receive a 20% Incoming Healing Bonus. When Gaming has 50% HP or more, Plunging Attack: Charmed Cloudstrider will deal 20% more DMG."
         },
         {
             "name": "The Striding Beast",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Striding Beast.png",
-            "description": "During the day (6:00 - 18:00), your party members gain the Swift Stride effect: Movement SPD increased by 10%.Does not take effect in Domains, Trounce Domains, or Spiral Abyss. Swift Stride does not stack."
+            "icon": "assets/character/talents/The Striding Beast.avif",
+            "description": "During the day (6:00 – 18:00), your party members gain the Swift Stride effect: Movement SPD increased by 10%.Does not take effect in Domains, Trounce Domains, or Spiral Abyss. Swift Stride does not stack."
         }
     ],
     "talents_materials": [
@@ -465,17 +494,20 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Prosperity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Prosperity.png"
+                    "icon": "assets/materials/Teachings of Prosperity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 3,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 4,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 6,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 9,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 4,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 9,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var GAMING = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Mass",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Mass.png"
+                    "icon": "assets/materials/Lightless Mass.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2395,202 +2456,5 @@ var GAMING = {
     "demo_music": {
         "name": "Propitious Ardor",
         "url": "assets/character/demo_music/Gaming.mp3"
-    },
-    "build": {
-        "version": "4.4",
-        "type": "On-field DPS",
-        "weapons": [
-            "Serpent Spine",
-            "Rainslasher",
-            "Tidal Shadow",
-            "Mailed Flower R5",
-            "Lithic Blade",
-            "Skyward Pride",
-            "Ultimate Overlord's Mega Magic Sword"
-        ],
-        "artifacts": [
-            "4pc Marechaussee Hunter",
-            "4pc Crimson Witch of Flames"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM / ER, / ATK%",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
     }
 }

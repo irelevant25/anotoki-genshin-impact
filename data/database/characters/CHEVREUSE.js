@@ -1,33 +1,33 @@
 var CHEVREUSE = {
     "name": "Chevreuse",
     "secondary_title": "Executor of Justice",
-    "card_icon": "assets/character/card/Chevreuse.png",
-    "wish_icon": "assets/character/wish/Chevreuse.png",
-    "ingame_icon": "assets/character/ingame/Chevreuse.png",
-    "icon": "assets/character/icon/Chevreuse.png",
+    "card_icon": "assets/character/card/Chevreuse.avif",
+    "wish_icon": "assets/character/wish/Chevreuse.avif",
+    "ingame_icon": "assets/character/ingame/Chevreuse.avif",
+    "icon": "assets/character/icon/Chevreuse.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Female",
     "arkhe": "Ousia",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "January 10th",
@@ -35,55 +35,55 @@ var CHEVREUSE = {
         {
             "name": "Stable Front Line's Resolve",
             "level": 1,
-            "icon": "assets/character/constellations/Stable Front Line's Resolve.png",
+            "icon": "assets/character/constellations/Stable Front Line's Resolve.avif",
             "description": "When the active character with the \"Coordinated Tactics\" status (not including Chevreuse herself) triggers the Overloaded reaction, they will recover 6 Energy. This effect can be triggered once every 10s.You must first unlock the Passive Talent \"Vanguard's Coordinated Tactics.\""
         },
         {
             "name": "Sniper Induced Explosion",
             "level": 2,
-            "icon": "assets/character/constellations/Sniper Induced Explosion.png",
+            "icon": "assets/character/constellations/Sniper Induced Explosion.avif",
             "description": "After Holding Short-Range Rapid Interdiction Fire and hitting a target, 2 chain explosions will be triggered near the location where said target is hit. Each explosion deals Pyro DMG equal to 120% of Chevreuse's ATK. This effect can be triggered up to once every 10s, and DMG dealt this way is considered Elemental Skill DMG."
         },
         {
             "name": "Practiced Field Stripping Technique",
             "level": 3,
-            "icon": "assets/character/constellations/Practiced Field Stripping Technique.png",
+            "icon": "assets/character/constellations/Practiced Field Stripping Technique.avif",
             "description": "Increases the Level of Short-Range Rapid Interdiction Fire by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Secret to Rapid-Fire Multishots",
             "level": 4,
-            "icon": "assets/character/constellations/The Secret to Rapid-Fire Multishots.png",
+            "icon": "assets/character/constellations/The Secret to Rapid-Fire Multishots.avif",
             "description": "After using Ring of Bursting Grenades, the Hold mode of Short-Range Rapid Interdiction Fire will not go on cooldown when Chevreuse uses it. This effect is removed after Short-Range Rapid Interdiction Fire has been fired twice using Hold or after 6s."
         },
         {
             "name": "Enhanced Incendiary Firepower",
             "level": 5,
-            "icon": "assets/character/constellations/Enhanced Incendiary Firepower.png",
+            "icon": "assets/character/constellations/Enhanced Incendiary Firepower.avif",
             "description": "Increases the Level of Ring of Bursting Grenades by 3.Maximum upgrade level is 15."
         },
         {
             "name": "In Pursuit of Ending Evil",
             "level": 6,
-            "icon": "assets/character/constellations/In Pursuit of Ending Evil.png",
+            "icon": "assets/character/constellations/In Pursuit of Ending Evil.avif",
             "description": "After 12s of the healing effect from Short-Range Rapid Interdiction Fire, all nearby party members recover HP equivalent to 10% of Chevreuse's Max HP once.After a party member is healed by Short-Range Rapid Interdiction Fire, they gain a 20% Pyro DMG Bonus and Electro DMG Bonus for 8s. Max 3 stacks. Each stack's duration is counted independently."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Special Security and Surveillance Patrol"
     ],
     "special_dish": {
         "name": "Sin: The Kind that Doesn't Need to be Dealt With",
-        "icon": "assets/foods/Chevreuse.png"
+        "icon": "assets/foods/Chevreuse.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Chevreuse.png",
-        "background": "assets/character/namecard_background/Chevreuse.png",
-        "banner": "assets/character/namecard_banner/Chevreuse.png",
+        "icon": "assets/character/namecard_icon/Chevreuse.avif",
+        "background": "assets/character/namecard_background/Chevreuse.avif",
+        "banner": "assets/character/namecard_banner/Chevreuse.avif",
         "description": "The standard issue weapon of the Special Security and Surveillance Patrol is known as the \"Special Security and Surveillance Patrol Type II Standard Musket.\" Yet, though there may be countless flowers in this world, the one you treasure is special, even if it should be known to the world as nothing at all special.",
         "quality": "4",
         "sources": [
@@ -164,22 +164,26 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 3,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 3,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -207,27 +211,32 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 2,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 10,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 15,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -255,27 +264,32 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 4,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 20,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 12,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -303,27 +317,32 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 8,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 30,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 18,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -351,27 +370,32 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 12,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 45,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -399,27 +423,32 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fontemer Unihorn",
                     "value": 20,
-                    "icon": "assets/materials/Fontemer Unihorn.png"
+                    "icon": "assets/materials/Fontemer Unihorn.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 60,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 24,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -428,37 +457,37 @@ var CHEVREUSE = {
         {
             "name": "Line Bayonet Thrust EX",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Line Bayonet Thrust EX.png",
+            "icon": "assets/character/talents/Line Bayonet Thrust EX.avif",
             "description": "Normal AttackPerforms up to 4 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Short-Range Rapid Interdiction Fire",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Short-Range Rapid Interdiction Fire.png",
+            "icon": "assets/character/talents/Short-Range Rapid Interdiction Fire.avif",
             "description": "Chevreuse quickly shoulders her musket and fires at her opponent(s), dealing AoE Pyro DMG.For a short duration after Chevreuse fires a shot, she will continuously restore HP to the active character on the field. The amount healed is based on her Max HP.Hold to fire in a different fashion.HoldEnter Aiming Mode, locking a target in her sights to fire a precise interdiction shot. If Chevreuse has an Overcharged Ball, then she will fire the Overcharged Ball instead, dealing greater Pyro DMG in a larger area.Chevreuse gains 1 Overcharged Ball every time a nearby character in the party triggers an Overloaded reaction, and can have up to 1 Overcharged Ball at a time.Arkhe: OusiaPeriodically, after Chevreuse's Short-Range Rapid Interdiction Fire hits, a Surging Blade will be called forth that deals Ousia-aligned Pyro DMG."
         },
         {
             "name": "Ring of Bursting Grenades",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Ring of Bursting Grenades.png",
+            "icon": "assets/character/talents/Ring of Bursting Grenades.avif",
             "description": "Chevreuse fires an explosive grenade at opponents with her musket, dealing AoE Pyro DMG. After the projectile hits, it will split into many secondary explosive shells.The secondary explosive shells will burst after a short interval, dealing Pyro DMG to nearby opponents."
         },
         {
             "name": "Vanguard's Coordinated Tactics",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Vanguard's Coordinated Tactics.png",
+            "icon": "assets/character/talents/Vanguard's Coordinated Tactics.avif",
             "description": "When all party members are Pyro and Electro characters and there is at least one Pyro and one Electro character each in the party:Chevreuse grants \"Coordinated Tactics\" to nearby party members: After a character triggers the Overloaded reaction, the Pyro and Electro RES of the opponent(s) affected by this Overloaded reaction will be decreased by 40% for 6s.The \"Coordinated Tactics\" effect will be removed when the Elemental Types of the characters in the party do not meet the basic requirements for the Passive Talent."
         },
         {
             "name": "Vertical Force Coordination",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Vertical Force Coordination.png",
+            "icon": "assets/character/talents/Vertical Force Coordination.avif",
             "description": "After Chevreuse fires an Overcharged Ball using Short-Range Rapid Interdiction Fire, nearby Pyro and Electro characters in the party gain 1% increased ATK for every 1,000 Max HP Chevreuse has for 30s. ATK can be increased by up to 40% in this way."
         },
         {
             "name": "Double Time March",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Double Time March.png",
+            "icon": "assets/character/talents/Double Time March.avif",
             "description": "Decreases sprinting Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -469,17 +498,20 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 6,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Order",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Order.png"
+                    "icon": "assets/materials/Teachings of Order.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -489,17 +521,20 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 3,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -509,17 +544,20 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 4,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -529,17 +567,20 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 6,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -549,17 +590,20 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 9,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -569,22 +613,26 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -594,22 +642,26 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 6,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -619,22 +671,26 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 9,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -644,27 +700,32 @@ var CHEVREUSE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2374,207 +2435,7 @@ var CHEVREUSE = {
         }
     },
     "demo_music": {
-        "name": "Voici la grenadiere!",
+        "name": "Voici la grenadiere !",
         "url": "assets/character/demo_music/Chevreuse.mp3"
-    },
-    "build": {
-        "version": "5.6",
-        "type": "Support",
-        "weapons": [
-            "Favonius Lance",
-            "Black Tassel",
-            "Dialogues of the Desert Sages",
-            "Rightful Reward"
-        ],
-        "artifacts": [
-            "4pc Noblesse Oblige",
-            "4pc Song of Days Past",
-            "4pc Scroll of the Hero of Cinder City",
-            "4pc Emblem of Severed Fate",
-            "4pc Tenacity of the Millelith",
-            "4pc Golden Troupe",
-            "4pc Crimson Witch of Flames",
-            "4pc Ocean-Hued Clam"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP% / ER",
-            "HP%",
-            "HP% / Healing Bonus"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "HP% (until 40,000)",
-            "Flat HP (until 40,000)",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Varesa",
-                    "icon": "assets/character/icon/Varesa.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Iansan",
-                    "icon": "assets/character/icon/Iansan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Pyro Traveler",
-                    "icon": "assets/character/icon/Pyro Traveler.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
     }
 }

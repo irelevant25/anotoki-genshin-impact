@@ -1,28 +1,28 @@
 var MONA = {
     "name": "Mona",
     "secondary_title": "Astral Reflection",
-    "card_icon": "assets/character/card/Mona.png",
-    "wish_icon": "assets/character/wish/Mona.png",
-    "ingame_icon": "assets/character/ingame/Mona.png",
-    "icon": "assets/character/icon/Mona.png",
+    "card_icon": "assets/character/card/Mona.avif",
+    "wish_icon": "assets/character/wish/Mona.avif",
+    "ingame_icon": "assets/character/ingame/Mona.avif",
+    "icon": "assets/character/icon/Mona.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "August 31st",
@@ -30,43 +30,43 @@ var MONA = {
         {
             "name": "Prophecy of Submersion",
             "level": 1,
-            "icon": "assets/character/constellations/Prophecy of Submersion.png",
+            "icon": "assets/character/constellations/Prophecy of Submersion.avif",
             "description": "When any of your own party members hits an opponent affected by an Omen, the effects of Hydro-related Elemental Reactions are enhanced for 8s:Electro-Charged DMG increases by 15%.Vaporize DMG increases by 15%.Hydro Swirl DMG increases by 15%.Frozen duration is extended by 15%."
         },
         {
             "name": "Lunar Chain",
             "level": 2,
-            "icon": "assets/character/constellations/Lunar Chain.png",
+            "icon": "assets/character/constellations/Lunar Chain.avif",
             "description": "When a Normal Attack hits, there is a 20% chance that it will be automatically followed by a Charged Attack.This effect can only occur once every 5s."
         },
         {
             "name": "Restless Revolution",
             "level": 3,
-            "icon": "assets/character/constellations/Restless Revolution.png",
+            "icon": "assets/character/constellations/Restless Revolution.avif",
             "description": "Increases the Level of Stellaris Phantasm by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Prophecy of Oblivion",
             "level": 4,
-            "icon": "assets/character/constellations/Prophecy of Oblivion.png",
+            "icon": "assets/character/constellations/Prophecy of Oblivion.avif",
             "description": "When any party member attacks an opponent affected by an Omen, their CRIT Rate is increased by 15%."
         },
         {
             "name": "Mockery of Fortuna",
             "level": 5,
-            "icon": "assets/character/constellations/Mockery of Fortuna.png",
+            "icon": "assets/character/constellations/Mockery of Fortuna.avif",
             "description": "Increases the Level of Mirror Reflection of Doom by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Rhetorics of Calamitas",
             "level": 6,
-            "icon": "assets/character/constellations/Rhetorics of Calamitas.png",
+            "icon": "assets/character/constellations/Rhetorics of Calamitas.avif",
             "description": "Upon entering Illusory Torrent, Mona gains a 60% increase to the DMG of her next Charged Attack per second of movement.A maximum DMG Bonus of 180% can be achieved in this manner. The effect lasts for no more than 8s."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Mondstadt",
@@ -74,12 +74,12 @@ var MONA = {
     ],
     "special_dish": {
         "name": "Der Weisheit Letzter Schluss (Life)",
-        "icon": "assets/foods/Mona.png"
+        "icon": "assets/foods/Mona.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Mona.png",
-        "background": "assets/character/namecard_background/Mona.png",
-        "banner": "assets/character/namecard_banner/Mona.png",
+        "icon": "assets/character/namecard_icon/Mona.avif",
+        "background": "assets/character/namecard_background/Mona.avif",
+        "banner": "assets/character/namecard_banner/Mona.avif",
         "description": "A girl gazes down at the stars' reflection on the water, pondering the joys and sorrows of life.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 3,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 2,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 10,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 4,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 20,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 8,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 30,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 12,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 45,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 20,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 60,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,43 +450,43 @@ var MONA = {
         {
             "name": "Ripple of Fate",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Ripple of Fate.png",
+            "icon": "assets/character/talents/Ripple of Fate.avif",
             "description": "Normal AttackPerforms up to 4 water splash attacks that deal Hydro DMG.Charged AttackConsumes a certain amount of Stamina to deal AoE Hydro DMG after a short casting time.Plunging AttackGathering the might of Hydro, Mona plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Hydro DMG upon impact with the ground."
         },
         {
             "name": "Mirror Reflection of Doom",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Mirror Reflection of Doom.png",
+            "icon": "assets/character/talents/Mirror Reflection of Doom.avif",
             "description": "Creates an illusory Phantom of Fate from coalesced waterspouts.PhantomHas the following special properties:Continuously taunts nearby opponents, attracting their fire.Continuously deals Hydro DMG to nearby opponents.When its duration expires, the Phantom explodes, dealing AoE Hydro DMG.HoldUtilizes water currents to move backwards swiftly before conjuring a Phantom.Only one Phantom created by Mirror Reflection of Doom can exist at any time."
         },
         {
             "name": "Stellaris Phantasm",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Stellaris Phantasm.png",
+            "icon": "assets/character/talents/Stellaris Phantasm.avif",
             "description": "Mona summons the sparkling waves and creates a reflection of the starry sky, applying the Illusory Bubble status to opponents in a large AoE.Illusory BubbleTraps opponents inside a pocket of destiny and also makes them Wet.Renders weaker opponents immobile.When an opponent affected by Illusory Bubble sustains DMG, it has the following effects:Applies an Omen to the opponent, which gives a DMG Bonus, also increasing the DMG of the attack that causes it.Removes the Illusory Bubble, dealing Hydro DMG in the process.OmenDuring its duration, increases DMG taken by opponents."
         },
         {
             "name": "Illusory Torrent",
             "type": "Alternate Sprint",
-            "icon": "assets/character/talents/Illusory Torrent.png",
+            "icon": "assets/character/talents/Illusory Torrent.avif",
             "description": "Alternate SprintMona cloaks herself within the water's flow, consuming stamina to move rapidly.When under the effect of Illusory Torrent, Mona can move at high speed on water.Applies the Wet status to nearby opponents when she reappears."
         },
         {
             "name": "\"Come 'n' Get Me, Hag!\"",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Come 'n' Get Me, Hag!.png",
+            "icon": "assets/character/talents/Come 'n' Get Me, Hag!.avif",
             "description": "After she has used Illusory Torrent for 2s, if there are any opponents nearby, Mona will automatically create a Phantom.A Phantom created in this manner lasts for 2s, and its explosion DMG is equal to 50% of Mirror Reflection of Doom."
         },
         {
             "name": "Waterborne Destiny",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Waterborne Destiny.png",
+            "icon": "assets/character/talents/Waterborne Destiny.avif",
             "description": "Increases Mona's Hydro DMG Bonus by a degree equivalent to 20% of her Energy Recharge rate."
         },
         {
             "name": "Principium of Astrology",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Principium of Astrology.png",
+            "icon": "assets/character/talents/Principium of Astrology.avif",
             "description": "When Mona crafts Weapon Ascension Materials, she has a 25% chance to refund a portion of the crafting materials used."
         }
     ],
@@ -468,17 +497,20 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Resistance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Resistance.png"
+                    "icon": "assets/materials/Teachings of Resistance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -488,17 +520,20 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -508,17 +543,20 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -528,17 +566,20 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -548,17 +589,20 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -568,22 +612,26 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -593,22 +641,26 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -618,22 +670,26 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -643,27 +699,32 @@ var MONA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2302,145 +2363,5 @@ var MONA = {
     "demo_music": {
         "name": "Surge of Prophecies",
         "url": "assets/character/demo_music/Mona.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "Support",
-        "weapons": [
-            "Favonius Codex",
-            "Prototype Amber",
-            "Thrilling Tales of Dragon Slayers",
-            "Oathsworn Eye"
-        ],
-        "artifacts": [
-            "4pc Noblesse Oblige",
-            "4pc Tenacity of the Millelith",
-            "4pc Emblem of Severed Fate"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / ATK%",
-            "Hydro DMG Bonus / ATK%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
     }
 }

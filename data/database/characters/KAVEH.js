@@ -1,28 +1,28 @@
 var KAVEH = {
     "name": "Kaveh",
     "secondary_title": "Empyrean Reflection",
-    "card_icon": "assets/character/card/Kaveh.png",
-    "wish_icon": "assets/character/wish/Kaveh.png",
-    "ingame_icon": "assets/character/ingame/Kaveh.png",
-    "icon": "assets/character/icon/Kaveh.png",
+    "card_icon": "assets/character/card/Kaveh.avif",
+    "wish_icon": "assets/character/wish/Kaveh.avif",
+    "ingame_icon": "assets/character/ingame/Kaveh.avif",
+    "icon": "assets/character/icon/Kaveh.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "July 9th",
@@ -30,55 +30,55 @@ var KAVEH = {
         {
             "name": "Sublime Salutations",
             "level": 1,
-            "icon": "assets/character/constellations/Sublime Salutations.png",
+            "icon": "assets/character/constellations/Sublime Salutations.avif",
             "description": "Within 3s after using Artistic Ingenuity, Kaveh's Dendro RES and Incoming Healing Bonus will be increased by 50% and 25% respectively."
         },
         {
             "name": "Grace of Royal Roads",
             "level": 2,
-            "icon": "assets/character/constellations/Grace of Royal Roads.png",
+            "icon": "assets/character/constellations/Grace of Royal Roads.avif",
             "description": "Kaveh's Normal Attack SPD increases by 15% during Painted Dome."
         },
         {
             "name": "Profferings of Dur Untash",
             "level": 3,
-            "icon": "assets/character/constellations/Profferings of Dur Untash.png",
+            "icon": "assets/character/constellations/Profferings of Dur Untash.avif",
             "description": "Increases the Level of Painted Dome by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Feast of Apadana",
             "level": 4,
-            "icon": "assets/character/constellations/Feast of Apadana.png",
+            "icon": "assets/character/constellations/Feast of Apadana.avif",
             "description": "Dendro Cores created from Bloom reactions Kaveh triggers will deal 60% more DMG when they burst."
         },
         {
             "name": "Treasures of Bonkhanak",
             "level": 5,
-            "icon": "assets/character/constellations/Treasures of Bonkhanak.png",
+            "icon": "assets/character/constellations/Treasures of Bonkhanak.avif",
             "description": "Increases the Level of Artistic Ingenuity by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Pairidaeza's Dreams",
             "level": 6,
-            "icon": "assets/character/constellations/Pairidaeza's Dreams.png",
+            "icon": "assets/character/constellations/Pairidaeza's Dreams.avif",
             "description": "When Kaveh's Normal, Charged, or Plunging Attacks hit opponents during Painted Dome, they will unleash Pairidaeza's Light upon the opponent's position, dealing 61.8% of Kaveh's ATK as AoE Dendro DMG and causing all Dendro Cores within that AoE to burst. This effect can be triggered once every 3s."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Kshahrewar"
     ],
     "special_dish": {
         "name": "The Endeavor",
-        "icon": "assets/foods/Kaveh.png"
+        "icon": "assets/foods/Kaveh.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kaveh.png",
-        "background": "assets/character/namecard_background/Kaveh.png",
-        "banner": "assets/character/namecard_banner/Kaveh.png",
+        "icon": "assets/character/namecard_icon/Kaveh.avif",
+        "background": "assets/character/namecard_background/Kaveh.avif",
+        "banner": "assets/character/namecard_banner/Kaveh.avif",
         "description": "\"When conceptualizing architecture, there is nothing wrong with imagining that the structure we build will surmount the firmament and outlast the stars.\"",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Mourning Flower",
                     "value": 3,
-                    "icon": "assets/materials/Mourning Flower.png"
+                    "icon": "assets/materials/Mourning Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 3,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 2,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mourning Flower",
                     "value": 10,
-                    "icon": "assets/materials/Mourning Flower.png"
+                    "icon": "assets/materials/Mourning Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 15,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 4,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mourning Flower",
                     "value": 20,
-                    "icon": "assets/materials/Mourning Flower.png"
+                    "icon": "assets/materials/Mourning Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 12,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 8,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mourning Flower",
                     "value": 30,
-                    "icon": "assets/materials/Mourning Flower.png"
+                    "icon": "assets/materials/Mourning Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 18,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 12,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Mourning Flower",
                     "value": 45,
-                    "icon": "assets/materials/Mourning Flower.png"
+                    "icon": "assets/materials/Mourning Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 20,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Mourning Flower",
                     "value": 60,
-                    "icon": "assets/materials/Mourning Flower.png"
+                    "icon": "assets/materials/Mourning Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 24,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var KAVEH = {
         {
             "name": "Schematic Setup",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Schematic Setup.png",
+            "icon": "assets/character/talents/Schematic Setup.avif",
             "description": "Normal AttackUses Mehrak to perform up to 4 consecutive attacks.Charged AttackDrains Stamina over time to perform continuous slashes.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Artistic Ingenuity",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Artistic Ingenuity.png",
+            "icon": "assets/character/talents/Artistic Ingenuity.avif",
             "description": "Uses Mehrak's mapping ability for offensive purposes, initiating a radial scan that deals AoE Dendro DMG. It will also scan all Dendro Cores in its AoE and cause them to immediately burst."
         },
         {
             "name": "Painted Dome",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Painted Dome.png",
+            "icon": "assets/character/talents/Painted Dome.avif",
             "description": "Completely unleashes Mehrak's energy and creates a cubic scanned space, dealing AoE Dendro DMG to all opponents within it, causing all Dendro Cores in its AoE to immediately burst, and granting Kaveh the following enhanced combat abilities for a specific duration:Increases Kaveh's Normal, Charged, and Plunging Attack AoE, and converts his attack DMG to Dendro DMG that cannot be overridden.All Dendro Cores created by all your own party members through Bloom reactions will deal additional DMG when they burst.Increases Kaveh's resistance to interruptionThese effects will be canceled once Kaveh leaves the field."
         },
         {
             "name": "An Architect's Undertaking",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/An Architect's Undertaking.png",
+            "icon": "assets/character/talents/An Architect's Undertaking.avif",
             "description": "When DMG dealt by a Dendro Core (including DMG from Burgeon and Hyperbloom) hits Kaveh, Kaveh will regain HP equal to 300% of his Elemental Mastery. This effect can be triggered once every 0.5s."
         },
         {
             "name": "A Craftsman's Curious Conceptions",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/A Craftsman's Curious Conceptions.png",
+            "icon": "assets/character/talents/A Craftsman's Curious Conceptions.avif",
             "description": "During Painted Dome, after Kaveh's Normal, Charged, or Plunging Attacks hit opponents, his Elemental Mastery will increase by 25. This effect can be triggered once every 0.1s. Max 4 stacks.This effect will be canceled when Painted Dome's effects end."
         },
         {
             "name": "The Art of Budgeting",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Art of Budgeting.png",
+            "icon": "assets/character/talents/The Art of Budgeting.avif",
             "description": "When Kaveh crafts Landscape, Building, and Courtyard-type Furnishings, he has a 100% chance to refund a portion of the materials used."
         }
     ],
@@ -464,17 +493,20 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 6,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ingenuity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ingenuity.png"
+                    "icon": "assets/materials/Teachings of Ingenuity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 3,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 4,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 6,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 9,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 4,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 1,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 6,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 1,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 9,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 2,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var KAVEH = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Primordial Greenbloom",
                     "value": 2,
-                    "icon": "assets/materials/Primordial Greenbloom.png"
+                    "icon": "assets/materials/Primordial Greenbloom.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -851,7 +912,7 @@ var KAVEH = {
                 },
                 {
                     "title": "More About Kaveh: II",
-                    "text": "You're not thinking about enrolling in the Akademiya, are you?...Well, if you do sign up, from a pragmatic standpoint, I'd have to advise you to steer well clear of design. Don't get me wrong — it's a fascinating subject to study, but the work is... brutal. I spent some time working under one of my seniors after I first graduated, and they worked me to the bone every day... I was constantly being ordered around like a pack animal. I really don't know how I survived for as long as I did...",
+                    "text": "You're not thinking about enrolling in the Akademiya, are you? ...Well, if you do sign up, from a pragmatic standpoint, I'd have to advise you to steer well clear of design. Don't get me wrong — it's a fascinating subject to study, but the work is... brutal. I spent some time working under one of my seniors after I first graduated, and they worked me to the bone every day... I was constantly being ordered around like a pack animal. I really don't know how I survived for as long as I did...",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Kaveh/story/en/More About Kaveh - II.mp3"
                 },
@@ -881,7 +942,7 @@ var KAVEH = {
                 },
                 {
                     "title": "Kaveh's Troubles",
-                    "text": "My troubles?...Hmm, the most obvious one would be my financial situation.It's not that I can't make Mora, it's just that I can't seem to hold on to it. So many things in life require money, and if you're not careful, it just disappears... Don't worry about me, though — I'm a lot better than I used to be. I'll be more careful to live within my means in the future.",
+                    "text": "My troubles? ...Hmm, the most obvious one would be my financial situation.It's not that I can't make Mora, it's just that I can't seem to hold on to it. So many things in life require money, and if you're not careful, it just disappears... Don't worry about me, though — I'm a lot better than I used to be. I'll be more careful to live within my means in the future.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Kaveh/story/en/Kaveh's Troubles.mp3"
                 },
@@ -2323,170 +2384,5 @@ var KAVEH = {
     "demo_music": {
         "name": "Empyrean Stairway",
         "url": "assets/character/demo_music/Kaveh.mp3"
-    },
-    "build": {
-        "version": "3.6",
-        "type": "Dendro enabler / Support",
-        "weapons": [
-            "Makhaira Aquamarine",
-            "Mailed Flower",
-            "Bloodtainted Greatsword",
-            "Favonius Greatsword",
-            "Forest Regalia",
-            "Rainslasher",
-            "Katsuragikiri Nagamasa"
-        ],
-        "artifacts": [
-            "4pc Deepwood Memories",
-            "4pc Ocean-Hued Clam",
-            "4pc Instructor",
-            "4pc Flower of Paradise Lost",
-            "4pc Gilded Dreams"
-        ],
-        "talents": [
-            "Burst",
-            "Normal Attack",
-            "Skill"
-        ],
-        "main_stats": [
-            "ER / EM",
-            "EM",
-            "EM / CRIT Rate"
-        ],
-        "sub_stats": [
-            "ER (until requirements)",
-            "EM",
-            "ATK%",
-            "CRIT Rate",
-            "CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kokomi",
-                    "icon": "assets/character/icon/Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kokomi",
-                    "icon": "assets/character/icon/Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ]
-        ]
     }
 }

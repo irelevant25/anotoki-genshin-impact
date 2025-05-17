@@ -1,28 +1,28 @@
 var TARTAGLIA = {
     "name": "Tartaglia",
     "secondary_title": "Childe",
-    "card_icon": "assets/character/card/Tartaglia.png",
-    "wish_icon": "assets/character/wish/Tartaglia.png",
-    "ingame_icon": "assets/character/ingame/Tartaglia.png",
-    "icon": "assets/character/icon/Tartaglia.png",
+    "card_icon": "assets/character/card/Tartaglia.avif",
+    "wish_icon": "assets/character/wish/Tartaglia.avif",
+    "ingame_icon": "assets/character/ingame/Tartaglia.avif",
+    "icon": "assets/character/icon/Tartaglia.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "July 20th",
@@ -30,37 +30,37 @@ var TARTAGLIA = {
         {
             "name": "Foul Legacy: Tide Withholder",
             "level": 1,
-            "icon": "assets/character/constellations/Foul Legacy Tide Withholder.png",
+            "icon": "assets/character/constellations/Foul Legacy Tide Withholder.avif",
             "description": "Decreases the CD of Foul Legacy: Raging Tide by 20%"
         },
         {
             "name": "Foul Legacy: Understream",
             "level": 2,
-            "icon": "assets/character/constellations/Foul Legacy Understream.png",
+            "icon": "assets/character/constellations/Foul Legacy Understream.avif",
             "description": "When opponents affected by Riptide are defeated, Tartaglia regenerates 4 Elemental Energy."
         },
         {
             "name": "Abyssal Mayhem: Vortex of Turmoil",
             "level": 3,
-            "icon": "assets/character/constellations/Abyssal Mayhem Vortex of Turmoil.png",
+            "icon": "assets/character/constellations/Abyssal Mayhem Vortex of Turmoil.avif",
             "description": "Increases the Level of Foul Legacy: Raging Tide by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Abyssal Mayhem: Hydrospout",
             "level": 4,
-            "icon": "assets/character/constellations/Abyssal Mayhem Hydrospout.png",
+            "icon": "assets/character/constellations/Abyssal Mayhem Hydrospout.avif",
             "description": "If Tartaglia is in Foul Legacy: Raging Tide's Melee Stance, triggers Riptide Slash against opponents on the field affected by Riptide every 4s, otherwise, triggers Riptide Flash.Riptide Slashes and Riptide Flashes triggered by this Constellation effect are not subject to the time intervals that would typically apply to these two Riptide effects, nor do they have any effect on those time intervals."
         },
         {
             "name": "Havoc: Formless Blade",
             "level": 5,
-            "icon": "assets/character/constellations/Havoc Formless Blade.png",
+            "icon": "assets/character/constellations/Havoc Formless Blade.avif",
             "description": "Increases the Level of Havoc: Obliteration by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Havoc: Annihilation",
             "level": 6,
-            "icon": "assets/character/constellations/Havoc Annihilation.png",
+            "icon": "assets/character/constellations/Havoc Annihilation.avif",
             "description": "When Havoc: Obliteration is cast in Melee Stance, the CD of Foul Legacy: Raging Tide is reset.This effect will only take place once Tartaglia returns to his Ranged Stance."
         }
     ],
@@ -71,12 +71,12 @@ var TARTAGLIA = {
     ],
     "special_dish": {
         "name": "A Prize Catch",
-        "icon": "assets/foods/Tartaglia.png"
+        "icon": "assets/foods/Tartaglia.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Tartaglia.png",
-        "background": "assets/character/namecard_background/Tartaglia.png",
-        "banner": "assets/character/namecard_banner/Tartaglia.png",
+        "icon": "assets/character/namecard_icon/Tartaglia.avif",
+        "background": "assets/character/namecard_background/Tartaglia.avif",
+        "banner": "assets/character/namecard_banner/Tartaglia.avif",
         "description": "This bears all the marks of that fellow who gallivants as he pleases across the continent with his ever-changing combat styles. Yet, his \"Foul Legacy\" was not originally his. Rather, it was taught to him by that solitary girl who dwelt in the darkest corners of the universe.",
         "quality": "4",
         "sources": [
@@ -154,22 +154,26 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Starconch",
                     "value": 3,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -197,27 +201,32 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 2,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Starconch",
                     "value": 10,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -245,27 +254,32 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 4,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Starconch",
                     "value": 20,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -293,27 +307,32 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 8,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Starconch",
                     "value": 30,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -341,27 +360,32 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 12,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Starconch",
                     "value": 45,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -389,27 +413,32 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 20,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Starconch",
                     "value": 60,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -418,37 +447,37 @@ var TARTAGLIA = {
         {
             "name": "Cutting Torrent",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Cutting Torrent.png",
+            "icon": "assets/character/talents/Cutting Torrent.avif",
             "description": "Normal AttackPerforms up to 6 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, the power of Hydro will accumulate on the arrowhead. An arrow fully charged with the torrent will deal Hydro DMG and apply the Riptide status.RiptideOpponents affected by Riptide will suffer from AoE Hydro DMG effects when attacked by Tartaglia in various ways. DMG dealt in this way is considered Normal Attack DMG.Riptide Flash: A fully-charged Aimed Shot that hits an opponent affected by Riptide deals consecutive bouts of AoE DMG. Can occur once every 0.7s.Riptide Burst: Defeating an opponent affected by Riptide creates a Hydro burst that inflicts the Riptide status on nearby opponents hit.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact.When Tartaglia is in Foul Legacy: Raging Tide's Melee Stance, he cannot perform a plunging attack."
         },
         {
             "name": "Foul Legacy: Raging Tide",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Foul Legacy Raging Tide.png",
+            "icon": "assets/character/talents/Foul Legacy Raging Tide.avif",
             "description": "Unleashes a set of weaponry made of pure water, dealing Hydro DMG to surrounding opponents and entering Melee Stance.In this Stance, Tartaglia's Normal and Charged Attacks are converted to Hydro DMG that cannot be overridden by any other elemental infusion and change as follows:Normal AttackPerforms up to 6 consecutive Hydro strikes.Charged AttackConsumes a certain amount of Stamina to unleash a cross slash, dealing Hydro DMG.Riptide SlashHitting an opponent affected by Riptide with a melee attack unleashes a Riptide Slash that deals AoE Hydro DMG. DMG dealt in this way is considered Elemental Skill DMG, and can only occur once every 1.5s.After 30s, or when the ability is unleashed again, this skill will end. Tartaglia will return to his Ranged Stance and this ability will enter CD.The longer Tartaglia stays in his Melee Stance, the longer the CD.If the return to a ranged stance occurs automatically after 30s, the CD is even longer."
         },
         {
             "name": "Havoc: Obliteration",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Havoc Obliteration.png",
+            "icon": "assets/character/talents/Havoc Obliteration.avif",
             "description": "Performs different attacks based on what stance Tartaglia is in when casting.Ranged Stance: Flash of HavocSwiftly fires a Hydro-imbued magic arrow, dealing AoE Hydro DMG and applying the Riptide status.Returns a portion of its Energy Cost after use.Melee Stance: Light of ObliterationPerforms a slash with a large AoE, dealing massive Hydro DMG to all surrounding opponents, which triggers Riptide Blast.Riptide BlastWhen the obliterating waters hit an opponent affected by Riptide, it clears their Riptide status and triggers a Hydro Explosion that deals AoE Hydro DMG.DMG dealt in this way is considered Elemental Burst DMG."
         },
         {
             "name": "Never Ending",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Never Ending.png",
+            "icon": "assets/character/talents/Never Ending.avif",
             "description": "Extends Riptide duration by 8s."
         },
         {
             "name": "Sword of Torrents",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Sword of Torrents.png",
+            "icon": "assets/character/talents/Sword of Torrents.avif",
             "description": "When Tartaglia is in Foul Legacy: Raging Tide's Melee stance, on dealing a CRIT hit, Normal and Charged Attacks apply the Riptide status effects to opponents."
         },
         {
             "name": "Master of Weaponry",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Master of Weaponry.png",
+            "icon": "assets/character/talents/Master of Weaponry.avif",
             "description": "Increases your own party members' Normal Attack Level by 1."
         }
     ],
@@ -459,17 +488,20 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Freedom",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Freedom.png"
+                    "icon": "assets/materials/Teachings of Freedom.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -479,17 +511,20 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -499,17 +534,20 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -519,17 +557,20 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -539,17 +580,20 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -559,22 +603,26 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 1,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -584,22 +632,26 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 1,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -609,22 +661,26 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 2,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -634,27 +690,32 @@ var TARTAGLIA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 2,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2654,195 +2715,5 @@ var TARTAGLIA = {
     "demo_music": {
         "name": "Letter From Ajax",
         "url": "assets/character/demo_music/Tartaglia.mp3"
-    },
-    "build": {
-        "version": "4.6",
-        "type": "On-field DPS",
-        "weapons": [
-            "Polar Star",
-            "Aqua Simulacra",
-            "Hunter's Path",
-            "Skyward Harp",
-            "Thundering Pulse",
-            "The First Great Magic",
-            "Amos' Bow",
-            "The Viridescent Hunt",
-            "Scion of the Blazing Sun",
-            "Mouun's Moon",
-            "Prototype Crescent",
-            "Fading Twilight",
-            "Blackcliff Warbow",
-            "The Stringless",
-            "King's Squire"
-        ],
-        "artifacts": [
-            "4pc Nymph's Dream",
-            "4pc Emblem of Severed Fate",
-            "4pc Heart of Depth",
-            "Wanderer's Troupe"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Hydro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Sara",
-                    "icon": "assets/character/icon/Kujou Sara.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Diona ",
-                    "icon": "assets/character/icon/Diona .png"
-                }
-            ],
-            [
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ]
-        ]
     }
 }

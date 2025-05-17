@@ -1,33 +1,33 @@
 var SIGEWINNE = {
     "name": "Sigewinne",
     "secondary_title": "Wondrous Dragonheir",
-    "card_icon": "assets/character/card/Sigewinne.png",
-    "wish_icon": "assets/character/wish/Sigewinne.png",
-    "ingame_icon": "assets/character/ingame/Sigewinne.png",
-    "icon": "assets/character/icon/Sigewinne.png",
+    "card_icon": "assets/character/card/Sigewinne.avif",
+    "wish_icon": "assets/character/wish/Sigewinne.avif",
+    "ingame_icon": "assets/character/ingame/Sigewinne.avif",
+    "icon": "assets/character/icon/Sigewinne.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Short Female",
     "arkhe": "Ousia",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "March 30th",
@@ -35,55 +35,55 @@ var SIGEWINNE = {
         {
             "name": "\"Can the Happiest of Spirits Understand Anxiety?\"",
             "level": 1,
-            "icon": "assets/character/constellations/Can the Happiest of Spirits Understand Anxiety.png",
+            "icon": "assets/character/constellations/Can the Happiest of Spirits Understand Anxiety.avif",
             "description": "Rebound Hydrotherapy's Bolstering Bubblebalm can bounce 3 extra times, and the first 3 bounces will not cause big Bubblebalms to become smaller.The Passive Talent \"Requires Appropriate Rest\" is enhanced: Each Bubblebalm bounce adds 1 stack to her Convalescence tally, and the values for the Convalescence stacks' DMG bonus will be modified to: Every 1,000 max HP Sigewinne has above 30,000 increases the DMG by 100. The maximum DMG increase for Elemental Skills that can be gained in this way is 3,500. You must first unlock the Passive Talent \"Requires Appropriate Rest.\""
         },
         {
             "name": "\"Can the Most Merciful of Spirits Defeat Its Foes?\"",
             "level": 2,
-            "icon": "assets/character/constellations/Can the Most Merciful of Spirits Defeat Its Foes.png",
+            "icon": "assets/character/constellations/Can the Most Merciful of Spirits Defeat Its Foes.avif",
             "description": "When using Rebound Hydrotherapy and Super Saturated Syringing, Sigewinne can create a Bubbly Shield worth 30% of her Max HP that absorbs Hydro DMG with 250% efficiency. The Bubbly Shield will persist until Sigewinne finishes using relevant skills.Additionally, after Rebound Hydrotherapy's Bolstering Bubblebalm or Super Saturated Syringing hits an opponent, that opponent's Hydro RES will be decreased by 35% for 8s."
         },
         {
             "name": "\"Can the Healthiest of Spirits Cure Fevers?\"",
             "level": 3,
-            "icon": "assets/character/constellations/Can the Healthiest of Spirits Cure Fevers.png",
+            "icon": "assets/character/constellations/Can the Healthiest of Spirits Cure Fevers.avif",
             "description": "Increases the Level of Rebound Hydrotherapy by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"Can the Loveliest of Spirits Keep Decay at Bay?\"",
             "level": 4,
-            "icon": "assets/character/constellations/Can the Loveliest of Spirits Keep Decay at Bay.png",
+            "icon": "assets/character/constellations/Can the Loveliest of Spirits Keep Decay at Bay.avif",
             "description": "The duration of Super Saturated Syringing is extended by 3s."
         },
         {
             "name": "\"Can the Most Joyful of Spirits Alleviate Agony?\"",
             "level": 5,
-            "icon": "assets/character/constellations/Can the Most Joyful of Spirits Alleviate Agony.png",
+            "icon": "assets/character/constellations/Can the Most Joyful of Spirits Alleviate Agony.avif",
             "description": "Increases the Level of Super Saturated Syringing by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"Can the Most Radiant of Spirits Pray For Me?\"",
             "level": 6,
-            "icon": "assets/character/constellations/Can the Most Radiant of Spirits Pray For Me.png",
+            "icon": "assets/character/constellations/Can the Most Radiant of Spirits Pray For Me.avif",
             "description": "When Sigewinne performs healing, she will increase the CRIT Rate and CRIT DMG of her Super Saturated Syringing based on her Max HP. Every 1,000 Max HP she has will increase CRIT Rate by 0.4% and CRIT DMG by 2.2% for 15s. The maximum increase achievable this way is 20% CRIT Rate and 110% CRIT DMG."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Fortress of Meropide"
     ],
     "special_dish": {
         "name": "Well-Balanced Meal",
-        "icon": "assets/foods/Sigewinne.png"
+        "icon": "assets/foods/Sigewinne.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Sigewinne.png",
-        "background": "assets/character/namecard_background/Sigewinne.png",
-        "banner": "assets/character/namecard_banner/Sigewinne.png",
+        "icon": "assets/character/namecard_icon/Sigewinne.avif",
+        "background": "assets/character/namecard_background/Sigewinne.avif",
+        "banner": "assets/character/namecard_banner/Sigewinne.avif",
         "description": "Sigewinne will take good care of her patients. Don't worry, her injections aren't that painful — and while the medicines aren't very tasty, you'd take them over the barren wasteland that special blend milkshakes represent.",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 3,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 2,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 10,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 15,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 4,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 20,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 12,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 8,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 30,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 18,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 12,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 45,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Water That Failed To Transcend",
                     "value": 20,
-                    "icon": "assets/materials/Water That Failed To Transcend.png"
+                    "icon": "assets/materials/Water That Failed To Transcend.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 60,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 24,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var SIGEWINNE = {
         {
             "name": "Targeted Treatment",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Targeted Treatment.png",
+            "icon": "assets/character/talents/Targeted Treatment.avif",
             "description": "Normal AttackPerforms up to 3 consecutive attacks.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, the power of Hydro will continually accumulate on the arrow. After fully charging, Sigewinne will periodically fire slow-moving Mini-Stration Bubbles toward the target, dealing Hydro DMG. When released, an arrow imbued with torrential energy will deal Hydro DMG to the opponent hit.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Rebound Hydrotherapy",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Rebound Hydrotherapy.png",
+            "icon": "assets/character/talents/Rebound Hydrotherapy.avif",
             "description": "Blows a Bolstering Bubblebalm that can stimulate blood flow and help patients drift off to sleep using a bubblegun specially made in the Fortress of Meropide.Bolstering Bubblebalms will bounce between nearby opponents, dealing Hydro DMG based on Sigewinne's max HP to opponents it hits. When it bounces, it will restore HP to all nearby party members except Sigewinne herself. The amount healed is based on Sigewinne's max HP.After bouncing 5 times, the Bolstering Bubblebalm will disappear and restore HP to Sigewinne based on her max HP value.When no opponents are present, the Bolstering Bubblebalm will bounce nearby. Only one Bolstering Bubblebalm created by a Sigewinne may exist at once.When Held, the Bolstering Bubblebalm can be boosted to an even bigger size.HoldEnter Aiming Mode to begin blowing an even bigger, even more breathtaking Bolstering Bubblebalm!The Bolstering Bubblebalm will grow bigger the longer the skill is Held, until it grows up to two tiers in size. Each tier it grows increases its DMG by 5% and healing by 5%. When a Bolstering Bubblebalm bounces, it will drop down a tier in size, until it returns to being a normal Bolstering Bubblebalm.After weaker opponents are hit by big Bolstering Bubblebalms, they will be imprisoned and will be unable to move.In addition, 2 Sourcewater Droplets will be created near Sigewinne when she uses this Skill. Each Sourcewater Droplet Sigewinne collects will grant her a Bond of Life worth 10% of her Max HP.When Sigewinne's Bond of Life is cleared, she regains 1 Elemental Energy for every 2,000 HP worth of the Bond of Life that was cleared. Sigewinne can regain up to 5 Elemental Energy in this way.Arkhe: OusiaBolstering Bubblebalms periodically call down a Surging Blade on the position they hit, dealing Ousia-aligned Hydro DMG based on Sigewinne's max HP."
         },
         {
             "name": "Super Saturated Syringing",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Super Saturated Syringing.png",
+            "icon": "assets/character/talents/Super Saturated Syringing.avif",
             "description": "Take out a special Fortress of Meropide-made syringe and assault the area in front with waves of kindness and medicine, dealing AoE Hydro DMG based on Sigewinne's max HP.In addition, Sigewinne absorbs up to 2 nearby Sourcewater Droplets within a certain range right before using the skill."
         },
         {
             "name": "Requires Appropriate Rest",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Requires Appropriate Rest.png",
+            "icon": "assets/character/talents/Requires Appropriate Rest.avif",
             "description": "Sigewinne grants herself the \"Semi-Strict Bedrest\" effect for 18s after using Rebound Hydrotherapy: Sigewinne gains an 8% Hydro DMG Bonus and 10 stacks of Convalescence. When the Elemental Skills of your nearby off-field party members other than Sigewinne deal DMG, consume 1 stack of Convalescence, and increase the DMG dealt by this instance of Elemental Skill DMG. Every 1,000 Max HP Sigewinne has above 30,000 increases the DMG by 80. The maximum DMG increase for Elemental Skills that can be gained in this way is 2,800."
         },
         {
             "name": "Detailed Diagnosis, Thorough Treatment",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Detailed Diagnosis, Thorough Treatment.png",
+            "icon": "assets/character/talents/Detailed Diagnosis, Thorough Treatment.avif",
             "description": "When Sigewinne performs healing, the amount healed for this instance is increased based on the total current value of the Bonds of Life on all party members: For each 1,000 HP worth of Bonds of Life, the outgoing healing is increased by 3%. The amount of healing provided can be increased by up to 30% in this way."
         },
         {
             "name": "Emergency Dose",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Emergency Dose.png",
+            "icon": "assets/character/talents/Emergency Dose.avif",
             "description": "While underwater, heal your active character over 2.5s when their HP falls under 50%. The amount healed is equal to 50% of their Max HP, and their All Elemental and Physical RES will be decreased by 10% for 10s. This effect can be triggered up to once every 20s."
         }
     ],
@@ -466,17 +495,20 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Equity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Equity.png"
+                    "icon": "assets/materials/Teachings of Equity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 4,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 9,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 4,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 6,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 9,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var SIGEWINNE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2517,329 +2578,5 @@ var SIGEWINNE = {
     "demo_music": {
         "name": "Romari Time!",
         "url": "assets/character/demo_music/Sigewinne.mp3"
-    },
-    "build": {
-        "version": "4.7",
-        "type": "Healer / Support",
-        "weapons": [
-            "Silvershower Heartstrings",
-            "Elegy for the End",
-            "Aqua Simulacra",
-            "Recurve Bow",
-            "Favonius Bow",
-            "Sacrificial Bow"
-        ],
-        "artifacts": [
-            "4pc Ocean-Hued Clam",
-            "4pc Song of Days Past",
-            "4pc Emblem of Severed Fate",
-            "4pc Tenacity of the Millelith",
-            "4pc Noblesse Oblige"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP% / ER",
-            "HP% / Hydro DMG Bonus",
-            "HP% / CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "HP%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
     }
 }

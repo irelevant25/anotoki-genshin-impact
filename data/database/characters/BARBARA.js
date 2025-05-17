@@ -1,28 +1,28 @@
 var BARBARA = {
     "name": "Barbara",
     "secondary_title": "Shining Idol",
-    "card_icon": "assets/character/card/Barbara.png",
-    "wish_icon": "assets/character/wish/Barbara.png",
-    "ingame_icon": "assets/character/ingame/Barbara.png",
-    "icon": "assets/character/icon/Barbara.png",
+    "card_icon": "assets/character/card/Barbara.avif",
+    "wish_icon": "assets/character/wish/Barbara.avif",
+    "ingame_icon": "assets/character/ingame/Barbara.avif",
+    "icon": "assets/character/icon/Barbara.avif",
     "quality": "4",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "July 5th",
@@ -30,55 +30,55 @@ var BARBARA = {
         {
             "name": "Gleeful Songs",
             "level": 1,
-            "icon": "assets/character/constellations/Gleeful Songs.png",
+            "icon": "assets/character/constellations/Gleeful Songs.avif",
             "description": "Barbara regenerates 1 Energy every 10s."
         },
         {
             "name": "Vitality Burst",
             "level": 2,
-            "icon": "assets/character/constellations/Vitality Burst.png",
+            "icon": "assets/character/constellations/Vitality Burst.avif",
             "description": "Decreases the CD of Let the Show Begin♪ by 15%.During the ability's duration, your active character gains a 15% Hydro DMG Bonus."
         },
         {
             "name": "Star of Tomorrow",
             "level": 3,
-            "icon": "assets/character/constellations/Star of Tomorrow.png",
+            "icon": "assets/character/constellations/Star of Tomorrow.avif",
             "description": "Increases the Level of Shining Miracle♪ by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Attentiveness Be My Power",
             "level": 4,
-            "icon": "assets/character/constellations/Attentiveness Be My Power.png",
+            "icon": "assets/character/constellations/Attentiveness Be My Power.avif",
             "description": "Every opponent Barbara hits with her Charged Attack regenerates 1 Energy for her.A maximum of 5 energy can be regenerated in this manner with any one Charged Attack."
         },
         {
             "name": "The Purest Companionship",
             "level": 5,
-            "icon": "assets/character/constellations/The Purest Companionship.png",
+            "icon": "assets/character/constellations/The Purest Companionship.avif",
             "description": "Increases the Level of Let the Show Begin♪ by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Dedicating Everything to You",
             "level": 6,
-            "icon": "assets/character/constellations/Dedicating Everything to You.png",
+            "icon": "assets/character/constellations/Dedicating Everything to You.avif",
             "description": "When Barbara is in the party but not on the field, and one of your own party members falls:Automatically revives the fallen character.Fully restores the revived character's HP to 100%.This effect can only occur once every 15 mins."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Church of Favonius"
     ],
     "special_dish": {
         "name": "Spicy Stew",
-        "icon": "assets/foods/Barbara.png"
+        "icon": "assets/foods/Barbara.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Barbara.png",
-        "background": "assets/character/namecard_background/Barbara.png",
-        "banner": "assets/character/namecard_banner/Barbara.png",
+        "icon": "assets/character/namecard_icon/Barbara.avif",
+        "background": "assets/character/namecard_background/Barbara.avif",
+        "banner": "assets/character/namecard_banner/Barbara.avif",
         "description": "When Barbara sings, her melodic voice flows like the tender healing of a clear spring.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 3,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 2,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 10,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 15,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 4,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 20,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 8,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 30,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 18,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 12,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 45,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cleansing Heart",
                     "value": 20,
-                    "icon": "assets/materials/Cleansing Heart.png"
+                    "icon": "assets/materials/Cleansing Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 60,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 24,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var BARBARA = {
         {
             "name": "Whisper of Water",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Whisper of Water.png",
+            "icon": "assets/character/talents/Whisper of Water.avif",
             "description": "Normal AttackPerforms up to 4 water splash attacks that deal Hydro DMG.Charged AttackConsumes a certain amount of Stamina to deal AoE Hydro DMG after a short casting time.Plunging AttackGathering the might of Hydro, Barbara plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Hydro DMG upon impact with the ground."
         },
         {
             "name": "Let the Show Begin♪",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Let the Show Begin♪.png",
+            "icon": "assets/character/talents/Let the Show Begin♪.avif",
             "description": "Summons water droplets resembling musical notes that form a Melody Loop, dealing Hydro DMG to surrounding opponents and applying the Wet status to them.Melody LoopOn hit, Barbara's Normal Attacks heal your own party members and nearby teammates for a certain amount of HP, which scales with Barbara's Max HP.On hit, Barbara's Charged Attack generates 4 times the amount of healing.Periodically regenerates your own active character's HP.Applies the Wet status to the character and to opponents who come in contact with them."
         },
         {
             "name": "Shining Miracle♪",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Shining Miracle♪.png",
+            "icon": "assets/character/talents/Shining Miracle♪.avif",
             "description": "Heals your own party members and nearby teammates for a large amount of HP that scales with Barbara's Max HP."
         },
         {
             "name": "Glorious Season",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Glorious Season.png",
+            "icon": "assets/character/talents/Glorious Season.avif",
             "description": "The Stamina Consumption of characters within Let the Show Begin♪'s Melody Loop is reduced by 12%."
         },
         {
             "name": "Encore",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Encore.png",
+            "icon": "assets/character/talents/Encore.avif",
             "description": "When your active character gains an Elemental Orb/Particle, the duration of the Melody Loop of Let the Show Begin♪ is extended by 1s.The maximum extension is 5s."
         },
         {
             "name": "With My Whole Heart♪",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/With My Whole Heart♪.png",
+            "icon": "assets/character/talents/With My Whole Heart♪.avif",
             "description": "When a Perfect Cooking is achieved on a dish with restorative effects, Barbara has a 12% chance to obtain double the product."
         }
     ],
@@ -465,17 +494,20 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Freedom",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Freedom.png"
+                    "icon": "assets/materials/Teachings of Freedom.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var BARBARA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2368,124 +2429,5 @@ var BARBARA = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "3.2",
-        "type": "Healer / Support",
-        "weapons": [
-            "Everlasting Moonglow",
-            "Prototype Amber",
-            "Thrilling Tales of Dragon Slayers"
-        ],
-        "artifacts": [
-            "4pc Maiden Beloved",
-            "4pc Ocean-Hued Clam"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Skill",
-            "Burst"
-        ],
-        "main_stats": [
-            "HP%",
-            "HP%",
-            "Healing Bonus%"
-        ],
-        "sub_stats": [
-            "HP%",
-            "Flat HP"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

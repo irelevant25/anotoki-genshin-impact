@@ -1,28 +1,28 @@
 var KAMISATO_AYAKA = {
     "name": "Kamisato Ayaka",
     "secondary_title": "Frostflake Heron",
-    "card_icon": "assets/character/card/Kamisato Ayaka.png",
-    "wish_icon": "assets/character/wish/Kamisato Ayaka.png",
-    "ingame_icon": "assets/character/ingame/Kamisato Ayaka.png",
-    "icon": "assets/character/icon/Kamisato Ayaka.png",
+    "card_icon": "assets/character/card/Kamisato Ayaka.avif",
+    "wish_icon": "assets/character/wish/Kamisato Ayaka.avif",
+    "ingame_icon": "assets/character/ingame/Kamisato Ayaka.avif",
+    "icon": "assets/character/icon/Kamisato Ayaka.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "September 28th",
@@ -30,43 +30,43 @@ var KAMISATO_AYAKA = {
         {
             "name": "Snowswept Sakura",
             "level": 1,
-            "icon": "assets/character/constellations/Snowswept Sakura.png",
+            "icon": "assets/character/constellations/Snowswept Sakura.avif",
             "description": "When Kamisato Ayaka's Normal or Charged Attacks deal Cryo DMG to opponents, it has a 50% chance of decreasing the CD of Kamisato Art: Hyouka by 0.3s. This effect can occur once every 0.1s."
         },
         {
             "name": "Blizzard Blade Seki no To",
             "level": 2,
-            "icon": "assets/character/constellations/Blizzard Blade Seki no To.png",
+            "icon": "assets/character/constellations/Blizzard Blade Seki no To.avif",
             "description": "When casting Kamisato Art: Soumetsu, unleashes 2 smaller additional Frostflake Seki no To, each dealing 20% of the original storm's DMG."
         },
         {
             "name": "Frostbloom Kamifubuki",
             "level": 3,
-            "icon": "assets/character/constellations/Frostbloom Kamifubuki.png",
+            "icon": "assets/character/constellations/Frostbloom Kamifubuki.avif",
             "description": "Increases the Level of Kamisato Art: Soumetsu by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Ebb and Flow",
             "level": 4,
-            "icon": "assets/character/constellations/Ebb and Flow.png",
+            "icon": "assets/character/constellations/Ebb and Flow.avif",
             "description": "Opponents damaged by Kamisato Art: Soumetsu's Frostflake Seki no To will have their DEF decreased by 30% for 6s."
         },
         {
             "name": "Blossom Cloud Irutsuki",
             "level": 5,
-            "icon": "assets/character/constellations/Blossom Cloud Irutsuki.png",
+            "icon": "assets/character/constellations/Blossom Cloud Irutsuki.avif",
             "description": "Increases the Level of Kamisato Art: Hyouka by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Dance of Suigetsu",
             "level": 6,
-            "icon": "assets/character/constellations/Dance of Suigetsu.png",
+            "icon": "assets/character/constellations/Dance of Suigetsu.avif",
             "description": "Kamisato Ayaka gains Usurahi Butou every 10s, increasing her Charged Attack DMG by 298%. This buff will be cleared 0.5s after Ayaka's Charged ATK hits an opponent, after which the timer for this ability will restart."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Yashiro Commission",
@@ -74,12 +74,12 @@ var KAMISATO_AYAKA = {
     ],
     "special_dish": {
         "name": "\"Snow on the Hearth\"",
-        "icon": "assets/foods/Kamisato Ayaka.png"
+        "icon": "assets/foods/Kamisato Ayaka.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kamisato Ayaka.png",
-        "background": "assets/character/namecard_background/Kamisato Ayaka.png",
-        "banner": "assets/character/namecard_banner/Kamisato Ayaka.png",
+        "icon": "assets/character/namecard_icon/Kamisato Ayaka.avif",
+        "background": "assets/character/namecard_background/Kamisato Ayaka.avif",
+        "banner": "assets/character/namecard_banner/Kamisato Ayaka.avif",
         "description": "Ayaka does constantly change out the fans she carries with her, of course. If you're buying her some as gifts, remember not to send summer fans or throwing fans. Dancing fans or tea fans are good choices, though.",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 3,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 2,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 10,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 15,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 4,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 20,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 8,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 30,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 18,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 12,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 45,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 20,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sakura Bloom",
                     "value": 60,
-                    "icon": "assets/materials/Sakura Bloom.png"
+                    "icon": "assets/materials/Sakura Bloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 24,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,43 +454,43 @@ var KAMISATO_AYAKA = {
         {
             "name": "Kamisato Art: Kabuki",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Kamisato Art Kabuki.png",
+            "icon": "assets/character/talents/Kamisato Art Kabuki.avif",
             "description": "Normal AttackPerforms up to 5 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash a flurry of sword ki.Plunging AttackPlunges from mid-air to strike the ground below, damaging enemies along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Kamisato Art: Hyouka",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Kamisato Art Hyouka.png",
+            "icon": "assets/character/talents/Kamisato Art Hyouka.avif",
             "description": "Summons blooming ice to launch nearby opponents, dealing AoE Cryo DMG."
         },
         {
             "name": "Kamisato Art: Soumetsu",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Kamisato Art Soumetsu.png",
+            "icon": "assets/character/talents/Kamisato Art Soumetsu.avif",
             "description": "Summons forth a snowstorm with flawless poise, unleashing a Frostflake Seki no To that moves forward continuously.Frostflake Seki no ToA storm of whirling icy winds that slashes repeatedly at every enemy it touches, dealing Cryo DMG.The snowstorm explodes after its duration ends, dealing AoE Cryo DMG."
         },
         {
             "name": "Kamisato Art: Senho",
             "type": "Alternate Sprint",
-            "icon": "assets/character/talents/Kamisato Art Senho.png",
+            "icon": "assets/character/talents/Kamisato Art Senho.avif",
             "description": "Alternate SprintAyaka consumes Stamina and cloaks herself in a frozen fog that moves with her.In Senho form, she moves swiftly upon water.When she reappears, the following effects occur:Ayaka unleashes frigid energy to apply Cryo on nearby opponents.Coldness condenses around Ayaka's blade, infusing her attacks with Cryo for a brief period."
         },
         {
             "name": "Amatsumi Kunitsumi Sanctification",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Amatsumi Kunitsumi Sanctification.png",
+            "icon": "assets/character/talents/Amatsumi Kunitsumi Sanctification.avif",
             "description": "After using Kamisato Art: Hyouka, Kamisato Ayaka's Normal and Charged attacks deal 30% increased DMG for 6s."
         },
         {
             "name": "Kanten Senmyou Blessing",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Kanten Senmyou Blessing.png",
+            "icon": "assets/character/talents/Kanten Senmyou Blessing.avif",
             "description": "When the Cryo application at the end of Kamisato Art: Senho hits an opponent, Kamisato Ayaka gains the following effects:Restores 10 StaminaGains 18% Cryo DMG Bonus for 10s."
         },
         {
             "name": "Fruits of Shinsa",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Fruits of Shinsa.png",
+            "icon": "assets/character/talents/Fruits of Shinsa.avif",
             "description": "When Ayaka crafts Weapon Ascension Materials, she has a 10% chance to receive double the product."
         }
     ],
@@ -472,17 +501,20 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Elegance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Elegance.png"
+                    "icon": "assets/materials/Teachings of Elegance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -492,17 +524,20 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -512,17 +547,20 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -532,17 +570,20 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -552,17 +593,20 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -572,22 +616,26 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 1,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -597,22 +645,26 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 1,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -622,22 +674,26 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 2,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -647,27 +703,32 @@ var KAMISATO_AYAKA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 2,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2402,191 +2463,5 @@ var KAMISATO_AYAKA = {
     "demo_music": {
         "name": "Shirasagi Princess",
         "url": "assets/character/demo_music/Kamisato Ayaka.mp3"
-    },
-    "build": {
-        "version": "4.1",
-        "type": "On-field DPS",
-        "weapons": [
-            "Mistsplitter Reforged",
-            "Haran Geppaku Futsu",
-            "Primordial Jade Cutter",
-            "Light of Foliar Incision",
-            "Summit Shaper",
-            "Finale of the Deep R5",
-            "Skyward Blade",
-            "Finale of the Deep",
-            "Aquila Favonia",
-            "Amenoma Kageuchi R5",
-            "Kagotsurube Isshin",
-            "The Black Sword R5",
-            "Amenoma Kageuchi",
-            "Harbinger of Dawn R5",
-            "The Black Sword",
-            "Blackcliff Longsword R5"
-        ],
-        "artifacts": [
-            "4 Piece Blizzard Strayer"
-        ],
-        "talents": [
-            "Burst",
-            "Normal Attack",
-            "Skill"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Cryo DMG Bonus",
-            "CRIT DMG / ATK%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,32 +1,32 @@
 var CITLALI = {
     "name": "Citlali",
     "secondary_title": "Obsidian Opalstar",
-    "card_icon": "assets/character/card/Citlali.png",
-    "wish_icon": "assets/character/wish/Citlali.png",
-    "ingame_icon": "assets/character/ingame/Citlali.png",
-    "icon": "assets/character/icon/Citlali.png",
+    "card_icon": "assets/character/card/Citlali.avif",
+    "wish_icon": "assets/character/wish/Citlali.avif",
+    "ingame_icon": "assets/character/ingame/Citlali.avif",
+    "icon": "assets/character/icon/Citlali.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "January 20th",
@@ -34,55 +34,55 @@ var CITLALI = {
         {
             "name": "Radiant Blades of Centzon Mimixcoah",
             "level": 1,
-            "icon": "assets/character/constellations/Radiant Blades of Centzon Mimixcoah.png",
+            "icon": "assets/character/constellations/Radiant Blades of Centzon Mimixcoah.avif",
             "description": "When she uses the Elemental Skill Dawnfrost Darkstar, Citlali gains the \"Opalstar Vestments\" effect until Itzpapa leaves the field. During this time, she will obtain 10 Stellar Blades. When a nearby active character other than Citlali deals DMG using Normal, Charged, or Plunging Attacks, or Elemental Skills and Bursts, consume 1 Blade to increase the DMG dealt by 200% of Citlali's Elemental Mastery.After nearby party members trigger Frozen or Melt, Citlali will gain another 3 Stellar Blades. This effect can trigger once every 8s.Using the Elemental Skill Dawnfrost Darkstar will reset Stellar Blade stacks.Additionally, when Citlali is using her leap, or is Aiming or using her Charged Attack in mid-air, her Phlogiston consumption is decreased by 45%."
         },
         {
             "name": "Heart Devourer's Travail",
             "level": 2,
-            "icon": "assets/character/constellations/Heart Devourer's Travail.png",
+            "icon": "assets/character/constellations/Heart Devourer's Travail.avif",
             "description": "Citlali gains 125 Elemental Mastery, and other characters shielded by her Opal Shield, or who have Itzpapa following them, gain 250 Elemental Mastery.Additionally, when the Elemental Skill Dawnfrost Darkstar is used, nearby active characters will also be granted an Opal Shield.Also, the Passive Talent \"Mamaloaco's Frigid Rain\" has its effects enhanced:While Itzpapa is on the field, after nearby party members trigger Frozen or Melt, the opponent(s) affected by this reaction will have their Pyro and Hydro RES additionally decreased by 20% for 12s. You must first unlock the Passive Talent \"Mamaloaco's Frigid Rain\" to gain access to the above effect."
         },
         {
             "name": "Cloud Serpent's Feathered Crown",
             "level": 3,
-            "icon": "assets/character/constellations/Cloud Serpent's Feathered Crown.png",
+            "icon": "assets/character/constellations/Cloud Serpent's Feathered Crown.avif",
             "description": "Increases the Level of Dawnfrost Darkstar by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Death Defier's Spirit Skull",
             "level": 4,
-            "icon": "assets/character/constellations/Death Defier's Spirit Skull.png",
+            "icon": "assets/character/constellations/Death Defier's Spirit Skull.avif",
             "description": "While the Elemental Skill Dawnfrost Darkstar is active, when Itzpapa's Frostfall Storm hits opponents, an additional Obsidian Spiritvessel Skull is summoned. When a Spiritvessel Skull summoned this way explodes, it deals 1800% of Citlali's Elemental Mastery as Nightsoul-aligned AoE Cryo DMG and restores 16 Nightsoul points and 8 Energy for Citlali. This effect can trigger once every 8s. This DMG is not considered Elemental Burst DMG."
         },
         {
             "name": "Nemontemi's Hex",
             "level": 5,
-            "icon": "assets/character/constellations/Nemontemi's Hex.png",
+            "icon": "assets/character/constellations/Nemontemi's Hex.avif",
             "description": "Increases the Level of Edict of Entwined Splendor by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Teoiztac's Secret Pact",
             "level": 6,
-            "icon": "assets/character/constellations/Teoiztac's Secret Pact.png",
+            "icon": "assets/character/constellations/Teoiztac's Secret Pact.avif",
             "description": "After being summoned with the Elemental Skill Dawnfrost Darkstar, Itzpapa will always be in the Opal Fire state, and when Nightsoul points are exhausted, this state will not end.Additionally, when Dawnfrost Darkstar is used, Itzpapa will consume all Nightsoul points, and while it is on the field, it will continuously consume Nightsoul points. Each Nightsoul point consumed in this way will grant Citlali 1 \"Cifra of the Secret Law\" point.A maximum of 40 such points can be gained, and each point Citlali possesses will grant all nearby party members a 1.5% Pyro and Hydro DMG Bonus, and increase the DMG Citlali deals by 2.5%.When Itzpapa leaves the field, or upon using Citlali's Elemental Skill again, all \"Cifra of the Secret Law\" points she has will be removed."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Mictlan"
     ],
     "special_dish": {
         "name": "Secret Art",
-        "icon": "assets/foods/Citlali.png"
+        "icon": "assets/foods/Citlali.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Citlali.png",
-        "background": "assets/character/namecard_background/Citlali.png",
-        "banner": "assets/character/namecard_banner/Citlali.png",
+        "icon": "assets/character/namecard_icon/Citlali.avif",
+        "background": "assets/character/namecard_background/Citlali.avif",
+        "banner": "assets/character/namecard_banner/Citlali.avif",
         "description": "The black one is akin to obsidian, and is thus called \"Itzpapa.\" The white one is white as a star, and has thus been named \"Citlalin.\"",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 3,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 3,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 2,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 10,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 15,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 4,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 20,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 12,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 8,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 30,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 18,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 12,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 45,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Talisman of the Enigmatic Land",
                     "value": 20,
-                    "icon": "assets/materials/Talisman of the Enigmatic Land.png"
+                    "icon": "assets/materials/Talisman of the Enigmatic Land.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Quenepa Berry",
                     "value": 60,
-                    "icon": "assets/materials/Quenepa Berry.png"
+                    "icon": "assets/materials/Quenepa Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 24,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,43 +453,43 @@ var CITLALI = {
         {
             "name": "Shadow-Stealing Spirit Vessel",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Shadow-Stealing Spirit Vessel.png",
+            "icon": "assets/character/talents/Shadow-Stealing Spirit Vessel.avif",
             "description": "Normal AttackCalls upon secret arts passed down through the Masters of the Night-Wind from generation to generation, performing up to three strikes that deal Cryo DMG.Charged AttackEnters Aiming Mode, and after Holding, consumes a certain amount of Stamina to call forth a Frost Star that deals Cryo DMG to opponents in its path.Plunging AttackGathers the power of Cryo and plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Cryo DMG upon impact with the ground."
         },
         {
             "name": "Dawnfrost Darkstar",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Dawnfrost Darkstar.png",
+            "icon": "assets/character/talents/Dawnfrost Darkstar.avif",
             "description": "Invoking secret pacts passed down by her tribe over the millennia, Citlali deploys an Opal Shield and calls forth \"Obsidian Tzitzimitl: Itzpapa,\" a creature that is (reputedly) terrifying beyond compare, dealing Nightsoul-aligned AoE Cryo DMG.The Opal Shield's DMG absorption scales based on Citlali's Elemental Mastery, and absorbs Cryo DMG with 250% efficiency. When it is deployed, it will cause Citlali to briefly be affected by Cryo.After using this skill, Citlali gains 24 Nightsoul points and enters the Nightsoul's Blessing state.Nightsoul's Blessing: CitlaliWhen Itzpapa leaves the field, Citlali exits the Nightsoul's Blessing state.ItzpapaItzpapa will follow the character.If Citlali has at least 50 Nightsoul points, Itzpapa enters the Opal Fire state and continuously consumes Nightsoul points to whip up a Frostfall Storm that follows the character around and attacks opponents within its AoE, dealing Nightsoul-aligned Cryo DMG.When Citlali's Nightsoul points are fully depleted, Itzpapa's Opal Fire state also ends."
         },
         {
             "name": "Edict of Entwined Splendor",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Edict of Entwined Splendor.png",
+            "icon": "assets/character/talents/Edict of Entwined Splendor.avif",
             "description": "Summons \"allies\" from the starry skies and the vast earth, hurling forth an ice storm to bombard the area in front and deal Nightsoul-aligned AoE Cryo DMG. This restores a set amount of Nightsoul points for Citlali, and also summons a Spiritvessel Skull near a maximum of 3 opponents within the AoE, with 1 Skull for each opponent. Spiritvessel Skulls explode after some time, dealing Nightsoul-aligned AoE Cryo DMG and restoring a set amount of Nightsoul points for Citlali."
         },
         {
             "name": "Mamaloaco's Frigid Rain",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Mamaloaco's Frigid Rain.png",
+            "icon": "assets/character/talents/Mamaloaco's Frigid Rain.avif",
             "description": "While Itzpapa is on the field, after nearby party members trigger the Frozen or Melt reactions, the Pyro and Hydro RES of opponents affected by that reaction decreases by 20% for 12s.Additionally, Citlali will regain 16 Nightsoul points. Nightsoul can be restored this way once every 8s."
         },
         {
             "name": "Itzpapalotl's Star Garments",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Itzpapalotl's Star Garments.png",
+            "icon": "assets/character/talents/Itzpapalotl's Star Garments.avif",
             "description": "During the Elemental Skill Dawnfrost Darkstar, Itzpapa's Frostfall Storm DMG is increased by 90% of Citlali's Elemental Mastery. During the Elemental Burst Edict of Entwined Splendor, Ice Storm DMG is increased by 1200% of Citlali's Elemental Mastery.In addition, when nearby party members trigger Nightsoul Bursts, Citlali regains 4 Nightsoul points."
         },
         {
             "name": "Smoke, Mirrors, and the Flowing Winds",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Smoke, Mirrors, and the Flowing Winds.png",
+            "icon": "assets/character/talents/Smoke, Mirrors, and the Flowing Winds.avif",
             "description": "While in an area with Phlogiston Mechanics within Natlan, can use Nightsoul Transmission: Citlali. When the active character is currently high enough in the air, the following will trigger when switching to Citlali: Citlali will leap up high, and will deploy \"White Obsidian Tzitzimitl: Citlalin\" to float in the air. Nightsoul Transmission can be triggered once every 10s by your party.Holding Aiming Mode will cause Citlali to enter the \"Spiritspeaker\" state, which will allow her to interact with \"Nightspirit Graffiti\" and \"Nightspirit Sigils,\" extracting information and power from them. The rules for interacting with these objects follow the same rules as those governing Iktomisaurus interactions.Additionally, holding the jump button will cause Citlali to consume 75 Stamina and leap. In areas within Natlan where Phlogiston mechanics are present, Citlali will prioritize consuming 5 Phlogiston to leap to a height higher still.When in the air, Citlali can Hold her Normal Attack to consume Phlogiston or Stamina and enter Aiming Mode and trigger Charged Attacks. When initiating Charged Attacks in mid-air, Citlali will prioritize consuming 20 Phlogiston."
         },
         {
             "name": "Songs of Profound Mystery",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Songs of Profound Mystery.png",
+            "icon": "assets/character/talents/Songs of Profound Mystery.avif",
             "description": "While in an area with Phlogiston Mechanics within Natlan, triggering \"Nightsoul Burst\" restores 20 Phlogiston. This cannot take effect in Domains, Trounce Domains, or the Spiral Abyss."
         }
     ],
@@ -471,17 +500,20 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 6,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Kindling",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Kindling.png"
+                    "icon": "assets/materials/Teachings of Kindling.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -491,17 +523,20 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 3,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -511,17 +546,20 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 4,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -531,17 +569,20 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 6,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -551,17 +592,20 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 9,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -571,22 +615,26 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 4,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 1,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -596,22 +644,26 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 6,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 1,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -621,22 +673,26 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 9,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 2,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -646,27 +702,32 @@ var CITLALI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 2,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -1301,7 +1362,7 @@ var CITLALI = {
                 {
                     "title": "あたふたすること…",
                     "text": "キミへの態度は他のヒトと同じよ。ベ、ベツにトクベツ扱いなんてしてないから。…まあ、ワタシに対する誤解は何世代も続いてきたものだし、とっくに諦めてるけど。でもキミは他のヒトと違ってワタシに偏見を持ってない。だから、キミにはホントの姿を見せてるの。誰に対しても遠慮なく、尊大に接するワタシは、みんなのイメージに合わせて作ったキャラよ…キミの前でアタフタしちゃうワタシこそ、本当のワタシ。キミにウソをついたコトはないし、これがワタシの本心——こんなコト言うのはこれっきりだからね。",
-                    "reading": "Kimi e no taido wa hoka no hito to onaji yo. Be, betsu ni tokubetsu atsukai nante shitenai kara. ...Maa, watashi ni taisuru gokai wa nansedai mo tsudzuite kita mono da shi, tokkuni akirameteru kedo. Demo kimi wa hoka no hito to chigatte watashi ni henken o mottenai. Dakara, kimi ni wa honto no sugata o miseteru no. Dare ni taishite mo enryo naku, sondai ni sessuru watashi wa, minna no imēji ni awasete tsukutta kyara yo... Kimi no mae de atafuta shichau watashi koso, hontou no watashi. Kimi ni uso o tsuita koto wa nai shi, kore ga watashi no honshin—konna koto iu no wa korekkiri dakara ne.",
+                    "reading": "Kimi e no taido wa hoka no hito to onaji yo. Be, betsu ni tokubetsu atsukai nante shitenai kara. ...Maa, watashi ni taisuru gokai wa nanse­dai mo tsudzuite kita mono da shi, tokkuni akirameteru kedo. Demo kimi wa hoka no hito to chigatte watashi ni henken o mottenai. Dakara, kimi ni wa honto no sugata o miseteru no. Dare ni taishite mo enryo naku, sondai ni sessuru watashi wa, minna no imēji ni awasete tsukutta kyara yo... Kimi no mae de atafuta shichau watashi koso, hontou no watashi. Kimi ni uso o tsuita koto wa nai shi, kore ga watashi no honshin—konna koto iu no wa korekkiri dakara ne.",
                     "audio": "assets/character/voice_overs/Citlali/story/ja/あたふたすること….mp3"
                 },
                 {
@@ -2378,116 +2439,5 @@ var CITLALI = {
     "demo_music": {
         "name": "Interstellar Drift",
         "url": "assets/character/demo_music/Citlali.mp3"
-    },
-    "build": {
-        "version": "5.4",
-        "type": "Support",
-        "weapons": [
-            "Starcaller's Watch",
-            "Thrilling Tales of Dragon Slayers",
-            "Wandering Evenstar",
-            "A Thousand Floating Dreams",
-            "Favonius Codex",
-            "Mappa Mare",
-            "Sacrificial Fragments",
-            "Magic Guide"
-        ],
-        "artifacts": [
-            "4pc Scroll of the Hero of Cinder City",
-            "4pc Tenacity of the Millelith",
-            "4pc Noblesse Oblige",
-            "4pc Archaic Petra",
-            "4pc Instructor"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM / ER",
-            "EM / Cryo DMG Bonus",
-            "EM / CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "EM",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                },
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ]
-        ]
     }
 }

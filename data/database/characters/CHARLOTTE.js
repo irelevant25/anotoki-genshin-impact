@@ -1,29 +1,29 @@
 var CHARLOTTE = {
     "name": "Charlotte",
     "secondary_title": "Lens of Verity",
-    "card_icon": "assets/character/card/Charlotte.png",
-    "wish_icon": "assets/character/wish/Charlotte.png",
-    "ingame_icon": "assets/character/ingame/Charlotte.png",
-    "icon": "assets/character/icon/Charlotte.png",
+    "card_icon": "assets/character/card/Charlotte.avif",
+    "wish_icon": "assets/character/wish/Charlotte.avif",
+    "ingame_icon": "assets/character/ingame/Charlotte.avif",
+    "icon": "assets/character/icon/Charlotte.avif",
     "quality": "4",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Medium Female",
     "arkhe": "Pneuma",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "April 10th",
@@ -31,55 +31,55 @@ var CHARLOTTE = {
         {
             "name": "A Need to Verify Facts",
             "level": 1,
-            "icon": "assets/character/constellations/A Need to Verify Facts.png",
+            "icon": "assets/character/constellations/A Need to Verify Facts.avif",
             "description": "After Still Photo: Comprehensive Confirmation heals a character, it will mark them with Verification, which will heal them once every 2s for 80% of Charlotte's ATK. This effect lasts 6s."
         },
         {
             "name": "A Duty to Pursue Truth",
             "level": 2,
-            "icon": "assets/character/constellations/A Duty to Pursue Truth.png",
+            "icon": "assets/character/constellations/A Duty to Pursue Truth.avif",
             "description": "When using Framing: Freezing Point Composition, when Monsieur Verite hits 1/2/3 (or more) opponents, Charlotte's own ATK will be increased by 10%/20%/30% for 12s."
         },
         {
             "name": "An Imperative to Independence",
             "level": 3,
-            "icon": "assets/character/constellations/An Imperative to Independence.png",
+            "icon": "assets/character/constellations/An Imperative to Independence.avif",
             "description": "Increases the Level of Still Photo: Comprehensive Confirmation by 3.Maximum upgrade level is 15."
         },
         {
             "name": "A Responsibility to Oversee",
             "level": 4,
-            "icon": "assets/character/constellations/A Responsibility to Oversee.png",
+            "icon": "assets/character/constellations/A Responsibility to Oversee.avif",
             "description": "When Still Photo: Comprehensive Confirmation hits an opponent marked by Snappy Silhouette or Focused Impression, it will deal 10% more DMG and restore 2 Energy to Charlotte. This restoration can be triggered 5 times every 20s."
         },
         {
             "name": "A Principle of Conscience",
             "level": 5,
-            "icon": "assets/character/constellations/A Principle of Conscience.png",
+            "icon": "assets/character/constellations/A Principle of Conscience.avif",
             "description": "Increases the Level of Framing: Freezing Point Composition by 3.Maximum upgrade level is 15."
         },
         {
             "name": "A Summation of Interest",
             "level": 6,
-            "icon": "assets/character/constellations/A Summation of Interest.png",
+            "icon": "assets/character/constellations/A Summation of Interest.avif",
             "description": "When the active character's Normal and Charged Attacks hit an opponent marked by Framing: Freezing Point Composition's Focused Impression, Monsieur Verite will initiate a coordinated attack that deals 180% of Charlotte's ATK as AoE Cryo DMG and heals active character(s) within the AoE for 42% of Charlotte's ATK. This effect can be triggered once every 6s and both DMG and healing dealt in this way will be considered as having been done by Charlotte's Elemental Burst."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "The Steambird"
     ],
     "special_dish": {
         "name": "Exclusive Scoop: Gourmet Column",
-        "icon": "assets/foods/Charlotte.png"
+        "icon": "assets/foods/Charlotte.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Charlotte.png",
-        "background": "assets/character/namecard_background/Charlotte.png",
-        "banner": "assets/character/namecard_banner/Charlotte.png",
+        "icon": "assets/character/namecard_icon/Charlotte.avif",
+        "background": "assets/character/namecard_background/Charlotte.avif",
+        "banner": "assets/character/namecard_banner/Charlotte.avif",
         "description": "\"One, I've written an exclusive, and it's going to generate a lot of buzz for sure! Two, the newspaper said the situation is developing too slowly, so they're changing to a press release instead... Three, the person writing the press release will be in the Opera Epiclese as the defendant tomorrow, so they've decided to run my piece after all!\"",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Beryl Conch",
                     "value": 3,
-                    "icon": "assets/materials/Beryl Conch.png"
+                    "icon": "assets/materials/Beryl Conch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 3,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 2,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Beryl Conch",
                     "value": 10,
-                    "icon": "assets/materials/Beryl Conch.png"
+                    "icon": "assets/materials/Beryl Conch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 15,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 4,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Beryl Conch",
                     "value": 20,
-                    "icon": "assets/materials/Beryl Conch.png"
+                    "icon": "assets/materials/Beryl Conch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 12,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 8,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Beryl Conch",
                     "value": 30,
-                    "icon": "assets/materials/Beryl Conch.png"
+                    "icon": "assets/materials/Beryl Conch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 18,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 12,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Beryl Conch",
                     "value": 45,
-                    "icon": "assets/materials/Beryl Conch.png"
+                    "icon": "assets/materials/Beryl Conch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "\"Tourbillon Device\"",
                     "value": 20,
-                    "icon": "assets/materials/Tourbillon Device.png"
+                    "icon": "assets/materials/Tourbillon Device.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Beryl Conch",
                     "value": 60,
-                    "icon": "assets/materials/Beryl Conch.png"
+                    "icon": "assets/materials/Beryl Conch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 24,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var CHARLOTTE = {
         {
             "name": "Cool-Color Capture",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Cool-Color Capture.png",
+            "icon": "assets/character/talents/Cool-Color Capture.avif",
             "description": "Normal AttackTaking aim at targets using Monsieur Verite, her custom Kamera, Charlotte performs up to 3 consecutive attacks, dealing Cryo DMG.Charged AttackConsumes a fixed amount of Stamina, and after a moment's preparation, will deploy Monsieur Verite to deal AoE Cryo DMG.Plunging AttackGathering the power of Cryo, Charlotte plunges toward the ground, dealing DMG to all opponents in her path and dealing AoE Cryo DMG upon landing.Arkhe: PneumaAt certain intervals, upon using a Charged Attack, Charlotte will cause a Spiritbreath Thorn to descend and pierce opponents, dealing Pneuma-aligned AoE Cryo DMG."
         },
         {
             "name": "Framing: Freezing Point Composition",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Framing Freezing Point Composition.png",
+            "icon": "assets/character/talents/Framing Freezing Point Composition.avif",
             "description": "Using the keen instincts of an ace reporter, Charlotte uses her photography skills to produce different effects based on whether the ability is Tapped or Held.TapTakes a snapshot using Monsieur Verite, dealing AoE Cryo DMG to opponents in front of her and applying Snappy Silhouette to a maximum of 5 opponents. During this effect's duration, it will deal Cryo DMG to affected opponents at intervals.HoldPopping Monsieur Verite's viewfinder open, Charlotte enters Composition Mode, and during this time, the viewfinder will expand as you hold until you reach a Finisher Frame state. In this state, Charlotte can move and change direction freely.When the hold state ends, Monsieur Verite will deal Cryo DMG to all opponents locked on within the viewfinder, and apply the same Snappy Silhouette as Tap Mode does to them. If you unleash this ability only after reaching Finisher Frame, you will instead apply Focused Impression, which lasts longer and deals more DMG, although the Skill CD will be longer.Composition Mode lasts a maximum of 15s and allows a maximum of 5 opponents to be selected."
         },
         {
             "name": "Still Photo: Comprehensive Confirmation",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Still Photo Comprehensive Confirmation.png",
+            "icon": "assets/character/talents/Still Photo Comprehensive Confirmation.avif",
             "description": "Condensing ice to create The Steambird's signature, Charlotte creates a Newsflash Field that will deal AoE Cryo DMG and restores HP for all nearby party members based on Charlotte's ATK.Newsflash FieldWhile the ability is active, Monsieur Verite will deal Cryo DMG at intervals to opponents within its AoE.Will continuously restore HP to active character(s) within its AoE based on Charlotte's ATK."
         },
         {
             "name": "Moment of Impact",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Moment of Impact.png",
+            "icon": "assets/character/talents/Moment of Impact.avif",
             "description": "When opponents marked by \"Focused Impression\" are defeated, Framing: Freezing Point Composition's CD will be decreased by 2s. This CD decrease can be triggered 4 times every 12s."
         },
         {
             "name": "Diversified Investigation",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Diversified Investigation.png",
+            "icon": "assets/character/talents/Diversified Investigation.avif",
             "description": "When the party contains 1/2/3 Fontainians other than herself, Charlotte gains a 5%/10%/15% Healing Bonus. When the party contains 1/2/3 non-Fontainians, Charlotte gains a 5%/10%/15% Cryo DMG Bonus."
         },
         {
             "name": "First-Person Shutter",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/First-Person Shutter.png",
+            "icon": "assets/character/talents/First-Person Shutter.avif",
             "description": "After activating the Special Analysis Zoom Lens, Charlotte's \"Framing: Freezing Point Composition\" Hold Mode cannot trigger its original effects, but instead enables her to take photos in a rather unique manner..."
         }
     ],
@@ -465,17 +494,20 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 6,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Justice",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Justice.png"
+                    "icon": "assets/materials/Teachings of Justice.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 3,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 4,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 6,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 9,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 6,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 9,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var CHARLOTTE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -720,7 +781,7 @@ var CHARLOTTE = {
                 },
                 {
                     "title": "Good Morning",
-                    "text": "Morning! Did you read the paper yet? No?...No worries, I'll read it for you...",
+                    "text": "Morning! Did you read the paper yet? No? ...No worries, I'll read it for you...",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Charlotte/story/en/Good Morning.mp3"
                 },
@@ -732,7 +793,7 @@ var CHARLOTTE = {
                 },
                 {
                     "title": "Good Evening",
-                    "text": "Time for an evening chat. Any stories you're willing to share? I'd love to hear them....Oh, don't worry, I won't print any of them without your permission. You have my word.",
+                    "text": "Time for an evening chat. Any stories you're willing to share? I'd love to hear them. ...Oh, don't worry, I won't print any of them without your permission. You have my word.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Charlotte/story/en/Good Evening.mp3"
                 },
@@ -774,7 +835,7 @@ var CHARLOTTE = {
                 },
                 {
                     "title": "Something to Share",
-                    "text": "\"Your credible source of the unbelievable truth!\" That's my journalistic motto. Hmm?...Haha, yep, exactly — \"credible\" and \"incredible\" at the same time! What's that?...Oh, if I had to choose, then obviously being credible is much more important! But most readers would sooner pay money for sensational stories than mundane facts... So we have to focus on the most incredible true stories to keep our readers engaged.",
+                    "text": "\"Your credible source of the unbelievable truth!\" That's my journalistic motto. Hmm? ...Haha, yep, exactly — \"credible\" and \"incredible\" at the same time! What's that? ...Oh, if I had to choose, then obviously being credible is much more important! But most readers would sooner pay money for sensational stories than mundane facts... So we have to focus on the most incredible true stories to keep our readers engaged.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Charlotte/story/en/Something to Share.mp3"
                 },
@@ -792,7 +853,7 @@ var CHARLOTTE = {
                 },
                 {
                     "title": "About Lyney",
-                    "text": "Surprise, surprise — Lyney refused an interview with me once again. Do you know how many times that is now?...Uh, actually, I've lost count. But never mind! Evading me only further confirms my suspicion that he's hiding the news story of a lifetime! As long as I keep digging, I'll find it — and when I do, it will shake the world like no other news report in history!",
+                    "text": "Surprise, surprise — Lyney refused an interview with me once again. Do you know how many times that is now? ...Uh, actually, I've lost count. But never mind! Evading me only further confirms my suspicion that he's hiding the news story of a lifetime! As long as I keep digging, I'll find it — and when I do, it will shake the world like no other news report in history!",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Charlotte/story/en/About Lyney.mp3"
                 },
@@ -2348,151 +2409,5 @@ var CHARLOTTE = {
     "demo_music": {
         "name": "Veritas Numquam Perit",
         "url": "assets/character/demo_music/Charlotte.mp3"
-    },
-    "build": {
-        "version": "4.7",
-        "type": "Healer / Support",
-        "weapons": [
-            "Prototype Amber",
-            "Favonius Codex",
-            "Thrilling Tales of Dragon Slayers",
-            "Kagura's Verity",
-            "Offensive Catalysts"
-        ],
-        "artifacts": [
-            "2pc Mixed Sets",
-            "4pc Noblesse Oblige",
-            "4pc Tenacity of the Millelith",
-            "4pc Ocean-Hued Clam",
-            "4pc Blizzard Strayer",
-            "4pc Golden Troupe",
-            "4pc Maiden Beloved"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / ATK%",
-            "ATK% / Cryo DMG Bonus",
-            "Healing Bonus / CRIT Rate"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "ATK%",
-            "CRIT Rate",
-            "CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Charlotte",
-                    "icon": "assets/character/icon/Charlotte.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Charlotte",
-                    "icon": "assets/character/icon/Charlotte.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Charlotte",
-                    "icon": "assets/character/icon/Charlotte.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Charlotte",
-                    "icon": "assets/character/icon/Charlotte.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Charlotte",
-                    "icon": "assets/character/icon/Charlotte.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Charlotte",
-                    "icon": "assets/character/icon/Charlotte.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                }
-            ]
-        ]
     }
 }

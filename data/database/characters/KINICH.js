@@ -1,28 +1,28 @@
 var KINICH = {
     "name": "Kinich",
     "secondary_title": "Turnfire Hunt",
-    "card_icon": "assets/character/card/Kinich.png",
-    "wish_icon": "assets/character/wish/Kinich.png",
-    "ingame_icon": "assets/character/ingame/Kinich.png",
-    "icon": "assets/character/icon/Kinich.png",
+    "card_icon": "assets/character/card/Kinich.avif",
+    "wish_icon": "assets/character/wish/Kinich.avif",
+    "ingame_icon": "assets/character/ingame/Kinich.avif",
+    "icon": "assets/character/icon/Kinich.avif",
     "quality": "5",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "November 11th",
@@ -30,55 +30,55 @@ var KINICH = {
         {
             "name": "Parrot's Beak",
             "level": 1,
-            "icon": "assets/character/constellations/Parrot's Beak.png",
+            "icon": "assets/character/constellations/Parrot's Beak.avif",
             "description": "After Kinich lands from Canopy Hunter: Riding High's mid-air swing, his Movement SPD will increase by 30% for 6s.Additionally, Scalespiker Cannon's CRIT DMG is increased by 100%."
         },
         {
             "name": "Tiger Beetle's Palm",
             "level": 2,
-            "icon": "assets/character/constellations/Tiger Beetle's Palm.png",
+            "icon": "assets/character/constellations/Tiger Beetle's Palm.avif",
             "description": "When Kinich's Elemental Skill hits an opponent, it will decrease their Dendro RES by 30% for 6s.Additionally, the first Scalespiker Cannon Kinich fires after entering Nightsoul's Blessing has increased AoE, and its DMG increases by 100%."
         },
         {
             "name": "Protosuchian's Claw",
             "level": 3,
-            "icon": "assets/character/constellations/Protosuchian's Claw.png",
+            "icon": "assets/character/constellations/Protosuchian's Claw.avif",
             "description": "Increases the Level of Canopy Hunter: Riding High by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Hummingbird's Feather",
             "level": 4,
-            "icon": "assets/character/constellations/Hummingbird's Feather.png",
+            "icon": "assets/character/constellations/Hummingbird's Feather.avif",
             "description": "When in Nightsoul's Blessing, Kinich will restore 5 Energy after using his Loop Shots or after unleashing the Scalespiker Cannon. Energy can be regenerated this way once every 2.8s.Additionally, Hail to the Almighty Dragonlord deals 70% more DMG."
         },
         {
             "name": "Howler Monkey's Tail",
             "level": 5,
-            "icon": "assets/character/constellations/Howler Monkey's Tail.png",
+            "icon": "assets/character/constellations/Howler Monkey's Tail.avif",
             "description": "Increases the Level of Hail to the Almighty Dragonlord by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Auspicious Beast's Shape",
             "level": 6,
-            "icon": "assets/character/constellations/Auspicious Beast's Shape.png",
+            "icon": "assets/character/constellations/Auspicious Beast's Shape.avif",
             "description": "After Scalespiker Cannon hits an opponent, it will bounce between opponents once, dealing 700% of Kinich's ATK as Dendro DMG.If this Scalespiker Cannon triggers the buffs that Passive Talent \"Flame Spirit Pact\" or the Constellation \"Tiger Beetle's Palm\" grant to the Cannon, the bouncing attack will also obtain the relevant buffs."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Huitztlan"
     ],
     "special_dish": {
         "name": "Saurian Hunter's Reward",
-        "icon": "assets/foods/Kinich.png"
+        "icon": "assets/foods/Kinich.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kinich.png",
-        "background": "assets/character/namecard_background/Kinich.png",
-        "banner": "assets/character/namecard_banner/Kinich.png",
+        "icon": "assets/character/namecard_icon/Kinich.avif",
+        "background": "assets/character/namecard_background/Kinich.avif",
+        "banner": "assets/character/namecard_banner/Kinich.avif",
         "description": "At first glance, you might think that the Almighty Dragonlord, K'uhul Ajaw had finally succeeded in turning the puny Kinich into a vessel of his will. Sadly, though, this is just the way namecards are named.",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Saurian Claw Succulent",
                     "value": 3,
-                    "icon": "assets/materials/Saurian Claw Succulent.png"
+                    "icon": "assets/materials/Saurian Claw Succulent.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 3,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 2,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian Claw Succulent",
                     "value": 10,
-                    "icon": "assets/materials/Saurian Claw Succulent.png"
+                    "icon": "assets/materials/Saurian Claw Succulent.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 15,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 4,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian Claw Succulent",
                     "value": 20,
-                    "icon": "assets/materials/Saurian Claw Succulent.png"
+                    "icon": "assets/materials/Saurian Claw Succulent.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 12,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 8,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Saurian Claw Succulent",
                     "value": 30,
-                    "icon": "assets/materials/Saurian Claw Succulent.png"
+                    "icon": "assets/materials/Saurian Claw Succulent.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 18,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 12,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Saurian Claw Succulent",
                     "value": 45,
-                    "icon": "assets/materials/Saurian Claw Succulent.png"
+                    "icon": "assets/materials/Saurian Claw Succulent.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Overripe Flamegranate",
                     "value": 20,
-                    "icon": "assets/materials/Overripe Flamegranate.png"
+                    "icon": "assets/materials/Overripe Flamegranate.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Saurian Claw Succulent",
                     "value": 60,
-                    "icon": "assets/materials/Saurian Claw Succulent.png"
+                    "icon": "assets/materials/Saurian Claw Succulent.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 24,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,43 +452,43 @@ var KINICH = {
         {
             "name": "Nightsun Style",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Nightsun Style.png",
+            "icon": "assets/character/talents/Nightsun Style.avif",
             "description": "Normal AttackPerforms up to 3 rapid strikes.After using his Elemental Skill \"Canopy Hunter: Riding High\"'s mid-air swing, he can perform a Normal Attack in mid-air before landing.Charged AttackConsumes a certain amount to spin and throw his Claymore forward to attack opponents.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Canopy Hunter: Riding High",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Canopy Hunter Riding High.png",
+            "icon": "assets/character/talents/Canopy Hunter Riding High.avif",
             "description": "Kinich uses his big-game hunting skills to either move swiftly or attack his opponent.When there is an opponent or object that can be attacked nearby, he will attach a grappling hook to the target and enter Nightsoul's Blessing with 0 Nightsoul points. If neither is nearby, he fires a grappling hook forward and swings in mid-air, and this Skill's CD is decreased by 60%.This skill can be Held to release. When it is Held, Kinich can aim the grappling hook.Nightsoul's Blessing: KinichKinich's Nightsoul's Blessing lasts 10s and generates 2 Nightsoul points every second.In this state, Kinich will hook onto a nearby opponent and perform a variable attack:When using a Normal Attack, Kinich will fire Loop Shots as he loops around the grappled target based on his current movement direction, dealing Nightsoul-aligned Dendro DMG and generating 3 Nightsoul points. Loop Shot DMG is considered Elemental Skill DMG.When Nightsoul points are at max, he can use the Elemental Skill \"Scalespiker Cannon\": Consume all Nightsoul points to deal Nightsoul-aligned Dendro DMG. When \"Scalespiker Cannon\" is Held, Kinich can aim this shot. After firing the Cannon, Kinich will try to grapple to its target.While in Nightsoul's Blessing, after grappling an opponent or firing \"Scalespiker Cannon,\" a Blind Spot will be generated next to the opponent. When Kinich enters this Blind Spot, it will disappear and he will generate 4 Nightsoul points.If the grapple connection should snap due to exceeding the maximum distance or some other reason, using a Normal Attack will establish a new connection with a nearby opponent before performing Loop Shots."
         },
         {
             "name": "Hail to the Almighty Dragonlord",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Hail to the Almighty Dragonlord.png",
+            "icon": "assets/character/talents/Hail to the Almighty Dragonlord.avif",
             "description": "Unleashes the power of the Almighty Dragonlord, K'uhul Ajaw (on a limited, conditional, restricted, contractual, partial, temporary basis), dealing Nightsoul-aligned AoE Dendro DMG. Ajaw will unleash his Dragon Breath at intervals, dealing Nightsoul-aligned AoE Dendro DMG.If Kinich is in Nightsoul's Blessing when this is used, this Blessing's duration is extended by 1.7s."
         },
         {
             "name": "The Price of Desolation",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/The Price of Desolation.png",
+            "icon": "assets/character/talents/The Price of Desolation.avif",
             "description": "When Kinich is in Nightsoul's Blessing state, opponents hit by his Elemental Skill will enter the Desolation state, and when affected by Burning or Burgeon reaction DMG, they will restore 7 Nightsoul points to him. Nightsoul points can be gained this way once every 0.8s. The Desolation state will persist until this instance of Kinich's Nightsoul's Blessing state ends."
         },
         {
             "name": "Flame Spirit Pact",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Flame Spirit Pact.png",
+            "icon": "assets/character/talents/Flame Spirit Pact.avif",
             "description": "After a nearby party member triggers a Nightsoul Burst, Kinich will gain 1 stack of Hunter's Experience that lasts 15s. Max 2 stacks. When Kinich uses Canopy Hunter: Riding High's Scalespiker Cannon, all stacks of Hunter's Experience will be consumed, with each stack consumed increasing the DMG dealt by this Cannon shot by 320% of Kinich's ATK."
         },
         {
             "name": "Repaid in Full",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Repaid in Full.png",
+            "icon": "assets/character/talents/Repaid in Full.avif",
             "description": "When Kinich is in the air following Canopy Hunter: Riding High's mid-air swing, he can consume 10 Phlogiston points to perform another mid-air swing.While in an area with Phlogiston Mechanics within Natlan, he can use Nightsoul Transmission: Kinich. When the current active character is sprinting, in movement states that result from specific Talents, or in the air, when you switch to Kinich: Kinich will perform one of the following actions depending on the conditions met:When facing a Coilgrass Sigil that can be interacted with: He will fire a grappling hook towards it to move;When there are nearby opponents and you are in combat: Kinich will use Canopy Hunter: Riding High in the direction of the opponents;Otherwise, Kinich will fire a grappling hook and swing, prioritizing valid Coilgrass Sigils as grapple targets.Nightsoul Transmission can be triggered once every 10s by your own party.When interacting with Coilgrass Sigils and other items that Yumkasaurs can interact with, \"Canopy Hunter: Riding High\" will be converted to \"Yumkasaur Mimesis,\" which causes interactions with such items to follow rules applicable to Yumkasaurs, and which will not put Canopy Hunter: Riding High on CD."
         },
         {
             "name": "Swift Envoy",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Swift Envoy.png",
+            "icon": "assets/character/talents/Swift Envoy.avif",
             "description": "While in an area with Phlogiston Mechanics within Natlan, interacting with some harvestable items will increase your own party members' Movement SPD by 15% for 10s. Additionally, the location of nearby resources unique to Natlan will appear on your mini-map."
         }
     ],
@@ -470,17 +499,20 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 6,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Kindling",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Kindling.png"
+                    "icon": "assets/materials/Teachings of Kindling.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -490,17 +522,20 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 3,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -510,17 +545,20 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 4,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -530,17 +568,20 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 6,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -550,17 +591,20 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 9,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -570,22 +614,26 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 4,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 1,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -595,22 +643,26 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 6,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 1,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -620,22 +672,26 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 9,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 2,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -645,27 +701,32 @@ var KINICH = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Denial and Judgment",
                     "value": 2,
-                    "icon": "assets/materials/Denial and Judgment.png"
+                    "icon": "assets/materials/Denial and Judgment.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2568,224 +2629,5 @@ var KINICH = {
     "demo_music": {
         "name": "Note of Effective Settlements",
         "url": "assets/character/demo_music/Kinich.mp3"
-    },
-    "build": {
-        "version": "5.1",
-        "type": "On-field DPS",
-        "weapons": [
-            "Fang of the Mountain King",
-            "Beacon of the Reed Sea",
-            "Verdict",
-            "Redhorn Stonethresher",
-            "Wolf's Gravestone",
-            "The Unforged",
-            "Earth Shaker",
-            "Serpent Spine",
-            "Tidal Shadow"
-        ],
-        "artifacts": [
-            "4pc Obsidian Codex",
-            "4pc Unfinished Reverie",
-            "4pc Marechaussee Hunter",
-            "4pc Golden Troupe",
-            "4pc Deepwood Memories"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Dendro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "ER"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xingqiu ",
-                    "icon": "assets/character/icon/Xingqiu .png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ]
-        ]
     }
 }

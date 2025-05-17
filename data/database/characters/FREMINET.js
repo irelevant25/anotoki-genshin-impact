@@ -1,28 +1,28 @@
 var FREMINET = {
     "name": "Freminet",
     "secondary_title": "Yearning for Unseen Depths",
-    "wish_icon": "assets/character/wish/Freminet.png",
-    "ingame_icon": "assets/character/ingame/Freminet.png",
-    "icon": "assets/character/icon/Freminet.png",
+    "wish_icon": "assets/character/wish/Freminet.avif",
+    "ingame_icon": "assets/character/ingame/Freminet.avif",
+    "icon": "assets/character/icon/Freminet.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Medium Male",
     "arkhe": "Pneuma",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "September 24th",
@@ -30,43 +30,43 @@ var FREMINET = {
         {
             "name": "Dreams of the Foamy Deep",
             "level": 1,
-            "icon": "assets/character/constellations/Dreams of the Foamy Deep.png",
+            "icon": "assets/character/constellations/Dreams of the Foamy Deep.avif",
             "description": "The CRIT Rate of Pressurized Floe: Shattering Pressure will be increased by 15%."
         },
         {
             "name": "Penguins and the Land of Plenty",
             "level": 2,
-            "icon": "assets/character/constellations/Penguins and the Land of Plenty.png",
+            "icon": "assets/character/constellations/Penguins and the Land of Plenty.avif",
             "description": "Unleashing Pressurized Floe: Shattering Pressure will restore 2 Energy to Freminet. If a Pressure Level 4 Shattering Pressure is unleashed, this will restore 3 Energy."
         },
         {
             "name": "Song of the Eddies and Bleached Sands",
             "level": 3,
-            "icon": "assets/character/constellations/Song of the Eddies and Bleached Sands.png",
+            "icon": "assets/character/constellations/Song of the Eddies and Bleached Sands.avif",
             "description": "Increases the Level of Normal Attack: Flowing Eddies by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Dance of the Snowy Moon and Flute",
             "level": 4,
-            "icon": "assets/character/constellations/Dance of the Snowy Moon and Flute.png",
+            "icon": "assets/character/constellations/Dance of the Snowy Moon and Flute.avif",
             "description": "After Freminet triggers Frozen, Shatter, or Superconduct against opponents, his ATK will be increased by 9% for 6s. Max 2 stacks. This can be triggered once every 0.3s."
         },
         {
             "name": "Nights of Hearth and Happiness",
             "level": 5,
-            "icon": "assets/character/constellations/Nights of Hearth and Happiness.png",
+            "icon": "assets/character/constellations/Nights of Hearth and Happiness.avif",
             "description": "Increases the Level of Pressurized Floe by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Moment of Waking and Resolve",
             "level": 6,
-            "icon": "assets/character/constellations/Moment of Waking and Resolve.png",
+            "icon": "assets/character/constellations/Moment of Waking and Resolve.avif",
             "description": "After Freminet triggers Frozen, Shatter, or Superconduct against opponents, his CRIT DMG will be increased by 12% for 6s. Max 3 stacks. This can be triggered once every 0.3s."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Hotel Bouffes d'ete",
@@ -75,12 +75,12 @@ var FREMINET = {
     ],
     "special_dish": {
         "name": "\"Seabird's Sojourn\"",
-        "icon": "assets/foods/Freminet.png"
+        "icon": "assets/foods/Freminet.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Freminet.png",
-        "background": "assets/character/namecard_background/Freminet.png",
-        "banner": "assets/character/namecard_banner/Freminet.png",
+        "icon": "assets/character/namecard_icon/Freminet.avif",
+        "background": "assets/character/namecard_background/Freminet.avif",
+        "banner": "assets/character/namecard_banner/Freminet.avif",
         "description": "As the clockwork devices do naught but round and round in circles turn, the dolls march forward.",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 3,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 2,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 10,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 15,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 20,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 12,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 8,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 30,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 18,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 45,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 20,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Romaritime Flower",
                     "value": 60,
-                    "icon": "assets/materials/Romaritime Flower.png"
+                    "icon": "assets/materials/Romaritime Flower.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 24,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var FREMINET = {
         {
             "name": "Flowing Eddies",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Flowing Eddies.png",
+            "icon": "assets/character/talents/Flowing Eddies.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash. Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Pressurized Floe",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Pressurized Floe.png",
+            "icon": "assets/character/talents/Pressurized Floe.avif",
             "description": "Performs an upward thrust that deals Cryo DMG and causes Freminet to enter Pers Timer for 10s.While Pers Timer is active, his Elemental Skill will turn into Shattering Pressure.Shattering PressureExecutes different sorts of attacks based on the Pressure Level of Pers Timer, and then cancels Pers Timer.Level 0: Unleashes a vertical cut, dealing Cryo DMG.Levels 1 to 3: Unleashes a vertical cut alongside Pers, dealing Cryo DMG and Physical DMG. DMG dealt scales based on Pressure Level.Level 4: Borrows the power of a fully-pressurized Pers to deal Physical DMG. Meanwhile, Normal Attack: Flowing Eddies will be replaced by Shattering Pressure.Pers TimerWhen Freminet uses Normal Attacks, he will also unleash waves of frost that deal Cryo DMG and increase Pers's Pressure Level.The accompanying Cryo DMG dealt this way is considered Elemental Skill DMG.Arkhe: PneumaAt certain intervals, after using the upward thrust, a Spiritbreath Thorn in the form of another upward thrust will be created, dealing Pneuma-aligned Cryo DMG."
         },
         {
             "name": "Shadowhunter's Ambush",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Shadowhunter's Ambush.png",
+            "icon": "assets/character/talents/Shadowhunter's Ambush.avif",
             "description": "Unleashes a wave of untouchable cold, dealing AoE Cryo DMG, resetting the CD of the Elemental Skill \"Pressurized Floe,\" and causing Freminet to enter the Subnautical Hunter mode for 10s.While in Subnautical Hunter mode, Freminet's resistance to interruption will increase, and his Elemental Skill \"Pressurized Floe\" will obtain the following buffs:CD is decreased by 70%.Normal Attacks will increase the Pers Timer by 1 additional Pressure Level, and the frost released by his Normal Attacks deal 200% of their original DMG.These effects will be canceled when Freminet leaves the field."
         },
         {
             "name": "Saturation Deep Dive",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Saturation Deep Dive.png",
+            "icon": "assets/character/talents/Saturation Deep Dive.avif",
             "description": "When Freminet unleashes Pressurized Floe: Shattering Pressure, if Pers Timer has yet to reach Pressure Level 4, the CD of Pressurized Floe will be decreased by 1s."
         },
         {
             "name": "Parallel Condensers",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Parallel Condensers.png",
+            "icon": "assets/character/talents/Parallel Condensers.avif",
             "description": "When Freminet triggers Shatter against opponents, the DMG dealt by Pressurized Floe: Shattering Pressure will be increased by 40% for 5s."
         },
         {
             "name": "Deepwater Navigation",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Deepwater Navigation.png",
+            "icon": "assets/character/talents/Deepwater Navigation.avif",
             "description": "Decreases Aquatic Stamina consumption for your own party members by 35%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -466,17 +495,20 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Justice",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Justice.png"
+                    "icon": "assets/materials/Teachings of Justice.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 4,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 9,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Justice",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Justice.png"
+                    "icon": "assets/materials/Guide to Justice.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 4,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Worldspan Fern",
                     "value": 1,
-                    "icon": "assets/materials/Worldspan Fern.png"
+                    "icon": "assets/materials/Worldspan Fern.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 6,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Worldspan Fern",
                     "value": 1,
-                    "icon": "assets/materials/Worldspan Fern.png"
+                    "icon": "assets/materials/Worldspan Fern.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 9,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Worldspan Fern",
                     "value": 2,
-                    "icon": "assets/materials/Worldspan Fern.png"
+                    "icon": "assets/materials/Worldspan Fern.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var FREMINET = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Justice",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Justice.png"
+                    "icon": "assets/materials/Philosophies of Justice.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Worldspan Fern",
                     "value": 2,
-                    "icon": "assets/materials/Worldspan Fern.png"
+                    "icon": "assets/materials/Worldspan Fern.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -846,7 +907,7 @@ var FREMINET = {
                 },
                 {
                     "title": "About Navia",
-                    "text": "Lyney told me everything. I'm so grateful to you and Navia for your warmth and generosity. Please pass on my thanks when you see her... Huh? Tell her myself?...Uh, I, uh... Ooh, I've suddenly got stomach cramps — sorry, gotta dash.",
+                    "text": "Lyney told me everything. I'm so grateful to you and Navia for your warmth and generosity. Please pass on my thanks when you see her... Huh? Tell her myself? ...Uh, I, uh... Ooh, I've suddenly got stomach cramps — sorry, gotta dash.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Freminet/story/en/About Navia.mp3"
                 },
@@ -900,7 +961,7 @@ var FREMINET = {
                 },
                 {
                     "title": "Freminet's Hobbies",
-                    "text": "Apart from diving, my main hobby is dismantling mechanical things and modifying them. I also collect spare parts, and sometimes I build new clockwork toys out of them....Pers? No, Pers is more like family to me. We grew up together... No, I'm serious. I'm always tinkering with it to add more functionality... I truly hope that a day will come when Pers can fly free into the sky.",
+                    "text": "Apart from diving, my main hobby is dismantling mechanical things and modifying them. I also collect spare parts, and sometimes I build new clockwork toys out of them. ...Pers? No, Pers is more like family to me. We grew up together... No, I'm serious. I'm always tinkering with it to add more functionality... I truly hope that a day will come when Pers can fly free into the sky.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Freminet/story/en/Freminet's Hobbies.mp3"
                 },
@@ -1155,13 +1216,13 @@ var FREMINET = {
                 {
                     "title": "关于夏洛蒂…",
                     "text": "不知道为什么，夏洛蒂小姐始终不愿相信我是一名普通的潜水员，反倒觉得我的身世藏有值得报道的「新闻」…是我说谎的时候不够自然吗？",
-                    "reading": "Bù zhīdào wèishéme, Xiàluòtè xiǎojiě shǐzhōng bù yuàn xiāngxìn wǒ shì yī míng pǔtōng de qiánshuǐyuán, fǎndào juédé wǒ de shēnshì cáng yǒu zhídé bàodǎo de 'xīnwén'... Shì wǒ shuōhuǎng de shíhòu bù gòu zìrán ma?",
+                    "reading": "Bù zhīdào wèishéme, Xiàluòtè xiǎojiě shǐzhōng bù yuàn xiāngxìn wǒ shì yī míng pǔtōng de qiánshuǐyuán, fǎndào juédé wǒ de shēnshì cáng yǒu zhídé bàodǎo de ‘xīnwén’... Shì wǒ shuōhuǎng de shíhòu bù gòu zìrán ma?",
                     "audio": "assets/character/voice_overs/Freminet/story/zh/关于夏洛蒂….mp3"
                 },
                 {
                     "title": "关于克洛琳德…",
                     "text": "克洛琳德小姐对我有救命之恩，却说不需要我做任何「报答」。给别人添了麻烦，到头来只能空洞地道谢…这种感觉，真不好受啊。",
-                    "reading": "Kèluólíndé xiǎojiě duì wǒ yǒu jiùmìng zhī ēn, què shuō bù xūyào wǒ zuò rènhé 'bàodá'. Gěi biérén tiānle máfan, dàotóulái zhǐ néng kōngdòng de dàoxiè... Zhè zhǒng gǎnjué, zhēn bù hǎo shòu a.",
+                    "reading": "Kèluólíndé xiǎojiě duì wǒ yǒu jiùmìng zhī ēn, què shuō bù xūyào wǒ zuò rènhé ‘bàodá’. Gěi biérén tiānle máfan, dàotóulái zhǐ néng kōngdòng de dàoxiè... Zhè zhǒng gǎnjué, zhēn bù hǎo shòu a.",
                     "audio": "assets/character/voice_overs/Freminet/story/zh/关于克洛琳德….mp3"
                 },
                 {
@@ -2420,110 +2481,5 @@ var FREMINET = {
     "demo_music": {
         "name": "Frigid Reverie",
         "url": "assets/character/demo_music/Freminet.mp3"
-    },
-    "build": {
-        "version": "4.3",
-        "type": "On-field DPS",
-        "weapons": [
-            "Serpent Spine",
-            "Skyward Pride",
-            "Wolf's Gravestone",
-            "Prototype Archaic",
-            "Tidal Shadow",
-            "Favonius Greatsword"
-        ],
-        "artifacts": [
-            "4pc Blizzard Strayer",
-            "4pc Golden Troupe"
-        ],
-        "talents": [
-            "Skill",
-            "Normal Attack",
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "Cryo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Freminet",
-                    "icon": "assets/character/icon/Freminet.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Freminet",
-                    "icon": "assets/character/icon/Freminet.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Freminet",
-                    "icon": "assets/character/icon/Freminet.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                }
-            ],
-            [
-                {
-                    "name": "Freminet",
-                    "icon": "assets/character/icon/Freminet.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ]
-        ]
     }
 }

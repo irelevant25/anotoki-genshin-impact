@@ -1,28 +1,28 @@
 var SHIKANOIN_HEIZOU = {
     "name": "Shikanoin Heizou",
     "secondary_title": "Analytical Harmony",
-    "card_icon": "assets/character/card/Shikanoin Heizou.png",
-    "wish_icon": "assets/character/wish/Shikanoin Heizou.png",
-    "ingame_icon": "assets/character/ingame/Shikanoin Heizou.png",
-    "icon": "assets/character/icon/Shikanoin Heizou.png",
+    "card_icon": "assets/character/card/Shikanoin Heizou.avif",
+    "wish_icon": "assets/character/wish/Shikanoin Heizou.avif",
+    "ingame_icon": "assets/character/ingame/Shikanoin Heizou.avif",
+    "icon": "assets/character/icon/Shikanoin Heizou.avif",
     "quality": "4",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "July 24th",
@@ -30,43 +30,43 @@ var SHIKANOIN_HEIZOU = {
         {
             "name": "Named Juvenile Casebook",
             "level": 1,
-            "icon": "assets/character/constellations/Named Juvenile Casebook.png",
+            "icon": "assets/character/constellations/Named Juvenile Casebook.avif",
             "description": "For 5s after Shikanoin Heizou takes the field, his Normal Attack SPD is increased by 15%. He also gains 1 Declension stack for Heartstopper Strike. This effect can be triggered once every 10s."
         },
         {
             "name": "Investigative Collection",
             "level": 2,
-            "icon": "assets/character/constellations/Investigative Collection.png",
+            "icon": "assets/character/constellations/Investigative Collection.avif",
             "description": "The pull effect of the Arresting Windtunnel created by Windmuster Kick is enhanced, and its duration is increased to 1s."
         },
         {
             "name": "Esoteric Puzzle Book",
             "level": 3,
-            "icon": "assets/character/constellations/Esoteric Puzzle Book.png",
+            "icon": "assets/character/constellations/Esoteric Puzzle Book.avif",
             "description": "Increases the Level of Heartstopper Strike by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Tome of Lies",
             "level": 4,
-            "icon": "assets/character/constellations/Tome of Lies.png",
+            "icon": "assets/character/constellations/Tome of Lies.avif",
             "description": "The first Windmuster Iris explosion in each Windmuster Kick will regenerate 9 Elemental Energy for Shikanoin Heizou. Every subsequent explosion in that Windmuster Kick will each regenerate an additional 1.5 Energy for Heizou.One Windmuster Kick can regenerate a total of 13.5 Energy for Heizou in this manner."
         },
         {
             "name": "Secret Archive",
             "level": 5,
-            "icon": "assets/character/constellations/Secret Archive.png",
+            "icon": "assets/character/constellations/Secret Archive.avif",
             "description": "Increases the Level of Windmuster Kick by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Curious Casefiles",
             "level": 6,
-            "icon": "assets/character/constellations/Curious Casefiles.png",
+            "icon": "assets/character/constellations/Curious Casefiles.avif",
             "description": "Each Declension stack will increase the CRIT Rate of the Heartstopper Strike unleashed by 4%. When Heizou possesses Conviction, this Heartstopper Strike's CRIT DMG is increased by 32%."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Tenryou Commission",
@@ -74,12 +74,12 @@ var SHIKANOIN_HEIZOU = {
     ],
     "special_dish": {
         "name": "The Only Truth",
-        "icon": "assets/foods/Shikanoin Heizou.png"
+        "icon": "assets/foods/Shikanoin Heizou.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Shikanoin Heizou.png",
-        "background": "assets/character/namecard_background/Shikanoin Heizou.png",
-        "banner": "assets/character/namecard_banner/Shikanoin Heizou.png",
+        "icon": "assets/character/namecard_icon/Shikanoin Heizou.avif",
+        "background": "assets/character/namecard_background/Shikanoin Heizou.avif",
+        "banner": "assets/character/namecard_banner/Shikanoin Heizou.avif",
         "description": "A Temari of entwining strings in various colors. It must have taken someone's great effort to make such an item, yet Heizou only sees it as a simple game to untangle each string.",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 3,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 2,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 10,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 4,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 20,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 8,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 30,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 12,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 45,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 20,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 60,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var SHIKANOIN_HEIZOU = {
         {
             "name": "Fudou Style Martial Arts",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Fudou Style Martial Arts.png",
+            "icon": "assets/character/talents/Fudou Style Martial Arts.avif",
             "description": "Normal AttackPerforms up to 5 fisticuffs empowered by a mighty wind, dealing Anemo DMG.Charged AttackConsumes a certain amount of Stamina and performs a sweeping kick that deals Anemo DMG.Plunging AttackCalling upon the surging wind, Heizou plunges towards the ground from mid-air, damaging all opponents in his path. Deals AoE Anemo DMG upon impact with the ground."
         },
         {
             "name": "Heartstopper Strike",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Heartstopper Strike.png",
+            "icon": "assets/character/talents/Heartstopper Strike.avif",
             "description": "PressWields the swift winds to launch a Heartstopper Strike that deals Anemo DMG.HoldCharges energy to unleash an even stronger blow. He will obtain the Declension effect while charging, which will increase the power of the Heartstopper Strike. When the skill button is released or the skill finishes charging, he will strike forward, dealing Anemo DMG.DeclensionIncreases the power of the next Heartstopper Strike. Max 4 stacks. When you possess 4 Declension stacks, the Conviction effect will be produced, which will cause the next Heartstopper Strike to be even stronger and have a larger AoE."
         },
         {
             "name": "Windmuster Kick",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Windmuster Kick.png",
+            "icon": "assets/character/talents/Windmuster Kick.avif",
             "description": "Leaps into the air and uses the Fudou Style Vacuum Slugger and kicks his opponent. The Vacuum Slugger will explode upon hit and create an Arresting Windtunnel that pulls in nearby objects and opponents, dealing AoE Anemo DMG.When Vacuum Slugger hits opponents affected by Hydro/Pyro/Cryo/Electro, these opponents will be afflicted with Windmuster Iris. This Windmuster Iris will explode after a moment and dissipate, dealing AoE DMG of the corresponding elemental type.Vacuum Slugger can afflict a maximum of 4 opponents with the Windmuster Iris. A single opponent cannot be under the effect of Windmuster Irises of different elements at the same time."
         },
         {
             "name": "Paradoxical Practice",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Paradoxical Practice.png",
+            "icon": "assets/character/talents/Paradoxical Practice.avif",
             "description": "When Shikanoin Heizou activates a Swirl reaction while on the field, he will gain 1 Declension stack for Heartstopper Strike. This effect can be triggered every 0.1s."
         },
         {
             "name": "Penetrative Reasoning",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Penetrative Reasoning.png",
+            "icon": "assets/character/talents/Penetrative Reasoning.avif",
             "description": "After Shikanoin Heizou's Heartstopper Strike hits an opponent, increases all party members' (excluding Shikanoin Heizou) Elemental Mastery by 80 for 10s."
         },
         {
             "name": "Pre-Existing Guilt",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Pre-Existing Guilt.png",
+            "icon": "assets/character/talents/Pre-Existing Guilt.avif",
             "description": "Decreases sprinting Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -464,17 +493,20 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Transience",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Transience.png"
+                    "icon": "assets/materials/Teachings of Transience.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 1,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 1,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 2,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var SHIKANOIN_HEIZOU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 2,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2323,185 +2384,5 @@ var SHIKANOIN_HEIZOU = {
     "demo_music": {
         "name": "Storm Chaser",
         "url": "assets/character/demo_music/Shikanoin Heizou.mp3"
-    },
-    "build": {
-        "version": "3.8",
-        "type": "On-field DPS",
-        "weapons": [
-            "Skyward Atlas",
-            "Kagura's Verity",
-            "The Widsith",
-            "Lost Prayer to the Sacred Winds",
-            "Sacrificial Fragments",
-            "Solar Pearl",
-            "Mappa Mare"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer",
-            "4pc Lavawalker",
-            "4pc Thundersoother"
-        ],
-        "talents": [
-            "Skill",
-            "Normal Attack",
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Anemo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ]
-        ]
     }
 }

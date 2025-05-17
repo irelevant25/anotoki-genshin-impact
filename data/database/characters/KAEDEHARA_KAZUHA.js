@@ -1,28 +1,28 @@
 var KAEDEHARA_KAZUHA = {
     "name": "Kaedehara Kazuha",
     "secondary_title": "Scarlet Leaves Pursue Wild Waves",
-    "card_icon": "assets/character/card/Kaedehara Kazuha.png",
-    "wish_icon": "assets/character/wish/Kaedehara Kazuha.png",
-    "ingame_icon": "assets/character/ingame/Kaedehara Kazuha.png",
-    "icon": "assets/character/icon/Kaedehara Kazuha.png",
+    "card_icon": "assets/character/card/Kaedehara Kazuha.avif",
+    "wish_icon": "assets/character/wish/Kaedehara Kazuha.avif",
+    "ingame_icon": "assets/character/ingame/Kaedehara Kazuha.avif",
+    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "October 29th",
@@ -30,43 +30,43 @@ var KAEDEHARA_KAZUHA = {
         {
             "name": "Scarlet Hills",
             "level": 1,
-            "icon": "assets/character/constellations/Scarlet Hills.png",
+            "icon": "assets/character/constellations/Scarlet Hills.avif",
             "description": "Decreases Chihayaburu's CD by 10%.Using Kazuha Slash resets the CD of Chihayaburu."
         },
         {
             "name": "Yamaarashi Tailwind",
             "level": 2,
-            "icon": "assets/character/constellations/Yamaarashi Tailwind.png",
+            "icon": "assets/character/constellations/Yamaarashi Tailwind.avif",
             "description": "The Autumn Whirlwind field created by Kazuha Slash has the following effects:Increases Kaedehara Kazuha's own Elemental Mastery by 200 for its duration.Increases the Elemental Mastery of characters within the field by 200.The Elemental Mastery-increasing effects of this Constellation do not stack."
         },
         {
             "name": "Maple Monogatari",
             "level": 3,
-            "icon": "assets/character/constellations/Maple Monogatari.png",
+            "icon": "assets/character/constellations/Maple Monogatari.avif",
             "description": "Increases the Level of Chihayaburu by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Oozora Genpou",
             "level": 4,
-            "icon": "assets/character/constellations/Oozora Genpou.png",
+            "icon": "assets/character/constellations/Oozora Genpou.avif",
             "description": "When Kaedehara Kazuha's Energy is lower than 45, he obtains the following effects:(PressingPressingText for mouse and keyboard and controller/TappingTappingText for touch screen) or Holding Chihayaburu regenerates 3 or 4 Energy for Kaedehara Kazuha, respectively.When gliding, Kaedehara Kazuha regenerates 2 Energy per second."
         },
         {
             "name": "Wisdom of Bansei",
             "level": 5,
-            "icon": "assets/character/constellations/Wisdom of Bansei.png",
+            "icon": "assets/character/constellations/Wisdom of Bansei.avif",
             "description": "Increases the Level of Kazuha Slash by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Crimson Momiji",
             "level": 6,
-            "icon": "assets/character/constellations/Crimson Momiji.png",
+            "icon": "assets/character/constellations/Crimson Momiji.avif",
             "description": "After using Chihayaburu or Kazuha Slash, Kaedehara Kazuha gains an Anemo Infusion for 5s. Additionally, each point of Elemental Mastery will increase the DMG dealt by Kaedehara Kazuha's Normal, Charged, and Plunging Attacks by 0.2%."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "The Crux",
@@ -75,12 +75,12 @@ var KAEDEHARA_KAZUHA = {
     ],
     "special_dish": {
         "name": "All-Weather Beauty",
-        "icon": "assets/foods/Kaedehara Kazuha.png"
+        "icon": "assets/foods/Kaedehara Kazuha.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kaedehara Kazuha.png",
-        "background": "assets/character/namecard_background/Kaedehara Kazuha.png",
-        "banner": "assets/character/namecard_banner/Kaedehara Kazuha.png",
+        "icon": "assets/character/namecard_icon/Kaedehara Kazuha.avif",
+        "background": "assets/character/namecard_background/Kaedehara Kazuha.avif",
+        "banner": "assets/character/namecard_banner/Kaedehara Kazuha.avif",
         "description": "\"The pine-song ripples as red leaves billow.\"",
         "quality": "4",
         "sources": [
@@ -162,22 +162,26 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 3,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -205,27 +209,32 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 2,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 10,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -253,27 +262,32 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 4,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 20,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -301,27 +315,32 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 8,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 30,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -349,27 +368,32 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 12,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 45,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -397,27 +421,32 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Marionette Core",
                     "value": 20,
-                    "icon": "assets/materials/Marionette Core.png"
+                    "icon": "assets/materials/Marionette Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sea Ganoderma",
                     "value": 60,
-                    "icon": "assets/materials/Sea Ganoderma.png"
+                    "icon": "assets/materials/Sea Ganoderma.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -426,37 +455,37 @@ var KAEDEHARA_KAZUHA = {
         {
             "name": "Garyuu Bladework",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Garyuu Bladework.png",
+            "icon": "assets/character/talents/Garyuu Bladework.avif",
             "description": "Normal AttackPerforms up to 5 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 2 rapid sword strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact. If this Plunging Attack is triggered by Chihayaburu, it will be converted to Plunging Attack: Midare Ranzan.Plunging Attack: Midare RanzanWhen a Plunging Attack is performed using the effects of the Elemental Skill Chihayaburu, Plunging Attack DMG is converted to Anemo DMG and will create a small wind tunnel via a secret blade technique that pulls in nearby objects and opponents."
         },
         {
             "name": "Chihayaburu",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Chihayaburu.png",
+            "icon": "assets/character/talents/Chihayaburu.avif",
             "description": "Unleashes a secret technique as fierce as the rushing wind that pulls objects and opponents towards Kazuha's current position before launching opponents within the AoE, dealing Anemo DMG and lifting Kazuha into the air on a rushing gust of wind.Within 10s of remaining airborne after casting Chihayaburu, Kazuha can unleash a powerful Plunging Attack known as Midare Ranzan.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Can be used in mid-air.HoldCharges up before unleashing greater Anemo DMG over a larger AoE than (PressPressText for mouse and keyboard and controller/TapTapText for touch screen) Mode.Plunging Attack: Midare RanzanWhen a Plunging Attack is performed using the effects of the Elemental Skill Chihayaburu, Plunging Attack DMG is converted to Anemo DMG. On landing, Kazuha creates a small wind tunnel via a secret blade technique that pulls in nearby objects and opponents.Midare Ranzan's DMG is considered Plunging Attack DMG."
         },
         {
             "name": "Kazuha Slash",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Kazuha Slash.png",
+            "icon": "assets/character/talents/Kazuha Slash.avif",
             "description": "The signature technique of Kazuha's self-styled bladework — a single slash that strikes with the force of the first winds of autumn, dealing AoE Anemo DMG.The blade's passage will leave behind a field named \"Autumn Whirlwind\" that periodically deals AoE Anemo DMG to opponents within its range.Elemental AbsorptionIf Autumn Whirlwind comes into contact with Hydro/Pyro/Cryo/Electro, it will deal additional elemental DMG of that type.Elemental Absorption may only occur once per use."
         },
         {
             "name": "Soumon Swordsmanship",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Soumon Swordsmanship.png",
+            "icon": "assets/character/talents/Soumon Swordsmanship.avif",
             "description": "If Chihayaburu comes into contact with Hydro/Pyro/Cryo/Electro when cast, Chihayaburu will absorb that element and if Plunging Attack: Midare Ranzan is used before the effect expires, it will deal an additional 200% ATK of the absorbed elemental type as DMG. This will be considered Plunging Attack DMG.Elemental Absorption may only occur once per use of Chihayaburu."
         },
         {
             "name": "Poetics of Fuubutsu",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Poetics of Fuubutsu.png",
+            "icon": "assets/character/talents/Poetics of Fuubutsu.avif",
             "description": "Upon triggering a Swirl reaction, Kaedehara Kazuha will grant all party members a 0.04% Elemental DMG Bonus to the element absorbed by Swirl for every point of Elemental Mastery he has for 8s. Bonuses for different elements obtained through this method can co-exist."
         },
         {
             "name": "Cloud Strider",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Cloud Strider.png",
+            "icon": "assets/character/talents/Cloud Strider.avif",
             "description": "Decreases sprinting Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -467,17 +496,20 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Diligence",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Diligence.png"
+                    "icon": "assets/materials/Teachings of Diligence.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 1,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 1,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 2,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var KAEDEHARA_KAZUHA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 2,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2445,491 +2506,5 @@ var KAEDEHARA_KAZUHA = {
     "demo_music": {
         "name": "Flow of Autumn Wind",
         "url": "assets/character/demo_music/Kaedehara Kazuha.mp3"
-    },
-    "build": {
-        "version": "4.6",
-        "type": "Support",
-        "weapons": [
-            "Freedom-Sworn",
-            "Xiphos' Moonlight",
-            "Favonius Sword",
-            "Fleuve Cendre Ferryman",
-            "Sacrificial Sword",
-            "Iron Sting",
-            "Toukabou Shigure",
-            "Dark Iron Sword",
-            "Primordial Jade Cutter",
-            "Mistsplitter Reforged"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer"
-        ],
-        "talents": [
-            "Burst",
-            "Normal Attack",
-            "Skill"
-        ],
-        "main_stats": [
-            "EM / ER",
-            "EM",
-            "EM"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "EM",
-            "ATK% / CRIT Rate / CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Tartaglia",
-                    "icon": "assets/character/icon/Tartaglia.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                }
-            ]
-        ]
     }
 }

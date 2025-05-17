@@ -1,28 +1,28 @@
 var LYNETTE = {
     "name": "Lynette",
     "secondary_title": "Elegance in the Shadows",
-    "wish_icon": "assets/character/wish/Lynette.png",
-    "ingame_icon": "assets/character/ingame/Lynette.png",
-    "icon": "assets/character/icon/Lynette.png",
+    "wish_icon": "assets/character/wish/Lynette.avif",
+    "ingame_icon": "assets/character/ingame/Lynette.avif",
+    "icon": "assets/character/icon/Lynette.avif",
     "quality": "4",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Female",
     "arkhe": "Ousia",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "February 2nd",
@@ -30,43 +30,43 @@ var LYNETTE = {
         {
             "name": "A Cold Blade Like a Shadow",
             "level": 1,
-            "icon": "assets/character/constellations/A Cold Blade Like a Shadow.png",
+            "icon": "assets/character/constellations/A Cold Blade Like a Shadow.avif",
             "description": "When Enigmatic Feint's Enigma Thrust hits an opponent with Shadowsign, a vortex will be created at that opponent's position that will pull nearby opponents in."
         },
         {
             "name": "Endless Mysteries",
             "level": 2,
-            "icon": "assets/character/constellations/Endless Mysteries.png",
+            "icon": "assets/character/constellations/Endless Mysteries.avif",
             "description": "Whenever the Bogglecat Box summoned by Magic Trick: Astonishing Shift fires a Vivid Shot, it will fire an extra Vivid Shot."
         },
         {
             "name": "Cognition-Inverting Gaze",
             "level": 3,
-            "icon": "assets/character/constellations/Cognition-Inverting Gaze.png",
+            "icon": "assets/character/constellations/Cognition-Inverting Gaze.avif",
             "description": "Increases the Level of Magic Trick: Astonishing Shift by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Tacit Coordination",
             "level": 4,
-            "icon": "assets/character/constellations/Tacit Coordination.png",
+            "icon": "assets/character/constellations/Tacit Coordination.avif",
             "description": "Increases Enigmatic Feint's charges by 1."
         },
         {
             "name": "Obscuring Ambiguity",
             "level": 5,
-            "icon": "assets/character/constellations/Obscuring Ambiguity.png",
+            "icon": "assets/character/constellations/Obscuring Ambiguity.avif",
             "description": "Increases the Level of Enigmatic Feint by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Watchful Eye",
             "level": 6,
-            "icon": "assets/character/constellations/Watchful Eye.png",
+            "icon": "assets/character/constellations/Watchful Eye.avif",
             "description": "When Lynette uses Enigmatic Feint's Enigma Thrust, she will gain an Anemo Infusion and 20% Anemo DMG Bonus for 6s."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Hotel Bouffes d'ete",
@@ -75,12 +75,12 @@ var LYNETTE = {
     ],
     "special_dish": {
         "name": "A Leisurely Sip",
-        "icon": "assets/foods/Lynette.png"
+        "icon": "assets/foods/Lynette.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Lynette.png",
-        "background": "assets/character/namecard_background/Lynette.png",
-        "banner": "assets/character/namecard_banner/Lynette.png",
+        "icon": "assets/character/namecard_icon/Lynette.avif",
+        "background": "assets/character/namecard_background/Lynette.avif",
+        "banner": "assets/character/namecard_banner/Lynette.avif",
         "description": "One major type of magic revolves around \"appearing suddenly.\" Lynette is usually conserving her energy, but her serious side can \"appear\" as abruptly as pigeons from a hat.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 3,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 3,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 2,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 10,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 15,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 20,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 12,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 8,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 30,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 18,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 45,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 20,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Lumidouce Bell",
                     "value": 60,
-                    "icon": "assets/materials/Lumidouce Bell.png"
+                    "icon": "assets/materials/Lumidouce Bell.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 24,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var LYNETTE = {
         {
             "name": "Rapid Ritesword",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Rapid Ritesword.png",
+            "icon": "assets/character/talents/Rapid Ritesword.avif",
             "description": "Normal AttackPerforms up to 4 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 2 rapid sword strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Enigmatic Feint",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Enigmatic Feint.png",
+            "icon": "assets/character/talents/Enigmatic Feint.avif",
             "description": "Flicks her mantle and executes an Enigma Thrust, dealing Anemo DMG.When the Enigma Thrust hits an opponent, it will restore Lynette's HP based on her Max HP, and in the 4s afterward, she will lose a certain amount of HP per second.Based on whether you (presspressText for mouse and keyboard and controller/taptapText for touch screen) or hold this ability, she will use Enigma Thrust differently.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)She swiftly uses an Enigma Thrust.HoldLynette will enter a high-speed Pilfering Shadow state and apply Shadowsign to a nearby opponent. You can control her movement direction during this state, and you can end it prematurely by using this skill again.When this high-speed state ends, Lynette will unleash her Enigma Thrust. If there is an opponent with Shadowsign applied to them nearby, Lynette will approach them in a flash before using Enigma Thrust.A maximum of 1 opponent can have Shadowsign at any one time. When this opponent gets too far from Lynette, the Shadowsign will be canceled.Arkhe: OusiaAt specific intervals, Lynette will unleash a Surging Blade when she uses Enigma Thrust, dealing Ousia-aligned Anemo DMG."
         },
         {
             "name": "Magic Trick: Astonishing Shift",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Magic Trick Astonishing Shift.png",
+            "icon": "assets/character/talents/Magic Trick Astonishing Shift.avif",
             "description": "Lynette raises her mantle high, dealing AoE Anemo DMG, using skillful sleight of hand to make a giant Bogglecat Box appear!Bogglecat BoxTaunts nearby opponents, attracting their attacks.Deals Anemo DMG to nearby opponents at intervals.When the Bogglecat Box comes into contact with Hydro/Pyro/Cryo/Electro, it will gain the corresponding element and additionally fire Vivid Shots that will deal DMG from that element at intervals.Elemental Absorption of this kind will only occur once during this ability's duration."
         },
         {
             "name": "Sophisticated Synergy",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Sophisticated Synergy.png",
+            "icon": "assets/character/talents/Sophisticated Synergy.avif",
             "description": "Within 10s after using Magic Trick: Astonishing Shift, when there are 1/2/3/4 Elemental Types in the party, all party members' ATK will be increased by 8%/12%/16%/20% respectively."
         },
         {
             "name": "Props Positively Prepped",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Props Positively Prepped.png",
+            "icon": "assets/character/talents/Props Positively Prepped.avif",
             "description": "After the Bogglecat Box summoned by Magic Trick: Astonishing Shift performs Elemental Conversion, Lynette's Elemental Burst will deal 15% more DMG. This effect will persist until the Bogglecat Box's duration ends."
         },
         {
             "name": "Loci-Based Mnemonics",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Loci-Based Mnemonics.png",
+            "icon": "assets/character/talents/Loci-Based Mnemonics.avif",
             "description": "Shows the location of nearby Recovery Orbs on the minimap. The Aquatic Stamina and HP gained from touching Orbs will be increased by 25%."
         }
     ],
@@ -465,17 +494,20 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 6,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Order",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Order.png"
+                    "icon": "assets/materials/Teachings of Order.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 3,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 4,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 6,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 9,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 1,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 6,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 1,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 9,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 2,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var LYNETTE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Everamber",
                     "value": 2,
-                    "icon": "assets/materials/Everamber.png"
+                    "icon": "assets/materials/Everamber.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -671,7 +732,7 @@ var LYNETTE = {
             "en": [
                 {
                     "title": "Hello",
-                    "text": "Pleased to make your acquaintance. I am Lyney's magic assistant, and if you have work-related inquiries, please ask Lyney. If you have questions related to seeing a magic show, please ask the ticket office. You want to talk to me?...Then get to the point.",
+                    "text": "Pleased to make your acquaintance. I am Lyney's magic assistant, and if you have work-related inquiries, please ask Lyney. If you have questions related to seeing a magic show, please ask the ticket office. You want to talk to me? ...Then get to the point.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Lynette/story/en/Hello.mp3"
                 },
@@ -725,7 +786,7 @@ var LYNETTE = {
                 },
                 {
                     "title": "When the Wind Is Blowing",
-                    "text": "*sniff* What's that on the breeze?...Nope, it's nothing.",
+                    "text": "*sniff* What's that on the breeze? ...Nope, it's nothing.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Lynette/story/en/When the Wind Is Blowing.mp3"
                 },
@@ -2419,149 +2480,5 @@ var LYNETTE = {
     "demo_music": {
         "name": "Chasing the Wind",
         "url": "assets/character/demo_music/Lynette.mp3"
-    },
-    "build": {
-        "version": "4.7",
-        "type": "Support",
-        "weapons": [
-            "Favonius Sword",
-            "Sacrificial Sword",
-            "Freedom-Sworn",
-            "Fleuve Cendre Ferryman",
-            "Amenoma Kageuchi",
-            "Skyward Blade",
-            "Skyrider Sword",
-            "Wolf-Fang",
-            "Finale of the Deep"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / ATK%",
-            "Anemo DMG Bonus / ATK%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,28 +1,28 @@
 var DIONA = {
     "name": "Diona",
     "secondary_title": "Kätzlein Cocktail",
-    "card_icon": "assets/character/card/Diona.png",
-    "wish_icon": "assets/character/wish/Diona.png",
-    "ingame_icon": "assets/character/ingame/Diona.png",
-    "icon": "assets/character/icon/Diona.png",
+    "card_icon": "assets/character/card/Diona.avif",
+    "wish_icon": "assets/character/wish/Diona.avif",
+    "ingame_icon": "assets/character/ingame/Diona.avif",
+    "icon": "assets/character/icon/Diona.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Short Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "January 18th",
@@ -30,43 +30,43 @@ var DIONA = {
         {
             "name": "A Lingering Flavor",
             "level": 1,
-            "icon": "assets/character/constellations/A Lingering Flavor.png",
+            "icon": "assets/character/constellations/A Lingering Flavor.avif",
             "description": "Regenerates 15 Energy for Diona after the effects of Signature Mix end."
         },
         {
             "name": "Shaken, Not Purred",
             "level": 2,
-            "icon": "assets/character/constellations/Shaken, Not Purred.png",
+            "icon": "assets/character/constellations/Shaken, Not Purred.avif",
             "description": "Increases Icy Paws' DMG by 15%, and increases its shield's DMG Absorption by 15%.Additionally, when paws hit their targets, creates a shield for other nearby characters on the field with 50% of the Icy Paws shield's DMG Absorption for 5s."
         },
         {
             "name": "A—Another Round?",
             "level": 3,
-            "icon": "assets/character/constellations/A—Another Round.png",
+            "icon": "assets/character/constellations/A—Another Round.avif",
             "description": "Increases the Level of Signature Mix by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Wine Industry Slayer",
             "level": 4,
-            "icon": "assets/character/constellations/Wine Industry Slayer.png",
+            "icon": "assets/character/constellations/Wine Industry Slayer.avif",
             "description": "Within the radius of Signature Mix, Diona's charge time for aimed shots is reduced by 60%"
         },
         {
             "name": "Double Shot, on the Rocks",
             "level": 5,
-            "icon": "assets/character/constellations/Double Shot, on the Rocks.png",
+            "icon": "assets/character/constellations/Double Shot, on the Rocks.avif",
             "description": "Increases the Level of Icy Paws by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Cat's Tail Closing Time",
             "level": 6,
-            "icon": "assets/character/constellations/Cat's Tail Closing Time.png",
+            "icon": "assets/character/constellations/Cat's Tail Closing Time.avif",
             "description": "Characters within Signature Mix's radius will gain the following effects based on their HP amounts:Increases Incoming Healing Bonus by 30% when HP falls below or is equal to 50%.Elemental Mastery increased by 200 when HP is above 50%."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "The Cat's Tail",
@@ -74,12 +74,12 @@ var DIONA = {
     ],
     "special_dish": {
         "name": "Definitely Not Bar Food!",
-        "icon": "assets/foods/Diona.png"
+        "icon": "assets/foods/Diona.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Diona.png",
-        "background": "assets/character/namecard_background/Diona.png",
-        "banner": "assets/character/namecard_banner/Diona.png",
+        "icon": "assets/character/namecard_icon/Diona.avif",
+        "background": "assets/character/namecard_background/Diona.avif",
+        "banner": "assets/character/namecard_banner/Diona.avif",
         "description": "All who have Kätzlein blood will have such feline features. An ancient prank played by a certain someone, perhaps?",
         "quality": "4",
         "sources": [
@@ -162,22 +162,26 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 3,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 3,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -205,27 +209,32 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 2,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 10,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 15,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -253,27 +262,32 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 4,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 20,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -301,27 +315,32 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 8,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 30,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 18,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -349,27 +368,32 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 12,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 45,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -397,27 +421,32 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 20,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Calla Lily",
                     "value": 60,
-                    "icon": "assets/materials/Calla Lily.png"
+                    "icon": "assets/materials/Calla Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 24,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -426,37 +455,37 @@ var DIONA = {
         {
             "name": "Kätzlein Style",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Kätzlein Style.png",
+            "icon": "assets/character/talents/Kätzlein Style.avif",
             "description": "Normal AttackPerforms up to 5 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, biting frost will accumulate on the arrowhead. A fully charged frost arrow will deal Cryo DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Icy Paws",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Icy Paws.png",
+            "icon": "assets/character/talents/Icy Paws.avif",
             "description": "Fires an Icy Paw that deals Cryo DMG to opponents and forms a shield on hit.The shield's DMG Absorption scales based on Diona's Max HP, and its duration scales off the number of Icy Paws that hit their target.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Rapidly fires off 2 Icy Paws.HoldDashes back quickly before firing 5 Icy Paws.The shield created by a Hold attack will gain a 75% DMG Absorption Bonus.The shield has a 250% Cryo DMG Absorption Bonus, and will cause your active character to become affected by Cryo at the point of formation for a short duration."
         },
         {
             "name": "Signature Mix",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Signature Mix.png",
+            "icon": "assets/character/talents/Signature Mix.avif",
             "description": "Tosses out a special cold brew that deals AoE Cryo DMG and creates a Drunken Mist in an AoE.Drunken MistDeals continuous Cryo DMG to opponents within the AoE.Continuously regenerates the HP of characters within the AoE."
         },
         {
             "name": "Cat's Tail Secret Menu",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Cat's Tail Secret Menu.png",
+            "icon": "assets/character/talents/Cat's Tail Secret Menu.avif",
             "description": "Characters shielded by Icy Paws have their Movement SPD increased by 10% and their Stamina Consumption decreased by 10%."
         },
         {
             "name": "Drunkards' Farce",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Drunkards' Farce.png",
+            "icon": "assets/character/talents/Drunkards' Farce.avif",
             "description": "Opponents who enter the AoE of Signature Mix have 10% decreased ATK for 15s."
         },
         {
             "name": "Complimentary Bar Food",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Complimentary Bar Food.png",
+            "icon": "assets/character/talents/Complimentary Bar Food.avif",
             "description": "When a Perfect Cooking is achieved on a dish with restorative effects, Diona has a 12% chance to obtain double the product."
         }
     ],
@@ -467,17 +496,20 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Freedom",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Freedom.png"
+                    "icon": "assets/materials/Teachings of Freedom.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 3,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 4,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 9,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 4,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 1,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 1,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 9,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 2,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var DIONA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shard of a Foul Legacy",
                     "value": 2,
-                    "icon": "assets/materials/Shard of a Foul Legacy.png"
+                    "icon": "assets/materials/Shard of a Foul Legacy.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2613,168 +2674,5 @@ var DIONA = {
     "demo_music": {
         "name": "Exclusive Specialty",
         "url": "assets/character/demo_music/Diona.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "Healer / Support",
-        "weapons": [
-            "Favonius Warbow",
-            "Sacrificial Bow",
-            "Elegy for the End",
-            "Recurve Bow"
-        ],
-        "artifacts": [
-            "4pc Noblesse Oblige",
-            "4pc Blizzard Strayer",
-            "4pc Maiden Beloved",
-            "4pc Ocean-Hued Clam",
-            "4pc Tenacity of the Millelith",
-            "4pc Instructor",
-            "4pc Deepwood Memories"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP%",
-            "HP%",
-            "HP% / Healing Bonus / CRIT Rate"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "HP%",
-            "CRIT Rate",
-            "Flat HP"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,28 +1,28 @@
 var FARUZAN = {
     "name": "Faruzan",
     "secondary_title": "Enigmatic Machinist",
-    "card_icon": "assets/character/card/Faruzan.png",
-    "wish_icon": "assets/character/wish/Faruzan.png",
-    "ingame_icon": "assets/character/ingame/Faruzan.png",
-    "icon": "assets/character/icon/Faruzan.png",
+    "card_icon": "assets/character/card/Faruzan.avif",
+    "wish_icon": "assets/character/wish/Faruzan.avif",
+    "ingame_icon": "assets/character/ingame/Faruzan.avif",
+    "icon": "assets/character/icon/Faruzan.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "August 20th",
@@ -30,55 +30,55 @@ var FARUZAN = {
         {
             "name": "Truth by Any Means",
             "level": 1,
-            "icon": "assets/character/constellations/Truth by Any Means.png",
+            "icon": "assets/character/constellations/Truth by Any Means.avif",
             "description": "Faruzan can fire off a maximum of 2 Hurricane Arrows using fully charged Aimed Shots while under the effect of a single Manifest Gale created by Wind Realm of Nasamjnin."
         },
         {
             "name": "Overzealous Intellect",
             "level": 2,
-            "icon": "assets/character/constellations/Overzealous Intellect.png",
+            "icon": "assets/character/constellations/Overzealous Intellect.avif",
             "description": "The duration of the Dazzling Polyhedron created by The Wind's Secret Ways is increased by 6s."
         },
         {
             "name": "Spirit-Orchard Stroll",
             "level": 3,
-            "icon": "assets/character/constellations/Spirit-Orchard Stroll.png",
+            "icon": "assets/character/constellations/Spirit-Orchard Stroll.avif",
             "description": "Increases the Level of Wind Realm of Nasamjnin by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Divine Comprehension",
             "level": 4,
-            "icon": "assets/character/constellations/Divine Comprehension.png",
+            "icon": "assets/character/constellations/Divine Comprehension.avif",
             "description": "The vortex created by Pressurized Collapses will restore Energy to Faruzan based on the number of opponents hit: If it hits 1 opponent, it will restore 2 Energy for Faruzan. Each additional opponent hit will restore 0.5 more Energy for Faruzan.A maximum of 4 Energy can be restored to her per vortex."
         },
         {
             "name": "Wonderland of Rumination",
             "level": 5,
-            "icon": "assets/character/constellations/Wonderland of Rumination.png",
+            "icon": "assets/character/constellations/Wonderland of Rumination.avif",
             "description": "Increases the Level of The Wind's Secret Ways by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Wondrous Path of Truth",
             "level": 6,
-            "icon": "assets/character/constellations/The Wondrous Path of Truth.png",
+            "icon": "assets/character/constellations/The Wondrous Path of Truth.avif",
             "description": "Characters affected by The Wind's Secret Ways' Prayerful Wind's Benefit have 40% increased CRIT DMG when they deal Anemo DMG. When the active character deals DMG while affected by Prayerful Wind's Benefit, they will apply Pressurized Collapse to the opponent damaged. This effect can be triggered once every 3s. This CD is shared between all party members."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Haravatat"
     ],
     "special_dish": {
         "name": "Traditionally-Made Charcoal-Baked Ajilenakh Cake",
-        "icon": "assets/foods/Faruzan.png"
+        "icon": "assets/foods/Faruzan.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Faruzan.png",
-        "background": "assets/character/namecard_background/Faruzan.png",
-        "banner": "assets/character/namecard_banner/Faruzan.png",
+        "icon": "assets/character/namecard_icon/Faruzan.avif",
+        "background": "assets/character/namecard_background/Faruzan.avif",
+        "banner": "assets/character/namecard_banner/Faruzan.avif",
         "description": "\"A—Anyway! Next time, remember to refer to me as Madam Faruzan before you ask a question! Seriously...\"",
         "quality": "4",
         "sources": [
@@ -158,22 +158,26 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 3,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 3,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -201,27 +205,32 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 2,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 10,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 15,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -249,27 +258,32 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 4,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 20,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 12,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -297,27 +311,32 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 8,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 30,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 18,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -345,27 +364,32 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 12,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 45,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -393,27 +417,32 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 20,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Henna Berry",
                     "value": 60,
-                    "icon": "assets/materials/Henna Berry.png"
+                    "icon": "assets/materials/Henna Berry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 24,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -422,37 +451,37 @@ var FARUZAN = {
         {
             "name": "Parthian Shot",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Parthian Shot.png",
+            "icon": "assets/character/talents/Parthian Shot.avif",
             "description": "Normal AttackPerforms up to 4 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, mighty winds will accumulate on the arrowhead. A fully charged wind arrow will deal Anemo DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, hitting opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Wind Realm of Nasamjnin",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Wind Realm of Nasamjnin.png",
+            "icon": "assets/character/talents/Wind Realm of Nasamjnin.avif",
             "description": "Faruzan deploys a polyhedron that deals AoE Anemo DMG to nearby opponents. She will also enter the Manifest Gale state.While in the Manifest Gale state, Faruzan's next fully charged shot will consume this state and will become a Hurricane Arrow that contains high-pressure currents. This arrow deals Anemo DMG based on the DMG of a fully charged Aimed Shot from \"Normal Attack: Parthian Shot.\"Pressurized CollapseThe Hurricane Arrow will apply a Pressurized Collapse effect to the opponent or character hit. This effect will be removed after a short delay, creating a vortex that deals AoE Anemo DMG and pulls nearby objects and opponents in. If the Hurricane Arrow does not hit any opponent or character, it will create a Pressurized Collapse effect at its point of impact.The vortex DMG is considered Elemental Skill DMG."
         },
         {
             "name": "The Wind's Secret Ways",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/The Wind's Secret Ways.png",
+            "icon": "assets/character/talents/The Wind's Secret Ways.avif",
             "description": "Faruzan deploys a Dazzling Polyhedron that unleashes a Whirlwind Pulse and deals AoE Anemo DMG.While the Dazzling Polyhedron persists, it will continuously move along a triangular path. Once it reaches each corner of that triangular path, it will unleash 1 more Whirlwind Pulse.Whirlwind PulseWhen the Whirlwind Pulse is unleashed, it will apply Perfidious Wind's Bale to nearby opponents, decreasing their Anemo RES.The Whirlwind Pulse will also apply Prayerful Wind's Benefit to all nearby party members when it is unleashed, granting them an Anemo DMG Bonus."
         },
         {
             "name": "Impetuous Flow",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Impetuous Flow.png",
+            "icon": "assets/character/talents/Impetuous Flow.avif",
             "description": "When Faruzan is in the Manifest Gale state created by Wind Realm of Nasamjnin, the amount of time taken to charge a shot is decreased by 60%, and she can apply The Wind's Secret Ways' Perfidious Wind's Bale to opponents who are hit by the vortex created by Pressurized Collapse."
         },
         {
             "name": "Lost Wisdom of the Seven Caverns",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Lost Wisdom of the Seven Caverns.png",
+            "icon": "assets/character/talents/Lost Wisdom of the Seven Caverns.avif",
             "description": "When characters affected by The Wind's Secret Ways' Prayerful Wind's Benefit deal Anemo DMG using Normal, Charged, Plunging Attacks, Elemental Skills, or Elemental Bursts to opponents, they will gain the Hurricane Guard effect: This DMG will be increased based on 32% of Faruzan's Base ATK. 1 instance of Hurricane Guard can occur once every 0.8s. This DMG Bonus will be cleared after Prayerful Wind's Benefit expires or after the effect is triggered once."
         },
         {
             "name": "Tomes Light the Path",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Tomes Light the Path.png",
+            "icon": "assets/character/talents/Tomes Light the Path.avif",
             "description": "Gains 25% more rewards when dispatched on a Sumeru Expedition for 20 hours."
         }
     ],
@@ -463,17 +492,20 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 6,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Admonition",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Admonition.png"
+                    "icon": "assets/materials/Teachings of Admonition.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -483,17 +515,20 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 3,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -503,17 +538,20 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 4,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -523,17 +561,20 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 6,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -543,17 +584,20 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 9,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -563,22 +607,26 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 4,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 1,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -588,22 +636,26 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 6,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 1,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -613,22 +665,26 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 9,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 2,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -638,27 +694,32 @@ var FARUZAN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 2,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2322,95 +2383,5 @@ var FARUZAN = {
     "demo_music": {
         "name": "Whirling of Vairambhaka",
         "url": "assets/character/demo_music/Faruzan.mp3"
-    },
-    "build": {
-        "version": "4.6",
-        "type": "Support",
-        "weapons": [
-            "Favonius Warbow",
-            "Elegy for the End",
-            "End of the Line",
-            "Fading Twilight",
-            "Sacrificial Bow"
-        ],
-        "artifacts": [
-            "4pc Tenacity of the Millelith",
-            "4pc Golden Troupe",
-            "4pc Noblesse Oblige",
-            "4pc Viridescent Venerer",
-            "4pc The Exile"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER",
-            "ER",
-            "ER / CRIT Rate"
-        ],
-        "sub_stats": [
-            "ER",
-            "CRIT Rate",
-            "CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Heizou",
-                    "icon": "assets/character/icon/Heizou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ]
-        ]
     }
 }

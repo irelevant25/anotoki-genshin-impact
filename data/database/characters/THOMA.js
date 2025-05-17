@@ -1,28 +1,28 @@
 var THOMA = {
     "name": "Thoma",
     "secondary_title": "Protector From Afar",
-    "card_icon": "assets/character/card/Thoma.png",
-    "wish_icon": "assets/character/wish/Thoma.png",
-    "ingame_icon": "assets/character/ingame/Thoma.png",
-    "icon": "assets/character/icon/Thoma.png",
+    "card_icon": "assets/character/card/Thoma.avif",
+    "wish_icon": "assets/character/wish/Thoma.avif",
+    "ingame_icon": "assets/character/ingame/Thoma.avif",
+    "icon": "assets/character/icon/Thoma.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "January 9th",
@@ -30,43 +30,43 @@ var THOMA = {
         {
             "name": "A Comrade's Duty",
             "level": 1,
-            "icon": "assets/character/constellations/A Comrade's Duty.png",
+            "icon": "assets/character/constellations/A Comrade's Duty.avif",
             "description": "When a character protected by Thoma's own Blazing Barrier (Thoma excluded) is attacked, Thoma's own Blazing Blessing CD is decreased by 3s, while his own Crimson Ooyoroi's CD is decreased by 3s.This effect can be triggered once every 20s."
         },
         {
             "name": "A Subordinate's Skills",
             "level": 2,
-            "icon": "assets/character/constellations/A Subordinate's Skills.png",
+            "icon": "assets/character/constellations/A Subordinate's Skills.avif",
             "description": "Crimson Ooyoroi's duration is increased by 3s."
         },
         {
             "name": "Fortified Resolve",
             "level": 3,
-            "icon": "assets/character/constellations/Fortified Resolve.png",
+            "icon": "assets/character/constellations/Fortified Resolve.avif",
             "description": "Increases the Level of Blazing Blessing by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Long-Term Planning",
             "level": 4,
-            "icon": "assets/character/constellations/Long-Term Planning.png",
+            "icon": "assets/character/constellations/Long-Term Planning.avif",
             "description": "After using Crimson Ooyoroi, 15 Energy will be restored to Thoma."
         },
         {
             "name": "Raging Wildfire",
             "level": 5,
-            "icon": "assets/character/constellations/Raging Wildfire.png",
+            "icon": "assets/character/constellations/Raging Wildfire.avif",
             "description": "Increases the Level of Crimson Ooyoroi by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Burning Heart",
             "level": 6,
-            "icon": "assets/character/constellations/Burning Heart.png",
+            "icon": "assets/character/constellations/Burning Heart.avif",
             "description": "When a Blazing Barrier is obtained or refreshed, the DMG dealt by all party members' Normal, Charged, and Plunging Attacks is increased by 15% for 6s."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Yashiro Commission",
@@ -74,12 +74,12 @@ var THOMA = {
     ],
     "special_dish": {
         "name": "\"Warmth\"",
-        "icon": "assets/foods/Thoma.png"
+        "icon": "assets/foods/Thoma.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Thoma.png",
-        "background": "assets/character/namecard_background/Thoma.png",
-        "banner": "assets/character/namecard_banner/Thoma.png",
+        "icon": "assets/character/namecard_icon/Thoma.avif",
+        "background": "assets/character/namecard_background/Thoma.avif",
+        "banner": "assets/character/namecard_banner/Thoma.avif",
         "description": "Blazing armor, flaming guards.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Fluorescent Fungus",
                     "value": 3,
-                    "icon": "assets/materials/Fluorescent Fungus.png"
+                    "icon": "assets/materials/Fluorescent Fungus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 2,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fluorescent Fungus",
                     "value": 10,
-                    "icon": "assets/materials/Fluorescent Fungus.png"
+                    "icon": "assets/materials/Fluorescent Fungus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 4,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fluorescent Fungus",
                     "value": 20,
-                    "icon": "assets/materials/Fluorescent Fungus.png"
+                    "icon": "assets/materials/Fluorescent Fungus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 8,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fluorescent Fungus",
                     "value": 30,
-                    "icon": "assets/materials/Fluorescent Fungus.png"
+                    "icon": "assets/materials/Fluorescent Fungus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 12,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Fluorescent Fungus",
                     "value": 45,
-                    "icon": "assets/materials/Fluorescent Fungus.png"
+                    "icon": "assets/materials/Fluorescent Fungus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Smoldering Pearl",
                     "value": 20,
-                    "icon": "assets/materials/Smoldering Pearl.png"
+                    "icon": "assets/materials/Smoldering Pearl.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Fluorescent Fungus",
                     "value": 60,
-                    "icon": "assets/materials/Fluorescent Fungus.png"
+                    "icon": "assets/materials/Fluorescent Fungus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var THOMA = {
         {
             "name": "Swiftshatter Spear",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Swiftshatter Spear.png",
+            "icon": "assets/character/talents/Swiftshatter Spear.avif",
             "description": "Normal AttackPerforms up to 4 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Blazing Blessing",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Blazing Blessing.png",
+            "icon": "assets/character/talents/Blazing Blessing.avif",
             "description": "Thoma vaults forward with his polearm and delivers a flame-filled flying kick that deals AoE Pyro DMG, while also summoning a defensive Blazing Barrier. At the moment of casting, Thoma's Elemental Skill applies Pyro to himself.The DMG Absorption of the Blazing Barrier scales off Thoma's Max HP.The Blazing Barrier has the following traits:Absorbs Pyro DMG 250% more effectively.When a new Blazing Barrier is obtained, the remaining DMG Absorption of an existing Blazing Barrier will stack and its duration will be refreshed.The maximum DMG Absorprtion of the Blazing Barrier will not exceed a certain percentage of Thoma's Max HP."
         },
         {
             "name": "Crimson Ooyoroi",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Crimson Ooyoroi.png",
+            "icon": "assets/character/talents/Crimson Ooyoroi.avif",
             "description": "Thoma spins his polearm, slicing at his foes with roaring flames that deal AoE Pyro DMG and weave themselves into a Scorching Ooyoroi.Scorching OoyoroiWhile Scorching Ooyoroi is in effect, the active character's Normal Attacks will trigger Fiery Collapse, dealing AoE Pyro DMG and summoning a Blazing Barrier.Fiery Collapse can be triggered once every 1s.Except for the amount of DMG they can absorb, the Blazing Barriers created in this way are identical to those created by Thoma's Elemental Skill, Blazing Blessing:Absorbs Pyro DMG 250% more effectively.When a new Blazing Barrier is obtained, the remaining DMG Absorption of an existing Blazing Barrier will stack and its duration will be refreshed.The maximum DMG Absorption of the Blazing Barrier will not exceed a certain percentage of Thoma's Max HP.If Thoma falls, the effects of Scorching Ooyoroi will be cleared."
         },
         {
             "name": "Imbricated Armor",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Imbricated Armor.png",
+            "icon": "assets/character/talents/Imbricated Armor.avif",
             "description": "When your current active character obtains or refreshes a Blazing Barrier, this character's Shield Strength will increase by 5% for 6s.This effect can be triggered once every 0.3 seconds. Max 5 stacks."
         },
         {
             "name": "Flaming Assault",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Flaming Assault.png",
+            "icon": "assets/character/talents/Flaming Assault.avif",
             "description": "DMG dealt by Crimson Ooyoroi's Fiery Collapse is increased by 2.2% of Thoma's Max HP."
         },
         {
             "name": "Snap and Swing",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Snap and Swing.png",
+            "icon": "assets/character/talents/Snap and Swing.avif",
             "description": "When you fish successfully in Inazuma, Thoma's help grants a 20% chance of scoring a double catch."
         }
     ],
@@ -462,17 +491,20 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Transience",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Transience.png"
+                    "icon": "assets/materials/Teachings of Transience.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Transience",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Transience.png"
+                    "icon": "assets/materials/Guide to Transience.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 1,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 1,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 2,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var THOMA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Transience",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Transience.png"
+                    "icon": "assets/materials/Philosophies of Transience.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Hellfire Butterfly",
                     "value": 2,
-                    "icon": "assets/materials/Hellfire Butterfly.png"
+                    "icon": "assets/materials/Hellfire Butterfly.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2417,200 +2478,5 @@ var THOMA = {
     "demo_music": {
         "name": "Devotion of the Keeper",
         "url": "assets/character/demo_music/Thoma.mp3"
-    },
-    "build": {
-        "version": "5.0",
-        "type": "Support",
-        "weapons": [
-            "Favonius Lance",
-            "Engulfing Lightning",
-            "Kitain Cross Spear",
-            "Prototype Starglitter",
-            "Black Tassel"
-        ],
-        "artifacts": [
-            "4pc Noblesse Oblige",
-            "4pc Instructor",
-            "4pc Deepwood Memories",
-            "4pc Scroll of the Hero of Cinder City"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP% / ER%",
-            "HP%",
-            "HP%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
     }
 }

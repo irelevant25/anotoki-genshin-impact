@@ -1,28 +1,28 @@
 var ORORON = {
     "name": "Ororon",
     "secondary_title": "Shadow of the Night-Wind",
-    "card_icon": "assets/character/card/Ororon.png",
-    "wish_icon": "assets/character/wish/Ororon.png",
-    "ingame_icon": "assets/character/ingame/Ororon.png",
-    "icon": "assets/character/icon/Ororon.png",
+    "card_icon": "assets/character/card/Ororon.avif",
+    "wish_icon": "assets/character/wish/Ororon.avif",
+    "ingame_icon": "assets/character/ingame/Ororon.avif",
+    "icon": "assets/character/icon/Ororon.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "October 14th",
@@ -30,43 +30,43 @@ var ORORON = {
         {
             "name": "Trails Amidst the Forest Fog",
             "level": 1,
-            "icon": "assets/character/constellations/Trails Amidst the Forest Fog.png",
+            "icon": "assets/character/constellations/Trails Amidst the Forest Fog.avif",
             "description": "The Elemental Skill Night's Sling's Spirit Orb can bounce 2 additional times.Additionally, after the Spirit Orb hits an opponent, it will apply the Nighttide effect to them for 12s. Opponents affected by Nighttide take 50% increased DMG from Hypersense triggered by the Passive Talent, \"Nightshade Synesthesia.\" Unlock the aforementioned Passive Talent to trigger this effect."
         },
         {
             "name": "King Bee of the Hidden Honeyed Wine",
             "level": 2,
-            "icon": "assets/character/constellations/King Bee of the Hidden Honeyed Wine.png",
+            "icon": "assets/character/constellations/King Bee of the Hidden Honeyed Wine.avif",
             "description": "After using his Elemental Burst, Dark Voices Echo, Ororon will obtain the Spiritual Supersense effect for 9s.Spiritual SupersenseGain 8% Electro DMG Bonus.Additionally, during this time, every additional opponent hit by the Elemental Burst Dark Voices Echo or Supersonic Oculus will grant Ororon a further 8% Electro DMG Bonus. The maximum that can be gained this way is 32% Electro DMG Bonus."
         },
         {
             "name": "Roosting Bat's Spiritcage",
             "level": 3,
-            "icon": "assets/character/constellations/Roosting Bat's Spiritcage.png",
+            "icon": "assets/character/constellations/Roosting Bat's Spiritcage.avif",
             "description": "Increases the Level of Dark Voices Echo by 3.Maximum upgrade level is 15."
         },
         {
             "name": "As the Mysteries of the Night Wind",
             "level": 4,
-            "icon": "assets/character/constellations/As the Mysteries of the Night Wind.png",
+            "icon": "assets/character/constellations/As the Mysteries of the Night Wind.avif",
             "description": "The Supersonic Oculus summoned by the Elemental Burst Dark Voices Echo rotates 25% faster.Additionally, Ororon will restore 8 Energy to himself after using Dark Voices Echo."
         },
         {
             "name": "A Gift For the Soul",
             "level": 5,
-            "icon": "assets/character/constellations/A Gift For the Soul.png",
+            "icon": "assets/character/constellations/A Gift For the Soul.avif",
             "description": "Increases the Level of Night's Sling by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Ode to Deep Springs",
             "level": 6,
-            "icon": "assets/character/constellations/Ode to Deep Springs.png",
+            "icon": "assets/character/constellations/Ode to Deep Springs.avif",
             "description": "After triggering Hypersense through the Passive Talent, Nightshade Synesthesia, your current active character's ATK is increased by 10% for 9s. Max 3 stacks, each stack is counted independently.Additionally, when you use the Elemental Burst Dark Voices Echo, you will trigger one instance of an effect equivalent to Hypersense, dealing 200% of its original DMG.You must unlock the Passive Talent \"Nightshade Synesthesia\" first."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Mictlan",
@@ -74,12 +74,12 @@ var ORORON = {
     ],
     "special_dish": {
         "name": "Honey-Glazed Ceviche",
-        "icon": "assets/foods/Ororon.png"
+        "icon": "assets/foods/Ororon.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Ororon.png",
-        "background": "assets/character/namecard_background/Ororon.png",
-        "banner": "assets/character/namecard_banner/Ororon.png",
+        "icon": "assets/character/namecard_icon/Ororon.avif",
+        "background": "assets/character/namecard_background/Ororon.avif",
+        "banner": "assets/character/namecard_banner/Ororon.avif",
         "description": "Just as starlight cannot overpower the darkness of night, so too do shadows linger beneath the candle's light. Likewise, the heart's emptiness cannot easily be filled.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Glowing Hornshroom",
                     "value": 3,
-                    "icon": "assets/materials/Glowing Hornshroom.png"
+                    "icon": "assets/materials/Glowing Hornshroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 3,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 2,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Glowing Hornshroom",
                     "value": 10,
-                    "icon": "assets/materials/Glowing Hornshroom.png"
+                    "icon": "assets/materials/Glowing Hornshroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 15,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 4,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Glowing Hornshroom",
                     "value": 20,
-                    "icon": "assets/materials/Glowing Hornshroom.png"
+                    "icon": "assets/materials/Glowing Hornshroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 12,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 8,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Glowing Hornshroom",
                     "value": 30,
-                    "icon": "assets/materials/Glowing Hornshroom.png"
+                    "icon": "assets/materials/Glowing Hornshroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 18,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 12,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Glowing Hornshroom",
                     "value": 45,
-                    "icon": "assets/materials/Glowing Hornshroom.png"
+                    "icon": "assets/materials/Glowing Hornshroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mark of the Binding Blessing",
                     "value": 20,
-                    "icon": "assets/materials/Mark of the Binding Blessing.png"
+                    "icon": "assets/materials/Mark of the Binding Blessing.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Glowing Hornshroom",
                     "value": 60,
-                    "icon": "assets/materials/Glowing Hornshroom.png"
+                    "icon": "assets/materials/Glowing Hornshroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 24,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,43 +450,43 @@ var ORORON = {
         {
             "name": "Spiritvessel Snapshot",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Spiritvessel Snapshot.png",
+            "icon": "assets/character/talents/Spiritvessel Snapshot.avif",
             "description": "Normal AttackPerforms up to 3 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, Electro energy will accumulate on the arrowhead. A fully charged arrow will deal immense Electro DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Night's Sling",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Night's Sling.png",
+            "icon": "assets/character/talents/Night's Sling.avif",
             "description": "Ororon manifests an ancient mystical technique from the Masters of the Night-Wind as a Spirit Orb of midnight shade and throws it at his foe, dealing Nightsoul-aligned Electro DMG.When other opponents are nearby, the Spirit Orb will bounce between them, dealing Nightsoul-aligned Electro DMG. Each time Night's Sling is used, each opponent can only be selected as a target once.After 3 bounces, or if there are no eligible targets left, the Orb will disappear."
         },
         {
             "name": "Dark Voices Echo",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Dark Voices Echo.png",
+            "icon": "assets/character/talents/Dark Voices Echo.avif",
             "description": "Ororon works an ancient ritual, dealing Nightsoul-aligned AoE Electro DMG, summoning forth a Supersonic Oculus.Supersonic OculusContinuously taunts nearby opponents and attracts attacks from them.Continuously rotates and fires off sonic waves that deal Nightsoul-aligned Electro DMG."
         },
         {
             "name": "Nightshade Synesthesia",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Nightshade Synesthesia.png",
+            "icon": "assets/character/talents/Nightshade Synesthesia.avif",
             "description": "After a nearby party member triggers Nightsoul Burst, Ororon will gain 40 Nightsoul points. Within 15s after using his Elemental Skill, when other party members' Hydro or Electro attacks hit opponents, Ororon will gain 5 Nightsoul points, an effect that can occur every 0.3s for a maximum of 10 times during this 15s duration.Ororon can have a maximum of 80 Nightsoul points.Also, when nearby opponents take Electro-Charged reaction DMG or Nightsoul-aligned DMG dealt by other nearby characters, Ororon will consume 10 Nightsoul points (provided he has at least that amount), entering the Nightsoul's Blessing state and triggering the Hypersense effect: Deal Nightsoul-aligned Electro DMG based on 160% of Ororon's ATK to at most 4 nearby opponents. The aforementioned effect can trigger once every 1.8s.Nightsoul's Blessing: OroronOroron's Nightsoul's Blessing state lasts 6s."
         },
         {
             "name": "Aspect Catalyst",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Aspect Catalyst.png",
+            "icon": "assets/character/talents/Aspect Catalyst.avif",
             "description": "After the Elemental Skill Night's Sling's Spirit Orb hits an opponent, Ororon will gain the Aspect Sigil effect for 15s.Aspect SigilWhen a nearby active party member hits an opponent with Normal, Charged, or Plunging Attacks, that character will restore 3 Energy. If Ororon is off-field, Ororon will also restore 3 Energy. This effect can trigger once every 1s, and can trigger 3 times per duration."
         },
         {
             "name": "Flowing Fog, Spritely Shadows",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Flowing Fog, Spritely Shadows.png",
+            "icon": "assets/character/talents/Flowing Fog, Spritely Shadows.avif",
             "description": "While in an area with Phlogiston Mechanics within Natlan, he can use Nightsoul Transmission: Ororon. When the active character is currently in the air, the following will trigger when switching to Ororon: Ororon will leap up high. Nightsoul Transmission can be triggered once every 10s by your party.Holding Aiming Mode will cause Ororon to enter the \"Spiritspeaker\" state, which will allow him to interact with \"Nightspirit Graffiti\" and \"Nightspirit Sigils,\" extracting information and power from them. The rules for interacting with these objects follow the same rules as those governing Iktomisaurus interactions.Additionally, holding the jump button will cause Ororon to consume 75 Stamina and leap. In areas within Natlan where Phlogiston mechanics are present, Ororon will prioritize consuming 5 Phlogiston to leap to a height higher still.When in the air, Ororon can Hold his Normal Attack to consume Phlogiston or Stamina and enter Aiming Mode."
         },
         {
             "name": "The Art of Skinchanging",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Art of Skinchanging.png",
+            "icon": "assets/character/talents/The Art of Skinchanging.avif",
             "description": "Increases gliding SPD for your own party members by 15%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -468,17 +497,20 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 6,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Kindling",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Kindling.png"
+                    "icon": "assets/materials/Teachings of Kindling.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -488,17 +520,20 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 3,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -508,17 +543,20 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 4,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -528,17 +566,20 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 6,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -548,17 +589,20 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 9,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Kindling",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Kindling.png"
+                    "icon": "assets/materials/Guide to Kindling.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -568,22 +612,26 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 4,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -593,22 +641,26 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 6,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -618,22 +670,26 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 9,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -643,27 +699,32 @@ var ORORON = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Kindling",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Kindling.png"
+                    "icon": "assets/materials/Philosophies of Kindling.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2321,238 +2382,5 @@ var ORORON = {
     "demo_music": {
         "name": "Rain of Seven Curtains",
         "url": "assets/character/demo_music/Ororon.mp3"
-    },
-    "build": {
-        "version": "5.4",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Elegy for the End",
-            "Chain Breaker",
-            "Song of Stillness",
-            "Alley Hunter",
-            "The Stringless",
-            "Windblume Ode",
-            "Favonius Warbow"
-        ],
-        "artifacts": [
-            "4pc Scroll of the Hero of Cinder City",
-            "4pc Noblesse Oblige",
-            "4pc Instructor"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "Electro DMG Bonus / ATK%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Yumemizuki Mizuki",
-                    "icon": "assets/character/icon/Yumemizuki Mizuki.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ]
-        ]
     }
 }

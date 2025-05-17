@@ -1,28 +1,28 @@
 var YELAN = {
     "name": "Yelan",
     "secondary_title": "Valley Orchid",
-    "card_icon": "assets/character/card/Yelan.png",
-    "wish_icon": "assets/character/wish/Yelan.png",
-    "ingame_icon": "assets/character/ingame/Yelan.png",
-    "icon": "assets/character/icon/Yelan.png",
+    "card_icon": "assets/character/card/Yelan.avif",
+    "wish_icon": "assets/character/wish/Yelan.avif",
+    "ingame_icon": "assets/character/ingame/Yelan.avif",
+    "icon": "assets/character/icon/Yelan.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Hydro",
-        "icon": "assets/elements/Hydro.png"
+        "icon": "assets/elements/Hydro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "April 20th",
@@ -30,43 +30,43 @@ var YELAN = {
         {
             "name": "Enter the Plotters",
             "level": 1,
-            "icon": "assets/character/constellations/Enter the Plotters.png",
+            "icon": "assets/character/constellations/Enter the Plotters.avif",
             "description": "Lingering Lifeline gains 1 additional charge."
         },
         {
             "name": "Taking All Comers",
             "level": 2,
-            "icon": "assets/character/constellations/Taking All Comers.png",
+            "icon": "assets/character/constellations/Taking All Comers.avif",
             "description": "When Exquisite Throw conducts a coordinated attack, it will fire an additional water arrow that will deal 14% of Yelan's Max HP as Hydro DMG.This effect can trigger once every 1.8s."
         },
         {
             "name": "Beware the Trickster's Dice",
             "level": 3,
-            "icon": "assets/character/constellations/Beware the Trickster's Dice.png",
+            "icon": "assets/character/constellations/Beware the Trickster's Dice.avif",
             "description": "Increases the Level of Depth-Clarion Dice by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Bait-and-Switch",
             "level": 4,
-            "icon": "assets/character/constellations/Bait-and-Switch.png",
+            "icon": "assets/character/constellations/Bait-and-Switch.avif",
             "description": "Increases all party members' Max HP by 10% for 25s for every opponent marked by Lifeline when the Lifeline explodes. A maximum increase of 40% Max HP can be attained in this manner."
         },
         {
             "name": "Dealer's Sleight",
             "level": 5,
-            "icon": "assets/character/constellations/Dealer's Sleight.png",
+            "icon": "assets/character/constellations/Dealer's Sleight.avif",
             "description": "Increases the Level of Lingering Lifeline by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Winner Takes All",
             "level": 6,
-            "icon": "assets/character/constellations/Winner Takes All.png",
+            "icon": "assets/character/constellations/Winner Takes All.avif",
             "description": "After using Depth-Clarion Dice, Yelan will enter the Mastermind state.In this state, all of Yelan's Normal Attacks will be special Breakthrough Barbs. These Breakthrough Barbs will have similar abilities to normal ones and the DMG dealt will be considered Charged Attack DMG, dealing 156% of a normal Breakthrough Barb's DMG.The Mastermind state lasts 20s and will be cleared after Yelan fires 5 arrows."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Yanshang Teahouse",
@@ -74,12 +74,12 @@ var YELAN = {
     ],
     "special_dish": {
         "name": "Dew-Dipped Shrimp",
-        "icon": "assets/foods/Yelan.png"
+        "icon": "assets/foods/Yelan.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Yelan.png",
-        "background": "assets/character/namecard_background/Yelan.png",
-        "banner": "assets/character/namecard_banner/Yelan.png",
+        "icon": "assets/character/namecard_icon/Yelan.avif",
+        "background": "assets/character/namecard_background/Yelan.avif",
+        "banner": "assets/character/namecard_banner/Yelan.avif",
         "description": "\"Dice are always quite hard to make 'fair.' That goes double for dice with shoddier workmanship. The weighting on each numbered side will almost certainly be unbalanced.\"",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Varunada Lazurite Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Varunada Lazurite Sliver.png"
+                    "icon": "assets/materials/Varunada Lazurite Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Starconch",
                     "value": 3,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 2,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Starconch",
                     "value": 10,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 4,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Fragment.png"
+                    "icon": "assets/materials/Varunada Lazurite Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Starconch",
                     "value": 20,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 8,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Starconch",
                     "value": 30,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 12,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Chunk.png"
+                    "icon": "assets/materials/Varunada Lazurite Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Starconch",
                     "value": 45,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 20,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Varunada Lazurite Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Varunada Lazurite Gemstone.png"
+                    "icon": "assets/materials/Varunada Lazurite Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Starconch",
                     "value": 60,
-                    "icon": "assets/materials/Starconch.png"
+                    "icon": "assets/materials/Starconch.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var YELAN = {
         {
             "name": "Stealthy Bowshot",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Stealthy Bowshot.png",
+            "icon": "assets/character/talents/Stealthy Bowshot.avif",
             "description": "Normal AttackPerforms up to 4 consecutive shots with a bow.Charged AttackPerform a more precise Aimed Shot with increased DMG.While aiming, flowing water will accumulate on the arrowhead. A fully charged torrential arrow will deal Hydro DMG.BreakthroughYelan will enter a \"Breakthrough\" state after spending 5s out of combat, which will cause her next Charged Aimed Shot to have 80% decreased charge time, and once charged, she can fire a \"Breakthrough Barb\" that will deal AoE Hydro DMG based on Yelan's Max HP.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Lingering Lifeline",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Lingering Lifeline.png",
+            "icon": "assets/character/talents/Lingering Lifeline.avif",
             "description": "Fires off a Lifeline that allows her to move rapidly, entangling and marking opponents along its path.When this rapid movement ends, the Lifeline will explode, dealing Hydro DMG to the marked opponents based on Yelan's Max HP.TapMoves a certain distance forward swiftly.HoldEngages in continuous, swift movement, during which Yelan's resistance to interruption is increased.During this time, Yelan can control this rapid movement and end it by using this Skill again.Additionally, each opponent marked by the Lifeline when it explodes grants Yelan a 34% chance to reset her Breakthrough state."
         },
         {
             "name": "Depth-Clarion Dice",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Depth-Clarion Dice.png",
+            "icon": "assets/character/talents/Depth-Clarion Dice.avif",
             "description": "Deals AoE Hydro DMG and creates an \"Exquisite Throw,\" which aids her in battle.Exquisite ThrowFollows the character around and will initiate a coordinated attack under the following circumstances, dealing Hydro DMG based on Yelan's Max HP:Can occur once every second when your active character uses a Normal Attack.Will occur each time Yelan's Lifeline explodes and hits opponents."
         },
         {
             "name": "Turn Control",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Turn Control.png",
+            "icon": "assets/character/talents/Turn Control.avif",
             "description": "When the party has 1/2/3/4 Elemental Types, Yelan's Max HP is increased by 6%/12%/18%/30%."
         },
         {
             "name": "Adapt With Ease",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Adapt With Ease.png",
+            "icon": "assets/character/talents/Adapt With Ease.avif",
             "description": "So long as an Exquisite Throw is in play, your own active character deals 1% more DMG. This increases by a further 3.5% DMG every second. The maximum increase to DMG dealt is 50%.The pre-existing effect will be dispelled if Depth-Clarion Dice is recast during its duration."
         },
         {
             "name": "Necessary Calculation",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Necessary Calculation.png",
+            "icon": "assets/character/talents/Necessary Calculation.avif",
             "description": "Gains 25% more rewards when dispatched on a Liyue Expedition for 20 hours."
         }
     ],
@@ -464,17 +493,20 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Recruit's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Recruit's Insignia.png"
+                    "icon": "assets/materials/Recruit's Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Prosperity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Prosperity.png"
+                    "icon": "assets/materials/Teachings of Prosperity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sergeant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Sergeant's Insignia.png"
+                    "icon": "assets/materials/Sergeant's Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 1,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 1,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 2,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var YELAN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lieutenant's Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Lieutenant's Insignia.png"
+                    "icon": "assets/materials/Lieutenant's Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Gilded Scale",
                     "value": 2,
-                    "icon": "assets/materials/Gilded Scale.png"
+                    "icon": "assets/materials/Gilded Scale.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2395,277 +2456,5 @@ var YELAN = {
     "demo_music": {
         "name": "Graceful Dexterity",
         "url": "assets/character/demo_music/Yelan.mp3"
-    },
-    "build": {
-        "version": "5.4",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Aqua Simulacra",
-            "Elegy for the End",
-            "Favonius Warbow",
-            "Slingshot",
-            "Mouun's Moon",
-            "The Stringless",
-            "Recurve Bow",
-            "Fading Twilight",
-            "Sacrificial Bow"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Marechaussee Hunter",
-            "4pc Nymph's Dream"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP% / ER",
-            "Hydro DMG Bonus / HP%",
-            "CRIT / HP%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "HP% (until 30,000 HP)",
-            "CRIT Rate / CRIT DMG",
-            "HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kinich",
-                    "icon": "assets/character/icon/Kinich.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                }
-            ]
-        ]
     }
 }

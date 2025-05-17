@@ -1,28 +1,28 @@
 var GOROU = {
     "name": "Gorou",
     "secondary_title": "Canine Warrior",
-    "card_icon": "assets/character/card/Gorou.png",
-    "wish_icon": "assets/character/wish/Gorou.png",
-    "ingame_icon": "assets/character/ingame/Gorou.png",
-    "icon": "assets/character/icon/Gorou.png",
+    "card_icon": "assets/character/card/Gorou.avif",
+    "wish_icon": "assets/character/wish/Gorou.avif",
+    "ingame_icon": "assets/character/ingame/Gorou.avif",
+    "icon": "assets/character/icon/Gorou.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "May 18th",
@@ -30,43 +30,43 @@ var GOROU = {
         {
             "name": "Rushing Hound: Swift as the Wind",
             "level": 1,
-            "icon": "assets/character/constellations/Rushing Hound Swift as the Wind.png",
+            "icon": "assets/character/constellations/Rushing Hound Swift as the Wind.avif",
             "description": "When characters (other than Gorou) within the AoE of Gorou's General's War Banner or General's Glory deal Geo DMG to opponents, the CD of Gorou's Inuzaka All-Round Defense is decreased by 2s. This effect can occur once every 10s."
         },
         {
             "name": "Sitting Hound: Steady as a Clock",
             "level": 2,
-            "icon": "assets/character/constellations/Sitting Hound Steady as a Clock.png",
+            "icon": "assets/character/constellations/Sitting Hound Steady as a Clock.avif",
             "description": "While General's Glory is in effect, its duration is extended by 1s when a nearby active character obtains an Elemental Shard from a Crystallize reaction. This effect can occur once every 0.1s. Max extension is 3s."
         },
         {
             "name": "Mauling Hound: Fierce as Fire",
             "level": 3,
-            "icon": "assets/character/constellations/Mauling Hound Fierce as Fire.png",
+            "icon": "assets/character/constellations/Mauling Hound Fierce as Fire.avif",
             "description": "Increases the Level of Inuzaka All-Round Defense by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Lapping Hound: Warm as Water",
             "level": 4,
-            "icon": "assets/character/constellations/Lapping Hound Warm as Water.png",
+            "icon": "assets/character/constellations/Lapping Hound Warm as Water.avif",
             "description": "When General's Glory is in the \"Impregnable\" or \"Crunch\" states, it will also heal active characters within its AoE by 50% of Gorou's own DEF every 1.5s."
         },
         {
             "name": "Striking Hound: Thunderous Force",
             "level": 5,
-            "icon": "assets/character/constellations/Striking Hound Thunderous Force.png",
+            "icon": "assets/character/constellations/Striking Hound Thunderous Force.avif",
             "description": "Increases the Level of Juuga: Forward Unto Victory by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Valiant Hound: Mountainous Fealty",
             "level": 6,
-            "icon": "assets/character/constellations/Valiant Hound Mountainous Fealty.png",
+            "icon": "assets/character/constellations/Valiant Hound Mountainous Fealty.avif",
             "description": "For 12s after using Inuzaka All-Round Defense or Juuga: Forward Unto Victory, increases the CRIT DMG of all nearby party members' Geo DMG based on the buff level of the skill's field at the time of use:\"Standing Firm\": +10%\"Impregnable\": +20%\"Crunch\": +40%This effect cannot stack and will take reference from the last instance of the effect that is triggered."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Watatsumi Island",
@@ -75,12 +75,12 @@ var GOROU = {
     ],
     "special_dish": {
         "name": "Victorious Legend",
-        "icon": "assets/foods/Gorou.png"
+        "icon": "assets/foods/Gorou.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Gorou.png",
-        "background": "assets/character/namecard_background/Gorou.png",
-        "banner": "assets/character/namecard_banner/Gorou.png",
+        "icon": "assets/character/namecard_icon/Gorou.avif",
+        "background": "assets/character/namecard_background/Gorou.avif",
+        "banner": "assets/character/namecard_banner/Gorou.avif",
         "description": "As long as you believe in the path you are walking, then everything you encounter on your journey will be a source of happiness.",
         "quality": "4",
         "sources": [
@@ -158,22 +158,26 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 3,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -201,27 +205,32 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 2,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 10,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 15,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -249,27 +258,32 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 4,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 20,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -297,27 +311,32 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 8,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 30,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 18,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -345,27 +364,32 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 12,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 45,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -393,27 +417,32 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Heart",
                     "value": 20,
-                    "icon": "assets/materials/Perpetual Heart.png"
+                    "icon": "assets/materials/Perpetual Heart.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sango Pearl",
                     "value": 60,
-                    "icon": "assets/materials/Sango Pearl.png"
+                    "icon": "assets/materials/Sango Pearl.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 24,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -422,37 +451,37 @@ var GOROU = {
         {
             "name": "Ripping Fang Fletching",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Ripping Fang Fletching.png",
+            "icon": "assets/character/talents/Ripping Fang Fletching.avif",
             "description": "Normal AttackPerforms up to 4 consecutive shots with a bow.Charged AttackPerform a more precise Aimed Shot with increased DMG.While aiming, stone crystals will accumulate on the arrowhead. A fully charged crystalline arrow will deal Geo DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Inuzaka All-Round Defense",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Inuzaka All-Round Defense.png",
+            "icon": "assets/character/talents/Inuzaka All-Round Defense.avif",
             "description": "Deals AoE Geo DMG and sets up a General's War Banner.General's War BannerProvides up to 3 buffs to active characters within the skill's AoE based on the number of Geo characters in the party at the time of casting:1 Geo character: Adds \"Standing Firm\" - DEF Bonus.2 Geo characters: Adds \"Impregnable\" - Increased resistance to interruption.3 Geo characters: Adds \"Crunch\" - Geo DMG Bonus.Gorou can deploy only 1 General's War Banner on the field at any one time.Characters can only benefit from 1 General's War Banner at a time. When a party member leaves the field, the active buff will last for 2s.HoldAdjust the location of the skill."
         },
         {
             "name": "Juuga: Forward Unto Victory",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Juuga Forward Unto Victory.png",
+            "icon": "assets/character/talents/Juuga Forward Unto Victory.avif",
             "description": "Displaying his valor as a general, Gorou deals Aoe Geo DMG and creates a field known as General's Glory to embolden his comrades.General's GloryThis field has the following properties:Like the General's War Banner created by Inuzaka All-Round Defense, provides buffs to active characters within the skill's AoE based on the number of Geo characters in the party. Also moves together with your active character.Generates 1 Crystal Collapse every 1.5s that deals AoE Geo DMG to 1 opponent within the skill's AoE.Pulls 1 elemental shard in the skill's AoE to your active character's position every 1.5s (elemental shards are created by Crystallize reactions).If a General's War Banner created by Gorou currently exists on the field when his ability is used, it will be destroyed. In addition, for the duration of General's Glory, Gorou's Elemental Skill \"Inuzaka All-Round Defense\" will not create the General's War Banner.If Gorou falls, the effects of General's Glory will be cleared."
         },
         {
             "name": "Heedless of the Wind and Weather",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Heedless of the Wind and Weather.png",
+            "icon": "assets/character/talents/Heedless of the Wind and Weather.avif",
             "description": "After using Juuga: Forward Unto Victory, all nearby party members' DEF is increased by 25% for 12s."
         },
         {
             "name": "A Favor Repaid",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/A Favor Repaid.png",
+            "icon": "assets/character/talents/A Favor Repaid.avif",
             "description": "Gorou receives the following DMG Bonuses to his attacks based on his DEF:Inuzaka All-Round Defense: Skill DMG increased by 156% of DEFJuuga: Forward Unto Victory: Skill DMG and Crystal Collapse DMG increased by 15.6% of DEF"
         },
         {
             "name": "Seeker of Shinies",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Seeker of Shinies.png",
+            "icon": "assets/character/talents/Seeker of Shinies.avif",
             "description": "Displays the location of nearby resources unique to Inazuma on the mini-map."
         }
     ],
@@ -463,17 +492,20 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Light",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Light.png"
+                    "icon": "assets/materials/Teachings of Light.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -483,17 +515,20 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -503,17 +538,20 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -523,17 +561,20 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -543,17 +584,20 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -563,22 +607,26 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 1,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -588,22 +636,26 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 1,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -613,22 +665,26 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 2,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -638,27 +694,32 @@ var GOROU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 2,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2394,105 +2455,5 @@ var GOROU = {
     "demo_music": {
         "name": "Astute and Fearless Leader",
         "url": "assets/character/demo_music/Gorou.mp3"
-    },
-    "build": {
-        "version": "3.0",
-        "type": "Support",
-        "weapons": [
-            "Favonius Warbow"
-        ],
-        "artifacts": [
-            "4pc Noblesse Oblige",
-            "4pc The Exile"
-        ],
-        "talents": [
-            "Skill",
-            "Normal Attack",
-            "Burst"
-        ],
-        "main_stats": [
-            "ER",
-            "Geo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "DEF%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
     }
 }

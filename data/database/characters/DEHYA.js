@@ -1,32 +1,32 @@
 var DEHYA = {
     "name": "Dehya",
     "secondary_title": "Flame-Mane",
-    "card_icon": "assets/character/card/Dehya.png",
-    "wish_icon": "assets/character/wish/Dehya.png",
-    "ingame_icon": "assets/character/ingame/Dehya.png",
-    "icon": "assets/character/icon/Dehya.png",
+    "card_icon": "assets/character/card/Dehya.avif",
+    "wish_icon": "assets/character/wish/Dehya.avif",
+    "ingame_icon": "assets/character/ingame/Dehya.avif",
+    "icon": "assets/character/icon/Dehya.avif",
     "quality": "5",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "April 7th",
@@ -34,43 +34,43 @@ var DEHYA = {
         {
             "name": "The Flame Incandescent",
             "level": 1,
-            "icon": "assets/character/constellations/The Flame Incandescent.png",
+            "icon": "assets/character/constellations/The Flame Incandescent.avif",
             "description": "Dehya's Max HP is increased by 20%, and she deals bonus DMG based on her Max HP when using the following attacks:Molten Inferno's DMG will be increased by 3.6% of her Max HP.Leonine Bite's DMG will be increased by 6% of her Max HP."
         },
         {
             "name": "The Sand-Blades Glittering",
             "level": 2,
-            "icon": "assets/character/constellations/The Sand-Blades Glittering.png",
+            "icon": "assets/character/constellations/The Sand-Blades Glittering.avif",
             "description": "When Dehya uses Molten Inferno: Ranging Flame, the duration of the recreated Fiery Sanctum field will be increased by 6s.Additionally, when a Fiery Sanctum exists on the field, DMG dealt by its next coordinated attack will be increased by 50% when active character(s) within the Fiery Sanctum field are attacked."
         },
         {
             "name": "A Rage Swift as Fire",
             "level": 3,
-            "icon": "assets/character/constellations/A Rage Swift as Fire.png",
+            "icon": "assets/character/constellations/A Rage Swift as Fire.avif",
             "description": "Increases the Level of Leonine Bite by 3.Maximum upgrade level is 15."
         },
         {
             "name": "An Oath Abiding",
             "level": 4,
-            "icon": "assets/character/constellations/An Oath Abiding.png",
+            "icon": "assets/character/constellations/An Oath Abiding.avif",
             "description": "When Flame-Mane's Fist and Incineration Drive attacks unleashed during Leonine Bite hit opponents, they will restore 1.5 Energy for Dehya and 2.5% of her Max HP. This effect can be triggered once every 0.2s."
         },
         {
             "name": "The Alpha Unleashed",
             "level": 5,
-            "icon": "assets/character/constellations/The Alpha Unleashed.png",
+            "icon": "assets/character/constellations/The Alpha Unleashed.avif",
             "description": "Increases the Level of Molten Inferno by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Burning Claws Cleaving",
             "level": 6,
-            "icon": "assets/character/constellations/The Burning Claws Cleaving.png",
+            "icon": "assets/character/constellations/The Burning Claws Cleaving.avif",
             "description": "The CRIT Rate of Leonine Bite is increased by 10%.Additionally, after a Flame-Mane's Fist attack hits an opponent and deals CRIT Hits during a single Blazing Lioness state, it will cause the CRIT DMG of Leonine Bite to increase by 15% for the rest of Blazing Lioness's duration and extend that duration by 0.5s. This effect can be triggered every 0.2s. The duration can be extended for a maximum of 2s and CRIT DMG can be increased by a maximum of 60% this way."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "The Eremites",
@@ -78,12 +78,12 @@ var DEHYA = {
     ],
     "special_dish": {
         "name": "Goldflame Tajine",
-        "icon": "assets/foods/Dehya.png"
+        "icon": "assets/foods/Dehya.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Dehya.png",
-        "background": "assets/character/namecard_background/Dehya.png",
-        "banner": "assets/character/namecard_banner/Dehya.png",
+        "icon": "assets/character/namecard_icon/Dehya.avif",
+        "background": "assets/character/namecard_background/Dehya.avif",
+        "banner": "assets/character/namecard_banner/Dehya.avif",
         "description": "Those that should be burned will be reduced to fly ash, so that all the precious things that should be preserved can be revealed.",
         "quality": "4",
         "sources": [
@@ -163,22 +163,26 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 3,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 3,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -206,27 +210,32 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 2,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 10,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 15,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -254,27 +263,32 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 4,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 20,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 12,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -302,27 +316,32 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 8,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 30,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 18,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -350,27 +369,32 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 12,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 45,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -398,27 +422,32 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Light Guiding Tetrahedron",
                     "value": 20,
-                    "icon": "assets/materials/Light Guiding Tetrahedron.png"
+                    "icon": "assets/materials/Light Guiding Tetrahedron.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Sand Grease Pupa",
                     "value": 60,
-                    "icon": "assets/materials/Sand Grease Pupa.png"
+                    "icon": "assets/materials/Sand Grease Pupa.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 24,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -427,38 +456,38 @@ var DEHYA = {
         {
             "name": "Sandstorm Assault",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Sandstorm Assault.png",
+            "icon": "assets/character/talents/Sandstorm Assault.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes using her Claymore and her martial arts.Charged AttackDrains Stamina over time to perform continuous slashes.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Molten Inferno",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Molten Inferno.png",
+            "icon": "assets/character/talents/Molten Inferno.avif",
             "description": "This art of Dehya's own invention changes its method of use depending on the combat situation.Indomitable FlameThis skill will be unleashed should there be no Fiery Sanctum field created by Dehya herself present at the time.Deals AoE Pyro DMG, and creates a field known as Fiery Sanctum.Ranging FlameThis skill will be unleashed should a Fiery Sanctum field created by Dehya herself already exist.Dehya will perform a leaping attack, dealing AoE Pyro DMG before recreating a Fiery Sanctum field at her new position.A Fiery Sanctum field created this way will inherit the remaining duration of the previous field.Ranging Flame can be used only once throughout a single Fiery Sanctum field's duration.Fiery SanctumWhen an opponent within a Fiery Sanctum field takes DMG, the field will unleash a coordinated attack, dealing AoE Pyro DMG to them based on Dehya's ATK and Max HP. This effect can be triggered once every 2.5s.Active characters within this field have their resistance to interruption increased, and when such characters take DMG, a portion of that damage will be mitigated and flow into Redmane's Blood. Dehya will then take this DMG over 10s. When the mitigated DMG stored by Redmane's Blood reaches or goes over a certain percentage of Dehya's Max HP, she will stop mitigating DMG in this way.Only 1 Fiery Sanctum created by Dehya herself can exist at the same time."
         },
         {
             "name": "Leonine Bite",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Leonine Bite.png",
+            "icon": "assets/character/talents/Leonine Bite.avif",
             "description": "Unleashing her burning anger and casting her inconvenient blade aside, Dehya enters the Blazing Lioness state and increases her resistance to interruption.In this state, Dehya will automatically and continuously unleash the Flame-Mane's Fists, dealing Pyro DMG based on her ATK and Max HP, and when its duration ends, she will unleash an Incineration Drive, dealing AoE Pyro DMG based on her ATK and Max HP.If a Fiery Sanctum field created by Dehya's own Elemental Skill \"Molten Inferno\" exists when this ability is unleashed, Dehya will retrieve it, and then create another field once Blazing Lioness's duration expires. This field will take on the retrieved field's duration at the moment of its retrieval.In this state, Dehya will be unable to cast her Elemental Skill, or perform Normal, Charged, and Plunging Attacks. \"Normal Attack: Sandstorm Assault\" and Elemental Skill \"Molten Inferno\" will be replaced by \"Roaring Barrage.\"Roaring BarrageUnleashing Roaring Barrage within 0.4s after each Flame-Mane's Fist strike will increase the speed at which the next Flame-Mane's Fist strike will be triggered."
         },
         {
             "name": "Unstinting Succor",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Unstinting Succor.png",
+            "icon": "assets/character/talents/Unstinting Succor.avif",
             "description": "Within 6 seconds after Dehya retrieves the Fiery Sanctum field through Molten Inferno: Ranging Flame or Leonine Bite, she will take 60% less DMG when receiving DMG from Redmane's Blood. This effect can be triggered once every 2s.Additionally, within 9s after Dehya unleashes Molten Inferno: Indomitable Flame, she will grant all party members the Gold-Forged Form state. This state will further increase a character's resistance to interruption when they are within the Fiery Sanctum field. Gold-Forged Form can be activated once every 18s."
         },
         {
             "name": "Stalwart and True",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Stalwart and True.png",
+            "icon": "assets/character/talents/Stalwart and True.avif",
             "description": "When her HP is less than 40%, Dehya will recover 20% of her Max HP and will restore 6% of her Max HP every 2s for the next 10s. This effect can be triggered once every 20s."
         },
         {
             "name": "The Sunlit Way",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/The Sunlit Way.png",
-            "description": "During the day (6:00 - 18:00), your party members gain the Swift Stride effect: Movement SPD increased by 10%.Does not take effect in Domains, Trounce Domains, or Spiral Abyss. Swift Stride does not stack."
+            "icon": "assets/character/talents/The Sunlit Way.avif",
+            "description": "During the day (6:00 – 18:00), your party members gain the Swift Stride effect: Movement SPD increased by 10%.Does not take effect in Domains, Trounce Domains, or Spiral Abyss. Swift Stride does not stack."
         }
     ],
     "talents_materials": [
@@ -468,17 +497,20 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 6,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Praxis",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Praxis.png"
+                    "icon": "assets/materials/Teachings of Praxis.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -488,17 +520,20 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 3,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -508,17 +543,20 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 4,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -528,17 +566,20 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 6,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -548,17 +589,20 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 9,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -568,22 +612,26 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 4,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 1,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -593,22 +641,26 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 6,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 1,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -618,22 +670,26 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 9,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 2,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -643,27 +699,32 @@ var DEHYA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 2,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2351,103 +2412,5 @@ var DEHYA = {
     "demo_music": {
         "name": "Fervent Flare",
         "url": "assets/character/demo_music/Dehya.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "On-field DPS",
-        "weapons": [
-            "Beacon of the Reed Sea",
-            "Redhorn Stonethresher",
-            "Akuoumaru R5",
-            "Wolf's Gravestone",
-            "Skyward Pride",
-            "The Unforged",
-            "Blackcliff Slasher",
-            "Serpent Spine",
-            "Luxurious Sea-Lord R5",
-            "Tidal Shadow R5",
-            "Katsuragikiri Nagamasa",
-            "Favonius Greatsword",
-            "Prototype Archaic"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Vourukasha's Glow",
-            "4pc Lavawalker",
-            "4pc Marechaussee Hunter",
-            "4pc Crimson Witch of Flame"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER / HP%",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CR / CD",
-            "ATK%",
-            "HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ]
-        ]
     }
 }

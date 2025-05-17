@@ -1,28 +1,28 @@
 var WANDERER = {
     "name": "Wanderer",
     "secondary_title": "Eons Adrift",
-    "card_icon": "assets/character/card/Wanderer.png",
-    "wish_icon": "assets/character/wish/Wanderer.png",
-    "ingame_icon": "assets/character/ingame/Wanderer.png",
-    "icon": "assets/character/icon/Wanderer.png",
+    "card_icon": "assets/character/card/Wanderer.avif",
+    "wish_icon": "assets/character/wish/Wanderer.avif",
+    "ingame_icon": "assets/character/ingame/Wanderer.avif",
+    "icon": "assets/character/icon/Wanderer.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "January 3rd",
@@ -30,43 +30,43 @@ var WANDERER = {
         {
             "name": "Shoban: Ostentatious Plumage",
             "level": 1,
-            "icon": "assets/character/constellations/Shoban Ostentatious Plumage.png",
+            "icon": "assets/character/constellations/Shoban Ostentatious Plumage.avif",
             "description": "When in the Windfavored state, the Attack SPD of the Wanderer's Kuugo: Fushoudan and Kuugo: Toufukai is increased by 10%.Additionally, the wind arrows fired by the Passive Talent \"Gales of Reverie\" will deal an additional 25% of his ATK as DMG. You must unlock the Passive Talent \"Gales of Reverie\" first."
         },
         {
             "name": "Niban: Isle Amidst White Waves",
             "level": 2,
-            "icon": "assets/character/constellations/Niban Isle Amidst White Waves.png",
+            "icon": "assets/character/constellations/Niban Isle Amidst White Waves.avif",
             "description": "When in the Windfavored state, Kyougen: Five Ceremonial Plays will see its DMG increased by 4% per point of difference between the max amount of Kuugoryoku Points contrasted with Kuugoryoku's present capacity when using this skill.Through this method, you can increase Kyougen: Five Ceremonial Plays's DMG by a maximum of 200%."
         },
         {
             "name": "Sanban: Moonflower Kusemai",
             "level": 3,
-            "icon": "assets/character/constellations/Sanban Moonflower Kusemai.png",
+            "icon": "assets/character/constellations/Sanban Moonflower Kusemai.avif",
             "description": "Increases the Level of Kyougen: Five Ceremonial Plays by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Yonban: Set Adrift into Spring",
             "level": 4,
-            "icon": "assets/character/constellations/Yonban Set Adrift into Spring.png",
+            "icon": "assets/character/constellations/Yonban Set Adrift into Spring.avif",
             "description": "When casting Hanega: Song of the Wind, should the Passive Talent \"Jade-Claimed Flower\" be triggered, the character will gain buffs in correspondence to the contacted Elemental Type(s), and also obtain a random untriggered buff. A maximum of 3 such corresponding elemental buffs can exist simultaneously.You must unlock the Passive Talent \"Jade-Claimed Flower\" first."
         },
         {
             "name": "Matsuban: Ancient Illuminator From Abroad",
             "level": 5,
-            "icon": "assets/character/constellations/Matsuban Ancient Illuminator From Abroad.png",
+            "icon": "assets/character/constellations/Matsuban Ancient Illuminator From Abroad.avif",
             "description": "Increases the Level of Hanega: Song of the Wind by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Shugen: The Curtains' Melancholic Sway",
             "level": 6,
-            "icon": "assets/character/constellations/Shugen The Curtains' Melancholic Sway.png",
+            "icon": "assets/character/constellations/Shugen The Curtains' Melancholic Sway.avif",
             "description": "When the Wanderer actively hits an opponent with Kuugo: Fushoudan while in the Windfavored state, the following effects will occur:Deals an additional instance of Kuugo: Fushoudan at the position hit, dealing 40% of the attack's original DMG. This DMG will be considered Normal Attack DMG.When the Wanderer falls below 40 Kuugoryoku Points, restores 4 Points to him. Kuugoryoku Points can be restored in this manner once every 0.2s. This restoration can occur up to 5 times within one Windfavored duration."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Vahumana",
@@ -76,12 +76,12 @@ var WANDERER = {
     ],
     "special_dish": {
         "name": "Shimi Chazuke",
-        "icon": "assets/foods/Wanderer.png"
+        "icon": "assets/foods/Wanderer.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Wanderer.png",
-        "background": "assets/character/namecard_background/Wanderer.png",
-        "banner": "assets/character/namecard_banner/Wanderer.png",
+        "icon": "assets/character/namecard_icon/Wanderer.avif",
+        "background": "assets/character/namecard_background/Wanderer.avif",
+        "banner": "assets/character/namecard_banner/Wanderer.avif",
         "description": "In a world most transient does the past hide, and in the whims of floating flowers does thin snow abide.",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 3,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 2,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 10,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 15,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 4,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 20,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 8,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 30,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 18,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 12,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 45,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Perpetual Caliber",
                     "value": 20,
-                    "icon": "assets/materials/Perpetual Caliber.png"
+                    "icon": "assets/materials/Perpetual Caliber.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 60,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 24,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var WANDERER = {
         {
             "name": "Yuuban Meigen",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Yuuban Meigen.png",
+            "icon": "assets/character/talents/Yuuban Meigen.avif",
             "description": "Normal AttackPerforms up to 3 attacks using wind blades, dealing Anemo DMG.Charged AttackConsumes a certain amount of Stamina, gathers a build up of high wind pressure, and deals AoE Anemo DMG after a short casting time.Plunging AttackCalling upon the power of Anemo, the Wanderer plunges towards the ground from mid-air, damaging all opponents in his path. Deals AoE Anemo DMG upon impact with the ground."
         },
         {
             "name": "Hanega: Song of the Wind",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Hanega Song of the Wind.png",
+            "icon": "assets/character/talents/Hanega Song of the Wind.avif",
             "description": "Concentrates the power of the winds to break free from the shackles of the earth, dealing AoE Anemo DMG before leaping into the air and entering the Windfavored state.WindfavoredThe Wanderer cannot perform Plunging Attacks in this state. When he uses Normal and Charged Attacks, they will be converted into Kuugo: Fushoudan and Kuugo: Toufukai respectively; the DMG they deal and their AoE will be increased, and their DMG will be considered Normal and Charged Attack DMG respectively. Kuugo: Toufukai will not consume Stamina.The Wanderer will hover persistently during this time. While this state is active, the Wanderer's movements gain the following properties:Persistently consumes Kuugoryoku Points to maintain this hovering state.When sprinting, additional Kuugoryoku Points will be consumed for the Wanderer to accelerate mid-air. Holding sprint will cause persistent Kuugoryoku Point consumption to maintain speed. This effect will replace his default sprint.Jumping expends extra Kuugoryoku Points to increase hovering height. Holding jump will cause persistent Kuugoryoku Point consumption to keep increasing hovering height.Running out of Kuugoryoku Points will end the Windfavored state.A second cast during the duration of Windfavored will also end it."
         },
         {
             "name": "Kyougen: Five Ceremonial Plays",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Kyougen Five Ceremonial Plays.png",
+            "icon": "assets/character/talents/Kyougen Five Ceremonial Plays.avif",
             "description": "Compresses the atmosphere into a singular vacuum that grinds all troubles away, dealing multiple instances of AoE Anemo DMG. If the character is in the Windfavored state due to the skill \"Hanega: Song of the Wind,\" Windfavored state will end after casting."
         },
         {
             "name": "Jade-Claimed Flower",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Jade-Claimed Flower.png",
+            "icon": "assets/character/talents/Jade-Claimed Flower.avif",
             "description": "If Hanega: Song of the Wind comes into contact with Hydro/Pyro/Cryo/Electro when it is unleashed, this instance of the Windfavored state will obtain buffs according to the contacted element(s):Hydro: Kuugoryoku Point cap increases by 20.Pyro: ATK increases by 30%.Cryo: CRIT Rate increases by 20%.Electro: When Normal and Charged Attacks hit an opponent, 0.8 Energy will be restored. Energy can be restored this way every 0.2s.You can have up to 2 different kinds of these buffs simultaneously."
         },
         {
             "name": "Gales of Reverie",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Gales of Reverie.png",
+            "icon": "assets/character/talents/Gales of Reverie.avif",
             "description": "When the Wanderer hits opponents with Kuugo: Fushoudan or Kuugo: Toufukai in his Windfavored state, he has a 16% chance to obtain the Descent effect: The next time the Wanderer accelerates in mid-air while in this instance of the Windfavored state, this effect will be removed, this acceleration instance will not consume any Kuugoryoku Points, and he will fire off 4 wind arrows that deal 35% of his ATK as Anemo DMG each.For each Kuugo: Fushoudan and Kuugo: Toufukai that does not produce this effect, the next attack of those types will have a 12% increased chance of producing it. The calculation of the effect production is done once every 0.1s."
         },
         {
             "name": "Strum the Swirling Winds",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Strum the Swirling Winds.png",
+            "icon": "assets/character/talents/Strum the Swirling Winds.avif",
             "description": "Mora expended when ascending Bows and Catalysts is decreased by 50%."
         }
     ],
@@ -464,17 +493,20 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Old Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Old Handguard.png"
+                    "icon": "assets/materials/Old Handguard.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Praxis",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Praxis.png"
+                    "icon": "assets/materials/Teachings of Praxis.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 3,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kageuchi Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Kageuchi Handguard.png"
+                    "icon": "assets/materials/Kageuchi Handguard.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 4,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 1,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 6,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 1,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 9,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 2,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var WANDERER = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Famed Handguard",
                     "value": 12,
-                    "icon": "assets/materials/Famed Handguard.png"
+                    "icon": "assets/materials/Famed Handguard.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 2,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2706,327 +2767,5 @@ var WANDERER = {
     "demo_music": {
         "name": "Novatio Novena",
         "url": "assets/character/demo_music/Wanderer.mp3"
-    },
-    "build": {
-        "version": "4.6",
-        "type": "On-field DPS",
-        "weapons": [
-            "Tulaytullah's Remembrance",
-            "Cashflow Supervision",
-            "Lost Prayers to the Sacred Winds",
-            "The Widsith",
-            "Flowing Purity"
-        ],
-        "artifacts": [
-            "4pc Desert Pavilion Chronicle",
-            "4pc Shimenawa's Reminiscence",
-            "4pc Marechaussee Hunter",
-            "4pc Echoes of an Offering"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Skill",
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Anemo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,28 +1,28 @@
 var RAZOR = {
     "name": "Razor",
     "secondary_title": "Wolf Boy",
-    "card_icon": "assets/character/card/Razor.png",
-    "wish_icon": "assets/character/wish/Razor.png",
-    "ingame_icon": "assets/character/ingame/Razor.png",
-    "icon": "assets/character/icon/Razor.png",
+    "card_icon": "assets/character/card/Razor.avif",
+    "wish_icon": "assets/character/wish/Razor.avif",
+    "ingame_icon": "assets/character/ingame/Razor.avif",
+    "icon": "assets/character/icon/Razor.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "September 9th",
@@ -30,43 +30,43 @@ var RAZOR = {
         {
             "name": "Wolf's Instinct",
             "level": 1,
-            "icon": "assets/character/constellations/Wolf's Instinct.png",
+            "icon": "assets/character/constellations/Wolf's Instinct.avif",
             "description": "Picking up an Elemental Orb or Particle increases Razor's DMG by 10% for 8s."
         },
         {
             "name": "Suppression",
             "level": 2,
-            "icon": "assets/character/constellations/Suppression.png",
+            "icon": "assets/character/constellations/Suppression.avif",
             "description": "Increases CRIT Rate against opponents with less than 30% HP by 10%."
         },
         {
             "name": "Soul Companion",
             "level": 3,
-            "icon": "assets/character/constellations/Soul Companion.png",
+            "icon": "assets/character/constellations/Soul Companion.avif",
             "description": "Increases the Level of Lightning Fang by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Bite",
             "level": 4,
-            "icon": "assets/character/constellations/Bite.png",
+            "icon": "assets/character/constellations/Bite.avif",
             "description": "When casting Claw and Thunder ((PressPressText for mouse and keyboard and controller/TapTapText for touch screen)), opponents hit will have their DEF decreased by 15% for 7s."
         },
         {
             "name": "Sharpened Claws",
             "level": 5,
-            "icon": "assets/character/constellations/Sharpened Claws.png",
+            "icon": "assets/character/constellations/Sharpened Claws.avif",
             "description": "Increases the Level of Claw and Thunder by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Lupus Fulguris",
             "level": 6,
-            "icon": "assets/character/constellations/Lupus Fulguris.png",
+            "icon": "assets/character/constellations/Lupus Fulguris.avif",
             "description": "Every 10s, Razor's sword charges up, causing the next Normal Attack to release lightning that deals 100% of Razor's ATK as Electro DMG.When Razor is not using Lightning Fang, a lightning strike on an opponent will grant Razor an Electro Sigil for Claw and Thunder."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Wolvendom",
@@ -74,12 +74,12 @@ var RAZOR = {
     ],
     "special_dish": {
         "name": "Puppy-Paw Hash Brown",
-        "icon": "assets/foods/Razor.png"
+        "icon": "assets/foods/Razor.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Razor.png",
-        "background": "assets/character/namecard_background/Razor.png",
-        "banner": "assets/character/namecard_banner/Razor.png",
+        "icon": "assets/character/namecard_icon/Razor.avif",
+        "background": "assets/character/namecard_background/Razor.avif",
+        "banner": "assets/character/namecard_banner/Razor.avif",
         "description": "It's quite a sight to behold Razor and the wolves prepare their dinner, but they won't let Klee or the Traveler see the slightly gruesome affair.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 3,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 3,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 2,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 10,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 15,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 4,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 20,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 12,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 8,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 30,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 18,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 12,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 45,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 20,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Wolfhook",
                     "value": 60,
-                    "icon": "assets/materials/Wolfhook.png"
+                    "icon": "assets/materials/Wolfhook.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 24,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var RAZOR = {
         {
             "name": "Steel Fang",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Steel Fang.png",
+            "icon": "assets/character/talents/Steel Fang.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Claw and Thunder",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Claw and Thunder.png",
+            "icon": "assets/character/talents/Claw and Thunder.avif",
             "description": "Hunts his prey using the techniques taught to him by his master and his lupical.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Swings the Thunder Wolf Claw, dealing Electro DMG to opponents in front of Razor.Upon striking an opponent, Razor will gain an Electro Sigil, which increases his Energy Recharge rate.Razor can have up to 3 Electro Sigils simultaneously, and gaining a new Electro Sigil refreshes their duration.HoldGathers Electro energy to unleash a lightning storm over a small AoE, causing massive Electro DMG, and clears all of Razor's Electro Sigils.Each Electro Sigil cleared in this manner will be converted into Energy for Razor."
         },
         {
             "name": "Lightning Fang",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Lightning Fang.png",
+            "icon": "assets/character/talents/Lightning Fang.avif",
             "description": "Summons the Wolf Within, which deals Electro DMG to all nearby opponents. This clears all of Razor's Electro Sigils, which will be converted into Elemental Energy for him.The Wolf Within will fight alongside Razor for the skill's duration.The Wolf WithinStrikes alongside Razor's normal attacks, dealing Electro DMG.Raises Razor's ATK SPD and Electro RES.Causes Razor to be immune to DMG inflicted by the Electro-Charged status.Disables Razor's Charged Attacks.Increases Razor's resistance to interruption.These effects end when Razor leaves the battlefield.When Razor leaves the field, a maximum of 10 Energy will be returned to him based off the duration remaining on this skill."
         },
         {
             "name": "Awakening",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Awakening.png",
+            "icon": "assets/character/talents/Awakening.avif",
             "description": "Decreases Claw and Thunder's CD by 18%. Using Lightning Fang resets the CD of Claw and Thunder."
         },
         {
             "name": "Hunger",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Hunger.png",
+            "icon": "assets/character/talents/Hunger.avif",
             "description": "When Razor's Energy is below 50%, increases Energy Recharge by 30%."
         },
         {
             "name": "Wolvensprint",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Wolvensprint.png",
+            "icon": "assets/character/talents/Wolvensprint.avif",
             "description": "Decreases sprinting Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -465,17 +494,20 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 6,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Resistance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Resistance.png"
+                    "icon": "assets/materials/Teachings of Resistance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 3,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 4,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 6,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 9,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 4,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 6,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 9,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var RAZOR = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2272,87 +2333,5 @@ var RAZOR = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "4.1",
-        "type": "On-field DPS",
-        "weapons": [
-            "Beacon of the Reed Sea",
-            "Wolf's Gravestone",
-            "Redhorn Stonethresher",
-            "Song of Broken Pines",
-            "The Unforged",
-            "Serpent Spine",
-            "Skyward Pride",
-            "Tidal Shadow",
-            "Prototype Archaic",
-            "Lithic Blade",
-            "Rainslasher",
-            "Mailed Flower",
-            "Makhaira Aquamarine",
-            "Talking Stick",
-            "Akuoumaru"
-        ],
-        "artifacts": [
-            "4pc Pale Flame",
-            "4pc Thundering Fury",
-            "4pc Gilded Dreams",
-            "4pc Thundersoother",
-            "4pc Gladiator's Finale"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Burst",
-            "Skill"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Electro DMG Bonus / ATK%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Razor",
-                    "icon": "assets/character/icon/Razor.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Razor",
-                    "icon": "assets/character/icon/Razor.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

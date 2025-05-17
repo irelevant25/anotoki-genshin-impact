@@ -1,29 +1,29 @@
 var EMILIE = {
     "name": "Emilie",
     "secondary_title": "A Thousand Scents Traced",
-    "card_icon": "assets/character/card/Emilie.png",
-    "wish_icon": "assets/character/wish/Emilie.png",
-    "ingame_icon": "assets/character/ingame/Emilie.png",
-    "icon": "assets/character/icon/Emilie.png",
+    "card_icon": "assets/character/card/Emilie.avif",
+    "wish_icon": "assets/character/wish/Emilie.avif",
+    "ingame_icon": "assets/character/ingame/Emilie.avif",
+    "icon": "assets/character/icon/Emilie.avif",
     "quality": "5",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Medium Female",
     "arkhe": "Pneuma",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "September 22nd",
@@ -31,43 +31,43 @@ var EMILIE = {
         {
             "name": "Light Fragrance Leaching",
             "level": 1,
-            "icon": "assets/character/constellations/Light Fragrance Leaching.png",
+            "icon": "assets/character/constellations/Light Fragrance Leaching.avif",
             "description": "Increases the DMG dealt by Fragrance Extraction and her Passive Talent's Cleardew Cologne \"Lingering Fragrance\" by 20%. The latter requires unlocking said Passive Talent first.Additionally, when nearby party members trigger the Burning reaction on opponents or deal Dendro DMG to Burning opponents, they will generate an additional Scent. This effect can be triggered once every 2.9s."
         },
         {
             "name": "Lakelight Top Note",
             "level": 2,
-            "icon": "assets/character/constellations/Lakelight Top Note.png",
+            "icon": "assets/character/constellations/Lakelight Top Note.avif",
             "description": "When Fragrance Extraction, Aromatic Explication, or Cleardew Cologne produced by the Passive Talent \"Lingering Fragrance\" (the last of which requires Passive Talent activation) hits opponents, those opponents' Dendro RES is decreased by 30% for 10s."
         },
         {
             "name": "Exquisite Essence",
             "level": 3,
-            "icon": "assets/character/constellations/Exquisite Essence.png",
+            "icon": "assets/character/constellations/Exquisite Essence.avif",
             "description": "Increases the Level of Fragrance Extraction by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Lumidouce Heart Note",
             "level": 4,
-            "icon": "assets/character/constellations/Lumidouce Heart Note.png",
+            "icon": "assets/character/constellations/Lumidouce Heart Note.avif",
             "description": "Aromatic Explication's duration is increased by 2s. The interval between opponents being selected as the target for Scented Dew is decreased by 0.3s."
         },
         {
             "name": "Puredew Aroma",
             "level": 5,
-            "icon": "assets/character/constellations/Puredew Aroma.png",
+            "icon": "assets/character/constellations/Puredew Aroma.avif",
             "description": "Increases the Level of Aromatic Explication by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Marcotte Sillage",
             "level": 6,
-            "icon": "assets/character/constellations/Marcotte Sillage.png",
+            "icon": "assets/character/constellations/Marcotte Sillage.avif",
             "description": "When using Fragrance Extraction or Aromatic Explication, Emilie will gain Abiding Fragrance for 5s.While this is active, after Emilie uses Normal or Charged Attacks, she will generate 1 Scent, and her Normal and Charged Attack DMG will be converted into Dendro DMG that cannot be overridden, and the DMG dealt will be increased by 300% of Emilie's ATK.The Abiding Fragrance effect will be removed after 4 Scents are created this way or after its duration expires. Abiding Fragrance can be triggered once every 12s."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Court of Fontaine",
@@ -75,12 +75,12 @@ var EMILIE = {
     ],
     "special_dish": {
         "name": "A Fragrant Feast of Flavors",
-        "icon": "assets/foods/Emilie.png"
+        "icon": "assets/foods/Emilie.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Emilie.png",
-        "background": "assets/character/namecard_background/Emilie.png",
-        "banner": "assets/character/namecard_banner/Emilie.png",
+        "icon": "assets/character/namecard_icon/Emilie.avif",
+        "background": "assets/character/namecard_background/Emilie.avif",
+        "banner": "assets/character/namecard_banner/Emilie.avif",
         "description": "\"The top note is sweet, the middle rich but not distracting, and the base — Ah! Such a faint fragrance! Such an exquisite perfume.\"Orders flow in and out in an endless stream, and to prevent any scents from disturbing her work, Emilie very seldom uses perfume herself. Alas. When will she have the chance to delight in those base notes?",
         "quality": "4",
         "sources": [
@@ -158,22 +158,26 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 3,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 3,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -201,27 +205,32 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 2,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 10,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 15,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -249,27 +258,32 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 4,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 20,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 12,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -297,27 +311,32 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 8,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 30,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 18,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -345,27 +364,32 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 12,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 45,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -393,27 +417,32 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fragment of a Golden Melody",
                     "value": 20,
-                    "icon": "assets/materials/Fragment of a Golden Melody.png"
+                    "icon": "assets/materials/Fragment of a Golden Melody.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Lakelight Lily",
                     "value": 60,
-                    "icon": "assets/materials/Lakelight Lily.png"
+                    "icon": "assets/materials/Lakelight Lily.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 24,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -422,37 +451,37 @@ var EMILIE = {
         {
             "name": "Shadow-Hunting Spear (Custom)",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Shadow-Hunting Spear (Custom).png",
+            "icon": "assets/character/talents/Shadow-Hunting Spear (Custom).avif",
             "description": "Normal AttackPerforms up to 4 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to perform an upward slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Fragrance Extraction",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Fragrance Extraction.png",
+            "icon": "assets/character/talents/Fragrance Extraction.avif",
             "description": "Creates a Lumidouce Case that deals AoE Dendro DMG.Lumidouce CaseFires Puffs of Puredew at nearby opponents at intervals, dealing Dendro DMG.When nearby opponents are affected by Burning, they will give off Scents at intervals, and 1 Scent can be created this way every 2s. The Lumidouce Case collects nearby Scents. The Lumidouce Case will level up after gathering 2 of them, after which it will fire 1 extra Puff of Puredew when firing, while the DMG dealt by and DMG AoE of the above attack will also be increased.1 Lumidouce Case created by Emilie herself can exist at any one time. The Case starts at Level 1 and can go up to Level 2. If the Case does not collect any Scents for 8s while it is on the field, it will go back to Level 1.Arkhe: PneumaAt intervals, after Emilie creates a Lumidouce Case this way, a Spiritbreath Thorn will descend in front of her and pierce her opponent, dealing Pneuma-aligned Dendro DMG."
         },
         {
             "name": "Aromatic Explication",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Aromatic Explication.png",
+            "icon": "assets/character/talents/Aromatic Explication.avif",
             "description": "Guiding the fragrances collected within the Case, Emilie converts them into pure Dendro energy, creating a Level 3 Lumidouce Case and stowing existing Cases away.While it exists, the Level 3 Lumidouce Case will not gather nearby Scents, but it will continuously cause Scented Dew to descend, attacking opponents within range and dealing Dendro DMG. During this time, 1 drop of Scented Dew will descend every 0.3 seconds, and 1 opponent can become the target every 0.7 seconds.When the duration ends, a Level 1 Lumidouce Case will be recreated. If a Lumidouce Case was stowed away when using Aromatic Explication, then the Case that was stowed away will be deployed instead, and its duration will be reset.While Aromatic Explication is active, the Elemental Skill \"Fragrance Extraction\" will not create a Lumidouce Case."
         },
         {
             "name": "Lingering Fragrance",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Lingering Fragrance.png",
+            "icon": "assets/character/talents/Lingering Fragrance.avif",
             "description": "Each time it collects 2 Scents, the Level 2 Lumidouce Case will consume Scents and release Cleardew Cologne that deals AoE Dendro DMG equal to 600% of Emilie's ATK to opponents. This DMG is not considered Elemental Skill DMG."
         },
         {
             "name": "Rectification",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Rectification.png",
+            "icon": "assets/character/talents/Rectification.avif",
             "description": "Emilie deals increased DMG to Burning opponents based on her ATK, with every 1,000 ATK increasing DMG dealt by 15%. The maximum DMG bonus that can be gained this way is 36%."
         },
         {
             "name": "Headspace Capture",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Headspace Capture.png",
+            "icon": "assets/character/talents/Headspace Capture.avif",
             "description": "When the Lumidouce Case created by Emilie is on the field, all party members gain 85% Pyro RES against Burning DMG."
         }
     ],
@@ -463,17 +492,20 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Meshing Gear",
                     "value": 6,
-                    "icon": "assets/materials/Meshing Gear.png"
+                    "icon": "assets/materials/Meshing Gear.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Order",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Order.png"
+                    "icon": "assets/materials/Teachings of Order.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -483,17 +515,20 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 3,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -503,17 +538,20 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 4,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -523,17 +561,20 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 6,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -543,17 +584,20 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Mechanical Spur Gear",
                     "value": 9,
-                    "icon": "assets/materials/Mechanical Spur Gear.png"
+                    "icon": "assets/materials/Mechanical Spur Gear.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Order",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Order.png"
+                    "icon": "assets/materials/Guide to Order.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -563,22 +607,26 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silken Feather",
                     "value": 1,
-                    "icon": "assets/materials/Silken Feather.png"
+                    "icon": "assets/materials/Silken Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -588,22 +636,26 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 6,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silken Feather",
                     "value": 1,
-                    "icon": "assets/materials/Silken Feather.png"
+                    "icon": "assets/materials/Silken Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -613,22 +665,26 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 9,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silken Feather",
                     "value": 2,
-                    "icon": "assets/materials/Silken Feather.png"
+                    "icon": "assets/materials/Silken Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -638,27 +694,32 @@ var EMILIE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Dynamic Gear",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Dynamic Gear.png"
+                    "icon": "assets/materials/Artificed Dynamic Gear.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Order",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Order.png"
+                    "icon": "assets/materials/Philosophies of Order.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silken Feather",
                     "value": 2,
-                    "icon": "assets/materials/Silken Feather.png"
+                    "icon": "assets/materials/Silken Feather.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -840,7 +901,7 @@ var EMILIE = {
                     "title": "About Escoffier",
                     "text": "Miss Escoffier is a diligent and studious chef. Normally, dry lectures about perfumery would put someone to sleep, but not her. On top of that, her mind is so quick — she can recognize subtle links between pieces of information and can instantly put her knowledge into practice. Some people think she was blessed with a natural culinary gift. But, I believe the secret to her success is self-evident.",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Emilie/story/en/About Escoffier.mp3"
                 },
                 {
                     "title": "More About Emilie: I",
@@ -1311,7 +1372,7 @@ var EMILIE = {
                 {
                     "title": "エミリエ自身について·特殊清掃人",
                     "text": "殺人事件や事故の現場捜査が終わった後は、後片付けや清掃作業を担う者が必要になります。人体組織などの残留物を片付け、血の跡を洗い流し、消毒作業を行う…これが「特殊清掃人」の責務です。私はフォンテーヌ廷のいかなる組織にも属さず、個人名義でこの仕事をしています。警察隊と長期的な協力関係を結んでいるだけでなく、個人の依頼もたまにお受けしていますよ。…この仕事に関して、私がお話しできるのはこのくらいです。他に聞きたいことはありますか？どうぞ、ご自由に。",
-                    "reading": "Satsujin jiken ya jiko no genba sousa ga owatta ato wa, atokatadzuke ya seisou sagyou o ninau mono ga hitsuyou ni narimasu. Jintai soshiki nado no zanryuubutsu o katadzuke, chi no ato o arai nagashi, shoudoku sagyou o okonau… kore ga 'tokushu seisounin' no sekinin desu. Watashi wa Fontēnu tei no ikanaru soshiki ni mo zokusazu, kojin meigi de kono shigoto o shiteimasu. Keisatsutai to choukiteki na kyouryoku kankei o musunde iru dake de naku, kojin no irai mo tama ni o uke shiteimasu yo.\n…Kono shigoto ni kanshite, watashi ga ohanashi dekiru no wa kono kurai desu. Hoka ni kikitai koto wa arimasu ka? Douzo, gojiyuu ni.",
+                    "reading": "Satsujin jiken ya jiko no genba sousa ga owatta ato wa, atokatadzuke ya seisou sagyou o ninau mono ga hitsuyou ni narimasu. Jintai soshiki nado no zanryuubutsu o katadzuke, chi no ato o arai nagashi, shoudoku sagyou o okonau… kore ga “tokushu seisounin” no sekinin desu. Watashi wa Fontēnu tei no ikanaru soshiki ni mo zokusazu, kojin meigi de kono shigoto o shiteimasu. Keisatsutai to choukiteki na kyouryoku kankei o musunde iru dake de naku, kojin no irai mo tama ni o uke shiteimasu yo.\n…Kono shigoto ni kanshite, watashi ga ohanashi dekiru no wa kono kurai desu. Hoka ni kikitai koto wa arimasu ka? Douzo, gojiyuu ni.",
                     "audio": "assets/character/voice_overs/Emilie/story/ja/エミリエ自身について·特殊清掃人.mp3"
                 },
                 {
@@ -1473,7 +1534,7 @@ var EMILIE = {
                 {
                     "title": "誕生日…",
                     "text": "お誕生日おめでとうございます。香りの好みはきわめて個人的なものですが、僭越ながらあなたのために香水を選んでみました。私のプライベート作品の一つで、公開販売していないものですよ。この時期の花と果実の香りをできるだけ融け合わせようとしてみたものなのです。さほどユニークな香水ではありませんが…どうか、穏やかでのんびりとした時間を提供できますように。",
-                    "reading": "Otanjoubi omedetou gozaimasu. Kaori no konomi wa kiwamete kojinteki na mono desu ga, sen'etsu nagara anata no tame ni kousui o erande mimashita. Watashi no puraibēto sakuhin no hitotsu de, koukai hanbai shite inai mono desu yo.\nKono jiki no hana to kajitsu no kaori o dekiru dake tokemawaseryou to shite mita mono na no desu. Saho do yunikuna kousui de wa arimasen ga... douka, odayaka de nonbiri to shita jikan o teikyou dekimasu you ni.",
+                    "reading": "Otanjoubi omedetou gozaimasu. Kaori no konomi wa kiwamete kojinteki na mono desu ga, sen’etsu nagara anata no tame ni kousui o erande mimashita. Watashi no puraibēto sakuhin no hitotsu de, koukai hanbai shite inai mono desu yo.\nKono jiki no hana to kajitsu no kaori o dekiru dake tokemawaseryou to shite mita mono na no desu. Saho do yunikuna kousui de wa arimasen ga... douka, odayaka de nonbiri to shita jikan o teikyou dekimasu you ni.",
                     "audio": "assets/character/voice_overs/Emilie/story/ja/誕生日….mp3"
                 },
                 {
@@ -2346,263 +2407,5 @@ var EMILIE = {
     "demo_music": {
         "name": "Notes Aeriennes",
         "url": "assets/character/demo_music/Emilie.mp3"
-    },
-    "build": {
-        "version": "5.4",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Lumidouce Elegy",
-            "Calamity Queller",
-            "Staff of Scarlet Sands",
-            "Staff of Homa",
-            "Deathmatch",
-            "Missive Windspear",
-            "Blackcliff Pole",
-            "Lithic Spear",
-            "Wavebreaker's Fin",
-            "Prospector's Drill",
-            "Tamayuratei no Ohanashi",
-            "Mountain-Bracing Bolt",
-            "Favonius Lance",
-            "Kitain Cross Spear"
-        ],
-        "artifacts": [
-            "4pc Unfinished Reverie",
-            "4pc Deepwood Memories",
-            "4pc Golden Troupe"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Dendro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "ATK",
-            "ER"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Emilie",
-                    "icon": "assets/character/icon/Emilie.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ]
-        ]
     }
 }

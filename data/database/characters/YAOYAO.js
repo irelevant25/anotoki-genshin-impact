@@ -1,28 +1,28 @@
 var YAOYAO = {
     "name": "Yaoyao",
     "secondary_title": "Burgeoning Grace",
-    "card_icon": "assets/character/card/Yaoyao.png",
-    "wish_icon": "assets/character/wish/Yaoyao.png",
-    "ingame_icon": "assets/character/ingame/Yaoyao.png",
-    "icon": "assets/character/icon/Yaoyao.png",
+    "card_icon": "assets/character/card/Yaoyao.avif",
+    "wish_icon": "assets/character/wish/Yaoyao.avif",
+    "ingame_icon": "assets/character/ingame/Yaoyao.avif",
+    "icon": "assets/character/icon/Yaoyao.avif",
     "quality": "4",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Short Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "March 6th",
@@ -30,55 +30,55 @@ var YAOYAO = {
         {
             "name": "Adeptus' Tutelage",
             "level": 1,
-            "icon": "assets/character/constellations/Adeptus' Tutelage.png",
+            "icon": "assets/character/constellations/Adeptus' Tutelage.avif",
             "description": "When White Jade Radishes explode, active characters within their AoE will gain 15% Dendro DMG Bonus for 8s and have 15 Stamina restored to them. This form of Stamina Restoration can only be triggered every 5s."
         },
         {
             "name": "Innocent",
             "level": 2,
-            "icon": "assets/character/constellations/Innocent.png",
+            "icon": "assets/character/constellations/Innocent.avif",
             "description": "While affected by the Adeptal Legacy state caused by Moonjade Descent, if White Jade Radish explosions damage opponents, 3 Energy will be restored to Yaoyao. This form of Energy regeneration can occur once every 0.8s."
         },
         {
             "name": "Loyal and Kind",
             "level": 3,
-            "icon": "assets/character/constellations/Loyal and Kind.png",
+            "icon": "assets/character/constellations/Loyal and Kind.avif",
             "description": "Increases the Level of Raphanus Sky Cluster by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Winsome",
             "level": 4,
-            "icon": "assets/character/constellations/Winsome.png",
+            "icon": "assets/character/constellations/Winsome.avif",
             "description": "After using Raphanus Sky Cluster or Moonjade Descent, Yaoyao's Elemental Mastery will be increased based on 0.3% of her Max HP for 8s. The maximum Elemental Mastery she can gain this way is 120."
         },
         {
             "name": "Compassionate",
             "level": 5,
-            "icon": "assets/character/constellations/Compassionate.png",
+            "icon": "assets/character/constellations/Compassionate.avif",
             "description": "Increases the Level of Moonjade Descent by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Beneficent",
             "level": 6,
-            "icon": "assets/character/constellations/Beneficent.png",
+            "icon": "assets/character/constellations/Beneficent.avif",
             "description": "For every 2 White Jade Radishes Yuegui: Throwing Mode throws out, it will also throw a Mega Radish that will have a larger AoE than the standard White Jade Radish and have the following effects upon exploding:Deals AoE Dendro DMG based on 75% of Yaoyao's ATK.Restores HP for the active character based on 7.5% of Yaoyao's Max HP.Every Yuegui: Throwing Mode can throw out a maximum of 2 Mega Radishes."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Adepti"
     ],
     "special_dish": {
         "name": "Qingce Household Dish",
-        "icon": "assets/foods/Yaoyao.png"
+        "icon": "assets/foods/Yaoyao.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Yaoyao.png",
-        "background": "assets/character/namecard_background/Yaoyao.png",
-        "banner": "assets/character/namecard_banner/Yaoyao.png",
+        "icon": "assets/character/namecard_icon/Yaoyao.avif",
+        "background": "assets/character/namecard_background/Yaoyao.avif",
+        "banner": "assets/character/namecard_banner/Yaoyao.avif",
         "description": "\"Can you guess which one here is Yuegui? That's right, all of them are!\"",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 3,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 3,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 2,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 10,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 15,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 4,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 20,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 12,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 8,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 30,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 18,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 12,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 45,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 20,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Jueyun Chili",
                     "value": 60,
-                    "icon": "assets/materials/Jueyun Chili.png"
+                    "icon": "assets/materials/Jueyun Chili.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 24,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,37 +449,37 @@ var YAOYAO = {
         {
             "name": "Toss 'N' Turn Spear",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Toss 'N' Turn Spear.png",
+            "icon": "assets/character/talents/Toss 'N' Turn Spear.avif",
             "description": "Normal AttackPerforms up to 4 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, dealing damage to opponents along the way.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Raphanus Sky Cluster",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Raphanus Sky Cluster.png",
+            "icon": "assets/character/talents/Raphanus Sky Cluster.avif",
             "description": "Calls upon \"Yuegui: Throwing Mode,\" a special device created by a certain adeptus to help Yaoyao solve her problems.This skill will be used differently in Holding Mode.HoldEnters Aiming Mode to adjust the throw direction.Yuegui: Throwing ModeThrows out White Jade Radishes that will explode upon hitting characters or opponents, dealing Dendro DMG to opponents within a certain AoE, and healing characters within that same AoE based on Yaoyao's Max HP. If a radish does not hit either an opponent or a character, the radish will remain where it is and explode on contact with a character or opponent, or will explode after its duration expires.Yuegui: Throwing Mode will choose its radish-throw targets.If all nearby characters have more than 70% HP remaining, then it will throw the radish at a nearby opponent.If nearby characters have 70% or less HP remaining, it will throw a radish at the character with the lowest HP percentage remaining. If no opponents exist nearby, Yuegui will throw White Jade Radishes at characters even if they all have more than 70% HP remaining.A maximum of 2 instances Yuegui: Throwing Mode can exist at any one time."
         },
         {
             "name": "Moonjade Descent",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Moonjade Descent.png",
+            "icon": "assets/character/talents/Moonjade Descent.avif",
             "description": "At the enjoinment of a certain adeptus, Yuegui's full potential can be unleashed in an emergency, dealing Dendro DMG to nearby opponents and entering an (in some sense) unsurpassed Adeptal Legacy state.Adeptal LegacyWhite Jade Radishes generated will be changed to heal and deal DMG according to this skill. Explosions will heal all nearby party members, and the Dendro DMG that they deal will be viewed as Elemental Burst DMG instead.Summons \"Yuegui: Jumping Mode\" at intervals until their limit has been reached. The behavior of this version of Yuegui is the same as that of \"Yuegui: Throwing Mode\" in the Elemental Skill, Raphanus Sky Cluster. A maximum of 3 Yuegui: Jumping Mode can exist at any one time.Yaoyao's Movement SPD is increased by 15%.Yaoyao's Dendro RES will be increased.The Adeptal Legacy state will end once Yaoyao is off-field, and all remaining Yuegui: Jumping Mode will be cleared once this state ends."
         },
         {
             "name": "Starscatter",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Starscatter.png",
+            "icon": "assets/character/talents/Starscatter.avif",
             "description": "While affected by the Adeptal Legacy state caused by Moonjade Descent, Yaoyao will constantly throw White Jade Radishes at nearby opponents when she is sprinting, jumping, or running. She can throw 1 White Jade Radish this way once every 0.6s."
         },
         {
             "name": "In Others' Shoes",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/In Others' Shoes.png",
+            "icon": "assets/character/talents/In Others' Shoes.avif",
             "description": "When White Jade Radishes explode, active characters within their AoE will regain HP every 1s based on 0.8% of Yaoyao's Max HP. This effect lasts 5s."
         },
         {
             "name": "Tailing on Tiptoes",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Tailing on Tiptoes.png",
+            "icon": "assets/character/talents/Tailing on Tiptoes.avif",
             "description": "When Yaoyao is in the party, your characters will not startle Crystalflies and certain other animals when getting near them.Check the \"Other\" sub-category of the \"Living Beings / Wildlife\" section in the Archive for creatures this skill works on."
         }
     ],
@@ -461,17 +490,20 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Diligence",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Diligence.png"
+                    "icon": "assets/materials/Teachings of Diligence.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +513,20 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 3,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +536,20 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 4,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +559,20 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 6,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +582,20 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 9,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +605,26 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 4,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 1,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +634,26 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 1,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +663,26 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 9,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 2,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +692,32 @@ var YAOYAO = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 2,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2368,150 +2429,5 @@ var YAOYAO = {
     "demo_music": {
         "name": "Immaculate Ardency",
         "url": "assets/character/demo_music/Yaoyao.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "Healer / Support",
-        "weapons": [
-            "Dialogues of the Desert Sages",
-            "Black Tassel",
-            "Kitain Cross Spear",
-            "Favonius Lance",
-            "Moonpiercer",
-            "Rightful Reward",
-            "Dragon's Bane"
-        ],
-        "artifacts": [
-            "4pc Deepwood Memories",
-            "4pc Instructor",
-            "4pc Tenacity of the Millelith",
-            "4pc Maiden Beloved",
-            "4pc Gilded Dreams",
-            "4pc The Exile"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / HP%",
-            "HP%",
-            "HP% / Healing Bonus"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,28 +1,28 @@
 var LISA = {
     "name": "Lisa",
     "secondary_title": "Witch of Purple Rose",
-    "card_icon": "assets/character/card/Lisa.png",
-    "wish_icon": "assets/character/wish/Lisa.png",
-    "ingame_icon": "assets/character/ingame/Lisa.png",
-    "icon": "assets/character/icon/Lisa.png",
+    "card_icon": "assets/character/card/Lisa.avif",
+    "wish_icon": "assets/character/wish/Lisa.avif",
+    "ingame_icon": "assets/character/ingame/Lisa.avif",
+    "icon": "assets/character/icon/Lisa.avif",
     "quality": "4",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "June 9th",
@@ -30,43 +30,43 @@ var LISA = {
         {
             "name": "Infinite Circuit",
             "level": 1,
-            "icon": "assets/character/constellations/Infinite Circuit.png",
+            "icon": "assets/character/constellations/Infinite Circuit.avif",
             "description": "Lisa regenerates 2 Energy for every opponent hit while holding Violet Arc.A maximum of 10 Energy can be regenerated in this manner at any one time."
         },
         {
             "name": "Electromagnetic Field",
             "level": 2,
-            "icon": "assets/character/constellations/Electromagnetic Field.png",
+            "icon": "assets/character/constellations/Electromagnetic Field.avif",
             "description": "Holding Violet Arc has the following effects:Increases DEF by 25%.Increases Lisa's resistance to interruption."
         },
         {
             "name": "Resonant Thunder",
             "level": 3,
-            "icon": "assets/character/constellations/Resonant Thunder.png",
+            "icon": "assets/character/constellations/Resonant Thunder.avif",
             "description": "Increases the Level of Lightning Rose by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Plasma Eruption",
             "level": 4,
-            "icon": "assets/character/constellations/Plasma Eruption.png",
+            "icon": "assets/character/constellations/Plasma Eruption.avif",
             "description": "Lightning Rose now unleashes 1-3 lightning bolts when it attacks."
         },
         {
             "name": "Electrocute",
             "level": 5,
-            "icon": "assets/character/constellations/Electrocute.png",
+            "icon": "assets/character/constellations/Electrocute.avif",
             "description": "Increases the Level of Violet Arc by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Pulsating Witch",
             "level": 6,
-            "icon": "assets/character/constellations/Pulsating Witch.png",
+            "icon": "assets/character/constellations/Pulsating Witch.avif",
             "description": "When Lisa takes the field, she applies 3 stacks of Violet Arc's Conductive status onto nearby opponents.This effect can only occur once every 5s."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius",
@@ -74,12 +74,12 @@ var LISA = {
     ],
     "special_dish": {
         "name": "Mysterious Bolognese",
-        "icon": "assets/foods/Lisa.png"
+        "icon": "assets/foods/Lisa.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Lisa.png",
-        "background": "assets/character/namecard_background/Lisa.png",
-        "banner": "assets/character/namecard_banner/Lisa.png",
+        "icon": "assets/character/namecard_icon/Lisa.avif",
+        "background": "assets/character/namecard_background/Lisa.avif",
+        "banner": "assets/character/namecard_banner/Lisa.avif",
         "description": "An hourglass marks the end of the work day for Lisa. Its sand moves fast.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Valberry",
                     "value": 3,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 3,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 2,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Valberry",
                     "value": 10,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 15,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 4,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Valberry",
                     "value": 20,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 12,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 8,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Valberry",
                     "value": 30,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 18,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 12,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Valberry",
                     "value": 45,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 20,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Valberry",
                     "value": 60,
-                    "icon": "assets/materials/Valberry.png"
+                    "icon": "assets/materials/Valberry.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 24,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var LISA = {
         {
             "name": "Lightning Touch",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Lightning Touch.png",
+            "icon": "assets/character/talents/Lightning Touch.avif",
             "description": "Normal AttackPerforms up to 4 lightning attacks that deal Electro DMG.Charged AttackConsumes a certain amount of Stamina to deal AoE Electro DMG after a short casting time.Plunging AttackGathering the might of Electro, Lisa plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Electro DMG upon impact with the ground."
         },
         {
             "name": "Violet Arc",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Violet Arc.png",
+            "icon": "assets/character/talents/Violet Arc.avif",
             "description": "Channels the power of lightning to sweep bothersome matters away.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Releases a homing Lightning Orb.On hit, it deals Electro DMG and applies a stack of the Conductive status (max 3 stacks) to opponents in a small AoE.HoldAfter an extended casting time, calls down lightning from the heavens, dealing massive Electro DMG to all nearby opponents.Deals great amounts of extra damage to opponents based on the number of Conductive stacks applied to them, and clears their Conductive status."
         },
         {
             "name": "Lightning Rose",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Lightning Rose.png",
+            "icon": "assets/character/talents/Lightning Rose.avif",
             "description": "Summons a Lightning Rose that unleashes powerful lightning bolts, launching surrounding opponents and dealing Electro DMG.The Lightning Rose will continuously emit lightning to knock back opponents and deal Electro DMG throughout the ability's duration."
         },
         {
             "name": "Induced Aftershock",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Induced Aftershock.png",
+            "icon": "assets/character/talents/Induced Aftershock.avif",
             "description": "Hits by Charged Attacks apply Violet Arc's Conductive status to opponents."
         },
         {
             "name": "Static Electricity Field",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Static Electricity Field.png",
+            "icon": "assets/character/talents/Static Electricity Field.avif",
             "description": "Opponents hit by Lightning Rose have their DEF decreased by 15% for 10s."
         },
         {
             "name": "General Pharmaceutics",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/General Pharmaceutics.png",
+            "icon": "assets/character/talents/General Pharmaceutics.avif",
             "description": "When Lisa crafts a potion, she has a 20% chance to refund a portion of the crafting materials used."
         }
     ],
@@ -462,17 +491,20 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ballad",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ballad.png"
+                    "icon": "assets/materials/Teachings of Ballad.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 3,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 4,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 6,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 9,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 4,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 9,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var LISA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Claw",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Claw.png"
+                    "icon": "assets/materials/Dvalin's Claw.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2461,201 +2522,5 @@ var LISA = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "5.2",
-        "type": "Support",
-        "weapons": [
-            "Thrilling Tales of Dragon Slayers",
-            "Hakushin Ring",
-            "Favonius Codex",
-            "Prototype Amber"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Scroll of the Hero of Cinder City ",
-            "4pc Noblesse Oblige",
-            "4pc Gilded Dreams"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER% / ATK%, / EM",
-            "Electro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK% / EM",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                },
-                {
-                    "name": "Lisa",
-                    "icon": "assets/character/icon/Lisa.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

@@ -1,18 +1,18 @@
 var TIGHNARI = {
     "name": "Tighnari",
     "secondary_title": "Verdant Strider",
-    "card_icon": "assets/character/card/Tighnari.png",
-    "wish_icon": "assets/character/wish/Tighnari.png",
-    "ingame_icon": "assets/character/ingame/Tighnari.png",
-    "icon": "assets/character/icon/Tighnari.png",
+    "card_icon": "assets/character/card/Tighnari.avif",
+    "wish_icon": "assets/character/wish/Tighnari.avif",
+    "ingame_icon": "assets/character/ingame/Tighnari.avif",
+    "icon": "assets/character/icon/Tighnari.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Medium Male",
     "roles": [],
@@ -21,43 +21,43 @@ var TIGHNARI = {
         {
             "name": "Beginnings Determined at the Roots",
             "level": 1,
-            "icon": "assets/character/constellations/Beginnings Determined at the Roots.png",
+            "icon": "assets/character/constellations/Beginnings Determined at the Roots.avif",
             "description": "Tighnari's Charged Attack CRIT Rate is increased by 15%."
         },
         {
             "name": "Origins Known From the Stem",
             "level": 2,
-            "icon": "assets/character/constellations/Origins Known From the Stem.png",
+            "icon": "assets/character/constellations/Origins Known From the Stem.avif",
             "description": "When there are opponents within the Vijnana-Khanda Field created by Vijnana-Phala Mine, Tighnari gains 20% Dendro DMG Bonus.The effect will last up to 6s if the field's duration ends or if it no longer has opponents within it."
         },
         {
             "name": "Fortunes Read Amongst the Branches",
             "level": 3,
-            "icon": "assets/character/constellations/Fortunes Read Amongst the Branches.png",
+            "icon": "assets/character/constellations/Fortunes Read Amongst the Branches.avif",
             "description": "Increases the Level of Fashioner's Tanglevine Shaft by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Withering Glimpsed in the Leaves",
             "level": 4,
-            "icon": "assets/character/constellations/Withering Glimpsed in the Leaves.png",
+            "icon": "assets/character/constellations/Withering Glimpsed in the Leaves.avif",
             "description": "When Fashioner's Tanglevine Shaft is unleashed, all nearby party members gain 60 Elemental Mastery for 8s. If the Fashioner's Tanglevine Shaft triggers a Burning, Bloom, Quicken, or Spread reaction, their Elemental Mastery will be further increased by 60. This latter case will also refresh the buff state's duration."
         },
         {
             "name": "Comprehension Amidst the Flowers",
             "level": 5,
-            "icon": "assets/character/constellations/Comprehension Amidst the Flowers.png",
+            "icon": "assets/character/constellations/Comprehension Amidst the Flowers.avif",
             "description": "Increases the Level of Vijnana-Phala Mine by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Karma Adjudged From the Leaden Fruit",
             "level": 6,
-            "icon": "assets/character/constellations/Karma Adjudged From the Leaden Fruit.png",
+            "icon": "assets/character/constellations/Karma Adjudged From the Leaden Fruit.avif",
             "description": "Wreath Arrow's charging time is decreased by 0.9s, and will produce 1 additional Clusterbloom Arrow upon hit. This arrow deals 150% of Tighnari's ATK as DMG."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Gandharva Ville",
@@ -66,12 +66,12 @@ var TIGHNARI = {
     ],
     "special_dish": {
         "name": "Forest Watcher's Choice",
-        "icon": "assets/foods/Tighnari.png"
+        "icon": "assets/foods/Tighnari.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Tighnari.png",
-        "background": "assets/character/namecard_background/Tighnari.png",
-        "banner": "assets/character/namecard_banner/Tighnari.png",
+        "icon": "assets/character/namecard_icon/Tighnari.avif",
+        "background": "assets/character/namecard_background/Tighnari.avif",
+        "banner": "assets/character/namecard_banner/Tighnari.avif",
         "description": "Tighnari takes good care of his big, fluffy tail. The essential oil he uses was extracted from flowers and mixed together meticulously. It gives off a faint, calming scent.",
         "quality": "4",
         "sources": [
@@ -151,22 +151,26 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Nilotpala Lotus",
                     "value": 3,
-                    "icon": "assets/materials/Nilotpala Lotus.png"
+                    "icon": "assets/materials/Nilotpala Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 3,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -194,27 +198,32 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 2,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nilotpala Lotus",
                     "value": 10,
-                    "icon": "assets/materials/Nilotpala Lotus.png"
+                    "icon": "assets/materials/Nilotpala Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 15,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -242,27 +251,32 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 4,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nilotpala Lotus",
                     "value": 20,
-                    "icon": "assets/materials/Nilotpala Lotus.png"
+                    "icon": "assets/materials/Nilotpala Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 12,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -290,27 +304,32 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 8,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nilotpala Lotus",
                     "value": 30,
-                    "icon": "assets/materials/Nilotpala Lotus.png"
+                    "icon": "assets/materials/Nilotpala Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 18,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -338,27 +357,32 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 12,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nilotpala Lotus",
                     "value": 45,
-                    "icon": "assets/materials/Nilotpala Lotus.png"
+                    "icon": "assets/materials/Nilotpala Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -386,27 +410,32 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 20,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Nilotpala Lotus",
                     "value": 60,
-                    "icon": "assets/materials/Nilotpala Lotus.png"
+                    "icon": "assets/materials/Nilotpala Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 24,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -415,37 +444,37 @@ var TIGHNARI = {
         {
             "name": "Khanda Barrier-Buster",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Khanda Barrier-Buster.png",
+            "icon": "assets/character/talents/Khanda Barrier-Buster.avif",
             "description": "Normal AttackPerforms up to 4 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, the power of Dendro will accumulate on the arrowhead before the arrow is fired. Has different effects based on how long the energy has been charged:Charge Level 1: Fires off an arrow carrying the power of flora that deals Dendro DMG.Charge Level 2: Fires off a Wreath Arrow that deals Dendro DMG. Upon hit, the Wreath Arrow will create 4 Clusterbloom Arrows that will track nearby opponents automatically and deal Dendro DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Vijnana-Phala Mine",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Vijnana-Phala Mine.png",
+            "icon": "assets/character/talents/Vijnana-Phala Mine.avif",
             "description": "Tighnari throws a Vijnana Stormheart ahead that deals AoE Dendro DMG, creating a Vijnana-Khanda Field that creates mysterious illusions that taunt opponents and draw their fire.Additionally, Tighnari gains the Vijnana Suffusion effect, which will decrease the Wreath Arrow's charging time by 2.4s. This effect will dissipate once the skill duration ends or after Tighnari has fired 3 Wreath Arrows."
         },
         {
             "name": "Fashioner's Tanglevine Shaft",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Fashioner's Tanglevine Shaft.png",
+            "icon": "assets/character/talents/Fashioner's Tanglevine Shaft.avif",
             "description": "Combines the power of all seeds to fire 6 Tanglevine Shafts that can track opponents and deal Dendro DMG.After they hit, the Tanglevine Shafts will create a secondary wave of Tanglevine Shafts that can also track nearby opponents and deal Dendro DMG on hit."
         },
         {
             "name": "Keen Sight",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Keen Sight.png",
+            "icon": "assets/character/talents/Keen Sight.avif",
             "description": "After Tighnari fires a Wreath Arrow, his Elemental Mastery is increased by 50 for 4s."
         },
         {
             "name": "Scholarly Blade",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Scholarly Blade.png",
+            "icon": "assets/character/talents/Scholarly Blade.avif",
             "description": "For every point of Elemental Mastery Tighnari possesses, his Charged Attack and Fashioner's Tanglevine Shaft DMG are increased by 0.06%.The maximum DMG Bonus obtainable this way is 60%."
         },
         {
             "name": "Encyclopedic Knowledge",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Encyclopedic Knowledge.png",
+            "icon": "assets/character/talents/Encyclopedic Knowledge.avif",
             "description": "Displays the location of nearby resources unique to Sumeru on the mini-map."
         }
     ],
@@ -456,17 +485,20 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 6,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Admonition",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Admonition.png"
+                    "icon": "assets/materials/Teachings of Admonition.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -476,17 +508,20 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 3,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -496,17 +531,20 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 4,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -516,17 +554,20 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 6,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -536,17 +577,20 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 9,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Admonition",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Admonition.png"
+                    "icon": "assets/materials/Guide to Admonition.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -556,22 +600,26 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 4,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 1,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -581,22 +629,26 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 6,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 1,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -606,22 +658,26 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 9,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 2,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -631,27 +687,32 @@ var TIGHNARI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Admonition",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Admonition.png"
+                    "icon": "assets/materials/Philosophies of Admonition.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "The Meaning of Aeons",
                     "value": 2,
-                    "icon": "assets/materials/The Meaning of Aeons.png"
+                    "icon": "assets/materials/The Meaning of Aeons.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -806,7 +867,7 @@ var TIGHNARI = {
                 },
                 {
                     "title": "About Cyno: Good Question",
-                    "text": "After my adviser's rescue, I wrote him a letter to send my regards. To my surprise, he wrote back saying that someone had already given him my regards in person. He ended the letter with a question \"The General Mahamatra said he hopes that the sages will enjoy 'a more tasteful reputation' thanks to the efforts of our Darshan. Whatever do you suppose he meant by 'a more tasteful reputation'?\"...It's a good question. I'd like to know, too.",
+                    "text": "After my adviser's rescue, I wrote him a letter to send my regards. To my surprise, he wrote back saying that someone had already given him my regards in person. He ended the letter with a question \"The General Mahamatra said he hopes that the sages will enjoy 'a more tasteful reputation' thanks to the efforts of our Darshan. Whatever do you suppose he meant by 'a more tasteful reputation'?\" ...It's a good question. I'd like to know, too.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Tighnari/story/en/About Cyno - Good Question.mp3"
                 },
@@ -2506,101 +2567,5 @@ var TIGHNARI = {
     "demo_music": {
         "name": "Winding Through Avidya",
         "url": "assets/character/demo_music/Tighnari.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "On-field DPS",
-        "weapons": [
-            "Hunter's Path",
-            "Aqua Simulacra",
-            "Polar Star",
-            "The First Great Magic",
-            "Elegy for the End",
-            "Thundering Pulse",
-            "Skyward Harp",
-            "The Viridescent Hunt",
-            "Prototype Crescent",
-            "Windblume Ode",
-            "Song of Stillness",
-            "Slingshot",
-            "Scion of the Blazing Sun",
-            "Ibis Piercer"
-        ],
-        "artifacts": [
-            "4pc Deepwood Memories",
-            "4pc Wanderer's Troupe",
-            "4pc Gilded Dreams"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / EM",
-            "Dendro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM / ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ]
-        ]
     }
 }

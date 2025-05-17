@@ -1,28 +1,28 @@
 var COLLEI = {
     "name": "Collei",
     "secondary_title": "Sprout of Rebirth",
-    "card_icon": "assets/character/card/Collei.png",
-    "wish_icon": "assets/character/wish/Collei.png",
-    "ingame_icon": "assets/character/ingame/Collei.png",
-    "icon": "assets/character/icon/Collei.png",
+    "card_icon": "assets/character/card/Collei.avif",
+    "wish_icon": "assets/character/wish/Collei.avif",
+    "ingame_icon": "assets/character/ingame/Collei.avif",
+    "icon": "assets/character/icon/Collei.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "May 8th",
@@ -30,43 +30,43 @@ var COLLEI = {
         {
             "name": "Deepwood Patrol",
             "level": 1,
-            "icon": "assets/character/constellations/Deepwood Patrol.png",
+            "icon": "assets/character/constellations/Deepwood Patrol.avif",
             "description": "When in the party and not on the field, Collei's Energy Recharge is increased by 20%."
         },
         {
             "name": "Through Hill and Copse",
             "level": 2,
-            "icon": "assets/character/constellations/Through Hill and Copse.png",
+            "icon": "assets/character/constellations/Through Hill and Copse.avif",
             "description": "The Passive Talent Floral Sidewinder is changed to this:The Floral Ring will grant the character the Sprout effect from Floral Sidewinder upon return, dealing 40% of Collei's ATK as Dendro DMG to nearby opponents for 3s.From the moment of using Floral Brush to the moment when this instance of Sprout effect ends, if any of your party members triggers Burning, Quicken, Aggravate, Spread, Bloom, Hyperbloom, or Burgeon reactions, the Sprout effect will be extended by 3s.The Sprout effect can only be extended this way once. If another Sprout effect is triggered during its initial duration, the initial effect will be removed.Requires you to have unlocked the Floral Sidewinder Passive Talent."
         },
         {
             "name": "Scent of Summer",
             "level": 3,
-            "icon": "assets/character/constellations/Scent of Summer.png",
+            "icon": "assets/character/constellations/Scent of Summer.avif",
             "description": "Increases the Level of Floral Brush by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Gift of the Woods",
             "level": 4,
-            "icon": "assets/character/constellations/Gift of the Woods.png",
+            "icon": "assets/character/constellations/Gift of the Woods.avif",
             "description": "Using Trump-Card Kitty will increase all nearby characters' Elemental Mastery by 60 for 12s (not including Collei herself)."
         },
         {
             "name": "All Embers",
             "level": 5,
-            "icon": "assets/character/constellations/All Embers.png",
+            "icon": "assets/character/constellations/All Embers.avif",
             "description": "Increases the Level of Trump-Card Kitty by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Forest of Falling Arrows",
             "level": 6,
-            "icon": "assets/character/constellations/Forest of Falling Arrows.png",
+            "icon": "assets/character/constellations/Forest of Falling Arrows.avif",
             "description": "When the Floral Ring hits, it will create a miniature Cuilein-Anbar that will deal 200% of Collei's ATK as Dendro DMG.Each Floral Brush can only create one such miniature Cuilein-Anbar."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Gandharva Ville",
@@ -74,12 +74,12 @@ var COLLEI = {
     ],
     "special_dish": {
         "name": "Yearning",
-        "icon": "assets/foods/Collei.png"
+        "icon": "assets/foods/Collei.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Collei.png",
-        "background": "assets/character/namecard_background/Collei.png",
-        "banner": "assets/character/namecard_banner/Collei.png",
+        "icon": "assets/character/namecard_icon/Collei.avif",
+        "background": "assets/character/namecard_background/Collei.avif",
+        "banner": "assets/character/namecard_banner/Collei.avif",
         "description": "\"I—It's Cuilein-Anbar! I, uh...\"",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 3,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 3,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 2,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 10,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 15,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 4,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 20,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 8,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 30,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 18,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 12,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 45,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Majestic Hooked Beak",
                     "value": 20,
-                    "icon": "assets/materials/Majestic Hooked Beak.png"
+                    "icon": "assets/materials/Majestic Hooked Beak.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Rukkhashava Mushrooms",
                     "value": 60,
-                    "icon": "assets/materials/Rukkhashava Mushrooms.png"
+                    "icon": "assets/materials/Rukkhashava Mushrooms.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 24,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var COLLEI = {
         {
             "name": "Supplicant's Bowmanship",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Supplicant's Bowmanship.png",
+            "icon": "assets/character/talents/Supplicant's Bowmanship.avif",
             "description": "Normal AttackPerforms up to 4 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, Dendro energy will accumulate on the arrowhead. A fully charged arrow will deal Dendro DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Floral Brush",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Floral Brush.png",
+            "icon": "assets/character/talents/Floral Brush.avif",
             "description": "Throws out a Floral Ring that deals 1 instance of Dendro DMG to targets it comes into contact with.The Floral Ring will return after a set time, dealing Dendro DMG once again."
         },
         {
             "name": "Trump-Card Kitty",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Trump-Card Kitty.png",
+            "icon": "assets/character/talents/Trump-Card Kitty.avif",
             "description": "Trusty Cuilein-Anbar comes to save the day!Throws the doll named Cuilein-Anbar, causing an explosion that deals AoE Dendro DMG, creating a Cuilein-Anbar Zone. Cuilein-Anbar will bounce around within this zone, dealing AoE Dendro DMG."
         },
         {
             "name": "Floral Sidewinder",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Floral Sidewinder.png",
+            "icon": "assets/character/talents/Floral Sidewinder.avif",
             "description": "If one of your party members has triggered Burning, Quicken, Aggravate, Spread, Bloom, Hyperbloom, or Burgeon reactions before the Floral Ring returns, it will grant the character the Sprout effect upon return, which will continuously deal Dendro DMG equivalent to 40% of Collei's ATK to nearby opponents for 3s.If another Sprout effect is triggered during its initial duration, the initial effect will be removed. DMG dealt by Sprout is considered Elemental Skill DMG."
         },
         {
             "name": "The Languid Wood",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/The Languid Wood.png",
+            "icon": "assets/character/talents/The Languid Wood.avif",
             "description": "When a character within the Cuilein-Anbar Zone triggers Burning, Quicken, Aggravate, Spread, Bloom, Hyperbloom, or Burgeon reactions, the Zone's duration will be increased by 1s.A single Trump-Card Kitty can be extended by up to 3s."
         },
         {
             "name": "Gliding Champion of Sumeru",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Gliding Champion of Sumeru.png",
+            "icon": "assets/character/talents/Gliding Champion of Sumeru.avif",
             "description": "Decreases gliding Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -462,17 +491,20 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Praxis",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Praxis.png"
+                    "icon": "assets/materials/Teachings of Praxis.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 3,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 4,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 9,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 4,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 1,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 1,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 9,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 2,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var COLLEI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 2,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2350,265 +2411,5 @@ var COLLEI = {
     "demo_music": {
         "name": "Caprice of the Leaves",
         "url": "assets/character/demo_music/Collei.mp3"
-    },
-    "build": {
-        "version": "3.1",
-        "type": "Support",
-        "weapons": [
-            "Polar Star",
-            "Elegy for the End",
-            "Aqua Simulacra",
-            "Sacrificial Bow R5",
-            "The Stringless R5",
-            "Mouun's Moon R5",
-            "Thundering Pulse",
-            "Hunter's Path",
-            "Favonius Warbow R5",
-            "The Stringless",
-            "Mouun's Moon",
-            "Prototype Crescent",
-            "Skyward Harp",
-            "King's Squire R5",
-            "Raven Bow R5"
-        ],
-        "artifacts": [
-            "4pc Gilded Dreams",
-            "4pc Noblesse Oblige",
-            "4pc Tenacity of the Millelith",
-            "4pc Deepwood Memories"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / EM / ATK%",
-            "Dendro DMG%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER",
-            "CRIT Rate / CRIT DMG",
-            "EM / ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ]
-        ]
     }
 }

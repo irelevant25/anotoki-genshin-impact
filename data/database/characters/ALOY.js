@@ -1,28 +1,28 @@
 var ALOY = {
     "name": "Aloy",
     "secondary_title": "Savior From Another World",
-    "card_icon": "assets/character/card/Aloy.png",
-    "wish_icon": "assets/character/wish/Aloy.png",
-    "ingame_icon": "assets/character/ingame/Aloy.png",
-    "icon": "assets/character/icon/Aloy.png",
+    "card_icon": "assets/character/card/Aloy.avif",
+    "wish_icon": "assets/character/wish/Aloy.avif",
+    "ingame_icon": "assets/character/ingame/Aloy.avif",
+    "icon": "assets/character/icon/Aloy.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "April 4th",
@@ -30,37 +30,37 @@ var ALOY = {
         {
             "name": "Star of Another World (1)",
             "level": 1,
-            "icon": "assets/character/constellations/Star of Another World (1).png",
+            "icon": "assets/character/constellations/Star of Another World (1).avif",
             "description": "The time has not yet come for this person's corner of the night sky to light up."
         },
         {
             "name": "Star of Another World (2)",
             "level": 2,
-            "icon": "assets/character/constellations/Star of Another World (2).png",
+            "icon": "assets/character/constellations/Star of Another World (2).avif",
             "description": "The time has not yet come for this person's corner of the night sky to light up."
         },
         {
             "name": "Star of Another World (3)",
             "level": 3,
-            "icon": "assets/character/constellations/Star of Another World (3).png",
+            "icon": "assets/character/constellations/Star of Another World (3).avif",
             "description": "The time has not yet come for this person's corner of the night sky to light up."
         },
         {
             "name": "Star of Another World (4)",
             "level": 4,
-            "icon": "assets/character/constellations/Star of Another World (4).png",
+            "icon": "assets/character/constellations/Star of Another World (4).avif",
             "description": "The time has not yet come for this person's corner of the night sky to light up."
         },
         {
             "name": "Star of Another World (5)",
             "level": 5,
-            "icon": "assets/character/constellations/Star of Another World (5).png",
+            "icon": "assets/character/constellations/Star of Another World (5).avif",
             "description": "The time has not yet come for this person's corner of the night sky to light up."
         },
         {
             "name": "Star of Another World (6)",
             "level": 6,
-            "icon": "assets/character/constellations/Star of Another World (6).png",
+            "icon": "assets/character/constellations/Star of Another World (6).avif",
             "description": "The time has not yet come for this person's corner of the night sky to light up."
         }
     ],
@@ -71,19 +71,19 @@ var ALOY = {
     ],
     "special_dish": {
         "name": "Satiety Gel",
-        "icon": "assets/foods/Aloy.png"
+        "icon": "assets/foods/Aloy.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Aloy.png",
-        "background": "assets/character/namecard_background/Aloy.png",
-        "banner": "assets/character/namecard_banner/Aloy.png",
+        "icon": "assets/character/namecard_icon/Aloy.avif",
+        "background": "assets/character/namecard_background/Aloy.avif",
+        "banner": "assets/character/namecard_banner/Aloy.avif",
         "description": "\"Everything I do is in the service of life, not death.\"",
         "quality": "4",
         "sources": [
             "Reward for reaching Friendship Level 10 with Aloy"
         ]
     },
-    "how_to_obtain": "Reach Adventure Rank 20 (between Versions 2.1-2.2 on PlayStation and Version 2.2 on all platforms)[2]",
+    "how_to_obtain": "Reach Adventure Rank 20 (between Versions 2.1–2.2 on PlayStation and Version 2.2 on all platforms)[2]",
     "release_date": "September 01, 2021",
     "titles": [
         "Nora Huntress"
@@ -154,22 +154,26 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 3,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -197,27 +201,32 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 2,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 10,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 15,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -245,27 +254,32 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 4,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 20,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -293,27 +307,32 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 8,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 30,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 18,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -341,27 +360,32 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 45,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -389,27 +413,32 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 20,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crystal Marrow",
                     "value": 60,
-                    "icon": "assets/materials/Crystal Marrow.png"
+                    "icon": "assets/materials/Crystal Marrow.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 24,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -418,37 +447,37 @@ var ALOY = {
         {
             "name": "Rapid Fire",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Rapid Fire.png",
+            "icon": "assets/character/talents/Rapid Fire.avif",
             "description": "Normal AttackPerforms up to 4 consecutive shots with a bow.Charged AttackPerform a more precise Aimed Shot with increased DMG.While aiming, biting frost will accumulate on the arrowhead. A fully charged frost arrow will deal Cryo DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Frozen Wilds",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Frozen Wilds.png",
+            "icon": "assets/character/talents/Frozen Wilds.avif",
             "description": "Aloy throws a Freeze Bomb in the targeted direction that explodes on impact, dealing Cryo DMG. After it explodes, the Freeze Bomb will split up into many Chillwater Bomblets that explode on contact with opponents or after a short delay, dealing Cryo DMG.When a Freeze Bomb or Chillwater Bomblet hits an opponent, the opponent's ATK is decreased and Aloy receives 1 Coil stack.Aloy can gain up to 1 Coil stack every 0.1s.CoilEach stack increases Aloy's Normal Attack DMG.When Aloy has 4 Coil stacks, all stacks of Coil are cleared. She then enters the Rushing Ice state, which further increases the DMG dealt by her Normal Attacks and converts her Normal Attack DMG to Cryo DMG.While in the Rushing Ice state, Aloy cannot obtain new Coil stacks.Coil effects will be cleared 30s after Aloy leaves the field."
         },
         {
             "name": "Prophecies of Dawn",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Prophecies of Dawn.png",
+            "icon": "assets/character/talents/Prophecies of Dawn.avif",
             "description": "Aloy throws a Power Cell filled with Cryo in the targeted direction, then detonates it with an arrow, dealing AoE Cryo DMG."
         },
         {
             "name": "Combat Override",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Combat Override.png",
+            "icon": "assets/character/talents/Combat Override.avif",
             "description": "When Aloy receives the Coil effect from Frozen Wilds, her ATK is increased by 16%, while nearby party members' ATK is increased by 8%. This effect lasts 10s."
         },
         {
             "name": "Strong Strike",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Strong Strike.png",
+            "icon": "assets/character/talents/Strong Strike.avif",
             "description": "When Aloy is in the Rushing Ice state conferred by Frozen Wilds, her Cryo DMG Bonus increases by 3.5% every 1s. A maximum Cryo DMG Bonus increase of 35% can be gained in this way."
         },
         {
             "name": "Easy Does It",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Easy Does It.png",
+            "icon": "assets/character/talents/Easy Does It.avif",
             "description": "When Aloy is in the party, animals who produce Fowl, Raw Meat, or Chilled Meat will not be startled when party members approach them."
         }
     ],
@@ -459,17 +488,20 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Freedom",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Freedom.png"
+                    "icon": "assets/materials/Teachings of Freedom.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -479,17 +511,20 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -499,17 +534,20 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -519,17 +557,20 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -539,17 +580,20 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -559,22 +603,26 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 1,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -584,22 +632,26 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 1,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -609,22 +661,26 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 2,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -634,27 +690,32 @@ var ALOY = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Molten Moment",
                     "value": 2,
-                    "icon": "assets/materials/Molten Moment.png"
+                    "icon": "assets/materials/Molten Moment.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2053,184 +2114,5 @@ var ALOY = {
     "demo_music": {
         "name": "Good Hunting on a New Horizon",
         "url": "assets/character/demo_music/Aloy.mp3"
-    },
-    "build": {
-        "version": "4.5",
-        "type": "On-field DPS",
-        "weapons": [
-            "Polar Star",
-            "Sacrificial Bow R4",
-            "Elegy for the End",
-            "The Stringless",
-            "Prototype Crescent",
-            "Song of Stillness"
-        ],
-        "artifacts": [
-            "4pc Emblem of Severed Fate",
-            "4pc Gilded Dreams",
-            "4pc Lavawalker"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM / ER, / ATK%",
-            "Cryo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Aloy",
-                    "icon": "assets/character/icon/Aloy.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Aloy",
-                    "icon": "assets/character/icon/Aloy.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Aloy",
-                    "icon": "assets/character/icon/Aloy.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Aloy",
-                    "icon": "assets/character/icon/Aloy.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Aloy",
-                    "icon": "assets/character/icon/Aloy.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Aloy",
-                    "icon": "assets/character/icon/Aloy.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Aloy",
-                    "icon": "assets/character/icon/Aloy.png"
-                }
-            ],
-            [
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                },
-                {
-                    "name": "Aloy",
-                    "icon": "assets/character/icon/Aloy.png"
-                }
-            ]
-        ]
     }
 }

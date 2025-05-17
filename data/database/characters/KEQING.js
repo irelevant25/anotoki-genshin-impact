@@ -1,28 +1,28 @@
 var KEQING = {
     "name": "Keqing",
     "secondary_title": "Driving Thunder",
-    "card_icon": "assets/character/card/Keqing.png",
-    "wish_icon": "assets/character/wish/Keqing.png",
-    "ingame_icon": "assets/character/ingame/Keqing.png",
-    "icon": "assets/character/icon/Keqing.png",
+    "card_icon": "assets/character/card/Keqing.avif",
+    "wish_icon": "assets/character/wish/Keqing.avif",
+    "ingame_icon": "assets/character/ingame/Keqing.avif",
+    "icon": "assets/character/icon/Keqing.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "November 20th",
@@ -30,55 +30,55 @@ var KEQING = {
         {
             "name": "Thundering Might",
             "level": 1,
-            "icon": "assets/character/constellations/Thundering Might.png",
+            "icon": "assets/character/constellations/Thundering Might.avif",
             "description": "Recasting Stellar Restoration while a Lightning Stiletto is present causes Keqing to deal 50% of her ATK as AoE Electro DMG at the start point and terminus of her Blink."
         },
         {
             "name": "Keen Extraction",
             "level": 2,
-            "icon": "assets/character/constellations/Keen Extraction.png",
+            "icon": "assets/character/constellations/Keen Extraction.avif",
             "description": "When Keqing's Normal and Charged Attacks hit opponents affected by Electro, they have a 50% chance of producing an Elemental Particle.This effect can only occur once every 5s."
         },
         {
             "name": "Foreseen Reformation",
             "level": 3,
-            "icon": "assets/character/constellations/Foreseen Reformation.png",
+            "icon": "assets/character/constellations/Foreseen Reformation.avif",
             "description": "Increases the Level of Starward Sword by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Attunement",
             "level": 4,
-            "icon": "assets/character/constellations/Attunement.png",
+            "icon": "assets/character/constellations/Attunement.avif",
             "description": "For 10s after Keqing triggers an Electro-related Elemental Reaction, her ATK is increased by 25%."
         },
         {
             "name": "Beckoning Stars",
             "level": 5,
-            "icon": "assets/character/constellations/Beckoning Stars.png",
+            "icon": "assets/character/constellations/Beckoning Stars.avif",
             "description": "Increases the Level of Stellar Restoration by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Tenacious Star",
             "level": 6,
-            "icon": "assets/character/constellations/Tenacious Star.png",
+            "icon": "assets/character/constellations/Tenacious Star.avif",
             "description": "When initiating a Normal Attack, a Charged Attack, Elemental Skill or Elemental Burst, Keqing gains a 6% Electro DMG Bonus for 8s.Effects triggered by Normal Attacks, Charged Attacks, Elemental Skills and Elemental Bursts are considered independent entities."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Liyue Qixing"
     ],
     "special_dish": {
         "name": "Survival Grilled Fish",
-        "icon": "assets/foods/Keqing.png"
+        "icon": "assets/foods/Keqing.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Keqing.png",
-        "background": "assets/character/namecard_background/Keqing.png",
-        "banner": "assets/character/namecard_banner/Keqing.png",
+        "icon": "assets/character/namecard_icon/Keqing.avif",
+        "background": "assets/character/namecard_background/Keqing.avif",
+        "banner": "assets/character/namecard_banner/Keqing.avif",
         "description": "It was originally invented to just test out one's surroundings and climb to high places, really...",
         "quality": "4",
         "sources": [
@@ -158,22 +158,26 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 3,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -201,27 +205,32 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 2,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 10,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -249,27 +258,32 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 4,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 20,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -297,27 +311,32 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 8,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 30,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -345,27 +364,32 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 12,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 45,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -393,27 +417,32 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 20,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 60,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -422,37 +451,37 @@ var KEQING = {
         {
             "name": "Yunlai Swordsmanship",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Yunlai Swordsmanship.png",
+            "icon": "assets/character/talents/Yunlai Swordsmanship.avif",
             "description": "Normal AttackPerforms up to 5 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 2 rapid sword strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Stellar Restoration",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Stellar Restoration.png",
+            "icon": "assets/character/talents/Stellar Restoration.avif",
             "description": "Hurls a Lightning Stiletto that annihilates her opponents like the swift thunder.When the Stiletto hits its target, it deals Electro DMG to opponents in a small AoE, and places a Stiletto Mark on the spot hit.HoldHold to adjust the direction in which the Stiletto shall be thrown.Stilettos thrown by the Hold attack mode can be suspended in mid-air, allowing Keqing to jump to them when using Stellar Restoration a second time.Lightning StilettoIf Keqing uses Stellar Restoration again or uses a Charged Attack while its duration lasts, it will clear the Stiletto Mark and produce different effects:If she uses Stellar Restoration again, she will blink to the location of the Mark and unleash one slashing attack that deals AoE Electro DMG. When blinking to a Stiletto that was thrown from a Holding attack, Keqing can leap across obstructing terrain.If Keqing uses a Charged Attack, she will ignite a series of thundering cuts at the Mark's location, dealing AoE Electro DMG."
         },
         {
             "name": "Starward Sword",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Starward Sword.png",
+            "icon": "assets/character/talents/Starward Sword.avif",
             "description": "Keqing unleashes the power of lightning, dealing Electro DMG in an AOE.She then blends into the shadow of her blade, striking a series of thunderclap-blows to nearby opponents simultaneously that deal multiple instances of Electro DMG.The final attack deals massive AoE Electro DMG."
         },
         {
             "name": "Thundering Penance",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Thundering Penance.png",
+            "icon": "assets/character/talents/Thundering Penance.avif",
             "description": "After recasting Stellar Restoration while a Lightning Stiletto is present, Keqing's weapon gains an Electro Infusion for 5s."
         },
         {
             "name": "Aristocratic Dignity",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Aristocratic Dignity.png",
+            "icon": "assets/character/talents/Aristocratic Dignity.avif",
             "description": "When casting Starward Sword, Keqing's CRIT Rate is increased by 15%, and her Energy Recharge is increased by 15%. This effect lasts for 8s."
         },
         {
             "name": "Land's Overseer",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Land's Overseer.png",
+            "icon": "assets/character/talents/Land's Overseer.avif",
             "description": "When dispatched on an expedition in Liyue, time consumed is reduced by 25%."
         }
     ],
@@ -463,17 +492,20 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Prosperity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Prosperity.png"
+                    "icon": "assets/materials/Teachings of Prosperity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -483,17 +515,20 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -503,17 +538,20 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -523,17 +561,20 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -543,17 +584,20 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -563,22 +607,26 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -588,22 +636,26 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -613,22 +665,26 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -638,27 +694,32 @@ var KEQING = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2705,113 +2766,5 @@ var KEQING = {
     "demo_music": {
         "name": "Nimble as Lightning",
         "url": "assets/character/demo_music/Keqing.mp3"
-    },
-    "build": {
-        "version": "3.2",
-        "type": "On-field DPS",
-        "weapons": [
-            "Mistsplitter Reforged",
-            "Primordial Jade Cutter",
-            "Haran Geppaku Futsu",
-            "Freedom Sworn",
-            "Harbinger of Dawn R5",
-            "Summit Shaper",
-            "Lion's Roar",
-            "The Black Sword",
-            "Kagotsurube Isshin",
-            "Iron Sting"
-        ],
-        "artifacts": [
-            "4pc Thundering Fury",
-            "4pc Thundersoother"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Electro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sayu",
-                    "icon": "assets/character/icon/Sayu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ]
-        ]
     }
 }

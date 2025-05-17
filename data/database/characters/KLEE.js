@@ -1,28 +1,28 @@
 var KLEE = {
     "name": "Klee",
     "secondary_title": "Fleeing Sunlight",
-    "card_icon": "assets/character/card/Klee.png",
-    "wish_icon": "assets/character/wish/Klee.png",
-    "ingame_icon": "assets/character/ingame/Klee.png",
-    "icon": "assets/character/icon/Klee.png",
+    "card_icon": "assets/character/card/Klee.avif",
+    "wish_icon": "assets/character/wish/Klee.avif",
+    "ingame_icon": "assets/character/ingame/Klee.avif",
+    "icon": "assets/character/icon/Klee.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Short Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "July 27th",
@@ -30,55 +30,55 @@ var KLEE = {
         {
             "name": "Chained Reactions",
             "level": 1,
-            "icon": "assets/character/constellations/Chained Reactions.png",
+            "icon": "assets/character/constellations/Chained Reactions.avif",
             "description": "Attacks and Skills have a certain chance to summon sparks that bombard opponents, dealing DMG equal to 120% of Sparks 'n' Splash's DMG."
         },
         {
             "name": "Explosive Frags",
             "level": 2,
-            "icon": "assets/character/constellations/Explosive Frags.png",
+            "icon": "assets/character/constellations/Explosive Frags.avif",
             "description": "Being hit by Jumpy Dumpty's mines decreases opponents' DEF by 23% for 10s."
         },
         {
             "name": "Exquisite Compound",
             "level": 3,
-            "icon": "assets/character/constellations/Exquisite Compound.png",
+            "icon": "assets/character/constellations/Exquisite Compound.avif",
             "description": "Increases the Level of Jumpy Dumpty by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sparkly Explosion",
             "level": 4,
-            "icon": "assets/character/constellations/Sparkly Explosion.png",
+            "icon": "assets/character/constellations/Sparkly Explosion.avif",
             "description": "If Klee leaves the field during the duration of Sparks 'n' Splash, her departure triggers an explosion that deals 555% of her ATK as AoE Pyro DMG."
         },
         {
             "name": "Nova Burst",
             "level": 5,
-            "icon": "assets/character/constellations/Nova Burst.png",
+            "icon": "assets/character/constellations/Nova Burst.avif",
             "description": "Increases the Level of Sparks 'n' Splash by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Blazing Delight",
             "level": 6,
-            "icon": "assets/character/constellations/Blazing Delight.png",
+            "icon": "assets/character/constellations/Blazing Delight.avif",
             "description": "While under the effects of Sparks 'n' Splash, Klee will regenerate 3 Energy for all members of the party (excluding Klee) every 3s.When Sparks 'n' Splash is used, all party members will gain a 10% Pyro DMG Bonus for 25s."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius"
     ],
     "special_dish": {
         "name": "Fish-Flavored Toast",
-        "icon": "assets/foods/Klee.png"
+        "icon": "assets/foods/Klee.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Klee.png",
-        "background": "assets/character/namecard_background/Klee.png",
-        "banner": "assets/character/namecard_banner/Klee.png",
+        "icon": "assets/character/namecard_icon/Klee.avif",
+        "background": "assets/character/namecard_background/Klee.avif",
+        "banner": "assets/character/namecard_banner/Klee.avif",
         "description": "Klee's lucky explosive — can you tell if it's Jumpy Dumpty or Dodoco? (Hint: Look carefully at the tail...)",
         "quality": "4",
         "sources": [
@@ -158,22 +158,26 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 3,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -201,27 +205,32 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 2,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 10,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 15,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -249,27 +258,32 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 4,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 20,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -297,27 +311,32 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 8,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 30,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 18,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -345,27 +364,32 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 12,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 45,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -393,27 +417,32 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 20,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Philanemo Mushroom",
                     "value": 60,
-                    "icon": "assets/materials/Philanemo Mushroom.png"
+                    "icon": "assets/materials/Philanemo Mushroom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 24,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -422,37 +451,37 @@ var KLEE = {
         {
             "name": "Kaboom!",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Kaboom!.png",
+            "icon": "assets/character/talents/Kaboom!.avif",
             "description": "Normal AttackThrows things that go boom when they hit things! Performs up to 3 explosive attacks, dealing AoE Pyro DMG.Charged AttackConsumes a certain amount of Stamina and deals AoE Pyro DMG to opponents after a short casting time.Plunging AttackGathering the power of Pyro, Klee plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Pyro DMG upon impact with the ground."
         },
         {
             "name": "Jumpy Dumpty",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Jumpy Dumpty.png",
+            "icon": "assets/character/talents/Jumpy Dumpty.avif",
             "description": "Jumpy Dumpty is tons of boom-bang-fun!When thrown, Jumpy Dumpty bounces thrice, igniting and dealing AoE Pyro DMG with every bounce.On the third bounce, the bomb splits into many mines.The mines will explode upon contact with opponents, or after a short period of time, dealing AoE Pyro DMG.Starts with 2 charges."
         },
         {
             "name": "Sparks 'n' Splash",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Sparks 'n' Splash.png",
+            "icon": "assets/character/talents/Sparks 'n' Splash.avif",
             "description": "Klee's Blazing Delight! For the duration of this ability, continuously summons Sparks 'n' Splash to attack nearby opponents, dealing AoE Pyro DMG."
         },
         {
             "name": "Pounding Surprise",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Pounding Surprise.png",
+            "icon": "assets/character/talents/Pounding Surprise.avif",
             "description": "When Jumpy Dumpty and Normal Attacks deal DMG, Klee has a 50% chance to obtain an Explosive Spark. This Explosive Spark is consumed by the next Charged Attack, which costs no Stamina and deals 50% increased DMG."
         },
         {
             "name": "Sparkling Burst",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Sparkling Burst.png",
+            "icon": "assets/character/talents/Sparkling Burst.avif",
             "description": "When Klee's Charged Attack results in a CRIT Hit, all party members gain 2 Elemental Energy."
         },
         {
             "name": "All Of My Treasures!",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/All Of My Treasures!.png",
+            "icon": "assets/character/talents/All Of My Treasures!.avif",
             "description": "Displays the location of nearby resources unique to Mondstadt on the mini-map."
         }
     ],
@@ -463,17 +492,20 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Freedom",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Freedom.png"
+                    "icon": "assets/materials/Teachings of Freedom.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -483,17 +515,20 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -503,17 +538,20 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -523,17 +561,20 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -543,17 +584,20 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Freedom",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Freedom.png"
+                    "icon": "assets/materials/Guide to Freedom.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -563,22 +607,26 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -588,22 +636,26 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -613,22 +665,26 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -638,27 +694,32 @@ var KLEE = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Freedom",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Freedom.png"
+                    "icon": "assets/materials/Philosophies of Freedom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ring of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Ring of Boreas.png"
+                    "icon": "assets/materials/Ring of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2393,241 +2454,5 @@ var KLEE = {
     "demo_music": {
         "name": "Let's Go, Crimson Knight!",
         "url": "assets/character/demo_music/Klee.mp3"
-    },
-    "build": {
-        "version": "4.5",
-        "type": "On-field DPS",
-        "weapons": [
-            "The Widsith R5",
-            "Polar Star Catalyst",
-            "Jade Cutter Catalyst",
-            "Kagura's Verity",
-            "Lost Prayer to the Sacred Winds",
-            "Skyward Atlas",
-            "Solar Pearl",
-            "Tulaytullah's Remembrance",
-            "Memory of Dust",
-            "Dodoco Tales R5"
-        ],
-        "artifacts": [
-            "4pc Lavawalker provides",
-            "4pc Crimson Witch of Flames"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Skill",
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ]
-        ]
     }
 }

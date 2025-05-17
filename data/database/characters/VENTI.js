@@ -1,32 +1,32 @@
 var VENTI = {
     "name": "Venti",
     "secondary_title": "Windborne Bard",
-    "card_icon": "assets/character/card/Venti.png",
-    "wish_icon": "assets/character/wish/Venti.png",
-    "ingame_icon": "assets/character/ingame/Venti.png",
-    "icon": "assets/character/icon/Venti.png",
+    "card_icon": "assets/character/card/Venti.avif",
+    "wish_icon": "assets/character/wish/Venti.avif",
+    "ingame_icon": "assets/character/ingame/Venti.avif",
+    "icon": "assets/character/icon/Venti.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "June 16th",
@@ -34,43 +34,43 @@ var VENTI = {
         {
             "name": "Splitting Gales",
             "level": 1,
-            "icon": "assets/character/constellations/Splitting Gales.png",
+            "icon": "assets/character/constellations/Splitting Gales.avif",
             "description": "Fires 2 additional arrows per Aimed Shot, each dealing 33% of the original arrow's DMG."
         },
         {
             "name": "Breeze of Reminiscence",
             "level": 2,
-            "icon": "assets/character/constellations/Breeze of Reminiscence.png",
+            "icon": "assets/character/constellations/Breeze of Reminiscence.avif",
             "description": "Skyward Sonnet decreases opponents' Anemo RES and Physical RES by 12% for 10s.Opponents launched by Skyward Sonnet suffer an additional 12% Anemo RES and Physical RES decrease while airborne."
         },
         {
             "name": "Ode to Thousand Winds",
             "level": 3,
-            "icon": "assets/character/constellations/Ode to Thousand Winds.png",
+            "icon": "assets/character/constellations/Ode to Thousand Winds.avif",
             "description": "Increases the Level of Wind's Grand Ode by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Hurricane of Freedom",
             "level": 4,
-            "icon": "assets/character/constellations/Hurricane of Freedom.png",
+            "icon": "assets/character/constellations/Hurricane of Freedom.avif",
             "description": "When Venti picks up an Elemental Orb or Particle, he receives a 25% Anemo DMG Bonus for 10s."
         },
         {
             "name": "Concerto dal Cielo",
             "level": 5,
-            "icon": "assets/character/constellations/Concerto dal Cielo.png",
+            "icon": "assets/character/constellations/Concerto dal Cielo.avif",
             "description": "Increases the Level of Skyward Sonnet by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Storm of Defiance",
             "level": 6,
-            "icon": "assets/character/constellations/Storm of Defiance.png",
+            "icon": "assets/character/constellations/Storm of Defiance.avif",
             "description": "Targets who take DMG from Wind's Grand Ode have their Anemo RES decreased by 20%.If an Elemental Absorption occurred, then their RES towards the corresponding Element is also decreased by 20%."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Mondstadt",
@@ -79,12 +79,12 @@ var VENTI = {
     ],
     "special_dish": {
         "name": "A Buoyant Breeze",
-        "icon": "assets/foods/Venti.png"
+        "icon": "assets/foods/Venti.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Venti.png",
-        "background": "assets/character/namecard_background/Venti.png",
-        "banner": "assets/character/namecard_banner/Venti.png",
+        "icon": "assets/character/namecard_icon/Venti.avif",
+        "background": "assets/character/namecard_background/Venti.avif",
+        "banner": "assets/character/namecard_banner/Venti.avif",
         "description": "The bright blue of a cloudless sky and the melodious tone of Der Frühling complement each other perfectly.",
         "quality": "4",
         "sources": [
@@ -162,22 +162,26 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Cecilia",
                     "value": 3,
-                    "icon": "assets/materials/Cecilia.png"
+                    "icon": "assets/materials/Cecilia.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 3,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -205,27 +209,32 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 2,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cecilia",
                     "value": 10,
-                    "icon": "assets/materials/Cecilia.png"
+                    "icon": "assets/materials/Cecilia.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 15,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -253,27 +262,32 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 4,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cecilia",
                     "value": 20,
-                    "icon": "assets/materials/Cecilia.png"
+                    "icon": "assets/materials/Cecilia.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 12,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -301,27 +315,32 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 8,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Cecilia",
                     "value": 30,
-                    "icon": "assets/materials/Cecilia.png"
+                    "icon": "assets/materials/Cecilia.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 18,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -349,27 +368,32 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 12,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Cecilia",
                     "value": 45,
-                    "icon": "assets/materials/Cecilia.png"
+                    "icon": "assets/materials/Cecilia.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -397,27 +421,32 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 20,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Cecilia",
                     "value": 60,
-                    "icon": "assets/materials/Cecilia.png"
+                    "icon": "assets/materials/Cecilia.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 24,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -426,37 +455,37 @@ var VENTI = {
         {
             "name": "Divine Marksmanship",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Divine Marksmanship.png",
+            "icon": "assets/character/talents/Divine Marksmanship.avif",
             "description": "Normal AttackPerforms up to 6 consecutive shots with a bow.Charged AttackPerform a more precise Aimed Shot with increased DMG.While aiming, favorable winds will accumulate on the arrowhead. A fully charged wind arrow will deal Anemo DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Skyward Sonnet",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Skyward Sonnet.png",
+            "icon": "assets/character/talents/Skyward Sonnet.avif",
             "description": "O wind upon which all hymns and songs fly, bear these earth-walkers up into the sky!(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Summons a Wind Domain at the opponent's location, dealing AoE Anemo DMG and launching opponents into the air.HoldSummons an even larger Wind Domain with Venti as the epicenter, dealing AoE Anemo DMG and launching affected opponents into the air.After unleashing the Hold version of this ability, Venti rides the wind into the air.Opponents hit by Skyward Sonnet will fall to the ground slowly."
         },
         {
             "name": "Wind's Grand Ode",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Wind's Grand Ode.png",
+            "icon": "assets/character/talents/Wind's Grand Ode.avif",
             "description": "Fires off an arrow made of countless coalesced winds, creating a huge Stormeye that sucks in opponents and deals continuous Anemo DMG.Elemental AbsorptionIf the Stormeye comes into contact with Hydro/Pyro/Cryo/Electro, it will deal additional elemental DMG of that type.Elemental Absorption may only occur once per use."
         },
         {
             "name": "Embrace of Winds",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Embrace of Winds.png",
+            "icon": "assets/character/talents/Embrace of Winds.avif",
             "description": "Holding Skyward Sonnet creates an upcurrent that lasts for 20s."
         },
         {
             "name": "Stormeye",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Stormeye.png",
+            "icon": "assets/character/talents/Stormeye.avif",
             "description": "Regenerates 15 Energy for Venti after the effects of Wind's Grand Ode end. If an Elemental Absorption occurred, this also restores 15 Energy to all characters of that corresponding element in the party."
         },
         {
             "name": "Windrider",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Windrider.png",
+            "icon": "assets/character/talents/Windrider.avif",
             "description": "Decreases gliding Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -467,17 +496,20 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ballad",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ballad.png"
+                    "icon": "assets/materials/Teachings of Ballad.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 3,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 4,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 6,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 9,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 4,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tail of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Tail of Boreas.png"
+                    "icon": "assets/materials/Tail of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tail of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Tail of Boreas.png"
+                    "icon": "assets/materials/Tail of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 9,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tail of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Tail of Boreas.png"
+                    "icon": "assets/materials/Tail of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var VENTI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tail of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Tail of Boreas.png"
+                    "icon": "assets/materials/Tail of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2469,205 +2530,5 @@ var VENTI = {
     "demo_music": {
         "name": "Bard's Adventure",
         "url": "assets/character/demo_music/Venti.mp3"
-    },
-    "build": {
-        "version": "4.1",
-        "type": "Support",
-        "weapons": [
-            "Elegy for the End",
-            "The Stringless",
-            "Polar Star",
-            "Windblume Ode R5",
-            "Mouun's Moon,",
-            "Raven Bow",
-            "Song of Stillness",
-            "Fading Twilight",
-            "Favonius Warbow"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer",
-            "4pc Gilded Dreams",
-            "4pc Instructor"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM / ATK%",
-            "EM / Anemo DMG Bonus",
-            "EM / CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "EM",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                }
-            ]
-        ]
     }
 }

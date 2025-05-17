@@ -1,28 +1,28 @@
 var KUKI_SHINOBU = {
     "name": "Kuki Shinobu",
     "secondary_title": "Mender of Tribulations",
-    "card_icon": "assets/character/card/Kuki Shinobu.png",
-    "wish_icon": "assets/character/wish/Kuki Shinobu.png",
-    "ingame_icon": "assets/character/ingame/Kuki Shinobu.png",
-    "icon": "assets/character/icon/Kuki Shinobu.png",
+    "card_icon": "assets/character/card/Kuki Shinobu.avif",
+    "wish_icon": "assets/character/wish/Kuki Shinobu.avif",
+    "ingame_icon": "assets/character/ingame/Kuki Shinobu.avif",
+    "icon": "assets/character/icon/Kuki Shinobu.avif",
     "quality": "4",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "July 27th",
@@ -30,43 +30,43 @@ var KUKI_SHINOBU = {
         {
             "name": "To Cloister Compassion",
             "level": 1,
-            "icon": "assets/character/constellations/To Cloister Compassion.png",
+            "icon": "assets/character/constellations/To Cloister Compassion.avif",
             "description": "Gyoei Narukami Kariyama Rite's AoE is increased by 50%."
         },
         {
             "name": "To Forsake Fortune",
             "level": 2,
-            "icon": "assets/character/constellations/To Forsake Fortune.png",
+            "icon": "assets/character/constellations/To Forsake Fortune.avif",
             "description": "Grass Ring of Sanctification's duration is increased by 3s."
         },
         {
             "name": "To Sequester Sorrow",
             "level": 3,
-            "icon": "assets/character/constellations/To Sequester Sorrow.png",
+            "icon": "assets/character/constellations/To Sequester Sorrow.avif",
             "description": "Increases the Level of Sanctifying Ring by 3.Maximum upgrade level is 15."
         },
         {
             "name": "To Sever Sealing",
             "level": 4,
-            "icon": "assets/character/constellations/To Sever Sealing.png",
+            "icon": "assets/character/constellations/To Sever Sealing.avif",
             "description": "When the Normal, Charged, or Plunging Attacks of the character affected by Shinobu's Grass Ring of Sanctification hit opponents, a Thundergrass Mark will land on the opponent's position and deal AoE Electro DMG based on 9.7% of Shinobu's Max HP.This effect can occur once every 5s."
         },
         {
             "name": "To Cease Courtesies",
             "level": 5,
-            "icon": "assets/character/constellations/To Cease Courtesies.png",
+            "icon": "assets/character/constellations/To Cease Courtesies.avif",
             "description": "Increases the Level of Gyoei Narukami Kariyama Rite by 3.Maximum upgrade level is 15."
         },
         {
             "name": "To Ward Weakness",
             "level": 6,
-            "icon": "assets/character/constellations/To Ward Weakness.png",
+            "icon": "assets/character/constellations/To Ward Weakness.avif",
             "description": "When Kuki Shinobu takes lethal DMG, this instance of DMG will not take her down. This effect will automatically trigger when her HP reaches 1 and will trigger once every 60s.When Shinobu's HP drops below 25%, she will gain 150 Elemental Mastery for 15s. This effect will trigger once every 60s."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Arataki Gang",
@@ -75,12 +75,12 @@ var KUKI_SHINOBU = {
     ],
     "special_dish": {
         "name": "Omurice Waltz",
-        "icon": "assets/foods/Kuki Shinobu.png"
+        "icon": "assets/foods/Kuki Shinobu.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Kuki Shinobu.png",
-        "background": "assets/character/namecard_background/Kuki Shinobu.png",
-        "banner": "assets/character/namecard_banner/Kuki Shinobu.png",
+        "icon": "assets/character/namecard_icon/Kuki Shinobu.avif",
+        "background": "assets/character/namecard_background/Kuki Shinobu.avif",
+        "banner": "assets/character/namecard_banner/Kuki Shinobu.avif",
         "description": "\"You know those Naku Weed rings they have in Inazuma? You know, the kind that can drive out evil? Shinobu got the idea that since wicked things won't cross their boundaries willingly, we could make them into items that could be actively used. Ah, her talent for being a shrine maiden is truly frightening...\"",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 3,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 2,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 10,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 15,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 4,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 20,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 8,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 30,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 18,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 12,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 45,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Runic Fang",
                     "value": 20,
-                    "icon": "assets/materials/Runic Fang.png"
+                    "icon": "assets/materials/Runic Fang.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Naku Weed",
                     "value": 60,
-                    "icon": "assets/materials/Naku Weed.png"
+                    "icon": "assets/materials/Naku Weed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 24,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var KUKI_SHINOBU = {
         {
             "name": "Shinobu's Shadowsword",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Shinobu's Shadowsword.png",
+            "icon": "assets/character/talents/Shinobu's Shadowsword.avif",
             "description": "Normal AttackPerforms up to 4 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 2 rapid sword strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Sanctifying Ring",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Sanctifying Ring.png",
+            "icon": "assets/character/talents/Sanctifying Ring.avif",
             "description": "Creates a Grass Ring of Sanctification at the cost of part of her HP, dealing Electro DMG to nearby opponents.Grass Ring of SanctificationFollows your current active character around. Deals Electro DMG to nearby opponents every 1.5s and restores HP for the active character(s) within the ring's AoE based on Kuki Shinobu's Max HP.The HP consumption from using this skill can only bring her to 20% HP."
         },
         {
             "name": "Gyoei Narukami Kariyama Rite",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Gyoei Narukami Kariyama Rite.png",
+            "icon": "assets/character/talents/Gyoei Narukami Kariyama Rite.avif",
             "description": "Stabs an evil-excoriating blade into the ground, creating a field that cleanses the area of all that is foul, dealing continuous Electro DMG to opponents within its AoE based on Shinobu's Max HP.If Shinobu's HP is less than or equal to 50% when this skill is used, the field will last longer."
         },
         {
             "name": "Breaking Free",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Breaking Free.png",
+            "icon": "assets/character/talents/Breaking Free.avif",
             "description": "When Shinobu's HP is not higher than 50%, her Healing Bonus is increased by 15%."
         },
         {
             "name": "Heart's Repose",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Heart's Repose.png",
+            "icon": "assets/character/talents/Heart's Repose.avif",
             "description": "Sanctifying Ring's abilities will be boosted based on Shinobu's Elemental Mastery:Healing amount will be increased by 75% of Elemental Mastery.DMG dealt is increased by 25% of Elemental Mastery."
         },
         {
             "name": "Protracted Prayers",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Protracted Prayers.png",
+            "icon": "assets/character/talents/Protracted Prayers.avif",
             "description": "Gains 25% more rewards when dispatched on an Inazuma Expedition for 20 hours."
         }
     ],
@@ -466,17 +495,20 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Elegance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Elegance.png"
+                    "icon": "assets/materials/Teachings of Elegance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 1,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 1,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 2,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var KUKI_SHINOBU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tears of the Calamitous God",
                     "value": 2,
-                    "icon": "assets/materials/Tears of the Calamitous God.png"
+                    "icon": "assets/materials/Tears of the Calamitous God.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2301,219 +2362,5 @@ var KUKI_SHINOBU = {
     "demo_music": {
         "name": "Adroit Deputy",
         "url": "assets/character/demo_music/Kuki Shinobu.mp3"
-    },
-    "build": {
-        "version": "5.4",
-        "type": "Support",
-        "weapons": [
-            "Freedom-Sworn",
-            "Xiphos' Moonlight",
-            "Iron Sting",
-            "Toukabou Shigure",
-            "Key of Khaj-Nisut"
-        ],
-        "artifacts": [
-            "4pc Flower of Paradise Lost",
-            "4pc Gilded Dreams",
-            "4pc Thundering Fury",
-            "4pc Deepwood Memories"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM",
-            "EM",
-            "EM"
-        ],
-        "sub_stats": [
-            "EM",
-            "ER",
-            "HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Barbara",
-                    "icon": "assets/character/icon/Barbara.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                }
-            ],
-            [
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                }
-            ],
-            [
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ]
-        ]
     }
 }

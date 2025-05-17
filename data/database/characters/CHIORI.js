@@ -1,28 +1,28 @@
 var CHIORI = {
     "name": "Chiori",
     "secondary_title": "The Thundering Seamstress",
-    "card_icon": "assets/character/card/Chiori.png",
-    "wish_icon": "assets/character/wish/Chiori.png",
-    "ingame_icon": "assets/character/ingame/Chiori.png",
-    "icon": "assets/character/icon/Chiori.png",
+    "card_icon": "assets/character/card/Chiori.avif",
+    "wish_icon": "assets/character/wish/Chiori.avif",
+    "ingame_icon": "assets/character/ingame/Chiori.avif",
+    "icon": "assets/character/icon/Chiori.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "August 17th",
@@ -30,43 +30,43 @@ var CHIORI = {
         {
             "name": "Six Paths of Sage Silkcraft",
             "level": 1,
-            "icon": "assets/character/constellations/Six Paths of Sage Silkcraft.png",
+            "icon": "assets/character/constellations/Six Paths of Sage Silkcraft.avif",
             "description": "The AoE of the automaton doll \"Tamoto\" summoned by Fluttering Hasode is increased by 50%.Additionally, if there is a Geo party member other than Chiori, Fluttering Hasode will trigger the following after the dash is completed:Summon an additional Tamoto. Only one additional Tamoto can exist at the same time, whether summoned by Chiori this way or through the presence of a Geo Construct.Triggers the Passive Talent \"The Finishing Touch.\" This effect requires you to first unlock the Passive Talent \"The Finishing Touch.\""
         },
         {
             "name": "In Five Colors Dyed",
             "level": 2,
-            "icon": "assets/character/constellations/In Five Colors Dyed.png",
+            "icon": "assets/character/constellations/In Five Colors Dyed.avif",
             "description": "For 10s after using Hiyoku: Twin Blades, a simplified automaton doll, \"Kinu,\" will be summoned next to your active character every 3s. Kinu will attack nearby opponents, dealing AoE Geo DMG equivalent to 170% of Tamoto's DMG. DMG dealt this way is considered Elemental Skill DMG.Kinu will leave the field after 1 attack or after lasting 3s."
         },
         {
             "name": "Four Brocade Embellishments",
             "level": 3,
-            "icon": "assets/character/constellations/Four Brocade Embellishments.png",
+            "icon": "assets/character/constellations/Four Brocade Embellishments.avif",
             "description": "Increases the Level of Fluttering Hasode by 3.Maximum upgrade level is 15."
         },
         {
             "name": "A Tailor's Three Courtesies",
             "level": 4,
-            "icon": "assets/character/constellations/A Tailor's Three Courtesies.png",
+            "icon": "assets/character/constellations/A Tailor's Three Courtesies.avif",
             "description": "For 8s after triggering either follow-up effect of the Passive Talent \"Tailor-Made,\" when your current active character's Normal, Charged, or Plunging Attacks hit a nearby opponent, a simplified automaton doll, \"Kinu,\" will be summoned near this opponent. You can summon 1 Kinu every 1s in this way, and up to 3 Kinu may be summoned this way during each instance of \"Tailor-Made\"'s Seize the Moment or Tailoring effect. The above effect can be triggered up to once every 15s.Must unlock the Passive Talent \"Tailor-Made\" first."
         },
         {
             "name": "Two Silken Plumules",
             "level": 5,
-            "icon": "assets/character/constellations/Two Silken Plumules.png",
+            "icon": "assets/character/constellations/Two Silken Plumules.avif",
             "description": "Increases the Level of Hiyoku: Twin Blades by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sole Principle Pursuit",
             "level": 6,
-            "icon": "assets/character/constellations/Sole Principle Pursuit.png",
+            "icon": "assets/character/constellations/Sole Principle Pursuit.avif",
             "description": "After triggering a follow-up effect of the Passive Talent \"Tailor-Made,\" Chiori's own Fluttering Hasode's CD is decreased by 12s. Must unlock the Passive \"Tailor-Made\" first.In addition, the DMG dealt by Chiori's own Normal Attacks is increased by an amount equal to 235% of her own DEF."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Court of Fontaine",
@@ -74,12 +74,12 @@ var CHIORI = {
     ],
     "special_dish": {
         "name": "\"Fashion Show\"",
-        "icon": "assets/foods/Chiori.png"
+        "icon": "assets/foods/Chiori.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Chiori.png",
-        "background": "assets/character/namecard_background/Chiori.png",
-        "banner": "assets/character/namecard_banner/Chiori.png",
+        "icon": "assets/character/namecard_icon/Chiori.avif",
+        "background": "assets/character/namecard_background/Chiori.avif",
+        "banner": "assets/character/namecard_banner/Chiori.avif",
         "description": "The doll known as \"Tamoto-chan\" was one of Chiori's earliest works, and is also the model that requires the least fabric and tailoring.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 3,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 2,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 10,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 15,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 20,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 8,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 30,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 18,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 45,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelia",
                     "value": 20,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Dendrobium",
                     "value": 60,
-                    "icon": "assets/materials/Dendrobium.png"
+                    "icon": "assets/materials/Dendrobium.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 24,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var CHIORI = {
         {
             "name": "Weaving Blade",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Weaving Blade.png",
+            "icon": "assets/character/talents/Weaving Blade.avif",
             "description": "Normal AttackPerforms up to 4 rapid strikes.Charged AttackConsumes a certain amount of Stamina to unleash 2 rapid sword strikes.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Fluttering Hasode",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Fluttering Hasode.png",
+            "icon": "assets/character/talents/Fluttering Hasode.avif",
             "description": "Dashes nimbly forward with silken steps. Once this dash ends, Chiori will summon the automaton doll \"Tamoto\" beside her and sweep her blade upward, dealing AoE Geo DMG to nearby opponents based on her ATK and DEF.Holding the Skill will cause it to behave differently.HoldEnter Aiming Mode to adjust the dash direction.Tamoto Will slash at nearby opponents at intervals, dealing AoE Geo DMG based on Chiori's ATK and DEF. While active, if there are nearby Geo Construct(s) or Geo Construct(s) are created nearby, an additional Tamoto will be summoned next to your active character. Only 1 additional Tamoto can be summoned in this manner, and its duration is independently counted."
         },
         {
             "name": "Hiyoku: Twin Blades",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Hiyoku Twin Blades.png",
+            "icon": "assets/character/talents/Hiyoku Twin Blades.avif",
             "description": "Twin blades leave their sheaths as Chiori slices with the clean cuts of a master tailor, dealing AoE Geo DMG based on her ATK and DEF."
         },
         {
             "name": "Tailor-Made",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Tailor-Made.png",
+            "icon": "assets/character/talents/Tailor-Made.avif",
             "description": "Gain different effects depending on the next action you take within a short duration after using Fluttering Hasode's upward sweep. If you (PressPressText for mouse and keyboard and controller/TapTapText for touch screen) the Elemental Skill, you will trigger the Tapestry effect. If you (PressPressText for mouse and keyboard and controller/TapTapText for touch screen) your Normal Attack, the Tailoring effect will be triggered instead.TapestrySwitches to the next character in your roster.Grants all your party members \"Seize the Moment\": When your active party member's Normal Attacks, Charged Attacks, and Plunging Attacks hit a nearby opponent, \"Tamoto\" will execute a coordinated attack, dealing 100% of Fluttering Hasode's upward sweep DMG as AoE Geo DMG at the opponent's location. DMG dealt this way is considered Elemental Skill DMG.\"Seize the Moment\" lasts 8s, and 1 of \"Tamoto\"'s coordinated attack can be unleashed every 2s. 2 such coordinated attacks can occur per \"Seize the Moment\" effect duration.TailoringChiori gains Geo infusion for 5s.When on the field, if Chiori does not either (PressPressText for mouse and keyboard and controller/TapTapText for touch screen) her Elemental Skill or use a Normal Attack within a short time after using Fluttering Hasode's upward sweep, the Tailoring effect will be triggered by default."
         },
         {
             "name": "The Finishing Touch",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/The Finishing Touch.png",
+            "icon": "assets/character/talents/The Finishing Touch.avif",
             "description": "When a nearby party member creates a Geo Construct, Chiori will gain 20% Geo DMG Bonus for 20s."
         },
         {
             "name": "Brocaded Collar's Beauteous Silhouette",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Brocaded Collar's Beauteous Silhouette.png",
+            "icon": "assets/character/talents/Brocaded Collar's Beauteous Silhouette.avif",
             "description": "When any party member is wearing an outfit apart from their default outfit, or is wearing a wind glider other than the Wings of First Flight, your party members will obtain the Swift Stride effect: Movement SPD is increased by 10%.This effect does not take effect in Domains, Trounce Domains and the Spiral Abyss. Swift Stride does not stack."
         }
     ],
@@ -462,17 +491,20 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Husk",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Husk.png"
+                    "icon": "assets/materials/Spectral Husk.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Light",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Light.png"
+                    "icon": "assets/materials/Teachings of Light.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 3,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Heart",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Heart.png"
+                    "icon": "assets/materials/Spectral Heart.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Light",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Light.png"
+                    "icon": "assets/materials/Guide to Light.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 4,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 6,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 9,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var CHIORI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spectral Nucleus",
                     "value": 12,
-                    "icon": "assets/materials/Spectral Nucleus.png"
+                    "icon": "assets/materials/Spectral Nucleus.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Light",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Light.png"
+                    "icon": "assets/materials/Philosophies of Light.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2321,254 +2382,5 @@ var CHIORI = {
     "demo_music": {
         "name": "Le cramoisi coulant comme Cin",
         "url": "assets/character/demo_music/Chiori.mp3"
-    },
-    "build": {
-        "version": "4.5",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Uraku Misugiri",
-            "Primordial Jade Cutter",
-            "Harbinger of Dawn",
-            "Cinnabar Spindle",
-            "Wolf-Fang"
-        ],
-        "artifacts": [
-            "4pc Golden Troupe",
-            "4pc Husk of Opulent Dreams"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "DEF%",
-            "Geo DMG% / DEF%",
-            "CRIT Rate / CRIT DMG / DEF%"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "DEF%",
-            "ATK%",
-            "ER"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Noelle",
-                    "icon": "assets/character/icon/Noelle.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ningguang",
-                    "icon": "assets/character/icon/Ningguang.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Chiori",
-                    "icon": "assets/character/icon/Chiori.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ]
-        ]
     }
 }

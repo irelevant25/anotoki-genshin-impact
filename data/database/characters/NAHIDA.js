@@ -1,32 +1,32 @@
 var NAHIDA = {
     "name": "Nahida",
     "secondary_title": "Physic of Purity",
-    "card_icon": "assets/character/card/Nahida.png",
-    "wish_icon": "assets/character/wish/Nahida.png",
-    "ingame_icon": "assets/character/ingame/Nahida.png",
-    "icon": "assets/character/icon/Nahida.png",
+    "card_icon": "assets/character/card/Nahida.avif",
+    "wish_icon": "assets/character/wish/Nahida.avif",
+    "ingame_icon": "assets/character/ingame/Nahida.avif",
+    "icon": "assets/character/icon/Nahida.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Dendro",
-        "icon": "assets/elements/Dendro.png"
+        "icon": "assets/elements/Dendro.avif"
     },
     "model": "Short Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "October 27th",
@@ -34,43 +34,43 @@ var NAHIDA = {
         {
             "name": "The Seed of Stored Knowledge",
             "level": 1,
-            "icon": "assets/character/constellations/The Seed of Stored Knowledge.png",
+            "icon": "assets/character/constellations/The Seed of Stored Knowledge.avif",
             "description": "When the Shrine of Maya is unleashed and the Elemental Types of the party members are being tabulated, the count will add 1 to the number of Pyro, Electro, and Hydro characters respectively."
         },
         {
             "name": "The Root of All Fullness",
             "level": 2,
-            "icon": "assets/character/constellations/The Root of All Fullness.png",
+            "icon": "assets/character/constellations/The Root of All Fullness.avif",
             "description": "Opponents that are marked by Seeds of Skandha applied by Nahida herself will be affected by the following effects:Burning, Bloom, Hyperbloom, and Burgeon Reaction DMG can score CRIT Hits. CRIT Rate and CRIT DMG are fixed at 20% and 100% respectively.Within 8s of being affected by Quicken, Aggravate, Spread, DEF is decreased by 30%."
         },
         {
             "name": "The Shoot of Conscious Attainment",
             "level": 3,
-            "icon": "assets/character/constellations/The Shoot of Conscious Attainment.png",
+            "icon": "assets/character/constellations/The Shoot of Conscious Attainment.avif",
             "description": "Increases the Level of All Schemes to Know by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Stem of Manifest Inference",
             "level": 4,
-            "icon": "assets/character/constellations/The Stem of Manifest Inference.png",
+            "icon": "assets/character/constellations/The Stem of Manifest Inference.avif",
             "description": "When 1/2/3/(4 or more) nearby opponents are affected by All Schemes to Know's Seeds of Skandha, Nahida's Elemental Mastery will be increased by 100/120/140/160."
         },
         {
             "name": "The Leaves of Enlightening Speech",
             "level": 5,
-            "icon": "assets/character/constellations/The Leaves of Enlightening Speech.png",
+            "icon": "assets/character/constellations/The Leaves of Enlightening Speech.avif",
             "description": "Increases the Level of Illusory Heart by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Fruit of Reason's Culmination",
             "level": 6,
-            "icon": "assets/character/constellations/The Fruit of Reason's Culmination.png",
+            "icon": "assets/character/constellations/The Fruit of Reason's Culmination.avif",
             "description": "When Nahida hits an opponent affected by All Schemes to Know's Seeds of Skandha with Normal or Charged Attacks after unleashing Illusory Heart, she will use Tri-Karma Purification: Karmic Oblivion on this opponent and all connected opponents, dealing Dendro DMG based on 200% of Nahida's ATK and 400% of her Elemental Mastery.DMG dealt by Tri-Karma Purification: Karmic Oblivion is considered Elemental Skill DMG and can be triggered once every 0.2s.This effect can last up to 10s and will be removed after Nahida has unleashed 6 instances of Tri-Karma Purification: Karmic Oblivion."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Sumeru City",
@@ -79,12 +79,12 @@ var NAHIDA = {
     ],
     "special_dish": {
         "name": "Halvamazd",
-        "icon": "assets/foods/Nahida.png"
+        "icon": "assets/foods/Nahida.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Nahida.png",
-        "background": "assets/character/namecard_background/Nahida.png",
-        "banner": "assets/character/namecard_banner/Nahida.png",
+        "icon": "assets/character/namecard_icon/Nahida.avif",
+        "background": "assets/character/namecard_background/Nahida.avif",
+        "banner": "assets/character/namecard_banner/Nahida.avif",
         "description": "The rising moon admires the sun, because her light can shine all over the earth. On the other hand, the setting sun is envious of the moon, for she can be accompanied by the sweetest of dreams.",
         "quality": "4",
         "sources": [
@@ -162,22 +162,26 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Nagadus Emerald Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Nagadus Emerald Sliver.png"
+                    "icon": "assets/materials/Nagadus Emerald Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 3,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 3,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -205,27 +209,32 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 2,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 10,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 15,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -253,27 +262,32 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 4,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Fragment.png"
+                    "icon": "assets/materials/Nagadus Emerald Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 20,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 12,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -301,27 +315,32 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 8,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 30,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 18,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -349,27 +368,32 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 12,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Chunk.png"
+                    "icon": "assets/materials/Nagadus Emerald Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 45,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -397,27 +421,32 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Quelled Creeper",
                     "value": 20,
-                    "icon": "assets/materials/Quelled Creeper.png"
+                    "icon": "assets/materials/Quelled Creeper.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Nagadus Emerald Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Nagadus Emerald Gemstone.png"
+                    "icon": "assets/materials/Nagadus Emerald Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 60,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 24,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -426,37 +455,37 @@ var NAHIDA = {
         {
             "name": "Akara",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Akara.png",
+            "icon": "assets/character/talents/Akara.avif",
             "description": "Normal AttackPerforms up to 4 attacks that deal Dendro DMG to opponents in front of her.Charged AttackConsumes a certain amount of Stamina to deal AoE Dendro DMG to opponents in front of her after a short casting time.Plunging AttackCalling upon the might of Dendro, Nahida plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Dendro DMG upon impact with the ground."
         },
         {
             "name": "All Schemes to Know",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/All Schemes to Know.png",
+            "icon": "assets/character/talents/All Schemes to Know.avif",
             "description": "Sends forth karmic bonds of wood and tree from her side, dealing AoE Dendro DMG and marking up to 8 opponents hit with the Seed of Skandha.When held, this skill will trigger differently.HoldEnters Aiming Mode, which will allow you to select a limited number of opponents within a limited area. During this time, Nahida's resistance to interruption will be increased.When released, this skill deals Dendro DMG to these opponents and marks them with the Seed of Skandha.Aiming Mode will last up to 5s and can select a maximum of 8 opponents.Seed of SkandhaOpponents who have been marked by the Seed of Skandha will be linked to one another up till a certain distance.After you trigger Elemental Reactions on opponents who are affected by the Seeds of Skandha or when they take DMG from Dendro Cores (including Burgeon and Hyperbloom DMG), Nahida will unleash Tri-Karma Purification on the opponents and all connected opponents, dealing Dendro DMG based on her ATK and Elemental Mastery.You can trigger at most 1 Tri-Karma Purification within a short period of time."
         },
         {
             "name": "Illusory Heart",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Illusory Heart.png",
+            "icon": "assets/character/talents/Illusory Heart.avif",
             "description": "Manifests the Court of Dreams and expands the Shrine of Maya.When the Shrine of Maya field is unleashed, the following effects will be separately unleashed based on the Elemental Types present within the party.Pyro: While Nahida remains within the Shrine of Maya, the DMG dealt by Tri-Karma Purification from \"All Schemes to Know\" is increased.Electro: While Nahida remains within the Shrine of Maya, the interval between each Tri-Karma Purification from \"All Schemes to Know\" is decreased.Hydro: The Shrine of Maya's duration is increased.If there are at least 2 party members of the aforementioned Elemental Types present when the field is deployed, the aforementioned effects will be increased further.Even if Nahida is not on the field, these bonuses will still take effect so long as party members are within the Shrine of Maya."
         },
         {
             "name": "Compassion Illuminated",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Compassion Illuminated.png",
+            "icon": "assets/character/talents/Compassion Illuminated.avif",
             "description": "When unleashing Illusory Heart, the Shrine of Maya will gain the following effects:The Elemental Mastery of the active character within the field will be increased by 25% of the Elemental Mastery of the party member with the highest Elemental Mastery.You can gain a maximum of 250 Elemental Mastery in this manner."
         },
         {
             "name": "Awakening Elucidated",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Awakening Elucidated.png",
+            "icon": "assets/character/talents/Awakening Elucidated.avif",
             "description": "Each point of Nahida's Elemental Mastery beyond 200 will grant 0.1% Bonus DMG and 0.03% CRIT Rate to Tri-Karma Purification from All Schemes to Know.A maximum of 80% Bonus DMG and 24% CRIT Rate can be granted to Tri-Karma Purification in this manner."
         },
         {
             "name": "On All Things Meditated",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/On All Things Meditated.png",
+            "icon": "assets/character/talents/On All Things Meditated.avif",
             "description": "Nahida can use All Schemes to Know to interact with some harvestable items within a fixed AoE. This skill may even have some other effects..."
         }
     ],
@@ -467,17 +496,20 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Fungal Spores",
                     "value": 6,
-                    "icon": "assets/materials/Fungal Spores.png"
+                    "icon": "assets/materials/Fungal Spores.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ingenuity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ingenuity.png"
+                    "icon": "assets/materials/Teachings of Ingenuity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 3,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 4,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 6,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Luminescent Pollen",
                     "value": 9,
-                    "icon": "assets/materials/Luminescent Pollen.png"
+                    "icon": "assets/materials/Luminescent Pollen.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 4,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 1,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 6,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 1,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 9,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 2,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var NAHIDA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Cyst Dust",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Cyst Dust.png"
+                    "icon": "assets/materials/Crystalline Cyst Dust.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Puppet Strings",
                     "value": 2,
-                    "icon": "assets/materials/Puppet Strings.png"
+                    "icon": "assets/materials/Puppet Strings.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2518,384 +2579,5 @@ var NAHIDA = {
     "demo_music": {
         "name": "Surasthana Fantasia",
         "url": "assets/character/demo_music/Nahida.mp3"
-    },
-    "build": {
-        "version": "4.6",
-        "type": "Support",
-        "weapons": [
-            "A Thousand Floating Dreams",
-            "Kagura's Verity",
-            "Skyward Atlas",
-            "Memory of Dust",
-            "Sacrificial Fragments",
-            "Magic Guide",
-            "Mappa Mare"
-        ],
-        "artifacts": [
-            "4pc Deepwood Memories",
-            "4pc Tenacity of the Millelith",
-            "4pc Golden Troupe",
-            "4pc Gilded Dreams",
-            "4pc Instructor"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM",
-            "EM / Dendro DMG%",
-            "EM / CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "EM / CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Alhaitham",
-                    "icon": "assets/character/icon/Alhaitham.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Cyno",
-                    "icon": "assets/character/icon/Cyno.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Candace",
-                    "icon": "assets/character/icon/Candace.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Nilou",
-                    "icon": "assets/character/icon/Nilou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaveh",
-                    "icon": "assets/character/icon/Kaveh.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Thoma",
-                    "icon": "assets/character/icon/Thoma.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Razor",
-                    "icon": "assets/character/icon/Razor.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ]
-        ]
     }
 }

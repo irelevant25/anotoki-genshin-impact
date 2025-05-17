@@ -1,28 +1,28 @@
 var XINYAN = {
     "name": "Xinyan",
     "secondary_title": "Blazing Riff",
-    "card_icon": "assets/character/card/Xinyan.png",
-    "wish_icon": "assets/character/wish/Xinyan.png",
-    "ingame_icon": "assets/character/ingame/Xinyan.png",
-    "icon": "assets/character/icon/Xinyan.png",
+    "card_icon": "assets/character/card/Xinyan.avif",
+    "wish_icon": "assets/character/wish/Xinyan.avif",
+    "ingame_icon": "assets/character/ingame/Xinyan.avif",
+    "icon": "assets/character/icon/Xinyan.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "October 16th",
@@ -30,53 +30,53 @@ var XINYAN = {
         {
             "name": "Fatal Acceleration",
             "level": 1,
-            "icon": "assets/character/constellations/Fatal Acceleration.png",
+            "icon": "assets/character/constellations/Fatal Acceleration.avif",
             "description": "Upon scoring a CRIT Hit, increases ATK SPD of Xinyan's Normal and Charged Attacks by 12% for 5s.Can only occur once every 5s."
         },
         {
             "name": "Impromptu Opening",
             "level": 2,
-            "icon": "assets/character/constellations/Impromptu Opening.png",
+            "icon": "assets/character/constellations/Impromptu Opening.avif",
             "description": "Riff Revolution's Physical DMG has its CRIT Rate increased by 100%, and will form a shield at Shield Level 3: Rave when cast."
         },
         {
             "name": "Double-Stop",
             "level": 3,
-            "icon": "assets/character/constellations/Double-Stop.png",
+            "icon": "assets/character/constellations/Double-Stop.avif",
             "description": "Increases the Level of Sweeping Fervor by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Wildfire Rhythm",
             "level": 4,
-            "icon": "assets/character/constellations/Wildfire Rhythm.png",
+            "icon": "assets/character/constellations/Wildfire Rhythm.avif",
             "description": "Sweeping Fervor's swing DMG decreases opponent's Physical RES by 15% for 12s."
         },
         {
             "name": "Screamin' for an Encore",
             "level": 5,
-            "icon": "assets/character/constellations/Screamin' for an Encore.png",
+            "icon": "assets/character/constellations/Screamin' for an Encore.avif",
             "description": "Increases the Level of Riff Revolution by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Rockin' in a Flaming World",
             "level": 6,
-            "icon": "assets/character/constellations/Rockin' in a Flaming World.png",
+            "icon": "assets/character/constellations/Rockin' in a Flaming World.avif",
             "description": "Decreases the Stamina Consumption of Xinyan's Charged Attacks by 30%. Additionally, Xinyan's Charged Attacks gain an ATK Bonus equal to 50% of her DEF."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [],
     "special_dish": {
         "name": "Rockin' Riffin' Chicken!",
-        "icon": "assets/foods/Xinyan.png"
+        "icon": "assets/foods/Xinyan.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Xinyan.png",
-        "background": "assets/character/namecard_background/Xinyan.png",
-        "banner": "assets/character/namecard_banner/Xinyan.png",
+        "icon": "assets/character/namecard_icon/Xinyan.avif",
+        "background": "assets/character/namecard_background/Xinyan.avif",
+        "banner": "assets/character/namecard_banner/Xinyan.avif",
         "description": "Xinyan only has time to examine her instrument carefully after the performance is over. Even in silence, it is a beauty.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 3,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 2,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 10,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 4,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 20,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 8,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 30,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 12,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 45,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Everflame Seed",
                     "value": 20,
-                    "icon": "assets/materials/Everflame Seed.png"
+                    "icon": "assets/materials/Everflame Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Violetgrass",
                     "value": 60,
-                    "icon": "assets/materials/Violetgrass.png"
+                    "icon": "assets/materials/Violetgrass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var XINYAN = {
         {
             "name": "Dance on Fire",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Dance on Fire.png",
+            "icon": "assets/character/talents/Dance on Fire.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Sweeping Fervor",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Sweeping Fervor.png",
-            "description": "Xinyan brandishes her instrument, dealing Pyro DMG on nearby opponents, forming a shield made out of her audience's passion.The shield's DMG Absorption scales based on Xinyan's DEF and on the number of opponents hit.Hitting 0 - 1 opponents grants Shield Level 1: Ad Lib.Hitting 2 opponents grants Shield Level 2: Lead-In.Hitting 3 or more opponents grants Shield Level 3: Rave, which will also deal intermittent Pyro DMG to nearby opponents.The shield has the following special properties:When unleashed, it infuses Xinyan with Pyro.It has 250% DMG Absorption effectiveness against Pyro DMG."
+            "icon": "assets/character/talents/Sweeping Fervor.avif",
+            "description": "Xinyan brandishes her instrument, dealing Pyro DMG on nearby opponents, forming a shield made out of her audience's passion.The shield's DMG Absorption scales based on Xinyan's DEF and on the number of opponents hit.Hitting 0 – 1 opponents grants Shield Level 1: Ad Lib.Hitting 2 opponents grants Shield Level 2: Lead-In.Hitting 3 or more opponents grants Shield Level 3: Rave, which will also deal intermittent Pyro DMG to nearby opponents.The shield has the following special properties:When unleashed, it infuses Xinyan with Pyro.It has 250% DMG Absorption effectiveness against Pyro DMG."
         },
         {
             "name": "Riff Revolution",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Riff Revolution.png",
+            "icon": "assets/character/talents/Riff Revolution.avif",
             "description": "Strumming rapidly, Xinyan launches nearby opponents and deals Physical DMG to them, hyping up the crowd.The sheer intensity of the atmosphere will cause explosions that deal Pyro DMG to nearby opponents."
         },
         {
             "name": "\"The Show Goes On, Even Without An Audience...\"",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/The Show Goes On, Even Without An Audience....png",
+            "icon": "assets/character/talents/The Show Goes On, Even Without An Audience....avif",
             "description": "Decreases the number of opponents Sweeping Fervor must hit to trigger each level of shielding.Shield Level 2: Lead-In requirement reduced to 1 opponent hit.Shield Level 3: Rave requirement reduced to 2 opponents hit or more."
         },
         {
             "name": "\"...Now That's Rock 'N' Roll!\"",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/...Now That's Rock 'N' Roll!.png",
+            "icon": "assets/character/talents/...Now That's Rock 'N' Roll!.avif",
             "description": "Characters shielded by Sweeping Fervor deal 15% increased Physical DMG."
         },
         {
             "name": "A Rad Recipe",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/A Rad Recipe.png",
+            "icon": "assets/character/talents/A Rad Recipe.avif",
             "description": "When a Perfect Cooking is achieved on a DEF-boosting dish, Xinyan has a 12% chance to obtain double the product."
         }
     ],
@@ -462,17 +491,20 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Gold",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Gold.png"
+                    "icon": "assets/materials/Teachings of Gold.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tusk of Monoceros Caeli",
                     "value": 1,
-                    "icon": "assets/materials/Tusk of Monoceros Caeli.png"
+                    "icon": "assets/materials/Tusk of Monoceros Caeli.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tusk of Monoceros Caeli",
                     "value": 1,
-                    "icon": "assets/materials/Tusk of Monoceros Caeli.png"
+                    "icon": "assets/materials/Tusk of Monoceros Caeli.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tusk of Monoceros Caeli",
                     "value": 2,
-                    "icon": "assets/materials/Tusk of Monoceros Caeli.png"
+                    "icon": "assets/materials/Tusk of Monoceros Caeli.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var XINYAN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tusk of Monoceros Caeli",
                     "value": 2,
-                    "icon": "assets/materials/Tusk of Monoceros Caeli.png"
+                    "icon": "assets/materials/Tusk of Monoceros Caeli.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2351,208 +2412,5 @@ var XINYAN = {
     "demo_music": {
         "name": "Rockin' With Fire",
         "url": "assets/character/demo_music/Xinyan.mp3"
-    },
-    "build": {
-        "version": "3.3",
-        "type": "Support",
-        "weapons": [
-            "Redhorn Stonethresher",
-            "Serpent Spine R5",
-            "Skyward Pride",
-            "The Unforged",
-            "Song of Broken Pines",
-            "Prototype Archaic R5",
-            "Wolf's Gravestone",
-            "BlackcliffSlasher R5",
-            "Snow-Tombed Starsilver R5",
-            "Akuoumaru R5",
-            "Luxurious Sea-Lord R5",
-            "Lithic Blade R5",
-            "Whiteblind R5"
-        ],
-        "artifacts": [
-            "4 Pale Flame",
-            "4 Retracing Bolide",
-            "4 Bloodstained Chivalry"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "DEF% / ER",
-            "DEF%",
-            "DEF%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "DEF%",
-            "CRIT Rate"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Klee",
-                    "icon": "assets/character/icon/Klee.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Razor",
-                    "icon": "assets/character/icon/Razor.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yun Jin",
-                    "icon": "assets/character/icon/Yun Jin.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xinyan",
-                    "icon": "assets/character/icon/Xinyan.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ]
-        ]
     }
 }

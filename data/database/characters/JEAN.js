@@ -1,28 +1,28 @@
 var JEAN = {
     "name": "Jean",
     "secondary_title": "Dandelion Knight",
-    "card_icon": "assets/character/card/Jean.png",
-    "wish_icon": "assets/character/wish/Jean.png",
-    "ingame_icon": "assets/character/ingame/Jean.png",
-    "icon": "assets/character/icon/Jean.png",
+    "card_icon": "assets/character/card/Jean.avif",
+    "wish_icon": "assets/character/wish/Jean.avif",
+    "ingame_icon": "assets/character/ingame/Jean.avif",
+    "icon": "assets/character/icon/Jean.avif",
     "quality": "5",
     "weapon": {
         "name": "Sword",
-        "icon": "assets/weapon_types/Sword.png"
+        "icon": "assets/weapon_types/Sword.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "March 14th",
@@ -30,43 +30,43 @@ var JEAN = {
         {
             "name": "Spiraling Tempest",
             "level": 1,
-            "icon": "assets/character/constellations/Spiraling Tempest.png",
+            "icon": "assets/character/constellations/Spiraling Tempest.avif",
             "description": "Increases the pulling speed of Gale Blade after holding for more than 1s, and increases the DMG dealt by 40%."
         },
         {
             "name": "People's Aegis",
             "level": 2,
-            "icon": "assets/character/constellations/People's Aegis.png",
+            "icon": "assets/character/constellations/People's Aegis.avif",
             "description": "When Jean picks up an Elemental Orb/Particle, all party members have their Movement SPD and ATK SPD increased by 15% for 15s."
         },
         {
             "name": "When the West Wind Arises",
             "level": 3,
-            "icon": "assets/character/constellations/When the West Wind Arises.png",
+            "icon": "assets/character/constellations/When the West Wind Arises.avif",
             "description": "Increases the Level of Dandelion Breeze by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Lands of Dandelion",
             "level": 4,
-            "icon": "assets/character/constellations/Lands of Dandelion.png",
+            "icon": "assets/character/constellations/Lands of Dandelion.avif",
             "description": "Within the Field created by Dandelion Breeze, all opponents have their Anemo RES decreased by 40%."
         },
         {
             "name": "Outbursting Gust",
             "level": 5,
-            "icon": "assets/character/constellations/Outbursting Gust.png",
+            "icon": "assets/character/constellations/Outbursting Gust.avif",
             "description": "Increases the Level of Gale Blade by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Lion's Fang, Fair Protector of Mondstadt",
             "level": 6,
-            "icon": "assets/character/constellations/Lion's Fang, Fair Protector of Mondstadt.png",
+            "icon": "assets/character/constellations/Lion's Fang, Fair Protector of Mondstadt.avif",
             "description": "Incoming DMG is decreased by 35% within the Field created by Dandelion Breeze. Upon leaving the Dandelion Field, this effect lasts for 3 attacks or 10s."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius",
@@ -75,12 +75,12 @@ var JEAN = {
     ],
     "special_dish": {
         "name": "Invigorating Pizza",
-        "icon": "assets/foods/Jean.png"
+        "icon": "assets/foods/Jean.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Jean.png",
-        "background": "assets/character/namecard_background/Jean.png",
-        "banner": "assets/character/namecard_banner/Jean.png",
+        "icon": "assets/character/namecard_icon/Jean.avif",
+        "background": "assets/character/namecard_background/Jean.avif",
+        "banner": "assets/character/namecard_banner/Jean.avif",
         "description": "The dandelion, also called \"lion's fang\" by some, is the flower most sensitive to the direction of the wind.",
         "quality": "4",
         "sources": [
@@ -162,22 +162,26 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 3,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 3,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -205,27 +209,32 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 2,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 10,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 15,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -253,27 +262,32 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 4,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 20,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 12,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -301,27 +315,32 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 8,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 30,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 18,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -349,27 +368,32 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 12,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 45,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -397,27 +421,32 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hurricane Seed",
                     "value": 20,
-                    "icon": "assets/materials/Hurricane Seed.png"
+                    "icon": "assets/materials/Hurricane Seed.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 60,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 24,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -426,37 +455,37 @@ var JEAN = {
         {
             "name": "Favonius Bladework",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Favonius Bladework.png",
+            "icon": "assets/character/talents/Favonius Bladework.avif",
             "description": "Normal AttackPerforms up to 5 consecutive strikes.Charged AttackConsumes a certain amount of stamina to launch an opponent using the power of wind.Launched opponents will slowly fall to the ground.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Gale Blade",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Gale Blade.png",
+            "icon": "assets/character/talents/Gale Blade.avif",
             "description": "Focusing the might of the formless wind around her blade, Jean releases a miniature storm, launching opponents in the direction she aims at, dealing massive Anemo DMG.HoldAt the cost of continued stamina consumption, Jean can command the whirlwind to pull surrounding opponents and objects towards her front.Direction can be adjusted.Character is immobile during skill duration."
         },
         {
             "name": "Dandelion Breeze",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Dandelion Breeze.png",
+            "icon": "assets/character/talents/Dandelion Breeze.avif",
             "description": "Calling upon the wind's protection, Jean creates a swirling Dandelion Field, launching surrounding opponents and dealing Anemo DMG.At the same time, she instantly regenerates a large amount of HP for all party members. The amount of HP restored scales off Jean's ATK.Dandelion FieldContinuously regenerates HP of characters within the AoE and continuously imbues them with Anemo.Deals Anemo DMG to opponents entering or exiting the Dandelion Field."
         },
         {
             "name": "Wind Companion",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Wind Companion.png",
+            "icon": "assets/character/talents/Wind Companion.avif",
             "description": "On hit, Jean's Normal Attacks have a 50% chance to regenerate HP equal to 15% of Jean's ATK for all party members."
         },
         {
             "name": "Let the Wind Lead",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Let the Wind Lead.png",
+            "icon": "assets/character/talents/Let the Wind Lead.avif",
             "description": "Using Dandelion Breeze will regenerate 20% of its Energy."
         },
         {
             "name": "Guiding Breeze",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Guiding Breeze.png",
+            "icon": "assets/character/talents/Guiding Breeze.avif",
             "description": "When a Perfect Cooking is achieved on a dish with restorative effects, there is a 12% chance to obtain double the product."
         }
     ],
@@ -467,17 +496,20 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 6,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Resistance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Resistance.png"
+                    "icon": "assets/materials/Teachings of Resistance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -487,17 +519,20 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 3,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -507,17 +542,20 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 4,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -527,17 +565,20 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 6,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -547,17 +588,20 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 9,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -567,22 +611,26 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 4,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Plume",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Plume.png"
+                    "icon": "assets/materials/Dvalin's Plume.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -592,22 +640,26 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 6,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Plume",
                     "value": 1,
-                    "icon": "assets/materials/Dvalin's Plume.png"
+                    "icon": "assets/materials/Dvalin's Plume.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -617,22 +669,26 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 9,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Plume",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Plume.png"
+                    "icon": "assets/materials/Dvalin's Plume.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -642,27 +698,32 @@ var JEAN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dvalin's Plume",
                     "value": 2,
-                    "icon": "assets/materials/Dvalin's Plume.png"
+                    "icon": "assets/materials/Dvalin's Plume.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2418,80 +2479,5 @@ var JEAN = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "4.0",
-        "type": "Healer / Support",
-        "weapons": [
-            "Primordial Jade Cutter",
-            "Freedom-Sworn",
-            "Favonius Sword",
-            "Amenoma Kageuchi",
-            "Skyward Blade",
-            "Mistsplitter Reforged",
-            "Haran Geppaku Futsu",
-            "Festering Desire",
-            "Fleuve Cendre Ferryman",
-            "Sapwood Blade"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer",
-            "4pc Noblesse Oblige",
-            "4pc Ocean-Hued Clam"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "Anemo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

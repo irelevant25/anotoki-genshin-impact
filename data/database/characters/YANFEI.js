@@ -1,28 +1,28 @@
 var YANFEI = {
     "name": "Yanfei",
     "secondary_title": "Wise Innocence",
-    "card_icon": "assets/character/card/Yanfei.png",
-    "wish_icon": "assets/character/wish/Yanfei.png",
-    "ingame_icon": "assets/character/ingame/Yanfei.png",
-    "icon": "assets/character/icon/Yanfei.png",
+    "card_icon": "assets/character/card/Yanfei.avif",
+    "wish_icon": "assets/character/wish/Yanfei.avif",
+    "ingame_icon": "assets/character/ingame/Yanfei.avif",
+    "icon": "assets/character/icon/Yanfei.avif",
     "quality": "4",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "July 28th",
@@ -30,55 +30,55 @@ var YANFEI = {
         {
             "name": "The Law Knows No Kindness",
             "level": 1,
-            "icon": "assets/character/constellations/The Law Knows No Kindness.png",
+            "icon": "assets/character/constellations/The Law Knows No Kindness.avif",
             "description": "When Yanfei uses her Charged Attack, each existing Scarlet Seal additionally reduces the stamina cost of this Charged Attack by 10% and increases resistance against interruption during its release."
         },
         {
             "name": "Right of Final Interpretation",
             "level": 2,
-            "icon": "assets/character/constellations/Right of Final Interpretation.png",
+            "icon": "assets/character/constellations/Right of Final Interpretation.avif",
             "description": "Increases Yanfei's Charged Attack CRIT Rate by 20% against enemies below 50% HP."
         },
         {
             "name": "Samadhi Fire-Forged",
             "level": 3,
-            "icon": "assets/character/constellations/Samadhi Fire-Forged.png",
+            "icon": "assets/character/constellations/Samadhi Fire-Forged.avif",
             "description": "Increases the Level of Signed Edict by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Supreme Amnesty",
             "level": 4,
-            "icon": "assets/character/constellations/Supreme Amnesty.png",
+            "icon": "assets/character/constellations/Supreme Amnesty.avif",
             "description": "When Done Deal is used:Creates a shield that absorbs up to 45% of Yanfei's Max HP for 15s.This shield absorbs Pyro DMG 250% more effectively."
         },
         {
             "name": "Abiding Affidavit",
             "level": 5,
-            "icon": "assets/character/constellations/Abiding Affidavit.png",
+            "icon": "assets/character/constellations/Abiding Affidavit.avif",
             "description": "Increases the Level of Done Deal by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Extra Clause",
             "level": 6,
-            "icon": "assets/character/constellations/Extra Clause.png",
+            "icon": "assets/character/constellations/Extra Clause.avif",
             "description": "Increases the maximum number of Scarlet Seals by 1."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Adepti"
     ],
     "special_dish": {
         "name": "\"My Way\"",
-        "icon": "assets/foods/Yanfei.png"
+        "icon": "assets/foods/Yanfei.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Yanfei.png",
-        "background": "assets/character/namecard_background/Yanfei.png",
-        "banner": "assets/character/namecard_banner/Yanfei.png",
+        "icon": "assets/character/namecard_icon/Yanfei.avif",
+        "background": "assets/character/namecard_background/Yanfei.avif",
+        "banner": "assets/character/namecard_banner/Yanfei.avif",
         "description": "Justice, signed in scarlet.",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 3,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 2,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 10,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 15,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 4,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 20,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 8,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 30,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 18,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 12,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 45,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 20,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Noctilucous Jade",
                     "value": 60,
-                    "icon": "assets/materials/Noctilucous Jade.png"
+                    "icon": "assets/materials/Noctilucous Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 24,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,37 +449,37 @@ var YANFEI = {
         {
             "name": "Seal of Approval",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Seal of Approval.png",
+            "icon": "assets/character/talents/Seal of Approval.avif",
             "description": "Normal AttackShoots fireballs that deal up to three counts of Pyro DMG.When Yanfei's Normal Attacks hit enemies, they will grant her a single Scarlet Seal. Yanfei may possess a maximum of 3 Scarlet Seals, and each time this effect is triggered, the duration of currently possessed Scarlet Seals will refresh.Each Scarlet Seal will decrease Yanfei's Stamina consumption and will disappear when she leaves the field.Charged AttackConsumes Stamina and all Scarlet Seals before dealing AoE Pyro DMG to the opponents after a short casting time.This Charged Attack's AoE and DMG will increase according to the amount of Scarlet Seals consumed.Plunging AttackGathering the power of Pyro, Yanfei plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Pyro DMG upon impact with the ground."
         },
         {
             "name": "Signed Edict",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Signed Edict.png",
+            "icon": "assets/character/talents/Signed Edict.avif",
             "description": "Summons blistering flames that deal AoE Pyro DMG.Opponents hit by the flames will grant Yanfei the maximum number of Scarlet Seals."
         },
         {
             "name": "Done Deal",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Done Deal.png",
+            "icon": "assets/character/talents/Done Deal.avif",
             "description": "Triggers a spray of intense flames that rush at nearby opponents, dealing AoE Pyro DMG, granting Yanfei the maximum number of Scarlet Seals, and applying Brilliance to her.BrillianceHas the following effects:Grants Yanfei a Scarlet Seal at fixed intervals.Increases the DMG dealt by her Charged Attacks.The effects of Brilliance will end if Yanfei leaves the field or falls in battle."
         },
         {
             "name": "Proviso",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Proviso.png",
+            "icon": "assets/character/talents/Proviso.avif",
             "description": "When Yanfei consumes Scarlet Seals by using a Charged Attack, each Scarlet Seal will increase Yanfei's Pyro DMG Bonus by 5%. This effect lasts for 6s. When a Charged Attack is used again during the effect's duration, it will dispel the previous effect."
         },
         {
             "name": "Blazing Eye",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Blazing Eye.png",
+            "icon": "assets/character/talents/Blazing Eye.avif",
             "description": "When Yanfei's Charged Attack deals a CRIT Hit to opponents, she will deal an additional instance of AoE Pyro DMG equal to 80% of her ATK. This DMG counts as Charged Attack DMG."
         },
         {
             "name": "Encyclopedic Expertise",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Encyclopedic Expertise.png",
+            "icon": "assets/character/talents/Encyclopedic Expertise.avif",
             "description": "Displays the location of nearby resources unique to Liyue on the mini-map."
         }
     ],
@@ -461,17 +490,20 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Treasure Hoarder Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Treasure Hoarder Insignia.png"
+                    "icon": "assets/materials/Treasure Hoarder Insignia.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Gold",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Gold.png"
+                    "icon": "assets/materials/Teachings of Gold.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +513,20 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 3,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +536,20 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +559,20 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +582,20 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Silver Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Silver Raven Insignia.png"
+                    "icon": "assets/materials/Silver Raven Insignia.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +605,26 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 4,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 1,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +634,26 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 6,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 1,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +663,26 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 9,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 2,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +692,32 @@ var YANFEI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Golden Raven Insignia",
                     "value": 12,
-                    "icon": "assets/materials/Golden Raven Insignia.png"
+                    "icon": "assets/materials/Golden Raven Insignia.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 2,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2295,265 +2356,5 @@ var YANFEI = {
     "demo_music": {
         "name": "Marching of Xiezhi",
         "url": "assets/character/demo_music/Yanfei.mp3"
-    },
-    "build": {
-        "version": "4.5",
-        "type": "On-field DPS",
-        "weapons": [
-            "Lost Prayer to the Sacred Winds",
-            "Kagura's Verity",
-            "Cashflow Supervision",
-            "Tome of the Eternal Flow",
-            "A Thousand Floating Dreams",
-            "The Widsith",
-            "Sacrificial Jade",
-            "Tulaytullah's Remembrance",
-            "Skyward Atlas",
-            "Memory of Dust",
-            "Mappa Mare",
-            "Dodoco Tales",
-            "Flowing Purity"
-        ],
-        "artifacts": [
-            "4pc Crimson Witch of Flames",
-            "4pc Marechaussee Hunter",
-            "4pc Wanderer's Troupe",
-            "4pc Gilded Dreams",
-            "4pc Shimenawa's Reminiscence",
-            "4pc Lavawalker"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Burst",
-            "Skill"
-        ],
-        "main_stats": [
-            "EM / ATK%",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "EM / ATK%",
-            "ER"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Bennett ",
-                    "icon": "assets/character/icon/Bennett .png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Bennett ",
-                    "icon": "assets/character/icon/Bennett .png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Bennett ",
-                    "icon": "assets/character/icon/Bennett .png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                }
-            ],
-            [
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,28 +1,28 @@
 var CHASCA = {
     "name": "Chasca",
     "secondary_title": "Skyborne Arbiter",
-    "card_icon": "assets/character/card/Chasca.png",
-    "wish_icon": "assets/character/wish/Chasca.png",
-    "ingame_icon": "assets/character/ingame/Chasca.png",
-    "icon": "assets/character/icon/Chasca.png",
+    "card_icon": "assets/character/card/Chasca.avif",
+    "wish_icon": "assets/character/wish/Chasca.avif",
+    "ingame_icon": "assets/character/ingame/Chasca.avif",
+    "icon": "assets/character/icon/Chasca.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "December 10th",
@@ -30,55 +30,55 @@ var CHASCA = {
         {
             "name": "Cylinder, the Restless Roulette",
             "level": 1,
-            "icon": "assets/character/constellations/Cylinder, the Restless Roulette.png",
+            "icon": "assets/character/constellations/Cylinder, the Restless Roulette.avif",
             "description": "When triggering the Passive Talent \"Bullet Trick\"'s \"Spiritbinding Conversion,\" the 2nd Shadowhunt Shell loaded into the cylinder will be additionally converted into a Shining Shadowhunt Shell.The chance to trigger \"Spiritbinding Conversion\" is increased: If there are party members who meet the Elemental Conversion Type requirements, the chance to trigger \"Spiritbinding Conversion\" is increased by 33.3%, up to a maximum of 100%.You must first unlock the Passive Talent \"Bullet Trick.\"In addition, Chasca's Nightsoul point and Phlogiston consumption in her Nightsoul's Blessing state is decreased by 30% while out of combat."
         },
         {
             "name": "Muzzle, the Searing Smoke",
             "level": 2,
-            "icon": "assets/character/constellations/Muzzle, the Searing Smoke.png",
+            "icon": "assets/character/constellations/Muzzle, the Searing Smoke.avif",
             "description": "When Chasca takes the field, she will obtain 1 stack of \"Spirit of the Radiant Shadow\" from the Passive Talent \"Bullet Trick.\" You must first unlock the Passive Talent \"Bullet Trick\" for this effect.In addition, when the Shining Shadowhunt Shells from Spirit Reins, Shadow Hunt's Multitarget Fire hit opponents, they will deal AoE Elemental DMG of the corresponding Elemental Type of the Shining Shadowhunt Shells equal to 400% of Chasca's ATK. This DMG is considered Charged Attack DMG. This effect can be triggered once each time Chasca uses Multitarget Fire."
         },
         {
             "name": "Reins, Her Careful Control",
             "level": 3,
-            "icon": "assets/character/constellations/Reins, Her Careful Control.png",
+            "icon": "assets/character/constellations/Reins, Her Careful Control.avif",
             "description": "Increases the Level of Spirit Reins, Shadow Hunt by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sparks, the Sudden Shot",
             "level": 4,
-            "icon": "assets/character/constellations/Sparks, the Sudden Shot.png",
+            "icon": "assets/character/constellations/Sparks, the Sudden Shot.avif",
             "description": "When the Radiant Soulseeker Shells from Soul Reaper's Fatal Round hit opponents, they will restore 1.5 Elemental Energy to Chasca, and deal AoE Elemental DMG of the corresponding Elemental Type of the Radiant Soulseeker Shells equal to 400% of Chasca's ATK. This DMG is considered Charged Attack DMG.The aforementioned corresponding elemental AoE DMG effect can be triggered once each time Chasca uses Soul Reaper's Fatal Round."
         },
         {
             "name": "Brim, the Sandshadow's Silhouette",
             "level": 5,
-            "icon": "assets/character/constellations/Brim, the Sandshadow's Silhouette.png",
+            "icon": "assets/character/constellations/Brim, the Sandshadow's Silhouette.avif",
             "description": "Increases the Level of Soul Reaper's Fatal Round by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Showdown, the Glory of Battle",
             "level": 6,
-            "icon": "assets/character/constellations/Showdown, the Glory of Battle.png",
+            "icon": "assets/character/constellations/Showdown, the Glory of Battle.avif",
             "description": "Chasca's Multitarget Fire charge time is decreased, and after the Passive Talent \"Bullet Trick\"'s \"Spiritbinding Conversion\" is triggered, Chasca will gain the \"Fatal Rounds\" state: For the next 3s, the next time Chasca uses Spirit Reins, Shadow Hunt's Multitarget Fire, the shots will finish charging instantly, and the CRIT DMG of that instance of Multitarget Fire's Shadowhunt Shells and Shining Shadowhunt Shells increases by 120%. 1 \"Fatal Rounds\" effect can be gained once every 3s.You must first unlock the Passive Talent \"Bullet Trick\" to gain access to the above effect."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Tlalocan"
     ],
     "special_dish": {
         "name": "Moment of Respite",
-        "icon": "assets/foods/Chasca.png"
+        "icon": "assets/foods/Chasca.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Chasca.png",
-        "background": "assets/character/namecard_background/Chasca.png",
-        "banner": "assets/character/namecard_banner/Chasca.png",
+        "icon": "assets/character/namecard_icon/Chasca.avif",
+        "background": "assets/character/namecard_background/Chasca.avif",
+        "banner": "assets/character/namecard_banner/Chasca.avif",
         "description": "Fear not, she's here to make peace, not to fight. The only question is whether to save a few bullets... Y'know, the type that get fired into the sky as warning shots.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 3,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 3,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 2,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 10,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 15,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 4,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 20,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 12,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 8,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 30,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 18,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 12,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 45,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ensnaring Gaze",
                     "value": 20,
-                    "icon": "assets/materials/Ensnaring Gaze.png"
+                    "icon": "assets/materials/Ensnaring Gaze.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 60,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 24,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,43 +453,43 @@ var CHASCA = {
         {
             "name": "Phantom Feather Flurry",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Phantom Feather Flurry.png",
+            "icon": "assets/character/talents/Phantom Feather Flurry.avif",
             "description": "Normal AttackPerforms up to 4 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, mighty winds will accumulate on the arrowhead. A fully charged wind arrow will deal Anemo DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, hitting opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Spirit Reins, Shadow Hunt",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Spirit Reins, Shadow Hunt.png",
+            "icon": "assets/character/talents/Spirit Reins, Shadow Hunt.avif",
             "description": "Chasca and the will residing in her weapon resonate, dealing Nightsoul-aligned AoE Anemo DMG.After using this Skill, Chasca gains 80 Nightsoul points and enters the Nightsoul's Blessing state.Nightsoul's Blessing: ChascaContinually consume Nightsoul points. When Nightsoul points are fully depleted or the skill is used again, Chasca's Nightsoul's Blessing state will end. Her Nightsoul's Blessing has the following traits:Mounts \"Soulsniper: Ritual Staff,\" increasing Chasca's Movement SPD and interruption resistance. In this state, Chasca will continually consume Nightsoul points to remain airborne. When Sprinting or increasing height, extra Nightsoul points will be consumed.When using Normal or Charged Attacks, Tap or Hold to switch between using \"Multitarget Fire\" in different ways.Multitarget FireTapDeal Nightsoul-aligned Anemo DMG to opponents in front. This DMG is considered Normal Attack DMG.HoldEnter Aiming Mode and choose a certain number of opponents within a certain range, before loading up to 6 Shadowhunt Shells based on the duration for which the skill was charged. When 6 Shells have been loaded or charging is stopped, these Shells will be fired at the chosen opponents in sequence.Shadowhunt ShellsDeal Nightsoul-aligned Anemo DMG, which is considered Charged Attack DMG.The 4th, 5th, and 6th Shells loaded into the cylinder will undergo Elemental Conversion based on the Elemental Types of the other characters in the party: For each Pyro, Hydro, Cryo, or Electro character in the party, one Shadowhunt Shell will randomly be Converted into a \"Shining Shadowhunt Shell\" of one of these corresponding Elemental Types, dealing Nightsoul-aligned DMG corresponding to that Elemental Type. This DMG is considered Charged Attack DMG.The Shells loaded into the cylinder are fired starting from the last Shadowhunt Shell to be loaded, in a \"last in, first out\" order.Additionally, when Chasca is in the Nightsoul's Blessing state, Holding her Elemental Skill Spirit Reins, Shadow Hunt will cause her to execute a Nightsoul-aligned Plunging Attack. Release the Elemental Skill to interrupt this Plunging Attack and maintain her airborne state. Should Chasca hit the ground with her Plunging Attack, her Nightsoul's Blessing state will end."
         },
         {
             "name": "Soul Reaper's Fatal Round",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Soul Reaper's Fatal Round.png",
+            "icon": "assets/character/talents/Soul Reaper's Fatal Round.avif",
             "description": "Chasca concentrates her will, firing a single \"Galesplitting Soulseeker Shell\" that deals Nightsoul-aligned AoE Anemo DMG. Afterward, the Galesplitting Soulseeker Shell will split into 6 Soulseeker Shells, which attack nearby opponents.Soulseeker ShellsDeal Nightsoul-aligned Anemo DMG.For each Pyro, Hydro, Cryo, or Electro character in the party, two Soulseeker Shells will undergo corresponding Elemental Conversions to become \"Radiant Soulseeker Shells,\" which deal Nightsoul-aligned Elemental DMG from a randomly selected one of the corresponding Elemental Types."
         },
         {
             "name": "Bullet Trick",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Bullet Trick.png",
+            "icon": "assets/character/talents/Bullet Trick.avif",
             "description": "When the Elemental Skill Spirit Reins, Shadow Hunt's Multitarget Fire is being charged, if there are party members who meet the Elemental Conversion Type requirements, gain the following effects based on the number of different eligible Elemental Types present:There is a 33.3%/66.7%/100% chance for each Type to trigger \"Spiritbinding Conversion\" and cause the 3rd Shadowhunt Shell loaded into the cylinder to be randomly converted into a Shining Shadowhunt Shell from one of the corresponding Elemental Types.Each Elemental Type will grant Chasca 1 stack of Spirit of the Radiant Shadow, increasing the DMG of Shining Shadowhunt Shell by 15%/35%/65%. This effect lasts until the current Multitarget Fire ends. Max 3 stacks."
         },
         {
             "name": "Intent to Cover",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Intent to Cover.png",
+            "icon": "assets/character/talents/Intent to Cover.avif",
             "description": "When a nearby party member triggers a Nightsoul Burst, Chasca will fire a \"Burning Shadowhunt Shot\" at a nearby opponent, dealing Nightsoul-aligned Anemo DMG equal to 150% of the Shadowhunt Shell DMG from her Elemental Skill Spirit Reins, Shadow Hunt. If the party has Pyro, Hydro, Cryo, or Electro characters, the Burning Shadowhunt Shot will be converted to deal Nightsoul-aligned Elemental DMG of the corresponding Elemental Type equal to 150% of the DMG dealt by Spirit Reins, Shadow Hunt's Shining Shadowhunt Shells.The DMG done in this way is considered Charged Attack DMG."
         },
         {
             "name": "Everburning Heart",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Everburning Heart.png",
+            "icon": "assets/character/talents/Everburning Heart.avif",
             "description": "After her Nightsoul points are exhausted, Chasca will switch to consuming Phlogiston to maintain her Nightsoul's Blessing.While in an area with Phlogiston Mechanics within Natlan, she can use Nightsoul Transmission: Chasca. When the active character is in the air, the following will occur when switching to Chasca: Chasca will enter the Nightsoul's Blessing state and gain 32 Nightsoul points. Nightsoul Transmission can be triggered once every 10s by your own team."
         },
         {
             "name": "Mediation's True Meaning",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Mediation's True Meaning.png",
+            "icon": "assets/character/talents/Mediation's True Meaning.avif",
             "description": "25 Phlogiston will be restored when your own party members defeat an opponent. This effect can trigger once every 12s.This has no effect in Domains, Trounce Domains, or the Spiral Abyss."
         }
     ],
@@ -471,17 +500,20 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Fang",
                     "value": 6,
-                    "icon": "assets/materials/Juvenile Fang.png"
+                    "icon": "assets/materials/Juvenile Fang.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Conflict",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Conflict.png"
+                    "icon": "assets/materials/Teachings of Conflict.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -491,17 +523,20 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 3,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -511,17 +546,20 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 4,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -531,17 +569,20 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 6,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -551,17 +592,20 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Seasoned Fang",
                     "value": 9,
-                    "icon": "assets/materials/Seasoned Fang.png"
+                    "icon": "assets/materials/Seasoned Fang.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Conflict",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Conflict.png"
+                    "icon": "assets/materials/Guide to Conflict.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -571,22 +615,26 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 4,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silken Feather",
                     "value": 1,
-                    "icon": "assets/materials/Silken Feather.png"
+                    "icon": "assets/materials/Silken Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -596,22 +644,26 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 6,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silken Feather",
                     "value": 1,
-                    "icon": "assets/materials/Silken Feather.png"
+                    "icon": "assets/materials/Silken Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -621,22 +673,26 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 9,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silken Feather",
                     "value": 2,
-                    "icon": "assets/materials/Silken Feather.png"
+                    "icon": "assets/materials/Silken Feather.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -646,27 +702,32 @@ var CHASCA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Tyrant's Fang",
                     "value": 12,
-                    "icon": "assets/materials/Tyrant's Fang.png"
+                    "icon": "assets/materials/Tyrant's Fang.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Conflict",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Conflict.png"
+                    "icon": "assets/materials/Philosophies of Conflict.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Silken Feather",
                     "value": 2,
-                    "icon": "assets/materials/Silken Feather.png"
+                    "icon": "assets/materials/Silken Feather.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2408,201 +2469,5 @@ var CHASCA = {
     "demo_music": {
         "name": "Viajadora's Verse",
         "url": "assets/character/demo_music/Chasca.mp3"
-    },
-    "build": {
-        "version": "5.2",
-        "type": "On-field DPS",
-        "weapons": [
-            "Astral Vulture's Crimson Plumage",
-            "Flower-Wreathed Feathers",
-            "Amos' Bow",
-            "Chain Breaker / Song of Stillness / Hamayumi"
-        ],
-        "artifacts": [
-            "4pc Obsidian Codex",
-            "4pc Marechaussee Hunter",
-            "4pc Shimenawa's Reminiscence",
-            "4pc Viridescent Venerer"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / EM",
-            "ATK% / DMG%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "EM",
-            "ER"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kujou Sara",
-                    "icon": "assets/character/icon/Kujou Kujou Sara.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yaoyao",
-                    "icon": "assets/character/icon/Yaoyao.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Charlotte",
-                    "icon": "assets/character/icon/Charlotte.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Sigewinne",
-                    "icon": "assets/character/icon/Sigewinne.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                }
-            ],
-            [
-                {
-                    "name": "Chasca",
-                    "icon": "assets/character/icon/Chasca.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ]
-        ]
     }
 }

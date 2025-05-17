@@ -1,29 +1,29 @@
 var NAVIA = {
     "name": "Navia",
     "secondary_title": "Helm of the Radiant Rose",
-    "card_icon": "assets/character/card/Navia.png",
-    "wish_icon": "assets/character/wish/Navia.png",
-    "ingame_icon": "assets/character/ingame/Navia.png",
-    "icon": "assets/character/icon/Navia.png",
+    "card_icon": "assets/character/card/Navia.avif",
+    "wish_icon": "assets/character/wish/Navia.avif",
+    "ingame_icon": "assets/character/ingame/Navia.avif",
+    "icon": "assets/character/icon/Navia.avif",
     "quality": "5",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Tall Female",
     "arkhe": "Ousia",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "August 16th",
@@ -31,43 +31,43 @@ var NAVIA = {
         {
             "name": "A Lady's Rules for Keeping a Courteous Distance",
             "level": 1,
-            "icon": "assets/character/constellations/A Lady's Rules for Keeping a Courteous Distance.png",
+            "icon": "assets/character/constellations/A Lady's Rules for Keeping a Courteous Distance.avif",
             "description": "Each stack of Crystal Shrapnel consumed when Navia uses Ceremonial Crystalshot will restore 3 Energy to her and decrease the CD of As the Sunlit Sky's Singing Salute by 1s. Up to 9 Energy can be gained this way, and the CD of \"As the Sunlit Sky's Singing Salute\" can be decreased by up to 3s."
         },
         {
             "name": "The President's Pursuit of Victory",
             "level": 2,
-            "icon": "assets/character/constellations/The President's Pursuit of Victory.png",
+            "icon": "assets/character/constellations/The President's Pursuit of Victory.avif",
             "description": "Each stack of Crystal Shrapnel consumed will increase the CRIT Rate of this Ceremonial Crystalshot instance by 12%. CRIT Rate can be increased by up to 36% in this way.In addition, when Ceremonial Crystalshot hits an opponent, one Cannon Fire Support shot from As the Sunlit Sky's Singing Salute will strike near the location of the hit. Up to one instance of Cannon Fire Support can be triggered each time Ceremonial Crystalshot is used, and DMG dealt by said Cannon Fire Support this way is considered Elemental Burst DMG."
         },
         {
             "name": "Businesswoman's Broad Vision",
             "level": 3,
-            "icon": "assets/character/constellations/Businesswoman's Broad Vision.png",
+            "icon": "assets/character/constellations/Businesswoman's Broad Vision.avif",
             "description": "Increases the Level of Ceremonial Crystalshot by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Oathsworn Never Capitulate",
             "level": 4,
-            "icon": "assets/character/constellations/The Oathsworn Never Capitulate.png",
+            "icon": "assets/character/constellations/The Oathsworn Never Capitulate.avif",
             "description": "When As the Sunlit Sky's Singing Salute hits an opponent, that opponent's Geo RES will be decreased by 20% for 8s."
         },
         {
             "name": "Negotiator's Resolute Negotiations",
             "level": 5,
-            "icon": "assets/character/constellations/Negotiator's Resolute Negotiations.png",
+            "icon": "assets/character/constellations/Negotiator's Resolute Negotiations.avif",
             "description": "Increases the Level of As the Sunlit Sky's Singing Salute by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Flexible Finesse of the Spina's President",
             "level": 6,
-            "icon": "assets/character/constellations/The Flexible Finesse of the Spina's President.png",
+            "icon": "assets/character/constellations/The Flexible Finesse of the Spina's President.avif",
             "description": "If more than 3 stacks of Crystal Shrapnel are consumed when using Ceremonial Crystalshot, each stack consumed beyond the first 3 increases the CRIT DMG of that Ceremonial Crystalshot by 45%, and any stacks consumed beyond the first 3 are returned to Navia."
         }
     ],
     "region": {
         "name": "Fontaine",
-        "icon": "assets/regions/Fontaine.png"
+        "icon": "assets/regions/Fontaine.avif"
     },
     "affiliations": [
         "Spina di Rosula",
@@ -75,12 +75,12 @@ var NAVIA = {
     ],
     "special_dish": {
         "name": "\"Pick What You Like!\"",
-        "icon": "assets/foods/Navia.png"
+        "icon": "assets/foods/Navia.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Navia.png",
-        "background": "assets/character/namecard_background/Navia.png",
-        "banner": "assets/character/namecard_banner/Navia.png",
+        "icon": "assets/character/namecard_icon/Navia.avif",
+        "background": "assets/character/namecard_background/Navia.avif",
+        "banner": "assets/character/namecard_banner/Navia.avif",
         "description": "Roses shall bloom, and thus does Ms. Navia's umbrella flower. Yet beware, for roses have thorns, and Navia's booming brolly packs a powerful punch.",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Spring of the First Dewdrop",
                     "value": 3,
-                    "icon": "assets/materials/Spring of the First Dewdrop.png"
+                    "icon": "assets/materials/Spring of the First Dewdrop.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 2,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spring of the First Dewdrop",
                     "value": 10,
-                    "icon": "assets/materials/Spring of the First Dewdrop.png"
+                    "icon": "assets/materials/Spring of the First Dewdrop.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 15,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 4,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Spring of the First Dewdrop",
                     "value": 20,
-                    "icon": "assets/materials/Spring of the First Dewdrop.png"
+                    "icon": "assets/materials/Spring of the First Dewdrop.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 12,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 8,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spring of the First Dewdrop",
                     "value": 30,
-                    "icon": "assets/materials/Spring of the First Dewdrop.png"
+                    "icon": "assets/materials/Spring of the First Dewdrop.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 18,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 12,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spring of the First Dewdrop",
                     "value": 45,
-                    "icon": "assets/materials/Spring of the First Dewdrop.png"
+                    "icon": "assets/materials/Spring of the First Dewdrop.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Artificed Spare Clockwork Component — Coppelius",
                     "value": 20,
-                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.png"
+                    "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelius.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Spring of the First Dewdrop",
                     "value": 60,
-                    "icon": "assets/materials/Spring of the First Dewdrop.png"
+                    "icon": "assets/materials/Spring of the First Dewdrop.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 24,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var NAVIA = {
         {
             "name": "Blunt Refusal",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Blunt Refusal.png",
+            "icon": "assets/character/talents/Blunt Refusal.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Ceremonial Crystalshot",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Ceremonial Crystalshot.png",
+            "icon": "assets/character/talents/Ceremonial Crystalshot.avif",
             "description": "When a character in the party obtains an Elemental Shard created from the Crystallize reaction, Navia will gain 1 Crystal Shrapnel stack. Navia can have up to 6 stacks of Crystal Shrapnel at once. Each time Crystal Shrapnel gain is triggered, the duration of the Crystal Shrapnel stacks you already have will be reset.When she fires, Navia will consume all Crystal Shrapnel stacks and open her elegant yet lethal Gunbrella, firing multiple Rosula Shardshots that can penetrate opponents, dealing Geo DMG to opponents hit.When 0/1/2/3 or more stacks of Crystal Shrapnel are consumed, 5/7/9/11 Rosula Shardshots will be fired respectively. The more Rosula Shardshots that strike a single opponent, the greater the DMG dealt to them. When all 11 Rosula Shardshots strike, 200% of the original amount of DMG is dealt.In addition, when more than 3 stacks of Crystal Shrapnel are consumed, every stack consumed beyond those 3 will increase the DMG dealt by this Gunbrella attack by an additional 15%.HoldEnter Aiming Mode, continually collecting nearby Elemental Shards created by Crystallize reactions. When released, fire Rosula Shardshots with the same effect as when the skill is Tapped.Two initial charges.Arkhe: OusiaPeriodically, when Navia fires her Gunbrella, a Surging Blade will be summoned, dealing Ousia-aligned Geo DMG."
         },
         {
             "name": "As the Sunlit Sky's Singing Salute",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/As the Sunlit Sky's Singing Salute.png",
+            "icon": "assets/character/talents/As the Sunlit Sky's Singing Salute.avif",
             "description": "On the orders of the President of the Spina di Rosula, call for a magnificent Rosula Dorata Salute. Unleashes a massive cannon bombardment on opponents in front of her, dealing AoE Geo DMG and providing Cannon Fire Support for a duration afterward, periodically dealing Geo DMG to nearby opponents.When cannon attacks hit opponents, Navia will gain 1 stack of Crystal Shrapnel. This effect can be triggered up to once every 2.4s."
         },
         {
             "name": "Undisclosed Distribution Channels",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Undisclosed Distribution Channels.png",
+            "icon": "assets/character/talents/Undisclosed Distribution Channels.avif",
             "description": "For 4s after using Ceremonial Crystalshot, the DMG dealt by Navia's Normal Attacks, Charged Attacks, and Plunging Attacks will be converted into Geo DMG which cannot be overridden by other Elemental infusions, and the DMG dealt by Navia's Normal Attacks, Charged Attacks, and Plunging Attacks will be increased by 40%."
         },
         {
             "name": "Mutual Assistance Network",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Mutual Assistance Network.png",
+            "icon": "assets/character/talents/Mutual Assistance Network.avif",
             "description": "For each Pyro/Electro/Cryo/Hydro party member, Navia gains 20% increased ATK. This effect can stack up to 2 times."
         },
         {
             "name": "Painstaking Transaction",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Painstaking Transaction.png",
+            "icon": "assets/character/talents/Painstaking Transaction.avif",
             "description": "Gains 25% more rewards when dispatched on a Fontaine Expedition for 20 hours."
         }
     ],
@@ -466,17 +495,20 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Pearl",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Pearl.png"
+                    "icon": "assets/materials/Transoceanic Pearl.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Equity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Equity.png"
+                    "icon": "assets/materials/Teachings of Equity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 4,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Transoceanic Chunk",
                     "value": 9,
-                    "icon": "assets/materials/Transoceanic Chunk.png"
+                    "icon": "assets/materials/Transoceanic Chunk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Equity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Equity.png"
+                    "icon": "assets/materials/Guide to Equity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 4,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 6,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 9,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var NAVIA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Xenochromatic Crystal",
                     "value": 12,
-                    "icon": "assets/materials/Xenochromatic Crystal.png"
+                    "icon": "assets/materials/Xenochromatic Crystal.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Equity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Equity.png"
+                    "icon": "assets/materials/Philosophies of Equity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Silk String",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Silk String.png"
+                    "icon": "assets/materials/Lightless Silk String.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -861,7 +922,7 @@ var NAVIA = {
                     "title": "About Escoffier",
                     "text": "My good friend Escoffier is finally out and about again... It's about time. Shutting herself away like that, all to try and surpass her own magnum opus, Gateau Debord. It's a wonder she can even stand the sunlight after all that time inside. You know what? We should all go for a picnic sometime! I'll make sure to bring her a pair of sunglasses and a parasol. Believe me, you're in for a treat! With Escoffier, even the simplest of outings feel like fine dining!",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Navia/story/en/About Escoffier.mp3"
                 },
                 {
                     "title": "More About Navia: I",
@@ -2493,102 +2554,5 @@ var NAVIA = {
     "demo_music": {
         "name": "Largo alla donzella",
         "url": "assets/character/demo_music/Navia.mp3"
-    },
-    "build": {
-        "version": "5.4",
-        "type": "On-field DPS",
-        "weapons": [
-            "Verdict",
-            "A Thousand Blazing Suns",
-            "Serpent Spine",
-            "Beacon of the Reed Sea",
-            "Redhorn Stonethresher",
-            "Fang of the Mountain King",
-            "The Unforged",
-            "Wolf's Gravestone",
-            "Skyward Pride",
-            "Talking Stick",
-            "Ultimate Overlord's Mega Magic Sword",
-            "Tidal Shadow",
-            "Earth Shaker",
-            "Prototype Archaic",
-            "Katsuragikiri Nagamasa"
-        ],
-        "artifacts": [
-            "4pc Nighttime Whispers in the Echoing Woods",
-            "4pc Marechaussee Hunter",
-            "4pc Golden Troupe"
-        ],
-        "talents": [
-            "Skill",
-            "Normal Attack",
-            "Burst"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "Geo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                },
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ]
-        ]
     }
 }

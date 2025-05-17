@@ -119,11 +119,13 @@ const AscensionTab = {
                             this.totalMaterials.set(material.name, {
                                 value: this.totalMaterials.get(material.name).value + material.value,
                                 icon: material.icon,
+                                quality: material.quality,
                             });
                         } else {
                             this.totalMaterials.set(material.name, {
                                 value: material.value,
                                 icon: material.icon,
+                                quality: material.quality,
                             });
                         }
                     });
@@ -132,6 +134,15 @@ const AscensionTab = {
 
             // Force re-render of total materials
             this.$forceUpdate();
+        },
+
+        getQualityClass(material) {
+            if (material.quality === '5') return 'five-star';
+            if (material.quality === '4') return 'four-star';
+            if (material.quality === '3') return 'three-star';
+            if (material.quality === '2') return 'two-star';
+            if (material.quality === '1') return 'one-star';
+            return 'one-star';
         },
     },
     template: html`
@@ -155,7 +166,7 @@ const AscensionTab = {
                             v-for="(ascension, index) in character.ascensions_materials_and_stats"
                             :key="'ascension-' + ascension.phase"
                             :data-phase="ascension.phase"
-                            :data-materials="ascension.phase > 0 && ascension.cost ? JSON.stringify(ascension.cost.map(m => ({name: m.name, value: m.value, icon: m.icon}))) : ''"
+                            :data-materials="ascension.phase > 0 && ascension.cost ? JSON.stringify(ascension.cost.map(m => ({name: m.name, value: m.value, icon: m.icon, quality: m.quality}))) : ''"
                         >
                             <td class="checkbox-column">
                                 <input
@@ -198,7 +209,7 @@ const AscensionTab = {
             <div class="total-materials" id="ascension-materials">
                 <h3>Total Ascension Materials</h3>
                 <div class="total-material-list">
-                    <div v-for="[name, material] in totalMaterials" class="total-material-item">
+                    <div v-for="[name, material] in totalMaterials" class="total-material-item" :class="getQualityClass(material)" :data-material="material.name">
                         <img :src="material.icon" :alt="name" class="material-icon" />
                         <span class="material-name">{{ name }} x{{ material.value }}</span>
                     </div>
@@ -340,7 +351,7 @@ const BuildTab = {
     },
     template: html`
         <div id="build">
-            <img :src="character.build.infographic" />
+            <!-- <img :src="character.build.infographic" /> -->
         </div>
     `,
 };

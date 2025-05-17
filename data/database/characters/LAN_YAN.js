@@ -1,32 +1,32 @@
 var LAN_YAN = {
     "name": "Lan Yan",
     "secondary_title": "Spring Woven From Jade",
-    "card_icon": "assets/character/card/Lan Yan.png",
-    "wish_icon": "assets/character/wish/Lan Yan.png",
-    "ingame_icon": "assets/character/ingame/Lan Yan.png",
-    "icon": "assets/character/icon/Lan Yan.png",
+    "card_icon": "assets/character/card/Lan Yan.avif",
+    "wish_icon": "assets/character/wish/Lan Yan.avif",
+    "ingame_icon": "assets/character/ingame/Lan Yan.avif",
+    "icon": "assets/character/icon/Lan Yan.avif",
     "quality": "4",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "January 6th",
@@ -34,55 +34,55 @@ var LAN_YAN = {
         {
             "name": "\"As One Might Stride Betwixt the Clouds\"",
             "level": 1,
-            "icon": "assets/character/constellations/As One Might Stride Betwixt the Clouds.png",
+            "icon": "assets/character/constellations/As One Might Stride Betwixt the Clouds.avif",
             "description": "After triggering the Elemental Absorption from the Passive Talent \"Four Sealing Divination Charms,\" this instance of Lan Yan's Elemental Skill Swallow-Wisp Pinion Dance will produce another Feathermoon Ring when they are thrown at opponents.You must first unlock the Passive Talent \"Four Sealing Divination Charms.\""
         },
         {
             "name": "\"Dance Vestments Billow Like Rainbow Jade\"",
             "level": 2,
-            "icon": "assets/character/constellations/Dance Vestments Billow Like Rainbow Jade.png",
+            "icon": "assets/character/constellations/Dance Vestments Billow Like Rainbow Jade.avif",
             "description": "While the Swallow-Wisp Shield is active, when your active party member's Normal Attacks deal DMG, 40% of the Shield's DMG absorption will be restored, up to its original maximum absorption. This effect can occur once every 2s."
         },
         {
             "name": "\"On White Wings Pierce Through Cloud and Fog\"",
             "level": 3,
-            "icon": "assets/character/constellations/On White Wings Pierce Through Cloud and Fog.png",
+            "icon": "assets/character/constellations/On White Wings Pierce Through Cloud and Fog.avif",
             "description": "Increases the Level of Swallow-Wisp Pinion Dance by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"With Drakefalcon's Blood-Pearls Adorned\"",
             "level": 4,
-            "icon": "assets/character/constellations/With Drakefalcon's Blood-Pearls Adorned.png",
+            "icon": "assets/character/constellations/With Drakefalcon's Blood-Pearls Adorned.avif",
             "description": "After Lan Yan uses her Elemental Burst Lustrous Moonrise, the Elemental Mastery of all nearby party members increases by 60 for 12s."
         },
         {
             "name": "\"Having Met You, My Heart is Gladdened\"",
             "level": 5,
-            "icon": "assets/character/constellations/Having Met You, My Heart is Gladdened.png",
+            "icon": "assets/character/constellations/Having Met You, My Heart is Gladdened.avif",
             "description": "Increases the Level of Lustrous Moonrise by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"Let Us Away on Sylphic Wing, the Silvered Ornaments to Ring\"",
             "level": 6,
-            "icon": "assets/character/constellations/Let Us Away on Sylphic Wing, the Silvered Ornaments to Ring.png",
+            "icon": "assets/character/constellations/Let Us Away on Sylphic Wing, the Silvered Ornaments to Ring.avif",
             "description": "Swallow-Wisp Pinion Dance gains 1 additional charge."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Chenyu Vale"
     ],
     "special_dish": {
         "name": "Jade-Cut Flowers",
-        "icon": "assets/foods/Lan Yan.png"
+        "icon": "assets/foods/Lan Yan.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Lan Yan.png",
-        "background": "assets/character/namecard_background/Lan Yan.png",
-        "banner": "assets/character/namecard_banner/Lan Yan.png",
+        "icon": "assets/character/namecard_icon/Lan Yan.avif",
+        "background": "assets/character/namecard_background/Lan Yan.avif",
+        "banner": "assets/character/namecard_banner/Lan Yan.avif",
         "description": "The swallow's arrival shall bring forth cleansing rains, washing the worries of wizened winter away.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 3,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 2,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 10,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 4,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 20,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 8,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 30,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 12,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 45,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 20,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 60,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var LAN_YAN = {
         {
             "name": "Black Pheasant Strides on Water",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Black Pheasant Strides on Water.png",
+            "icon": "assets/character/talents/Black Pheasant Strides on Water.avif",
             "description": "Normal AttackWields her Feathermoon Rings to perform up to 4 attacks, dealing Anemo DMG.Charged AttackConsumes a certain amount of Stamina to throw out a Feathermoon Ring, dealing Anemo DMG.Plunging AttackGathers the power of Anemo and plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Anemo DMG upon impact with the ground."
         },
         {
             "name": "Swallow-Wisp Pinion Dance",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Swallow-Wisp Pinion Dance.png",
+            "icon": "assets/character/talents/Swallow-Wisp Pinion Dance.avif",
             "description": "Summoning forth the Swallow-Wisp Shield, a secret art passed down across generations, Lan Yan dashes forward and, upon making contact with her target, will leap back into the air.The Swallow-Wisp Shield's DMG absorption scales based on her ATK, and has a 250% absorption efficiency against Anemo DMG.While in mid-air due to the effects of her Elemental Skill: Swallow-Wisp Pinion Dance, pressing her Elemental Skill again or pressing Normal Attack will cause Lan Yan to hurl her Feathermoon Rings at an opponent, and they will spin between nearby opponents twice upon hit, dealing Anemo DMG.Holding the Skill will cause it to behave differently.HoldEnter Aiming Mode to adjust the dash direction."
         },
         {
             "name": "Lustrous Moonrise",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Lustrous Moonrise.png",
+            "icon": "assets/character/talents/Lustrous Moonrise.avif",
             "description": "Lan Yan creates a Feathermoon Swallow Array, pulling in nearby opponents and objects and dealing multiple instances of AoE Anemo DMG."
         },
         {
             "name": "Four Sealing Divination Charms",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Four Sealing Divination Charms.png",
+            "icon": "assets/character/talents/Four Sealing Divination Charms.avif",
             "description": "When the dash from the Elemental Skill Swallow-Wisp Pinion Dance hits a target, if it interacts with Hydro/Pyro/Cryo/Electro, the Swallow-Wisp Shield will undergo Elemental Absorption, with the converted shield absorbing DMG from the corresponding element with 250% efficiency.Additionally, if this use of Swallow-Wisp Pinion Dance causes the Swallow-Wisp Shield to undergo Elemental Absorption, the Feathermoon Rings that Lan Yan throws at her foes additionally deal Elemental DMG equal to 50% of the original in the corresponding Elemental Type. This DMG is considered Elemental Skill DMG."
         },
         {
             "name": "Skyfeather Evil-Subduing Charm",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Skyfeather Evil-Subduing Charm.png",
+            "icon": "assets/character/talents/Skyfeather Evil-Subduing Charm.avif",
             "description": "The Elemental Skill Swallow-Wisp Pinion Dance and the Elemental Burst Lustrous Moonrise deal increased DMG equal to 309% and 774% of Lan Yan's Elemental Mastery respectively."
         },
         {
             "name": "Thought and Intent, Like Silken Scent",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Thought and Intent, Like Silken Scent.png",
+            "icon": "assets/character/talents/Thought and Intent, Like Silken Scent.avif",
             "description": "When Lan Yan is in the party, your characters will not startle Crystalflies and certain other animals when getting near them.Check the \"Other\" sub-category of the \"Living Beings / Wildlife\" section in the Archive for creatures this skill works on."
         }
     ],
@@ -465,17 +494,20 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Diligence",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Diligence.png"
+                    "icon": "assets/materials/Teachings of Diligence.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Sunfire",
                     "value": 1,
-                    "icon": "assets/materials/Eroded Sunfire.png"
+                    "icon": "assets/materials/Eroded Sunfire.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Sunfire",
                     "value": 1,
-                    "icon": "assets/materials/Eroded Sunfire.png"
+                    "icon": "assets/materials/Eroded Sunfire.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Sunfire",
                     "value": 2,
-                    "icon": "assets/materials/Eroded Sunfire.png"
+                    "icon": "assets/materials/Eroded Sunfire.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var LAN_YAN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Sunfire",
                     "value": 2,
-                    "icon": "assets/materials/Eroded Sunfire.png"
+                    "icon": "assets/materials/Eroded Sunfire.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2320,186 +2381,5 @@ var LAN_YAN = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "5.3",
-        "type": "Support",
-        "weapons": [
-            "Starcaller's Watch",
-            "Thrilling Tales of Dragon Slayers",
-            "Hakushin Ring",
-            "Wandering Evenstar",
-            "Favonius Codex",
-            "Prototype Amber",
-            "Sacrificial Fragments",
-            "A Thousand Floating Dreams"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer",
-            "4pc Scroll of the Hero of Cinder City",
-            "4pc Golden Troupe"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / ER / EM",
-            "ATK% / Anemo DMG Bonus",
-            "ATK% / CRIT"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "ATK%",
-            "CRIT Rate / CRIT DMG",
-            "EM"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                },
-                {
-                    "name": "Clorinde",
-                    "icon": "assets/character/icon/Clorinde.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                },
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                },
-                {
-                    "name": "Kamisato Ayaka",
-                    "icon": "assets/character/icon/Kamisato Ayaka.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                },
-                {
-                    "name": "Wanderer",
-                    "icon": "assets/character/icon/Wanderer.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yae Miko",
-                    "icon": "assets/character/icon/Yae Miko.png"
-                },
-                {
-                    "name": "Collei",
-                    "icon": "assets/character/icon/Collei.png"
-                }
-            ],
-            [
-                {
-                    "name": "Lan Yan",
-                    "icon": "assets/character/icon/Lan Yan.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

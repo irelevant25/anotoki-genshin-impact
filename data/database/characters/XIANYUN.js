@@ -1,32 +1,32 @@
 var XIANYUN = {
     "name": "Xianyun",
     "secondary_title": "Passerine Herald",
-    "card_icon": "assets/character/card/Xianyun.png",
-    "wish_icon": "assets/character/wish/Xianyun.png",
-    "ingame_icon": "assets/character/ingame/Xianyun.png",
-    "icon": "assets/character/icon/Xianyun.png",
+    "card_icon": "assets/character/card/Xianyun.avif",
+    "wish_icon": "assets/character/wish/Xianyun.avif",
+    "ingame_icon": "assets/character/ingame/Xianyun.avif",
+    "icon": "assets/character/icon/Xianyun.avif",
     "quality": "5",
     "weapon": {
         "name": "Catalyst",
-        "icon": "assets/weapon_types/Catalyst.png"
+        "icon": "assets/weapon_types/Catalyst.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "April 11th",
@@ -34,43 +34,43 @@ var XIANYUN = {
         {
             "name": "Purifying Wind",
             "level": 1,
-            "icon": "assets/character/constellations/Purifying Wind.png",
+            "icon": "assets/character/constellations/Purifying Wind.avif",
             "description": "White Clouds at Dawn gains 1 additional charge."
         },
         {
             "name": "Aloof From the World",
             "level": 2,
-            "icon": "assets/character/constellations/Aloof From the World.png",
+            "icon": "assets/character/constellations/Aloof From the World.avif",
             "description": "After using a Skyladder from White Clouds at Dawn, Xianyun's ATK will be increased by 20% for 15s.Additionally, the effects of the Passive Talent \"Consider, the Adeptus in Her Realm\" will be enhanced: When the Starwicker created by Stars Gather at Dusk has Adeptal Assistance stacks, nearby active characters' Plunging Attack shockwave DMG will be increased by 400% of Xianyun's ATK. The maximum DMG increase that can be achieved this way is 18,000.Each Plunging Attack shockwave DMG instance can only apply this increased DMG effect to a single opponent. Each character can trigger this effect once every 0.4s.You must first unlock the Passive Talent \"Consider, the Adeptus in Her Realm.\""
         },
         {
             "name": "Creations of Star and Moon",
             "level": 3,
-            "icon": "assets/character/constellations/Creations of Star and Moon.png",
+            "icon": "assets/character/constellations/Creations of Star and Moon.avif",
             "description": "Increases the Level of Stars Gather at Dusk by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Mystery Millet Gourmet",
             "level": 4,
-            "icon": "assets/character/constellations/Mystery Millet Gourmet.png",
+            "icon": "assets/character/constellations/Mystery Millet Gourmet.avif",
             "description": "After using Skyladder 1/2/3 times during one White Clouds at Dawn Cloud Transmogrification state, when a Driftcloud Wave unleashed during that instance hits an opponent, it will heal all nearby party members for 50%/80%/150% of Xianyun's ATK. This effect can be triggered once every 5s."
         },
         {
             "name": "Astride Rose-Colored Clouds",
             "level": 5,
-            "icon": "assets/character/constellations/Astride Rose-Colored Clouds.png",
+            "icon": "assets/character/constellations/Astride Rose-Colored Clouds.avif",
             "description": "Increases the Level of White Clouds at Dawn by 3.Maximum upgrade level is 15."
         },
         {
             "name": "They Call Her Cloud Retainer",
             "level": 6,
-            "icon": "assets/character/constellations/They Call Her Cloud Retainer.png",
+            "icon": "assets/character/constellations/They Call Her Cloud Retainer.avif",
             "description": "After Xianyun uses 1/2/3 Skyladders within one Cloud Transmogrification caused by White Clouds at Dawn, the CRIT DMG of a Driftcloud Wave created in this instance of Cloud Transmogrification will be increased by 15%/35%/70%.Within 16s after Xianyun has used Stars Gather at Dusk, White Clouds at Dawn will not enter CD. This effect will be canceled once she has used White Clouds at Dawn 8 times."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Mt. Aocang",
@@ -78,12 +78,12 @@ var XIANYUN = {
     ],
     "special_dish": {
         "name": "Encompassing Gladness",
-        "icon": "assets/foods/Xianyun.png"
+        "icon": "assets/foods/Xianyun.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Xianyun.png",
-        "background": "assets/character/namecard_background/Xianyun.png",
-        "banner": "assets/character/namecard_banner/Xianyun.png",
+        "icon": "assets/character/namecard_icon/Xianyun.avif",
+        "background": "assets/character/namecard_background/Xianyun.avif",
+        "banner": "assets/character/namecard_banner/Xianyun.avif",
         "description": "Those who the truth tell, commuted shall their sentence be. Be honest. When Cloud Retainer asked you, \"Do you perceive one as merely some larger bird?\", did you also append the thoughts, \"Yes, and you talk, and fiddle with funny machines\"?",
         "quality": "4",
         "sources": [
@@ -161,22 +161,26 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 3,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -204,27 +208,32 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 2,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 10,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 15,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -252,27 +261,32 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 4,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 20,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -300,27 +314,32 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 8,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 30,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 18,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -348,27 +367,32 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 12,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 45,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -396,27 +420,32 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 20,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Clearwater Jade",
                     "value": 60,
-                    "icon": "assets/materials/Clearwater Jade.png"
+                    "icon": "assets/materials/Clearwater Jade.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 24,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -425,37 +454,37 @@ var XIANYUN = {
         {
             "name": "Word of Wind and Flower",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Word of Wind and Flower.png",
+            "icon": "assets/character/talents/Word of Wind and Flower.avif",
             "description": "Normal AttackSummons swirling winds to perform up to 4 attacks, dealing Anemo DMG.Charged AttackConsumes a certain amount of Stamina and launches a Breeze Bolt in a straight line that deals Anemo DMG to opponents along its path.Plunging AttackGathers the power of Anemo and plunges towards the ground from mid-air, damaging all opponents in her path. Deals AoE Anemo DMG upon impact with the ground."
         },
         {
             "name": "White Clouds at Dawn",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/White Clouds at Dawn.png",
+            "icon": "assets/character/talents/White Clouds at Dawn.avif",
             "description": "Xianyun enters the Cloud Transmogrification state, in which she will not take Fall DMG, and uses Skyladder once.In this state, her Plunging Attack will be converted into Driftcloud Wave instead, which deals AoE Anemo DMG and ends the Cloud Transmogrification state. This DMG is considered Plunging Attack DMG.Each use of Skyladder while in this state increases the DMG and AoE of the next Driftcloud Wave used.SkyladderCan be used while in mid-air. Xianyun leaps forward, dealing Anemo DMG to targets along her path.During each Cloud Transmogrification state Xianyun enters, Skyladder may be used up to 3 times and only 1 instance of Skyladder DMG can be dealt to any one opponent.If Skyladder is not used again in a short period, the Cloud Transmogrification state will be canceled.If Xianyun does not use Driftcloud Wave while in this state, the next CD of White Clouds at Dawn will be decreased by 3s."
         },
         {
             "name": "Stars Gather at Dusk",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Stars Gather at Dusk.png",
+            "icon": "assets/character/talents/Stars Gather at Dusk.avif",
             "description": "Brings forth a sacred breeze that deals AoE Anemo DMG and heals all nearby characters based on Xianyun's ATK. It will also summon the \"Starwicker\" mechanism.StarwickerContinuously follows the active character and periodically heals all nearby party members based on Xianyun's ATK.Starts with 8 stacks of Adeptal Assistance. While Adeptal Assistance is active, nearby active characters in the party will have their jump height increased.When the active character completes a Plunging Attack, Starwicker will consume 1 stack of Adeptal Assistance and deal AoE Anemo DMG.Only 1 Starwicker can exist simultaneously."
         },
         {
             "name": "Galefeather Pursuit",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Galefeather Pursuit.png",
+            "icon": "assets/character/talents/Galefeather Pursuit.avif",
             "description": "Each opponent hit by Driftcloud Waves from White Clouds at Dawn will grant all nearby party members 1 stack of Storm Pinion for 20s. Max 4 stacks. These will cause the characters' Plunging Attack CRIT Rate to increase by 4%/6%/8%/10% respectively.Each Storm Pinion created by hitting an opponent has an independent duration."
         },
         {
             "name": "Consider, the Adeptus in Her Realm",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Consider, the Adeptus in Her Realm.png",
+            "icon": "assets/character/talents/Consider, the Adeptus in Her Realm.avif",
             "description": "When the Starwicker created by Stars Gather at Dusk has Adeptal Assistance stacks, nearby active characters' Plunging Attack shockwave DMG will be increased by 200% of Xianyun's ATK. The maximum DMG increase that can be achieved this way is 9,000.Each Plunging Attack shockwave DMG instance can only apply this increased DMG effect to a single opponent. Each character can trigger this effect once every 0.4s."
         },
         {
             "name": "Crane Form",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Crane Form.png",
+            "icon": "assets/character/talents/Crane Form.avif",
             "description": "Increases gliding SPD for your own party members by 15%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -466,17 +495,20 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Divining Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Divining Scroll.png"
+                    "icon": "assets/materials/Divining Scroll.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Gold",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Gold.png"
+                    "icon": "assets/materials/Teachings of Gold.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -486,17 +518,20 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 3,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -506,17 +541,20 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -526,17 +564,20 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -546,17 +587,20 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sealed Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Sealed Scroll.png"
+                    "icon": "assets/materials/Sealed Scroll.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -566,22 +610,26 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 4,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -591,22 +639,26 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 6,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 1,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -616,22 +668,26 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 9,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -641,27 +697,32 @@ var XIANYUN = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Forbidden Curse Scroll",
                     "value": 12,
-                    "icon": "assets/materials/Forbidden Curse Scroll.png"
+                    "icon": "assets/materials/Forbidden Curse Scroll.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Lightless Eye of the Maelstrom",
                     "value": 2,
-                    "icon": "assets/materials/Lightless Eye of the Maelstrom.png"
+                    "icon": "assets/materials/Lightless Eye of the Maelstrom.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2349,254 +2410,5 @@ var XIANYUN = {
     "demo_music": {
         "name": "Borrowing Winds of Harmony",
         "url": "assets/character/demo_music/Xianyun.mp3"
-    },
-    "build": {
-        "version": "4.7",
-        "type": "Support",
-        "weapons": [
-            "Crane's Echoing Call",
-            "Favonius Codex",
-            "Oathsworn Eye"
-        ],
-        "artifacts": [
-            "4pc Viridescent Venerer",
-            "4pc Ocean-Hued Clam",
-            "4pc Noblesse Oblige",
-            "4pc Song of Days Past"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ER / ATK%",
-            "ATK%",
-            "ATK%"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "ATK% / Flat ATK (Max 4500 ATK)",
-            "EM",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Yanfei",
-                    "icon": "assets/character/icon/Yanfei.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Gaming",
-                    "icon": "assets/character/icon/Gaming.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Diluc",
-                    "icon": "assets/character/icon/Diluc.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Chongyun",
-                    "icon": "assets/character/icon/Chongyun.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Wriothesley",
-                    "icon": "assets/character/icon/Wriothesley.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ]
-        ]
     }
 }

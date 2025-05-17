@@ -1,28 +1,28 @@
 var FISCHL = {
     "name": "Fischl",
     "secondary_title": "Prinzessin der Verurteilung!",
-    "card_icon": "assets/character/card/Fischl.png",
-    "wish_icon": "assets/character/wish/Fischl.png",
-    "ingame_icon": "assets/character/ingame/Fischl.png",
-    "icon": "assets/character/icon/Fischl.png",
+    "card_icon": "assets/character/card/Fischl.avif",
+    "wish_icon": "assets/character/wish/Fischl.avif",
+    "ingame_icon": "assets/character/ingame/Fischl.avif",
+    "icon": "assets/character/icon/Fischl.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "May 27th",
@@ -30,55 +30,55 @@ var FISCHL = {
         {
             "name": "Gaze of the Deep",
             "level": 1,
-            "icon": "assets/character/constellations/Gaze of the Deep.png",
+            "icon": "assets/character/constellations/Gaze of the Deep.avif",
             "description": "Even when Oz is not present in combat, he can still watch over Fischl through his raven eyes. When Fischl performs a Normal Attack against an opponent, Oz fires a coordinated attack, dealing DMG equal to 22% of Fischl's ATK."
         },
         {
             "name": "Devourer of All Sins",
             "level": 2,
-            "icon": "assets/character/constellations/Devourer of All Sins.png",
+            "icon": "assets/character/constellations/Devourer of All Sins.avif",
             "description": "When Nightrider is used, it deals an additional 200% ATK as DMG, and its AoE is increased by 50%."
         },
         {
             "name": "Wings of Nightmare",
             "level": 3,
-            "icon": "assets/character/constellations/Wings of Nightmare.png",
+            "icon": "assets/character/constellations/Wings of Nightmare.avif",
             "description": "Increases the Level of Nightrider by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Her Pilgrimage of Bleak",
             "level": 4,
-            "icon": "assets/character/constellations/Her Pilgrimage of Bleak.png",
+            "icon": "assets/character/constellations/Her Pilgrimage of Bleak.avif",
             "description": "When Midnight Phantasmagoria is used, it deals 222% of ATK as Electro DMG to surrounding opponents.When the skill duration ends, Fischl regenerates 20% of her HP."
         },
         {
             "name": "Against the Fleeing Light",
             "level": 5,
-            "icon": "assets/character/constellations/Against the Fleeing Light.png",
+            "icon": "assets/character/constellations/Against the Fleeing Light.avif",
             "description": "Increases the Level of Midnight Phantasmagoria by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Evernight Raven",
             "level": 6,
-            "icon": "assets/character/constellations/Evernight Raven.png",
+            "icon": "assets/character/constellations/Evernight Raven.avif",
             "description": "Extends the duration of Oz's presence on the field by 2s. Additionally, Oz performs coordinated attacks with your active character when present, dealing 30% of Fischl's ATK as Electro DMG."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Adventurers' Guild"
     ],
     "special_dish": {
         "name": "Die Heilige Sinfonie",
-        "icon": "assets/foods/Fischl.png"
+        "icon": "assets/foods/Fischl.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Fischl.png",
-        "background": "assets/character/namecard_background/Fischl.png",
-        "banner": "assets/character/namecard_banner/Fischl.png",
+        "icon": "assets/character/namecard_icon/Fischl.avif",
+        "background": "assets/character/namecard_background/Fischl.avif",
+        "banner": "assets/character/namecard_banner/Fischl.avif",
         "description": "A raven dark as midnight with wings that can block out the sun. \"I permit thee to conceive his likeness upon such decoration!\"",
         "quality": "4",
         "sources": [
@@ -159,22 +159,26 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 3,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 3,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -202,27 +206,32 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 2,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 10,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 15,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -250,27 +259,32 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 4,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 20,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -298,27 +312,32 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 8,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 30,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 18,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -346,27 +365,32 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 12,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 45,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -394,27 +418,32 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Lightning Prism",
                     "value": 20,
-                    "icon": "assets/materials/Lightning Prism.png"
+                    "icon": "assets/materials/Lightning Prism.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Small Lamp Grass",
                     "value": 60,
-                    "icon": "assets/materials/Small Lamp Grass.png"
+                    "icon": "assets/materials/Small Lamp Grass.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 24,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -423,37 +452,37 @@ var FISCHL = {
         {
             "name": "Bolts of Downfall",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Bolts of Downfall.png",
+            "icon": "assets/character/talents/Bolts of Downfall.avif",
             "description": "Normal AttackPerforms up to 5 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, the dark lightning spirits of Immernachtreich shall heed the call of their Prinzessin and indwell the enchanted arrowhead. When fully indwelt, the Rachsüchtig Blitz shall deal immense Electro DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Nightrider",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Nightrider.png",
+            "icon": "assets/character/talents/Nightrider.avif",
             "description": "Summons Oz. The night raven forged of darkness and lightning descends upon the land, dealing Electro DMG in a small AoE.For the ability's duration, Oz will continuously attack nearby opponents with Freikugel.Hold to adjust the location Oz will be summoned to.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen) again any time during the ability's duration to once again summon him to Fischl's side."
         },
         {
             "name": "Midnight Phantasmagoria",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Midnight Phantasmagoria.png",
+            "icon": "assets/character/talents/Midnight Phantasmagoria.avif",
             "description": "Summons Oz to spread his twin wings of twilight and defend Fischl.Has the following properties during the ability's duration:Fischl takes on Oz's form, greatly increasing her Movement Speed.Strikes nearby opponents with lightning, dealing Electro DMG to opponents she comes into contact with. Each opponent can only be struck once.Once this ability's effects end, Oz will remain on the battlefield and attack his Prinzessin's foes. If Oz is already on the field, then this will reset the duration of his presence."
         },
         {
             "name": "Stellar Predator",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Stellar Predator.png",
+            "icon": "assets/character/talents/Stellar Predator.avif",
             "description": "When Fischl hits Oz with a fully-charged Aimed Shot, Oz brings down Thundering Retribution, dealing AoE Electro DMG equal to 152.7% of the arrow's DMG."
         },
         {
             "name": "Undone Be Thy Sinful Hex",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Undone Be Thy Sinful Hex.png",
+            "icon": "assets/character/talents/Undone Be Thy Sinful Hex.avif",
             "description": "If your active character triggers an Electro-related Elemental Reaction when Oz is on the field, the opponent shall be stricken with Thundering Retribution that deals Electro DMG equal to 80% of Fischl's ATK."
         },
         {
             "name": "Mein Hausgarten",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Mein Hausgarten.png",
+            "icon": "assets/character/talents/Mein Hausgarten.avif",
             "description": "When dispatched on an expedition in Mondstadt, time consumed is reduced by 25%."
         }
     ],
@@ -464,17 +493,20 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Firm Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Firm Arrowhead.png"
+                    "icon": "assets/materials/Firm Arrowhead.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ballad",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ballad.png"
+                    "icon": "assets/materials/Teachings of Ballad.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -484,17 +516,20 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 3,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -504,17 +539,20 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 4,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -524,17 +562,20 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -544,17 +585,20 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sharp Arrowhead",
                     "value": 9,
-                    "icon": "assets/materials/Sharp Arrowhead.png"
+                    "icon": "assets/materials/Sharp Arrowhead.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ballad",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ballad.png"
+                    "icon": "assets/materials/Guide to Ballad.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -564,22 +608,26 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 4,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -589,22 +637,26 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 6,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 1,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -614,22 +666,26 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 9,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -639,27 +695,32 @@ var FISCHL = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Weathered Arrowhead",
                     "value": 12,
-                    "icon": "assets/materials/Weathered Arrowhead.png"
+                    "icon": "assets/materials/Weathered Arrowhead.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ballad",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ballad.png"
+                    "icon": "assets/materials/Philosophies of Ballad.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Spirit Locket of Boreas",
                     "value": 2,
-                    "icon": "assets/materials/Spirit Locket of Boreas.png"
+                    "icon": "assets/materials/Spirit Locket of Boreas.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2322,305 +2383,5 @@ var FISCHL = {
     "demo_music": {
         "name": "Ouvertüre der ewigen Nacht",
         "url": "assets/character/demo_music/Fischl.mp3"
-    },
-    "build": {
-        "version": "4.7",
-        "type": "Off-field DPS",
-        "weapons": [
-            "Polar Star",
-            "The First Great Magic",
-            "Hunter's Path",
-            "Aqua Simulacra",
-            "Thundering Pulse",
-            "Skyward Harp",
-            "Amos' Bow",
-            "Elegy for the End",
-            "Blackcliff Warbow",
-            "Scion of the Blazing Sun",
-            "The Viridescent Hunt",
-            "Alley Hunter",
-            "The Stringless",
-            "Range Gauge, Song of Stillness",
-            "Fading Twilight",
-            "Windblume Ode",
-            "Favonius Warbow",
-            "Sharpshooter's Oath, Slingshot"
-        ],
-        "artifacts": [
-            "4pc Golden Troupe",
-            "4pc Thundering Fury",
-            "4pc Gilded Dreams",
-            "4pc Tenacity of the Millelith",
-            "4pc Thundersoother"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Electro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Shikanoin Heizou",
-                    "icon": "assets/character/icon/Shikanoin Heizou.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Yoimiya",
-                    "icon": "assets/character/icon/Yoimiya.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kamisato Ayato",
-                    "icon": "assets/character/icon/Kamisato Ayato.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha.",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Sucrose.",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Keqing",
-                    "icon": "assets/character/icon/Keqing.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Kaeya",
-                    "icon": "assets/character/icon/Kaeya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Beidou",
-                    "icon": "assets/character/icon/Beidou.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
     }
 }

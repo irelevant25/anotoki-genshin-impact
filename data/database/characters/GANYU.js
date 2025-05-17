@@ -1,28 +1,28 @@
 var GANYU = {
     "name": "Ganyu",
     "secondary_title": "Plenilune Gaze",
-    "card_icon": "assets/character/card/Ganyu.png",
-    "wish_icon": "assets/character/wish/Ganyu.png",
-    "ingame_icon": "assets/character/ingame/Ganyu.png",
-    "icon": "assets/character/icon/Ganyu.png",
+    "card_icon": "assets/character/card/Ganyu.avif",
+    "wish_icon": "assets/character/wish/Ganyu.avif",
+    "ingame_icon": "assets/character/ingame/Ganyu.avif",
+    "icon": "assets/character/icon/Ganyu.avif",
     "quality": "5",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Medium Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "December 2nd",
@@ -30,43 +30,43 @@ var GANYU = {
         {
             "name": "Dew-Drinker",
             "level": 1,
-            "icon": "assets/character/constellations/Dew-Drinker.png",
+            "icon": "assets/character/constellations/Dew-Drinker.avif",
             "description": "Taking DMG from a Charge Level 2 Frostflake Arrow or Frostflake Arrow Bloom decreases opponents' Cryo RES by 15% for 6s.A hit regenerates 2 Energy for Ganyu. This effect can only occur once per Charge Level 2 Frostflake Arrow, regardless if Frostflake Arrow itself or its Bloom hit the target."
         },
         {
             "name": "The Auspicious",
             "level": 2,
-            "icon": "assets/character/constellations/The Auspicious.png",
+            "icon": "assets/character/constellations/The Auspicious.avif",
             "description": "Trail of the Qilin gains 1 additional charge."
         },
         {
             "name": "Cloud-Strider",
             "level": 3,
-            "icon": "assets/character/constellations/Cloud-Strider.png",
+            "icon": "assets/character/constellations/Cloud-Strider.avif",
             "description": "Increases the Level of Celestial Shower by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Westward Sojourn",
             "level": 4,
-            "icon": "assets/character/constellations/Westward Sojourn.png",
+            "icon": "assets/character/constellations/Westward Sojourn.avif",
             "description": "Opponents standing within the AoE of Celestial Shower take increased DMG. This effect strengthens over time.Increased DMG taken begins at 5% and increases by 5% every 3s, up to a maximum of 25%.The effect lingers for 3s after the opponent leaves the AoE."
         },
         {
             "name": "The Merciful",
             "level": 5,
-            "icon": "assets/character/constellations/The Merciful.png",
+            "icon": "assets/character/constellations/The Merciful.avif",
             "description": "Increases the Level of Trail of the Qilin by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Clement",
             "level": 6,
-            "icon": "assets/character/constellations/The Clement.png",
+            "icon": "assets/character/constellations/The Clement.avif",
             "description": "Using Trail of the Qilin causes the next Frostflake Arrow shot within 30s to not require charging."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Yuehai Pavilion",
@@ -75,12 +75,12 @@ var GANYU = {
     ],
     "special_dish": {
         "name": "Prosperous Peace",
-        "icon": "assets/foods/Ganyu.png"
+        "icon": "assets/foods/Ganyu.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Ganyu.png",
-        "background": "assets/character/namecard_background/Ganyu.png",
-        "banner": "assets/character/namecard_banner/Ganyu.png",
+        "icon": "assets/character/namecard_icon/Ganyu.avif",
+        "background": "assets/character/namecard_background/Ganyu.avif",
+        "banner": "assets/character/namecard_banner/Ganyu.avif",
         "description": "Do no harm to plant nor insect.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Qingxin",
                     "value": 3,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 2,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Qingxin",
                     "value": 10,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 15,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 4,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Qingxin",
                     "value": 20,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 8,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Qingxin",
                     "value": 30,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 18,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 12,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Qingxin",
                     "value": 45,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Hoarfrost Core",
                     "value": 20,
-                    "icon": "assets/materials/Hoarfrost Core.png"
+                    "icon": "assets/materials/Hoarfrost Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Qingxin",
                     "value": 60,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 24,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var GANYU = {
         {
             "name": "Liutian Archery",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Liutian Archery.png",
+            "icon": "assets/character/talents/Liutian Archery.avif",
             "description": "Normal AttackPerforms up to 6 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, an icy aura will accumulate on the arrowhead before the arrow is fired. Has different effects based on how long the energy has been charged:Charge Level 1: Fires off an icy arrow that deals Cryo DMG.Charge Level 2: Fires off a Frostflake Arrow that deals Cryo DMG. The Frostflake Arrow blooms after hitting its target, dealing AoE Cryo DMG.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Trail of the Qilin",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Trail of the Qilin.png",
+            "icon": "assets/character/talents/Trail of the Qilin.avif",
             "description": "Leaving a single Ice Lotus behind, Ganyu dashes backward, shunning all impurity and dealing AoE Cryo DMG.Ice LotusContinuously taunts surrounding opponents, attracting them to attack it.Endurance scales based on Ganyu's Max HP.Blooms profusely when destroyed or once its duration ends, dealing AoE Cryo DMG."
         },
         {
             "name": "Celestial Shower",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Celestial Shower.png",
+            "icon": "assets/character/talents/Celestial Shower.avif",
             "description": "Coalesces atmospheric frost and snow to summon a Sacred Cryo Pearl that exorcises evil.During its ability duration, the Sacred Cryo Pearl will continuously rain down shards of ice, striking opponents within an AoE and dealing Cryo DMG."
         },
         {
             "name": "Undivided Heart",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Undivided Heart.png",
+            "icon": "assets/character/talents/Undivided Heart.avif",
             "description": "After firing a Frostflake Arrow, the CRIT Rate of subsequent Frostflake Arrows and their resulting bloom effects is increased by 20% for 5s."
         },
         {
             "name": "Harmony between Heaven and Earth",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Harmony between Heaven and Earth.png",
+            "icon": "assets/character/talents/Harmony between Heaven and Earth.avif",
             "description": "Celestial Shower grants a 20% Cryo DMG Bonus to active members in the AoE."
         },
         {
             "name": "Preserved for the Hunt",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Preserved for the Hunt.png",
+            "icon": "assets/character/talents/Preserved for the Hunt.avif",
             "description": "Refunds 15% of the ore used when crafting Bow-type weapons."
         }
     ],
@@ -465,17 +494,20 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Whopperflower Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Whopperflower Nectar.png"
+                    "icon": "assets/materials/Whopperflower Nectar.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Diligence",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Diligence.png"
+                    "icon": "assets/materials/Teachings of Diligence.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 3,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shimmering Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Shimmering Nectar.png"
+                    "icon": "assets/materials/Shimmering Nectar.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Diligence",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Diligence.png"
+                    "icon": "assets/materials/Guide to Diligence.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 4,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 1,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 6,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 1,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 9,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 2,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var GANYU = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Energy Nectar",
                     "value": 12,
-                    "icon": "assets/materials/Energy Nectar.png"
+                    "icon": "assets/materials/Energy Nectar.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Diligence",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Diligence.png"
+                    "icon": "assets/materials/Philosophies of Diligence.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 2,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2558,164 +2619,5 @@ var GANYU = {
     "demo_music": {
         "name": "Qilin's Prance",
         "url": "assets/character/demo_music/Ganyu.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "On-field DPS",
-        "weapons": [
-            "Polar Star",
-            "The First Great Magic",
-            "Prototype Crescent R5",
-            "Hamayumi R5",
-            "Mouun's Moon",
-            "Viridescent Hunt"
-        ],
-        "artifacts": [
-            "4pc Blizzard Strayer"
-        ],
-        "talents": [
-            "Burst",
-            "Normal Attack",
-            "Skill"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Cryo DMG Bonus",
-            "CRIT Rate / CRIT DMG / ATK%*"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT DMG",
-            "ATK%",
-            "CRIT Rate"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Mona",
-                    "icon": "assets/character/icon/Mona.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Venti",
-                    "icon": "assets/character/icon/Venti.png"
-                },
-                {
-                    "name": "Sangonomiya Kokomi",
-                    "icon": "assets/character/icon/Sangonomiya Kokomi.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Xiangling",
-                    "icon": "assets/character/icon/Xiangling.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Dehya",
-                    "icon": "assets/character/icon/Dehya.png"
-                }
-            ],
-            [
-                {
-                    "name": "Ganyu",
-                    "icon": "assets/character/icon/Ganyu.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                }
-            ]
-        ]
     }
 }

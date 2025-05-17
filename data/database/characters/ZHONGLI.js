@@ -1,32 +1,32 @@
 var ZHONGLI = {
     "name": "Zhongli",
     "secondary_title": "Vago Mundo",
-    "card_icon": "assets/character/card/Zhongli.png",
-    "wish_icon": "assets/character/wish/Zhongli.png",
-    "ingame_icon": "assets/character/ingame/Zhongli.png",
-    "icon": "assets/character/icon/Zhongli.png",
+    "card_icon": "assets/character/card/Zhongli.avif",
+    "wish_icon": "assets/character/wish/Zhongli.avif",
+    "ingame_icon": "assets/character/ingame/Zhongli.avif",
+    "icon": "assets/character/icon/Zhongli.avif",
     "quality": "5",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "December 31st",
@@ -34,43 +34,43 @@ var ZHONGLI = {
         {
             "name": "Rock, the Backbone of Earth",
             "level": 1,
-            "icon": "assets/character/constellations/Rock, the Backbone of Earth.png",
+            "icon": "assets/character/constellations/Rock, the Backbone of Earth.avif",
             "description": "Increases the maximum number of Stone Steles created by Dominus Lapidis that may exist simultaneously to 2."
         },
         {
             "name": "Stone, the Cradle of Jade",
             "level": 2,
-            "icon": "assets/character/constellations/Stone, the Cradle of Jade.png",
+            "icon": "assets/character/constellations/Stone, the Cradle of Jade.avif",
             "description": "Planet Befall grants nearby characters on the field a Jade Shield when it descends."
         },
         {
             "name": "Jade, Shimmering through Darkness",
             "level": 3,
-            "icon": "assets/character/constellations/Jade, Shimmering through Darkness.png",
+            "icon": "assets/character/constellations/Jade, Shimmering through Darkness.avif",
             "description": "Increases the Level of Dominus Lapidis by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Topaz, Unbreakable and Fearless",
             "level": 4,
-            "icon": "assets/character/constellations/Topaz, Unbreakable and Fearless.png",
+            "icon": "assets/character/constellations/Topaz, Unbreakable and Fearless.avif",
             "description": "Increases Planet Befall's AoE by 20% and increases the duration of Planet Befall's Petrification effect by 2s."
         },
         {
             "name": "Lazuli, Herald of the Order",
             "level": 5,
-            "icon": "assets/character/constellations/Lazuli, Herald of the Order.png",
+            "icon": "assets/character/constellations/Lazuli, Herald of the Order.avif",
             "description": "Increases the Level of Planet Befall by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Chrysos, Bounty of Dominator",
             "level": 6,
-            "icon": "assets/character/constellations/Chrysos, Bounty of Dominator.png",
+            "icon": "assets/character/constellations/Chrysos, Bounty of Dominator.avif",
             "description": "When the Jade Shield takes DMG, 40% of that incoming DMG is converted to HP for the current character.A single instance of regeneration cannot exceed 8% of that character's Max HP."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Liyue Harbor",
@@ -80,12 +80,12 @@ var ZHONGLI = {
     ],
     "special_dish": {
         "name": "Slow-Cooked Bamboo Shoot Soup",
-        "icon": "assets/foods/Zhongli.png"
+        "icon": "assets/foods/Zhongli.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Zhongli.png",
-        "background": "assets/character/namecard_background/Zhongli.png",
-        "banner": "assets/character/namecard_banner/Zhongli.png",
+        "icon": "assets/character/namecard_icon/Zhongli.avif",
+        "background": "assets/character/namecard_background/Zhongli.avif",
+        "banner": "assets/character/namecard_banner/Zhongli.avif",
         "description": "Stars fall, light dims.",
         "quality": "4",
         "sources": [
@@ -163,22 +163,26 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 3,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 3,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -206,27 +210,32 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 2,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 10,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 15,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -254,27 +263,32 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 4,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 20,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 12,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -302,27 +316,32 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 8,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 30,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 18,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -350,27 +369,32 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 12,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 45,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -398,27 +422,32 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Basalt Pillar",
                     "value": 20,
-                    "icon": "assets/materials/Basalt Pillar.png"
+                    "icon": "assets/materials/Basalt Pillar.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Cor Lapis",
                     "value": 60,
-                    "icon": "assets/materials/Cor Lapis.png"
+                    "icon": "assets/materials/Cor Lapis.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 24,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -427,37 +456,37 @@ var ZHONGLI = {
         {
             "name": "Rain of Stone",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Rain of Stone.png",
+            "icon": "assets/character/talents/Rain of Stone.avif",
             "description": "Normal AttackPerforms up to 6 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to lunge forward, causing stone spears to fall along his path.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Dominus Lapidis",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Dominus Lapidis.png",
+            "icon": "assets/character/talents/Dominus Lapidis.avif",
             "description": "Every mountain, rock and inch of land is filled with the power of Geo, but those who can wield such powers freely are few and far between.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Commands the power of earth to create a Stone Stele.HoldCauses nearby Geo energy to explode, causing the following effects:If their maximum number hasn't been reached, creates a Stone Stele.Creates a shield of jade. The shield's DMG Absorption scales based on Zhongli's Max HP.Deals AoE Geo DMG.If there are nearby targets with the Geo element, it will drain a large amount of Geo element from a maximum of 2 such targets. This effect does not cause DMG.Stone SteleWhen created, deals AoE Geo DMG.Additionally, it will intermittently resonate with other nearby Geo constructs, dealing Geo DMG to surrounding opponents.The Stone Stele is considered a Geo construct that can both be climbed and used to block attacks.Only one Stele created by Zhongli himself may initially exist at any one time.Jade ShieldPossesses 150% DMG Absorption against all Elemental and Physical DMG.Characters protected by the Jade Shield will decrease the Elemental RES and Physical RES of opponents in a small AoE by 20%. This effect cannot be stacked."
         },
         {
             "name": "Planet Befall",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Planet Befall.png",
+            "icon": "assets/character/talents/Planet Befall.avif",
             "description": "Brings a falling meteor down to earth, dealing massive Geo DMG to opponents caught in its AoE and applying the Petrification status to them.PetrificationOpponents affected by the Petrification status cannot move."
         },
         {
             "name": "Resonant Waves",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Resonant Waves.png",
+            "icon": "assets/character/talents/Resonant Waves.avif",
             "description": "When the Jade Shield takes DMG, it will Fortify:Fortified characters have 5% increased Shield Strength.Can stack up to 5 times, and lasts until the Jade Shield disappears."
         },
         {
             "name": "Dominance of Earth",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Dominance of Earth.png",
+            "icon": "assets/character/talents/Dominance of Earth.avif",
             "description": "Zhongli deals bonus DMG based on his Max HP:Normal Attack, Charged Attack, and Plunging Attack DMG is increased by 1.39% of Max HP.Dominus Lapidis' Stone Stele, resonance, and hold DMG is increased by 1.9% of Max HP.Planet Befall's DMG is increased by 33% of Max HP."
         },
         {
             "name": "Arcanum of Crystal",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Arcanum of Crystal.png",
+            "icon": "assets/character/talents/Arcanum of Crystal.avif",
             "description": "Refunds 15% of the ore used when crafting Polearm-type weapons."
         }
     ],
@@ -468,17 +497,20 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Gold",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Gold.png"
+                    "icon": "assets/materials/Teachings of Gold.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -488,17 +520,20 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 3,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -508,17 +543,20 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 4,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -528,17 +566,20 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 6,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -548,17 +589,20 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 9,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Gold",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Gold.png"
+                    "icon": "assets/materials/Guide to Gold.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -568,22 +612,26 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 4,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tusk of Monoceros Caeli",
                     "value": 1,
-                    "icon": "assets/materials/Tusk of Monoceros Caeli.png"
+                    "icon": "assets/materials/Tusk of Monoceros Caeli.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -593,22 +641,26 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tusk of Monoceros Caeli",
                     "value": 1,
-                    "icon": "assets/materials/Tusk of Monoceros Caeli.png"
+                    "icon": "assets/materials/Tusk of Monoceros Caeli.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -618,22 +670,26 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 9,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tusk of Monoceros Caeli",
                     "value": 2,
-                    "icon": "assets/materials/Tusk of Monoceros Caeli.png"
+                    "icon": "assets/materials/Tusk of Monoceros Caeli.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -643,27 +699,32 @@ var ZHONGLI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Gold",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Gold.png"
+                    "icon": "assets/materials/Philosophies of Gold.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Tusk of Monoceros Caeli",
                     "value": 2,
-                    "icon": "assets/materials/Tusk of Monoceros Caeli.png"
+                    "icon": "assets/materials/Tusk of Monoceros Caeli.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2525,160 +2586,5 @@ var ZHONGLI = {
     "demo_music": {
         "name": "Rex Incognito",
         "url": "assets/character/demo_music/Zhongli.mp3"
-    },
-    "build": {
-        "version": "4.6",
-        "weapons": [
-            "Favonius Lance",
-            "Black Tassel"
-        ],
-        "artifacts": [
-            "4pc Tenacity of the Millelith",
-            "4pc Archaic Petra",
-            "4pc Deepwood Memories",
-            "4pc Instructor"
-        ],
-        "talents": [
-            "Skill",
-            "Burst",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "HP%",
-            "HP%",
-            "HP% / CRIT Rate"
-        ],
-        "sub_stats": [
-            "CRIT Rate",
-            "Hp%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Hu Tao",
-                    "icon": "assets/character/icon/Hu Tao.png"
-                },
-                {
-                    "name": "Xingqiu",
-                    "icon": "assets/character/icon/Xingqiu.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ],
-            [
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                }
-            ],
-            [
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Lyney",
-                    "icon": "assets/character/icon/Lyney.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Neuvillette",
-                    "icon": "assets/character/icon/Neuvillette.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Navia",
-                    "icon": "assets/character/icon/Navia.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Arlecchino",
-                    "icon": "assets/character/icon/Arlecchino.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
     }
 }

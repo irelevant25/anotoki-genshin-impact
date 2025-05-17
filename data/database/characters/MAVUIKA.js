@@ -1,36 +1,36 @@
 var MAVUIKA = {
     "name": "Mavuika",
     "secondary_title": "Night-Igniting Flame",
-    "card_icon": "assets/character/card/Mavuika.png",
-    "wish_icon": "assets/character/wish/Mavuika.png",
-    "ingame_icon": "assets/character/ingame/Mavuika.png",
-    "icon": "assets/character/icon/Mavuika.png",
+    "card_icon": "assets/character/card/Mavuika.avif",
+    "wish_icon": "assets/character/wish/Mavuika.avif",
+    "ingame_icon": "assets/character/ingame/Mavuika.avif",
+    "icon": "assets/character/icon/Mavuika.avif",
     "quality": "5",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Pyro",
-        "icon": "assets/elements/Pyro.png"
+        "icon": "assets/elements/Pyro.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         },
         {
             "name": "Support",
-            "icon": "assets/roles/Support.png"
+            "icon": "assets/roles/Support.avif"
         }
     ],
     "birthday": "August 28th",
@@ -38,43 +38,43 @@ var MAVUIKA = {
         {
             "name": "The Night-Lord's Explication",
             "level": 1,
-            "icon": "assets/character/constellations/The Night-Lord's Explication.png",
+            "icon": "assets/character/constellations/The Night-Lord's Explication.avif",
             "description": "Mavuika's maximum Nightsoul points are increased to 120, and she gains Fighting Spirit 25% more efficiently.Additionally, she gains 40% ATK for 8s after gaining Fighting Spirit."
         },
         {
             "name": "The Ashen Price",
             "level": 2,
-            "icon": "assets/character/constellations/The Ashen Price.png",
+            "icon": "assets/character/constellations/The Ashen Price.avif",
             "description": "When in the Nightsoul's Blessing State, Mavuika's Base ATK is increased by 200, and she obtains the following effects based on All-Fire Armaments' form:Ring of Searing Radiance: Nearby opponents' DEF decreased by 20%.Flamestrider: Mavuika's Normal Attacks, Charged Attacks, and her Sunfell Slice from the Elemental Burst Hour of Burning Skies deal 60%, 90%, and 120% of her ATK as increased DMG respectively."
         },
         {
             "name": "The Burning Sun",
             "level": 3,
-            "icon": "assets/character/constellations/The Burning Sun.png",
+            "icon": "assets/character/constellations/The Burning Sun.avif",
             "description": "Increases the Level of Hour of Burning Skies by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Leader's Resolve",
             "level": 4,
-            "icon": "assets/character/constellations/The Leader's Resolve.png",
+            "icon": "assets/character/constellations/The Leader's Resolve.avif",
             "description": "Enhances the effects of the Passive Talent \"Kiongozi\":The DMG increase gained after using the Elemental Burst Hour of Burning Skies will not decay over time, and an additional 10% DMG Bonus will be gained.You must first unlock the Passive Talent \"Kiongozi.\""
         },
         {
             "name": "The Meaning of Truth",
             "level": 5,
-            "icon": "assets/character/constellations/The Meaning of Truth.png",
+            "icon": "assets/character/constellations/The Meaning of Truth.avif",
             "description": "Increases the Level of The Named Moment by 3.Maximum upgrade level is 15."
         },
         {
             "name": "\"Humanity's Name\" Unfettered",
             "level": 6,
-            "icon": "assets/character/constellations/Humanity's Name Unfettered.png",
+            "icon": "assets/character/constellations/Humanity's Name Unfettered.avif",
             "description": "The All-Fire Armaments from the Elemental Skill The Named Moment receive all-round improvements: Ring of Searing Radiance: When the Ring's attacks hit opponents, a Flamestrider will crash into the struck opponent, dealing 200% of ATK as Nightsoul-aligned AoE Pyro DMG. Flamestrider: When Mavuika is riding the Flamestrider, she will also summon a Scorching Ring of Searing Radiance to follow her, which will decrease nearby opponents' DEF by 20% and deal 500% of ATK as Nightsoul-aligned AoE Pyro DMG to nearby opponents once every 3s. Mavuika's terrain-crossing abilities will also be further improved.Additionally, when Mavuika is riding her Flamestrider and is not in combat, when her Nightsoul points drop to 5, she will gain 80 Nightsoul points. This effect can trigger once every 15s."
         }
     ],
     "region": {
         "name": "Natlan",
-        "icon": "assets/regions/Natlan.png"
+        "icon": "assets/regions/Natlan.avif"
     },
     "affiliations": [
         "Huitztlan",
@@ -83,12 +83,12 @@ var MAVUIKA = {
     ],
     "special_dish": {
         "name": "Hymn of Gathered Flame",
-        "icon": "assets/foods/Mavuika.png"
+        "icon": "assets/foods/Mavuika.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Mavuika.png",
-        "background": "assets/character/namecard_background/Mavuika.png",
-        "banner": "assets/character/namecard_banner/Mavuika.png",
+        "icon": "assets/character/namecard_icon/Mavuika.avif",
+        "background": "assets/character/namecard_background/Mavuika.avif",
+        "banner": "assets/character/namecard_banner/Mavuika.avif",
         "description": "No Pyro Archon has ever intended to contest the sun. But as ordinary people see it, this \"solar ring\" is the crown of leaders as radiant as the sun.",
         "quality": "4",
         "sources": [
@@ -169,22 +169,26 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Agnidus Agate Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Agnidus Agate Sliver.png"
+                    "icon": "assets/materials/Agnidus Agate Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 3,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -212,27 +216,32 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 2,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 10,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 15,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -260,27 +269,32 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 4,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Fragment.png"
+                    "icon": "assets/materials/Agnidus Agate Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 20,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -308,27 +322,32 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 8,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 30,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 18,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -356,27 +375,32 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 12,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Chunk.png"
+                    "icon": "assets/materials/Agnidus Agate Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 45,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -404,27 +428,32 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Gold-Inscribed Secret Source Core",
                     "value": 20,
-                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.png"
+                    "icon": "assets/materials/Gold-Inscribed Secret Source Core.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Agnidus Agate Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Agnidus Agate Gemstone.png"
+                    "icon": "assets/materials/Agnidus Agate Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Withering Purpurbloom",
                     "value": 60,
-                    "icon": "assets/materials/Withering Purpurbloom.png"
+                    "icon": "assets/materials/Withering Purpurbloom.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 24,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -433,43 +462,43 @@ var MAVUIKA = {
         {
             "name": "Flames Weave Life",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Flames Weave Life.png",
+            "icon": "assets/character/talents/Flames Weave Life.avif",
             "description": "Normal AttackPerforms up to 4 consecutive claymore strikes.Charged AttackConsumes a certain amount of Stamina to perform an especially powerful Severing Splendor strike toward the front.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "The Named Moment",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/The Named Moment.png",
+            "icon": "assets/character/talents/The Named Moment.avif",
             "description": "Calling upon her authority over \"conflict,\" Mavuika summons the All-Fire Armaments passed down through the line of human Archons, dealing Nightsoul-aligned Pyro DMGAfter using this, Mavuika's Nightsoul points are restored to max value, and she enters the Nightsoul's Blessing state.All-Fire ArmamentsHas different forms when Tapped or Held.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)\"Divine Name Unleashed\": The All-Fire Armaments manifest as a Ring of Searing Radiance. The Ring follows the current active character and attacks nearby opponents at intervals, dealing Nightsoul-aligned Pyro DMG.Hold\"Ancient Name Unbound\": The All-Fire Armaments manifest as a Flamestrider. In this state, Mavuika can ride the Flamestrider at high speed, or activate its hidden backup propulsion module to temporarily cross various terrain types and glide in mid-air. Mavuika's Normal, Charged, and Plunging Attacks will also be converted to deal Nightsoul-aligned Pyro DMG which cannot be overridden. When sprinting, she also deals Nightsoul-aligned Pyro DMG to opponents along her path.While in the Nightsoul's Blessing state, Tapping the Elemental Skill can switch the All-Fire Armaments' form. The Armaments will disappear once Mavuika's Nightsoul's Blessing state ends.Nightsoul's Blessing: MavuikaContinuously consumes Nightsoul points according to the All-Fire Armaments' form. Mavuika's Nightsoul's Blessing state ends once her Nightsoul points are exhausted."
         },
         {
             "name": "Hour of Burning Skies",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Hour of Burning Skies.png",
+            "icon": "assets/character/talents/Hour of Burning Skies.avif",
             "description": "Let the people's inner voices reach the divine throne in the heavens.Mavuika's Elemental Burst is not reliant on Energy, but instead, on \"Fighting Spirit.\"Fighting SpiritWhen Mavuika has at least 50% Fighting Spirit, she can consume it all to unleash her Elemental Burst.Mavuika can obtain Fighting Spirit via the following methods: When in combat, Nightsoul points consumed by nearby party members are converted to Fighting Spirit. When nearby party members' Normal Attacks hit opponents, Mavuika gains 1.5 Fighting Spirit. This can trigger once every 0.1s.After using this, Mavuika gains 10 Nightsoul points and enters the Nightsoul's Blessing state. Riding her Flamestrider high in the air, she uses a powerful Sunfell Slice against opponents on the ground, dealing Nightsoul-aligned AoE Pyro DMG and entering the \"Crucible of Death and Life\" state.Crucible of Death and LifeDuring this time, Mavuika's various actions will no longer consume Nightsoul points, and her interruption resistance is increased. Also, the DMG dealt by Sunfell Slice and \"Ancient Name Unbound\"'s Normal and Charged Attacks is increased based on the amount of Fighting Spirit she has when using the Elemental Burst.Crucible of Death and Life will be canceled when Mavuika leaves the field."
         },
         {
             "name": "Gift of Flaming Flowers",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Gift of Flaming Flowers.png",
+            "icon": "assets/character/talents/Gift of Flaming Flowers.avif",
             "description": "When a nearby party member triggers a Nightsoul Burst, Mavuika's ATK increases by 30% for 10s."
         },
         {
             "name": "\"Kiongozi\"",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Kiongozi.png",
+            "icon": "assets/character/talents/Kiongozi.avif",
             "description": "After using her Elemental Burst, Hour of Burning Skies, every point of Fighting Spirit present when it is used increases the DMG that the current active party member deals by 0.2%. The maximum increase obtainable this way is 40%, and this effect lasts 20s, decaying over this duration until it reaches 0."
         },
         {
             "name": "Exhaust Mode",
             "type": "Night Realm's Gift Passive",
-            "icon": "assets/character/talents/Exhaust Mode.png",
+            "icon": "assets/character/talents/Exhaust Mode.avif",
             "description": "After Nightsoul points have been fully depleted, Mavuika will switch to using Phlogiston to maintain the All-Fire Armaments' Flamestrider form.While in an area with Phlogiston Mechanics within Natlan, Nightsoul Transmission: Mavuika can be used. When the current active character is sprinting, climbing, swimming, in movement modes caused by certain Talents, or at a certain height in the air, switching to Mavuika will trigger the following: Mavuika enters the Nightsoul's Blessing state and obtains 50% of her maximum Nightsoul points. Nightsoul Transmission can be triggered once every 10s by your own party."
         },
         {
             "name": "Night-Shattering Radiance",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Night-Shattering Radiance.png",
+            "icon": "assets/character/talents/Night-Shattering Radiance.avif",
             "description": "The party's Nightsoul Transmission CD is decreased by 20%."
         }
     ],
@@ -480,17 +509,20 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Sentry's Wooden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Sentry's Wooden Whistle.png"
+                    "icon": "assets/materials/Sentry's Wooden Whistle.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Contention",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Contention.png"
+                    "icon": "assets/materials/Teachings of Contention.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -500,17 +532,20 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 3,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -520,17 +555,20 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -540,17 +578,20 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -560,17 +601,20 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Warrior's Metal Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Warrior's Metal Whistle.png"
+                    "icon": "assets/materials/Warrior's Metal Whistle.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Contention",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Contention.png"
+                    "icon": "assets/materials/Guide to Contention.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -580,22 +624,26 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 4,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Horn",
                     "value": 1,
-                    "icon": "assets/materials/Eroded Horn.png"
+                    "icon": "assets/materials/Eroded Horn.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -605,22 +653,26 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 6,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Horn",
                     "value": 1,
-                    "icon": "assets/materials/Eroded Horn.png"
+                    "icon": "assets/materials/Eroded Horn.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -630,22 +682,26 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 9,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Horn",
                     "value": 2,
-                    "icon": "assets/materials/Eroded Horn.png"
+                    "icon": "assets/materials/Eroded Horn.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -655,27 +711,32 @@ var MAVUIKA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Saurian-Crowned Warrior's Golden Whistle",
                     "value": 12,
-                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.png"
+                    "icon": "assets/materials/Saurian-Crowned Warrior's Golden Whistle.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Contention",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Contention.png"
+                    "icon": "assets/materials/Philosophies of Contention.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Eroded Horn",
                     "value": 2,
-                    "icon": "assets/materials/Eroded Horn.png"
+                    "icon": "assets/materials/Eroded Horn.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2528,177 +2589,5 @@ var MAVUIKA = {
             ]
         }
     },
-    "demo_music": null,
-    "build": {
-        "version": "5.3",
-        "type": "On-field DPS",
-        "weapons": [
-            "A Thousand Blazing Suns",
-            "Verdict",
-            "Beacon of the Reed Sea",
-            "Redhorn Stonethresher",
-            "Serpent Spine",
-            "The Unforged",
-            "Wolf's Gravestone",
-            "Fang of the Mountain King",
-            "Talking Stick",
-            "Mailed Flower",
-            "Tidal Shadow",
-            "Rainslasher",
-            "Earth Shaker",
-            "Blackcliff",
-            "Ultimate Overlord's Mega Magic Sword",
-            "Makhaira Aquamarine"
-        ],
-        "artifacts": [
-            "4pc Obsidian Codex",
-            "4pc Marechaussee Hunter",
-            "4pc Gilded Dreams",
-            "4pc Crimson Witch"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "ATK% / EM",
-            "Pyro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK%",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Kachina",
-                    "icon": "assets/character/icon/Kachina.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Ororon",
-                    "icon": "assets/character/icon/Ororon.png"
-                },
-                {
-                    "name": "Chevreuse",
-                    "icon": "assets/character/icon/Chevreuse.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Citlali",
-                    "icon": "assets/character/icon/Citlali.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Mavuika",
-                    "icon": "assets/character/icon/Mavuika.png"
-                },
-                {
-                    "name": "Xilonen",
-                    "icon": "assets/character/icon/Xilonen.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ]
-        ]
-    }
+    "demo_music": null
 }

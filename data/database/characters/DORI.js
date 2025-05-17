@@ -1,28 +1,28 @@
 var DORI = {
     "name": "Dori",
     "secondary_title": "Treasure of Dream Garden",
-    "card_icon": "assets/character/card/Dori.png",
-    "wish_icon": "assets/character/wish/Dori.png",
-    "ingame_icon": "assets/character/ingame/Dori.png",
-    "icon": "assets/character/icon/Dori.png",
+    "card_icon": "assets/character/card/Dori.avif",
+    "wish_icon": "assets/character/wish/Dori.avif",
+    "ingame_icon": "assets/character/ingame/Dori.avif",
+    "icon": "assets/character/icon/Dori.avif",
     "quality": "4",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Short Female",
     "roles": [
         {
             "name": "Off-Field",
-            "icon": "assets/roles/Off-Field.png"
+            "icon": "assets/roles/Off-Field.avif"
         },
         {
             "name": "Survivability",
-            "icon": "assets/roles/Survivability.png"
+            "icon": "assets/roles/Survivability.avif"
         }
     ],
     "birthday": "December 21st",
@@ -30,55 +30,55 @@ var DORI = {
         {
             "name": "Additional Investment",
             "level": 1,
-            "icon": "assets/character/constellations/Additional Investment.png",
+            "icon": "assets/character/constellations/Additional Investment.avif",
             "description": "The number of After-Sales Service Rounds created by Troubleshooter Shots is increased by 1."
         },
         {
             "name": "Special Franchise",
             "level": 2,
-            "icon": "assets/character/constellations/Special Franchise.png",
+            "icon": "assets/character/constellations/Special Franchise.avif",
             "description": "When you are in combat and the Jinni heals the character it is connected to, it will fire a Jinni Toop from that character's position that deals 50% of Dori's ATK DMG."
         },
         {
             "name": "Wonders Never Cease",
             "level": 3,
-            "icon": "assets/character/constellations/Wonders Never Cease.png",
+            "icon": "assets/character/constellations/Wonders Never Cease.avif",
             "description": "Increases the Level of Alcazarzaray's Exactitude by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Discretionary Supplement",
             "level": 4,
-            "icon": "assets/character/constellations/Discretionary Supplement.png",
+            "icon": "assets/character/constellations/Discretionary Supplement.avif",
             "description": "The character connected to the Jinni will obtain the following buffs based on their current HP and Energy:When their HP is lower than 50%, they gain 50% Incoming Healing Bonus.When their Energy is less than 50%, they gain 30% Energy Recharge."
         },
         {
             "name": "Value for Mora",
             "level": 5,
-            "icon": "assets/character/constellations/Value for Mora.png",
+            "icon": "assets/character/constellations/Value for Mora.avif",
             "description": "Increases the Level of Spirit-Warding Lamp: Troubleshooter Cannon by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Sprinkling Weight",
             "level": 6,
-            "icon": "assets/character/constellations/Sprinkling Weight.png",
+            "icon": "assets/character/constellations/Sprinkling Weight.avif",
             "description": "Dori gains the following effects for 3s after using Spirit-Warding Lamp: Troubleshooter Cannon:Electro Infusion.When Normal Attacks hit opponents, all nearby party members will heal HP equivalent to 4% of Dori's Max HP. This type of healing can occur once every 0.1s."
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "The Palace of Alcazarzaray"
     ],
     "special_dish": {
         "name": "Show Me the Mora",
-        "icon": "assets/foods/Dori.png"
+        "icon": "assets/foods/Dori.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Dori.png",
-        "background": "assets/character/namecard_background/Dori.png",
-        "banner": "assets/character/namecard_banner/Dori.png",
+        "icon": "assets/character/namecard_icon/Dori.avif",
+        "background": "assets/character/namecard_background/Dori.avif",
+        "banner": "assets/character/namecard_banner/Dori.avif",
         "description": "If you wipe the lamp she gave you and then scrub the Mora you gave her, no wish is unattainable... right?",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 3,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 3,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 2,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 10,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 15,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 4,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 20,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 12,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 8,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 30,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 18,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 12,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 45,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Thunderclap Fruitcore",
                     "value": 20,
-                    "icon": "assets/materials/Thunderclap Fruitcore.png"
+                    "icon": "assets/materials/Thunderclap Fruitcore.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Kalpalata Lotus",
                     "value": 60,
-                    "icon": "assets/materials/Kalpalata Lotus.png"
+                    "icon": "assets/materials/Kalpalata Lotus.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 24,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,37 +449,37 @@ var DORI = {
         {
             "name": "Marvelous Sword-Dance (Modified)",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Marvelous Sword-Dance (Modified).png",
+            "icon": "assets/character/talents/Marvelous Sword-Dance (Modified).avif",
             "description": "Normal AttackPerforms up to 3 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous spinning attacks against all nearby opponents.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Spirit-Warding Lamp: Troubleshooter Cannon",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Spirit-Warding Lamp Troubleshooter Cannon.png",
+            "icon": "assets/character/talents/Spirit-Warding Lamp Troubleshooter Cannon.avif",
             "description": "Directs a Spirit-Warding Lamp to fire off a Troubleshooter Shot at opponents, dealing Electro DMG.After the Troubleshooter Shot hits, it will create 2 After-Sales Service Rounds that will automatically track nearby opponents and deal Electro DMG."
         },
         {
             "name": "Alcazarzaray's Exactitude",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Alcazarzaray's Exactitude.png",
+            "icon": "assets/character/talents/Alcazarzaray's Exactitude.avif",
             "description": "Summons forth the Jinni within the lamp to give the client various kinds of aid.JinniConnects to a nearby character. The connected character will:Continuously restore HP based on Dori's Max HP.Continuously regenerate Energy.Be affected by Electro.When the connector between the Jinni and the character touches opponents, it will deal one instance of Electro DMG to them every 0.4s.Only one Jinni can exist at one time."
         },
         {
             "name": "An Eye for Gold",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/An Eye for Gold.png",
+            "icon": "assets/character/talents/An Eye for Gold.avif",
             "description": "After a character connected to the Jinni triggers an Electro-Charged, Superconduct, Overloaded, Quicken, Aggravate, Hyperbloom, or an Electro Swirl or Crystallize reaction, the CD of Spirit-Warding Lamp: Troubleshooter Cannon is decreased by 1s.This effect can be triggered once every 3s."
         },
         {
             "name": "Compound Interest",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Compound Interest.png",
+            "icon": "assets/character/talents/Compound Interest.avif",
             "description": "When the Troubleshooter Shots or After-Sales Service Rounds from Spirit-Warding Lamp: Troubleshooter Cannon hit opponents, Dori will restore 5 Elemental Energy for every 100% Energy Recharge possessed.Per Spirit-Warding Lamp: Troubleshooter Cannon, only one instance of Energy restoration can be triggered and a maximum of 15 Energy can be restored this way."
         },
         {
             "name": "Unexpected Order",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Unexpected Order.png",
+            "icon": "assets/character/talents/Unexpected Order.avif",
             "description": "Has a 25% chance to recover some of the materials used when crafting Character and Weapon Materials."
         }
     ],
@@ -461,17 +490,20 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 6,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Ingenuity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Ingenuity.png"
+                    "icon": "assets/materials/Teachings of Ingenuity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +513,20 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 3,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +536,20 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 4,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +559,20 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 6,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +582,20 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 9,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Ingenuity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Ingenuity.png"
+                    "icon": "assets/materials/Guide to Ingenuity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +605,26 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 4,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 1,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +634,26 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 6,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 1,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +663,26 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 9,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 2,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +692,32 @@ var DORI = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Ingenuity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Ingenuity.png"
+                    "icon": "assets/materials/Philosophies of Ingenuity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Bloodjade Branch",
                     "value": 2,
-                    "icon": "assets/materials/Bloodjade Branch.png"
+                    "icon": "assets/materials/Bloodjade Branch.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2373,106 +2434,5 @@ var DORI = {
     "demo_music": {
         "name": "Thanks for Your Patronage!",
         "url": "assets/character/demo_music/Dori.mp3"
-    },
-    "build": {
-        "version": "4.0",
-        "type": "Support",
-        "weapons": [
-            "Favonius Greatsword",
-            "Sacrificial Greatsword",
-            "Katsuragikiri Nagamasa",
-            "Forest Regalia",
-            "Serpent Spine",
-            "Talking Stick",
-            "Rainslasher",
-            "Bloodtainted Greatsword",
-            "Makhaira Aquamarine",
-            "Blackcliff Slasher",
-            "Wolf's Gravestone",
-            "The Bell"
-        ],
-        "artifacts": [
-            "4p Gilded Dreams",
-            "4p Thundering Fury",
-            "4p Thundersoother",
-            "4p Flower of Paradise Lost",
-            "4p Noblesse Oblige",
-            "4p Deepwood Memories",
-            "4p Ocean-Hued Clam",
-            "4p Instructor",
-            "4p The Exile"
-        ],
-        "talents": [
-            "Burst",
-            "Skill",
-            "Normal Attack"
-        ],
-        "main_stats": [
-            "EM / ER",
-            "Electro DMG Bonus / EM",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK% / HP%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Dori",
-                    "icon": "assets/character/icon/Dori.png"
-                },
-                {
-                    "name": "Jean",
-                    "icon": "assets/character/icon/Jean.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                }
-            ],
-            [
-                {
-                    "name": "Dori",
-                    "icon": "assets/character/icon/Dori.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Dendro Traveler",
-                    "icon": "assets/character/icon/Dendro Traveler.png"
-                },
-                {
-                    "name": "Kaedehara Kazuha",
-                    "icon": "assets/character/icon/Kaedehara Kazuha.png"
-                }
-            ],
-            [
-                {
-                    "name": "Dori",
-                    "icon": "assets/character/icon/Dori.png"
-                },
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ]
-        ]
     }
 }

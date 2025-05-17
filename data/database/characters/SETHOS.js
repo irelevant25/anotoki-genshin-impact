@@ -1,28 +1,28 @@
 var SETHOS = {
     "name": "Sethos",
     "secondary_title": "Wisdom's Measure",
-    "card_icon": "assets/character/card/Sethos.png",
-    "wish_icon": "assets/character/wish/Sethos.png",
-    "ingame_icon": "assets/character/ingame/Sethos.png",
-    "icon": "assets/character/icon/Sethos.png",
+    "card_icon": "assets/character/card/Sethos.avif",
+    "wish_icon": "assets/character/wish/Sethos.avif",
+    "ingame_icon": "assets/character/ingame/Sethos.avif",
+    "icon": "assets/character/icon/Sethos.avif",
     "quality": "4",
     "weapon": {
         "name": "Bow",
-        "icon": "assets/weapon_types/Bow.png"
+        "icon": "assets/weapon_types/Bow.avif"
     },
     "element": {
         "name": "Electro",
-        "icon": "assets/elements/Electro.png"
+        "icon": "assets/elements/Electro.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "May 31st",
@@ -30,55 +30,55 @@ var SETHOS = {
         {
             "name": "Sealed Shrine's Spiritsong",
             "level": 1,
-            "icon": "assets/character/constellations/Sealed Shrine's Spiritsong.png",
+            "icon": "assets/character/constellations/Sealed Shrine's Spiritsong.avif",
             "description": "The CRIT Rate of Shadowpiercing Shot is increased by 15%."
         },
         {
             "name": "Papyrus Scripture of Silent Secrets",
             "level": 2,
-            "icon": "assets/character/constellations/Papyrus Scripture of Silent Secrets.png",
+            "icon": "assets/character/constellations/Papyrus Scripture of Silent Secrets.avif",
             "description": "When any of the following conditions are met, Sethos gains a 15% Electro DMG Bonus for 10s that may stack twice, with each stack duration counted independently: Consuming Elemental Energy through Aimed Shots; you must first unlock the Passive Talent \"Black Kite's Enigma\" to trigger this condition. Regaining Elemental Energy by triggering Elemental Reactions using Ancient Rite: The Thundering Sands. Using Secret Rite: Twilight Shadowpiercer."
         },
         {
             "name": "Ode to the Moonrise Sage",
             "level": 3,
-            "icon": "assets/character/constellations/Ode to the Moonrise Sage.png",
+            "icon": "assets/character/constellations/Ode to the Moonrise Sage.avif",
             "description": "Increases the Level of Normal Attack: Royal Reed Archery by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Beneficent Plumage",
             "level": 4,
-            "icon": "assets/character/constellations/Beneficent Plumage.png",
+            "icon": "assets/character/constellations/Beneficent Plumage.avif",
             "description": "When a Shadowpiercing Shot or Dusk Bolt strikes 2 or more opponents, all nearby party members gain 80 Elemental Mastery for 10s."
         },
         {
             "name": "Record of the Desolate God's Burning Sands",
             "level": 5,
-            "icon": "assets/character/constellations/Record of the Desolate God's Burning Sands.png",
+            "icon": "assets/character/constellations/Record of the Desolate God's Burning Sands.avif",
             "description": "Increases the Level of Secret Rite: Twilight Shadowpiercer by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Pylon of the Sojourning Sun Temple",
             "level": 6,
-            "icon": "assets/character/constellations/Pylon of the Sojourning Sun Temple.png",
+            "icon": "assets/character/constellations/Pylon of the Sojourning Sun Temple.avif",
             "description": "After Shadowpiercing Shot strikes an opponent, the Elemental Energy consumed by the Passive Talent \"Black Kite's Enigma\" will be returned. This effect can be triggered up to once every 15s. You must first unlock the Passive Talent \"Black Kite's Enigma.\""
         }
     ],
     "region": {
         "name": "Sumeru",
-        "icon": "assets/regions/Sumeru.png"
+        "icon": "assets/regions/Sumeru.avif"
     },
     "affiliations": [
         "Temple of Silence"
     ],
     "special_dish": {
         "name": "Super-Dee-Duper Delicious Meat Roll",
-        "icon": "assets/foods/Sethos.png"
+        "icon": "assets/foods/Sethos.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Sethos.png",
-        "background": "assets/character/namecard_background/Sethos.png",
-        "banner": "assets/character/namecard_banner/Sethos.png",
+        "icon": "assets/character/namecard_icon/Sethos.avif",
+        "background": "assets/character/namecard_background/Sethos.avif",
+        "banner": "assets/character/namecard_banner/Sethos.avif",
         "description": "Each Ba Fragment has its unique symbol. While this one resembles an hourglass, it represents King Deshret's rule over both Upper and Lower Setekh. As for the light within, it stands for the wisdom of Hermanubis.",
         "quality": "4",
         "sources": [
@@ -158,22 +158,26 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vajrada Amethyst Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vajrada Amethyst Sliver.png"
+                    "icon": "assets/materials/Vajrada Amethyst Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Trishiraite",
                     "value": 3,
-                    "icon": "assets/materials/Trishiraite.png"
+                    "icon": "assets/materials/Trishiraite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 3,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -201,27 +205,32 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 2,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trishiraite",
                     "value": 10,
-                    "icon": "assets/materials/Trishiraite.png"
+                    "icon": "assets/materials/Trishiraite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 15,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -249,27 +258,32 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 4,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Fragment.png"
+                    "icon": "assets/materials/Vajrada Amethyst Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trishiraite",
                     "value": 20,
-                    "icon": "assets/materials/Trishiraite.png"
+                    "icon": "assets/materials/Trishiraite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 12,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -297,27 +311,32 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 8,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Trishiraite",
                     "value": 30,
-                    "icon": "assets/materials/Trishiraite.png"
+                    "icon": "assets/materials/Trishiraite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 18,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -345,27 +364,32 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 12,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Chunk.png"
+                    "icon": "assets/materials/Vajrada Amethyst Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Trishiraite",
                     "value": 45,
-                    "icon": "assets/materials/Trishiraite.png"
+                    "icon": "assets/materials/Trishiraite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -393,27 +417,32 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Cloudseam Scale",
                     "value": 20,
-                    "icon": "assets/materials/Cloudseam Scale.png"
+                    "icon": "assets/materials/Cloudseam Scale.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vajrada Amethyst Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vajrada Amethyst Gemstone.png"
+                    "icon": "assets/materials/Vajrada Amethyst Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Trishiraite",
                     "value": 60,
-                    "icon": "assets/materials/Trishiraite.png"
+                    "icon": "assets/materials/Trishiraite.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 24,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -422,37 +451,37 @@ var SETHOS = {
         {
             "name": "Royal Reed Archery",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Royal Reed Archery.png",
+            "icon": "assets/character/talents/Royal Reed Archery.avif",
             "description": "Normal AttackPerforms up to 3 consecutive shots with a bow.Charged AttackPerforms a more precise Aimed Shot with increased DMG.While aiming, the power of Electro will accumulate on the arrowhead before the arrow is fired. Has different effects based on how long the energy has been charged:Charge Level 1: Fires off an arrow carrying the power of lightning that deals Electro DMG.Charge Level 2: Fires off a Shadowpiercing Shot which can pierce enemies, dealing Electro DMG to enemies along its path. After the Shadowpiercing Shot is fully charged, Sethos cannot move around.Plunging AttackFires off a shower of arrows in mid-air before falling and striking the ground, dealing AoE DMG upon impact."
         },
         {
             "name": "Ancient Rite: The Thundering Sands",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Ancient Rite The Thundering Sands.png",
+            "icon": "assets/character/talents/Ancient Rite The Thundering Sands.avif",
             "description": "Gathers the might of thunder, dealing AoE Electro DMG and quickly retreating. If this attack triggers Electro-Charged, Superconduct, Overloaded, Quicken, Aggravate, or Electro Swirl reactions, Sethos recovers a certain amount of Elemental Energy."
         },
         {
             "name": "Secret Rite: Twilight Shadowpiercer",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Secret Rite Twilight Shadowpiercer.png",
+            "icon": "assets/character/talents/Secret Rite Twilight Shadowpiercer.avif",
             "description": "Perform a secret rite, entering the \"Twilight Meditation\" state, during which Sethos's Normal Attacks will be converted into enemy-piercing Dusk Bolts: Deal Electro DMG to opponents in its path, with DMG increased based on Sethos's Elemental Mastery.Sethos cannot perform Aimed Shots while in this state.DMG dealt by Dusk Bolts is considered Charged Attack DMG.This effect will be canceled when Sethos leaves the field."
         },
         {
             "name": "Black Kite's Enigma",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Black Kite's Enigma.png",
+            "icon": "assets/character/talents/Black Kite's Enigma.avif",
             "description": "When Aiming, the charging time is decreased by 0.285s based on each point of Sethos's current Elemental Energy. Charging time can be reduced to a minimum of 0.3s through this method and a maximum of 20 Energy can be tallied. If a Shadowpiercing Shot is fired, consume the tallied amount of Elemental Energy; if it is a Charge Level 1 shot, then consume 50% of the tallied amount of Elemental Energy."
         },
         {
             "name": "The Sand King's Boon",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/The Sand King's Boon.png",
+            "icon": "assets/character/talents/The Sand King's Boon.avif",
             "description": "Sethos gains the \"Scorching Sandshade\" effect, increasing the DMG dealt by Shadowpiercing Shots by 700% of Sethos's Elemental Mastery.The Scorching Sandshade effect will be canceled when any of the following conditions are met: 5s after a Shadowpiercing Shot first hits an opponent. After 4 Shadowpiercing Shots strike opponents.When a Shadowpiercing Shot affected by Scorching Sandshade first hits an opponent, Sethos will regain Scorching Sandshade after 15s."
         },
         {
             "name": "Thoth's Revelation",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Thoth's Revelation.png",
+            "icon": "assets/character/talents/Thoth's Revelation.avif",
             "description": "Displays the location of nearby resources unique to Sumeru on the mini-map."
         }
     ],
@@ -463,17 +492,20 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Faded Red Satin",
                     "value": 6,
-                    "icon": "assets/materials/Faded Red Satin.png"
+                    "icon": "assets/materials/Faded Red Satin.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Praxis",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Praxis.png"
+                    "icon": "assets/materials/Teachings of Praxis.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -483,17 +515,20 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 3,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -503,17 +538,20 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 4,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -523,17 +561,20 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 6,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -543,17 +584,20 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Trimmed Red Silk",
                     "value": 9,
-                    "icon": "assets/materials/Trimmed Red Silk.png"
+                    "icon": "assets/materials/Trimmed Red Silk.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Praxis",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Praxis.png"
+                    "icon": "assets/materials/Guide to Praxis.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -563,22 +607,26 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 4,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 1,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -588,22 +636,26 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 6,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 1,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -613,22 +665,26 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 9,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 2,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -638,27 +694,32 @@ var SETHOS = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Rich Red Brocade",
                     "value": 12,
-                    "icon": "assets/materials/Rich Red Brocade.png"
+                    "icon": "assets/materials/Rich Red Brocade.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Praxis",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Praxis.png"
+                    "icon": "assets/materials/Philosophies of Praxis.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Daka's Bell",
                     "value": 2,
-                    "icon": "assets/materials/Daka's Bell.png"
+                    "icon": "assets/materials/Daka's Bell.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2346,92 +2407,5 @@ var SETHOS = {
     "demo_music": {
         "name": "Menmaatre's Parade",
         "url": "assets/character/demo_music/Sethos.mp3"
-    },
-    "build": {
-        "version": "4.7",
-        "type": "On-field DPS",
-        "weapons": [
-            "Hunter's Path",
-            "Slingshot",
-            "Aqua Simulacra",
-            "The First Great Magic"
-        ],
-        "artifacts": [
-            "4pc Wanderer's Troupe",
-            "4pc Gilded Dreams",
-            "4pc Desert Pavilion Chronicle"
-        ],
-        "talents": [
-            "Burst",
-            "Normal Attack",
-            "Skill"
-        ],
-        "main_stats": [
-            "EM / ER",
-            "Electro DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "EM",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Sethos",
-                    "icon": "assets/character/icon/Sethos.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Kirara",
-                    "icon": "assets/character/icon/Kirara.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sethos",
-                    "icon": "assets/character/icon/Sethos.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Nahida",
-                    "icon": "assets/character/icon/Nahida.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Sethos",
-                    "icon": "assets/character/icon/Sethos.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Tighnari",
-                    "icon": "assets/character/icon/Tighnari.png"
-                },
-                {
-                    "name": "Baizhu",
-                    "icon": "assets/character/icon/Baizhu.png"
-                }
-            ]
-        ]
     }
 }

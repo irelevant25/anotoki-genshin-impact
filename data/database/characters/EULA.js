@@ -1,28 +1,28 @@
 var EULA = {
     "name": "Eula",
     "secondary_title": "Dance of the Shimmering Wave",
-    "card_icon": "assets/character/card/Eula.png",
-    "wish_icon": "assets/character/wish/Eula.png",
-    "ingame_icon": "assets/character/ingame/Eula.png",
-    "icon": "assets/character/icon/Eula.png",
+    "card_icon": "assets/character/card/Eula.avif",
+    "wish_icon": "assets/character/wish/Eula.avif",
+    "ingame_icon": "assets/character/ingame/Eula.avif",
+    "icon": "assets/character/icon/Eula.avif",
     "quality": "5",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Cryo",
-        "icon": "assets/elements/Cryo.png"
+        "icon": "assets/elements/Cryo.avif"
     },
     "model": "Tall Female",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "October 25th",
@@ -30,43 +30,43 @@ var EULA = {
         {
             "name": "Tidal Illusion",
             "level": 1,
-            "icon": "assets/character/constellations/Tidal Illusion.png",
+            "icon": "assets/character/constellations/Tidal Illusion.avif",
             "description": "Every time Icetide Vortex's Grimheart stacks are consumed, Eula's Physical DMG is increased by 30% for 6s.Each stack consumed will increase the duration of this effect by 6s up to a maximum of 18s."
         },
         {
             "name": "Lady of Seafoam",
             "level": 2,
-            "icon": "assets/character/constellations/Lady of Seafoam.png",
+            "icon": "assets/character/constellations/Lady of Seafoam.avif",
             "description": "Decreases the CD of Icetide Vortex's Holding Mode, rendering it identical to (PressPressText for mouse and keyboard and controller/TappingTappingText for touch screen) CD."
         },
         {
             "name": "Lawrence Pedigree",
             "level": 3,
-            "icon": "assets/character/constellations/Lawrence Pedigree.png",
+            "icon": "assets/character/constellations/Lawrence Pedigree.avif",
             "description": "Increases the Level of Glacial Illumination by 3.Maximum upgrade level is 15."
         },
         {
             "name": "The Obstinacy of One's Inferiors",
             "level": 4,
-            "icon": "assets/character/constellations/The Obstinacy of One's Inferiors.png",
+            "icon": "assets/character/constellations/The Obstinacy of One's Inferiors.avif",
             "description": "Lightfall Swords deal 25% increased DMG against opponents with less than 50% HP."
         },
         {
             "name": "Chivalric Quality",
             "level": 5,
-            "icon": "assets/character/constellations/Chivalric Quality.png",
+            "icon": "assets/character/constellations/Chivalric Quality.avif",
             "description": "Increases the Level of Icetide Vortex by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Noble Obligation",
             "level": 6,
-            "icon": "assets/character/constellations/Noble Obligation.png",
+            "icon": "assets/character/constellations/Noble Obligation.avif",
             "description": "Lightfall Swords created by Glacial Illumination start with 5 stacks of energy. Normal Attacks, Elemental Skills, and Elemental Bursts have a 50% chance to grant the Lightfall Sword an additional stack of energy."
         }
     ],
     "region": {
         "name": "Mondstadt",
-        "icon": "assets/regions/Mondstadt.png"
+        "icon": "assets/regions/Mondstadt.avif"
     },
     "affiliations": [
         "Knights of Favonius",
@@ -74,12 +74,12 @@ var EULA = {
     ],
     "special_dish": {
         "name": "Stormcrest Pie",
-        "icon": "assets/foods/Eula.png"
+        "icon": "assets/foods/Eula.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Eula.png",
-        "background": "assets/character/namecard_background/Eula.png",
-        "banner": "assets/character/namecard_banner/Eula.png",
+        "icon": "assets/character/namecard_icon/Eula.avif",
+        "background": "assets/character/namecard_background/Eula.avif",
+        "banner": "assets/character/namecard_banner/Eula.avif",
         "description": "A cold heart is but a shell to protect oneself.",
         "quality": "4",
         "sources": [
@@ -160,22 +160,26 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Shivada Jade Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Shivada Jade Sliver.png"
+                    "icon": "assets/materials/Shivada Jade Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 3,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 3,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -203,27 +207,32 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 2,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 10,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 15,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -251,27 +260,32 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 4,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Fragment.png"
+                    "icon": "assets/materials/Shivada Jade Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 20,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 12,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -299,27 +313,32 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 8,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 30,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 18,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -347,27 +366,32 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 12,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Chunk.png"
+                    "icon": "assets/materials/Shivada Jade Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 45,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -395,27 +419,32 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Crystalline Bloom",
                     "value": 20,
-                    "icon": "assets/materials/Crystalline Bloom.png"
+                    "icon": "assets/materials/Crystalline Bloom.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shivada Jade Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Shivada Jade Gemstone.png"
+                    "icon": "assets/materials/Shivada Jade Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Dandelion Seed",
                     "value": 60,
-                    "icon": "assets/materials/Dandelion Seed.png"
+                    "icon": "assets/materials/Dandelion Seed.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 24,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -424,37 +453,37 @@ var EULA = {
         {
             "name": "Favonius Bladework - Edel",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Favonius Bladework - Edel.png",
+            "icon": "assets/character/talents/Favonius Bladework - Edel.avif",
             "description": "Normal AttackPerforms up to 5 consecutive strikes.Charged AttackDrains Stamina over time to perform continuous slashes.At the end of the sequence, performs a more powerful slash.Plunging AttackPlunges from mid-air to strike the ground, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Icetide Vortex",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Icetide Vortex.png",
+            "icon": "assets/character/talents/Icetide Vortex.avif",
             "description": "Sharp frost, swift blade.(PressPressText for mouse and keyboard and controller/TapTapText for touch screen)Slashes swiftly, dealing Cryo DMG.When it hits an opponent, Eula gains a stack of Grimheart that stacks up to 2 times. These stacks can only be gained once every 0.3s.GrimheartIncreases Eula's resistance to interruption and DEF.HoldWielding her sword, Eula consumes all the stacks of Grimheart and lashes forward, dealing AoE Cryo DMG to opponents in front of her.If Grimheart stacks are consumed, surrounding opponents will have their Physical RES and Cryo RES decreased.Each consumed stack of Grimheart will be converted into an Icewhirl Brand that deals Cryo DMG to nearby opponents."
         },
         {
             "name": "Glacial Illumination",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Glacial Illumination.png",
+            "icon": "assets/character/talents/Glacial Illumination.avif",
             "description": "Brandishes her greatsword, dealing Cryo DMG to nearby opponents and creating a Lightfall Sword that follows her around for a duration of up to 7s.While present, the Lightfall Sword increases Eula's resistance to interruption. When Eula's own Normal Attack, Elemental Skill, and Elemental Burst deal DMG to opponents, they will charge the Lightfall Sword, which can gain an energy stack once every 0.1s.Once its duration ends, the Lightfall Sword will descend and explode violently, dealing Physical DMG to nearby opponents.This DMG scales on the number of energy stacks the Lightfall Sword has accumulated.If Eula leaves the field, the Lightfall Sword will explode immediately."
         },
         {
             "name": "Roiling Rime",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Roiling Rime.png",
+            "icon": "assets/character/talents/Roiling Rime.avif",
             "description": "If 2 stacks of Grimheart are consumed upon unleashing the Holding Mode of Icetide Vortex, a Shattered Lightfall Sword will be created that will explode immediately, dealing 50% of the basic Physical DMG dealt by a Lightfall Sword created by Glacial Illumination."
         },
         {
             "name": "Wellspring of War-Lust",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Wellspring of War-Lust.png",
+            "icon": "assets/character/talents/Wellspring of War-Lust.avif",
             "description": "When Glacial Illumination is cast, the CD of Icetide Vortex is reset and Eula gains 1 stack of Grimheart."
         },
         {
             "name": "Aristocratic Introspection",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Aristocratic Introspection.png",
+            "icon": "assets/character/talents/Aristocratic Introspection.avif",
             "description": "When Eula crafts Character Talent Materials, she has a 10% chance to receive double the product."
         }
     ],
@@ -465,17 +494,20 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Damaged Mask",
                     "value": 6,
-                    "icon": "assets/materials/Damaged Mask.png"
+                    "icon": "assets/materials/Damaged Mask.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Resistance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Resistance.png"
+                    "icon": "assets/materials/Teachings of Resistance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -485,17 +517,20 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 3,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -505,17 +540,20 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 4,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -525,17 +563,20 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 6,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -545,17 +586,20 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Stained Mask",
                     "value": 9,
-                    "icon": "assets/materials/Stained Mask.png"
+                    "icon": "assets/materials/Stained Mask.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Resistance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Resistance.png"
+                    "icon": "assets/materials/Guide to Resistance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -565,22 +609,26 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 4,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dragon Lord's Crown",
                     "value": 1,
-                    "icon": "assets/materials/Dragon Lord's Crown.png"
+                    "icon": "assets/materials/Dragon Lord's Crown.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -590,22 +638,26 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 6,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dragon Lord's Crown",
                     "value": 1,
-                    "icon": "assets/materials/Dragon Lord's Crown.png"
+                    "icon": "assets/materials/Dragon Lord's Crown.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -615,22 +667,26 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 9,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dragon Lord's Crown",
                     "value": 2,
-                    "icon": "assets/materials/Dragon Lord's Crown.png"
+                    "icon": "assets/materials/Dragon Lord's Crown.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -640,27 +696,32 @@ var EULA = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Ominous Mask",
                     "value": 12,
-                    "icon": "assets/materials/Ominous Mask.png"
+                    "icon": "assets/materials/Ominous Mask.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Resistance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Resistance.png"
+                    "icon": "assets/materials/Philosophies of Resistance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Dragon Lord's Crown",
                     "value": 2,
-                    "icon": "assets/materials/Dragon Lord's Crown.png"
+                    "icon": "assets/materials/Dragon Lord's Crown.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2587,97 +2648,5 @@ var EULA = {
     "demo_music": {
         "name": "Dance of Aphros",
         "url": "assets/character/demo_music/Eula.mp3"
-    },
-    "build": {
-        "version": "3.8",
-        "type": "On-field DPS",
-        "weapons": [
-            "Song of Broken Pines",
-            "Beacon of the Reed Sea",
-            "Wolf's Gravestone",
-            "The Unforged",
-            "Skyward Pride",
-            "Redhorn Stonethresher",
-            "Serpent Spine",
-            "Akuoumaru",
-            "Luxurious Sea-Lord",
-            "Prototype Archaic"
-        ],
-        "artifacts": [
-            "4pc Pale Flame",
-            "4pc Emblem of Severed Fate"
-        ],
-        "talents": [
-            "Burst",
-            "Normal Attack",
-            "Skill"
-        ],
-        "main_stats": [
-            "ATK% / ER",
-            "Physical DMG% Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%",
-            "Flat ATK"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Fischl",
-                    "icon": "assets/character/icon/Fischl.png"
-                },
-                {
-                    "name": "Mika",
-                    "icon": "assets/character/icon/Mika.png"
-                },
-                {
-                    "name": "Diona ",
-                    "icon": "assets/character/icon/Diona .png"
-                }
-            ],
-            [
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Raiden Shogun",
-                    "icon": "assets/character/icon/Raiden Shogun.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Eula",
-                    "icon": "assets/character/icon/Eula.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                },
-                {
-                    "name": "Shenhe",
-                    "icon": "assets/character/icon/Shenhe.png"
-                },
-                {
-                    "name": "Yelan",
-                    "icon": "assets/character/icon/Yelan.png"
-                }
-            ]
-        ]
     }
 }

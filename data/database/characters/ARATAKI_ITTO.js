@@ -1,28 +1,28 @@
 var ARATAKI_ITTO = {
     "name": "Arataki Itto",
     "secondary_title": "Hanamizaka Heroics",
-    "card_icon": "assets/character/card/Arataki Itto.png",
-    "wish_icon": "assets/character/wish/Arataki Itto.png",
-    "ingame_icon": "assets/character/ingame/Arataki Itto.png",
-    "icon": "assets/character/icon/Arataki Itto.png",
+    "card_icon": "assets/character/card/Arataki Itto.avif",
+    "wish_icon": "assets/character/wish/Arataki Itto.avif",
+    "ingame_icon": "assets/character/ingame/Arataki Itto.avif",
+    "icon": "assets/character/icon/Arataki Itto.avif",
     "quality": "5",
     "weapon": {
         "name": "Claymore",
-        "icon": "assets/weapon_types/Claymore.png"
+        "icon": "assets/weapon_types/Claymore.avif"
     },
     "element": {
         "name": "Geo",
-        "icon": "assets/elements/Geo.png"
+        "icon": "assets/elements/Geo.avif"
     },
     "model": "Tall Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "June 1st",
@@ -30,55 +30,55 @@ var ARATAKI_ITTO = {
         {
             "name": "Stay a While and Listen Up",
             "level": 1,
-            "icon": "assets/character/constellations/Stay a While and Listen Up.png",
+            "icon": "assets/character/constellations/Stay a While and Listen Up.avif",
             "description": "After using Royal Descent: Behold, Itto the Evil!, Arataki Itto gains 2 stacks of Superlative Superstrength. After 1s, Itto will gain 1 stack of Superlative Superstrength every 0.5s for 1.5s."
         },
         {
             "name": "Gather 'Round, It's a Brawl!",
             "level": 2,
-            "icon": "assets/character/constellations/Gather 'Round, It's a Brawl!.png",
+            "icon": "assets/character/constellations/Gather 'Round, It's a Brawl!.avif",
             "description": "After using Royal Descent: Behold, Itto the Evil!, each party member whose Element is Geo will decrease that skill's CD by 1.5s and restore 6 Energy to Arataki Itto.CD can be decreased by up to 4.5s in this manner. Max 18 Energy can be restored in this manner."
         },
         {
             "name": "Horns Lowered, Coming Through",
             "level": 3,
-            "icon": "assets/character/constellations/Horns Lowered, Coming Through.png",
+            "icon": "assets/character/constellations/Horns Lowered, Coming Through.avif",
             "description": "Increases the Level of Masatsu Zetsugi: Akaushi Burst! by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Jailhouse Bread and Butter",
             "level": 4,
-            "icon": "assets/character/constellations/Jailhouse Bread and Butter.png",
+            "icon": "assets/character/constellations/Jailhouse Bread and Butter.avif",
             "description": "When the Raging Oni King state caused by Royal Descent: Behold, Itto the Evil! ends, all nearby party members gain 20% DEF and 20% ATK for 10s."
         },
         {
             "name": "10 Years of Hanamizaka Fame",
             "level": 5,
-            "icon": "assets/character/constellations/10 Years of Hanamizaka Fame.png",
+            "icon": "assets/character/constellations/10 Years of Hanamizaka Fame.avif",
             "description": "Increases the Level of Royal Descent: Behold, Itto the Evil! by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Arataki Itto, Present!",
             "level": 6,
-            "icon": "assets/character/constellations/Arataki Itto, Present!.png",
+            "icon": "assets/character/constellations/Arataki Itto, Present!.avif",
             "description": "Arataki Itto's Charged Attacks deal +70% Crit DMG. Additionally, when he uses Arataki Kesagiri, he has a 50% chance to not consume stacks of Superlative Superstrength."
         }
     ],
     "region": {
         "name": "Inazuma",
-        "icon": "assets/regions/Inazuma.png"
+        "icon": "assets/regions/Inazuma.avif"
     },
     "affiliations": [
         "Arataki Gang"
     ],
     "special_dish": {
         "name": "Way of the Strong",
-        "icon": "assets/foods/Arataki Itto.png"
+        "icon": "assets/foods/Arataki Itto.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Arataki Itto.png",
-        "background": "assets/character/namecard_background/Arataki Itto.png",
-        "banner": "assets/character/namecard_banner/Arataki Itto.png",
+        "icon": "assets/character/namecard_icon/Arataki Itto.avif",
+        "background": "assets/character/namecard_background/Arataki Itto.avif",
+        "banner": "assets/character/namecard_banner/Arataki Itto.avif",
         "description": "A real man puts sorrow and anger behind him and smiles brightly for the world to see!",
         "quality": "4",
         "sources": [
@@ -156,22 +156,26 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Prithiva Topaz Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Prithiva Topaz Sliver.png"
+                    "icon": "assets/materials/Prithiva Topaz Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 3,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 3,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -199,27 +203,32 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 2,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 10,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 15,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -247,27 +256,32 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 4,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Fragment.png"
+                    "icon": "assets/materials/Prithiva Topaz Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 20,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 12,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -295,27 +309,32 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 8,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 30,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 18,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -343,27 +362,32 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 12,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Chunk.png"
+                    "icon": "assets/materials/Prithiva Topaz Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 45,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -391,27 +415,32 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Riftborn Regalia",
                     "value": 20,
-                    "icon": "assets/materials/Riftborn Regalia.png"
+                    "icon": "assets/materials/Riftborn Regalia.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Prithiva Topaz Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Prithiva Topaz Gemstone.png"
+                    "icon": "assets/materials/Prithiva Topaz Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Onikabuto",
                     "value": 60,
-                    "icon": "assets/materials/Onikabuto.png"
+                    "icon": "assets/materials/Onikabuto.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 24,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -420,37 +449,37 @@ var ARATAKI_ITTO = {
         {
             "name": "Fight Club Legend",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Fight Club Legend.png",
+            "icon": "assets/character/talents/Fight Club Legend.avif",
             "description": "Normal AttackPerforms up to 4 consecutive strikes.When the 2nd and 4th strikes hit opponents, Itto will gain 1 and 2 stacks of Superlative Superstrength, respectively.Max 5 stacks. Triggering this effect will refresh the current duration of any existing stacks.Additionally, Itto's Normal Attack combo does not immediately reset after sprinting or using his Elemental Skill, \"Masatsu Zetsugi: Akaushi Burst!\"Charged AttackWhen holding to perform a Charged Attack, Itto unleashes a series of Arataki Kesagiri slashes without consuming Stamina. Instead, each Arataki Kesagiri slash consumes 1 stack of Superlative Superstrength. When the final stack is consumed, Itto delivers a powerful final slash.If no stacks of Superlative Superstrength are available, Itto will perform a single Saichimonji Slash.Plunging AttackPlunges from mid-air to strike the ground, damaging opponents along the path and dealing AoE DMG upon impact."
         },
         {
             "name": "Masatsu Zetsugi: Akaushi Burst!",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Masatsu Zetsugi Akaushi Burst!.png",
+            "icon": "assets/character/talents/Masatsu Zetsugi Akaushi Burst!.avif",
             "description": "Hurls Ushi, the young akaushi bull and auxiliary member of the Arataki Gang, dealing Geo DMG to opponents on hit.When Ushi hits opponents, Arataki Itto gains 1 stack of Superlative Superstrength.Ushi will remain on the field and provide support in the following ways:Taunts surrounding opponents and draws their attacks.Inherits HP based on a percentage of Arataki Itto's Max HP.When Ushi takes DMG, Arataki Itto gains 1 stack of Superlative Superstrength. Only 1 stack can be gained in this way every 2s.Ushi will flee when its HP reaches 0 or its duration ends. It will grant Arataki Itto 1 stack of Superlative Superstrength when it leaves.HoldAdjust throwing angle.Ushi is considered a Geo construct. Arataki Itto can only deploy 1 Ushi on the field at any one time."
         },
         {
             "name": "Royal Descent: Behold, Itto the Evil!",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Royal Descent Behold, Itto the Evil!.png",
+            "icon": "assets/character/talents/Royal Descent Behold, Itto the Evil!.avif",
             "description": "Time to show 'em the might of the Arataki Gang! For a time, Itto lets out his inner Raging Oni King, wielding his Oni King's Kanabou in battle.This state has the following special properties:Converts Itto's Normal, Charged, and Plunging Attacks to Geo DMG. This cannot be overridden.Increases Itto's Normal Attack SPD. Also increases his ATK based on his DEF.On hit, the 1st and 3rd strikes of his attack combo will each grant Arataki Itto 1 stack of Superlative Superstrength.Decreases Itto's Elemental and Physical RES by 20%.The Raging Oni King state will be cleared when Itto leaves the field."
         },
         {
             "name": "Arataki Ichiban",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Arataki Ichiban.png",
+            "icon": "assets/character/talents/Arataki Ichiban.avif",
             "description": "When Arataki Itto uses consecutive Arataki Kesagiri, he obtains the following effects:Each slash increases the ATK SPD of the next slash by 10%. Max ATK SPD increase is 30%.Increases his resistance to interruption.These effects will be cleared once he stops performing consecutive slashes."
         },
         {
             "name": "Bloodline of the Crimson Oni",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Bloodline of the Crimson Oni.png",
+            "icon": "assets/character/talents/Bloodline of the Crimson Oni.avif",
             "description": "Arataki Kesagiri DMG is increased by 35% of Arataki Itto's DEF."
         },
         {
             "name": "Woodchuck Chucked",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Woodchuck Chucked.png",
+            "icon": "assets/character/talents/Woodchuck Chucked.avif",
             "description": "When a party member uses attacks to obtain wood from a tree, they have a 25% chance to get an additional log of wood."
         }
     ],
@@ -461,17 +490,20 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Elegance",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Elegance.png"
+                    "icon": "assets/materials/Teachings of Elegance.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -481,17 +513,20 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 3,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -501,17 +536,20 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 4,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -521,17 +559,20 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 6,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -541,17 +582,20 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 9,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Elegance",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Elegance.png"
+                    "icon": "assets/materials/Guide to Elegance.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -561,22 +605,26 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 4,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 1,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -586,22 +634,26 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 1,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -611,22 +663,26 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 9,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 2,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -636,27 +692,32 @@ var ARATAKI_ITTO = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Elegance",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Elegance.png"
+                    "icon": "assets/materials/Philosophies of Elegance.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Ashen Heart",
                     "value": 2,
-                    "icon": "assets/materials/Ashen Heart.png"
+                    "icon": "assets/materials/Ashen Heart.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2440,93 +2501,5 @@ var ARATAKI_ITTO = {
     "demo_music": {
         "name": "Time to Shine",
         "url": "assets/character/demo_music/Arataki Itto.mp3"
-    },
-    "build": {
-        "version": "4.2",
-        "type": "On-field DPS",
-        "weapons": [
-            "Redhorn Stonethresher",
-            "Serpent Spine",
-            "Beacon of the Reed Sea",
-            "Skyward Pride",
-            "Blackcliff Slasher",
-            "Whiteblind"
-        ],
-        "artifacts": [
-            "4pc Husk of Opulent Dreams",
-            "4pc Retracing Bolide"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Burst",
-            "Skill"
-        ],
-        "main_stats": [
-            "DEF%",
-            "Geo DMG Bonus",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "DEF%",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Layla",
-                    "icon": "assets/character/icon/Layla.png"
-                }
-            ],
-            [
-                {
-                    "name": "Arataki Itto",
-                    "icon": "assets/character/icon/Arataki Itto.png"
-                },
-                {
-                    "name": "Gorou",
-                    "icon": "assets/character/icon/Gorou.png"
-                },
-                {
-                    "name": "Albedo",
-                    "icon": "assets/character/icon/Albedo.png"
-                },
-                {
-                    "name": "Kuki Shinobu",
-                    "icon": "assets/character/icon/Kuki Shinobu.png"
-                }
-            ]
-        ]
     }
 }

@@ -1,28 +1,28 @@
 var XIAO = {
     "name": "Xiao",
     "secondary_title": "Vigilant Yaksha",
-    "card_icon": "assets/character/card/Xiao.png",
-    "wish_icon": "assets/character/wish/Xiao.png",
-    "ingame_icon": "assets/character/ingame/Xiao.png",
-    "icon": "assets/character/icon/Xiao.png",
+    "card_icon": "assets/character/card/Xiao.avif",
+    "wish_icon": "assets/character/wish/Xiao.avif",
+    "ingame_icon": "assets/character/ingame/Xiao.avif",
+    "icon": "assets/character/icon/Xiao.avif",
     "quality": "5",
     "weapon": {
         "name": "Polearm",
-        "icon": "assets/weapon_types/Polearm.png"
+        "icon": "assets/weapon_types/Polearm.avif"
     },
     "element": {
         "name": "Anemo",
-        "icon": "assets/elements/Anemo.png"
+        "icon": "assets/elements/Anemo.avif"
     },
     "model": "Medium Male",
     "roles": [
         {
             "name": "On-Field",
-            "icon": "assets/roles/On-Field.png"
+            "icon": "assets/roles/On-Field.avif"
         },
         {
             "name": "DPS",
-            "icon": "assets/roles/DPS.png"
+            "icon": "assets/roles/DPS.avif"
         }
     ],
     "birthday": "April 17th",
@@ -30,43 +30,43 @@ var XIAO = {
         {
             "name": "Dissolution Eon: Destroyer of Worlds",
             "level": 1,
-            "icon": "assets/character/constellations/Dissolution Eon Destroyer of Worlds.png",
+            "icon": "assets/character/constellations/Dissolution Eon Destroyer of Worlds.avif",
             "description": "Increases Lemniscatic Wind Cycling's charges by 1."
         },
         {
             "name": "Annihilation Eon: Blossom of Kaleidos",
             "level": 2,
-            "icon": "assets/character/constellations/Annihilation Eon Blossom of Kaleidos.png",
+            "icon": "assets/character/constellations/Annihilation Eon Blossom of Kaleidos.avif",
             "description": "When in the party and not on the field, Xiao's Energy Recharge is increased by 25%."
         },
         {
             "name": "Conqueror of Evil: Wrath Deity",
             "level": 3,
-            "icon": "assets/character/constellations/Conqueror of Evil Wrath Deity.png",
+            "icon": "assets/character/constellations/Conqueror of Evil Wrath Deity.avif",
             "description": "Increases the Level of Lemniscatic Wind Cycling by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Transcension: Extinction of Suffering",
             "level": 4,
-            "icon": "assets/character/constellations/Transcension Extinction of Suffering.png",
+            "icon": "assets/character/constellations/Transcension Extinction of Suffering.avif",
             "description": "When Xiao's HP falls below 50%, he gains a 100% DEF Bonus."
         },
         {
             "name": "Evolution Eon: Origin of Ignorance",
             "level": 5,
-            "icon": "assets/character/constellations/Evolution Eon Origin of Ignorance.png",
+            "icon": "assets/character/constellations/Evolution Eon Origin of Ignorance.avif",
             "description": "Increases the Level of Bane of All Evil by 3.Maximum upgrade level is 15."
         },
         {
             "name": "Conqueror of Evil: Guardian Yaksha",
             "level": 6,
-            "icon": "assets/character/constellations/Conqueror of Evil Guardian Yaksha.png",
+            "icon": "assets/character/constellations/Conqueror of Evil Guardian Yaksha.avif",
             "description": "While under the effects of Bane of All Evil, hitting at least 2 opponents with Xiao's Plunging Attack will immediately grant him 1 charge of Lemniscatic Wind Cycling, and for the next 1s, he may use Lemniscatic Wind Cycling while ignoring its CD."
         }
     ],
     "region": {
         "name": "Liyue",
-        "icon": "assets/regions/Liyue.png"
+        "icon": "assets/regions/Liyue.avif"
     },
     "affiliations": [
         "Liyue Adeptus",
@@ -74,12 +74,12 @@ var XIAO = {
     ],
     "special_dish": {
         "name": "\"Sweet Dream\"",
-        "icon": "assets/foods/Xiao.png"
+        "icon": "assets/foods/Xiao.avif"
     },
     "namecard": {
-        "icon": "assets/character/namecard_icon/Xiao.png",
-        "background": "assets/character/namecard_background/Xiao.png",
-        "banner": "assets/character/namecard_banner/Xiao.png",
+        "icon": "assets/character/namecard_icon/Xiao.avif",
+        "background": "assets/character/namecard_background/Xiao.avif",
+        "banner": "assets/character/namecard_banner/Xiao.avif",
         "description": "He longs for a day to come when he will wear the mask and dance — not to conquer demons, but to the tune of that flute amid a sea of flowers.",
         "quality": "4",
         "sources": [
@@ -157,22 +157,26 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 20000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Vayuda Turquoise Sliver",
                     "value": 1,
-                    "icon": "assets/materials/Vayuda Turquoise Sliver.png"
+                    "icon": "assets/materials/Vayuda Turquoise Sliver.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Qingxin",
                     "value": 3,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 3,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -200,27 +204,32 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 40000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 2,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Qingxin",
                     "value": 10,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 15,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 }
             ]
         },
@@ -248,27 +257,32 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 60000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 4,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Fragment",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Fragment.png"
+                    "icon": "assets/materials/Vayuda Turquoise Fragment.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Qingxin",
                     "value": 20,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 12,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -296,27 +310,32 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 80000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 8,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 3,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Qingxin",
                     "value": 30,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 18,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -344,27 +363,32 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 100000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 12,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Chunk",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Chunk.png"
+                    "icon": "assets/materials/Vayuda Turquoise Chunk.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Qingxin",
                     "value": 45,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -392,27 +416,32 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Juvenile Jade",
                     "value": 20,
-                    "icon": "assets/materials/Juvenile Jade.png"
+                    "icon": "assets/materials/Juvenile Jade.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Vayuda Turquoise Gemstone",
                     "value": 6,
-                    "icon": "assets/materials/Vayuda Turquoise Gemstone.png"
+                    "icon": "assets/materials/Vayuda Turquoise Gemstone.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Qingxin",
                     "value": 60,
-                    "icon": "assets/materials/Qingxin.png"
+                    "icon": "assets/materials/Qingxin.avif",
+                    "quality": "0"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 24,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 }
             ]
         }
@@ -421,37 +450,37 @@ var XIAO = {
         {
             "name": "Whirlwind Thrust",
             "type": "Normal Attack",
-            "icon": "assets/character/talents/Whirlwind Thrust.png",
+            "icon": "assets/character/talents/Whirlwind Thrust.avif",
             "description": "Normal AttackPerforms up to 6 consecutive spear strikes.Charged AttackConsumes a certain amount of Stamina to perform an upward thrust.Plunging AttackPlunges from mid-air to strike the ground below, damaging opponents along the path and dealing AoE DMG upon impact.Xiao does not take DMG from performing Plunging Attacks."
         },
         {
             "name": "Lemniscatic Wind Cycling",
             "type": "Elemental Skill",
-            "icon": "assets/character/talents/Lemniscatic Wind Cycling.png",
+            "icon": "assets/character/talents/Lemniscatic Wind Cycling.avif",
             "description": "Xiao lunges forward, dealing Anemo DMG to opponents in his path.Can be used in mid-air.Starts with 2 charges."
         },
         {
             "name": "Bane of All Evil",
             "type": "Elemental Burst",
-            "icon": "assets/character/talents/Bane of All Evil.png",
+            "icon": "assets/character/talents/Bane of All Evil.avif",
             "description": "Xiao dons the Yaksha Mask that set gods and demons trembling millennia ago.Yaksha's MaskGreatly increases Xiao's jumping ability.Increases his attack AoE and attack DMG.Converts attack DMG into Anemo DMG, which cannot be overridden by any other elemental infusion.In this state, Xiao will continuously lose HP.The effects of this skill end when Xiao leaves the field."
         },
         {
             "name": "Conqueror of Evil: Tamer of Demons",
             "type": "1st Ascension Passive",
-            "icon": "assets/character/talents/Conqueror of Evil Tamer of Demons.png",
+            "icon": "assets/character/talents/Conqueror of Evil Tamer of Demons.avif",
             "description": "While under the effects of Bane of All Evil, all DMG dealt by Xiao increases by 5%. DMG increases by a further 5% for every 3s the ability persists. The maximum DMG Bonus is 25%."
         },
         {
             "name": "Dissolution Eon: Heaven Fall",
             "type": "4th Ascension Passive",
-            "icon": "assets/character/talents/Dissolution Eon Heaven Fall.png",
+            "icon": "assets/character/talents/Dissolution Eon Heaven Fall.avif",
             "description": "Using Lemniscatic Wind Cycling increases the DMG of subsequent uses of Lemniscatic Wind Cycling by 15%. This effect lasts for 7s, and has a maximum of 3 stacks. Gaining a new stack refreshes the effect's duration."
         },
         {
             "name": "Transcension: Gravity Defier",
             "type": "Utility Passive",
-            "icon": "assets/character/talents/Transcension Gravity Defier.png",
+            "icon": "assets/character/talents/Transcension Gravity Defier.avif",
             "description": "Decreases climbing Stamina consumption for your own party members by 20%.Not stackable with Passive Talents that provide the exact same effects."
         }
     ],
@@ -462,17 +491,20 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 12500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Condensate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Condensate.png"
+                    "icon": "assets/materials/Slime Condensate.avif",
+                    "quality": "1"
                 },
                 {
                     "name": "Teachings of Prosperity",
                     "value": 3,
-                    "icon": "assets/materials/Teachings of Prosperity.png"
+                    "icon": "assets/materials/Teachings of Prosperity.avif",
+                    "quality": "2"
                 }
             ]
         },
@@ -482,17 +514,20 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 17500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 3,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 2,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -502,17 +537,20 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 25000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 4,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -522,17 +560,20 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 30000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 6,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -542,17 +583,20 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 37500,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Secretions",
                     "value": 9,
-                    "icon": "assets/materials/Slime Secretions.png"
+                    "icon": "assets/materials/Slime Secretions.avif",
+                    "quality": "2"
                 },
                 {
                     "name": "Guide to Prosperity",
                     "value": 9,
-                    "icon": "assets/materials/Guide to Prosperity.png"
+                    "icon": "assets/materials/Guide to Prosperity.avif",
+                    "quality": "3"
                 }
             ]
         },
@@ -562,22 +606,26 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 120000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 4,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 4,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 1,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -587,22 +635,26 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 260000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 6,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 6,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 1,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -612,22 +664,26 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 450000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 9,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 12,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 2,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 }
             ]
         },
@@ -637,27 +693,32 @@ var XIAO = {
                 {
                     "name": "Mora",
                     "value": 700000,
-                    "icon": "assets/materials/Mora.png"
+                    "icon": "assets/materials/Mora.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Slime Concentrate",
                     "value": 12,
-                    "icon": "assets/materials/Slime Concentrate.png"
+                    "icon": "assets/materials/Slime Concentrate.avif",
+                    "quality": "3"
                 },
                 {
                     "name": "Philosophies of Prosperity",
                     "value": 16,
-                    "icon": "assets/materials/Philosophies of Prosperity.png"
+                    "icon": "assets/materials/Philosophies of Prosperity.avif",
+                    "quality": "4"
                 },
                 {
                     "name": "Shadow of the Warrior",
                     "value": 2,
-                    "icon": "assets/materials/Shadow of the Warrior.png"
+                    "icon": "assets/materials/Shadow of the Warrior.avif",
+                    "quality": "5"
                 },
                 {
                     "name": "Crown of Insight",
                     "value": 1,
-                    "icon": "assets/materials/Crown of Insight.png"
+                    "icon": "assets/materials/Crown of Insight.avif",
+                    "quality": "5"
                 }
             ]
         }
@@ -2447,119 +2508,5 @@ var XIAO = {
     "demo_music": {
         "name": "Path of Yaksha",
         "url": "assets/character/demo_music/Xiao.mp3"
-    },
-    "build": {
-        "version": "5.5",
-        "type": "On-field DPS",
-        "weapons": [
-            "Primordial Jade ",
-            "Staff of Homa",
-            "Lumidouce Elegy",
-            "Vortex Vanquisher",
-            "Calamity Queller",
-            "Staff of the Scarlet Sands",
-            "Engulfing Lightning",
-            "Skyward Spine",
-            "Lithic Spear",
-            "Deathmatch",
-            "Prospector's Drill",
-            "Blackcliff Pole",
-            "Favonius Lance",
-            "Missive Windspear"
-        ],
-        "artifacts": [
-            "4pc Vermillion Hereafter",
-            "4pc Marechaussee Hunter",
-            "4pc Desert Pavillion Chronicle"
-        ],
-        "talents": [
-            "Normal Attack",
-            "Burst",
-            "Skill"
-        ],
-        "main_stats": [
-            "ATK%",
-            "Anemo DMG Bonus / ATK%",
-            "CRIT Rate / CRIT DMG"
-        ],
-        "sub_stats": [
-            "ER (until requirement)",
-            "CRIT Rate / CRIT DMG",
-            "ATK%"
-        ],
-        "teams": [
-            [
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Xianyun",
-                    "icon": "assets/character/icon/Xianyun.png"
-                },
-                {
-                    "name": "Furina",
-                    "icon": "assets/character/icon/Furina.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Zhongli",
-                    "icon": "assets/character/icon/Zhongli.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Faruzan",
-                    "icon": "assets/character/icon/Faruzan.png"
-                },
-                {
-                    "name": "Lynette",
-                    "icon": "assets/character/icon/Lynette.png"
-                },
-                {
-                    "name": "Bennett",
-                    "icon": "assets/character/icon/Bennett.png"
-                }
-            ],
-            [
-                {
-                    "name": "Xiao",
-                    "icon": "assets/character/icon/Xiao.png"
-                },
-                {
-                    "name": "Sucrose",
-                    "icon": "assets/character/icon/Sucrose.png"
-                },
-                {
-                    "name": "Diona",
-                    "icon": "assets/character/icon/Diona.png"
-                },
-                {
-                    "name": "Rosaria",
-                    "icon": "assets/character/icon/Rosaria.png"
-                }
-            ]
-        ]
     }
 }
