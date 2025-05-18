@@ -74,7 +74,7 @@ var RAZOR = {
     ],
     "special_dish": {
         "name": "Puppy-Paw Hash Brown",
-        "icon": "assets/foods/Razor.avif"
+        "icon": "assets/foods/Puppy-Paw Hash Brown.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Razor.avif",
@@ -2333,5 +2333,202 @@ var RAZOR = {
             ]
         }
     },
-    "demo_music": null
+    "demo_music": null,
+    "build": {
+        "version": "4.1",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Beacon of the Reed Sea",
+                "icon": "assets/weapons/Beacon of the Reed Sea.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event WishesChronicled Wishes"
+            },
+            {
+                "name": "Wolf's Gravestone",
+                "icon": "assets/weapons/Wolf's Gravestone.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Redhorn Stonethresher",
+                "icon": "assets/weapons/Redhorn Stonethresher.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Song of Broken Pines",
+                "icon": "assets/weapons/Song of Broken Pines.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The Unforged",
+                "icon": "assets/weapons/The Unforged.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Serpent Spine",
+                "icon": "assets/weapons/Serpent Spine.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Skyward Pride",
+                "icon": "assets/weapons/Skyward Pride.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Tidal Shadow",
+                "icon": "assets/weapons/Tidal Shadow.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Prototype Archaic",
+                "icon": "assets/weapons/Prototype Archaic.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Lithic Blade",
+                "icon": "assets/weapons/Lithic Blade.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Rainslasher",
+                "icon": "assets/weapons/Rainslasher.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Mailed Flower",
+                "icon": "assets/weapons/Mailed Flower.avif",
+                "quality": "4",
+                "how_to_obtain": "Windblume's Breath Event"
+            },
+            {
+                "name": "Makhaira Aquamarine",
+                "icon": "assets/weapons/Makhaira Aquamarine.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Talking Stick",
+                "icon": "assets/weapons/Talking Stick.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Akuoumaru",
+                "icon": "assets/weapons/Akuoumaru.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Pale Flame",
+            "4pc Thundering Fury",
+            "4pc Gilded Dreams",
+            "4pc Thundersoother",
+            "4pc Gladiator's Finale"
+        ],
+        "talents": [
+            "Normal Attack",
+            "Burst",
+            "Skill"
+        ],
+        "main_stats": [
+            "ATK%",
+            "Electro DMG Bonus / ATK%",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "EM",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Razor",
+                    "icon": "assets/character/icon/Razor.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yaoyao",
+                    "icon": "assets/character/icon/Yaoyao.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Razor",
+                    "icon": "assets/character/icon/Razor.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Diona",
+                    "icon": "assets/character/icon/Diona.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ]
+        ]
+    }
 }

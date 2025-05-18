@@ -73,7 +73,7 @@ var KACHINA = {
     ],
     "special_dish": {
         "name": "Impeccably Organized",
-        "icon": "assets/foods/Kachina.avif"
+        "icon": "assets/foods/Impeccably Organized.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Kachina.avif",
@@ -2482,5 +2482,324 @@ var KACHINA = {
     "demo_music": {
         "name": "Pirouette of Pika's Pike",
         "url": "assets/character/demo_music/Kachina.mp3"
+    },
+    "build": {
+        "version": "5.0",
+        "type": "Support",
+        "weapons": [
+            {
+                "name": "Favonius Lance",
+                "icon": "assets/weapons/Favonius Lance.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Footprint of the Rainbow",
+                "icon": "assets/weapons/Footprint of the Rainbow.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Deathmatch",
+                "icon": "assets/weapons/Deathmatch.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Staff of the Scarlet Sands",
+                "icon": "assets/weapons/Staff of the Scarlet Sands.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Scroll of the Hero of Cinder City",
+            "4pc Archaic Petra",
+            "4pc Noblesse Oblige",
+            "4pc Tenacity of the Millelith",
+            "4pc Obsidian Codex"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "DEF%",
+            "Geo DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "DEF% / CRIT Rate / CRIT DMG"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Kachina",
+                    "icon": "assets/character/icon/Kachina.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Arlecchino",
+                    "icon": "assets/character/icon/Arlecchino.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Chiori",
+                    "icon": "assets/character/icon/Chiori.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Kachina",
+                    "icon": "assets/character/icon/Kachina.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Kachina",
+                    "icon": "assets/character/icon/Kachina.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Neuvillette",
+                    "icon": "assets/character/icon/Neuvillette.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Kachina",
+                    "icon": "assets/character/icon/Kachina.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Mualani",
+                    "icon": "assets/character/icon/Mualani.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Dehya",
+                    "icon": "assets/character/icon/Dehya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Chiori",
+                    "icon": "assets/character/icon/Chiori.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Kachina",
+                    "icon": "assets/character/icon/Kachina.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Raiden Shogun",
+                    "icon": "assets/character/icon/Raiden Shogun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Kachina",
+                    "icon": "assets/character/icon/Kachina.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Navia",
+                    "icon": "assets/character/icon/Navia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Kachina",
+                    "icon": "assets/character/icon/Kachina.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Ningguang",
+                    "icon": "assets/character/icon/Ningguang.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

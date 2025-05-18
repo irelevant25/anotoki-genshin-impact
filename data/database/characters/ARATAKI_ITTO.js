@@ -73,7 +73,7 @@ var ARATAKI_ITTO = {
     ],
     "special_dish": {
         "name": "Way of the Strong",
-        "icon": "assets/foods/Arataki Itto.avif"
+        "icon": "assets/foods/Way of the Strong.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Arataki Itto.avif",
@@ -2501,5 +2501,183 @@ var ARATAKI_ITTO = {
     "demo_music": {
         "name": "Time to Shine",
         "url": "assets/character/demo_music/Arataki Itto.mp3"
+    },
+    "build": {
+        "version": "4.2",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Redhorn Stonethresher",
+                "icon": "assets/weapons/Redhorn Stonethresher.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Serpent Spine",
+                "icon": "assets/weapons/Serpent Spine.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Beacon of the Reed Sea",
+                "icon": "assets/weapons/Beacon of the Reed Sea.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event WishesChronicled Wishes"
+            },
+            {
+                "name": "Skyward Pride",
+                "icon": "assets/weapons/Skyward Pride.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Blackcliff Slasher",
+                "icon": "assets/weapons/Blackcliff Slasher.avif",
+                "quality": "4",
+                "how_to_obtain": "Paimon's Bargains"
+            },
+            {
+                "name": "Whiteblind",
+                "icon": "assets/weapons/Whiteblind.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Husk of Opulent Dreams",
+            "4pc Retracing Bolide"
+        ],
+        "talents": [
+            "Normal Attack",
+            "Burst",
+            "Skill"
+        ],
+        "main_stats": [
+            "DEF%",
+            "Geo DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "DEF%",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Arataki Itto",
+                    "icon": "assets/character/icon/Arataki Itto.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Gorou",
+                    "icon": "assets/character/icon/Gorou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Albedo",
+                    "icon": "assets/character/icon/Albedo.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Arataki Itto",
+                    "icon": "assets/character/icon/Arataki Itto.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Gorou",
+                    "icon": "assets/character/icon/Gorou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Albedo",
+                    "icon": "assets/character/icon/Albedo.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Layla",
+                    "icon": "assets/character/icon/Layla.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Arataki Itto",
+                    "icon": "assets/character/icon/Arataki Itto.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Gorou",
+                    "icon": "assets/character/icon/Gorou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Albedo",
+                    "icon": "assets/character/icon/Albedo.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Kuki Shinobu",
+                    "icon": "assets/character/icon/Kuki Shinobu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

@@ -73,7 +73,7 @@ var VARESA = {
     ],
     "special_dish": {
         "name": "Mt. Mushroom (For One)",
-        "icon": "assets/foods/Varesa.avif"
+        "icon": "assets/foods/Mt. Mushroom (For One).avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Varesa.avif",
@@ -2627,5 +2627,451 @@ var VARESA = {
             ]
         }
     },
-    "demo_music": null
+    "demo_music": null,
+    "build": {
+        "version": "5.5",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Vivid Notions",
+                "icon": "assets/weapons/Vivid Notions.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Kagura's Verity",
+                "icon": "assets/weapons/Kagura's Verity.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Crane's Echoing Call",
+                "icon": "assets/weapons/Crane's Echoing Call.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The Widsith",
+                "icon": "assets/weapons/The Widsith.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Lost Prayer to the Sacred Winds",
+                "icon": "assets/weapons/Lost Prayer to the Sacred Winds.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Flowing Purity",
+                "icon": "assets/weapons/Flowing Purity.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Long Night's Oath",
+            "4pc Obsidian Codex",
+            "4pc Marechaussee Hunter",
+            "4pc Desert Pavillion Chronicle"
+        ],
+        "talents": [
+            "Normal Attack",
+            "Burst",
+            "Skill"
+        ],
+        "main_stats": [
+            "ATK%",
+            "Electro DMG Bonus / ATK%",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "ATK%",
+            "EM"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Chevreuse",
+                    "icon": "assets/character/icon/Chevreuse.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Pyro Traveler",
+                    "icon": "assets/character/icon/Traveler.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Xilonen",
+                    "icon": "assets/character/icon/Xilonen.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Xilonen",
+                    "icon": "assets/character/icon/Xilonen.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Chevreuse",
+                    "icon": "assets/character/icon/Chevreuse.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Mavuika",
+                    "icon": "assets/character/icon/Mavuika.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Chevreuse",
+                    "icon": "assets/character/icon/Chevreuse.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Kirara",
+                    "icon": "assets/character/icon/Kirara.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ]
+        ]
+    }
 }

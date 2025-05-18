@@ -73,7 +73,7 @@ var SETHOS = {
     ],
     "special_dish": {
         "name": "Super-Dee-Duper Delicious Meat Roll",
-        "icon": "assets/foods/Sethos.avif"
+        "icon": "assets/foods/Super-Dee-Duper Delicious Meat Roll.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Sethos.avif",
@@ -731,7 +731,7 @@ var SETHOS = {
             "en": [
                 {
                     "title": "Hello",
-                    "text": "Media:VO Sethos Hello - Lumine.ogg Sorry (‍SirSirText for male Traveler/Ma'amMa'amText for female Traveler‍), were you looking for me? Hello, hello, I'm Sethos. What can I do for you? ...Actually, you know what? This seems like more of a sit-down conversation. Come with me, I know a good place.",
+                    "text": "Media:VO Sethos Hello - Lumine.ogg Sorry (SirSirText for male Traveler/Ma'amMa'amText for female Traveler), were you looking for me? Hello, hello, I'm Sethos. What can I do for you? ...Actually, you know what? This seems like more of a sit-down conversation. Come with me, I know a good place.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Sethos/story/en/Hello.mp3"
                 },
@@ -1003,7 +1003,7 @@ var SETHOS = {
             "zh": [
                 {
                     "title": "初次见面…",
-                    "text": "Media:VO ZH Sethos Hello - Lumine.ogg 这位(‍先生先生Text for male Traveler/小姐小姐Text for female Traveler‍)，是在叫我吗？你好你好，我叫赛索斯。你呢，找我有什么事吗？哎呀，也别干站着了，我知道一个适合坐下来聊天的好地方，跟我来吧。",
+                    "text": "Media:VO ZH Sethos Hello - Lumine.ogg 这位(先生先生Text for male Traveler/小姐小姐Text for female Traveler)，是在叫我吗？你好你好，我叫赛索斯。你呢，找我有什么事吗？哎呀，也别干站着了，我知道一个适合坐下来聊天的好地方，跟我来吧。",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Sethos/story/zh/初次见面….mp3"
                 },
@@ -2407,5 +2407,172 @@ var SETHOS = {
     "demo_music": {
         "name": "Menmaatre's Parade",
         "url": "assets/character/demo_music/Sethos.mp3"
+    },
+    "build": {
+        "version": "4.7",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Hunter's Path",
+                "icon": "assets/weapons/Hunter's Path.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event WishesChronicled Wishes"
+            },
+            {
+                "name": "Slingshot",
+                "icon": "assets/weapons/Slingshot.avif",
+                "quality": "3",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Aqua Simulacra",
+                "icon": "assets/weapons/Aqua Simulacra.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The First Great Magic",
+                "icon": "assets/weapons/The First Great Magic.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Wanderer's Troupe",
+            "4pc Gilded Dreams",
+            "4pc Desert Pavilion Chronicle"
+        ],
+        "talents": [
+            "Burst",
+            "Normal Attack",
+            "Skill"
+        ],
+        "main_stats": [
+            "EM / ER",
+            "Electro DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "EM",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Sethos",
+                    "icon": "assets/character/icon/Sethos.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Kirara",
+                    "icon": "assets/character/icon/Kirara.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Sucrose",
+                    "icon": "assets/character/icon/Sucrose.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Sethos",
+                    "icon": "assets/character/icon/Sethos.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Sethos",
+                    "icon": "assets/character/icon/Sethos.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Tighnari",
+                    "icon": "assets/character/icon/Tighnari.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Baizhu",
+                    "icon": "assets/character/icon/Baizhu.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

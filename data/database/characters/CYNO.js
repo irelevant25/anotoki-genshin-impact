@@ -76,7 +76,7 @@ var CYNO = {
     ],
     "special_dish": {
         "name": "Duel Soul",
-        "icon": "assets/foods/Cyno.avif"
+        "icon": "assets/foods/Duel Soul.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Cyno.avif",
@@ -2578,5 +2578,378 @@ var CYNO = {
     "demo_music": {
         "name": "Order of Silence",
         "url": "assets/character/demo_music/Cyno.mp3"
+    },
+    "build": {
+        "version": "4.2",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Staff of the Scarlet Sands",
+                "icon": "assets/weapons/Staff of the Scarlet Sands.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Ballad of the Fjords",
+                "icon": "assets/weapons/Ballad of the Fjords.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Primordial Jade Winged-Spear",
+                "icon": "assets/weapons/Primordial Jade Winged-Spear.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Kitain Cross Spear",
+                "icon": "assets/weapons/Kitain Cross Spear.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "White Tassel",
+                "icon": "assets/weapons/White Tassel.avif",
+                "quality": "3",
+                "how_to_obtain": "Chests"
+            },
+            {
+                "name": "Deathmatch",
+                "icon": "assets/weapons/Deathmatch.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Missive Windspear",
+                "icon": "assets/weapons/Missive Windspear.avif",
+                "quality": "4",
+                "how_to_obtain": "Of Ballads and Brews Event"
+            }
+        ],
+        "artifacts": [
+            "4pc Thundering Fury"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "EM / ATK% / ER",
+            "Electro DMG Bonus / EM",
+            "CRIT Rate / CRIT DMG / EM"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "EM",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kuki Shinobu",
+                    "icon": "assets/character/icon/Kuki Shinobu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Baizhu",
+                    "icon": "assets/character/icon/Baizhu.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Dendro Traveler",
+                    "icon": "assets/character/icon/Traveler.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Beidou",
+                    "icon": "assets/character/icon/Beidou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Baizhu",
+                    "icon": "assets/character/icon/Baizhu.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Yae Miko",
+                    "icon": "assets/character/icon/Yae Miko.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yaoyao",
+                    "icon": "assets/character/icon/Yaoyao.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Thoma",
+                    "icon": "assets/character/icon/Thoma.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Thoma",
+                    "icon": "assets/character/icon/Thoma.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

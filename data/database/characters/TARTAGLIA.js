@@ -71,7 +71,7 @@ var TARTAGLIA = {
     ],
     "special_dish": {
         "name": "A Prize Catch",
-        "icon": "assets/foods/Tartaglia.avif"
+        "icon": "assets/foods/A Prize Catch.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Tartaglia.avif",
@@ -2715,5 +2715,430 @@ var TARTAGLIA = {
     "demo_music": {
         "name": "Letter From Ajax",
         "url": "assets/character/demo_music/Tartaglia.mp3"
+    },
+    "build": {
+        "version": "4.6",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Polar Star",
+                "icon": "assets/weapons/Polar Star.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Aqua Simulacra",
+                "icon": "assets/weapons/Aqua Simulacra.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Hunter's Path",
+                "icon": "assets/weapons/Hunter's Path.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event WishesChronicled Wishes"
+            },
+            {
+                "name": "Skyward Harp",
+                "icon": "assets/weapons/Skyward Harp.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Thundering Pulse",
+                "icon": "assets/weapons/Thundering Pulse.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The First Great Magic",
+                "icon": "assets/weapons/The First Great Magic.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Amos' Bow",
+                "icon": "assets/weapons/Amos' Bow.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "The Viridescent Hunt",
+                "icon": "assets/weapons/The Viridescent Hunt.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Scion of the Blazing Sun",
+                "icon": "assets/weapons/Scion of the Blazing Sun.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Mouun's Moon",
+                "icon": "assets/weapons/Mouun's Moon.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Prototype Crescent",
+                "icon": "assets/weapons/Prototype Crescent.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Fading Twilight",
+                "icon": "assets/weapons/Fading Twilight.avif",
+                "quality": "4",
+                "how_to_obtain": "Perilous Trail Event"
+            },
+            {
+                "name": "Blackcliff Warbow",
+                "icon": "assets/weapons/Blackcliff Warbow.avif",
+                "quality": "4",
+                "how_to_obtain": "Paimon's Bargains"
+            },
+            {
+                "name": "The Stringless",
+                "icon": "assets/weapons/The Stringless.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "King's Squire",
+                "icon": "assets/weapons/King's Squire.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Nymph's Dream",
+            "4pc Emblem of Severed Fate",
+            "4pc Heart of Depth",
+            "Wanderer's Troupe"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK%",
+            "Hydro DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "ATK%",
+            "EM",
+            "Flat ATK"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Tartaglia",
+                    "icon": "assets/character/icon/Tartaglia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Albedo",
+                    "icon": "assets/character/icon/Albedo.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Tartaglia",
+                    "icon": "assets/character/icon/Tartaglia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Tartaglia",
+                    "icon": "assets/character/icon/Tartaglia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Sucrose",
+                    "icon": "assets/character/icon/Sucrose.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Tartaglia",
+                    "icon": "assets/character/icon/Tartaglia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Beidou",
+                    "icon": "assets/character/icon/Beidou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Tartaglia",
+                    "icon": "assets/character/icon/Tartaglia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kujou Sara",
+                    "icon": "assets/character/icon/Kujou Sara.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Beidou",
+                    "icon": "assets/character/icon/Beidou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Tartaglia",
+                    "icon": "assets/character/icon/Tartaglia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Diona",
+                    "icon": "assets/character/icon/Diona.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayaka",
+                    "icon": "assets/character/icon/Kamisato Ayaka.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Tartaglia",
+                    "icon": "assets/character/icon/Tartaglia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Thoma",
+                    "icon": "assets/character/icon/Thoma.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Dendro Traveler",
+                    "icon": "assets/character/icon/Traveler.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Diona",
+                    "icon": "assets/character/icon/Diona.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Tartaglia",
+                    "icon": "assets/character/icon/Tartaglia.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Thoma",
+                    "icon": "assets/character/icon/Thoma.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Dendro Traveler",
+                    "icon": "assets/character/icon/Traveler.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

@@ -74,7 +74,7 @@ var EULA = {
     ],
     "special_dish": {
         "name": "Stormcrest Pie",
-        "icon": "assets/foods/Eula.avif"
+        "icon": "assets/foods/Stormcrest Pie.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Eula.avif",
@@ -2648,5 +2648,207 @@ var EULA = {
     "demo_music": {
         "name": "Dance of Aphros",
         "url": "assets/character/demo_music/Eula.mp3"
+    },
+    "build": {
+        "version": "3.8",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Song of Broken Pines",
+                "icon": "assets/weapons/Song of Broken Pines.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Beacon of the Reed Sea",
+                "icon": "assets/weapons/Beacon of the Reed Sea.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event WishesChronicled Wishes"
+            },
+            {
+                "name": "Wolf's Gravestone",
+                "icon": "assets/weapons/Wolf's Gravestone.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "The Unforged",
+                "icon": "assets/weapons/The Unforged.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Skyward Pride",
+                "icon": "assets/weapons/Skyward Pride.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Redhorn Stonethresher",
+                "icon": "assets/weapons/Redhorn Stonethresher.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Serpent Spine",
+                "icon": "assets/weapons/Serpent Spine.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Akuoumaru",
+                "icon": "assets/weapons/Akuoumaru.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Luxurious Sea-Lord",
+                "icon": "assets/weapons/Luxurious Sea-Lord.avif",
+                "quality": "4",
+                "how_to_obtain": "Moonlight Merriment Event"
+            },
+            {
+                "name": "Prototype Archaic",
+                "icon": "assets/weapons/Prototype Archaic.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Pale Flame",
+            "4pc Emblem of Severed Fate"
+        ],
+        "talents": [
+            "Burst",
+            "Normal Attack",
+            "Skill"
+        ],
+        "main_stats": [
+            "ATK% / ER",
+            "Physical DMG% Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "ATK%",
+            "Flat ATK"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Eula",
+                    "icon": "assets/character/icon/Eula.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Mika",
+                    "icon": "assets/character/icon/Mika.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Diona",
+                    "icon": "assets/character/icon/Diona.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Eula",
+                    "icon": "assets/character/icon/Eula.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Raiden Shogun",
+                    "icon": "assets/character/icon/Raiden Shogun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Eula",
+                    "icon": "assets/character/icon/Eula.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kuki Shinobu",
+                    "icon": "assets/character/icon/Kuki Shinobu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Shenhe",
+                    "icon": "assets/character/icon/Shenhe.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

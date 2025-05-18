@@ -74,7 +74,7 @@ var CHARLOTTE = {
     ],
     "special_dish": {
         "name": "Exclusive Scoop: Gourmet Column",
-        "icon": "assets/foods/Charlotte.avif"
+        "icon": "assets/foods/Exclusive Scoop: Gourmet Column.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Charlotte.avif",
@@ -1193,7 +1193,7 @@ var CHARLOTTE = {
                     "title": "关于爱可菲",
                     "text": "说起来都有点不好意思了，托爱可菲小姐的厨，我试吃了许多厉害的菜肴…她自己的新品，她酒店下属的新品，甚至是学员的新品…我都快变成兼职美食评论家了，一分摩拉都不用付，就能吃遍枫丹最新最棒的美食！",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Charlotte/story/zh/关于爱可菲.mp3"
                 },
                 {
                     "title": "想要了解夏洛蒂·其一",
@@ -1477,7 +1477,7 @@ var CHARLOTTE = {
                     "title": "エスコフィエについて…",
                     "text": "エスコフィエさんのおかげで色んな美味しいものを食べられたわ…彼女自身の新作から、部下の方の新作、さらには生徒さんの新作まで…兼業美食評論家みたいなものよ。ちょっと心苦しいけど、1モラも払わずにフォンテーヌ最新の最高級料理をいっぱい食べられるんだから！",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Charlotte/story/ja/エスコフィエについて….mp3"
                 },
                 {
                     "title": "シャルロットを知る·1",
@@ -1761,7 +1761,7 @@ var CHARLOTTE = {
                     "title": "에스코피에에 대해",
                     "text": "조금 부끄러운 얘기지만, 에스코피에 씨 덕분에 온갖 맛있는 음식을 시식해 봤어…. 에스코피에 씨 본인의 신작, 호텔 부하 직원들의 신작, 그분 학생들의 신작까지 말이야…. 나 미식 평론가랑 겸업할까 봐. 모라 한 푼도 안 내고 폰타인 최고의 신상 요리를 맛볼 수 있잖아!",
                     "reading": "Jogeum bukkeureoun yaegijiman, eseukopie ssi deokbune on'gat masinneun eumsigeul sisikhae bwasseo.... Eseukopie ssi boninui sinjak, hotel buha jigwondeurui sinjak, geubun haksaengdeurui sinjakkkaji mariya.... Na misik pyeongnon'garang gyeomeophalkka bwa. Mora han pundo an naego pontain choegoui sinsang yorireul matbol su itjana!",
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Charlotte/story/ko/에스코피에에 대해.mp3"
                 },
                 {
                     "title": "샤를로트에 대해 알기·첫 번째",
@@ -2409,5 +2409,289 @@ var CHARLOTTE = {
     "demo_music": {
         "name": "Veritas Numquam Perit",
         "url": "assets/character/demo_music/Charlotte.mp3"
+    },
+    "build": {
+        "version": "4.7",
+        "type": "Healer / Support",
+        "weapons": [
+            {
+                "name": "Prototype Amber",
+                "icon": "assets/weapons/Prototype Amber.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Favonius Codex",
+                "icon": "assets/weapons/Favonius Codex.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Thrilling Tales of Dragon Slayers",
+                "icon": "assets/weapons/Thrilling Tales of Dragon Slayers.avif",
+                "quality": "3",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Kagura's Verity",
+                "icon": "assets/weapons/Kagura's Verity.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Noblesse Oblige",
+            "4pc Tenacity of the Millelith",
+            "4pc Ocean-Hued Clam",
+            "4pc Blizzard Strayer",
+            "4pc Golden Troupe",
+            "4pc Maiden Beloved"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ER / ATK%",
+            "ATK% / Cryo DMG Bonus",
+            "Healing Bonus / CRIT Rate"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "ATK%",
+            "CRIT Rate",
+            "CRIT DMG"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Charlotte",
+                    "icon": "assets/character/icon/Charlotte.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Neuvillette",
+                    "icon": "assets/character/icon/Neuvillette.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Charlotte",
+                    "icon": "assets/character/icon/Charlotte.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Charlotte",
+                    "icon": "assets/character/icon/Charlotte.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Charlotte",
+                    "icon": "assets/character/icon/Charlotte.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayaka",
+                    "icon": "assets/character/icon/Kamisato Ayaka.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Charlotte",
+                    "icon": "assets/character/icon/Charlotte.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayaka",
+                    "icon": "assets/character/icon/Kamisato Ayaka.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Shenhe",
+                    "icon": "assets/character/icon/Shenhe.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Charlotte",
+                    "icon": "assets/character/icon/Charlotte.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Eula",
+                    "icon": "assets/character/icon/Eula.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Raiden Shogun",
+                    "icon": "assets/character/icon/Raiden Shogun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Shenhe",
+                    "icon": "assets/character/icon/Shenhe.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

@@ -1,6 +1,7 @@
 var LYNEY = {
     "name": "Lyney",
     "secondary_title": "Spectacle of Phantasmagoria",
+    "card_icon": "assets/character/card/Lyney.avif",
     "wish_icon": "assets/character/wish/Lyney.avif",
     "ingame_icon": "assets/character/ingame/Lyney.avif",
     "icon": "assets/character/icon/Lyney.avif",
@@ -75,7 +76,7 @@ var LYNEY = {
     ],
     "special_dish": {
         "name": "Cubic Tricks",
-        "icon": "assets/foods/Lyney.avif"
+        "icon": "assets/foods/Cubic Tricks.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Lyney.avif",
@@ -2481,5 +2482,250 @@ var LYNEY = {
     "demo_music": {
         "name": "Lustrous Trick",
         "url": "assets/character/demo_music/Lyney.mp3"
+    },
+    "build": {
+        "version": "4.0",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "The First Great Magic",
+                "icon": "assets/weapons/The First Great Magic.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Aqua Simulacra",
+                "icon": "assets/weapons/Aqua Simulacra.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Thundering Pulse",
+                "icon": "assets/weapons/Thundering Pulse.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Skyward Harp",
+                "icon": "assets/weapons/Skyward Harp.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Amos' Bow",
+                "icon": "assets/weapons/Amos' Bow.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Song of Stillness",
+                "icon": "assets/weapons/Song of Stillness.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Prototype Crescent",
+                "icon": "assets/weapons/Prototype Crescent.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Polar Star",
+                "icon": "assets/weapons/Polar Star.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Hunter's Path",
+                "icon": "assets/weapons/Hunter's Path.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event WishesChronicled Wishes"
+            },
+            {
+                "name": "Blackcliff Warbow",
+                "icon": "assets/weapons/Blackcliff Warbow.avif",
+                "quality": "4",
+                "how_to_obtain": "Paimon's Bargains"
+            }
+        ],
+        "artifacts": [
+            "4pc Marechaussee Hunter",
+            "4pc Lavawalker",
+            "4pc Vermillion Hereafter",
+            "4pc Shimenawa's Reminiscence",
+            "4pc Wanderer's Troupe",
+            "4pc Retracing Bolide",
+            "4pc Desert Pavilion Chronicle"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK%",
+            "Pyro DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "CRIT Rate / CRIT DMG",
+            "ATK%",
+            "Flat ATK",
+            "ER"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Sucrose",
+                    "icon": "assets/character/icon/Sucrose.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Dehya",
+                    "icon": "assets/character/icon/Dehya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Yanfei",
+                    "icon": "assets/character/icon/Yanfei.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

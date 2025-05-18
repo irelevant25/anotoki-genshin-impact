@@ -73,7 +73,7 @@ var CANDACE = {
     ],
     "special_dish": {
         "name": "Utmost Care",
-        "icon": "assets/foods/Candace.avif"
+        "icon": "assets/foods/Utmost Care.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Candace.avif",
@@ -2429,5 +2429,234 @@ var CANDACE = {
     "demo_music": {
         "name": "Nephrite of Deshret",
         "url": "assets/character/demo_music/Candace.mp3"
+    },
+    "build": {
+        "version": "5.5",
+        "type": "Hydro enabler / Support",
+        "weapons": [
+            {
+                "name": "Favonius Lance",
+                "icon": "assets/weapons/Favonius Lance.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Engulfing Lightning",
+                "icon": "assets/weapons/Engulfing Lightning.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The Catch",
+                "icon": "assets/weapons/The Catch.avif",
+                "quality": "4",
+                "how_to_obtain": "Inazuma Fishing Association(Sold by Kujirai Momiji)"
+            },
+            {
+                "name": "Skyward Spine",
+                "icon": "assets/weapons/Skyward Spine.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Wavebreaker's Fin",
+                "icon": "assets/weapons/Wavebreaker's Fin.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Rightful Reward",
+                "icon": "assets/weapons/Rightful Reward.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Prototype Starglitter",
+                "icon": "assets/weapons/Prototype Starglitter.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Black Tassel",
+                "icon": "assets/weapons/Black Tassel.avif",
+                "quality": "3",
+                "how_to_obtain": "WishesTalk to Orban"
+            }
+        ],
+        "artifacts": [
+            "4pc Scroll of the Hero of Cinder City",
+            "4pc Noblesse Oblige",
+            "4pc Emblem of Severed Fate",
+            "4pc Instructor"
+        ],
+        "talents": [
+            "Character Level",
+            "Burst",
+            "Skill"
+        ],
+        "main_stats": [
+            "HP% / ER",
+            "HP% / Hydro DMG Bonus",
+            "HP% / CRIT"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate",
+            "HP% / CRIT DMG"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Candace",
+                    "icon": "assets/character/icon/Candace.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Candace",
+                    "icon": "assets/character/icon/Candace.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Clorinde",
+                    "icon": "assets/character/icon/Clorinde.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Candace",
+                    "icon": "assets/character/icon/Candace.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayato",
+                    "icon": "assets/character/icon/Kamisato Ayato.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xilonen",
+                    "icon": "assets/character/icon/Xilonen.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Candace",
+                    "icon": "assets/character/icon/Candace.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Xilonen",
+                    "icon": "assets/character/icon/Xilonen.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

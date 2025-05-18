@@ -73,7 +73,7 @@ var KLEE = {
     ],
     "special_dish": {
         "name": "Fish-Flavored Toast",
-        "icon": "assets/foods/Klee.avif"
+        "icon": "assets/foods/Fish-Flavored Toast.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Klee.avif",
@@ -1588,8 +1588,8 @@ var KLEE = {
                 },
                 {
                     "title": "잡담・수확",
-                    "text": "클레 오늘도 용감하게 이상한 무늬의 도마뱀을 잡았어! 이런 무늬는 본 적 없는데, (‍오빠오빠Text for Aether/언니언니Text for Lumine‍)도 볼래?",
-                    "reading": "Keulle oneuldo yonggamhage isanghan munui-ui domabaemeul jabasseo! Ireon munuineun bon jeok eopneunde, (‍oppaoppaText for Aether/eonnieonniText for Lumine‍)do bollae?",
+                    "text": "클레 오늘도 용감하게 이상한 무늬의 도마뱀을 잡았어! 이런 무늬는 본 적 없는데, (오빠오빠Text for Aether/언니언니Text for Lumine)도 볼래?",
+                    "reading": "Keulle oneuldo yonggamhage isanghan munui-ui domabaemeul jabasseo! Ireon munuineun bon jeok eopneunde, (oppaoppaText for Aether/eonnieonniText for Lumine)do bollae?",
                     "audio": "assets/character/voice_overs/Klee/story/ko/잡담・수확.mp3"
                 },
                 {
@@ -1666,8 +1666,8 @@ var KLEE = {
                 },
                 {
                     "title": "우리에 대해・같이 노는 친구",
-                    "text": "Media:VO KO Klee About Us - Playmates (A).ogg Media:VO KO Klee About Us - Playmates (B).ogg 안돼! 아직 9시밖에 안 됐단 말이야, 클레는 오늘 밤의 서커스단 특별 공연을 꼭 봐야한다구! (‍오빠오빠Text for Aether/언니언니Text for Lumine‍)는 클레의 친구잖아~ 날 집에 보낼 생각은 하지 마, 메에롱…",
-                    "reading": "Andwae! Ajik ahopsibakke an dwaetdan mariya, Keulleneun oneul bamui seokeoseudan teukbyeol gongyeoneul kkok bwayahandagu! (‍OppaOppaText for Aether/EonniEonniText for Lumine‍)neun Keulle-ui chingujana~ Nal jibe bonael saenggageun haji ma, me'erong...",
+                    "text": "Media:VO KO Klee About Us - Playmates (A).ogg Media:VO KO Klee About Us - Playmates (B).ogg 안돼! 아직 9시밖에 안 됐단 말이야, 클레는 오늘 밤의 서커스단 특별 공연을 꼭 봐야한다구! (오빠오빠Text for Aether/언니언니Text for Lumine)는 클레의 친구잖아~ 날 집에 보낼 생각은 하지 마, 메에롱…",
+                    "reading": "Andwae! Ajik ahopsibakke an dwaetdan mariya, Keulleneun oneul bamui seokeoseudan teukbyeol gongyeoneul kkok bwayahandagu! (OppaOppaText for Aether/EonniEonniText for Lumine)neun Keulle-ui chingujana~ Nal jibe bonael saenggageun haji ma, me'erong...",
                     "audio": "assets/character/voice_overs/Klee/story/ko/우리에 대해・같이 노는 친구.mp3"
                 },
                 {
@@ -1858,8 +1858,8 @@ var KLEE = {
                 },
                 {
                     "title": "돌파의 느낌・결",
-                    "text": "아주 오래전, 클레가 처음으로 폭발하는 소리를 들었을 때 하나도 무섭지 않았어… 대부분의 사람들은 그렇지 않다는걸, 나중에 알았지…그런데 (‍오빠오빠Text for Aether/언니언니Text for Lumine‍)도 내 폭탄을 안 무서워하네! 헤헤, 역시 클레가 좋은 친구를 사귄 게 분명해!",
-                    "reading": "Aju oraejeon, Keullega cheoeumeuro pokbalhaneun sorireul deureosseul ttae hanado museopji anasseo... Daebubunui saramdeureun geureochi antaneun geol, najung'e arajji... Geureonde (‍oppaoppaText for Aether/eonnieonniText for Lumine‍)do nae poktaneul an museowohane! Hehe, yeoksi Keullega joeun chingureul sagwin ge bunmyeonghae!",
+                    "text": "아주 오래전, 클레가 처음으로 폭발하는 소리를 들었을 때 하나도 무섭지 않았어… 대부분의 사람들은 그렇지 않다는걸, 나중에 알았지…그런데 (오빠오빠Text for Aether/언니언니Text for Lumine)도 내 폭탄을 안 무서워하네! 헤헤, 역시 클레가 좋은 친구를 사귄 게 분명해!",
+                    "reading": "Aju oraejeon, Keullega cheoeumeuro pokbalhaneun sorireul deureosseul ttae hanado museopji anasseo... Daebubunui saramdeureun geureochi antaneun geol, najung'e arajji... Geureonde (oppaoppaText for Aether/eonnieonniText for Lumine)do nae poktaneul an museowohane! Hehe, yeoksi Keullega joeun chingureul sagwin ge bunmyeonghae!",
                     "audio": "assets/character/voice_overs/Klee/story/ko/돌파의 느낌・결.mp3"
                 }
             ]
@@ -2454,5 +2454,499 @@ var KLEE = {
     "demo_music": {
         "name": "Let's Go, Crimson Knight!",
         "url": "assets/character/demo_music/Klee.mp3"
+    },
+    "build": {
+        "version": "4.5",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "The Widsith",
+                "icon": "assets/weapons/The Widsith.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Kagura's Verity",
+                "icon": "assets/weapons/Kagura's Verity.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Lost Prayer to the Sacred Winds",
+                "icon": "assets/weapons/Lost Prayer to the Sacred Winds.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Skyward Atlas",
+                "icon": "assets/weapons/Skyward Atlas.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Solar Pearl",
+                "icon": "assets/weapons/Solar Pearl.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Tulaytullah's Remembrance",
+                "icon": "assets/weapons/Tulaytullah's Remembrance.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Memory of Dust",
+                "icon": "assets/weapons/Memory of Dust.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Dodoco Tales",
+                "icon": "assets/weapons/Dodoco Tales.avif",
+                "quality": "4",
+                "how_to_obtain": "Midsummer Island Adventure Event"
+            }
+        ],
+        "artifacts": [
+            "4pc Lavawalker",
+            "4pc Crimson Witch of Flames"
+        ],
+        "talents": [
+            "Normal Attack",
+            "Skill",
+            "Burst"
+        ],
+        "main_stats": [
+            "ATK%",
+            "Pyro DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "ATK%",
+            "Flat ATK"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kirara",
+                    "icon": "assets/character/icon/Kirara.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Baizhu",
+                    "icon": "assets/character/icon/Baizhu.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Kaeya",
+                    "icon": "assets/character/icon/Kaeya.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Diona",
+                    "icon": "assets/character/icon/Diona.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Beidou",
+                    "icon": "assets/character/icon/Beidou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

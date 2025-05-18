@@ -78,7 +78,7 @@ var DEHYA = {
     ],
     "special_dish": {
         "name": "Goldflame Tajine",
-        "icon": "assets/foods/Dehya.avif"
+        "icon": "assets/foods/Goldflame Tajine.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Dehya.avif",
@@ -2412,5 +2412,228 @@ var DEHYA = {
     "demo_music": {
         "name": "Fervent Flare",
         "url": "assets/character/demo_music/Dehya.mp3"
+    },
+    "build": {
+        "version": "4.0",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Beacon of the Reed Sea",
+                "icon": "assets/weapons/Beacon of the Reed Sea.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event WishesChronicled Wishes"
+            },
+            {
+                "name": "Redhorn Stonethresher",
+                "icon": "assets/weapons/Redhorn Stonethresher.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Akuoumaru",
+                "icon": "assets/weapons/Akuoumaru.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Wolf's Gravestone",
+                "icon": "assets/weapons/Wolf's Gravestone.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Skyward Pride",
+                "icon": "assets/weapons/Skyward Pride.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "The Unforged",
+                "icon": "assets/weapons/The Unforged.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Blackcliff Slasher",
+                "icon": "assets/weapons/Blackcliff Slasher.avif",
+                "quality": "4",
+                "how_to_obtain": "Paimon's Bargains"
+            },
+            {
+                "name": "Serpent Spine",
+                "icon": "assets/weapons/Serpent Spine.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Luxurious Sea-Lord",
+                "icon": "assets/weapons/Luxurious Sea-Lord.avif",
+                "quality": "4",
+                "how_to_obtain": "Moonlight Merriment Event"
+            },
+            {
+                "name": "Tidal Shadow",
+                "icon": "assets/weapons/Tidal Shadow.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Katsuragikiri Nagamasa",
+                "icon": "assets/weapons/Katsuragikiri Nagamasa.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Favonius Greatsword",
+                "icon": "assets/weapons/Favonius Greatsword.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Prototype Archaic",
+                "icon": "assets/weapons/Prototype Archaic.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Emblem of Severed Fate",
+            "4pc Vourukasha's Glow",
+            "4pc Lavawalker",
+            "4pc Marechaussee Hunter",
+            "4pc Crimson Witch of Flame"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK% / ER / HP%",
+            "Pyro DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CR / CD",
+            "ATK%",
+            "HP%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Dehya",
+                    "icon": "assets/character/icon/Dehya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Dehya",
+                    "icon": "assets/character/icon/Dehya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Ganyu",
+                    "icon": "assets/character/icon/Ganyu.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Dehya",
+                    "icon": "assets/character/icon/Dehya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Mona",
+                    "icon": "assets/character/icon/Mona.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

@@ -77,7 +77,7 @@ var LAN_YAN = {
     ],
     "special_dish": {
         "name": "Jade-Cut Flowers",
-        "icon": "assets/foods/Lan Yan.avif"
+        "icon": "assets/foods/Jade-Cut Flowers.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Lan Yan.avif",
@@ -972,7 +972,7 @@ var LAN_YAN = {
                 },
                 {
                     "title": "Birthday",
-                    "text": "Media:VO Lan Yan Birthday (Lumine).ogg In my family, we always give silver accessories as birthday gifts. So, here, these two figures are for you. The one with the silver swallow on the head is me, and the one with the (‍small silver swordsmall silver swordText for male Traveler/silver flowersilver flowerText for female Traveler‍) is you. Hehe, looks just like us, right?I infused the rattan strands with incense, so hanging them on your knapsack should repel insects. Oh, and I designed the silver accessories, too. The silversmith polished them once, and I made sure to smooth out the edges a second time, so you don't have to worry about cutting yourself.Well, happy birthday, (TravelerTravelerThe player's chosen name for the Traveler)! May luck always be on your side!",
+                    "text": "Media:VO Lan Yan Birthday (Lumine).ogg In my family, we always give silver accessories as birthday gifts. So, here, these two figures are for you. The one with the silver swallow on the head is me, and the one with the (small silver swordsmall silver swordText for male Traveler/silver flowersilver flowerText for female Traveler) is you. Hehe, looks just like us, right?I infused the rattan strands with incense, so hanging them on your knapsack should repel insects. Oh, and I designed the silver accessories, too. The silversmith polished them once, and I made sure to smooth out the edges a second time, so you don't have to worry about cutting yourself.Well, happy birthday, (TravelerTravelerThe player's chosen name for the Traveler)! May luck always be on your side!",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Lan Yan/story/en/Birthday.mp3"
                 },
@@ -1244,7 +1244,7 @@ var LAN_YAN = {
                 },
                 {
                     "title": "生日…",
-                    "text": "Media:VO ZH Lan Yan Birthday (Lumine).ogg 按照家里的传统，生日嘛，总得收点银器傍傍身的。喏，这两个小藤人送你，头上有银燕的是我，(‍拿着小银剑的是你拿着小银剑的是你Text for male Traveler/戴着花的是你戴着花的是你Text for female Traveler‍)，嘻嘻，像不像？藤草我提前熏制过，挂在背包上可以帮你驱蚊除虫。小银饰样式也是我自己设计的，从银匠师傅手里拿回来后又仔细打磨了边角，绝对不会刮手。那么，祝你生辰快乐，愿福气运气常伴你左右！",
+                    "text": "Media:VO ZH Lan Yan Birthday (Lumine).ogg 按照家里的传统，生日嘛，总得收点银器傍傍身的。喏，这两个小藤人送你，头上有银燕的是我，(拿着小银剑的是你拿着小银剑的是你Text for male Traveler/戴着花的是你戴着花的是你Text for female Traveler)，嘻嘻，像不像？藤草我提前熏制过，挂在背包上可以帮你驱蚊除虫。小银饰样式也是我自己设计的，从银匠师傅手里拿回来后又仔细打磨了边角，绝对不会刮手。那么，祝你生辰快乐，愿福气运气常伴你左右！",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Lan Yan/story/zh/生日….mp3"
                 },
@@ -1516,7 +1516,7 @@ var LAN_YAN = {
                 },
                 {
                     "title": "誕生日…",
-                    "text": "Media:VO JA Lan Yan Birthday (Lumine).ogg うちの家の伝統に従って、誕生日には銀の装飾品をあげないとね。ってことで、この籐人形、二つとも君にあげる。頭の上に銀のツバメが乗ってるのが私で、(‍小さな銀の剣小さな銀の剣Text for male Traveler/お花お花Text for female Traveler‍)を持ってるのが君だよ。へへっ、似てるでしょ？燻製した籐を使ってるから、カバンとかにつけておくと虫よけにもなるよ。銀の飾りの方は私が自分で設計したんだ。銀職人さんから完成品を受け取った後、私のほうでも縁と角を丁寧に磨いたから、手が切れる心配はないよ。それじゃ、お誕生日おめでとう。福がやってきますように！",
+                    "text": "Media:VO JA Lan Yan Birthday (Lumine).ogg うちの家の伝統に従って、誕生日には銀の装飾品をあげないとね。ってことで、この籐人形、二つとも君にあげる。頭の上に銀のツバメが乗ってるのが私で、(小さな銀の剣小さな銀の剣Text for male Traveler/お花お花Text for female Traveler)を持ってるのが君だよ。へへっ、似てるでしょ？燻製した籐を使ってるから、カバンとかにつけておくと虫よけにもなるよ。銀の飾りの方は私が自分で設計したんだ。銀職人さんから完成品を受け取った後、私のほうでも縁と角を丁寧に磨いたから、手が切れる心配はないよ。それじゃ、お誕生日おめでとう。福がやってきますように！",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Lan Yan/story/ja/誕生日….mp3"
                 },
@@ -1788,8 +1788,8 @@ var LAN_YAN = {
                 },
                 {
                     "title": "생일…",
-                    "text": "Media:VO KO Lan Yan Birthday (Lumine).ogg 우리 집안에는 생일 때 은 장신구를 선물하는 전통이 있어. 자, 여기 등나무 인형 두 개를 줄게. 머리에 은 제비 장신구를 단 게 나고, (‍은검을 든 게은검을 든 게Text for male Traveler/꽃을 단 게꽃을 단 게Text for female Traveler‍) 너야. 어때, 닮았지?미리 향을 입혀둬서, 배낭에 걸어두면 벌레를 쫓을 수 있어. 은장식 디자인도 내가 한 거야! 은세공 장인한테 받아 온 후에 모서리도 정성스럽게 다듬어서, 손 다칠 일은 절대 없을 거야~그럼, 생일 축하해! 늘 행운과 행복이 너에게 따르길 바랄게!",
-                    "reading": " Uri jibaneneun saeng'il ttae eun jangsin'gureul seonmulhaneun jeontong'i isseo. Ja, yeogi deungnamu inhyeong du gaereul julge. Meorie eun jebi jangsin'gureul dan ge nago, (‍Eun'geomeul deun geKkocheul dan ge‍) Neoya. Eottae, dalmatji?Miri hyang'eul iphyeodwoseo, baenang'e georeodumyeon beollereul jjocheul su isseo. Eunjangsik dijaindo naega han geoya! Eunsegong jang'inhante bada on hue moseorido jeongseongseureopge dadeumeoseo, son dachil ireun jeoldae eopseul geoya~Geureom, saeng'il chukhahae! Neul haeng'un'gwa haengbogi neo'ege ttareugil baralge!",
+                    "text": "Media:VO KO Lan Yan Birthday (Lumine).ogg 우리 집안에는 생일 때 은 장신구를 선물하는 전통이 있어. 자, 여기 등나무 인형 두 개를 줄게. 머리에 은 제비 장신구를 단 게 나고, (은검을 든 게은검을 든 게Text for male Traveler/꽃을 단 게꽃을 단 게Text for female Traveler) 너야. 어때, 닮았지?미리 향을 입혀둬서, 배낭에 걸어두면 벌레를 쫓을 수 있어. 은장식 디자인도 내가 한 거야! 은세공 장인한테 받아 온 후에 모서리도 정성스럽게 다듬어서, 손 다칠 일은 절대 없을 거야~그럼, 생일 축하해! 늘 행운과 행복이 너에게 따르길 바랄게!",
+                    "reading": " Uri jibaneneun saeng'il ttae eun jangsin'gureul seonmulhaneun jeontong'i isseo. Ja, yeogi deungnamu inhyeong du gaereul julge. Meorie eun jebi jangsin'gureul dan ge nago, (Eun'geomeul deun geKkocheul dan ge) Neoya. Eottae, dalmatji?Miri hyang'eul iphyeodwoseo, baenang'e georeodumyeon beollereul jjocheul su isseo. Eunjangsik dijaindo naega han geoya! Eunsegong jang'inhante bada on hue moseorido jeongseongseureopge dadeumeoseo, son dachil ireun jeoldae eopseul geoya~Geureom, saeng'il chukhahae! Neul haeng'un'gwa haengbogi neo'ege ttareugil baralge!",
                     "audio": "assets/character/voice_overs/Lan Yan/story/ko/생일….mp3"
                 },
                 {
@@ -2381,5 +2381,386 @@ var LAN_YAN = {
             ]
         }
     },
-    "demo_music": null
+    "demo_music": null,
+    "build": {
+        "version": "5.3",
+        "type": "Support",
+        "weapons": [
+            {
+                "name": "Starcaller's Watch",
+                "icon": "assets/weapons/Starcaller's Watch.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Thrilling Tales of Dragon Slayers",
+                "icon": "assets/weapons/Thrilling Tales of Dragon Slayers.avif",
+                "quality": "3",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Hakushin Ring",
+                "icon": "assets/weapons/Hakushin Ring.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Wandering Evenstar",
+                "icon": "assets/weapons/Wandering Evenstar.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Favonius Codex",
+                "icon": "assets/weapons/Favonius Codex.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Prototype Amber",
+                "icon": "assets/weapons/Prototype Amber.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Sacrificial Fragments",
+                "icon": "assets/weapons/Sacrificial Fragments.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "A Thousand Floating Dreams",
+                "icon": "assets/weapons/A Thousand Floating Dreams.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Viridescent Venerer",
+            "4pc Scroll of the Hero of Cinder City",
+            "4pc Golden Troupe"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK% / ER / EM",
+            "ATK% / Anemo DMG Bonus",
+            "ATK% / CRIT"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "ATK%",
+            "CRIT Rate / CRIT DMG",
+            "EM"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Clorinde",
+                    "icon": "assets/character/icon/Clorinde.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xilonen",
+                    "icon": "assets/character/icon/Xilonen.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayaka",
+                    "icon": "assets/character/icon/Kamisato Ayaka.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Wanderer",
+                    "icon": "assets/character/icon/Wanderer.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Faruzan",
+                    "icon": "assets/character/icon/Faruzan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Xiao",
+                    "icon": "assets/character/icon/Xiao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Faruzan",
+                    "icon": "assets/character/icon/Faruzan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yae Miko",
+                    "icon": "assets/character/icon/Yae Miko.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Collei",
+                    "icon": "assets/character/icon/Collei.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ]
+        ]
+    }
 }

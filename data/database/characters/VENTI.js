@@ -79,7 +79,7 @@ var VENTI = {
     ],
     "special_dish": {
         "name": "A Buoyant Breeze",
-        "icon": "assets/foods/Venti.avif"
+        "icon": "assets/foods/A Buoyant Breeze.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Venti.avif",
@@ -818,7 +818,7 @@ var VENTI = {
                 },
                 {
                     "title": "About Us: Heroes",
-                    "text": "Media:VO Venti About Us - Heroes (A).ogg Media:VO Venti About Us - Heroes (B).ogg Haha, once the (‍heroheroText for Aether/heroineheroineText for Lumine‍) in the song has actually rescued the (‍princessprincessText for Aether/princeprinceText for Lumine‍), I will ensure this song spreads to every corner of the continent!",
+                    "text": "Media:VO Venti About Us - Heroes (A).ogg Media:VO Venti About Us - Heroes (B).ogg Haha, once the (heroheroText for Aether/heroineheroineText for Lumine) in the song has actually rescued the (princessprincessText for Aether/princeprinceText for Lumine), I will ensure this song spreads to every corner of the continent!",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Venti/story/en/About Us - Heroes.mp3"
                 },
@@ -1120,8 +1120,8 @@ var VENTI = {
                 },
                 {
                     "title": "关于我们・勇者",
-                    "text": "唔…嗯！嘿嘿，等到勇者救出了(‍公主公主Text for male Traveler/王子王子Text for female Traveler‍)，我会第一时间让全大陆传唱这首歌谣。",
-                    "reading": "Wu... Ǹg! Hēihēi, děngdào yǒngzhě jiùchūle (‍gōngzhǔgōngzhǔText for male Traveler/wángzǐwángzǐText for female Traveler‍), wǒ huì dìyī-shíjiān ràng quán dàlù chuánchàng zhè shǒu gēyáo.",
+                    "text": "唔…嗯！嘿嘿，等到勇者救出了(公主公主Text for male Traveler/王子王子Text for female Traveler)，我会第一时间让全大陆传唱这首歌谣。",
+                    "reading": "Wu... Ǹg! Hēihēi, děngdào yǒngzhě jiùchūle (gōngzhǔgōngzhǔText for male Traveler/wángzǐwángzǐText for female Traveler), wǒ huì dìyī-shíjiān ràng quán dàlù chuánchàng zhè shǒu gēyáo.",
                     "audio": "assets/character/voice_overs/Venti/story/zh/关于我们・勇者.mp3"
                 },
                 {
@@ -1422,8 +1422,8 @@ var VENTI = {
                 },
                 {
                     "title": "勇者について…",
-                    "text": "Media:VO JA Venti About Us - Heroes (A).ogg Media:VO JA Venti About Us - Heroes (B).ogg うん…うん…なるほど！エヘヘ、勇者が(‍姫姫Text for male Traveler/王子王子Text for female Traveler‍)を救い出したら、真っ先に大陸中にこの歌を広めるんだ。",
-                    "reading": "Un... Un... Naruhodo! Ehehe, yuusha ga (‍himehimeText for male Traveler/oujioujiText for female Traveler‍) wo sukuidashitara, massaki ni tairiku-juu ni kono uta wo hiromeru nda.",
+                    "text": "Media:VO JA Venti About Us - Heroes (A).ogg Media:VO JA Venti About Us - Heroes (B).ogg うん…うん…なるほど！エヘヘ、勇者が(姫姫Text for male Traveler/王子王子Text for female Traveler)を救い出したら、真っ先に大陸中にこの歌を広めるんだ。",
+                    "reading": "Un... Un... Naruhodo! Ehehe, yuusha ga (himehimeText for male Traveler/oujioujiText for female Traveler) wo sukuidashitara, massaki ni tairiku-juu ni kono uta wo hiromeru nda.",
                     "audio": "assets/character/voice_overs/Venti/story/ja/勇者について….mp3"
                 },
                 {
@@ -1724,8 +1724,8 @@ var VENTI = {
                 },
                 {
                     "title": "우리에 대해・용사",
-                    "text": "Media:VO KO Venti About Us - Heroes (A).ogg Media:VO KO Venti About Us - Heroes (B).ogg 아… 아… 음…! 헤헤, 용자가 나타나 (‍공주공주Text for male Traveler/왕자왕자Text for female Traveler‍)를 구하면, 당장 전 대륙에 이 노래를 퍼트리겠어",
-                    "reading": "A... A... Eum...! Hehe, yongjaga natana (‍gongjugongjuText for male Traveler/wangjawangjaText for female Traveler‍)reul guhamyeon, dangjang jeon daeryuge i noraereul peoteurigesseo",
+                    "text": "Media:VO KO Venti About Us - Heroes (A).ogg Media:VO KO Venti About Us - Heroes (B).ogg 아… 아… 음…! 헤헤, 용자가 나타나 (공주공주Text for male Traveler/왕자왕자Text for female Traveler)를 구하면, 당장 전 대륙에 이 노래를 퍼트리겠어",
+                    "reading": "A... A... Eum...! Hehe, yongjaga natana (gongjugongjuText for male Traveler/wangjawangjaText for female Traveler)reul guhamyeon, dangjang jeon daeryuge i noraereul peoteurigesseo",
                     "audio": "assets/character/voice_overs/Venti/story/ko/우리에 대해・용사.mp3"
                 },
                 {
@@ -2530,5 +2530,430 @@ var VENTI = {
     "demo_music": {
         "name": "Bard's Adventure",
         "url": "assets/character/demo_music/Venti.mp3"
+    },
+    "build": {
+        "version": "4.1",
+        "type": "Support",
+        "weapons": [
+            {
+                "name": "Elegy for the End",
+                "icon": "assets/weapons/Elegy for the End.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The Stringless",
+                "icon": "assets/weapons/The Stringless.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Polar Star",
+                "icon": "assets/weapons/Polar Star.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Windblume Ode",
+                "icon": "assets/weapons/Windblume Ode.avif",
+                "quality": "4",
+                "how_to_obtain": "Invitation of Windblume Event"
+            },
+            {
+                "name": "Mouun's Moon",
+                "icon": "assets/weapons/Mouun's Moon.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Raven Bow",
+                "icon": "assets/weapons/Raven Bow.avif",
+                "quality": "3",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Song of Stillness",
+                "icon": "assets/weapons/Song of Stillness.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Fading Twilight",
+                "icon": "assets/weapons/Fading Twilight.avif",
+                "quality": "4",
+                "how_to_obtain": "Perilous Trail Event"
+            },
+            {
+                "name": "Favonius Warbow",
+                "icon": "assets/weapons/Favonius Warbow.avif",
+                "quality": "4",
+                "how_to_obtain": "WishesA Long Shot Quest"
+            }
+        ],
+        "artifacts": [
+            "4pc Viridescent Venerer",
+            "4pc Gilded Dreams",
+            "4pc Instructor"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "EM / ATK%",
+            "EM / Anemo DMG Bonus",
+            "EM / CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "EM",
+            "CRIT Rate / CRIT DMG",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Ganyu",
+                    "icon": "assets/character/icon/Ganyu.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Layla",
+                    "icon": "assets/character/icon/Layla.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Mona",
+                    "icon": "assets/character/icon/Mona.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayaka",
+                    "icon": "assets/character/icon/Kamisato Ayaka.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Shenhe",
+                    "icon": "assets/character/icon/Shenhe.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Mona",
+                    "icon": "assets/character/icon/Mona.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Ganyu",
+                    "icon": "assets/character/icon/Ganyu.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayaka",
+                    "icon": "assets/character/icon/Kamisato Ayaka.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Sangonomiya Kokomi",
+                    "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Sangonomiya Kokomi",
+                    "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Beidou",
+                    "icon": "assets/character/icon/Beidou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yae Miko",
+                    "icon": "assets/character/icon/Yae Miko.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Sangonomiya Kokomi",
+                    "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Mona",
+                    "icon": "assets/character/icon/Mona.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yoimiya",
+                    "icon": "assets/character/icon/Yoimiya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yun Jin",
+                    "icon": "assets/character/icon/Yun Jin.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

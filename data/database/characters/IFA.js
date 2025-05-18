@@ -14,6 +14,7 @@ var IFA = {
         "name": "Anemo",
         "icon": "assets/elements/Anemo.avif"
     },
+    "model": "Tall Male",
     "roles": [],
     "birthday": "March 23rd",
     "constellations": [
@@ -63,7 +64,7 @@ var IFA = {
     ],
     "special_dish": {
         "name": "Emotional Support",
-        "icon": "assets/foods/Ifa.avif"
+        "icon": "assets/foods/Emotional Support.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Ifa.avif",
@@ -2401,5 +2402,6 @@ var IFA = {
             ]
         }
     },
-    "demo_music": null
+    "demo_music": null,
+    "build": null
 }

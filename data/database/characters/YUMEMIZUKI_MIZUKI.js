@@ -78,7 +78,7 @@ var YUMEMIZUKI_MIZUKI = {
     ],
     "special_dish": {
         "name": "Dreams of Healing",
-        "icon": "assets/foods/Yumemizuki Mizuki.avif"
+        "icon": "assets/foods/Dreams of Healing.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Yumemizuki Mizuki.avif",
@@ -2478,5 +2478,219 @@ var YUMEMIZUKI_MIZUKI = {
             ]
         }
     },
-    "demo_music": null
+    "demo_music": null,
+    "build": {
+        "version": "5.4",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Hakushin Ring",
+                "icon": "assets/weapons/Hakushin Ring.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Favonius Codex",
+                "icon": "assets/weapons/Favonius Codex.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "A Thousand Floating Dreams",
+                "icon": "assets/weapons/A Thousand Floating Dreams.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Wandering Evenstar",
+                "icon": "assets/weapons/Wandering Evenstar.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Sunny Morning Sleep-In",
+                "icon": "assets/weapons/Sunny Morning Sleep-In.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Thrilling Tales of Dragon Slayers",
+                "icon": "assets/weapons/Thrilling Tales of Dragon Slayers.avif",
+                "quality": "3",
+                "how_to_obtain": "Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Viridescent Venerer"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "EM / ER",
+            "EM",
+            "EM"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate",
+            "EM"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Yumemizuki Mizuki",
+                    "icon": "assets/character/icon/Yumemizuki Mizuki.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yae Miko",
+                    "icon": "assets/character/icon/Yae Miko.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Yumemizuki Mizuki",
+                    "icon": "assets/character/icon/Yumemizuki Mizuki.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Yumemizuki Mizuki",
+                    "icon": "assets/character/icon/Yumemizuki Mizuki.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Mavuika",
+                    "icon": "assets/character/icon/Mavuika.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Yumemizuki Mizuki",
+                    "icon": "assets/character/icon/Yumemizuki Mizuki.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Citlali",
+                    "icon": "assets/character/icon/Citlali.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ]
+        ]
+    }
 }

@@ -73,7 +73,7 @@ var FARUZAN = {
     ],
     "special_dish": {
         "name": "Traditionally-Made Charcoal-Baked Ajilenakh Cake",
-        "icon": "assets/foods/Faruzan.avif"
+        "icon": "assets/foods/Traditionally-Made Charcoal-Baked Ajilenakh Cake.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Faruzan.avif",
@@ -2383,5 +2383,180 @@ var FARUZAN = {
     "demo_music": {
         "name": "Whirling of Vairambhaka",
         "url": "assets/character/demo_music/Faruzan.mp3"
+    },
+    "build": {
+        "version": "4.6",
+        "type": "Support",
+        "weapons": [
+            {
+                "name": "Favonius Warbow",
+                "icon": "assets/weapons/Favonius Warbow.avif",
+                "quality": "4",
+                "how_to_obtain": "WishesA Long Shot Quest"
+            },
+            {
+                "name": "Elegy for the End",
+                "icon": "assets/weapons/Elegy for the End.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "End of the Line",
+                "icon": "assets/weapons/End of the Line.avif",
+                "quality": "4",
+                "how_to_obtain": "Sumeru Fishing Association(Sold by Loumelat)"
+            },
+            {
+                "name": "Fading Twilight",
+                "icon": "assets/weapons/Fading Twilight.avif",
+                "quality": "4",
+                "how_to_obtain": "Perilous Trail Event"
+            },
+            {
+                "name": "Sacrificial Bow",
+                "icon": "assets/weapons/Sacrificial Bow.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Tenacity of the Millelith",
+            "4pc Golden Troupe",
+            "4pc Noblesse Oblige",
+            "4pc Viridescent Venerer",
+            "4pc The Exile"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ER",
+            "ER",
+            "ER / CRIT Rate"
+        ],
+        "sub_stats": [
+            "ER",
+            "CRIT Rate",
+            "CRIT DMG",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Faruzan",
+                    "icon": "assets/character/icon/Faruzan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Wanderer",
+                    "icon": "assets/character/icon/Wanderer.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Yun Jin",
+                    "icon": "assets/character/icon/Yun Jin.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Faruzan",
+                    "icon": "assets/character/icon/Faruzan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Xiao",
+                    "icon": "assets/character/icon/Xiao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Faruzan",
+                    "icon": "assets/character/icon/Faruzan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Shikanoin Heizou",
+                    "icon": "assets/character/icon/Shikanoin Heizou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

@@ -1,0 +1,6717 @@
+const WISHES = [
+    {
+        version: '1.0',
+        wishes: [
+            {
+                name: 'Ballad in Goblets',
+                image: 'assets/wishes/1.0 - Ballad in Goblets.avif',
+                characters: [
+                    {
+                        name: 'Venti',
+                        icon: 'assets/character/icon/Venti.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'September 28, 2020 October 18, 2020',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Aquila Favonia',
+                        icon: 'assets/weapons/Aquila Favonia.avif',
+                    },
+                    {
+                        name: "Amos' Bow",
+                        icon: "assets/weapons/Amos' Bow.avif",
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                ],
+                duration: 'September 28, 2020 October 18, 2020',
+                characters: [],
+            },
+            {
+                name: "Beginners'",
+                image: "assets/wishes/1.0 - Beginners'.avif",
+                characters: [],
+                duration: 'September 28, 2020 Indefinite',
+                weapons: [],
+            },
+            {
+                name: 'Wanderlust',
+                image: 'assets/wishes/1.0 - Wanderlust.avif',
+                characters: [],
+                duration: 'September 28, 2020 Indefinite',
+                weapons: [],
+            },
+            {
+                name: 'Sparkling Steps',
+                image: 'assets/wishes/1.0 - Sparkling Steps.avif',
+                characters: [
+                    {
+                        name: 'Klee',
+                        icon: 'assets/character/icon/Klee.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                ],
+                duration: 'October 20, 2020 November 10, 2020',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Lost Prayer to the Sacred Winds',
+                        icon: 'assets/weapons/Lost Prayer to the Sacred Winds.avif',
+                    },
+                    {
+                        name: "Wolf's Gravestone",
+                        icon: "assets/weapons/Wolf's Gravestone.avif",
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                ],
+                duration: 'October 20, 2020 November 10, 2020',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '1.1',
+        wishes: [
+            {
+                name: 'Farewell of Snezhnaya',
+                image: 'assets/wishes/1.1 - Farewell of Snezhnaya.avif',
+                characters: [
+                    {
+                        name: 'Tartaglia',
+                        icon: 'assets/character/icon/Tartaglia.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                ],
+                duration: 'November 11, 2020 December 01, 2020',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Memory of Dust',
+                        icon: 'assets/weapons/Memory of Dust.avif',
+                    },
+                    {
+                        name: 'Skyward Harp',
+                        icon: 'assets/weapons/Skyward Harp.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                ],
+                duration: 'November 11, 2020 December 01, 2020',
+                characters: [],
+            },
+            {
+                name: 'Gentry of Hermitage',
+                image: 'assets/wishes/1.1 - Gentry of Hermitage.avif',
+                characters: [
+                    {
+                        name: 'Zhongli',
+                        icon: 'assets/character/icon/Zhongli.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                ],
+                duration: 'December 01, 2020 December 22, 2020',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Vortex Vanquisher',
+                        icon: 'assets/weapons/Vortex Vanquisher.avif',
+                    },
+                    {
+                        name: 'The Unforged',
+                        icon: 'assets/weapons/The Unforged.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                ],
+                duration: 'December 01, 2020 December 22, 2020',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '1.2',
+        wishes: [
+            {
+                name: 'Secretum Secretorum',
+                image: 'assets/wishes/1.2 - Secretum Secretorum.avif',
+                characters: [
+                    {
+                        name: 'Albedo',
+                        icon: 'assets/character/icon/Albedo.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                ],
+                duration: 'December 23, 2020 January 12, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Summit Shaper',
+                        icon: 'assets/weapons/Summit Shaper.avif',
+                    },
+                    {
+                        name: 'Skyward Atlas',
+                        icon: 'assets/weapons/Skyward Atlas.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'December 23, 2020 January 12, 2021',
+                characters: [],
+            },
+            {
+                name: 'Adrift in the Harbor',
+                image: 'assets/wishes/1.2 - Adrift in the Harbor.avif',
+                characters: [
+                    {
+                        name: 'Ganyu',
+                        icon: 'assets/character/icon/Ganyu.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                ],
+                duration: 'January 12, 2021 February 02, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Skyward Pride',
+                        icon: 'assets/weapons/Skyward Pride.avif',
+                    },
+                    {
+                        name: "Amos' Bow",
+                        icon: "assets/weapons/Amos' Bow.avif",
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'January 12, 2021 February 02, 2021',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '1.3',
+        wishes: [
+            {
+                name: 'Invitation to Mundane Life',
+                image: 'assets/wishes/1.3 - Invitation to Mundane Life.avif',
+                characters: [
+                    {
+                        name: 'Xiao',
+                        icon: 'assets/character/icon/Xiao.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                ],
+                duration: 'February 03, 2021 February 17, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Primordial Jade Cutter',
+                        icon: 'assets/weapons/Primordial Jade Cutter.avif',
+                    },
+                    {
+                        name: 'Primordial Jade Winged-Spear',
+                        icon: 'assets/weapons/Primordial Jade Winged-Spear.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                ],
+                duration: 'February 03, 2021 February 23, 2021',
+                characters: [],
+            },
+            {
+                name: 'Dance of Lanterns',
+                image: 'assets/wishes/1.3 - Dance of Lanterns.avif',
+                characters: [
+                    {
+                        name: 'Keqing',
+                        icon: 'assets/character/icon/Keqing.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                ],
+                duration: 'February 17, 2021 March 02, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Staff of Homa',
+                        icon: 'assets/weapons/Staff of Homa.avif',
+                    },
+                    {
+                        name: "Wolf's Gravestone",
+                        icon: "assets/weapons/Wolf's Gravestone.avif",
+                    },
+                    {
+                        name: 'Lithic Blade',
+                        icon: 'assets/weapons/Lithic Blade.avif',
+                    },
+                    {
+                        name: 'Lithic Spear',
+                        icon: 'assets/weapons/Lithic Spear.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                ],
+                duration: 'February 23, 2021 March 16, 2021',
+                characters: [],
+            },
+            {
+                name: 'Moment of Bloom',
+                image: 'assets/wishes/1.3 - Moment of Bloom.avif',
+                characters: [
+                    {
+                        name: 'Hu Tao',
+                        icon: 'assets/character/icon/Hu Tao.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                ],
+                duration: 'March 02, 2021 March 16, 2021',
+                weapons: [],
+            },
+        ],
+    },
+    {
+        version: '1.4',
+        wishes: [
+            {
+                name: 'Ballad in Goblets',
+                image: 'assets/wishes/1.4 - Ballad in Goblets.avif',
+                characters: [
+                    {
+                        name: 'Venti',
+                        icon: 'assets/character/icon/Venti.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                ],
+                duration: 'March 17, 2021 April 06, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Elegy for the End',
+                        icon: 'assets/weapons/Elegy for the End.avif',
+                    },
+                    {
+                        name: 'Skyward Blade',
+                        icon: 'assets/weapons/Skyward Blade.avif',
+                    },
+                    {
+                        name: 'The Alley Flash',
+                        icon: 'assets/weapons/The Alley Flash.avif',
+                    },
+                    {
+                        name: 'Wine and Song',
+                        icon: 'assets/weapons/Wine and Song.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                ],
+                duration: 'March 17, 2021 April 06, 2021',
+                characters: [],
+            },
+            {
+                name: 'Farewell of Snezhnaya',
+                image: 'assets/wishes/1.4 - Farewell of Snezhnaya.avif',
+                characters: [
+                    {
+                        name: 'Tartaglia',
+                        icon: 'assets/character/icon/Tartaglia.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                ],
+                duration: 'April 06, 2021 April 27, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Skyward Harp',
+                        icon: 'assets/weapons/Skyward Harp.avif',
+                    },
+                    {
+                        name: 'Lost Prayer to the Sacred Winds',
+                        icon: 'assets/weapons/Lost Prayer to the Sacred Winds.avif',
+                    },
+                    {
+                        name: 'Alley Hunter',
+                        icon: 'assets/weapons/Alley Hunter.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                ],
+                duration: 'April 06, 2021 April 27, 2021',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '1.5',
+        wishes: [
+            {
+                name: 'Gentry of Hermitage',
+                image: 'assets/wishes/1.5 - Gentry of Hermitage.avif',
+                characters: [
+                    {
+                        name: 'Zhongli',
+                        icon: 'assets/character/icon/Zhongli.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                ],
+                duration: 'April 28, 2021 May 18, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Summit Shaper',
+                        icon: 'assets/weapons/Summit Shaper.avif',
+                    },
+                    {
+                        name: 'Memory of Dust',
+                        icon: 'assets/weapons/Memory of Dust.avif',
+                    },
+                    {
+                        name: 'Lithic Blade',
+                        icon: 'assets/weapons/Lithic Blade.avif',
+                    },
+                    {
+                        name: 'Lithic Spear',
+                        icon: 'assets/weapons/Lithic Spear.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'April 28, 2021 May 18, 2021',
+                characters: [],
+            },
+            {
+                name: 'Born of Ocean Swell',
+                image: 'assets/wishes/1.5 - Born of Ocean Swell.avif',
+                characters: [
+                    {
+                        name: 'Eula',
+                        icon: 'assets/character/icon/Eula.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                ],
+                duration: 'May 18, 2021 June 08, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Song of Broken Pines',
+                        icon: 'assets/weapons/Song of Broken Pines.avif',
+                    },
+                    {
+                        name: 'Aquila Favonia',
+                        icon: 'assets/weapons/Aquila Favonia.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'May 18, 2021 June 08, 2021',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '1.6',
+        wishes: [
+            {
+                name: 'Sparkling Steps',
+                image: 'assets/wishes/1.6 - Sparkling Steps.avif',
+                characters: [
+                    {
+                        name: 'Klee',
+                        icon: 'assets/character/icon/Klee.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                ],
+                duration: 'June 09, 2021 June 29, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Skyward Pride',
+                        icon: 'assets/weapons/Skyward Pride.avif',
+                    },
+                    {
+                        name: 'Lost Prayer to the Sacred Winds',
+                        icon: 'assets/weapons/Lost Prayer to the Sacred Winds.avif',
+                    },
+                    {
+                        name: 'Mitternachts Waltz',
+                        icon: 'assets/weapons/Mitternachts Waltz.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                ],
+                duration: 'June 09, 2021 June 29, 2021',
+                characters: [],
+            },
+            {
+                name: 'Leaves in the Wind',
+                image: 'assets/wishes/1.6 - Leaves in the Wind.avif',
+                characters: [
+                    {
+                        name: 'Kaedehara Kazuha',
+                        icon: 'assets/character/icon/Kaedehara Kazuha.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                ],
+                duration: 'June 29, 2021 July 20, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/1.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Freedom-Sworn',
+                        icon: 'assets/weapons/Freedom-Sworn.avif',
+                    },
+                    {
+                        name: 'Skyward Atlas',
+                        icon: 'assets/weapons/Skyward Atlas.avif',
+                    },
+                    {
+                        name: 'The Alley Flash',
+                        icon: 'assets/weapons/The Alley Flash.avif',
+                    },
+                    {
+                        name: 'Wine and Song',
+                        icon: 'assets/weapons/Wine and Song.avif',
+                    },
+                    {
+                        name: 'Alley Hunter',
+                        icon: 'assets/weapons/Alley Hunter.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                ],
+                duration: 'June 29, 2021 July 20, 2021',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '2.0',
+        wishes: [
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Mistsplitter Reforged',
+                        icon: 'assets/weapons/Mistsplitter Reforged.avif',
+                    },
+                    {
+                        name: 'Skyward Spine',
+                        icon: 'assets/weapons/Skyward Spine.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'July 21, 2021 August 10, 2021',
+                characters: [],
+            },
+            {
+                name: "The Heron's Court",
+                image: "assets/wishes/2.0 - The Heron's Court.avif",
+                characters: [
+                    {
+                        name: 'Kamisato Ayaka',
+                        icon: 'assets/character/icon/Kamisato Ayaka.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'July 21, 2021 August 10, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Tapestry of Golden Flames',
+                image: 'assets/wishes/2.0 - Tapestry of Golden Flames.avif',
+                characters: [
+                    {
+                        name: 'Yoimiya',
+                        icon: 'assets/character/icon/Yoimiya.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                ],
+                duration: 'August 10, 2021 August 31, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Thundering Pulse',
+                        icon: 'assets/weapons/Thundering Pulse.avif',
+                    },
+                    {
+                        name: 'Skyward Blade',
+                        icon: 'assets/weapons/Skyward Blade.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'August 10, 2021 August 31, 2021',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '2.1',
+        wishes: [
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Engulfing Lightning',
+                        icon: 'assets/weapons/Engulfing Lightning.avif',
+                    },
+                    {
+                        name: 'The Unforged',
+                        icon: 'assets/weapons/The Unforged.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'September 01, 2021 September 21, 2021',
+                characters: [],
+            },
+            {
+                name: 'Reign of Serenity',
+                image: 'assets/wishes/2.1 - Reign of Serenity.avif',
+                characters: [
+                    {
+                        name: 'Raiden Shogun',
+                        icon: 'assets/character/icon/Raiden Shogun.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                ],
+                duration: 'September 01, 2021 September 21, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Everlasting Moonglow',
+                        icon: 'assets/weapons/Everlasting Moonglow.avif',
+                    },
+                    {
+                        name: 'Primordial Jade Cutter',
+                        icon: 'assets/weapons/Primordial Jade Cutter.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'September 21, 2021 October 12, 2021',
+                characters: [],
+            },
+            {
+                name: 'Drifting Luminescence',
+                image: 'assets/wishes/2.1 - Drifting Luminescence.avif',
+                characters: [
+                    {
+                        name: 'Sangonomiya Kokomi',
+                        icon: 'assets/character/icon/Sangonomiya Kokomi.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                ],
+                duration: 'September 21, 2021 October 12, 2021',
+                weapons: [],
+            },
+        ],
+    },
+    {
+        version: '2.2',
+        wishes: [
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Polar Star',
+                        icon: 'assets/weapons/Polar Star.avif',
+                    },
+                    {
+                        name: 'Memory of Dust',
+                        icon: 'assets/weapons/Memory of Dust.avif',
+                    },
+                    {
+                        name: 'Akuoumaru',
+                        icon: 'assets/weapons/Akuoumaru.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'October 13, 2021 November 02, 2021',
+                characters: [],
+            },
+            {
+                name: 'Farewell of Snezhnaya',
+                image: 'assets/wishes/2.2 - Farewell of Snezhnaya.avif',
+                characters: [
+                    {
+                        name: 'Tartaglia',
+                        icon: 'assets/character/icon/Tartaglia.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'October 13, 2021 November 02, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Moment of Bloom',
+                image: 'assets/wishes/2.2 - Moment of Bloom.avif',
+                characters: [
+                    {
+                        name: 'Hu Tao',
+                        icon: 'assets/character/icon/Hu Tao.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                ],
+                duration: 'November 02, 2021 November 23, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Staff of Homa',
+                        icon: 'assets/weapons/Staff of Homa.avif',
+                    },
+                    {
+                        name: 'Elegy for the End',
+                        icon: 'assets/weapons/Elegy for the End.avif',
+                    },
+                    {
+                        name: "Wavebreaker's Fin",
+                        icon: "assets/weapons/Wavebreaker's Fin.avif",
+                    },
+                    {
+                        name: "Mouun's Moon",
+                        icon: "assets/weapons/Mouun's Moon.avif",
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                ],
+                duration: 'November 02, 2021 November 23, 2021',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '2.3',
+        wishes: [
+            {
+                name: 'Secretum Secretorum',
+                image: 'assets/wishes/2.3 - Secretum Secretorum.avif',
+                characters: [
+                    {
+                        name: 'Albedo',
+                        icon: 'assets/character/icon/Albedo.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                ],
+                duration: 'November 24, 2021 December 14, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Born of Ocean Swell',
+                image: 'assets/wishes/2.3 - Born of Ocean Swell.avif',
+                characters: [
+                    {
+                        name: 'Eula',
+                        icon: 'assets/character/icon/Eula.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                ],
+                duration: 'November 24, 2021 December 14, 2021',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Freedom-Sworn',
+                        icon: 'assets/weapons/Freedom-Sworn.avif',
+                    },
+                    {
+                        name: 'Song of Broken Pines',
+                        icon: 'assets/weapons/Song of Broken Pines.avif',
+                    },
+                    {
+                        name: 'Wine and Song',
+                        icon: 'assets/weapons/Wine and Song.avif',
+                    },
+                    {
+                        name: 'Alley Hunter',
+                        icon: 'assets/weapons/Alley Hunter.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                ],
+                duration: 'November 24, 2021 December 14, 2021',
+                characters: [],
+            },
+            {
+                name: "Oni's Royale",
+                image: "assets/wishes/2.3 - Oni's Royale.avif",
+                characters: [
+                    {
+                        name: 'Arataki Itto',
+                        icon: 'assets/character/icon/Arataki Itto.avif',
+                    },
+                    {
+                        name: 'Gorou',
+                        icon: 'assets/character/icon/Gorou.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'December 14, 2021 January 04, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Redhorn Stonethresher',
+                        icon: 'assets/weapons/Redhorn Stonethresher.avif',
+                    },
+                    {
+                        name: 'Skyward Harp',
+                        icon: 'assets/weapons/Skyward Harp.avif',
+                    },
+                    {
+                        name: 'The Alley Flash',
+                        icon: 'assets/weapons/The Alley Flash.avif',
+                    },
+                    {
+                        name: 'Mitternachts Waltz',
+                        icon: 'assets/weapons/Mitternachts Waltz.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                ],
+                duration: 'December 14, 2021 January 04, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '2.4',
+        wishes: [
+            {
+                name: 'The Transcendent One Returns',
+                image: 'assets/wishes/2.4 - The Transcendent One Returns.avif',
+                characters: [
+                    {
+                        name: 'Shenhe',
+                        icon: 'assets/character/icon/Shenhe.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                ],
+                duration: 'January 05, 2022 January 25, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Invitation to Mundane Life',
+                image: 'assets/wishes/2.4 - Invitation to Mundane Life.avif',
+                characters: [
+                    {
+                        name: 'Xiao',
+                        icon: 'assets/character/icon/Xiao.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                ],
+                duration: 'January 05, 2022 January 25, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Calamity Queller',
+                        icon: 'assets/weapons/Calamity Queller.avif',
+                    },
+                    {
+                        name: 'Primordial Jade Winged-Spear',
+                        icon: 'assets/weapons/Primordial Jade Winged-Spear.avif',
+                    },
+                    {
+                        name: 'Lithic Spear',
+                        icon: 'assets/weapons/Lithic Spear.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'January 05, 2022 January 25, 2022',
+                characters: [],
+            },
+            {
+                name: 'Gentry of Hermitage',
+                image: 'assets/wishes/2.4 - Gentry of Hermitage.avif',
+                characters: [
+                    {
+                        name: 'Zhongli',
+                        icon: 'assets/character/icon/Zhongli.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'January 25, 2022 February 15, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Adrift in the Harbor',
+                image: 'assets/wishes/2.4 - Adrift in the Harbor.avif',
+                characters: [
+                    {
+                        name: 'Ganyu',
+                        icon: 'assets/character/icon/Ganyu.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'January 25, 2022 February 15, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Vortex Vanquisher',
+                        icon: 'assets/weapons/Vortex Vanquisher.avif',
+                    },
+                    {
+                        name: "Amos' Bow",
+                        icon: "assets/weapons/Amos' Bow.avif",
+                    },
+                    {
+                        name: 'Lithic Blade',
+                        icon: 'assets/weapons/Lithic Blade.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'January 25, 2022 February 15, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '2.5',
+        wishes: [
+            {
+                name: 'Everbloom Violet',
+                image: 'assets/wishes/2.5 - Everbloom Violet.avif',
+                characters: [
+                    {
+                        name: 'Yae Miko',
+                        icon: 'assets/character/icon/Yae Miko.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                ],
+                duration: 'February 16, 2022 March 08, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Kagura's Verity",
+                        icon: "assets/weapons/Kagura's Verity.avif",
+                    },
+                    {
+                        name: 'Primordial Jade Cutter',
+                        icon: 'assets/weapons/Primordial Jade Cutter.avif',
+                    },
+                    {
+                        name: "Wavebreaker's Fin",
+                        icon: "assets/weapons/Wavebreaker's Fin.avif",
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'February 16, 2022 March 08, 2022',
+                characters: [],
+            },
+            {
+                name: 'Reign of Serenity',
+                image: 'assets/wishes/2.5 - Reign of Serenity.avif',
+                characters: [
+                    {
+                        name: 'Raiden Shogun',
+                        icon: 'assets/character/icon/Raiden Shogun.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                ],
+                duration: 'March 08, 2022 March 29, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Drifting Luminescence',
+                image: 'assets/wishes/2.5 - Drifting Luminescence.avif',
+                characters: [
+                    {
+                        name: 'Sangonomiya Kokomi',
+                        icon: 'assets/character/icon/Sangonomiya Kokomi.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                ],
+                duration: 'March 08, 2022 March 29, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Engulfing Lightning',
+                        icon: 'assets/weapons/Engulfing Lightning.avif',
+                    },
+                    {
+                        name: 'Everlasting Moonglow',
+                        icon: 'assets/weapons/Everlasting Moonglow.avif',
+                    },
+                    {
+                        name: 'Akuoumaru',
+                        icon: 'assets/weapons/Akuoumaru.avif',
+                    },
+                    {
+                        name: "Mouun's Moon",
+                        icon: "assets/weapons/Mouun's Moon.avif",
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                ],
+                duration: 'March 08, 2022 March 29, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '2.6',
+        wishes: [
+            {
+                name: 'Azure Excursion',
+                image: 'assets/wishes/2.6 - Azure Excursion.avif',
+                characters: [
+                    {
+                        name: 'Kamisato Ayato',
+                        icon: 'assets/character/icon/Kamisato Ayato.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                ],
+                duration: 'March 30, 2022 April 19, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Ballad in Goblets',
+                image: 'assets/wishes/2.6 - Ballad in Goblets.avif',
+                characters: [
+                    {
+                        name: 'Venti',
+                        icon: 'assets/character/icon/Venti.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                ],
+                duration: 'March 30, 2022 April 19, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Haran Geppaku Futsu',
+                        icon: 'assets/weapons/Haran Geppaku Futsu.avif',
+                    },
+                    {
+                        name: 'Elegy for the End',
+                        icon: 'assets/weapons/Elegy for the End.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'March 30, 2022 April 19, 2022',
+                characters: [],
+            },
+            {
+                name: "The Heron's Court",
+                image: "assets/wishes/2.6 - The Heron's Court.avif",
+                characters: [
+                    {
+                        name: 'Kamisato Ayaka',
+                        icon: 'assets/character/icon/Kamisato Ayaka.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                ],
+                duration: 'April 19, 2022 May 31, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Mistsplitter Reforged',
+                        icon: 'assets/weapons/Mistsplitter Reforged.avif',
+                    },
+                    {
+                        name: 'The Unforged',
+                        icon: 'assets/weapons/The Unforged.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'April 19, 2022 May 31, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '2.7',
+        wishes: [
+            {
+                name: 'Discerner of Enigmas',
+                image: 'assets/wishes/2.7 - Discerner of Enigmas.avif',
+                characters: [
+                    {
+                        name: 'Yelan',
+                        icon: 'assets/character/icon/Yelan.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                ],
+                duration: 'May 31, 2022 June 21, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Invitation to Mundane Life',
+                image: 'assets/wishes/2.7 - Invitation to Mundane Life.avif',
+                characters: [
+                    {
+                        name: 'Xiao',
+                        icon: 'assets/character/icon/Xiao.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                ],
+                duration: 'May 31, 2022 June 21, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.7 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Aqua Simulacra',
+                        icon: 'assets/weapons/Aqua Simulacra.avif',
+                    },
+                    {
+                        name: 'Primordial Jade Winged-Spear',
+                        icon: 'assets/weapons/Primordial Jade Winged-Spear.avif',
+                    },
+                    {
+                        name: 'Lithic Spear',
+                        icon: 'assets/weapons/Lithic Spear.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                ],
+                duration: 'May 31, 2022 June 21, 2022',
+                characters: [],
+            },
+            {
+                name: "Oni's Royale",
+                image: "assets/wishes/2.7 - Oni's Royale.avif",
+                characters: [
+                    {
+                        name: 'Arataki Itto',
+                        icon: 'assets/character/icon/Arataki Itto.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                    {
+                        name: 'Gorou',
+                        icon: 'assets/character/icon/Gorou.avif',
+                    },
+                ],
+                duration: 'June 21, 2022 July 12, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.7 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Redhorn Stonethresher',
+                        icon: 'assets/weapons/Redhorn Stonethresher.avif',
+                    },
+                    {
+                        name: 'Memory of Dust',
+                        icon: 'assets/weapons/Memory of Dust.avif',
+                    },
+                    {
+                        name: 'Lithic Blade',
+                        icon: 'assets/weapons/Lithic Blade.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'June 21, 2022 July 12, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '2.8',
+        wishes: [
+            {
+                name: 'Leaves in the Wind',
+                image: 'assets/wishes/2.8 - Leaves in the Wind.avif',
+                characters: [
+                    {
+                        name: 'Kaedehara Kazuha',
+                        icon: 'assets/character/icon/Kaedehara Kazuha.avif',
+                    },
+                    {
+                        name: 'Shikanoin Heizou',
+                        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                ],
+                duration: 'July 13, 2022 August 02, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Sparkling Steps',
+                image: 'assets/wishes/2.8 - Sparkling Steps.avif',
+                characters: [
+                    {
+                        name: 'Klee',
+                        icon: 'assets/character/icon/Klee.avif',
+                    },
+                    {
+                        name: 'Shikanoin Heizou',
+                        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                ],
+                duration: 'July 13, 2022 August 02, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.8 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Freedom-Sworn',
+                        icon: 'assets/weapons/Freedom-Sworn.avif',
+                    },
+                    {
+                        name: 'Lost Prayer to the Sacred Winds',
+                        icon: 'assets/weapons/Lost Prayer to the Sacred Winds.avif',
+                    },
+                    {
+                        name: 'The Alley Flash',
+                        icon: 'assets/weapons/The Alley Flash.avif',
+                    },
+                    {
+                        name: 'Mitternachts Waltz',
+                        icon: 'assets/weapons/Mitternachts Waltz.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                ],
+                duration: 'July 13, 2022 August 02, 2022',
+                characters: [],
+            },
+            {
+                name: 'Tapestry of Golden Flames',
+                image: 'assets/wishes/2.8 - Tapestry of Golden Flames.avif',
+                characters: [
+                    {
+                        name: 'Yoimiya',
+                        icon: 'assets/character/icon/Yoimiya.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                ],
+                duration: 'August 02, 2022 August 23, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/2.8 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Thundering Pulse',
+                        icon: 'assets/weapons/Thundering Pulse.avif',
+                    },
+                    {
+                        name: 'Summit Shaper',
+                        icon: 'assets/weapons/Summit Shaper.avif',
+                    },
+                    {
+                        name: 'Wine and Song',
+                        icon: 'assets/weapons/Wine and Song.avif',
+                    },
+                    {
+                        name: 'Alley Hunter',
+                        icon: 'assets/weapons/Alley Hunter.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                ],
+                duration: 'August 02, 2022 August 23, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.0',
+        wishes: [
+            {
+                name: 'Viridescent Vigil',
+                image: 'assets/wishes/3.0 - Viridescent Vigil.avif',
+                characters: [
+                    {
+                        name: 'Tighnari',
+                        icon: 'assets/character/icon/Tighnari.avif',
+                    },
+                    {
+                        name: 'Collei',
+                        icon: 'assets/character/icon/Collei.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                ],
+                duration: 'August 24, 2022 September 09, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Gentry of Hermitage',
+                image: 'assets/wishes/3.0 - Gentry of Hermitage.avif',
+                characters: [
+                    {
+                        name: 'Zhongli',
+                        icon: 'assets/character/icon/Zhongli.avif',
+                    },
+                    {
+                        name: 'Collei',
+                        icon: 'assets/character/icon/Collei.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                ],
+                duration: 'August 24, 2022 September 09, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Hunter's Path",
+                        icon: "assets/weapons/Hunter's Path.avif",
+                    },
+                    {
+                        name: 'Vortex Vanquisher',
+                        icon: 'assets/weapons/Vortex Vanquisher.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'August 24, 2022 September 09, 2022',
+                characters: [],
+            },
+            {
+                name: 'Adrift in the Harbor',
+                image: 'assets/wishes/3.0 - Adrift in the Harbor.avif',
+                characters: [
+                    {
+                        name: 'Ganyu',
+                        icon: 'assets/character/icon/Ganyu.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                ],
+                duration: 'September 09, 2022 September 27, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Drifting Luminescence',
+                image: 'assets/wishes/3.0 - Drifting Luminescence.avif',
+                characters: [
+                    {
+                        name: 'Sangonomiya Kokomi',
+                        icon: 'assets/character/icon/Sangonomiya Kokomi.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                ],
+                duration: 'September 09, 2022 September 27, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Everlasting Moonglow',
+                        icon: 'assets/weapons/Everlasting Moonglow.avif',
+                    },
+                    {
+                        name: "Amos' Bow",
+                        icon: "assets/weapons/Amos' Bow.avif",
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'September 09, 2022 September 27, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.1',
+        wishes: [
+            {
+                name: 'Twilight Arbiter',
+                image: 'assets/wishes/3.1 - Twilight Arbiter.avif',
+                characters: [
+                    {
+                        name: 'Cyno',
+                        icon: 'assets/character/icon/Cyno.avif',
+                    },
+                    {
+                        name: 'Candace',
+                        icon: 'assets/character/icon/Candace.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                ],
+                duration: 'September 28, 2022 October 14, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Ballad in Goblets',
+                image: 'assets/wishes/3.1 - Ballad in Goblets.avif',
+                characters: [
+                    {
+                        name: 'Venti',
+                        icon: 'assets/character/icon/Venti.avif',
+                    },
+                    {
+                        name: 'Candace',
+                        icon: 'assets/character/icon/Candace.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                ],
+                duration: 'September 28, 2022 October 14, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Staff of the Scarlet Sands',
+                        icon: 'assets/weapons/Staff of the Scarlet Sands.avif',
+                    },
+                    {
+                        name: 'Elegy for the End',
+                        icon: 'assets/weapons/Elegy for the End.avif',
+                    },
+                    {
+                        name: 'Makhaira Aquamarine',
+                        icon: 'assets/weapons/Makhaira Aquamarine.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'September 28, 2022 October 14, 2022',
+                characters: [],
+            },
+            {
+                name: 'Twirling Lotus',
+                image: 'assets/wishes/3.1 - Twirling Lotus.avif',
+                characters: [
+                    {
+                        name: 'Nilou',
+                        icon: 'assets/character/icon/Nilou.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'October 14, 2022 November 01, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Secretum Secretorum',
+                image: 'assets/wishes/3.1 - Secretum Secretorum.avif',
+                characters: [
+                    {
+                        name: 'Albedo',
+                        icon: 'assets/character/icon/Albedo.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'October 14, 2022 November 01, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Key of Khaj-Nisut',
+                        icon: 'assets/weapons/Key of Khaj-Nisut.avif',
+                    },
+                    {
+                        name: 'Primordial Jade Cutter',
+                        icon: 'assets/weapons/Primordial Jade Cutter.avif',
+                    },
+                    {
+                        name: "Xiphos' Moonlight",
+                        icon: "assets/weapons/Xiphos' Moonlight.avif",
+                    },
+                    {
+                        name: 'Wandering Evenstar',
+                        icon: 'assets/weapons/Wandering Evenstar.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'October 14, 2022 November 01, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.2',
+        wishes: [
+            {
+                name: "The Moongrass' Enlightenment",
+                image: "assets/wishes/3.2 - The Moongrass' Enlightenment.avif",
+                characters: [
+                    {
+                        name: 'Nahida',
+                        icon: 'assets/character/icon/Nahida.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                ],
+                duration: 'November 02, 2022 November 18, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Tapestry of Golden Flames',
+                image: 'assets/wishes/3.2 - Tapestry of Golden Flames.avif',
+                characters: [
+                    {
+                        name: 'Yoimiya',
+                        icon: 'assets/character/icon/Yoimiya.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                ],
+                duration: 'November 02, 2022 November 18, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'A Thousand Floating Dreams',
+                        icon: 'assets/weapons/A Thousand Floating Dreams.avif',
+                    },
+                    {
+                        name: 'Thundering Pulse',
+                        icon: 'assets/weapons/Thundering Pulse.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'November 02, 2022 November 18, 2022',
+                characters: [],
+            },
+            {
+                name: 'Everbloom Violet',
+                image: 'assets/wishes/3.2 - Everbloom Violet.avif',
+                characters: [
+                    {
+                        name: 'Yae Miko',
+                        icon: 'assets/character/icon/Yae Miko.avif',
+                    },
+                    {
+                        name: 'Layla',
+                        icon: 'assets/character/icon/Layla.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                    {
+                        name: 'Shikanoin Heizou',
+                        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+                    },
+                ],
+                duration: 'November 18, 2022 December 06, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Farewell of Snezhnaya',
+                image: 'assets/wishes/3.2 - Farewell of Snezhnaya.avif',
+                characters: [
+                    {
+                        name: 'Tartaglia',
+                        icon: 'assets/character/icon/Tartaglia.avif',
+                    },
+                    {
+                        name: 'Layla',
+                        icon: 'assets/character/icon/Layla.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                    {
+                        name: 'Shikanoin Heizou',
+                        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+                    },
+                ],
+                duration: 'November 18, 2022 December 06, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Kagura's Verity",
+                        icon: "assets/weapons/Kagura's Verity.avif",
+                    },
+                    {
+                        name: 'Polar Star',
+                        icon: 'assets/weapons/Polar Star.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'November 18, 2022 December 06, 2022',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.3',
+        wishes: [
+            {
+                name: 'From Ashes Reborn',
+                image: 'assets/wishes/3.3 - From Ashes Reborn.avif',
+                characters: [
+                    {
+                        name: 'Wanderer',
+                        icon: 'assets/character/icon/Wanderer.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Gorou',
+                        icon: 'assets/character/icon/Gorou.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'December 07, 2022 December 27, 2022',
+                weapons: [],
+            },
+            {
+                name: "Oni's Royale",
+                image: "assets/wishes/3.3 - Oni's Royale.avif",
+                characters: [
+                    {
+                        name: 'Arataki Itto',
+                        icon: 'assets/character/icon/Arataki Itto.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Gorou',
+                        icon: 'assets/character/icon/Gorou.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'December 07, 2022 December 27, 2022',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Tulaytullah's Remembrance",
+                        icon: "assets/weapons/Tulaytullah's Remembrance.avif",
+                    },
+                    {
+                        name: 'Redhorn Stonethresher',
+                        icon: 'assets/weapons/Redhorn Stonethresher.avif',
+                    },
+                    {
+                        name: "Wavebreaker's Fin",
+                        icon: "assets/weapons/Wavebreaker's Fin.avif",
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'December 07, 2022 December 27, 2022',
+                characters: [],
+            },
+            {
+                name: 'Reign of Serenity',
+                image: 'assets/wishes/3.3 - Reign of Serenity.avif',
+                characters: [
+                    {
+                        name: 'Raiden Shogun',
+                        icon: 'assets/character/icon/Raiden Shogun.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                ],
+                duration: 'December 27, 2022 January 17, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Azure Excursion',
+                image: 'assets/wishes/3.3 - Azure Excursion.avif',
+                characters: [
+                    {
+                        name: 'Kamisato Ayato',
+                        icon: 'assets/character/icon/Kamisato Ayato.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                ],
+                duration: 'December 27, 2022 January 17, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Engulfing Lightning',
+                        icon: 'assets/weapons/Engulfing Lightning.avif',
+                    },
+                    {
+                        name: 'Haran Geppaku Futsu',
+                        icon: 'assets/weapons/Haran Geppaku Futsu.avif',
+                    },
+                    {
+                        name: 'Akuoumaru',
+                        icon: 'assets/weapons/Akuoumaru.avif',
+                    },
+                    {
+                        name: "Mouun's Moon",
+                        icon: "assets/weapons/Mouun's Moon.avif",
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                ],
+                duration: 'December 27, 2022 January 17, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.4',
+        wishes: [
+            {
+                name: 'Caution in Confidence',
+                image: 'assets/wishes/3.4 - Caution in Confidence.avif',
+                characters: [
+                    {
+                        name: 'Alhaitham',
+                        icon: 'assets/character/icon/Alhaitham.avif',
+                    },
+                    {
+                        name: 'Yaoyao',
+                        icon: 'assets/character/icon/Yaoyao.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                ],
+                duration: 'January 18, 2023 February 07, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Invitation to Mundane Life',
+                image: 'assets/wishes/3.4 - Invitation to Mundane Life.avif',
+                characters: [
+                    {
+                        name: 'Xiao',
+                        icon: 'assets/character/icon/Xiao.avif',
+                    },
+                    {
+                        name: 'Yaoyao',
+                        icon: 'assets/character/icon/Yaoyao.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                ],
+                duration: 'January 18, 2023 February 07, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Light of Foliar Incision',
+                        icon: 'assets/weapons/Light of Foliar Incision.avif',
+                    },
+                    {
+                        name: 'Primordial Jade Winged-Spear',
+                        icon: 'assets/weapons/Primordial Jade Winged-Spear.avif',
+                    },
+                    {
+                        name: 'Lithic Spear',
+                        icon: 'assets/weapons/Lithic Spear.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'January 18, 2023 February 07, 2023',
+                characters: [],
+            },
+            {
+                name: 'Moment of Bloom',
+                image: 'assets/wishes/3.4 - Moment of Bloom.avif',
+                characters: [
+                    {
+                        name: 'Hu Tao',
+                        icon: 'assets/character/icon/Hu Tao.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                ],
+                duration: 'February 07, 2023 February 28, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Discerner of Enigmas',
+                image: 'assets/wishes/3.4 - Discerner of Enigmas.avif',
+                characters: [
+                    {
+                        name: 'Yelan',
+                        icon: 'assets/character/icon/Yelan.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                ],
+                duration: 'February 07, 2023 February 28, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Staff of Homa',
+                        icon: 'assets/weapons/Staff of Homa.avif',
+                    },
+                    {
+                        name: 'Aqua Simulacra',
+                        icon: 'assets/weapons/Aqua Simulacra.avif',
+                    },
+                    {
+                        name: 'Lithic Blade',
+                        icon: 'assets/weapons/Lithic Blade.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'February 07, 2023 February 28, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.5',
+        wishes: [
+            {
+                name: 'Auric Blaze',
+                image: 'assets/wishes/3.5 - Auric Blaze.avif',
+                characters: [
+                    {
+                        name: 'Dehya',
+                        icon: 'assets/character/icon/Dehya.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Collei',
+                        icon: 'assets/character/icon/Collei.avif',
+                    },
+                ],
+                duration: 'March 01, 2023 March 21, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Twilight Arbiter',
+                image: 'assets/wishes/3.5 - Twilight Arbiter.avif',
+                characters: [
+                    {
+                        name: 'Cyno',
+                        icon: 'assets/character/icon/Cyno.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Collei',
+                        icon: 'assets/character/icon/Collei.avif',
+                    },
+                ],
+                duration: 'March 01, 2023 March 21, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Beacon of the Reed Sea',
+                        icon: 'assets/weapons/Beacon of the Reed Sea.avif',
+                    },
+                    {
+                        name: 'Staff of the Scarlet Sands',
+                        icon: 'assets/weapons/Staff of the Scarlet Sands.avif',
+                    },
+                    {
+                        name: 'The Alley Flash',
+                        icon: 'assets/weapons/The Alley Flash.avif',
+                    },
+                    {
+                        name: 'Alley Hunter',
+                        icon: 'assets/weapons/Alley Hunter.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                ],
+                duration: 'March 01, 2023 March 21, 2023',
+                characters: [],
+            },
+            {
+                name: 'The Transcendent One Returns',
+                image: 'assets/wishes/3.5 - The Transcendent One Returns.avif',
+                characters: [
+                    {
+                        name: 'Shenhe',
+                        icon: 'assets/character/icon/Shenhe.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Mika',
+                        icon: 'assets/character/icon/Mika.avif',
+                    },
+                ],
+                duration: 'March 21, 2023 April 11, 2023',
+                weapons: [],
+            },
+            {
+                name: "The Heron's Court",
+                image: "assets/wishes/3.5 - The Heron's Court.avif",
+                characters: [
+                    {
+                        name: 'Kamisato Ayaka',
+                        icon: 'assets/character/icon/Kamisato Ayaka.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Mika',
+                        icon: 'assets/character/icon/Mika.avif',
+                    },
+                ],
+                duration: 'March 21, 2023 April 11, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Calamity Queller',
+                        icon: 'assets/weapons/Calamity Queller.avif',
+                    },
+                    {
+                        name: 'Mistsplitter Reforged',
+                        icon: 'assets/weapons/Mistsplitter Reforged.avif',
+                    },
+                    {
+                        name: 'Wine and Song',
+                        icon: 'assets/weapons/Wine and Song.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'March 21, 2023 April 11, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.6',
+        wishes: [
+            {
+                name: "The Moongrass' Enlightenment",
+                image: "assets/wishes/3.6 - The Moongrass' Enlightenment.avif",
+                characters: [
+                    {
+                        name: 'Nahida',
+                        icon: 'assets/character/icon/Nahida.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                    {
+                        name: 'Layla',
+                        icon: 'assets/character/icon/Layla.avif',
+                    },
+                ],
+                duration: 'April 12, 2023 May 02, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Twirling Lotus',
+                image: 'assets/wishes/3.6 - Twirling Lotus.avif',
+                characters: [
+                    {
+                        name: 'Nilou',
+                        icon: 'assets/character/icon/Nilou.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                    {
+                        name: 'Layla',
+                        icon: 'assets/character/icon/Layla.avif',
+                    },
+                ],
+                duration: 'April 12, 2023 May 02, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'A Thousand Floating Dreams',
+                        icon: 'assets/weapons/A Thousand Floating Dreams.avif',
+                    },
+                    {
+                        name: 'Key of Khaj-Nisut',
+                        icon: 'assets/weapons/Key of Khaj-Nisut.avif',
+                    },
+                    {
+                        name: "Xiphos' Moonlight",
+                        icon: "assets/weapons/Xiphos' Moonlight.avif",
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'April 12, 2023 May 02, 2023',
+                characters: [],
+            },
+            {
+                name: 'Immaculate Pulse',
+                image: 'assets/wishes/3.6 - Immaculate Pulse.avif',
+                characters: [
+                    {
+                        name: 'Baizhu',
+                        icon: 'assets/character/icon/Baizhu.avif',
+                    },
+                    {
+                        name: 'Kaveh',
+                        icon: 'assets/character/icon/Kaveh.avif',
+                    },
+                    {
+                        name: 'Candace',
+                        icon: 'assets/character/icon/Candace.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                ],
+                duration: 'May 02, 2023 May 23, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Adrift in the Harbor',
+                image: 'assets/wishes/3.6 - Adrift in the Harbor.avif',
+                characters: [
+                    {
+                        name: 'Ganyu',
+                        icon: 'assets/character/icon/Ganyu.avif',
+                    },
+                    {
+                        name: 'Kaveh',
+                        icon: 'assets/character/icon/Kaveh.avif',
+                    },
+                    {
+                        name: 'Candace',
+                        icon: 'assets/character/icon/Candace.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                ],
+                duration: 'May 02, 2023 May 23, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Jadefall's Splendor",
+                        icon: "assets/weapons/Jadefall's Splendor.avif",
+                    },
+                    {
+                        name: "Amos' Bow",
+                        icon: "assets/weapons/Amos' Bow.avif",
+                    },
+                    {
+                        name: 'Makhaira Aquamarine',
+                        icon: 'assets/weapons/Makhaira Aquamarine.avif',
+                    },
+                    {
+                        name: 'Wandering Evenstar',
+                        icon: 'assets/weapons/Wandering Evenstar.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'May 02, 2023 May 23, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.7',
+        wishes: [
+            {
+                name: 'Tapestry of Golden Flames',
+                image: 'assets/wishes/3.7 - Tapestry of Golden Flames.avif',
+                characters: [
+                    {
+                        name: 'Yoimiya',
+                        icon: 'assets/character/icon/Yoimiya.avif',
+                    },
+                    {
+                        name: 'Kirara',
+                        icon: 'assets/character/icon/Kirara.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                ],
+                duration: 'May 24, 2023 June 13, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Everbloom Violet',
+                image: 'assets/wishes/3.7 - Everbloom Violet.avif',
+                characters: [
+                    {
+                        name: 'Yae Miko',
+                        icon: 'assets/character/icon/Yae Miko.avif',
+                    },
+                    {
+                        name: 'Kirara',
+                        icon: 'assets/character/icon/Kirara.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                ],
+                duration: 'May 24, 2023 June 13, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.7 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Thundering Pulse',
+                        icon: 'assets/weapons/Thundering Pulse.avif',
+                    },
+                    {
+                        name: "Kagura's Verity",
+                        icon: "assets/weapons/Kagura's Verity.avif",
+                    },
+                    {
+                        name: 'Akuoumaru',
+                        icon: 'assets/weapons/Akuoumaru.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'May 24, 2023 June 13, 2023',
+                characters: [],
+            },
+            {
+                name: 'Caution in Confidence',
+                image: 'assets/wishes/3.7 - Caution in Confidence.avif',
+                characters: [
+                    {
+                        name: 'Alhaitham',
+                        icon: 'assets/character/icon/Alhaitham.avif',
+                    },
+                    {
+                        name: 'Shikanoin Heizou',
+                        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Yaoyao',
+                        icon: 'assets/character/icon/Yaoyao.avif',
+                    },
+                ],
+                duration: 'June 13, 2023 July 04, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Leaves in the Wind',
+                image: 'assets/wishes/3.7 - Leaves in the Wind.avif',
+                characters: [
+                    {
+                        name: 'Kaedehara Kazuha',
+                        icon: 'assets/character/icon/Kaedehara Kazuha.avif',
+                    },
+                    {
+                        name: 'Shikanoin Heizou',
+                        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Yaoyao',
+                        icon: 'assets/character/icon/Yaoyao.avif',
+                    },
+                ],
+                duration: 'June 13, 2023 July 04, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.7 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Light of Foliar Incision',
+                        icon: 'assets/weapons/Light of Foliar Incision.avif',
+                    },
+                    {
+                        name: 'Freedom-Sworn',
+                        icon: 'assets/weapons/Freedom-Sworn.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: "Mouun's Moon",
+                        icon: "assets/weapons/Mouun's Moon.avif",
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: "Wavebreaker's Fin",
+                        icon: "assets/weapons/Wavebreaker's Fin.avif",
+                    },
+                ],
+                duration: 'June 13, 2023 July 04, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '3.8',
+        wishes: [
+            {
+                name: 'Born of Ocean Swell',
+                image: 'assets/wishes/3.8 - Born of Ocean Swell.avif',
+                characters: [
+                    {
+                        name: 'Eula',
+                        icon: 'assets/character/icon/Eula.avif',
+                    },
+                    {
+                        name: 'Mika',
+                        icon: 'assets/character/icon/Mika.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                ],
+                duration: 'July 05, 2023 July 25, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Sparkling Steps',
+                image: 'assets/wishes/3.8 - Sparkling Steps.avif',
+                characters: [
+                    {
+                        name: 'Klee',
+                        icon: 'assets/character/icon/Klee.avif',
+                    },
+                    {
+                        name: 'Mika',
+                        icon: 'assets/character/icon/Mika.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                ],
+                duration: 'July 05, 2023 July 25, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.8 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Song of Broken Pines',
+                        icon: 'assets/weapons/Song of Broken Pines.avif',
+                    },
+                    {
+                        name: 'Lost Prayer to the Sacred Winds',
+                        icon: 'assets/weapons/Lost Prayer to the Sacred Winds.avif',
+                    },
+                    {
+                        name: 'The Alley Flash',
+                        icon: 'assets/weapons/The Alley Flash.avif',
+                    },
+                    {
+                        name: 'Alley Hunter',
+                        icon: 'assets/weapons/Alley Hunter.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                ],
+                duration: 'July 05, 2023 July 25, 2023',
+                characters: [],
+            },
+            {
+                name: 'Drifting Luminescence',
+                image: 'assets/wishes/3.8 - Drifting Luminescence.avif',
+                characters: [
+                    {
+                        name: 'Sangonomiya Kokomi',
+                        icon: 'assets/character/icon/Sangonomiya Kokomi.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'July 25, 2023 August 15, 2023',
+                weapons: [],
+            },
+            {
+                name: 'From Ashes Reborn',
+                image: 'assets/wishes/3.8 - From Ashes Reborn.avif',
+                characters: [
+                    {
+                        name: 'Wanderer',
+                        icon: 'assets/character/icon/Wanderer.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'July 25, 2023 August 15, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/3.8 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Everlasting Moonglow',
+                        icon: 'assets/weapons/Everlasting Moonglow.avif',
+                    },
+                    {
+                        name: "Tulaytullah's Remembrance",
+                        icon: "assets/weapons/Tulaytullah's Remembrance.avif",
+                    },
+                    {
+                        name: 'Wine and Song',
+                        icon: 'assets/weapons/Wine and Song.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'July 25, 2023 August 15, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.0',
+        wishes: [
+            {
+                name: 'Conjuring Chiaroscuro',
+                image: 'assets/wishes/4.0 - Conjuring Chiaroscuro.avif',
+                characters: [
+                    {
+                        name: 'Lyney',
+                        icon: 'assets/character/icon/Lyney.avif',
+                    },
+                    {
+                        name: 'Lynette',
+                        icon: 'assets/character/icon/Lynette.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                ],
+                duration: 'August 16, 2023 September 05, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Discerner of Enigmas',
+                image: 'assets/wishes/4.0 - Discerner of Enigmas.avif',
+                characters: [
+                    {
+                        name: 'Yelan',
+                        icon: 'assets/character/icon/Yelan.avif',
+                    },
+                    {
+                        name: 'Lynette',
+                        icon: 'assets/character/icon/Lynette.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                ],
+                duration: 'August 16, 2023 September 05, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'The First Great Magic',
+                        icon: 'assets/weapons/The First Great Magic.avif',
+                    },
+                    {
+                        name: 'Aqua Simulacra',
+                        icon: 'assets/weapons/Aqua Simulacra.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'August 16, 2023 September 05, 2023',
+                characters: [],
+            },
+            {
+                name: 'Gentry of Hermitage',
+                image: 'assets/wishes/4.0 - Gentry of Hermitage.avif',
+                characters: [
+                    {
+                        name: 'Zhongli',
+                        icon: 'assets/character/icon/Zhongli.avif',
+                    },
+                    {
+                        name: 'Freminet',
+                        icon: 'assets/character/icon/Freminet.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                ],
+                duration: 'September 05, 2023 September 26, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Farewell of Snezhnaya',
+                image: 'assets/wishes/4.0 - Farewell of Snezhnaya.avif',
+                characters: [
+                    {
+                        name: 'Tartaglia',
+                        icon: 'assets/character/icon/Tartaglia.avif',
+                    },
+                    {
+                        name: 'Freminet',
+                        icon: 'assets/character/icon/Freminet.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                ],
+                duration: 'September 05, 2023 September 26, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Vortex Vanquisher',
+                        icon: 'assets/weapons/Vortex Vanquisher.avif',
+                    },
+                    {
+                        name: 'Polar Star',
+                        icon: 'assets/weapons/Polar Star.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'September 05, 2023 September 26, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.1',
+        wishes: [
+            {
+                name: 'Decree of the Deeps',
+                image: 'assets/wishes/4.1 - Decree of the Deeps.avif',
+                characters: [
+                    {
+                        name: 'Neuvillette',
+                        icon: 'assets/character/icon/Neuvillette.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                ],
+                duration: 'September 27, 2023 October 17, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Moment of Bloom',
+                image: 'assets/wishes/4.1 - Moment of Bloom.avif',
+                characters: [
+                    {
+                        name: 'Hu Tao',
+                        icon: 'assets/character/icon/Hu Tao.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                ],
+                duration: 'September 27, 2023 October 17, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Tome of the Eternal Flow',
+                        icon: 'assets/weapons/Tome of the Eternal Flow.avif',
+                    },
+                    {
+                        name: 'Staff of Homa',
+                        icon: 'assets/weapons/Staff of Homa.avif',
+                    },
+                    {
+                        name: "The Dockhand's Assistant",
+                        icon: "assets/weapons/The Dockhand's Assistant.avif",
+                    },
+                    {
+                        name: 'Portable Power Saw',
+                        icon: 'assets/weapons/Portable Power Saw.avif',
+                    },
+                    {
+                        name: 'Mitternachts Waltz',
+                        icon: 'assets/weapons/Mitternachts Waltz.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                ],
+                duration: 'September 27, 2023 October 17, 2023',
+                characters: [],
+            },
+            {
+                name: 'Tempestuous Destiny',
+                image: 'assets/wishes/4.1 - Tempestuous Destiny.avif',
+                characters: [
+                    {
+                        name: 'Wriothesley',
+                        icon: 'assets/character/icon/Wriothesley.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                ],
+                duration: 'October 17, 2023 November 07, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Ballad in Goblets',
+                image: 'assets/wishes/4.1 - Ballad in Goblets.avif',
+                characters: [
+                    {
+                        name: 'Venti',
+                        icon: 'assets/character/icon/Venti.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                ],
+                duration: 'October 17, 2023 November 07, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Cashflow Supervision',
+                        icon: 'assets/weapons/Cashflow Supervision.avif',
+                    },
+                    {
+                        name: 'Elegy for the End',
+                        icon: 'assets/weapons/Elegy for the End.avif',
+                    },
+                    {
+                        name: "Prospector's Drill",
+                        icon: "assets/weapons/Prospector's Drill.avif",
+                    },
+                    {
+                        name: 'Range Gauge',
+                        icon: 'assets/weapons/Range Gauge.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                ],
+                duration: 'October 17, 2023 November 07, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.2',
+        wishes: [
+            {
+                name: 'Chanson of Many Waters',
+                image: 'assets/wishes/4.2 - Chanson of Many Waters.avif',
+                characters: [
+                    {
+                        name: 'Furina',
+                        icon: 'assets/character/icon/Furina.avif',
+                    },
+                    {
+                        name: 'Charlotte',
+                        icon: 'assets/character/icon/Charlotte.avif',
+                    },
+                    {
+                        name: 'Collei',
+                        icon: 'assets/character/icon/Collei.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                ],
+                duration: 'November 08, 2023 November 28, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Immaculate Pulse',
+                image: 'assets/wishes/4.2 - Immaculate Pulse.avif',
+                characters: [
+                    {
+                        name: 'Baizhu',
+                        icon: 'assets/character/icon/Baizhu.avif',
+                    },
+                    {
+                        name: 'Charlotte',
+                        icon: 'assets/character/icon/Charlotte.avif',
+                    },
+                    {
+                        name: 'Collei',
+                        icon: 'assets/character/icon/Collei.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                ],
+                duration: 'November 08, 2023 November 28, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Splendor of Tranquil Waters',
+                        icon: 'assets/weapons/Splendor of Tranquil Waters.avif',
+                    },
+                    {
+                        name: "Jadefall's Splendor",
+                        icon: "assets/weapons/Jadefall's Splendor.avif",
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'November 08, 2023 November 28, 2023',
+                characters: [],
+            },
+            {
+                name: 'Twilight Arbiter',
+                image: 'assets/wishes/4.2 - Twilight Arbiter.avif',
+                characters: [
+                    {
+                        name: 'Cyno',
+                        icon: 'assets/character/icon/Cyno.avif',
+                    },
+                    {
+                        name: 'Kirara',
+                        icon: 'assets/character/icon/Kirara.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'November 28, 2023 December 19, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Azure Excursion',
+                image: 'assets/wishes/4.2 - Azure Excursion.avif',
+                characters: [
+                    {
+                        name: 'Kamisato Ayato',
+                        icon: 'assets/character/icon/Kamisato Ayato.avif',
+                    },
+                    {
+                        name: 'Kirara',
+                        icon: 'assets/character/icon/Kirara.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'November 28, 2023 December 19, 2023',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Staff of the Scarlet Sands',
+                        icon: 'assets/weapons/Staff of the Scarlet Sands.avif',
+                    },
+                    {
+                        name: 'Haran Geppaku Futsu',
+                        icon: 'assets/weapons/Haran Geppaku Futsu.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'November 28, 2023 December 19, 2023',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.3',
+        wishes: [
+            {
+                name: 'In the Name of the Rosula',
+                image: 'assets/wishes/4.3 - In the Name of the Rosula.avif',
+                characters: [
+                    {
+                        name: 'Navia',
+                        icon: 'assets/character/icon/Navia.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Candace',
+                        icon: 'assets/character/icon/Candace.avif',
+                    },
+                ],
+                duration: 'December 20, 2023 January 09, 2024',
+                weapons: [],
+            },
+            {
+                name: "The Heron's Court",
+                image: "assets/wishes/4.3 - The Heron's Court.avif",
+                characters: [
+                    {
+                        name: 'Kamisato Ayaka',
+                        icon: 'assets/character/icon/Kamisato Ayaka.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                    {
+                        name: 'Candace',
+                        icon: 'assets/character/icon/Candace.avif',
+                    },
+                ],
+                duration: 'December 20, 2023 January 09, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Verdict',
+                        icon: 'assets/weapons/Verdict.avif',
+                    },
+                    {
+                        name: 'Mistsplitter Reforged',
+                        icon: 'assets/weapons/Mistsplitter Reforged.avif',
+                    },
+                    {
+                        name: 'Akuoumaru',
+                        icon: 'assets/weapons/Akuoumaru.avif',
+                    },
+                    {
+                        name: "Mouun's Moon",
+                        icon: "assets/weapons/Mouun's Moon.avif",
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                ],
+                duration: 'December 20, 2023 January 09, 2024',
+                characters: [],
+            },
+            {
+                name: 'Reign of Serenity',
+                image: 'assets/wishes/4.3 - Reign of Serenity.avif',
+                characters: [
+                    {
+                        name: 'Raiden Shogun',
+                        icon: 'assets/character/icon/Raiden Shogun.avif',
+                    },
+                    {
+                        name: 'Chevreuse',
+                        icon: 'assets/character/icon/Chevreuse.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                ],
+                duration: 'January 09, 2024 January 30, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Tapestry of Golden Flames',
+                image: 'assets/wishes/4.3 - Tapestry of Golden Flames.avif',
+                characters: [
+                    {
+                        name: 'Yoimiya',
+                        icon: 'assets/character/icon/Yoimiya.avif',
+                    },
+                    {
+                        name: 'Chevreuse',
+                        icon: 'assets/character/icon/Chevreuse.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                ],
+                duration: 'January 09, 2024 January 30, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Engulfing Lightning',
+                        icon: 'assets/weapons/Engulfing Lightning.avif',
+                    },
+                    {
+                        name: 'Thundering Pulse',
+                        icon: 'assets/weapons/Thundering Pulse.avif',
+                    },
+                    {
+                        name: "Wavebreaker's Fin",
+                        icon: "assets/weapons/Wavebreaker's Fin.avif",
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'January 09, 2024 January 30, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.4',
+        wishes: [
+            {
+                name: 'The Crane Soars Skyward',
+                image: 'assets/wishes/4.4 - The Crane Soars Skyward.avif',
+                characters: [
+                    {
+                        name: 'Xianyun',
+                        icon: 'assets/character/icon/Xianyun.avif',
+                    },
+                    {
+                        name: 'Gaming',
+                        icon: 'assets/character/icon/Gaming.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                ],
+                duration: 'January 31, 2024 February 20, 2024',
+                weapons: [],
+            },
+            {
+                name: "The Moongrass' Enlightenment",
+                image: "assets/wishes/4.4 - The Moongrass' Enlightenment.avif",
+                characters: [
+                    {
+                        name: 'Nahida',
+                        icon: 'assets/character/icon/Nahida.avif',
+                    },
+                    {
+                        name: 'Gaming',
+                        icon: 'assets/character/icon/Gaming.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                ],
+                duration: 'January 31, 2024 February 20, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Crane's Echoing Call",
+                        icon: "assets/weapons/Crane's Echoing Call.avif",
+                    },
+                    {
+                        name: 'A Thousand Floating Dreams',
+                        icon: 'assets/weapons/A Thousand Floating Dreams.avif',
+                    },
+                    {
+                        name: 'Lithic Spear',
+                        icon: 'assets/weapons/Lithic Spear.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'January 31, 2024 February 20, 2024',
+                characters: [],
+            },
+            {
+                name: 'Invitation to Mundane Life',
+                image: 'assets/wishes/4.4 - Invitation to Mundane Life.avif',
+                characters: [
+                    {
+                        name: 'Xiao',
+                        icon: 'assets/character/icon/Xiao.avif',
+                    },
+                    {
+                        name: 'Yaoyao',
+                        icon: 'assets/character/icon/Yaoyao.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                ],
+                duration: 'February 20, 2024 March 12, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Everbloom Violet',
+                image: 'assets/wishes/4.4 - Everbloom Violet.avif',
+                characters: [
+                    {
+                        name: 'Yae Miko',
+                        icon: 'assets/character/icon/Yae Miko.avif',
+                    },
+                    {
+                        name: 'Yaoyao',
+                        icon: 'assets/character/icon/Yaoyao.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                ],
+                duration: 'February 20, 2024 March 12, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Kagura's Verity",
+                        icon: "assets/weapons/Kagura's Verity.avif",
+                    },
+                    {
+                        name: 'Primordial Jade Winged-Spear',
+                        icon: 'assets/weapons/Primordial Jade Winged-Spear.avif',
+                    },
+                    {
+                        name: 'Lithic Blade',
+                        icon: 'assets/weapons/Lithic Blade.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'February 20, 2024 March 12, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.5',
+        wishes: [
+            {
+                name: 'Of Silken Clouds Woven',
+                image: 'assets/wishes/4.5 - Of Silken Clouds Woven.avif',
+                characters: [
+                    {
+                        name: 'Chiori',
+                        icon: 'assets/character/icon/Chiori.avif',
+                    },
+                    {
+                        name: 'Gorou',
+                        icon: 'assets/character/icon/Gorou.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                ],
+                duration: 'March 13, 2024 April 02, 2024',
+                weapons: [],
+            },
+            {
+                name: "Oni's Royale",
+                image: "assets/wishes/4.5 - Oni's Royale.avif",
+                characters: [
+                    {
+                        name: 'Arataki Itto',
+                        icon: 'assets/character/icon/Arataki Itto.avif',
+                    },
+                    {
+                        name: 'Gorou',
+                        icon: 'assets/character/icon/Gorou.avif',
+                    },
+                    {
+                        name: 'Yun Jin',
+                        icon: 'assets/character/icon/Yun Jin.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                ],
+                duration: 'March 13, 2024 April 02, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Uraku Misugiri',
+                        icon: 'assets/weapons/Uraku Misugiri.avif',
+                    },
+                    {
+                        name: 'Redhorn Stonethresher',
+                        icon: 'assets/weapons/Redhorn Stonethresher.avif',
+                    },
+                    {
+                        name: 'The Alley Flash',
+                        icon: 'assets/weapons/The Alley Flash.avif',
+                    },
+                    {
+                        name: 'Alley Hunter',
+                        icon: 'assets/weapons/Alley Hunter.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                ],
+                duration: 'March 13, 2024 April 02, 2024',
+                characters: [],
+            },
+            {
+                name: 'Ode to the Dawn Breeze',
+                image: 'assets/wishes/4.5 - Ode to the Dawn Breeze.avif',
+                characters: [
+                    {
+                        name: 'Albedo',
+                        icon: 'assets/character/icon/Albedo.avif',
+                    },
+                    {
+                        name: 'Diluc',
+                        icon: 'assets/character/icon/Diluc.avif',
+                    },
+                    {
+                        name: 'Eula',
+                        icon: 'assets/character/icon/Eula.avif',
+                    },
+                    {
+                        name: 'Jean',
+                        icon: 'assets/character/icon/Jean.avif',
+                    },
+                    {
+                        name: 'Klee',
+                        icon: 'assets/character/icon/Klee.avif',
+                    },
+                    {
+                        name: 'Mona',
+                        icon: 'assets/character/icon/Mona.avif',
+                    },
+                    {
+                        name: 'Aquila Favonia',
+                        icon: 'assets/character/icon/Aquila Favonia.avif',
+                    },
+                    {
+                        name: 'Beacon of the Reed Sea',
+                        icon: 'assets/character/icon/Beacon of the Reed Sea.avif',
+                    },
+                    {
+                        name: "Hunter's Path",
+                        icon: "assets/character/icon/Hunter's Path.avif",
+                    },
+                    {
+                        name: 'Lost Prayer to the Sacred Winds',
+                        icon: 'assets/character/icon/Lost Prayer to the Sacred Winds.avif',
+                    },
+                    {
+                        name: 'Skyward Atlas',
+                        icon: 'assets/character/icon/Skyward Atlas.avif',
+                    },
+                    {
+                        name: 'Skyward Blade',
+                        icon: 'assets/character/icon/Skyward Blade.avif',
+                    },
+                    {
+                        name: 'Skyward Harp',
+                        icon: 'assets/character/icon/Skyward Harp.avif',
+                    },
+                    {
+                        name: 'Skyward Pride',
+                        icon: 'assets/character/icon/Skyward Pride.avif',
+                    },
+                    {
+                        name: 'Skyward Spine',
+                        icon: 'assets/character/icon/Skyward Spine.avif',
+                    },
+                    {
+                        name: 'Song of Broken Pines',
+                        icon: 'assets/character/icon/Song of Broken Pines.avif',
+                    },
+                    {
+                        name: "Wolf's Gravestone",
+                        icon: "assets/character/icon/Wolf's Gravestone.avif",
+                    },
+                ],
+                duration: 'March 13, 2024 April 02, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Decree of the Deeps',
+                image: 'assets/wishes/4.5 - Decree of the Deeps.avif',
+                characters: [
+                    {
+                        name: 'Neuvillette',
+                        icon: 'assets/character/icon/Neuvillette.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'April 02, 2024 April 23, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Leaves in the Wind',
+                image: 'assets/wishes/4.5 - Leaves in the Wind.avif',
+                characters: [
+                    {
+                        name: 'Kaedehara Kazuha',
+                        icon: 'assets/character/icon/Kaedehara Kazuha.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'April 02, 2024 April 23, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Tome of the Eternal Flow',
+                        icon: 'assets/weapons/Tome of the Eternal Flow.avif',
+                    },
+                    {
+                        name: 'Freedom-Sworn',
+                        icon: 'assets/weapons/Freedom-Sworn.avif',
+                    },
+                    {
+                        name: 'Wine and Song',
+                        icon: 'assets/weapons/Wine and Song.avif',
+                    },
+                    {
+                        name: 'Mitternachts Waltz',
+                        icon: 'assets/weapons/Mitternachts Waltz.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                ],
+                duration: 'April 02, 2024 April 23, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.6',
+        wishes: [
+            {
+                name: "The Hearth's Ashen Shadow",
+                image: "assets/wishes/4.6 - The Hearth's Ashen Shadow.avif",
+                characters: [
+                    {
+                        name: 'Arlecchino',
+                        icon: 'assets/character/icon/Arlecchino.avif',
+                    },
+                    {
+                        name: 'Freminet',
+                        icon: 'assets/character/icon/Freminet.avif',
+                    },
+                    {
+                        name: 'Lynette',
+                        icon: 'assets/character/icon/Lynette.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'April 24, 2024 May 14, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Conjuring Chiaroscuro',
+                image: 'assets/wishes/4.6 - Conjuring Chiaroscuro.avif',
+                characters: [
+                    {
+                        name: 'Lyney',
+                        icon: 'assets/character/icon/Lyney.avif',
+                    },
+                    {
+                        name: 'Freminet',
+                        icon: 'assets/character/icon/Freminet.avif',
+                    },
+                    {
+                        name: 'Lynette',
+                        icon: 'assets/character/icon/Lynette.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'April 24, 2024 May 14, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Crimson Moon's Semblance",
+                        icon: "assets/weapons/Crimson Moon's Semblance.avif",
+                    },
+                    {
+                        name: 'The First Great Magic',
+                        icon: 'assets/weapons/The First Great Magic.avif',
+                    },
+                    {
+                        name: "The Dockhand's Assistant",
+                        icon: "assets/weapons/The Dockhand's Assistant.avif",
+                    },
+                    {
+                        name: 'Portable Power Saw',
+                        icon: 'assets/weapons/Portable Power Saw.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'April 24, 2024 May 14, 2024',
+                characters: [],
+            },
+            {
+                name: 'From Ashes Reborn',
+                image: 'assets/wishes/4.6 - From Ashes Reborn.avif',
+                characters: [
+                    {
+                        name: 'Wanderer',
+                        icon: 'assets/character/icon/Wanderer.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Layla',
+                        icon: 'assets/character/icon/Layla.avif',
+                    },
+                ],
+                duration: 'May 14, 2024 June 04, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Immaculate Pulse',
+                image: 'assets/wishes/4.6 - Immaculate Pulse.avif',
+                characters: [
+                    {
+                        name: 'Baizhu',
+                        icon: 'assets/character/icon/Baizhu.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Layla',
+                        icon: 'assets/character/icon/Layla.avif',
+                    },
+                ],
+                duration: 'May 14, 2024 June 04, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Tulaytullah's Remembrance",
+                        icon: "assets/weapons/Tulaytullah's Remembrance.avif",
+                    },
+                    {
+                        name: "Jadefall's Splendor",
+                        icon: "assets/weapons/Jadefall's Splendor.avif",
+                    },
+                    {
+                        name: 'Range Gauge',
+                        icon: 'assets/weapons/Range Gauge.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: "Prospector's Drill",
+                        icon: "assets/weapons/Prospector's Drill.avif",
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                ],
+                duration: 'May 14, 2024 June 04, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.7',
+        wishes: [
+            {
+                name: 'Illuminating Lightning',
+                image: 'assets/wishes/4.7 - Illuminating Lightning.avif',
+                characters: [
+                    {
+                        name: 'Clorinde',
+                        icon: 'assets/character/icon/Clorinde.avif',
+                    },
+                    {
+                        name: 'Sethos',
+                        icon: 'assets/character/icon/Sethos.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                ],
+                duration: 'June 05, 2024 June 25, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Caution in Confidence',
+                image: 'assets/wishes/4.7 - Caution in Confidence.avif',
+                characters: [
+                    {
+                        name: 'Alhaitham',
+                        icon: 'assets/character/icon/Alhaitham.avif',
+                    },
+                    {
+                        name: 'Sethos',
+                        icon: 'assets/character/icon/Sethos.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                ],
+                duration: 'June 05, 2024 June 25, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.7 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Absolution',
+                        icon: 'assets/weapons/Absolution.avif',
+                    },
+                    {
+                        name: 'Light of Foliar Incision',
+                        icon: 'assets/weapons/Light of Foliar Incision.avif',
+                    },
+                    {
+                        name: 'Lithic Spear',
+                        icon: 'assets/weapons/Lithic Spear.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'June 05, 2024 June 25, 2024',
+                characters: [],
+            },
+            {
+                name: 'Romaritime Meluserenity',
+                image: 'assets/wishes/4.7 - Romaritime Meluserenity.avif',
+                characters: [
+                    {
+                        name: 'Sigewinne',
+                        icon: 'assets/character/icon/Sigewinne.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                    {
+                        name: 'Gaming',
+                        icon: 'assets/character/icon/Gaming.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                ],
+                duration: 'June 25, 2024 July 16, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Chanson of Many Waters',
+                image: 'assets/wishes/4.7 - Chanson of Many Waters.avif',
+                characters: [
+                    {
+                        name: 'Furina',
+                        icon: 'assets/character/icon/Furina.avif',
+                    },
+                    {
+                        name: 'Noelle',
+                        icon: 'assets/character/icon/Noelle.avif',
+                    },
+                    {
+                        name: 'Gaming',
+                        icon: 'assets/character/icon/Gaming.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                ],
+                duration: 'June 25, 2024 July 16, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.7 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Silvershower Heartstrings',
+                        icon: 'assets/weapons/Silvershower Heartstrings.avif',
+                    },
+                    {
+                        name: 'Splendor of Tranquil Waters',
+                        icon: 'assets/weapons/Splendor of Tranquil Waters.avif',
+                    },
+                    {
+                        name: 'Lithic Blade',
+                        icon: 'assets/weapons/Lithic Blade.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'June 25, 2024 July 16, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '4.8',
+        wishes: [
+            {
+                name: 'In the Name of the Rosula',
+                image: 'assets/wishes/4.8 - In the Name of the Rosula.avif',
+                characters: [
+                    {
+                        name: 'Navia',
+                        icon: 'assets/character/icon/Navia.avif',
+                    },
+                    {
+                        name: 'Kirara',
+                        icon: 'assets/character/icon/Kirara.avif',
+                    },
+                    {
+                        name: 'Kaveh',
+                        icon: 'assets/character/icon/Kaveh.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                ],
+                duration: 'July 17, 2024 August 06, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Twirling Lotus',
+                image: 'assets/wishes/4.8 - Twirling Lotus.avif',
+                characters: [
+                    {
+                        name: 'Nilou',
+                        icon: 'assets/character/icon/Nilou.avif',
+                    },
+                    {
+                        name: 'Kirara',
+                        icon: 'assets/character/icon/Kirara.avif',
+                    },
+                    {
+                        name: 'Kaveh',
+                        icon: 'assets/character/icon/Kaveh.avif',
+                    },
+                    {
+                        name: 'Ningguang',
+                        icon: 'assets/character/icon/Ningguang.avif',
+                    },
+                ],
+                duration: 'July 17, 2024 August 06, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.8 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Verdict',
+                        icon: 'assets/weapons/Verdict.avif',
+                    },
+                    {
+                        name: 'Key of Khaj-Nisut',
+                        icon: 'assets/weapons/Key of Khaj-Nisut.avif',
+                    },
+                    {
+                        name: "Xiphos' Moonlight",
+                        icon: "assets/weapons/Xiphos' Moonlight.avif",
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'July 17, 2024 August 06, 2024',
+                characters: [],
+            },
+            {
+                name: 'Ambrosial Essence',
+                image: 'assets/wishes/4.8 - Ambrosial Essence.avif',
+                characters: [
+                    {
+                        name: 'Emilie',
+                        icon: 'assets/character/icon/Emilie.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                ],
+                duration: 'August 06, 2024 August 27, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Discerner of Enigmas',
+                image: 'assets/wishes/4.8 - Discerner of Enigmas.avif',
+                characters: [
+                    {
+                        name: 'Yelan',
+                        icon: 'assets/character/icon/Yelan.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                    {
+                        name: 'Razor',
+                        icon: 'assets/character/icon/Razor.avif',
+                    },
+                ],
+                duration: 'August 06, 2024 August 27, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/4.8 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Lumidouce Elegy',
+                        icon: 'assets/weapons/Lumidouce Elegy.avif',
+                    },
+                    {
+                        name: 'Aqua Simulacra',
+                        icon: 'assets/weapons/Aqua Simulacra.avif',
+                    },
+                    {
+                        name: 'Makhaira Aquamarine',
+                        icon: 'assets/weapons/Makhaira Aquamarine.avif',
+                    },
+                    {
+                        name: 'Wandering Evenstar',
+                        icon: 'assets/weapons/Wandering Evenstar.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'August 06, 2024 August 27, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '5.0',
+        wishes: [
+            {
+                name: 'Sharktacular Surfari',
+                image: 'assets/wishes/5.0 - Sharktacular Surfari.avif',
+                characters: [
+                    {
+                        name: 'Mualani',
+                        icon: 'assets/character/icon/Mualani.avif',
+                    },
+                    {
+                        name: 'Kachina',
+                        icon: 'assets/character/icon/Kachina.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                ],
+                duration: 'August 28, 2024 September 17, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Leaves in the Wind',
+                image: 'assets/wishes/5.0 - Leaves in the Wind.avif',
+                characters: [
+                    {
+                        name: 'Kaedehara Kazuha',
+                        icon: 'assets/character/icon/Kaedehara Kazuha.avif',
+                    },
+                    {
+                        name: 'Kachina',
+                        icon: 'assets/character/icon/Kachina.avif',
+                    },
+                    {
+                        name: 'Xinyan',
+                        icon: 'assets/character/icon/Xinyan.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                ],
+                duration: 'August 28, 2024 September 17, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Surf's Up",
+                        icon: "assets/weapons/Surf's Up.avif",
+                    },
+                    {
+                        name: 'Freedom-Sworn',
+                        icon: 'assets/weapons/Freedom-Sworn.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'August 28, 2024 September 17, 2024',
+                characters: [],
+            },
+            {
+                name: 'Seeker of Flame-Wrought Secrets',
+                image: 'assets/wishes/5.0 - Seeker of Flame-Wrought Secrets.avif',
+                characters: [
+                    {
+                        name: 'Kinich',
+                        icon: 'assets/character/icon/Kinich.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                    {
+                        name: 'Chevreuse',
+                        icon: 'assets/character/icon/Chevreuse.avif',
+                    },
+                ],
+                duration: 'September 17, 2024 October 08, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Reign of Serenity',
+                image: 'assets/wishes/5.0 - Reign of Serenity.avif',
+                characters: [
+                    {
+                        name: 'Raiden Shogun',
+                        icon: 'assets/character/icon/Raiden Shogun.avif',
+                    },
+                    {
+                        name: 'Thoma',
+                        icon: 'assets/character/icon/Thoma.avif',
+                    },
+                    {
+                        name: 'Kujou Sara',
+                        icon: 'assets/character/icon/Kujou Sara.avif',
+                    },
+                    {
+                        name: 'Chevreuse',
+                        icon: 'assets/character/icon/Chevreuse.avif',
+                    },
+                ],
+                duration: 'September 17, 2024 October 08, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.0 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Fang of the Mountain King',
+                        icon: 'assets/weapons/Fang of the Mountain King.avif',
+                    },
+                    {
+                        name: 'Engulfing Lightning',
+                        icon: 'assets/weapons/Engulfing Lightning.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                ],
+                duration: 'September 17, 2024 October 08, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '5.1',
+        wishes: [
+            {
+                name: "Forgefire's Blessing",
+                image: "assets/wishes/5.1 - Forgefire's Blessing.avif",
+                characters: [
+                    {
+                        name: 'Xilonen',
+                        icon: 'assets/character/icon/Xilonen.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                    {
+                        name: 'Candace',
+                        icon: 'assets/character/icon/Candace.avif',
+                    },
+                    {
+                        name: 'Collei',
+                        icon: 'assets/character/icon/Collei.avif',
+                    },
+                ],
+                duration: 'October 09, 2024 October 29, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Of Silken Clouds Woven',
+                image: 'assets/wishes/5.1 - Of Silken Clouds Woven.avif',
+                characters: [
+                    {
+                        name: 'Chiori',
+                        icon: 'assets/character/icon/Chiori.avif',
+                    },
+                    {
+                        name: 'Dori',
+                        icon: 'assets/character/icon/Dori.avif',
+                    },
+                    {
+                        name: 'Candace',
+                        icon: 'assets/character/icon/Candace.avif',
+                    },
+                    {
+                        name: 'Collei',
+                        icon: 'assets/character/icon/Collei.avif',
+                    },
+                ],
+                duration: 'October 09, 2024 October 29, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Peak Patrol Song',
+                        icon: 'assets/weapons/Peak Patrol Song.avif',
+                    },
+                    {
+                        name: 'Uraku Misugiri',
+                        icon: 'assets/weapons/Uraku Misugiri.avif',
+                    },
+                    {
+                        name: 'Sturdy Bone',
+                        icon: 'assets/weapons/Sturdy Bone.avif',
+                    },
+                    {
+                        name: 'Mountain-Bracing Bolt',
+                        icon: 'assets/weapons/Mountain-Bracing Bolt.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'October 09, 2024 October 29, 2024',
+                characters: [],
+            },
+            {
+                name: "The Moongrass' Enlightenment",
+                image: "assets/wishes/5.1 - The Moongrass' Enlightenment.avif",
+                characters: [
+                    {
+                        name: 'Nahida',
+                        icon: 'assets/character/icon/Nahida.avif',
+                    },
+                    {
+                        name: 'Sethos',
+                        icon: 'assets/character/icon/Sethos.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                ],
+                duration: 'October 29, 2024 November 19, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Moment of Bloom',
+                image: 'assets/wishes/5.1 - Moment of Bloom.avif',
+                characters: [
+                    {
+                        name: 'Hu Tao',
+                        icon: 'assets/character/icon/Hu Tao.avif',
+                    },
+                    {
+                        name: 'Sethos',
+                        icon: 'assets/character/icon/Sethos.avif',
+                    },
+                    {
+                        name: 'Xingqiu',
+                        icon: 'assets/character/icon/Xingqiu.avif',
+                    },
+                    {
+                        name: 'Kuki Shinobu',
+                        icon: 'assets/character/icon/Kuki Shinobu.avif',
+                    },
+                ],
+                duration: 'October 29, 2024 November 19, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.1 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'A Thousand Floating Dreams',
+                        icon: 'assets/weapons/A Thousand Floating Dreams.avif',
+                    },
+                    {
+                        name: 'Staff of Homa',
+                        icon: 'assets/weapons/Staff of Homa.avif',
+                    },
+                    {
+                        name: 'Fruitful Hook',
+                        icon: 'assets/weapons/Fruitful Hook.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'October 29, 2024 November 19, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '5.2',
+        wishes: [
+            {
+                name: "Piercing Shot's Crimson Wake",
+                image: "assets/wishes/5.2 - Piercing Shot's Crimson Wake.avif",
+                characters: [
+                    {
+                        name: 'Chasca',
+                        icon: 'assets/character/icon/Chasca.avif',
+                    },
+                    {
+                        name: 'Ororon',
+                        icon: 'assets/character/icon/Ororon.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                ],
+                duration: 'November 20, 2024 December 10, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Conjuring Chiaroscuro',
+                image: 'assets/wishes/5.2 - Conjuring Chiaroscuro.avif',
+                characters: [
+                    {
+                        name: 'Lyney',
+                        icon: 'assets/character/icon/Lyney.avif',
+                    },
+                    {
+                        name: 'Ororon',
+                        icon: 'assets/character/icon/Ororon.avif',
+                    },
+                    {
+                        name: 'Sucrose',
+                        icon: 'assets/character/icon/Sucrose.avif',
+                    },
+                    {
+                        name: 'Barbara',
+                        icon: 'assets/character/icon/Barbara.avif',
+                    },
+                ],
+                duration: 'November 20, 2024 December 10, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Astral Vulture's Crimson Plumage",
+                        icon: "assets/weapons/Astral Vulture's Crimson Plumage.avif",
+                    },
+                    {
+                        name: 'The First Great Magic',
+                        icon: 'assets/weapons/The First Great Magic.avif',
+                    },
+                    {
+                        name: 'Waveriding Whirl',
+                        icon: 'assets/weapons/Waveriding Whirl.avif',
+                    },
+                    {
+                        name: 'Flower-Wreathed Feathers',
+                        icon: 'assets/weapons/Flower-Wreathed Feathers.avif',
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                ],
+                duration: 'November 20, 2024 December 10, 2024',
+                characters: [],
+            },
+            {
+                name: 'Decree of the Deeps',
+                image: 'assets/wishes/5.2 - Decree of the Deeps.avif',
+                characters: [
+                    {
+                        name: 'Neuvillette',
+                        icon: 'assets/character/icon/Neuvillette.avif',
+                    },
+                    {
+                        name: 'Shikanoin Heizou',
+                        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                    {
+                        name: 'Yaoyao',
+                        icon: 'assets/character/icon/Yaoyao.avif',
+                    },
+                ],
+                duration: 'December 10, 2024 December 31, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Gentry of Hermitage',
+                image: 'assets/wishes/5.2 - Gentry of Hermitage.avif',
+                characters: [
+                    {
+                        name: 'Zhongli',
+                        icon: 'assets/character/icon/Zhongli.avif',
+                    },
+                    {
+                        name: 'Shikanoin Heizou',
+                        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+                    },
+                    {
+                        name: 'Fischl',
+                        icon: 'assets/character/icon/Fischl.avif',
+                    },
+                    {
+                        name: 'Yaoyao',
+                        icon: 'assets/character/icon/Yaoyao.avif',
+                    },
+                ],
+                duration: 'December 10, 2024 December 31, 2024',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.2 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Tome of the Eternal Flow',
+                        icon: 'assets/weapons/Tome of the Eternal Flow.avif',
+                    },
+                    {
+                        name: 'Vortex Vanquisher',
+                        icon: 'assets/weapons/Vortex Vanquisher.avif',
+                    },
+                    {
+                        name: 'Mitternachts Waltz',
+                        icon: 'assets/weapons/Mitternachts Waltz.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Favonius Greatsword',
+                        icon: 'assets/weapons/Favonius Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                ],
+                duration: 'December 10, 2024 December 31, 2024',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '5.3',
+        wishes: [
+            {
+                name: 'Ancient Flame Ablaze',
+                image: 'assets/wishes/5.3 - Ancient Flame Ablaze.avif',
+                characters: [
+                    {
+                        name: 'Mavuika',
+                        icon: 'assets/character/icon/Mavuika.avif',
+                    },
+                    {
+                        name: 'Kachina',
+                        icon: 'assets/character/icon/Kachina.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                ],
+                duration: 'January 01, 2025 January 21, 2025',
+                weapons: [],
+            },
+            {
+                name: "Starry Night's Whispers",
+                image: "assets/wishes/5.3 - Starry Night's Whispers.avif",
+                characters: [
+                    {
+                        name: 'Citlali',
+                        icon: 'assets/character/icon/Citlali.avif',
+                    },
+                    {
+                        name: 'Kachina',
+                        icon: 'assets/character/icon/Kachina.avif',
+                    },
+                    {
+                        name: 'Bennett',
+                        icon: 'assets/character/icon/Bennett.avif',
+                    },
+                    {
+                        name: 'Diona',
+                        icon: 'assets/character/icon/Diona.avif',
+                    },
+                ],
+                duration: 'January 01, 2025 January 21, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'A Thousand Blazing Suns',
+                        icon: 'assets/weapons/A Thousand Blazing Suns.avif',
+                    },
+                    {
+                        name: "Starcaller's Watch",
+                        icon: "assets/weapons/Starcaller's Watch.avif",
+                    },
+                    {
+                        name: 'Lithic Blade',
+                        icon: 'assets/weapons/Lithic Blade.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'The Stringless',
+                        icon: 'assets/weapons/The Stringless.avif',
+                    },
+                ],
+                duration: 'January 01, 2025 January 21, 2025',
+                characters: [],
+            },
+            {
+                name: "The Hearth's Ashen Shadow",
+                image: "assets/wishes/5.3 - The Hearth's Ashen Shadow.avif",
+                characters: [
+                    {
+                        name: 'Arlecchino',
+                        icon: 'assets/character/icon/Arlecchino.avif',
+                    },
+                    {
+                        name: 'Lan Yan',
+                        icon: 'assets/character/icon/Lan Yan.avif',
+                    },
+                    {
+                        name: 'Chevreuse',
+                        icon: 'assets/character/icon/Chevreuse.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                ],
+                duration: 'January 21, 2025 February 11, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Illuminating Lightning',
+                image: 'assets/wishes/5.3 - Illuminating Lightning.avif',
+                characters: [
+                    {
+                        name: 'Clorinde',
+                        icon: 'assets/character/icon/Clorinde.avif',
+                    },
+                    {
+                        name: 'Lan Yan',
+                        icon: 'assets/character/icon/Lan Yan.avif',
+                    },
+                    {
+                        name: 'Chevreuse',
+                        icon: 'assets/character/icon/Chevreuse.avif',
+                    },
+                    {
+                        name: 'Rosaria',
+                        icon: 'assets/character/icon/Rosaria.avif',
+                    },
+                ],
+                duration: 'January 21, 2025 February 11, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.3 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: "Crimson Moon's Semblance",
+                        icon: "assets/weapons/Crimson Moon's Semblance.avif",
+                    },
+                    {
+                        name: 'Absolution',
+                        icon: 'assets/weapons/Absolution.avif',
+                    },
+                    {
+                        name: "Lion's Roar",
+                        icon: "assets/weapons/Lion's Roar.avif",
+                    },
+                    {
+                        name: 'Rainslasher',
+                        icon: 'assets/weapons/Rainslasher.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                    {
+                        name: 'Sacrificial Bow',
+                        icon: 'assets/weapons/Sacrificial Bow.avif',
+                    },
+                    {
+                        name: 'Lithic Spear',
+                        icon: 'assets/weapons/Lithic Spear.avif',
+                    },
+                ],
+                duration: 'January 21, 2025 February 11, 2025',
+                characters: [],
+            },
+            {
+                name: 'Remembrance of Jade and Stone',
+                image: 'assets/wishes/5.3 - Remembrance of Jade and Stone.avif',
+                characters: [
+                    {
+                        name: 'Baizhu',
+                        icon: 'assets/character/icon/Baizhu.avif',
+                    },
+                    {
+                        name: 'Shenhe',
+                        icon: 'assets/character/icon/Shenhe.avif',
+                    },
+                    {
+                        name: 'Keqing',
+                        icon: 'assets/character/icon/Keqing.avif',
+                    },
+                    {
+                        name: 'Ganyu',
+                        icon: 'assets/character/icon/Ganyu.avif',
+                    },
+                    {
+                        name: 'Qiqi',
+                        icon: 'assets/character/icon/Qiqi.avif',
+                    },
+                    {
+                        name: 'Tartaglia',
+                        icon: 'assets/character/icon/Tartaglia.avif',
+                    },
+                    {
+                        name: 'Xiao',
+                        icon: 'assets/character/icon/Xiao.avif',
+                    },
+                    {
+                        name: 'Primordial Jade Cutter',
+                        icon: 'assets/character/icon/Primordial Jade Cutter.avif',
+                    },
+                    {
+                        name: 'Summit Shaper',
+                        icon: 'assets/character/icon/Summit Shaper.avif',
+                    },
+                    {
+                        name: 'The Unforged',
+                        icon: 'assets/character/icon/The Unforged.avif',
+                    },
+                    {
+                        name: 'Calamity Queller',
+                        icon: 'assets/character/icon/Calamity Queller.avif',
+                    },
+                    {
+                        name: 'Primordial Jade Winged-Spear',
+                        icon: 'assets/character/icon/Primordial Jade Winged-Spear.avif',
+                    },
+                    {
+                        name: "Jadefall's Splendor",
+                        icon: "assets/character/icon/Jadefall's Splendor.avif",
+                    },
+                    {
+                        name: 'Memory of Dust',
+                        icon: 'assets/character/icon/Memory of Dust.avif',
+                    },
+                    {
+                        name: 'Polar Star',
+                        icon: 'assets/character/icon/Polar Star.avif',
+                    },
+                    {
+                        name: "Amos' Bow",
+                        icon: "assets/character/icon/Amos' Bow.avif",
+                    },
+                ],
+                duration: 'January 21, 2025 February 11, 2025',
+                weapons: [],
+            },
+        ],
+    },
+    {
+        version: '5.4',
+        wishes: [
+            {
+                name: "Dawn's Drifting Reverie",
+                image: "assets/wishes/5.4 - Dawn's Drifting Reverie.avif",
+                characters: [
+                    {
+                        name: 'Yumemizuki Mizuki',
+                        icon: 'assets/character/icon/Yumemizuki Mizuki.avif',
+                    },
+                    {
+                        name: 'Gorou',
+                        icon: 'assets/character/icon/Gorou.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'February 12, 2025 March 04, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Romaritime Meluserenity',
+                image: 'assets/wishes/5.4 - Romaritime Meluserenity.avif',
+                characters: [
+                    {
+                        name: 'Sigewinne',
+                        icon: 'assets/character/icon/Sigewinne.avif',
+                    },
+                    {
+                        name: 'Gorou',
+                        icon: 'assets/character/icon/Gorou.avif',
+                    },
+                    {
+                        name: 'Sayu',
+                        icon: 'assets/character/icon/Sayu.avif',
+                    },
+                    {
+                        name: 'Xiangling',
+                        icon: 'assets/character/icon/Xiangling.avif',
+                    },
+                ],
+                duration: 'February 12, 2025 March 04, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Sunny Morning Sleep-In',
+                        icon: 'assets/weapons/Sunny Morning Sleep-In.avif',
+                    },
+                    {
+                        name: 'Silvershower Heartstrings',
+                        icon: 'assets/weapons/Silvershower Heartstrings.avif',
+                    },
+                    {
+                        name: 'Akuoumaru',
+                        icon: 'assets/weapons/Akuoumaru.avif',
+                    },
+                    {
+                        name: "Wavebreaker's Fin",
+                        icon: "assets/weapons/Wavebreaker's Fin.avif",
+                    },
+                    {
+                        name: "Mouun's Moon",
+                        icon: "assets/weapons/Mouun's Moon.avif",
+                    },
+                    {
+                        name: 'The Flute',
+                        icon: 'assets/weapons/The Flute.avif',
+                    },
+                    {
+                        name: 'Eye of Perception',
+                        icon: 'assets/weapons/Eye of Perception.avif',
+                    },
+                ],
+                duration: 'February 12, 2025 March 04, 2025',
+                characters: [],
+            },
+            {
+                name: 'Chanson of Many Waters',
+                image: 'assets/wishes/5.4 - Chanson of Many Waters.avif',
+                characters: [
+                    {
+                        name: 'Furina',
+                        icon: 'assets/character/icon/Furina.avif',
+                    },
+                    {
+                        name: 'Charlotte',
+                        icon: 'assets/character/icon/Charlotte.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                    {
+                        name: 'Mika',
+                        icon: 'assets/character/icon/Mika.avif',
+                    },
+                ],
+                duration: 'March 04, 2025 March 25, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Tempestuous Destiny',
+                image: 'assets/wishes/5.4 - Tempestuous Destiny.avif',
+                characters: [
+                    {
+                        name: 'Wriothesley',
+                        icon: 'assets/character/icon/Wriothesley.avif',
+                    },
+                    {
+                        name: 'Charlotte',
+                        icon: 'assets/character/icon/Charlotte.avif',
+                    },
+                    {
+                        name: 'Chongyun',
+                        icon: 'assets/character/icon/Chongyun.avif',
+                    },
+                    {
+                        name: 'Mika',
+                        icon: 'assets/character/icon/Mika.avif',
+                    },
+                ],
+                duration: 'March 04, 2025 March 25, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.4 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Splendor of Tranquil Waters',
+                        icon: 'assets/weapons/Splendor of Tranquil Waters.avif',
+                    },
+                    {
+                        name: 'Cashflow Supervision',
+                        icon: 'assets/weapons/Cashflow Supervision.avif',
+                    },
+                    {
+                        name: 'Favonius Sword',
+                        icon: 'assets/weapons/Favonius Sword.avif',
+                    },
+                    {
+                        name: 'Sacrificial Greatsword',
+                        icon: 'assets/weapons/Sacrificial Greatsword.avif',
+                    },
+                    {
+                        name: "Dragon's Bane",
+                        icon: "assets/weapons/Dragon's Bane.avif",
+                    },
+                    {
+                        name: 'Sacrificial Fragments',
+                        icon: 'assets/weapons/Sacrificial Fragments.avif',
+                    },
+                    {
+                        name: 'Rust',
+                        icon: 'assets/weapons/Rust.avif',
+                    },
+                ],
+                duration: 'March 04, 2025 March 25, 2025',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '5.5',
+        wishes: [
+            {
+                name: 'Cornucopia of Contention',
+                image: 'assets/wishes/5.5 - Cornucopia of Contention.avif',
+                characters: [
+                    {
+                        name: 'Varesa',
+                        icon: 'assets/character/icon/Varesa.avif',
+                    },
+                    {
+                        name: 'Iansan',
+                        icon: 'assets/character/icon/Iansan.avif',
+                    },
+                    {
+                        name: 'Chevreuse',
+                        icon: 'assets/character/icon/Chevreuse.avif',
+                    },
+                    {
+                        name: 'Gaming',
+                        icon: 'assets/character/icon/Gaming.avif',
+                    },
+                ],
+                duration: 'March 26, 2025 April 15, 2025',
+                weapons: [],
+            },
+            {
+                name: 'The Crane Soars Skyward',
+                image: 'assets/wishes/5.5 - The Crane Soars Skyward.avif',
+                characters: [
+                    {
+                        name: 'Xianyun',
+                        icon: 'assets/character/icon/Xianyun.avif',
+                    },
+                    {
+                        name: 'Iansan',
+                        icon: 'assets/character/icon/Iansan.avif',
+                    },
+                    {
+                        name: 'Chevreuse',
+                        icon: 'assets/character/icon/Chevreuse.avif',
+                    },
+                    {
+                        name: 'Gaming',
+                        icon: 'assets/character/icon/Gaming.avif',
+                    },
+                ],
+                duration: 'March 26, 2025 April 15, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Vivid Notions',
+                        icon: 'assets/weapons/Vivid Notions.avif',
+                    },
+                    {
+                        name: "Crane's Echoing Call",
+                        icon: "assets/weapons/Crane's Echoing Call.avif",
+                    },
+                    {
+                        name: 'Sturdy Bone',
+                        icon: 'assets/weapons/Sturdy Bone.avif',
+                    },
+                    {
+                        name: 'Fruitful Hook',
+                        icon: 'assets/weapons/Fruitful Hook.avif',
+                    },
+                    {
+                        name: 'Mountain-Bracing Bolt',
+                        icon: 'assets/weapons/Mountain-Bracing Bolt.avif',
+                    },
+                    {
+                        name: 'Waveriding Whirl',
+                        icon: 'assets/weapons/Waveriding Whirl.avif',
+                    },
+                    {
+                        name: 'Flower-Wreathed Feathers',
+                        icon: 'assets/weapons/Flower-Wreathed Feathers.avif',
+                    },
+                ],
+                duration: 'March 26, 2025 April 15, 2025',
+                characters: [],
+            },
+            {
+                name: "Forgefire's Blessing",
+                image: "assets/wishes/5.5 - Forgefire's Blessing.avif",
+                characters: [
+                    {
+                        name: 'Xilonen',
+                        icon: 'assets/character/icon/Xilonen.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'April 15, 2025 May 06, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Ballad in Goblets',
+                image: 'assets/wishes/5.5 - Ballad in Goblets.avif',
+                characters: [
+                    {
+                        name: 'Venti',
+                        icon: 'assets/character/icon/Venti.avif',
+                    },
+                    {
+                        name: 'Faruzan',
+                        icon: 'assets/character/icon/Faruzan.avif',
+                    },
+                    {
+                        name: 'Beidou',
+                        icon: 'assets/character/icon/Beidou.avif',
+                    },
+                    {
+                        name: 'Yanfei',
+                        icon: 'assets/character/icon/Yanfei.avif',
+                    },
+                ],
+                duration: 'April 15, 2025 May 06, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.5 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Peak Patrol Song',
+                        icon: 'assets/weapons/Peak Patrol Song.avif',
+                    },
+                    {
+                        name: 'Elegy for the End',
+                        icon: 'assets/weapons/Elegy for the End.avif',
+                    },
+                    {
+                        name: 'Sacrificial Sword',
+                        icon: 'assets/weapons/Sacrificial Sword.avif',
+                    },
+                    {
+                        name: 'The Bell',
+                        icon: 'assets/weapons/The Bell.avif',
+                    },
+                    {
+                        name: 'Favonius Lance',
+                        icon: 'assets/weapons/Favonius Lance.avif',
+                    },
+                    {
+                        name: 'Favonius Codex',
+                        icon: 'assets/weapons/Favonius Codex.avif',
+                    },
+                    {
+                        name: 'Favonius Warbow',
+                        icon: 'assets/weapons/Favonius Warbow.avif',
+                    },
+                ],
+                duration: 'April 15, 2025 May 06, 2025',
+                characters: [],
+            },
+        ],
+    },
+    {
+        version: '5.6',
+        wishes: [
+            {
+                name: 'La Chanson Cerise',
+                image: 'assets/wishes/5.6 - La Chanson Cerise.avif',
+                characters: [
+                    {
+                        name: 'Escoffier',
+                        icon: 'assets/character/icon/Escoffier.avif',
+                    },
+                    {
+                        name: 'Ifa',
+                        icon: 'assets/character/icon/Ifa.avif',
+                    },
+                    {
+                        name: 'Ororon',
+                        icon: 'assets/character/icon/Ororon.avif',
+                    },
+                    {
+                        name: 'Layla',
+                        icon: 'assets/character/icon/Layla.avif',
+                    },
+                ],
+                duration: 'May 07, 2025 May 27, 2025',
+                weapons: [],
+            },
+            {
+                name: 'In the Name of the Rosula',
+                image: 'assets/wishes/5.6 - In the Name of the Rosula.avif',
+                characters: [
+                    {
+                        name: 'Navia',
+                        icon: 'assets/character/icon/Navia.avif',
+                    },
+                    {
+                        name: 'Ifa',
+                        icon: 'assets/character/icon/Ifa.avif',
+                    },
+                    {
+                        name: 'Ororon',
+                        icon: 'assets/character/icon/Ororon.avif',
+                    },
+                    {
+                        name: 'Layla',
+                        icon: 'assets/character/icon/Layla.avif',
+                    },
+                ],
+                duration: 'May 07, 2025 May 27, 2025',
+                weapons: [],
+            },
+            {
+                name: 'Epitome Invocation',
+                image: 'assets/wishes/5.6 - Epitome Invocation.avif',
+                weapons: [
+                    {
+                        name: 'Symphonist of Scents',
+                        icon: 'assets/weapons/Symphonist of Scents.avif',
+                    },
+                    {
+                        name: 'Verdict',
+                        icon: 'assets/weapons/Verdict.avif',
+                    },
+                    {
+                        name: "The Dockhand's Assistant",
+                        icon: "assets/weapons/The Dockhand's Assistant.avif",
+                    },
+                    {
+                        name: 'Portable Power Saw',
+                        icon: 'assets/weapons/Portable Power Saw.avif',
+                    },
+                    {
+                        name: "Prospector's Drill",
+                        icon: "assets/weapons/Prospector's Drill.avif",
+                    },
+                    {
+                        name: 'Range Gauge',
+                        icon: 'assets/weapons/Range Gauge.avif',
+                    },
+                    {
+                        name: 'The Widsith',
+                        icon: 'assets/weapons/The Widsith.avif',
+                    },
+                ],
+                duration: 'May 07, 2025 May 27, 2025',
+                characters: [],
+            },
+            {
+                name: 'Reign of Serenity',
+                image: 'assets/wishes/5.6 - Reign of Serenity.avif',
+                characters: [
+                    {
+                        name: 'Raiden Shogun',
+                        icon: 'assets/character/icon/Raiden Shogun.avif',
+                    },
+                    {
+                        name: 'Unknown Character',
+                        icon: 'assets/character/icon/Unknown Character.avif',
+                    },
+                    {
+                        name: 'Unknown Character',
+                        icon: 'assets/character/icon/Unknown Character.avif',
+                    },
+                    {
+                        name: 'Unknown Character',
+                        icon: 'assets/character/icon/Unknown Character.avif',
+                    },
+                ],
+                duration: 'TBA TBA',
+                weapons: [],
+            },
+            {
+                name: 'Seeker of Flame-Wrought Secrets',
+                image: 'assets/wishes/5.6 - Seeker of Flame-Wrought Secrets.avif',
+                characters: [
+                    {
+                        name: 'Kinich',
+                        icon: 'assets/character/icon/Kinich.avif',
+                    },
+                    {
+                        name: 'Unknown Character',
+                        icon: 'assets/character/icon/Unknown Character.avif',
+                    },
+                    {
+                        name: 'Unknown Character',
+                        icon: 'assets/character/icon/Unknown Character.avif',
+                    },
+                    {
+                        name: 'Unknown Character',
+                        icon: 'assets/character/icon/Unknown Character.avif',
+                    },
+                ],
+                duration: 'TBA TBA',
+                weapons: [],
+            },
+            {
+                name: 'Chronicled Wish',
+                image: 'assets/wishes/5.6 - Chronicled Wish.avif',
+                characters: [
+                    {
+                        name: 'Kamisato Ayaka',
+                        icon: 'assets/character/icon/Kamisato Ayaka.avif',
+                    },
+                    {
+                        name: 'Kamisato Ayato',
+                        icon: 'assets/character/icon/Kamisato Ayato.avif',
+                    },
+                    {
+                        name: 'Yoimiya',
+                        icon: 'assets/character/icon/Yoimiya.avif',
+                    },
+                    {
+                        name: 'Chiori',
+                        icon: 'assets/character/icon/Chiori.avif',
+                    },
+                    {
+                        name: 'Yae Miko',
+                        icon: 'assets/character/icon/Yae Miko.avif',
+                    },
+                    {
+                        name: 'Arataki Itto',
+                        icon: 'assets/character/icon/Arataki Itto.avif',
+                    },
+                    {
+                        name: 'Sangonomiya Kokomi',
+                        icon: 'assets/character/icon/Sangonomiya Kokomi.avif',
+                    },
+                    {
+                        name: 'Kaedehara Kazuha',
+                        icon: 'assets/character/icon/Kaedehara Kazuha.avif',
+                    },
+                    {
+                        name: 'Uraku Misugiri',
+                        icon: 'assets/character/icon/Uraku Misugiri.avif',
+                    },
+                    {
+                        name: 'Haran Geppaku Futsu',
+                        icon: 'assets/character/icon/Haran Geppaku Futsu.avif',
+                    },
+                    {
+                        name: 'Mistsplitter Reforged',
+                        icon: 'assets/character/icon/Mistsplitter Reforged.avif',
+                    },
+                    {
+                        name: 'Freedom-Sworn',
+                        icon: 'assets/character/icon/Freedom-Sworn.avif',
+                    },
+                    {
+                        name: 'Redhorn Stonethresher',
+                        icon: 'assets/character/icon/Redhorn Stonethresher.avif',
+                    },
+                    {
+                        name: "Kagura's Verity",
+                        icon: "assets/character/icon/Kagura's Verity.avif",
+                    },
+                    {
+                        name: 'Everlasting Moonglow',
+                        icon: 'assets/character/icon/Everlasting Moonglow.avif',
+                    },
+                    {
+                        name: 'Thundering Pulse',
+                        icon: 'assets/character/icon/Thundering Pulse.avif',
+                    },
+                ],
+                duration: 'TBA TBA',
+                weapons: [],
+            },
+        ],
+    },
+];

@@ -75,7 +75,7 @@ var JEAN = {
     ],
     "special_dish": {
         "name": "Invigorating Pizza",
-        "icon": "assets/foods/Jean.avif"
+        "icon": "assets/foods/Invigorating Pizza.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Jean.avif",
@@ -2479,5 +2479,170 @@ var JEAN = {
             ]
         }
     },
-    "demo_music": null
+    "demo_music": null,
+    "build": {
+        "version": "4.0",
+        "type": "Healer / Support",
+        "weapons": [
+            {
+                "name": "Primordial Jade Cutter",
+                "icon": "assets/weapons/Primordial Jade Cutter.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Freedom-Sworn",
+                "icon": "assets/weapons/Freedom-Sworn.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Favonius Sword",
+                "icon": "assets/weapons/Favonius Sword.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Amenoma Kageuchi",
+                "icon": "assets/weapons/Amenoma Kageuchi.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Skyward Blade",
+                "icon": "assets/weapons/Skyward Blade.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Mistsplitter Reforged",
+                "icon": "assets/weapons/Mistsplitter Reforged.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Haran Geppaku Futsu",
+                "icon": "assets/weapons/Haran Geppaku Futsu.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Festering Desire",
+                "icon": "assets/weapons/Festering Desire.avif",
+                "quality": "4",
+                "how_to_obtain": "The Chalk Prince and the Dragon Event"
+            },
+            {
+                "name": "Fleuve Cendre Ferryman",
+                "icon": "assets/weapons/Fleuve Cendre Ferryman.avif",
+                "quality": "4",
+                "how_to_obtain": "Fontaine Fishing Association(Sold by Delaroche)"
+            },
+            {
+                "name": "Sapwood Blade",
+                "icon": "assets/weapons/Sapwood Blade.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Viridescent Venerer",
+            "4pc Noblesse Oblige",
+            "4pc Ocean-Hued Clam"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK% / ER",
+            "Anemo DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "ATK%",
+            "EM"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Jean",
+                    "icon": "assets/character/icon/Jean.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Keqing",
+                    "icon": "assets/character/icon/Keqing.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Dendro Traveler",
+                    "icon": "assets/character/icon/Traveler.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Jean",
+                    "icon": "assets/character/icon/Jean.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Keqing",
+                    "icon": "assets/character/icon/Keqing.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Dendro Traveler",
+                    "icon": "assets/character/icon/Traveler.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ]
+        ]
+    }
 }

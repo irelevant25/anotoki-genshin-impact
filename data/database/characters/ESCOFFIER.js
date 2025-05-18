@@ -13,6 +13,7 @@ var ESCOFFIER = {
         "name": "Cryo",
         "icon": "assets/elements/Cryo.avif"
     },
+    "model": "Medium Female",
     "arkhe": "Ousia",
     "roles": [
         {
@@ -81,7 +82,7 @@ var ESCOFFIER = {
     ],
     "special_dish": {
         "name": "Gateau Debord: Magnifique",
-        "icon": "assets/foods/Escoffier.avif"
+        "icon": "assets/foods/Gateau Debord: Magnifique.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Escoffier.avif",
@@ -2035,5 +2036,326 @@ var ESCOFFIER = {
             "ko": []
         }
     },
-    "demo_music": null
+    "demo_music": null,
+    "build": {
+        "version": "5.6",
+        "type": "Support",
+        "weapons": [
+            {
+                "name": "Symphonist of Scents",
+                "icon": "assets/weapons/Symphonist of Scents.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Calamity Queller",
+                "icon": "assets/weapons/Calamity Queller.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Staff of Homa",
+                "icon": "assets/weapons/Staff of Homa.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Lumidouce Elegy",
+                "icon": "assets/weapons/Lumidouce Elegy.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Engulfing Lightning",
+                "icon": "assets/weapons/Engulfing Lightning.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Deathmatch",
+                "icon": "assets/weapons/Deathmatch.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Primordial Jade Winged-Spear",
+                "icon": "assets/weapons/Primordial Jade Winged-Spear.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Crimson Moon's Semblance",
+                "icon": "assets/weapons/Crimson Moon's Semblance.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Staff of the Scarlet Sands",
+                "icon": "assets/weapons/Staff of the Scarlet Sands.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Prospector's Drill",
+                "icon": "assets/weapons/Prospector's Drill.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Mountain-Bracing Bolt",
+                "icon": "assets/weapons/Mountain-Bracing Bolt.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Blackcliff Pole",
+                "icon": "assets/weapons/Blackcliff Pole.avif",
+                "quality": "4",
+                "how_to_obtain": "Paimon's Bargains"
+            },
+            {
+                "name": "Missive Windspear",
+                "icon": "assets/weapons/Missive Windspear.avif",
+                "quality": "4",
+                "how_to_obtain": "Of Ballads and Brews Event"
+            },
+            {
+                "name": "Tamayuratei no Ohanashi",
+                "icon": "assets/weapons/Tamayuratei no Ohanashi.avif",
+                "quality": "4",
+                "how_to_obtain": "Enchanted Tales of the Mikawa Festival Event"
+            },
+            {
+                "name": "Wavebreaker's Fin",
+                "icon": "assets/weapons/Wavebreaker's Fin.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Skyward Spine",
+                "icon": "assets/weapons/Skyward Spine.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Favonius Lance",
+                "icon": "assets/weapons/Favonius Lance.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Golden Troupe",
+            "4pc Blizzard Strayer",
+            "4pc Tenacity of the Millelith",
+            "4pc Scroll of the Hero of Cinder City"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK% / Energy Recharge",
+            "Cryo DMG Bonus / ATK%",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirements)",
+            "CRIT Rate / CRIT DMG",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Escoffier",
+                    "icon": "assets/character/icon/Escoffier.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Freminet",
+                    "icon": "assets/character/icon/Freminet.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Shenhe",
+                    "icon": "assets/character/icon/Shenhe.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Escoffier",
+                    "icon": "assets/character/icon/Escoffier.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Escoffier",
+                    "icon": "assets/character/icon/Escoffier.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Gaming",
+                    "icon": "assets/character/icon/Gaming.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Escoffier",
+                    "icon": "assets/character/icon/Escoffier.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Escoffier",
+                    "icon": "assets/character/icon/Escoffier.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kinich",
+                    "icon": "assets/character/icon/Kinich.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Mavuika",
+                    "icon": "assets/character/icon/Mavuika.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ]
+        ]
+    }
 }

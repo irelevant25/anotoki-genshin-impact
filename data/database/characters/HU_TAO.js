@@ -74,7 +74,7 @@ var HU_TAO = {
     ],
     "special_dish": {
         "name": "Ghostly March",
-        "icon": "assets/foods/Hu Tao.avif"
+        "icon": "assets/foods/Ghostly March.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Hu Tao.avif",
@@ -2602,5 +2602,246 @@ var HU_TAO = {
     "demo_music": {
         "name": "Any Last Words?",
         "url": "assets/character/demo_music/Hu Tao.mp3"
+    },
+    "build": {
+        "version": "4.0",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Staff of Homa",
+                "icon": "assets/weapons/Staff of Homa.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Staff of the Scarlet Sands",
+                "icon": "assets/weapons/Staff of the Scarlet Sands.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Ballad of the Fjords",
+                "icon": "assets/weapons/Ballad of the Fjords.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Dragon's Bane",
+                "icon": "assets/weapons/Dragon's Bane.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Deathmatch",
+                "icon": "assets/weapons/Deathmatch.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Primordial Jade Winged-Spear",
+                "icon": "assets/weapons/Primordial Jade Winged-Spear.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Lithic Spear",
+                "icon": "assets/weapons/Lithic Spear.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Missive Windspear",
+                "icon": "assets/weapons/Missive Windspear.avif",
+                "quality": "4",
+                "how_to_obtain": "Of Ballads and Brews Event"
+            },
+            {
+                "name": "White Tassel",
+                "icon": "assets/weapons/White Tassel.avif",
+                "quality": "3",
+                "how_to_obtain": "Chests"
+            },
+            {
+                "name": "Blackcliff Pole",
+                "icon": "assets/weapons/Blackcliff Pole.avif",
+                "quality": "4",
+                "how_to_obtain": "Paimon's Bargains"
+            }
+        ],
+        "artifacts": [
+            "4pc Crimson Witch of Flames",
+            "4pc Shimenawa's Reminiscence",
+            "4pc Gilded Dreams"
+        ],
+        "talents": [
+            "Normal Attack",
+            "Skill",
+            "Burst"
+        ],
+        "main_stats": [
+            "EM / HP%",
+            "Pyro DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "EM (100 - 150)",
+            "CRIT Rate / CRIT DMG",
+            "EM (200 - 300)",
+            "HP%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Sucrose",
+                    "icon": "assets/character/icon/Sucrose.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Thoma",
+                    "icon": "assets/character/icon/Thoma.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Albedo",
+                    "icon": "assets/character/icon/Albedo.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kaeya",
+                    "icon": "assets/character/icon/Kaeya.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Diona",
+                    "icon": "assets/character/icon/Diona.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

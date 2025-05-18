@@ -77,7 +77,7 @@ var CITLALI = {
     ],
     "special_dish": {
         "name": "Secret Art",
-        "icon": "assets/foods/Citlali.avif"
+        "icon": "assets/foods/Secret Art.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Citlali.avif",
@@ -1362,7 +1362,7 @@ var CITLALI = {
                 {
                     "title": "あたふたすること…",
                     "text": "キミへの態度は他のヒトと同じよ。ベ、ベツにトクベツ扱いなんてしてないから。…まあ、ワタシに対する誤解は何世代も続いてきたものだし、とっくに諦めてるけど。でもキミは他のヒトと違ってワタシに偏見を持ってない。だから、キミにはホントの姿を見せてるの。誰に対しても遠慮なく、尊大に接するワタシは、みんなのイメージに合わせて作ったキャラよ…キミの前でアタフタしちゃうワタシこそ、本当のワタシ。キミにウソをついたコトはないし、これがワタシの本心——こんなコト言うのはこれっきりだからね。",
-                    "reading": "Kimi e no taido wa hoka no hito to onaji yo. Be, betsu ni tokubetsu atsukai nante shitenai kara. ...Maa, watashi ni taisuru gokai wa nanse­dai mo tsudzuite kita mono da shi, tokkuni akirameteru kedo. Demo kimi wa hoka no hito to chigatte watashi ni henken o mottenai. Dakara, kimi ni wa honto no sugata o miseteru no. Dare ni taishite mo enryo naku, sondai ni sessuru watashi wa, minna no imēji ni awasete tsukutta kyara yo... Kimi no mae de atafuta shichau watashi koso, hontou no watashi. Kimi ni uso o tsuita koto wa nai shi, kore ga watashi no honshin—konna koto iu no wa korekkiri dakara ne.",
+                    "reading": "Kimi e no taido wa hoka no hito to onaji yo. Be, betsu ni tokubetsu atsukai nante shitenai kara. ...Maa, watashi ni taisuru gokai wa nansedai mo tsudzuite kita mono da shi, tokkuni akirameteru kedo. Demo kimi wa hoka no hito to chigatte watashi ni henken o mottenai. Dakara, kimi ni wa honto no sugata o miseteru no. Dare ni taishite mo enryo naku, sondai ni sessuru watashi wa, minna no imēji ni awasete tsukutta kyara yo... Kimi no mae de atafuta shichau watashi koso, hontou no watashi. Kimi ni uso o tsuita koto wa nai shi, kore ga watashi no honshin—konna koto iu no wa korekkiri dakara ne.",
                     "audio": "assets/character/voice_overs/Citlali/story/ja/あたふたすること….mp3"
                 },
                 {
@@ -2439,5 +2439,236 @@ var CITLALI = {
     "demo_music": {
         "name": "Interstellar Drift",
         "url": "assets/character/demo_music/Citlali.mp3"
+    },
+    "build": {
+        "version": "5.4",
+        "type": "Support",
+        "weapons": [
+            {
+                "name": "Starcaller's Watch",
+                "icon": "assets/weapons/Starcaller's Watch.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Thrilling Tales of Dragon Slayers",
+                "icon": "assets/weapons/Thrilling Tales of Dragon Slayers.avif",
+                "quality": "3",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Wandering Evenstar",
+                "icon": "assets/weapons/Wandering Evenstar.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "A Thousand Floating Dreams",
+                "icon": "assets/weapons/A Thousand Floating Dreams.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Favonius Codex",
+                "icon": "assets/weapons/Favonius Codex.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Mappa Mare",
+                "icon": "assets/weapons/Mappa Mare.avif",
+                "quality": "4",
+                "how_to_obtain": "ForgingStellar Reunion Event"
+            },
+            {
+                "name": "Sacrificial Fragments",
+                "icon": "assets/weapons/Sacrificial Fragments.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Magic Guide",
+                "icon": "assets/weapons/Magic Guide.avif",
+                "quality": "3",
+                "how_to_obtain": "Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Scroll of the Hero of Cinder City",
+            "4pc Tenacity of the Millelith",
+            "4pc Noblesse Oblige",
+            "4pc Archaic Petra",
+            "4pc Instructor"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "EM / ER",
+            "EM / Cryo DMG Bonus",
+            "EM / CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "EM",
+            "CRIT Rate / CRIT DMG",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Citlali",
+                    "icon": "assets/character/icon/Citlali.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Diluc",
+                    "icon": "assets/character/icon/Diluc.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Citlali",
+                    "icon": "assets/character/icon/Citlali.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Citlali",
+                    "icon": "assets/character/icon/Citlali.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayato",
+                    "icon": "assets/character/icon/Kamisato Ayato.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Citlali",
+                    "icon": "assets/character/icon/Citlali.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Wriothesley",
+                    "icon": "assets/character/icon/Wriothesley.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

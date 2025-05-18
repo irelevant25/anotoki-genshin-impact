@@ -75,7 +75,7 @@ var EMILIE = {
     ],
     "special_dish": {
         "name": "A Fragrant Feast of Flavors",
-        "icon": "assets/foods/Emilie.avif"
+        "icon": "assets/foods/A Fragrant Feast of Flavors.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Emilie.avif",
@@ -845,7 +845,7 @@ var EMILIE = {
                 },
                 {
                     "title": "Interesting Things",
-                    "text": "Media:VO Emilie Interesting Things - Lumine.ogg(‍Nothing can be more interesting than encountering new things. You've traveled to so many places, and I'm sure your range of experience is much broader than my own, so I was wondering if I could make a request... Have you ever encountered a flower, or spice maybe, that left a particularly strong impression on you? Could you tell me about it?The \"Inteyvat\" flower... Huh, can't say I've ever heard of it, but that's certainly a grand-sounding name. Alright, well, I've made a note of it. If I'm lucky enough to ever see it in person, I'll certainly let you know.Nothing can be more interesting than encountering new things. You've traveled to so many places, and I'm sure your range of experience is much broader than my own, so I was wondering if I could make a request... Have you ever encountered a flower, or spice maybe, that left a particularly strong impression on you? Could you tell me about it?The \"Inteyvat\" flower... Huh, can't say I've ever heard of it, but that's certainly a grand-sounding name. Alright, well, I've made a note of it. If I'm lucky enough to ever see it in person, I'll certainly let you know. Tooltip for Nothing can be more interesting than encountering new things. You've traveled to so many places, and I'm sure your range of experience is much broader than my own, so I was wondering if I could make a request... Have you ever encountered a flower, or spice maybe, that left a particularly strong impression on you? Could you tell me about it?The \"Inteyvat\" flower... Huh, can't say I've ever heard of it, but that's certainly a grand-sounding name. Alright, well, I've made a note of it. If I'm lucky enough to ever see it in person, I'll certainly let you know.ⓘText for male Traveler/May I ask you something? The flower you wear in your hair... I've never seen one like it before. If you saw fit to fashion it into a hair accessory, I imagine it means a great deal to you.The \"Inteyvat\" flower... Huh, that's certainly a grand-sounding name. I don't know how you came to possess it, but I'm sure it means you are very important to this world.May I ask you something? The flower you wear in your hair... I've never seen one like it before. If you saw fit to fashion it into a hair accessory, I imagine it means a great deal to you.The \"Inteyvat\" flower... Huh, that's certainly a grand-sounding name. I don't know how you came to possess it, but I'm sure it means you are very important to this world.Text for female Traveler‍)",
+                    "text": "Media:VO Emilie Interesting Things - Lumine.ogg(Nothing can be more interesting than encountering new things. You've traveled to so many places, and I'm sure your range of experience is much broader than my own, so I was wondering if I could make a request... Have you ever encountered a flower, or spice maybe, that left a particularly strong impression on you? Could you tell me about it?The \"Inteyvat\" flower... Huh, can't say I've ever heard of it, but that's certainly a grand-sounding name. Alright, well, I've made a note of it. If I'm lucky enough to ever see it in person, I'll certainly let you know.Nothing can be more interesting than encountering new things. You've traveled to so many places, and I'm sure your range of experience is much broader than my own, so I was wondering if I could make a request... Have you ever encountered a flower, or spice maybe, that left a particularly strong impression on you? Could you tell me about it?The \"Inteyvat\" flower... Huh, can't say I've ever heard of it, but that's certainly a grand-sounding name. Alright, well, I've made a note of it. If I'm lucky enough to ever see it in person, I'll certainly let you know.Tooltip for Nothing can be more interesting than encountering new things. You've traveled to so many places, and I'm sure your range of experience is much broader than my own, so I was wondering if I could make a request... Have you ever encountered a flower, or spice maybe, that left a particularly strong impression on you? Could you tell me about it?The \"Inteyvat\" flower... Huh, can't say I've ever heard of it, but that's certainly a grand-sounding name. Alright, well, I've made a note of it. If I'm lucky enough to ever see it in person, I'll certainly let you know.ⓘText for male Traveler/May I ask you something? The flower you wear in your hair... I've never seen one like it before. If you saw fit to fashion it into a hair accessory, I imagine it means a great deal to you.The \"Inteyvat\" flower... Huh, that's certainly a grand-sounding name. I don't know how you came to possess it, but I'm sure it means you are very important to this world.May I ask you something? The flower you wear in your hair... I've never seen one like it before. If you saw fit to fashion it into a hair accessory, I imagine it means a great deal to you.The \"Inteyvat\" flower... Huh, that's certainly a grand-sounding name. I don't know how you came to possess it, but I'm sure it means you are very important to this world.Text for female Traveler)",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Emilie/story/en/Interesting Things.mp3"
                 },
@@ -1123,7 +1123,7 @@ var EMILIE = {
                 },
                 {
                     "title": "感兴趣的见闻…",
-                    "text": "Media:VO ZH Emilie Interesting Things - Lumine.ogg(‍没有什么比新鲜事物更能引发人的兴趣了。你游历诸国，见识之广一定非我能及。可以向你提一个请求吗？你是否见过令你印象深刻的香料或者花卉，能否告知与我？「因提瓦特」…如此宏大的名字，我从未听说过。嗯，我记下了，如果我有缘见到这种花，一定马上联系你。没有什么比新鲜事物更能引发人的兴趣了。你游历诸国，见识之广一定非我能及。可以向你提一个请求吗？你是否见过令你印象深刻的香料或者花卉，能否告知与我？「因提瓦特」…如此宏大的名字，我从未听说过。嗯，我记下了，如果我有缘见到这种花，一定马上联系你。Text for male Traveler/可以请问你一个问题吗？你头上的花…我此前从未见过。你将它们制成头饰始终佩戴，那它们对你来说一定意义深刻吧。「因提瓦特」…听上去是如此宏大。能取得这种花的你，对这个世界来说应该是十分重要的存在吧。可以请问你一个问题吗？你头上的花…我此前从未见过。你将它们制成头饰始终佩戴，那它们对你来说一定意义深刻吧。「因提瓦特」…听上去是如此宏大。能取得这种花的你，对这个世界来说应该是十分重要的存在吧。Text for female Traveler‍)",
+                    "text": "Media:VO ZH Emilie Interesting Things - Lumine.ogg(没有什么比新鲜事物更能引发人的兴趣了。你游历诸国，见识之广一定非我能及。可以向你提一个请求吗？你是否见过令你印象深刻的香料或者花卉，能否告知与我？「因提瓦特」…如此宏大的名字，我从未听说过。嗯，我记下了，如果我有缘见到这种花，一定马上联系你。没有什么比新鲜事物更能引发人的兴趣了。你游历诸国，见识之广一定非我能及。可以向你提一个请求吗？你是否见过令你印象深刻的香料或者花卉，能否告知与我？「因提瓦特」…如此宏大的名字，我从未听说过。嗯，我记下了，如果我有缘见到这种花，一定马上联系你。Text for male Traveler/可以请问你一个问题吗？你头上的花…我此前从未见过。你将它们制成头饰始终佩戴，那它们对你来说一定意义深刻吧。「因提瓦特」…听上去是如此宏大。能取得这种花的你，对这个世界来说应该是十分重要的存在吧。可以请问你一个问题吗？你头上的花…我此前从未见过。你将它们制成头饰始终佩戴，那它们对你来说一定意义深刻吧。「因提瓦特」…听上去是如此宏大。能取得这种花的你，对这个世界来说应该是十分重要的存在吧。Text for female Traveler)",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Emilie/story/zh/感兴趣的见闻….mp3"
                 },
@@ -1179,7 +1179,7 @@ var EMILIE = {
                     "title": "关于爱可菲",
                     "text": "爱可菲小姐是位勤奋好学的大厨。能将枯燥的调香知识听得津津有味，已属难得。她还擅于总结和归纳事物之间微小的联系，拥有着将各类知识迅速应用于实践的行动力。有人羡慕地称她为枫丹烹饪史上的「天才」，我丝毫不怀疑她成功背后的缘由。",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Emilie/story/zh/关于爱可菲.mp3"
                 },
                 {
                     "title": "想要了解艾梅莉埃·其一",
@@ -1401,7 +1401,7 @@ var EMILIE = {
                 },
                 {
                     "title": "興味のあること…",
-                    "text": "Media:VO JA Emilie Interesting Things - Lumine.ogg(‍新鮮な物事ほど、人の興味をそそるものはありません。各国を旅し、私よりずっと広い見聞を持つあなたにお聞きしたいのですが、印象に残っている香料や花はありますか？もしあれば、私に教えていただけないでしょうか。「インテイワット」ですか…なんと雄大な名前なのでしょう。初めて聞きました——ええ、しかと記憶に刻みました。この花を目にする機会に恵まれたら、すぐあなたに連絡すると約束しましょう。新鮮な物事ほど、人の興味をそそるものはありません。各国を旅し、私よりずっと広い見聞を持つあなたにお聞きしたいのですが、印象に残っている香料や花はありますか？もしあれば、私に教えていただけないでしょうか。「インテイワット」ですか…なんと雄大な名前なのでしょう。初めて聞きました——ええ、しかと記憶に刻みました。この花を目にする機会に恵まれたら、すぐあなたに連絡すると約束しましょう。Text for male Traveler/一つ質問してもよろしいでしょうか。あなたが頭に付けている花は…見たことがありません。髪飾りとしてずっと付けていらっしゃるくらいですから、きっと深い意味があるのではないでしょうか。なるほど、「インテイワット」という花なのですね…雄大な名前です。この花を手に入れたあなたもきっと、この世界にとって、とても重要な存在なのでしょう。一つ質問してもよろしいでしょうか。あなたが頭に付けている花は…見たことがありません。髪飾りとしてずっと付けていらっしゃるくらいですから、きっと深い意味があるのではないでしょうか。なるほど、「インテイワット」という花なのですね…雄大な名前です。この花を手に入れたあなたもきっと、この世界にとって、とても重要な存在なのでしょう。Text for female Traveler‍)",
+                    "text": "Media:VO JA Emilie Interesting Things - Lumine.ogg(新鮮な物事ほど、人の興味をそそるものはありません。各国を旅し、私よりずっと広い見聞を持つあなたにお聞きしたいのですが、印象に残っている香料や花はありますか？もしあれば、私に教えていただけないでしょうか。「インテイワット」ですか…なんと雄大な名前なのでしょう。初めて聞きました——ええ、しかと記憶に刻みました。この花を目にする機会に恵まれたら、すぐあなたに連絡すると約束しましょう。新鮮な物事ほど、人の興味をそそるものはありません。各国を旅し、私よりずっと広い見聞を持つあなたにお聞きしたいのですが、印象に残っている香料や花はありますか？もしあれば、私に教えていただけないでしょうか。「インテイワット」ですか…なんと雄大な名前なのでしょう。初めて聞きました——ええ、しかと記憶に刻みました。この花を目にする機会に恵まれたら、すぐあなたに連絡すると約束しましょう。Text for male Traveler/一つ質問してもよろしいでしょうか。あなたが頭に付けている花は…見たことがありません。髪飾りとしてずっと付けていらっしゃるくらいですから、きっと深い意味があるのではないでしょうか。なるほど、「インテイワット」という花なのですね…雄大な名前です。この花を手に入れたあなたもきっと、この世界にとって、とても重要な存在なのでしょう。一つ質問してもよろしいでしょうか。あなたが頭に付けている花は…見たことがありません。髪飾りとしてずっと付けていらっしゃるくらいですから、きっと深い意味があるのではないでしょうか。なるほど、「インテイワット」という花なのですね…雄大な名前です。この花を手に入れたあなたもきっと、この世界にとって、とても重要な存在なのでしょう。Text for female Traveler)",
                     "reading": "Shinsen na mono goto hodo, hito no kyoumi o sosoru mono wa arimasen. Kakkoku o tabi shi, watashi yori zutto hiroi kenbun o motsu anata ni okiki shitai no desu ga, inshou ni nokotte iru kouryou ya hana wa arimasu ka? Moshi areba, watashi ni oshiete itadakenaideshou ka.\n\"Intei Watto\" desu ka… nanto yuudaina namae na no deshou. Hajimete kikimashita——ē, shikato kioku ni kizamimashita. Kono hana o me ni suru kikai ni megumaretara, sugu anata ni renraku suru to yakusoku shimashou. / Hitotsu shitsumon shite mo yoroshii deshou ka. Anata ga atama ni tsukete iru hana wa… mita koto ga arimasen. Kamikazari toshite zutto tsukete irassharu kurai desu kara, kitto fukai imi ga aru no de wa nai deshou ka.\n\nNaruhodo, \"Intei Watto\" to iu hana na no desu ne… yuudaina namae desu. Kono hana o te ni ireteta anata mo kitto, kono sekai ni totte, totemo juuyou na sonzai na no deshou.",
                     "audio": "assets/character/voice_overs/Emilie/story/ja/興味のあること….mp3"
                 },
@@ -1457,7 +1457,7 @@ var EMILIE = {
                     "title": "エスコフィエについて…",
                     "text": "エスコフィエさんは勤勉で勉強熱心な料理人です。調香に関する学術的な話を興味深く聞いてくれる人はなかなかいませんよ。他にも、物事の間にある些細な繋がりをまとめる力や、さまざまな知識を素早く実践に移す行動力に長けています。彼女のことをフォンテーヌ料理史上の「天才」と呼び、その才能を羨ましがる人もいますが…成功の裏には確固たる理由があると思います。",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Emilie/story/ja/エスコフィエについて….mp3"
                 },
                 {
                     "title": "エミリエを知る·1",
@@ -1679,8 +1679,8 @@ var EMILIE = {
                 },
                 {
                     "title": "흥미있는 일…",
-                    "text": "Media:VO KO Emilie Interesting Things - Lumine.ogg(‍새로운 사물보다 더 흥미로운 건 없지. 넌 여러 나라를 여행했으니까 분명 나보다 식견이 넓을 거야. 그래서 말인데, 부탁 하나 해도 될까? 기억에 남는 향신료나 꽃이 있다면 알려줄 수 있어?「인티바트」… 이렇게 웅장한 이름은 처음 들어봐. 응, 적어 뒀어. 인연이 닿아 그 꽃을 보게 된다면 너한테 가장 먼저 알려줄게새로운 사물보다 더 흥미로운 건 없지. 넌 여러 나라를 여행했으니까 분명 나보다 식견이 넓을 거야. 그래서 말인데, 부탁 하나 해도 될까? 기억에 남는 향신료나 꽃이 있다면 알려줄 수 있어?「인티바트」… 이렇게 웅장한 이름은 처음 들어봐. 응, 적어 뒀어. 인연이 닿아 그 꽃을 보게 된다면 너한테 가장 먼저 알려줄게Text for male Traveler/질문 하나 해도 될까? 그 머리 위에 꽃 말인데… 처음 보는 꽃이라서. 머리 장식으로 만들어서 계속 하고 다닐 정도면, 너한테 분명 의미 있는 꽃이겠지.「인티바트」… 굉장히 웅장한 이름이네. 그런 꽃을 손에 넣은 넌 이 세계에서 무척 중요한 존재겠지질문 하나 해도 될까? 그 머리 위에 꽃 말인데… 처음 보는 꽃이라서. 머리 장식으로 만들어서 계속 하고 다닐 정도면, 너한테 분명 의미 있는 꽃이겠지.「인티바트」… 굉장히 웅장한 이름이네. 그런 꽃을 손에 넣은 넌 이 세계에서 무척 중요한 존재겠지Text for female Traveler‍)",
-                    "reading": "(‍Saeroun samulboda deo heungmiroun geon eopji. Neon yeoreo narareul yeohaenghaesseunikka bunmyeong naboda sikgyeoni neolbeul geoya. Geuraeseo marinde, butak hana haedo doelkka? Gieoge namneun hyangsillyona kkochi itdamyeon allyeojul su isseo?\"Intibateu\"... Ireoke ungjanghan ireumeun cheo'eum deureobwa. Eung, jeogeo dwosseo. Inyeoni daa geu kkocheul boge doendamyeon neohante gajang meonjeo allyeojulgeJilmun hana haedo doelkka? Geu meori wie kkot marinde... Cheo'eum boneun kkochiraseo. Meori jangsigeuro mandeureoseo gyesok hago danil jeongdomyeon, neohante bunmyeong uimi inneun kkochigetji.\"Intibateu\"... Goengjanghi ungjanghan ireumine. Geureon kkocheul sone neoeun neon i segyeeseo mucheok jung'yohan jonjaegetji‍)",
+                    "text": "Media:VO KO Emilie Interesting Things - Lumine.ogg(새로운 사물보다 더 흥미로운 건 없지. 넌 여러 나라를 여행했으니까 분명 나보다 식견이 넓을 거야. 그래서 말인데, 부탁 하나 해도 될까? 기억에 남는 향신료나 꽃이 있다면 알려줄 수 있어?「인티바트」… 이렇게 웅장한 이름은 처음 들어봐. 응, 적어 뒀어. 인연이 닿아 그 꽃을 보게 된다면 너한테 가장 먼저 알려줄게새로운 사물보다 더 흥미로운 건 없지. 넌 여러 나라를 여행했으니까 분명 나보다 식견이 넓을 거야. 그래서 말인데, 부탁 하나 해도 될까? 기억에 남는 향신료나 꽃이 있다면 알려줄 수 있어?「인티바트」… 이렇게 웅장한 이름은 처음 들어봐. 응, 적어 뒀어. 인연이 닿아 그 꽃을 보게 된다면 너한테 가장 먼저 알려줄게Text for male Traveler/질문 하나 해도 될까? 그 머리 위에 꽃 말인데… 처음 보는 꽃이라서. 머리 장식으로 만들어서 계속 하고 다닐 정도면, 너한테 분명 의미 있는 꽃이겠지.「인티바트」… 굉장히 웅장한 이름이네. 그런 꽃을 손에 넣은 넌 이 세계에서 무척 중요한 존재겠지질문 하나 해도 될까? 그 머리 위에 꽃 말인데… 처음 보는 꽃이라서. 머리 장식으로 만들어서 계속 하고 다닐 정도면, 너한테 분명 의미 있는 꽃이겠지.「인티바트」… 굉장히 웅장한 이름이네. 그런 꽃을 손에 넣은 넌 이 세계에서 무척 중요한 존재겠지Text for female Traveler)",
+                    "reading": "(Saeroun samulboda deo heungmiroun geon eopji. Neon yeoreo narareul yeohaenghaesseunikka bunmyeong naboda sikgyeoni neolbeul geoya. Geuraeseo marinde, butak hana haedo doelkka? Gieoge namneun hyangsillyona kkochi itdamyeon allyeojul su isseo?\"Intibateu\"... Ireoke ungjanghan ireumeun cheo'eum deureobwa. Eung, jeogeo dwosseo. Inyeoni daa geu kkocheul boge doendamyeon neohante gajang meonjeo allyeojulgeJilmun hana haedo doelkka? Geu meori wie kkot marinde... Cheo'eum boneun kkochiraseo. Meori jangsigeuro mandeureoseo gyesok hago danil jeongdomyeon, neohante bunmyeong uimi inneun kkochigetji.\"Intibateu\"... Goengjanghi ungjanghan ireumine. Geureon kkocheul sone neoeun neon i segyeeseo mucheok jung'yohan jonjaegetji)",
                     "audio": "assets/character/voice_overs/Emilie/story/ko/흥미있는 일….mp3"
                 },
                 {
@@ -1735,7 +1735,7 @@ var EMILIE = {
                     "title": "에스코피에에 대해",
                     "text": "에스코피에 씨는 성실하고 학구열이 뛰어난 요리사야. 지루한 조향 지식을 흥미롭게 듣는 사람은 좀처럼 없지. 또 그녀는 사물 간의 미세한 관계를 분석하고 정리하는 능력이 뛰어나고, 지식을 빠르게 실전에 응용하는 행동력도 갖췄어. 누군가는 그녀를 부러워하며 폰타인 요리계 세기의 「천재」라고 부르지만, 난 그 성공 뒤에 마땅한 이유가 숨겨져 있다는 걸 알아",
                     "reading": "Eseukopie ssineun seongsilhago hakguyeori ttwieonan yorisaya. Jiruhan johyang jisigeul heungmiropge deunneun sarameun jomcheoreom eopji. Tto geunyeoneun samul ganui misehan gwan'gyereul bunseokhago jeongnihaneun neungnyeogi ttwieonago, jisigeul ppareuge siljeone eung'yonghaneun haengdongnyeokdo gatchwosseo. Nugun'ganeun geunyeoreul bureowohamyeo pontain yorigye segiui \"Cheonjae\"-rago bureujiman, nan geu seonggong dwie mattanghan iyuga sumgyeojyeo itdaneun geol ara",
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Emilie/story/ko/에스코피에에 대해.mp3"
                 },
                 {
                     "title": "에밀리에 대해 알기·첫 번째",
@@ -2407,5 +2407,573 @@ var EMILIE = {
     "demo_music": {
         "name": "Notes Aeriennes",
         "url": "assets/character/demo_music/Emilie.mp3"
+    },
+    "build": {
+        "version": "5.4",
+        "type": "Off-field DPS",
+        "weapons": [
+            {
+                "name": "Lumidouce Elegy",
+                "icon": "assets/weapons/Lumidouce Elegy.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Calamity Queller",
+                "icon": "assets/weapons/Calamity Queller.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Staff of the Scarlet Sands",
+                "icon": "assets/weapons/Staff of the Scarlet Sands.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Staff of Homa",
+                "icon": "assets/weapons/Staff of Homa.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Deathmatch",
+                "icon": "assets/weapons/Deathmatch.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Missive Windspear",
+                "icon": "assets/weapons/Missive Windspear.avif",
+                "quality": "4",
+                "how_to_obtain": "Of Ballads and Brews Event"
+            },
+            {
+                "name": "Blackcliff Pole",
+                "icon": "assets/weapons/Blackcliff Pole.avif",
+                "quality": "4",
+                "how_to_obtain": "Paimon's Bargains"
+            },
+            {
+                "name": "Lithic Spear",
+                "icon": "assets/weapons/Lithic Spear.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Wavebreaker's Fin",
+                "icon": "assets/weapons/Wavebreaker's Fin.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Prospector's Drill",
+                "icon": "assets/weapons/Prospector's Drill.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Tamayuratei no Ohanashi",
+                "icon": "assets/weapons/Tamayuratei no Ohanashi.avif",
+                "quality": "4",
+                "how_to_obtain": "Enchanted Tales of the Mikawa Festival Event"
+            },
+            {
+                "name": "Mountain-Bracing Bolt",
+                "icon": "assets/weapons/Mountain-Bracing Bolt.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Favonius Lance",
+                "icon": "assets/weapons/Favonius Lance.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Kitain Cross Spear",
+                "icon": "assets/weapons/Kitain Cross Spear.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Unfinished Reverie",
+            "4pc Deepwood Memories",
+            "4pc Golden Troupe"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK%",
+            "Dendro DMG Bonus",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "CRIT Rate / CRIT DMG",
+            "ATK",
+            "ER"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Chiori",
+                    "icon": "assets/character/icon/Chiori.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Yoimiya",
+                    "icon": "assets/character/icon/Yoimiya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Kirara",
+                    "icon": "assets/character/icon/Kirara.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Klee",
+                    "icon": "assets/character/icon/Klee.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Ganyu",
+                    "icon": "assets/character/icon/Ganyu.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Dehya",
+                    "icon": "assets/character/icon/Dehya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Thoma",
+                    "icon": "assets/character/icon/Thoma.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Raiden Shogun",
+                    "icon": "assets/character/icon/Raiden Shogun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Alhaitham",
+                    "icon": "assets/character/icon/Alhaitham.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Nilou",
+                    "icon": "assets/character/icon/Nilou.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Sangonomiya Kokomi",
+                    "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Emilie",
+                    "icon": "assets/character/icon/Emilie.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yae Miko",
+                    "icon": "assets/character/icon/Yae Miko.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

@@ -75,7 +75,7 @@ var YUN_JIN = {
     ],
     "special_dish": {
         "name": "Cloud-Shrouded Jade",
-        "icon": "assets/foods/Yun Jin.avif"
+        "icon": "assets/foods/Cloud-Shrouded Jade.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Yun Jin.avif",
@@ -2409,5 +2409,185 @@ var YUN_JIN = {
     "demo_music": {
         "name": "Chapter of a New Era",
         "url": "assets/character/demo_music/Yun Jin.mp3"
+    },
+    "build": {
+        "version": "5.4",
+        "type": "Support",
+        "weapons": [
+            {
+                "name": "Footprint of the Rainbow",
+                "icon": "assets/weapons/Footprint of the Rainbow.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Engulfing Lightning",
+                "icon": "assets/weapons/Engulfing Lightning.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Favonius Lance",
+                "icon": "assets/weapons/Favonius Lance.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Rightful Reward",
+                "icon": "assets/weapons/Rightful Reward.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "The Catch",
+                "icon": "assets/weapons/The Catch.avif",
+                "quality": "4",
+                "how_to_obtain": "Inazuma Fishing Association(Sold by Kujirai Momiji)"
+            },
+            {
+                "name": "Prototype Starglitter",
+                "icon": "assets/weapons/Prototype Starglitter.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Husk of Opulent Dreams",
+            "4pc Noblesse Oblige",
+            "4pc Archaic Petra",
+            "4pc Scroll of the Hero of Cinder City"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "DEF% / ER",
+            "DEF%",
+            "DEF%"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate",
+            "DEF%",
+            "Flat DEF"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Yun Jin",
+                    "icon": "assets/character/icon/Yun Jin.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Yoimiya",
+                    "icon": "assets/character/icon/Yoimiya.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Yun Jin",
+                    "icon": "assets/character/icon/Yun Jin.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayato",
+                    "icon": "assets/character/icon/Kamisato Ayato.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xilonen",
+                    "icon": "assets/character/icon/Xilonen.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Yun Jin",
+                    "icon": "assets/character/icon/Yun Jin.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                },
+                {
+                    "name": "Wanderer",
+                    "icon": "assets/character/icon/Wanderer.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Faruzan",
+                    "icon": "assets/character/icon/Faruzan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

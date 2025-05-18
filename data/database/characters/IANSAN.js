@@ -77,7 +77,7 @@ var IANSAN = {
     ],
     "special_dish": {
         "name": "Gold-Standard Healthy Meal",
-        "icon": "assets/foods/Iansan.avif"
+        "icon": "assets/foods/Gold-Standard Healthy Meal.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Iansan.avif",
@@ -2388,5 +2388,229 @@ var IANSAN = {
             ]
         }
     },
-    "demo_music": null
+    "demo_music": null,
+    "build": {
+        "version": "5.5",
+        "weapons": [
+            {
+                "name": "Calamity Queller",
+                "icon": "assets/weapons/Calamity Queller.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Engulfing Lightning",
+                "icon": "assets/weapons/Engulfing Lightning.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Favonius Lance",
+                "icon": "assets/weapons/Favonius Lance.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Vortex Vanquisher",
+                "icon": "assets/weapons/Vortex Vanquisher.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Skyward Spine",
+                "icon": "assets/weapons/Skyward Spine.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Lumidouce Elegy",
+                "icon": "assets/weapons/Lumidouce Elegy.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Staff of Homa",
+                "icon": "assets/weapons/Staff of Homa.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Missive Windspear",
+                "icon": "assets/weapons/Missive Windspear.avif",
+                "quality": "4",
+                "how_to_obtain": "Of Ballads and Brews Event"
+            },
+            {
+                "name": "Tamayuratei no Ohanashi",
+                "icon": "assets/weapons/Tamayuratei no Ohanashi.avif",
+                "quality": "4",
+                "how_to_obtain": "Enchanted Tales of the Mikawa Festival Event"
+            },
+            {
+                "name": "Prospector's Drill",
+                "icon": "assets/weapons/Prospector's Drill.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Wavebreaker's Fin",
+                "icon": "assets/weapons/Wavebreaker's Fin.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Lithic Spear",
+                "icon": "assets/weapons/Lithic Spear.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The Catch",
+                "icon": "assets/weapons/The Catch.avif",
+                "quality": "4",
+                "how_to_obtain": "Inazuma Fishing Association(Sold by Kujirai Momiji)"
+            },
+            {
+                "name": "Prototype Starglitter",
+                "icon": "assets/weapons/Prototype Starglitter.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Scroll of the Hero of Cinder City",
+            "4pc Noblesse Oblige"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK% / ER",
+            "ATK%",
+            "ATK% / CRIT Rate"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "ATK%",
+            "CRIT Rate"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Varesa",
+                    "icon": "assets/character/icon/Varesa.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xianyun",
+                    "icon": "assets/character/icon/Xianyun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Chasca",
+                    "icon": "assets/character/icon/Chasca.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Iansan",
+                    "icon": "assets/character/icon/Iansan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Gaming",
+                    "icon": "assets/character/icon/Gaming.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Citlali",
+                    "icon": "assets/character/icon/Citlali.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ]
+        ]
+    }
 }

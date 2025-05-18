@@ -1,6 +1,7 @@
 var LYNETTE = {
     "name": "Lynette",
     "secondary_title": "Elegance in the Shadows",
+    "card_icon": "assets/character/card/Lynette.avif",
     "wish_icon": "assets/character/wish/Lynette.avif",
     "ingame_icon": "assets/character/ingame/Lynette.avif",
     "icon": "assets/character/icon/Lynette.avif",
@@ -75,7 +76,7 @@ var LYNETTE = {
     ],
     "special_dish": {
         "name": "A Leisurely Sip",
-        "icon": "assets/foods/Lynette.avif"
+        "icon": "assets/foods/A Leisurely Sip.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Lynette.avif",
@@ -1002,7 +1003,7 @@ var LYNETTE = {
                 },
                 {
                     "title": "Birthday",
-                    "text": "Happy Birthday [sic]! Let me give you this card... it's not a greeting card, so of course nothing's written on it. Write down what kind of present you want, place it in my hat, and no matter what it might be, you'll get it.",
+                    "text": "Happy Birthday! Let me give you this card... it's not a greeting card, so of course nothing's written on it. Write down what kind of present you want, place it in my hat, and no matter what it might be, you'll get it.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Lynette/story/en/Birthday.mp3"
                 },
@@ -1228,7 +1229,7 @@ var LYNETTE = {
                     "title": "关于爱可菲",
                     "text": "嗯…看爱可菲今天的尾巴…估计是开发出让她满意的新甜点了，期待下次茶话会。",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Lynette/story/zh/关于爱可菲.mp3"
                 },
                 {
                     "title": "想要了解琳妮特・其一",
@@ -1530,7 +1531,7 @@ var LYNETTE = {
                     "title": "エスコフィエについて…",
                     "text": "しっぽを見る限り…満足の行く新スイーツを開発できたみたい。次のお茶会が楽しみ。",
                     "reading": null,
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Lynette/story/ja/エスコフィエについて….mp3"
                 },
                 {
                     "title": "リネットを知る・1",
@@ -1832,7 +1833,7 @@ var LYNETTE = {
                     "title": "에스코피에에 대해",
                     "text": "음… 오늘 에스코피에의 꼬리를 보니… 만족스러운 디저트를 개발한 것 같아. 다음 다과회가 기대돼",
                     "reading": "Eum... Oneul eseukopie'ui kkorireul boni... Manjokseureoun dijeoteureul gaebalhan geot gata. Da'eum dagwahoega gidaedwae",
-                    "audio": null
+                    "audio": "assets/character/voice_overs/Lynette/story/ko/에스코피에에 대해.mp3"
                 },
                 {
                     "title": "리넷에 대해 알기・첫 번째",
@@ -2480,5 +2481,314 @@ var LYNETTE = {
     "demo_music": {
         "name": "Chasing the Wind",
         "url": "assets/character/demo_music/Lynette.mp3"
+    },
+    "build": {
+        "version": "4.7",
+        "type": "Support",
+        "weapons": [
+            {
+                "name": "Favonius Sword",
+                "icon": "assets/weapons/Favonius Sword.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Sacrificial Sword",
+                "icon": "assets/weapons/Sacrificial Sword.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Freedom-Sworn",
+                "icon": "assets/weapons/Freedom-Sworn.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Fleuve Cendre Ferryman",
+                "icon": "assets/weapons/Fleuve Cendre Ferryman.avif",
+                "quality": "4",
+                "how_to_obtain": "Fontaine Fishing Association(Sold by Delaroche)"
+            },
+            {
+                "name": "Amenoma Kageuchi",
+                "icon": "assets/weapons/Amenoma Kageuchi.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Skyward Blade",
+                "icon": "assets/weapons/Skyward Blade.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Skyrider Sword",
+                "icon": "assets/weapons/Skyrider Sword.avif",
+                "quality": "3",
+                "how_to_obtain": "WishesTalk to Pan Guan'er"
+            },
+            {
+                "name": "Wolf-Fang",
+                "icon": "assets/weapons/Wolf-Fang.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "Finale of the Deep",
+                "icon": "assets/weapons/Finale of the Deep.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Viridescent Venerer"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ER / ATK%",
+            "Anemo DMG Bonus / ATK%",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "ATK%",
+            "EM"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayaka",
+                    "icon": "assets/character/icon/Kamisato Ayaka.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Sangonomiya Kokomi",
+                    "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Shenhe",
+                    "icon": "assets/character/icon/Shenhe.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Lyney",
+                    "icon": "assets/character/icon/Lyney.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Wriothesley",
+                    "icon": "assets/character/icon/Wriothesley.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Raiden Shogun",
+                    "icon": "assets/character/icon/Raiden Shogun.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Hu Tao",
+                    "icon": "assets/character/icon/Hu Tao.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Nahida",
+                    "icon": "assets/character/icon/Nahida.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

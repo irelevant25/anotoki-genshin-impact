@@ -75,7 +75,7 @@ var QIQI = {
     ],
     "special_dish": {
         "name": "No Tomorrow",
-        "icon": "assets/foods/Qiqi.avif"
+        "icon": "assets/foods/No Tomorrow.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Qiqi.avif",
@@ -2406,5 +2406,164 @@ var QIQI = {
     "demo_music": {
         "name": "Preserver of Fortune",
         "url": "assets/character/demo_music/Qiqi.mp3"
+    },
+    "build": {
+        "version": "2.6",
+        "type": "Cryo enabler / Support",
+        "weapons": [
+            {
+                "name": "Aquila Favonia",
+                "icon": "assets/weapons/Aquila Favonia.avif",
+                "quality": "5",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Primordial Jade Cutter",
+                "icon": "assets/weapons/Primordial Jade Cutter.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Summit Shaper",
+                "icon": "assets/weapons/Summit Shaper.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Blackcliff Slasher",
+                "icon": "assets/weapons/Blackcliff Slasher.avif",
+                "quality": "4",
+                "how_to_obtain": "Paimon's Bargains"
+            },
+            {
+                "name": "Mistsplitter Reforged",
+                "icon": "assets/weapons/Mistsplitter Reforged.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Lion's Roar",
+                "icon": "assets/weapons/Lion's Roar.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "The Black Sword",
+                "icon": "assets/weapons/The Black Sword.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass  (Gnostic Hymn)"
+            },
+            {
+                "name": "Prototype Rancour",
+                "icon": "assets/weapons/Prototype Rancour.avif",
+                "quality": "4",
+                "how_to_obtain": "ForgingAdventure Rank 10 Reward"
+            },
+            {
+                "name": "The Flute",
+                "icon": "assets/weapons/The Flute.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            }
+        ],
+        "artifacts": [
+            "4pc Ocean-Hued Clam",
+            "4pc Instructors",
+            "4pc Tenacity of the Millenith",
+            "4pc Maiden Beloved"
+        ],
+        "talents": [
+            "Skill",
+            "Normal Attack",
+            "Burst"
+        ],
+        "main_stats": [
+            "ATK%",
+            "ATK% / Cryo DMG Bonus",
+            "Healing Bonus / CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ATK%",
+            "CRIT Rate / CRIT DMG",
+            "ER (until requirement)"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Qiqi",
+                    "icon": "assets/character/icon/Qiqi.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Rosaria",
+                    "icon": "assets/character/icon/Rosaria.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Qiqi",
+                    "icon": "assets/character/icon/Qiqi.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Chongyun",
+                    "icon": "assets/character/icon/Chongyun.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Cryo",
+                        "icon": "assets/elements/Cryo.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

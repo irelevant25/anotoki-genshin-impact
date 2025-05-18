@@ -167,8 +167,8 @@ const SITES_TOP_QUIZZES_VOICE_COMPONENT = {
             },
 
             startQuestion() {
-                this.$refs.audioElement.src = this.questionEntity.voice_over.audio;
-                this.questionText = this.questionEntity.voice_over.text;
+                this.$refs.audioElement.src = this.questionEntity.voice_overs.en.audio;
+                this.questionText = this.questionEntity.voice_overs.en.text;
                 this.applyEffects();
             },
 

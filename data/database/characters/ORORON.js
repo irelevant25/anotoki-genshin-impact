@@ -74,7 +74,7 @@ var ORORON = {
     ],
     "special_dish": {
         "name": "Honey-Glazed Ceviche",
-        "icon": "assets/foods/Ororon.avif"
+        "icon": "assets/foods/Honey-Glazed Ceviche.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Ororon.avif",
@@ -988,7 +988,7 @@ var ORORON = {
                 },
                 {
                     "title": "Feelings About Ascension: Building Up",
-                    "text": "Media:VO Ororon Feelings About Ascension - 02 (Lumine).ogg Maybe I should start calling you \"master\"... Thank you, Master (‍GrampsGrampsText for male Traveler/GrannyGrannyText for female Traveler‍). I've learned a lot from you.",
+                    "text": "Media:VO Ororon Feelings About Ascension - 02 (Lumine).ogg Maybe I should start calling you \"master\"... Thank you, Master (GrampsGrampsText for male Traveler/GrannyGrannyText for female Traveler). I've learned a lot from you.",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Ororon/story/en/Feelings About Ascension - Building Up.mp3"
                 },
@@ -1254,7 +1254,7 @@ var ORORON = {
                 },
                 {
                     "title": "突破的感受·承",
-                    "text": "Media:VO ZH Ororon Feelings About Ascension - 02 (Lumine).ogg 我是不是应该叫你声老师？谢谢你，(‍爷爷爷爷Text for male Traveler/奶奶奶奶Text for female Traveler‍)老师，我学到很多。",
+                    "text": "Media:VO ZH Ororon Feelings About Ascension - 02 (Lumine).ogg 我是不是应该叫你声老师？谢谢你，(爷爷爷爷Text for male Traveler/奶奶奶奶Text for female Traveler)老师，我学到很多。",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Ororon/story/zh/突破的感受·承.mp3"
                 },
@@ -1520,7 +1520,7 @@ var ORORON = {
                 },
                 {
                     "title": "突破した感想・承",
-                    "text": "Media:VO JA Ororon Feelings About Ascension - 02 (Lumine).ogg「先生」と呼んだほうがいいかな？ありがとう、(‍じいちゃんじいちゃんText for male Traveler/ばあちゃんばあちゃんText for female Traveler‍)先生。勉強になった。",
+                    "text": "Media:VO JA Ororon Feelings About Ascension - 02 (Lumine).ogg「先生」と呼んだほうがいいかな？ありがとう、(じいちゃんじいちゃんText for male Traveler/ばあちゃんばあちゃんText for female Traveler)先生。勉強になった。",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Ororon/story/ja/突破した感想・承.mp3"
                 },
@@ -1786,8 +1786,8 @@ var ORORON = {
                 },
                 {
                     "title": "돌파의 느낌·승",
-                    "text": "Media:VO KO Ororon Feelings About Ascension - 02 (Lumine).ogg 너를 선생님이라고 불러야 할까? 고마워, 선생님 (‍할아버지할아버지Text for male Traveler/할머니할머니Text for female Traveler‍). 덕분에 많이 배웠어",
-                    "reading": " Neoreul seonsaengnimirago bulleoya halkka? Gomawo, seonsaengnim (‍HarabeojiHalmeoni‍). Deokbune mani baewosseo",
+                    "text": "Media:VO KO Ororon Feelings About Ascension - 02 (Lumine).ogg 너를 선생님이라고 불러야 할까? 고마워, 선생님 (할아버지할아버지Text for male Traveler/할머니할머니Text for female Traveler). 덕분에 많이 배웠어",
+                    "reading": " Neoreul seonsaengnimirago bulleoya halkka? Gomawo, seonsaengnim (HarabeojiHalmeoni). Deokbune mani baewosseo",
                     "audio": "assets/character/voice_overs/Ororon/story/ko/돌파의 느낌·승.mp3"
                 },
                 {
@@ -2382,5 +2382,493 @@ var ORORON = {
     "demo_music": {
         "name": "Rain of Seven Curtains",
         "url": "assets/character/demo_music/Ororon.mp3"
+    },
+    "build": {
+        "version": "5.4",
+        "type": "Off-field DPS",
+        "weapons": [
+            {
+                "name": "Elegy for the End",
+                "icon": "assets/weapons/Elegy for the End.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Chain Breaker",
+                "icon": "assets/weapons/Chain Breaker.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Song of Stillness",
+                "icon": "assets/weapons/Song of Stillness.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Alley Hunter",
+                "icon": "assets/weapons/Alley Hunter.avif",
+                "quality": "4",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The Stringless",
+                "icon": "assets/weapons/The Stringless.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Windblume Ode",
+                "icon": "assets/weapons/Windblume Ode.avif",
+                "quality": "4",
+                "how_to_obtain": "Invitation of Windblume Event"
+            },
+            {
+                "name": "Favonius Warbow",
+                "icon": "assets/weapons/Favonius Warbow.avif",
+                "quality": "4",
+                "how_to_obtain": "WishesA Long Shot Quest"
+            }
+        ],
+        "artifacts": [
+            "4pc Scroll of the Hero of Cinder City",
+            "4pc Noblesse Oblige",
+            "4pc Instructor"
+        ],
+        "talents": [
+            "Burst",
+            "Skill",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "ATK% / ER",
+            "Electro DMG Bonus / ATK%",
+            "CRIT Rate / CRIT DMG"
+        ],
+        "sub_stats": [
+            "ER (until requirement)",
+            "CRIT Rate / CRIT DMG",
+            "ATK%"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Neuvillette",
+                    "icon": "assets/character/icon/Neuvillette.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Kaedehara Kazuha",
+                    "icon": "assets/character/icon/Kaedehara Kazuha.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xingqiu",
+                    "icon": "assets/character/icon/Xingqiu.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Lan Yan",
+                    "icon": "assets/character/icon/Lan Yan.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Sangonomiya Kokomi",
+                    "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Beidou",
+                    "icon": "assets/character/icon/Beidou.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Venti",
+                    "icon": "assets/character/icon/Venti.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Kamisato Ayato",
+                    "icon": "assets/character/icon/Kamisato Ayato.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Fischl",
+                    "icon": "assets/character/icon/Fischl.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Yae Miko",
+                    "icon": "assets/character/icon/Yae Miko.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yumemizuki Mizuki",
+                    "icon": "assets/character/icon/Yumemizuki Mizuki.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Clorinde",
+                    "icon": "assets/character/icon/Clorinde.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Furina",
+                    "icon": "assets/character/icon/Furina.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Chasca",
+                    "icon": "assets/character/icon/Chasca.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Arlecchino",
+                    "icon": "assets/character/icon/Arlecchino.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Chevreuse",
+                    "icon": "assets/character/icon/Chevreuse.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Mavuika",
+                    "icon": "assets/character/icon/Mavuika.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Cyno",
+                    "icon": "assets/character/icon/Cyno.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Chevreuse",
+                    "icon": "assets/character/icon/Chevreuse.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Mavuika",
+                    "icon": "assets/character/icon/Mavuika.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Ororon",
+                    "icon": "assets/character/icon/Ororon.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Electro",
+                        "icon": "assets/elements/Electro.avif"
+                    }
+                },
+                {
+                    "name": "Kinich",
+                    "icon": "assets/character/icon/Kinich.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Dendro",
+                        "icon": "assets/elements/Dendro.avif"
+                    }
+                },
+                {
+                    "name": "Bennett",
+                    "icon": "assets/character/icon/Bennett.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Thoma",
+                    "icon": "assets/character/icon/Thoma.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                }
+            ]
+        ]
     }
 }

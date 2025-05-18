@@ -1,7014 +1,8087 @@
 const CHARACTERS = [
     {
-        "name": "Albedo",
-        "namecard_name": "Sun Blossom",
-        "namecard_description": "Allow me to bear witness to this miracle.'",
-        "namecard_icon": "assets/character/namecard_icon/Albedo.png",
-        "namecard_background": "assets/character/namecard_background/Albedo.png",
-        "namecard_banner": "assets/character/namecard_banner/Albedo.avif",
-        "card": "assets/character/card/Albedo.avif",
-        "wish": "assets/character/wish/Albedo.avif",
-        "ingame": "assets/character/ingame/Albedo.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "December 23, 2020",
-        "version": "1.2",
-        "icon": "assets/character/icon/Albedo.avif",
-        "demo_music_name": "Contemplation in Snow",
-        "demo_music": "assets/character/demo_music/Albedo.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "Good morning. Are we going to search for ancient relics today?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Albedo/story/en/Good Morning.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "September 13th",
-        "affiliations": [
-            "Knights of Favonius",
-            "Yae Publishing House"
-        ],
-        "special_dish": {
-            "name": "Woodland Dream",
-            "icon": "assets/foods/Woodland Dream.png"
-        },
-        "titles": [
-            "Chief Alchemist of the Knights of Favonius"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Khoi Dao"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Mace"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Nojima Kenji (野島 健児)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Myung-jun (김명준)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Albedo.png"
-        }
-    },
-    {
-        "name": "Alhaitham",
-        "namecard_name": "Enlightenment",
-        "namecard_description": "'The only things researchers should abide by are debates and dialectics. Only by questioning everything at all times can one avoid falling into prejudice.''",
-        "namecard_icon": "assets/character/namecard_icon/Alhaitham.png",
-        "namecard_background": "assets/character/namecard_background/Alhaitham.png",
-        "namecard_banner": "assets/character/namecard_banner/Alhaitham.avif",
-        "card": "assets/character/card/Alhaitham.avif",
-        "wish": "assets/character/wish/Alhaitham.avif",
-        "ingame": "assets/character/ingame/Alhaitham.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "January 18, 2023",
-        "version": "3.4",
-        "icon": "assets/character/icon/Alhaitham.avif",
-        "demo_music_name": "Cogitation of Epochs",
-        "demo_music": "assets/character/demo_music/Alhaitham.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "It's a little early for me... Let me get a cup of coffee first.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Alhaitham/story/en/Good Morning.mp3"
+        name: 'Albedo',
+        card_icon: 'assets/character/card/Albedo.avif',
+        wish_icon: 'assets/character/wish/Albedo.avif',
+        ingame_icon: 'assets/character/ingame/Albedo.avif',
+        icon: 'assets/character/icon/Albedo.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'September 13th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Woodland Dream',
+            icon: 'assets/foods/Woodland Dream.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Albedo.avif',
+            background: 'assets/character/namecard_background/Albedo.avif',
+            banner: 'assets/character/namecard_banner/Albedo.avif',
+            description: 'Allow me to bear witness to this miracle.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Albedo'],
         },
-        "roles": [
+        release_date: 'December 23, 2020',
+        voice_actors: [
             {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
+                language: 'English',
+                actor: 'Khoi Dao',
             },
             {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "February 11th",
-        "affiliations": [
-            "Sumeru Akademiya",
-            "Haravatat"
-        ],
-        "special_dish": {
-            "name": "Ideal Circumstance",
-            "icon": "assets/foods/Ideal Circumstance.png"
-        },
-        "titles": [
-            "Sumeru Akademiya Scribe"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Nazeeh Tarsha"
+                language: 'Chinese',
+                actor: 'Mace',
             },
             {
-                "language": "Chinese",
-                "actor": "Yang Chaoran (杨超然)"
+                language: 'Japanese',
+                actor: 'Nojima Kenji (野島 健児)',
             },
             {
-                "language": "Japanese",
-                "actor": "Umehara Yuuichirou (梅原 裕一郎)"
+                language: 'Korean',
+                actor: 'Kim Myung-jun (김명준)',
             },
-            {
-                "language": "Korean",
-                "actor": "Jun Seung Hwa (전승화)"
-            }
         ],
-        "build": {
-            "infographic": "assets/character/builds/Alhaitham.png"
-        }
-    },
-    {
-        "name": "Aloy",
-        "namecard_name": "Dawn",
-        "namecard_description": "'Everything I do is in the service of life, not death.''",
-        "namecard_icon": "assets/character/namecard_icon/Aloy.png",
-        "namecard_background": "assets/character/namecard_background/Aloy.png",
-        "namecard_banner": "assets/character/namecard_banner/Aloy.avif",
-        "card": "assets/character/card/Aloy.avif",
-        "wish": "assets/character/wish/Aloy.avif",
-        "ingame": "assets/character/ingame/Aloy.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "None",
-        "region_icon": null,
-        "model_type": "Medium Female",
-        "release_date": "September 01, 2021",
-        "version": "2.1",
-        "icon": "assets/character/icon/Aloy.avif",
-        "demo_music_name": "Good Hunting on a New Horizon",
-        "demo_music": "assets/character/demo_music/Aloy.mp3",
-        "voice_over": {
-            "title": "About Us: Action",
-            "text": "Everything I do is in the service of life, not death. That's why I'm here with you.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Aloy/story/en/About Us - Action.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: 'Good morning. Are we going to search for ancient relics today?',
+                reading: null,
+                audio: 'assets/character/voice_overs/Albedo/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '早安，是准备出门寻找古代遗物吗？',
+                reading: "Zǎo'ān, shì zhǔnbèi chūmén xúnzhǎo gǔdài yíwù ma?",
+                audio: 'assets/character/voice_overs/Albedo/story/zh/早上好….mp3',
             },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "April 4th",
-        "affiliations": [
-            "Adventurers' Guild",
-        ],
-        "special_dish": {
-            "name": "Satiety Gel",
-            "icon": "assets/foods/Satiety Gel.png"
+            ja: {
+                title: 'おはよう…',
+                text: 'おはよう、古代遺物を探しに出かけるのかい？',
+                reading: 'Ohayou, kodai ibutsu wo sagashi ni dekakeru no kai?',
+                audio: 'assets/character/voice_overs/Albedo/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '좋은 아침, 고대 유물 찾으러 갈 준비 됐어?',
+                reading: 'Joeun achim, godae yumul chajeureo gal junbi dwaesseo?',
+                audio: 'assets/character/voice_overs/Albedo/story/ko/아침 인사….mp3',
+            },
         },
-        "titles": [
-            "Nora Huntress"
-        ],
-        "voice_actors": [
+        version: '1.2',
+        demo_music: {
+            name: 'Contemplation in Snow',
+            url: 'assets/character/demo_music/Albedo.mp3',
+        },
+    },
+    {
+        name: 'Alhaitham',
+        card_icon: 'assets/character/card/Alhaitham.avif',
+        wish_icon: 'assets/character/wish/Alhaitham.avif',
+        ingame_icon: 'assets/character/ingame/Alhaitham.avif',
+        icon: 'assets/character/icon/Alhaitham.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'February 11th',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Ideal Circumstance',
+            icon: 'assets/foods/Ideal Circumstance.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Alhaitham.avif',
+            background: 'assets/character/namecard_background/Alhaitham.avif',
+            banner: 'assets/character/namecard_banner/Alhaitham.avif',
+            description: '"The only things researchers should abide by are debates and dialectics. Only by questioning everything at all times can one avoid falling into prejudice."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Alhaitham'],
+        },
+        release_date: 'January 18, 2023',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Giselle Fernandez"
+                language: 'English',
+                actor: 'Nazeeh Tarsha',
             },
             {
-                "language": "Chinese",
-                "actor": "Mufei (沐霏)"
+                language: 'Chinese',
+                actor: 'Yang Chaoran (杨超然)',
             },
             {
-                "language": "Japanese",
-                "actor": "Takagaki Ayahi (高垣 彩陽)"
+                language: 'Japanese',
+                actor: 'Umehara Yuuichirou (梅原 裕一郎)',
             },
-            {
-                "language": "Korean",
-                "actor": "Jo Hyeon-jeong (조현정)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Aloy.png"
-        }
-    },
-    {
-        "name": "Amber",
-        "namecard_name": "Bunny",
-        "namecard_description": "'It's Baron Bunny!''",
-        "namecard_icon": "assets/character/namecard_icon/Amber.png",
-        "namecard_background": "assets/character/namecard_background/Amber.png",
-        "namecard_banner": "assets/character/namecard_banner/Amber.avif",
-        "card": "assets/character/card/Amber.avif",
-        "wish": "assets/character/wish/Amber.avif",
-        "ingame": "assets/character/ingame/Amber.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Amber.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "When It Rains: Worries",
-            "text": "Oh no, it's raining... now my uniform will get all wet...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Amber/story/en/When It Rains - Worries.mp3"
-        },
-        "roles": [
             {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'Korean',
+                actor: 'Jun Seung Hwa (전승화)',
             },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "August 10th",
-        "affiliations": [
-            "Knights of Favonius"
         ],
-        "special_dish": {
-            "name": "Outrider's Champion Steak!",
-            "icon": "assets/foods/Outrider's Champion Steak!.png"
-        },
-        "titles": [
-            "Outrider"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Kelly Baskin"
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: "It's a little early for me... Let me get a cup of coffee first.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Alhaitham/story/en/Good Morning.mp3',
             },
-            {
-                "language": "Chinese",
-                "actor": "Cai Shujin (蔡书瑾)"
+            zh: {
+                title: '早上好…',
+                text: '时间还早，我先去喝杯咖啡。',
+                reading: 'Shíjiān hái zǎo, wǒ xiān qù hē bēi kāfēi.',
+                audio: 'assets/character/voice_overs/Alhaitham/story/zh/早上好….mp3',
             },
-            {
-                "language": "Japanese",
-                "actor": "Iwami Manaka (石見舞菜香)"
+            ja: {
+                title: 'おはよう…',
+                text: 'まだ早いな、コーヒーを飲んでこよう。',
+                reading: 'Mada hayai na, koohii wo nonde koyou.',
+                audio: 'assets/character/voice_overs/Alhaitham/story/ja/おはよう….mp3',
             },
-            {
-                "language": "Korean",
-                "actor": "Kim Yeon-woo (김연우)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Amber.png"
-        }
-    },
-    {
-        "name": "Arlecchino",
-        "namecard_name": "Edict",
-        "namecard_description": "'Father' laid down the harsh strictures of the House of the Hearth, and some of these seem almost unreasonable. Those familiar with her can use these rules to trace the outline of the ideals she so rarely speaks of.'",
-        "namecard_icon": "assets/character/namecard_icon/Arlecchino.png",
-        "namecard_background": "assets/character/namecard_background/Arlecchino.png",
-        "namecard_banner": "assets/character/namecard_banner/Arlecchino.avif",
-        "card": "assets/character/card/Arlecchino.avif",
-        "wish": "assets/character/wish/Arlecchino.avif",
-        "ingame": "assets/character/ingame/Arlecchino.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Snezhnaya",
-        "region_icon": "assets/region/Emblem_Nation_Unknown.png",
-        "model_type": "Tall Female",
-        "release_date": "April 24, 2024",
-        "version": "4.6",
-        "icon": "assets/character/icon/Arlecchino.avif",
-        "demo_music_name": "Offertorium of Fortuitum",
-        "demo_music": "assets/character/demo_music/Arlecchino.mp3",
-        "voice_over": {
-            "title": "Good Night",
-            "text": "Time to retire for the night. Oh? \"Can't sleep,\" you say? Well, I'm afraid you'll have to figure something out for yourself. I have a certain suspicion my solution won't be to your liking.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Arlecchino/story/en/Good Night.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
+            ko: {
+                title: '아침 인사…',
+                text: '아직 시간이 이른데, 가서 커피나 한잔해야겠어',
+                reading: 'Ajik sigani ireunde, gaseo keopina hanjanhaeyagesseo',
+                audio: 'assets/character/voice_overs/Alhaitham/story/ko/아침 인사….mp3',
             },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "August 22nd",
-        "affiliations": [
-            "Fatui",
-            "House of the Hearth",
-            "Eleven Fatui Harbingers"
-        ],
-        "special_dish": {
-            "name": "Hearthfire's Trail",
-            "icon": "assets/foods/Hearthfire's Trail.png"
         },
-        "titles": [
-            "Head of the House of the Hearth"
-        ],
-        "voice_actors": [
+        version: '3.4',
+        demo_music: {
+            name: 'Cogitation of Epochs',
+            url: 'assets/character/demo_music/Alhaitham.mp3',
+        },
+    },
+    {
+        name: 'Aloy',
+        card_icon: 'assets/character/card/Aloy.avif',
+        wish_icon: 'assets/character/wish/Aloy.avif',
+        ingame_icon: 'assets/character/ingame/Aloy.avif',
+        icon: 'assets/character/icon/Aloy.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'April 4th',
+        region: null,
+        special_dish: {
+            name: 'Satiety Gel',
+            icon: 'assets/foods/Satiety Gel.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Aloy.avif',
+            background: 'assets/character/namecard_background/Aloy.avif',
+            banner: 'assets/character/namecard_banner/Aloy.avif',
+            description: '"Everything I do is in the service of life, not death."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Aloy'],
+        },
+        release_date: 'September 01, 2021',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Erin Yvette"
+                language: 'English',
+                actor: 'Giselle Fernandez',
             },
             {
-                "language": "Chinese",
-                "actor": "Huang Ying (黄莺)"
+                language: 'Chinese',
+                actor: 'Mufei (沐霏)',
             },
             {
-                "language": "Japanese",
-                "actor": "Mori Nanako (森なな子)"
+                language: 'Japanese',
+                actor: 'Takagaki Ayahi (高垣 彩陽)',
             },
             {
-                "language": "Korean",
-                "actor": "Lee Myung-hee (이명희)"
-            }
+                language: 'Korean',
+                actor: 'Jo Hyeon-jeong (조현정)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Arlecchino.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'About Us: Action',
+                text: "Everything I do is in the service of life, not death. That's why I'm here with you.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Aloy/story/en/About Us - Action.mp3',
+            },
+            zh: {
+                title: '关于我们・行动',
+                text: '我的一切行动都是为了拯救生命，而非带来死亡。这就是我与你并肩战斗的原因。',
+                reading: 'Wǒ de yīqiè xíngdòng dōu shì wèile zhěngjiù shēngmìng, ér fēi dài lái sǐwáng. Zhè jiùshì wǒ yǔ nǐ bìngjiān zhàndòu de yuányīn.',
+                audio: 'assets/character/voice_overs/Aloy/story/zh/关于我们・行动.mp3',
+            },
+            ja: {
+                title: '行動について…',
+                text: '私を突き動かす理由は、死をもたらすことではなく、命を救うこと。だからこそ、私はお前と一緒にここにいるんだ。',
+                reading: 'Watashi wo tsuki usokasu riyuu wa, shi wo motarasu kotode wa naku, inochi wo sukuu koto. Da kara koso, watashi wa omae to issho ni koko ni iru nda.',
+                audio: 'assets/character/voice_overs/Aloy/story/ja/行動について….mp3',
+            },
+            ko: {
+                title: '우리에 대해・행동',
+                text: '난 생명을 죽이기 위해서가 아니라 살리기 위해서 움직여. 그래서 너와 함께 싸우는 거야',
+                reading: "Nan saengmyeong'eul jugigi wihaeseoga anira salligi wihaeseo umjigyeo. Geuraeseo neowa hamkke ssauneun geoya",
+                audio: 'assets/character/voice_overs/Aloy/story/ko/우리에 대해・행동.mp3',
+            },
+        },
+        version: '2.1',
+        demo_music: {
+            name: 'Good Hunting on a New Horizon',
+            url: 'assets/character/demo_music/Aloy.mp3',
+        },
     },
     {
-        "name": "Baizhu",
-        "namecard_name": "Relief",
-        "namecard_description": "Sincerity begets longevity.'",
-        "namecard_icon": "assets/character/namecard_icon/Baizhu.png",
-        "namecard_background": "assets/character/namecard_background/Baizhu.png",
-        "namecard_banner": "assets/character/namecard_banner/Baizhu.avif",
-        "card": "assets/character/card/Baizhu.avif",
-        "wish": "assets/character/wish/Baizhu.avif",
-        "ingame": "assets/character/ingame/Baizhu.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "May 02, 2023",
-        "version": "3.6",
-        "icon": "assets/character/icon/Baizhu.avif",
-        "demo_music_name": "In the Wake of Rain",
-        "demo_music": "assets/character/demo_music/Baizhu.mp3",
-        "voice_over": {
-            "title": "About the Vision",
-            "text": "Hehe, the gods have somehow allowed a delusional person such as myself to explore the nature of life and death. This Vision was just the thing I need, and I'm most thankful.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Baizhu/story/en/About the Vision.mp3"
+        name: 'Amber',
+        card_icon: 'assets/character/card/Amber.avif',
+        wish_icon: 'assets/character/wish/Amber.avif',
+        ingame_icon: 'assets/character/ingame/Amber.avif',
+        icon: 'assets/character/icon/Amber.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
         },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "April 25th",
-        "affiliations": [
-            "Bubu Pharmacy"
-        ],
-        "special_dish": {
-            "name": "Heat-Quelling Soup",
-            "icon": "assets/foods/Heat-Quelling Soup.png"
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
         },
-        "titles": [
-            "Owner of Bubu Pharmacy"
-        ],
-        "voice_actors": [
+        model: 'Medium Female',
+        birthday: 'August 10th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: "Outrider's Champion Steak!",
+            icon: "assets/foods/Outrider's Champion Steak!.avif",
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Amber.avif',
+            background: 'assets/character/namecard_background/Amber.avif',
+            banner: 'assets/character/namecard_banner/Amber.avif',
+            description: '"It\'s Baron Bunny!"',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Amber'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Sean Durrie"
+                language: 'English',
+                actor: 'Kelly Baskin',
             },
             {
-                "language": "Chinese",
-                "actor": "Qin Qiege (秦且歌)"
+                language: 'Chinese',
+                actor: 'Cai Shujin (蔡书瑾)',
             },
             {
-                "language": "Japanese",
-                "actor": "Yusa Koji (遊佐 浩二)"
+                language: 'Japanese',
+                actor: 'Iwami Manaka (石見舞菜香)',
             },
-            {
-                "language": "Korean",
-                "actor": "Lee Hosan (이호산)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Baizhu.png"
-        }
-    },
-    {
-        "name": "Barbara",
-        "namecard_name": "Flow",
-        "namecard_description": "When Barbara sings, her melodic voice flows like the tender healing of a clear spring.'",
-        "namecard_icon": "assets/character/namecard_icon/Barbara.png",
-        "namecard_background": "assets/character/namecard_background/Barbara.png",
-        "namecard_banner": "assets/character/namecard_banner/Barbara.avif",
-        "card": "assets/character/card/Barbara.avif",
-        "wish": "assets/character/wish/Barbara.avif",
-        "ingame": "assets/character/ingame/Barbara.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Barbara.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "When It Rains",
-            "text": "Don't stay out in the rain for too long, you'll catch a cold!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Barbara/story/en/When It Rains.mp3"
-        },
-        "roles": [
             {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'Korean',
+                actor: 'Kim Yeon-woo (김연우)',
             },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "July 5th",
-        "affiliations": [
-            "Church of Favonius"
-        ],
-        "special_dish": {
-            "name": "Spicy Stew",
-            "icon": "assets/foods/Spicy Stew.png"
-        },
-        "titles": [
-            "Deaconess"
         ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Laura Stahl"
+        voice_overs: {
+            en: {
+                title: 'When It Rains: Worries',
+                text: "Oh no, it's raining... now my uniform will get all wet...",
+                reading: null,
+                audio: 'assets/character/voice_overs/Amber/story/en/When It Rains - Worries.mp3',
             },
-            {
-                "language": "Chinese",
-                "actor": "Song Yuanyuan (宋媛媛)"
+            zh: {
+                title: '下雨的时候・担忧',
+                text: '下雨了…蝴蝶结会淋湿的…',
+                reading: 'Xiàyǔle... Húdíejíe hùi lín shī de...',
+                audio: 'assets/character/voice_overs/Amber/story/zh/下雨的时候・担忧.mp3',
             },
-            {
-                "language": "Japanese",
-                "actor": "Kitou Akari (鬼頭明里)"
+            ja: {
+                title: '雨の日・心配',
+                text: '雨だ…リボンが濡れちゃうよ…',
+                reading: 'Ame da... Ribon ga nurechau yo...',
+                audio: 'assets/character/voice_overs/Amber/story/ja/雨の日・心配.mp3',
             },
-            {
-                "language": "Korean",
-                "actor": "Yun A-yeong (윤아영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Barbara.png"
-        }
+            ko: {
+                title: '비가 올 때・걱정',
+                text: '비가 오네…. 나비 리본이 젖겠어…',
+                reading: 'Biga one... Nabi riboni jeotgesseo...',
+                audio: 'assets/character/voice_overs/Amber/story/ko/비가 올 때・걱정.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
     },
     {
-        "name": "Beidou",
-        "namecard_name": "Weighing Anchor",
-        "namecard_description": "'Weighing anchor out to sea, one is wont to waver. But look to the skies, and the stars shall light the way.''",
-        "namecard_icon": "assets/character/namecard_icon/Beidou.png",
-        "namecard_background": "assets/character/namecard_background/Beidou.png",
-        "namecard_banner": "assets/character/namecard_banner/Beidou.avif",
-        "card": "assets/character/card/Beidou.avif",
-        "wish": "assets/character/wish/Beidou.avif",
-        "ingame": "assets/character/ingame/Beidou.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Beidou.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "Good Night",
-            "text": "Time moves quickly. Haha, go, may the wind be at your back.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Beidou/story/en/Good Night.mp3"
+        name: 'Arataki Itto',
+        card_icon: 'assets/character/card/Arataki Itto.avif',
+        wish_icon: 'assets/character/wish/Arataki Itto.avif',
+        ingame_icon: 'assets/character/ingame/Arataki Itto.avif',
+        icon: 'assets/character/icon/Arataki Itto.avif',
+        quality: '5',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
         },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "February 14th",
-        "affiliations": [
-            "The Crux"
-        ],
-        "special_dish": {
-            "name": "Flash-Fried Filet",
-            "icon": "assets/foods/Flash-Fried Filet.png"
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
         },
-        "titles": [
-            "Queen of the Crux Fleet"
-        ],
-        "voice_actors": [
+        model: 'Tall Male',
+        birthday: 'June 1st',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Way of the Strong',
+            icon: 'assets/foods/Way of the Strong.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Arataki Itto.avif',
+            background: 'assets/character/namecard_background/Arataki Itto.avif',
+            banner: 'assets/character/namecard_banner/Arataki Itto.avif',
+            description: 'A real man puts sorrow and anger behind him and smiles brightly for the world to see!',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Arataki Itto'],
+        },
+        release_date: 'December 14, 2021',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Allegra Clark"
+                language: 'English',
+                actor: 'Max Mittelman',
             },
             {
-                "language": "Chinese",
-                "actor": "Tang Yajing (唐雅菁)"
+                language: 'Chinese',
+                actor: 'Liu Zhaokun (刘照坤)',
             },
             {
-                "language": "Japanese",
-                "actor": "Koshimizu Ami (小清水亜美)"
+                language: 'Japanese',
+                actor: 'Nishikawa Takanori (西川貴教)',
             },
             {
-                "language": "Korean",
-                "actor": "Jeong Yoo-mi (정유미)"
-            }
+                language: 'Korean',
+                actor: 'Song Joon-seok (송준석)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Beidou.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'When It Rains',
+                text: "Pff, real men don't carry umbrellas... Oh boy, wow, it's really starting to pick up. Uh quick, c'mon, get yours out! C'mon, quick, quick, quick!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Arataki Itto/story/en/When It Rains.mp3',
+            },
+            zh: {
+                title: '下雨的时候…',
+                text: '男子汉从不打伞…啊这雨也太大了吧，快，快，快开伞！',
+                reading: 'Nánzǐhàn cóngbù dǎsǎn... a zhè yǔ yě tài dàle ba, kuài, kuài, kuài kāisǎn!',
+                audio: 'assets/character/voice_overs/Arataki Itto/story/zh/下雨的时候….mp3',
+            },
+            ja: {
+                title: '雨の日…',
+                text: '漢は傘なんかささねぇ…って、こりゃ大降りすぎんだろ！はやく、早く傘させ傘ッ！',
+                reading: "Otoko wa kasa nanka sasanee... tte, korya ooburisugi ndaro! Hayaku, hayaku kasa sase kasa'!",
+                audio: 'assets/character/voice_overs/Arataki Itto/story/ja/雨の日….mp3',
+            },
+            ko: {
+                title: '비가 올 때…',
+                text: '사나이는 우산 따위 쓰지 않아…. 아, 근데 비가 좀 많이 내리네. 빠, 빨리 우산 좀 펴봐!',
+                reading: 'Sanai-neun usan ttawi sseuji ana.... A, geunde biga jom mani naerine. Ppa, ppalli usan jom pyeobwa!',
+                audio: 'assets/character/voice_overs/Arataki Itto/story/ko/비가 올 때….mp3',
+            },
+        },
+        version: '2.3',
+        demo_music: {
+            name: 'Time to Shine',
+            url: 'assets/character/demo_music/Arataki Itto.mp3',
+        },
     },
     {
-        "name": "Bennett",
-        "namecard_name": "Recognition",
-        "namecard_description": "A sign of recognition from Benny's Adventure Team.'",
-        "namecard_icon": "assets/character/namecard_icon/Bennett.png",
-        "namecard_background": "assets/character/namecard_background/Bennett.png",
-        "namecard_banner": "assets/character/namecard_banner/Bennett.avif",
-        "card": "assets/character/card/Bennett.avif",
-        "wish": "assets/character/wish/Bennett.avif",
-        "ingame": "assets/character/ingame/Bennett.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Bennett.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "Favorite Food",
-            "text": "Meat! Meat is the best sustenance there is. Chicken-Mushroom Skewers, Steaks, and Sweet Madames are all my specialties. You won't go hungry if you come adventuring with me, that's for sure!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Bennett/story/en/Favorite Food.mp3"
+        name: 'Arlecchino',
+        card_icon: 'assets/character/card/Arlecchino.avif',
+        wish_icon: 'assets/character/wish/Arlecchino.avif',
+        ingame_icon: 'assets/character/ingame/Arlecchino.avif',
+        icon: 'assets/character/icon/Arlecchino.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
         },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "February 29th",
-        "affiliations": [
-            "Adventurers' Guild",
-            "Benny's Adventure Team"
-        ],
-        "special_dish": {
-            "name": "Teyvat Charred Egg",
-            "icon": "assets/foods/Teyvat Charred Egg.png"
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
         },
-        "titles": [
-            "Leader of Benny's Adventure Team"
-        ],
-        "voice_actors": [
+        model: 'Tall Female',
+        birthday: 'August 22nd',
+        region: null,
+        special_dish: {
+            name: "Hearthfire's Trail",
+            icon: "assets/foods/Hearthfire's Trail.avif",
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Arlecchino.avif',
+            background: 'assets/character/namecard_background/Arlecchino.avif',
+            banner: 'assets/character/namecard_banner/Arlecchino.avif',
+            description:
+                '"Father" laid down the harsh strictures of the House of the Hearth, and some of these seem almost unreasonable. Those familiar with her can use these rules to trace the outline of the ideals she so rarely speaks of.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Arlecchino'],
+        },
+        release_date: 'April 24, 2024',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Cristina Vee Valenzuela"
+                language: 'English',
+                actor: 'Erin Yvette',
             },
             {
-                "language": "Chinese",
-                "actor": "Mu Xueting (穆雪婷)"
+                language: 'Chinese',
+                actor: 'Huang Ying (黄莺)',
             },
             {
-                "language": "Japanese",
-                "actor": "Ousaka Ryouta (逢坂 良太)"
+                language: 'Japanese',
+                actor: 'Mori Nanako (森なな子)',
             },
             {
-                "language": "Korean",
-                "actor": "Song Ha-rim (송하림)"
-            }
+                language: 'Korean',
+                actor: 'Lee Myung-hee (이명희)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Bennett.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'Good Night',
+                text: "Time to retire for the night. Oh? \"Can't sleep,\" you say? Well, I'm afraid you'll have to figure something out for yourself. I have a certain suspicion my solution won't be to your liking.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Arlecchino/story/en/Good Night.mp3',
+            },
+            zh: {
+                title: '晚安…',
+                text: '睡觉的时间到了。「睡不着」？那你得自己想想办法了。我猜你不会喜欢我的方案。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Arlecchino/story/zh/晚安….mp3',
+            },
+            ja: {
+                title: 'おやすみ…',
+                text: 'もう寝る時間だろう…眠れない？自分でなんとかすることを勧めるよ。おそらく私の案を君は気に入らないと思うからね。',
+                reading: 'Mou neru jikan darou... Nemurenai? Jibun de nan to ka suru koto wo susumeru yo. Osoraku watashi no an wo kimi wa ki ni iranai to omou kara ne.',
+                audio: 'assets/character/voice_overs/Arlecchino/story/ja/おやすみ….mp3',
+            },
+            ko: {
+                title: '굿나잇…',
+                text: '잘 시간이야. 「잠이 안 온다」고? 그럼 알아서 방법을 찾도록 해. 내 방식은 별로 달갑지 않을 테니',
+                reading: 'Jal siganiya. "Jami an onda"-go? Geureom araseo bangbeobeul chatdorok hae. Nae bangsigeun byeollo dalgapji aneul teni',
+                audio: 'assets/character/voice_overs/Arlecchino/story/ko/굿나잇….mp3',
+            },
+        },
+        version: '4.6',
+        demo_music: {
+            name: 'Offertorium of Fortuitum',
+            url: 'assets/character/demo_music/Arlecchino.mp3',
+        },
     },
-    {
-        "name": "Candace",
-        "namecard_name": "Gray Heron",
-        "namecard_description": "The burning winds of the past ruffle the heron's feathers, but the bird has eyes only for the morning star at first light.'",
-        "namecard_icon": "assets/character/namecard_icon/Candace.png",
-        "namecard_background": "assets/character/namecard_background/Candace.png",
-        "namecard_banner": "assets/character/namecard_banner/Candace.avif",
-        "card": "assets/character/card/Candace.avif",
-        "wish": "assets/character/wish/Candace.avif",
-        "ingame": "assets/character/ingame/Candace.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "September 28, 2022",
-        "version": "3.1",
-        "icon": "assets/character/icon/Candace.avif",
-        "demo_music_name": "Nephrite of Deshret",
-        "demo_music": "assets/character/demo_music/Candace.mp3",
-        "voice_over": {
-            "title": "In the Desert",
-            "text": "I am right by your side. But if you're still nervous, just take my hand.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Candace/story/en/In the Desert.mp3"
+    {
+        name: 'Baizhu',
+        card_icon: 'assets/character/card/Baizhu.avif',
+        wish_icon: 'assets/character/wish/Baizhu.avif',
+        ingame_icon: 'assets/character/ingame/Baizhu.avif',
+        icon: 'assets/character/icon/Baizhu.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
         },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "May 3rd",
-        "affiliations": [
-            "Aaru Village"
-        ],
-        "special_dish": {
-            "name": "Utmost Care",
-            "icon": "assets/foods/Utmost Care.png"
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
         },
-        "titles": [
-            "Guardian of Aaru Village"
-        ],
-        "voice_actors": [
+        model: 'Tall Male',
+        birthday: 'April 25th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Heat-Quelling Soup',
+            icon: 'assets/foods/Heat-Quelling Soup.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Baizhu.avif',
+            background: 'assets/character/namecard_background/Baizhu.avif',
+            banner: 'assets/character/namecard_banner/Baizhu.avif',
+            description: 'Sincerity begets longevity.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Baizhu'],
+        },
+        release_date: 'May 02, 2023',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Shara Kirby"
+                language: 'English',
+                actor: 'Sean Durrie',
             },
             {
-                "language": "Chinese",
-                "actor": "Zhang Qi (张琦)"
+                language: 'Chinese',
+                actor: 'Qin Qiege (秦且歌)',
             },
             {
-                "language": "Japanese",
-                "actor": "Yuzuki Ryoka (柚木 涼香)"
+                language: 'Japanese',
+                actor: 'Yusa Koji (遊佐 浩二)',
             },
-            {
-                "language": "Korean",
-                "actor": "Jeon Yeongsu (전영수)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Candace.png"
-        }
-    },
-    {
-        "name": "Charlotte",
-        "namecard_name": "Exclusive",
-        "namecard_description": "'One, I've written an exclusive, and it's going to generate a lot of buzz for sure! Two, the newspaper said the situation is developing too slowly, so they're changing to a press release instead... Three, the person writing the press release will be in the Opera Epiclese as the defendant tomorrow, so they've decided to run my piece after all!''",
-        "namecard_icon": "assets/character/namecard_icon/Charlotte.png",
-        "namecard_background": "assets/character/namecard_background/Charlotte.png",
-        "namecard_banner": "assets/character/namecard_banner/Charlotte.avif",
-        "card": "assets/character/card/Charlotte.avif",
-        "wish": "assets/character/wish/Charlotte.avif",
-        "ingame": "assets/character/ingame/Charlotte.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "November 08, 2023",
-        "version": "4.2",
-        "icon": "assets/character/icon/Charlotte.avif",
-        "demo_music_name": "Video Not Available",
-        "demo_music": "assets/character/demo_music/Charlotte.mp3",
-        "voice_over": {
-            "title": "About the Vision",
-            "text": "To be honest... I'd prefer to have an Anemo Vision. Being able to fly around freely would make getting to interviews sooo much easier! A Cryo Vision's not too bad, though. At least I don't need to worry about my Kamera overheating.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Charlotte/story/en/About the Vision.mp3"
-        },
-        "roles": [
             {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'Korean',
+                actor: 'Lee Hosan (이호산)',
             },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "April 10th",
-        "affiliations": [
-            "The Steambird"
-        ],
-        "special_dish": {
-            "name": "Exclusive Scoop: Gourmet Column",
-            "icon": "assets/foods/Exclusive Scoop Gourmet Column.png"
-        },
-        "titles": [
-            "Reporter of The Steambird"
         ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Maya Aoki Tuttle"
+        voice_overs: {
+            en: {
+                title: 'About the Vision',
+                text: "Hehe, the gods have somehow allowed a delusional person such as myself to explore the nature of life and death. This Vision was just the thing I need, and I'm most thankful.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Baizhu/story/en/About the Vision.mp3',
             },
-            {
-                "language": "Chinese",
-                "actor": "Ruan Congqing (阮从青)"
+            zh: {
+                title: '关于「神之眼」…',
+                text: '呵呵，神也允许我这狂妄之人探索生死之道呢。这神之眼来得正好，多谢了。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Baizhu/story/zh/关于「神之眼」….mp3',
             },
-            {
-                "language": "Japanese",
-                "actor": "Waki Azumi (和氣あず未)"
+            ja: {
+                title: '「神の目」について…',
+                text: 'ははっ…どうやら神も、狂妄なるこの私に生と死の掟を探るお許しをくださったようです。この神の目は、実に折よくやって来てくれました。感謝しています。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Baizhu/story/ja/「神の目」について….mp3',
             },
-            {
-                "language": "Korean",
-                "actor": "Shin On-yu (신온유)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Charlotte.png"
-        }
-    },
-    {
-        "name": "Chasca",
-        "namecard_name": "Fully Loaded",
-        "namecard_description": "Fear not, she's here to make peace, not to fight. The only question is whether to save a few bullets... Y'know, the type that get fired into the sky as warning shots.'",
-        "namecard_icon": "assets/character/namecard_icon/Chasca.png",
-        "namecard_background": "assets/character/namecard_background/Chasca.png",
-        "namecard_banner": "assets/character/namecard_banner/Chasca.avif",
-        "card": "assets/character/card/Chasca.avif",
-        "wish": "assets/character/wish/Chasca.avif",
-        "ingame": "assets/character/ingame/Chasca.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Natlan",
-        "region_icon": "assets/region/Natlan_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "November 20, 2024",
-        "version": "5.2",
-        "icon": "assets/character/icon/Chasca.avif",
-        "demo_music_name": "Viajadora's Verse",
-        "demo_music": "assets/character/demo_music/Chasca.mp3",
-        "voice_over": {
-            "title": "About the Vision",
-            "text": "This Vision played a major part in my fight against the Abyss. If it hadn't shown up when it did, I don't know who I would be today.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Chasca/story/en/About the Vision.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
+            ko: {
+                title: '「신의 눈」에 대해…',
+                text: '후후, 신께서도 이 오만한 자가 생사의 길을 탐구하는 걸 허락하셨나 봅니다. 고맙게도, 때마침 신의 눈이 와줬거든요',
+                reading: 'Huhu, sinkkeseodo i omanhan jaga saengsaui gireul tamguhaneun geol heorakhasyeonna bomnida. Gomapgedo, ttaemachim sinui nuni wajwotgeodeunyo',
+                audio: 'assets/character/voice_overs/Baizhu/story/ko/「신의 눈」에 대해….mp3',
             },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "December 10th",
-        "affiliations": [
-            "Tlalocan"
-        ],
-        "special_dish": {
-            "name": "Moment of Respite",
-            "icon": "assets/foods/Moment of Respite.png"
         },
-        "titles": [
-            "Peacemaker of the Tlalocan"
-        ],
-        "voice_actors": [
+        version: '3.6',
+        demo_music: {
+            name: 'In the Wake of Rain',
+            url: 'assets/character/demo_music/Baizhu.mp3',
+        },
+    },
+    {
+        name: 'Barbara',
+        card_icon: 'assets/character/card/Barbara.avif',
+        wish_icon: 'assets/character/wish/Barbara.avif',
+        ingame_icon: 'assets/character/ingame/Barbara.avif',
+        icon: 'assets/character/icon/Barbara.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'July 5th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Spicy Stew',
+            icon: 'assets/foods/Spicy Stew.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Barbara.avif',
+            background: 'assets/character/namecard_background/Barbara.avif',
+            banner: 'assets/character/namecard_banner/Barbara.avif',
+            description: 'When Barbara sings, her melodic voice flows like the tender healing of a clear spring.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Barbara'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Lauren Amante"
+                language: 'English',
+                actor: 'Laura Stahl',
             },
             {
-                "language": "Chinese",
-                "actor": "Zhang Ruoyu (张若瑜)"
+                language: 'Chinese',
+                actor: 'Song Yuanyuan (宋媛媛)',
             },
             {
-                "language": "Japanese",
-                "actor": "Kaida Yuuko (甲斐田 裕子)"
+                language: 'Japanese',
+                actor: 'Kitou Akari (鬼頭明里)',
             },
             {
-                "language": "Korean",
-                "actor": "Su-hyeon (수현)"
-            }
+                language: 'Korean',
+                actor: 'Yun A-yeong (윤아영)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Chasca.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'When It Rains',
+                text: "Don't stay out in the rain for too long, you'll catch a cold!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Barbara/story/en/When It Rains.mp3',
+            },
+            zh: {
+                title: '下雨的时候…',
+                text: '这样淋着不要紧吗？会感冒的吧？',
+                reading: 'Zhèyàng línzhe bùyàojǐn ma? Huì gǎnmào de ba?',
+                audio: 'assets/character/voice_overs/Barbara/story/zh/下雨的时候….mp3',
+            },
+            ja: {
+                title: '雨の日…',
+                text: 'こんなに濡れて大丈夫？風邪ひいちゃうよ？',
+                reading: 'Konna ni nurete daijoubu? Kaze hiichau yo?',
+                audio: 'assets/character/voice_overs/Barbara/story/ja/雨の日….mp3',
+            },
+            ko: {
+                title: '비가 올 때…',
+                text: '이렇게 젖어도 괜찮을까요? 감기 걸릴 텐데…',
+                reading: 'Ireoke jeojeodo gwaenchaneulkkayo? Gamgi geollil tende...',
+                audio: 'assets/character/voice_overs/Barbara/story/ko/비가 올 때….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
     },
     {
-        "name": "Chevreuse",
-        "namecard_name": "Type II",
-        "namecard_description": "The standard issue weapon of the Special Security and Surveillance Patrol is known as the 'Special Security and Surveillance Patrol Type II Standard Musket.' Yet, though there may be countless flowers in this world, the one you treasure is special, even if it should be known to the world as nothing at all special.'",
-        "namecard_icon": "assets/character/namecard_icon/Chevreuse.png",
-        "namecard_background": "assets/character/namecard_background/Chevreuse.png",
-        "namecard_banner": "assets/character/namecard_banner/Chevreuse.avif",
-        "card": "assets/character/card/Chevreuse.avif",
-        "wish": "assets/character/wish/Chevreuse.avif",
-        "ingame": "assets/character/ingame/Chevreuse.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "January 09, 2024",
-        "version": "4.3",
-        "icon": "assets/character/icon/Chevreuse.avif",
-        "demo_music_name": "Voici la grenadiere !",
-        "demo_music": "assets/character/demo_music/Chevreuse.mp3",
-        "voice_over": {
-            "title": "When the Sun Is Out",
-            "text": "What nice weather! Especially good for keeping an eye on things.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Chevreuse/story/en/When the Sun Is Out.mp3"
+        name: 'Beidou',
+        card_icon: 'assets/character/card/Beidou.avif',
+        wish_icon: 'assets/character/wish/Beidou.avif',
+        ingame_icon: 'assets/character/ingame/Beidou.avif',
+        icon: 'assets/character/icon/Beidou.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
         },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "January 10th",
-        "affiliations": [
-            "Special Security and Surveillance Patrol"
-        ],
-        "special_dish": {
-            "name": "Sin: The Kind that Doesn't Need to be Dealt With",
-            "icon": "assets/foods/Sin The Kind that Doesn't Need to be Dealt With.png"
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
         },
-        "titles": [
-            "Special Security and Surveillance Patrol Captain"
-        ],
-        "voice_actors": [
+        model: 'Tall Female',
+        birthday: 'February 14th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Flash-Fried Filet',
+            icon: 'assets/foods/Flash-Fried Filet.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Beidou.avif',
+            background: 'assets/character/namecard_background/Beidou.avif',
+            banner: 'assets/character/namecard_banner/Beidou.avif',
+            description: '"Weighing anchor out to sea, one is wont to waver. But look to the skies, and the stars shall light the way."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Beidou'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Erica Lindbeck"
+                language: 'English',
+                actor: 'Allegra Clark',
             },
             {
-                "language": "Chinese",
-                "actor": "Pan Danni (潘丹妮)"
+                language: 'Chinese',
+                actor: 'Tang Yajing (唐雅菁)',
             },
             {
-                "language": "Japanese",
-                "actor": "Shimoji Shino (下地紫野)"
+                language: 'Japanese',
+                actor: 'Koshimizu Ami (小清水亜美)',
             },
             {
-                "language": "Korean",
-                "actor": "Chae Min-ji (채민지)"
-            }
+                language: 'Korean',
+                actor: 'Jeong Yoo-mi (정유미)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Chevreuse.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'Good Night',
+                text: 'Time moves quickly. Haha, go, may the wind be at your back.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Beidou/story/en/Good Night.mp3',
+            },
+            zh: {
+                title: '晚安…',
+                text: '这时间过得可真快。去吧，一帆风顺。',
+                reading: 'Zhè shíjiān guòdé kě zhēn kuài. Qù ba, yīfānfēngshùn.',
+                audio: 'assets/character/voice_overs/Beidou/story/zh/晚安….mp3',
+            },
+            ja: {
+                title: 'おやすみ…',
+                text: '時間が過ぎていくのはあっという間だ。ははっ、行ってきな。',
+                reading: "Jikan ga sugite iku no wa atto iu ma da. Haha', itte kina.",
+                audio: 'assets/character/voice_overs/Beidou/story/ja/おやすみ….mp3',
+            },
+            ko: {
+                title: '굿나잇...',
+                text: '벌써 시간이 이렇게 됐네. 하하하하, 가봐~ 편히 쉬라구',
+                reading: 'Beolsseo sigani ireotge dwaetne. Hahahaha, gabwa~ pyeonhi swiragu.',
+                audio: 'assets/character/voice_overs/Beidou/story/ko/굿나잇....mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
     },
-    {
-        "name": "Tartaglia",
-        "namecard_name": "Foul Legacy",
-        "namecard_description": "This bears all the marks of that fellow who gallivants as he pleases across the continent with his ever-changing combat styles. Yet, his 'Foul Legacy' was not originally his. Rather, it was taught to him by that solitary girl who dwelt in the darkest corners of the universe.'",
-        "namecard_icon": "assets/character/namecard_icon/Tartaglia.png",
-        "namecard_background": "assets/character/namecard_background/Tartaglia.png",
-        "namecard_banner": "assets/character/namecard_banner/Tartaglia.avif",
-        "card": "assets/character/card/Tartaglia.avif",
-        "wish": "assets/character/wish/Tartaglia.avif",
-        "ingame": "assets/character/ingame/Tartaglia.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Snezhnaya",
-        "region_icon": "assets/region/Emblem_Nation_Unknown.png",
-        "model_type": "Tall Male",
-        "release_date": "November 11, 2020",
-        "version": "1.1",
-        "icon": "assets/character/icon/Tartaglia.avif",
-        "demo_music_name": "Letter From Ajax",
-        "demo_music": "assets/character/demo_music/Tartaglia.mp3",
-        "voice_over": {
-            "title": "When It Snows: Foreign Country",
-            "text": "Haha, ahh... could it be snowing in Snezhnaya too?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Tartaglia/story/en/When It Snows - Foreign Country.mp3"
+    {
+        name: 'Bennett',
+        card_icon: 'assets/character/card/Bennett.avif',
+        wish_icon: 'assets/character/wish/Bennett.avif',
+        ingame_icon: 'assets/character/ingame/Bennett.avif',
+        icon: 'assets/character/icon/Bennett.avif',
+        quality: '4',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
         },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "July 20th",
-        "affiliations": [
-            "Fatui",
-            "Eleven Fatui Harbingers"
-        ],
-        "special_dish": {
-            "name": "A Prize Catch",
-            "icon": "assets/foods/A Prize Catch.png"
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
         },
-        "titles": [
-            "Eleventh of the Eleven Fatui Harbingers"
-        ],
-        "voice_actors": [
+        model: 'Medium Male',
+        birthday: 'February 29th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Teyvat Charred Egg',
+            icon: 'assets/foods/Teyvat Charred Egg.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Bennett.avif',
+            background: 'assets/character/namecard_background/Bennett.avif',
+            banner: 'assets/character/namecard_banner/Bennett.avif',
+            description: "A sign of recognition from Benny's Adventure Team.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Bennett'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Griffin Burns"
+                language: 'English',
+                actor: 'Cristina Vee Valenzuela',
             },
             {
-                "language": "Chinese",
-                "actor": "Yudong (鱼冻)"
+                language: 'Chinese',
+                actor: 'Mu Xueting (穆雪婷)',
             },
             {
-                "language": "Japanese",
-                "actor": "Kimura Ryohei (木村良平)"
+                language: 'Japanese',
+                actor: 'Ousaka Ryouta (逢坂 良太)',
             },
             {
-                "language": "Korean",
-                "actor": "Nam Doh-hyeong (남도형)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Tartaglia.png"
-        }
-    },
-    {
-        "name": "Chiori",
-        "namecard_name": "Spectacular Sleeves",
-        "namecard_description": "The doll known as 'Tamoto-chan' was one of Chiori's earliest works, and is also the model that requires the least fabric and tailoring.'",
-        "namecard_icon": "assets/character/namecard_icon/Chiori.png",
-        "namecard_background": "assets/character/namecard_background/Chiori.png",
-        "namecard_banner": "assets/character/namecard_banner/Chiori.avif",
-        "card": "assets/character/card/Chiori.avif",
-        "wish": "assets/character/wish/Chiori.avif",
-        "ingame": "assets/character/ingame/Chiori.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "March 13, 2024",
-        "version": "4.5",
-        "icon": "assets/character/icon/Chiori.avif",
-        "demo_music_name": "Le cramoisi coulant comme Cin",
-        "demo_music": "assets/character/demo_music/Chiori.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "...This reminds me of home.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Chiori/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'Korean',
+                actor: 'Song Ha-rim (송하림)',
             },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
         ],
-        "birthday": "August 17th",
-        "affiliations": [
-            "Court of Fontaine",
-            "Chioriya Boutique"
-        ],
-        "special_dish": {
-            "name": "\"Fashion Show\"",
-            "icon": "assets/foods/Fashion Show.png"
-        },
-        "titles": [
-            "Boss of the Chioriya Boutique"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Brittany Lauda"
+        voice_overs: {
+            en: {
+                title: 'Favorite Food',
+                text: "Meat! Meat is the best sustenance there is. Chicken-Mushroom Skewers, Steaks, and Sweet Madames are all my specialties. You won't go hungry if you come adventuring with me, that's for sure!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Bennett/story/en/Favorite Food.mp3',
             },
-            {
-                "language": "Chinese",
-                "actor": "Chen Yang (陈阳)"
+            zh: {
+                title: '喜欢的食物…',
+                text: '肉！肉是最能让人精力充沛的食物！野菇鸡肉串，烤肉排，还有甜甜花酿鸡都是我的拿手菜。和我一起冒险，是不会让你饿肚子的。',
+                reading:
+                    "Ròu! Ròu shì zuì néng ràng rén jīnglì chōngpèi de shíwù! Yěgū Jīròu-chuàn, Kǎoròu-pái, hái yǒu Tiántiánhuā Niàng Jī dōu shì wǒ de náshǒu cài. Hé wǒ yīqǐ màoxiǎn, shì bùhuì ràng nǐ è'dùzi de.",
+                audio: 'assets/character/voice_overs/Bennett/story/zh/喜欢的食物….mp3',
             },
-            {
-                "language": "Japanese",
-                "actor": "Taketatsu Ayana (竹達彩奈)"
+            ja: {
+                title: '好きな食べ物…',
+                text: '肉だ！肉は一番元気が出る食べ物だよな！キノコ焼き鳥、ステーキ、それと鳥肉のスイートフラワー漬け焼きがオレの得意料理だ。オレと一緒に冒険すれば、腹が空くことはないぞ。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Bennett/story/ja/好きな食べ物….mp3',
             },
-            {
-                "language": "Korean",
-                "actor": "Lee Da-eun (이다은)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Chiori.png"
-        }
+            ko: {
+                title: '좋아하는 음식…',
+                text: '고기! 고기는 에너지를 가장 많이 채워주는 음식이지! 버섯 닭꼬치, 스테이크, 그리고 달콤달콤 닭고기 스튜! 모두 내가 자신 있는 요리야. 나와 함께 모험하면 절대 굶을 일은 없을 거야',
+                reading:
+                    'Gogi! Gogineun eneojireul gajang mani chaewojuneun eumsigiji! Beoseot dakkochi, seuteikeu, geurigo dalkomdalkom dakkogi seutyu! Modu naega jasin itneun yoriya. Nawa hamkke moheomhamyeon jeoldae gulmeul ireun eopsseul geoya.',
+                audio: 'assets/character/voice_overs/Bennett/story/ko/좋아하는 음식….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
     },
     {
-        "name": "Chongyun",
-        "namecard_name": "Spirit Blade",
-        "namecard_description": "This was originally a peachwood sword made of ice. But a big enough ice block makes a better exorcist's tool than peachwood.'",
-        "namecard_icon": "assets/character/namecard_icon/Chongyun.png",
-        "namecard_background": "assets/character/namecard_background/Chongyun.png",
-        "namecard_banner": "assets/character/namecard_banner/Chongyun.avif",
-        "card": "assets/character/card/Chongyun.avif",
-        "wish": "assets/character/wish/Chongyun.avif",
-        "ingame": "assets/character/ingame/Chongyun.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Chongyun.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Before the resounding thunder, evil must cower in fear.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Chongyun/story/en/When Thunder Strikes.mp3"
+        name: 'Candace',
+        card_icon: 'assets/character/card/Candace.avif',
+        wish_icon: 'assets/character/wish/Candace.avif',
+        ingame_icon: 'assets/character/ingame/Candace.avif',
+        icon: 'assets/character/icon/Candace.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
         },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "September 7th",
-        "affiliations": [
-            "Tianheng Thaumaturges"
-        ],
-        "special_dish": {
-            "name": "Cold Noodles with Mountain Delicacies",
-            "icon": "assets/foods/Cold Noodles with Mountain Delicacies.png"
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
         },
-        "titles": [
-            "Banisher of Evil and Rumors Thereof"
-        ],
-        "voice_actors": [
+        model: 'Tall Female',
+        birthday: 'May 3rd',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Utmost Care',
+            icon: 'assets/foods/Utmost Care.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Candace.avif',
+            background: 'assets/character/namecard_background/Candace.avif',
+            banner: 'assets/character/namecard_banner/Candace.avif',
+            description: "The burning winds of the past ruffle the heron's feathers, but the bird has eyes only for the morning star at first light.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Candace'],
+        },
+        release_date: 'September 28, 2022',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Beau Bridgland"
+                language: 'English',
+                actor: 'Shara Kirby',
             },
             {
-                "language": "Chinese",
-                "actor": "kinsen"
+                language: 'Chinese',
+                actor: 'Zhang Qi (张琦)',
             },
             {
-                "language": "Japanese",
-                "actor": "Saito Soma (斉藤壮馬)"
+                language: 'Japanese',
+                actor: 'Yuzuki Ryoka (柚木 涼香)',
             },
             {
-                "language": "Korean",
-                "actor": "Yang Jeong-hwa (양정화)"
-            }
+                language: 'Korean',
+                actor: 'Jeon Yeongsu (전영수)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Chongyun.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'In the Desert',
+                text: "I am right by your side. But if you're still nervous, just take my hand.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Candace/story/en/In the Desert.mp3',
+            },
+            zh: {
+                title: '在沙漠的时候…',
+                text: '我就在你身旁。若你不放心的话，就请牵着我的手吧。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Candace/story/zh/在沙漠的时候….mp3',
+            },
+            ja: {
+                title: '砂漠にいる時…',
+                text: '私が傍にいます。もし不安だったら、手を繋ぎましょう。',
+                reading: 'Watashi ga soba ni imasu. Moshi fuan dattara, te wo tsunagimashou.',
+                audio: 'assets/character/voice_overs/Candace/story/ja/砂漠にいる時….mp3',
+            },
+            ko: {
+                title: '사막에 있을 때…',
+                text: '내가 곁에 있으니까, 불안하면 내 손을 꼭 잡아',
+                reading: 'Naega gyeote isseunikka, buranhamyeon nae soneul kkok jaba',
+                audio: 'assets/character/voice_overs/Candace/story/ko/사막에 있을 때….mp3',
+            },
+        },
+        version: '3.1',
+        demo_music: {
+            name: 'Nephrite of Deshret',
+            url: 'assets/character/demo_music/Candace.mp3',
+        },
     },
     {
-        "name": "Citlali",
-        "namecard_name": "Opalstar",
-        "namecard_description": "The black one is akin to obsidian, and is thus called 'Itzpapa.' The white one is white as a star, and has thus been named 'Citlalin.''",
-        "namecard_icon": "assets/character/namecard_icon/Citlali.png",
-        "namecard_background": "assets/character/namecard_background/Citlali.png",
-        "namecard_banner": "assets/character/namecard_banner/Citlali.avif",
-        "card": "assets/character/card/Citlali.avif",
-        "wish": "assets/character/wish/Citlali.avif",
-        "ingame": "assets/character/ingame/Citlali.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Natlan",
-        "region_icon": "assets/region/Natlan_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "January 01, 2025",
-        "version": "5.3",
-        "icon": "assets/character/icon/Citlali.avif",
-        "demo_music_name": "Interstellar Drift",
-        "demo_music": "assets/character/demo_music/Citlali.mp3",
-        "voice_over": {
-            "title": "Chat: Trance",
-            "text": "Going into a trance is risky for most people, so don't get any ideas.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Citlali/story/en/Chat - Trance.mp3"
+        name: 'Charlotte',
+        card_icon: 'assets/character/card/Charlotte.avif',
+        wish_icon: 'assets/character/wish/Charlotte.avif',
+        ingame_icon: 'assets/character/ingame/Charlotte.avif',
+        icon: 'assets/character/icon/Charlotte.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
         },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "January 20th",
-        "affiliations": [
-            "Mictlan"
-        ],
-        "special_dish": {
-            "name": "Secret Art",
-            "icon": "assets/foods/Secret Art.png"
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
         },
-        "titles": [
-            "Stargazer of Mictlan"
-        ],
-        "voice_actors": [
+        model: 'Medium Female',
+        birthday: 'April 10th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: 'Exclusive Scoop: Gourmet Column',
+            icon: 'assets/foods/Exclusive Scoop: Gourmet Column.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Charlotte.avif',
+            background: 'assets/character/namecard_background/Charlotte.avif',
+            banner: 'assets/character/namecard_banner/Charlotte.avif',
+            description:
+                "\"One, I've written an exclusive, and it's going to generate a lot of buzz for sure! Two, the newspaper said the situation is developing too slowly, so they're changing to a press release instead... Three, the person writing the press release will be in the Opera Epiclese as the defendant tomorrow, so they've decided to run my piece after all!\"",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Charlotte'],
+        },
+        release_date: 'November 08, 2023',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Skyler Davenport"
+                language: 'English',
+                actor: 'Maya Aoki Tuttle',
             },
             {
-                "language": "Chinese",
-                "actor": "Liu Zhixiao (柳知萧)"
+                language: 'Chinese',
+                actor: 'Ruan Congqing (阮从青)',
             },
             {
-                "language": "Japanese",
-                "actor": "Tano Asami (田野アサミ)"
+                language: 'Japanese',
+                actor: 'Waki Azumi (和氣あず未)',
             },
             {
-                "language": "Korean",
-                "actor": "Lee Eun-jo (이은조)"
-            }
+                language: 'Korean',
+                actor: 'Shin On-yu (신온유)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Citlali.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'About the Vision',
+                text: "To be honest... I'd prefer to have an Anemo Vision. Being able to fly around freely would make getting to interviews sooo much easier! A Cryo Vision's not too bad, though. At least I don't need to worry about my Kamera overheating.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Charlotte/story/en/About the Vision.mp3',
+            },
+            zh: {
+                title: '关于「神之眼」…',
+                text: '说到这个…其实我更想要一枚「风元素」神之眼的呢。那样的话，也许我就能借助风飞来飞去，轻松地去各地采访了。但这枚「冰元素」的神之眼也不错，至少我不用担心留影机内部机关过热的问题了。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Charlotte/story/zh/关于「神之眼」….mp3',
+            },
+            ja: {
+                title: '「神の目」について…',
+                text: 'そうね…実は「風元素」の神の目が欲しかったの。そうしたら、風の力であちこち飛べて、色んな場所に行って取材できるわけでしょ。でも、この「氷元素」の神の目も悪くないわ。少なくとも写真機が熱暴走する心配がなくなったからね。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Charlotte/story/ja/「神の目」について….mp3',
+            },
+            ko: {
+                title: '「신의 눈」에 대해…',
+                text: '실은… 난 「바람 원소」 신의 눈을 갖고 싶었어. 바람의 힘으로 여기저기 날아다니며 인터뷰를 할 수 있으니까. 물론 이 「얼음 원소」 신의 눈도 나쁘지 않아. 덕분에 사진기가 과열될 일은 없거든',
+                reading:
+                    'Sireun... Nan "Baram wonso" Sinui nuneul gatgo sipeosseo. Baramui himeuro yeogijeogi naradanimyeo inteobyureul hal su isseunikka. Mullon i "Eoreum wonso" Sinui nundo nappeuji ana. Deokbune sajin\'giga gwayeoldoel ireun eopgeodeun',
+                audio: 'assets/character/voice_overs/Charlotte/story/ko/「신의 눈」에 대해….mp3',
+            },
+        },
+        version: '4.2',
+        demo_music: {
+            name: 'Veritas Numquam Perit',
+            url: 'assets/character/demo_music/Charlotte.mp3',
+        },
     },
     {
-        "name": "Clorinde",
-        "namecard_name": "Roleplay",
-        "namecard_description": "Dedicated Game Masters at the Tabletop Troupe will sometimes switch hats to indicate their change in role. Hmm, in that case, does Clorinde—Forget about it! She doesn't even take that hat off when swimming.'",
-        "namecard_icon": "assets/character/namecard_icon/Clorinde.png",
-        "namecard_background": "assets/character/namecard_background/Clorinde.png",
-        "namecard_banner": "assets/character/namecard_banner/Clorinde.avif",
-        "card": "assets/character/card/Clorinde.avif",
-        "wish": "assets/character/wish/Clorinde.avif",
-        "ingame": "assets/character/ingame/Clorinde.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "June 05, 2024",
-        "version": "4.7",
-        "icon": "assets/character/icon/Clorinde.avif",
-        "demo_music_name": "Non si levava ancor",
-        "demo_music": "assets/character/demo_music/Clorinde.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Hopefully, that was the sound of one more villain being removed from the world.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Clorinde/story/en/When Thunder Strikes.mp3"
+        name: 'Chasca',
+        card_icon: 'assets/character/card/Chasca.avif',
+        wish_icon: 'assets/character/wish/Chasca.avif',
+        ingame_icon: 'assets/character/ingame/Chasca.avif',
+        icon: 'assets/character/icon/Chasca.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
         },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "September 20th",
-        "affiliations": [
-            "Trial Court"
-        ],
-        "special_dish": {
-            "name": "\"Tagged and Bagged\"",
-            "icon": "assets/foods/Tagged and Bagged.png"
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
         },
-        "titles": [
-            "Champion Duelist"
-        ],
-        "voice_actors": [
+        model: 'Tall Female',
+        birthday: 'December 10th',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Moment of Respite',
+            icon: 'assets/foods/Moment of Respite.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Chasca.avif',
+            background: 'assets/character/namecard_background/Chasca.avif',
+            banner: 'assets/character/namecard_banner/Chasca.avif',
+            description: "Fear not, she's here to make peace, not to fight. The only question is whether to save a few bullets... Y'know, the type that get fired into the sky as warning shots.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Chasca'],
+        },
+        release_date: 'November 20, 2024',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Crystal Lee"
+                language: 'English',
+                actor: 'Lauren Amante',
             },
             {
-                "language": "Chinese",
-                "actor": "Zhao Hanyu (赵涵雨)"
+                language: 'Chinese',
+                actor: 'Zhang Ruoyu (张若瑜)',
             },
             {
-                "language": "Japanese",
-                "actor": "Ishikawa Yui (石川由依)"
+                language: 'Japanese',
+                actor: 'Kaida Yuuko (甲斐田 裕子)',
             },
             {
-                "language": "Korean",
-                "actor": "Shin Na-ri (신나리)"
-            }
+                language: 'Korean',
+                actor: 'Su-hyeon (수현)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Clorinde.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'About the Vision',
+                text: "This Vision played a major part in my fight against the Abyss. If it hadn't shown up when it did, I don't know who I would be today.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Chasca/story/en/About the Vision.mp3',
+            },
+            zh: {
+                title: '关于「神之眼」…',
+                text: '这枚「神之眼」在我与深渊的对抗中意义重大。如果不是它及时出现，不知道现在的我会是什么样子。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chasca/story/zh/关于「神之眼」….mp3',
+            },
+            ja: {
+                title: '「神の目」について…',
+                text: '私にとってこの「神の目」は、アビスと戦う上でとても意義深いものだ。もしあのタイミングでこれが現れてくれていなければ、今頃どうなっていたことやら…',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chasca/story/ja/「神の目」について….mp3',
+            },
+            ko: {
+                title: '「신의 눈」에 대해…',
+                text: '이 「신의 눈」은 심연과의 싸움에서 큰 의미를 지녀. 이게 제때 나타나 주지 않았다면, 지금의 나는 대체 어떤 모습일지 짐작도 안 가',
+                reading: 'I "Sinui nun"-eun simyeon\'gwaui ssaumeseo keun uimireul jinyeo. Ige jettae natana juji anatdamyeon, jigeumui naneun daeche eotteon moseubilji jimjakdo an ga',
+                audio: 'assets/character/voice_overs/Chasca/story/ko/「신의 눈」에 대해….mp3',
+            },
+        },
+        version: '5.2',
+        demo_music: {
+            name: "Viajadora's Verse",
+            url: 'assets/character/demo_music/Chasca.mp3',
+        },
     },
     {
-        "name": "Collei",
-        "namecard_name": "Good Virtue",
-        "namecard_description": "'I—It's Cuilein-Anbar! I, uh...''",
-        "namecard_icon": "assets/character/namecard_icon/Collei.png",
-        "namecard_background": "assets/character/namecard_background/Collei.png",
-        "namecard_banner": "assets/character/namecard_banner/Collei.avif",
-        "card": "assets/character/card/Collei.avif",
-        "wish": "assets/character/wish/Collei.avif",
-        "ingame": "assets/character/ingame/Collei.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "August 24, 2022",
-        "version": "3.0",
-        "icon": "assets/character/icon/Collei.avif",
-        "demo_music_name": "Caprice of the Leaves",
-        "demo_music": "assets/character/demo_music/Collei.mp3",
-        "voice_over": {
-            "title": "After the Rain",
-            "text": "Even though the rain has stopped, you still need to watch out for puddles. Just like how the past stays in the memory, long after... Ah, ahem, sorry!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Collei/story/en/After the Rain.mp3"
+        name: 'Chevreuse',
+        card_icon: 'assets/character/card/Chevreuse.avif',
+        wish_icon: 'assets/character/wish/Chevreuse.avif',
+        ingame_icon: 'assets/character/ingame/Chevreuse.avif',
+        icon: 'assets/character/icon/Chevreuse.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
         },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "May 8th",
-        "affiliations": [
-            "Gandharva Ville",
-            "Forest Rangers"
-        ],
-        "special_dish": {
-            "name": "Yearning",
-            "icon": "assets/foods/Yearning.png"
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
         },
-        "titles": [
-            "Avidya Forest Ranger Trainee"
-        ],
-        "voice_actors": [
+        model: 'Medium Female',
+        birthday: 'January 10th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: "Sin: The Kind that Doesn't Need to be Dealt With",
+            icon: "assets/foods/Sin: The Kind that Doesn't Need to be Dealt With.avif",
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Chevreuse.avif',
+            background: 'assets/character/namecard_background/Chevreuse.avif',
+            banner: 'assets/character/namecard_banner/Chevreuse.avif',
+            description:
+                'The standard issue weapon of the Special Security and Surveillance Patrol is known as the "Special Security and Surveillance Patrol Type II Standard Musket." Yet, though there may be countless flowers in this world, the one you treasure is special, even if it should be known to the world as nothing at all special.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Chevreuse'],
+        },
+        release_date: 'January 09, 2024',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Christina Costello"
+                language: 'English',
+                actor: 'Erica Lindbeck',
             },
             {
-                "language": "Chinese",
-                "actor": "Qin Wenjing (秦文静)"
+                language: 'Chinese',
+                actor: 'Pan Danni (潘丹妮)',
             },
             {
-                "language": "Japanese",
-                "actor": "Maekawa Ryoko (前川 涼子)"
+                language: 'Japanese',
+                actor: 'Shimoji Shino (下地紫野)',
             },
             {
-                "language": "Korean",
-                "actor": "Bang Siu (방시우)"
-            }
+                language: 'Korean',
+                actor: 'Chae Min-ji (채민지)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Collei.png"
-        }
-    },
-    {
-        "name": "Cyno",
-        "namecard_name": "Silence",
-        "namecard_description": "Whenever Cyno falls into a profound silence, he must be considering some weighty judgment... Or perhaps he is simply considering something amusing.'",
-        "namecard_icon": "assets/character/namecard_icon/Cyno.png",
-        "namecard_background": "assets/character/namecard_background/Cyno.png",
-        "namecard_banner": "assets/character/namecard_banner/Cyno.avif",
-        "card": "assets/character/card/Cyno.avif",
-        "wish": "assets/character/wish/Cyno.avif",
-        "ingame": "assets/character/ingame/Cyno.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "September 28, 2022",
-        "version": "3.1",
-        "icon": "assets/character/icon/Cyno.avif",
-        "demo_music_name": "Order of Silence",
-        "demo_music": "assets/character/demo_music/Cyno.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "In some legends, thunderbolts are a form of judgment from the gods above.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Cyno/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
+        voice_overs: {
+            en: {
+                title: 'When the Sun Is Out',
+                text: 'What nice weather! Especially good for keeping an eye on things.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chevreuse/story/en/When the Sun Is Out.mp3',
+            },
+            zh: {
+                title: '阳光很好…',
+                text: '天气不错，视野良好。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chevreuse/story/zh/阳光很好….mp3',
+            },
+            ja: {
+                title: '晴れの日…',
+                text: '悪くない天気だな、視界も良好だ。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chevreuse/story/ja/晴れの日….mp3',
+            },
+            ko: {
+                title: '햇살이 좋을 때…',
+                text: '날씨도 좋고, 시야도 좋군',
+                reading: 'Nalssido joko, siyado jokun',
+                audio: 'assets/character/voice_overs/Chevreuse/story/ko/햇살이 좋을 때….mp3',
+            },
+        },
+        version: '4.3',
+        demo_music: {
+            name: 'Voici la grenadiere !',
+            url: 'assets/character/demo_music/Chevreuse.mp3',
+        },
+    },
+    {
+        name: 'Chiori',
+        card_icon: 'assets/character/card/Chiori.avif',
+        wish_icon: 'assets/character/wish/Chiori.avif',
+        ingame_icon: 'assets/character/ingame/Chiori.avif',
+        icon: 'assets/character/icon/Chiori.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'August 17th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: '"Fashion Show"',
+            icon: 'assets/foods/"Fashion Show".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Chiori.avif',
+            background: 'assets/character/namecard_background/Chiori.avif',
+            banner: 'assets/character/namecard_banner/Chiori.avif',
+            description: 'The doll known as "Tamoto-chan" was one of Chiori\'s earliest works, and is also the model that requires the least fabric and tailoring.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Chiori'],
+        },
+        release_date: 'March 13, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Brittany Lauda',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Chen Yang (陈阳)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Taketatsu Ayana (竹達彩奈)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Da-eun (이다은)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: '...This reminds me of home.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chiori/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '…想起了家乡往日的风景。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chiori/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: '…故郷の景色を思い出すわ。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chiori/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '…고향의 예전 풍경이 떠오르네',
+                reading: "...Gohyang'ui yejeon punggyeong'i tteooreune",
+                audio: 'assets/character/voice_overs/Chiori/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '4.5',
+        demo_music: {
+            name: 'Le cramoisi coulant comme Cin',
+            url: 'assets/character/demo_music/Chiori.mp3',
+        },
+    },
+    {
+        name: 'Chongyun',
+        card_icon: 'assets/character/card/Chongyun.avif',
+        wish_icon: 'assets/character/wish/Chongyun.avif',
+        ingame_icon: 'assets/character/ingame/Chongyun.avif',
+        icon: 'assets/character/icon/Chongyun.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'September 7th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Cold Noodles with Mountain Delicacies',
+            icon: 'assets/foods/Cold Noodles with Mountain Delicacies.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Chongyun.avif',
+            background: 'assets/character/namecard_background/Chongyun.avif',
+            banner: 'assets/character/namecard_banner/Chongyun.avif',
+            description: "This was originally a peachwood sword made of ice. But a big enough ice block makes a better exorcist's tool than peachwood.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Chongyun'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Beau Bridgland',
+            },
+            {
+                language: 'Chinese',
+                actor: 'kinsen',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Saito Soma (斉藤壮馬)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Yang Jeong-hwa (양정화)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: 'Before the resounding thunder, evil must cower in fear.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Chongyun/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '这落雷好大阵仗，妖邪也会惧怕的吧。',
+                reading: 'Zhè luòléi hào dà zhèn zhàng, yāoxié yě huì jùpà de ba.',
+                audio: 'assets/character/voice_overs/Chongyun/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: '今の落雷はすごかったな、きっと妖魔も恐れているだろう。',
+                reading: 'Ima no rakurai wa sugokatta na, kitto youma mo osorete iru darou.',
+                audio: 'assets/character/voice_overs/Chongyun/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '이 벼락 기세가 엄청나네. 요마들도 무서워하겠어',
+                reading: 'I byeorak gisega eomcheongnane. Yomadeuldo museowohagesseo',
+                audio: 'assets/character/voice_overs/Chongyun/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Citlali',
+        card_icon: 'assets/character/card/Citlali.avif',
+        wish_icon: 'assets/character/wish/Citlali.avif',
+        ingame_icon: 'assets/character/ingame/Citlali.avif',
+        icon: 'assets/character/icon/Citlali.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'January 20th',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Secret Art',
+            icon: 'assets/foods/Secret Art.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Citlali.avif',
+            background: 'assets/character/namecard_background/Citlali.avif',
+            banner: 'assets/character/namecard_banner/Citlali.avif',
+            description: 'The black one is akin to obsidian, and is thus called "Itzpapa." The white one is white as a star, and has thus been named "Citlalin."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Citlali'],
+        },
+        release_date: 'January 01, 2025',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Skyler Davenport',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Liu Zhixiao (柳知萧)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Tano Asami (田野アサミ)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Eun-jo (이은조)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Trance',
+                text: "Going into a trance is risky for most people, so don't get any ideas.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Citlali/story/en/Chat - Trance.mp3',
+            },
+            zh: {
+                title: '闲聊·出神',
+                text: '「出神仪式」对旁人来说还是挺不稳定的，就不要太好奇了吧。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Citlali/story/zh/闲聊·出神.mp3',
+            },
+            ja: {
+                title: '世間話・脱魂',
+                text: '「脱魂の儀」は一般人にとってちょっと危ないものなの。だから、あんまり興味を持たないようにね。',
+                reading: '「Dakkon no gi」 wa ippanjin ni totte chotto abunai mono na no. Dakara, anmari kyoumi o motanai you ni ne.',
+                audio: 'assets/character/voice_overs/Citlali/story/ja/世間話・脱魂.mp3',
+            },
+            ko: {
+                title: '잡담·탈혼',
+                text: '일반인에게 「탈혼 의식」은 위험하니까, 너무 관심 가지지 마',
+                reading: 'Ilbaninege "Talhon uisik"-eun wiheomhanikka, neomu gwansim gajiji ma',
+                audio: 'assets/character/voice_overs/Citlali/story/ko/잡담·탈혼.mp3',
+            },
+        },
+        version: '5.3',
+        demo_music: {
+            name: 'Interstellar Drift',
+            url: 'assets/character/demo_music/Citlali.mp3',
+        },
+    },
+    {
+        name: 'Clorinde',
+        card_icon: 'assets/character/card/Clorinde.avif',
+        wish_icon: 'assets/character/wish/Clorinde.avif',
+        ingame_icon: 'assets/character/ingame/Clorinde.avif',
+        icon: 'assets/character/icon/Clorinde.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'September 20th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: '"Tagged and Bagged"',
+            icon: 'assets/foods/"Tagged and Bagged".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Clorinde.avif',
+            background: 'assets/character/namecard_background/Clorinde.avif',
+            banner: 'assets/character/namecard_banner/Clorinde.avif',
+            description:
+                "Dedicated Game Masters at the Tabletop Troupe will sometimes switch hats to indicate their change in role. Hmm, in that case, does Clorinde—Forget about it! She doesn't even take that hat off when swimming.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Clorinde'],
+        },
+        release_date: 'June 05, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Crystal Lee',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zhao Hanyu (赵涵雨)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Ishikawa Yui (石川由依)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Shin Na-ri (신나리)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: 'Hopefully, that was the sound of one more villain being removed from the world.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Clorinde/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '希望世界上能少个恶徒。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Clorinde/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: 'この世から、一人でも多くの悪党が消えてくれることを願っている。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Clorinde/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '세상에 악인이 한 명이라도 줄어들었길',
+                reading: "Sesang'e agini han myeong'irado jureodeureotgil",
+                audio: 'assets/character/voice_overs/Clorinde/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '4.7',
+        demo_music: {
+            name: 'Non si levava ancor',
+            url: 'assets/character/demo_music/Clorinde.mp3',
+        },
+    },
+    {
+        name: 'Collei',
+        card_icon: 'assets/character/card/Collei.avif',
+        wish_icon: 'assets/character/wish/Collei.avif',
+        ingame_icon: 'assets/character/ingame/Collei.avif',
+        icon: 'assets/character/icon/Collei.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'May 8th',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Yearning',
+            icon: 'assets/foods/Yearning.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Collei.avif',
+            background: 'assets/character/namecard_background/Collei.avif',
+            banner: 'assets/character/namecard_banner/Collei.avif',
+            description: '"I—It\'s Cuilein-Anbar! I, uh..."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Collei'],
+        },
+        release_date: 'August 24, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Christina Costello',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Qin Wenjing (秦文静)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Maekawa Ryoko (前川 涼子)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Bang Siu (방시우)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'After the Rain',
+                text: 'Even though the rain has stopped, you still need to watch out for puddles. Just like how the past stays in the memory, long after... Ah, ahem, sorry!',
+                reading: null,
+                audio: 'assets/character/voice_overs/Collei/story/en/After the Rain.mp3',
+            },
+            zh: {
+                title: '雨过天晴…',
+                text: '雨虽然停了，还是要小心水洼。就像一些事，明明过去了还是会留下回忆…咳咳！',
+                reading: 'Yǔ suīrán tíngle, háishì yào xiǎoxīn shuǐwā. Jiù xiàng yīxiē shì, míngmíng guòqùle háishì huì liúxià huíyì... Kèkè!',
+                audio: 'assets/character/voice_overs/Collei/story/zh/雨过天晴….mp3',
+            },
+            ja: {
+                title: '雨上がり…',
+                text: '雨は止んだけど、水溜りに気をつけないと。起きてしまったことは、たとえ過ぎ去ったとしても記憶に残ってしまうから——…コホン！',
+                reading: 'Ame wa yanda kedo, mizutamari ni ki wo tsukenai to. Okite shimatta koto wa, tatoe sugisatta to shite mo kioku ni nokotte shimau kara⸺ ...Kohon!',
+                audio: 'assets/character/voice_overs/Collei/story/ja/雨上がり….mp3',
+            },
+            ko: {
+                title: '비가 그친 후…',
+                text: '비는 그쳤지만 물웅덩이를 조심하는 게 좋을 거야. 마치 계속 기억에 남는 과거와도 같으니까… 크흠!',
+                reading: "Bineun geuchyeotjiman murungdeong'ireul josimhaneun ge joeul geoya. Machi gyesok gieoge namneun gwageowado gateunikka... Keuheum!",
+                audio: 'assets/character/voice_overs/Collei/story/ko/비가 그친 후….mp3',
+            },
+        },
+        version: '3.0',
+        demo_music: {
+            name: 'Caprice of the Leaves',
+            url: 'assets/character/demo_music/Collei.mp3',
+        },
+    },
+    {
+        name: 'Cyno',
+        card_icon: 'assets/character/card/Cyno.avif',
+        wish_icon: 'assets/character/wish/Cyno.avif',
+        ingame_icon: 'assets/character/ingame/Cyno.avif',
+        icon: 'assets/character/icon/Cyno.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'June 23rd',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Duel Soul',
+            icon: 'assets/foods/Duel Soul.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Cyno.avif',
+            background: 'assets/character/namecard_background/Cyno.avif',
+            banner: 'assets/character/namecard_banner/Cyno.avif',
+            description: 'Whenever Cyno falls into a profound silence, he must be considering some weighty judgment... Or perhaps he is simply considering something amusing.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Cyno'],
+        },
+        release_date: 'September 28, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Alejandro Saab',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Li Qingyang (李轻扬)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Irino Miyu (入野 自由)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Jung Eui-jin (정의진)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: 'In some legends, thunderbolts are a form of judgment from the gods above.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Cyno/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '在一些传说中，雷电是神明对人间降下的审判。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Cyno/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: '一部の伝説によれば、雷は神が俗世に下す審判らしい。',
+                reading: 'Ichibu no densetsu ni yoreba, kaminari wa kami ga zokusei ni kudasu shinpan rashii.',
+                audio: 'assets/character/voice_overs/Cyno/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '번개는 신이 인간에게 내리는 심판이라는 전설이 있어',
+                reading: 'Beongaeneun sini inganege naerineun simpaniraneun jeonseol-i isseo',
+                audio: 'assets/character/voice_overs/Cyno/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '3.1',
+        demo_music: {
+            name: 'Order of Silence',
+            url: 'assets/character/demo_music/Cyno.mp3',
+        },
+    },
+    {
+        name: 'Dehya',
+        card_icon: 'assets/character/card/Dehya.avif',
+        wish_icon: 'assets/character/wish/Dehya.avif',
+        ingame_icon: 'assets/character/ingame/Dehya.avif',
+        icon: 'assets/character/icon/Dehya.avif',
+        quality: '5',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'April 7th',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Goldflame Tajine',
+            icon: 'assets/foods/Goldflame Tajine.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Dehya.avif',
+            background: 'assets/character/namecard_background/Dehya.avif',
+            banner: 'assets/character/namecard_banner/Dehya.avif',
+            description: 'Those that should be burned will be reduced to fly ash, so that all the precious things that should be preserved can be revealed.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Dehya'],
+        },
+        release_date: 'March 01, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Amber May',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Chen Yu (陈雨)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Fukuhara Ayaka (福原綾香)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Hyeon-sim (김현심)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: "Ready to roll? Good. Then let's pack up and move out.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Dehya/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '你看起来精神不错，那我们等会就拔营出发吧。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Dehya/story/zh/早上好….mp3',
+            },
+            ja: {
+                title: 'おはよう…',
+                text: '元気そうじゃないか。だったら、さっさと拠点を発とうぜ。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Dehya/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '기운이 넘쳐 보이네. 그럼 이따 야영지를 정리하고 출발하자고',
+                reading: 'Giuni neomchyeo boine. Geureom itta yayeongjireul jeongnihago chulbalhajago',
+                audio: 'assets/character/voice_overs/Dehya/story/ko/아침 인사….mp3',
+            },
+        },
+        version: '3.5',
+        demo_music: {
+            name: 'Fervent Flare',
+            url: 'assets/character/demo_music/Dehya.mp3',
+        },
+    },
+    {
+        name: 'Diluc',
+        card_icon: 'assets/character/card/Diluc.avif',
+        wish_icon: 'assets/character/wish/Diluc.avif',
+        ingame_icon: 'assets/character/ingame/Diluc.avif',
+        icon: 'assets/character/icon/Diluc.avif',
+        quality: '5',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'April 30th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: '"Once Upon a Time in Mondstadt"',
+            icon: 'assets/foods/"Once Upon a Time in Mondstadt".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Diluc.avif',
+            background: 'assets/character/namecard_background/Diluc.avif',
+            banner: 'assets/character/namecard_banner/Diluc.avif',
+            description: "Master Crepus painted many eagles during his lifetime, but he never could've foreseen creating an eagle with such fire.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Diluc'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Sean Chiplock',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Ma Yang (马洋)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Ono Kensho (小野賢章)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Choi Seung-hoon (최승훈)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'About Us: Proof',
+                text: 'You have already proven your determination. Well then, it is now time for you to witness my resolve.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Diluc/story/en/About Us - Proof.mp3',
+            },
+            zh: {
+                title: '关于我们・证明',
+                text: '你已经证明了你的决心。那么，也让你见证一下我的意志吧。',
+                reading: 'Nǐ yǐjīng zhèngmíngle nǐ de juéxīn. Nàme, yě ràng nǐ jiànzhèng yīxià wǒ de yìzhì ba.',
+                audio: 'assets/character/voice_overs/Diluc/story/zh/关于我们・证明.mp3',
+            },
+            ja: {
+                title: '証明について…',
+                text: '君はもう自分の決意を証明してくれたよ。じゃあ、今度は僕の意志を見てもらおう。',
+                reading: 'Kimi wa mou jibun no ketsui wo shoumei shite kureta yo. Jaa, kondo wa boku no ishi wo mite moraou.',
+                audio: 'assets/character/voice_overs/Diluc/story/ja/証明について….mp3',
+            },
+            ko: {
+                title: '우리에 대해・증명',
+                text: '넌 이미 결심을 증명해 보였어, 그럼 이제 내 의지를 증명하지',
+                reading: 'Neon imi gyeolsimeul jeungmyeonghae boyeosseo, geureom ije nae uijireul jeungmyeonghaji.',
+                audio: 'assets/character/voice_overs/Diluc/story/ko/우리에 대해・증명.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Diona',
+        card_icon: 'assets/character/card/Diona.avif',
+        wish_icon: 'assets/character/wish/Diona.avif',
+        ingame_icon: 'assets/character/ingame/Diona.avif',
+        icon: 'assets/character/icon/Diona.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Short Female',
+        birthday: 'January 18th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Definitely Not Bar Food!',
+            icon: 'assets/foods/Definitely Not Bar Food!.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Diona.avif',
+            background: 'assets/character/namecard_background/Diona.avif',
+            banner: 'assets/character/namecard_banner/Diona.avif',
+            description: 'All who have Kätzlein blood will have such feline features. An ancient prank played by a certain someone, perhaps?',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Diona'],
+        },
+        release_date: 'November 11, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Dina Sherman',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Nuoya (诺亚)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Izawa Shiori (井澤詩織)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Woo Jeong-sin (우정신)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: "Ahh!!! Uhh, um... I'm not shaking, I'm not... Ohhhh...",
+                reading: null,
+                audio: 'assets/character/voice_overs/Diona/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '欸？！…我没有在发抖！没有！…呜…',
+                reading: 'E?! ...Wǒ méiyǒu zài fādǒu! Méiyǒu! ...Wu...',
+                audio: 'assets/character/voice_overs/Diona/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: 'えっ！？…震えてにゃい！ない！…うぅ～…',
+                reading: "E'!? ...Furuete nyai! Nai! ...Uu~...",
+                audio: 'assets/character/voice_overs/Diona/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '어?! …떨고 있는 거 아냐! 아니라니까! 우으…',
+                reading: 'Eo?! ...Tteolgo inneun geo anya! Aniranikka! Ueu...',
+                audio: 'assets/character/voice_overs/Diona/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '1.1',
+        demo_music: {
+            name: 'Exclusive Specialty',
+            url: 'assets/character/demo_music/Diona.mp3',
+        },
+    },
+    {
+        name: 'Dori',
+        card_icon: 'assets/character/card/Dori.avif',
+        wish_icon: 'assets/character/wish/Dori.avif',
+        ingame_icon: 'assets/character/ingame/Dori.avif',
+        icon: 'assets/character/icon/Dori.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Short Female',
+        birthday: 'December 21st',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Show Me the Mora',
+            icon: 'assets/foods/Show Me the Mora.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Dori.avif',
+            background: 'assets/character/namecard_background/Dori.avif',
+            banner: 'assets/character/namecard_banner/Dori.avif',
+            description: 'If you wipe the lamp she gave you and then scrub the Mora you gave her, no wish is unattainable... right?',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Dori'],
+        },
+        release_date: 'September 09, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Anjali Kunapaneni',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Wang Xiaotong (王晓彤)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kaneda Tomoko (金田朋子)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Myeong-ho (이명호)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: "Oh oh oh! Check out my fully-automatic snowball maker! It's one of a kind! Wanna give it a try? I'll even throw in a 5% discount on the rental!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Dori/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '哒啦，看我的全自动雪球机！想要吗想要吗？租金给你打九点五折喔！',
+                reading: 'Dā lā, kàn wǒ de quánzìdòng xuěqiú-jī! Xiǎngyào ma xiǎngyào ma? Zūjīn gěi nǐ dǎ jiǔdiǎnwǔ zhé ō!',
+                audio: 'assets/character/voice_overs/Dori/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: 'じゃじゃーん！全自動雪玉製造マシンですの！どうですどうです？レンタル料を5%引きにしてあげますわよ！',
+                reading: 'Jajaan! Zenjidou yukidama seizou mashin desu no! Dou desu dou desu? Rentaru-ryou wo go-paasento-biki ni shite agemasu wa yo!',
+                audio: 'assets/character/voice_overs/Dori/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '자동으로 눈덩이를 만들어 주는 기계야! 갖고 싶지? 5% 할인된 가격에 대여할 수 있어!',
+                reading: "Jadong'euro nundeong'ireul mandeureo juneun gigyeya! Gatgo sipji? 5% Harindoen gagyeoge daeyeohal su isseo!",
+                audio: 'assets/character/voice_overs/Dori/story/ko/눈이 올 때….mp3',
+            },
+        },
+        version: '3.0',
+        demo_music: {
+            name: 'Thanks for Your Patronage!',
+            url: 'assets/character/demo_music/Dori.mp3',
+        },
+    },
+    {
+        name: 'Emilie',
+        card_icon: 'assets/character/card/Emilie.avif',
+        wish_icon: 'assets/character/wish/Emilie.avif',
+        ingame_icon: 'assets/character/ingame/Emilie.avif',
+        icon: 'assets/character/icon/Emilie.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'September 22nd',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: 'A Fragrant Feast of Flavors',
+            icon: 'assets/foods/A Fragrant Feast of Flavors.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Emilie.avif',
+            background: 'assets/character/namecard_background/Emilie.avif',
+            banner: 'assets/character/namecard_banner/Emilie.avif',
+            description:
+                '"The top note is sweet, the middle rich but not distracting, and the base — Ah! Such a faint fragrance! Such an exquisite perfume."Orders flow in and out in an endless stream, and to prevent any scents from disturbing her work, Emilie very seldom uses perfume herself. Alas. When will she have the chance to delight in those base notes?',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Emilie'],
+        },
+        release_date: 'August 06, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Amber Aviles',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Muzi Cheng (木子橙)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Hikasa Yoko (日笠陽子)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kwon Da-ye (권다예)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Newspaper',
+                text: "Would you mind coming with me to buy a copy of today's newspaper?",
+                reading: null,
+                audio: 'assets/character/voice_overs/Emilie/story/en/Chat - Newspaper.mp3',
+            },
+            zh: {
+                title: '闲聊·报纸',
+                text: '若你方便，可以陪我去买一份今天的报纸吗？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Emilie/story/zh/闲聊·报纸.mp3',
+            },
+            ja: {
+                title: '世間話·新聞',
+                text: 'よろしければ、今日の新聞を買いに行くのに付き合っていただけませんか？',
+                reading: 'Yoroshikereba, kyou no shinbun o kai ni iku no ni tsukiatte itadakemasen ka?',
+                audio: 'assets/character/voice_overs/Emilie/story/ja/世間話·新聞.mp3',
+            },
+            ko: {
+                title: '잡담·신문',
+                text: '괜찮다면 오늘 자 신문을 사러 같이 가줄 수 있을까?',
+                reading: 'Gwaenchantamyeon oneul ja sinmuneul sareo gachi gajul su isseulkka?',
+                audio: 'assets/character/voice_overs/Emilie/story/ko/잡담·신문.mp3',
+            },
+        },
+        version: '4.8',
+        demo_music: {
+            name: 'Notes Aeriennes',
+            url: 'assets/character/demo_music/Emilie.mp3',
+        },
+    },
+    {
+        name: 'Escoffier',
+        card_icon: 'assets/character/card/Escoffier.avif',
+        wish_icon: 'assets/character/wish/Escoffier.avif',
+        icon: 'assets/character/icon/Escoffier.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'June 8th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: 'Gateau Debord: Magnifique',
+            icon: 'assets/foods/Gateau Debord: Magnifique.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Escoffier.avif',
+            background: 'assets/character/namecard_background/Escoffier.avif',
+            banner: 'assets/character/namecard_banner/Escoffier.avif',
+            description:
+                'For Escoffier, a certain relationship exists between rhythm and flavor. Why, then, does she not fuel her compositions with delicious food? The answer is quite simple — consistent flavors are reliable and comforting, but no one wants to hear the same song over and over.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Escoffier'],
+        },
+        release_date: 'May 07, 2025',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Emily Cass',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Cai Haiting (蔡海婷)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Satō Satomi (佐藤聡美)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Son Jung-min (손정민)',
+            },
+        ],
+        voice_overs: null,
+        version: '5.6',
+        demo_music: null,
+    },
+    {
+        name: 'Eula',
+        card_icon: 'assets/character/card/Eula.avif',
+        wish_icon: 'assets/character/wish/Eula.avif',
+        ingame_icon: 'assets/character/ingame/Eula.avif',
+        icon: 'assets/character/icon/Eula.avif',
+        quality: '5',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'October 25th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Stormcrest Pie',
+            icon: 'assets/foods/Stormcrest Pie.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Eula.avif',
+            background: 'assets/character/namecard_background/Eula.avif',
+            banner: 'assets/character/namecard_banner/Eula.avif',
+            description: 'A cold heart is but a shell to protect oneself.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Eula'],
+        },
+        release_date: 'May 18, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Suzie Yeung',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Ziyin (子音)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Satou Rina (佐藤 利奈)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Hyeon-ji (김현지)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When the Sun Is Out',
+                text: 'Visibility is excellent! If we head to higher ground, we can do a full recon of enemy activity in the area.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Eula/story/en/When the Sun Is Out.mp3',
+            },
+            zh: {
+                title: '阳光很好…',
+                text: '视野不错！登上高地，就能将周围的敌情尽收眼底。',
+                reading: 'Shìyě bùcuò! Dēng shàng gāodì, jiù néng jiāng zhōuwéi de díqíng jǐn shōu yǎndǐ.',
+                audio: 'assets/character/voice_overs/Eula/story/zh/阳光很好….mp3',
+            },
+            ja: {
+                title: '晴れの日…',
+                text: '良い眺めね！高い所に登れば、敵の位置が一目瞭然だわ。',
+                reading: 'Ii nagame ne! Takai tokoro ni noboreba, teki no ichi ga ichimoku ryouzen da wa.',
+                audio: 'assets/character/voice_overs/Eula/story/ja/晴れの日….mp3',
+            },
+            ko: {
+                title: '햇살이 좋을 때…',
+                text: '시야가 딱 좋네! 높은 곳에 오르면 주변의 적들이 한눈에 다 보이지',
+                reading: "Siyaga ttak jotne! Nopeun got'e oreumyeon jubyeon-ui jeokdeuli hannun'e da boiji",
+                audio: 'assets/character/voice_overs/Eula/story/ko/햇살이 좋을 때….mp3',
+            },
+        },
+        version: '1.5',
+        demo_music: {
+            name: 'Dance of Aphros',
+            url: 'assets/character/demo_music/Eula.mp3',
+        },
+    },
+    {
+        name: 'Faruzan',
+        card_icon: 'assets/character/card/Faruzan.avif',
+        wish_icon: 'assets/character/wish/Faruzan.avif',
+        ingame_icon: 'assets/character/ingame/Faruzan.avif',
+        icon: 'assets/character/icon/Faruzan.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'August 20th',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Traditionally-Made Charcoal-Baked Ajilenakh Cake',
+            icon: 'assets/foods/Traditionally-Made Charcoal-Baked Ajilenakh Cake.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Faruzan.avif',
+            background: 'assets/character/namecard_background/Faruzan.avif',
+            banner: 'assets/character/namecard_banner/Faruzan.avif',
+            description: '"A—Anyway! Next time, remember to refer to me as Madam Faruzan before you ask a question! Seriously..."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Faruzan'],
+        },
+        release_date: 'December 07, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Chandni Parekh',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Yan Mengmeng (阎萌萌)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Horie Yui (堀江 由衣)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim You-rim (김유림)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: 'How beautiful... How awe-inspiring... Achoo! *sniffle* Yes, and very cold-inducing as well...',
+                reading: null,
+                audio: 'assets/character/voice_overs/Faruzan/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '好美…让人着迷…阿嚏！好吧…也让人着凉…',
+                reading: null,
+                audio: 'assets/character/voice_overs/Faruzan/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: 'なんと美しい…心が奪われるのう…ハクション！うぅ…風邪を引きそうじゃ…',
+                reading: 'Nanto utsukushii... Kokoro ga ubawareru nou... Hakushon! Uu... Kaze wo hikisou ja...',
+                audio: 'assets/character/voice_overs/Faruzan/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '예쁘다… 푹 빠지겠어… 에취! 음… 감기도 걸리겠네…',
+                reading: 'Yeppeuda... Puk ppajigesseo... Echwi! Eum... Gamgido geolligenne...',
+                audio: 'assets/character/voice_overs/Faruzan/story/ko/눈이 올 때….mp3',
+            },
+        },
+        version: '3.3',
+        demo_music: {
+            name: 'Whirling of Vairambhaka',
+            url: 'assets/character/demo_music/Faruzan.mp3',
+        },
+    },
+    {
+        name: 'Fischl',
+        card_icon: 'assets/character/card/Fischl.avif',
+        wish_icon: 'assets/character/wish/Fischl.avif',
+        ingame_icon: 'assets/character/ingame/Fischl.avif',
+        icon: 'assets/character/icon/Fischl.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'May 27th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Die Heilige Sinfonie',
+            icon: 'assets/foods/Die Heilige Sinfonie.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Fischl.avif',
+            background: 'assets/character/namecard_background/Fischl.avif',
+            banner: 'assets/character/namecard_banner/Fischl.avif',
+            description: 'A raven dark as midnight with wings that can block out the sun. "I permit thee to conceive his likeness upon such decoration!"',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Fischl'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Brittany Cox',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Mace',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Uchida Maaya (内田真礼)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Park Go-woon (박고운)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning: Greet Fischl',
+                text: 'Dusk and dawn but fleeting shadows are. Once more, the twists of fate have led you into my everlasting night.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Fischl/story/en/Good Morning - Greet Fischl.mp3',
+            },
+            zh: {
+                title: '早上好・问候菲谢尔',
+                text: '昼夜时空皆为虚像，命运的纽带却再次将你带到了我的永恒长夜中。',
+                reading: 'Zhòuyè shíkōng jiē wèi xūxiàng, mìngyùn de niǔdài què zàicì jiāng nǐ dài dàole wǒ de yǒnghéng chángyè zhōng.',
+                audio: 'assets/character/voice_overs/Fischl/story/zh/早上好・问候菲谢尔.mp3',
+            },
+            ja: {
+                title: 'おはよう・フィッシュルの挨拶',
+                text: '昼夜なんてみんな虚像なのに、運命の絆はあなたを再びわたくしの永夜に連れてきてくれた。',
+                reading: 'Chuuya nante minna kyozou na no ni, unmei no kizuna wa anata wo futatabi watakushi no eiya ni tsurete kite kureta.',
+                audio: 'assets/character/voice_overs/Fischl/story/ja/おはよう・フィッシュルの挨拶.mp3',
+            },
+            ko: {
+                title: '아침 인사・피슬에게',
+                text: '낮과 밤, 시간과 공간은 전부 허상일 뿐. 운명의 유대가 널 다시금 나의 영원한 밤으로 이끌었구나',
+                reading: "Natgwa bam, sigangwa gongganeun jeonbu heosang'il ppun. Unmyeong-ui yudaega neol dasigeum naui yeong'wonhan bameuro ikkeureotguna",
+                audio: 'assets/character/voice_overs/Fischl/story/ko/아침 인사・피슬에게.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: {
+            name: 'Ouvertüre der ewigen Nacht',
+            url: 'assets/character/demo_music/Fischl.mp3',
+        },
+    },
+    {
+        name: 'Freminet',
+        card_icon: 'assets/character/card/Freminet.avif',
+        wish_icon: 'assets/character/wish/Freminet.avif',
+        ingame_icon: 'assets/character/ingame/Freminet.avif',
+        icon: 'assets/character/icon/Freminet.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'September 24th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: '"Seabird\'s Sojourn"',
+            icon: 'assets/foods/"Seabird\'s Sojourn".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Freminet.avif',
+            background: 'assets/character/namecard_background/Freminet.avif',
+            banner: 'assets/character/namecard_banner/Freminet.avif',
+            description: 'As the clockwork devices do naught but round and round in circles turn, the dolls march forward.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Freminet'],
+        },
+        release_date: 'September 05, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Paul Castro Jr.',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Jinli (锦鲤)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Toki Shunichi (土岐隼一)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Joo-Seung (이주승)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: "Don't be scared, Pers. I'll keep you safe.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Freminet/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '佩伊，我会保护你的。不要怕。',
+                reading: 'Pèiyī, wǒ huì bǎohù nǐ de. Bùyào pà.',
+                audio: 'assets/character/voice_overs/Freminet/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: 'ペールス、ぼくが守ってあげるから、怖がることはないよ。',
+                reading: 'Peerusu, boku ga mamotte ageru kara, kowagaru koto wa nai yo.',
+                audio: 'assets/character/voice_overs/Freminet/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '페어, 내가 널 지켜줄게. 무서워하지 마',
+                reading: 'Peeo, naega neol jikyeojulge. Museowohaji ma',
+                audio: 'assets/character/voice_overs/Freminet/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '4.0',
+        demo_music: {
+            name: 'Frigid Reverie',
+            url: 'assets/character/demo_music/Freminet.mp3',
+        },
+    },
+    {
+        name: 'Furina',
+        card_icon: 'assets/character/card/Furina.avif',
+        wish_icon: 'assets/character/wish/Furina.avif',
+        icon: 'assets/character/icon/Furina.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'October 13th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: '"Pour la Justice"',
+            icon: 'assets/foods/"Pour la Justice".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Furina.avif',
+            background: 'assets/character/namecard_background/Furina.avif',
+            banner: 'assets/character/namecard_banner/Furina.avif',
+            description:
+                "Can one person eat every cake? If they eat one per day, they should be able to enjoy cake for a week or so, right? But will the cakes stay fresh that long? Hmm... Well, don't worry, because there will be friends coming to eat the cakes together.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Furina'],
+        },
+        release_date: 'November 08, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Amber Lee Connors',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Qian Chen (钱琛)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Minase Inori (水瀬いのり)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Ha-yeong (김하영)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'About Us: Our Story Together',
+                text: "My story has already come to an end, and so the next act shall be about OUR story... In which case, we should probably start charging double for public appearances... Oh, I'm so happy!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Furina/story/en/About Us - Our Story Together.mp3',
+            },
+            zh: {
+                title: '关于我们·同行',
+                text: '「我」的故事已然落幕，接下来开场的是「我们」的故事了…这么说的话，出场费是不是也该翻倍啦？好开心哦！',
+                reading: null,
+                audio: 'assets/character/voice_overs/Furina/story/zh/关于我们·同行.mp3',
+            },
+            ja: {
+                title: '同行について…',
+                text: '「僕」の物語は幕を閉じた。これから上演されるのは「僕たち」の物語だ…ということは、ギャラも二倍になるってことかな？やったぁ！',
+                reading: '"Boku" no monogatari wa maku wo tojita. Kore kara jouen areru no wa "boku-tachi" no monogatari da... To iu koto wa, gyara mo nibai mo naru tte koto ka na? Yattaa!',
+                audio: 'assets/character/voice_overs/Furina/story/ja/同行について….mp3',
+            },
+            ko: {
+                title: '우리에 대해·동행',
+                text: '「내」 이야기는 막을 내렸지만, 이젠 「우리」 이야기가 시작될 차례야… 생각해 보니까 그럼 출연료를 2배로 받을 수 있겠네? 신난다!',
+                reading: '"Nae" Iyagineun mageul naeryeotjiman, ijen "Uri" Iyagiga sijakdoel charyeya... Saenggakhae bonikka geureom churyeollyoreul 2-Baero badeul su itgenne? Sinnanda!',
+                audio: 'assets/character/voice_overs/Furina/story/ko/우리에 대해·동행.mp3',
+            },
+        },
+        version: '4.2',
+        demo_music: {
+            name: 'Se mettre sur son trente-et-un !',
+            url: 'assets/character/demo_music/Furina.mp3',
+        },
+    },
+    {
+        name: 'Gaming',
+        card_icon: 'assets/character/card/Gaming.avif',
+        wish_icon: 'assets/character/wish/Gaming.avif',
+        ingame_icon: 'assets/character/ingame/Gaming.avif',
+        icon: 'assets/character/icon/Gaming.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'December 22nd',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Yummy Yum Cha',
+            icon: 'assets/foods/Yummy Yum Cha.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Gaming.avif',
+            background: 'assets/character/namecard_background/Gaming.avif',
+            banner: 'assets/character/namecard_banner/Gaming.avif',
+            description: '"Don\'t stop believing, Man Chai. One day, we\'ll soar high, with nary a patched hole in our trousers."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Gaming'],
+        },
+        release_date: 'January 31, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Caleb Yen',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Xie Ying (谢莹)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Komatsu Shouhei (小松昌平)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Yoon-ki (김윤기)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: "Ahhh... Eh? Why can't I catch any in my mouth?",
+                reading: null,
+                audio: 'assets/character/voice_overs/Gaming/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '啊——咦？为什么下不到我嘴里的？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Gaming/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: 'あーん…ん？なんでオレの口に落ちてこないんだ？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Gaming/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '아——엥? 왜 입 안으로 안 들어오지?',
+                reading: 'A⸺Eng? Wae ip aneuro an deureooji?',
+                audio: 'assets/character/voice_overs/Gaming/story/ko/눈이 올 때….mp3',
+            },
+        },
+        version: '4.4',
+        demo_music: {
+            name: 'Propitious Ardor',
+            url: 'assets/character/demo_music/Gaming.mp3',
+        },
+    },
+    {
+        name: 'Ganyu',
+        card_icon: 'assets/character/card/Ganyu.avif',
+        wish_icon: 'assets/character/wish/Ganyu.avif',
+        ingame_icon: 'assets/character/ingame/Ganyu.avif',
+        icon: 'assets/character/icon/Ganyu.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'December 2nd',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Prosperous Peace',
+            icon: 'assets/foods/Prosperous Peace.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Ganyu.avif',
+            background: 'assets/character/namecard_background/Ganyu.avif',
+            banner: 'assets/character/namecard_banner/Ganyu.avif',
+            description: 'Do no harm to plant nor insect.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Ganyu'],
+        },
+        release_date: 'January 12, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Jennifer Losi',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Lin Su (林簌)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Ueda Reina (上田 麗奈)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Sun-hye (김선혜)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: "Morning! What's wrong, is there something stuck in my hair? ...Oh. Please don't stare at my h—hairpiece.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Ganyu/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '早上好…唔？是哪里没有梳理好吗，请不要盯着我的…盯着我的头饰看。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Ganyu/story/zh/早上好….mp3',
+            },
+            ja: {
+                title: 'おはよう…',
+                text: 'おはようございます…ん？どこか変ですか？あまり…髪飾りをじっと見ないでください。',
+                reading: 'Ohayou gozaimasu... N? Doko ka hen desu ka? Amari... kamikazari wo jitto minaide kudasai.',
+                audio: 'assets/character/voice_overs/Ganyu/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '좋은 아침입니다. 어… 제 머리에 헝클어진 곳이라도 있나요? 제 머리 장식을… 그렇게 빤히 보지 말아 주세요',
+                reading: 'Joeun achimipnida. Eo... je meorie heongkeureojin gosirado innayo? Je meori jangsigeul... geureoke ppanhi boji mara juseyo',
+                audio: 'assets/character/voice_overs/Ganyu/story/ko/아침 인사….mp3',
+            },
+        },
+        version: '1.2',
+        demo_music: {
+            name: "Qilin's Prance",
+            url: 'assets/character/demo_music/Ganyu.mp3',
+        },
+    },
+    {
+        name: 'Gorou',
+        card_icon: 'assets/character/card/Gorou.avif',
+        wish_icon: 'assets/character/wish/Gorou.avif',
+        ingame_icon: 'assets/character/ingame/Gorou.avif',
+        icon: 'assets/character/icon/Gorou.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'May 18th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Victorious Legend',
+            icon: 'assets/foods/Victorious Legend.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Gorou.avif',
+            background: 'assets/character/namecard_background/Gorou.avif',
+            banner: 'assets/character/namecard_banner/Gorou.avif',
+            description: 'As long as you believe in the path you are walking, then everything you encounter on your journey will be a source of happiness.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Gorou'],
+        },
+        release_date: 'December 14, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Cory Yee',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Yang Xinran (杨昕燃)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Hatanaka Tasuku (畠中 祐)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Sae-byeok (이새벽)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: "Whew *shivering*... it's cold. These conditions are unsuitable for outdoor maneuvers.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Gorou/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '好冷…这种天气不适合露天活动啊…',
+                reading: 'Hǎo lěng... zhè zhǒng tiānqì bù shìhé lùtiān huódòng a...',
+                audio: 'assets/character/voice_overs/Gorou/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: '寒い…こんな天気の日は野外活動に向いていない…',
+                reading: 'Samui... Konna tenki no hi wa yagai katsudou ni muite inai...',
+                audio: 'assets/character/voice_overs/Gorou/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '추워… 이런 날씨에 야외활동은 안 하는 게 좋지…',
+                reading: "Chuwo... ireon nalssie yaoehwaldong'eun an haneun ge jochi...",
+                audio: 'assets/character/voice_overs/Gorou/story/ko/눈이 올 때….mp3',
+            },
+        },
+        version: '2.3',
+        demo_music: {
+            name: 'Astute and Fearless Leader',
+            url: 'assets/character/demo_music/Gorou.mp3',
+        },
+    },
+    {
+        name: 'Hu Tao',
+        card_icon: 'assets/character/card/Hu Tao.avif',
+        wish_icon: 'assets/character/wish/Hu Tao.avif',
+        ingame_icon: 'assets/character/ingame/Hu Tao.avif',
+        icon: 'assets/character/icon/Hu Tao.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'July 15th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Ghostly March',
+            icon: 'assets/foods/Ghostly March.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Hu Tao.avif',
+            background: 'assets/character/namecard_background/Hu Tao.avif',
+            banner: 'assets/character/namecard_banner/Hu Tao.avif',
+            description: "Director Hu Tao isn't scary at all. Probably.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Hu Tao'],
+        },
+        release_date: 'March 02, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Brianna Knickerbocker',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Tao Dian (陶典)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Takahashi Rie (高橋李依)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Ha-ru (김하루)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Night',
+                text: "Oh, you sleepy? Get some rest, I'm gonna take a walk by myself...",
+                reading: null,
+                audio: 'assets/character/voice_overs/Hu Tao/story/en/Good Night.mp3',
+            },
+            zh: {
+                title: '晚安…',
+                text: '哦，困了吗？那你好好休息，我一个人四处转转。',
+                reading: 'O, kùnle ma? Nà nǐ hǎohǎo xiūxi, wǒ yīgèrén sìchù zhuànzhuan.',
+                audio: 'assets/character/voice_overs/Hu Tao/story/zh/晚安….mp3',
+            },
+            ja: {
+                title: 'おやすみ…',
+                text: '眠いの？じゃあ先に休んで、私はもう少し起きてるから。',
+                reading: 'Nemui no? Jaa saki ni yasunde, watashi wa mou sukoshi okiteru kara.',
+                audio: 'assets/character/voice_overs/Hu Tao/story/ja/おやすみ….mp3',
+            },
+            ko: {
+                title: '굿나잇…',
+                text: '어, 졸려? 그럼 편히 쉬어. 난 혼자 돌아다녀 볼게',
+                reading: 'Eo, jollyeo? Geureom pyeonhi swieo. Nan honja doradanyeo bolge.',
+                audio: 'assets/character/voice_overs/Hu Tao/story/ko/굿나잇….mp3',
+            },
+        },
+        version: '1.3',
+        demo_music: {
+            name: 'Any Last Words?',
+            url: 'assets/character/demo_music/Hu Tao.mp3',
+        },
+    },
+    {
+        name: 'Iansan',
+        card_icon: 'assets/character/card/Iansan.avif',
+        wish_icon: 'assets/character/wish/Iansan.avif',
+        ingame_icon: 'assets/character/ingame/Iansan.avif',
+        icon: 'assets/character/icon/Iansan.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Short Female',
+        birthday: 'August 8th',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Gold-Standard Healthy Meal',
+            icon: 'assets/foods/Gold-Standard Healthy Meal.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Iansan.avif',
+            background: 'assets/character/namecard_background/Iansan.avif',
+            banner: 'assets/character/namecard_banner/Iansan.avif',
+            description: '"If you really need to, and you push yourself hard enough, you can even train in your dreams!" Sounds great, but... Is it actually possible?',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Iansan'],
+        },
+        release_date: 'March 26, 2025',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Katrina Salisbury',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zhen Li (真理)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Ohashi Ayaka (大橋彩香)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Jae-hyeon (이재현)',
+            },
+        ],
+        voice_overs: null,
+        version: '5.5',
+        demo_music: null,
+    },
+    {
+        name: 'Ifa',
+        card_icon: 'assets/character/card/Ifa.avif',
+        wish_icon: 'assets/character/wish/Ifa.avif',
+        ingame_icon: 'assets/character/ingame/Ifa.avif',
+        icon: 'assets/character/icon/Ifa.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'March 23rd',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Emotional Support',
+            icon: 'assets/foods/Emotional Support.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Ifa.avif',
+            background: 'assets/character/namecard_background/Ifa.avif',
+            banner: 'assets/character/namecard_banner/Ifa.avif',
+            description: '"\'Is there any point in getting close to Ifa?\' Of course there is, bro, absolutely." "Of course there is, bro, of course there is."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Ifa'],
+        },
+        release_date: 'May 07, 2025',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Jonny Loquasto',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Lu Shujun (吕书君)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Terashima Junta (寺島惇太)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Park Ki-wook (박기욱)',
+            },
+        ],
+        voice_overs: null,
+        version: '5.6',
+        demo_music: null,
+    },
+    {
+        name: 'Jean',
+        card_icon: 'assets/character/card/Jean.avif',
+        wish_icon: 'assets/character/wish/Jean.avif',
+        ingame_icon: 'assets/character/ingame/Jean.avif',
+        icon: 'assets/character/icon/Jean.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'March 14th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Invigorating Pizza',
+            icon: 'assets/foods/Invigorating Pizza.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Jean.avif',
+            background: 'assets/character/namecard_background/Jean.avif',
+            banner: 'assets/character/namecard_banner/Jean.avif',
+            description: 'The dandelion, also called "lion\'s fang" by some, is the flower most sensitive to the direction of the wind.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Jean'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Stephanie Southerland',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Lin Su (林簌)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Saitou Chiwa (斎藤 千和)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Ahn Young-mi (안영미)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: 'Snow. Remember — tend to your boots when we return.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Jean/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '下雪了，要注意战靴的保养啊。',
+                reading: 'Xiàxuěle, yào zhùyì zhànxuē de bǎoyǎng a.',
+                audio: 'assets/character/voice_overs/Jean/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: '雪だ。ブーツの手入れを念入りにな。',
+                reading: "Yuki da. Buutsu no teire wo nen'iri ni na.",
+                audio: 'assets/character/voice_overs/Jean/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '눈이 오네. 부츠 관리에 신경 써야겠어',
+                reading: 'Nuni one. Bucheu gwanrie singyeong sseoyagesseo',
+                audio: 'assets/character/voice_overs/Jean/story/ko/눈이 올 때….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Kachina',
+        card_icon: 'assets/character/card/Kachina.avif',
+        wish_icon: 'assets/character/wish/Kachina.avif',
+        ingame_icon: 'assets/character/ingame/Kachina.avif',
+        icon: 'assets/character/icon/Kachina.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Short Female',
+        birthday: 'April 22nd',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Impeccably Organized',
+            icon: 'assets/foods/Impeccably Organized.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kachina.avif',
+            background: 'assets/character/namecard_background/Kachina.avif',
+            banner: 'assets/character/namecard_banner/Kachina.avif',
+            description: "The upper half of the Turbo Twirly is very stable, but if the lower half gets stuck, there's a high chance you'll end up with one very dizzy rider.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kachina'],
+        },
+        release_date: 'August 28, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Kristen McGuire',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Jing Chen (静宸)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kubo Yurika (久保ユリカ)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Son Seon-young (손선영)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: "Aaah!! Um... I—I'm not scared! I was just... caught off guard!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Kachina/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '呀——啊…我、我不是害怕，只是被吓了一跳而已。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kachina/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: 'ひぃ——あっ…雷が怖いわけじゃなくよ、びっくりしただけ。',
+                reading: "Hii——a'... kaminari ga kowai wake ja naku yo, bikkuri shita dake.",
+                audio: 'assets/character/voice_overs/Kachina/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '꺄악——아… 무, 무서운 게 아니라, 그냥 좀 놀란 것뿐이야',
+                reading: 'Kkyaak⸺A... Mu, museoun ge anira, geunyang jom nollan geotppuniya',
+                audio: 'assets/character/voice_overs/Kachina/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '5.0',
+        demo_music: {
+            name: "Pirouette of Pika's Pike",
+            url: 'assets/character/demo_music/Kachina.mp3',
+        },
+    },
+    {
+        name: 'Kaedehara Kazuha',
+        card_icon: 'assets/character/card/Kaedehara Kazuha.avif',
+        wish_icon: 'assets/character/wish/Kaedehara Kazuha.avif',
+        ingame_icon: 'assets/character/ingame/Kaedehara Kazuha.avif',
+        icon: 'assets/character/icon/Kaedehara Kazuha.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'October 29th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'All-Weather Beauty',
+            icon: 'assets/foods/All-Weather Beauty.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kaedehara Kazuha.avif',
+            background: 'assets/character/namecard_background/Kaedehara Kazuha.avif',
+            banner: 'assets/character/namecard_banner/Kaedehara Kazuha.avif',
+            description: '"The pine-song ripples as red leaves billow."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kaedehara Kazuha'],
+        },
+        release_date: 'June 29, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Mark Whitten',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Banma (斑马)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Shimazaki Nobunaga (島崎 信長)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Shin-woo (김신우)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: "The birdsong at daybreak is nature's gift to us. Let us go. Our journey begins anew.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Kaedehara Kazuha/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '清晨的鸟鸣，是大自然的馈赠。启程吧，属于我们的旅途也要开始了。',
+                reading: 'Qīngchén de niǎo míng, shì dàzìrán de kuìzèng. Qǐchéng ba, shǔyú wǒmen de lǚtú yě yào kāishǐle.',
+                audio: 'assets/character/voice_overs/Kaedehara Kazuha/story/zh/早上好….mp3',
+            },
+            ja: {
+                title: 'おはよう…',
+                text: '早朝に聞こえる鳥のさえずり、大自然からの恵みでござるな。さあ、参ろう。拙者たちの旅路も始まるでござるよ。',
+                reading: 'Souchou ni kikoeru tori no saezuri, Daishizen kara no megumi de gozaru na.Saa, mairou. Sessha-tachi no tabiji mo hajimaru de gozaru yo.',
+                audio: 'assets/character/voice_overs/Kaedehara Kazuha/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '아침의 새소리는 대자연의 선물이지. 출발하자! 우리의 여정도 시작하자고',
+                reading: 'Achimui saesorineun daejayeonui seonmuriji. Culbalhaja! Uri-ui yeojeongdo sijakhajago.',
+                audio: 'assets/character/voice_overs/Kaedehara Kazuha/story/ko/아침 인사….mp3',
+            },
+        },
+        version: '1.6',
+        demo_music: {
+            name: 'Flow of Autumn Wind',
+            url: 'assets/character/demo_music/Kaedehara Kazuha.mp3',
+        },
+    },
+    {
+        name: 'Kaeya',
+        card_icon: 'assets/character/card/Kaeya.avif',
+        wish_icon: 'assets/character/wish/Kaeya.avif',
+        ingame_icon: 'assets/character/ingame/Kaeya.avif',
+        icon: 'assets/character/icon/Kaeya.avif',
+        quality: '4',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'November 30th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Fruity Skewers',
+            icon: 'assets/foods/Fruity Skewers.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kaeya.avif',
+            background: 'assets/character/namecard_background/Kaeya.avif',
+            banner: 'assets/character/namecard_banner/Kaeya.avif',
+            description: 'The pattern of peacock feathers resembles eyes that never shut. Can we really say that this Pavo Ocellus is missing an eye...?',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kaeya'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Josey Montana McCoy',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Sun Ye (孙晔)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Toriumi Kousuke (鳥海 浩輔)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Jeong Joo-won (정주원)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Snows: Anecdote',
+                text: 'How about a ghost story to go with the snow?',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kaeya/story/en/When It Snows - Anecdote.mp3',
+            },
+            zh: {
+                title: '下雪的时候・逸闻',
+                text: '呼…趁着这雪天，跟你讲一个鬼故事吧。',
+                reading: 'Hū... Chènzhe zhè xuětiān, gēn nǐ jiǎng yīgè guǐ gùshì ba.',
+                audio: 'assets/character/voice_overs/Kaeya/story/zh/下雪的时候・逸闻.mp3',
+            },
+            ja: {
+                title: '雪の日・逸話',
+                text: 'フフ、せっかくの雪だ。怪談でもしてやろう。',
+                reading: 'Fufu, sekkaku no yuki da. Kaidan de mo shite yarou.',
+                audio: 'assets/character/voice_overs/Kaeya/story/ja/雪の日・逸話.mp3',
+            },
+            ko: {
+                title: '눈이 올 때・일화',
+                text: '후...눈이 오니 귀신이야기 해줄게',
+                reading: 'Hu...Nuni oni gwisiniyagi haejulge',
+                audio: 'assets/character/voice_overs/Kaeya/story/ko/눈이 올 때・일화.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Kamisato Ayaka',
+        card_icon: 'assets/character/card/Kamisato Ayaka.avif',
+        wish_icon: 'assets/character/wish/Kamisato Ayaka.avif',
+        ingame_icon: 'assets/character/ingame/Kamisato Ayaka.avif',
+        icon: 'assets/character/icon/Kamisato Ayaka.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'September 28th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: '"Snow on the Hearth"',
+            icon: 'assets/foods/"Snow on the Hearth".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kamisato Ayaka.avif',
+            background: 'assets/character/namecard_background/Kamisato Ayaka.avif',
+            banner: 'assets/character/namecard_banner/Kamisato Ayaka.avif',
+            description:
+                "Ayaka does constantly change out the fans she carries with her, of course. If you're buying her some as gifts, remember not to send summer fans or throwing fans. Dancing fans or tea fans are good choices, though.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kamisato Ayaka'],
+        },
+        release_date: 'July 21, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Erica Mendez',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Xiao N (小N)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Hayami Saori (早見 沙織)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Yu-ri (이유리)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When the Sun Is Out',
+                text: "There's a pleasant breeze and glorious sunshine... So, where shall we go for a walk?",
+                reading: null,
+                audio: 'assets/character/voice_overs/Kamisato Ayaka/story/en/When the Sun Is Out.mp3',
+            },
+            zh: {
+                title: '阳光很好…',
+                text: '风和日丽，要去哪边走走么？',
+                reading: 'Fēnghé-rìlì, yào qù nǎ biān zǒuzou me?',
+                audio: 'assets/character/voice_overs/Kamisato Ayaka/story/zh/阳光很好….mp3',
+            },
+            ja: {
+                title: '晴れの日…',
+                text: '麗らかな日和です。どこかへ行きませんか？',
+                reading: 'Uraraka-na hiyori desu. Doko ka he ikimasen ka?',
+                audio: 'assets/character/voice_overs/Kamisato Ayaka/story/ja/晴れの日….mp3',
+            },
+            ko: {
+                title: '햇살이 좋을 때…',
+                text: '포근한 바람, 따스한 햇살. 같이 산책할래요?',
+                reading: 'Pogeunhan baram, ttaseuhan haessal. Gachi sanchaekhallaeyo?',
+                audio: 'assets/character/voice_overs/Kamisato Ayaka/story/ko/햇살이 좋을 때….mp3',
+            },
+        },
+        version: '2.0',
+        demo_music: {
+            name: 'Shirasagi Princess',
+            url: 'assets/character/demo_music/Kamisato Ayaka.mp3',
+        },
+    },
+    {
+        name: 'Kamisato Ayato',
+        card_icon: 'assets/character/card/Kamisato Ayato.avif',
+        wish_icon: 'assets/character/wish/Kamisato Ayato.avif',
+        ingame_icon: 'assets/character/ingame/Kamisato Ayato.avif',
+        icon: 'assets/character/icon/Kamisato Ayato.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'March 26th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Quiet Elegance',
+            icon: 'assets/foods/Quiet Elegance.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kamisato Ayato.avif',
+            background: 'assets/character/namecard_background/Kamisato Ayato.avif',
+            banner: 'assets/character/namecard_banner/Kamisato Ayato.avif',
+            description: 'The camellia alights upon the mirrored pond, sending ripples throughout the water.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kamisato Ayato'],
+        },
+        release_date: 'March 30, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Chris Hackney',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zhao Lu (赵路)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Ishida Akira (石田 彰)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Jang Min-hyeok (장민혁)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: "When It's Windy",
+                text: 'Sometimes, what appears at first to be nothing but a passing breeze can ultimately be that which alters the course of events... Hehe.',
+                reading: null,
+                audio: "assets/character/voice_overs/Kamisato Ayato/story/en/When It's Windy.mp3",
+            },
+            zh: {
+                title: '起风的时候…',
+                text: '有些「突发情况」，看似细小如微风，却会影响到最终结果…呵呵。',
+                reading: 'Yǒuxiē "túfā qíngkuàng", kànsì xìxiǎo rú wéifēng, què huì yǐngxiǎng dào zuìzhōng jiéguǒ... hēhē.',
+                audio: 'assets/character/voice_overs/Kamisato Ayato/story/zh/起风的时候….mp3',
+            },
+            ja: {
+                title: '風の日…',
+                text: 'そよ風のように些細な「思いがけないこと」であっても、結果を左右してしまうことがあります…ふふっ。',
+                reading: 'Soyokaze no you ni sasai-na "omoi ga kenai koto" de atte mo, kekka wo sayuu shite shimau koto ga arimasu... Fufu\'.',
+                audio: 'assets/character/voice_overs/Kamisato Ayato/story/ja/風の日….mp3',
+            },
+            ko: {
+                title: '바람이 불 때…',
+                text: '어떤 「돌발 상황」은 보기엔 사소해 보여도 최종적인 결과에 영향을 줄 수 있죠… 후후',
+                reading: 'Eotteon "Dolbal sanghwang"-eun bogien sasohae boyeodo choejongjeogin gyeolgwa\'e yeonghyang\'eul jul su itjyo... Huhu',
+                audio: 'assets/character/voice_overs/Kamisato Ayato/story/ko/바람이 불 때….mp3',
+            },
+        },
+        version: '2.6',
+        demo_music: {
+            name: 'Serene and Fathomless',
+            url: 'assets/character/demo_music/Kamisato Ayato.mp3',
+        },
+    },
+    {
+        name: 'Kaveh',
+        card_icon: 'assets/character/card/Kaveh.avif',
+        wish_icon: 'assets/character/wish/Kaveh.avif',
+        ingame_icon: 'assets/character/ingame/Kaveh.avif',
+        icon: 'assets/character/icon/Kaveh.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'July 9th',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'The Endeavor',
+            icon: 'assets/foods/The Endeavor.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kaveh.avif',
+            background: 'assets/character/namecard_background/Kaveh.avif',
+            banner: 'assets/character/namecard_banner/Kaveh.avif',
+            description: '"When conceptualizing architecture, there is nothing wrong with imagining that the structure we build will surmount the firmament and outlast the stars."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kaveh'],
+        },
+        release_date: 'May 02, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Ben Balmaceda',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Liu Sanmu (刘三木)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Uchida Yuma (内田 雄馬)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Jung-min (이정민)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Beauty',
+                text: 'The ability to appreciate beauty is an important virtue.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kaveh/story/en/Chat - Beauty.mp3',
+            },
+            zh: {
+                title: '闲聊·美学',
+                text: '懂得欣赏美是一种好的品德。',
+                reading: 'Dǒngdé xīnshǎng měi shì yīzhǒng hǎo de pǐndé.',
+                audio: 'assets/character/voice_overs/Kaveh/story/zh/闲聊·美学.mp3',
+            },
+            ja: {
+                title: '世間話·美学',
+                text: '美の鑑賞というものを理解できるのは、ある種のいい品性だと言えるな。',
+                reading: 'Bi no kanshou to iu mono wo rikai dekiru no wa, aru shu no ii hinsei da to ieru na.',
+                audio: 'assets/character/voice_overs/Kaveh/story/ja/世間話·美学.mp3',
+            },
+            ko: {
+                title: '잡담·미학',
+                text: '아름다움을 감상할 줄 아는 건 일종의 미덕이지',
+                reading: "Areumdaumeul gamsanghal jul aneun geon iljong'ui mideogiji",
+                audio: 'assets/character/voice_overs/Kaveh/story/ko/잡담·미학.mp3',
+            },
+        },
+        version: '3.6',
+        demo_music: {
+            name: 'Empyrean Stairway',
+            url: 'assets/character/demo_music/Kaveh.mp3',
+        },
+    },
+    {
+        name: 'Keqing',
+        card_icon: 'assets/character/card/Keqing.avif',
+        wish_icon: 'assets/character/wish/Keqing.avif',
+        ingame_icon: 'assets/character/ingame/Keqing.avif',
+        icon: 'assets/character/icon/Keqing.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'November 20th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Survival Grilled Fish',
+            icon: 'assets/foods/Survival Grilled Fish.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Keqing.avif',
+            background: 'assets/character/namecard_background/Keqing.avif',
+            banner: 'assets/character/namecard_banner/Keqing.avif',
+            description: "It was originally invented to just test out one's surroundings and climb to high places, really...",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Keqing'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Kayli Mills',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Xie Ying (谢莹)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kitamura Eri (喜多村 英梨)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Bo-hee (이보희)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Opportunity',
+                text: "In adventuring, as in business, you always have to seize the opportunity while it's there.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Keqing/story/en/Chat - Opportunity.mp3',
+            },
+            zh: {
+                title: '闲聊・机会',
+                text: '无论是冒险还是做生意，机会都稍纵即逝。',
+                reading: 'Wúlùn shì màoxiǎn háishì zuò shēngyì, jīhuì dōu shāozòng-jíshì.',
+                audio: 'assets/character/voice_overs/Keqing/story/zh/闲聊・机会.mp3',
+            },
+            ja: {
+                title: '世間話・機会',
+                text: '冒険も商売も、チャンスは一瞬なの。',
+                reading: 'Bouken mo shoubai mo, chansu wa isshun na no.',
+                audio: 'assets/character/voice_overs/Keqing/story/ja/世間話・機会.mp3',
+            },
+            ko: {
+                title: '잡담・기회',
+                text: '모험이든 장사든, 방심했다간 기회는 사라져 버려',
+                reading: 'Moheomideun jangsadeun, bangismhaetdagan gihoeneun sarajyeo beoryeo',
+                audio: 'assets/character/voice_overs/Keqing/story/ko/잡담・기회.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: {
+            name: 'Nimble as Lightning',
+            url: 'assets/character/demo_music/Keqing.mp3',
+        },
+    },
+    {
+        name: 'Kinich',
+        card_icon: 'assets/character/card/Kinich.avif',
+        wish_icon: 'assets/character/wish/Kinich.avif',
+        ingame_icon: 'assets/character/ingame/Kinich.avif',
+        icon: 'assets/character/icon/Kinich.avif',
+        quality: '5',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'November 11th',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: "Saurian Hunter's Reward",
+            icon: "assets/foods/Saurian Hunter's Reward.avif",
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kinich.avif',
+            background: 'assets/character/namecard_background/Kinich.avif',
+            banner: 'assets/character/namecard_banner/Kinich.avif',
+            description:
+                "At first glance, you might think that the Almighty Dragonlord, K'uhul Ajaw had finally succeeded in turning the puny Kinich into a vessel of his will. Sadly, though, this is just the way namecards are named.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kinich'],
+        },
+        release_date: 'September 17, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Jacob Takanashi',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Banma (斑马)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Sugiyama Noriaki (杉山紀彰)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kang Seong-woo (강성우)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: "Morning. I'm about to head out, and I won't be back until tomorrow morning. Don't wait up for me.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Kinich/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '早。我正准备出门，天亮前不会回来。不用等我。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kinich/story/zh/早上好….mp3',
+            },
+            ja: {
+                title: 'おはよう…',
+                text: 'おはよう。俺はこれから出かける。明日の朝まで帰ってこないから、待たなくていい。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kinich/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '안녕, 난 마침 나가려던 참이야. 날 밝기 전까진 안 돌아오니까 기다리지 마',
+                reading: 'Annyeong, nan machim nagaryeodeon chamiya. Nal balgi jeonkkajin an doraonikka gidariji ma',
+                audio: 'assets/character/voice_overs/Kinich/story/ko/아침 인사….mp3',
+            },
+        },
+        version: '5.0',
+        demo_music: {
+            name: 'Note of Effective Settlements',
+            url: 'assets/character/demo_music/Kinich.mp3',
+        },
+    },
+    {
+        name: 'Kirara',
+        card_icon: 'assets/character/card/Kirara.avif',
+        wish_icon: 'assets/character/wish/Kirara.avif',
+        ingame_icon: 'assets/character/ingame/Kirara.avif',
+        icon: 'assets/character/icon/Kirara.avif',
+        quality: '4',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'January 22nd',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Energizing Bento',
+            icon: 'assets/foods/Energizing Bento.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kirara.avif',
+            background: 'assets/character/namecard_background/Kirara.avif',
+            banner: 'assets/character/namecard_banner/Kirara.avif',
+            description: '"To Kirara, the smiles on her customers\' faces are the best rewards possible."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kirara'],
+        },
+        release_date: 'May 24, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Julia Gu',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Sun Yanqi (孙艳琦)',
+            },
+            {
+                language: 'Japanese',
+                actor: ' Suzushiro Sayumi (鈴代 紗弓)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kang Eun-ae (강은애)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When the Sun Is Out',
+                text: 'The sunlight feels really cozy. Napping in a tree would be nice... Ohh, just the thought of it is making me sleepy.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kirara/story/en/When the Sun Is Out.mp3',
+            },
+            zh: {
+                title: '阳光很好…',
+                text: '阳光真好啊，要是再有棵树的话…唔，想想都困了…',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kirara/story/zh/阳光很好….mp3',
+            },
+            ja: {
+                title: '晴れの日…',
+                text: 'いい陽射しだね。こんな陽射しの上、木でもあったら…ふわぁ、考えただけで眠くなっちゃう…',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kirara/story/ja/晴れの日….mp3',
+            },
+            ko: {
+                title: '햇살이 좋을 때…',
+                text: '햇볕이 따듯하네. 여기에 나무만 있으면… 으, 상상만 해도 졸려…',
+                reading: 'Haetbyeochi ttadeuthane. Yeogie namuman isseumyeon... Eu, sangsangman haedo jollyeo...',
+                audio: 'assets/character/voice_overs/Kirara/story/ko/햇살이 좋을 때….mp3',
+            },
+        },
+        version: '3.7',
+        demo_music: {
+            name: "Cat's Cosy Course",
+            url: 'assets/character/demo_music/Kirara.mp3',
+        },
+    },
+    {
+        name: 'Klee',
+        card_icon: 'assets/character/card/Klee.avif',
+        wish_icon: 'assets/character/wish/Klee.avif',
+        ingame_icon: 'assets/character/ingame/Klee.avif',
+        icon: 'assets/character/icon/Klee.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Short Female',
+        birthday: 'July 27th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Fish-Flavored Toast',
+            icon: 'assets/foods/Fish-Flavored Toast.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Klee.avif',
+            background: 'assets/character/namecard_background/Klee.avif',
+            banner: 'assets/character/namecard_banner/Klee.avif',
+            description: "Klee's lucky explosive — can you tell if it's Jumpy Dumpty or Dodoco? (Hint: Look carefully at the tail...)",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Klee'],
+        },
+        release_date: 'October 20, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Poonam Basu',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Hualing (花玲)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kuno Misaki (久野美咲)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Bang Yeon-ji (방연지)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Afternoon',
+                text: 'Lunchtime! What do you wanna eat today? Let me see if the Teyvat Travel Guide has any suggestions...',
+                reading: null,
+                audio: 'assets/character/voice_overs/Klee/story/en/Good Afternoon.mp3',
+            },
+            zh: {
+                title: '中午好…',
+                text: '午饭时间到了！啊…吃什么呢？我来看看《提瓦特游览指南》…',
+                reading: 'Wǔfàn shíjiān dàole! A... Chī shénme ne? Wǒ lái kànkàn "Tíwǎtè Yóulǎn Zhǐnán"...',
+                audio: 'assets/character/voice_overs/Klee/story/zh/中午好….mp3',
+            },
+            ja: {
+                title: 'こんにちは…',
+                text: 'お昼ごはんの時間だ！なに食べようかな？『テイワット観光ガイド』でも見てみよう…',
+                reading: 'Ohirugohan no jikan da! Nani tabeyou ka na? "Teiwatto Kankou Gaido" de mo mite miyou...',
+                audio: 'assets/character/voice_overs/Klee/story/ja/こんにちは….mp3',
+            },
+            ko: {
+                title: '점심 인사…',
+                text: '점심시간이야! 뭐 먹지? 《티바트 유람 가이드》를 좀 볼까…',
+                reading: 'Jeomsimsiganiya! Mwo meokji? "Tibateu Yuram Gaideu"reul jom bolkka...',
+                audio: 'assets/character/voice_overs/Klee/story/ko/점심 인사….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: {
+            name: "Let's Go, Crimson Knight!",
+            url: 'assets/character/demo_music/Klee.mp3',
+        },
+    },
+    {
+        name: 'Kujou Sara',
+        card_icon: 'assets/character/card/Kujou Sara.avif',
+        wish_icon: 'assets/character/wish/Kujou Sara.avif',
+        ingame_icon: 'assets/character/ingame/Kujou Sara.avif',
+        icon: 'assets/character/icon/Kujou Sara.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'July 14th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Faith Eternal',
+            icon: 'assets/foods/Faith Eternal.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kujou Sara.avif',
+            background: 'assets/character/namecard_background/Kujou Sara.avif',
+            banner: 'assets/character/namecard_banner/Kujou Sara.avif',
+            description: 'Kujou Sara may have forsaken the arrogant life of the tengu race, but she has never neglected their brilliance with the sword or their supernatural might.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kujou Sara'],
+        },
+        release_date: 'September 01, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Jeannie Tirado',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Yang Menglu (杨梦露)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Seto Asami (瀬戸麻沙美)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Mun Ji-yeong (문지영)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Rains',
+                text: "The sound of rain masks the enemy's footsteps. Stay alert.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Kujou Sara/story/en/When It Rains.mp3',
+            },
+            zh: {
+                title: '下雨的时候…',
+                text: '雨滴的声音会掩盖脚步声，多加注意吧。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Kujou Sara/story/zh/下雨的时候….mp3',
+            },
+            ja: {
+                title: '雨の日…',
+                text: '雨の音は足音をかき消してしまう。注意を払っておけ。',
+                reading: 'Ame no oto wa ashioto wo kakikeshite shimau. Chuui wo haratte oke.',
+                audio: 'assets/character/voice_overs/Kujou Sara/story/ja/雨の日….mp3',
+            },
+            ko: {
+                title: '비가 올 때…',
+                text: '빗방울 소리에 발소리가 묻힐 수 있으니 조심해',
+                reading: "Bitbang'ul sorie balsoriga muchil su isseuni josimhae",
+                audio: 'assets/character/voice_overs/Kujou Sara/story/ko/비가 올 때….mp3',
+            },
+        },
+        version: '2.1',
+        demo_music: {
+            name: 'Will of Thunder',
+            url: 'assets/character/demo_music/Kujou Sara.mp3',
+        },
+    },
+    {
+        name: 'Kuki Shinobu',
+        card_icon: 'assets/character/card/Kuki Shinobu.avif',
+        wish_icon: 'assets/character/wish/Kuki Shinobu.avif',
+        ingame_icon: 'assets/character/ingame/Kuki Shinobu.avif',
+        icon: 'assets/character/icon/Kuki Shinobu.avif',
+        quality: '4',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'July 27th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Omurice Waltz',
+            icon: 'assets/foods/Omurice Waltz.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Kuki Shinobu.avif',
+            background: 'assets/character/namecard_background/Kuki Shinobu.avif',
+            banner: 'assets/character/namecard_banner/Kuki Shinobu.avif',
+            description:
+                '"You know those Naku Weed rings they have in Inazuma? You know, the kind that can drive out evil? Shinobu got the idea that since wicked things won\'t cross their boundaries willingly, we could make them into items that could be actively used. Ah, her talent for being a shrine maiden is truly frightening..."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Kuki Shinobu'],
+        },
+        release_date: 'June 21, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Kira Buckland',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Yang Ning (杨凝)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Mizuhashi Kaori (水橋 かおり)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Yool (김율)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When the Sun Is Out',
+                text: "It's a nice day, but I can't seem to shake this strange feeling... Huh, let's just hope it's my imagination.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Kuki Shinobu/story/en/When the Sun Is Out.mp3',
+            },
+            zh: {
+                title: '阳光很好…',
+                text: '嗯，天气真好，但总有种不详的预感…希望是我多虑了吧。',
+                reading: 'Ng, tiānqì zhēn hǎo, dàn zǒng yǒu zhǒng bùxiáng de yùgǎn... Xīwàng shì wǒ duōlǜle ba.',
+                audio: 'assets/character/voice_overs/Kuki Shinobu/story/zh/阳光很好….mp3',
+            },
+            ja: {
+                title: '晴れの日…',
+                text: 'いい天気だ。ただ、どうも嫌な予感がする…私の考えすぎだといいけど。',
+                reading: 'Ii tenki da. Tada, dou mo kirai-na yokan ga suru... Watashi no kangaesugi da to ii kedo.',
+                audio: 'assets/character/voice_overs/Kuki Shinobu/story/ja/晴れの日….mp3',
+            },
+            ko: {
+                title: '햇살이 좋을 때…',
+                text: '날씨는 좋은데 어쩐지 불길한 예감이 들어…. 괜한 걱정이었으면 좋겠군',
+                reading: "Nalssineun joeunde eojjeonji bulgilhan yegami deureo... Gwaenhan geokjeong'ieosseumyeon joketgun.",
+                audio: 'assets/character/voice_overs/Kuki Shinobu/story/ko/햇살이 좋을 때….mp3',
+            },
+        },
+        version: '2.7',
+        demo_music: {
+            name: 'Adroit Deputy',
+            url: 'assets/character/demo_music/Kuki Shinobu.mp3',
+        },
+    },
+    {
+        name: 'Lan Yan',
+        card_icon: 'assets/character/card/Lan Yan.avif',
+        wish_icon: 'assets/character/wish/Lan Yan.avif',
+        ingame_icon: 'assets/character/ingame/Lan Yan.avif',
+        icon: 'assets/character/icon/Lan Yan.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'January 6th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Jade-Cut Flowers',
+            icon: 'assets/foods/Jade-Cut Flowers.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Lan Yan.avif',
+            background: 'assets/character/namecard_background/Lan Yan.avif',
+            banner: 'assets/character/namecard_banner/Lan Yan.avif',
+            description: "The swallow's arrival shall bring forth cleansing rains, washing the worries of wizened winter away.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Lan Yan'],
+        },
+        release_date: 'January 21, 2025',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Anna Devlin',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Liu Shisi (刘十四)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Wakayama Shion (若山詩音)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Soon-mi (김순미)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When the Sun Is Out',
+                text: 'Look! Everything the sun touches is coated in gold!',
+                reading: null,
+                audio: 'assets/character/voice_overs/Lan Yan/story/en/When the Sun Is Out.mp3',
+            },
+            zh: {
+                title: '阳光很好…',
+                text: '看，阳光扫到的地方都镀上了一层金欸',
+                reading: null,
+                audio: 'assets/character/voice_overs/Lan Yan/story/zh/阳光很好….mp3',
+            },
+            ja: {
+                title: '晴れの日…',
+                text: '見て、光が当たったところ…まるで金箔を貼ったみたい。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Lan Yan/story/ja/晴れの日….mp3',
+            },
+            ko: {
+                title: '햇살이 좋을 때…',
+                text: '봐, 햇살이 닿은 곳에 전부 금박이 칠해졌어',
+                reading: 'Bwa, haetsari daeun gose jeonbu geumbagi chilhaejyeosseo',
+                audio: 'assets/character/voice_overs/Lan Yan/story/ko/햇살이 좋을 때….mp3',
+            },
+        },
+        version: '5.3',
+        demo_music: null,
+    },
+    {
+        name: 'Layla',
+        card_icon: 'assets/character/card/Layla.avif',
+        wish_icon: 'assets/character/wish/Layla.avif',
+        ingame_icon: 'assets/character/ingame/Layla.avif',
+        icon: 'assets/character/icon/Layla.avif',
+        quality: '4',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'December 19th',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Extravagant Slumber',
+            icon: 'assets/foods/Extravagant Slumber.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Layla.avif',
+            background: 'assets/character/namecard_background/Layla.avif',
+            banner: 'assets/character/namecard_banner/Layla.avif',
+            description: '"The starry sky in your dreams will illuminate your way forward, on the premise that the crystal in your heart reflects clear lights."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Layla'],
+        },
+        release_date: 'November 18, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Ashely Biski',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Hou Xiaofei (侯小菲)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Tomita Miyu (富田美憂)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kang Sae-Bom (강새봄)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'In the Desert',
+                text: "Scorching hot days and freezing cold nights... I—I don't think I'm gonna make it...",
+                reading: null,
+                audio: 'assets/character/voice_overs/Layla/story/en/In the Desert.mp3',
+            },
+            zh: {
+                title: '在沙漠的时候…',
+                text: '白天晒，晚上冷，我、我要不行了。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Layla/story/zh/在沙漠的时候….mp3',
+            },
+            ja: {
+                title: '砂漠にいる時…',
+                text: '昼は暑くて、夜は寒い…私、もうダメかも。',
+                reading: 'Hiru wa atsukute, yoru wa samui... Watashi, mou dame ka mo.',
+                audio: 'assets/character/voice_overs/Layla/story/ja/砂漠にいる時….mp3',
+            },
+            ko: {
+                title: '사막에 있을 때…',
+                text: '낮은 뜨겁고, 밤은 추워서 버, 버틸 수가 없어요',
+                reading: 'Najeun tteugeopgo, bameun chuwoseo beo, beotil suga eopseoyo',
+                audio: 'assets/character/voice_overs/Layla/story/ko/사막에 있을 때….mp3',
+            },
+        },
+        version: '3.2',
+        demo_music: {
+            name: 'Surreal Noctivaga',
+            url: 'assets/character/demo_music/Layla.mp3',
+        },
+    },
+    {
+        name: 'Lisa',
+        card_icon: 'assets/character/card/Lisa.avif',
+        wish_icon: 'assets/character/wish/Lisa.avif',
+        ingame_icon: 'assets/character/ingame/Lisa.avif',
+        icon: 'assets/character/icon/Lisa.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'June 9th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Mysterious Bolognese',
+            icon: 'assets/foods/Mysterious Bolognese.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Lisa.avif',
+            background: 'assets/character/namecard_background/Lisa.avif',
+            banner: 'assets/character/namecard_banner/Lisa.avif',
+            description: 'An hourglass marks the end of the work day for Lisa. Its sand moves fast.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Lisa'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Mara Junot',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zhong Ke (钟可)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Tanaka Rie (田中理恵)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Park Go-woon (박고운)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: "When It's Windy",
+                text: "Such a calming breeze... Perfect for taking a nap, don't you think?",
+                reading: null,
+                audio: "assets/character/voice_overs/Lisa/story/en/When It's Windy.mp3",
+            },
+            zh: {
+                title: '起风的时候…',
+                text: '天气真好，能躺下来补个觉就更好了。',
+                reading: 'Tiānqì zhēn hǎo, néng tǎngxiàlái bǔ gè jiào jiù gèng hǎole.',
+                audio: 'assets/character/voice_overs/Lisa/story/zh/起风的时候….mp3',
+            },
+            ja: {
+                title: '風の日…',
+                text: '本当にいい天気。横になってお昼寝したらもっと最高ね。',
+                reading: 'Hontou ni ii tenki. Yoko ni natte ohirune shitara motto saikou ne.',
+                audio: 'assets/character/voice_overs/Lisa/story/ja/風の日….mp3',
+            },
+            ko: {
+                title: '바람이 불 때…',
+                text: '날씨 참 좋네. 누워서 잠을 보충할 수 있다면 더 좋을 텐데',
+                reading: 'Nalssi cham jonne. Nuwoseo jameul bochunghal su itdamyeon deo joeul tende',
+                audio: 'assets/character/voice_overs/Lisa/story/ko/바람이 불 때….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Lynette',
+        card_icon: 'assets/character/card/Lynette.avif',
+        wish_icon: 'assets/character/wish/Lynette.avif',
+        ingame_icon: 'assets/character/ingame/Lynette.avif',
+        icon: 'assets/character/icon/Lynette.avif',
+        quality: '4',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'February 2nd',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: 'A Leisurely Sip',
+            icon: 'assets/foods/A Leisurely Sip.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Lynette.avif',
+            background: 'assets/character/namecard_background/Lynette.avif',
+            banner: 'assets/character/namecard_banner/Lynette.avif',
+            description: 'One major type of magic revolves around "appearing suddenly." Lynette is usually conserving her energy, but her serious side can "appear" as abruptly as pigeons from a hat.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Lynette'],
+        },
+        release_date: 'August 16, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Anairis Quiñones',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Kekewei (可可味)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Sasahara Yu (篠原侑)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Serena (이세레나)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: 'Ow... that hurts my ears.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Lynette/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '唔…耳朵疼。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Lynette/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: 'あぅ…耳が痛い。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Lynette/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '윽… 귀가 아파',
+                reading: 'Euk... Gwiga apa',
+                audio: 'assets/character/voice_overs/Lynette/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '4.0',
+        demo_music: {
+            name: 'Chasing the Wind',
+            url: 'assets/character/demo_music/Lynette.mp3',
+        },
+    },
+    {
+        name: 'Lyney',
+        card_icon: 'assets/character/card/Lyney.avif',
+        wish_icon: 'assets/character/wish/Lyney.avif',
+        ingame_icon: 'assets/character/ingame/Lyney.avif',
+        icon: 'assets/character/icon/Lyney.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'February 2nd',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: 'Cubic Tricks',
+            icon: 'assets/foods/Cubic Tricks.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Lyney.avif',
+            background: 'assets/character/namecard_background/Lyney.avif',
+            banner: 'assets/character/namecard_banner/Lyney.avif',
+            description:
+                'One major type of magic revolves around making things "vanish." Lyney has an arsenal of tricks up his sleeve. As his accomplice, as long as you are willing to turn a blind eye, all your problems may vanish as well.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Lyney'],
+        },
+        release_date: 'August 16, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Daman Mills',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Jinli (锦鲤)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Shimono Hiro (下野紘)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Park Song-young (박성영)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: "...C'mon, just five more minutes... Huh? Oh! It's you! I thought it was the radiance of the sunlight on my skin that I felt — turns out it was your radiance all along!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Lyney/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '…唔，再让我睡会儿…嗯？是你呀——嗯，我说怎么今天的阳光那么好，原来是你来了。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Lyney/story/zh/早上好….mp3',
+            },
+            ja: {
+                title: 'おはよう…',
+                text: '…うぅ～ん、もう少し寝かせて…ん？君だったんだ——うん、どうりでこんなに天気がいいわけだ。なんたって、君が来たんだから。',
+                reading: '...Uu~n, mou sukoshi nekasete... N? Kimi datta nda—— Un, douri de konna ni tenki ga ii wake da. Nantatte, kimi ga kita ndakara.',
+                audio: 'assets/character/voice_overs/Lyney/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '…음, 나 좀 더 잘래…. 응? 너구나? 응, 오늘 햇빛이 왜 이렇게 좋나 했더니, 네가 와서 그렇구나',
+                reading: '...Eum, na jom deo jallae.... Eung? Neoguna? Eung, oneul haetbichi wae ireoke jonna haetdeoni, nega waseo geureokuna',
+                audio: 'assets/character/voice_overs/Lyney/story/ko/아침 인사….mp3',
+            },
+        },
+        version: '4.0',
+        demo_music: {
+            name: 'Lustrous Trick',
+            url: 'assets/character/demo_music/Lyney.mp3',
+        },
+    },
+    {
+        name: 'Mavuika',
+        card_icon: 'assets/character/card/Mavuika.avif',
+        wish_icon: 'assets/character/wish/Mavuika.avif',
+        ingame_icon: 'assets/character/ingame/Mavuika.avif',
+        icon: 'assets/character/icon/Mavuika.avif',
+        quality: '5',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'August 28th',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Hymn of Gathered Flame',
+            icon: 'assets/foods/Hymn of Gathered Flame.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Mavuika.avif',
+            background: 'assets/character/namecard_background/Mavuika.avif',
+            banner: 'assets/character/namecard_banner/Mavuika.avif',
+            description: 'No Pyro Archon has ever intended to contest the sun. But as ordinary people see it, this "solar ring" is the crown of leaders as radiant as the sun.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Mavuika'],
+        },
+        release_date: 'January 01, 2025',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Katiana Sarkissian',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Li Ye (李晔)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Komatsu Mikako (小松未可子)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Na-yul (김나율)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Light',
+                text: 'Many insects have a compulsion to follow the light, and humans are the same — except we call that light, "hope."',
+                reading: null,
+                audio: 'assets/character/voice_overs/Mavuika/story/en/Chat - Light.mp3',
+            },
+            zh: {
+                title: '闲聊·循光',
+                text: '许多昆虫有循光而行的本能，人类也是如此，只是我们称那道光为「希望」。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Mavuika/story/zh/闲聊·循光.mp3',
+            },
+            ja: {
+                title: '世間話・光を追う',
+                text: '昆虫は本能的に光を追うが、人間も同じだ。「希望」という名の光を追っている。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Mavuika/story/ja/世間話・光を追う.mp3',
+            },
+            ko: {
+                title: '잡담·빛을 따라',
+                text: '곤충은 대개 빛을 따라 움직이는 본능이 있어. 인간도 마찬가지야. 다만 우리는 그 빛을 「희망」이라고 부르지',
+                reading: "Gonchung'eun daegae bicheul ttara umjigineun bonneung'i isseo. In'gando machan'gajiya. Daman urineun geu bicheul \"Huimang\"-irago bureuji",
+                audio: 'assets/character/voice_overs/Mavuika/story/ko/잡담·빛을 따라.mp3',
+            },
+        },
+        version: '5.3',
+        demo_music: null,
+    },
+    {
+        name: 'Mika',
+        card_icon: 'assets/character/card/Mika.avif',
+        wish_icon: 'assets/character/wish/Mika.avif',
+        ingame_icon: 'assets/character/ingame/Mika.avif',
+        icon: 'assets/character/icon/Mika.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'August 11th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: "Surveyor's Breakfast Sandwich",
+            icon: "assets/foods/Surveyor's Breakfast Sandwich.avif",
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Mika.avif',
+            background: 'assets/character/namecard_background/Mika.avif',
+            banner: 'assets/character/namecard_banner/Mika.avif',
+            description: 'Every time he holds the map he illustrated in his hands, the boy feels like he is holding a small piece of rubbing of this world.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Mika'],
+        },
+        release_date: 'March 21, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Robb Moreira',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Deng Youxi (邓宥希)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Sanpei Yūko (三瓶由布子)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Yoon Eun-seo (윤은서)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: "Thunder can mask the sound of movement, which is why it's our friend.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Mika/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '雷声可以掩盖行动的声响，是我们的好朋友。',
+                reading: 'Léishēng kěyǐ yǎngài xíngdòng de shēngxiǎng, shì wǒmen de hǎopéngyǒu.',
+                audio: 'assets/character/voice_overs/Mika/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: '雷は、行動の際に生じる音をかき消してくれます。僕たちの仲間と言ってもいいでしょう…',
+                reading: 'Kaminari wa, koudou no sai ni shoujiru oto wo kakikeshite kuremasu. Boku-tachi no nakama to itte mo ii deshou...',
+                audio: 'assets/character/voice_overs/Mika/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '천둥소리는 기척을 감춰주니, 우리의 좋은 친구라고 할 수 있죠',
+                reading: "Cheondungsorineun gicheogeul gamchwojuni, uriui joeun chin'gurago hal su itjyo",
+                audio: 'assets/character/voice_overs/Mika/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '3.5',
+        demo_music: {
+            name: 'Sunfrost Breeze',
+            url: 'assets/character/demo_music/Mika.mp3',
+        },
+    },
+    {
+        name: 'Mona',
+        card_icon: 'assets/character/card/Mona.avif',
+        wish_icon: 'assets/character/wish/Mona.avif',
+        ingame_icon: 'assets/character/ingame/Mona.avif',
+        icon: 'assets/character/icon/Mona.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'August 31st',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Der Weisheit Letzter Schluss (Life)',
+            icon: 'assets/foods/Der Weisheit Letzter Schluss (Life).avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Mona.avif',
+            background: 'assets/character/namecard_background/Mona.avif',
+            banner: 'assets/character/namecard_banner/Mona.avif',
+            description: "A girl gazes down at the stars' reflection on the water, pondering the joys and sorrows of life.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Mona'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Felecia Angelle',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Chen Tingting (陈婷婷)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kohara Konomi (小原 好美)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Woo Jeong-sin (우정신)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: "Your arrival is untimely. The morning star has just waned... Breakfast? No, I—I've already eaten.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Mona/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '你来得不巧，清晨的启明星刚刚消失了…早餐？我，我已经吃过了。',
+                reading: 'Nǐ lái dé bùqiǎo, qīngchén de qǐmíngxīng gānggāng xiāoshīle... Zǎocān? Wǒ, wǒ yǐjīng chīguòle.',
+                audio: 'assets/character/voice_overs/Mona/story/zh/早上好….mp3',
+            },
+            ja: {
+                title: 'おはよう…',
+                text: 'タイミングが悪かったですね、明けの明星はついさっき消えたばかり…朝食？も、もう食べましたよ。',
+                reading: 'Taimingu ga warukatta desu ne, ake no myoujou wa tsui sakki kieta bakari... Choushoku? Mo, mou tabemashita yo.',
+                audio: 'assets/character/voice_overs/Mona/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '타이밍이 안 좋네, 새벽의 계명성이 방금 막 사라졌거든…. 아침밥? 버, 벌써 먹었지',
+                reading: "Taiming'i an jonne, saebyeogui gyemyeongseong'i banggeum mak sarajyeotgeodeun.... Achimbap? Beo, beolsseo meogeotji",
+                audio: 'assets/character/voice_overs/Mona/story/ko/아침 인사….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: {
+            name: 'Surge of Prophecies',
+            url: 'assets/character/demo_music/Mona.mp3',
+        },
+    },
+    {
+        name: 'Mualani',
+        card_icon: 'assets/character/card/Mualani.avif',
+        wish_icon: 'assets/character/wish/Mualani.avif',
+        ingame_icon: 'assets/character/ingame/Mualani.avif',
+        icon: 'assets/character/icon/Mualani.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'August 3rd',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Pass the Luck',
+            icon: 'assets/foods/Pass the Luck.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Mualani.avif',
+            background: 'assets/character/namecard_background/Mualani.avif',
+            banner: 'assets/character/namecard_banner/Mualani.avif',
+            description:
+                "Sharks that live in the sea don't actually like eating people — they prefer marine creatures. So as a shark that lives in freshwater hot springs, it's only natural that Mualani's Sharky Surfboard will only eat hot spring creatures. ...Just kidding, those Capybaras can sleep easy. Firstly, because their meat's too tough. And secondly, because... it's a surfboard?",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Mualani'],
+        },
+        release_date: 'August 28, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Cassandra Lee Morris',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Wang Xiaotong (王晓彤)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Toyama Nao (東山奈央)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Do-hee (김도희)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: 'Whoa! Did you see that? Where did it strike!?',
+                reading: null,
+                audio: 'assets/character/voice_overs/Mualani/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '哇哦！劈哪了劈哪了？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Mualani/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: 'わあ！どこに落ちた？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Mualani/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '우와! 번개야? 번개 쳤어?',
+                reading: "Uwa! Beon'gaeya? Beon'gae chyeosseo?",
+                audio: 'assets/character/voice_overs/Mualani/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '5.0',
+        demo_music: {
+            name: 'Hot Spring Affection',
+            url: 'assets/character/demo_music/Mualani.mp3',
+        },
+    },
+    {
+        name: 'Nahida',
+        card_icon: 'assets/character/card/Nahida.avif',
+        wish_icon: 'assets/character/wish/Nahida.avif',
+        ingame_icon: 'assets/character/ingame/Nahida.avif',
+        icon: 'assets/character/icon/Nahida.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Short Female',
+        birthday: 'October 27th',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Halvamazd',
+            icon: 'assets/foods/Halvamazd.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Nahida.avif',
+            background: 'assets/character/namecard_background/Nahida.avif',
+            banner: 'assets/character/namecard_banner/Nahida.avif',
+            description:
+                'The rising moon admires the sun, because her light can shine all over the earth. On the other hand, the setting sun is envious of the moon, for she can be accompanied by the sweetest of dreams.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Nahida'],
+        },
+        release_date: 'November 02, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Kimberley Anne Campbell',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Hualing (花玲)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Tamura Yukari (田村ゆかり)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Park Shi-Yoon (박시윤)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'About Nahida: Knowledge',
+                text: "Oh, the Mare Jivari? A place without anything at all, completely empty — just like a Shroomboar's brain. Of course I know it. ...Hmm? I, uh... It's true, I've never seen it with my own eyes. It's one of the many places beyond my reach.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Nahida/story/en/About Nahida - Knowledge.mp3',
+            },
+            zh: {
+                title: '关于纳西妲自己・见识',
+                text: '烬寂海啊，那里什么都没有，就像蕈猪的脑子一样空空如也，我当然知道。啊？我…我确实没有亲眼见过，那也是我所触及不到的地方呀。',
+                reading:
+                    'Jìnjì-hǎi a, nàlǐ shénme dōu méiyǒu, jiù xiàng Xùn-zhū de nǎozi yīyàng kōngkōngrúyě, wǒ dāngrán zhīdào. A? Wǒ... Wǒ quèshí méiyǒu qīnyǎn jiànguò, nà yěshì wǒ suǒ chùjí bù dào de dìfāng ya.',
+                audio: 'assets/character/voice_overs/Nahida/story/zh/关于纳西妲自己・见识.mp3',
+            },
+            ja: {
+                title: 'ナヒーダ自身について・見識',
+                text: '烬寂海？あそこには何もないわ。キノシシの脳みそみたいに空っぽ。もちろん知っているわよ。えっ？た…確かに直接見たことがあるわけじゃない…だってあそこも、私には手の届かない場所だもの。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Nahida/story/ja/ナヒーダ自身について・見識.mp3',
+            },
+            ko: {
+                title: '나히다 자신에 대해・견문',
+                text: '잿더미 바다라. 당연히 알지, 거기엔 아무것도 없어. 텅텅 빈 버섯 돼지 머릿속처럼 말이야. 응? 내… 내가 직접 가본 적은 없어. 거기는 내가 닿을 수 없는 곳이니까',
+                reading:
+                    "Jaetdeomi badara. Dang'yeonhi alji, geogien amugeotdo eopseo. Teongteong bin beoseot dwaeji meoritsokcheoreom mariya. Eung? Nae... Naega jikjeop gabon jeogeun eopseo. Geogineun naega daeul su eomneun gosinikka",
+                audio: 'assets/character/voice_overs/Nahida/story/ko/나히다 자신에 대해・견문.mp3',
+            },
+        },
+        version: '3.2',
+        demo_music: {
+            name: 'Surasthana Fantasia',
+            url: 'assets/character/demo_music/Nahida.mp3',
+        },
+    },
+    {
+        name: 'Navia',
+        card_icon: 'assets/character/card/Navia.avif',
+        wish_icon: 'assets/character/wish/Navia.avif',
+        ingame_icon: 'assets/character/ingame/Navia.avif',
+        icon: 'assets/character/icon/Navia.avif',
+        quality: '5',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'August 16th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: '"Pick What You Like!"',
+            icon: 'assets/foods/"Pick What You Like!".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Navia.avif',
+            background: 'assets/character/namecard_background/Navia.avif',
+            banner: 'assets/character/namecard_banner/Navia.avif',
+            description: "Roses shall bloom, and thus does Ms. Navia's umbrella flower. Yet beware, for roses have thorns, and Navia's booming brolly packs a powerful punch.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Navia'],
+        },
+        release_date: 'December 20, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Brenna Larsen',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Xiaogan (小敢)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Toyosaki Aki (豊崎愛生)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Jeong Hae-eun (정해은)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When the Sun Is Out',
+                text: "Quick, look! Up in the sky! Look at that scorching sun, it's like a blast furnace! You know what this means? It means we have to drop everything, right now, and make a run for the ice cream store! We need to get two of the biggest cones they sell, and then it's an all-out race to see who can finish before it melts!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Navia/story/en/When the Sun Is Out.mp3',
+            },
+            zh: {
+                title: '阳光很好…',
+                text: '就是现在，立刻，马上，抬头！你看天上，是不是烈日炎炎，骄阳似火！知道这说明什么吗？说明我们现在应当立刻，马上，去买最大号的超级冰冰凉甜筒，然后比赛谁能在它融化前全部吃完！',
+                reading:
+                    'Jiùshì xiànzài, lìkè, mǎshàng, táitóu! Nǐ kàn tiān shàng, shìbushì lièrìyányán, jiāoyángsìhuǒ! Zhīdào zhè shuōmíng shénme ma? Shuōmíng wǒmen xiànzài yīngdāng lìkè, mǎshàng, qù mǎi zuìdà hào de chāojí bīngbīngliáng tiántǒng, ránhòu bǐsài shéi néng zài tā rónghuà qián quánbù chī wán!',
+                audio: 'assets/character/voice_overs/Navia/story/zh/阳光很好….mp3',
+            },
+            ja: {
+                title: '晴れの日…',
+                text: 'ねえねえほらほら！見て！上！空のお日様が、炎みたいに明るいでしょ！これが何を意味してるか分かる？そう…今すぐ一緒に一番大きいサイズのウルトラアイスクリームを買ってきて、どっちが溶ける前に食べ切れるか勝負するの！',
+                reading:
+                    'Nee nee hora hora! Mite! Ue! Sora no ohi-sama, honoo mitai ni akarui desho! Kore ga nani wo imi shiteru ka wakaru?Sou... Ima sugu issho ni ichiban ookii saizu no urutora aisukuriimu wo katte kite, docchi ga tokeru mae ni tabekireru ga shoubu suru no!',
+                audio: 'assets/character/voice_overs/Navia/story/ja/晴れの日….mp3',
+            },
+            ko: {
+                title: '햇살이 좋을 때…',
+                text: '지금이야! 어서 고개를 들어봐! 불덩이처럼 뜨겁게 타오르는 태양이 보이지? 저게 뭘 의미하는지 알아?지금 당장 가장 큰 사이즈의 아이스크림을 사서 누가 가장 빨리 먹어 치우는지 시합하라는 계시라고!',
+                reading:
+                    "Jigeumiya! Eoseo gogaereul deureobwa! Buldeong'icheoreom tteugeopge taoreuneun taeyang'i boiji? Jeoge mwol uimihaneunji ara?Jigeum dangjang gajang keun saijeuui aiseukeurimeul saseo nuga gajang ppalli meogeo chiuneunji sihapharaneun gyesirago!",
+                audio: 'assets/character/voice_overs/Navia/story/ko/햇살이 좋을 때….mp3',
+            },
+        },
+        version: '4.3',
+        demo_music: {
+            name: 'Largo alla donzella',
+            url: 'assets/character/demo_music/Navia.mp3',
+        },
+    },
+    {
+        name: 'Neuvillette',
+        card_icon: 'assets/character/card/Neuvillette.avif',
+        wish_icon: 'assets/character/wish/Neuvillette.avif',
+        ingame_icon: 'assets/character/ingame/Neuvillette.avif',
+        icon: 'assets/character/icon/Neuvillette.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'December 18th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: '"Consommé Purete"',
+            icon: 'assets/foods/"Consommé Purete".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Neuvillette.avif',
+            background: 'assets/character/namecard_background/Neuvillette.avif',
+            banner: 'assets/character/namecard_banner/Neuvillette.avif',
+            description: "The water's surface may seem placid as a pristine gem, but it may yet be lying in wait for an opportune moment to gush forth.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Neuvillette'],
+        },
+        release_date: 'September 27, 2023',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Ray Chase',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Sang Yuze (桑毓泽)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kamiya Hiroshi (神谷浩史)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kwak Yoon-sang (곽윤상)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: 'Good morning. I hope you have a wonderful day.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Neuvillette/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '早上好。希望你今天过得愉快。',
+                reading: 'Zǎoshang hǎo. Xīwàng nǐ jīntiānguò dé yúkuài.',
+                audio: 'assets/character/voice_overs/Neuvillette/story/zh/早上好….mp3',
+            },
+            ja: {
+                title: 'おはよう…',
+                text: 'おはよう。善き一日になることを祈る。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Neuvillette/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '좋은 아침입니다. 즐거운 하루 보내시길 바랍니다',
+                reading: 'Joeun achimimnida. Jeulgeoun haru bonaesigil baramnida',
+                audio: 'assets/character/voice_overs/Neuvillette/story/ko/아침 인사….mp3',
+            },
+        },
+        version: '4.1',
+        demo_music: {
+            name: 'Parousia Diluvi',
+            url: 'assets/character/demo_music/Neuvillette.mp3',
+        },
+    },
+    {
+        name: 'Nilou',
+        card_icon: 'assets/character/card/Nilou.avif',
+        wish_icon: 'assets/character/wish/Nilou.avif',
+        ingame_icon: 'assets/character/ingame/Nilou.avif',
+        icon: 'assets/character/icon/Nilou.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'December 3rd',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Swirling Steps',
+            icon: 'assets/foods/Swirling Steps.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Nilou.avif',
+            background: 'assets/character/namecard_background/Nilou.avif',
+            banner: 'assets/character/namecard_banner/Nilou.avif',
+            description: 'The lotus that blooms amidst the pure water is naught but a flash of light beneath her toes.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Nilou'],
+        },
+        release_date: 'October 14, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Dani Chambers',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zisu Jiuyue (紫苏九月)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kanemoto Hisako (金元寿子)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Chae Rim (채림)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Rest',
+                text: "Relaxing days like this are nice... Let's take it easy.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Nilou/story/en/Chat - Rest.mp3',
+            },
+            zh: {
+                title: '闲聊・休息',
+                text: '这样清闲的日子倒也不错嘛，优哉游哉。',
+                reading: 'Zhèyàng qīngxián de rìzi dào yě bùcuò ma, yōuzāi-yóuzāi.',
+                audio: 'assets/character/voice_overs/Nilou/story/zh/闲聊・休息.mp3',
+            },
+            ja: {
+                title: '世間話・休み',
+                text: 'こういう穏やかな日も悪くないよね…のんびりしよ～っと。',
+                reading: 'Kou iu odayaka na hi mo warukunai yo ne... Nonbiri shiyo~tto.',
+                audio: 'assets/character/voice_overs/Nilou/story/ja/世間話・休み.mp3',
+            },
+            ko: {
+                title: '잡담・휴식',
+                text: '이렇게 여유로운 날도 나쁘지 않아, 정말 한가하네',
+                reading: "Ireoke yeoyuroun naldo nappeuji ana, jeongmal han'gahane",
+                audio: 'assets/character/voice_overs/Nilou/story/ko/잡담・휴식.mp3',
+            },
+        },
+        version: '3.1',
+        demo_music: {
+            name: 'Lotus of Haftkarsvar',
+            url: 'assets/character/demo_music/Nilou.mp3',
+        },
+    },
+    {
+        name: 'Ningguang',
+        card_icon: 'assets/character/card/Ningguang.avif',
+        wish_icon: 'assets/character/wish/Ningguang.avif',
+        ingame_icon: 'assets/character/ingame/Ningguang.avif',
+        icon: 'assets/character/icon/Ningguang.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'August 26th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Qiankun Mora Meat',
+            icon: 'assets/foods/Qiankun Mora Meat.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Ningguang.avif',
+            background: 'assets/character/namecard_background/Ningguang.avif',
+            banner: 'assets/character/namecard_banner/Ningguang.avif',
+            description: 'They say that "more\'s the pity that phoenixes are few." But seriously, one Ningguang is more than enough...',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Ningguang'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Erin Ebers',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Du Mingya (杜冥鸦)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Ohara Sayaka (大原 さやか)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Gwak Gyu-mi (곽규미)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Trade War',
+                text: 'In a trade war, the perfect hunter leaves no trace.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Ningguang/story/en/Chat - Trade War.mp3',
+            },
+            zh: {
+                title: '闲聊・商战',
+                text: '在商战中，完美的猎手不会留下任何痕迹。',
+                reading: 'Zài shāngzhàn zhōng, wánměi de lièshǒu bùhuì liúxià rènhé hénjī.',
+                audio: 'assets/character/voice_overs/Ningguang/story/zh/闲聊・商战.mp3',
+            },
+            ja: {
+                title: '世間話・商戦',
+                text: '商戦の中で、完璧な狩人は痕跡を残さないわ。',
+                reading: 'Shousen no naka de, kanpeki-na karyuudo wa konseki wo nokosanai wa.',
+                audio: 'assets/character/voice_overs/Ningguang/story/ja/世間話・商戦.mp3',
+            },
+            ko: {
+                title: '잡담・상업 전쟁',
+                text: '상업 전쟁에서 완벽한 사냥꾼은 흔적을 남기지 않아',
+                reading: "Sang'eop jeonjaeng'eseo wanbyeokhan sanyangkkuneun heunjeogeul namgiji ana",
+                audio: 'assets/character/voice_overs/Ningguang/story/ko/잡담・상업 전쟁.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Noelle',
+        card_icon: 'assets/character/card/Noelle.avif',
+        wish_icon: 'assets/character/wish/Noelle.avif',
+        ingame_icon: 'assets/character/ingame/Noelle.avif',
+        icon: 'assets/character/icon/Noelle.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'March 21st',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Lighter-Than-Air Pancake',
+            icon: 'assets/foods/Lighter-Than-Air Pancake.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Noelle.avif',
+            background: 'assets/character/namecard_background/Noelle.avif',
+            banner: 'assets/character/namecard_banner/Noelle.avif',
+            description: "Noelle is quite special. Noelle won't let any harm come to you.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Noelle'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Laura Faye Smith',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Yanning (宴宁)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Takao Kanon (高尾 奏音)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Bo-hee (이보희)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Afternoon',
+                text: "Ready for your tea break? Please wait here while I get it ready. Oh yes, I also made Lighter-Than-Air Pancakes! You simply must try one, it's my specialty.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Noelle/story/en/Good Afternoon.mp3',
+            },
+            zh: {
+                title: '中午好…',
+                text: '想要坐下来喝杯茶吗？我去为你准备。对了，我还顺手准备了厚云朵松饼，是我的拿手菜哦，请一定要尝一尝。',
+                reading: 'Xiǎngyào zuòxiàlái hē bēi chá ma? Wǒ qù wèi nǐ zhǔnbèi. Duìle, wǒ hái shùnshǒu zhǔnbèile Hòuyúnduǒ Sōngbǐng, shì wǒ de náshǒucài o, qǐng yīdìng yào chángyicháng.',
+                audio: 'assets/character/voice_overs/Noelle/story/zh/中午好….mp3',
+            },
+            ja: {
+                title: 'こんにちは…',
+                text: '座ってお茶でもしますか？すぐにご用意しますね。そうだ、ついでにパンケーキもご用意します。得意料理ですので、ぜひ召し上がってください。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Noelle/story/ja/こんにちは….mp3',
+            },
+            ko: {
+                title: '점심 인사…',
+                text: '앉아서 차 한잔 하실래요? 제가 준비해드릴게요. 맞다, 하는 김에 장원 팬케이크도 만들어 봤어요. 자신 있는 요리니 꼭 드셔보세요',
+                reading: "Anjaseo cha hanjan hasillaeyo? Jega junbihaedeurilgeyo. Matda, haneun gime jang'won paenkeikeudo mandeureo bwasseoyo. Jasin inneun yorini kkok deusyeoboseyo",
+                audio: 'assets/character/voice_overs/Noelle/story/ko/점심 인사….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Ororon',
+        card_icon: 'assets/character/card/Ororon.avif',
+        wish_icon: 'assets/character/wish/Ororon.avif',
+        ingame_icon: 'assets/character/ingame/Ororon.avif',
+        icon: 'assets/character/icon/Ororon.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'October 14th',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Honey-Glazed Ceviche',
+            icon: 'assets/foods/Honey-Glazed Ceviche.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Ororon.avif',
+            background: 'assets/character/namecard_background/Ororon.avif',
+            banner: 'assets/character/namecard_banner/Ororon.avif',
+            description: "Just as starlight cannot overpower the darkness of night, so too do shadows linger beneath the candle's light. Likewise, the heart's emptiness cannot easily be filled.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Ororon'],
+        },
+        release_date: 'November 20, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Nathan Nokes',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Liang Dawei (梁达伟)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kondo Takashi (近藤隆)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Seo Jung-ik (서정익)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Smoke',
+                text: 'Sometimes, a shrouded path is not meant to be walked. Move forward with blind ambition, and the smoke might suffocate you.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Ororon/story/en/Chat - Smoke.mp3',
+            },
+            zh: {
+                title: '闲聊·迷烟',
+                text: '不是所有的迷烟都能穿过。如果野心太大，就会被烟雾呛到。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Ororon/story/zh/闲聊·迷烟.mp3',
+            },
+            ja: {
+                title: '世間話・迷煙',
+                text: 'すべての「迷煙」を通り抜けられるとは限らない。欲張りすぎると、かえって煙にむせてしまうことになる。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Ororon/story/ja/世間話・迷煙.mp3',
+            },
+            ko: {
+                title: '잡담·연기',
+                text: '모든 연기를 다 통과할 수 있는 건 아니야. 야망이 과하게 크면, 연기에 질식할 수도 있어',
+                reading: "Modeun yeon'gireul da tonggwahal su inneun geon aniya. Yamang'i gwahage keumyeon, yeon'gie jilsikhal sudo isseo",
+                audio: 'assets/character/voice_overs/Ororon/story/ko/잡담·연기.mp3',
+            },
+        },
+        version: '5.2',
+        demo_music: {
+            name: 'Rain of Seven Curtains',
+            url: 'assets/character/demo_music/Ororon.mp3',
+        },
+    },
+    {
+        name: 'Qiqi',
+        card_icon: 'assets/character/card/Qiqi.avif',
+        wish_icon: 'assets/character/wish/Qiqi.avif',
+        ingame_icon: 'assets/character/ingame/Qiqi.avif',
+        icon: 'assets/character/icon/Qiqi.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Short Female',
+        birthday: 'March 3rd',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'No Tomorrow',
+            icon: 'assets/foods/No Tomorrow.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Qiqi.avif',
+            background: 'assets/character/namecard_background/Qiqi.avif',
+            banner: 'assets/character/namecard_banner/Qiqi.avif',
+            description: "What should be kept in the fridge? Dr. Baizhu's herbs, coconut milk... and Hu Tao.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Qiqi'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Christie Cate',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Yanning (宴宁)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Tamura Yukari (田村 ゆかり)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Seul (이슬)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Afraid of Heat',
+                text: "Let's go somewhere cooler.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Qiqi/story/en/Chat - Afraid of Heat.mp3',
+            },
+            zh: {
+                title: '闲聊・怕热',
+                text: '想去凉快点的地方。',
+                reading: 'Xiǎng qù liángkuai diǎn dì dìfāng.',
+                audio: 'assets/character/voice_overs/Qiqi/story/zh/闲聊・怕热.mp3',
+            },
+            ja: {
+                title: '世間話・暑さが苦手',
+                text: '涼しい場所に行きたい。',
+                reading: 'Suzushii basho ni ikitai.',
+                audio: 'assets/character/voice_overs/Qiqi/story/ja/世間話・暑さが苦手.mp3',
+            },
+            ko: {
+                title: '잡담・더위에 약함',
+                text: '시원한 곳으로 가고 싶어',
+                reading: 'Siwonhan goseuro gago sipeo',
+                audio: 'assets/character/voice_overs/Qiqi/story/ko/잡담・더위에 약함.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: {
+            name: 'Preserver of Fortune',
+            url: 'assets/character/demo_music/Qiqi.mp3',
+        },
+    },
+    {
+        name: 'Raiden Shogun',
+        card_icon: 'assets/character/card/Raiden Shogun.avif',
+        wish_icon: 'assets/character/wish/Raiden Shogun.avif',
+        ingame_icon: 'assets/character/ingame/Raiden Shogun.avif',
+        icon: 'assets/character/icon/Raiden Shogun.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'June 26th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: null,
+        namecard: {
+            icon: 'assets/character/namecard_icon/Raiden Shogun.avif',
+            background: 'assets/character/namecard_background/Raiden Shogun.avif',
+            banner: 'assets/character/namecard_banner/Raiden Shogun.avif',
+            description: 'Not simply Ei, and not merely the Raiden Shogun. Observe yourself also with one stormy eye, and you will someday reach a breakthrough.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with the Raiden Shogun'],
+        },
+        release_date: 'September 01, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Anne Yatco',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Juhuahua (菊花花)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Sawashiro Miyuki (沢城 みゆき)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Park Ji-yoon (박지윤)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Idleness',
+                text: 'Inactivity serves no purpose whatsoever. Hmph.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Raiden Shogun/story/en/Chat - Idleness.mp3',
+            },
+            zh: {
+                title: '闲聊・徒然',
+                text: '徒然无事，对砚枯坐。哼。',
+                reading: 'Túrán wú shì, duì yàn kū zuò. Ng.',
+                audio: 'assets/character/voice_overs/Raiden Shogun/story/zh/闲聊・徒然.mp3',
+            },
+            ja: {
+                title: '世間話・徒然',
+                text: 'つれづれなるままに、日くらし、硯にむかひて。ふん。',
+                reading: 'Tsuredzure naru mama ni, hikurashi, suzuri ni mukahite. Fun.',
+                audio: 'assets/character/voice_overs/Raiden Shogun/story/ja/世間話・徒然.mp3',
+            },
+            ko: {
+                title: '잡담・공연함',
+                text: '할 일도 없이 괜히 벼루만 쳐다보고 있네, 흠',
+                reading: 'Hal ildo eopssi gwaenhi byeoruman chyeodabogo inne, heum',
+                audio: 'assets/character/voice_overs/Raiden Shogun/story/ko/잡담・공연함.mp3',
+            },
+        },
+        version: '2.1',
+        demo_music: {
+            name: 'Termination of Desires',
+            url: 'assets/character/demo_music/Raiden Shogun.mp3',
+        },
+    },
+    {
+        name: 'Razor',
+        card_icon: 'assets/character/card/Razor.avif',
+        wish_icon: 'assets/character/wish/Razor.avif',
+        ingame_icon: 'assets/character/ingame/Razor.avif',
+        icon: 'assets/character/icon/Razor.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'September 9th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Puppy-Paw Hash Brown',
+            icon: 'assets/foods/Puppy-Paw Hash Brown.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Razor.avif',
+            background: 'assets/character/namecard_background/Razor.avif',
+            banner: 'assets/character/namecard_banner/Razor.avif',
+            description: "It's quite a sight to behold Razor and the wolves prepare their dinner, but they won't let Klee or the Traveler see the slightly gruesome affair.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Razor'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Todd Haberkorn',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zhou Shuai (周帅)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Uchiyama Kouki (内山 昂輝)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Seo-yeong (김서영)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Something to Share',
+                text: 'I like the stars at night. So many stars. In the sky, in the lake. And in the city.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Razor/story/en/Something to Share.mp3',
+            },
+            zh: {
+                title: '有什么想要分享…',
+                text: '晚上，星星很好看。天空，湖里，都有很多很多星星。晚上，城市里，也有很多星星。',
+                reading: 'Wǎnshang, xīngxing hěn hǎokàn. Tiānkōng, húlǐ, dōu yòu hěnduō hěnduō xīngxing.Wǎnshang, chéngshì lǐ, yě yǒu hěnduō xīngxing.',
+                audio: 'assets/character/voice_overs/Razor/story/zh/有什么想要分享….mp3',
+            },
+            ja: {
+                title: 'シェアしたいこと…',
+                text: '夜、星きれい。空、湖、どこも星いっぱい。夜、街の中も、星いっぱい。',
+                reading: 'Yoru, hoshi kirei. Sora, mizuumi, doko mo hoshi-ippai.Yoru, machi no naka mo, hoshi-ippai.',
+                audio: 'assets/character/voice_overs/Razor/story/ja/シェアしたいこと….mp3',
+            },
+            ko: {
+                title: '하고 싶은 이야기…',
+                text: '밤하늘의 별들은 정말 아름다워. 하늘뿐만 아니라 호수에도 별들이 가득 차있어.밤에는 도시에도 많은 별들이 있어',
+                reading: 'Bamhaneurui byeoldeureun jeongmal areumdawo. Haneulppunman anira hosuedo byeoldeuri gadeuk chaisseo.Bameneun dosiedo maneun byeoldeuri isseo.',
+                audio: 'assets/character/voice_overs/Razor/story/ko/하고 싶은 이야기….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Rosaria',
+        card_icon: 'assets/character/card/Rosaria.avif',
+        wish_icon: 'assets/character/wish/Rosaria.avif',
+        ingame_icon: 'assets/character/ingame/Rosaria.avif',
+        icon: 'assets/character/icon/Rosaria.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'January 24th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Dinner of Judgment',
+            icon: 'assets/foods/Dinner of Judgment.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Rosaria.avif',
+            background: 'assets/character/namecard_background/Rosaria.avif',
+            banner: 'assets/character/namecard_banner/Rosaria.avif',
+            description: 'The unselfish warmth and goodwill of the people is, to her, a kindness that she must repay, and so it is an indenture that follows her forever.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Rosaria'],
+        },
+        release_date: 'April 06, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Elizabeth Maxwell',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zhang Anqi (张安琪)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kakuma Ai (加隈 亜衣)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Bo-na (김보나)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Overtime',
+                text: 'Everything is negotiable, except overtime.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Rosaria/story/en/Chat - Overtime.mp3',
+            },
+            zh: {
+                title: '闲聊・加班',
+                text: '什么都可以商量，除了加班。',
+                reading: 'Shénme dōu kéyǐ shāngliáng, chúle jiābān.',
+                audio: 'assets/character/voice_overs/Rosaria/story/zh/闲聊・加班.mp3',
+            },
+            ja: {
+                title: '世間話・残業',
+                text: 'なんでもいいわ、残業以外ならね。',
+                reading: 'Nan demo ii wa, zangyou igai nara ne.',
+                audio: 'assets/character/voice_overs/Rosaria/story/ja/世間話・残業.mp3',
+            },
+            ko: {
+                title: '잡담・잔업',
+                text: '뭐든 말 해봐. 잔업은 빼고',
+                reading: 'Mwodeun mal haebwa. Janeobeun ppaego',
+                audio: 'assets/character/voice_overs/Rosaria/story/ko/잡담・잔업.mp3',
+            },
+        },
+        version: '1.4',
+        demo_music: {
+            name: 'Shadow of Nemesis',
+            url: 'assets/character/demo_music/Rosaria.mp3',
+        },
+    },
+    {
+        name: 'Sangonomiya Kokomi',
+        card_icon: 'assets/character/card/Sangonomiya Kokomi.avif',
+        wish_icon: 'assets/character/wish/Sangonomiya Kokomi.avif',
+        ingame_icon: 'assets/character/ingame/Sangonomiya Kokomi.avif',
+        icon: 'assets/character/icon/Sangonomiya Kokomi.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'February 22nd',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'A Stunning Stratagem',
+            icon: 'assets/foods/A Stunning Stratagem.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Sangonomiya Kokomi.avif',
+            background: 'assets/character/namecard_background/Sangonomiya Kokomi.avif',
+            banner: 'assets/character/namecard_banner/Sangonomiya Kokomi.avif',
+            description: 'All Watatsumi islanders know this tale: that deep beneath the waves lies their former home.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Sangonomiya Kokomi'],
+        },
+        release_date: 'September 21, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Risa Mei',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Guiniang (龟娘)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Mimori Suzuko (三森 すずこ)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Yeo Yun-mi (여윤미)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: 'The snow... have you ever seen such beauty?',
+                reading: null,
+                audio: 'assets/character/voice_overs/Sangonomiya Kokomi/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '雪…真漂亮呀。',
+                reading: 'Xuě... zhēn piàoliàng ya.',
+                audio: 'assets/character/voice_overs/Sangonomiya Kokomi/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: '雪…とても綺麗ですね。',
+                reading: 'Yuki... Totemo kirei desu ne.',
+                audio: 'assets/character/voice_overs/Sangonomiya Kokomi/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '눈… 정말 아름답다',
+                reading: 'Nun... Jeongmal areumdapda',
+                audio: 'assets/character/voice_overs/Sangonomiya Kokomi/story/ko/눈이 올 때….mp3',
+            },
+        },
+        version: '2.1',
+        demo_music: {
+            name: 'A Glorious Awakening',
+            url: 'assets/character/demo_music/Sangonomiya Kokomi.mp3',
+        },
+    },
+    {
+        name: 'Sayu',
+        card_icon: 'assets/character/card/Sayu.avif',
+        wish_icon: 'assets/character/wish/Sayu.avif',
+        ingame_icon: 'assets/character/ingame/Sayu.avif',
+        icon: 'assets/character/icon/Sayu.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Short Female',
+        birthday: 'October 19th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Dizziness-Be-Gone no Jutsu Version 2.0',
+            icon: 'assets/foods/Dizziness-Be-Gone no Jutsu Version 2.0.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Sayu.avif',
+            background: 'assets/character/namecard_background/Sayu.avif',
+            banner: 'assets/character/namecard_banner/Sayu.avif',
+            description: "It is even smaller than Sayu, sure, but it can help her do the things she doesn't want to do.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Sayu'],
+        },
+        release_date: 'August 10, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Lilypichu (Lily Ki)',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Sakula小舞',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Suzaki Aya (洲崎綾)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Ji-hyeon (이지현)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Rains',
+                text: "Eek, let's find shelter, quick! Watering works on plants, but not people...",
+                reading: null,
+                audio: 'assets/character/voice_overs/Sayu/story/en/When It Rains.mp3',
+            },
+            zh: {
+                title: '下雨的时候…',
+                text: '快躲雨，被雨淋到就长不高了。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Sayu/story/zh/下雨的时候….mp3',
+            },
+            ja: {
+                title: '雨の日…',
+                text: 'はやく雨宿りを。雨に打たれると背が伸びなくなる！',
+                reading: 'Hayaku amayadori wo. Ame ni utareru to se ga nobinaku naru!',
+                audio: 'assets/character/voice_overs/Sayu/story/ja/雨の日….mp3',
+            },
+            ko: {
+                title: '비가 올 때…',
+                text: '비를 피해야 해. 비 맞으면 키 안 커!',
+                reading: 'Bireul pihaeya hae. Bi majeumyeon ki an keo!',
+                audio: 'assets/character/voice_overs/Sayu/story/ko/비가 올 때….mp3',
+            },
+        },
+        version: '2.0',
+        demo_music: {
+            name: 'Muji-Muji Chaos!',
+            url: 'assets/character/demo_music/Sayu.mp3',
+        },
+    },
+    {
+        name: 'Sethos',
+        card_icon: 'assets/character/card/Sethos.avif',
+        wish_icon: 'assets/character/wish/Sethos.avif',
+        ingame_icon: 'assets/character/ingame/Sethos.avif',
+        icon: 'assets/character/icon/Sethos.avif',
+        quality: '4',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'May 31st',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Super-Dee-Duper Delicious Meat Roll',
+            icon: 'assets/foods/Super-Dee-Duper Delicious Meat Roll.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Sethos.avif',
+            background: 'assets/character/namecard_background/Sethos.avif',
+            banner: 'assets/character/namecard_banner/Sethos.avif',
+            description:
+                "Each Ba Fragment has its unique symbol. While this one resembles an hourglass, it represents King Deshret's rule over both Upper and Lower Setekh. As for the light within, it stands for the wisdom of Hermanubis.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Sethos'],
+        },
+        release_date: 'June 05, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Zeno Robinson',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Li Lanling (李兰陵)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Chiba Shoya (千葉翔也)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Dong-hyun (김동현)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When the Sun Is Out',
+                text: "The weather's so perfect, it would be such a waste not to go camping. How does fishing in an oasis sound?",
+                reading: null,
+                audio: 'assets/character/voice_overs/Sethos/story/en/When the Sun Is Out.mp3',
+            },
+            zh: {
+                title: '阳光很好…',
+                text: '天气真好，不找个地方露营可就太浪费了。走吗，一起去绿洲钓鱼？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Sethos/story/zh/阳光很好….mp3',
+            },
+            ja: {
+                title: '晴れの日…',
+                text: 'こんないい天気に、キャンプしないなんてもったいなすぎるだろ？オアシスに釣りに行かないか？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Sethos/story/ja/晴れの日….mp3',
+            },
+            ko: {
+                title: '햇살이 좋을 때…',
+                text: '날이 참 좋네. 이런 날엔 캠핑 안 가면 섭하지. 오아시스에 같이 낚시하러 안 갈래?',
+                reading: 'Nari cham jonne. Ireon naren kaemping an gamyeon seophaji. Oasiseue gachi naksihareo an gallae?',
+                audio: 'assets/character/voice_overs/Sethos/story/ko/햇살이 좋을 때….mp3',
+            },
+        },
+        version: '4.7',
+        demo_music: {
+            name: "Menmaatre's Parade",
+            url: 'assets/character/demo_music/Sethos.mp3',
+        },
+    },
+    {
+        name: 'Shenhe',
+        card_icon: 'assets/character/card/Shenhe.avif',
+        wish_icon: 'assets/character/wish/Shenhe.avif',
+        ingame_icon: 'assets/character/ingame/Shenhe.avif',
+        icon: 'assets/character/icon/Shenhe.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'March 10th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Heartstring Noodles',
+            icon: 'assets/foods/Heartstring Noodles.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Shenhe.avif',
+            background: 'assets/character/namecard_background/Shenhe.avif',
+            banner: 'assets/character/namecard_banner/Shenhe.avif',
+            description:
+                'The early onset of white hair is often correlated to one\'s sorrows. Since "comb" and "scatter" are similarly read in Liyue\'s language, they believe that combing one\'s hair is the same as scattering one\'s misfortunes.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Shenhe'],
+        },
+        release_date: 'January 05, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Chelsea Kwoka',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Qin Ziyi (秦紫翼)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kawasumi Ayako (川澄綾子)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Lee Hyun-jin (이현진)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'After the Rain',
+                text: "The sky is clearing up, and so is my mood. I just hope no one shows up to bother me... if they do, I'll just make them disappear.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Shenhe/story/en/After the Rain.mp3',
+            },
+            zh: {
+                title: '雨过天晴…',
+                text: '天气变好，我也很开心。只希望没有人来打扰…如果有，就让他们消失好了。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Shenhe/story/zh/雨过天晴….mp3',
+            },
+            ja: {
+                title: '雨上がり…',
+                text: '天気が良くなると、気分も晴れる。邪魔者が来ないのを願おう…たとえ来たとしても、消えてもらうのみだが。',
+                reading: 'Tenki ga yoku naru to, kibun mo hareru. Jamamono ga konai no wo negaou... Tatoe kita to shite mo, kiete morau no mi da ga.',
+                audio: 'assets/character/voice_overs/Shenhe/story/ja/雨上がり….mp3',
+            },
+            ko: {
+                title: '비가 그친 후…',
+                text: '날씨가 좋아지니 나도 기분이 좋군. 아무도 방해하지 않았으면 해…. 방해하는 자가 있다면 전부 없애주지',
+                reading: 'Nalssiga joajini nado gibuni jokun. Amudo banghaehaji anatseumyoen hae.... Banghaehaneun jaga ittamyeon jeonbu eopsaejuji.',
+                audio: 'assets/character/voice_overs/Shenhe/story/ko/비가 그친 후….mp3',
+            },
+        },
+        version: '2.4',
+        demo_music: {
+            name: 'The Crane Cries',
+            url: 'assets/character/demo_music/Shenhe.mp3',
+        },
+    },
+    {
+        name: 'Shikanoin Heizou',
+        card_icon: 'assets/character/card/Shikanoin Heizou.avif',
+        wish_icon: 'assets/character/wish/Shikanoin Heizou.avif',
+        ingame_icon: 'assets/character/ingame/Shikanoin Heizou.avif',
+        icon: 'assets/character/icon/Shikanoin Heizou.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'July 24th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'The Only Truth',
+            icon: 'assets/foods/The Only Truth.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Shikanoin Heizou.avif',
+            background: 'assets/character/namecard_background/Shikanoin Heizou.avif',
+            banner: 'assets/character/namecard_banner/Shikanoin Heizou.avif',
+            description:
+                "A Temari of entwining strings in various colors. It must have taken someone's great effort to make such an item, yet Heizou only sees it as a simple game to untangle each string.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Shikanoin Heizou'],
+        },
+        release_date: 'July 13, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Kieran Regan',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Lin Jing (林景)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Iguchi Yuuichi (井口 祐一)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Jeong-Ui-jin (정의진)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Afternoon',
+                text: 'Alright. Now that lunch is over, whaddya say we play a game to keep our minds sharp? Relay Stones? Hehe... okay, I guess we can warm up with that.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Shikanoin Heizou/story/en/Good Afternoon.mp3',
+            },
+            zh: {
+                title: '中午好…',
+                text: '吃饱了玩点锻炼脑力的游戏吧！继电石？哈哈，这个只能锻炼心态吧。',
+                reading: 'Chībǎole wán diǎn duànliàn nǎolì de yóuxì ba! Jìdiàn-shí? Haha, zhège zhǐ néng duànliàn xīntài ba.',
+                audio: 'assets/character/voice_overs/Shikanoin Heizou/story/zh/中午好….mp3',
+            },
+            ja: {
+                title: 'こんにちは…',
+                text: 'お腹いっぱいになったんだったら、脳鍛練でもしようよ！継電石？あはは、あんなのは精神しか鍛えられないよ。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Shikanoin Heizou/story/ja/こんにちは….mp3',
+            },
+            ko: {
+                title: '점심 인사…',
+                text: '배불리 먹었으니까 두뇌게임을 좀 해볼까? 계전석? 하하, 그건 정신 단련밖에 못 하잖아',
+                reading: 'Baebulli meogeosseunikka dunoegeimeul jom haebolkka? Gyejeonseok? Haha, geugeon jeongsin dallyeonbakke mot hajana',
+                audio: 'assets/character/voice_overs/Shikanoin Heizou/story/ko/점심 인사….mp3',
+            },
+        },
+        version: '2.8',
+        demo_music: {
+            name: 'Storm Chaser',
+            url: 'assets/character/demo_music/Shikanoin Heizou.mp3',
+        },
+    },
+    {
+        name: 'Sigewinne',
+        card_icon: 'assets/character/card/Sigewinne.avif',
+        wish_icon: 'assets/character/wish/Sigewinne.avif',
+        ingame_icon: 'assets/character/ingame/Sigewinne.avif',
+        icon: 'assets/character/icon/Sigewinne.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Short Female',
+        birthday: 'March 30th',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: 'Well-Balanced Meal',
+            icon: 'assets/foods/Well-Balanced Meal.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Sigewinne.avif',
+            background: 'assets/character/namecard_background/Sigewinne.avif',
+            banner: 'assets/character/namecard_banner/Sigewinne.avif',
+            description:
+                "Sigewinne will take good care of her patients. Don't worry, her injections aren't that painful — and while the medicines aren't very tasty, you'd take them over the barren wasteland that special blend milkshakes represent.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Sigewinne'],
+        },
+        release_date: 'June 25, 2024',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Sarah Williams',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zhao Shuang (赵爽)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kino Hina (木野日菜)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Chae-rin (김채린)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Stickers',
+                text: "No... I didn't put a sticker on your back.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Sigewinne/story/en/Chat - Stickers.mp3',
+            },
+            zh: {
+                title: '闲聊·贴纸',
+                text: '没有哦，我没有在你背后贴贴纸。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Sigewinne/story/zh/闲聊·贴纸.mp3',
+            },
+            ja: {
+                title: '世間話·ステッカー',
+                text: '安心して、キミの背中にステッカーは貼ってないから。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Sigewinne/story/ja/世間話·ステッカー.mp3',
+            },
+            ko: {
+                title: '잡담·스티커',
+                text: '아니야, 나 네 등에 스티커 안 붙였어',
+                reading: "Aniya, na ne deung'e seutikeo an buchyeosseo",
+                audio: 'assets/character/voice_overs/Sigewinne/story/ko/잡담·스티커.mp3',
+            },
+        },
+        version: '4.7',
+        demo_music: {
+            name: 'Romari Time!',
+            url: 'assets/character/demo_music/Sigewinne.mp3',
+        },
+    },
+    {
+        name: 'Sucrose',
+        card_icon: 'assets/character/card/Sucrose.avif',
+        wish_icon: 'assets/character/wish/Sucrose.avif',
+        ingame_icon: 'assets/character/ingame/Sucrose.avif',
+        icon: 'assets/character/icon/Sucrose.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'November 26th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'Nutritious Meal (V.593)',
+            icon: 'assets/foods/Nutritious Meal (V.593).avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Sucrose.avif',
+            background: 'assets/character/namecard_background/Sucrose.avif',
+            banner: 'assets/character/namecard_banner/Sucrose.avif',
+            description: 'If you closely examine an Anemo Hypostasis before it disappears, you will discover that they are actually quite square.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Sucrose'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Valeria Rodriguez',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Xiaogan (小敢)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Fujita Akane (藤田茜)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Ha-yeong (김하영)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Deep Breaths',
+                text: "Ahhh! I haven't been out in a while.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Sucrose/story/en/Chat - Deep Breaths.mp3',
+            },
+            zh: {
+                title: '闲聊・深呼吸',
+                text: '嗯——！好久没出来透气了。',
+                reading: 'Ng⸺! Hǎojiǔ méi chūlái tòuqìle.',
+                audio: 'assets/character/voice_overs/Sucrose/story/zh/闲聊・深呼吸.mp3',
+            },
+            ja: {
+                title: '世間話・深呼吸',
+                text: 'うん——！外の空気は久々。',
+                reading: 'Un⸺! Soto no kuuki wa hisabisa.',
+                audio: 'assets/character/voice_overs/Sucrose/story/ja/世間話・深呼吸.mp3',
+            },
+            ko: {
+                title: '잡담・심호흡',
+                text: '휴——! 바람 쐬러 나온 것도 오랜만이네',
+                reading: 'Hyu⸺! Baram ssoereo naon geotdo oraenmanine',
+                audio: 'assets/character/voice_overs/Sucrose/story/ko/잡담・심호흡.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Tartaglia',
+        card_icon: 'assets/character/card/Tartaglia.avif',
+        wish_icon: 'assets/character/wish/Tartaglia.avif',
+        ingame_icon: 'assets/character/ingame/Tartaglia.avif',
+        icon: 'assets/character/icon/Tartaglia.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'July 20th',
+        region: null,
+        special_dish: {
+            name: 'A Prize Catch',
+            icon: 'assets/foods/A Prize Catch.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Tartaglia.avif',
+            background: 'assets/character/namecard_background/Tartaglia.avif',
+            banner: 'assets/character/namecard_banner/Tartaglia.avif',
+            description:
+                'This bears all the marks of that fellow who gallivants as he pleases across the continent with his ever-changing combat styles. Yet, his "Foul Legacy" was not originally his. Rather, it was taught to him by that solitary girl who dwelt in the darkest corners of the universe.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Tartaglia'],
+        },
+        release_date: 'November 11, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Griffin Burns',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Yudong (鱼冻)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kimura Ryohei (木村良平)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Nam Doh-hyeong (남도형)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Snows: Foreign Country',
+                text: 'Haha, ahh... could it be snowing in Snezhnaya too?',
+                reading: null,
+                audio: 'assets/character/voice_overs/Tartaglia/story/en/When It Snows - Foreign Country.mp3',
+            },
+            zh: {
+                title: '下雪的时候・异国',
+                text: '哈哈哈，不知老家那边，是否也在下雪？',
+                reading: 'Hahaha, bùzhī lǎojiā nàbiān, shìfǒu yě zài xiàxuě?',
+                audio: 'assets/character/voice_overs/Tartaglia/story/zh/下雪的时候・异国.mp3',
+            },
+            ja: {
+                title: '雪の日・異国',
+                text: 'ハハッ、故郷の方でも今は雪が降っているのかな？',
+                reading: "Haha', kokyou no hou de mo ima wa yuki ga futte iru no ka na?",
+                audio: 'assets/character/voice_overs/Tartaglia/story/ja/雪の日・異国.mp3',
+            },
+            ko: {
+                title: '눈이 올 때・이국',
+                text: '하하, 내 고향에도 눈이 내리고 있으려나?',
+                reading: "Haha, nae gohyang'edo nuni naerigo isseuryeona?",
+                audio: 'assets/character/voice_overs/Tartaglia/story/ko/눈이 올 때・이국.mp3',
+            },
+        },
+        version: '1.1',
+        demo_music: {
+            name: 'Letter From Ajax',
+            url: 'assets/character/demo_music/Tartaglia.mp3',
+        },
+    },
+    {
+        name: 'Thoma',
+        card_icon: 'assets/character/card/Thoma.avif',
+        wish_icon: 'assets/character/wish/Thoma.avif',
+        ingame_icon: 'assets/character/ingame/Thoma.avif',
+        icon: 'assets/character/icon/Thoma.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'January 9th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: '"Warmth"',
+            icon: 'assets/foods/"Warmth".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Thoma.avif',
+            background: 'assets/character/namecard_background/Thoma.avif',
+            banner: 'assets/character/namecard_banner/Thoma.avif',
+            description: 'Blazing armor, flaming guards.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Thoma'],
+        },
+        release_date: 'November 02, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Christian Banas',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Zhang Pei (张沛)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Morita Masakazu (森田成一)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Ryu Seung-gon (류승곤)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: "Chat: Thoma's Treat",
+                text: 'Hey... how about we go for a nice meal some time? My treat, of course.',
+                reading: null,
+                audio: "assets/character/voice_overs/Thoma/story/en/Chat - Thoma's Treat.mp3",
+            },
+            zh: {
+                title: '闲聊・请客',
+                text: '嗯…找个时间一起吃顿好的怎么样，我请客。',
+                reading: 'Ǹg... Zhǎo gè shíjiān yīqǐ chī dùn hǎo de zěnmeyàng, wǒ qǐngkè.',
+                audio: 'assets/character/voice_overs/Thoma/story/zh/闲聊・请客.mp3',
+            },
+            ja: {
+                title: '世間話・奢り',
+                text: 'ふむ…今度一緒に美味しいものを食べに行かないか。オレの奢りだ。',
+                reading: 'Fumu... Kondo issho ni oishii mono wo tabe ni ikanai ka. Ore no okori da.',
+                audio: 'assets/character/voice_overs/Thoma/story/ja/世間話・奢り.mp3',
+            },
+            ko: {
+                title: '잡담・초대',
+                text: '음… 언제 한번 같이 좋은 거 먹으러 갈까? 내가 살게',
+                reading: 'Eum... Eonje hangeon gachi joeun geo meogeureo galkka? Naega salge.',
+                audio: 'assets/character/voice_overs/Thoma/story/ko/잡담・초대.mp3',
+            },
+        },
+        version: '2.2',
+        demo_music: {
+            name: 'Devotion of the Keeper',
+            url: 'assets/character/demo_music/Thoma.mp3',
+        },
+    },
+    {
+        name: 'Tighnari',
+        card_icon: 'assets/character/card/Tighnari.avif',
+        wish_icon: 'assets/character/wish/Tighnari.avif',
+        ingame_icon: 'assets/character/ingame/Tighnari.avif',
+        icon: 'assets/character/icon/Tighnari.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'December 29th',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: "Forest Watcher's Choice",
+            icon: "assets/foods/Forest Watcher's Choice.avif",
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Tighnari.avif',
+            background: 'assets/character/namecard_background/Tighnari.avif',
+            banner: 'assets/character/namecard_banner/Tighnari.avif',
+            description: 'Tighnari takes good care of his big, fluffy tail. The essential oil he uses was extracted from flowers and mixed together meticulously. It gives off a faint, calming scent.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Tighnari'],
+        },
+        release_date: 'August 24, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Zachary Gordon',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Moran (莫然)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kobayashi Sanae (小林 沙苗)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Jung Ui-taek (정의택)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Good Morning',
+                text: "Shh, listen! That's the sound of dew dripping upon the leaves.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Tighnari/story/en/Good Morning.mp3',
+            },
+            zh: {
+                title: '早上好…',
+                text: '听！是晨露滴落叶梢的声音。',
+                reading: 'Tīng! Shì chénlù dīluò yèshāo de shēngyīn.',
+                audio: 'assets/character/voice_overs/Tighnari/story/zh/早上好….mp3',
+            },
+            ja: {
+                title: 'おはよう…',
+                text: 'ほら、葉先から滴り落ちる朝露の音が聞こえるよ。',
+                reading: 'Hora, yousen kara shitatariochiru asatsuyu no oto ga kikoeru yo.',
+                audio: 'assets/character/voice_overs/Tighnari/story/ja/おはよう….mp3',
+            },
+            ko: {
+                title: '아침 인사…',
+                text: '들어봐! 아침이슬이 나뭇잎에 떨어지는 소리야',
+                reading: 'Deureobwa! Achimiseuri namutipe tteoreojineun soriya.',
+                audio: 'assets/character/voice_overs/Tighnari/story/ko/아침 인사….mp3',
+            },
+        },
+        version: '3.0',
+        demo_music: {
+            name: 'Winding Through Avidya',
+            url: 'assets/character/demo_music/Tighnari.mp3',
+        },
+    },
+    {
+        name: 'Varesa',
+        card_icon: 'assets/character/card/Varesa.avif',
+        wish_icon: 'assets/character/wish/Varesa.avif',
+        ingame_icon: 'assets/character/ingame/Varesa.avif',
+        icon: 'assets/character/icon/Varesa.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'November 15th',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Mt. Mushroom (For One)',
+            icon: 'assets/foods/Mt. Mushroom (For One).avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Varesa.avif',
+            background: 'assets/character/namecard_background/Varesa.avif',
+            banner: 'assets/character/namecard_banner/Varesa.avif',
+            description: "What could possibly be the secret to her immense strength? D'you think it's got something to do with her nigh-on insatiable appetite...?",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Varesa'],
+        },
+        release_date: 'March 26, 2025',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Jane Jackson',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Qiao Su (乔苏)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Ichimichi Mao (M・A・O)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Kim Ye-rim (김예림)',
+            },
+        ],
+        voice_overs: null,
+        version: '5.5',
+        demo_music: null,
+    },
+    {
+        name: 'Venti',
+        card_icon: 'assets/character/card/Venti.avif',
+        wish_icon: 'assets/character/wish/Venti.avif',
+        ingame_icon: 'assets/character/ingame/Venti.avif',
+        icon: 'assets/character/icon/Venti.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'June 16th',
+        region: {
+            name: 'Mondstadt',
+            icon: 'assets/regions/Mondstadt.avif',
+        },
+        special_dish: {
+            name: 'A Buoyant Breeze',
+            icon: 'assets/foods/A Buoyant Breeze.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Venti.avif',
+            background: 'assets/character/namecard_background/Venti.avif',
+            banner: 'assets/character/namecard_banner/Venti.avif',
+            description: 'The bright blue of a cloudless sky and the melodious tone of Der Frühling complement each other perfectly.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Venti'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Erika Harlacher',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Miaojiang (喵酱)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Murase Ayumu (村瀬 歩)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Jung Yoo-jung (정유정)',
+            },
+        ],
+        voice_overs: {
+            en: {
+                title: 'When It Rains',
+                text: "Let's go jumping in puddles and see who can make the biggest splash!",
+                reading: null,
+                audio: 'assets/character/voice_overs/Venti/story/en/When It Rains.mp3',
+            },
+            zh: {
+                title: '下雨的时候…',
+                text: '来踩小水坑吧！看看谁溅出来的水花更大！',
+                reading: 'Lái cǎi xiǎoshuǐkēng ba! Kànkan shéi jiànchūlái de shuǐhuā gèng dà!',
+                audio: 'assets/character/voice_overs/Venti/story/zh/下雨的时候….mp3',
+            },
+            ja: {
+                title: '雨の日…',
+                text: '水たまりを踏んでみよう！どっちが大きな水しぶきを飛ばせるかな！',
+                reading: 'Mizutamari wo funde miyou! Docchi ga ookina mizushibuki wo tobaseru ka na!',
+                audio: 'assets/character/voice_overs/Venti/story/ja/雨の日….mp3',
+            },
+            ko: {
+                title: '비가 올 때…',
+                text: '와서 물웅덩이를 밟아봐! 누가 물보라를 더 크게 일으키나 보자고!',
+                reading: "Waseo murungdeong'ireul balbabwa! Nuga mulborareul deo keuge ireukina bojago!",
+                audio: 'assets/character/voice_overs/Venti/story/ko/비가 올 때….mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: {
+            name: "Bard's Adventure",
+            url: 'assets/character/demo_music/Venti.mp3',
+        },
+    },
+    {
+        name: 'Wanderer',
+        card_icon: 'assets/character/card/Wanderer.avif',
+        wish_icon: 'assets/character/wish/Wanderer.avif',
+        ingame_icon: 'assets/character/ingame/Wanderer.avif',
+        icon: 'assets/character/icon/Wanderer.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Male',
+        birthday: 'January 3rd',
+        region: {
+            name: 'Sumeru',
+            icon: 'assets/regions/Sumeru.avif',
+        },
+        special_dish: {
+            name: 'Shimi Chazuke',
+            icon: 'assets/foods/Shimi Chazuke.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Wanderer.avif',
+            background: 'assets/character/namecard_background/Wanderer.avif',
+            banner: 'assets/character/namecard_banner/Wanderer.avif',
+            description: 'In a world most transient does the past hide, and in the whims of floating flowers does thin snow abide.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Wanderer'],
+        },
+        release_date: 'December 07, 2022',
+        voice_actors: [
             {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
+                language: 'English',
+                actor: 'Patrick Pedraza',
             },
             {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "June 23rd",
-        "affiliations": [
-            "Temple of Silence",
-            "Matra",
-            "Spantamad",
+                language: 'Chinese',
+                actor: 'Luyin (鹿喑)',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Kakihara Tetsuya (柿原 徹也)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Min Seung-woo (민승우)',
+            },
         ],
-        "special_dish": {
-            "name": "Duel Soul",
-            "icon": "assets/foods/Duel Soul.png"
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: 'Huh. How irritating.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Wanderer/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '啧…烦心。',
+                reading: 'Zé... fánxīn.',
+                audio: 'assets/character/voice_overs/Wanderer/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: 'チッ…煩わしい。',
+                reading: "Chi'... Wazurawashii.",
+                audio: 'assets/character/voice_overs/Wanderer/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '칫… 짜증 나네',
+                reading: 'Chit... jjajeung nane',
+                audio: 'assets/character/voice_overs/Wanderer/story/ko/번개가 칠 때….mp3',
+            },
         },
-        "titles": [
-            "General Mahamatra"
-        ],
-        "voice_actors": [
+        version: '3.3',
+        demo_music: {
+            name: 'Novatio Novena',
+            url: 'assets/character/demo_music/Wanderer.mp3',
+        },
+    },
+    {
+        name: 'Wriothesley',
+        card_icon: 'assets/character/card/Wriothesley.avif',
+        wish_icon: 'assets/character/wish/Wriothesley.avif',
+        ingame_icon: 'assets/character/ingame/Wriothesley.avif',
+        icon: 'assets/character/icon/Wriothesley.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Cryo',
+            icon: 'assets/elements/Cryo.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'November 23rd',
+        region: {
+            name: 'Fontaine',
+            icon: 'assets/regions/Fontaine.avif',
+        },
+        special_dish: {
+            name: 'Secret Sauce BBQ Ribs',
+            icon: 'assets/foods/Secret Sauce BBQ Ribs.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Wriothesley.avif',
+            background: 'assets/character/namecard_background/Wriothesley.avif',
+            banner: 'assets/character/namecard_banner/Wriothesley.avif',
+            description:
+                'Maintaining order at the Fortress of Meropide is no simple affair. As such, a deft and sometimes firm hand is needed — along with a small pinch of truly regrettable cruelty.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Wriothesley'],
+        },
+        release_date: 'October 17, 2023',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Alejandro Saab"
+                language: 'English',
+                actor: 'Joe Zieja',
             },
             {
-                "language": "Chinese",
-                "actor": "Li Qingyang (李轻扬)"
+                language: 'Chinese',
+                actor: 'Liu Beichen (刘北辰)',
             },
             {
-                "language": "Japanese",
-                "actor": "Irino Miyu (入野 自由)"
+                language: 'Japanese',
+                actor: 'Ono Daisuke (小野大輔)',
             },
             {
-                "language": "Korean",
-                "actor": "Jung Eui-jin (정의진)"
-            }
+                language: 'Korean',
+                actor: 'Kwon Chang-wook (권창욱)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Cyno.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'Chat: Stickers',
+                text: 'If you ever see any stickers on my back, do me a favor and take them off... Melusines like to play pranks sometimes.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Wriothesley/story/en/Chat - Stickers.mp3',
+            },
+            zh: {
+                title: '闲聊·贴纸',
+                text: '如果看到我背后粘着美露莘画的贴纸，帮我揭掉吧？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Wriothesley/story/zh/闲聊·贴纸.mp3',
+            },
+            ja: {
+                title: '世間話·ステッカー',
+                text: '俺の背中にメリュジーヌが描いたステッカーが貼ってあったら、剥がしてくれるかい？',
+                reading: 'Ore no senaka ni Meryujiinu ga kaita sutekkaa ga hatte attara, hagashite kureru kai?',
+                audio: 'assets/character/voice_overs/Wriothesley/story/ja/世間話·ステッカー.mp3',
+            },
+            ko: {
+                title: '잡담·스티커',
+                text: '혹시 내 등에 멜뤼진이 그린 스티커가 붙어있으면 꼭 떼어줘',
+                reading: "Hoksi nae deung'e mellwijini geurin seutikeoga buteoisseumyeon kkok tteeojwo",
+                audio: 'assets/character/voice_overs/Wriothesley/story/ko/잡담·스티커.mp3',
+            },
+        },
+        version: '4.1',
+        demo_music: {
+            name: 'Nippy Bout',
+            url: 'assets/character/demo_music/Wriothesley.mp3',
+        },
     },
     {
-        "name": "Dehya",
-        "namecard_name": "Purifying Flame",
-        "namecard_description": "Those that should be burned will be reduced to fly ash, so that all the precious things that should be preserved can be revealed.'",
-        "namecard_icon": "assets/character/namecard_icon/Dehya.png",
-        "namecard_background": "assets/character/namecard_background/Dehya.png",
-        "namecard_banner": "assets/character/namecard_banner/Dehya.avif",
-        "card": "assets/character/card/Dehya.avif",
-        "wish": "assets/character/wish/Dehya.avif",
-        "ingame": "assets/character/ingame/Dehya.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "March 01, 2023",
-        "version": "3.5",
-        "icon": "assets/character/icon/Dehya.avif",
-        "demo_music_name": "Fervent Flare",
-        "demo_music": "assets/character/demo_music/Dehya.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "Ready to roll? Good. Then let's pack up and move out.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Dehya/story/en/Good Morning.mp3"
+        name: 'Xiangling',
+        card_icon: 'assets/character/card/Xiangling.avif',
+        wish_icon: 'assets/character/wish/Xiangling.avif',
+        ingame_icon: 'assets/character/ingame/Xiangling.avif',
+        icon: 'assets/character/icon/Xiangling.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'November 2nd',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: "Wanmin Restaurant's Boiled Fish",
+            icon: "assets/foods/Wanmin Restaurant's Boiled Fish.avif",
         },
-        "roles": [
+        namecard: {
+            icon: 'assets/character/namecard_icon/Xiangling.avif',
+            background: 'assets/character/namecard_background/Xiangling.avif',
+            banner: 'assets/character/namecard_banner/Xiangling.avif',
+            description: 'Try saying this three times fast: "Guoba sears sea snails by Liyue\'s sea shore."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Xiangling'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
             {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'English',
+                actor: 'Jackie Lastra',
             },
             {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
+                language: 'Chinese',
+                actor: 'Xiao N (小N)',
             },
             {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "April 7th",
-        "affiliations": [
-            "The Eremites",
-            "Corps of Thirty"
+                language: 'Japanese',
+                actor: 'Ozawa Ari (小澤亜李)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Yun A-yeong (윤아영)',
+            },
         ],
-        "special_dish": {
-            "name": "Goldflame Tajine",
-            "icon": "assets/foods/Goldflame Tajine.png"
+        voice_overs: {
+            en: {
+                title: "When It's Windy",
+                text: "Anemo Slimes always come out in this weather. If you catch some, I'll make you a Slime Slushie!",
+                reading: null,
+                audio: "assets/character/voice_overs/Xiangling/story/en/When It's Windy.mp3",
+            },
+            zh: {
+                title: '起风的时候…',
+                text: '风史莱姆最喜欢在这种天气活动，快趁机多收集点儿！我给你做史莱姆沙冰！',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xiangling/story/zh/起风的时候….mp3',
+            },
+            ja: {
+                title: '風の日…',
+                text: '風スライムはこういう天気の時に動くのが好きなんだよ。せっかくだからたくさん集めてね！スライムかき氷作ってあげるから！',
+                reading: 'Kaze Suraimu wa kou iu tenki no toki ni ugoku no ga suki nan da yo. Sekkaku da kara takusan atsumete ne! Suraimu kakigoori tsukutte ageru kara!',
+                audio: 'assets/character/voice_overs/Xiangling/story/ja/風の日….mp3',
+            },
+            ko: {
+                title: '바람이 불 때…',
+                text: '슬라임은 이런 날씨를 가장 좋아해. 그러니 이 틈에 왕창 잡자! 내가 슬라임 빙수 해줄게!',
+                reading: 'Seullaimeun ireon nalssireul gajang joahae. Geureoni i teume wangchang japja! Naega seullaim bingsu haejulge!',
+                audio: 'assets/character/voice_overs/Xiangling/story/ko/바람이 불 때….mp3',
+            },
         },
-        "titles": [
-            "Unfettered Desert Mercenary"
-        ],
-        "voice_actors": [
+        version: '1.0',
+        demo_music: {
+            name: 'Flaming Fry',
+            url: 'assets/character/demo_music/Xiangling.mp3',
+        },
+    },
+    {
+        name: 'Xianyun',
+        card_icon: 'assets/character/card/Xianyun.avif',
+        wish_icon: 'assets/character/wish/Xianyun.avif',
+        ingame_icon: 'assets/character/ingame/Xianyun.avif',
+        icon: 'assets/character/icon/Xianyun.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'April 11th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Encompassing Gladness',
+            icon: 'assets/foods/Encompassing Gladness.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Xianyun.avif',
+            background: 'assets/character/namecard_background/Xianyun.avif',
+            banner: 'assets/character/namecard_banner/Xianyun.avif',
+            description:
+                'Those who the truth tell, commuted shall their sentence be. Be honest. When Cloud Retainer asked you, "Do you perceive one as merely some larger bird?", did you also append the thoughts, "Yes, and you talk, and fiddle with funny machines"?',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Xianyun'],
+        },
+        release_date: 'January 31, 2024',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Amber May"
+                language: 'English',
+                actor: 'Stephanie Panisello',
             },
             {
-                "language": "Chinese",
-                "actor": "Chen Yu (陈雨)"
+                language: 'Chinese',
+                actor: 'Qin Ziyi (秦紫翼)',
             },
             {
-                "language": "Japanese",
-                "actor": "Fukuhara Ayaka (福原綾香)"
+                language: 'Japanese',
+                actor: 'Nakatomi Mana (中臣 真菜)',
             },
             {
-                "language": "Korean",
-                "actor": "Kim Hyeon-sim (김현심)"
-            }
+                language: 'Korean',
+                actor: 'Kang Si-hyeon (강시현)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Dehya.png"
-        }
-    },
-    {
-        "name": "Diluc",
-        "namecard_name": "Flames",
-        "namecard_description": "Master Crepus painted many eagles during his lifetime, but he never could've foreseen creating an eagle with such fire.'",
-        "namecard_icon": "assets/character/namecard_icon/Diluc.png",
-        "namecard_background": "assets/character/namecard_background/Diluc.png",
-        "namecard_banner": "assets/character/namecard_banner/Diluc.avif",
-        "card": "assets/character/card/Diluc.avif",
-        "wish": "assets/character/wish/Diluc.avif",
-        "ingame": "assets/character/ingame/Diluc.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Diluc.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "About Us: Proof",
-            "text": "You have already proven your determination. Well then, it is now time for you to witness my resolve.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Diluc/story/en/About Us - Proof.mp3"
+        voice_overs: {
+            en: {
+                title: 'Good Afternoon',
+                text: 'Hmm? Spare me that look, is it not your turn to prepare luncheon today?',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xianyun/story/en/Good Afternoon.mp3',
+            },
+            zh: {
+                title: '中午好…',
+                text: '嗯？看本仙做什么，今天不是轮到你准备午饭了吗？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xianyun/story/zh/中午好….mp3',
+            },
+            ja: {
+                title: 'こんにちは…',
+                text: 'ふむ？妾をじっと見てどうした。今日の昼餉はお前が作る番だろう？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xianyun/story/ja/こんにちは….mp3',
+            },
+            ko: {
+                title: '점심 인사…',
+                text: '응? 왜 날 보는 것이냐? 오늘은 네가 점심 식사 당번 아니었나?',
+                reading: 'Eung? Wae nal boneun geosinya? Oneureun nega jeomsim siksa dangbeon anieonna?',
+                audio: 'assets/character/voice_overs/Xianyun/story/ko/점심 인사….mp3',
+            },
+        },
+        version: '4.4',
+        demo_music: {
+            name: 'Borrowing Winds of Harmony',
+            url: 'assets/character/demo_music/Xianyun.mp3',
+        },
+    },
+    {
+        name: 'Xiao',
+        card_icon: 'assets/character/card/Xiao.avif',
+        wish_icon: 'assets/character/wish/Xiao.avif',
+        ingame_icon: 'assets/character/ingame/Xiao.avif',
+        icon: 'assets/character/icon/Xiao.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
         },
-        "roles": [
+        model: 'Medium Male',
+        birthday: 'April 17th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: '"Sweet Dream"',
+            icon: 'assets/foods/"Sweet Dream".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Xiao.avif',
+            background: 'assets/character/namecard_background/Xiao.avif',
+            banner: 'assets/character/namecard_banner/Xiao.avif',
+            description: 'He longs for a day to come when he will wear the mask and dance — not to conquer demons, but to the tune of that flute amid a sea of flowers.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Xiao'],
+        },
+        release_date: 'February 03, 2021',
+        voice_actors: [
             {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
+                language: 'English',
+                actor: 'Laila Berzins',
             },
             {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "April 30th",
-        "affiliations": [
-            "Dawn Winery",
-            "Knights of Favonius"
+                language: 'Chinese',
+                actor: 'kinsen',
+            },
+            {
+                language: 'Japanese',
+                actor: 'Matsuoka Yoshitsugu (松岡 禎丞)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Sim Kyu-hyuk (심규혁)',
+            },
         ],
-        "special_dish": {
-            "name": "\"Once Upon a Time in Mondstadt\"",
-            "icon": "assets/foods/Once Upon a Time in Mondstadt.png"
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: 'Once the snow is thick enough, we can eat it.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xiao/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '雪积起来之后，就可以挖着吃了。',
+                reading: 'Xuě jīqǐlái zhīhòu, jiù kěyǐ wāzhe chīle.',
+                audio: 'assets/character/voice_overs/Xiao/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: '雪が積もったら、それを握って食えるな…',
+                reading: 'Yuki ga tsumottara, sore wo nigitte kueru na...',
+                audio: 'assets/character/voice_overs/Xiao/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '눈이 쌓이고 나면, 파먹을 수 있어',
+                reading: 'Nuni ssaigo namyeon, pameogeul su isseo',
+                audio: 'assets/character/voice_overs/Xiao/story/ko/눈이 올 때….mp3',
+            },
         },
-        "titles": [
-            "Master of the Dawn Winery"
-        ],
-        "voice_actors": [
+        version: '1.3',
+        demo_music: {
+            name: 'Path of Yaksha',
+            url: 'assets/character/demo_music/Xiao.mp3',
+        },
+    },
+    {
+        name: 'Xilonen',
+        card_icon: 'assets/character/card/Xilonen.avif',
+        wish_icon: 'assets/character/wish/Xilonen.avif',
+        ingame_icon: 'assets/character/ingame/Xilonen.avif',
+        icon: 'assets/character/icon/Xilonen.avif',
+        quality: '5',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'March 13th',
+        region: {
+            name: 'Natlan',
+            icon: 'assets/regions/Natlan.avif',
+        },
+        special_dish: {
+            name: 'Fruit-Flavored Milk Candies',
+            icon: 'assets/foods/Fruit-Flavored Milk Candies.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Xilonen.avif',
+            background: 'assets/character/namecard_background/Xilonen.avif',
+            banner: 'assets/character/namecard_banner/Xilonen.avif',
+            description:
+                "Right on cue, the mountains echo with the rhythm of Xilonen's forge-hammer. When the final echo fades, she has already long ceased her toil and found a sunlit spot for her afternoon nap.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Xilonen'],
+        },
+        release_date: 'October 09, 2024',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Sean Chiplock"
+                language: 'English',
+                actor: 'Elizabeth Dean',
             },
             {
-                "language": "Chinese",
-                "actor": "Ma Yang (马洋)"
+                language: 'Chinese',
+                actor: 'Mi Yang (弭洋)',
             },
             {
-                "language": "Japanese",
-                "actor": "Ono Kensho (小野賢章)"
+                language: 'Japanese',
+                actor: 'Fairouz Ai (ファイルーズ あい)',
             },
             {
-                "language": "Korean",
-                "actor": "Choi Seung-hoon (최승훈)"
-            }
+                language: 'Korean',
+                actor: 'Kim I-an (김이안)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Diluc.png"
-        }
-    },
-    {
-        "name": "Diona",
-        "namecard_name": "Meow!",
-        "namecard_description": "All who have Kätzlein blood will have such feline features. An ancient prank played by a certain someone, perhaps?'",
-        "namecard_icon": "assets/character/namecard_icon/Diona.png",
-        "namecard_background": "assets/character/namecard_background/Diona.png",
-        "namecard_banner": "assets/character/namecard_banner/Diona.avif",
-        "card": "assets/character/card/Diona.avif",
-        "wish": "assets/character/wish/Diona.avif",
-        "ingame": "assets/character/ingame/Diona.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "November 11, 2020",
-        "version": "1.1",
-        "icon": "assets/character/icon/Diona.avif",
-        "demo_music_name": "Exclusive Specialty",
-        "demo_music": "assets/character/demo_music/Diona.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Ahh!!! Uhh, um... I'm not shaking, I'm not... Ohhhh...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Diona/story/en/When Thunder Strikes.mp3"
+        voice_overs: {
+            en: {
+                title: 'Chat: Potted Plant',
+                text: "*sigh* My potted plant on the porch has died again. I was watering it every day... Don't tell me I overdid it this time?",
+                reading: null,
+                audio: 'assets/character/voice_overs/Xilonen/story/en/Chat - Potted Plant.mp3',
+            },
+            zh: {
+                title: '闲聊·绿植',
+                text: '唉，阳台上的那盆花又枯了，我明明每天都给它浇水…难道这次是浇太多了？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xilonen/story/zh/闲聊·绿植.mp3',
+            },
+            ja: {
+                title: '世間話・植物',
+                text: 'あちゃー、ベランダの花がまた枯れてる。毎日水やりしてるのに…もしかして、逆にやり過ぎ？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xilonen/story/ja/世間話・植物.mp3',
+            },
+            ko: {
+                title: '잡담·녹색 식물',
+                text: '하아, 베란다에 있는 화분이 또 시들었어. 분명 매일 물을 줬는데… 설마 물을 너무 자주 줬나?',
+                reading: "Haa, beranda'e inneun hwabuni tto sideureosseo. Bunmyeong maeil mureul jwonneunde... Seolma mureul neomu jaju jwonna?",
+                audio: 'assets/character/voice_overs/Xilonen/story/ko/잡담·녹색 식물.mp3',
+            },
+        },
+        version: '5.1',
+        demo_music: {
+            name: 'Lights on Me',
+            url: 'assets/character/demo_music/Xilonen.mp3',
+        },
+    },
+    {
+        name: 'Xingqiu',
+        card_icon: 'assets/character/card/Xingqiu.avif',
+        wish_icon: 'assets/character/wish/Xingqiu.avif',
+        ingame_icon: 'assets/character/ingame/Xingqiu.avif',
+        icon: 'assets/character/icon/Xingqiu.avif',
+        quality: '4',
+        weapon: {
+            name: 'Sword',
+            icon: 'assets/weapon_types/Sword.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
         },
-        "roles": [
+        model: 'Medium Male',
+        birthday: 'October 9th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'All-Delicacy Parcels',
+            icon: 'assets/foods/All-Delicacy Parcels.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Xingqiu.avif',
+            background: 'assets/character/namecard_background/Xingqiu.avif',
+            banner: 'assets/character/namecard_banner/Xingqiu.avif',
+            description: 'Come watch the night rain that brings no rainbow.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Xingqiu'],
+        },
+        release_date: 'September 28, 2020',
+        voice_actors: [
             {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'English',
+                actor: 'Cristina Vee Valenzuela',
             },
             {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "January 18th",
-        "affiliations": [
-            "The Cat's Tail",
-            "Kätzlein Bloodline"
-        ],
-        "special_dish": {
-            "name": "Definitely Not Bar Food!",
-            "icon": "assets/foods/Definitely Not Bar Food!.png"
-        },
-        "titles": [
-            "Popular bartender of the Cat's Tail"
-        ],
-        "voice_actors": [
+                language: 'Chinese',
+                actor: 'Tang Yajing (唐雅菁)',
+            },
             {
-                "language": "English",
-                "actor": "Dina Sherman"
+                language: 'Japanese',
+                actor: 'Minagawa Junko (皆川 純子)',
             },
             {
-                "language": "Chinese",
-                "actor": "Nuoya (诺亚)"
+                language: 'Korean',
+                actor: 'Gwak Gyu-mi (곽규미)',
             },
+        ],
+        voice_overs: {
+            en: {
+                title: 'Chat: Taking a Break',
+                text: 'Now this is what I call, "a moment of solitude."',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xingqiu/story/en/Chat - Taking a Break.mp3',
+            },
+            zh: {
+                title: '闲聊・偷闲',
+                text: '正所谓「偷得浮生半日闲」，哈哈。',
+                reading: 'Zhèng suǒwèi "tōu dé fúshēng bànrì xián", hāhā.',
+                audio: 'assets/character/voice_overs/Xingqiu/story/zh/闲聊・偷闲.mp3',
+            },
+            ja: {
+                title: '世間話・暇を得る',
+                text: '「儚い人生の中で一瞬の暇を得た」というやつだ、ハハッ。',
+                reading: '"Hakanai jinsei no naka de isshun no itoma wo eta" to iu yatsu da, haha\'.',
+                audio: 'assets/character/voice_overs/Xingqiu/story/ja/世間話・暇を得る.mp3',
+            },
+            ko: {
+                title: '잡담・잠깐의 휴식',
+                text: '이른바 「어지러운 속세에서 잠시 동안 한적함을 얻는다」로군, 하하',
+                reading: 'Ireunba "Eojireoun sokseeseo jamsi dong\'an hanjeokhameul eonneunda"-rogun, haha',
+                audio: 'assets/character/voice_overs/Xingqiu/story/ko/잡담・잠깐의 휴식.mp3',
+            },
+        },
+        version: '1.0',
+        demo_music: null,
+    },
+    {
+        name: 'Xinyan',
+        card_icon: 'assets/character/card/Xinyan.avif',
+        wish_icon: 'assets/character/wish/Xinyan.avif',
+        ingame_icon: 'assets/character/ingame/Xinyan.avif',
+        icon: 'assets/character/icon/Xinyan.avif',
+        quality: '4',
+        weapon: {
+            name: 'Claymore',
+            icon: 'assets/weapon_types/Claymore.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'October 16th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: "Rockin' Riffin' Chicken!",
+            icon: "assets/foods/Rockin' Riffin' Chicken!.avif",
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Xinyan.avif',
+            background: 'assets/character/namecard_background/Xinyan.avif',
+            banner: 'assets/character/namecard_banner/Xinyan.avif',
+            description: 'Xinyan only has time to examine her instrument carefully after the performance is over. Even in silence, it is a beauty.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Xinyan'],
+        },
+        release_date: 'December 01, 2020',
+        voice_actors: [
             {
-                "language": "Japanese",
-                "actor": "Izawa Shiori (井澤詩織)"
+                language: 'English',
+                actor: 'Laura Stahl',
             },
             {
-                "language": "Korean",
-                "actor": "Woo Jeong-sin (우정신)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Diona.png"
-        }
-    },
-    {
-        "name": "Dori",
-        "namecard_name": "Jinni",
-        "namecard_description": "If you wipe the lamp she gave you and then scrub the Mora you gave her, no wish is unattainable... right?'",
-        "namecard_icon": "assets/character/namecard_icon/Dori.png",
-        "namecard_background": "assets/character/namecard_background/Dori.png",
-        "namecard_banner": "assets/character/namecard_banner/Dori.avif",
-        "card": "assets/character/card/Dori.avif",
-        "wish": "assets/character/wish/Dori.avif",
-        "ingame": "assets/character/ingame/Dori.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "September 09, 2022",
-        "version": "3.0",
-        "icon": "assets/character/icon/Dori.avif",
-        "demo_music_name": "Thanks for Your Patronage!",
-        "demo_music": "assets/character/demo_music/Dori.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "Oh oh oh! Check out my fully-automatic snowball maker! It's one of a kind! Wanna give it a try? I'll even throw in a 5% discount on the rental!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Dori/story/en/When It Snows.mp3"
-        },
-        "roles": [
+                language: 'Chinese',
+                actor: 'Wang Yaxin (王雅欣)',
+            },
             {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'Japanese',
+                actor: 'Takahashi Chiaki (たかはし智秋)',
             },
             {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "December 21st",
-        "affiliations": [
-            "The Palace of Alcazarzaray"
+                language: 'Korean',
+                actor: 'Kim Chae-ha (김채하)',
+            },
         ],
-        "special_dish": {
-            "name": "Show Me the Mora",
-            "icon": "assets/foods/Show Me the Mora.png"
+        voice_overs: {
+            en: {
+                title: 'Good Afternoon',
+                text: "Alright, that's a wrap! *yawns* If there's nothin' else, I'll go take a nap somewhere...",
+                reading: null,
+                audio: 'assets/character/voice_overs/Xinyan/story/en/Good Afternoon.mp3',
+            },
+            zh: {
+                title: '中午好…',
+                text: '啊，收工了收工了，哈…没什么事的话，我去打个盹儿。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Xinyan/story/zh/中午好….mp3',
+            },
+            ja: {
+                title: 'こんにちは…',
+                text: 'あがりあがり、ふわぁー——用事がないんならちょっと寝てくる…',
+                reading: 'Agari agari, fuwaaa⸺ Youji ga nai n nara chotto nete kuru...',
+                audio: 'assets/character/voice_overs/Xinyan/story/ja/こんにちは….mp3',
+            },
+            ko: {
+                title: '점심 인사…',
+                text: '끝났다, 끝났어. 하암——별일 없으면 잠깐 좀 잘래…',
+                reading: 'Kkeunnatda, kkeunnass-eo. Haam—— byeor-il eobs-eumyeon jamkkan jom jallae...',
+                audio: 'assets/character/voice_overs/Xinyan/story/ko/점심 인사….mp3',
+            },
         },
-        "titles": [
-            "Sumeru Merchant"
-        ],
-        "voice_actors": [
+        version: '1.1',
+        demo_music: {
+            name: "Rockin' With Fire",
+            url: 'assets/character/demo_music/Xinyan.mp3',
+        },
+    },
+    {
+        name: 'Yae Miko',
+        card_icon: 'assets/character/card/Yae Miko.avif',
+        wish_icon: 'assets/character/wish/Yae Miko.avif',
+        ingame_icon: 'assets/character/ingame/Yae Miko.avif',
+        icon: 'assets/character/icon/Yae Miko.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Electro',
+            icon: 'assets/elements/Electro.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'June 27th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Fukuuchi Udon',
+            icon: 'assets/foods/Fukuuchi Udon.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Yae Miko.avif',
+            background: 'assets/character/namecard_background/Yae Miko.avif',
+            banner: 'assets/character/namecard_banner/Yae Miko.avif',
+            description: "Where can Yae Miko's fox form be found? In your dreams, that's where.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Yae Miko'],
+        },
+        release_date: 'February 16, 2022',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Anjali Kunapaneni"
+                language: 'English',
+                actor: 'Ratana',
             },
             {
-                "language": "Chinese",
-                "actor": "Wang Xiaotong (王晓彤)"
+                language: 'Chinese',
+                actor: 'Du Mingya (杜冥鸦)',
             },
             {
-                "language": "Japanese",
-                "actor": "Kaneda Tomoko (金田朋子)"
+                language: 'Japanese',
+                actor: 'Sakura Ayane (佐倉綾音)',
             },
             {
-                "language": "Korean",
-                "actor": "Lee Myeong-ho (이명호)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Dori.png"
-        }
-    },
-    {
-        "name": "Emilie",
-        "namecard_name": "Base Note",
-        "namecard_description": "'The top note is sweet, the middle rich but not distracting, and the base — Ah! Such a faint fragrance! Such an exquisite perfume.'Orders flow in and out in an endless stream, and to prevent any scents from disturbing her work, Emilie very seldom uses perfume herself. Alas. When will she have the chance to delight in those base notes?'",
-        "namecard_icon": "assets/character/namecard_icon/Emilie.png",
-        "namecard_background": "assets/character/namecard_background/Emilie.png",
-        "namecard_banner": "assets/character/namecard_banner/Emilie.avif",
-        "card": "assets/character/card/Emilie.avif",
-        "wish": "assets/character/wish/Emilie.avif",
-        "ingame": "assets/character/ingame/Emilie.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "August 06, 2024",
-        "version": "4.8",
-        "icon": "assets/character/icon/Emilie.avif",
-        "demo_music_name": "Notes Aeriennes",
-        "demo_music": "assets/character/demo_music/Emilie.mp3",
-        "voice_over": {
-            "title": "Chat: Newspaper",
-            "text": "Would you mind coming with me to buy a copy of today's newspaper?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Emilie/story/en/Chat - Newspaper.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'Korean',
+                actor: 'Moon Yoo-jeong (문유정)',
             },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
         ],
-        "birthday": "September 22nd",
-        "affiliations": [
-            "Court of Fontaine",
-            "Maison Gardiennage"
-        ],
-        "special_dish": {
-            "name": "A Fragrant Feast of Flavors",
-            "icon": "assets/foods/A Fragrant Feast of Flavors.png"
+        voice_overs: {
+            en: {
+                title: 'Chat: Mortal World',
+                text: 'Personally, I think the idea of things staying the same forever is quite beautiful. *sigh* But alas, that is simply not the way the world works.',
+                reading: null,
+                audio: 'assets/character/voice_overs/Yae Miko/story/en/Chat - Mortal World.mp3',
+            },
+            zh: {
+                title: '闲聊・尘世',
+                text: '于我而言，不变也是一种美好，哎呀，可尘世哪是如此不变之物。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Yae Miko/story/zh/闲聊・尘世.mp3',
+            },
+            ja: {
+                title: '世間話・塵世',
+                text: '妾にとって、不変も一種の美。はぁ…じゃが、俗世とはいつまでも変わらぬまま続くものではない…',
+                reading: 'Warawa ni totte, fuhen mo isshu no bi. Haa... ja ga, zokuse to wa itsu made mo kawaranu mama tsudzuku mono de wa nai...',
+                audio: 'assets/character/voice_overs/Yae Miko/story/ja/世間話・塵世.mp3',
+            },
+            ko: {
+                title: '잡담・속세',
+                text: '난 변하지 않는 것도 일종의 아름다움이라고 생각해. 휴, 하지만 속세에 변하지 않는 게 있을까?',
+                reading: 'Nan byeonhaji anneun geotdo iljong-ui areumdaumirago saenggakae. Hyu, hajiman soksse-e byeonhaji anneun ge isseulkka?',
+                audio: 'assets/character/voice_overs/Yae Miko/story/ko/잡담・속세.mp3',
+            },
         },
-        "titles": [
-            "Renowned Perfumer"
-        ],
-        "voice_actors": [
+        version: '2.5',
+        demo_music: {
+            name: 'Nothing but Trickery',
+            url: 'assets/character/demo_music/Yae Miko.mp3',
+        },
+    },
+    {
+        name: 'Yanfei',
+        card_icon: 'assets/character/card/Yanfei.avif',
+        wish_icon: 'assets/character/wish/Yanfei.avif',
+        ingame_icon: 'assets/character/ingame/Yanfei.avif',
+        icon: 'assets/character/icon/Yanfei.avif',
+        quality: '4',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'July 28th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: '"My Way"',
+            icon: 'assets/foods/"My Way".avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Yanfei.avif',
+            background: 'assets/character/namecard_background/Yanfei.avif',
+            banner: 'assets/character/namecard_banner/Yanfei.avif',
+            description: 'Justice, signed in scarlet.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Yanfei'],
+        },
+        release_date: 'April 28, 2021',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Amber Aviles"
+                language: 'English',
+                actor: 'Lizzie Freeman',
             },
             {
-                "language": "Chinese",
-                "actor": "Muzi Cheng (木子橙)"
+                language: 'Chinese',
+                actor: 'Su Ziwu (苏子芜)',
             },
             {
-                "language": "Japanese",
-                "actor": "Hikasa Yoko (日笠陽子)"
+                language: 'Japanese',
+                actor: 'Hanamori Yumiri (花守 ゆみり)',
             },
-            {
-                "language": "Korean",
-                "actor": "Kwon Da-ye (권다예)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Emilie.png"
-        }
-    },
-    {
-        "name": "Eula",
-        "namecard_name": "Ice-Sealed",
-        "namecard_description": "A cold heart is but a shell to protect oneself.'",
-        "namecard_icon": "assets/character/namecard_icon/Eula.png",
-        "namecard_background": "assets/character/namecard_background/Eula.png",
-        "namecard_banner": "assets/character/namecard_banner/Eula.avif",
-        "card": "assets/character/card/Eula.avif",
-        "wish": "assets/character/wish/Eula.avif",
-        "ingame": "assets/character/ingame/Eula.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "May 18, 2021",
-        "version": "1.5",
-        "icon": "assets/character/icon/Eula.avif",
-        "demo_music_name": "Dance of Aphros",
-        "demo_music": "assets/character/demo_music/Eula.mp3",
-        "voice_over": {
-            "title": "When the Sun Is Out",
-            "text": "Visibility is excellent! If we head to higher ground, we can do a full recon of enemy activity in the area.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Eula/story/en/When the Sun Is Out.mp3"
-        },
-        "roles": [
             {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
+                language: 'Korean',
+                actor: 'Cho Kyung-yi (조경이)',
             },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "October 25th",
-        "affiliations": [
-            "Knights of Favonius",
-            "Lawrence Clan"
         ],
-        "special_dish": {
-            "name": "Stormcrest Pie",
-            "icon": "assets/foods/Stormcrest Pie.png"
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: "What the... What kind of injurious weather is this!? It's c—cold... Achoo...",
+                reading: null,
+                audio: 'assets/character/voice_overs/Yanfei/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '这…这是什么倒霉天气，有、有点冷哦…阿嚏…',
+                reading: null,
+                audio: 'assets/character/voice_overs/Yanfei/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: 'はぁ…なんて最悪な天気なんだ…ひ、冷えるな…ハ、ハックション…',
+                reading: 'Haa... Nante saiaku-na tenki nan da... Hi, hieru-na... Ha, hakkushon...',
+                audio: 'assets/character/voice_overs/Yanfei/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '뭐, 뭐야 이 날씨! 좀 춥네…. 엣취…',
+                reading: 'Mwo, mwoya i nalssi! Jom chumne... etchwi...!',
+                audio: 'assets/character/voice_overs/Yanfei/story/ko/눈이 올 때….mp3',
+            },
         },
-        "titles": [
-            "Spindrift Knight"
-        ],
-        "voice_actors": [
+        version: '1.5',
+        demo_music: {
+            name: 'Marching of Xiezhi',
+            url: 'assets/character/demo_music/Yanfei.mp3',
+        },
+    },
+    {
+        name: 'Yaoyao',
+        card_icon: 'assets/character/card/Yaoyao.avif',
+        wish_icon: 'assets/character/wish/Yaoyao.avif',
+        ingame_icon: 'assets/character/ingame/Yaoyao.avif',
+        icon: 'assets/character/icon/Yaoyao.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Dendro',
+            icon: 'assets/elements/Dendro.avif',
+        },
+        model: 'Short Female',
+        birthday: 'March 6th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Qingce Household Dish',
+            icon: 'assets/foods/Qingce Household Dish.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Yaoyao.avif',
+            background: 'assets/character/namecard_background/Yaoyao.avif',
+            banner: 'assets/character/namecard_banner/Yaoyao.avif',
+            description: '"Can you guess which one here is Yuegui? That\'s right, all of them are!"',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Yaoyao'],
+        },
+        release_date: 'January 18, 2023',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Suzie Yeung"
+                language: 'English',
+                actor: 'Kelsey Jaffer',
             },
             {
-                "language": "Chinese",
-                "actor": "Ziyin (子音)"
+                language: 'Chinese',
+                actor: 'Liu Yinuo (刘颐诺)',
             },
-            {
-                "language": "Japanese",
-                "actor": "Satou Rina (佐藤 利奈)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Hyeon-ji (김현지)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Eula.png"
-        }
-    },
-    {
-        "name": "Faruzan",
-        "namecard_name": "Sealed Secret",
-        "namecard_description": "'A—Anyway! Next time, remember to refer to me as Madam Faruzan before you ask a question! Seriously...''",
-        "namecard_icon": "assets/character/namecard_icon/Faruzan.png",
-        "namecard_background": "assets/character/namecard_background/Faruzan.png",
-        "namecard_banner": "assets/character/namecard_banner/Faruzan.avif",
-        "card": "assets/character/card/Faruzan.avif",
-        "wish": "assets/character/wish/Faruzan.avif",
-        "ingame": "assets/character/ingame/Faruzan.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "December 07, 2022",
-        "version": "3.3",
-        "icon": "assets/character/icon/Faruzan.avif",
-        "demo_music_name": "Whirling of Vairambhaka",
-        "demo_music": "assets/character/demo_music/Faruzan.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "How beautiful... How awe-inspiring... Achoo! *sniffle* Yes, and very cold-inducing as well...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Faruzan/story/en/When It Snows.mp3"
-        },
-        "roles": [
             {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
+                language: 'Japanese',
+                actor: 'Kadowaki Mai (門脇舞以)',
             },
             {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "August 20th",
-        "affiliations": [
-            "Haravatat"
+                language: 'Korean',
+                actor: 'Yu Hye-ji (유혜지)',
+            },
         ],
-        "special_dish": {
-            "name": "Traditionally-Made Charcoal-Baked Ajilenakh Cake",
-            "icon": "assets/foods/Traditionally-Made Charcoal-Baked Ajilenakh Cake.png"
+        voice_overs: {
+            en: {
+                title: 'When It Rains',
+                text: "Hey, can you hear the frogs croaking? Hehe, silly frogs! They're singing along to the sound of the rain! Ribbit, ribbit, ribbit~",
+                reading: null,
+                audio: 'assets/character/voice_overs/Yaoyao/story/en/When It Rains.mp3',
+            },
+            zh: {
+                title: '下雨的时候…',
+                text: '你听，青蛙的叫声，像不像在给雨声伴奏？呱呱呱。',
+                reading: 'Nǐ tīng, qīngwā de jiàoshēng, xiàngbuxiàng zài gěi yǔshēng bànzòu? Gua gua gua.',
+                audio: 'assets/character/voice_overs/Yaoyao/story/zh/下雨的时候….mp3',
+            },
+            ja: {
+                title: '雨の日…',
+                text: '聞いて、カエルの鳴き声！雨音の伴奏をしてるみたいだよね？ケロケロケロ～',
+                reading: 'Kiite, kaeru no nakigoe! Amaoto no bansou wo shiteru mitai da yo ne? Kerokerokero~',
+                audio: 'assets/character/voice_overs/Yaoyao/story/ja/雨の日….mp3',
+            },
+            ko: {
+                title: '비가 올 때…',
+                text: '들어봐, 개구리 우는 소리가 꼭 빗소리에 반주를 넣는 것 같지 않아? 개굴개굴개굴~',
+                reading: 'Deureobwa, gaeguri uneun soriga kkok bissorie banjureul neonneun geot gachi ana? Gaegulgaegulgaegul~',
+                audio: 'assets/character/voice_overs/Yaoyao/story/ko/비가 올 때….mp3',
+            },
         },
-        "titles": [
-            "Haravatat Household Name"
-        ],
-        "voice_actors": [
+        version: '3.4',
+        demo_music: {
+            name: 'Immaculate Ardency',
+            url: 'assets/character/demo_music/Yaoyao.mp3',
+        },
+    },
+    {
+        name: 'Yelan',
+        card_icon: 'assets/character/card/Yelan.avif',
+        wish_icon: 'assets/character/wish/Yelan.avif',
+        ingame_icon: 'assets/character/ingame/Yelan.avif',
+        icon: 'assets/character/icon/Yelan.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Hydro',
+            icon: 'assets/elements/Hydro.avif',
+        },
+        model: 'Tall Female',
+        birthday: 'April 20th',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Dew-Dipped Shrimp',
+            icon: 'assets/foods/Dew-Dipped Shrimp.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Yelan.avif',
+            background: 'assets/character/namecard_background/Yelan.avif',
+            banner: 'assets/character/namecard_banner/Yelan.avif',
+            description: '"Dice are always quite hard to make \'fair.\' That goes double for dice with shoddier workmanship. The weighting on each numbered side will almost certainly be unbalanced."',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Yelan'],
+        },
+        release_date: 'May 31, 2022',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Chandni Parekh"
+                language: 'English',
+                actor: 'Laura Post',
             },
             {
-                "language": "Chinese",
-                "actor": "Yan Mengmeng (阎萌萌)"
+                language: 'Chinese',
+                actor: 'Xu Hui (徐慧)',
             },
             {
-                "language": "Japanese",
-                "actor": "Horie Yui (堀江 由衣)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim You-rim (김유림)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Faruzan.png"
-        }
-    },
-    {
-        "name": "Fischl",
-        "namecard_name": "Night Raven",
-        "namecard_description": "A raven dark as midnight with wings that can block out the sun. 'I permit thee to conceive his likeness upon such decoration!''",
-        "namecard_icon": "assets/character/namecard_icon/Fischl.png",
-        "namecard_background": "assets/character/namecard_background/Fischl.png",
-        "namecard_banner": "assets/character/namecard_banner/Fischl.avif",
-        "card": "assets/character/card/Fischl.avif",
-        "wish": "assets/character/wish/Fischl.avif",
-        "ingame": "assets/character/ingame/Fischl.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Fischl.avif",
-        "demo_music_name": "Ouvertüre der ewigen Nacht",
-        "demo_music": "assets/character/demo_music/Fischl.mp3",
-        "voice_over": {
-            "title": "Good Morning: Greet Fischl",
-            "text": "Dusk and dawn but fleeting shadows are. Once more, the twists of fate have led you into my everlasting night.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Fischl/story/en/Good Morning - Greet Fischl.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
+                language: 'Japanese',
+                actor: 'Endou Aya (遠藤 綾)',
+            },
             {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "May 27th",
-        "affiliations": [
-            "Adventurers' Guild"
+                language: 'Korean',
+                actor: 'Min-a (민아)',
+            },
         ],
-        "special_dish": {
-            "name": "Die Heilige Sinfonie",
-            "icon": "assets/foods/Die Heilige Sinfonie.png"
+        voice_overs: {
+            en: {
+                title: 'Chat: Truancy',
+                text: "Good roll... Alright, maybe I'll take one more day off, and knock out the rest of the work once I'm feeling up to it.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Yelan/story/en/Chat - Truancy.mp3',
+            },
+            zh: {
+                title: '闲聊・翘班',
+                text: '点数不错，今天就继续翘班吧，等到状态好了，再去把活一次干完。',
+                reading: 'Diǎnshù búcuò, jīntiān jiù jìxù qiàobān ba, děngdào zhuàngtài hǎole, zài qù bǎ huó yīcì gànwán.',
+                audio: 'assets/character/voice_overs/Yelan/story/zh/闲聊・翘班.mp3',
+            },
+            ja: {
+                title: '世間話・サボり',
+                text: '悪くない目が出たわ、今日も引き続きサボりましょう。調子が良くなってから、仕事を一気に終わらせるわよ。',
+                reading: 'Warukunai me ga detawa, kyou mo hikitsudzuki saborimashou. Chooshi ga yoku natte kara, shigoto wo ikkini owara seru wa yo.',
+                audio: 'assets/character/voice_overs/Yelan/story/ja/世間話・サボり.mp3',
+            },
+            ko: {
+                title: '잡담・무단결근',
+                text: '숫자가 괜찮게 나왔네. 그럼 오늘도 계속해서 땡땡이나 쳐볼까나. 일은 컨디션이 좋은 날에 한꺼번에 해치우자고',
+                reading: "Sutjaga gwaenchanke nawanne. Geureom oneuldo gyesokhaeseo ttaengttaeng'ina chyeobolkkana. Ireun keondisyeoni joeun nare hankkeobeone haechiujago",
+                audio: 'assets/character/voice_overs/Yelan/story/ko/잡담・무단결근.mp3',
+            },
         },
-        "titles": [
-            "Sovereign of Immernachtreich"
-        ],
-        "voice_actors": [
+        version: '2.7',
+        demo_music: {
+            name: 'Graceful Dexterity',
+            url: 'assets/character/demo_music/Yelan.mp3',
+        },
+    },
+    {
+        name: 'Yoimiya',
+        card_icon: 'assets/character/card/Yoimiya.avif',
+        wish_icon: 'assets/character/wish/Yoimiya.avif',
+        ingame_icon: 'assets/character/ingame/Yoimiya.avif',
+        icon: 'assets/character/icon/Yoimiya.avif',
+        quality: '5',
+        weapon: {
+            name: 'Bow',
+            icon: 'assets/weapon_types/Bow.avif',
+        },
+        element: {
+            name: 'Pyro',
+            icon: 'assets/elements/Pyro.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'June 21st',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Summer Festival Fish',
+            icon: 'assets/foods/Summer Festival Fish.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Yoimiya.avif',
+            background: 'assets/character/namecard_background/Yoimiya.avif',
+            banner: 'assets/character/namecard_banner/Yoimiya.avif',
+            description: 'Even momentarily sparks can leave beautiful, unquenchable flames in the hearts of those who watch the night sky.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Yoimiya'],
+        },
+        release_date: 'August 10, 2021',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Jenny Yokobori',
+            },
+            {
+                language: 'Chinese',
+                actor: 'Jin Na (金娜)',
+            },
             {
-                "language": "English",
-                "actor": "Brittany Cox"
+                language: 'Japanese',
+                actor: 'Ueda Kana (植田 佳奈)',
             },
             {
-                "language": "Chinese",
-                "actor": "Mace"
+                language: 'Korean',
+                actor: 'Bak Sin-hee (박신희)',
             },
-            {
-                "language": "Japanese",
-                "actor": "Uchida Maaya (内田真礼)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Park Go-woon (박고운)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Fischl.png"
-        }
-    },
-    {
-        "name": "Freminet",
-        "namecard_name": "Progress",
-        "namecard_description": "As the clockwork devices do naught but round and round in circles turn, the dolls march forward.'",
-        "namecard_icon": "assets/character/namecard_icon/Freminet.png",
-        "namecard_background": "assets/character/namecard_background/Freminet.png",
-        "namecard_banner": "assets/character/namecard_banner/Freminet.avif",
-        "card": "assets/character/card/Freminet.avif",
-        "wish": "assets/character/wish/Freminet.avif",
-        "ingame": "assets/character/ingame/Freminet.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "September 05, 2023",
-        "version": "4.0",
-        "icon": "assets/character/icon/Freminet.avif",
-        "demo_music_name": "Frigid Reverie",
-        "demo_music": "assets/character/demo_music/Freminet.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Don't be scared, Pers. I'll keep you safe.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Freminet/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "September 24th",
-        "affiliations": [
-            "Hotel Bouffes d'ete",
-            "House of the Hearth",
-            "Fatui"
         ],
-        "special_dish": {
-            "name": "\"Seabird's Sojourn\"",
-            "icon": "assets/foods/Seabird's Sojourn.png"
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: 'Haha, watch me make a snowball... pew!',
+                reading: null,
+                audio: 'assets/character/voice_overs/Yoimiya/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '哈哈，看我搓个雪球，咻——',
+                reading: 'Haha, kàn wǒ cuō gè xuěqiú, xiū!',
+                audio: 'assets/character/voice_overs/Yoimiya/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: 'ははっ、雪球をギュッと、ほれ——',
+                reading: "Haha', yukidama wo gyu' to, hore⸺",
+                audio: 'assets/character/voice_overs/Yoimiya/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '하하, 내가 만든 눈덩이를 봐. 슈욱——',
+                reading: "Haha, naega mandeun nundeong'ireul bwa. Syuuk⸺",
+                audio: 'assets/character/voice_overs/Yoimiya/story/ko/눈이 올 때….mp3',
+            },
         },
-        "titles": [
-            "Renowned Diver of the Court of Fontaine"
-        ],
-        "voice_actors": [
+        version: '2.0',
+        demo_music: {
+            name: 'Blossoms of Summer Night',
+            url: 'assets/character/demo_music/Yoimiya.mp3',
+        },
+    },
+    {
+        name: 'Yumemizuki Mizuki',
+        card_icon: 'assets/character/card/Yumemizuki Mizuki.avif',
+        wish_icon: 'assets/character/wish/Yumemizuki Mizuki.avif',
+        ingame_icon: 'assets/character/ingame/Yumemizuki Mizuki.avif',
+        icon: 'assets/character/icon/Yumemizuki Mizuki.avif',
+        quality: '5',
+        weapon: {
+            name: 'Catalyst',
+            icon: 'assets/weapon_types/Catalyst.avif',
+        },
+        element: {
+            name: 'Anemo',
+            icon: 'assets/elements/Anemo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'March 16th',
+        region: {
+            name: 'Inazuma',
+            icon: 'assets/regions/Inazuma.avif',
+        },
+        special_dish: {
+            name: 'Dreams of Healing',
+            icon: 'assets/foods/Dreams of Healing.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Yumemizuki Mizuki.avif',
+            background: 'assets/character/namecard_background/Yumemizuki Mizuki.avif',
+            banner: 'assets/character/namecard_banner/Yumemizuki Mizuki.avif',
+            description:
+                "The yumekui-baku consume nightmares and leave only pleasant dreams. But what if dreams are to be understood in reverse? Faced with such conjecture, her warm-natured response: A truly beautiful dream, even if turned upside down through reality's lens, would still remain beautiful.",
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Yumemizuki Mizuki'],
+        },
+        release_date: 'February 12, 2025',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Paul Castro Jr."
+                language: 'English',
+                actor: 'Naomi McDonald',
             },
             {
-                "language": "Chinese",
-                "actor": "Jinli (锦鲤)"
+                language: 'Chinese',
+                actor: 'Fumeng Ruowei (浮梦若薇)',
             },
             {
-                "language": "Japanese",
-                "actor": "Toki Shunichi (土岐隼一)"
+                language: 'Japanese',
+                actor: 'Aizawa Saya (会沢 紗弥)',
             },
             {
-                "language": "Korean",
-                "actor": "Lee Joo-Seung (이주승)"
-            }
+                language: 'Korean',
+                actor: 'Kim Seo-hyun (김서현)',
+            },
         ],
-        "build": {
-            "infographic": "assets/character/builds/Freminet.png"
-        }
+        voice_overs: {
+            en: {
+                title: 'When Thunder Strikes',
+                text: 'Ah, I wonder if the Almighty Shogun is having a bad day...',
+                reading: null,
+                audio: 'assets/character/voice_overs/Yumemizuki Mizuki/story/en/When Thunder Strikes.mp3',
+            },
+            zh: {
+                title: '打雷的时候…',
+                text: '莫非…将军大人今天的心情不好？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Yumemizuki Mizuki/story/zh/打雷的时候….mp3',
+            },
+            ja: {
+                title: '雷の日…',
+                text: '今日の将軍…もしかして、ご機嫌ななめ？',
+                reading: null,
+                audio: 'assets/character/voice_overs/Yumemizuki Mizuki/story/ja/雷の日….mp3',
+            },
+            ko: {
+                title: '번개가 칠 때…',
+                text: '혹시… 오늘 쇼군님의 기분이 안 좋으신 걸까?',
+                reading: 'Hoksi... Oneul syogunnimui gibuni an joeusin geolkka?',
+                audio: 'assets/character/voice_overs/Yumemizuki Mizuki/story/ko/번개가 칠 때….mp3',
+            },
+        },
+        version: '5.4',
+        demo_music: null,
     },
-    {
-        "name": "Furina",
-        "namecard_name": "Banquet",
-        "namecard_description": "Can one person eat every cake? If they eat one per day, they should be able to enjoy cake for a week or so, right? But will the cakes stay fresh that long? Hmm... Well, don't worry, because there will be friends coming to eat the cakes together.'",
-        "namecard_icon": "assets/character/namecard_icon/Furina.png",
-        "namecard_background": "assets/character/namecard_background/Furina.png",
-        "namecard_banner": "assets/character/namecard_banner/Furina.avif",
-        "card": "assets/character/card/Furina.avif",
-        "wish": "assets/character/wish/Furina.avif",
-        "ingame": "assets/character/ingame/Furina.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "November 08, 2023",
-        "version": "4.2",
-        "icon": "assets/character/icon/Furina.avif",
-        "demo_music_name": "Se mettre sur son trente-et-un !",
-        "demo_music": "assets/character/demo_music/Furina.mp3",
-        "voice_over": {
-            "title": "About Us: Our Story Together",
-            "text": "My story has already come to an end, and so the next act shall be about OUR story... In which case, we should probably start charging double for public appearances... Oh, I'm so happy!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Furina/story/en/About Us - Our Story Together.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "October 13th",
-        "affiliations": [
-            "Court of Fontaine",
-            "Opera Epiclese",
-            "The Seven",
-            "representative",
-            "[Note 1]"
-        ],
-        "special_dish": {
-            "name": "\"Pour la Justice\"",
-            "icon": "assets/foods/Pour la Justice.png"
+    {
+        name: 'Yun Jin',
+        card_icon: 'assets/character/card/Yun Jin.avif',
+        wish_icon: 'assets/character/wish/Yun Jin.avif',
+        ingame_icon: 'assets/character/ingame/Yun Jin.avif',
+        icon: 'assets/character/icon/Yun Jin.avif',
+        quality: '4',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
         },
-        "titles": [
-            "Regina of All Waters, Kindreds, Peoples and Laws"
-        ],
-        "voice_actors": [
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Medium Female',
+        birthday: 'May 21st',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Cloud-Shrouded Jade',
+            icon: 'assets/foods/Cloud-Shrouded Jade.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Yun Jin.avif',
+            background: 'assets/character/namecard_background/Yun Jin.avif',
+            banner: 'assets/character/namecard_banner/Yun Jin.avif',
+            description: 'Ms. Yun has two sorts of teachers. The critics of her onstage performances are one, and the books on rhyme she references while writing are the other.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Yun Jin'],
+        },
+        release_date: 'January 05, 2022',
+        voice_actors: [
+            {
+                language: 'English',
+                actor: 'Judy Alice Lee',
+            },
+            {
+                language: 'Chinese',
+                actor: 'He Wenxiao (贺文潇)',
+            },
             {
-                "language": "English",
-                "actor": "Amber Lee Connors"
+                language: 'Japanese',
+                actor: 'Koiwai Kotori (小岩井 ことり)',
             },
             {
-                "language": "Chinese",
-                "actor": "Qian Chen (钱琛)"
+                language: 'Korean',
+                actor: 'Sa Mun-yeong (사문영)',
             },
-            {
-                "language": "Japanese",
-                "actor": "Minase Inori (水瀬いのり)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Ha-yeong (김하영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Furina.png"
-        }
-    },
-    {
-        "name": "Gaming",
-        "namecard_name": "Man Chai",
-        "namecard_description": "'Don't stop believing, Man Chai. One day, we'll soar high, with nary a patched hole in our trousers.''",
-        "namecard_icon": "assets/character/namecard_icon/Gaming.png",
-        "namecard_background": "assets/character/namecard_background/Gaming.png",
-        "namecard_banner": "assets/character/namecard_banner/Gaming.avif",
-        "card": "assets/character/card/Gaming.avif",
-        "wish": "assets/character/wish/Gaming.avif",
-        "ingame": "assets/character/ingame/Gaming.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "January 31, 2024",
-        "version": "4.4",
-        "icon": "assets/character/icon/Gaming.avif",
-        "demo_music_name": "Propitious Ardor",
-        "demo_music": "assets/character/demo_music/Gaming.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "Ahhh... Eh? Why can't I catch any in my mouth?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Gaming/story/en/When It Snows.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "December 22nd",
-        "affiliations": [
-            "Sword and Strongbox Secure Transport Agency",
-            "Mighty Mythical Beasts"
         ],
-        "special_dish": {
-            "name": "Yummy Yum Cha",
-            "icon": "assets/foods/Yummy Yum Cha.png"
+        voice_overs: {
+            en: {
+                title: 'When It Snows',
+                text: '(Translated) Fie! This cold shall be mine end!',
+                reading: '(Actual Voice-Over: 喂呀，冻煞我了。)Actual Romanization: Wèi ya, dòng shā wǒ liǎo.',
+                audio: 'assets/character/voice_overs/Yun Jin/story/en/When It Snows.mp3',
+            },
+            zh: {
+                title: '下雪的时候…',
+                text: '喂呀，冻煞我了。',
+                reading: null,
+                audio: 'assets/character/voice_overs/Yun Jin/story/zh/下雪的时候….mp3',
+            },
+            ja: {
+                title: '雪の日…',
+                text: '（訳）ああ、凍えてしまいます。',
+                reading: '(Yaku) Aa, kogoete shimaimasu.',
+                audio: 'assets/character/voice_overs/Yun Jin/story/ja/雪の日….mp3',
+            },
+            ko: {
+                title: '눈이 올 때…',
+                text: '흐유, 추워 죽는 줄 알았군',
+                reading: 'Heuyu, chuwo jungneun jul aratgun',
+                audio: 'assets/character/voice_overs/Yun Jin/story/ko/눈이 올 때….mp3',
+            },
         },
-        "titles": [
-            "\"Sword and Strongbox\" Transport Guard"
-        ],
-        "voice_actors": [
+        version: '2.4',
+        demo_music: {
+            name: 'Chapter of a New Era',
+            url: 'assets/character/demo_music/Yun Jin.mp3',
+        },
+    },
+    {
+        name: 'Zhongli',
+        card_icon: 'assets/character/card/Zhongli.avif',
+        wish_icon: 'assets/character/wish/Zhongli.avif',
+        ingame_icon: 'assets/character/ingame/Zhongli.avif',
+        icon: 'assets/character/icon/Zhongli.avif',
+        quality: '5',
+        weapon: {
+            name: 'Polearm',
+            icon: 'assets/weapon_types/Polearm.avif',
+        },
+        element: {
+            name: 'Geo',
+            icon: 'assets/elements/Geo.avif',
+        },
+        model: 'Tall Male',
+        birthday: 'December 31st',
+        region: {
+            name: 'Liyue',
+            icon: 'assets/regions/Liyue.avif',
+        },
+        special_dish: {
+            name: 'Slow-Cooked Bamboo Shoot Soup',
+            icon: 'assets/foods/Slow-Cooked Bamboo Shoot Soup.avif',
+        },
+        namecard: {
+            icon: 'assets/character/namecard_icon/Zhongli.avif',
+            background: 'assets/character/namecard_background/Zhongli.avif',
+            banner: 'assets/character/namecard_banner/Zhongli.avif',
+            description: 'Stars fall, light dims.',
+            quality: '4',
+            sources: ['Reward for reaching Friendship Level 10 with Zhongli'],
+        },
+        release_date: 'December 01, 2020',
+        voice_actors: [
             {
-                "language": "English",
-                "actor": "Caleb Yen"
+                language: 'English',
+                actor: 'Keith Silverstein',
             },
             {
-                "language": "Chinese",
-                "actor": "Xie Ying (谢莹)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Komatsu Shouhei (小松昌平)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Yoon-ki (김윤기)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Gaming.png"
-        }
-    },
-    {
-        "name": "Ganyu",
-        "namecard_name": "Qilin",
-        "namecard_description": "Do no harm to plant nor insect.'",
-        "namecard_icon": "assets/character/namecard_icon/Ganyu.png",
-        "namecard_background": "assets/character/namecard_background/Ganyu.png",
-        "namecard_banner": "assets/character/namecard_banner/Ganyu.avif",
-        "card": "assets/character/card/Ganyu.avif",
-        "wish": "assets/character/wish/Ganyu.avif",
-        "ingame": "assets/character/ingame/Ganyu.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "January 12, 2021",
-        "version": "1.2",
-        "icon": "assets/character/icon/Ganyu.avif",
-        "demo_music_name": "Qilin's Prance",
-        "demo_music": "assets/character/demo_music/Ganyu.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "Morning! What's wrong, is there something stuck in my hair? ...Oh. Please don't stare at my h—hairpiece.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Ganyu/story/en/Good Morning.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "December 2nd",
-        "affiliations": [
-            "Yuehai Pavilion",
-            "Liyue Qixing Employees",
-            "Adepti"
-        ],
-        "special_dish": {
-            "name": "Prosperous Peace",
-            "icon": "assets/foods/Prosperous Peace.png"
-        },
-        "titles": [
-            "Secretary, Yuehai Pavilion"
-        ],
-        "voice_actors": [
+                language: 'Chinese',
+                actor: 'Peng Bo (彭博)',
+            },
             {
-                "language": "English",
-                "actor": "Jennifer Losi"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Lin Su (林簌)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Ueda Reina (上田 麗奈)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Sun-hye (김선혜)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Ganyu.png"
-        }
-    },
-    {
-        "name": "Gorou",
-        "namecard_name": "Leisurely Hound",
-        "namecard_description": "As long as you believe in the path you are walking, then everything you encounter on your journey will be a source of happiness.'",
-        "namecard_icon": "assets/character/namecard_icon/Gorou.png",
-        "namecard_background": "assets/character/namecard_background/Gorou.png",
-        "namecard_banner": "assets/character/namecard_banner/Gorou.avif",
-        "card": "assets/character/card/Gorou.avif",
-        "wish": "assets/character/wish/Gorou.avif",
-        "ingame": "assets/character/ingame/Gorou.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "December 14, 2021",
-        "version": "2.3",
-        "icon": "assets/character/icon/Gorou.avif",
-        "demo_music_name": "Astute and Fearless Leader",
-        "demo_music": "assets/character/demo_music/Gorou.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "Whew *shivering*... it's cold. These conditions are unsuitable for outdoor maneuvers.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Gorou/story/en/When It Snows.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "May 18th",
-        "affiliations": [
-            "Watatsumi Island",
-            "Watatsumi Army",
-            "Yae Publishing House"
+                language: 'Japanese',
+                actor: 'Maeno Tomoaki (前野智昭)',
+            },
+            {
+                language: 'Korean',
+                actor: 'Pyo Yeong-jae (표영재)',
+            },
         ],
-        "special_dish": {
-            "name": "Victorious Legend",
-            "icon": "assets/foods/Victorious Legend.png"
+        voice_overs: {
+            en: {
+                title: 'Chat: Journeys',
+                text: "Every journey has its final day. Don't rush.",
+                reading: null,
+                audio: 'assets/character/voice_overs/Zhongli/story/en/Chat - Journeys.mp3',
+            },
+            zh: {
+                title: '闲聊・旅程',
+                text: '旅程总有一天会迎来终点，不必匆忙。',
+                reading: 'Lǚchéng zǒngyǒu yìtiān huì yínglái zhōngdiǎn, bùbì cōngmáng.',
+                audio: 'assets/character/voice_overs/Zhongli/story/zh/闲聊・旅程.mp3',
+            },
+            ja: {
+                title: '世間話・旅',
+                text: '旅はいつか終わりを迎える、慌てる必要はない。',
+                reading: 'Tabi wa itsuka owari wo mukaeru, awateru hitsuyou wa nai.',
+                audio: 'assets/character/voice_overs/Zhongli/story/ja/世間話・旅.mp3',
+            },
+            ko: {
+                title: '잡담・여정',
+                text: '여정은 언젠가 끝나게 돼. 그러니 서두를 필요 없어',
+                reading: 'Yeojeong-eun eonjenga kkeutnage dwae. Geureoni seodureul piryo eopsseo',
+                audio: 'assets/character/voice_overs/Zhongli/story/ko/잡담・여정.mp3',
+            },
         },
-        "titles": [
-            "General of the Watatsumi Army"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Cory Yee"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Yang Xinran (杨昕燃)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Hatanaka Tasuku (畠中 祐)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Sae-byeok (이새벽)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Gorou.png"
-        }
-    },
-    {
-        "name": "Hu Tao",
-        "namecard_name": "Spirit Soother",
-        "namecard_description": "Director Hu Tao isn't scary at all. Probably.'",
-        "namecard_icon": "assets/character/namecard_icon/Hu Tao.png",
-        "namecard_background": "assets/character/namecard_background/Hu Tao.png",
-        "namecard_banner": "assets/character/namecard_banner/Hu Tao.avif",
-        "card": "assets/character/card/Hu Tao.avif",
-        "wish": "assets/character/wish/Hu Tao.avif",
-        "ingame": "assets/character/ingame/Hu Tao.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "March 02, 2021",
-        "version": "1.3",
-        "icon": "assets/character/icon/Hu Tao.avif",
-        "demo_music_name": "Any Last Words_",
-        "demo_music": "assets/character/demo_music/Hu Tao.mp3",
-        "voice_over": {
-            "title": "Good Night",
-            "text": "Oh, you sleepy? Get some rest, I'm gonna take a walk by myself...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Hu Tao/story/en/Good Night.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "July 15th",
-        "affiliations": [
-            "Wangsheng Funeral Parlor",
-            "Hu Family"
-        ],
-        "special_dish": {
-            "name": "Ghostly March",
-            "icon": "assets/foods/Ghostly March.png"
+        version: '1.1',
+        demo_music: {
+            name: 'Rex Incognito',
+            url: 'assets/character/demo_music/Zhongli.mp3',
         },
-        "titles": [
-            "77th-Generation Director of the Wangsheng Funeral Parlor"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Brianna Knickerbocker"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Tao Dian (陶典)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Takahashi Rie (高橋李依)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Ha-ru (김하루)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Hu Tao.png"
-        }
-    },
-    {
-        "name": "Arataki Itto",
-        "namecard_name": "Oni Face",
-        "namecard_description": "A real man puts sorrow and anger behind him and smiles brightly for the world to see!'",
-        "namecard_icon": "assets/character/namecard_icon/Arataki Itto.png",
-        "namecard_background": "assets/character/namecard_background/Arataki Itto.png",
-        "namecard_banner": "assets/character/namecard_banner/Arataki Itto.avif",
-        "card": "assets/character/card/Arataki Itto.avif",
-        "wish": "assets/character/wish/Arataki Itto.avif",
-        "ingame": "assets/character/ingame/Arataki Itto.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "December 14, 2021",
-        "version": "2.3",
-        "icon": "assets/character/icon/Arataki Itto.avif",
-        "demo_music_name": "Time to Shine",
-        "demo_music": "assets/character/demo_music/Arataki Itto.mp3",
-        "voice_over": {
-            "title": "When It Rains",
-            "text": "Pff, real men don't carry umbrellas... Oh boy, wow, it's really starting to pick up. Uh quick, c'mon, get yours out! C'mon, quick, quick, quick!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Arataki Itto/story/en/When It Rains.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "June 1st",
-        "affiliations": [
-            "Arataki Gang"
-        ],
-        "special_dish": {
-            "name": "Way of the Strong",
-            "icon": "assets/foods/Way of the Strong.png"
-        },
-        "titles": [
-            "The First and Greatest Head of the Arataki Gang"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Max Mittelman"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Liu Zhaokun (刘照坤)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Nishikawa Takanori (西川貴教)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Song Joon-seok (송준석)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Arataki Itto.png"
-        }
-    },
-    {
-        "name": "Jean",
-        "namecard_name": "The Winds' Course",
-        "namecard_description": "The dandelion, also called 'lion's fang' by some, is the flower most sensitive to the direction of the wind.'",
-        "namecard_icon": "assets/character/namecard_icon/Jean.png",
-        "namecard_background": "assets/character/namecard_background/Jean.png",
-        "namecard_banner": "assets/character/namecard_banner/Jean.avif",
-        "card": "assets/character/card/Jean.avif",
-        "wish": "assets/character/wish/Jean.avif",
-        "ingame": "assets/character/ingame/Jean.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Jean.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "Snow. Remember — tend to your boots when we return.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Jean/story/en/When It Snows.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "March 14th",
-        "affiliations": [
-            "Knights of Favonius",
-            "Four Winds",
-            "Gunnhildr Clan"
-        ],
-        "special_dish": {
-            "name": "Invigorating Pizza",
-            "icon": "assets/foods/Invigorating Pizza.png"
-        },
-        "titles": [
-            "Acting Grand Master"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Stephanie Southerland"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Lin Su (林簌)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Saitou Chiwa (斎藤 千和)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Ahn Young-mi (안영미)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Jean.png"
-        }
-    },
-    {
-        "name": "Kachina",
-        "namecard_name": "Twirly",
-        "namecard_description": "The upper half of the Turbo Twirly is very stable, but if the lower half gets stuck, there's a high chance you'll end up with one very dizzy rider.'",
-        "namecard_icon": "assets/character/namecard_icon/Kachina.png",
-        "namecard_background": "assets/character/namecard_background/Kachina.png",
-        "namecard_banner": "assets/character/namecard_banner/Kachina.avif",
-        "card": "assets/character/card/Kachina.avif",
-        "wish": "assets/character/wish/Kachina.avif",
-        "ingame": "assets/character/ingame/Kachina.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Natlan",
-        "region_icon": "assets/region/Natlan_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "August 28, 2024",
-        "version": "5.0",
-        "icon": "assets/character/icon/Kachina.avif",
-        "demo_music_name": "Pirouette of Pika's Pike",
-        "demo_music": "assets/character/demo_music/Kachina.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Aaah!! Um... I—I'm not scared! I was just... caught off guard!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kachina/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "April 22nd",
-        "affiliations": [
-            "Nanatzcayan"
-        ],
-        "special_dish": {
-            "name": "Impeccably Organized",
-            "icon": "assets/foods/Impeccably Organized.png"
-        },
-        "titles": [
-            "Nanatzcayan Young Braveheart"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Kristen McGuire"
-            },
-            {
-                "language": "Chinese",
-                "actor": "[2]"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kubo Yurika (久保ユリカ)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Son Seon-young (손선영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kachina.png"
-        }
-    },
-    {
-        "name": "Kaedehara Kazuha",
-        "namecard_name": "Autumn Maple-Viewing",
-        "namecard_description": "'The pine-song ripples as red leaves billow.''",
-        "namecard_icon": "assets/character/namecard_icon/Kaedehara Kazuha.png",
-        "namecard_background": "assets/character/namecard_background/Kaedehara Kazuha.png",
-        "namecard_banner": "assets/character/namecard_banner/Kaedehara Kazuha.avif",
-        "card": "assets/character/card/Kaedehara Kazuha.avif",
-        "wish": "assets/character/wish/Kaedehara Kazuha.avif",
-        "ingame": "assets/character/ingame/Kaedehara Kazuha.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "June 29, 2021",
-        "version": "1.6",
-        "icon": "assets/character/icon/Kaedehara Kazuha.avif",
-        "demo_music_name": "Flow of Autumn Wind",
-        "demo_music": "assets/character/demo_music/Kaedehara Kazuha.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "The birdsong at daybreak is nature's gift to us. Let us go. Our journey begins anew.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kaedehara Kazuha/story/en/Good Morning.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "October 29th",
-        "affiliations": [
-            "The Crux",
-            "Kaedehara Clan",
-            "Watatsumi Army"
-        ],
-        "special_dish": {
-            "name": "All-Weather Beauty",
-            "icon": "assets/foods/All-Weather Beauty.png"
-        },
-        "titles": [
-            "A wandering samurai who has left his homeland"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Mark Whitten"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Banma (斑马)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Shimazaki Nobunaga (島崎 信長)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Shin-woo (김신우)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kaedehara Kazuha.png"
-        }
-    },
-    {
-        "name": "Kaeya",
-        "namecard_name": "Pavo Ocellus",
-        "namecard_description": "The pattern of peacock feathers resembles eyes that never shut. Can we really say that this Pavo Ocellus is missing an eye...?'",
-        "namecard_icon": "assets/character/namecard_icon/Kaeya.png",
-        "namecard_background": "assets/character/namecard_background/Kaeya.png",
-        "namecard_banner": "assets/character/namecard_banner/Kaeya.avif",
-        "card": "assets/character/card/Kaeya.avif",
-        "wish": "assets/character/wish/Kaeya.avif",
-        "ingame": "assets/character/ingame/Kaeya.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Kaeya.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "When It Snows: Anecdote",
-            "text": "How about a ghost story to go with the snow?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kaeya/story/en/When It Snows - Anecdote.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "November 30th",
-        "affiliations": [
-            "Knights of Favonius",
-            "Khaenri'ah",
-            "Alberich Clan"
-        ],
-        "special_dish": {
-            "name": "Fruity Skewers",
-            "icon": "assets/foods/Fruity Skewers.png"
-        },
-        "titles": [
-            "Quartermaster of the Knights"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Josey Montana McCoy"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Sun Ye (孙晔)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Toriumi Kousuke (鳥海 浩輔)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Jeong Joo-won (정주원)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kaeya.png"
-        }
-    },
-    {
-        "name": "Kamisato Ayaka",
-        "namecard_name": "Folding Fan",
-        "namecard_description": "Ayaka does constantly change out the fans she carries with her, of course. If you're buying her some as gifts, remember not to send summer fans or throwing fans. Dancing fans or tea fans are good choices, though.'",
-        "namecard_icon": "assets/character/namecard_icon/Kamisato Ayaka.png",
-        "namecard_background": "assets/character/namecard_background/Kamisato Ayaka.png",
-        "namecard_banner": "assets/character/namecard_banner/Kamisato Ayaka.avif",
-        "card": "assets/character/card/Kamisato Ayaka.avif",
-        "wish": "assets/character/wish/Kamisato Ayaka.avif",
-        "ingame": "assets/character/ingame/Kamisato Ayaka.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "July 21, 2021",
-        "version": "2.0",
-        "icon": "assets/character/icon/Kamisato Ayaka.avif",
-        "demo_music_name": "Shirasagi Princess",
-        "demo_music": "assets/character/demo_music/Kamisato Ayaka.mp3",
-        "voice_over": {
-            "title": "When the Sun Is Out",
-            "text": "There's a pleasant breeze and glorious sunshine... So, where shall we go for a walk?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kamisato Ayaka/story/en/When the Sun Is Out.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "September 28th",
-        "affiliations": [
-            "Yashiro Commission",
-            "Kamisato Clan"
-        ],
-        "special_dish": {
-            "name": "\"Snow on the Hearth\"",
-            "icon": "assets/foods/Snow on the Hearth.png"
-        },
-        "titles": [
-            "Daughter of the Yashiro Commission's Kamisato Clan"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Erica Mendez"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Xiao N (小N)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Hayami Saori (早見 沙織)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Yu-ri (이유리)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kamisato Ayaka.png"
-        }
-    },
-    {
-        "name": "Kamisato Ayato",
-        "namecard_name": "Ripple",
-        "namecard_description": "The camellia alights upon the mirrored pond, sending ripples throughout the water.'",
-        "namecard_icon": "assets/character/namecard_icon/Kamisato Ayato.png",
-        "namecard_background": "assets/character/namecard_background/Kamisato Ayato.png",
-        "namecard_banner": "assets/character/namecard_banner/Kamisato Ayato.avif",
-        "card": "assets/character/card/Kamisato Ayato.avif",
-        "wish": "assets/character/wish/Kamisato Ayato.avif",
-        "ingame": "assets/character/ingame/Kamisato Ayato.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "March 30, 2022",
-        "version": "2.6",
-        "icon": "assets/character/icon/Kamisato Ayato.avif",
-        "demo_music_name": "Serene and Fathomless",
-        "demo_music": "assets/character/demo_music/Kamisato Ayato.mp3",
-        "voice_over": {
-            "title": "When It's Windy",
-            "text": "Sometimes, what appears at first to be nothing but a passing breeze can ultimately be that which alters the course of events... Hehe.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kamisato Ayato/story/en/When It's Windy.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "March 26th",
-        "affiliations": [
-            "Yashiro Commission",
-            "Kamisato Clan",
-            "Shuumatsuban"
-        ],
-        "special_dish": {
-            "name": "Quiet Elegance",
-            "icon": "assets/foods/Quiet Elegance.png"
-        },
-        "titles": [
-            "Head of the Kamisato Clan"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Chris Hackney"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Zhao Lu (赵路)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Ishida Akira (石田 彰)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Jang Min-hyeok (장민혁)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kamisato Ayato.png"
-        }
-    },
-    {
-        "name": "Kaveh",
-        "namecard_name": "Domed Court",
-        "namecard_description": "'When conceptualizing architecture, there is nothing wrong with imagining that the structure we build will surmount the firmament and outlast the stars.''",
-        "namecard_icon": "assets/character/namecard_icon/Kaveh.png",
-        "namecard_background": "assets/character/namecard_background/Kaveh.png",
-        "namecard_banner": "assets/character/namecard_banner/Kaveh.avif",
-        "card": "assets/character/card/Kaveh.avif",
-        "wish": "assets/character/wish/Kaveh.avif",
-        "ingame": "assets/character/ingame/Kaveh.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "May 02, 2023",
-        "version": "3.6",
-        "icon": "assets/character/icon/Kaveh.avif",
-        "demo_music_name": "Empyrean Stairway",
-        "demo_music": "assets/character/demo_music/Kaveh.mp3",
-        "voice_over": {
-            "title": "Chat: Beauty",
-            "text": "The ability to appreciate beauty is an important virtue.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kaveh/story/en/Chat - Beauty.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "July 9th",
-        "affiliations": [
-            "Kshahrewar"
-        ],
-        "special_dish": {
-            "name": "The Endeavor",
-            "icon": "assets/foods/The Endeavor.png"
-        },
-        "titles": [
-            "Renowned Sumeru Architect"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Ben Balmaceda"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Liu Sanmu (刘三木)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Uchida Yuma (内田 雄馬)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Jung-min (이정민)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kaveh.png"
-        }
-    },
-    {
-        "name": "Keqing",
-        "namecard_name": "Lightning Stiletto",
-        "namecard_description": "It was originally invented to just test out one's surroundings and climb to high places, really...'",
-        "namecard_icon": "assets/character/namecard_icon/Keqing.png",
-        "namecard_background": "assets/character/namecard_background/Keqing.png",
-        "namecard_banner": "assets/character/namecard_banner/Keqing.avif",
-        "card": "assets/character/card/Keqing.avif",
-        "wish": "assets/character/wish/Keqing.avif",
-        "ingame": "assets/character/ingame/Keqing.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Keqing.avif",
-        "demo_music_name": "Nimble as Lightning",
-        "demo_music": "assets/character/demo_music/Keqing.mp3",
-        "voice_over": {
-            "title": "Chat: Opportunity",
-            "text": "In adventuring, as in business, you always have to seize the opportunity while it's there.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Keqing/story/en/Chat - Opportunity.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "November 20th",
-        "affiliations": [
-            "Liyue Qixing"
-        ],
-        "special_dish": {
-            "name": "Survival Grilled Fish",
-            "icon": "assets/foods/Survival Grilled Fish.png"
-        },
-        "titles": [
-            "Yuheng of the Liyue Qixing"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Kayli Mills"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Xie Ying (谢莹)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kitamura Eri (喜多村 英梨)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Bo-hee (이보희)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Keqing.png"
-        }
-    },
-    {
-        "name": "Kinich",
-        "namecard_name": "Ajaw",
-        "namecard_description": "At first glance, you might think that the Almighty Dragonlord, K'uhul Ajaw had finally succeeded in turning the puny Kinich into a vessel of his will. Sadly, though, this is just the way namecards are named.'",
-        "namecard_icon": "assets/character/namecard_icon/Kinich.png",
-        "namecard_background": "assets/character/namecard_background/Kinich.png",
-        "namecard_banner": "assets/character/namecard_banner/Kinich.avif",
-        "card": "assets/character/card/Kinich.avif",
-        "wish": "assets/character/wish/Kinich.avif",
-        "ingame": "assets/character/ingame/Kinich.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Natlan",
-        "region_icon": "assets/region/Natlan_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "September 17, 2024",
-        "version": "5.0",
-        "icon": "assets/character/icon/Kinich.avif",
-        "demo_music_name": "Note of Effective Settlements",
-        "demo_music": "assets/character/demo_music/Kinich.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "Morning. I'm about to head out, and I won't be back until tomorrow morning. Don't wait up for me.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kinich/story/en/Good Morning.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "November 11th",
-        "affiliations": [
-            "Huitztlan"
-        ],
-        "special_dish": {
-            "name": "Saurian Hunter's Reward",
-            "icon": "assets/foods/Saurian Hunter's Reward.png"
-        },
-        "titles": [
-            "Huitztlan Saurian Hunter"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "John Patneaude"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Banma (斑马)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Sugiyama Noriaki (杉山紀彰)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kang Seong-woo (강성우)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kinich.png"
-        }
-    },
-    {
-        "name": "Kirara",
-        "namecard_name": "Neko Box",
-        "namecard_description": "'To Kirara, the smiles on her customers' faces are the best rewards possible.''",
-        "namecard_icon": "assets/character/namecard_icon/Kirara.png",
-        "namecard_background": "assets/character/namecard_background/Kirara.png",
-        "namecard_banner": "assets/character/namecard_banner/Kirara.avif",
-        "card": "assets/character/card/Kirara.avif",
-        "wish": "assets/character/wish/Kirara.avif",
-        "ingame": "assets/character/ingame/Kirara.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "May 24, 2023",
-        "version": "3.7",
-        "icon": "assets/character/icon/Kirara.avif",
-        "demo_music_name": "Cat's Cosy Course",
-        "demo_music": "assets/character/demo_music/Kirara.mp3",
-        "voice_over": {
-            "title": "When the Sun Is Out",
-            "text": "The sunlight feels really cozy. Napping in a tree would be nice... Ohh, just the thought of it is making me sleepy.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kirara/story/en/When the Sun Is Out.mp3"
-        },
-        "roles": [],
-        "birthday": "January 22nd",
-        "affiliations": [
-            "Komaniya Express"
-        ],
-        "special_dish": {
-            "name": "Energizing Bento",
-            "icon": "assets/foods/Energizing Bento.png"
-        },
-        "titles": [
-            "Gold Level Courier of the Komaniya Express"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Julia Gu"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Sun Yanqi (孙艳琦)"
-            },
-            {
-                "language": "Japanese",
-                "actor": " Suzushiro Sayumi (鈴代 紗弓)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kang Eun-ae (강은애)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kirara.png"
-        }
-    },
-    {
-        "name": "Klee",
-        "namecard_name": "Explosive",
-        "namecard_description": "Klee's lucky explosive — can you tell if it's Jumpy Dumpty or Dodoco? (Hint: Look carefully at the tail...)'",
-        "namecard_icon": "assets/character/namecard_icon/Klee.png",
-        "namecard_background": "assets/character/namecard_background/Klee.png",
-        "namecard_banner": "assets/character/namecard_banner/Klee.avif",
-        "card": "assets/character/card/Klee.avif",
-        "wish": "assets/character/wish/Klee.avif",
-        "ingame": "assets/character/ingame/Klee.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "October 20, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Klee.avif",
-        "demo_music_name": "Let's Go, Crimson Knight!",
-        "demo_music": "assets/character/demo_music/Klee.mp3",
-        "voice_over": {
-            "title": "Good Afternoon",
-            "text": "Lunchtime! What do you wanna eat today? Let me see if the Teyvat Travel Guide has any suggestions...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Klee/story/en/Good Afternoon.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "July 27th",
-        "affiliations": [
-            "Knights of Favonius"
-        ],
-        "special_dish": {
-            "name": "Fish-Flavored Toast",
-            "icon": "assets/foods/Fish-Flavored Toast.png"
-        },
-        "titles": [
-            "Spark Knight"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Poonam Basu"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Hualing (花玲)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kuno Misaki (久野美咲)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Bang Yeon-ji (방연지)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Klee.png"
-        }
-    },
-    {
-        "name": "Kujou Sara",
-        "namecard_name": "Tengu",
-        "namecard_description": "Kujou Sara may have forsaken the arrogant life of the tengu race, but she has never neglected their brilliance with the sword or their supernatural might.'",
-        "namecard_icon": "assets/character/namecard_icon/Kujou Sara.png",
-        "namecard_background": "assets/character/namecard_background/Kujou Sara.png",
-        "namecard_banner": "assets/character/namecard_banner/Kujou Sara.avif",
-        "card": "assets/character/card/Kujou Sara.avif",
-        "wish": "assets/character/wish/Kujou Sara.avif",
-        "ingame": "assets/character/ingame/Kujou Sara.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "September 01, 2021",
-        "version": "2.1",
-        "icon": "assets/character/icon/Kujou Sara.avif",
-        "demo_music_name": "Will of Thunder",
-        "demo_music": "assets/character/demo_music/Kujou Sara.mp3",
-        "voice_over": {
-            "title": "When It Rains",
-            "text": "The sound of rain masks the enemy's footsteps. Stay alert.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kujou Sara/story/en/When It Rains.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "July 14th",
-        "affiliations": [
-            "Tenryou Commission"
-        ],
-        "special_dish": {
-            "name": "Faith Eternal",
-            "icon": "assets/foods/Faith Eternal.png"
-        },
-        "titles": [
-            "General of the Tenryou Commission"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Jeannie Tirado"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Yang Menglu (杨梦露)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Seto Asami (瀬戸麻沙美)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Mun Ji-yeong (문지영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kujou Sara.png"
-        }
-    },
-    {
-        "name": "Kuki Shinobu",
-        "namecard_name": "Net",
-        "namecard_description": "'You know those Naku Weed rings they have in Inazuma? You know, the kind that can drive out evil? Shinobu got the idea that since wicked things won't cross their boundaries willingly, we could make them into items that could be actively used. Ah, her talent for being a shrine maiden is truly frightening...''",
-        "namecard_icon": "assets/character/namecard_icon/Kuki Shinobu.png",
-        "namecard_background": "assets/character/namecard_background/Kuki Shinobu.png",
-        "namecard_banner": "assets/character/namecard_banner/Kuki Shinobu.avif",
-        "card": "assets/character/card/Kuki Shinobu.avif",
-        "wish": "assets/character/wish/Kuki Shinobu.avif",
-        "ingame": "assets/character/ingame/Kuki Shinobu.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "June 21, 2022",
-        "version": "2.7",
-        "icon": "assets/character/icon/Kuki Shinobu.avif",
-        "demo_music_name": "Adroit Deputy",
-        "demo_music": "assets/character/demo_music/Kuki Shinobu.mp3",
-        "voice_over": {
-            "title": "When the Sun Is Out",
-            "text": "It's a nice day, but I can't seem to shake this strange feeling... Huh, let's just hope it's my imagination.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Kuki Shinobu/story/en/When the Sun Is Out.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "July 27th",
-        "affiliations": [
-            "Arataki Gang",
-            "Kuki Clan",
-            "Grand Narukami Shrine"
-        ],
-        "special_dish": {
-            "name": "Omurice Waltz",
-            "icon": "assets/foods/Omurice Waltz.png"
-        },
-        "titles": [
-            "Deputy Leader of the Arataki Gang"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Kira Buckland"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Yang Ning (杨凝)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Mizuhashi Kaori (水橋 かおり)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Yool (김율)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Kuki Shinobu.png"
-        }
-    },
-    {
-        "name": "Lan Yan",
-        "namecard_name": "Silver Swallow",
-        "namecard_description": "The swallow's arrival shall bring forth cleansing rains, washing the worries of wizened winter away.'",
-        "namecard_icon": "assets/character/namecard_icon/Lan Yan.png",
-        "namecard_background": "assets/character/namecard_background/Lan Yan.png",
-        "namecard_banner": "assets/character/namecard_banner/Lan Yan.avif",
-        "card": "assets/character/card/Lan Yan.avif",
-        "wish": "assets/character/wish/Lan Yan.avif",
-        "ingame": "assets/character/ingame/Lan Yan.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "January 21, 2025",
-        "version": "5.3",
-        "icon": "assets/character/icon/Lan Yan.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "When the Sun Is Out",
-            "text": "Look! Everything the sun touches is coated in gold!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Lan Yan/story/en/When the Sun Is Out.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "January 6th",
-        "affiliations": [
-            "Chenyu Vale"
-        ],
-        "special_dish": {
-            "name": "Jade-Cut Flowers",
-            "icon": "assets/foods/Jade-Cut Flowers.png"
-        },
-        "titles": [
-            "Master Rattan Weaver of the Chenyu Vale Artisans Association"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Anna Devlin"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Liu Shisi (刘十四)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Wakayama Shion (若山詩音)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Soon-mi (김순미)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Lan Yan.png"
-        }
-    },
-    {
-        "name": "Layla",
-        "namecard_name": "Daydream",
-        "namecard_description": "'The starry sky in your dreams will illuminate your way forward, on the premise that the crystal in your heart reflects clear lights.''",
-        "namecard_icon": "assets/character/namecard_icon/Layla.png",
-        "namecard_background": "assets/character/namecard_background/Layla.png",
-        "namecard_banner": "assets/character/namecard_banner/Layla.avif",
-        "card": "assets/character/card/Layla.avif",
-        "wish": "assets/character/wish/Layla.avif",
-        "ingame": "assets/character/ingame/Layla.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "November 18, 2022",
-        "version": "3.2",
-        "icon": "assets/character/icon/Layla.avif",
-        "demo_music_name": "Surreal Noctivaga",
-        "demo_music": "assets/character/demo_music/Layla.mp3",
-        "voice_over": {
-            "title": "In the Desert",
-            "text": "Scorching hot days and freezing cold nights... I—I don't think I'm gonna make it...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Layla/story/en/In the Desert.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "December 19th",
-        "affiliations": [
-            "Rtawahist"
-        ],
-        "special_dish": {
-            "name": "Extravagant Slumber",
-            "icon": "assets/foods/Extravagant Slumber.png"
-        },
-        "titles": [
-            "Half-Awake, Half-Asleep, All Incredulous"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Ashely Biski"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Hou Xiaofei (侯小菲)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Tomita Miyu (富田美憂)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kang Sae-Bom (강새봄)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Layla.png"
-        }
-    },
-    {
-        "name": "Lisa",
-        "namecard_name": "Tempus Fugit",
-        "namecard_description": "An hourglass marks the end of the work day for Lisa. Its sand moves fast.'",
-        "namecard_icon": "assets/character/namecard_icon/Lisa.png",
-        "namecard_background": "assets/character/namecard_background/Lisa.png",
-        "namecard_banner": "assets/character/namecard_banner/Lisa.avif",
-        "card": "assets/character/card/Lisa.avif",
-        "wish": "assets/character/wish/Lisa.avif",
-        "ingame": "assets/character/ingame/Lisa.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Lisa.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "When It's Windy",
-            "text": "Such a calming breeze... Perfect for taking a nap, don't you think?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Lisa/story/en/When It's Windy.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "June 9th",
-        "affiliations": [
-            "Knights of Favonius",
-            "Spantamad"
-        ],
-        "special_dish": {
-            "name": "Mysterious Bolognese",
-            "icon": "assets/foods/Mysterious Bolognese.png"
-        },
-        "titles": [
-            "The Librarian"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Mara Junot"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Zhong Ke (钟可)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Tanaka Rie (田中理恵)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Park Go-woon (박고운)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Lisa.png"
-        }
-    },
-    {
-        "name": "Lynette",
-        "namecard_name": "Earnestness",
-        "namecard_description": "One major type of magic revolves around 'appearing suddenly.' Lynette is usually conserving her energy, but her serious side can 'appear' as abruptly as pigeons from a hat.'",
-        "namecard_icon": "assets/character/namecard_icon/Lynette.png",
-        "namecard_background": "assets/character/namecard_background/Lynette.png",
-        "namecard_banner": "assets/character/namecard_banner/Lynette.avif",
-        "card": "assets/character/card/Lynette.avif",
-        "wish": "assets/character/wish/Lynette.avif",
-        "ingame": "assets/character/ingame/Lynette.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "August 16, 2023",
-        "version": "4.0",
-        "icon": "assets/character/icon/Lynette.avif",
-        "demo_music_name": "Chasing the Wind",
-        "demo_music": "assets/character/demo_music/Lynette.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Ow... that hurts my ears.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Lynette/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "February 2nd",
-        "affiliations": [
-            "Hotel Bouffes d'ete",
-            "House of the Hearth",
-            "Fatui"
-        ],
-        "special_dish": {
-            "name": "A Leisurely Sip",
-            "icon": "assets/foods/A Leisurely Sip.png"
-        },
-        "titles": [
-            "\"Multi-Function Magic Assistant\""
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Anairis Quiñones"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Kekewei (可可味)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Sasahara Yu (篠原侑)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Serena (이세레나)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Lynette.png"
-        }
-    },
-    {
-        "name": "Lyney",
-        "namecard_name": "Pretense",
-        "namecard_description": "One major type of magic revolves around making things 'vanish.' Lyney has an arsenal of tricks up his sleeve. As his accomplice, as long as you are willing to turn a blind eye, all your problems may vanish as well.'",
-        "namecard_icon": "assets/character/namecard_icon/Lyney.png",
-        "namecard_background": "assets/character/namecard_background/Lyney.png",
-        "namecard_banner": "assets/character/namecard_banner/Lyney.avif",
-        "card": "assets/character/card/Lyney.avif",
-        "wish": "assets/character/wish/Lyney.avif",
-        "ingame": "assets/character/ingame/Lyney.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "August 16, 2023",
-        "version": "4.0",
-        "icon": "assets/character/icon/Lyney.avif",
-        "demo_music_name": "Lustrous Trick",
-        "demo_music": "assets/character/demo_music/Lyney.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "...C'mon, just five more minutes... Huh? Oh! It's you! I thought it was the radiance of the sunlight on my skin that I felt — turns out it was your radiance all along!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Lyney/story/en/Good Morning.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "February 2nd",
-        "affiliations": [
-            "Hotel Bouffes d'ete",
-            "House of the Hearth",
-            "Fatui"
-        ],
-        "special_dish": {
-            "name": "Cubic Tricks",
-            "icon": "assets/foods/Cubic Tricks.png"
-        },
-        "titles": [
-            "Celebrated Magician of the Court of Fontaine"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Daman Mills"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Jinli (锦鲤)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Shimono Hiro (下野紘)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Park Song-young (박성영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Lyney.png"
-        }
-    },
-    {
-        "name": "Mavuika",
-        "namecard_name": "Sun-Crowned",
-        "namecard_description": "No Pyro Archon has ever intended to contest the sun. But as ordinary people see it, this 'solar ring' is the crown of leaders as radiant as the sun.'",
-        "namecard_icon": "assets/character/namecard_icon/Mavuika.png",
-        "namecard_background": "assets/character/namecard_background/Mavuika.png",
-        "namecard_banner": "assets/character/namecard_banner/Mavuika.avif",
-        "card": "assets/character/card/Mavuika.avif",
-        "wish": "assets/character/wish/Mavuika.avif",
-        "ingame": "assets/character/ingame/Mavuika.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Natlan",
-        "region_icon": "assets/region/Natlan_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "January 01, 2025",
-        "version": "5.3",
-        "icon": "assets/character/icon/Mavuika.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "Chat: Light",
-            "text": "Many insects have a compulsion to follow the light, and humans are the same — except we call that light, \"hope.\"",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Mavuika/story/en/Chat - Light.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "August 28th",
-        "affiliations": [
-            "Huitztlan",
-            "Speaker's Chamber",
-            "The Seven"
-        ],
-        "special_dish": {
-            "name": "Hymn of Gathered Flame",
-            "icon": "assets/foods/Hymn of Gathered Flame.png"
-        },
-        "titles": [
-            "Natlan's Radiant Sun"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Katiana Sarkissian"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Li Ye (李晔)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Komatsu Mikako (小松未可子)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Na-yul (김나율)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Mavuika.png"
-        }
-    },
-    {
-        "name": "Mika",
-        "namecard_name": "Index",
-        "namecard_description": "Every time he holds the map he illustrated in his hands, the boy feels like he is holding a small piece of rubbing of this world.'",
-        "namecard_icon": "assets/character/namecard_icon/Mika.png",
-        "namecard_background": "assets/character/namecard_background/Mika.png",
-        "namecard_banner": "assets/character/namecard_banner/Mika.avif",
-        "card": "assets/character/card/Mika.avif",
-        "wish": "assets/character/wish/Mika.avif",
-        "ingame": "assets/character/ingame/Mika.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "March 21, 2023",
-        "version": "3.5",
-        "icon": "assets/character/icon/Mika.avif",
-        "demo_music_name": "Sunfrost Breeze",
-        "demo_music": "assets/character/demo_music/Mika.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Thunder can mask the sound of movement, which is why it's our friend.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Mika/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "August 11th",
-        "affiliations": [
-            "Knights of Favonius"
-        ],
-        "special_dish": {
-            "name": "Surveyor's Breakfast Sandwich",
-            "icon": "assets/foods/Surveyor's Breakfast Sandwich.png"
-        },
-        "titles": [
-            "Front-Line Land Surveyor of the Knights of Favonius"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Robb Moreira"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Deng Youxi (邓宥希)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Sanpei Yūko (三瓶由布子)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Yoon Eun-seo (윤은서)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Mika.png"
-        }
-    },
-    {
-        "name": "Mona",
-        "namecard_name": "Starry Sky",
-        "namecard_description": "A girl gazes down at the stars' reflection on the water, pondering the joys and sorrows of life.'",
-        "namecard_icon": "assets/character/namecard_icon/Mona.png",
-        "namecard_background": "assets/character/namecard_background/Mona.png",
-        "namecard_banner": "assets/character/namecard_banner/Mona.avif",
-        "card": "assets/character/card/Mona.avif",
-        "wish": "assets/character/wish/Mona.avif",
-        "ingame": "assets/character/ingame/Mona.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Mona.avif",
-        "demo_music_name": "Surge of Prophecies",
-        "demo_music": "assets/character/demo_music/Mona.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "Your arrival is untimely. The morning star has just waned... Breakfast? No, I—I've already eaten.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Mona/story/en/Good Morning.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "August 31st",
-        "affiliations": [
-            "Mondstadt",
-            "The Steambird"
-        ],
-        "special_dish": {
-            "name": "Der Weisheit Letzter Schluss (Life)",
-            "icon": "assets/foods/Der Weisheit Letzter Schluss (Life).png"
-        },
-        "titles": [
-            "Enigmatic Astrologer"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Felecia Angelle"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Chen Tingting (陈婷婷)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kohara Konomi (小原 好美)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Woo Jeong-sin (우정신)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Mona.png"
-        }
-    },
-    {
-        "name": "Mualani",
-        "namecard_name": "Sharky",
-        "namecard_description": "Sharks that live in the sea don't actually like eating people — they prefer marine creatures. So as a shark that lives in freshwater hot springs, it's only natural that Mualani's Sharky Surfboard will only eat hot spring creatures. ...Just kidding, those Capybaras can sleep easy. Firstly, because their meat's too tough. And secondly, because... it's a surfboard?'",
-        "namecard_icon": "assets/character/namecard_icon/Mualani.png",
-        "namecard_background": "assets/character/namecard_background/Mualani.png",
-        "namecard_banner": "assets/character/namecard_banner/Mualani.avif",
-        "card": "assets/character/card/Mualani.avif",
-        "wish": "assets/character/wish/Mualani.avif",
-        "ingame": "assets/character/ingame/Mualani.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Natlan",
-        "region_icon": "assets/region/Natlan_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "August 28, 2024",
-        "version": "5.0",
-        "icon": "assets/character/icon/Mualani.avif",
-        "demo_music_name": "Hot Spring Affection",
-        "demo_music": "assets/character/demo_music/Mualani.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Whoa! Did you see that? Where did it strike!?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Mualani/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "August 3rd",
-        "affiliations": [
-            "Meztli",
-            "Leisurely Puffer"
-        ],
-        "special_dish": {
-            "name": "Pass the Luck",
-            "icon": "assets/foods/Pass the Luck.png"
-        },
-        "titles": [
-            "Meztli Guide"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Cassandra Lee Morris"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Wang Xiaotong (王晓彤)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Toyama Nao (東山奈央)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Do-hee (김도희)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Mualani.png"
-        }
-    },
-    {
-        "name": "Nahida",
-        "namecard_name": "Crescent",
-        "namecard_description": "The rising moon admires the sun, because her light can shine all over the earth. On the other hand, the setting sun is envious of the moon, for she can be accompanied by the sweetest of dreams.'",
-        "namecard_icon": "assets/character/namecard_icon/Nahida.png",
-        "namecard_background": "assets/character/namecard_background/Nahida.png",
-        "namecard_banner": "assets/character/namecard_banner/Nahida.avif",
-        "card": "assets/character/card/Nahida.avif",
-        "wish": "assets/character/wish/Nahida.avif",
-        "ingame": "assets/character/ingame/Nahida.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "November 02, 2022",
-        "version": "3.2",
-        "icon": "assets/character/icon/Nahida.avif",
-        "demo_music_name": "Surreal Noctivaga",
-        "demo_music": "assets/character/demo_music/Nahida.mp3",
-        "voice_over": {
-            "title": "About Nahida: Knowledge",
-            "text": "Oh, the Mare Jivari? A place without anything at all, completely empty — just like a Shroomboar's brain. Of course I know it. ...Hmm? I, uh... It's true, I've never seen it with my own eyes. It's one of the many places beyond my reach.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Nahida/story/en/About Nahida - Knowledge.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "October 27th",
-        "affiliations": [
-            "Sumeru City",
-            "The Seven",
-            "Sumeru Akademiya"
-        ],
-        "special_dish": {
-            "name": "Halvamazd",
-            "icon": "assets/foods/Halvamazd.png"
-        },
-        "titles": [
-            "Lesser Lord Kusanali"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Kimberley Anne Campbell"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Hualing (花玲)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Tamura Yukari (田村ゆかり)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Park Shi-Yoon (박시윤)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Nahida.png"
-        }
-    },
-    {
-        "name": "Navia",
-        "namecard_name": "Rosula",
-        "namecard_description": "Roses shall bloom, and thus does Ms. Navia's umbrella flower. Yet beware, for roses have thorns, and Navia's booming brolly packs a powerful punch.'",
-        "namecard_icon": "assets/character/namecard_icon/Navia.png",
-        "namecard_background": "assets/character/namecard_background/Navia.png",
-        "namecard_banner": "assets/character/namecard_banner/Navia.avif",
-        "card": "assets/character/card/Navia.avif",
-        "wish": "assets/character/wish/Navia.avif",
-        "ingame": "assets/character/ingame/Navia.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "December 20, 2023",
-        "version": "4.3",
-        "icon": "assets/character/icon/Navia.avif",
-        "demo_music_name": "Largo alla donzella",
-        "demo_music": "assets/character/demo_music/Navia.mp3",
-        "voice_over": {
-            "title": "When the Sun Is Out",
-            "text": "Quick, look! Up in the sky! Look at that scorching sun, it's like a blast furnace! You know what this means? It means we have to drop everything, right now, and make a run for the ice cream store! We need to get two of the biggest cones they sell, and then it's an all-out race to see who can finish before it melts!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Navia/story/en/When the Sun Is Out.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "August 16th",
-        "affiliations": [
-            "Spina di Rosula",
-            "House of Caspar"
-        ],
-        "special_dish": {
-            "name": "\"Pick What You Like!\"",
-            "icon": "assets/foods/Pick What You Like!.png"
-        },
-        "titles": [
-            "President, Leader, Boss, Commander-in-Chief of the Spina di Rosula"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Brenna Larsen"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Xiaogan (小敢)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Toyosaki Aki (豊崎愛生)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Jeong Hae-eun (정해은)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Navia.png"
-        }
-    },
-    {
-        "name": "Neuvillette",
-        "namecard_name": "Surge",
-        "namecard_description": "The water's surface may seem placid as a pristine gem, but it may yet be lying in wait for an opportune moment to gush forth.'",
-        "namecard_icon": "assets/character/namecard_icon/Neuvillette.png",
-        "namecard_background": "assets/character/namecard_background/Neuvillette.png",
-        "namecard_banner": "assets/character/namecard_banner/Neuvillette.avif",
-        "card": "assets/character/card/Neuvillette.avif",
-        "wish": "assets/character/wish/Neuvillette.avif",
-        "ingame": "assets/character/ingame/Neuvillette.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "September 27, 2023",
-        "version": "4.1",
-        "icon": "assets/character/icon/Neuvillette.avif",
-        "demo_music_name": "Parousia Diluvi",
-        "demo_music": "assets/character/demo_music/Neuvillette.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "Good morning. I hope you have a wonderful day.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Neuvillette/story/en/Good Morning.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "December 18th",
-        "affiliations": [
-            "Court of Fontaine",
-            "Marechaussee Phantom",
-            "Palais Mermonia",
-            "Seven Sovereigns"
-        ],
-        "special_dish": {
-            "name": "\"Consomme Purete\"",
-            "icon": "assets/foods/Consomme Purete.png"
-        },
-        "titles": [
-            "Iudex of Fontaine"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Ray Chase"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Sang Yuze (桑毓泽)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kamiya Hiroshi (神谷浩史)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kwak Yoon-sang (곽윤상)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Neuvillette.png"
-        }
-    },
-    {
-        "name": "Nilou",
-        "namecard_name": "Lotus Dance",
-        "namecard_description": "The lotus that blooms amidst the pure water is naught but a flash of light beneath her toes.'",
-        "namecard_icon": "assets/character/namecard_icon/Nilou.png",
-        "namecard_background": "assets/character/namecard_background/Nilou.png",
-        "namecard_banner": "assets/character/namecard_banner/Nilou.avif",
-        "card": "assets/character/card/Nilou.avif",
-        "wish": "assets/character/wish/Nilou.avif",
-        "ingame": "assets/character/ingame/Nilou.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "October 14, 2022",
-        "version": "3.1",
-        "icon": "assets/character/icon/Nilou.avif",
-        "demo_music_name": "Lotus of Haftkarsvar",
-        "demo_music": "assets/character/demo_music/Nilou.mp3",
-        "voice_over": {
-            "title": "Chat: Rest",
-            "text": "Relaxing days like this are nice... Let's take it easy.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Nilou/story/en/Chat - Rest.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "December 3rd",
-        "affiliations": [
-            "Zubayr Theater"
-        ],
-        "special_dish": {
-            "name": "Swirling Steps",
-            "icon": "assets/foods/Swirling Steps.png"
-        },
-        "titles": [
-            "Star of Zubayr Theater"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Dani Chambers"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Zisu Jiuyue (紫苏九月)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kanemoto Hisako (金元寿子)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Chae Rim (채림)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Nilou.png"
-        }
-    },
-    {
-        "name": "Ningguang",
-        "namecard_name": "Phoenix",
-        "namecard_description": "They say that 'more's the pity that phoenixes are few.' But seriously, one Ningguang is more than enough...'",
-        "namecard_icon": "assets/character/namecard_icon/Ningguang.png",
-        "namecard_background": "assets/character/namecard_background/Ningguang.png",
-        "namecard_banner": "assets/character/namecard_banner/Ningguang.avif",
-        "card": "assets/character/card/Ningguang.avif",
-        "wish": "assets/character/wish/Ningguang.avif",
-        "ingame": "assets/character/ingame/Ningguang.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Ningguang.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "Chat: Trade War",
-            "text": "In a trade war, the perfect hunter leaves no trace.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Ningguang/story/en/Chat - Trade War.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "August 26th",
-        "affiliations": [
-            "Liyue Qixing"
-        ],
-        "special_dish": {
-            "name": "Qiankun Mora Meat",
-            "icon": "assets/foods/Qiankun Mora Meat.png"
-        },
-        "titles": [
-            "Lady of the Jade Chamber"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Erin Ebers"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Du Mingya (杜冥鸦)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Ohara Sayaka (大原 さやか)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Gwak Gyu-mi (곽규미)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Ningguang.png"
-        }
-    },
-    {
-        "name": "Noelle",
-        "namecard_name": "Protector",
-        "namecard_description": "Noelle is quite special. Noelle won't let any harm come to you.'",
-        "namecard_icon": "assets/character/namecard_icon/Noelle.png",
-        "namecard_background": "assets/character/namecard_background/Noelle.png",
-        "namecard_banner": "assets/character/namecard_banner/Noelle.avif",
-        "card": "assets/character/card/Noelle.avif",
-        "wish": "assets/character/wish/Noelle.avif",
-        "ingame": "assets/character/ingame/Noelle.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Noelle.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "Good Afternoon",
-            "text": "Ready for your tea break? Please wait here while I get it ready. Oh yes, I also made Lighter-Than-Air Pancakes! You simply must try one, it's my specialty.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Noelle/story/en/Good Afternoon.mp3"
-        },
-        "roles": [],
-        "birthday": "March 21st",
-        "affiliations": [
-            "Knights of Favonius"
-        ],
-        "special_dish": {
-            "name": "Lighter-Than-Air Pancake",
-            "icon": "assets/foods/Lighter-Than-Air Pancake.png"
-        },
-        "titles": [
-            "Maid of Favonius"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Laura Faye Smith"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Yanning (宴宁)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Takao Kanon (高尾 奏音)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Bo-hee (이보희)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Noelle.png"
-        }
-    },
-    {
-        "name": "Ororon",
-        "namecard_name": "Nightshade",
-        "namecard_description": "Just as starlight cannot overpower the darkness of night, so too do shadows linger beneath the candle's light. Likewise, the heart's emptiness cannot easily be filled.'",
-        "namecard_icon": "assets/character/namecard_icon/Ororon.png",
-        "namecard_background": "assets/character/namecard_background/Ororon.png",
-        "namecard_banner": "assets/character/namecard_banner/Ororon.avif",
-        "card": "assets/character/card/Ororon.avif",
-        "wish": "assets/character/wish/Ororon.avif",
-        "ingame": "assets/character/ingame/Ororon.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Natlan",
-        "region_icon": "assets/region/Natlan_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "November 20, 2024",
-        "version": "5.2",
-        "icon": "assets/character/icon/Ororon.avif",
-        "demo_music_name": "Rain of Seven Curtains",
-        "demo_music": "assets/character/demo_music/Ororon.mp3",
-        "voice_over": {
-            "title": "Chat: Smoke",
-            "text": "Sometimes, a shrouded path is not meant to be walked. Move forward with blind ambition, and the smoke might suffocate you.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Ororon/story/en/Chat - Smoke.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "October 14th",
-        "affiliations": [
-            "Mictlan",
-            "Fatui"
-        ],
-        "special_dish": {
-            "name": "Honey-Glazed Ceviche",
-            "icon": "assets/foods/Honey-Glazed Ceviche.png"
-        },
-        "titles": [
-            "Shrouded Bat of Mictlan"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Nathan Nokes"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Liang Dawei (梁达伟)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kondo Takashi (近藤隆)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Seo Jung-ik (서정익)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Ororon.png"
-        }
-    },
-    {
-        "name": "Qiqi",
-        "namecard_name": "Cold Storage",
-        "namecard_description": "What should be kept in the fridge? Dr. Baizhu's herbs, coconut milk... and Hu Tao.'",
-        "namecard_icon": "assets/character/namecard_icon/Qiqi.png",
-        "namecard_background": "assets/character/namecard_background/Qiqi.png",
-        "namecard_banner": "assets/character/namecard_banner/Qiqi.avif",
-        "card": "assets/character/card/Qiqi.avif",
-        "wish": "assets/character/wish/Qiqi.avif",
-        "ingame": "assets/character/ingame/Qiqi.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Qiqi.avif",
-        "demo_music_name": "Preserver of Fortune",
-        "demo_music": "assets/character/demo_music/Qiqi.mp3",
-        "voice_over": {
-            "title": "Chat: Afraid of Heat",
-            "text": "Let's go somewhere cooler.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Qiqi/story/en/Chat - Afraid of Heat.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "March 3rd",
-        "affiliations": [
-            "Bubu Pharmacy",
-            "Adepti",
-            "[Note 1]"
-        ],
-        "special_dish": {
-            "name": "No Tomorrow",
-            "icon": "assets/foods/No Tomorrow.png"
-        },
-        "titles": [
-            "Pharmacist, Bubu Pharmacy"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Christie Cate"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Yanning (宴宁)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Tamura Yukari (田村 ゆかり)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Seul (이슬)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Qiqi.png"
-        }
-    },
-    {
-        "name": "Raiden Shogun",
-        "namecard_name": "Enlightenment",
-        "namecard_description": "Not simply Ei, and not merely the Raiden Shogun. Observe yourself also with one stormy eye, and you will someday reach a breakthrough.'",
-        "namecard_icon": "assets/character/namecard_icon/Raiden Shogun.png",
-        "namecard_background": "assets/character/namecard_background/Raiden Shogun.png",
-        "namecard_banner": "assets/character/namecard_banner/Raiden Shogun.avif",
-        "card": "assets/character/card/Raiden Shogun.avif",
-        "wish": "assets/character/wish/Raiden Shogun.avif",
-        "ingame": "assets/character/ingame/Raiden Shogun.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "September 01, 2021",
-        "version": "2.1",
-        "icon": "assets/character/icon/Raiden Shogun.avif",
-        "demo_music_name": "Termination of Desires",
-        "demo_music": "assets/character/demo_music/Raiden Shogun.mp3",
-        "voice_over": {
-            "title": "Chat: Idleness",
-            "text": "Inactivity serves no purpose whatsoever. Hmph.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Raiden Shogun/story/en/Chat - Idleness.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "June 26th",
-        "affiliations": [
-            "Inazuma City",
-            "Inazuma Shogunate",
-            "The Seven"
-        ],
-        "special_dish": null,
-        "titles": [
-            "Her Eternal Excellency"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Anne Yatco"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Juhuahua (菊花花)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Sawashiro Miyuki (沢城 みゆき)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Park Ji-yoon (박지윤)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Raiden Shogun.png"
-        }
-    },
-    {
-        "name": "Razor",
-        "namecard_name": "Wolvensprint",
-        "namecard_description": "It's quite a sight to behold Razor and the wolves prepare their dinner, but they won't let Klee or the Traveler see the slightly gruesome affair.'",
-        "namecard_icon": "assets/character/namecard_icon/Razor.png",
-        "namecard_background": "assets/character/namecard_background/Razor.png",
-        "namecard_banner": "assets/character/namecard_banner/Razor.avif",
-        "card": "assets/character/card/Razor.avif",
-        "wish": "assets/character/wish/Razor.avif",
-        "ingame": "assets/character/ingame/Razor.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Razor.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "Something to Share",
-            "text": "I like the stars at night. So many stars. In the sky, in the lake. And in the city.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Razor/story/en/Something to Share.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "September 9th",
-        "affiliations": [
-            "Wolvendom",
-            "Boreas"
-        ],
-        "special_dish": {
-            "name": "Puppy-Paw Hash Brown",
-            "icon": "assets/foods/Puppy-Paw Hash Brown.png"
-        },
-        "titles": [
-            "Legend of Wolvendom"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Todd Haberkorn"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Zhou Shuai (周帅)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Uchiyama Kouki (内山 昂輝)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Seo-yeong (김서영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Razor.png"
-        }
-    },
-    {
-        "name": "Rosaria",
-        "namecard_name": "Indenture",
-        "namecard_description": "The unselfish warmth and goodwill of the people is, to her, a kindness that she must repay, and so it is an indenture that follows her forever.'",
-        "namecard_icon": "assets/character/namecard_icon/Rosaria.png",
-        "namecard_background": "assets/character/namecard_background/Rosaria.png",
-        "namecard_banner": "assets/character/namecard_banner/Rosaria.avif",
-        "card": "assets/character/card/Rosaria.avif",
-        "wish": "assets/character/wish/Rosaria.avif",
-        "ingame": "assets/character/ingame/Rosaria.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "April 06, 2021",
-        "version": "1.4",
-        "icon": "assets/character/icon/Rosaria.avif",
-        "demo_music_name": "Shadow of Nemesis",
-        "demo_music": "assets/character/demo_music/Rosaria.mp3",
-        "voice_over": {
-            "title": "Chat: Overtime",
-            "text": "Everything is negotiable, except overtime.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Rosaria/story/en/Chat - Overtime.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "January 24th",
-        "affiliations": [
-            "Church of Favonius"
-        ],
-        "special_dish": {
-            "name": "Dinner of Judgment",
-            "icon": "assets/foods/Dinner of Judgment.png"
-        },
-        "titles": [
-            "A Nonconforming Sister"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Elizabeth Maxwell"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Zhang Anqi (张安琪)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kakuma Ai (加隈 亜衣)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Bo-na (김보나)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Rosaria.png"
-        }
-    },
-    {
-        "name": "Sangonomiya Kokomi",
-        "namecard_name": "The Deep",
-        "namecard_description": "All Watatsumi islanders know this tale: that deep beneath the waves lies their former home.'",
-        "namecard_icon": "assets/character/namecard_icon/Sangonomiya Kokomi.png",
-        "namecard_background": "assets/character/namecard_background/Sangonomiya Kokomi.png",
-        "namecard_banner": "assets/character/namecard_banner/Sangonomiya Kokomi.avif",
-        "card": "assets/character/card/Sangonomiya Kokomi.avif",
-        "wish": "assets/character/wish/Sangonomiya Kokomi.avif",
-        "ingame": "assets/character/ingame/Sangonomiya Kokomi.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 21, 2021",
-        "version": "2.1",
-        "icon": "assets/character/icon/Sangonomiya Kokomi.avif",
-        "demo_music_name": "A Glorious Awakening",
-        "demo_music": "assets/character/demo_music/Sangonomiya Kokomi.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "The snow... have you ever seen such beauty?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Sangonomiya Kokomi/story/en/When It Snows.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "February 22nd",
-        "affiliations": [
-            "Watatsumi Island",
-            "Sangonomiya Clan",
-            "Watatsumi Army"
-        ],
-        "special_dish": {
-            "name": "A Stunning Stratagem",
-            "icon": "assets/foods/A Stunning Stratagem.png"
-        },
-        "titles": [
-            "Hibernating Homebody Strategist"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Risa Mei"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Guiniang (龟娘)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Mimori Suzuko (三森 すずこ)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Yeo Yun-mi (여윤미)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Sangonomiya Kokomi.png"
-        }
-    },
-    {
-        "name": "Sayu",
-        "namecard_name": "Muji-Muji Daruma",
-        "namecard_description": "It is even smaller than Sayu, sure, but it can help her do the things she doesn't want to do.'",
-        "namecard_icon": "assets/character/namecard_icon/Sayu.png",
-        "namecard_background": "assets/character/namecard_background/Sayu.png",
-        "namecard_banner": "assets/character/namecard_banner/Sayu.avif",
-        "card": "assets/character/card/Sayu.avif",
-        "wish": "assets/character/wish/Sayu.avif",
-        "ingame": "assets/character/ingame/Sayu.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "August 10, 2021",
-        "version": "2.0",
-        "icon": "assets/character/icon/Sayu.avif",
-        "demo_music_name": "Muji-Muji Chaos!",
-        "demo_music": "assets/character/demo_music/Sayu.mp3",
-        "voice_over": {
-            "title": "When It Rains",
-            "text": "Eek, let's find shelter, quick! Watering works on plants, but not people...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Sayu/story/en/When It Rains.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "October 19th",
-        "affiliations": [
-            "Shuumatsuban",
-            "Yashiro Commission"
-        ],
-        "special_dish": {
-            "name": "Dizziness-Be-Gone no Jutsu Version 2.0",
-            "icon": "assets/foods/Dizziness-Be-Gone no Jutsu Version 2.0.png"
-        },
-        "titles": [
-            "Shuumatsuban's Resident Ninja"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Lilypichu (Lily Ki)"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Sakula小舞"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Suzaki Aya (洲崎綾)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Ji-hyeon (이지현)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Sayu.png"
-        }
-    },
-    {
-        "name": "Sethos",
-        "namecard_name": "Ba Fragment",
-        "namecard_description": "Each Ba Fragment has its unique symbol. While this one resembles an hourglass, it represents King Deshret's rule over both Upper and Lower Setekh. As for the light within, it stands for the wisdom of Hermanubis.'",
-        "namecard_icon": "assets/character/namecard_icon/Sethos.png",
-        "namecard_background": "assets/character/namecard_background/Sethos.png",
-        "namecard_banner": "assets/character/namecard_banner/Sethos.avif",
-        "card": "assets/character/card/Sethos.avif",
-        "wish": "assets/character/wish/Sethos.avif",
-        "ingame": "assets/character/ingame/Sethos.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "June 05, 2024",
-        "version": "4.7",
-        "icon": "assets/character/icon/Sethos.avif",
-        "demo_music_name": "Menmaatre's Parade",
-        "demo_music": "assets/character/demo_music/Sethos.mp3",
-        "voice_over": {
-            "title": "When the Sun Is Out",
-            "text": "The weather's so perfect, it would be such a waste not to go camping. How does fishing in an oasis sound?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Sethos/story/en/When the Sun Is Out.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "May 31st",
-        "affiliations": [
-            "Temple of Silence"
-        ],
-        "special_dish": {
-            "name": "Super-Dee-Duper Delicious Meat Roll",
-            "icon": "assets/foods/Super-Dee-Duper Delicious Meat Roll.png"
-        },
-        "titles": [
-            "Desert Envoy"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Zeno Robinson"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Li Lanling (李兰陵)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Chiba Shoya (千葉翔也)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Dong-hyun (김동현)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Sethos.png"
-        }
-    },
-    {
-        "name": "Shenhe",
-        "namecard_name": "Comb",
-        "namecard_description": "The early onset of white hair is often correlated to one's sorrows. Since 'comb' and 'scatter' are similarly read in Liyue's language, they believe that combing one's hair is the same as scattering one's misfortunes.'",
-        "namecard_icon": "assets/character/namecard_icon/Shenhe.png",
-        "namecard_background": "assets/character/namecard_background/Shenhe.png",
-        "namecard_banner": "assets/character/namecard_banner/Shenhe.avif",
-        "card": "assets/character/card/Shenhe.avif",
-        "wish": "assets/character/wish/Shenhe.avif",
-        "ingame": "assets/character/ingame/Shenhe.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "January 05, 2022",
-        "version": "2.4",
-        "icon": "assets/character/icon/Shenhe.avif",
-        "demo_music_name": "The Crane Cries",
-        "demo_music": "assets/character/demo_music/Shenhe.mp3",
-        "voice_over": {
-            "title": "After the Rain",
-            "text": "The sky is clearing up, and so is my mood. I just hope no one shows up to bother me... if they do, I'll just make them disappear.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Shenhe/story/en/After the Rain.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "March 10th",
-        "affiliations": [
-            "Cloud Retainer's Abode",
-            "Adepti",
-            "[Note 1]",
-            "Wanmin Restaurant"
-        ],
-        "special_dish": {
-            "name": "Heartstring Noodles",
-            "icon": "assets/foods/Heartstring Noodles.png"
-        },
-        "titles": [
-            "Ethereal Soul Amidst the Mortal Realm"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Chelsea Kwoka"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Qin Ziyi (秦紫翼)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kawasumi Ayako (川澄綾子)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Lee Hyun-jin (이현진)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Shenhe.png"
-        }
-    },
-    {
-        "name": "Shikanoin Heizou",
-        "namecard_name": "Temari",
-        "namecard_description": "A Temari of entwining strings in various colors. It must have taken someone's great effort to make such an item, yet Heizou only sees it as a simple game to untangle each string.'",
-        "namecard_icon": "assets/character/namecard_icon/Shikanoin Heizou.png",
-        "namecard_background": "assets/character/namecard_background/Shikanoin Heizou.png",
-        "namecard_banner": "assets/character/namecard_banner/Shikanoin Heizou.avif",
-        "card": "assets/character/card/Shikanoin Heizou.avif",
-        "wish": "assets/character/wish/Shikanoin Heizou.avif",
-        "ingame": "assets/character/ingame/Shikanoin Heizou.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "July 13, 2022",
-        "version": "2.8",
-        "icon": "assets/character/icon/Shikanoin Heizou.avif",
-        "demo_music_name": "Storm Chaser",
-        "demo_music": "assets/character/demo_music/Shikanoin Heizou.mp3",
-        "voice_over": {
-            "title": "Good Afternoon",
-            "text": "Alright. Now that lunch is over, whaddya say we play a game to keep our minds sharp? Relay Stones? Hehe... okay, I guess we can warm up with that.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Shikanoin Heizou/story/en/Good Afternoon.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "July 24th",
-        "affiliations": [
-            "Tenryou Commission",
-            "Bantan Sango Detective Agency"
-        ],
-        "special_dish": {
-            "name": "The Only Truth",
-            "icon": "assets/foods/The Only Truth.png"
-        },
-        "titles": [
-            "Detective of the Tenryou Commission"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Kieran Regan"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Lin Jing (林景)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Iguchi Yuuichi (井口 祐一)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Jeong-Ui-jin (정의진)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Shikanoin Heizou.png"
-        }
-    },
-    {
-        "name": "Sigewinne",
-        "namecard_name": "Treatment",
-        "namecard_description": "Sigewinne will take good care of her patients. Don't worry, her injections aren't that painful — and while the medicines aren't very tasty, you'd take them over the barren wasteland that special blend milkshakes represent.'",
-        "namecard_icon": "assets/character/namecard_icon/Sigewinne.png",
-        "namecard_background": "assets/character/namecard_background/Sigewinne.png",
-        "namecard_banner": "assets/character/namecard_banner/Sigewinne.avif",
-        "card": "assets/character/card/Sigewinne.avif",
-        "wish": "assets/character/wish/Sigewinne.avif",
-        "ingame": "assets/character/ingame/Sigewinne.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "June 25, 2024",
-        "version": "4.7",
-        "icon": "assets/character/icon/Sigewinne.avif",
-        "demo_music_name": "Romari Time!",
-        "demo_music": "assets/character/demo_music/Sigewinne.mp3",
-        "voice_over": {
-            "title": "Chat: Stickers",
-            "text": "No... I didn't put a sticker on your back.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Sigewinne/story/en/Chat - Stickers.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "March 30th",
-        "affiliations": [
-            "Fortress of Meropide"
-        ],
-        "special_dish": {
-            "name": "Well-Balanced Meal",
-            "icon": "assets/foods/Well-Balanced Meal.png"
-        },
-        "titles": [
-            "Melusine Head Nurse"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Sarah Williams"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Zhao Shuang (赵爽)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kino Hina (木野日菜)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Chae-rin (김채린)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Sigewinne.png"
-        }
-    },
-    {
-        "name": "Sucrose",
-        "namecard_name": "Bio-Alchemy",
-        "namecard_description": "If you closely examine an Anemo Hypostasis before it disappears, you will discover that they are actually quite square.'",
-        "namecard_icon": "assets/character/namecard_icon/Sucrose.png",
-        "namecard_background": "assets/character/namecard_background/Sucrose.png",
-        "namecard_banner": "assets/character/namecard_banner/Sucrose.avif",
-        "card": "assets/character/card/Sucrose.avif",
-        "wish": "assets/character/wish/Sucrose.avif",
-        "ingame": "assets/character/ingame/Sucrose.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Sucrose.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "Chat: Deep Breaths",
-            "text": "Ahhh! I haven't been out in a while.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Sucrose/story/en/Chat - Deep Breaths.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "November 26th",
-        "affiliations": [
-            "Knights of Favonius"
-        ],
-        "special_dish": {
-            "name": "Nutritious Meal (V.593)",
-            "icon": "assets/foods/Nutritious Meal (V.593).png"
-        },
-        "titles": [
-            "Knights of Favonius Alchemist"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Valeria Rodriguez"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Xiaogan (小敢)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Fujita Akane (藤田茜)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Ha-yeong (김하영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Sucrose.png"
-        }
-    },
-    {
-        "name": "Thoma",
-        "namecard_name": "Blazing Guard",
-        "namecard_description": "Blazing armor, flaming guards.'",
-        "namecard_icon": "assets/character/namecard_icon/Thoma.png",
-        "namecard_background": "assets/character/namecard_background/Thoma.png",
-        "namecard_banner": "assets/character/namecard_banner/Thoma.avif",
-        "card": "assets/character/card/Thoma.avif",
-        "wish": "assets/character/wish/Thoma.avif",
-        "ingame": "assets/character/ingame/Thoma.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "November 02, 2021",
-        "version": "2.2",
-        "icon": "assets/character/icon/Thoma.avif",
-        "demo_music_name": "Devotion of the Keeper",
-        "demo_music": "assets/character/demo_music/Thoma.mp3",
-        "voice_over": {
-            "title": "Chat: Thoma's Treat",
-            "text": "Hey... how about we go for a nice meal some time? My treat, of course.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Thoma/story/en/Chat - Thoma's Treat.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "January 9th",
-        "affiliations": [
-            "Yashiro Commission",
-            "Kamisato Clan"
-        ],
-        "special_dish": {
-            "name": "\"Warmth\"",
-            "icon": "assets/foods/Warmth.png"
-        },
-        "titles": [
-            "The Kamisato Clan's Housekeeper"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Christian Banas"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Zhang Pei (张沛)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Morita Masakazu (森田成一)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Ryu Seung-gon (류승곤)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Thoma.png"
-        }
-    },
-    {
-        "name": "Tighnari",
-        "namecard_name": "Dew-Kissed",
-        "namecard_description": "Tighnari takes good care of his big, fluffy tail. The essential oil he uses was extracted from flowers and mixed together meticulously. It gives off a faint, calming scent.'",
-        "namecard_icon": "assets/character/namecard_icon/Tighnari.png",
-        "namecard_background": "assets/character/namecard_background/Tighnari.png",
-        "namecard_banner": "assets/character/namecard_banner/Tighnari.avif",
-        "card": "assets/character/card/Tighnari.avif",
-        "wish": "assets/character/wish/Tighnari.avif",
-        "ingame": "assets/character/ingame/Tighnari.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "August 24, 2022",
-        "version": "3.0",
-        "icon": "assets/character/icon/Tighnari.avif",
-        "demo_music_name": "Winding Through Avidya",
-        "demo_music": "assets/character/demo_music/Tighnari.mp3",
-        "voice_over": {
-            "title": "Good Morning",
-            "text": "Shh, listen! That's the sound of dew dripping upon the leaves.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Tighnari/story/en/Good Morning.mp3"
-        },
-        "roles": [],
-        "birthday": "December 29th",
-        "affiliations": [
-            "Gandharva Ville",
-            "Forest Rangers",
-            "Amurta"
-        ],
-        "special_dish": {
-            "name": "Forest Watcher's Choice",
-            "icon": "assets/foods/Forest Watcher's Choice.png"
-        },
-        "titles": [
-            "Avidya Forest Watcher"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Zachary Gordon"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Moran (莫然)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kobayashi Sanae (小林 沙苗)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Jung Ui-taek (정의택)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Tighnari.png"
-        }
-    },
-    {
-        "name": "Venti",
-        "namecard_name": "Azure Sky",
-        "namecard_description": "The bright blue of a cloudless sky and the melodious tone of Der Frühling complement each other perfectly.'",
-        "namecard_icon": "assets/character/namecard_icon/Venti.png",
-        "namecard_background": "assets/character/namecard_background/Venti.png",
-        "namecard_banner": "assets/character/namecard_banner/Venti.avif",
-        "card": "assets/character/card/Venti.avif",
-        "wish": "assets/character/wish/Venti.avif",
-        "ingame": "assets/character/ingame/Venti.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Mondstadt",
-        "region_icon": "assets/region/Mondstadt_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Venti.avif",
-        "demo_music_name": "Bard's Adventure",
-        "demo_music": "assets/character/demo_music/Venti.mp3",
-        "voice_over": {
-            "title": "When It Rains",
-            "text": "Let's go jumping in puddles and see who can make the biggest splash!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Venti/story/en/When It Rains.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "June 16th",
-        "affiliations": [
-            "Mondstadt",
-            "The Seven",
-            "Thousand Winds"
-        ],
-        "special_dish": {
-            "name": "A Buoyant Breeze",
-            "icon": "assets/foods/A Buoyant Breeze.png"
-        },
-        "titles": [
-            "Singer of Skyward Sonnets"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Erika Harlacher"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Miaojiang (喵酱)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Murase Ayumu (村瀬 歩)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Jung Yoo-jung (정유정)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Venti.png"
-        }
-    },
-    {
-        "name": "Wanderer",
-        "namecard_name": "Drifter's Ballad",
-        "namecard_description": "In a world most transient does the past hide, and in the whims of floating flowers does thin snow abide.'",
-        "namecard_icon": "assets/character/namecard_icon/Wanderer.png",
-        "namecard_background": "assets/character/namecard_background/Wanderer.png",
-        "namecard_banner": "assets/character/namecard_banner/Wanderer.avif",
-        "card": "assets/character/card/Wanderer.avif",
-        "wish": "assets/character/wish/Wanderer.avif",
-        "ingame": "assets/character/ingame/Wanderer.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Sumeru",
-        "region_icon": "assets/region/Sumeru_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "December 07, 2022",
-        "version": "3.3",
-        "icon": "assets/character/icon/Wanderer.avif",
-        "demo_music_name": "Novatio Novena",
-        "demo_music": "assets/character/demo_music/Wanderer.mp3",
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Huh. How irritating.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Wanderer/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "January 3rd",
-        "affiliations": [
-            "Vahumana",
-            "Fatui",
-            "Eleven Fatui Harbingers"
-        ],
-        "special_dish": {
-            "name": "Shimi Chazuke",
-            "icon": "assets/foods/Shimi Chazuke.png"
-        },
-        "titles": [
-            "Tribulations Uncounted, Trials Unknowable"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Patrick Pedraza"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Luyin (鹿喑)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kakihara Tetsuya (柿原 徹也)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Min Seung-woo (민승우)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Wanderer.png"
-        }
-    },
-    {
-        "name": "Wriothesley",
-        "namecard_name": "Detention",
-        "namecard_description": "Maintaining order at the Fortress of Meropide is no simple affair. As such, a deft and sometimes firm hand is needed — along with a small pinch of truly regrettable cruelty.'",
-        "namecard_icon": "assets/character/namecard_icon/Wriothesley.png",
-        "namecard_background": "assets/character/namecard_background/Wriothesley.png",
-        "namecard_banner": "assets/character/namecard_banner/Wriothesley.avif",
-        "card": "assets/character/card/Wriothesley.avif",
-        "wish": "assets/character/wish/Wriothesley.avif",
-        "ingame": "assets/character/ingame/Wriothesley.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Cryo",
-        "element_icon": "assets/element/Element_Cryo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Fontaine",
-        "region_icon": "assets/region/Fontaine_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "October 17, 2023",
-        "version": "4.1",
-        "icon": "assets/character/icon/Wriothesley.avif",
-        "demo_music_name": "Nippy Bout",
-        "demo_music": "assets/character/demo_music/Wriothesley.mp3",
-        "voice_over": {
-            "title": "Chat: Stickers",
-            "text": "If you ever see any stickers on my back, do me a favor and take them off... Melusines like to play pranks sometimes.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Wriothesley/story/en/Chat - Stickers.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "November 23rd",
-        "affiliations": [
-            "Fortress of Meropide"
-        ],
-        "special_dish": {
-            "name": "Secret Sauce BBQ Ribs",
-            "icon": "assets/foods/Secret Sauce BBQ Ribs.png"
-        },
-        "titles": [
-            "Lord of the Fortress of Meropide"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Joe Zieja"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Liu Beichen (刘北辰)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Ono Daisuke (小野大輔)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kwon Chang-wook (권창욱)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Wriothesley.png"
-        }
-    },
-    {
-        "name": "Xiangling",
-        "namecard_name": "Fresh from the Pan",
-        "namecard_description": "Try saying this three times fast: 'Guoba sears sea snails by Liyue's sea shore.''",
-        "namecard_icon": "assets/character/namecard_icon/Xiangling.png",
-        "namecard_background": "assets/character/namecard_background/Xiangling.png",
-        "namecard_banner": "assets/character/namecard_banner/Xiangling.avif",
-        "card": "assets/character/card/Xiangling.avif",
-        "wish": "assets/character/wish/Xiangling.avif",
-        "ingame": "assets/character/ingame/Xiangling.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Xiangling.avif",
-        "demo_music_name": "Flaming Fry",
-        "demo_music": "assets/character/demo_music/Xiangling.mp3",
-        "voice_over": {
-            "title": "When It's Windy",
-            "text": "Anemo Slimes always come out in this weather. If you catch some, I'll make you a Slime Slushie!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Xiangling/story/en/When It's Windy.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "November 2nd",
-        "affiliations": [
-            "Wanmin Restaurant",
-            "The Crux"
-        ],
-        "special_dish": {
-            "name": "Wanmin Restaurant's Boiled Fish",
-            "icon": "assets/foods/Wanmin Restaurant's Boiled Fish.png"
-        },
-        "titles": [
-            "Chef de Cuisine"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Jackie Lastra"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Xiao N (小N)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Ozawa Ari (小澤亜李)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Yun A-yeong (윤아영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Xiangling.png"
-        }
-    },
-    {
-        "name": "Xianyun",
-        "namecard_name": "White Clouds",
-        "namecard_description": "Those who the truth tell, commuted shall their sentence be. Be honest. When Cloud Retainer asked you, 'Do you perceive one as merely some larger bird?', did you also append the thoughts, 'Yes, and you talk, and fiddle with funny machines'?'",
-        "namecard_icon": "assets/character/namecard_icon/Xianyun.png",
-        "namecard_background": "assets/character/namecard_background/Xianyun.png",
-        "namecard_banner": "assets/character/namecard_banner/Xianyun.avif",
-        "card": "assets/character/card/Xianyun.avif",
-        "wish": "assets/character/wish/Xianyun.avif",
-        "ingame": "assets/character/ingame/Xianyun.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "January 31, 2024",
-        "version": "4.4",
-        "icon": "assets/character/icon/Xianyun.avif",
-        "demo_music_name": "Borrowing Winds of Harmony",
-        "demo_music": "assets/character/demo_music/Xianyun.mp3",
-        "voice_over": {
-            "title": "Good Afternoon",
-            "text": "Hmm? Spare me that look, is it not your turn to prepare luncheon today?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Xianyun/story/en/Good Afternoon.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "April 11th",
-        "affiliations": [
-            "Mt. Aocang",
-            "Adepti"
-        ],
-        "special_dish": {
-            "name": "Encompassing Gladness",
-            "icon": "assets/foods/Encompassing Gladness.png"
-        },
-        "titles": [
-            "New Resident in Liyue Harbor"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Stephanie Panisello"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Qin Ziyi (秦紫翼)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Nakatomi Mana (中臣 真菜)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kang Si-hyeon (강시현)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Xianyun.png"
-        }
-    },
-    {
-        "name": "Xiao",
-        "namecard_name": "Mask",
-        "namecard_description": "He longs for a day to come when he will wear the mask and dance — not to conquer demons, but to the tune of that flute amid a sea of flowers.'",
-        "namecard_icon": "assets/character/namecard_icon/Xiao.png",
-        "namecard_background": "assets/character/namecard_background/Xiao.png",
-        "namecard_banner": "assets/character/namecard_banner/Xiao.avif",
-        "card": "assets/character/card/Xiao.avif",
-        "wish": "assets/character/wish/Xiao.avif",
-        "ingame": "assets/character/ingame/Xiao.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "February 03, 2021",
-        "version": "1.3",
-        "icon": "assets/character/icon/Xiao.avif",
-        "demo_music_name": "Path of Yaksha",
-        "demo_music": "assets/character/demo_music/Xiao.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "Once the snow is thick enough, we can eat it.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Xiao/story/en/When It Snows.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "April 17th",
-        "affiliations": [
-            "Liyue Adeptus",
-            "Yakshas"
-        ],
-        "special_dish": {
-            "name": "\"Sweet Dream\"",
-            "icon": "assets/foods/Sweet Dream.png"
-        },
-        "titles": [
-            "Bane of All Evil"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Laila Berzins"
-            },
-            {
-                "language": "Chinese",
-                "actor": "kinsen"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Matsuoka Yoshitsugu (松岡 禎丞)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Sim Kyu-hyuk (심규혁)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Xiao.png"
-        }
-    },
-    {
-        "name": "Xilonen",
-        "namecard_name": "Cue Point",
-        "namecard_description": "Right on cue, the mountains echo with the rhythm of Xilonen's forge-hammer. When the final echo fades, she has already long ceased her toil and found a sunlit spot for her afternoon nap.'",
-        "namecard_icon": "assets/character/namecard_icon/Xilonen.png",
-        "namecard_background": "assets/character/namecard_background/Xilonen.png",
-        "namecard_banner": "assets/character/namecard_banner/Xilonen.avif",
-        "card": "assets/character/card/Xilonen.avif",
-        "wish": "assets/character/wish/Xilonen.avif",
-        "ingame": "assets/character/ingame/Xilonen.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Natlan",
-        "region_icon": "assets/region/Natlan_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "October 09, 2024",
-        "version": "5.1",
-        "icon": "assets/character/icon/Xilonen.avif",
-        "demo_music_name": "Lights on Me",
-        "demo_music": "assets/character/demo_music/Xilonen.mp3",
-        "voice_over": {
-            "title": "Chat: Potted Plant",
-            "text": "*sigh* My potted plant on the porch has died again. I was watering it every day... Don't tell me I overdid it this time?",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Xilonen/story/en/Chat - Potted Plant.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "March 13th",
-        "affiliations": [
-            "Nanatzcayan"
-        ],
-        "special_dish": {
-            "name": "Fruit-Flavored Milk Candies",
-            "icon": "assets/foods/Fruit-Flavored Milk Candies.png"
-        },
-        "titles": [
-            "Nanatzcayan Smith"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Beth Curry"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Mi Yang (弭洋)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Fairouz Ai (ファイルーズ あい)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim I-an (김이안)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Xilonen.png"
-        }
-    },
-    {
-        "name": "Xingqiu",
-        "namecard_name": "Rainbow",
-        "namecard_description": "Come watch the night rain that brings no rainbow.'",
-        "namecard_icon": "assets/character/namecard_icon/Xingqiu.png",
-        "namecard_background": "assets/character/namecard_background/Xingqiu.png",
-        "namecard_banner": "assets/character/namecard_banner/Xingqiu.avif",
-        "card": "assets/character/card/Xingqiu.avif",
-        "wish": "assets/character/wish/Xingqiu.avif",
-        "ingame": "assets/character/ingame/Xingqiu.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Sword",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-sword-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Male",
-        "release_date": "September 28, 2020",
-        "version": "1.0",
-        "icon": "assets/character/icon/Xingqiu.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "Chat: Taking a Break",
-            "text": "Now this is what I call, \"a moment of solitude.\"",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Xingqiu/story/en/Chat - Taking a Break.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "October 9th",
-        "affiliations": [
-            "Feiyun Commerce Guild",
-            "Guhua Clan",
-            "Yae Publishing House"
-        ],
-        "special_dish": {
-            "name": "All-Delicacy Parcels",
-            "icon": "assets/foods/All-Delicacy Parcels.png"
-        },
-        "titles": [
-            "Guhua Guru of Feiyun Fame"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Cristina Vee Valenzuela"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Tang Yajing (唐雅菁)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Minagawa Junko (皆川 純子)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Gwak Gyu-mi (곽규미)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Xingqiu.png"
-        }
-    },
-    {
-        "name": "Xinyan",
-        "namecard_name": "Song's End",
-        "namecard_description": "Xinyan only has time to examine her instrument carefully after the performance is over. Even in silence, it is a beauty.'",
-        "namecard_icon": "assets/character/namecard_icon/Xinyan.png",
-        "namecard_background": "assets/character/namecard_background/Xinyan.png",
-        "namecard_banner": "assets/character/namecard_banner/Xinyan.avif",
-        "card": "assets/character/card/Xinyan.avif",
-        "wish": "assets/character/wish/Xinyan.avif",
-        "ingame": "assets/character/ingame/Xinyan.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Claymore",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-claymore-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "December 01, 2020",
-        "version": "1.1",
-        "icon": "assets/character/icon/Xinyan.avif",
-        "demo_music_name": "Rockin' With Fire",
-        "demo_music": "assets/character/demo_music/Xinyan.mp3",
-        "voice_over": {
-            "title": "Good Afternoon",
-            "text": "Alright, that's a wrap! *yawns* If there's nothin' else, I'll go take a nap somewhere...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Xinyan/story/en/Good Afternoon.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "October 16th",
-        "affiliations": [],
-        "special_dish": {
-            "name": "Rockin' Riffin' Chicken!",
-            "icon": "assets/foods/Rockin' Riffin' Chicken!.png"
-        },
-        "titles": [
-            "Liyue's sole rock 'n' roll musician"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Laura Stahl"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Wang Yaxin (王雅欣)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Takahashi Chiaki (たかはし智秋)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Chae-ha (김채하)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Xinyan.png"
-        }
-    },
-    {
-        "name": "Yae Miko",
-        "namecard_name": "Kitsune Dreaming",
-        "namecard_description": "Where can Yae Miko's fox form be found? In your dreams, that's where.'",
-        "namecard_icon": "assets/character/namecard_icon/Yae Miko.png",
-        "namecard_background": "assets/character/namecard_background/Yae Miko.png",
-        "namecard_banner": "assets/character/namecard_banner/Yae Miko.avif",
-        "card": "assets/character/card/Yae Miko.avif",
-        "wish": "assets/character/wish/Yae Miko.avif",
-        "ingame": "assets/character/ingame/Yae Miko.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Electro",
-        "element_icon": "assets/element/Element_Electro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "February 16, 2022",
-        "version": "2.5",
-        "icon": "assets/character/icon/Yae Miko.avif",
-        "demo_music_name": "Nothing but Trickery",
-        "demo_music": "assets/character/demo_music/Yae Miko.mp3",
-        "voice_over": {
-            "title": "Chat: Mortal World",
-            "text": "Personally, I think the idea of things staying the same forever is quite beautiful. *sigh* But alas, that is simply not the way the world works.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Yae Miko/story/en/Chat - Mortal World.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "June 27th",
-        "affiliations": [
-            "Grand Narukami Shrine",
-            "Yae Publishing House"
-        ],
-        "special_dish": {
-            "name": "Fukuuchi Udon",
-            "icon": "assets/foods/Fukuuchi Udon.png"
-        },
-        "titles": [
-            "Guuji of the Grand Narukami Shrine"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Ratana"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Du Mingya (杜冥鸦)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Sakura Ayane (佐倉綾音)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Moon Yoo-jeong (문유정)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Yae Miko.png"
-        }
-    },
-    {
-        "name": "Yanfei",
-        "namecard_name": "Impartial",
-        "namecard_description": "Justice, signed in scarlet.'",
-        "namecard_icon": "assets/character/namecard_icon/Yanfei.png",
-        "namecard_background": "assets/character/namecard_background/Yanfei.png",
-        "namecard_banner": "assets/character/namecard_banner/Yanfei.avif",
-        "card": "assets/character/card/Yanfei.avif",
-        "wish": "assets/character/wish/Yanfei.avif",
-        "ingame": "assets/character/ingame/Yanfei.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "April 28, 2021",
-        "version": "1.5",
-        "icon": "assets/character/icon/Yanfei.avif",
-        "demo_music_name": "Marching of Xiezhi",
-        "demo_music": "assets/character/demo_music/Yanfei.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "What the... What kind of injurious weather is this!? It's c—cold... Achoo...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Yanfei/story/en/When It Snows.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "July 28th",
-        "affiliations": [
-            "Adepti"
-        ],
-        "special_dish": {
-            "name": "\"My Way\"",
-            "icon": "assets/foods/My Way.png"
-        },
-        "titles": [
-            "Liyue Harbor's famed legal adviser"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Lizzie Freeman"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Su Ziwu (苏子芜)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Hanamori Yumiri (花守 ゆみり)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Cho Kyung-yi (조경이)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Yanfei.png"
-        }
-    },
-    {
-        "name": "Yaoyao",
-        "namecard_name": "Yuegui",
-        "namecard_description": "'Can you guess which one here is Yuegui? That's right, all of them are!''",
-        "namecard_icon": "assets/character/namecard_icon/Yaoyao.png",
-        "namecard_background": "assets/character/namecard_background/Yaoyao.png",
-        "namecard_banner": "assets/character/namecard_banner/Yaoyao.avif",
-        "card": "assets/character/card/Yaoyao.avif",
-        "wish": "assets/character/wish/Yaoyao.avif",
-        "ingame": "assets/character/ingame/Yaoyao.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Dendro",
-        "element_icon": "assets/element/Element_Dendro.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Short Female",
-        "release_date": "January 18, 2023",
-        "version": "3.4",
-        "icon": "assets/character/icon/Yaoyao.avif",
-        "demo_music_name": "Immaculate Ardency",
-        "demo_music": "assets/character/demo_music/Yaoyao.mp3",
-        "voice_over": {
-            "title": "When It Rains",
-            "text": "Hey, can you hear the frogs croaking? Hehe, silly frogs! They're singing along to the sound of the rain! Ribbit, ribbit, ribbit~",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Yaoyao/story/en/When It Rains.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "March 6th",
-        "affiliations": [
-            "Adepti"
-        ],
-        "special_dish": {
-            "name": "Qingce Household Dish",
-            "icon": "assets/foods/Qingce Household Dish.png"
-        },
-        "titles": [
-            "Disciple of Streetward Rambler"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Kelsey Jaffer"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Liu Yinuo (刘颐诺)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Kadowaki Mai (門脇舞以)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Yu Hye-ji (유혜지)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Yaoyao.png"
-        }
-    },
-    {
-        "name": "Yelan",
-        "namecard_name": "Throw",
-        "namecard_description": "'Dice are always quite hard to make 'fair.' That goes double for dice with shoddier workmanship. The weighting on each numbered side will almost certainly be unbalanced.''",
-        "namecard_icon": "assets/character/namecard_icon/Yelan.png",
-        "namecard_background": "assets/character/namecard_background/Yelan.png",
-        "namecard_banner": "assets/character/namecard_banner/Yelan.avif",
-        "card": "assets/character/card/Yelan.avif",
-        "wish": "assets/character/wish/Yelan.avif",
-        "ingame": "assets/character/ingame/Yelan.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Hydro",
-        "element_icon": "assets/element/Element_Hydro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Tall Female",
-        "release_date": "May 31, 2022",
-        "version": "2.7",
-        "icon": "assets/character/icon/Yelan.avif",
-        "demo_music_name": "Graceful Dexterity",
-        "demo_music": "assets/character/demo_music/Yelan.mp3",
-        "voice_over": {
-            "title": "Chat: Truancy",
-            "text": "Good roll... Alright, maybe I'll take one more day off, and knock out the rest of the work once I'm feeling up to it.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Yelan/story/en/Chat - Truancy.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "April 20th",
-        "affiliations": [
-            "Yanshang Teahouse",
-            "Ministry of Civil Affairs"
-        ],
-        "special_dish": {
-            "name": "Dew-Dipped Shrimp",
-            "icon": "assets/foods/Dew-Dipped Shrimp.png"
-        },
-        "titles": [
-            "A mysterious person who claims to work for the Ministry of Civil Affairs"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Laura Post"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Xu Hui (徐慧)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Endou Aya (遠藤 綾)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Min-a (민아)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Yelan.png"
-        }
-    },
-    {
-        "name": "Yoimiya",
-        "namecard_name": "Auratus Spark",
-        "namecard_description": "Even momentarily sparks can leave beautiful, unquenchable flames in the hearts of those who watch the night sky.'",
-        "namecard_icon": "assets/character/namecard_icon/Yoimiya.png",
-        "namecard_background": "assets/character/namecard_background/Yoimiya.png",
-        "namecard_banner": "assets/character/namecard_banner/Yoimiya.avif",
-        "card": "assets/character/card/Yoimiya.avif",
-        "wish": "assets/character/wish/Yoimiya.avif",
-        "ingame": "assets/character/ingame/Yoimiya.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Pyro",
-        "element_icon": "assets/element/Element_Pyro.png",
-        "weapon_type": "Bow",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-bow-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "August 10, 2021",
-        "version": "2.0",
-        "icon": "assets/character/icon/Yoimiya.avif",
-        "demo_music_name": "Blossoms of Summer Night",
-        "demo_music": "assets/character/demo_music/Yoimiya.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "Haha, watch me make a snowball... pew!",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Yoimiya/story/en/When It Snows.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            }
-        ],
-        "birthday": "June 21st",
-        "affiliations": [
-            "Naganohara Fireworks"
-        ],
-        "special_dish": {
-            "name": "Summer Festival Fish",
-            "icon": "assets/foods/Summer Festival Fish.png"
-        },
-        "titles": [
-            "Owner of Naganohara Fireworks"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Jenny Yokobori"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Jin Na (金娜)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Ueda Kana (植田 佳奈)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Bak Sin-hee (박신희)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Yoimiya.png"
-        }
-    },
-    {
-        "name": "Yumemizuki Mizuki",
-        "namecard_name": "Nightmare Devourer",
-        "namecard_description": "The yumekui-baku consume nightmares and leave only pleasant dreams. But what if dreams are to be understood in reverse? Faced with such conjecture, her warm-natured response: A truly beautiful dream, even if turned upside down through reality's lens, would still remain beautiful.'",
-        "namecard_icon": "assets/character/namecard_icon/Yumemizuki Mizuki.png",
-        "namecard_background": "assets/character/namecard_background/Yumemizuki Mizuki.png",
-        "namecard_banner": "assets/character/namecard_banner/Yumemizuki Mizuki.avif",
-        "card": "assets/character/card/Yumemizuki Mizuki.avif",
-        "wish": "assets/character/wish/Yumemizuki Mizuki.avif",
-        "ingame": "assets/character/ingame/Yumemizuki Mizuki.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Anemo",
-        "element_icon": "assets/element/Element_Anemo.png",
-        "weapon_type": "Catalyst",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-catalyst-icon.png",
-        "region": "Inazuma",
-        "region_icon": "assets/region/Inazuma_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "February 12, 2025",
-        "version": "5.4",
-        "icon": "assets/character/icon/Yumemizuki Mizuki.avif",
-        "demo_music_name": null,
-        "demo_music": null,
-        "voice_over": {
-            "title": "When Thunder Strikes",
-            "text": "Ah, I wonder if the Almighty Shogun is having a bad day...",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Yumemizuki Mizuki/story/en/When Thunder Strikes.mp3"
-        },
-        "roles": [
-            {
-                "name": "On-Field",
-                "icon": "assets/roles/On-Field.png"
-            },
-            {
-                "name": "DPS",
-                "icon": "assets/roles/DPS.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "March 16th",
-        "affiliations": [
-            "Inazuma",
-            "Aisa Bathhouse"
-        ],
-        "special_dish": {
-            "name": "Dreams of Healing",
-            "icon": "assets/foods/Dreams of Healing.png"
-        },
-        "titles": [
-            "Clinical Psychologist and Major Shareholder of Aisa Bathhouse"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Naomi McDonald"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Fumeng Ruowei (浮梦若薇)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Aizawa Saya (会沢 紗弥)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Kim Seo-hyun (김서현)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Yumemizuki Mizuki.png"
-        }
-    },
-    {
-        "name": "Yun Jin",
-        "namecard_name": "Rhyme",
-        "namecard_description": "Ms. Yun has two sorts of teachers. The critics of her onstage performances are one, and the books on rhyme she references while writing are the other.'",
-        "namecard_icon": "assets/character/namecard_icon/Yun Jin.png",
-        "namecard_background": "assets/character/namecard_background/Yun Jin.png",
-        "namecard_banner": "assets/character/namecard_banner/Yun Jin.avif",
-        "card": "assets/character/card/Yun Jin.avif",
-        "wish": "assets/character/wish/Yun Jin.avif",
-        "ingame": "assets/character/ingame/Yun Jin.png",
-        "rarity": "4",
-        "rarity_icon": "assets/rarity/Icon_4_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Medium Female",
-        "release_date": "January 05, 2022",
-        "version": "2.4",
-        "icon": "assets/character/icon/Yun Jin.avif",
-        "demo_music_name": "Chapter of a New Era",
-        "demo_music": "assets/character/demo_music/Yun Jin.mp3",
-        "voice_over": {
-            "title": "When It Snows",
-            "text": "(Translated) Fie! This cold shall be mine end!",
-            "reading": "(Actual Voice-Over: 喂呀，冻煞我了。)Actual Romanization: Wèi ya, dòng shā wǒ liǎo.",
-            "audio": "assets/character/voice_overs/Yun Jin/story/en/When It Snows.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            }
-        ],
-        "birthday": "May 21st",
-        "affiliations": [
-            "Yun-Han Opera Troupe",
-            "Heyu Tea House",
-            "Yun Family"
-        ],
-        "special_dish": {
-            "name": "Cloud-Shrouded Jade",
-            "icon": "assets/foods/Cloud-Shrouded Jade.png"
-        },
-        "titles": [
-            "Current Director of Yun-Han Opera Troupe"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Judy Alice Lee"
-            },
-            {
-                "language": "Chinese",
-                "actor": "He Wenxiao (贺文潇)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Koiwai Kotori (小岩井 ことり)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Sa Mun-yeong (사문영)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Yun Jin.png"
-        }
-    },
-    {
-        "name": "Zhongli",
-        "namecard_name": "Planet Befall",
-        "namecard_description": "Stars fall, light dims.'",
-        "namecard_icon": "assets/character/namecard_icon/Zhongli.png",
-        "namecard_background": "assets/character/namecard_background/Zhongli.png",
-        "namecard_banner": "assets/character/namecard_banner/Zhongli.avif",
-        "card": "assets/character/card/Zhongli.avif",
-        "wish": "assets/character/wish/Zhongli.avif",
-        "ingame": "assets/character/ingame/Zhongli.png",
-        "rarity": "5",
-        "rarity_icon": "assets/rarity/Icon_5_Stars.png",
-        "element": "Geo",
-        "element_icon": "assets/element/Element_Geo.png",
-        "weapon_type": "Polearm",
-        "weapont_type_icon": "assets/weapon_type/Weapon-class-polearm-icon.png",
-        "region": "Liyue",
-        "region_icon": "assets/region/Liyue_Emblem_Night.png",
-        "model_type": "Tall Male",
-        "release_date": "December 01, 2020",
-        "version": "1.1",
-        "icon": "assets/character/icon/Zhongli.avif",
-        "demo_music_name": "Rex Incognito",
-        "demo_music": "assets/character/demo_music/Zhongli.mp3",
-        "voice_over": {
-            "title": "Chat: Journeys",
-            "text": "Every journey has its final day. Don't rush.",
-            "reading": null,
-            "audio": "assets/character/voice_overs/Zhongli/story/en/Chat - Journeys.mp3"
-        },
-        "roles": [
-            {
-                "name": "Off-Field",
-                "icon": "assets/roles/Off-Field.png"
-            },
-            {
-                "name": "Support",
-                "icon": "assets/roles/Support.png"
-            },
-            {
-                "name": "Survivability",
-                "icon": "assets/roles/Survivability.png"
-            }
-        ],
-        "birthday": "December 31st",
-        "affiliations": [
-            "Liyue Harbor",
-            "Wangsheng Funeral Parlor",
-            "The Seven",
-            "Adepti"
-        ],
-        "special_dish": {
-            "name": "Slow-Cooked Bamboo Shoot Soup",
-            "icon": "assets/foods/Slow-Cooked Bamboo Shoot Soup.png"
-        },
-        "titles": [
-            "Wangsheng Funeral Parlor Consultant"
-        ],
-        "voice_actors": [
-            {
-                "language": "English",
-                "actor": "Keith Silverstein"
-            },
-            {
-                "language": "Chinese",
-                "actor": "Peng Bo (彭博)"
-            },
-            {
-                "language": "Japanese",
-                "actor": "Maeno Tomoaki (前野智昭)"
-            },
-            {
-                "language": "Korean",
-                "actor": "Pyo Yeong-jae (표영재)"
-            }
-        ],
-        "build": {
-            "infographic": "assets/character/builds/Zhongli.png"
-        }
-    }
+    },
 ];

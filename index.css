@@ -75,28 +75,63 @@
   color: var(--anemo-secondary-white);
 }
 
+.anemo-bg {
+  color: var(--light-color);
+  background-color: var(--anemo-secondary-white);
+}
+
 .geo {
   color: var(--geo-secondary-white);
+}
+
+.geo-bg {
+  color: var(--light-color);
+  background-color: var(--geo-secondary-white);
 }
 
 .electro {
   color: var(--electro-secondary-white);
 }
 
+.electro-bg {
+  color: var(--light-color);
+  background-color: var(--electro-secondary-white);
+}
+
 .dendro {
   color: var(--dendro-secondary-white);
+}
+
+.dendro-bg {
+  color: var(--light-color);
+  background-color: var(--dendro-secondary-white);
 }
 
 .hydro {
   color: var(--hydro-secondary-white);
 }
 
+.hydro-bg {
+  color: var(--light-color);
+  background-color: var(--hydro-secondary-white);
+}
+
 .pyro {
   color: var(--pyro-secondary-white);
 }
 
+.pyro-bg {
+  color: var(--light-color);
+  background-color: var(--pyro-secondary-white);
+}
+
 .cryo {
   color: var(--cryo-secondary-white);
+}
+
+.cryo-bg {
+  color: var(--light-color);
+  background-color: var(--cryo-secondary-white);
 }
 
 /* Dark theme colors - will be applied when .dark-theme class is added */

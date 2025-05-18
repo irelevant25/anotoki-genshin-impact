@@ -15,7 +15,7 @@ const CharacterHeader = {
                 <div v-if="character.titles && character.titles.length" class="character-title">{{ character.titles[0] }}</div>
 
                 <div class="character-info">
-                    <div class="info-item">
+                    <div>
                         <span class="info-label">Element:</span>
                         <span class="info-value">
                             <img :src="character.element.icon" :alt="character.element.name" class="element-icon" />
@@ -23,7 +23,7 @@ const CharacterHeader = {
                         </span>
                     </div>
 
-                    <div class="info-item">
+                    <div>
                         <span class="info-label">Weapon:</span>
                         <span class="info-value">
                             <img :src="character.weapon.icon" :alt="character.weapon.name" class="weapon-icon" />
@@ -31,7 +31,7 @@ const CharacterHeader = {
                         </span>
                     </div>
 
-                    <div v-if="character.region" class="info-item">
+                    <div v-if="character.region">
                         <span class="info-label">Region:</span>
                         <span class="info-value">
                             <img v-if="character.region.icon" :src="character.region.icon" :alt="character.region.name" class="region-icon" />
@@ -39,32 +39,32 @@ const CharacterHeader = {
                         </span>
                     </div>
 
-                    <div class="info-item">
+                    <div>
                         <span class="info-label">Model:</span>
                         <span class="info-value">{{ character.model }}</span>
                     </div>
 
-                    <div class="info-item">
+                    <div>
                         <span class="info-label">Birthday:</span>
                         <span class="info-value">{{ character.birthday }}</span>
                     </div>
 
-                    <div class="info-item">
+                    <div>
                         <span class="info-label">Released:</span>
                         <span class="info-value">{{ character.release_date }} (v{{ character.version }})</span>
                     </div>
 
-                    <div class="info-item">
+                    <div>
                         <span class="info-label">Titles:</span>
                         <span class="info-value">{{ character.titles.join(', ') }}</span>
                     </div>
 
-                    <div class="info-item">
+                    <div>
                         <span class="info-label">Affiliations:</span>
                         <span class="info-value">{{ character.affiliations.join(', ') }}</span>
                     </div>
 
-                    <div class="info-item">
+                    <div>
                         <span class="info-label">Special dish:</span>
                         <span class="info-value">
                             <img v-if="character.special_dish" :src="character.special_dish.icon" :alt="character.special_dish.name" class="element-icon" />
@@ -135,15 +135,6 @@ const AscensionTab = {
             // Force re-render of total materials
             this.$forceUpdate();
         },
-
-        getQualityClass(material) {
-            if (material.quality === '5') return 'five-star';
-            if (material.quality === '4') return 'four-star';
-            if (material.quality === '3') return 'three-star';
-            if (material.quality === '2') return 'two-star';
-            if (material.quality === '1') return 'one-star';
-            return 'one-star';
-        },
     },
     template: html`
         <div id="ascensions">
@@ -195,10 +186,14 @@ const AscensionTab = {
                             <td>{{ ascension.primary_stat.value }}</td>
                             <td v-if="ascension.phase === 0">-</td>
                             <td v-else-if="ascension.cost && ascension.cost.length">
-                                <div class="materials-container">
+                                <div class="material-list">
                                     <div v-for="material in ascension.cost" class="material-item" :data-material="material.name">
-                                        <img :src="material.icon" :alt="material.name" class="material-icon" />
-                                        <span class="material-name">{{ material.name }} x{{ material.value }}</span>
+                                        <div class="top-border w-100" :class="'quality-' + material.quality">
+                                            <img :src="material.icon" :alt="material.name" :title="material.name" class="material-icon" />
+                                        </div>
+                                        <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                                            <span class="my-1 mx-3">x{{ material.value }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -208,10 +203,14 @@ const AscensionTab = {
             </div>
             <div class="total-materials" id="ascension-materials">
                 <h3>Total Ascension Materials</h3>
-                <div class="total-material-list">
-                    <div v-for="[name, material] in totalMaterials" class="total-material-item" :class="getQualityClass(material)" :data-material="material.name">
-                        <img :src="material.icon" :alt="name" class="material-icon" />
-                        <span class="material-name">{{ name }} x{{ material.value }}</span>
+                <div class="material-list">
+                    <div v-for="[name, material] in totalMaterials" class="total-material-item" :data-material="material.name">
+                        <div class="top-border w-100" :class="'quality-' + material.quality">
+                            <img :src="material.icon" :alt="name" class="material-icon" :title="name" />
+                        </div>
+                        <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                            <span class="my-1 mx-3">{{ name }} x{{ material.value }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -249,11 +248,13 @@ const TalentsTab = {
                             this.totalMaterials.set(material.name, {
                                 value: this.totalMaterials.get(material.name).value + material.value,
                                 icon: material.icon,
+                                quality: material.quality,
                             });
                         } else {
                             this.totalMaterials.set(material.name, {
                                 value: material.value,
                                 icon: material.icon,
+                                quality: material.quality,
                             });
                         }
                     });
@@ -267,9 +268,9 @@ const TalentsTab = {
     template: html`
         <div id="talents">
             <div class="talents-info">
-                <div v-for="talent in character.talents" class="talent">
+                <div v-for="talent in character.talents" class="p-3">
                     <div class="talent-header">
-                        <img :src="talent.icon" :alt="talent.name" class="talent-icon" />
+                        <img :src="talent.icon" :alt="talent.name" class="talent-icon m-0" />
                         <h3 class="talent-name">{{ talent.name }}</h3>
                         <span class="talent-type">{{ talent.type }}</span>
                     </div>
@@ -292,17 +293,21 @@ const TalentsTab = {
                             v-for="level in character.talents_materials"
                             :key="'talent-' + level.level"
                             :data-level="level.level"
-                            :data-materials="JSON.stringify(level.cost.map(m => ({name: m.name, value: m.value, icon: m.icon})))"
+                            :data-materials="JSON.stringify(level.cost.map(m => ({name: m.name, value: m.value, icon: m.icon, quality: m.quality})))"
                         >
                             <td class="checkbox-column">
                                 <input type="checkbox" class="talent-checkbox" :data-level="level.level" data-type="talent" checked @change="updateTotalMaterials" />
                             </td>
                             <td>Level {{ level.level }}</td>
                             <td>
-                                <div class="materials-container">
+                                <div class="material-list">
                                     <div v-for="material in level.cost" class="material-item" :data-material="material.name">
-                                        <img :src="material.icon" :alt="material.name" class="material-icon" />
-                                        <span class="material-name">{{ material.name }} x{{ material.value }}</span>
+                                        <div class="top-border w-100" :class="'quality-' + material.quality">
+                                            <img :src="material.icon" :alt="material.name" :title="material.name" class="material-icon" />
+                                        </div>
+                                        <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                                            <span class="my-1 mx-3">x{{ material.value }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -314,10 +319,14 @@ const TalentsTab = {
 
             <div class="total-materials" id="talent-materials">
                 <h3>Total Talent Level-Up Materials</h3>
-                <div class="total-material-list">
-                    <div v-for="[name, material] in totalMaterials" class="total-material-item">
-                        <img :src="material.icon" :alt="name" class="material-icon" />
-                        <span class="material-name">{{ name }} x{{ material.value }}</span>
+                <div class="material-list">
+                    <div v-for="[name, material] in totalMaterials" class="total-material-item" :data-material="material.name">
+                        <div class="top-border w-100" :class="'quality-' + material.quality">
+                            <img :src="material.icon" :alt="name" :title="name" class="material-icon" />
+                        </div>
+                        <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                            <span class="my-1 mx-3">{{ name }} x{{ material.value }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -332,7 +341,7 @@ const ConstellationsTab = {
     template: html`
         <div id="constellations">
             <div class="constellations-info">
-                <div v-for="constellation in character.constellations" class="constellation">
+                <div v-for="constellation in character.constellations" class="p-3">
                     <div class="constellation-header">
                         <img :src="constellation.icon" :alt="constellation.name" class="constellation-icon" />
                         <h3 class="constellation-name">{{ constellation.name }}</h3>
@@ -349,9 +358,75 @@ const BuildTab = {
     props: {
         character: Object,
     },
+    data() {
+        return {
+            artifacts: this.character.build?.artifacts.map((x) => {
+                const artifact = ARTIFACTS.find((y) => y.name === x.split('pc ').at(-1));
+                return {
+                    name: x,
+                    icon: artifact?.icon,
+                    quality: artifact?.how_to_obtain.at(-1).quality,
+                };
+            }),
+            talents: this.character.build?.talents.map((x) => {
+                let talent = null;
+                if (x === 'Skill') talent = this.character.talents[1];
+                else if (x === 'Burst') talent = this.character.talents[2];
+                else if (x === 'Normal Attack') talent = this.character.talents[0];
+
+                if (talent) return { name: talent.name, icon: talent.icon, type: talent.type };
+                return null;
+            }),
+        };
+    },
     template: html`
         <div id="build">
-            <!-- <img :src="character.build.infographic" /> -->
+            <div class="section-title">Weapons</div>
+            <div class="weapons-grid">
+                <div v-for="(weapon, index) in character.build.weapons" class="weapon-item">
+                    <div class="top-border w-100" :class="'quality-' + weapon.quality">
+                        <img :src="weapon.icon" :alt="weapon.name" :title="weapon.name" />
+                    </div>
+                    <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                        <span class="my-1 mx-3">{{index + 1}}. {{ weapon.name }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Artifact Sets</div>
+            <div class="artifacts-grid">
+                <div v-for="(artifact, index) in artifacts" class="artifact-item">
+                    <div class="top-border w-100" :class="'quality-' + artifact.quality">
+                        <img :src="artifact.icon" :alt="artifact.name" :title="artifact.name" />
+                    </div>
+                    <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                        <span class="my-1 mx-3">{{index + 1}}. {{ artifact.name }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex mt-4 mb-3">
+                <div class="section-title m-0 p-0">Main Stats:</div>
+                <div class="my-auto ms-2">{{character.build.main_stats.join(' > ')}}</div>
+            </div>
+
+            <div class="d-flex mt-4 mb-3">
+                <div class="section-title m-0 p-0">Sub Stats:</div>
+                <div class="my-auto ms-2">{{character.build.sub_stats.join(' > ')}}</div>
+            </div>
+
+            <div class="section-title">Talent Priority</div>
+            <div class="talent-priority">
+                <div v-for="(talent, index) in talents" class="talent-item name">
+                    <div class="talent-number" :class="character.element.name.toLowerCase() + '-bg'">{{ index + 1 }}</div>
+                    <div class="talent-icon">
+                        <img :src="talent.icon" :alt="talent.name" :title="talent.name" />
+                    </div>
+                    <div class="talent-name">{{ talent.type }}</div>
+                </div>
+            </div>
+
+            <!-- TODO: teams -->
         </div>
     `,
 };
@@ -511,21 +586,17 @@ const SITES_TOP_DATABASE_CHARACTERS_COMPONENT = {
         },
 
         mounted() {
-            document.querySelector(`#${MENU_ITEMS_TOP.database.id}`).addEventListener('click', this.initAutocomplete, { once: true });
+            SITES_TOP_DATABASE_CHARACTERS_COMPONENT.instance = this;
+            this.initAutocomplete();
         },
 
         methods: {
             initAutocomplete() {
                 const autocompleteContainer = this.$el.querySelector('[name="autocomplete"]');
                 this.autocomplete = new Autocomplete(autocompleteContainer, (selectedCharacter) => {
+                    this.character = null;
                     this.loadCharacterScript(selectedCharacter);
                 });
-                this.loadCharacterScript(getRandomCharacter());
-            },
-
-            loadRandomCharacter() {
-                const randomCharacter = getRandomCharacter();
-                this.loadCharacterScript(randomCharacter);
             },
 
             loadCharacterScript(characterToLoad) {
@@ -569,6 +640,9 @@ const SITES_TOP_DATABASE_CHARACTERS_COMPONENT = {
 
     onShow() {
         document.querySelector(`#${DATABASE.characters.id}`).classList.remove('d-none');
+        if (!this.instance.character) {
+            this.instance.loadCharacterScript(getRandomCharacter());
+        }
     },
 
     onHide() {

@@ -157,7 +157,7 @@ const SITES_TOP_QUIZZES_MUSIC_COMPONENT = {
             },
 
             startQuestion() {
-                this.$refs.audioElement.src = this.questionEntity.demo_music;
+                this.$refs.audioElement.src = this.questionEntity.demo_music.url;
                 this.$refs.audioElement.load();
             },
 

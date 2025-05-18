@@ -74,7 +74,7 @@ var MUALANI = {
     ],
     "special_dish": {
         "name": "Pass the Luck",
-        "icon": "assets/foods/Mualani.avif"
+        "icon": "assets/foods/Pass the Luck.avif"
     },
     "namecard": {
         "icon": "assets/character/namecard_icon/Mualani.avif",
@@ -993,7 +993,7 @@ var MUALANI = {
                 },
                 {
                     "title": "Birthday",
-                    "text": "Media:VO Mualani Birthday (Lumine).ogg Happy birthday! Don't open your gifts just yet. I picked this restaurant just for you, it's the most popular one around... I bet you've already gotten loads of well-wishes from your friends, but what if I told you even more people from your journey wanted to help you celebrate? What do you think?Hehe! C'mon, have a seat and let's bring on the birthday wishes! Ahem... Excuse me, everyone! Your attention, please! Today is my friend's birthday! A noble and formidable hero who's defeated ferocious beasts and healed countless souls! C'mon, let's give (‍himhimText for male Traveler/herherText for female Traveler‍) our warmest birthday wishes! Alright, you guys over there, say it with me, \"Here's to good fortune on your adventures!\" Great! And you guys over there... \"Here's to success in battle!\" Perfect! Finally, all together, now... Happy birthday, (TravelerTravelerThe player's chosen name for the Traveler)! Here's to good luck, good health, and much happiness!",
+                    "text": "Media:VO Mualani Birthday (Lumine).ogg Happy birthday! Don't open your gifts just yet. I picked this restaurant just for you, it's the most popular one around... I bet you've already gotten loads of well-wishes from your friends, but what if I told you even more people from your journey wanted to help you celebrate? What do you think?Hehe! C'mon, have a seat and let's bring on the birthday wishes! Ahem... Excuse me, everyone! Your attention, please! Today is my friend's birthday! A noble and formidable hero who's defeated ferocious beasts and healed countless souls! C'mon, let's give (himhimText for male Traveler/herherText for female Traveler) our warmest birthday wishes! Alright, you guys over there, say it with me, \"Here's to good fortune on your adventures!\" Great! And you guys over there... \"Here's to success in battle!\" Perfect! Finally, all together, now... Happy birthday, (TravelerTravelerThe player's chosen name for the Traveler)! Here's to good luck, good health, and much happiness!",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Mualani/story/en/Birthday.mp3"
                 },
@@ -1283,7 +1283,7 @@ var MUALANI = {
                 },
                 {
                     "title": "生日…",
-                    "text": "Media:VO ZH Mualani Birthday (Lumine).ogg 生日快乐！礼物请等会再拆吧，我特意选了这家人气最旺的餐厅…朋友的祝福你肯定收到不少了，但如果说能请旅途的有缘人一起帮你庆祝，你想要体验一下吗？嘿嘿，请坐请坐，请接受大家给你的祝福吧。咳咳——打扰一下，大家请看向我！今天是我朋友的生日，就是这位实力超群，品格高尚，击退过最凶猛的巨兽，也治愈过最纤细的灵魂的大英雄！能请在场的大家送给(‍他他Text for male Traveler/她她Text for female Traveler‍)最美好的祝福吗？来，这边的朋友跟我念，祝你——寻宝好运气！好，那边的朋友——战斗不费力！很好，最后大家一起——生日快乐，健康幸福！",
+                    "text": "Media:VO ZH Mualani Birthday (Lumine).ogg 生日快乐！礼物请等会再拆吧，我特意选了这家人气最旺的餐厅…朋友的祝福你肯定收到不少了，但如果说能请旅途的有缘人一起帮你庆祝，你想要体验一下吗？嘿嘿，请坐请坐，请接受大家给你的祝福吧。咳咳——打扰一下，大家请看向我！今天是我朋友的生日，就是这位实力超群，品格高尚，击退过最凶猛的巨兽，也治愈过最纤细的灵魂的大英雄！能请在场的大家送给(他他Text for male Traveler/她她Text for female Traveler)最美好的祝福吗？来，这边的朋友跟我念，祝你——寻宝好运气！好，那边的朋友——战斗不费力！很好，最后大家一起——生日快乐，健康幸福！",
                     "reading": null,
                     "audio": "assets/character/voice_overs/Mualani/story/zh/生日….mp3"
                 },
@@ -2579,5 +2579,151 @@ var MUALANI = {
     "demo_music": {
         "name": "Hot Spring Affection",
         "url": "assets/character/demo_music/Mualani.mp3"
+    },
+    "build": {
+        "version": "5.0",
+        "type": "On-field DPS",
+        "weapons": [
+            {
+                "name": "Surf's Up",
+                "icon": "assets/weapons/Surf's Up.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Sacrificial Jade",
+                "icon": "assets/weapons/Sacrificial Jade.avif",
+                "quality": "4",
+                "how_to_obtain": "Battle Pass (Gnostic Hymn)"
+            },
+            {
+                "name": "A Thousand Floating Dreams",
+                "icon": "assets/weapons/A Thousand Floating Dreams.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "Tome of the Eternal Flow",
+                "icon": "assets/weapons/Tome of the Eternal Flow.avif",
+                "quality": "5",
+                "how_to_obtain": "Weapon Event Wishes"
+            },
+            {
+                "name": "The Widsith",
+                "icon": "assets/weapons/The Widsith.avif",
+                "quality": "4",
+                "how_to_obtain": "Wishes"
+            },
+            {
+                "name": "Ring of Yaxche",
+                "icon": "assets/weapons/Ring of Yaxche.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            },
+            {
+                "name": "Prototype Amber",
+                "icon": "assets/weapons/Prototype Amber.avif",
+                "quality": "4",
+                "how_to_obtain": "Forging"
+            }
+        ],
+        "artifacts": [
+            "4pc Obsidian Codex",
+            "4pc Unfinished Reverie",
+            "4pc Heart of Depth"
+        ],
+        "talents": [
+            "Skill",
+            "Burst",
+            "Normal Attack"
+        ],
+        "main_stats": [
+            "HP% / EM",
+            "Hydro DMG Bonus / HP%",
+            "CRIT DMG / HP%"
+        ],
+        "sub_stats": [
+            "CRIT Rate / CRIT DMG",
+            "HP%",
+            "EM"
+        ],
+        "teams": [
+            [
+                {
+                    "name": "Mualani",
+                    "icon": "assets/character/icon/Mualani.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Yelan",
+                    "icon": "assets/character/icon/Yelan.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Zhongli",
+                    "icon": "assets/character/icon/Zhongli.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "Mualani",
+                    "icon": "assets/character/icon/Mualani.avif",
+                    "quality": "5",
+                    "element": {
+                        "name": "Hydro",
+                        "icon": "assets/elements/Hydro.avif"
+                    }
+                },
+                {
+                    "name": "Xiangling",
+                    "icon": "assets/character/icon/Xiangling.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Pyro",
+                        "icon": "assets/elements/Pyro.avif"
+                    }
+                },
+                {
+                    "name": "Lynette",
+                    "icon": "assets/character/icon/Lynette.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Anemo",
+                        "icon": "assets/elements/Anemo.avif"
+                    }
+                },
+                {
+                    "name": "Kachina",
+                    "icon": "assets/character/icon/Kachina.avif",
+                    "quality": "4",
+                    "element": {
+                        "name": "Geo",
+                        "icon": "assets/elements/Geo.avif"
+                    }
+                }
+            ]
+        ]
     }
 }
