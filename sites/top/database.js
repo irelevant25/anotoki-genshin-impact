@@ -1,5 +1,5 @@
 const SITES_TOP_DATABASE_COMPONENT = {
-    databaseElement: null,
+    // databaseElement: null,
     databaseListElement: null,
 
     getHelpIcon(databaseItem) {
@@ -14,9 +14,9 @@ const SITES_TOP_DATABASE_COMPONENT = {
 
     defaultState() {
         this.databaseListElement.classList.remove('d-none');
-        this.databaseElement.querySelectorAll("& > div[id^='site-']").forEach((element) => {
-            element.classList.add('d-none');
-        });
+        // this.databaseElement.querySelectorAll("& > div[id^='site-']").forEach((element) => {
+        //     element.classList.add('d-none');
+        // });
     },
 
     itemClick(databaseItem) {
@@ -26,13 +26,13 @@ const SITES_TOP_DATABASE_COMPONENT = {
         this.defaultState();
 
         // Toggle active state of clicked item
-        this.databaseElement.querySelector(`#${databaseItem.dataset.id}`).classList.remove('d-none');
+        // this.databaseElement.querySelector(`#${databaseItem.dataset.id}`).classList.remove('d-none');
         this.databaseListElement.classList.add('d-none');
     },
 
     init() {
-        this.databaseElement = document.querySelector(`#${MENU_ITEMS_TOP.database.id}`);
-        this.databaseListElement = document.querySelector('#database-list');
+        // this.databaseElement = document.querySelector(`#${MENU_ITEMS_TOP.database.id}`);
+        this.databaseListElement = document.querySelector(`#${MENU_ITEMS_TOP.database.id}-list`);
         document.querySelector(`li[data-id="${MENU_ITEMS_TOP.database.id}"]`).addEventListener('click', () => {
             this.defaultState();
         });
@@ -80,22 +80,22 @@ const SITES_TOP_DATABASE_COMPONENT = {
         });
     },
 
-    onInit() {
-        onPathChange.subscribe((path) => {
-            if (path === MENU_ITEMS_TOP.database.id) {
-                this.databaseListElement.classList.remove('d-none');
-            } else {
-                this.databaseListElement.classList.add('d-none');
-            }
-        });
-    },
+    // onInit() {
+    //     onPathChange.subscribe((path) => {
+    //         if (path === MENU_ITEMS_TOP.database.id) {
+    //             this.databaseListElement.classList.remove('d-none');
+    //         } else {
+    //             this.databaseListElement.classList.add('d-none');
+    //         }
+    //     });
+    // },
 
     onShow() {
-        this.databaseElement.classList.remove('d-none');
+        this.databaseListElement.classList.remove('d-none');
     },
 
     onHide() {
-        this.databaseElement.classList.add('d-none');
+        this.databaseListElement.classList.add('d-none');
     },
 };
 

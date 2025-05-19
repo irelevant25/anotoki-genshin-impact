@@ -93,18 +93,39 @@ const ROUTER = {
             children: [
                 {
                     path: DATABASE.characters.id,
-                    component: SITES_TOP_DATABASE_CHARACTERS_COMPONENT,
+                    component: SITES_TOP_DATABASE_CHARACTERS_FILTER_COMPONENT,
                     title: DATABASE.characters.title,
+                    children: [
+                        {
+                            path: ':character',
+                            component: SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT,
+                            title: 'Character Detail',
+                        },
+                    ],
                 },
                 {
                     path: DATABASE.materials.id,
-                    component: SITES_TOP_DATABASE_MATERIALS_COMPONENT,
+                    component: SITES_TOP_DATABASE_MATERIALS_FILTER_COMPONENT,
                     title: DATABASE.materials.title,
+                    children: [
+                        {
+                            path: ':name',
+                            component: SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT,
+                            title: 'Materials Detail',
+                        },
+                    ],
                 },
                 {
                     path: DATABASE.weapons.id,
-                    component: SITES_TOP_DATABASE_WEAPONS_COMPONENT,
+                    component: SITES_TOP_DATABASE_WEAPONS_FILTER_COMPONENT,
                     title: DATABASE.weapons.title,
+                    children: [
+                        {
+                            path: ':name',
+                            component: SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT,
+                            title: 'Weapons Detail',
+                        },
+                    ],
                 },
                 {
                     path: DATABASE.wishes.id,

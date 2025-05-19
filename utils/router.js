@@ -10,7 +10,7 @@
         isRouterValid(ROUTER.routes);
         if (!isValid) {
             const route = getExceptionRoute('400');
-            route.route.component.onShow();
+            route.route.component.onShow(route.route, route.parameters);
             document.title = route.route.title;
             return;
         }
@@ -25,7 +25,7 @@
         }
 
         // Set up event listeners for navigation
-        setupLinkInterception();
+        setupLinkInterceptionInterval();
 
         // Listen for hashchange event (browser back/forward button or hash changes)
         window.addEventListener('hashchange', () => {
@@ -63,21 +63,39 @@
         return isValid;
     }
 
-    function setupLinkInterception() {
-        document.querySelectorAll('[data-link]').forEach((link) => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const hash = link.dataset.link.startsWith('/') ? `#${link.dataset.link}` : window.location.hash + `/${link.dataset.link}`;
-                if (!window.location.hash.endsWith(link.dataset.link)) {
-                    window.location.hash = hash;
-                } else {
-                    let newHash = hash.replace(link.dataset.link, '');
-                    newHash = newHash.endsWith('/') ? newHash.slice(0, -1) : newHash;
-                    newHash = newHash.endsWith('#') ? newHash + '/' : newHash;
-                    window.location.hash = newHash;
-                }
-            });
+    function setupLinkInterceptionInterval() {
+        let old_data_links = [];
+        old_data_links = setupLinkInterception(old_data_links) ?? old_data_links;
+        setInterval(() => {
+            old_data_links = setupLinkInterception(old_data_links) ?? old_data_links;
+        }, 1000);
+    }
+
+    function setupLinkInterception(old_data_links) {
+        const data_links = document.querySelectorAll('[data-link]');
+        if (old_data_links.length === data_links.length) return;
+        console.log('Setting up data links');
+        old_data_links.forEach((link) => {
+            link.removeEventListener('click', dataLinkClick);
         });
+        data_links.forEach((link) => {
+            link.addEventListener('click', dataLinkClick);
+        });
+        return data_links;
+    }
+
+    function dataLinkClick(event) {
+        const link = event.currentTarget;
+        event.preventDefault();
+        const hash = link.dataset.link.startsWith('/') ? `#${link.dataset.link}` : window.location.hash + `/${link.dataset.link}`;
+        if (!window.location.hash.endsWith(link.dataset.link)) {
+            window.location.hash = hash;
+        } else {
+            let newHash = hash.replace(link.dataset.link, '');
+            newHash = newHash.endsWith('/') ? newHash.slice(0, -1) : newHash;
+            newHash = newHash.endsWith('#') ? newHash + '/' : newHash;
+            window.location.hash = newHash;
+        }
     }
 
     function hideAll(routes) {
@@ -99,7 +117,7 @@
         const parameters = [];
         const route = values.find((route) => {
             return route.path.split('/').every((path, i) => {
-                if (path.startsWith(':')) parameters.push({ name: path.slice(1), value: paths[i] });
+                if (path.startsWith(':')) parameters[path.slice(1)] = paths[i];
                 else if (paths[i] !== path) return false;
                 return true;
             });
@@ -121,9 +139,8 @@
         const routes = getRoutes(paths);
 
         hideAll();
-        routes.forEach((item) => {
-            item.route.component.onShow();
-        });
+        const route = routes.at(-1);
+        route.route.component.onShow(route.route, route.parameters);
 
         document.title = routes.at(-1).route.title;
     }

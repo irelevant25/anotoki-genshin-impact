@@ -3,7 +3,7 @@ const LoadingSpinner = {
         isLoading: Boolean,
     },
     template: html`
-        <div :class="['d-flex align-items-center loader', {'d-none': !isLoading}]">
+        <div class="loading" :class="['d-flex align-items-center loader', {'d-none': !isLoading}]">
             <div class="loading-container">
                 <div class="teleport-waypoint">
                     <div class="waypoint-outer"></div>

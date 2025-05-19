@@ -74,12 +74,19 @@
         <link rel="stylesheet" href="sites/top/quizzes/dish.css" />
         <script src="sites/top/quizzes/dish.js"></script>
         <!-- TOP MENU DATABASE -->
-        <link rel="stylesheet" href="sites/top/database/characters.css" />
-        <script src="sites/top/database/characters.js"></script>
-        <link rel="stylesheet" href="sites/top/database/materials.css" />
-        <script src="sites/top/database/materials.js"></script>
-        <link rel="stylesheet" href="sites/top/database/weapons.css" />
-        <script src="sites/top/database/weapons.js"></script>
+        <script src="sites/top/database/characters/components.js"></script>
+        <link rel="stylesheet" href="sites/top/database/characters/filter.css" />
+        <script src="sites/top/database/characters/filter.js"></script>
+        <link rel="stylesheet" href="sites/top/database/characters/detail.css" />
+        <script src="sites/top/database/characters/detail.js"></script>
+        <link rel="stylesheet" href="sites/top/database/materials/filter.css" />
+        <script src="sites/top/database/materials/filter.js"></script>
+        <link rel="stylesheet" href="sites/top/database/materials/detail.css" />
+        <script src="sites/top/database/materials/detail.js"></script>
+        <link rel="stylesheet" href="sites/top/database/weapons/filter.css" />
+        <script src="sites/top/database/weapons/filter.js"></script>
+        <link rel="stylesheet" href="sites/top/database/weapons/detail.css" />
+        <script src="sites/top/database/weapons/detail.js"></script>
         <link rel="stylesheet" href="sites/top/database/wishes.css" />
         <script src="sites/top/database/wishes.js"></script>
         <!-- BOTTOM MENU -->
@@ -99,7 +106,9 @@
     </head>
 
     <body>
+        <!-- ************** -->
         <!-- Top menu items -->
+        <!-- ************** -->
         <nav id="top-menu">
             <!-- common/top-menu.js -->
         </nav>
@@ -112,11 +121,11 @@
             <!-- common/exception.js -->
         </div>
 
-        <!-- Top menu content -->
-
+        <!-- ******* -->
         <!-- Quizzes -->
+        <!-- ******* -->
         <div id="site-quizzes" class="container d-none">
-            <div id="quizzes-list" class="row justify-content-center text-center d-flex gap-3 p-4">
+            <div id="quizzes-list" class="container row justify-content-center text-center d-flex gap-3 p-4">
                 <!-- List of quizzes are generated dynamically in sites/top/quizzes.js -->
             </div>
 
@@ -151,12 +160,16 @@
             </div>
         </div>
 
+        <!-- ***** -->
         <!-- Daily -->
+        <!-- ***** -->
         <div id="site-daily" class="d-none">
             <!-- sites/top/daily.js -->
         </div>
 
+        <!-- ***** -->
         <!-- Games -->
+        <!-- ***** -->
         <div id="site-games" class="container d-none">
             <div id="games-list" class="row justify-content-center text-center d-flex gap-3 p-4">
                 <!-- List of games are generated dynamically in sites/top/games.js -->
@@ -173,39 +186,48 @@
             </div>
         </div>
 
+        <!-- ******** -->
         <!-- Database -->
-        <div id="site-database" class="container d-none p-0">
-            <div id="database-list" class="row justify-content-center text-center d-flex gap-3 p-4">
-                <!-- List of databases are generated dynamically in sites/top/database.js -->
-            </div>
-
-            <!-- Characters -->
-            <div id="site-characters" class="d-none">
-                <!-- sites/top/database/characters.js -->
-            </div>
-
-            <!-- Materials -->
-            <div id="site-materials" class="d-none">
-                <!-- sites/top/database/materials.js -->
-            </div>
-
-            <!-- Weapons -->
-            <div id="site-weapons" class="d-none">
-                <!-- sites/top/database/weapons.js -->
-            </div>
-
-            <!-- Wishes -->
-            <div id="site-wishes" class="d-none">
-                <!-- sites/top/database/wishes.js -->
-            </div>
+        <!-- ******** -->
+        <div id="site-database-list" class="container row justify-content-center text-center d-flex gap-3 p-4">
+            <!-- List of databases are generated dynamically in sites/top/database.js -->
         </div>
 
+        <!-- Characters -->
+        <div id="site-characters-filter" class="container d-none">
+            <!-- sites/top/database/characters/filter.js -->
+        </div>
+        <div id="site-characters-detail" class="container d-none">
+            <!-- sites/top/database/characters/detail.js -->
+        </div>
+
+        <!-- Materials -->
+        <div id="site-materials-filter" class="container d-none">
+            <!-- sites/top/database/materials/filter.js -->
+        </div>
+        <div id="site-materials-detail" class="container d-none">
+            <!-- sites/top/database/materials/detail.js -->
+        </div>
+
+        <!-- Weapons -->
+        <div id="site-weapons-filter" class="container d-none">
+            <!-- sites/top/database/weapons/filter.js -->
+        </div>
+        <div id="site-weapons-detail" class="container d-none">
+            <!-- sites/top/database/weapons/detail.js -->
+        </div>
+
+        <!-- Wishes -->
+        <div id="site-wishes" class="container d-none">
+            <!-- sites/top/database/wishes.js -->
+        </div>
+
+        <!-- ***************** -->
         <!-- Bottom menu items -->
+        <!-- ***************** -->
         <div id="bottom-menu" class="bottom-container">
             <!-- Menu items are generated dynamically in common/bottom-menu.js -->
         </div>
-
-        <!-- Bottom menu content -->
 
         <!-- Difficulties Modal -->
         <div class="modal fade" id="site-difficulties-modal" tabindex="-1">
