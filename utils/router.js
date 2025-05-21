@@ -7,6 +7,24 @@
     let isValid = true;
 
     function init() {
+        if (window.location.origin.includes('localhost:8080')) {
+            const script = document.createElement('script');
+            script.src = 'https://cloud.umami.is/script.js';
+            script.defer = true;
+            script.setAttribute('data-auto-track', 'false');
+            script.setAttribute('data-website-id', '6eddf3fc-4f47-4a67-a39f-4acd3c063c65');
+            script.onload = trackAnalytics;
+            document.head.appendChild(script);
+        } else if (window.location.origin.includes('irelevant25.github.io')) {
+            const script = document.createElement('script');
+            script.src = 'https://cloud.umami.is/script.js';
+            script.defer = true;
+            script.setAttribute('data-auto-track', 'false');
+            script.setAttribute('data-website-id', 'fa609fc0-fbcc-49fa-a739-6e748171520c');
+            script.onload = trackAnalytics;
+            document.head.appendChild(script);
+        }
+
         isRouterValid(ROUTER.routes);
         if (!isValid) {
             const route = getExceptionRoute('400');
@@ -109,7 +127,7 @@
         return { route: ROUTER.exception.find((item) => item.code === code), parameters: [] };
     }
 
-    function getRoutes(paths, routes, result) {
+    function getRoutes(paths, routes, result, verbose = true) {
         if (!result) result = [];
         if (!paths || paths.length === 0) return result;
         if (!routes && result.length === 0) routes = ROUTER.routes;
@@ -124,9 +142,9 @@
         });
         if (route) {
             result.push({ route, parameters });
-            getRoutes(paths.slice(route.path.split('/').length), route.children, result);
+            getRoutes(paths.slice(route.path.split('/').length), route.children, result, verbose);
         } else {
-            console.error(`Route not found: ${paths}`);
+            if (verbose) console.error(`Route not found: ${paths}`);
             result.length = 0;
             result.push(getExceptionRoute('404'));
         }
@@ -143,6 +161,19 @@
         route.route.component.onShow(route.route, route.parameters);
 
         document.title = routes.at(-1).route.title;
+
+        trackAnalytics();
+    }
+
+    function trackAnalytics() {
+        if (window.umami) {
+            const hash = window.location.hash;
+            const tempHash = hash.startsWith('#/') ? hash.slice(2) : hash;
+            const paths = tempHash.split('/');
+            const routes = getRoutes(paths, null, null, false);
+            if (routes.at(-1).route.code) window.umami.track(`/${paths.join('/')}`, { code: routes.at(-1).route.code });
+            else window.umami.track(`/${paths.join('/')}`);
+        }
     }
 
     // Initialize router when DOM is loaded

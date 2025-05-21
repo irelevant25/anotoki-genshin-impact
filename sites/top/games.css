@@ -9,8 +9,8 @@
   }
 
   img {
-    max-height: 250px;
-    object-fit: cover;
+    height: 250px;
+    object-fit: contain;
     object-position: top;
   }
 }

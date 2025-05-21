@@ -216,7 +216,7 @@ const MATERIALS = [
         group: 'Local Specialties',
         description: 'A mushroom that glows like a night-light. Some curious power lies hidden within it.',
         howToObtain: ['Found in the wild on Tsurumi Island'],
-        version: '2.0 • Released in',
+        version: '2.0',
         need_for: {
             weapons: [],
             characters: {
@@ -383,7 +383,7 @@ const MATERIALS = [
         group: 'Local Specialties',
         description: 'A soft-bodied animal that emits a gentle light. Often found climbing the walls of buildings near the water or underwater.',
         howToObtain: ['Found on beaches and underwater in Liffey Region'],
-        version: '4.0 • Released in',
+        version: '4.0',
         need_for: {
             weapons: [],
             characters: {
@@ -402,7 +402,7 @@ const MATERIALS = [
         category: 'Materials',
         description: 'Crimson flowers that bloom on ancient battlefields. They can even flourish in the depths of the desert. Their drooping flowers seem to be in mourning for heroes long past.',
         howToObtain: ['Found in the deserts of Sumeru', 'Found in the Asipattravana Swamp'],
-        version: '3.0 • Released in',
+        version: '3.0',
         need_for: {
             weapons: [],
             characters: {
@@ -614,7 +614,7 @@ const MATERIALS = [
         description:
             "Before Where the Boat of Consciousness LiesA fungus that grows in layers upon layers, like a sea of clouds, and which mostly grows on trees deep in the rainforest. Therefore, they are considered by the people of Sumeru to be the holy crystallization of Rukkhadevata's legacy.After Where the Boat of Consciousness LiesA fungus that grows in layers upon layers, like a sea of clouds, and which mostly grows on trees deep in the rainforest.",
         howToObtain: ['Found in the wild in the Ashavan Realm and Lokapala Jungle', 'Sold by Aramani and  Ashpazi'],
-        version: '2.0 • Released in',
+        version: '2.0',
         need_for: {
             weapons: [],
             characters: {

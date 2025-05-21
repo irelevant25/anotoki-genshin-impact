@@ -200,27 +200,6 @@
     gap: 15px;
   }
 
-  .quality-5 {
-    background: var(--five-star);
-  }
-
-  .quality-4 {
-    background: var(--four-star);
-  }
-
-  .quality-3 {
-    background: var(--three-star);
-  }
-
-  .quality-2 {
-    background: var(--two-star);
-  }
-
-  .quality-1,
-  .quality-0 {
-    background: var(--one-star);
-  }
-
   .top-border {
     border-radius: 8px 8px 0 0;
   }
