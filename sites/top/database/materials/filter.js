@@ -36,7 +36,7 @@ const SITES_TOP_DATABASE_MATERIALS_FILTER_COMPONENT = {
 
                 <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
                     <div v-for="material in materials" :data-link="material.name.replaceAll(' ', '_')" class="material-card-container">
-                        <div class="d-flex flex-column material-card">
+                        <div class="d-flex flex-column">
                             <img :src="material.icon" class="top-border" :class="'quality-' + (material.quality ?? '0')" :alt="material.icon" :title="material.name" />
                             <div class="name text-center bottom-border py-1">{{ material.name }}</div>
                         </div>

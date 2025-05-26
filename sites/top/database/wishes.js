@@ -18,13 +18,19 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
                 </div>
 
                 <div class="d-flex flex-column gap-2 py-3">
-                    <div v-for="version_wrapper in wishes" class="wish-card-container-wrapper flex-column">
-                        <div v-for="wish in version_wrapper.wishes" class="wish-card-container flex-row">
-                            <div class="align-content-center" style="width: 25px; min-width: 25px;">{{ version_wrapper.version }}</div>
-                            <div class="align-content-center" style="width: 150px; min-width: 150px;">{{ wish.duration }}</div>
-                            <img :src="wish.image" :alt="wish.name" :title="wish.name" class="my-auto" style="width: 355px; min-width: 355px;" />
-                            <div class="d-flex flex-row flex-wrap gap-2">
-                                <div v-for="item in wish.characters.concat(wish.weapons)" :data-link="item.name.replaceAll(' ', '_')" class="card-container">
+                    <div v-for="version_wrapper in wishes" class="wish-card-container-wrapper gap-2 flex-column w-100">
+                        <div v-for="wish in version_wrapper.wishes" class="wish-card-container gap-1 flex-row flex-column-mobile">
+                            <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 25px; min-width: 25px;">{{ version_wrapper.version }}</div>
+                            <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 150px; min-width: 150px;">{{ wish.duration }}</div>
+                            <img :src="wish.image" :alt="wish.name" :title="wish.name" class="my-auto mx-auto-mobile" style="width: 355px; min-width: 355px;" />
+                            <div class="d-flex flex-row flex-wrap gap-2 m-auto-mobile">
+                                <div v-for="item in wish.characters" :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, item.name.replaceAll(' ', '_')]" class="card-container">
+                                    <div class="d-flex flex-column item-card">
+                                        <img :src="item.icon" class="top-border" :class="'quality-' + (item.quality ?? '0')" :alt="item.icon" :title="item.name" />
+                                        <div class="name text-center bottom-border py-1">{{ item.name }}</div>
+                                    </div>
+                                </div>
+                                <div v-for="item in wish.weapons" :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, item.name.replaceAll(' ', '_')]" class="card-container">
                                     <div class="d-flex flex-column item-card">
                                         <img :src="item.icon" class="top-border" :class="'quality-' + (item.quality ?? '0')" :alt="item.icon" :title="item.name" />
                                         <div class="name text-center bottom-border py-1">{{ item.name }}</div>
@@ -43,6 +49,8 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
                 versions_map.add(wish.version);
             });
             return {
+                MENU_ITEMS_TOP: MENU_ITEMS_TOP,
+                DATABASE: DATABASE,
                 wishes: this.filterTBA(WISHES),
                 versions: Array.from(versions_map.values()).sort(),
             };

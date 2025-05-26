@@ -105,7 +105,8 @@
     function dataLinkClick(event) {
         const link = event.currentTarget;
         event.preventDefault();
-        const hash = link.dataset.link.startsWith('/') ? `#${link.dataset.link}` : window.location.hash + `/${link.dataset.link}`;
+        const linkValue = link.dataset.link.includes(',') ? link.dataset.link.split(',').join('/') : link.dataset.link;
+        const hash = linkValue.startsWith('/') ? `#${linkValue}` : window.location.hash + `/${linkValue}`;
         if (!window.location.hash.endsWith(link.dataset.link)) {
             window.location.hash = hash;
         } else {

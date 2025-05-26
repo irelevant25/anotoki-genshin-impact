@@ -5,15 +5,15 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
         },
         template: html`
             <div class="character-header">
-                <img :src="character.card_icon" :alt="character.name" class="character-image" />
+                <img :src="character.card_icon" :alt="character.name" class="character-image mx-auto" />
 
-                <div class="character-basics">
-                    <h1 :class="['character-name', character.element.name.toLowerCase()]">
+                <div class="character-basics mx-3">
+                    <h1 class="justify-content-center" :class="['character-name', character.element.name.toLowerCase()]">
                         {{ character.name }}
                         <span class="rarity-stars">{{ '★'.repeat(parseInt(character.quality)) }}</span>
                     </h1>
 
-                    <div v-if="character.titles && character.titles.length" class="character-title">{{ character.titles[0] }}</div>
+                    <div v-if="character.titles && character.titles.length" class="character-title text-center">{{ character.titles[0] }}</div>
 
                     <div class="character-info">
                         <div>
@@ -74,7 +74,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                         </div>
                     </div>
 
-                    <div v-if="character.voice_actors && character.voice_actors.length" class="xcol-2">
+                    <div v-if="character.voice_actors && character.voice_actors.length" class="d-flex flex-row justify-content-between">
                         <div class="voice-actors">
                             <h3>Voice Actors</h3>
                             <div v-for="va in character.voice_actors" class="voice-actor"><strong>{{ va.language }}:</strong> {{ va.actor }}</div>
@@ -139,8 +139,8 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
         },
         template: html`
             <div id="ascensions">
-                <div class="ascension-table">
-                    <table>
+                <div class="ascension-table w-100" style="overflow-x: auto">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th class="checkbox-column"></th>
@@ -187,7 +187,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                                 <td>{{ ascension.primary_stat.value }}</td>
                                 <td v-if="ascension.phase === 0">-</td>
                                 <td v-else-if="ascension.cost && ascension.cost.length">
-                                    <div class="material-list">
+                                    <div class="d-flex flex-row flex-nowrap gap-2">
                                         <div v-for="material in ascension.cost" class="material-item" :data-material="material.name">
                                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                                 <img :src="material.icon" :alt="material.name" :title="material.name" class="material-icon" />
@@ -204,7 +204,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 </div>
                 <div class="total-materials" id="ascension-materials">
                     <h3>Total Ascension Materials</h3>
-                    <div class="material-list">
+                    <div class="d-flex flex-wrap gap-3">
                         <div v-for="[name, material] in totalMaterials" class="total-material-item" :data-material="material.name">
                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                 <img :src="material.icon" :alt="name" class="material-icon" :title="name" />
@@ -301,7 +301,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                                 </td>
                                 <td>Level {{ level.level }}</td>
                                 <td>
-                                    <div class="material-list">
+                                    <div class="d-flex flex-row flex-nowrap gap-2">
                                         <div v-for="material in level.cost" class="material-item" :data-material="material.name">
                                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                                 <img :src="material.icon" :alt="material.name" :title="material.name" class="material-icon" />
@@ -320,7 +320,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
 
                 <div class="total-materials" id="talent-materials">
                     <h3>Total Talent Level-Up Materials</h3>
-                    <div class="material-list">
+                    <div class="d-flex flex-wrap gap-3">
                         <div v-for="[name, material] in totalMaterials" class="total-material-item" :data-material="material.name">
                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                 <img :src="material.icon" :alt="name" :title="name" class="material-icon" />
