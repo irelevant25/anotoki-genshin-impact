@@ -4138,7 +4138,7 @@ const MATERIALS = [
         name: 'Borderland Polearm Billet',
         icon: 'assets/materials/Borderland Polearm Billet.avif',
         type: 'Materials',
-        group: 'Borderland BilletsBilletsForging Materials',
+        group: 'Borderland Billets Billets Forging Materials',
         category: 'Materials',
         quality: '4',
         description:

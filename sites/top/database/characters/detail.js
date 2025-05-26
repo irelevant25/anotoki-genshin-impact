@@ -17,13 +17,13 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
                     <!-- Header section -->
                     <!-- <div class="mb-3 d-flex justify-content-center" name="autocomplete"></div> -->
 
-                    <img v-if="character" id="banner" style="width: 100%" :src="character.namecard.banner" :alt="character.name" />
+                    <img v-if="character" id="banner" class="d-flex mx-auto" :src="character.namecard.banner" :alt="character.name" />
 
                     <!-- Character header component -->
                     <character-header v-if="character" :character="character" />
 
                     <!-- Tabs Navigation -->
-                    <div v-if="character" class="tabs-navigation">
+                    <div v-if="character" class="tabs-navigation flex-column-mobile">
                         <button
                             v-for="(tabName, index) in ['ascensions', 'talents', 'constellations', 'build', 'voice-overs']"
                             :key="tabName"
@@ -76,7 +76,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
 
             loadCharacterScript(characterToLoad) {
                 this.isLoading = true;
-                const characterScript = characterToLoad.name.replace(' ', '_').toUpperCase();
+                const characterScript = characterToLoad.name.replaceAll(' ', '_').toUpperCase();
 
                 if (this.isScriptLoaded(characterScript)) {
                     this.displayCharacterInfo(window[characterScript]);
@@ -99,8 +99,8 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
                 this.activeTab = tabName;
             },
 
-            isScriptLoaded(characterScript) {
-                const scriptSrc = `data/database/characters/${characterScript}.js`;
+            isScriptLoaded(script) {
+                const scriptSrc = `data/database/characters/${script}.js`;
                 return document.querySelector(`script[src="${scriptSrc}"]`) !== null;
             },
 
@@ -116,7 +116,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
     onShow(route, parameters) {
         this.instance.character = null;
         document.querySelector(`#${DATABASE.characters.id}-detail`).classList.remove('d-none');
-        const character = CHARACTERS.find((character) => character.name.replace(' ', '_').toLowerCase() === parameters.character.toLowerCase());
+        const character = CHARACTERS.find((character) => character.name.replaceAll(' ', '_').toLowerCase() === parameters.character.toLowerCase());
         this.instance.loadCharacterScript(character);
     },
 

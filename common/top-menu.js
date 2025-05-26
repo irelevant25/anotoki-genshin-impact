@@ -2,7 +2,7 @@ const TOP_MENU = Vue.createApp({
     template: html`
         <ul>
             <li v-for="menuItem in menuItems" :data-id="menuItem.id" :data-link="'/' + menuItem.id" ref="menuItemElement">
-                <div v-if="menuItem.badgeIcon" :id="menuItem.id + '-badge-icon'" class="left">
+                <div v-if="menuItem.badgeIcon" :id="menuItem.id + '-badge-icon'" class="help-icon visible left">
                     <div class="badge-daily rounded-pill bg-danger visible" style="width: 20px; height: 20px;">?</div>
                 </div>
                 <div v-if="menuItem.helpIcon" :id="menuItem.id + '-help-icon'" class="help-icon right" data-bs-toggle="tooltip" data-bs-placement="left" :title="menuItem.modalTitle">

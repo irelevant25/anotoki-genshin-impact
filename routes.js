@@ -109,7 +109,7 @@ const ROUTER = {
                     title: DATABASE.materials.title,
                     children: [
                         {
-                            path: ':name',
+                            path: ':material',
                             component: SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT,
                             title: 'Materials Detail',
                         },
@@ -121,8 +121,8 @@ const ROUTER = {
                     title: DATABASE.weapons.title,
                     children: [
                         {
-                            path: ':name',
-                            component: SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT,
+                            path: ':weapon',
+                            component: SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT,
                             title: 'Weapons Detail',
                         },
                     ],
