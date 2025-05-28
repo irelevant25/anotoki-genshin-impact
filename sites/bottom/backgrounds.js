@@ -31,6 +31,7 @@ const SITES_BOTTOM_BACKGROUND = Vue.createApp({
                         <img
                             v-for="background in backgrounds"
                             :key="background.name"
+                            loading="lazy"
                             :src="background.preview"
                             :alt="background.name"
                             :title="background.name"

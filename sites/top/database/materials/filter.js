@@ -1,44 +1,53 @@
 const SITES_TOP_DATABASE_MATERIALS_FILTER_COMPONENT = {
     VUE_COMPONENT: {
+        components: {
+            'loading-spinner': LoadingSpinner,
+        },
+
         template: html`
-            <div class="px-5 py-2">
-                <div class="d-flex flex-wrap gap-2 justify-content-between py-3">
-                    <div class="filter gap-2">
-                        <div v-for="quality in qualities" :class="['quality-' + (quality ?? '0'), selectedQuality === quality ? 'selected' : '']" @click="toggleQualityFilter(quality)">
-                            {{ quality === '0' ? '-' : quality }}
+            <div style="min-height: 250px; position: relative">
+                <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
+
+                <div class="px-5 py-2" v-if="!isLoading">
+                    >
+                    <div class="d-flex flex-wrap gap-2 justify-content-between py-3">
+                        <div class="filter gap-2">
+                            <div v-for="quality in qualities" :class="['quality-' + (quality ?? '0'), selectedQuality === quality ? 'selected' : '']" @click="toggleQualityFilter(quality)">
+                                {{ quality === '0' ? '-' : quality }}
+                            </div>
+                        </div>
+                        <div class="filter">
+                            <select type="select" class="form-select" @change="filterMaterials" ref="category">
+                                <option value="" selected>Category</option>
+                                <option v-for="category in categories" :value="category ?? 'none'">{{ category ?? 'none' }}</option>
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <select type="select" class="form-select" @change="filterMaterials" ref="region">
+                                <option value="" selected>Region</option>
+                                <option v-for="region in regions" :value="region ?? 'none'">{{ region ?? 'none' }}</option>
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <select type="select" class="form-select" @change="filterMaterials" ref="version">
+                                <option value="" selected>Version</option>
+                                <option v-for="version in versions" :value="version ?? 'none'">{{ version ?? 'none' }}</option>
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <input type="text" class="form-control" placeholder="Material name" @input="filterMaterials" ref="name" />
+                        </div>
+                        <div class="filter">
+                            <button class="btn btn-secondary" @click="resetFilters">Reset</button>
                         </div>
                     </div>
-                    <div class="filter">
-                        <select type="select" class="form-select" @change="filterMaterials" ref="category">
-                            <option value="" selected>Category</option>
-                            <option v-for="category in categories" :value="category ?? 'none'">{{ category ?? 'none' }}</option>
-                        </select>
-                    </div>
-                    <div class="filter">
-                        <select type="select" class="form-select" @change="filterMaterials" ref="region">
-                            <option value="" selected>Region</option>
-                            <option v-for="region in regions" :value="region ?? 'none'">{{ region ?? 'none' }}</option>
-                        </select>
-                    </div>
-                    <div class="filter">
-                        <select type="select" class="form-select" @change="filterMaterials" ref="version">
-                            <option value="" selected>Version</option>
-                            <option v-for="version in versions" :value="version ?? 'none'">{{ version ?? 'none' }}</option>
-                        </select>
-                    </div>
-                    <div class="filter">
-                        <input type="text" class="form-control" placeholder="Material name" @input="filterMaterials" ref="name" />
-                    </div>
-                    <div class="filter">
-                        <button class="btn btn-secondary" @click="resetFilters">Reset</button>
-                    </div>
-                </div>
 
-                <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
-                    <div v-for="material in materials" :data-link="material.name.replaceAll(' ', '_')" class="material-card-container">
-                        <div class="d-flex flex-column">
-                            <img :src="material.icon" class="top-border" :class="'quality-' + (material.quality ?? '0')" :alt="material.icon" :title="material.name" />
-                            <div class="name text-center bottom-border py-1">{{ material.name }}</div>
+                    <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
+                        <div v-for="material in materials" :data-link="material.name.replaceAll(' ', '_')" class="material-card-container">
+                            <div class="d-flex flex-column">
+                                <img :src="material.icon" class="top-border" loading="lazy" :class="'quality-' + (material.quality ?? '0')" :alt="material.icon" :title="material.name" />
+                                <div class="name text-center bottom-border py-1">{{ material.name }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,7 +78,12 @@ const SITES_TOP_DATABASE_MATERIALS_FILTER_COMPONENT = {
                 regions: Array.from(regions_map.values()).sort(),
                 versions: Array.from(versions_map.values()).sort(),
                 selectedQuality: null,
+                isLoading: true,
             };
+        },
+
+        mounted() {
+            SITES_TOP_DATABASE_MATERIALS_FILTER_COMPONENT.instance = this;
         },
 
         methods: {
@@ -112,6 +126,11 @@ const SITES_TOP_DATABASE_MATERIALS_FILTER_COMPONENT = {
     },
 
     onShow() {
+        if (this.instance.isLoading) {
+            setTimeout(() => {
+                this.instance.isLoading = false;
+            }, 1000);
+        }
         document.querySelector(`#${DATABASE.materials.id}-filter`).classList.remove('d-none');
     },
 

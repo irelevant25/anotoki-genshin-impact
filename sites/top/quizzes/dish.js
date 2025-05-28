@@ -16,7 +16,7 @@ const SITES_TOP_QUIZZES_DISH_COMPONENT = {
                 <div :class="['level-' + difficultyString, { 'd-none': daily }]" name="quiz-difficulty-display">
                     <span class="recommended-ar">{{ difficultyString }}</span>
                 </div>
-                <img name="question" class="d-block mx-auto" :src="questionEntity?.special_dish?.icon" :class="currentEffectClasses" />
+                <img name="question" class="d-block mx-auto" loading="lazy" :src="questionEntity?.special_dish?.icon" :class="currentEffectClasses" />
                 <div class="pt-3 search-container">
                     <div name="autocomplete" v-show="!isQuestionComplete" ref="autocomplete"></div>
                     <button class="btn btn-primary ms-3 next-button" v-show="!daily && isQuestionComplete" @click="resetQuiz">Next</button>
@@ -29,10 +29,10 @@ const SITES_TOP_QUIZZES_DISH_COMPONENT = {
                 </div>
                 <div name="tries-display" class="d-flex justify-content-center tries-characters">
                     <div class="try" v-for="(tryChar, index) in displayTries" :key="index">
-                        <img v-if="tryChar" :src="getCharacterIconImageUrl(tryChar)" />
+                        <img v-if="tryChar" loading="lazy" :src="getCharacterIconImageUrl(tryChar)" />
                     </div>
                 </div>
-                <img name="answer-success" class="d-block mx-auto" :src="isQuestionComplete ? questionEntity?.wish : ''" />
+                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="isQuestionComplete ? questionEntity?.wish : ''" />
             </div>
         `,
 

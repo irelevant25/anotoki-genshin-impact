@@ -17,10 +17,10 @@ const SITES_TOP_QUIZZES_MISMATCH_COMPONENT = {
                     <span class="recommended-ar">{{ difficultyText }}</span>
                 </div>
                 <div name="question" class="mx-auto character-grid">
-                    <img v-for="character in quizSet.options" :src="character.icon" :alt="character.name" :title="character.name" @click="handleCharacterClick(character)" />
+                    <img v-for="character in quizSet.options" :src="character.icon" loading="lazy" :alt="character.name" :title="character.name" @click="handleCharacterClick(character)" />
                 </div>
                 <button class="btn btn-primary my-3 next-button" v-show="isQuestionComplete && !daily" @click="startNextQuestion">Next</button>
-                <img name="answer-success" class="d-block mx-auto" :src="answerImageSrc" />
+                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="answerImageSrc" />
             </div>
         `,
 

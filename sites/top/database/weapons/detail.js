@@ -7,7 +7,7 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
                 <div v-if="weapon" class="p-4 d-flex flex-row gap-3">
                     <div class="d-flex flex-column flex-1 text-center-mobile gap-3 left-bar">
                         <h3 class="text-center">{{ weapon.name }}</h3>
-                        <img :src="weapon.icon" :alt="weapon.name" class="border-full mx-auto" :class="'quality-' + (weapon.quality ?? '0')" />
+                        <img :src="weapon.icon" :alt="weapon.name" loading="lazy" class="border-full mx-auto" :class="'quality-' + (weapon.quality ?? '0')" />
                         <div class="d-flex flex-column gap-2 info">
                             <div>
                                 <span class="d-flex fw-bold">Type:</span>
@@ -83,7 +83,7 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
                                                 class="d-flex flex-column card-container hover"
                                                 :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, item.name.replaceAll(' ', '_')]"
                                             >
-                                                <img :src="item.icon" :alt="item.name" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
+                                                <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
                                                 <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                                             </div>
                                         </td>

@@ -1186,7 +1186,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Fashion Show"',
-            icon: 'assets/foods/"Fashion Show".avif',
+            icon: 'assets/foods/Fashion Show.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Chiori.avif',
@@ -1435,7 +1435,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Tagged and Bagged"',
-            icon: 'assets/foods/"Tagged and Bagged".avif',
+            icon: 'assets/foods/Tagged and Bagge',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Clorinde.avif',
@@ -1772,7 +1772,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Once Upon a Time in Mondstadt"',
-            icon: 'assets/foods/"Once Upon a Time in Mondstadt".avif',
+            icon: 'assets/foods/Once Upon a Time in Mondstadt.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Diluc.avif',
@@ -2414,7 +2414,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Seabird\'s Sojourn"',
-            icon: 'assets/foods/"Seabird\'s Sojourn".avif',
+            icon: "assets/foods/Seabird's Sojour",
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Freminet.avif',
@@ -2497,7 +2497,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Pour la Justice"',
-            icon: 'assets/foods/"Pour la Justice".avif',
+            icon: 'assets/foods/Pour la Justice.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Furina.avif',
@@ -3360,7 +3360,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Snow on the Hearth"',
-            icon: 'assets/foods/"Snow on the Hearth".avif',
+            icon: 'assets/foods/Snow on the Hearth.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Kamisato Ayaka.avif',
@@ -4955,7 +4955,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Pick What You Like!"',
-            icon: 'assets/foods/"Pick What You Like!".avif',
+            icon: 'assets/foods/Pick What You Like!.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Navia.avif',
@@ -5042,7 +5042,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Consommé Purete"',
-            icon: 'assets/foods/"Consommé Purete".avif',
+            icon: 'assets/foods/Consommé Purete.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Neuvillette.avif',
@@ -6457,7 +6457,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Warmth"',
-            icon: 'assets/foods/"Warmth".avif',
+            icon: 'assets/foods/Warmth.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Thoma.avif',
@@ -7103,7 +7103,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"Sweet Dream"',
-            icon: 'assets/foods/"Sweet Dream".avif',
+            icon: 'assets/foods/Sweet Dream.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Xiao.avif',
@@ -7521,7 +7521,7 @@ const CHARACTERS = [
         },
         special_dish: {
             name: '"My Way"',
-            icon: 'assets/foods/"My Way".avif',
+            icon: 'assets/foods/My Way.avif',
         },
         namecard: {
             icon: 'assets/character/namecard_icon/Yanfei.avif',

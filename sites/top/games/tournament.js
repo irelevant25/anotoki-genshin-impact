@@ -23,7 +23,7 @@ const SITES_TOP_GAMES_TOURNAMENT_COMPONENT = {
                 </div>
                 <div name="match" class="mx-auto character-grid pt-2">
                     <div v-for="(character, index) in currentMatchCharacters" :key="index" :class="{'winner': character.isWinner, 'loser': character.isLoser}">
-                        <img :src="character.icon" :alt="character.name" :title="character.name" @click="selectWinner(character)" />
+                        <img :src="character.icon" :alt="character.name" loading="lazy" :title="character.name" @click="selectWinner(character)" />
                     </div>
                 </div>
                 <div class="d-flex justify-content-center tries-score my-2">
@@ -231,7 +231,7 @@ const SITES_TOP_GAMES_TOURNAMENT_COMPONENT = {
                     this.singleEliminationNext();
                 } else if (this.winners.length === 1) {
                     const winner = this.winners[0];
-                    this.resultHtml = `<img name="answer-success" src="${winner.wish}" alt="${winner.name}" title="${winner.name}">`;
+                    this.resultHtml = `<img name="answer-success" src="${winner.wish}" loading="lazy" alt="${winner.name}" title="${winner.name}">`;
                     this.tournamentInProgress = false;
                 }
             },
@@ -323,7 +323,7 @@ const SITES_TOP_GAMES_TOURNAMENT_COMPONENT = {
                     html += `
                  <div class="podium-place ${placeClass}-place">
                      <div style="position: relative;">
-                         <img src="${character.wish}" alt="${placeString} Place" class="podium-image">
+                         <img src="${character.wish}" loading="lazy" alt="${placeString} Place" class="podium-image">
                          <div class="medal">${index + 1}</div>
                      </div>
                      <div class="podium-block">${placeString} Place${winsCount ? ' (' + winsCount[index] + ' wins)' : ''}</div>

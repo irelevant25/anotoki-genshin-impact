@@ -7,7 +7,7 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                 <div v-if="material" class="p-4 d-flex flex-row gap-3">
                     <div class="d-flex flex-column flex-1 text-center-mobile gap-3 left-bar">
                         <h3 class="text-center">{{ material.name }}</h3>
-                        <img :src="material.icon" :alt="material.name" class="border-full mx-auto" :class="'quality-' + (material.quality ?? '0')" />
+                        <img :src="material.icon" :alt="material.name" loading="lazy" class="border-full mx-auto" :class="'quality-' + (material.quality ?? '0')" />
                         <div class="d-flex flex-column gap-2 info">
                             <div>
                                 <span class="d-flex fw-bold">Version:</span>
@@ -49,7 +49,7 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                                 class="d-flex flex-column card-container hover"
                                 :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, item.name.replaceAll(' ', '_')]"
                             >
-                                <img :src="item.icon" :alt="item.name" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
+                                <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
                                 <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                                 class="d-flex flex-column card-container hover"
                                 :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, item.name.replaceAll(' ', '_')]"
                             >
-                                <img :src="item.icon" :alt="item.name" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
+                                <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
                                 <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                             <span class="fw-bold w-100">Foods:</span>
                             <div class="d-flex flex-column card-container" v-if="foods.length === 0">None</div>
                             <div v-for="item in foods" class="d-flex flex-column card-container">
-                                <img :src="item.icon" :alt="item.name" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
+                                <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
                                 <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                             </div>
                         </div>

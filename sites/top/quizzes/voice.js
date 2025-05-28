@@ -53,10 +53,10 @@ const SITES_TOP_QUIZZES_VOICE_COMPONENT = {
                 </div>
                 <div name="tries-display" class="d-flex justify-content-center tries-characters">
                     <div class="try" v-for="(tryChar, index) in displayTries" :key="index">
-                        <img v-if="tryChar" :src="getCharacterIconImageUrl(tryChar)" />
+                        <img v-if="tryChar" loading="lazy" :src="getCharacterIconImageUrl(tryChar)" />
                     </div>
                 </div>
-                <img name="answer-success" class="d-block mx-auto" :src="isQuestionComplete ? questionEntity?.wish : ''" />
+                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="isQuestionComplete ? questionEntity?.wish : ''" />
             </div>
         `,
 

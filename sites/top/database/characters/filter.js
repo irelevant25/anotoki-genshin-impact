@@ -1,46 +1,63 @@
 const SITES_TOP_DATABASE_CHARACTERS_FILTER_COMPONENT = {
     VUE_COMPONENT: {
-        template: html`
-            <div class="px-5 py-2">
-                <div class="d-flex flex-wrap gap-2 justify-content-between py-3">
-                    <div class="filter gap-2">
-                        <img
-                            v-for="element in elements"
-                            :src="element.icon"
-                            :class="[element.name.toLowerCase() + '-bg', 
-                                    selectedElement === element.name ? 'selected' : '']"
-                            :title="element.name"
-                            @click="toggleElementFilter(element.name)"
-                        />
-                    </div>
-                    <div class="filter gap-2">
-                        <img v-for="weapon in weapons" :src="weapon.icon" :class="selectedWeapon === weapon.name ? 'selected' : ''" :title="weapon.name" @click="toggleWeaponFilter(weapon.name)" />
-                    </div>
-                    <div class="filter">
-                        <select type="select" class="form-select" @change="filterCharacters" ref="region">
-                            <option value="" selected>Region</option>
-                            <option v-for="region in regions" :value="region?.name ?? 'none'">{{ region?.name ?? 'none' }}</option>
-                        </select>
-                    </div>
-                    <div class="filter">
-                        <select type="select" class="form-select" @change="filterCharacters" ref="version">
-                            <option value="" selected>Version</option>
-                            <option v-for="version in versions" :value="version">{{ version }}</option>
-                        </select>
-                    </div>
-                    <div class="filter">
-                        <input type="text" class="form-control" placeholder="Character name" @input="filterCharacters" ref="name" />
-                    </div>
-                    <div class="filter">
-                        <button class="btn btn-secondary" @click="resetFilters">Reset</button>
-                    </div>
-                </div>
+        components: {
+            'loading-spinner': LoadingSpinner,
+        },
 
-                <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
-                    <div v-for="character in characters" :data-link="character.name.replaceAll(' ', '_')" class="character-card-container">
-                        <div class="d-flex flex-column character-card">
-                            <img :src="character.icon" class="top-border" :class="character.element.name.toLowerCase() + '-bg'" :alt="character.card_icon" :title="character.name" />
-                            <div class="name text-center bottom-border py-1">{{ character.name }}</div>
+        template: html`
+            <div style="min-height: 250px; position: relative">
+                <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
+
+                <div class="px-5 py-2" v-if="!isLoading">
+                    >
+                    <div class="d-flex flex-wrap gap-2 justify-content-between py-3">
+                        <div class="filter gap-2">
+                            <img
+                                v-for="element in elements"
+                                :src="element.icon"
+                                loading="lazy"
+                                :class="[element.name.toLowerCase() + '-bg', 
+                                    selectedElement === element.name ? 'selected' : '']"
+                                :title="element.name"
+                                @click="toggleElementFilter(element.name)"
+                            />
+                        </div>
+                        <div class="filter gap-2">
+                            <img
+                                v-for="weapon in weapons"
+                                :src="weapon.icon"
+                                loading="lazy"
+                                :class="selectedWeapon === weapon.name ? 'selected' : ''"
+                                :title="weapon.name"
+                                @click="toggleWeaponFilter(weapon.name)"
+                            />
+                        </div>
+                        <div class="filter">
+                            <select type="select" class="form-select" @change="filterCharacters" ref="region">
+                                <option value="" selected>Region</option>
+                                <option v-for="region in regions" :value="region?.name ?? 'none'">{{ region?.name ?? 'none' }}</option>
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <select type="select" class="form-select" @change="filterCharacters" ref="version">
+                                <option value="" selected>Version</option>
+                                <option v-for="version in versions" :value="version">{{ version }}</option>
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <input type="text" class="form-control" placeholder="Character name" @input="filterCharacters" ref="name" />
+                        </div>
+                        <div class="filter">
+                            <button class="btn btn-secondary" @click="resetFilters">Reset</button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
+                        <div v-for="character in characters" :data-link="character.name.replaceAll(' ', '_')" class="character-card-container">
+                            <div class="d-flex flex-column character-card">
+                                <img :src="character.icon" class="top-border" loading="lazy" :class="character.element.name.toLowerCase() + '-bg'" :alt="character.card_icon" :title="character.name" />
+                                <div class="name text-center bottom-border py-1">{{ character.name }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +89,12 @@ const SITES_TOP_DATABASE_CHARACTERS_FILTER_COMPONENT = {
                 versions: Array.from(versions_map.values()).sort(),
                 selectedElement: null,
                 selectedWeapon: null,
+                isLoading: true,
             };
+        },
+
+        mounted() {
+            SITES_TOP_DATABASE_CHARACTERS_FILTER_COMPONENT.instance = this;
         },
 
         methods: {
@@ -123,6 +145,11 @@ const SITES_TOP_DATABASE_CHARACTERS_FILTER_COMPONENT = {
     },
 
     onShow() {
+        if (this.instance.isLoading) {
+            setTimeout(() => {
+                this.instance.isLoading = false;
+            }, 1000);
+        }
         document.querySelector(`#${DATABASE.characters.id}-filter`).classList.remove('d-none');
     },
 

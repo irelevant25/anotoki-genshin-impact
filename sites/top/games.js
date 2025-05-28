@@ -43,7 +43,7 @@ const SITES_TOP_GAMES_COMPONENT = {
             gamesListHtml += `
                 <div class="card" data-id="${gameItem.id}" data-link="${gameItem.id}">
                     ${this.getHelpIcon(gameItem)}
-                    <img src="${gameItem.cardImage}">
+                    <img src="${gameItem.cardImage}" loading="lazy">
                     <div class="card-body">
                         <h5 class="card-title">${gameItem.title}</h5>
                         <p class="card-text">${gameItem.cardInfo}</p>

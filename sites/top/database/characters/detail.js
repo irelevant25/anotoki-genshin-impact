@@ -17,7 +17,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
                     <!-- Header section -->
                     <!-- <div class="mb-3 d-flex justify-content-center" name="autocomplete"></div> -->
 
-                    <img v-if="character" id="banner" class="d-flex mx-auto" :src="character.namecard.banner" :alt="character.name" />
+                    <img v-if="character" id="banner" loading="lazy" class="d-flex mx-auto" :src="character.namecard.banner" :alt="character.name" />
 
                     <!-- Character header component -->
                     <character-header v-if="character" :character="character" />
