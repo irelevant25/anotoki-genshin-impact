@@ -5,7 +5,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
         },
         template: html`
             <div class="character-header">
-                <img :src="character.card_icon" :alt="character.name" class="character-image mx-auto" />
+                <img :src="character.card_icon" loading="lazy" :alt="character.name" class="character-image mx-auto" />
 
                 <div class="character-basics mx-3">
                     <h1 class="justify-content-center" :class="['character-name', character.element.name.toLowerCase()]">
@@ -19,7 +19,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                         <div>
                             <span class="info-label">Element:</span>
                             <span class="info-value">
-                                <img :src="character.element.icon" :alt="character.element.name" class="element-icon" />
+                                <img :src="character.element.icon" loading="lazy" :alt="character.element.name" class="element-icon" />
                                 {{ character.element.name }}
                             </span>
                         </div>
@@ -27,7 +27,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                         <div>
                             <span class="info-label">Weapon:</span>
                             <span class="info-value">
-                                <img :src="character.weapon.icon" :alt="character.weapon.name" class="weapon-icon" />
+                                <img :src="character.weapon.icon" loading="lazy" :alt="character.weapon.name" class="weapon-icon" />
                                 {{ character.weapon.name }}
                             </span>
                         </div>
@@ -35,7 +35,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                         <div v-if="character.region">
                             <span class="info-label">Region:</span>
                             <span class="info-value">
-                                <img v-if="character.region.icon" :src="character.region.icon" :alt="character.region.name" class="region-icon" />
+                                <img v-if="character.region.icon" loading="lazy" :src="character.region.icon" :alt="character.region.name" class="region-icon" />
                                 {{ character.region.name }}
                             </span>
                         </div>
@@ -68,7 +68,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                         <div>
                             <span class="info-label">Special dish:</span>
                             <span class="info-value">
-                                <img v-if="character.special_dish" :src="character.special_dish.icon" :alt="character.special_dish.name" class="element-icon" />
+                                <img v-if="character.special_dish" loading="lazy" :src="character.special_dish.icon" :alt="character.special_dish.name" class="element-icon" />
                                 {{ character.special_dish?.name ?? 'N/A' }}
                             </span>
                         </div>
@@ -190,7 +190,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                                     <div class="d-flex flex-row flex-nowrap gap-2">
                                         <div v-for="material in ascension.cost" class="material-item" :data-material="material.name">
                                             <div class="top-border w-100" :class="'quality-' + material.quality">
-                                                <img :src="material.icon" :alt="material.name" :title="material.name" class="material-icon" />
+                                                <img :src="material.icon" loading="lazy" :alt="material.name" :title="material.name" class="material-icon" />
                                             </div>
                                             <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
                                                 <span class="my-1 mx-3">x{{ material.value }}</span>
@@ -207,7 +207,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                     <div class="d-flex flex-wrap gap-3">
                         <div v-for="[name, material] in totalMaterials" class="total-material-item" :data-material="material.name">
                             <div class="top-border w-100" :class="'quality-' + material.quality">
-                                <img :src="material.icon" :alt="name" class="material-icon" :title="name" />
+                                <img :src="material.icon" loading="lazy" :alt="name" class="material-icon" :title="name" />
                             </div>
                             <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
                                 <span class="my-1 mx-3">{{ name }} x{{ material.value }}</span>
@@ -271,7 +271,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 <div class="talents-info">
                     <div v-for="talent in character.talents" class="p-3">
                         <div class="talent-header">
-                            <img :src="talent.icon" :alt="talent.name" class="talent-icon m-0" />
+                            <img :src="talent.icon" loading="lazy" :alt="talent.name" class="talent-icon m-0" />
                             <h3 class="talent-name">{{ talent.name }}</h3>
                             <span class="talent-type">{{ talent.type }}</span>
                         </div>
@@ -304,7 +304,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                                     <div class="d-flex flex-row flex-nowrap gap-2">
                                         <div v-for="material in level.cost" class="material-item" :data-material="material.name">
                                             <div class="top-border w-100" :class="'quality-' + material.quality">
-                                                <img :src="material.icon" :alt="material.name" :title="material.name" class="material-icon" />
+                                                <img :src="material.icon" loading="lazy" :alt="material.name" :title="material.name" class="material-icon" />
                                             </div>
                                             <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
                                                 <span class="my-1 mx-3">x{{ material.value }}</span>
@@ -323,7 +323,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                     <div class="d-flex flex-wrap gap-3">
                         <div v-for="[name, material] in totalMaterials" class="total-material-item" :data-material="material.name">
                             <div class="top-border w-100" :class="'quality-' + material.quality">
-                                <img :src="material.icon" :alt="name" :title="name" class="material-icon" />
+                                <img :src="material.icon" loading="lazy" :alt="name" :title="name" class="material-icon" />
                             </div>
                             <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
                                 <span class="my-1 mx-3">{{ name }} x{{ material.value }}</span>
@@ -344,7 +344,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 <div class="constellations-info">
                     <div v-for="constellation in character.constellations" class="p-3">
                         <div class="constellation-header">
-                            <img :src="constellation.icon" :alt="constellation.name" class="constellation-icon" />
+                            <img :src="constellation.icon" loading="lazy" :alt="constellation.name" class="constellation-icon" />
                             <h3 class="constellation-name">{{ constellation.name }}</h3>
                             <span class="constellation-level">Level {{ constellation.level }}</span>
                         </div>
@@ -425,7 +425,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 <div class="weapons-grid">
                     <div v-for="(weapon, index) in character.build.weapons" class="weapon-item">
                         <div class="top-border w-100" :class="'quality-' + weapon.quality">
-                            <img :src="weapon.icon" :alt="weapon.name" :title="weapon.name" />
+                            <img :src="weapon.icon" loading="lazy" :alt="weapon.name" :title="weapon.name" />
                         </div>
                         <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
                             <span class="my-1 mx-3">{{index + 1}}. {{ weapon.name }}</span>
@@ -437,7 +437,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 <div class="artifacts-grid">
                     <div v-for="(artifact, index) in artifacts" class="artifact-item">
                         <div class="top-border w-100" :class="'quality-' + artifact.quality">
-                            <img :src="artifact.icon" :alt="artifact.name" :title="artifact.name" />
+                            <img :src="artifact.icon" loading="lazy" :alt="artifact.name" :title="artifact.name" />
                         </div>
                         <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
                             <span class="my-1 mx-3">{{index + 1}}. {{ artifact.name }}</span>
@@ -464,7 +464,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                     <div v-for="(talent, index) in talents" class="talent-item name">
                         <div class="talent-number" :class="character.element.name.toLowerCase() + '-bg'">{{ index + 1 }}</div>
                         <div class="talent-icon">
-                            <img :src="talent.icon" :alt="talent.name" :title="talent.name" />
+                            <img :src="talent.icon" loading="lazy" :alt="talent.name" :title="talent.name" />
                         </div>
                         <div class="talent-name">{{ talent.type }}</div>
                     </div>

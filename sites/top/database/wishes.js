@@ -1,39 +1,47 @@
 const SITES_TOP_DATABASE_WISHES_COMPONENT = {
     VUE_COMPONENT: {
-        template: html`
-            <div class="px-5 py-2">
-                <div class="d-flex flex-wrap gap-2 justify-content-center py-3">
-                    <div class="filter">
-                        <select type="select" class="form-select" @change="filterWishes" ref="version">
-                            <option value="" selected>Version</option>
-                            <option v-for="version in versions" :value="version ?? 'none'">{{ version ?? 'none' }}</option>
-                        </select>
-                    </div>
-                    <div class="filter">
-                        <input type="text" class="form-control" placeholder="Character name" @input="filterWishes" ref="characterName" />
-                    </div>
-                    <div class="filter">
-                        <button class="btn btn-secondary" @click="resetFilters">Reset</button>
-                    </div>
-                </div>
+        components: {
+            'loading-spinner': LoadingSpinner,
+        },
 
-                <div class="d-flex flex-column gap-2 py-3">
-                    <div v-for="version_wrapper in wishes" class="wish-card-container-wrapper gap-2 flex-column w-100">
-                        <div v-for="wish in version_wrapper.wishes" class="wish-card-container gap-1 flex-row flex-column-mobile">
-                            <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 25px; min-width: 25px;">{{ version_wrapper.version }}</div>
-                            <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 150px; min-width: 150px;">{{ wish.duration }}</div>
-                            <img :src="wish.image" :alt="wish.name" :title="wish.name" class="my-auto mx-auto-mobile" style="width: 355px; min-width: 355px;" />
-                            <div class="d-flex flex-row flex-wrap gap-2 m-auto-mobile">
-                                <div v-for="item in wish.characters" :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, item.name.replaceAll(' ', '_')]" class="card-container">
-                                    <div class="d-flex flex-column item-card">
-                                        <img :src="item.icon" class="top-border" :class="'quality-' + (item.quality ?? '0')" :alt="item.icon" :title="item.name" />
-                                        <div class="name text-center bottom-border py-1">{{ item.name }}</div>
+        template: html`
+            <div style="min-height: 250px; position: relative">
+                <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
+
+                <div class="px-5 py-2" v-if="!isLoading">
+                    <div class="d-flex flex-wrap gap-2 justify-content-center py-3">
+                        <div class="filter">
+                            <select type="select" class="form-select" @change="filterWishes" ref="version">
+                                <option value="" selected>Version</option>
+                                <option v-for="version in versions" :value="version ?? 'none'">{{ version ?? 'none' }}</option>
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <input type="text" class="form-control" placeholder="Character name" @input="filterWishes" ref="characterName" />
+                        </div>
+                        <div class="filter">
+                            <button class="btn btn-secondary" @click="resetFilters">Reset</button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column gap-2 py-3">
+                        <div v-for="version_wrapper in wishes" class="wish-card-container-wrapper gap-2 flex-column w-100">
+                            <div v-for="wish in version_wrapper.wishes" class="wish-card-container gap-1 flex-row flex-column-mobile">
+                                <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 25px; min-width: 25px;">{{ version_wrapper.version }}</div>
+                                <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 150px; min-width: 150px;">{{ wish.duration }}</div>
+                                <img :src="wish.image" :alt="wish.name" loading="lazy" :title="wish.name" class="my-auto mx-auto-mobile" style="width: 355px; min-width: 355px;" />
+                                <div class="d-flex flex-row flex-wrap gap-2 m-auto-mobile">
+                                    <div v-for="item in wish.characters" :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, item.name.replaceAll(' ', '_')]" class="card-container">
+                                        <div class="d-flex flex-column item-card">
+                                            <img :src="item.icon" class="top-border" loading="lazy" :class="'quality-' + (item.quality ?? '0')" :alt="item.icon" :title="item.name" />
+                                            <div class="name text-center bottom-border py-1">{{ item.name }}</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div v-for="item in wish.weapons" :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, item.name.replaceAll(' ', '_')]" class="card-container">
-                                    <div class="d-flex flex-column item-card">
-                                        <img :src="item.icon" class="top-border" :class="'quality-' + (item.quality ?? '0')" :alt="item.icon" :title="item.name" />
-                                        <div class="name text-center bottom-border py-1">{{ item.name }}</div>
+                                    <div v-for="item in wish.weapons" :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, item.name.replaceAll(' ', '_')]" class="card-container">
+                                        <div class="d-flex flex-column item-card">
+                                            <img :src="item.icon" class="top-border" loading="lazy" :class="'quality-' + (item.quality ?? '0')" :alt="item.icon" :title="item.name" />
+                                            <div class="name text-center bottom-border py-1">{{ item.name }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +61,12 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
                 DATABASE: DATABASE,
                 wishes: this.filterTBA(WISHES),
                 versions: Array.from(versions_map.values()).sort(),
+                isLoading: true,
             };
+        },
+
+        mounted() {
+            SITES_TOP_DATABASE_WISHES_COMPONENT.instance = this;
         },
 
         methods: {
@@ -84,6 +97,11 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
     },
 
     onShow() {
+        if (this.instance.isLoading) {
+            setTimeout(() => {
+                this.instance.isLoading = false;
+            }, 1000);
+        }
         document.querySelector(`#${DATABASE.wishes.id}`).classList.remove('d-none');
     },
 

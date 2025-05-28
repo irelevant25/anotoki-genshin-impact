@@ -43,7 +43,7 @@ const SITES_TOP_QUIZZES_COMPONENT = {
             quizzesListHtml += `
                 <div class="card" data-id="${quizItem.id}" data-link="${quizItem.id}">
                     ${this.getHelpIcon(quizItem)}
-                    <img src="${quizItem.cardImage}">
+                    <img src="${quizItem.cardImage}" loading="lazy">
                     <div class="card-body">
                         <h5 class="card-title">${quizItem.title}</h5>
                         <p class="card-text">${quizItem.cardInfo}</p>

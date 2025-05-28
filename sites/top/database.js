@@ -43,7 +43,7 @@ const SITES_TOP_DATABASE_COMPONENT = {
             databaseListHtml += `
                 <div class="card" data-id="${databaseItem.id}" data-link="${databaseItem.id}">
                     ${this.getHelpIcon(databaseItem)}
-                    <img src="${databaseItem.cardImage}">
+                    <img src="${databaseItem.cardImage}" loading="lazy">
                     <div class="card-body">
                         <h5 class="card-title">${databaseItem.title}</h5>
                         <p class="card-text">${databaseItem.cardInfo}</p>

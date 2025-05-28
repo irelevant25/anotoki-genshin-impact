@@ -1,35 +1,44 @@
 const SITES_TOP_DATABASE_WEAPONS_FILTER_COMPONENT = {
     VUE_COMPONENT: {
+        components: {
+            'loading-spinner': LoadingSpinner,
+        },
+
         template: html`
-            <div class="px-5 py-2">
-                <div class="d-flex flex-wrap gap-2 justify-content-between py-3">
-                    <div class="filter gap-2">
-                        <div v-for="quality in qualities" :class="['quality-' + (quality ?? '0'), selectedQuality === quality ? 'selected' : '']" @click="toggleQualityFilter(quality)">
-                            {{ quality === '0' ? '-' : quality }}
+            <div style="min-height: 250px; position: relative">
+                <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
+
+                <div class="px-5 py-2" v-if="!isLoading">
+                    >
+                    <div class="d-flex flex-wrap gap-2 justify-content-between py-3">
+                        <div class="filter gap-2">
+                            <div v-for="quality in qualities" :class="['quality-' + (quality ?? '0'), selectedQuality === quality ? 'selected' : '']" @click="toggleQualityFilter(quality)">
+                                {{ quality === '0' ? '-' : quality }}
+                            </div>
+                        </div>
+                        <div class="filter gap-2">
+                            <img v-for="type in types" :src="type.icon" loading="lazy" :class="selectedType === type.name ? 'selected' : ''" :title="type.name" @click="toggleTypeFilter(type.name)" />
+                        </div>
+                        <div class="filter">
+                            <select type="select" class="form-select" @change="filterWeapons" ref="version">
+                                <option value="" selected>Version</option>
+                                <option v-for="version in versions" :value="version ?? 'none'">{{ version ?? 'none' }}</option>
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <input type="text" class="form-control" placeholder="Weapon name" @input="filterWeapons" ref="name" />
+                        </div>
+                        <div class="filter">
+                            <button class="btn btn-secondary" @click="resetFilters">Reset</button>
                         </div>
                     </div>
-                    <div class="filter gap-2">
-                        <img v-for="type in types" :src="type.icon" :class="selectedType === type.name ? 'selected' : ''" :title="type.name" @click="toggleTypeFilter(type.name)" />
-                    </div>
-                    <div class="filter">
-                        <select type="select" class="form-select" @change="filterWeapons" ref="version">
-                            <option value="" selected>Version</option>
-                            <option v-for="version in versions" :value="version ?? 'none'">{{ version ?? 'none' }}</option>
-                        </select>
-                    </div>
-                    <div class="filter">
-                        <input type="text" class="form-control" placeholder="Weapon name" @input="filterWeapons" ref="name" />
-                    </div>
-                    <div class="filter">
-                        <button class="btn btn-secondary" @click="resetFilters">Reset</button>
-                    </div>
-                </div>
 
-                <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
-                    <div v-for="weapon in weapons" :data-link="weapon.name.replaceAll(' ', '_')" class="weapon-card-container">
-                        <div class="d-flex flex-column weapon-card">
-                            <img :src="weapon.icon" class="top-border" :class="'quality-' + (weapon.quality ?? '0')" :alt="weapon.icon" :title="weapon.name" />
-                            <div class="name text-center bottom-border py-1">{{ weapon.name }}</div>
+                    <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
+                        <div v-for="weapon in weapons" :data-link="weapon.name.replaceAll(' ', '_')" class="weapon-card-container">
+                            <div class="d-flex flex-column weapon-card">
+                                <img :src="weapon.icon" class="top-border" loading="lazy" :class="'quality-' + (weapon.quality ?? '0')" :alt="weapon.icon" :title="weapon.name" />
+                                <div class="name text-center bottom-border py-1">{{ weapon.name }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,7 +65,12 @@ const SITES_TOP_DATABASE_WEAPONS_FILTER_COMPONENT = {
                 versions: Array.from(versions_map.values()).sort(),
                 selectedQuality: null,
                 selectedType: null,
+                isLoading: true,
             };
+        },
+
+        mounted() {
+            SITES_TOP_DATABASE_WEAPONS_FILTER_COMPONENT.instance = this;
         },
 
         methods: {
@@ -105,6 +119,11 @@ const SITES_TOP_DATABASE_WEAPONS_FILTER_COMPONENT = {
     },
 
     onShow() {
+        if (this.instance.isLoading) {
+            setTimeout(() => {
+                this.instance.isLoading = false;
+            }, 1000);
+        }
         document.querySelector(`#${DATABASE.weapons.id}-filter`).classList.remove('d-none');
     },
 
