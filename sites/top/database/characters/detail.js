@@ -15,8 +15,6 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
                 <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
                 <div class="body p-4">
                     <!-- Header section -->
-                    <!-- <div class="mb-3 d-flex justify-content-center" name="autocomplete"></div> -->
-
                     <img v-if="character" id="banner" loading="lazy" class="d-flex mx-auto" :src="character.namecard.banner" :alt="character.name" />
 
                     <!-- Character header component -->
@@ -56,42 +54,32 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
                 character: null,
                 activeTab: 'ascensions',
                 isLoading: true,
-                autocomplete: null,
             };
         },
 
         mounted() {
             SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT.instance = this;
-            // this.initAutocomplete();
         },
 
         methods: {
-            initAutocomplete() {
-                const autocompleteContainer = this.$el.querySelector('[name="autocomplete"]');
-                this.autocomplete = new Autocomplete(autocompleteContainer, (selectedCharacter) => {
-                    this.character = null;
-                    this.loadCharacterScript(selectedCharacter);
-                });
-            },
-
-            loadCharacterScript(characterToLoad) {
+            loadScript(itemToLoad) {
                 this.isLoading = true;
-                const characterScript = characterToLoad.name.replaceAll(' ', '_').toUpperCase();
+                const script = itemToLoad.name.replaceAll(' ', '_').replaceAll('"', '').toUpperCase();
 
-                if (this.isScriptLoaded(characterScript)) {
-                    this.displayCharacterInfo(window[characterScript]);
+                if (this.isScriptLoaded(script)) {
+                    this.displayInfo(window[script]);
                     return;
                 }
 
-                this.loadScript(`data/database/characters/${characterScript}.js`, () => {
+                this.loadSpecificScript(`data/database/characters/${script}.js`, () => {
                     setTimeout(() => {
-                        this.displayCharacterInfo(window[characterScript]);
+                        this.displayInfo(window[script]);
                     }, 1000);
                 });
             },
 
-            displayCharacterInfo(characterData) {
-                this.character = characterData;
+            displayInfo(data) {
+                this.character = data;
                 this.isLoading = false;
             },
 
@@ -104,7 +92,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
                 return document.querySelector(`script[src="${scriptSrc}"]`) !== null;
             },
 
-            loadScript(src, callback) {
+            loadSpecificScript(src, callback) {
                 const script = document.createElement('script');
                 script.src = src;
                 script.onload = callback;
@@ -116,8 +104,8 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
     onShow(route, parameters) {
         this.instance.character = null;
         document.querySelector(`#${DATABASE.characters.id}-detail`).classList.remove('d-none');
-        const character = CHARACTERS.find((character) => character.name.replaceAll(' ', '_').toLowerCase() === parameters.character.toLowerCase());
-        this.instance.loadCharacterScript(character);
+        const character = CHARACTERS.find((character) => character.name.replaceAll(' ', '_').replaceAll('"', '').toLowerCase() === parameters.character.toLowerCase());
+        this.instance.loadScript(character);
     },
 
     onHide() {

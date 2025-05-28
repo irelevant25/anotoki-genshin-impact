@@ -1,8 +1,12 @@
 const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
     VUE_COMPONENT: Vue.createApp({
+        components: {
+            'loading-spinner': LoadingSpinner,
+        },
+
         template: html`
             <div style="min-height: 250px; position: relative">
-                <!-- <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" /> -->
+                <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
 
                 <div v-if="weapon" class="p-4 d-flex flex-row gap-3">
                     <div class="d-flex flex-column flex-1 text-center-mobile gap-3 left-bar">
@@ -120,7 +124,23 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
         },
 
         methods: {
-            displayWeaponInfo(weaponData) {
+            loadScript(itemToLoad) {
+                this.isLoading = true;
+                const script = itemToLoad.name.replaceAll(' ', '_').replaceAll('"', '').toUpperCase();
+
+                if (this.isScriptLoaded(script)) {
+                    this.displayInfo(window[script]);
+                    return;
+                }
+
+                this.loadSpecificScript(`data/database/weapons/${script}.js`, () => {
+                    setTimeout(() => {
+                        this.displayInfo(window[script]);
+                    }, 1000);
+                });
+            },
+
+            displayInfo(weaponData) {
                 this.weapon = weaponData;
                 this.selectedRefinement = weaponData.refinements[0];
                 this.isLoading = false;
@@ -132,7 +152,7 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
                             image.setAttribute('alt', 'Error');
                         };
                     });
-                }, 50);
+                });
             },
 
             setActiveTab(tabName) {
@@ -144,7 +164,12 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
                 return document.querySelector(`script[src="${scriptSrc}"]`) !== null;
             },
 
-            loadScript(src, callback) {
+            isScriptLoaded(script) {
+                const scriptSrc = `data/database/weapons/${script}.js`;
+                return document.querySelector(`script[src="${scriptSrc}"]`) !== null;
+            },
+
+            loadSpecificScript(src, callback) {
                 const script = document.createElement('script');
                 script.src = src;
                 script.onload = callback;
@@ -154,9 +179,10 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
     }),
 
     onShow(route, parameters) {
+        this.instance.weapon = null;
         document.querySelector(`#${DATABASE.weapons.id}-detail`).classList.remove('d-none');
-        const weapon = WEAPONS.find((weapon) => weapon.name.replaceAll(' ', '_').toLowerCase() === parameters.weapon.toLowerCase());
-        this.instance.displayWeaponInfo(weapon);
+        const weapon = WEAPONS.find((weapon) => weapon.name.replaceAll(' ', '_').replaceAll('"', '').toLowerCase() === parameters.weapon.toLowerCase());
+        this.instance.loadScript(weapon);
     },
 
     onHide() {
