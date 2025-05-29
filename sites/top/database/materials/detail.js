@@ -43,9 +43,9 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                         <h3>Need for</h3>
                         <div class="d-flex flex-row flex-wrap gap-3">
                             <span class="fw-bold w-100">Characters:</span>
-                            <div class="d-flex flex-column card-container" v-if="characters.length === 0">None</div>
+                            <div class="d-flex flex-column card-container" v-if="material.need_for.characters.length === 0">None</div>
                             <div
-                                v-for="item in characters"
+                                v-for="item in material.need_for.characters.ascensions.concat(material.need_for.characters.talents)"
                                 class="d-flex flex-column card-container hover"
                                 :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, item.name.replaceAll(' ', '_')]"
                             >
@@ -55,9 +55,9 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                         </div>
                         <div class="d-flex flex-row flex-wrap gap-3">
                             <span class="fw-bold w-100">Weapons:</span>
-                            <div class="d-flex flex-column card-container" v-if="weapons.length === 0">None</div>
+                            <div class="d-flex flex-column card-container" v-if="material.need_for.weapons.length === 0">None</div>
                             <div
-                                v-for="item in weapons"
+                                v-for="item in material.need_for.weapons"
                                 class="d-flex flex-column card-container hover"
                                 :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, item.name.replaceAll(' ', '_')]"
                             >
@@ -67,8 +67,8 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                         </div>
                         <div class="d-flex flex-row flex-wrap gap-3">
                             <span class="fw-bold w-100">Foods:</span>
-                            <div class="d-flex flex-column card-container" v-if="foods.length === 0">None</div>
-                            <div v-for="item in foods" class="d-flex flex-column card-container">
+                            <div class="d-flex flex-column card-container" v-if="material.need_for.foods.length === 0">None</div>
+                            <div v-for="item in material.need_for.foods" class="d-flex flex-column card-container">
                                 <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
                                 <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                             </div>
@@ -86,9 +86,6 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
             return {
                 material: null,
                 isLoading: true,
-                characters: [],
-                weapons: [],
-                foods: [],
                 MENU_ITEMS_TOP: MENU_ITEMS_TOP,
                 DATABASE: DATABASE,
             };
@@ -101,11 +98,6 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
         methods: {
             displayMaterialInfo(materialData) {
                 this.material = materialData;
-                this.characters = CHARACTERS.filter(
-                    (character) => this.material.need_for.characters.talents.includes(character.name) || this.material.need_for.characters.ascensions.includes(character.name)
-                );
-                this.weapons = WEAPONS.filter((weapons) => this.material.need_for.weapons.includes(weapons.name));
-                this.foods = FOODS.filter((food) => this.material.need_for.foods.includes(food.name));
                 this.isLoading = false;
             },
 

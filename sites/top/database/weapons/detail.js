@@ -126,7 +126,7 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
         methods: {
             loadScript(itemToLoad) {
                 this.isLoading = true;
-                const script = itemToLoad.name.replaceAll(' ', '_').replaceAll('"', '').toUpperCase();
+                const script = itemToLoad.name.replaceAll(' ', '_').replaceAll('"', '').replaceAll("'", '').replaceAll('-', '').toUpperCase();
 
                 if (this.isScriptLoaded(script)) {
                     this.displayInfo(window[script]);
