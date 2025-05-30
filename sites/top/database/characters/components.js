@@ -97,6 +97,8 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
         data() {
             return {
                 totalMaterials: new Map(),
+                MENU_ITEMS_TOP: MENU_ITEMS_TOP,
+                DATABASE: DATABASE,
             };
         },
         mounted() {
@@ -188,9 +190,14 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                                 <td v-if="ascension.phase === 0">-</td>
                                 <td v-else-if="ascension.cost && ascension.cost.length">
                                     <div class="d-flex flex-row flex-nowrap gap-2">
-                                        <div v-for="material in ascension.cost" class="material-item" :data-material="material.name">
+                                        <div
+                                            v-for="material in ascension.cost"
+                                            class="material-item hover"
+                                            :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, material.name.replaceAll(' ', '_')]"
+                                            :data-material="material.name"
+                                        >
                                             <div class="top-border w-100" :class="'quality-' + material.quality">
-                                                <img :src="material.icon" loading="lazy" :alt="material.name" :title="material.name" class="material-icon" />
+                                                <img :src="material.icon" loading="lazy" :alt="material.name" :title="material.name" class="item-icon" />
                                             </div>
                                             <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
                                                 <span class="my-1 mx-3">x{{ material.value }}</span>
@@ -205,7 +212,12 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 <div class="total-materials" id="ascension-materials">
                     <h3>Total Ascension Materials</h3>
                     <div class="d-flex flex-wrap gap-3">
-                        <div v-for="[name, material] in totalMaterials" class="total-material-item" :data-material="material.name">
+                        <div
+                            v-for="[name, material] in totalMaterials"
+                            class="total-material-item hover"
+                            :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, name.replaceAll(' ', '_')]"
+                            :data-material="material.name"
+                        >
                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                 <img :src="material.icon" loading="lazy" :alt="name" class="material-icon" :title="name" />
                             </div>
@@ -226,6 +238,8 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
         data() {
             return {
                 totalMaterials: new Map(),
+                MENU_ITEMS_TOP: MENU_ITEMS_TOP,
+                DATABASE: DATABASE,
             };
         },
         mounted() {
@@ -302,7 +316,12 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                                 <td>Level {{ level.level }}</td>
                                 <td>
                                     <div class="d-flex flex-row flex-nowrap gap-2">
-                                        <div v-for="material in level.cost" class="material-item" :data-material="material.name">
+                                        <div
+                                            v-for="material in level.cost"
+                                            class="material-item hover"
+                                            :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, material.name.replaceAll(' ', '_')]"
+                                            :data-material="material.name"
+                                        >
                                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                                 <img :src="material.icon" loading="lazy" :alt="material.name" :title="material.name" class="material-icon" />
                                             </div>
@@ -321,7 +340,12 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 <div class="total-materials" id="talent-materials">
                     <h3>Total Talent Level-Up Materials</h3>
                     <div class="d-flex flex-wrap gap-3">
-                        <div v-for="[name, material] in totalMaterials" class="total-material-item" :data-material="material.name">
+                        <div
+                            v-for="[name, material] in totalMaterials"
+                            class="total-material-item hover"
+                            :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, name.replaceAll(' ', '_')]"
+                            :data-material="material.name"
+                        >
                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                 <img :src="material.icon" loading="lazy" :alt="name" :title="name" class="material-icon" />
                             </div>
@@ -380,6 +404,8 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 }),
                 main_stats: this.transformStats(this.character.build.main_stats),
                 sub_stats: this.transformStats(this.character.build.sub_stats),
+                MENU_ITEMS_TOP: MENU_ITEMS_TOP,
+                DATABASE: DATABASE,
             };
         },
         methods: {
@@ -423,7 +449,11 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
             <div id="build">
                 <div class="section-title">Weapons</div>
                 <div class="weapons-grid">
-                    <div v-for="(weapon, index) in character.build.weapons" class="weapon-item">
+                    <div
+                        v-for="(weapon, index) in character.build.weapons"
+                        class="weapon-item hover"
+                        :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, weapon.name.replaceAll(' ', '_')]"
+                    >
                         <div class="top-border w-100" :class="'quality-' + weapon.quality">
                             <img :src="weapon.icon" loading="lazy" :alt="weapon.name" :title="weapon.name" />
                         </div>
