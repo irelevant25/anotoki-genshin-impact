@@ -1,5 +1,24 @@
 const CHANGELOG = [
     {
+        version: "0.8",
+        date: "2025-05-30",
+        changes: {
+            added: [
+                "Implemented routing/navigation",
+                "Added new databases: Materials, Weapons and Wishes",
+                "Added filter for databases",
+                "Mobile device optimization for databases",
+                "Lazy loading for images and database filters and details"
+            ],
+            fixed: [
+                "Element generation in minesweeper game"
+            ],
+            updated: [
+                "Build tab design in character detail with material ascension design.",
+            ]
+        }
+    },
+    {
         version: "0.7",
         date: "2025-04-17",
         changes: {
