@@ -1,0 +1,52 @@
+#site-characters-filter {
+  .top-border {
+    border-radius: 8px 8px 0 0;
+  }
+
+  .bottom-border {
+    border-radius: 0 0 8px 8px;
+  }
+
+  .name {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .character-card:hover {
+    transform: scale(1.05);
+    img,
+    div {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .character-card-container {
+    width: 140px;
+    font-size: 14px;
+  }
+
+  .filter {
+    display: flex;
+
+    img {
+      border-radius: 25px;
+      width: 35px;
+      height: 35px;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    }
+
+    img:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    img.selected {
+      transform: scale(1.15);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      border: 2px solid gold;
+    }
+
+    input {
+      width: 140px;
+    }
+  }
+}

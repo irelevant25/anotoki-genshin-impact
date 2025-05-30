@@ -3,10 +3,6 @@ const MENU_ITEMS_BOTTOM = {
         id: 'site-difficulties',
         title: 'Difficulties',
     },
-    database: {
-        id: 'site-database',
-        title: 'Database',
-    },
     whatsnew: {
         id: 'site-whatsnew',
         title: "What's new",

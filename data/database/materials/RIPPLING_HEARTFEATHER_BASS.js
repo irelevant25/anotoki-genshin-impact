@@ -1,0 +1,21 @@
+var RIPPLING_HEARTFEATHER_BASS = {
+    "name": "Rippling Heartfeather Bass",
+    "icon": "assets/materials/Rippling Heartfeather Bass.avif",
+    "type": "Fish",
+    "groups": [],
+    "category": "Materials",
+    "quality": "3",
+    "description": "Peculiar fishes that look like a heart from the side, which are said to be related to bass. Their dorsal and ventral fins are comprised of flexible bones that are as slender as feathers, hence why researchers proposed the name \"Heartfeather Bass.\"As an important subspecies of the Heartfeather Bass family, Rippling Heartfeather Bass are much better at swimming than their appearance suggests – they can even travel across roaring waves. It is said that their fins produce a rippling sound when they swim above the water against the current. Identifying the fish is already extremely challenging given their protective coloration, so most anglers have never heard this unique sound with their own ears.",
+    "howToObtain": [
+        "Fishing"
+    ],
+    "version": "4.0",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}

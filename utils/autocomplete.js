@@ -12,9 +12,8 @@ class Autocomplete {
         this.autocompleteInputElement?.addEventListener('keydown', _boundMarkActiveItemOfAutocomplete);
 
         document.addEventListener('click', (e) => {
-            if (!this.autocompleteInputElement?.contains(e.target) &&
-                !this.autocompleteDropdownElement?.contains(e.target)) {
-                    this.autocompleteDropdownElement?.classList.remove('show');
+            if (!this.autocompleteInputElement?.contains(e.target) && !this.autocompleteDropdownElement?.contains(e.target)) {
+                this.autocompleteDropdownElement?.classList.remove('show');
             }
         });
 
@@ -38,20 +37,18 @@ class Autocomplete {
 
     autocompleteFilter() {
         const query = this.autocompleteInputElement?.value.toLowerCase();
-        const filteredData = CHARACTERS.filter(character =>
-            character.name.toLowerCase().includes(query));
+        const filteredData = CHARACTERS.filter((character) => character.name.toLowerCase().includes(query));
 
         // Clear existing options
-        Array.from(this.autocompleteDropdownElement?.children ?? [])
-            .forEach(item => item.remove());
+        Array.from(this.autocompleteDropdownElement?.children ?? []).forEach((item) => item.remove());
 
         if (filteredData.length) {
             // Add new options
-            filteredData.forEach(character => {
+            filteredData.forEach((character) => {
                 const option = document.createElement('div');
                 option.classList.add('autocomplete-item');
                 option.innerHTML = `
-                    <img src="${getCharacterIconImageUrl(character.name)}" alt="${character.name}">
+                    <img src="${getCharacterIconImageUrl(character.name)}" loading="lazy" alt="${character.name}">
                     <span>${character.name}</span>
                 `;
                 option.addEventListener('click', () => {
@@ -75,11 +72,9 @@ class Autocomplete {
             const element = event.target.closest('.autocomplete-item');
             if (!element) return;
 
-            this.containerElement.querySelectorAll('div.dropdown-menu div.autocomplete-item')
-                .forEach(item => item.classList.remove('active'));
+            this.containerElement.querySelectorAll('div.dropdown-menu div.autocomplete-item').forEach((item) => item.classList.remove('active'));
             element.classList.add('active');
-        }
-        else if (event instanceof KeyboardEvent) {
+        } else if (event instanceof KeyboardEvent) {
             const currentActiveElement = this.autocompleteDropdownElement.querySelector('div.autocomplete-item.active');
             if (!currentActiveElement) return;
 

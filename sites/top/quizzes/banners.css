@@ -1,4 +1,5 @@
-#site-banners, #daily-banners {
+#site-banners,
+#daily-banners {
   /* Quiz component styling */
   .quiz-container {
     padding: 1.5rem;
@@ -23,50 +24,6 @@
 
   img[name="question"].difficulty-3 {
     clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
-  }
-
-  /* Search container */
-  .search-container {
-    display: inline-flex;
-  }
-
-  /* Autocomplete */
-  .dropdown-menu {
-    padding: 0;
-  }
-
-  .autocomplete {
-    width: 300px;
-  }
-
-  .autocomplete-dropdown {
-    max-height: 301px;
-    overflow-y: auto;
-    width: 100%;
-  }
-
-  .autocomplete-item {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    height: 100px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .autocomplete-item.active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .autocomplete-item img {
-    width: 100px;
-  }
-
-  .autocomplete-item span {
-    margin-left: 10px;
-    font-size: 16px;
   }
 
   /* Tries display */
