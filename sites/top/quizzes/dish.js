@@ -32,7 +32,7 @@ const SITES_TOP_QUIZZES_DISH_COMPONENT = {
                         <img v-if="tryChar" loading="lazy" :src="getCharacterIconImageUrl(tryChar)" />
                     </div>
                 </div>
-                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="isQuestionComplete ? questionEntity?.wish : ''" />
+                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="isQuestionComplete ? questionEntity?.wish_icon : ''" />
             </div>
         `,
 
@@ -163,5 +163,5 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         template: html` <base-component :daily="false"></base-component> `,
     });
-    quiz.mount('#site-quizzes #site-dish');
+    quiz.mount('#site-dish');
 });

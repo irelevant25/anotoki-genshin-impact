@@ -1,8 +1,12 @@
 const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
     VUE_COMPONENT: Vue.createApp({
+        components: {
+            'loading-spinner': LoadingSpinner,
+        },
+
         template: html`
             <div style="min-height: 250px; position: relative">
-                <!-- <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" /> -->
+                <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
 
                 <div v-if="material" class="p-4 d-flex flex-row gap-3">
                     <div class="d-flex flex-column flex-1 text-center-mobile gap-3 left-bar">
@@ -96,13 +100,25 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
         },
 
         methods: {
-            displayMaterialInfo(materialData) {
-                this.material = materialData;
-                this.isLoading = false;
+            loadScript(itemToLoad) {
+                this.isLoading = true;
+                const script = itemToLoad.name.replaceAll(' ', '_').replaceAll('"', '').replaceAll("'", '').replaceAll('-', '').toUpperCase();
+
+                if (this.isScriptLoaded(script)) {
+                    this.displayInfo(window[script]);
+                    return;
+                }
+
+                this.loadSpecificScript(`data/database/materials/${script}.js`, () => {
+                    setTimeout(() => {
+                        this.displayInfo(window[script]);
+                    }, 1000);
+                });
             },
 
-            setActiveTab(tabName) {
-                this.activeTab = tabName;
+            displayInfo(materialData) {
+                this.material = materialData;
+                this.isLoading = false;
             },
 
             isScriptLoaded(script) {
@@ -110,7 +126,7 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                 return document.querySelector(`script[src="${scriptSrc}"]`) !== null;
             },
 
-            loadScript(src, callback) {
+            loadSpecificScript(src, callback) {
                 const script = document.createElement('script');
                 script.src = src;
                 script.onload = callback;
@@ -120,9 +136,10 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
     }),
 
     onShow(route, parameters) {
+        this.instance.material = null;
         document.querySelector(`#${DATABASE.materials.id}-detail`).classList.remove('d-none');
-        const material = MATERIALS.find((material) => material.name.replaceAll(' ', '_').toLowerCase() === parameters.material.toLowerCase());
-        this.instance.displayMaterialInfo(material);
+        const material = MATERIALS.find((material) => material.name.replaceAll(' ', '_').replaceAll('"', '').toLowerCase() === parameters.material.toLowerCase());
+        this.instance.loadScript(material);
     },
 
     onHide() {

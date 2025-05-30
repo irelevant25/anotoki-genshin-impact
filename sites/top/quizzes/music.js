@@ -53,7 +53,7 @@ const SITES_TOP_QUIZZES_MUSIC_COMPONENT = {
                         <img v-if="tryChar" loading="lazy" :src="getCharacterIconImageUrl(tryChar)" />
                     </div>
                 </div>
-                <img name="answer-success" loading="lazy" class="d-block mx-auto" :src="isQuestionComplete ? questionEntity?.wish : ''" />
+                <img name="answer-success" loading="lazy" class="d-block mx-auto" :src="isQuestionComplete ? questionEntity?.wish_icon : ''" />
             </div>
         `,
 
@@ -302,5 +302,5 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         template: html` <base-component :daily="false"></base-component> `,
     });
-    quiz.mount('#site-quizzes #site-music');
+    quiz.mount('#site-music');
 });

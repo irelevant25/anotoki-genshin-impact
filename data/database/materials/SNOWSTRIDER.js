@@ -1,0 +1,21 @@
+var SNOWSTRIDER = {
+    "name": "Snowstrider",
+    "icon": "assets/materials/Snowstrider.avif",
+    "type": "Fish",
+    "groups": [],
+    "category": "Materials",
+    "quality": "3",
+    "description": "A rare stickleback that only dwells in snowy, mountainous regions. It is quite possibly due to this that it has a much cooler temperament as compared to other sticklebacks. This species has a unusually great love for the bitter cold, almost as if they were parent and child. Though they can live in warmer waters, but any removal from such conditions is like striking a spiritual blow to them, and they will become depressed and refuse to multiply.\"Not a recommended catch.\" — Angler's Atlas, Snowstrider Chapter",
+    "howToObtain": [
+        "Fishing"
+    ],
+    "version": "2.1",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}

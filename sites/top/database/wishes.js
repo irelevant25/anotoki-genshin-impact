@@ -52,15 +52,11 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
         `,
 
         data() {
-            const versions_map = new Set();
-            this.filterTBA(WISHES).forEach((wish) => {
-                versions_map.add(wish.version);
-            });
             return {
                 MENU_ITEMS_TOP: MENU_ITEMS_TOP,
                 DATABASE: DATABASE,
-                wishes: this.filterTBA(WISHES),
-                versions: Array.from(versions_map.values()).sort(),
+                wishes: null,
+                versions: null,
                 isLoading: true,
             };
         },
@@ -79,6 +75,27 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
                 this.wishes = this.filterTBA(WISHES);
             },
 
+            loadScript(script) {
+                this.isLoading = true;
+
+                if (this.isScriptLoaded(script)) {
+                    this.displayInfo(window[script]);
+                    return;
+                }
+
+                this.loadSpecificScript(`data/database/${script}.js`, () => {
+                    setTimeout(() => {
+                        const versions_map = new Set();
+                        this.filterTBA(WISHES).forEach((wish) => {
+                            versions_map.add(wish.version);
+                        });
+                        this.wishes = this.filterTBA(WISHES);
+                        this.versions = Array.from(versions_map.values()).sort();
+                        this.isLoading = false;
+                    }, 1000);
+                });
+            },
+
             filterTBA(wishes) {
                 return wishes.filter((version) => !version.wishes.some((wish) => wish.duration.includes('TBA')));
             },
@@ -93,16 +110,24 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
                     return version_match && name_match;
                 });
             },
+
+            isScriptLoaded(script) {
+                const scriptSrc = `data/database/${script}.js`;
+                return document.querySelector(`script[src="${scriptSrc}"]`) !== null;
+            },
+
+            loadSpecificScript(src, callback) {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = callback;
+                document.head.appendChild(script);
+            },
         },
     },
 
     onShow() {
-        if (this.instance.isLoading) {
-            setTimeout(() => {
-                this.instance.isLoading = false;
-            }, 1000);
-        }
         document.querySelector(`#${DATABASE.wishes.id}`).classList.remove('d-none');
+        this.instance.loadScript('WISHES');
     },
 
     onHide() {

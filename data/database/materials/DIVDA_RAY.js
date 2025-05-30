@@ -1,0 +1,21 @@
+var DIVDA_RAY = {
+    "name": "Divda Ray",
+    "icon": "assets/materials/Divda Ray.avif",
+    "type": "Fish",
+    "groups": [],
+    "category": "Materials",
+    "quality": "3",
+    "description": "A strange cartilaginous fish that was once thought to be a fantastical creature, only recorded in some ancient scrolls of art on Watatsumi Island. As the seal over Enkanomiya was opened, their true forms were laid bare before the eyes of all.It is said that the bodily forms of these curious creatures will change color as time passes. When they are young, they are as gold as sunlight. Rays at this stage of life earned the name \"Divda\" in those ancient scrolls, which means \"the tail end of innocence.\"",
+    "howToObtain": [
+        "Fishing"
+    ],
+    "version": "2.4",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}

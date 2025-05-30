@@ -1,5 +1,4 @@
 const SITES_TOP_GAMES_COMPONENT = {
-    gamesElement: null,
     gamesListElement: null,
 
     getHelpIcon(gameItem) {
@@ -14,9 +13,6 @@ const SITES_TOP_GAMES_COMPONENT = {
 
     defaultState() {
         this.gamesListElement.classList.remove('d-none');
-        this.gamesElement.querySelectorAll("& > div[id^='site-']").forEach((element) => {
-            element.classList.add('d-none');
-        });
     },
 
     itemClick(gameItem) {
@@ -26,13 +22,11 @@ const SITES_TOP_GAMES_COMPONENT = {
         this.defaultState();
 
         // Toggle active state of clicked item
-        this.gamesElement.querySelector(`#${gameItem.dataset.id}`).classList.remove('d-none');
         this.gamesListElement.classList.add('d-none');
     },
 
     init() {
-        this.gamesElement = document.querySelector(`#${MENU_ITEMS_TOP.games.id}`);
-        this.gamesListElement = document.querySelector('#games-list');
+        this.gamesListElement = document.querySelector('#site-games-list');
         document.querySelector(`li[data-id="${MENU_ITEMS_TOP.games.id}"]`).addEventListener('click', () => {
             this.defaultState();
         });
@@ -91,11 +85,11 @@ const SITES_TOP_GAMES_COMPONENT = {
     },
 
     onShow() {
-        this.gamesElement.classList.remove('d-none');
+        this.gamesListElement.classList.remove('d-none');
     },
 
     onHide() {
-        this.gamesElement.classList.add('d-none');
+        this.gamesListElement.classList.add('d-none');
     },
 };
 

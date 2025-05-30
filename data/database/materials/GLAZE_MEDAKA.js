@@ -1,0 +1,21 @@
+var GLAZE_MEDAKA = {
+    "name": "Glaze Medaka",
+    "icon": "assets/materials/Glaze Medaka.avif",
+    "type": "Fish",
+    "groups": [],
+    "category": "Materials",
+    "quality": "3",
+    "description": "A lively, energetic fish famous for its petal-shaped tail.This species has inscrutable behavioral patterns, and they can often be seen bursting into struggling fits out of the blue, as if bearing some sort of unseen pain. This phenomenon, however, does not occur at all when they are alone. Some researchers believe that this peculiarity stems from their natural desire to perform.",
+    "howToObtain": [
+        "Fishing"
+    ],
+    "version": "2.1",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}

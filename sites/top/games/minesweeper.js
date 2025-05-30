@@ -1,7 +1,7 @@
 const SITES_TOP_GAMES_MINESWEEPER_COMPONENT = {
     VUE_COMPONENT: Vue.createApp({
         template: html`
-            <div class="container game-container">
+            <div class="game-container">
                 <div class="game-info mt-3">
                     <div class="reactions-container">
                         <div class="reaction" v-for="reaction in dangerousReactions">{{ reaction.name }} ({{ reaction.elements.join(' + ') }})</div>

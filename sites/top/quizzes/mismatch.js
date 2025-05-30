@@ -125,7 +125,7 @@ const SITES_TOP_QUIZZES_MISMATCH_COMPONENT = {
             },
 
             endQuestion(character) {
-                this.answerImageSrc = character.wish;
+                this.answerImageSrc = character.wish_icon;
                 this.isQuestionComplete = true;
             },
 
@@ -273,5 +273,5 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         template: html` <base-component :daily="false"></base-component> `,
     });
-    quiz.mount('#site-quizzes #site-mismatch');
+    quiz.mount('#site-mismatch');
 });

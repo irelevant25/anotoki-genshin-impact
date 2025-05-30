@@ -1,5 +1,4 @@
 const SITES_TOP_QUIZZES_COMPONENT = {
-    quizzesElement: null,
     quizzesListElement: null,
 
     getHelpIcon(quizItem) {
@@ -14,9 +13,6 @@ const SITES_TOP_QUIZZES_COMPONENT = {
 
     defaultState() {
         this.quizzesListElement.classList.remove('d-none');
-        this.quizzesElement.querySelectorAll("& > div[id^='site-']").forEach((element) => {
-            element.classList.add('d-none');
-        });
     },
 
     itemClick(quizItem) {
@@ -26,13 +22,11 @@ const SITES_TOP_QUIZZES_COMPONENT = {
         this.defaultState();
 
         // Toggle active state of clicked item
-        this.quizzesElement.querySelector(`#${quizItem.dataset.id}`).classList.remove('d-none');
         this.quizzesListElement.classList.add('d-none');
     },
 
     init() {
-        this.quizzesElement = document.querySelector(`#${MENU_ITEMS_TOP.quizzes.id}`);
-        this.quizzesListElement = document.querySelector('#quizzes-list');
+        this.quizzesListElement = document.querySelector('#site-quizzes-list');
         document.querySelector(`li[data-id="${MENU_ITEMS_TOP.quizzes.id}"]`).addEventListener('click', () => {
             this.defaultState();
         });
@@ -91,11 +85,11 @@ const SITES_TOP_QUIZZES_COMPONENT = {
     },
 
     onShow() {
-        this.quizzesElement.classList.remove('d-none');
+        this.quizzesListElement.classList.remove('d-none');
     },
 
     onHide() {
-        this.quizzesElement.classList.add('d-none');
+        this.quizzesListElement.classList.add('d-none');
     },
 };
 

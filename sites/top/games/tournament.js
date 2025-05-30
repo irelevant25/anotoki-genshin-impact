@@ -1,7 +1,7 @@
 const SITES_TOP_GAMES_TOURNAMENT_COMPONENT = {
     VUE_COMPONENT: Vue.createApp({
         template: html`
-            <div class="container quiz-container">
+            <div class="quiz-container">
                 <div name="tournament-setup" class="col-4 mx-auto pt-3" v-show="showSetup">
                     <div class="">
                         <label class="form-label">Tournament type</label>

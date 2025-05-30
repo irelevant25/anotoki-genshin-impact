@@ -155,15 +155,6 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
                 });
             },
 
-            setActiveTab(tabName) {
-                this.activeTab = tabName;
-            },
-
-            isScriptLoaded(script) {
-                const scriptSrc = `data/database/weapons/${script}.js`;
-                return document.querySelector(`script[src="${scriptSrc}"]`) !== null;
-            },
-
             isScriptLoaded(script) {
                 const scriptSrc = `data/database/weapons/${script}.js`;
                 return document.querySelector(`script[src="${scriptSrc}"]`) !== null;
