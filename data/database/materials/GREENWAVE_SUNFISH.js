@@ -1,0 +1,21 @@
+var GREENWAVE_SUNFISH = {
+    "name": "Greenwave Sunfish",
+    "icon": "assets/materials/Greenwave Sunfish.avif",
+    "type": "Fish",
+    "groups": [],
+    "category": "Materials",
+    "quality": "3",
+    "description": "Medium-sized fish with a flat body and a gentle temperament, Greenwave Sunfish are considered to be one of the least irritable creatures in the waters of Natlan. Capable of consuming almost anything, their utterly indiscriminate eating habits make them natural cleaners of the underwater world, a trait that has earned them high praise among locals.Legend has it that in the distant past, Greenwave Sunfish inhabited waters where the nutrient levels were excessively high, to the point that thick layers of algae would float upon the surface. It was thanks to their presence that this algae was kept in check. Even today, the crystal-clear, azure waters of the People of the Springs may be in part a testament to their contribution.",
+    "howToObtain": [
+        "Fishing"
+    ],
+    "version": "5.2",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}

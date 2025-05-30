@@ -16,7 +16,7 @@ const SITES_TOP_QUIZZES_BANNERS_COMPONENT = {
                 <div :class="['level-' + difficultyString, { 'd-none': daily }]" name="quiz-difficulty-display">
                     <span class="recommended-ar">{{ difficultyString }}</span>
                 </div>
-                <img name="question" class="d-block mx-auto" loading="lazy" :src="questionEntity?.namecard_banner" :class="currentEffectClasses" />
+                <img name="question" class="d-block mx-auto" loading="lazy" :src="questionEntity?.namecard.banner" :class="currentEffectClasses" />
                 <div class="pt-3 search-container">
                     <div name="autocomplete" v-show="!isQuestionComplete" ref="autocomplete"></div>
                     <button class="btn btn-primary ms-3 next-button" v-show="!daily && isQuestionComplete" @click="resetQuiz">Next</button>
@@ -32,7 +32,7 @@ const SITES_TOP_QUIZZES_BANNERS_COMPONENT = {
                         <img v-if="tryChar" loading="lazy" :src="getCharacterIconImageUrl(tryChar)" />
                     </div>
                 </div>
-                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="isQuestionComplete ? questionEntity?.wish : ''" />
+                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="isQuestionComplete ? questionEntity?.wish_icon : ''" />
             </div>
         `,
 

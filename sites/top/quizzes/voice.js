@@ -16,7 +16,7 @@ const SITES_TOP_QUIZZES_VOICE_COMPONENT = {
                 <div :class="['level-' + difficultyString, { 'd-none': daily }]" name="quiz-difficulty-display">
                     <span class="recommended-ar">{{ difficultyString }}</span>
                 </div>
-                <p class="d-inline-flex justify-content-center my-0">
+                <p class="d-flex justify-content-center my-0">
                     <span name="question" :class="questionTextClasses">{{ questionText }}</span>
                 </p>
                 <div class="player-container d-block mx-auto" :class="playerContainerClasses">
@@ -56,7 +56,7 @@ const SITES_TOP_QUIZZES_VOICE_COMPONENT = {
                         <img v-if="tryChar" loading="lazy" :src="getCharacterIconImageUrl(tryChar)" />
                     </div>
                 </div>
-                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="isQuestionComplete ? questionEntity?.wish : ''" />
+                <img name="answer-success" class="d-block mx-auto" loading="lazy" :src="isQuestionComplete ? questionEntity?.wish_icon : ''" />
             </div>
         `,
 
@@ -332,5 +332,5 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         template: html` <base-component :daily="false"></base-component> `,
     });
-    quiz.mount('#site-quizzes #site-voice');
+    quiz.mount('#site-voice');
 });

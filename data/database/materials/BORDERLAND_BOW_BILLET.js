@@ -1,0 +1,27 @@
+var BORDERLAND_BOW_BILLET = {
+    "name": "Borderland Bow Billet",
+    "icon": "assets/materials/Borderland Bow Billet.avif",
+    "type": "Materials",
+    "groups": [
+        "Borderland Billets",
+        "Billets",
+        "Forging Materials"
+    ],
+    "category": "Materials",
+    "quality": "4",
+    "description": "Weapon forging material. Can be used to forge 4-star bows.In terms of the \"state\" of the many weapons that can be crafted from billets, while their potential has long been contained within the original materials, the exact forms these weapons will ultimately take remain unknown to this day...",
+    "howToObtain": [
+        "Natlan Trounce Domain Challenge Reward",
+        "Converting other billet types",
+        "Borderland Billet Trove"
+    ],
+    "version": "5.0",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}

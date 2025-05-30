@@ -1,0 +1,21 @@
+var SPINELGRAIN_BAIT = {
+    "name": "Spinelgrain Bait",
+    "icon": "assets/materials/Spinelgrain Bait.avif",
+    "type": "Bait",
+    "groups": [],
+    "quality": "2",
+    "description": "Made from a mixture of Spinel Fruit and Grainfruit, this peculiar Natlan fish bait can maintain its shape even after having been submerged for extended periods of time. By dissipating flavor at a consistent rate, its remarkable power to attract fish continues unabated for a very long time indeed.Suitable for catching normal Rapidfish, Sunfish, and normal Unihornfish.",
+    "howToObtain": [
+        "Natlan Fishing Association",
+        "Crafting"
+    ],
+    "version": "5.2",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}
