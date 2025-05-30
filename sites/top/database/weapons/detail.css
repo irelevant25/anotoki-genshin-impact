@@ -1,0 +1,89 @@
+#site-weapons-detail {
+  .top-border {
+    border-radius: 8px 8px 0 0;
+  }
+
+  img {
+    height: fit-content;
+    object-fit: contain;
+  }
+
+  .name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .border-full {
+    border-radius: 15px;
+  }
+
+  .bottom-border {
+    border-radius: 0 0 8px 8px;
+  }
+
+  .left-bar {
+    img {
+      max-width: 256px;
+    }
+  }
+
+  .card-container {
+    width: 60px;
+    font-size: 14px;
+
+    img,
+    div {
+      width: 60px;
+    }
+  }
+
+  .hover:hover {
+    transform: scale(1.05);
+    img,
+    div {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .info {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  tbody tr td:not(last-child) {
+    padding: 5px;
+  }
+
+  .number-btn {
+    margin: 0 5px 10px 0;
+    min-width: 40px;
+    transition: all 0.2s ease;
+  }
+
+  .number-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .text-display {
+    transition: all 0.3s ease;
+  }
+
+  .text-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+}

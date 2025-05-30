@@ -1,4 +1,4 @@
-#quizzes-list {
+#site-quizzes-list {
   .card {
     width: 300px;
     background-color: rgba(255, 255, 255, 0.6);
@@ -10,7 +10,7 @@
 
   img {
     height: 250px;
-    object-fit: cover;
+    object-fit: contain;
     object-position: top;
   }
 }

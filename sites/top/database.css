@@ -1,0 +1,16 @@
+#site-database-list {
+  .card {
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .card:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  img {
+    height: 250px;
+    object-fit: contain;
+    object-position: top;
+  }
+}

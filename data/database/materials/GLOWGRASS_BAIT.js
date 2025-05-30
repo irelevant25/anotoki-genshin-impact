@@ -1,0 +1,24 @@
+var GLOWGRASS_BAIT = {
+    "name": "Glowgrass Bait",
+    "icon": "assets/materials/Glowgrass Bait.avif",
+    "type": "Bait",
+    "groups": [
+        "Event Items"
+    ],
+    "category": "Materials",
+    "quality": "2",
+    "description": "A special bait made from Magical Crystal Ore and Seagrass, it shines where no light illuminates, and may thus hold special attraction for those fellows who ever yearn for light.If you should run out of these, you can get more from Kujirai Momiji.Suitable for catching all fish species.",
+    "howToObtain": [
+        "Over the Moon",
+        "Bait Resupply Plan"
+    ],
+    "version": "2.1",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}

@@ -28,14 +28,34 @@
 
 - Bugs:
 - Improvements:
+  - [ ] Joining Tournament and Minesweeper as Games in top menu
+  - [ ] Move Database from the bottom menu to the top menu
+  - [ ] Removing What's new from bottom (when new version is available, it will open all versions/changelog instead)
+- Features:
+  - [ ] Making Database as a group of databases of: Weapons, Characters, Wishes, Materials
+  - [ ] Adding routing
+  - [ ] New quiz: Constellation image (not icons)
+
+# Next version 0.9
+
+- Bugs:
+- Improvements:
   - [ ] Hight size jump on quizzes when new images are not loaded yet (setup init hight)
   - [ ] Display result explanaition for Mismach quiz
   - [ ] Display result table for tournament
-  - [ ] Joining Tournament and Minesweeper as Games in top menu
   - [ ] Adding match history to the Tournament
 - Features:
+  - [ ] New database: Foods
   - [ ] New quiz: Signature weapon
-  - [ ] New quiz: Constellation image (not icons)
+  - [ ] Profile site with stats
+
+# Next version 1.0
+
+- Bugs:
+- Improvements:
+  - [ ]
+- Features:
+  - [ ]
 
 # Future version
 
@@ -47,8 +67,6 @@
     - Displaying only reactions and not element (geo and anemo have to be excluded)
     - Adding time limit per click or global time
   - Add score for Minesweeper based on difficulty and time and maybe revealed cells or avoided bombs
-  - Move Database to top menu
-  - Making Database as a group of databases of: Food, Weapons, Characters, Wish banners...
   - Add global routing for linking weapons names, characters, foods... between themselfs
 - Improvements:
   - Visualize the win/lose/wrong/correct answers in a additional way in quizzes especially for mismatch

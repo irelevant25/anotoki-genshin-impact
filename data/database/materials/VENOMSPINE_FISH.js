@@ -1,0 +1,21 @@
+var VENOMSPINE_FISH = {
+    "name": "Venomspine Fish",
+    "icon": "assets/materials/Venomspine Fish.avif",
+    "type": "Fish",
+    "groups": [],
+    "category": "Materials",
+    "quality": "3",
+    "description": "A swift, fierce fish with spiny fins whose spiny mouth can pierce the current when it swims at full speed. Its capabilities have earned it the nicknames \"The Cutter\" and \"Hard-To-Get.\"The Venomspine Fish's most well-known trait is its poisonous spines, which contain a neurotoxin that is fatal to smaller prey but proves far weaker against large organisms, mostly only causing mild confusion or hallucinations.\"Fill 'er up, Rex, my good lad! Fill 'er up to the brim for big brother!\" — A certain fisherman from Liyue who was accidentally pricked.",
+    "howToObtain": [
+        "Fishing"
+    ],
+    "version": "2.1",
+    "need_for": {
+        "weapons": [],
+        "characters": {
+            "talents": [],
+            "ascensions": []
+        },
+        "foods": []
+    }
+}

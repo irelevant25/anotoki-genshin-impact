@@ -1,0 +1,296 @@
+var ROYAL_SPEAR = {
+    "name": "Royal Spear",
+    "icon": "assets/weapons/Royal Spear.avif",
+    "icon_ascension": "assets/weapons/Royal Spear - ascension.avif",
+    "type": "Polearm",
+    "quality": "4",
+    "how_to_obtain": "Paimon's Bargains",
+    "release_date": "December 01, 2020",
+    "secondary_stat": "ATK",
+    "effects": [
+        "CRIT Rate",
+        "CRIT Hit"
+    ],
+    "refinements": [
+        {
+            "description": "Upon dealing damage to an opponent, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all existing stacks.",
+            "price": {
+                "name": "Mora",
+                "value": "1,000",
+                "icon": "assets/materials/Mora.avif"
+            }
+        },
+        {
+            "description": "Upon dealing damage to an opponent, increases CRIT Rate by 10%. Max 5 stacks. A CRIT hit removes all existing stacks.",
+            "price": {
+                "name": "Mora",
+                "value": "2,000",
+                "icon": "assets/materials/Mora.avif"
+            }
+        },
+        {
+            "description": "Upon dealing damage to an opponent, increases CRIT Rate by 12%. Max 5 stacks. A CRIT hit removes all existing stacks.",
+            "price": {
+                "name": "Mora",
+                "value": "4,000",
+                "icon": "assets/materials/Mora.avif"
+            }
+        },
+        {
+            "description": "Upon dealing damage to an opponent, increases CRIT Rate by 14%. Max 5 stacks. A CRIT hit removes all existing stacks.",
+            "price": {
+                "name": "Mora",
+                "value": "8,000",
+                "icon": "assets/materials/Mora.avif"
+            }
+        },
+        {
+            "description": "Upon dealing damage to an opponent, increases CRIT Rate by 16%. Max 5 stacks. A CRIT hit removes all existing stacks.",
+            "price": {
+                "name": "Mora",
+                "icon": "assets/materials/Mora.avif"
+            }
+        }
+    ],
+    "ascensions_materials_and_stats": [
+        {
+            "phase": 0,
+            "levels": [
+                {
+                    "level": "1/20",
+                    "atk": 44,
+                    "ATK": "6%"
+                },
+                {
+                    "level": "20/20",
+                    "atk": 119,
+                    "ATK": "10.6%"
+                }
+            ],
+            "cost": []
+        },
+        {
+            "phase": 1,
+            "levels": [
+                {
+                    "level": "20/40",
+                    "atk": 144,
+                    "ATK": "10.6%"
+                },
+                {
+                    "level": "40/40",
+                    "atk": 226,
+                    "ATK": "15.5%"
+                }
+            ],
+            "cost": [
+                {
+                    "name": "Mora",
+                    "value": 5000,
+                    "icon": "assets/materials/Mora.avif"
+                },
+                {
+                    "name": "Mist Veiled Lead Elixir",
+                    "value": 3,
+                    "icon": "assets/materials/Mist Veiled Lead Elixir.avif"
+                },
+                {
+                    "name": "Mist Grass Pollen",
+                    "value": 3,
+                    "icon": "assets/materials/Mist Grass Pollen.avif"
+                },
+                {
+                    "name": "Recruit's Insignia",
+                    "value": 2,
+                    "icon": "assets/materials/Recruit's Insignia.avif"
+                }
+            ]
+        },
+        {
+            "phase": 2,
+            "levels": [
+                {
+                    "level": "40/50",
+                    "atk": 252,
+                    "ATK": "15.5%"
+                },
+                {
+                    "level": "50/50",
+                    "atk": 293,
+                    "ATK": "17.9%"
+                }
+            ],
+            "cost": [
+                {
+                    "name": "Mora",
+                    "value": 15000,
+                    "icon": "assets/materials/Mora.avif"
+                },
+                {
+                    "name": "Mist Veiled Mercury Elixir",
+                    "value": 3,
+                    "icon": "assets/materials/Mist Veiled Mercury Elixir.avif"
+                },
+                {
+                    "name": "Mist Grass Pollen",
+                    "value": 12,
+                    "icon": "assets/materials/Mist Grass Pollen.avif"
+                },
+                {
+                    "name": "Recruit's Insignia",
+                    "value": 8,
+                    "icon": "assets/materials/Recruit's Insignia.avif"
+                }
+            ]
+        },
+        {
+            "phase": 3,
+            "levels": [
+                {
+                    "level": "50/60",
+                    "atk": 319,
+                    "ATK": "17.9%"
+                },
+                {
+                    "level": "60/60",
+                    "atk": 361,
+                    "ATK": "20.3%"
+                }
+            ],
+            "cost": [
+                {
+                    "name": "Mora",
+                    "value": 20000,
+                    "icon": "assets/materials/Mora.avif"
+                },
+                {
+                    "name": "Mist Veiled Mercury Elixir",
+                    "value": 6,
+                    "icon": "assets/materials/Mist Veiled Mercury Elixir.avif"
+                },
+                {
+                    "name": "Mist Grass",
+                    "value": 6,
+                    "icon": "assets/materials/Mist Grass.avif"
+                },
+                {
+                    "name": "Sergeant's Insignia",
+                    "value": 6,
+                    "icon": "assets/materials/Sergeant's Insignia.avif"
+                }
+            ]
+        },
+        {
+            "phase": 4,
+            "levels": [
+                {
+                    "level": "60/70",
+                    "atk": 387,
+                    "ATK": "20.3%"
+                },
+                {
+                    "level": "70/70",
+                    "atk": 429,
+                    "ATK": "22.7%"
+                }
+            ],
+            "cost": [
+                {
+                    "name": "Mora",
+                    "value": 30000,
+                    "icon": "assets/materials/Mora.avif"
+                },
+                {
+                    "name": "Mist Veiled Gold Elixir",
+                    "value": 3,
+                    "icon": "assets/materials/Mist Veiled Gold Elixir.avif"
+                },
+                {
+                    "name": "Mist Grass",
+                    "value": 12,
+                    "icon": "assets/materials/Mist Grass.avif"
+                },
+                {
+                    "name": "Sergeant's Insignia",
+                    "value": 9,
+                    "icon": "assets/materials/Sergeant's Insignia.avif"
+                }
+            ]
+        },
+        {
+            "phase": 5,
+            "levels": [
+                {
+                    "level": "70/80",
+                    "atk": 455,
+                    "ATK": "22.7%"
+                },
+                {
+                    "level": "80/80",
+                    "atk": 497,
+                    "ATK": "25.1%"
+                }
+            ],
+            "cost": [
+                {
+                    "name": "Mora",
+                    "value": 35000,
+                    "icon": "assets/materials/Mora.avif"
+                },
+                {
+                    "name": "Mist Veiled Gold Elixir",
+                    "value": 6,
+                    "icon": "assets/materials/Mist Veiled Gold Elixir.avif"
+                },
+                {
+                    "name": "Mist Grass Wick",
+                    "value": 9,
+                    "icon": "assets/materials/Mist Grass Wick.avif"
+                },
+                {
+                    "name": "Lieutenant's Insignia",
+                    "value": 6,
+                    "icon": "assets/materials/Lieutenant's Insignia.avif"
+                }
+            ]
+        },
+        {
+            "phase": 6,
+            "levels": [
+                {
+                    "level": "80/90",
+                    "atk": 523,
+                    "ATK": "25.1%"
+                },
+                {
+                    "level": "90/90",
+                    "atk": 565,
+                    "ATK": "27.6%"
+                }
+            ],
+            "cost": [
+                {
+                    "name": "Mora",
+                    "value": 45000,
+                    "icon": "assets/materials/Mora.avif"
+                },
+                {
+                    "name": "Mist Veiled Primo Elixir",
+                    "value": 4,
+                    "icon": "assets/materials/Mist Veiled Primo Elixir.avif"
+                },
+                {
+                    "name": "Mist Grass Wick",
+                    "value": 18,
+                    "icon": "assets/materials/Mist Grass Wick.avif"
+                },
+                {
+                    "name": "Lieutenant's Insignia",
+                    "value": 12,
+                    "icon": "assets/materials/Lieutenant's Insignia.avif"
+                }
+            ]
+        }
+    ],
+    "version": "1.1"
+}
