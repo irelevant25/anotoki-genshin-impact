@@ -175,6 +175,10 @@
     }
   }
 
+  .hover:hover {
+    transform: scale(1.05);
+  }
+
   .ascension-checkbox,
   .talent-checkbox {
     width: 18px;
@@ -553,7 +557,7 @@
   .item-icon {
     width: 70px;
     height: 70px;
-    margin: 0 auto 10px;
+    /* margin: 0 auto 10px; */
     border-radius: 10px;
     background-color: var(--medium-bg);
     padding: 5px;
