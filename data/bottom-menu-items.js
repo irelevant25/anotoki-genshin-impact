@@ -3,10 +3,6 @@ const MENU_ITEMS_BOTTOM = {
         id: 'site-difficulties',
         title: 'Difficulties',
     },
-    whatsnew: {
-        id: 'site-whatsnew',
-        title: "What's new",
-    },
     backgrounds: {
         id: 'site-backgrounds',
         title: 'Backgrounds',
