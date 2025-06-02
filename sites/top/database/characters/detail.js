@@ -36,13 +36,9 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
                     <!-- Tab Content -->
                     <div v-if="character" class="tabs-content">
                         <ascension-tab v-if="character" :character="character" v-show="activeTab === 'ascensions'" />
-
                         <talents-tab v-if="character" :character="character" v-show="activeTab === 'talents'" />
-
                         <constellations-tab v-if="character" :character="character" v-show="activeTab === 'constellations'" />
-
                         <build-tab v-if="character" :character="character" v-show="activeTab === 'build'" />
-
                         <voice-overs-tab v-if="character" :character="character" v-show="activeTab === 'voice-overs'" />
                     </div>
                 </div>

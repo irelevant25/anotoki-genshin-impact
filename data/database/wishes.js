@@ -1,4 +1,4 @@
-const WISHES = [
+var WISHES = [
     {
         version: '1.0',
         wishes: [

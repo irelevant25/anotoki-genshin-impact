@@ -1,4 +1,4 @@
-const ARTIFACTS = [
+var ARTIFACTS = [
     {
         name: 'Initiate',
         how_to_obtain: [
