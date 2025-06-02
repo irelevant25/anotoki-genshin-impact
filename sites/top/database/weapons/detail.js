@@ -49,7 +49,7 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
                             <div class="text-display">
                                 <transition name="fade" mode="out-in">
                                     <div class="text-content">
-                                        <p class="mb-0">{{ selectedRefinement.description }}</p>
+                                        <p class="mb-0">{{ selectedRefinement?.description ?? 'None' }}</p>
                                     </div>
                                 </transition>
                             </div>
@@ -82,11 +82,7 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
                                         </td>
                                         <td v-if="ascension.cost.length === 0"></td>
                                         <td class="d-flex flex-row flex-nowrap gap-2" v-if="ascension.cost.length > 0">
-                                            <div
-                                                v-for="item in ascension.cost"
-                                                class="d-flex flex-column card-container hover"
-                                                :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, item.name.replaceAll(' ', '_')]"
-                                            >
+                                            <div v-for="item in ascension.cost" class="d-flex flex-column card-container hover" :data-link="materialLink(item.name)">
                                                 <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
                                                 <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                                             </div>
@@ -124,9 +120,13 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
         },
 
         methods: {
+            materialLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, normalize(item)];
+            },
+
             loadScript(itemToLoad) {
                 this.isLoading = true;
-                const script = itemToLoad.name.replaceAll(' ', '_').replaceAll('"', '').replaceAll("'", '').replaceAll('-', '').toUpperCase();
+                const script = normalize(itemToLoad.name);
 
                 if (this.isScriptLoaded(script)) {
                     this.displayInfo(window[script]);
@@ -172,7 +172,7 @@ const SITES_TOP_DATABASE_WEAPONS_DETAIL_COMPONENT = {
     onShow(route, parameters) {
         this.instance.weapon = null;
         document.querySelector(`#${DATABASE.weapons.id}-detail`).classList.remove('d-none');
-        const weapon = WEAPONS.find((weapon) => weapon.name.replaceAll(' ', '_').replaceAll('"', '').toLowerCase() === parameters.weapon.toLowerCase());
+        const weapon = WEAPONS.find((weapon) => normalize(weapon.name) === parameters.weapon);
         this.instance.loadScript(weapon);
     },
 

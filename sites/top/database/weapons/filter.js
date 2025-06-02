@@ -34,7 +34,7 @@ const SITES_TOP_DATABASE_WEAPONS_FILTER_COMPONENT = {
                     </div>
 
                     <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
-                        <div v-for="weapon in weapons" :data-link="weapon.name.replaceAll(' ', '_')" class="weapon-card-container">
+                        <div v-for="weapon in weapons" :data-link="weaponLink(weapon.name)" class="weapon-card-container">
                             <div class="d-flex flex-column weapon-card">
                                 <img :src="weapon.icon" class="top-border" loading="lazy" :class="'quality-' + (weapon.quality ?? '0')" :alt="weapon.icon" :title="weapon.name" />
                                 <div class="name text-center bottom-border py-1">{{ weapon.name }}</div>
@@ -74,6 +74,10 @@ const SITES_TOP_DATABASE_WEAPONS_FILTER_COMPONENT = {
         },
 
         methods: {
+            weaponLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, normalize(item)];
+            },
+
             toggleQualityFilter(quality) {
                 // If selected, deselect it
                 if (this.selectedQuality === quality) {

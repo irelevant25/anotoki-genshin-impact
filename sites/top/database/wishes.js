@@ -31,13 +31,13 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
                                 <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 150px; min-width: 150px;">{{ wish.duration }}</div>
                                 <img :src="wish.image" :alt="wish.name" loading="lazy" :title="wish.name" class="my-auto mx-auto-mobile" style="width: 355px; min-width: 355px;" />
                                 <div class="d-flex flex-row flex-wrap gap-2 m-auto-mobile">
-                                    <div v-for="item in wish.characters" :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, item.name.replaceAll(' ', '_')]" class="card-container">
+                                    <div v-for="item in wish.characters" :data-link="characterLink(item.name)" class="card-container">
                                         <div class="d-flex flex-column item-card">
                                             <img :src="item.icon" class="top-border" loading="lazy" :class="'quality-' + (item.quality ?? '0')" :alt="item.icon" :title="item.name" />
                                             <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                                         </div>
                                     </div>
-                                    <div v-for="item in wish.weapons" :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, item.name.replaceAll(' ', '_')]" class="card-container">
+                                    <div v-for="item in wish.weapons" :data-link="weaponLink(item.name)" class="card-container">
                                         <div class="d-flex flex-column item-card">
                                             <img :src="item.icon" class="top-border" loading="lazy" :class="'quality-' + (item.quality ?? '0')" :alt="item.icon" :title="item.name" />
                                             <div class="name text-center bottom-border py-1">{{ item.name }}</div>
@@ -66,6 +66,14 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
         },
 
         methods: {
+            characterLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, normalize(item)];
+            },
+
+            weaponLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, normalize(item)];
+            },
+
             resetFilters() {
                 // Reset all filters
                 if (this.$refs.version) this.$refs.version.value = '';
@@ -79,7 +87,7 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
                 this.isLoading = true;
 
                 if (this.isScriptLoaded(script)) {
-                    this.displayInfo(window[script]);
+                    this.displayInfo(window[script.toUpperCase()]);
                     return;
                 }
 
@@ -127,7 +135,7 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
 
     onShow() {
         document.querySelector(`#${DATABASE.wishes.id}`).classList.remove('d-none');
-        this.instance.loadScript('WISHES');
+        this.instance.loadScript('wishes');
     },
 
     onHide() {

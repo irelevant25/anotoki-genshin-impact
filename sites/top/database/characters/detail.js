@@ -15,7 +15,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
                 <loading-spinner :isLoading="isLoading" style="border-radius: 50px;" />
                 <div class="body p-4">
                     <!-- Header section -->
-                    <img v-if="character" id="banner" loading="lazy" class="d-flex mx-auto" :src="character.namecard.banner" :alt="character.name" />
+                    <img v-if="character" id="banner" loading="lazy" class="d-flex mx-auto" :src="character.namecard.banner" :alt="character.name" style="max-width: 100%;" />
 
                     <!-- Character header component -->
                     <character-header v-if="character" :character="character" />
@@ -64,7 +64,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
         methods: {
             loadScript(itemToLoad) {
                 this.isLoading = true;
-                const script = itemToLoad.name.replaceAll(' ', '_').replaceAll('"', '').replaceAll("'", '').replaceAll('-', '').toUpperCase();
+                const script = normalize(itemToLoad.name);
 
                 if (this.isScriptLoaded(script)) {
                     this.displayInfo(window[script]);
@@ -102,13 +102,13 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT = {
     }),
 
     onShow(route, parameters) {
-        this.instance.character = null;
         document.querySelector(`#${DATABASE.characters.id}-detail`).classList.remove('d-none');
-        const character = CHARACTERS.find((character) => character.name.replaceAll(' ', '_').replaceAll('"', '').toLowerCase() === parameters.character.toLowerCase());
+        const character = CHARACTERS.find((character) => normalize(character.name) === parameters.character);
         this.instance.loadScript(character);
     },
 
     onHide() {
+        this.instance.character = null;
         document.querySelector(`#${DATABASE.characters.id}-detail`).classList.add('d-none');
     },
 };

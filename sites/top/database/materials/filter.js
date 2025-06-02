@@ -43,7 +43,7 @@ const SITES_TOP_DATABASE_MATERIALS_FILTER_COMPONENT = {
                     </div>
 
                     <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
-                        <div v-for="material in materials" :data-link="material.name.replaceAll(' ', '_')" class="material-card-container">
+                        <div v-for="material in materials" :data-link="materialLink(material.name)" class="material-card-container">
                             <div class="d-flex flex-column">
                                 <img :src="material.icon" class="top-border" loading="lazy" :class="'quality-' + (material.quality ?? '0')" :alt="material.icon" :title="material.name" />
                                 <div class="name text-center bottom-border py-1">{{ material.name }}</div>
@@ -87,6 +87,10 @@ const SITES_TOP_DATABASE_MATERIALS_FILTER_COMPONENT = {
         },
 
         methods: {
+            materialLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, normalize(item)];
+            },
+
             toggleQualityFilter(quality) {
                 // If selected, deselect it
                 if (this.selectedQuality === quality) {
