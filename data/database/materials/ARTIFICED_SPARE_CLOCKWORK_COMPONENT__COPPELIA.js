@@ -1,4 +1,4 @@
-var ARTIFICED_SPARE_CLOCKWORK_COMPONENT_—_COPPELIA = {
+var ARTIFICED_SPARE_CLOCKWORK_COMPONENT__COPPELIA = {
     "name": "Artificed Spare Clockwork Component — Coppelia",
     "icon": "assets/materials/Artificed Spare Clockwork Component — Coppelia.avif",
     "type": "Character Level-Up Materials",

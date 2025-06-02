@@ -53,7 +53,7 @@ const SITES_TOP_DATABASE_CHARACTERS_FILTER_COMPONENT = {
                     </div>
 
                     <div class="d-flex flex-row flex-wrap gap-2 justify-content-center py-3">
-                        <div v-for="character in characters" :data-link="character.name.replaceAll(' ', '_')" class="character-card-container">
+                        <div v-for="character in characters" :data-link="characterLink(character.name)" class="character-card-container">
                             <div class="d-flex flex-column character-card">
                                 <img :src="character.icon" class="top-border" loading="lazy" :class="character.element.name.toLowerCase() + '-bg'" :alt="character.card_icon" :title="character.name" />
                                 <div class="name text-center bottom-border py-1">{{ character.name }}</div>
@@ -98,6 +98,10 @@ const SITES_TOP_DATABASE_CHARACTERS_FILTER_COMPONENT = {
         },
 
         methods: {
+            characterLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, normalize(item)];
+            },
+
             toggleElementFilter(elementName) {
                 // If selected, deselect it
                 if (this.selectedElement === elementName) {

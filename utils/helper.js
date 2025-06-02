@@ -110,6 +110,13 @@ function capitalize(s) {
     return s && String(s[0]).toUpperCase() + String(s).slice(1);
 }
 
+function normalize(s) {
+    return s
+        .replaceAll(/[^a-zA-Z ]/g, '')
+        .replaceAll(' ', '_')
+        .toUpperCase();
+}
+
 /**
  * Gets a random character from the given array or from the full list of characters
  * if no filter is provided.

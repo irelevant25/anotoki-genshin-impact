@@ -488,7 +488,7 @@
   .section-title {
     font-size: 22px;
     font-weight: 700;
-    margin: 25px 0 15px;
+    margin: 15px 0 5px 0px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--light-bg);
     display: flex;
@@ -521,6 +521,7 @@
     &.other {
       background-color: #e2e8f0;
       color: #1a202c;
+      width: fit-content;
     }
   }
 
@@ -539,19 +540,22 @@
   }
 
   .weapon-item,
-  .artifact-item {
+  .artifact-item,
+  .character-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    width: 160px;
+    width: 140px;
     text-align: center;
 
     img {
-      width: 128px;
-      height: 128px;
-      margin-right: 5px;
+      width: 100%;
     }
+  }
+
+  .character-item {
+    width: 100px;
   }
 
   .item-icon {
@@ -623,14 +627,14 @@
   .talent-priority {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
   }
 
   .talent-item {
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
-    width: 120px;
+    width: 100px;
     position: relative;
   }
 

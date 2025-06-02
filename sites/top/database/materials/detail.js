@@ -46,25 +46,25 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
                         <span>{{ material.description }}</span>
                         <h3>Need for</h3>
                         <div class="d-flex flex-row flex-wrap gap-3">
-                            <span class="fw-bold w-100">Characters:</span>
+                            <span class="fw-bold w-100">Characters (ascensions):</span>
                             <div class="d-flex flex-column card-container" v-if="material.need_for.characters.length === 0">None</div>
-                            <div
-                                v-for="item in material.need_for.characters.ascensions.concat(material.need_for.characters.talents)"
-                                class="d-flex flex-column card-container hover"
-                                :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, item.name.replaceAll(' ', '_')]"
-                            >
-                                <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
+                            <div v-for="item in material.need_for.characters.ascensions" class="d-flex flex-column card-container hover" :data-link="characterLink(item.name)">
+                                <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="item.element.name.toLowerCase() + '-bg'" />
+                                <div class="name text-center bottom-border py-1">{{ item.name }}</div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row flex-wrap gap-3">
+                            <span class="fw-bold w-100">Characters (talents):</span>
+                            <div class="d-flex flex-column card-container" v-if="material.need_for.characters.length === 0">None</div>
+                            <div v-for="item in material.need_for.characters.talents" class="d-flex flex-column card-container hover" :data-link="characterLink(item.name)">
+                                <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="item.element.name.toLowerCase() + '-bg'" />
                                 <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                             </div>
                         </div>
                         <div class="d-flex flex-row flex-wrap gap-3">
                             <span class="fw-bold w-100">Weapons:</span>
                             <div class="d-flex flex-column card-container" v-if="material.need_for.weapons.length === 0">None</div>
-                            <div
-                                v-for="item in material.need_for.weapons"
-                                class="d-flex flex-column card-container hover"
-                                :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, item.name.replaceAll(' ', '_')]"
-                            >
+                            <div v-for="item in material.need_for.weapons" class="d-flex flex-column card-container hover" :data-link="weaponLink(item.name)">
                                 <img :src="item.icon" :alt="item.name" loading="lazy" class="top-border" :class="'quality-' + (item.quality ?? '0')" />
                                 <div class="name text-center bottom-border py-1">{{ item.name }}</div>
                             </div>
@@ -100,9 +100,17 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
         },
 
         methods: {
+            characterLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, normalize(item)];
+            },
+
+            weaponLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, normalize(item)];
+            },
+
             loadScript(itemToLoad) {
                 this.isLoading = true;
-                const script = itemToLoad.name.replaceAll(' ', '_').replaceAll('"', '').replaceAll("'", '').replaceAll('-', '').toUpperCase();
+                const script = normalize(itemToLoad.name);
 
                 if (this.isScriptLoaded(script)) {
                     this.displayInfo(window[script]);
@@ -117,6 +125,26 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
             },
 
             displayInfo(materialData) {
+                materialData.need_for.weapons.forEach((weapon, index) => {
+                    const db_weapon = WEAPONS.find((x) => x.name === weapon.name);
+                    if (db_weapon) materialData.need_for.weapons[index] = db_weapon;
+                    else console.error(`Weapon ${weapon.name} not found`);
+                });
+                materialData.need_for.characters.ascensions.forEach((character, index) => {
+                    const db_character = CHARACTERS.find((x) => x.name === character.name);
+                    if (db_character) materialData.need_for.characters.ascensions[index] = db_character;
+                    else console.error(`Character ${character.name} not found`);
+                });
+                materialData.need_for.characters.talents.forEach((character, index) => {
+                    const db_character = CHARACTERS.find((x) => x.name === character.name);
+                    if (db_character) materialData.need_for.characters.talents[index] = db_character;
+                    else console.error(`Character ${character.name} not found`);
+                });
+                materialData.need_for.foods.forEach((food, index) => {
+                    const db_food = FOODS.find((x) => x.name === food.name);
+                    if (db_food) materialData.need_for.foods[index] = db_food;
+                    else console.error(`Food ${food.name} not found`);
+                });
                 this.material = materialData;
                 this.isLoading = false;
             },
@@ -138,7 +166,7 @@ const SITES_TOP_DATABASE_MATERIALS_DETAIL_COMPONENT = {
     onShow(route, parameters) {
         this.instance.material = null;
         document.querySelector(`#${DATABASE.materials.id}-detail`).classList.remove('d-none');
-        const material = MATERIALS.find((material) => material.name.replaceAll(' ', '_').replaceAll('"', '').toLowerCase() === parameters.material.toLowerCase());
+        const material = MATERIALS.find((material) => normalize(material.name) === parameters.material);
         this.instance.loadScript(material);
     },
 

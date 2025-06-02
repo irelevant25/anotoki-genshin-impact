@@ -105,6 +105,10 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
             this.updateTotalMaterials();
         },
         methods: {
+            materialLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, normalize(item)];
+            },
+
             updateTotalMaterials() {
                 this.totalMaterials.clear();
 
@@ -190,12 +194,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                                 <td v-if="ascension.phase === 0">-</td>
                                 <td v-else-if="ascension.cost && ascension.cost.length">
                                     <div class="d-flex flex-row flex-nowrap gap-2">
-                                        <div
-                                            v-for="material in ascension.cost"
-                                            class="material-item hover"
-                                            :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, material.name.replaceAll(' ', '_')]"
-                                            :data-material="material.name"
-                                        >
+                                        <div v-for="material in ascension.cost" class="material-item hover" :data-link="materialLink(material.name)" :data-material="material.name">
                                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                                 <img :src="material.icon" loading="lazy" :alt="material.name" :title="material.name" class="item-icon" />
                                             </div>
@@ -212,12 +211,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 <div class="total-materials" id="ascension-materials">
                     <h3>Total Ascension Materials</h3>
                     <div class="d-flex flex-wrap gap-3">
-                        <div
-                            v-for="[name, material] in totalMaterials"
-                            class="total-material-item hover"
-                            :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, name.replaceAll(' ', '_')]"
-                            :data-material="material.name"
-                        >
+                        <div v-for="[name, material] in totalMaterials" class="total-material-item hover" :data-link="materialLink(name)" :data-material="material.name">
                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                 <img :src="material.icon" loading="lazy" :alt="name" class="material-icon" :title="name" />
                             </div>
@@ -246,6 +240,10 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
             this.updateTotalMaterials();
         },
         methods: {
+            materialLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, normalize(item)];
+            },
+
             updateTotalMaterials() {
                 this.totalMaterials.clear();
 
@@ -316,12 +314,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                                 <td>Level {{ level.level }}</td>
                                 <td>
                                     <div class="d-flex flex-row flex-nowrap gap-2">
-                                        <div
-                                            v-for="material in level.cost"
-                                            class="material-item hover"
-                                            :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, material.name.replaceAll(' ', '_')]"
-                                            :data-material="material.name"
-                                        >
+                                        <div v-for="material in level.cost" class="material-item hover" :data-link="materialLink(material.name)" :data-material="material.name">
                                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                                 <img :src="material.icon" loading="lazy" :alt="material.name" :title="material.name" class="material-icon" />
                                             </div>
@@ -340,12 +333,7 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                 <div class="total-materials" id="talent-materials">
                     <h3>Total Talent Level-Up Materials</h3>
                     <div class="d-flex flex-wrap gap-3">
-                        <div
-                            v-for="[name, material] in totalMaterials"
-                            class="total-material-item hover"
-                            :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, name.replaceAll(' ', '_')]"
-                            :data-material="material.name"
-                        >
+                        <div v-for="[name, material] in totalMaterials" class="total-material-item hover" :data-link="materialLink(name)" :data-material="material.name">
                             <div class="top-border w-100" :class="'quality-' + material.quality">
                                 <img :src="material.icon" loading="lazy" :alt="name" :title="name" class="material-icon" />
                             </div>
@@ -402,16 +390,22 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
                     if (talent) return { name: talent.name, icon: talent.icon, type: talent.type };
                     return null;
                 }),
-                main_stats: this.transformStats(this.character.build.main_stats),
-                sub_stats: this.transformStats(this.character.build.sub_stats),
                 MENU_ITEMS_TOP: MENU_ITEMS_TOP,
                 DATABASE: DATABASE,
             };
         },
         methods: {
+            materialLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.materials.id, normalize(item)];
+            },
+
+            characterLink(item) {
+                return ['/' + MENU_ITEMS_TOP.database.id, DATABASE.characters.id, normalize(item)];
+            },
+
             transformStats(stats) {
                 const results = stats
-                    .join('&')
+                    ?.join('&')
                     .replaceAll(' / ', '&')
                     .split('&')
                     .join(' &> &')
@@ -446,61 +440,81 @@ const SITES_TOP_DATABASE_CHARACTERS_DETAIL_COMPONENT_COMPONENTS = {
             },
         },
         template: html`
-            <div id="build">
-                <div class="section-title">Weapons</div>
-                <div class="weapons-grid">
-                    <div
-                        v-for="(weapon, index) in character.build.weapons"
-                        class="weapon-item hover"
-                        :data-link="['/' + MENU_ITEMS_TOP.database.id, DATABASE.weapons.id, weapon.name.replaceAll(' ', '_')]"
-                    >
-                        <div class="top-border w-100" :class="'quality-' + weapon.quality">
-                            <img :src="weapon.icon" loading="lazy" :alt="weapon.name" :title="weapon.name" />
-                        </div>
-                        <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
-                            <span class="my-1 mx-3">{{index + 1}}. {{ weapon.name }}</span>
-                        </div>
-                    </div>
-                </div>
+            <div v-if="!character.build" id="build">
+                <div class="section-title justify-content-center">No build yet</div>
+            </div>
 
-                <div class="section-title">Artifact Sets</div>
-                <div class="artifacts-grid">
-                    <div v-for="(artifact, index) in artifacts" class="artifact-item">
-                        <div class="top-border w-100" :class="'quality-' + artifact.quality">
-                            <img :src="artifact.icon" loading="lazy" :alt="artifact.name" :title="artifact.name" />
-                        </div>
-                        <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
-                            <span class="my-1 mx-3">{{index + 1}}. {{ artifact.name }}</span>
+            <div v-if="character.build" id="build" class="d-flex flex-row justify-content-between gap-3">
+                <div class="d-flex flex-column">
+                    <div class="section-title">Weapons</div>
+                    <div class="weapons-grid">
+                        <div v-for="(weapon, index) in character.build?.weapons" class="weapon-item hover" :data-link="materialLink(weapon.name)">
+                            <div class="top-border w-100" :class="'quality-' + weapon.quality">
+                                <img :src="weapon.icon" loading="lazy" :alt="weapon.name" :title="weapon.name" />
+                            </div>
+                            <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                                <span class="my-1 mx-3">{{index + 1}}. {{ weapon.name }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="d-flex mt-4 mb-3">
-                    <span class="section-title m-0 p-0">Main Stats:</span>
-                    <div class="stats-row ms-3">
-                        <span v-for="stat in main_stats" :class="{ 'stat-badge': !stat.isArrow, 'arrow': stat.isArrow, [stat.cssValue]: !stat.isArrow }"> {{ stat.value }} </span>
-                    </div>
-                </div>
-
-                <div class="d-flex mt-4 mb-3">
-                    <span class="section-title m-0 p-0">Sub Stats:</span>
-                    <div class="stats-row ms-3">
-                        <span v-for="stat in sub_stats" :class="{ 'stat-badge': !stat.isArrow, 'arrow': stat.isArrow, [stat.cssValue]: !stat.isArrow }"> {{ stat.value }} </span>
-                    </div>
-                </div>
-
-                <div class="section-title">Talent Priority</div>
-                <div class="talent-priority">
-                    <div v-for="(talent, index) in talents" class="talent-item name">
-                        <div class="talent-number" :class="character.element.name.toLowerCase() + '-bg'">{{ index + 1 }}</div>
-                        <div class="talent-icon">
-                            <img :src="talent.icon" loading="lazy" :alt="talent.name" :title="talent.name" />
+                <div class="d-flex flex-column">
+                    <div class="section-title">Artifact Sets</div>
+                    <div class="artifacts-grid">
+                        <div v-for="(artifact, index) in artifacts" class="artifact-item">
+                            <div class="top-border w-100" :class="'quality-' + artifact.quality">
+                                <img :src="artifact.icon" loading="lazy" :alt="artifact.name" :title="artifact.name" />
+                            </div>
+                            <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                                <span class="my-1 mx-3">{{index + 1}}. {{ artifact.name }}</span>
+                            </div>
                         </div>
-                        <div class="talent-name">{{ talent.type }}</div>
                     </div>
                 </div>
+                <div class="d-flex flex-column">
+                    <div class="section-title">Main stats</div>
+                    <div class="d-flex flex-column gap-3 ms-3">
+                        <div class="d-flex flex-row">Sands: <span class="stat-badge other">{{ character.build.main_stats[0] }}</span></div>
+                        <div class="d-flex flex-row">Goblet: <span class="stat-badge" :class="character.element.name.toLowerCase() + '-bg'">{{ character.build.main_stats[1] }}</span></div>
+                        <div class="d-flex flex-row">Circlet: <span class="stat-badge other">{{ character.build.main_stats[2] }}</span></div>
+                    </div>
 
-                <!-- TODO: teams -->
+                    <div class="section-title">Sub stats</div>
+                    <div class="d-flex flex-column gap-3 ms-3">
+                        <div v-for="(stat, index) in character.build.sub_stats" class="d-flex flex-row">
+                            {{ index + 1 }}.
+                            <span class="stat-badge other">{{ stat }} </span>
+                        </div>
+                    </div>
+
+                    <div class="section-title">Talent priority</div>
+                    <div class="d-flex flex-row gap-3 ms-3">
+                        <div v-for="(talent, index) in talents" class="talent-item name">
+                            <div class="talent-number" :class="character.element.name.toLowerCase() + '-bg'">{{ index + 1 }}</div>
+                            <div class="talent-icon">
+                                <img :src="talent.icon" loading="lazy" :alt="talent.name" :title="talent.name" />
+                            </div>
+                            <div class="talent-name">{{ talent.type }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="character.build" id="build">
+                <div class="section-title">Teams</div>
+                <div class="d-flex flex-row flex-wrap justify-content-between gap-3">
+                    <div v-for="(team, index) in character.build.teams" class="d-flex flex-row gap-3">
+                        <span class="align-self-center">{{index + 1}}.</span>
+                        <div v-for="character in Object.values(team)" class="character-item hover" :data-link="characterLink(character.name)">
+                            <div class="top-border w-100" :class="'quality-' + character.quality">
+                                <img :src="character.icon" loading="lazy" :alt="character.name" :title="character.name" />
+                            </div>
+                            <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                                <span class="my-1 mx-3">{{ character.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         `,
     },
