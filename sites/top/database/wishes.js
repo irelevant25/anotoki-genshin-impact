@@ -86,22 +86,24 @@ const SITES_TOP_DATABASE_WISHES_COMPONENT = {
             loadScript(script) {
                 this.isLoading = true;
 
-                if (this.isScriptLoaded(script)) {
-                    this.displayInfo(window[script.toUpperCase()]);
-                    return;
+                if (this.isScriptLoaded(script)) this.displayInfo(window[script.toUpperCase()]);
+                else {
+                    this.loadSpecificScript(`data/database/${script}.js`, () => {
+                        setTimeout(() => {
+                            this.displayInfo(WISHES);
+                        }, 1000);
+                    });
                 }
+            },
 
-                this.loadSpecificScript(`data/database/${script}.js`, () => {
-                    setTimeout(() => {
-                        const versions_map = new Set();
-                        this.filterTBA(WISHES).forEach((wish) => {
-                            versions_map.add(wish.version);
-                        });
-                        this.wishes = this.filterTBA(WISHES);
-                        this.versions = Array.from(versions_map.values()).sort();
-                        this.isLoading = false;
-                    }, 1000);
+            displayInfo(data) {
+                const versions_map = new Set();
+                this.filterTBA(data).forEach((wish) => {
+                    versions_map.add(wish.version);
                 });
+                this.wishes = this.filterTBA(data);
+                this.versions = Array.from(versions_map.values()).sort();
+                this.isLoading = false;
             },
 
             filterTBA(wishes) {

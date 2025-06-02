@@ -1,4 +1,4 @@
-const FOODS = [
+var FOODS = [
     {
         name: '"Pile \'Em Up"',
         icon: "assets/foods/Pile 'Em Up.avif",
