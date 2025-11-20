@@ -24,28 +24,18 @@
 - Food database
 - Elements svg icon: online editor - https://www.svgviewer.dev/
 
-# Next version 0.8
-
-- Bugs:
-- Improvements:
-  - [ ] Joining Tournament and Minesweeper as Games in top menu
-  - [ ] Move Database from the bottom menu to the top menu
-  - [ ] Removing What's new from bottom (when new version is available, it will open all versions/changelog instead)
-- Features:
-  - [ ] Making Database as a group of databases of: Weapons, Characters, Wishes, Materials
-  - [ ] Adding routing
-  - [ ] New quiz: Constellation image (not icons)
-
 # Next version 0.9
 
 - Bugs:
 - Improvements:
+  - [x] Removing What's new from bottom (when new version is available, it will open all versions/changelog instead)
   - [ ] Hight size jump on quizzes when new images are not loaded yet (setup init hight)
   - [ ] Display result explanaition for Mismach quiz
   - [ ] Display result table for tournament
   - [ ] Adding match history to the Tournament
 - Features:
-  - [ ] New database: Foods
+  - [ ] New quiz: Constellation image (not icons)
+  - [ ] New database: Foods, Artifacts
   - [ ] New quiz: Signature weapon
   - [ ] Profile site with stats
 
@@ -53,9 +43,20 @@
 
 - Bugs:
 - Improvements:
-  - [ ]
+  - [ ] Remove difficulties from the bottom and make the difficulty badges above quizzes clicable where user can change difficulty for that quiz
+  - [ ] Optimize character detail header for mobile devices
 - Features:
-  - [ ]
+  - [ ] Settings:
+    - [ ] Enable/Disable dailies (default enable)
+    - [ ] Enable/Disable new version notification (default enable)
+    - [ ] Enable/Disable cookies notification (default enable)
+    - [ ] Enable/Disable Ads (default disable)
+    - [ ] Download all user stats
+  - [ ] Dark/Light mode of the website
+  - [ ] Top menu item: Home/News or something like that to inform people about any news or upcomming changes or poll
+  - [ ] Public on website: anotoki.eu
+  - [ ] SK/EN language change choice
+  - [ ] New bottom pages: About, Support
 
 # Future version
 
@@ -67,7 +68,6 @@
     - Displaying only reactions and not element (geo and anemo have to be excluded)
     - Adding time limit per click or global time
   - Add score for Minesweeper based on difficulty and time and maybe revealed cells or avoided bombs
-  - Add global routing for linking weapons names, characters, foods... between themselfs
 - Improvements:
   - Visualize the win/lose/wrong/correct answers in a additional way in quizzes especially for mismatch
   - Tries: x/y is not visible enough
