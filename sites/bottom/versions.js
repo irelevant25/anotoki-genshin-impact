@@ -80,6 +80,13 @@ const SITES_BOTTOM_VERSION = Vue.createApp({
 
     mounted() {
         this.updateVersionDisplay();
+        const lastVersion = storageManager.getLastVersion();
+        const currentVersion = CHANGELOG[0].version;
+        if (lastVersion !== currentVersion) {
+            storageManager.saveLastVersion(currentVersion);
+            const modal = new bootstrap.Modal(this.$el.parentElement);
+            modal.show();
+        }
     },
 
     methods: {

@@ -134,40 +134,5 @@ const ROUTER = {
                 },
             ],
         },
-
-        // OLD IMPLEMENTATION => REFACTOR THE DEFINITIONS OF THESE ROUTES
-        // // Bottom menu routes
-        // {
-        //     path: '/difficulties',
-        //     handler: () => openBottomModal('difficulties'),
-        //     title: 'Difficulties',
-        // },
-        // {
-        //     path: '/backgrounds',
-        //     handler: () => openBottomModal('backgrounds'),
-        //     title: 'Backgrounds',
-        // },
-        // {
-        //     path: '/versions',
-        //     handler: () => openBottomModal('versions'),
-        //     title: 'Versions',
-        // },
-        // {
-        //     path: '/whatsnew',
-        //     handler: () => openBottomModal('whatsnew'),
-        //     title: "What's New",
-        // },
-        // {
-        //     path: '/feedback',
-        //     handler: () => openBottomModal('feedback'),
-        //     title: 'Feedback',
-        // },
-
-        // // Dynamic routes example
-        // {
-        //     path: '/database/character/:name',
-        //     handler: (params) => openDatabaseWithCharacter(params.name),
-        //     title: 'Character Database',
-        // },
     ],
 };
