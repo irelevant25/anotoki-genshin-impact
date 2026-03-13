@@ -1,0 +1,30 @@
+<div class="theme-toggle-container">
+    <!-- Simple Toggle Button -->
+    <button class="theme-toggle-btn" (click)="toggleTheme()" [attr.aria-label]="'Switch to ' + (themeToggleService.isDarkMode() ? 'light' : 'dark') + ' mode'" title="Prepnúť mód">
+        <span class="theme-icon">
+            @if (themeToggleService.isDarkMode()) {
+                ☀️
+            } @else {
+                🌙
+            }
+        </span>
+    </button>
+
+    <!-- Advanced Theme Selector -->
+    @if (showAdvancedOptions) {
+        <div class="theme-selector">
+            <select [value]="themeToggleService.currentTheme()" (change)="onThemeChange($event)" class="theme-select">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="auto">Auto</option>
+            </select>
+        </div>
+    }
+
+    <!-- Theme Status Display -->
+    @if (showStatus) {
+        <div class="theme-status">
+            <span class="current-theme">Current: {{ themeToggleService.currentTheme() }}</span>
+        </div>
+    }
+</div>

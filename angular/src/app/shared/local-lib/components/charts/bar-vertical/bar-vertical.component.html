@@ -1,0 +1,107 @@
+<div class="chart-bar-vertical">
+    <!-- Legend: top -->
+    @if (config().showLegend && config().legendPosition === "top") {
+        <div class="legend legend--horizontal">
+            @for (item of data(); track item.label) {
+                <span class="legend-item">
+                    <span class="legend-dot" [style.background-color]="item.color"></span>
+                    <span class="legend-content">{{ item.label }}</span>
+                </span>
+            }
+        </div>
+    }
+
+    <div class="chart-body" [class.has-legend-left]="config().showLegend && config().legendPosition === 'left'" [class.has-legend-right]="config().showLegend && config().legendPosition === 'right'">
+        <!-- Legend: left -->
+        @if (config().showLegend && config().legendPosition === "left") {
+            <div class="chart-legend chart-legend--vertical">
+                @for (item of data(); track item.label) {
+                    <span class="legend-item">
+                        <span class="legend-dot" [style.background-color]="item.color"></span>
+                        <span class="legend-content">{{ item.label }}</span>
+                    </span>
+                }
+            </div>
+        }
+
+        <!-- Bars area -->
+        <div class="bars-area" [style.height.px]="config().chartHeight">
+            @for (item of data(); track item.value) {
+                <div class="bar-column-container">
+                    <div class="bar-column">
+                        <!-- The bar empty -->
+                        <div class="bar-empty" [style.height.%]="100 - (item.value * 100) / config().maxValue" [style.background-color]="''" [style.border-radius.px]="config().barRadius">
+                            <!-- Text above bar -->
+                            @if (config().textAbove !== "none") {
+                                <span class="bar-text" [class]="config().textAboveClass" [innerHTML]="getText(item, config().textAbove)"></span>
+                            }
+                        </div>
+
+                        <!-- The bar fill -->
+                        <div class="bar-fill" [style.height.%]="(item.value * 100) / config().maxValue" [style.background-color]="item.color" [style.border-radius.px]="config().barRadius">
+                            <!-- Text inside bar -->
+                            @if (config().textInside !== "none") {
+                                <span class="bar-text" [class]="config().textInsideClass" [innerHTML]="getText(item, config().textInside)"></span>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Text under bar -->
+                    @if (config().textUnder !== "none") {
+                        <div class="relative" style="height: 25px">
+                            <span class="bar-text" [class]="config().textUnderClass" [innerHTML]="getText(item, config().textUnder)"></span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <!-- Legend: right -->
+        @if (config().showLegend && config().legendPosition === "right") {
+            <div class="legend legend--vertical">
+                @for (item of data(); track item.label) {
+                    <span class="legend-item">
+                        <span class="legend-dot" [style.background-color]="item.color"></span>
+                        <span class="legend-content">{{ item.label }}</span>
+                    </span>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Legend: bottom -->
+    @if (config().showLegend && config().legendPosition === "bottom") {
+        <div class="legend legend--horizontal">
+            @for (item of data(); track item.label) {
+                <span class="legend-item">
+                    <span class="legend-dot" [style.background-color]="item.color"></span>
+                    <span class="legend-content">{{ item.label }}</span>
+                </span>
+            }
+        </div>
+    }
+</div>
+
+<!-- 
+pocetNahlasenychIncidentov: ChartDataItem[] = [
+    { label: 'Sep 2024', value: 18, color: 'hsl(214 100% 40%)' },
+    { label: 'Okt 2024', value: 24, color: 'hsl(214 100% 40%)' },
+    { label: 'Nov 2024', value: 15, color: 'hsl(214 100% 40%)' },
+    { label: 'Dec 2024', value: 21, color: 'hsl(214 100% 40%)' },
+    { label: 'Jan 2025', value: 28, color: 'hsl(214 100% 40%)' },
+    { label: 'Feb 2025', value: 12, color: 'hsl(214 100% 40%)' },
+];
+config = new ChartBarVerticalConfig({
+    textAbove: 'remaining',
+    textAboveClass: 'above-center',
+    textInside: 'value',
+    textInsideClass: 'inside-top',
+    textUnder: 'value',
+    textUnderClass: 'under-center',
+    maxValue: 30,
+    chartHeight: 180,
+    showLegend: false,
+});
+
+<app-chart-bar-vertical [data]="pocetNahlasenychIncidentov" [config]="config"></app-chart-bar-vertical>
+-->

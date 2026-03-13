@@ -1,0 +1,12 @@
+textarea {
+  resize: none;
+}
+
+textarea.resize {
+  resize: vertical;
+}
+
+textarea::placeholder {
+  white-space: nowrap;
+  overflow: hidden;
+}

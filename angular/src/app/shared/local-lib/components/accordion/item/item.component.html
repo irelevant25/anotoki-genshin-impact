@@ -1,0 +1,13 @@
+<div class="accordion-item" [class]="class()">
+    <h2 class="accordion-header px-3">
+        <div class="accordion-title">{{ title() }}</div>
+        <app-button class="p-0" [icon]="expanded() ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up'" [variant]="undefined" (buttonClick)="toggle()"></app-button>
+    </h2>
+    <div class="accordion-content" [class.show]="expanded()">
+        <div class="p-0">
+            <div [class]="padding() ? 'p-3' : ''">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

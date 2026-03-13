@@ -1,0 +1,102 @@
+<div class="chart-bar-horizontal">
+    <!-- Legend: top -->
+    @if (config().showLegend && config().legendPosition === "top") {
+        <div class="legend">
+            @for (item of data(); track item.label) {
+                <span class="legend-item">
+                    <span class="legend-dot" [style.background-color]="item.color"></span>
+                    <span class="legend-content">{{ item.label }}</span>
+                </span>
+            }
+        </div>
+    }
+
+    <div class="bars-container" [style.gap.px]="config().barGap">
+        @for (item of data(); track item.value) {
+            <div class="bar-item">
+                <!-- Text above bar -->
+                @if (config().textAbove !== "none") {
+                    <div class="text" [class]="config().textAboveClass" [innerHTML]="getText(item, config().textAbove)"></div>
+                }
+
+                <div class="relative" [style.height.px]="config().barHeight" [style.background-color]="config().trackColor || null">
+                    <!-- Fill bar -->
+                    <div
+                        class="absolute bar left"
+                        [style.width.%]="(item.value * 100) / config().maxValue"
+                        [style.background-color]="item.color"
+                        [style.border-radius.px]="item.value >= config().maxValue || !config().emptyColor ? config().barRadius : 0"
+                        [style.border-top-left-radius.px]="config().barRadius"
+                        [style.border-bottom-left-radius.px]="config().barRadius">
+                        @if (config().fillValue !== "none") {
+                            <div class="absolute" [class]="config().fillValueClass" [innerHTML]="getText(item, config().fillValue)"></div>
+                        }
+                    </div>
+                    <!-- Empty bar -->
+                    <div
+                        class="absolute bar right"
+                        [style.width.%]="100 - (item.value * 100) / config().maxValue"
+                        [style.background-color]="config().emptyColor"
+                        [style.border-radius.px]="item.value === 0 ? config().barRadius : 0"
+                        [style.border-top-right-radius.px]="config().barRadius"
+                        [style.border-bottom-right-radius.px]="config().barRadius">
+                        @if (config().emptyValue !== "none") {
+                            <div class="absolute" [class]="config().emptyValueClass" [innerHTML]="getText(item, config().emptyValue)"></div>
+                        }
+                    </div>
+                    <!-- Average marker -->
+                    @if (item.average) {
+                        <div
+                            class="absolute top border-dashed border-0 border-r-2 h-100"
+                            [class.danger-border]="item.average > item.value"
+                            [class.danger-primary]="item.average < item.value"
+                            [style.left.%]="(item.average * 100) / config().maxValue"></div>
+                    }
+                </div>
+
+                <!-- Text under bar -->
+                @if (config().textUnder !== "none") {
+                    <div class="text" [class]="config().textUnderClass" [innerHTML]="getText(item, config().textUnder)"></div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Legend: bottom -->
+    @if (config().showLegend && config().legendPosition === "bottom") {
+        <div class="legend">
+            @for (item of data(); track item.label) {
+                <span class="legend-item">
+                    <span class="legend-dot" [style.background-color]="item.color"></span>
+                    <span class="legend-content">{{ item.label }}</span>
+                </span>
+            }
+        </div>
+    }
+</div>
+
+<!-- EXAMPLES
+systemovyPrehlad: ChartDataItem[] = [
+    { label: 'Využitie licencií', value: 47, color: 'hsl(214 100% 40%)' },
+    { label: 'Aktívne projekty', value: 60, color: 'hsl(34 100% 56%)' },
+    { label: 'Definované roly', value: 100, color: 'hsl(142 76% 36%)' },
+];
+config = new ChartBarHorizontalConfig({
+    textAbove: 'label',
+    textAboveClass: 'text-align-center',
+    textUnder: 'value',
+    textUnderClass: 'text-align-center',
+    showLegend: false,
+    barHeight: 8,
+});
+config = new ChartBarHorizontalConfig({
+    textAbove: (item) => `${item.label}: ${item.value}`,
+    showLegend: false,
+    legendPosition: 'top',
+    barHeight: 20,
+    fillValue: 'value',
+    emptyValue: 'value',
+});
+
+<app-chart-bar-horizontal [data]="systemovyPrehlad" [config]="config" />
+-->

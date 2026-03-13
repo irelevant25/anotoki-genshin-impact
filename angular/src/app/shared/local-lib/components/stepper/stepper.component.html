@@ -1,0 +1,152 @@
+@if (!hidden()) {
+    <div class="stepper-container" [class]="containerClass()" [style.width]="width()">
+        <!-- Header with step indicators -->
+        <div class="stepper-header">
+            <div class="steps-wrapper">
+                @for (stepItem of steps; track stepItem; let i = $index) {
+                    <div class="step-item">
+                        <div class="step-circle" [class.active]="stepItem === step()" [class.completed]="stepItem.completed">
+                            <span>{{ i + 1 }}</span>
+                        </div>
+                        <div class="step-label" [class.active]="stepItem === step()" [class.completed]="stepItem.completed">
+                            {{ stepItem.title }}
+                        </div>
+                        @if (i < steps.length - 1) {
+                            <div class="step-connector" [class.completed]="stepItem.completed"></div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div [class]="contentClass()">
+            <!-- Content area -->
+            <div class="stepper-content">
+                @if (step()) {
+                    <div class="step-content">
+                        <ng-container *ngTemplateOutlet="step()?.component?.template ?? null"></ng-container>
+                    </div>
+                }
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="stepper-actions">
+                @if (step()?.backButton) {
+                    <app-button text="Späť" variant="secondary" (buttonClick)="goBack()"></app-button>
+                }
+                @if (step()?.nextButton) {
+                    <app-button text="Ďalej" variant="primary" (buttonClick)="goNext()"></app-button>
+                }
+                @if (step()?.completeButton) {
+                    <app-button text="Potvrdiť" variant="primary" (buttonClick)="complete()"></app-button>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<!-- EXAMPLE -->
+<!-- <app-stepper (stepChanged)="onStepChange($event)" (completeClick)="onCompleted()" (nextClick)="onNextClicked($event)" (backClick)="onBackClicked($event)">
+<app-stepper-step id="requester" title="Requester">
+  <h2>Requester Information</h2>
+  <div class="form-group">
+    <label>Person Type</label>
+    <div class="radio-group">
+      <label class="radio-label">
+        <input type="radio" name="personType" value="physical" />
+        Physical Person
+      </label>
+      <label class="radio-label selected">
+        <input type="radio" name="personType" value="business" checked />
+        Business Person
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="personType" value="legal" />
+        Legal Person
+      </label>
+    </div>
+  </div>
+</app-stepper-step>
+
+<app-stepper-step id="details" title="Details">
+  <h2>Requester Details</h2>
+  <div class="form-group">
+    <label>Full Name</label>
+    <input type="text" class="form-control" placeholder="Enter your full name" />
+  </div>
+  <div class="form-group">
+    <label>Email Address</label>
+    <input type="email" class="form-control" placeholder="Enter your email" />
+  </div>
+  <div class="form-group">
+    <label>Phone Number</label>
+    <input type="tel" class="form-control" placeholder="Enter your phone number" />
+  </div>
+</app-stepper-step>
+
+<app-stepper-step id="order" title="Order">
+  <h2>Order Information</h2>
+  <div class="form-group">
+    <label>Product Category</label>
+    <select class="form-control">
+      <option>Electronics</option>
+      <option>Clothing</option>
+      <option>Books</option>
+      <option>Home & Garden</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Quantity</label>
+    <input type="number" class="form-control" value="1" min="1" />
+  </div>
+  <div class="form-group">
+    <label>Special Instructions</label>
+    <textarea class="form-control" rows="3" placeholder="Any special requirements..."></textarea>
+  </div>
+</app-stepper-step>
+
+<app-stepper-step id="review" title="Review">
+  <h2>Review & Confirmation</h2>
+  <div class="review-section">
+    <h3>Order Summary</h3>
+    <div class="summary-item">
+      <strong>Person Type:</strong>
+      Business Person
+    </div>
+    <div class="summary-item">
+      <strong>Contact:</strong>
+      john.doe&#64;example.com
+    </div>
+    <div class="summary-item">
+      <strong>Product:</strong>
+      Electronics (Qty: 1)
+    </div>
+    <div class="summary-item">
+      <strong>Total:</strong>
+      $299.99
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="checkbox-label">
+      <input type="checkbox" checked />
+      I agree to the terms and conditions
+    </label>
+  </div>
+</app-stepper-step>
+</app-stepper> -->
+<!-- onStepChange(stepId: string) {
+console.log('Step changed to:', stepId);
+}
+
+onCompleted() {
+console.log('Stepper completed!');
+alert('Order submitted successfully!');
+}
+
+onNextClicked(stepId: string) {
+console.log('Next clicked, moved to:', stepId);
+}
+
+onBackClicked(stepId: string) {
+console.log('Back clicked, moved to:', stepId);
+} -->

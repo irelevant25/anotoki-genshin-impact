@@ -1,0 +1,137 @@
+@if (!hidden()) {
+    <div class="data-table-container">
+        @if ((showPagination() && (paginationType() === "top" || paginationType() === "both")) || columnReorderable()) {
+            <div class="pagination-wrapper d-flex w-100 border-top py-2 gap-5">
+                <app-pagination
+                    class="flex-1"
+                    style="align-content: center"
+                    [(page)]="page"
+                    [total]="data().total"
+                    [(pageSize)]="pageSize"
+                    [pageSizeOptions]="pageSizeOptions()"
+                    (pageChange)="onPageChange()"
+                    (pageSizeChange)="onPageSizeChange()"></app-pagination>
+                @if (columnReorderable()) {
+                    <app-button
+                        class="p-0 reorder-button"
+                        icon="fa-solid fa-arrows-rotate"
+                        [variant]="resetable ? 'primary' : 'danger'"
+                        size="small"
+                        [outline]="!resetable"
+                        [tooltipText]="resetable ? 'Resetovať usporiadanie stĺpcov' : 'Usporiadanie stĺpcov je v predvolenom nastavení'"
+                        (buttonClick)="resetColumnOrder()"></app-button>
+                }
+            </div>
+        }
+
+        <div class="table-wrapper" style="position: relative" [style]="loading() ? 'min-height: 100px;' : ''">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        @if (selectable()) {
+                            <th class="table-header"></th>
+                        }
+                        @for (column of internalColumns; track column; let i = $index) {
+                            <!--
+                        "column.width && i === 0 ? 'calc(' + column.width + ' + 16px)' : column.width"
+                        sirka stlpca sa pre prvy cell musi zvecsit o rozdiel odsadenia z lava medzi prvym cell (vynimka z css) a druhym (klasicke odsadenie aj pre ostatne cells)
+                        -->
+                            @if (column.label()) {
+                                <th
+                                    [class]="getHeaderClass(i)"
+                                    [class.sortable]="column.sortable()"
+                                    [draggable]="columnReorderable()"
+                                    (click)="onSort(column, $event)"
+                                    (dragstart)="onDragStart($event, i)"
+                                    (dragover)="onDragOver($event, i)"
+                                    (dragenter)="onDragEnter($event, i)"
+                                    (dragleave)="onDragLeave($event)"
+                                    (drop)="onDrop($event, i)"
+                                    (dragend)="onDragEnd()"
+                                    [style.width]="column.width() && i === 0 ? 'calc(' + column.width() + ' + 16px)' : column.width()"
+                                    [style.minWidth]="column.minWidth() ?? (column.width() && i === 0 ? 'calc(' + column.width() + ' + 16px)' : column.width())"
+                                    [style.maxWidth]="column.maxWidth() ?? (column.width() && i === 0 ? 'calc(' + column.width() + ' + 16px)' : column.width())">
+                                    <div class="header-content" [class.no-wrap]="column.noWrap || !wrapColNames()">
+                                        <span>{{ column.label() }}</span>
+                                        <div class="header-icons">
+                                            @if (column.sortable()) {
+                                                <span class="sort-icon">
+                                                    @if (currentSort().column === (column.sortField() ?? column.key()) && currentSort().direction === OrderEnum.ASC) {
+                                                        <i class="fa-solid fa-arrow-down-a-z"></i>
+                                                    } @else if (currentSort().column === (column.sortField() ?? column.key()) && currentSort().direction === OrderEnum.DESC) {
+                                                        <i class="fa-solid fa-arrow-up-z-a"></i>
+                                                    } @else {
+                                                        <i class="fa-solid fa-arrows-up-down"></i>
+                                                    }
+                                                </span>
+                                            }
+                                            <!--
+                                        <span *ngIf="columnReorderable()" class="drag-handle">
+                                        <i class="fa-solid fa-grip-vertical"></i>
+                                        </span>
+                                        --></div>
+                                    </div>
+                                </th>
+                            }
+                            @if (!column.label()) {
+                                <th [class]="getHeaderClass(i)" [style.width]="column.width()"></th>
+                            }
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!loading() && data().result.length === 0) {
+                        <tr class="no-data-row">
+                            <td [attr.colspan]="internalColumns.length + (selectable() ? 1 : 0)" class="no-data-cell">
+                                {{ noDataMessage() }}
+                            </td>
+                        </tr>
+                    }
+                    @for (row of data().result; track $index; let i = $index) {
+                        <tr class="data-row" [class.row-selected]="isRowSelected(row)" [class]="rowClass()?.(row)">
+                            @if (selectable()) {
+                                <td class="table-cell">
+                                    <app-checkbox #checkbox (inputChange)="onSelectionChange(row)" [value]="isRowSelected(row)"></app-checkbox>
+                                </td>
+                            }
+                            @for (column of internalColumns; track column) {
+                                <td [class]="getCellClass(column, row)" [class.no-wrap]="column.noWrap()" (click)="onRowClick(row, i, column)">
+                                    @if (column.template) {
+                                        <ng-container *ngTemplateOutlet="column.template; context: { $implicit: row, column: column, value: getCellValue(row, column.key()), index: i }"></ng-container>
+                                    } @else {
+                                        {{ column.prefix() }}{{ formatCellValue(getCellValue(row, column.key()), column) }}{{ column.suffix() }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <app-loader [loading]="loading()"></app-loader>
+        </div>
+
+        @if ((showPagination() && (paginationType() === "bottom" || paginationType() === "both")) || columnReorderable()) {
+            <div class="pagination-wrapper d-flex w-100 border-bottom py-2 gap-5">
+                <app-pagination
+                    class="flex-1"
+                    style="align-content: center"
+                    [(page)]="page"
+                    [total]="data().total"
+                    [(pageSize)]="pageSize"
+                    [pageSizeOptions]="pageSizeOptions()"
+                    (pageChange)="onPageChange()"
+                    (pageSizeChange)="onPageSizeChange()"></app-pagination>
+                @if (columnReorderable()) {
+                    <app-button
+                        class="p-0 reorder-button"
+                        icon="fa-solid fa-arrows-rotate"
+                        [variant]="resetable ? 'primary' : 'danger'"
+                        size="small"
+                        [outline]="!resetable"
+                        [tooltipText]="resetable ? 'Resetovať usporiadanie stĺpcov' : 'Usporiadanie stĺpcov je v predvolenom nastavení'"
+                        (buttonClick)="resetColumnOrder()"></app-button>
+                }
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,38 @@
+<div class="pagination-container" [class]="class()">
+    <div class="pagination-info">
+        <span class="page-size-selector">
+            <app-dropdown [(value)]="pageSize" [options]="pageSizeOptions()" [emptyOption]="false"></app-dropdown>
+        </span>
+        <span class="items-info" style="align-content: center">
+            Počet záznamov:
+            <strong>{{ formattedTotal() }}</strong>
+        </span>
+    </div>
+
+    <div class="pagination-controls">
+        <span class="page-info d-flex gap-1">
+            <span style="align-content: center">Stránka</span>
+            <app-number
+                #pageInput
+                style="min-width: 40px; display: block"
+                [ngStyle]="{ width: totalPages().toString().length + 3 + 'ch' }"
+                [(value)]="page"
+                [allowDecimal]="false"
+                [allowNegative]="false"
+                [min]="1"
+                [max]="totalPages()"
+                (blurChange)="onBlur()"></app-number>
+            <span style="align-content: center">
+                z
+                <strong>{{ formattedTotalPages() }}</strong>
+            </span>
+        </span>
+
+        <div class="pagination-buttons d-flex gap-1">
+            <!-- TODO: prerobit na app-button -->
+            <button class="pagination-btn" [disabled]="page() <= 1" (click)="goToPage(page() - 1)" title="Predchádzajúca stránka"><i class="fa-solid fa-arrow-left"></i></button>
+            <!-- TODO: prerobit na app-button -->
+            <button class="pagination-btn" [disabled]="page() >= totalPages()" (click)="goToPage(page() + 1)" title="Ďalšia stránka"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+</div>

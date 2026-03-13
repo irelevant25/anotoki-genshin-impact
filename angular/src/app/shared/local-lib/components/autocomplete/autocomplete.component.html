@@ -1,0 +1,50 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        @if (label()) {
+            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
+                @if (tooltipText()) {
+                    <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                }
+                {{ label() }}
+                @if (required()) {
+                    <span class="required-indicator">*</span>
+                }
+            </label>
+        }
+
+        @if (description()) {
+            <label class="form-description">
+                {{ description() }}
+            </label>
+        }
+
+        <textarea
+            #inputElement
+            scroll
+            autoResize
+            [id]="inputId"
+            [value]="displayValue() ?? ''"
+            [textareaValue]="displayValue() ?? ''"
+            [placeholder]="placeholder()"
+            [disabled]="disabled()"
+            class="form-control input-text"
+            [class.error]="hasError()"
+            [class.valid]="validators().length && (displayValue() || isTouched()) && !hasError()"
+            (clickOutside)="closePopup()"
+            (heightChange)="positionPopup()"
+            (input)="onInput($event)"
+            (blur)="onBlur()"
+            (focus)="onFocus()"
+            (keydown)="onKeyDown($event)"
+            autocomplete="off"></textarea>
+
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+
+    <!-- Hidden template container for projection -->
+    <ng-content></ng-content>
+}

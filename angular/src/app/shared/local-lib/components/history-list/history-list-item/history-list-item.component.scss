@@ -1,0 +1,56 @@
+.line {
+  height: 100%;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+  width: 0.125rem;
+}
+
+.icon {
+  z-index: 1;
+  font-size: 1em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-bg {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.1;
+}
+
+.bg-size {
+  width: 2rem;
+  min-width: 2rem;
+  max-width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  max-height: 2rem;
+}
+
+.user-icon {
+  align-self: center;
+  width: 1rem;
+  height: 1rem;
+}
+
+.timestamp,
+.left-side i {
+  color: var(--text-muted);
+}
+
+.left-side {
+  padding-bottom: 1.5rem;
+}
+
+:host.is-last {
+  .left-side {
+    padding-bottom: 0;
+  }
+  .line {
+    display: none;
+  }
+}

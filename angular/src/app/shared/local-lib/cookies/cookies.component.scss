@@ -1,0 +1,30 @@
+.bar {
+  color: white;
+  // height: 80px;
+  gap: 1rem;
+  background: rgb(59, 59, 59);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.link {
+  align-content: center;
+  color: white;
+  white-space: nowrap;
+  text-decoration: underline;
+  &:hover {
+    color: var(--color-secondary-hover);
+  }
+}
+
+.buttons {
+  margin-left: 2rem;
+  max-width: 500px;
+  gap: 1rem;
+  display: flex;
+}
+
+.text {
+  align-content: center;
+}

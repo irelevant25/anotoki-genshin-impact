@@ -1,0 +1,7 @@
+@if (!hidden()) {
+    <div class="d-flex flex-col">
+        @for (item of items(); track item; let last = $last) {
+            <app-history-list-item [item]="item" [isLast]="last"></app-history-list-item>
+        }
+    </div>
+}

@@ -1,0 +1,24 @@
+.dropdown > input {
+  text-overflow: ellipsis;
+  padding-right: 25px;
+  cursor: pointer;
+}
+
+.dropdown-arrow {
+  position: relative;
+  right: 20px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  transition: transform 0.2s ease;
+  pointer-events: none;
+
+  &.down {
+    top: 13px;
+    border-top: 6px solid #0b0c0c;
+  }
+
+  &.up {
+    top: -13px;
+    border-bottom: 6px solid #0b0c0c;
+  }
+}

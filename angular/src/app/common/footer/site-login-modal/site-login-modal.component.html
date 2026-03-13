@@ -1,0 +1,12 @@
+<app-modal [title]="'Login'" (closeModal)="closeModal()">
+    <div modal-body>
+        <form class="feedback-form d-flex flex-col flex-wrap gap-3">
+            <app-text label="Email" placeholder="your@email.com" [(value)]="form.email" [required]="true"> </app-text>
+            <app-password label="Password" placeholder="password" [(value)]="form.password" [required]="true"> </app-password>
+        </form>
+    </div>
+    <div modal-footer class="d-flex gap-3 justify-content-end">
+        <app-button text="Cancel" variant="secondary" (buttonClick)="cancel()"> </app-button>
+        <app-button text="Login" variant="primary" (buttonClick)="submit()"> </app-button>
+    </div>
+</app-modal>

@@ -1,0 +1,25 @@
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+  overflow: hidden;
+
+  &.show {
+    grid-template-rows: 1fr;
+  }
+}
+
+.accordion-title {
+  align-content: center;
+}
+
+.accordion-content > div {
+  min-height: 0; /* Important for grid */
+}

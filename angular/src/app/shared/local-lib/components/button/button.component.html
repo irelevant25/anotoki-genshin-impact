@@ -1,0 +1,24 @@
+@if (!hidden()) {
+    <button
+        #button
+        [type]="type()"
+        [disabled]="disabled() || loading()"
+        class="btn form-button"
+        [ngClass]="[variant() ? 'btn-' + variant() : '', size() ? 'btn-' + size() : '', class() ? class() : '']"
+        [class.btn-loading]="loading()"
+        [class.btn-disabled]="disabled()"
+        [class.btn-outline]="outline()"
+        (mouseenter)="mouseEnter()"
+        (mouseleave)="mouseLeave()"
+        (click)="onClick($event)">
+        @if (loading()) {
+            <span class="loading-spinner"></span>
+        }
+        @if (icon() && !loading()) {
+            <span [class]="'icon ' + icon()" [ngClass]="!isHovered() && variant() ? '' : ''"></span>
+        }
+        @if (text()) {
+            <span class="button-text">{{ text() }}</span>
+        }
+    </button>
+}

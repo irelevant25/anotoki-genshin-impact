@@ -1,0 +1,24 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: var(--bs-card-height);
+  word-wrap: break-word;
+  background-color: var(--bs-card-bg);
+  background-clip: border-box;
+  width: 300px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.card:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+img {
+  height: 250px;
+  object-fit: contain;
+  object-position: top;
+}

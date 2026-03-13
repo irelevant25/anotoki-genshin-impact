@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n '\"\"demo_music\"\"' \"f:/Repositories/anotoki-genshin-impact/local/js-to-json-migration/characters/KLEE.js\")",
+      "Bash(grep -n '\"\"titles\"\"' \"f:/Repositories/anotoki-genshin-impact/local/js-to-json-migration/characters/AMBER.js\")",
+      "Bash(node -e \" const fs=require\\(''fs''\\), path=require\\(''path''\\), vm=require\\(''vm''\\); const files=fs.readdirSync\\(''./data/characters''\\).filter\\(f=>f.endsWith\\(''.js''\\)\\); const chars=files.map\\(f=>{const c={};vm.runInNewContext\\(fs.readFileSync\\(path.join\\(''./data/characters'',f\\),''utf8''\\),c\\);return c[Object.keys\\(c\\)[0]];}\\); chars.filter\\(c=>c.name\\).sort\\(\\(a,b\\)=>a.name.localeCompare\\(b.name\\)\\).forEach\\(c=>console.log\\(c.name, ''|'', c.element?.name ?? c.element\\)\\); \")",
+      "Bash(node characters_voice_overs.js)",
+      "Bash(node characters_builds.js)",
+      "Bash(node -e \":*)",
+      "Bash(grep -h \"existsSync\\\\|not found\\\\|Run.*first\" f:/Repositories/anotoki-genshin-impact/local/js-to-json-migration/transformations/*.js)",
+      "Bash(grep -v \"^//\")",
+      "Bash(grep -hn \"existsSync\\\\|output/.*\\\\.json\" f:/Repositories/anotoki-genshin-impact/local/js-to-json-migration/transformations/*.js)",
+      "Bash(for f in constellations talents roles affiliations)",
+      "Bash(do echo \"=== $f.js ===\")",
+      "Read(//f/Repositories/anotoki-genshin-impact/local/js-to-json-migration/transformations/**)",
+      "Bash(done)"
+    ]
+  }
+}

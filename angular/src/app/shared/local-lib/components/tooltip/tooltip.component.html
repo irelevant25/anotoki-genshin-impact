@@ -1,0 +1,5 @@
+@if (!hidden()) {
+    <span class="tooltip-text" [ngClass]="'tooltip-' + tooltipPosition()">
+        {{ tooltipText() }}
+    </span>
+}
