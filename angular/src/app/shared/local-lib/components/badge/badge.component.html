@@ -1,0 +1,35 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        @if (label()) {
+            <label #labelElement [for]="inputId" class="form-label">
+                @if (tooltipText()) {
+                    <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                }
+                {{ label() }}
+            </label>
+        }
+        <div class="badge-wrapper">
+            @for (badge of badges(); track badge) {
+                <ng-container *ngTemplateOutlet="badgeContent; context: { $implicit: badge }" />
+            }
+            <ng-container *ngTemplateOutlet="badgeContent" />
+        </div>
+    </div>
+}
+
+<ng-template #badgeContent let-badge>
+    <span
+        class="badge"
+        [class]="badgeClasses()"
+        [style.background-color]="colorBg() ?? badgeBackground()"
+        [style.color]="colorText() ?? badgeColor()"
+        [class.circle]="radiusCircle()"
+        [style.border-radius]="radius()"
+    >
+        @if (badge) {
+            {{ badge }}
+        } @else {
+            <ng-content></ng-content>
+        }
+    </span>
+</ng-template>

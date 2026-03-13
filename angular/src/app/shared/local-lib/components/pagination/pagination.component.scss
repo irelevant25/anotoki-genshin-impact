@@ -1,0 +1,89 @@
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // padding: 0 var(--spacing-lg) var(--spacing-lg) var(--spacing-lg);
+  // border-top: 1px solid var(--border-color);
+
+  .page-size-selector {
+    width: 70px;
+  }
+
+  .pagination-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
+  }
+
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+
+    .pagination-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-large);
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover:not(:disabled) {
+        background-color: var(--bg-hover);
+      }
+
+      &.active {
+        background-color: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .reorder-button {
+    align-content: center;
+    @media (max-width: 615px) {
+      align-content: end;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 615px) {
+  .pagination-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+
+    .pagination-info {
+      justify-content: start;
+    }
+
+    .pagination-controls {
+      justify-content: end;
+
+      .page-info {
+        text-align: center;
+      }
+
+      .pagination-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}

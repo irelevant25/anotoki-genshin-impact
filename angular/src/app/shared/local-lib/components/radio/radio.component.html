@@ -1,0 +1,53 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        <fieldset class="radio-fieldset" [class.error]="hasError()" [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()">
+            @if (label()) {
+                <legend class="form-label" [class.required]="required()">
+                    @if (tooltipText()) {
+                        <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                    }
+                    {{ label() }}
+                    @if (required()) {
+                        <span class="required-indicator">*</span>
+                    }
+                </legend>
+            }
+
+            <div
+                class="radio-group"
+                [class.horizontal]="orientation() === 'horizontal'"
+                [class.vertical]="orientation() === 'vertical'"
+                role="radiogroup"
+                [attr.aria-labelledby]="label() ? inputId + '-legend' : null"
+                [attr.aria-describedby]="hasError() ? inputId + '-error' : null"
+                [attr.aria-required]="required()"
+                [attr.aria-invalid]="hasError()">
+                @for (option of computedOptions(); track option; let i = $index) {
+                    <div class="radio-option">
+                        <input
+                            #inputElement
+                            type="radio"
+                            [id]="getRadioId(i)"
+                            [name]="inputId"
+                            [value]="option.key"
+                            [checked]="isSelected(option.key)"
+                            [disabled]="disabled() || option.disabled"
+                            class="radio-input"
+                            (change)="onChange($event)"
+                            (blur)="onRadioBlur()"
+                            (focus)="onFocus()" />
+                        <label [for]="getRadioId(i)" class="label" [class.disabled]="disabled() || option.disabled">
+                            {{ option.value }}
+                        </label>
+                    </div>
+                }
+            </div>
+        </fieldset>
+
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,17 @@
+.group {
+  background-color: var(--color-disabled);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+}
+
+legend {
+  padding-left: var(--spacing-xs);
+  padding-right: var(--spacing-xs);
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}

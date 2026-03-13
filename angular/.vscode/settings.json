@@ -1,0 +1,75 @@
+{
+  // Terminal
+  "terminal.integrated.scrollback": 5000,
+  "terminal.integrated.env.windows": {
+    "NODE_OPTIONS": "--max_old_space_size=4096"
+  },
+  "terminal.integrated.env.linux": {
+    "NODE_OPTIONS": "--max_old_space_size=4096"
+  },
+  "terminal.integrated.env.osx": {
+    "NODE_OPTIONS": "--max_old_space_size=4096"
+  },
+
+  // Editor
+  "prettier.configPath": ".prettierrc",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "off",
+  "editor.detectIndentation": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // Files
+  "files.insertFinalNewline": true,
+  "files.encoding": "utf8",
+
+  // Language specific settings
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "typescript.preferences.quoteStyle": "single",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    //"editor.defaultFormatter": "vscode.html-language-features",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[md]": {
+    "editor.wordWrap": "off",
+    "files.trimTrailingWhitespace": false
+  },
+
+  // Configure ESLint
+  "eslint.enable": true,
+  "eslint.run": "onType",
+
+  // Configure TypeScript options
+  "typescript.check.npmIsInstalled": false,
+  "typescript.validate.enable": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+
+  // Configure javascript options
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+
+  // Configure html options
+  "html.format.wrapAttributes": "force-aligned",
+  "html.format.maxPreserveNewLines": 2,
+  "html.format.enable": true,
+
+  // Hide the output panel by default
+  "workbench.panel.defaultLocation": "bottom",
+  "workbench.statusBar.visible": true,
+
+  // Configure GitLens to show commit author and date in the status bar
+  "gitlens.statusBar.enabled": true,
+  "gitlens.statusBar.alignment": "left",
+  "gitlens.statusBar.dateFormat": "MMM D, yyyy",
+  "gitlens.statusBar.format": "${author} • ${dateFormat}"
+}

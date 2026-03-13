@@ -1,0 +1,114 @@
+.chart-bar-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.chart-body {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.bars-area {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-sm);
+  flex: 1;
+}
+
+.bar-column,
+.bar-column-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  border-radius: var(--border-radius);
+}
+
+.bar-empty {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: height 0.4s ease;
+}
+
+.bar-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: height 0.4s ease;
+  overflow: visible; // allow text labels outside the fill bounds
+  color: white;
+}
+
+.bar-text {
+  font-size: var(--font-size-sm);
+  line-height: 1.2;
+  pointer-events: none;
+  padding: 7.5px;
+  color: inherit;
+
+  &.above-left {
+    position: absolute;
+    left: 0%;
+    bottom: 0;
+  }
+
+  &.above-center {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+
+  &.above-right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  &.inside-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.inside-middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.inside-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.under-left {
+    position: absolute;
+    padding-bottom: 0;
+  }
+
+  &.under-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 0;
+  }
+
+  &.under-right {
+    position: absolute;
+    right: 0;
+    padding-bottom: 0;
+  }
+}

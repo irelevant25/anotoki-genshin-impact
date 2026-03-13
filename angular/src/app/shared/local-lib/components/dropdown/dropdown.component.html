@@ -1,0 +1,42 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        @if (label()) {
+            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
+                @if (tooltipText()) {
+                    <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                }
+                {{ label() }}
+                @if (required()) {
+                    <span class="required-indicator">*</span>
+                }
+            </label>
+        }
+
+        <div class="dropdown">
+            <input
+                #inputElement
+                scroll
+                [id]="inputId"
+                [value]="value() === undefined || value() === null || value() === '' ? placeholder() : computedOption()?.value"
+                [placeholder]="placeholder()"
+                [disabled]="disabled()"
+                class="form-control cursor-default"
+                [class.placeholder]="value() === undefined || value() === null || value() === ''"
+                [class.error]="hasError()"
+                [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
+                (keydown)="onKeyDown($event)"
+                (click)="togglePopup()"
+                (heightChange)="positionPopup()"
+                (blur)="onBlur()"
+                (focus)="onFocus()"
+                readonly />
+            <span class="dropdown-arrow" [class.down]="!isPopupOpen" [class.up]="isPopupOpen"></span>
+        </div>
+
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+}

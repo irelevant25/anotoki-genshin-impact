@@ -1,0 +1,96 @@
+<div class="calendar-popup" #popup [style.left.px]="position.left" [style.top.px]="position.top" (clickOutside)="onCancel()">
+    @if (granularity === "date" || granularity === "datetime") {
+        <div class="calendar-header">
+            <button type="button" (click)="previous()" class="nav-btn" [disabled]="!canNavigateToPrevious()">&lt;</button>
+            <span class="month-year" (click)="gridToggle()">{{ monthNames[currentMonth] }} {{ currentYear }}</span>
+            <button type="button" (click)="next()" class="nav-btn" [disabled]="!canNavigateToNext()">&gt;</button>
+        </div>
+    }
+
+    <!-- SELECTING YEAR -->
+    <div class="year-grid" [class.hide]="!selectingYear">
+        @for (year of selectableYears; track year) {
+            <div class="year" [class.selected]="year === currentYear" (click)="selectYear(year)">{{ year }}</div>
+        }
+    </div>
+
+    <!-- SELECTING MONTH -->
+    <div class="month-grid" [class.hide]="!selectingMonth">
+        @for (month of monthNames; track month) {
+            <div class="month" [class.selected]="month === monthNames[currentMonth]" (click)="selectMonth(month)">{{ month }}</div>
+        }
+    </div>
+
+    <!-- DATE -->
+    <div [class.hide]="selectingYear || selectingMonth || (granularity !== 'date' && granularity !== 'datetime')">
+        <div class="date-header-grid">
+            @for (day of dayHeaders; track day) {
+                <div class="day-header">{{ day }}</div>
+            }
+        </div>
+        <div class="date-day-grid">
+            @for (day of calendarDays; track day) {
+                <div class="day" [class.selected]="day.selected" [class.other-month]="day.otherMonth" [class.today]="day.today" [class.disabled]="day.disabled" (click)="selectDate(day)">
+                    {{ day.date }}
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- TIME -->
+    @if (granularity === "time" || granularity === "datetime") {
+        <div class="time-controls">
+            <!-- Hours -->
+            <div class="time-control">
+                <button type="button" class="time-btn" (click)="incrementHours()" [disabled]="disabled">
+                    <span class="arrow">▲</span>
+                </button>
+                <div class="time-display">
+                    <input type="text" class="time-input" [value]="displayHours" (input)="onHoursInput($event)" (blur)="validateHours()" [disabled]="disabled" maxlength="2" />
+                </div>
+                <button type="button" class="time-btn" (click)="decrementHours()" [disabled]="disabled">
+                    <span class="arrow">▼</span>
+                </button>
+                <label class="time-label">Hod</label>
+            </div>
+            <div class="time-separator">:</div>
+            <!-- Minutes -->
+            <div class="time-control">
+                <button type="button" class="time-btn" (click)="incrementMinutes()" [disabled]="disabled">
+                    <span class="arrow">▲</span>
+                </button>
+                <div class="time-display">
+                    <input type="text" class="time-input" [value]="displayMinutes" (input)="onMinutesInput($event)" (blur)="validateMinutes()" [disabled]="disabled" maxlength="2" />
+                </div>
+                <button type="button" class="time-btn" (click)="decrementMinutes()" [disabled]="disabled">
+                    <span class="arrow">▼</span>
+                </button>
+                <label class="time-label">Min</label>
+            </div>
+            <!-- Seconds (optional) -->
+            @if (showSeconds) {
+                <div class="time-separator">:</div>
+                <div class="time-control">
+                    <button type="button" class="time-btn" (click)="incrementSeconds()" [disabled]="disabled">
+                        <span class="arrow">▲</span>
+                    </button>
+                    <div class="time-display">
+                        <input type="text" class="time-input" [value]="displaySeconds" (input)="onSecondsInput($event)" (blur)="validateSeconds()" [disabled]="disabled" maxlength="2" />
+                    </div>
+                    <button type="button" class="time-btn" (click)="decrementSeconds()" [disabled]="disabled">
+                        <span class="arrow">▼</span>
+                    </button>
+                    <label class="time-label">Sek</label>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ACTIONS -->
+    @if (showActions) {
+        <div class="actions">
+            <!-- <button type="button" class="action-btn cancel-btn" (click)="onCancel()">Zrušiť</button> -->
+            <button type="button" class="action-btn confirm-btn" (click)="onConfirm()">Potvrdiť</button>
+        </div>
+    }
+</div>

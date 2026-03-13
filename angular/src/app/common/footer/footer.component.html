@@ -1,0 +1,24 @@
+<div class="bottom-container">
+    <app-theme-toggle class="mx-5" style="display: none"></app-theme-toggle>
+
+    @for (menuItemSignal of menuItems | keyvalue: preserveOrder; track menuItemSignal.value().id) {
+        @let menuItem = menuItemSignal.value();
+        <div class="item" (click)="onMenuItemClick(menuItem)" [class.hidden]="menuItem.hidden">
+            @if (menuItem.url) {
+                <a href="{{ menuItem.url }}" target="_blank">
+                    <ng-container *ngTemplateOutlet="menuContent; context: { $implicit: menuItem }" />
+                </a>
+            } @else {
+                <ng-container *ngTemplateOutlet="menuContent; context: { $implicit: menuItem }" />
+            }
+        </div>
+    }
+</div>
+
+<ng-template #menuContent let-item>
+    @if (item.icon) {
+        <span class="icon {{ item.icon }}"></span>
+    } @else {
+        <div>{{ item.title }}</div>
+    }
+</ng-template>

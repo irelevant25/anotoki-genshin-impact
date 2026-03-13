@@ -1,0 +1,27 @@
+<div class="d-flex gap-5">
+    <!-- LEFT SIDE -->
+    <div class="d-flex flex-col center">
+        @if (item()?.color) {
+            <div class="icon-bg bg-size" [style.backgroundColor]="item()?.color"></div>
+        }
+        @if (item()?.messageIcon) {
+            <i [class]="'icon ' + item()?.messageIcon + ' h-100'" [style.color]="item()?.color"></i>
+        }
+        <div class="line"></div>
+    </div>
+    <!-- RIGHT SIDE -->
+    <div class="left-side flex flex-col">
+        <div class="d-flex gap-2">
+            @if (item()?.authorIcon) {
+                <i [class]="'icon ' + item()?.authorIcon"></i>
+            }
+            @if (item()?.author) {
+                <span style="font-weight: 500">{{ item()?.author }}</span>
+            }
+            @if (item()?.timestamp) {
+                <span class="timestamp">{{ item()?.timestamp | slovakDate: "datetimeWithSeconds" }}</span>
+            }
+        </div>
+        <div class="mt-1" [innerHTML]="item()?.message"></div>
+    </div>
+</div>

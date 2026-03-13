@@ -1,0 +1,211 @@
+.data-table-container {
+  display: flex;
+  flex-direction: column;
+  // gap: var(--spacing-lg);
+
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    // border-radius: var(--border-radius-large);
+    background-color: var(--bg-card);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-card);
+
+    thead th {
+      background-color: var(--bg-table-header);
+      border-bottom: 1px solid var(--border-color);
+      text-align: left;
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      font-size: var(--font-size-base);
+      // position: relative;
+
+      &.sortable {
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+          background-color: var(--bg-hover);
+        }
+      }
+
+      // Drag and drop styles
+      &.draggable-header {
+        cursor: move;
+        transition: all 0.2s ease;
+
+        &.dragging {
+          opacity: 0.5;
+          background-color: var(--bg-hover);
+          transform: scale(0.95);
+        }
+
+        &.drag-over {
+          background-color: color-mix(in srgb, var(--color-primary) 20%, var(--bg-table-header));
+          border-left: 3px solid var(--color-primary);
+          border-right: 3px solid var(--color-primary);
+        }
+
+        &:hover:not(.dragging) {
+          background-color: var(--bg-hover);
+        }
+      }
+    }
+
+    tbody td {
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-size: var(--font-size-base);
+    }
+
+    tbody tr {
+      &:hover:not(.row-selected) {
+        background-color: var(--bg-hover);
+      }
+
+      &.row-selected {
+        background-color: color-mix(in srgb, var(--bg-header) 50%, transparent);
+      }
+
+      &.row-selected:hover {
+        background-color: var(--bg-header);
+      }
+
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  // no-data specific styles
+  .no-data-row {
+    td {
+      text-align: center;
+      padding: var(--spacing-xl);
+      color: var(--text-secondary);
+    }
+  }
+
+  // Header content and icons
+  .header-content {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    gap: var(--spacing-sm);
+    width: 100%;
+
+    &.no-wrap {
+      white-space: nowrap;
+    }
+  }
+
+  .header-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xxs);
+  }
+
+  .sort-icon {
+    display: flex;
+    align-items: center;
+
+    i {
+      font-size: var(--font-size-sm);
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+
+      &.active {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  .drag-handle {
+    display: flex;
+    align-items: center;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    cursor: grab;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    i {
+      font-size: var(--font-size-sm);
+      color: var(--text-muted);
+    }
+  }
+
+  // Hide drag handle when not hovering over draggable headers
+  .draggable-header:not(:hover) .drag-handle {
+    opacity: 0.3;
+  }
+
+  .draggable-header:hover .drag-handle {
+    opacity: 0.8;
+  }
+}
+
+table > thead > tr > th,
+table > tbody > tr > td {
+  &:first-child {
+    padding-left: var(--spacing-lg);
+  }
+  &:last-child {
+    padding-right: var(--spacing-lg);
+  }
+}
+
+.table-header {
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  padding-left: var(--spacing-sm);
+  padding-right: var(--spacing-sm);
+}
+
+.table-cell {
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  padding-left: var(--spacing-sm);
+  padding-right: var(--spacing-sm);
+}
+
+.pagination-wrapper {
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .data-table-container {
+    .table-wrapper {
+      // border-radius: var(--border-radius-large);
+      border-left: none;
+      border-right: none;
+    }
+
+    // Hide drag handles on mobile for better UX
+    .drag-handle {
+      display: none;
+    }
+
+    .draggable-header {
+      cursor: default;
+    }
+  }
+}

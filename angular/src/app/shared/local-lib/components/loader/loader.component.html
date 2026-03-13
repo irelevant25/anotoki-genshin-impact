@@ -1,0 +1,16 @@
+@if (loadingCtrl.loading()) {
+    <div class="loading-overlay loading-overlay-color">
+        <div class="loading-content"></div>
+    </div>
+}
+
+@if (loadingCtrl.loading()) {
+    <div class="loading-overlay">
+        <div class="loading-content">
+            @if (spinner()) {
+                <div class="loading-spinner"></div>
+            }
+            <span>{{ text() }}</span>
+        </div>
+    </div>
+}

@@ -1,0 +1,19 @@
+@if (!hidden()) {
+    <div class="filters-section">
+        <div class="filters-header">
+            <div class="filter-actions">
+                <app-button text="Resetovať filtrovanie" variant="danger" size="small" (buttonClick)="reset()"></app-button>
+                <app-button text="Filtrovať" variant="primary" size="small" (buttonClick)="filterClick()"></app-button>
+                <app-button [icon]="filtersExpanded ? 'icon-chevron-down' : 'icon-chevron-up'" variant="secondary" size="small" (buttonClick)="toggleFilters()"></app-button>
+            </div>
+        </div>
+
+        <div class="filters-content" [class.expanded]="filtersExpanded">
+            <div class="p-0">
+                <div class="filter-grid">
+                    <ng-content></ng-content>
+                </div>
+            </div>
+        </div>
+    </div>
+}

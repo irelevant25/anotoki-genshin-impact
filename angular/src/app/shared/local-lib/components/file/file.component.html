@@ -1,0 +1,63 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        @if (label()) {
+            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
+                @if (tooltipText()) {
+                    <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                }
+                {{ label() }}
+                @if (required()) {
+                    <span class="required-indicator">*</span>
+                }
+            </label>
+        }
+
+        @if (description()) {
+            <label class="form-description">
+                {{ description() }}
+            </label>
+        }
+
+        <!-- Hidden file input -->
+        <input
+            #inputElement
+            [id]="inputId"
+            type="file"
+            [multiple]="multiple()"
+            [accept]="acceptAttribute"
+            [disabled]="disabled()"
+            style="display: none"
+            (change)="onFileChange($event)"
+            (blur)="onBlur()"
+            (focus)="onFocus()" />
+
+        <!-- File selection button -->
+        <app-button [text]="multiple() ? 'Vybrat súbory' : 'Vybrat súbor'" [variant]="buttonVariant()" [disabled]="disabled()" (buttonClick)="onButtonClick($event)"></app-button>
+
+        <!-- Selected files display -->
+        @if (showFileNames() && (value() ?? "").length > 0) {
+            <div class="selected-files">
+                @for (item of value(); track item; let i = $index) {
+                    <div class="selected-file">
+                        <span class="file-name">{{ item.file?.name ?? item[valueName()] }}</span>
+                        <!-- TODO: prerobit na app-button -->
+                        @if (!disabled()) {
+                            <button type="button" class="remove-btn" (click)="removeFile(i)">✕</button>
+                        }
+                    </div>
+                }
+                <!-- Clear all files button (for multiple files) -->
+                @if (multiple() && !disabled() && (value() ?? "").length > 1) {
+                    <app-button text="Vymazať všetky súbory" [variant]="'danger'" type="button" (click)="clearFiles()"></app-button>
+                }
+            </div>
+        }
+
+        <!-- Error message -->
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+}

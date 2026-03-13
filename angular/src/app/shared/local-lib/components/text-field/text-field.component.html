@@ -1,0 +1,53 @@
+@if (!hidden()) {
+    <span class="d-flex gap-3 me-3 my-2" [class]="class + (cols() ? ' cols-' + cols() : '')">
+        @if (label() !== undefined && label() !== null) {
+            <div class="bold" [class.disable-wrap]="disableWrapLabel()">{{ label() }}</div>
+        }
+        @if (value !== undefined && value !== null) {
+            <div>
+                @if (type() === "date") {
+                    <p [class.link]="valueClickIsObserved()" (click)="onValueClick(value())">
+                        <ng-container *ngTemplateOutlet="valueDisplayTemplate; context: { displayValue: value()?.toString() | date: 'dd.MM.yyyy' }"></ng-container>
+                    </p>
+                } @else if (type() === "datetime") {
+                    <p [class.link]="valueClickIsObserved()" (click)="onValueClick(value())">
+                        <ng-container *ngTemplateOutlet="valueDisplayTemplate; context: { displayValue: value()?.toString() | date: 'dd.MM.yyyy HH:mm' }"></ng-container>
+                    </p>
+                } @else if (type() === "boolean") {
+                    <p [class.link]="valueClickIsObserved()" (click)="onValueClick(value())">
+                        <ng-container *ngTemplateOutlet="valueDisplayTemplate; context: { displayValue: value() ? 'Áno' : 'Nie' }"></ng-container>
+                    </p>
+                } @else if (type() === "array") {
+                    @if (Array.isArray(value())) {
+                        @for (item of value() ?? []; track item) {
+                            <p [class.link]="valueClickIsObserved()" (click)="onValueClick(item)">
+                                <ng-container *ngTemplateOutlet="valueDisplayTemplate; context: { displayValue: keyName() ? item[keyName() ?? ''] : item }"></ng-container>
+                            </p>
+                        }
+                    }
+                } @else if (type() === "array-inline") {
+                    @if (Array.isArray(value)) {
+                        @for (item of value; track item; let i = $index) {
+                            @if (i > 0) {
+                                <span>,&nbsp;</span>
+                            }
+                            <span [class.link]="valueClickIsObserved()" (click)="onValueClick(item)">
+                                <ng-container *ngTemplateOutlet="valueDisplayTemplate; context: { displayValue: keyName() ? item[keyName() ?? ''] : item }"></ng-container>
+                            </span>
+                        }
+                    }
+                } @else if (type() === "number") {
+                    <p [class.link]="valueClickIsObserved()" (click)="onValueClick(value())">
+                        <ng-container *ngTemplateOutlet="valueDisplayTemplate; context: { displayValue: value()?.toString() | number }"></ng-container>
+                    </p>
+                } @else {
+                    <p [class.link]="valueClickIsObserved()" (click)="onValueClick(value())">
+                        <ng-container *ngTemplateOutlet="valueDisplayTemplate; context: { displayValue: value() }"></ng-container>
+                    </p>
+                }
+            </div>
+        }
+    </span>
+
+    <ng-template #valueDisplayTemplate let-displayValue="displayValue">{{ prefix() || "" }}{{ displayValue }}{{ suffix() || "" }}</ng-template>
+}

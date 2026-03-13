@@ -1,0 +1,38 @@
+<div class="container">
+    <!-- <div [class]="['level-' + difficultyString(), { 'd-none': daily() }]">
+        <span class="recommended-ar">{{ difficultyString() }}</span>
+    </div> -->
+    <canvas #canvas class="d-block mx-auto" loading="eager"></canvas>
+    <!-- <img class="d-block mx-auto" loading="eager" [src]="`assets/character/namecard_banner/${questionEntity()?.name}.avif`" /> -->
+    <div class="pt-3 max-width-250 m-auto text-align-center">
+        @if (!isQuestionComplete()) {
+            <app-autocomplete
+                #autocomplete
+                placeholder="Search character..."
+                [minChars]="0"
+                [staticOptions]="characters()"
+                (selectedOptionChange)="handleCharacterSelection($event); autocomplete.reset()"
+            >
+                <ng-template let-option>
+                    <img [src]="`assets/character/icon/${option.data.name}.avif`" loading="lazy" alt="Albedo" />
+                    <span>{{ option.data.name }}</span>
+                </ng-template>
+            </app-autocomplete>
+        }
+        @if (!isDaily() && isQuestionComplete()) {
+            <app-button [text]="'Next'" [variant] variant="primary" (buttonClick)="resetQuiz()"></app-button>
+        }
+    </div>
+    <div class="d-flex justify-content-center my-2">
+        Tries:
+        <p class="ms-1">{{ tries().length }}</p>
+        /
+        <p>{{ CONFIG.triesMax }}</p>
+    </div>
+    <div class="d-flex justify-content-center tries-characters">
+        @for (tryChar of tries(); track tryChar.name; let index = $index) {
+            <img class="try-img" loading="eager" [src]="`assets/character/icon/${tryChar.name}.avif`" />
+        }
+    </div>
+    <img class="d-block mx-auto answer-img" loading="lazy" [src]="isQuestionComplete() ? `assets/character/wish/${questionEntity()?.name}.avif` : ''" />
+</div>

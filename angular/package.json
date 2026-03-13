@@ -1,0 +1,54 @@
+{
+  "name": "angular",
+  "type": "module",
+  "version": "0.0.0",
+  "engines": {
+    "node": "22.15.0"
+  },
+  "eslintConfig": {
+    "settings": {
+      "local-rules": {
+        "location": "./eslint-local-rules.js"
+      }
+    }
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "node start.js && ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "lint": "npx eslint . --ext .ts",
+    "lint-no-warn": "npx eslint . --ext .ts --quiet",
+    "server": "lite-server",
+    "bundle-analyze": "ng build && start https://esbuild.github.io/analyze/",
+    "generate-interfaces": "node generate-interfaces.cjs"
+  },
+  "private": true,
+  "sideEffects": false,
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/platform-browser-dynamic": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.0",
+    "@angular/cli": "^21.2.0",
+    "@angular/compiler-cli": "^21.2.0",
+    "@eslint/js": "^9.39.1",
+    "@stylistic/eslint-plugin-ts": "^4.4.1",
+    "baseline-browser-mapping": "^2.10.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-local": "^5.0.1",
+    "eslint-plugin-local-rules": "^3.0.2",
+    "lite-server": "^2.6.1",
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.48.0"
+  }
+}

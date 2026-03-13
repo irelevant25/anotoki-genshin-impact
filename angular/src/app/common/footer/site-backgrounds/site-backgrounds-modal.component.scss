@@ -1,0 +1,14 @@
+img {
+  width: 210px;
+  height: 210px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  object-fit: cover;
+
+  &:hover {
+    transform: scale(1.05);
+    border-color: var(--color-primary);
+  }
+}

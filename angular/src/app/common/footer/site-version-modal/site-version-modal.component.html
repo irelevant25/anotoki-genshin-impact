@@ -1,0 +1,68 @@
+<app-modal [title]="'Changelog'" (closeModal)="closeModal()">
+    <div modal-body class="d-flex cols flex-wrap gap-3">
+        @for (entry of data; track entry.version; let index = $index) {
+            <div [class.version-card]="true" [class.highlight]="index === 0">
+                <div class="version-header">
+                    <div class="version-number">
+                        v{{ entry.version }}
+                        @if (index === 0) {
+                            <span>Latest</span>
+                        }
+                    </div>
+                    <div class="version-date">{{ formatDate(entry.date) }}</div>
+                </div>
+
+                @if (entry.changes.added && entry.changes.added.length > 0) {
+                    <div class="changes-section">
+                        <div class="section-title added">
+                            <span class="icon icon-add"></span>
+                            Added
+                        </div>
+                        <ul class="changes-list added">
+                            @for (item of entry.changes.added; track item) {
+                                <li>
+                                    {{ item }}
+                                    @if (index === 0) {
+                                        <app-badge class="d-inline-flex" [type]="'success-light'" [radius]="'1rem'" padding="small">new</app-badge>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if (entry.changes.fixed !== undefined) {
+                    <div class="changes-section">
+                        <div class="section-title fixed">
+                            <span class="icon icon-chevron-down"></span>
+                            Fixed
+                        </div>
+                        @if (entry.changes.fixed && entry.changes.fixed.length > 0) {
+                            <ul class="changes-list fixed">
+                                @for (item of entry.changes.fixed; track item) {
+                                    <li>{{ item }}</li>
+                                }
+                            </ul>
+                        } @else {
+                            <div class="empty-notice">No fixes in this version</div>
+                        }
+                    </div>
+                }
+
+                @if (entry.changes.updated && entry.changes.updated.length > 0) {
+                    <div class="changes-section">
+                        <div class="section-title updated">
+                            <span class="icon icon-clock"></span>
+                            Updated
+                        </div>
+                        <ul class="changes-list updated">
+                            @for (item of entry.changes.updated; track item) {
+                                <li>{{ item }}</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</app-modal>

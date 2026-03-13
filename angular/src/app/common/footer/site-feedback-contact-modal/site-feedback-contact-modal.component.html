@@ -1,0 +1,117 @@
+<app-modal [title]="'Site Feedback & Contact'" (closeModal)="closeModal()">
+    <div modal-body>
+        <form [formGroup]="feedbackForm" class="feedback-form d-flex flex-col flex-wrap gap-3">
+            <!-- Type Selection -->
+            <app-dropdown label="Type" [options]="['Bug', 'Suggestion', 'Other']" [value]="feedbackType" (valueChange)="onTypeChange($event)"> </app-dropdown>
+
+            <!-- Email (Optional for all types) -->
+            <app-text label="Email (optional)" placeholder="your@email.com" [value]="feedbackForm.controls['email'].value" (valueChange)="feedbackForm.controls['email'].setValue($event)"> </app-text>
+
+            <!-- Section (for Bug and Suggestion) -->
+            @if (feedbackType !== 'Other') {
+                <app-dropdown
+                    label="Section"
+                    [options]="sections"
+                    placeholder="Select a section"
+                    [value]="feedbackForm.controls['section'].value"
+                    (valueChange)="feedbackForm.controls['section'].setValue($event)"
+                >
+                </app-dropdown>
+            }
+
+            <!-- Title (for Bug and Suggestion) -->
+            @if (feedbackType !== 'Other') {
+                <app-text label="Title" [required]="true" placeholder="Brief summary" [value]="feedbackForm.controls['title'].value" (valueChange)="feedbackForm.controls['title'].setValue($event)">
+                </app-text>
+            }
+
+            <!-- Bug-specific fields -->
+            @if (feedbackType === 'Bug') {
+                <app-textarea
+                    label="Steps to Reproduce"
+                    [rows]="3"
+                    placeholder="1. Go to...&#10;2. Click on...&#10;3. See error..."
+                    [value]="feedbackForm.controls['stepsToReproduce'].value"
+                    (valueChange)="feedbackForm.controls['stepsToReproduce'].setValue($event)"
+                >
+                </app-textarea>
+                <app-textarea
+                    label="Expected Behavior"
+                    [rows]="2"
+                    placeholder="What should happen?"
+                    [value]="feedbackForm.controls['expectedBehavior'].value"
+                    (valueChange)="feedbackForm.controls['expectedBehavior'].setValue($event)"
+                >
+                </app-textarea>
+                <app-textarea
+                    label="Actual Behavior"
+                    [rows]="2"
+                    placeholder="What actually happens?"
+                    [value]="feedbackForm.controls['actualBehavior'].value"
+                    (valueChange)="feedbackForm.controls['actualBehavior'].setValue($event)"
+                >
+                </app-textarea>
+                <app-text
+                    label="Browser & Device Information"
+                    placeholder="e.g., Chrome 120 on Windows 11"
+                    [value]="feedbackForm.controls['browserDeviceInfo'].value"
+                    (valueChange)="feedbackForm.controls['browserDeviceInfo'].setValue($event)"
+                >
+                </app-text>
+                <app-textarea
+                    label="Additional Information"
+                    [rows]="3"
+                    placeholder="Any other details..."
+                    [value]="feedbackForm.controls['additionalInfo'].value"
+                    (valueChange)="feedbackForm.controls['additionalInfo'].setValue($event)"
+                >
+                </app-textarea>
+            }
+
+            <!-- Suggestion-specific fields -->
+            @if (feedbackType === 'Suggestion') {
+                <app-textarea
+                    label="Details"
+                    [rows]="4"
+                    placeholder="Describe your suggestion..."
+                    [value]="feedbackForm.controls['details'].value"
+                    (valueChange)="feedbackForm.controls['details'].setValue($event)"
+                >
+                </app-textarea>
+                <app-textarea
+                    label="Why is this important?"
+                    [rows]="3"
+                    placeholder="How would this improve the experience?"
+                    [value]="feedbackForm.controls['whyImportant'].value"
+                    (valueChange)="feedbackForm.controls['whyImportant'].setValue($event)"
+                >
+                </app-textarea>
+                <app-textarea
+                    label="Additional Information"
+                    [rows]="3"
+                    placeholder="Any other details..."
+                    [value]="feedbackForm.controls['additionalInfo'].value"
+                    (valueChange)="feedbackForm.controls['additionalInfo'].setValue($event)"
+                >
+                </app-textarea>
+            }
+
+            <!-- Other-specific fields -->
+            @if (feedbackType === 'Other') {
+                <app-textarea
+                    label="Message"
+                    [required]="true"
+                    [rows]="6"
+                    placeholder="Your message..."
+                    [value]="feedbackForm.controls['message'].value"
+                    (valueChange)="feedbackForm.controls['message'].setValue($event)"
+                >
+                </app-textarea>
+            }
+        </form>
+    </div>
+    <div modal-footer class="d-flex gap-3 justify-content-end">
+        <app-button text="Cancel" variant="secondary" (buttonClick)="onCancel()"> </app-button>
+        <app-button text="Submit" variant="primary" (buttonClick)="onSubmit()"> </app-button>
+    </div>
+</app-modal>

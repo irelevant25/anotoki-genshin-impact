@@ -1,0 +1,103 @@
+:host {
+  text-align: -webkit-center;
+}
+
+.modal-body,
+.modal-footer {
+  &.hidden {
+    display: none;
+  }
+}
+
+::ng-deep {
+  .modal-content {
+    text-align: initial;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    // width: 100%;
+    // width: fit-content;
+    pointer-events: auto;
+    background-color: var(--bg-page);
+    background-clip: padding-box;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    outline: 0;
+    padding: 1.5rem;
+    min-height: 0; // Important for flexbox children to shrink
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    flex-shrink: 0; // Prevent header from shrinking
+  }
+
+  .modal-body {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .modal-body,
+  .modal-header,
+  .modal-footer {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .modal-body:has(*) {
+    border-top: 2px solid #dddddd;
+    // padding: 15px;
+    flex: 1 1 auto; // Allow body to grow and shrink
+    min-height: 0; // Important for overflow to work in flexbox
+    overflow-y: auto; // Enable scrolling for the body content
+  }
+
+  .modal-footer:has(*) {
+    border-top: 2px solid #dddddd;
+    padding-top: 15px;
+    flex-shrink: 0; // Prevent footer from shrinking
+  }
+
+  .close-button:focus {
+    box-shadow: none !important;
+  }
+
+  .close-button > span {
+    line-height: 25px;
+    font-size: 30px;
+  }
+
+  // Additional styles for better scrollable experience
+  .modal-dialog-scrollable .modal-content {
+    height: 100%; // Take full height of the dialog when scrollable
+  }
+
+  .modal-dialog-scrollable .modal-body {
+    // Override padding to account for potential large content
+    // padding: 15px;
+    // Add smooth scrolling
+    scroll-behavior: smooth;
+  }
+
+  // Style scrollbar for better UX (webkit browsers)
+  .modal-body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  .modal-body::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+  }
+
+  .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+}

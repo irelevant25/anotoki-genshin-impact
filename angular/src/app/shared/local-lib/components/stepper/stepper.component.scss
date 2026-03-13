@@ -1,0 +1,136 @@
+.stepper-container {
+  // padding: 10px;
+  // width: 100%;
+  // max-width: 800px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.stepper-header {
+  padding: 2rem 0;
+}
+
+.steps-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  max-width: 200px;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-header);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.step-circle.completed {
+  background: var(--color-success);
+  color: white;
+}
+
+.step-circle.active {
+  background: var(--color-info);
+  color: white;
+  transform: scale(1.1);
+}
+
+.step-label {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  text-align: center;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.step-label.active {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.step-label.completed {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.step-connector {
+  position: absolute;
+  top: 20px;
+  left: calc(60% + 20px);
+  width: calc(80% - 40px);
+  height: 3px;
+  background: #e9ecef;
+  transition: background 0.3s ease;
+}
+
+.step-connector.completed {
+  background: #28a745;
+}
+
+.stepper-content {
+  // min-height: 300px;
+  // background: white;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.step-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stepper-actions {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .steps-wrapper {
+    padding: 0 1rem;
+  }
+
+  .step-item {
+    max-width: 150px;
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+  }
+
+  .stepper-content {
+    // padding: 1rem;
+  }
+
+  .stepper-actions {
+    flex-direction: column;
+  }
+}

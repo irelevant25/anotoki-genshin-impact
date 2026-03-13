@@ -1,0 +1,55 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        <div #labelElement class="d-flex" [class.flex-row]="inline()" [class.flex-col]="!inline()">
+            @if (label() && labelPosition() === "left") {
+                <label [for]="inputId" class="form-label w-auto align-content-center" [class.required]="required()">
+                    @if (tooltipText()) {
+                        <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                    }
+                    {{ label() }}
+                    @if (required()) {
+                        <span class="required-indicator">*</span>
+                    }
+                </label>
+            }
+
+            <input
+                #inputElement
+                [id]="inputId"
+                [value]="value()"
+                [disabled]="disabled()"
+                [checked]="value()"
+                type="checkbox"
+                [placeholder]="placeholder()"
+                class="form-control checkbox h-auto"
+                [class.ms-3]="inline() && labelPosition() === 'left'"
+                [class.me-3]="inline() && labelPosition() === 'right'"
+                [class.error]="hasError()"
+                [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
+                (click)="onClick($event)"
+                (blur)="onBlur()"
+                (focus)="onFocus()" />
+
+            @if (label() && labelPosition() === "right") {
+                <label [for]="inputId" class="form-label w-auto align-content-center" [class.required]="required()">
+                    {{ label() }}
+                    @if (required()) {
+                        <span class="required-indicator">*</span>
+                    }
+                </label>
+            }
+        </div>
+
+        @if (description()) {
+            <label class="form-description">
+                {{ description() }}
+            </label>
+        }
+
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+}

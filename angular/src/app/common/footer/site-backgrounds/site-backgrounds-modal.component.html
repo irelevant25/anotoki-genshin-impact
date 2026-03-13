@@ -1,0 +1,29 @@
+<app-modal [title]="'Backgrounds'" (closeModal)="closeModal()">
+    <div modal-body>
+        <div class="mb-4">
+            <h3>What is the Background Feature?</h3>
+            <p>Customize your quiz experience by choosing different character-themed wallpapers as the app background.</p>
+        </div>
+
+        <div class="mb-4">
+            <h3>How to Use</h3>
+            <ol>
+                <li>Click on the "Background" menu item to view available wallpapers</li>
+                <li>Browse through the character thumbnails</li>
+                <li>Click on any character thumbnail to set their wallpaper as the background</li>
+                <li>The background will instantly change to your selection</li>
+            </ol>
+        </div>
+
+        <h3>Available Backgrounds</h3>
+        <p>Backgrounds are available for characters that have wallpaper assets. The selection varies depending on the assets included in your installation.</p>
+
+        <p class="text-muted i my-3">Note: You can continue playing quizzes with any background of your choice.</p>
+
+        <div class="d-flex justify-content-center gap-10 flex-wrap p-3">
+            @for (item of BACKGROUNDS; track item.wallpaper) {
+                <img loading="lazy" [src]="item.preview" [alt]="item.name" [title]="item.name" (click)="changeBackground(item)" class="background-thumbnail" />
+            }
+        </div>
+    </div>
+</app-modal>

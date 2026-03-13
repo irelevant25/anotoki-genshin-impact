@@ -1,0 +1,35 @@
+<div #mainElement class="multiselect-popup" [style.top.px]="top()" [style.left.px]="left()" [style.width.px]="width()" (clickOutside)="clickOutside()">
+    <div class="multiselect-options">
+        @if (selectAllEnabled) {
+            <div class="multiselect-option select-all" [class.highlighted]="highlightedIndex === -1" (click)="onSelectAllClick($event)" (mouseenter)="highlightedIndexChange(-1)">
+                <div class="checkbox-label">
+                    <input type="checkbox" [checked]="isAllSelected" [indeterminate]="selectedOptions.length > 0 && !isAllSelected" (click)="onSelectAllClick($event)" />
+                    <span class="checkbox-text">Select All</span>
+                </div>
+            </div>
+        }
+
+        @for (option of options; track option.key; let i = $index) {
+            <div
+                class="multiselect-option"
+                [class.highlighted]="i === highlightedIndex"
+                [class.selected]="isOptionSelected(option)"
+                (click)="onOptionClick(option, $event)"
+                (mouseenter)="highlightedIndexChange(i)">
+                <div class="checkbox-label">
+                    <input type="checkbox" [checked]="isOptionSelected(option)" (click)="onOptionClick(option, $event)" />
+                    @if (!optionTemplate) {
+                        <span class="checkbox-text">{{ option.value }}</span>
+                    }
+                    @if (optionTemplate) {
+                        <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option, item: option, index: i }"></ng-container>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (options.length === 0) {
+            <div class="no-options">No options available</div>
+        }
+    </div>
+</div>

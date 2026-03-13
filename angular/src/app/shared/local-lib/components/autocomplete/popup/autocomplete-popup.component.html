@@ -1,0 +1,25 @@
+<div class="autocomplete-popup" [style.top.px]="top()" [style.left.px]="left()" [style.width.px]="width()">
+    <div class="autocomplete-options">
+        @for (option of options; track option; let i = $index) {
+            <div class="autocomplete-option" [class.highlighted]="i === highlightedIndex" (click)="selectOption(option)" (mouseenter)="highlightedIndex = i">
+                @if (!optionTemplate) {
+                    <span>{{ option.value }}</span>
+                }
+                @if (optionTemplate) {
+                    <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option, item: option, index: i }"></ng-container>
+                }
+            </div>
+        }
+
+        @if (loading) {
+            <div class="loading-option">
+                <span class="loading-spinner">⟳</span>
+                <span class="loading-text">Načítavam...</span>
+            </div>
+        } @else if (minCharsValid && options.length === 0 && !loading) {
+            <div class="no-results">Žiadne výsledky...</div>
+        } @else if (!minCharsValid) {
+            <div class="no-results">Zadajte aspoň {{ minChars }} {{ minChars === 1 ? "znak" : minChars < 5 ? "znaky" : "znakov" }}...</div>
+        }
+    </div>
+</div>

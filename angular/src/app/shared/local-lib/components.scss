@@ -1,0 +1,329 @@
+// Shared Form Styles
+.form-field {
+  display: flex;
+  flex-direction: column;
+  // gap: var(--spacing-xs);
+  justify-content: flex-end;
+  height: stretch;
+}
+
+.form-label {
+  font-size: var(--font-size-base);
+  // font-weight: var(--font-weight-medium);
+  font-weight: 500;
+  color: var(--text-primary);
+  // margin-bottom: var(--spacing-xs);
+  width: fit-content;
+
+  &.required {
+    color: var(--color-var-link);
+  }
+
+  .required-indicator {
+    color: var(--color-danger);
+  }
+}
+
+.form-description {
+  font-size: var(--font-size-sm);
+  // color: var(--text-muted);
+  // margin-bottom: var(--spacing-xs);
+}
+
+.max-length-counter {
+  font-weight: 100;
+}
+
+.text {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  line-height: 1.25rem;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm) var(--spacing-md);
+
+  &--horizontal {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm) var(--spacing-md);
+  }
+
+  &--vertical {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    justify-content: center;
+  }
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dashed {
+  border: 1px dashed;
+  border-width: 2px;
+  border-radius: calc(0.5rem - 4px);
+  width: 0.5rem;
+  height: 0.75rem;
+}
+
+.form-control {
+  // width: 100%;
+  height: var(--input-height);
+  padding: var(--spacing-sm) var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+  // transition: all 0.2s ease;
+
+  .option {
+    color: var(--text-primary);
+    background-color: var(--bg-card);
+    &.placeholder {
+      color: var(--text-muted);
+      border-color: var(--border-color);
+    }
+  }
+
+  &::placeholder,
+  &.placeholder {
+    color: var(--text-muted);
+    border-color: var(--border-color);
+  }
+
+  &.error {
+    border-color: var(--color-danger);
+  }
+
+  &.error.checkbox {
+    outline: 1px solid var(--color-danger);
+  }
+
+  &.valid:not(:disabled) {
+    border-color: var(--color-success);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: var(--color-disabled);
+    // color: var(--text-muted);
+    cursor: not-allowed;
+  }
+}
+
+.text-muted {
+  font-size: var(--font-size-lg);
+  color: var(--text-muted);
+
+  &.small {
+    font-size: var(--font-size-sm);
+  }
+}
+
+.user-image {
+  border-style: solid;
+  object-fit: cover;
+  border-width: 1px;
+  border-radius: var(--border-radius-large);
+  border-color: var(--border-color);
+  width: 8rem !important;
+}
+
+textarea.form-control {
+  // padding: var(--spacing-xs) var(--spacing-sm);
+  &.input-text {
+    overflow: hidden;
+    resize: none;
+    min-height: 32px;
+  }
+}
+
+.error-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+  // margin-top: var(--spacing-xs);
+}
+
+// Shared Card Styles
+.page-container {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-small);
+  // overflow: hidden;
+
+  .page-header {
+    padding: var(--spacing-lg);
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .page-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin: 0;
+    }
+  }
+
+  .page-body {
+    padding: var(--spacing-lg);
+  }
+}
+
+.detail {
+  padding: var(--spacing-lg);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .page-container {
+    padding: var(--spacing-md);
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .filter-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  transition: background-color 0.2s;
+  width: auto !important;
+
+  &:hover {
+    background-color: var(--color-danger-light);
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-danger);
+    outline-offset: 2px;
+  }
+
+  &.xs {
+    font-size: 625rem;
+  }
+  &.s {
+    font-size: 0.75rem;
+  }
+  &.m {
+    font-size: 0.875rem;
+  }
+  &.l {
+    font-size: 0.9375rem;
+  }
+  &.xl {
+    font-size: 1rem;
+  }
+  &.xxl {
+    font-size: 1.125rem;
+  }
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+
+  .page-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0;
+  }
+}
+
+.border-top {
+  border-top: 1px solid var(--border-color);
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.border-left {
+  border-left: 1px solid var(--border-color);
+}
+
+.border-right {
+  border-right: 1px solid var(--border-color);
+}
+
+.badge {
+  display: inline-block;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: var(--border-radius-large);
+
+  &.text-small {
+    font-size: 75%;
+  }
+  &.text-base {
+    font-size: 100%;
+  }
+  &.text-large {
+    font-size: 125%;
+  }
+
+  &.padding-small {
+    padding: 0.4em 0.55em;
+  }
+  &.padding-base {
+    padding: 0.6em 0.75em;
+  }
+  &.padding-large {
+    padding: 0.8em 0.95em;
+  }
+}

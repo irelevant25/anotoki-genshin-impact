@@ -1,0 +1,9 @@
+@if (!hideBar) {
+    <div class="bar d-flex p-5 justify-content-center">
+        <div class="text">Používame cookies, aby sme zaistili správne fungovanie a bezpečnosť našich stránok. Tým vám môžeme poskytnúť tú najlepšiu skúsenosť z ich návštevy.</div>
+        <div class="buttons">
+            <app-button variant="secondary" text="Prijať nevyhnutné" (buttonClick)="prijatNevyhnutne()"></app-button>
+            <app-button variant="secondary" text="Prijať všetko" (buttonClick)="prijatVsetko()"></app-button>
+        </div>
+    </div>
+}

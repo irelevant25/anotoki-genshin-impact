@@ -1,0 +1,67 @@
+<div class="chart-pie">
+    <!-- Legend: top -->
+    @if (config().showLegend && config().legendPosition === "top") {
+        <div class="legend legend--horizontal" [class]="config().legendClass">
+            @for (seg of segments(); track seg.item.label) {
+                <span class="legend-item">
+                    <span class="legend-dot" [style.background-color]="seg.item.color"></span>
+                    <div class="legend-content" [innerHTML]="getText(seg)" [class]="config().legendContentClass"></div>
+                </span>
+            }
+        </div>
+    }
+
+    <div class="chart-body">
+        <!-- Legend: left -->
+        @if (config().showLegend && config().legendPosition === "left") {
+            <div class="legend legend--vertical" [class]="config().legendClass">
+                @for (seg of segments(); track seg.item.label) {
+                    <span class="legend-item">
+                        <span class="legend-dot" [style.background-color]="seg.item.color"></span>
+                        <div class="legend-content" [innerHTML]="getText(seg)" [class]="config().legendContentClass"></div>
+                    </span>
+                }
+            </div>
+        }
+
+        <!-- Pie area -->
+        <div class="pie-wrapper" [style.width.px]="config().size" [style.height.px]="config().size">
+            <svg [attr.viewBox]="'0 0 ' + config().size + ' ' + config().size" [attr.width]="config().size" [attr.height]="config().size">
+                @for (seg of segments(); track seg.item.value) {
+                    <path [attr.d]="seg.path" [attr.fill]="seg.item.color" class="pie-segment" />
+                }
+            </svg>
+
+            <!-- Text center -->
+            @if (config().textCenter) {
+                <div class="pie-center">
+                    <span class="center-text" [innerHTML]="config().textCenter" [class]="config().textCenterClass"></span>
+                </div>
+            }
+        </div>
+
+        <!-- Legend: right -->
+        @if (config().showLegend && config().legendPosition === "right") {
+            <div class="legend legend--vertical" [class]="config().legendClass">
+                @for (seg of segments(); track seg.item.label) {
+                    <span class="legend-item">
+                        <span class="legend-dot" [style.background-color]="seg.item.color"></span>
+                        <div class="legend-content" [innerHTML]="getText(seg)" [class]="config().legendContentClass"></div>
+                    </span>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Legend: bottom -->
+    @if (config().showLegend && config().legendPosition === "bottom") {
+        <div class="legend legend--horizontal" [class]="config().legendClass">
+            @for (seg of segments(); track seg.item.label) {
+                <span class="legend-item">
+                    <span class="legend-dot" [style.background-color]="seg.item.color"></span>
+                    <div class="legend-content" [innerHTML]="getText(seg)" [class]="config().legendContentClass"></div>
+                </span>
+            }
+        </div>
+    }
+</div>
