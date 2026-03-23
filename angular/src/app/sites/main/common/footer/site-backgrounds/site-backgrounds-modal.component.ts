@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModalComponent } from '../../../shared/local-lib/components/modal/modal.component';
-import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
-import { LocalStorageService } from '../../../shared/local-lib/services/local-storage.service';
-import { StorageKeys } from '../../../shared/state-manager.service';
+import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
+import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
+import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
+import { StorageKeys } from '../../../../../shared/state-manager.service';
 
 interface IBackground {
   name: string;

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ModalComponent } from '../../../shared/local-lib/components/modal/modal.component';
-import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
-import { TextComponent } from '../../../shared/local-lib/components/text/text.component';
-import { TextareaComponent } from '../../../shared/local-lib/components/textarea/textarea.component';
-import { DropdownComponent } from '../../../shared/local-lib/components/dropdown/dropdown.component';
-import { ButtonComponent } from "../../../shared/local-lib/components/button/button.component";
+import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
+import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
+import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
+import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
+import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { ButtonComponent } from "../../../../../shared/local-lib/components/button/button.component";
 
 type FeedbackType = 'Bug' | 'Suggestion' | 'Other';
 

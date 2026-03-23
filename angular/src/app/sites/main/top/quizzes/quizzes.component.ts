@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ROUTE_MAP } from '../../../shared/routing-definition';
+import { ROUTE_MAP } from '../../../../shared/routing-definition';
 
 @Component({
   selector: 'app-quizzes',
