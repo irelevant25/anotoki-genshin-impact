@@ -38,14 +38,10 @@ $$ LANGUAGE plpgsql;
 -- name: Element
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS elements (
-    name    VARCHAR(50)     PRIMARY KEY,
-    icon    VARCHAR(100)    NOT NULL
+    name    VARCHAR(50)     PRIMARY KEY
 );
-INSERT INTO elements (name, icon) VALUES
-    ('Anemo', 'assets/elements/Anemo.avif'), ('Geo', 'assets/elements/Geo.avif'), 
-    ('Electro', 'assets/elements/Electro.avif'), ('Dendro', 'assets/elements/Dendro.avif'), 
-    ('Hydro', 'assets/elements/Hydro.avif'), ('Pyro', 'assets/elements/Pyro.avif'), 
-    ('Cryo', 'assets/elements/Cryo.avif')
+INSERT INTO elements (name) VALUES
+    ('Anemo'), ('Geo'), ('Electro'), ('Dendro'), ('Hydro'), ('Pyro'), ('Cryo')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -53,13 +49,10 @@ ON CONFLICT DO NOTHING;
 -- name: WeaponType
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS weapon_types (
-    name    VARCHAR(50)     PRIMARY KEY,
-    icon    VARCHAR(100)    NOT NULL
+    name    VARCHAR(50)     PRIMARY KEY
 );
-INSERT INTO weapon_types (name, icon) VALUES
-    ('Sword', 'assets/weapon_types/Sword.avif'), ('Claymore', 'assets/weapon_types/Claymore.avif'), 
-    ('Polearm', 'assets/weapon_types/Polearm.avif'), ('Bow', 'assets/weapon_types/Bow.avif'), 
-    ('Catalyst', 'assets/weapon_types/Catalyst.avif')
+INSERT INTO weapon_types (name) VALUES
+    ('Sword'), ('Claymore'), ('Polearm'), ('Bow'), ('Catalyst')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -80,10 +73,12 @@ CREATE TABLE IF NOT EXISTS relationship_types (
     name VARCHAR(50) PRIMARY KEY
 );
 INSERT INTO relationship_types (name) VALUES
-    ('Mother'), ('Grandmother'), ('Father'), ('Grandfather'),
-    ('Sister'), ('Brother'), ('Friend'), ('Enemy'),
-    ('Ancestor'), ('Relative'), ('Master'), ('Uncle'),
-    ('Daughter'), ('Son'), ('Other')
+    ('Mother'), ('Grandmother'), ('Father'), ('Grandfather'), ('Grandparent'),
+    ('Sister'), ('Brother'), ('Friend'), ('Enemy'), ('Creator'), ('Ancestry'), ('Nephew'),
+    ('Ancestor'), ('Relative'), ('Master'), ('Uncle'), ('Child'), ('Creation'),
+    ('Daughter'), ('Son'), ('Other'), ('Sibling'), ('Parent'), ('Aunt'), ('Cousin'),
+    ('Husband'), ('Wife'), ('Spouse'), ('Adoptive parent'), ('Adoptive child'), ('Niece'),
+    ('Derived from'), ('Great grandparent'), ('Great grandmother'), ('Great grandfather')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -107,7 +102,8 @@ INSERT INTO talent_types (name) VALUES
     ('Normal Attack'), ('Elemental Skill'), ('Elemental Burst'), ('Utility Passive'),
     ('1st Ascension Passive'), ('2nd Ascension Passive'), ('3rd Ascension Passive'),
     ('4th Ascension Passive'), ('5th Ascension Passive'), ('6th Ascension Passive'),
-    ('Night Realm''s Gift Passive'), ('Passive Talent'), ('Alternate Sprint')
+    ('Night Realm''s Gift Passive'), ('Passive Talent'), ('Alternate Sprint'),
+    ('Witch''s Eve Rite Passive'), ('Moonsign Benediction Passive')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -119,6 +115,25 @@ CREATE TABLE IF NOT EXISTS languages (
 );
 INSERT INTO languages (name) VALUES
     ('English'), ('Chinese'), ('Japanese'), ('Korean')
+ON CONFLICT DO NOTHING;
+
+-----------------------------------------------------------
+-- FOOD_TYPES
+-- name: FoodType
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS food_types (
+    name VARCHAR(50) PRIMARY KEY
+);
+INSERT INTO food_types (name) VALUES
+    ('Adventure Restore Dishes'), ('Adventurer''s Dishes'), ('ATK Dishes'), ('ATK Up Dishes'), ('ATK-Boosting Dishes'), 
+    ('Climbing Stamina Dishes'), ('CRIT DMG Dishes'), ('CRIT Rate Dishes'), ('CRIT Rate Up Dishes'), ('DEF Dishes'),
+    ('DEF Increase Dishes'), ('DEF Up Dishes'), ('DEF-Boosting Dishes'), ('DMG Taken Dishes'), ('Elemental DMG Bonus Dishes'), 
+    ('Elemental DMG Up Dishes'), ('Elemental RES Dishes'), ('Elemental RES Up Dishes'), ('Energy Recharge Increase Dishes'), 
+    ('Gliding Stamina Dishes'), ('Healing Dishes'), ('Healing Improvement Dishes'), ('HP Increase Dishes'), ('HP Regen Dishes'), 
+    ('HP Restore Dishes'), ('HP Restore Fixed Dishes'), ('HP Restore Percent Dishes'), ('Other Dishes'), ('Physical DMG Bonus Dishes'), 
+    ('Physical DMG Dishes'), ('Recovery Dishes'), ('Regeneration Dishes'), ('Revive Dishes'), ('Sheer Cold Dishes'), ('Potions'),
+    ('Sheer Cold Resistance Dishes'), ('Shield Strength Dishes'), ('Special Effect Dishes'), ('Sprinting Stamina Dishes'), ('Essential Oils'),
+    ('Stamina Dishes'), ('Stamina Increase Dishes'), ('Stamina Reduction Dishes'), ('Stamina Restore Dishes'), ('Swimming Stamina Dishes')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -134,7 +149,8 @@ INSERT INTO material_types (name) VALUES
     ('Character Talent Material'), ('Constellation Activation Material'), ('Cosmetic Catalog'), ('Currency'), 
     ('Event Item'), ('Food'), ('Forging Ore'), ('Furnishing'), ('Gadget'), ('Lobby Facility'), ('Material'), 
     ('Precious Item'), ('Quest Item'), ('Refinement Material'), ('Serenitea Pot Material'), ('Weapon'), 
-    ('Weapon Ascension Material'), ('Weapon Enhancement Material'), ('Experience')
+    ('Weapon Ascension Material'), ('Weapon Enhancement Material'), ('Experience'),
+    ('Bait'), ('Fish'), ('Gardening Material'), ('Local Specialty')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -190,7 +206,16 @@ INSERT INTO material_groups (name) VALUES
     ('Radiant Beast Material'), ('Radiant Spincrystal'), ('Redemption Voucher'), ('Resistance Book'), 
     ('Riftwolf Material'), ('Ruin Drake Material'), ('Ruin Sentinel Material'), ('Sacred Dewdrop'), ('Sacred Seal'), 
     ('Samachurl Material'), ('Sauroform Tribal Warrior Material'), ('Scorching Might'), 
-    ('Secret Source Automaton: Hunter-Seeker Material'), ('Shivada Jade'), ('Shrine of Depths Key'), ('Slime Material')
+    ('Secret Source Automaton: Hunter-Seeker Material'), ('Shivada Jade'), ('Shrine of Depths Key'), ('Slime Material'),
+    ('Specter Material'), ('State-Shifted Fungus Material'), ('Tainted Hydro Phantasm Material'),
+    ('Talent Book'), ('Talisman of the Forest Dew'), ('Tenebrous Mimesis Material'),
+    ('The Black Serpents Material'), ('The Doctor Material'), ('The Eremites Material'), ('The Game Before the Gate Material'),
+    ('The Knave Material'), ('Transience Book'), ('Treasure Hoarder Material'),
+    ('Vajrada Amethyst'), ('Varunada Lazurite'), ('Vayuda Turquoise'),
+    ('Vishap Material'), ('Wayob Manifestation Material'), ('Weekly Boss Drop'),
+    ('Whopperflower Material'), ('Wood'), ('Xuanwen Beast Material'),
+    ('Ascension Gem'), ('Dye'), ('Elite Enemy Drop'), ('Event Item'), ('Forging Material'),
+    ('Furnishing Material'), ('General Enemy Drop'), ('Normal Boss Drop')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -205,74 +230,14 @@ INSERT INTO rarities (rarity) VALUES
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
--- MATERIAL_GROUPS
--- name: MaterialGroup
------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS material_groups (
-    name VARCHAR(50) PRIMARY KEY
-);
-INSERT INTO material_groups (name) VALUES
-    ('Abyss Mage Material'), ('Activation Device'), ('Admonition Book'), 
-    ('Aerosiderite'), ('Agnidus Agate'), ('All-Devouring Narwhal Material'), ('Ancient Chord'), ('Animal'), 
-    ('Animal/Indoor Creature'), ('Animal/Outdoor Creature'), ('Artful Devices'), ('Avatar of Lava Material'), 
-    ('Azhdaha Material'), ('Ballad Book'), ('Billet'), ('Blazing Sacrificial Heart'), ('Borderland Billet'), 
-    ('Boreal Wolf Teeth'), ('Branches of a Distant Sea'), ('Breacher Primus Material'), ('Brilliant Diamond'), 
-    ('Building'), ('Building/Fontaine'), ('Building/Free Booth'), ('Building/Hilichurl Style'), ('Building/Inazuma'), 
-    ('Building/Liyue'), ('Building/Mercantile'), ('Building/Mondstadt'), ('Building/Natlan'), ('Building/Nod-Krai'), 
-    ('Building/Sumeru'), ('Cake for Traveler'), ('Case Record'), ('Chess Piece'), ('Childe Material'), 
-    ('Chronicle Cache: Elite'), ('Chronicle Cache: Exceptional'), ('Clockwork Meka Material'), ('Companion'), 
-    ('Companion/Companion'), ('Companion/The best travel companion ever!'), ('Conflict Book'), ('Consecrated Beast Material'), 
-    ('Contention Book'), ('Cooking Ingredient'), ('Courtyard'), ('Courtyard/Courtyard Wall'), ('Courtyard/Large Ornament'), 
-    ('Decarabian Tile'), ('Decoration'), ('Decoration/Ceiling'), ('Decoration/Ceiling Lamp'), ('Decoration/Flooring'), 
-    ('Decoration/Room Door'), ('Decoration/Stairs'), ('Decoration/Wall'), ('Delirious Mask of the Sacred Lord'), 
-    ('Diligence Book'), ('Domain Reliquary'), ('Dvalin Material'), ('Elegance Book'), ('Elixir'), ('Elysium Book'), 
-    ('Equity Book'), ('Everlasting Lord of Arcane Wisdom Material'), ('Evermoon Seal'), ('Exterior Furnishing'), 
-    ('Fatui Cicin Mage Material'), ('Fatui Operative Material'), ('Fatui Oprichniki Material'), ('Fatui Pyro Agent Material'), 
-    ('Fatui Skirmisher Material'), ('Festive Fever'), ('Firework'), ('Fisher of Hidden Depths Material'), 
-    ('Fontemer Aberrant Material'), ('Freedom Book'), ('Frostnight Scion Material'), ('Fungus Material'), 
-    ('Furnace Shell Mountain Weasel Material'), ('Furnishing Subsystem'), ('Gladiator Shackle'), 
-    ('Goblets of the Pristine Sea'), ('Gold Book'), ('Category:Golden Entreaties'), ('Guardian of Apep''s Oasis Material'), 
-    ('Guidance of the Land'), ('Guyun Pillar'), ('Hilichurl Material'), ('Hilichurl Rogue Material'), 
-    ('Hilichurl Shooter Material'), ('Humanoid Ruin Machine Material'), ('Ingenuity Book'), ('Interior Furnishing'), 
-    ('Irismoon Seal'), ('Irismoon Seals'), ('Jade Field'), ('Justice Book'), ('Kamera Gadget'), 
-    ('Khvarena Inscription Fragment'), ('Kindling Book'), ('Korybantes'), ('Korybantes Score'), ('La Signora Material'), 
-    ('Landcruiser Material'), ('Landform'), ('Landform/Field'), ('Landform/Floating Platform'), ('Landform/Large Shrub'), 
-    ('Landform/Mountain'), ('Landform/Rock'), ('Landform/Small Shrub'), ('Landform/Tree'), ('Landscape'), 
-    ('Landscape/Curio'), ('Landscape/Large Object'), ('Landscape/Lighting'), ('Landscape/Ornament'), 
-    ('Landscape/Realm Mechanism'), ('Landscape/Small Object'), ('Landscape/Special Object'), ('Landscape/Terrace'), 
-    ('Large Furnishing'), ('Large Furnishing/Bed'), ('Large Furnishing/Bookcase'), ('Large Furnishing/Cabinet'), 
-    ('Large Furnishing/Counter'), ('Large Furnishing/Fish Tank'), ('Large Furnishing/Table'), ('Light Book'), 
-    ('Local Specialty'), ('Long Night Flints'), ('Lord of Eroded Primal Fire Material'), ('Lupus Boreas Material'), 
-    ('Lustrous Materials'), ('Luxuriant Glebe'), ('Magatsu Mitake Narukami no Mikoto Material'), ('Main Building'), 
-    ('Main Building/Mansion'), ('Memory'), ('Midlander Billet'), ('Mineral'), ('Mini Seelie'), ('Mirror Maiden Material'), 
-    ('Mitachurl Material'), ('Moonlight Book'), ('Music Gadget'), ('Mysterious Stone Slate'), ('Nagadus Emerald'), 
-    ('Narukami''s Magatama'), ('Natlan Saurian Material'), ('Night-Wind''s Mystic'), ('Nobushi Material'), 
-    ('Northlander Billet'), ('Oasis Garden'), ('Obsidian Fragment'), ('Obsidian Ring'), ('Oculus'), 
-    ('Oculus Resonance Stone'), ('Oni Mask'), ('Order Book'), ('Orderly Meadow'), ('Ornaments'), ('Ornaments/Lighting'), 
-    ('Ornaments/Memento'), ('Ornaments/Potted Plant'), ('Ornaments/Utensil'), ('Outdoor Furnishing'), 
-    ('Outdoor Furnishing/Cabinet'), ('Outdoor Furnishing/Fence'), ('Outdoor Furnishing/Fish Pond'), 
-    ('Outdoor Furnishing/Furnishing Set'), ('Outdoor Furnishing/Paving'), ('Outdoor Furnishing/Seating'), 
-    ('Outdoor Furnishing/Table'), ('Outdoor Furnishing/Waypoint'), ('Philosophies of the Land'), 
-    ('Praetorian Golem Material'), ('Praxis Book'), ('Primal Construct Material'), ('Prithiva Topaz'), ('Prosperity Book'), 
-    ('Radiant Beast Material'), ('Radiant Spincrystal'), ('Redemption Voucher'), ('Resistance Book'), 
-    ('Riftwolf Material'), ('Ruin Drake Material'), ('Ruin Sentinel Material'), ('Sacred Dewdrop'), ('Sacred Seal'), 
-    ('Samachurl Material'), ('Sauroform Tribal Warrior Material'), ('Scorching Might'), 
-    ('Secret Source Automaton: Hunter-Seeker Material'), ('Shivada Jade'), ('Shrine of Depths Key'), ('Slime Material')
-ON CONFLICT DO NOTHING;
-
------------------------------------------------------------
 -- REGIONS
 -- name: Region
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS regions (
-    name    VARCHAR(50)     PRIMARY KEY,
-    icon    VARCHAR(100)    NOT NULL
+    name    VARCHAR(50)     PRIMARY KEY
 );
-INSERT INTO regions (name, icon) VALUES
-    ('Mondstadt', 'assets/regions/Mondstadt.avif'), ('Liyue', 'assets/regions/Liyue.avif'), 
-    ('Inazuma', 'assets/regions/Inazuma.avif'), ('Sumeru', 'assets/regions/Sumeru.avif'),
-    ('Fontaine', 'assets/regions/Fontaine.avif'), ('Natlan', 'assets/regions/Natlan.avif'), 
-    ('Nod-Krai', 'assets/regions/Nod-Krai.avif')
+INSERT INTO regions (name) VALUES
+    ('Mondstadt'), ('Liyue'), ('Inazuma'), ('Sumeru'), ('Fontaine'), ('Natlan'), ('Nod-Krai')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -298,15 +263,10 @@ ON CONFLICT DO NOTHING;
 -- name: ArtifactPieceType
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS artifact_piece_types (
-    name    VARCHAR(50)     PRIMARY KEY,
-    icon    VARCHAR(100)    NOT NULL
+    name    VARCHAR(50)     PRIMARY KEY
 );
-INSERT INTO artifact_piece_types (name, icon) VALUES
-    ('Flower of Life', 'assets/artifact_piece_types/Flower of Life.avif'), 
-    ('Plume of Death', 'assets/artifact_piece_types/Plume of Death.avif'), 
-    ('Sands of Eon', 'assets/artifact_piece_types/Sands of Eon.avif'),
-    ('Goblet of Eonothem', 'assets/artifact_piece_types/Goblet of Eonothem.avif'), 
-    ('Circlet of Logos', 'assets/artifact_piece_types/Circlet of Logos.avif')
+INSERT INTO artifact_piece_types (name) VALUES
+    ('Flower of Life'), ('Plume of Death'), ('Sands of Eon'), ('Goblet of Eonothem'), ('Circlet of Logos')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -317,7 +277,7 @@ CREATE TABLE IF NOT EXISTS enemy_types (
     name VARCHAR(50) PRIMARY KEY
 );
 INSERT INTO enemy_types (name) VALUES
-    ('Common Enemies'), ('Elite Enemies'), ('Normal Bosses'), ('Weekly Bosses')
+    ('Common Enemies'), ('Elite Enemies'), ('Normal Bosses'), ('Special Enemies'), ('Weekly Bosses')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -325,9 +285,9 @@ ON CONFLICT DO NOTHING;
 -- name: DomainLevel
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS domain_levels (
-    name VARCHAR(50) PRIMARY KEY
+    name VARCHAR(10) PRIMARY KEY
 );
-INSERT INTO roles (name) VALUES
+INSERT INTO domain_levels (name) VALUES
     ('I'), ('II'), ('III'), ('IV')
 ON CONFLICT DO NOTHING;
 
@@ -344,13 +304,13 @@ INSERT INTO enemy_families (name) VALUES
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
--- ENEMY_FAMILIES
--- name: EnemyFamily
+-- ENEMY_GROUPS
+-- name: EnemyGroup
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS enemy_groups (
     name VARCHAR(50) PRIMARY KEY
 );
-INSERT INTO enemy_families (name) VALUES
+INSERT INTO enemy_groups (name) VALUES
     ('Category:Enemies by Group'), ('Abyss Herald'), ('Abyss Lector'), ('Abyss Mage'), 
     ('Avatar of Lava'), ('Bathysmal Vishap'), ('Breacher Primus'), ('Cicin'), ('Clockwork Meka'), 
     ('Consecrated Beast'), ('Fatui Cicin Mage'), ('Fatui Operative'), ('Fatui Oprichnik'), 
@@ -405,10 +365,10 @@ CREATE TABLE IF NOT EXISTS quizzes (
 CREATE TABLE IF NOT EXISTS materials (
     id              SERIAL          PRIMARY KEY,
     name            VARCHAR(100)    NOT NULL UNIQUE,
-    category        VARCHAR(50)     NOT NULL,
     "type"          VARCHAR(50),
     "group"         VARCHAR(50),
     region          VARCHAR(50),
+    rarity          SMALLINT,
     description     TEXT,
     how_to_obtain   JSONB,
     version         VARCHAR(10),
@@ -428,42 +388,67 @@ CREATE OR REPLACE TRIGGER trg_materials_protect_created
 CREATE OR REPLACE TRIGGER trg_materials_updated_at
     BEFORE UPDATE ON materials
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-INSERT INTO materials (name, category, region, how_to_obtain, description, version, created_by) VALUES
-    ('Dream Solvent', 'Precious Items', null, '["Reward from Trounce Domains","Reward from Wolf of the North Challenge","Reward from No Mere Stone Quest","Reach Vanarana''s Favor Level 40","Reach Fountain of Lucine''s Accolades Level 40"]', null, '1.5', 1),
-    ('Adventure EXP', 'Experience', null, '["Quests (Archon, World, Story, Commissions)","Opening Chests, especially those within Shrines of Depths","Collecting Oculi and offering them to Statue of The Seven or Statue of the New Moon","Adventurer Handbook investigations","Ley Line Outcrops","Domains","Normal Bosses and Weekly Bosses","Unusual Hilichurl","Unlocking Teleport Waypoints","Various Offering Systems"]', 'After Adventure Rank 60 is reached, each additional point of Adventure EXP gained is now converted to Mora at a 1:10 ratio.', '2.0', 1),
-    ('Character EXP', 'Experience', null, '["Quests","Character EXP Material","Defeating Enemies","Claiming Ley Line Blossoms from Bosses"]', null, "1.0", 1),
-    ('Companion­ship EXP', 'Experience', null, '["Spending Original Resin","Completing Commissions","Completing Random Events","Claiming Realm Bounty in Serenitea Pot"]', "Amount of Companionship EXP rewarded is doubled when in Co-Op Mode with 2 or more players. Companionship EXP rewards now show in center of screen with items of note instead of on the left side.", "1.0", 1)
-ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
--- FOODS
--- name: Food
+-- MATERIALS_GROUPS_JOIN
+-- name: MaterialGroupJoin
 -----------------------------------------------------------
-CREATE TABLE IF NOT EXISTS foods (
+CREATE TABLE IF NOT EXISTS materials_groups_join (
     id              SERIAL          PRIMARY KEY,
-    name            VARCHAR(100)    NOT NULL UNIQUE,
-    description     TEXT,
-    effect          TEXT,
-    type            VARCHAR(100),
-    icon            VARCHAR(100)    NOT NULL,
-    rarity          SMALLINT        NOT NULL,
-    proficiency     SMALLINT        NOT NULL,
-    base_dish_id    INT,
-    variant         VARCHAR(100),
-    variant_icon    VARCHAR(100),
-    event           VARCHAR(100),
-    region          VARCHAR(50),
-    how_to_obtain   JSONB,
-    effects         JSONB,
-    version         VARCHAR(10),
+    material_id     INT             NOT NULL,
+    "group"         VARCHAR(50),
     deleted         BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by      INT             NOT NULL,
     updated_at      TIMESTAMP,
     updated_by      INT,
 
-    CONSTRAINT fk_foods_region      FOREIGN KEY (region)       REFERENCES regions(name),
-    CONSTRAINT fk_foods_base_dish   FOREIGN KEY (base_dish_id) REFERENCES materials(id)
+    CONSTRAINT uq_materials_groups_join_material_group UNIQUE (material_id, "group"),
+    CONSTRAINT fk_materials_groups_join_material FOREIGN KEY (material_id) REFERENCES materials(id),
+    CONSTRAINT fk_materials_groups_join_group FOREIGN KEY ("group") REFERENCES material_groups(name)
+);
+CREATE OR REPLACE TRIGGER trg_materials_groups_join_protect_created
+    BEFORE UPDATE ON materials_groups_join
+    FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
+CREATE OR REPLACE TRIGGER trg_materials_groups_join_updated_at
+    BEFORE UPDATE ON materials_groups_join
+    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-----------------------------------------------------------
+-- FOODS
+-- name: Food
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS foods (
+    id                      SERIAL          PRIMARY KEY,
+    name                    VARCHAR(100)    NOT NULL UNIQUE,
+    description_normal      TEXT,
+    description_delicious   TEXT,
+    description_suspicious  TEXT,
+    effect                  TEXT,
+    type                    VARCHAR(50),
+    icon_normal             VARCHAR(100),
+    icon_delicious          VARCHAR(100),
+    icon_suspicious         VARCHAR(100),
+    rarity                  SMALLINT,
+    proficiency             SMALLINT,
+    base_dish_id            INT,
+    events                  JSONB,
+    region                  VARCHAR(50),
+    how_to_obtain           JSONB,
+    effects                 JSONB,
+    effect_normal           TEXT,
+    effect_delicious        TEXT,
+    effect_suspicious       TEXT,
+    version                 VARCHAR(10),
+    deleted                 BOOLEAN         NOT NULL DEFAULT FALSE,
+    created_at              TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    created_by              INT             NOT NULL,
+    updated_at              TIMESTAMP,
+    updated_by              INT,
+
+    CONSTRAINT fk_foods_region FOREIGN KEY (region) REFERENCES regions(name),
+    CONSTRAINT fk_foods_type FOREIGN KEY (type) REFERENCES food_types(name),
+    CONSTRAINT fk_foods_base_dish FOREIGN KEY (base_dish_id) REFERENCES foods(id)
 );
 CREATE OR REPLACE TRIGGER trg_foods_protect_created
     BEFORE UPDATE ON foods
@@ -489,7 +474,8 @@ CREATE TABLE IF NOT EXISTS characters (
     model                       VARCHAR(100)    NOT NULL,
     birthday                    DATE,
     special_dish                INT,
-    how_to_obtain               TEXT            NOT NULL,
+    affiliations                JSONB,
+    how_to_obtain               JSONB,
     is_traveler                 BOOLEAN         NOT NULL DEFAULT FALSE,
     namecard_description        TEXT            NOT NULL,
     namecard_sources            JSONB,
@@ -497,6 +483,7 @@ CREATE TABLE IF NOT EXISTS characters (
     namecard_background         VARCHAR(100)    NOT NULL,
     namecard_banner             VARCHAR(100)    NOT NULL,
     card_icon                   VARCHAR(100)    NOT NULL,
+    card_icon_2                 VARCHAR(100),
     wish_icon                   VARCHAR(100)    NOT NULL,
     ingame_icon_name            VARCHAR(100),
     ingame_icon                 VARCHAR(100)    NOT NULL,
@@ -546,6 +533,8 @@ CREATE TABLE IF NOT EXISTS weapons (
     icon_ascension  VARCHAR(100),
     how_to_obtain   JSONB,
     release_date    DATE,
+    effects         JSONB,
+    primary_stat    VARCHAR(50),
     secondary_stat  VARCHAR(50),
     version         VARCHAR(10),
     description     TEXT,
@@ -556,6 +545,7 @@ CREATE TABLE IF NOT EXISTS weapons (
     updated_by      INT,
 
     CONSTRAINT fk_weapons_type FOREIGN KEY (type) REFERENCES weapon_types(name),
+    CONSTRAINT fk_weapons_primary_stat FOREIGN KEY (primary_stat) REFERENCES stats(name),
     CONSTRAINT fk_weapons_secondary_stat FOREIGN KEY (secondary_stat) REFERENCES stats(name)
 );
 CREATE OR REPLACE TRIGGER trg_weapons_protect_created
@@ -566,24 +556,114 @@ CREATE OR REPLACE TRIGGER trg_weapons_updated_at
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 -----------------------------------------------------------
--- ARTIFACTS
--- name: Artifact
+-- WEAPONS_REFINEMENTS
+-- name: WeaponRefinement
 -----------------------------------------------------------
-CREATE TABLE IF NOT EXISTS artifacts (
+CREATE TABLE IF NOT EXISTS weapons_refinements (
     id              SERIAL          PRIMARY KEY,
-    name            VARCHAR(100)    NOT NULL UNIQUE,
-    icon            VARCHAR(100)    NOT NULL,
-    how_to_obtain   JSONB,
-    version         VARCHAR(10),
-    effects         JSONB,
-    two_piece       TEXT,
-    four_piece      TEXT,
-    rarity          SMALLINT        NOT NULL DEFAULT 5,
+    weapon_id       INT             NOT NULL,
+    material_id     INT             NOT NULL,
+    description     TEXT,
+    quantity        INT             NOT NULL,
     deleted         BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by      INT             NOT NULL,
     updated_at      TIMESTAMP,
-    updated_by      INT
+    updated_by      INT,
+
+    CONSTRAINT fk_weapons_refinements_weapon FOREIGN KEY (weapon_id) REFERENCES weapons(id),
+    CONSTRAINT fk_weapons_refinements_material FOREIGN KEY (material_id) REFERENCES materials(id)
+);
+CREATE OR REPLACE TRIGGER trg_weapons_refinements_protect_created
+    BEFORE UPDATE ON weapons_refinements
+    FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
+CREATE OR REPLACE TRIGGER trg_weapons_refinements_updated_at
+    BEFORE UPDATE ON weapons_refinements
+    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-----------------------------------------------------------
+-- WEAPONS_ASCENSIONS
+-- name: WeaponAscension
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS weapons_ascensions (
+    id                      SERIAL          PRIMARY KEY,
+    weapon_id               INT             NOT NULL,
+    phase                   SMALLINT        NOT NULL,
+    primary_stat_value      REAL            NOT NULL,
+    secondary_stat_value    REAL            NOT NULL,
+    start_level_from        SMALLINT,
+    start_level_to          SMALLINT,
+    end_level_from          SMALLINT,
+    end_level_to            SMALLINT,
+    deleted                 BOOLEAN         NOT NULL DEFAULT FALSE,
+    created_at              TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    created_by              INT             NOT NULL,
+    updated_at              TIMESTAMP,
+    updated_by              INT,
+
+    CONSTRAINT uq_weapons_ascensions_weapon_phase UNIQUE (weapon_id, phase),
+    CONSTRAINT fk_weapons_ascensions_weapon FOREIGN KEY (weapon_id) REFERENCES weapons(id)
+);
+CREATE OR REPLACE TRIGGER trg_weapons_ascensions_protect_created
+    BEFORE UPDATE ON weapons_ascensions
+    FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
+CREATE OR REPLACE TRIGGER trg_weapons_ascensions_updated_at
+    BEFORE UPDATE ON weapons_ascensions
+    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-----------------------------------------------------------
+-- WEAPONS_ASCENSIONS_COST
+-- name: WeaponAscensionCost
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS weapons_ascensions_cost (
+    id                      SERIAL          PRIMARY KEY,
+    weapon_ascension_id     INT             NOT NULL,
+    material_id             INT             NOT NULL,
+    quantity                INT             NOT NULL,
+    deleted                 BOOLEAN         NOT NULL DEFAULT FALSE,
+    created_at              TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    created_by              INT             NOT NULL,
+    updated_at              TIMESTAMP,
+    updated_by              INT,
+
+    CONSTRAINT uq_weapons_ascensions_cost_weapon_ascension_material UNIQUE (weapon_ascension_id, material_id),
+    CONSTRAINT fk_weapons_ascensions_cost_material_ascension_id FOREIGN KEY (weapon_ascension_id) REFERENCES weapons_ascensions(id),
+    CONSTRAINT fk_weapons_ascensions_cost_material FOREIGN KEY (material_id) REFERENCES materials(id)
+);
+CREATE OR REPLACE TRIGGER trg_weapons_ascensions_cost_protect_created
+    BEFORE UPDATE ON weapons_ascensions_cost
+    FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
+CREATE OR REPLACE TRIGGER trg_weapons_ascensions_cost_updated_at
+    BEFORE UPDATE ON weapons_ascensions_cost
+    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-----------------------------------------------------------
+-- ARTIFACTS
+-- name: Artifact
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS artifacts (
+    id                          SERIAL          PRIMARY KEY,
+    name                        VARCHAR(100)    NOT NULL UNIQUE,
+    icon                        VARCHAR(100)    NOT NULL,
+    how_to_obtain_quality_1     JSONB,
+    how_to_obtain_quality_2     JSONB,
+    how_to_obtain_quality_3     JSONB,
+    how_to_obtain_quality_4     JSONB,
+    how_to_obtain_quality_5     JSONB,
+    version                     VARCHAR(10),
+    effects                     JSONB,
+    two_piece                   TEXT,
+    four_piece                  TEXT,
+    has_rarity_1                BOOLEAN         NOT NULL DEFAULT FALSE,
+    has_rarity_2                BOOLEAN         NOT NULL DEFAULT FALSE,
+    has_rarity_3                BOOLEAN         NOT NULL DEFAULT FALSE,
+    has_rarity_4                BOOLEAN         NOT NULL DEFAULT FALSE,
+    has_rarity_5                BOOLEAN         NOT NULL DEFAULT TRUE,
+    deleted                     BOOLEAN         NOT NULL DEFAULT FALSE,
+    created_at                  TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    created_by                  INT             NOT NULL,
+    updated_at                  TIMESTAMP,
+    updated_by                  INT
 );
 CREATE OR REPLACE TRIGGER trg_artifacts_protect_created
     BEFORE UPDATE ON artifacts
@@ -593,24 +673,29 @@ CREATE OR REPLACE TRIGGER trg_artifacts_updated_at
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 -----------------------------------------------------------
--- AFFILIATIONS
--- name: Affiliation
+-- ARTIFACTS_PIECES
+-- name: ArtifactPiece
 -----------------------------------------------------------
-CREATE TABLE IF NOT EXISTS affiliations (
+CREATE TABLE IF NOT EXISTS artifacts_pieces (
     id          SERIAL          PRIMARY KEY,
-    name        VARCHAR(100)    NOT NULL UNIQUE,
+    artifact_id INT             NOT NULL,
+    icon        VARCHAR(100)    NOT NULL,
+    type        VARCHAR(50)     NOT NULL,
+    name        VARCHAR(100)    NOT NULL,
     deleted     BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at  TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by  INT             NOT NULL,
     updated_at  TIMESTAMP,
-    updated_by  INT
+    updated_by  INT,
 
+    CONSTRAINT fk_artifacts_pieces_type       FOREIGN KEY (type)        REFERENCES artifact_piece_types(name),
+    CONSTRAINT fk_artifacts_pieces_artifact   FOREIGN KEY (artifact_id) REFERENCES artifacts(id)
 );
-CREATE OR REPLACE TRIGGER trg_affiliations_protect_created
-    BEFORE UPDATE ON affiliations
+CREATE OR REPLACE TRIGGER trg_artifacts_pieces_protect_created
+    BEFORE UPDATE ON artifacts_pieces
     FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
-CREATE OR REPLACE TRIGGER trg_affiliations_updated_at
-    BEFORE UPDATE ON affiliations
+CREATE OR REPLACE TRIGGER trg_artifacts_pieces_updated_at
+    BEFORE UPDATE ON artifacts_pieces
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 -----------------------------------------------------------
@@ -655,7 +740,7 @@ CREATE TABLE IF NOT EXISTS quizzes_states (
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS banners (
     id              SERIAL          PRIMARY KEY,
-    version         VARCHAR(10)     NOT NULL UNIQUE,
+    version         VARCHAR(10)     NOT NULL,
     name            VARCHAR(100)    NOT NULL,
     duration_from   TIMESTAMP       NOT NULL,
     duration_to     TIMESTAMP,
@@ -751,31 +836,6 @@ CREATE OR REPLACE TRIGGER trg_characters_roles_updated_at
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 -----------------------------------------------------------
--- CHARACTERS_AFFILIATIONS
--- name: CharacterAffiliation
------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS characters_affiliations (
-    id              SERIAL          PRIMARY KEY,
-    character_id    INT             NOT NULL,
-    affiliation_id  INT             NOT NULL,
-    deleted         BOOLEAN         NOT NULL DEFAULT FALSE,
-    created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
-    created_by      INT             NOT NULL,
-    updated_at      TIMESTAMP,
-    updated_by      INT,
-
-    CONSTRAINT uq_characters_affiliations_character_affiliation UNIQUE (character_id, affiliation_id),
-    CONSTRAINT fk_characters_affiliations_character   FOREIGN KEY (character_id)   REFERENCES characters(id),
-    CONSTRAINT fk_characters_affiliations_affiliation FOREIGN KEY (affiliation_id) REFERENCES affiliations(id)
-);
-CREATE OR REPLACE TRIGGER trg_characters_affiliations_protect_created
-    BEFORE UPDATE ON characters_affiliations
-    FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
-CREATE OR REPLACE TRIGGER trg_characters_affiliations_updated_at
-    BEFORE UPDATE ON characters_affiliations
-    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-
------------------------------------------------------------
 -- CHARACTERS_VOICE_OVERS
 -- name: CharacterVoiceOver
 -----------------------------------------------------------
@@ -792,8 +852,10 @@ CREATE TABLE IF NOT EXISTS characters_voice_overs (
     type                VARCHAR(50)     NOT NULL,
     language            VARCHAR(50)     NOT NULL,
     title               VARCHAR(100)    NOT NULL,
+    title_reading       TEXT,
     text                TEXT            NOT NULL,
-    reading             TEXT,
+    is_alternative      BOOLEAN         NOT NULL DEFAULT FALSE, -- e.g. for traditional chinesse
+    text_reading        TEXT,
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by          INT             NOT NULL,
@@ -826,7 +888,8 @@ CREATE TABLE IF NOT EXISTS characters_relationships (
     character_id    INT             NOT NULL,
     type            VARCHAR(50)     NOT NULL,
     name            VARCHAR(100)    NOT NULL,
-    state           VARCHAR(50)     NOT NULL,
+    state           VARCHAR(50),
+    is_biological   BOOLEAN         NOT NULL DEFAULT FALSE,
     deleted         BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by      INT             NOT NULL,
@@ -940,14 +1003,14 @@ CREATE TABLE IF NOT EXISTS characters_ascensions (
     character_id_6      INT             NULL,       -- another element variant 6/7
     character_id_7      INT             NULL,       -- another element variant 7/7
     phase               SMALLINT        NOT NULL,
-    primary_stat        VARCHAR(50)    NOT NULL,
-    primary_stat_value  INT             NOT NULL,
-    start_level_hp      INT             NOT NULL,
-    start_level_atk     INT             NOT NULL,
-    start_level_def     INT             NOT NULL,
-    end_level_hp        INT             NOT NULL,
-    end_level_atk       INT             NOT NULL,
-    end_level_def       INT             NOT NULL,
+    primary_stat        VARCHAR(50)     NOT NULL,
+    primary_stat_value  REAL            NOT NULL,
+    start_level_hp      REAL            NOT NULL,
+    start_level_atk     REAL            NOT NULL,
+    start_level_def     REAL            NOT NULL,
+    end_level_hp        REAL            NOT NULL,
+    end_level_atk       REAL            NOT NULL,
+    end_level_def       REAL            NOT NULL,
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by          INT             NOT NULL,
@@ -961,7 +1024,7 @@ CREATE TABLE IF NOT EXISTS characters_ascensions (
     CONSTRAINT fk_characters_ascensions_character_4 FOREIGN KEY (character_id_4) REFERENCES characters(id),
     CONSTRAINT fk_characters_ascensions_character_5 FOREIGN KEY (character_id_5) REFERENCES characters(id),
     CONSTRAINT fk_characters_ascensions_character_6 FOREIGN KEY (character_id_6) REFERENCES characters(id),
-    CONSTRAINT fk_characters_ascensions_character_7 FOREIGN KEY (character_id_7) REFERENCES characters(id)
+    CONSTRAINT fk_characters_ascensions_character_7 FOREIGN KEY (character_id_7) REFERENCES characters(id),
     CONSTRAINT fk_characters_ascensions_primary_stat FOREIGN KEY (primary_stat) REFERENCES stats(name)
 );
 CREATE OR REPLACE TRIGGER trg_characters_ascensions_protect_created
@@ -1087,6 +1150,7 @@ CREATE TABLE IF NOT EXISTS characters_builds_talents (
     character_build_id  INT             NOT NULL,
     talent_id           INT             NOT NULL,
     "order"             SMALLINT        NOT NULL,
+    description         TEXT,
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by          INT             NOT NULL,
@@ -1105,13 +1169,40 @@ CREATE OR REPLACE TRIGGER trg_characters_builds_talents_updated_at
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 -----------------------------------------------------------
+-- CHARACTERS_BUILDS_RECOMMENDED_STATS
+-- name: CharacterBuildRecommendedStat
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS characters_builds_recommended_stats (
+    id                  SERIAL          PRIMARY KEY,
+    character_build_id  INT             NOT NULL,
+    stat_name           VARCHAR(50)     NOT NULL,
+    value_from          REAL            NOT NULL,
+    value_to            REAL,
+    deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
+    created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    created_by          INT             NOT NULL,
+    updated_at          TIMESTAMP,
+    updated_by          INT,
+
+    CONSTRAINT uq_characters_builds_recommended_stats_character_build_stat UNIQUE (character_build_id, stat_name),
+    CONSTRAINT fk_characters_builds_recommended_stats_character_build  FOREIGN KEY (character_build_id) REFERENCES characters_builds(id),
+    CONSTRAINT fk_characters_builds_recommended_stats_stat FOREIGN KEY (stat_name) REFERENCES stats(name)
+);
+CREATE OR REPLACE TRIGGER trg_characters_builds_recommended_stats_protect_created
+    BEFORE UPDATE ON characters_builds_recommended_stats
+    FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
+CREATE OR REPLACE TRIGGER trg_characters_builds_recommended_stats_updated_at
+    BEFORE UPDATE ON characters_builds_recommended_stats
+    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-----------------------------------------------------------
 -- CHARACTERS_BUILDS_MAIN_STATS
 -- name: CharacterBuildMainStat
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS characters_builds_main_stats (
     id                  SERIAL          PRIMARY KEY,
     character_build_id  INT             NOT NULL,
-    stat_name           VARCHAR(50)    NOT NULL,
+    stat_name           VARCHAR(50)     NOT NULL,
     artifact_type       VARCHAR(50)     NOT NULL,
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
@@ -1138,7 +1229,7 @@ CREATE OR REPLACE TRIGGER trg_characters_builds_main_stats_updated_at
 CREATE TABLE IF NOT EXISTS characters_builds_sub_stats (
     id                  SERIAL          PRIMARY KEY,
     character_build_id  INT             NOT NULL,
-    stat_name           VARCHAR(50)    NOT NULL,
+    stat_name           VARCHAR(50)     NOT NULL,
     recommended_value   VARCHAR(50),
     "order"             SMALLINT        NOT NULL,
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
@@ -1237,32 +1328,6 @@ CREATE OR REPLACE TRIGGER trg_foods_recipe_updated_at
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 -----------------------------------------------------------
--- ARTIFACTS_PIECES
--- name: ArtifactPiece
------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS artifacts_pieces (
-    id          SERIAL          PRIMARY KEY,
-    artifact_id INT             NOT NULL,
-    icon        VARCHAR(100)    NOT NULL,
-    type        VARCHAR(50)     NOT NULL,
-    name        VARCHAR(100)    NOT NULL,
-    deleted     BOOLEAN         NOT NULL DEFAULT FALSE,
-    created_at  TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
-    created_by  INT             NOT NULL,
-    updated_at  TIMESTAMP,
-    updated_by  INT,
-
-    CONSTRAINT fk_artifacts_pieces_type       FOREIGN KEY (type)        REFERENCES artifact_piece_types(name),
-    CONSTRAINT fk_artifacts_pieces_artifact   FOREIGN KEY (artifact_id) REFERENCES artifacts(id)
-);
-CREATE OR REPLACE TRIGGER trg_artifacts_pieces_protect_created
-    BEFORE UPDATE ON artifacts_pieces
-    FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
-CREATE OR REPLACE TRIGGER trg_artifacts_pieces_updated_at
-    BEFORE UPDATE ON artifacts_pieces
-    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-
------------------------------------------------------------
 -- USER_QUIZ_HISTORY
 -- name: QuizHistory
 -----------------------------------------------------------
@@ -1308,26 +1373,15 @@ CREATE OR REPLACE TRIGGER trg_quiz_stats_history_updated_at
 CREATE TABLE IF NOT EXISTS enemies (
     id                      SERIAL          PRIMARY KEY,
     name                    VARCHAR(100)    NOT NULL,
-    model_icon              VARCHAR(100)    NOT NULL,
     icon                    VARCHAR(100)    NOT NULL,
-    has_weakpoint           BOOLEAN         DEFAULT FALSE,
     description             TEXT,
-    version                 VARCHAR(10)     NOT NULL,
-    living_being_type       VARCHAR(50)     NOT NULL,
-    living_being_family     VARCHAR(50)     NOT NULL,
-    living_being_group      VARCHAR(50)     NOT NULL,
+    version                 VARCHAR(10),
     interactive_map_link    VARCHAR(200),
     deleted                 BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at              TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by              INT             NOT NULL,
     updated_at              TIMESTAMP,
-    updated_by              INT,
-
-    CONSTRAINT fk_enemies_damage_type_element FOREIGN KEY (damage_type_element) REFERENCES elements(name),
-    CONSTRAINT fk_enemies_other_elements FOREIGN KEY (other_elements) REFERENCES elements(name),
-    CONSTRAINT fk_enemies_living_being_type FOREIGN KEY (living_being_type) REFERENCES enemy_types(name),
-    CONSTRAINT fk_enemies_living_being_family FOREIGN KEY (living_being_family) REFERENCES enemy_families(name)
-    CONSTRAINT fk_enemies_group FOREIGN KEY (living_being_group) REFERENCES enemy_groups(name),
+    updated_by              INT
 );
 CREATE OR REPLACE TRIGGER trg_enemies_protect_created
     BEFORE UPDATE ON enemies
@@ -1337,12 +1391,45 @@ CREATE OR REPLACE TRIGGER trg_enemies_updated_at
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 -----------------------------------------------------------
+-- ENEMIES_PHASES
+-- name: EnemyPhase
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS enemies_phases (
+    id                      SERIAL          PRIMARY KEY,
+    enemy_id                INT             NOT NULL,
+    title                   VARCHAR(100)    NOT NULL,
+    secondary_title         VARCHAR(100),
+    icon                    VARCHAR(100)    NOT NULL,
+    art                     VARCHAR(100),
+    has_weakpoint           BOOLEAN         DEFAULT FALSE,
+    living_being_type       VARCHAR(50),
+    living_being_family     VARCHAR(50),
+    living_being_group      VARCHAR(50),
+    deleted                 BOOLEAN         NOT NULL DEFAULT FALSE,
+    created_at              TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    created_by              INT             NOT NULL,
+    updated_at              TIMESTAMP,
+    updated_by              INT,
+
+    CONSTRAINT fk_enemies_phases_enemy FOREIGN KEY (enemy_id) REFERENCES enemies(id),
+    CONSTRAINT fk_enemies_phases_living_being_type FOREIGN KEY (living_being_type) REFERENCES enemy_types(name),
+    CONSTRAINT fk_enemies_phases_living_being_family FOREIGN KEY (living_being_family) REFERENCES enemy_families(name),
+    CONSTRAINT fk_enemies_phases_group FOREIGN KEY (living_being_group) REFERENCES enemy_groups(name)
+);
+CREATE OR REPLACE TRIGGER trg_enemies_phases_protect_created
+    BEFORE UPDATE ON enemies_phases
+    FOR EACH ROW EXECUTE FUNCTION protect_created_fields();
+CREATE OR REPLACE TRIGGER trg_enemies_phases_updated_at
+    BEFORE UPDATE ON enemies_phases
+    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-----------------------------------------------------------
 -- ENEMIES_DAMAGE_TYPES_ELEMENTS
 -- name: EnemyDamageTypeElement
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS enemies_damage_types_elements (
     id                      SERIAL          PRIMARY KEY,
-    enemy_id                VARCHAR(100)    NOT NULL,
+    enemy_phase_id          INT             NOT NULL,
     damage_type_element     VARCHAR(50)     NOT NULL,
     "order"                 SMALLINT        NOT NULL,
     deleted                 BOOLEAN         NOT NULL DEFAULT FALSE,
@@ -1351,7 +1438,8 @@ CREATE TABLE IF NOT EXISTS enemies_damage_types_elements (
     updated_at              TIMESTAMP,
     updated_by              INT,
 
-    CONSTRAINT uq_enemies_damage_types_elements_enemy_damage_type_element UNIQUE (enemy_id, damage_type_element),
+    CONSTRAINT uq_enemies_damage_types_elements_enemy_phase_damage_type_element UNIQUE (enemy_phase_id, damage_type_element),
+    CONSTRAINT fk_enemies_damage_types_elements_enemy_phase FOREIGN KEY (enemy_phase_id) REFERENCES enemies_phases(id),
     CONSTRAINT fk_enemies_damage_types_elements_damage_type_element FOREIGN KEY (damage_type_element) REFERENCES elements(name)
 );
 CREATE OR REPLACE TRIGGER trg_enemies_damage_types_elements_protect_created
@@ -1372,11 +1460,12 @@ CREATE TABLE IF NOT EXISTS enemies_drops (
     artifact_id     INT,
     level_from      INT,
     level_to        INT,
-    domain_level    SMALLINT,
+    domain_level    VARCHAR(10),
+    world_level     SMALLINT,
     quantity_from   INT,
     quantity_to     INT,
-    drop_rate       INT,
-    average         INT,
+    drop_rate       REAL,
+    average         REAL,
     rarity          SMALLINT,
     deleted         BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
@@ -1386,6 +1475,7 @@ CREATE TABLE IF NOT EXISTS enemies_drops (
 
     CONSTRAINT fk_enemies_drops_enemy FOREIGN KEY (enemy_id) REFERENCES enemies(id),
     CONSTRAINT fk_enemies_drops_material FOREIGN KEY (material_id) REFERENCES materials(id),
+    CONSTRAINT fk_enemies_drops_domain_level FOREIGN KEY (domain_level) REFERENCES domain_levels(name),
     CONSTRAINT fk_enemies_drops_rarity FOREIGN KEY (rarity) REFERENCES rarities(rarity)
 );
 CREATE OR REPLACE TRIGGER trg_enemies_drops_protect_created
@@ -1394,3 +1484,19 @@ CREATE OR REPLACE TRIGGER trg_enemies_drops_protect_created
 CREATE OR REPLACE TRIGGER trg_enemies_drops_updated_at
     BEFORE UPDATE ON enemies_drops
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-----------------------------------------------------------
+-- AUDIT_LOGS
+-- name: AuditLog
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id          BIGSERIAL       PRIMARY KEY,
+    table_name  VARCHAR(100)    NOT NULL,
+    record_id   VARCHAR(100)    NOT NULL,
+    action      VARCHAR(10)     NOT NULL CHECK (action IN ('INSERT', 'UPDATE', 'DELETE')),
+    changed_by  INTEGER,
+    changed_at  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    changes     JSONB
+);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_table_record ON audit_logs (table_name, record_id);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_changed_at   ON audit_logs (changed_at);

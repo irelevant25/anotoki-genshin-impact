@@ -8,7 +8,6 @@ class Character extends DbModel
         public readonly string $weapon_type,
         public readonly int $rarity,
         public readonly string $model,
-        public readonly string $how_to_obtain,
         public readonly string $namecard_description,
         public readonly string $namecard_icon,
         public readonly string $namecard_background,
@@ -16,16 +15,18 @@ class Character extends DbModel
         public readonly string $card_icon,
         public readonly string $wish_icon,
         public readonly bool $is_traveler = false,
-        public readonly ?string $ingame_icon_name,
         public readonly string $ingame_icon,
-        public readonly ?string $ingame_icon_2_name,
-        public readonly ?string $ingame_icon_2,
         public readonly string $icon,
         public readonly string $version,
         public readonly string $voice_actor_english,
         public readonly string $voice_actor_japanese,
         public readonly string $voice_actor_korean,
         public readonly string $voice_actor_chinese,
+        public readonly ?array $how_to_obtain,
+        public readonly ?array $affiliations,
+        public readonly ?string $ingame_icon_name,
+        public readonly ?string $ingame_icon_2_name,
+        public readonly ?string $ingame_icon_2,
         public readonly ?string $title = null,
         public readonly ?string $secondary_title = null,
         public readonly ?string $region = null,
@@ -40,6 +41,6 @@ class Character extends DbModel
 
     protected static function jsonFields(): array
     {
-        return ['namecard_sources'];
+        return ['affiliations', 'how_to_obtain', 'namecard_sources'];
     }
 }

@@ -258,8 +258,16 @@ foreach ($databases as $alias => $dbName) {
         $rawSql = file_get_contents($schemaFile);
         $statements = splitSqlStatements($rawSql);
 
-        foreach ($statements as $statement) {
-            $pdo->exec($statement);
+        foreach ($statements as $index => $statement) {
+            try {
+                $pdo->exec($statement);
+            } catch (PDOException $e) {
+                // $preview = mb_substr(trim($statement), 0, 200);
+                echo "Failed on statement #" . ($index + 1) . ":\n";
+                echo "  Error  : " . $e->getMessage() . "\n";
+                echo "  Preview: " . $statement . "\n";
+                exit(1);
+            }
         }
 
         // Check if the initial migration was already logged

@@ -204,7 +204,8 @@ class DbQuery
     public function find(array $where): ?array
     {
         $conditions = array_map(fn($col) => "_t.{$col} = ?", array_keys($where));
-        return $this->fetch(implode(' AND ', $conditions), array_values($where));
+        $params = array_map(fn($v) => is_bool($v) ? (int) $v : $v, array_values($where));
+        return $this->fetch(implode(' AND ', $conditions), $params);
     }
 
     public static function insert(PDO $pdo, string $table, array $data): string
@@ -217,20 +218,85 @@ class DbQuery
         if ($driver === 'pgsql') {
             $stmt = $pdo->prepare("INSERT INTO $table ($columns) VALUES ($placeholders) RETURNING id");
             $stmt->execute(array_values($data));
-            return (string) $stmt->fetchColumn();
+            $newId = (string) $stmt->fetchColumn();
+        } else {
+            $stmt = $pdo->prepare("INSERT INTO $table ($columns) VALUES ($placeholders)");
+            $stmt->execute(array_values($data));
+            $newId = $pdo->lastInsertId();
         }
 
-        $stmt = $pdo->prepare("INSERT INTO $table ($columns) VALUES ($placeholders)");
-        $stmt->execute(array_values($data));
-        return $pdo->lastInsertId();
+        $userId = isset($data['created_by']) ? (int)$data['created_by'] : null;
+        if ($userId) {
+            $skip    = ['created_by', 'created_at', 'updated_by', 'updated_at'];
+            $logData = array_diff_key($data, array_flip($skip));
+            self::writeAuditLog($pdo, $table, $newId, 'INSERT', $userId, $logData);
+        }
+
+        return $newId;
     }
 
     public static function update(PDO $pdo, string $table, array $data, int|string $id): void
     {
+        $userId = isset($data['updated_by']) ? (int)$data['updated_by'] : null;
+        if ($userId) {
+            $stmt = $pdo->prepare("SELECT * FROM $table WHERE id = ?");
+            $stmt->execute([$id]);
+            $old  = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
+            $diff = self::computeDiff($old, $data);
+            if (!empty($diff)) {
+                $action = (($diff['deleted']['new'] ?? null) === true) ? 'DELETE' : 'UPDATE';
+                self::writeAuditLog($pdo, $table, (string)$id, $action, $userId, $diff);
+            }
+        }
+
         $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
         $quote  = $driver === 'pgsql' ? '"' : '`';
         $sets   = implode(', ', array_map(fn($col) => "{$quote}{$col}{$quote} = ?", array_keys($data)));
         $pdo->prepare("UPDATE $table SET $sets WHERE id = ?")
             ->execute([...array_values($data), $id]);
+    }
+
+    // -------------------------------------------------------------------------
+    // Audit helpers
+    // -------------------------------------------------------------------------
+
+    /** Normalize a PostgreSQL-fetched value to a comparable PHP type. */
+    private static function normalizePgValue(mixed $v): mixed
+    {
+        if ($v === 't') return true;
+        if ($v === 'f') return false;
+        if (is_string($v) && is_numeric($v)) return $v + 0;
+        return $v;
+    }
+
+    /**
+     * Return only the fields that actually changed.
+     * Format: { "field": { "old": <oldVal>, "new": <newVal> } }
+     */
+    private static function computeDiff(array $old, array $new): array
+    {
+        $skip = ['updated_by', 'updated_at', 'created_by', 'created_at'];
+        $diff = [];
+        foreach ($new as $key => $value) {
+            if (in_array($key, $skip, true)) continue;
+            $oldNorm = self::normalizePgValue($old[$key] ?? null);
+            $newNorm = self::normalizePgValue($value);
+            if ($oldNorm !== $newNorm) {
+                $diff[$key] = ['old' => $oldNorm, 'new' => $newNorm];
+            }
+        }
+        return $diff;
+    }
+
+    /** Write a row to audit_logs. Silently skips if the table doesn't exist yet. */
+    private static function writeAuditLog(PDO $pdo, string $table, string $recordId, string $action, int $userId, array $changes): void
+    {
+        try {
+            $pdo->prepare(
+                'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changes) VALUES (?, ?, ?, ?, ?)'
+            )->execute([$table, $recordId, $action, $userId, json_encode($changes)]);
+        } catch (\PDOException) {
+            // silently skip if audit_logs table not yet created
+        }
     }
 }
