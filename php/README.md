@@ -34,7 +34,7 @@ cp config/database.php config/database.local.php
 php init.php
 ```
 
-### Start local PHP server
+### Start local PHP server (is single threaded)
 
 ```bash
 php -S localhost:8000

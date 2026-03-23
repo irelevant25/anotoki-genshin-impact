@@ -3,24 +3,31 @@
 class Food extends DbModel
 {
     public function __construct(
-        public readonly string  $name,
-        public readonly string  $icon,
-        public readonly int     $rarity,
-        public readonly int     $proficiency,
-        public readonly ?string $description    = null,
-        public readonly ?string $effect         = null,
-        public readonly ?string $type           = null,
-        public readonly ?int    $base_dish_id   = null,
-        public readonly ?string $variant        = null,
-        public readonly ?string $event          = null,
-        public readonly ?string $region         = null,
-        public readonly ?array  $how_to_obtain  = null,
-        public readonly ?array  $effects        = null,
-        public readonly ?string $version        = null,
-    ) {}
+        public readonly string $name,
+        public readonly ?string $icon_normal = null,
+        public readonly ?string $icon_delicious = null,
+        public readonly ?string $icon_suspicious = null,
+        public readonly ?int $rarity = null,
+        public readonly ?int $proficiency = null,
+        public readonly ?string $description_normal = null,
+        public readonly ?string $description_delicious = null,
+        public readonly ?string $description_suspicious = null,
+        public readonly ?string $effect = null,
+        public readonly ?string $effect_normal = null,
+        public readonly ?string $effect_delicious = null,
+        public readonly ?string $effect_suspicious = null,
+        public readonly ?string $type = null,
+        public readonly ?int $base_dish_id = null,
+        public readonly ?array $events = null,
+        public readonly ?string $region = null,
+        public readonly ?array $how_to_obtain = null,
+        public readonly ?array $effects = null,
+        public readonly ?string $version = null,
+    ) {
+    }
 
     protected static function jsonFields(): array
     {
-        return ['how_to_obtain', 'effects'];
+        return ['events', 'how_to_obtain', 'effects'];
     }
 }

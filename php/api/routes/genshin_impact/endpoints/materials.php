@@ -13,6 +13,15 @@ $app->get('/api/materials', function (Request $request, Response $response) {
     return respondJson($response, $items);
 });
 
+// GET by name (must be before /{id} to avoid route collision)
+$app->get('/api/materials/by-name/{name}', function (Request $request, Response $response, array $args) {
+    $item = DbQuery::from(genshinDb(), 'materials')
+        ->find(['name' => urldecode($args['name'])]);
+    return $item
+        ? respondJson($response, $item)
+        : respondJson($response, ['error' => 'Not found'], 404);
+});
+
 // GET single
 $app->get('/api/materials/{id}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'materials')
