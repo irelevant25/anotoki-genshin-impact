@@ -1,18 +1,18 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { KeyValuePipe, NgTemplateOutlet } from '@angular/common';
 import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
-import { AbstractModalComponent } from '../../shared/local-lib/abstract-modal.class';
-import { CustomModalRef, ModalConfig } from '../../shared/local-lib/components/modal/modal-core/modal-core.class';
+import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
+import { CustomModalRef, ModalConfig } from '../../../../shared/local-lib/components/modal/modal-core/modal-core.class';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SiteFeedbackContactModalComponent } from './site-feedback-contact-modal/site-feedback-contact-modal.component';
-import { ThemeToggleComponent } from '../../shared/local-lib/theme-toggle/theme-toggle.component';
+import { ThemeToggleComponent } from '../../../../shared/local-lib/theme-toggle/theme-toggle.component';
 import { SiteBackgroundsModalComponent } from './site-backgrounds/site-backgrounds-modal.component';
-import { LocalStorageService } from '../../shared/local-lib/services/local-storage.service';
-import { StorageKeys } from '../../shared/state-manager.service';
+import { LocalStorageService } from '../../../../shared/local-lib/services/local-storage.service';
+import { StorageKeys } from '../../../../shared/state-manager.service';
 import { SiteLoginModalComponent } from './site-login-modal/site-login-modal.component';
-import { SecurityService } from '../../shared/local-lib/services/security.service';
-import { NotificationService } from '../../shared/local-lib/components/notification/notification.service';
+import { SecurityService } from '../../../../shared/local-lib/services/security.service';
+import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 
 export interface ButtomMenuItem {
   id: string;

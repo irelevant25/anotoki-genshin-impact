@@ -1,11 +1,11 @@
 import { Component, computed, ElementRef, model, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { StateService } from '../../../../shared/state-manager.service';
-import { HELPER, IImageEffect } from '../../../../shared/helper';
-import { AutocompleteComponent } from "../../../../shared/local-lib/components/autocomplete/autocomplete.component";
-import { DropdownOption, OptionsHelperService } from '../../../../shared/local-lib/services/options-helper.service';
+import { StateService } from '../../../../../shared/state-manager.service';
+import { HELPER, IImageEffect } from '../../../../../shared/helper';
+import { AutocompleteComponent } from '../../../../../shared/local-lib/components/autocomplete/autocomplete.component';
+import { DropdownOption, OptionsHelperService } from '../../../../../shared/local-lib/services/options-helper.service';
 import { HttpClient } from '@angular/common/http';
-import { ButtonComponent } from "../../../../shared/local-lib/components/button/button.component";
+import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 
 export interface IBannersState {
   triesMax: number;
