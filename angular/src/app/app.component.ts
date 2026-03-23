@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NotificationComponent } from '../../shared/local-lib/components/notification/notification.component';
 
 @Component({
-  selector: 'app-admin-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, NotificationComponent],
+  imports: [RouterOutlet],
   providers: [],
 })
 export class AppComponent { }
