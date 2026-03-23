@@ -11,4 +11,8 @@ import { FooterComponent } from './common/footer/footer.component';
   imports: [RouterOutlet, HeaderComponent, NotificationComponent, FooterComponent],
   providers: [],
 })
-export class AppComponent { }
+export class AppComponent {
+  constructor() {
+    document.body.style.backgroundImage = `url('assets/wallpaper/Fontaine.avif')`;
+  }
+}
