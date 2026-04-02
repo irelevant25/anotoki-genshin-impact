@@ -1,0 +1,80 @@
+@for (type of voiceOverTypes(); track type) {
+    <div class="vo-type-section">
+        <button class="vo-type-toggle" type="button" (click)="toggleVoType(type)">
+            <span>{{ type }}</span>
+            <i class="fa-solid fa-chevron-right vo-chevron" [class.open]="isVoTypeOpen(type)"></i>
+        </button>
+        @if (isVoTypeOpen(type)) {
+            @for (lang of languages(); track lang) {
+                <div class="vo-lang-section">
+                    <div class="vo-lang-header">
+                        <button class="vo-lang-toggle" type="button" (click)="toggleVoLang(type, lang)">
+                            <span class="vo-lang-label">{{ lang }}</span>
+                            <span class="vo-lang-count">{{ vosByTypeLang(type, lang).length }}</span>
+                            <i class="fa-solid fa-chevron-right vo-chevron" [class.open]="isVoLangOpen(type, lang)"></i>
+                        </button>
+                        <app-button text="+ Add" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addVoiceOver(type, lang)"></app-button>
+                    </div>
+                    @if (isVoLangOpen(type, lang)) {
+                        <div class="sub-list">
+                            @for (entry of vosByTypeLang(type, lang); track entry.index) {
+                                <div class="sub-card">
+                                    <div class="sub-card-header">
+                                        <span class="sub-card-index">{{ entry.vo.title || 'Untitled' }}</span>
+                                        <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeVoiceOver(entry.index)"></app-button>
+                                    </div>
+                                    <div class="form-grid">
+                                        <div class="form-field">
+                                            <label>Order *</label>
+                                            <input class="admin-input" type="number" min="1" [value]="entry.vo.order" (input)="setVoiceOver(entry.index, 'order', +$any($event.target).value)" />
+                                        </div>
+                                        <div class="form-field">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" [checked]="entry.vo.is_alternative" (change)="setVoiceOver(entry.index, 'is_alternative', $any($event.target).checked)" />
+                                                Is Alternative
+                                            </label>
+                                        </div>
+                                        <div class="form-field col-span-2">
+                                            <label>Title *</label>
+                                            <input class="admin-input" type="text" [value]="entry.vo.title" (input)="setVoiceOver(entry.index, 'title', $any($event.target).value)" />
+                                        </div>
+                                        <div class="form-field col-span-2">
+                                            <label>Title Reading</label>
+                                            <input
+                                                class="admin-input"
+                                                type="text"
+                                                [value]="entry.vo.title_reading ?? ''"
+                                                (input)="setVoiceOver(entry.index, 'title_reading', $any($event.target).value || null)"
+                                            />
+                                        </div>
+                                        <div class="form-field col-span-2">
+                                            <label>Text *</label>
+                                            <textarea class="admin-textarea" rows="3" [value]="entry.vo.text" (input)="setVoiceOver(entry.index, 'text', $any($event.target).value)"></textarea>
+                                        </div>
+                                        <div class="form-field col-span-2">
+                                            <label>Text Reading</label>
+                                            <textarea
+                                                class="admin-textarea"
+                                                rows="2"
+                                                [value]="entry.vo.text_reading ?? ''"
+                                                (input)="setVoiceOver(entry.index, 'text_reading', $any($event.target).value || null)"
+                                            ></textarea>
+                                        </div>
+                                        <div class="form-field col-span-2">
+                                            <label>Audio File</label>
+                                            <label class="file-btn-full">
+                                                <i class="fa-solid fa-music"></i>
+                                                <span>{{ pendingVoAudio()[entry.index]?.name ?? entry.vo.audio ?? 'Choose audio file' }}</span>
+                                                <input type="file" accept="audio/*" (change)="onVoiceOverAudioSelect(entry.index, $event)" hidden />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+}

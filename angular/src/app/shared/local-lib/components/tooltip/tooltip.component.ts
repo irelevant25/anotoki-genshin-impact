@@ -14,13 +14,36 @@ export class TooltipComponent extends AbstractRolesComponent {
   tooltipText = model<string>('');
   tooltipPosition = model<TooltipPosition>('top');
   targetHTMLElement = model<HTMLElement | null>(null);
+  standalone = model<boolean>(false);
+  isHovered = model<boolean>(false);
+  hoverDelay = model<number>(500);
+  timeout: any;
 
   constructor(private readonly _element: ElementRef) {
     super();
   }
 
   ngAfterViewInit(): void {
-    this.positionTooltip();
+    if (this.standalone()) {
+      this.targetHTMLElement()?.addEventListener('mouseenter', () => {
+        this.timeout = setTimeout(() => {
+          this.isHovered.set(true);
+          this.positionTooltip();
+        }, this.hoverDelay());
+      });
+      this.targetHTMLElement()?.addEventListener('mouseleave', () => {
+        clearTimeout(this.timeout);
+        this.isHovered.set(false);
+      });
+      // this.targetHTMLElement()?.addEventListener('mousemove', () => {
+      //   if (this.isHovered()) {
+      //     this.positionTooltip();
+      //   }
+      // });
+    }
+    else {
+      this.positionTooltip();
+    }
   }
 
   private positionTooltip(): void {
@@ -36,7 +59,7 @@ export class TooltipComponent extends AbstractRolesComponent {
       return;
     }
 
-    const buttonRect = targetElement.getBoundingClientRect();
+    const targetRect = targetElement.getBoundingClientRect();
     const tooltipRect = tooltipElement.getBoundingClientRect();
 
     let top: number;
@@ -44,20 +67,20 @@ export class TooltipComponent extends AbstractRolesComponent {
 
     switch (this.tooltipPosition()) {
       case 'top':
-        top = buttonRect.top - tooltipRect.height - 8;
-        left = buttonRect.left + (buttonRect.width - tooltipRect.width) / 2;
+        top = targetRect.top - tooltipRect.height - 8;
+        left = targetRect.left + (targetRect.width - tooltipRect.width) / 2;
         break;
       case 'bottom':
-        top = buttonRect.bottom + 8;
-        left = buttonRect.left + (buttonRect.width - tooltipRect.width) / 2;
+        top = targetRect.bottom + 8;
+        left = targetRect.left + (targetRect.width - tooltipRect.width) / 2;
         break;
       case 'left':
-        top = buttonRect.top + (buttonRect.height - tooltipRect.height) / 2;
-        left = buttonRect.left - tooltipRect.width - 8;
+        top = targetRect.top + (targetRect.height - tooltipRect.height) / 2;
+        left = targetRect.left - tooltipRect.width - 8;
         break;
       case 'right':
-        top = buttonRect.top + (buttonRect.height - tooltipRect.height) / 2;
-        left = buttonRect.right + 8;
+        top = targetRect.top + (targetRect.height - tooltipRect.height) / 2;
+        left = targetRect.right + 8;
         break;
     }
 
@@ -72,6 +95,6 @@ export class TooltipComponent extends AbstractRolesComponent {
 
     // Make tooltip visible with opacity animation
     tooltipElement.style.opacity = '1';
-    tooltipElement.style.visibility = 'visible';
+    // tooltipElement.style.visibility = 'visible';
   }
 }

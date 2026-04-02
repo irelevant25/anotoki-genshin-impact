@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IBannersState } from '../sites/main/top/quizzes/banners/banners.component';
+import { IBannersState } from '../sites/main/features/quizzes/banners/banners.component';
 import { LocalStorageService } from './local-lib/services/local-storage.service';
 import { HELPER } from './helper';
 

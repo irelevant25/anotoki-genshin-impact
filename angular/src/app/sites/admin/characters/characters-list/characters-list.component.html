@@ -1,0 +1,80 @@
+<div class="page-header">
+    <h1 class="page-title">Characters</h1>
+    <a routerLink="create" class="btn-add">
+        <i class="fa-solid fa-plus"></i>
+        Add Character
+    </a>
+</div>
+
+<app-loader [loading]="loading()"></app-loader>
+
+@if (!loading()) {
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Element</th>
+                    <th>Weapon</th>
+                    <th>Rarity</th>
+                    <th>Region</th>
+                    <th>Version</th>
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!charactersOrderByVersion().length) {
+                    <tr>
+                        <td colspan="9" class="empty-cell">No characters found</td>
+                    </tr>
+                }
+                @for (char of charactersOrderByVersion(); track char.id) {
+                    <tr>
+                        <td class="col-id">{{ char.id }}</td>
+                        <td class="col-icon">
+                            @if (char.icon) {
+                                <img [src]="char.icon" [alt]="char.name" class="char-icon" />
+                            } @else {
+                                <div class="char-icon-placeholder"><i class="fa-solid fa-user"></i></div>
+                            }
+                        </td>
+                        <td class="col-name">
+                            <span class="char-name">{{ char.name }}</span>
+                            @if (char.title) {
+                                <span class="char-title">{{ char.title }}</span>
+                            }
+                        </td>
+                        <td>
+                            <span class="badge element-{{ char.element?.toLowerCase() }}">{{ char.element }}</span>
+                        </td>
+                        <td>{{ char.weapon_type }}</td>
+                        <td class="col-rarity">
+                            <span class="rarity rarity-{{ char.rarity }}">{{ getRarityStars(char.rarity) }}</span>
+                        </td>
+                        <td>{{ char.region ?? '—' }}</td>
+                        <td>{{ char.version }}</td>
+                        <td class="col-actions">
+                            @if (deleteConfirm() === char.id) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Delete?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(char.id)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </span>
+                            } @else {
+                                <div class="action-btns">
+                                    <a [routerLink]="[char.id, 'edit']">
+                                        <app-button icon="icon-pen icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Edit"></app-button>
+                                    </a>
+                                    <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Delete" (buttonClick)="confirmDelete(char.id)">
+                                    </app-button>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

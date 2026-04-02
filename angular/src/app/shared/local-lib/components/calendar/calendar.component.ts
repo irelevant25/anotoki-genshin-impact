@@ -1,4 +1,4 @@
-import { Component, model, ViewContainerRef, Injector, ComponentRef } from '@angular/core';
+import { Component, model, ViewContainerRef, Injector, ComponentRef, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarGranularity, CalendarPickerComponent, TimeValue } from './picker/picker.component';
 import { AbstractInputComponent } from '../../abstract-input.class';
@@ -35,6 +35,8 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
   valueDateFormat: string = 'yyyy-MM-dd';
   displayValueDateFormat: string = 'dd.MM.yyyy';
   displayValue: string | null = null;
+
+  defaultPlaceHolder = computed(() => this.granularity() === 'date' ? 'dd.MM.yyyy' : this.showSeconds() ? 'dd.MM.yyyy HH:mm:ss' : 'dd.MM.yyyy HH:mm');
 
   private _calendarRef: ComponentRef<CalendarPickerComponent> | null = null;
 

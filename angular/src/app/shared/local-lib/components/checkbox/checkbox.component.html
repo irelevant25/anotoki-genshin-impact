@@ -1,7 +1,7 @@
 @if (!hidden()) {
     <div class="form-field" [class]="class()">
         <div #labelElement class="d-flex" [class.flex-row]="inline()" [class.flex-col]="!inline()">
-            @if (label() && labelPosition() === "left") {
+            @if (label() && labelPosition() === 'left') {
                 <label [for]="inputId" class="form-label w-auto align-content-center" [class.required]="required()">
                     @if (tooltipText()) {
                         <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
@@ -13,24 +13,28 @@
                 </label>
             }
 
-            <input
-                #inputElement
-                [id]="inputId"
-                [value]="value()"
-                [disabled]="disabled()"
-                [checked]="value()"
-                type="checkbox"
-                [placeholder]="placeholder()"
-                class="form-control checkbox h-auto"
-                [class.ms-3]="inline() && labelPosition() === 'left'"
-                [class.me-3]="inline() && labelPosition() === 'right'"
-                [class.error]="hasError()"
-                [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
-                (click)="onClick($event)"
-                (blur)="onBlur()"
-                (focus)="onFocus()" />
+            <div class="checkbox-container">
+                <input
+                    #inputElement
+                    [id]="inputId"
+                    [value]="value()"
+                    [disabled]="disabled()"
+                    [checked]="value()"
+                    type="checkbox"
+                    [placeholder]="placeholder() ?? ''"
+                    class="form-control checkbox h-auto"
+                    [class.ms-3]="inline() && labelPosition() === 'left'"
+                    [class.me-3]="inline() && labelPosition() === 'right'"
+                    [class.error]="hasError()"
+                    [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
+                    (click)="onClick($event)"
+                    (blur)="onBlur()"
+                    (focus)="onFocus()"
+                />
+                <span class="checkmark form-control"></span>
+            </div>
 
-            @if (label() && labelPosition() === "right") {
+            @if (label() && labelPosition() === 'right') {
                 <label [for]="inputId" class="form-label w-auto align-content-center" [class.required]="required()">
                     {{ label() }}
                     @if (required()) {

@@ -37,7 +37,7 @@
                 [value]="computedValue()"
                 [textareaValue]="computedValue()"
                 [disabled]="disabled()"
-                [placeholder]="placeholder()"
+                [placeholder]="placeholder() ?? ''"
                 class="form-control"
                 [class.resize]="resize()"
                 [style.height]="height()"
@@ -45,7 +45,8 @@
                 [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
                 (input)="onInput($event)"
                 (blur)="onBlur()"
-                (focus)="onFocus()"></textarea>
+                (focus)="onFocus()"
+            ></textarea>
         }
 
         @if (displayError() && hasError()) {

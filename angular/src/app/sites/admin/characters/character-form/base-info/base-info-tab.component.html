@@ -1,0 +1,143 @@
+<div class="form-section">
+    <h3 class="section-title">Identity</h3>
+    <div class="form-grid">
+        <app-text [label]="'Name'" [placeholder]="'e.g. Hu Tao'" [(value)]="character().name" [required]="true"></app-text>
+        <app-text [label]="'Title'" [placeholder]="'e.g. Fragrance in Thaw'" [(value)]="character().title"></app-text>
+        <app-text [label]="'Secondary Title'" [(value)]="character().secondary_title"></app-text>
+        <app-dropdown [label]="'Element'" [options]="elements()" [(value)]="character().element" [required]="true"></app-dropdown>
+        <app-dropdown [label]="'Weapon Type'" [options]="weaponTypes()" [(value)]="character().weapon_type" [required]="true"></app-dropdown>
+        <app-dropdown [label]="'Rarity'" [options]="rarities()" [(value)]="character().rarity" [suffix]="' ★'" [required]="true"> </app-dropdown>
+        <app-dropdown [label]="'Model'" [options]="models()" [(value)]="character().model" [required]="true"></app-dropdown>
+        <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="character().region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+        <app-calendar [label]="'Birthday'" [(value)]="character().birthday"></app-calendar>
+        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="character().version" [required]="true"></app-text>
+        <app-calendar [label]="'Release Date'" [(value)]="character().release_date"></app-calendar>
+        <app-text [label]="'Introduced'" [placeholder]="'e.g. 1.1'" [(value)]="character().introduced"></app-text>
+        <app-text [label]="'Demo Music'" [(value)]="character().demo_music"></app-text>
+        <app-checkbox [label]="'Is Traveler'" [inline]="false" [(value)]="character().is_traveler"></app-checkbox>
+    </div>
+</div>
+
+<div class="form-section">
+    <h3 class="section-title">Voice Actors</h3>
+    <div class="form-grid">
+        <app-text [label]="'English'" [(value)]="character().voice_actor_english" [required]="true"></app-text>
+        <app-text [label]="'Japanese'" [(value)]="character().voice_actor_japanese" [required]="true"></app-text>
+        <app-text [label]="'Korean'" [(value)]="character().voice_actor_korean" [required]="true"></app-text>
+        <app-text [label]="'Chinese'" [(value)]="character().voice_actor_chinese" [required]="true"></app-text>
+    </div>
+</div>
+
+<app-text-field-container [class]="'gap-2 mb-3'" [cols]="1">
+    <h3 class="section-title mb-0">Namecard</h3>
+    <app-text-field-container [cols]="1">
+        <app-textarea [label]="'Namecard Description'" [(value)]="character().namecard_description" [rows]="2" [required]="true"></app-textarea>
+    </app-text-field-container>
+    <app-text-field-container [class]="'gap-5'" [cols]="4">
+        <div>
+            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Namecard Icon'" [buttonOutline]="true" [required]="true"></app-file>
+            @if (charIconPreview('namecard_icon'); as src) {
+                <img #img [src]="src" class="preview-img" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" />
+                </app-tooltip>
+            }
+        </div>
+        <div>
+            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Namecard Background'" [buttonOutline]="true" [required]="true"></app-file>
+            @if (charIconPreview('namecard_background'); as src) {
+                <img #img [src]="src" class="preview-img" alt="" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" />
+                </app-tooltip>
+            }
+        </div>
+        <div>
+            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Namecard Banner'" [buttonOutline]="true" [required]="true"></app-file>
+            @if (charIconPreview('namecard_banner'); as src) {
+                <img #img [src]="src" class="preview-img" alt="" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" />
+                </app-tooltip>
+            }
+        </div>
+    </app-text-field-container>
+</app-text-field-container>
+
+<app-text-field-container [class]="'gap-2 mb-3'" [cols]="1">
+    <h3 class="section-title mb-0">Icons</h3>
+    <app-text-field-container [class]="'gap-5'" [cols]="4">
+        <div>
+            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Icon'" [buttonOutline]="true" [required]="true"></app-file>
+            @if (charIconPreview('icon'); as src) {
+                <img #img [src]="src" class="preview-img" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" />
+                </app-tooltip>
+            }
+        </div>
+        <div>
+            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Card Icon'" [buttonOutline]="true" [required]="true"></app-file>
+            @if (charIconPreview('card_icon'); as src) {
+                <img #img [src]="src" class="preview-img" alt="" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" />
+                </app-tooltip>
+            }
+        </div>
+        <div>
+            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Wish Icon'" [buttonOutline]="true" [required]="true"></app-file>
+            @if (charIconPreview('wish_icon'); as src) {
+                <img #img [src]="src" class="preview-img" alt="" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" />
+                </app-tooltip>
+            }
+        </div>
+        <div>
+            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'In-game Icon'" [buttonOutline]="true" [required]="true"></app-file>
+            @if (charIconPreview('ingame_icon'); as src) {
+                <img #img [src]="src" class="preview-img" alt="" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" />
+                </app-tooltip>
+            }
+            <app-text [label]="'In-game Icon Name'" [(value)]="character().ingame_icon_name" [required]="true"></app-text>
+        </div>
+        <div>
+            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'In-game Icon 2'" [buttonOutline]="true" [required]="true"></app-file>
+            @if (charIconPreview('ingame_icon_2'); as src) {
+                <img #img [src]="src" class="preview-img" alt="" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" />
+                </app-tooltip>
+            }
+            <app-text [label]="'In-game Icon 2 Name'" [(value)]="character().ingame_icon_2_name"></app-text>
+        </div>
+    </app-text-field-container>
+</app-text-field-container>
+
+<div class="form-section">
+    <h3 class="section-title">Roles</h3>
+    <app-chips [options]="roles()" [value]="selectedRoles()" [required]="true"></app-chips>
+</div>
+
+<div class="form-section">
+    <h3 class="section-title">Relationships</h3>
+    <div class="sub-list">
+        @for (rel of relationships(); track $index; let i = $index) {
+            <div class="sub-card">
+                <div class="sub-card-header">
+                    <span class="sub-card-index">Relationship {{ i + 1 }}</span>
+                    <app-button variant="danger" [outline]="true" (buttonClick)="removeRelationship(i)">Delete</app-button>
+                </div>
+                <div class="form-grid">
+                    <app-text [label]="'Name'" [(value)]="rel.name" [required]="true"></app-text>
+                    <app-dropdown [label]="'Type'" [options]="relationshipTypes()" [(value)]="rel.type" [required]="true"></app-dropdown>
+                    <app-dropdown [label]="'State'" [options]="characterStates()" [(value)]="rel.state" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+                </div>
+            </div>
+        }
+        <app-button text="Add" variant="primary" [outline]="true" (buttonClick)="addRelationship()"></app-button>
+    </div>
+</div>

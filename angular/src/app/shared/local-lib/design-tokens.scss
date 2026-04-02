@@ -32,6 +32,63 @@
   --button-height-sm: 32px;
   --button-height: 36px;
   --button-height-lg: 40px;
+
+    //
+  // Genshin colors
+  //
+
+  --genshin-blue: #69c0de;
+  --genshin-gold: #f7cf33;
+
+  /* Anemo (Wind) - Green */
+  --anemo-primary-white: #74c2a8;
+  --anemo-secondary-white: #59a990;
+  --anemo-accent-white: #3d7d69;
+
+  /* Geo (Earth) - Yellow/Brown */
+  --geo-primary-white: #fab632;
+  --geo-secondary-white: #d89b20;
+  --geo-accent-white: #9e6e17;
+
+  /* Electro (Lightning) - Purple */
+  --electro-primary-white: #a757cb;
+  --electro-secondary-white: #8445a3;
+  --electro-accent-white: #62317a;
+
+  /* Dendro (Nature) - Green */
+  --dendro-primary-white: #7ec236;
+  --dendro-secondary-white: #68a42b;
+  --dendro-accent-white: #4e7a20;
+
+  /* Hydro (Water) - Blue */
+  --hydro-primary-white: #4cc2f1;
+  --hydro-secondary-white: #30a6d8;
+  --hydro-accent-white: #1f7ca3;
+
+  /* Pyro (Fire) - Red */
+  --pyro-primary-white: #ef674a;
+  --pyro-secondary-white: #d94e2f;
+  --pyro-accent-white: #a83a22;
+
+  /* Cryo (Ice) - Light Blue */
+  --cryo-primary-white: #9fd6e3;
+  --cryo-secondary-white: #7bbecf;
+  --cryo-accent-white: #5a9cab;
+
+  /* 5 star rarity color */
+  --five-star: #db914f;
+
+  /* 4 star rarity color */
+  --four-star: #7a6ba1;
+
+  /* 3 star rarity color */
+  --three-star: #708aaa;
+
+  /* 2 star rarity color */
+  --two-star: #638879;
+
+  /* 1 star rarity color */
+  --one-star: #7a7b7f;
 }
 
 /* Light Mode - Manual toggle class (explicit) */
@@ -113,63 +170,6 @@
 
   // alpha
   --color-alpha: rgba(0, 0, 0, 0.25);
-
-  //
-  // Genshin colors
-  //
-
-  --genshin-blue: #69c0de;
-  --genshin-gold: #f7cf33;
-
-  /* Anemo (Wind) - Green */
-  --anemo-primary-white: #74c2a8;
-  --anemo-secondary-white: #59a990;
-  --anemo-accent-white: #3d7d69;
-
-  /* Geo (Earth) - Yellow/Brown */
-  --geo-primary-white: #fab632;
-  --geo-secondary-white: #d89b20;
-  --geo-accent-white: #9e6e17;
-
-  /* Electro (Lightning) - Purple */
-  --electro-primary-white: #a757cb;
-  --electro-secondary-white: #8445a3;
-  --electro-accent-white: #62317a;
-
-  /* Dendro (Nature) - Green */
-  --dendro-primary-white: #7ec236;
-  --dendro-secondary-white: #68a42b;
-  --dendro-accent-white: #4e7a20;
-
-  /* Hydro (Water) - Blue */
-  --hydro-primary-white: #4cc2f1;
-  --hydro-secondary-white: #30a6d8;
-  --hydro-accent-white: #1f7ca3;
-
-  /* Pyro (Fire) - Red */
-  --pyro-primary-white: #ef674a;
-  --pyro-secondary-white: #d94e2f;
-  --pyro-accent-white: #a83a22;
-
-  /* Cryo (Ice) - Light Blue */
-  --cryo-primary-white: #9fd6e3;
-  --cryo-secondary-white: #7bbecf;
-  --cryo-accent-white: #5a9cab;
-
-  /* 5 star rarity color */
-  --five-star: #db914f;
-
-  /* 4 star rarity color */
-  --four-star: #7a6ba1;
-
-  /* 3 star rarity color */
-  --three-star: #708aaa;
-
-  /* 2 star rarity color */
-  --two-star: #638879;
-
-  /* 1 star rarity color */
-  --one-star: #7a7b7f;
 }
 
 /* Dark Mode - Manual toggle class */
@@ -177,7 +177,7 @@
   // Dark Mode Colors
   --color-primary: #42a5f5;
   --color-primary-hover: #2196f3;
-  --color-primary-text: #000000;
+  --color-primary-text: #e7e7e7;
 
   --color-secondary: #8f8f8f;
   --color-secondary-hover: #afafaf;
@@ -216,12 +216,12 @@
   --bg-card-hover: #2a2a2a;
   --bg-header: #1f1f1f;
   --bg-table-header: #2a2a2a;
-  --bg-hover: #2c2c2c;
+  --bg-hover: #424242;
 
   // Dark Mode Text colors
   --text-primary: #ffffff;
   --text-secondary: #b0b0b0;
-  --text-muted: #757575;
+  --text-muted: #585858;
 
   // Dark Mode Borders
   --border-color: #404040;

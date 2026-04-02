@@ -1,5 +1,5 @@
 import { Component, effect, model, output } from '@angular/core';
-import { removeDiacritics } from 'src/app/shared/local-lib/diacritics';
+import { removeDiacritics } from '../../../diacritics';
 
 @Component({
   selector: 'app-tab',

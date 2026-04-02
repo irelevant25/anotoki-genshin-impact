@@ -14,11 +14,11 @@
 
   &.down {
     top: 13px;
-    border-top: 6px solid #0b0c0c;
+    border-top: 6px solid var(--text-primary);
   }
 
   &.up {
     top: -13px;
-    border-bottom: 6px solid #0b0c0c;
+    border-bottom: 6px solid var(--text-primary);
   }
 }

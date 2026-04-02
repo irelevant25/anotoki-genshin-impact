@@ -1,0 +1,36 @@
+<div class="sub-list">
+    @for (co of constellations(); track $index; let i = $index) {
+        <div class="sub-card">
+            <div class="sub-card-header">
+                <span class="sub-card-index">C{{ co.level }} · {{ co.name || 'Unnamed' }}</span>
+                <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeConstellation(i)"></app-button>
+            </div>
+            <div class="form-grid">
+                <div class="form-field">
+                    <label>Level</label>
+                    <input class="admin-input" type="number" min="1" max="6" [value]="co.level" (input)="setConstellation(i, 'level', +$any($event.target).value)" />
+                </div>
+                <div class="form-field">
+                    <label>Name *</label>
+                    <input class="admin-input" type="text" [value]="co.name" (input)="setConstellation(i, 'name', $any($event.target).value)" />
+                </div>
+                <div class="form-field col-span-2">
+                    <label>Icon *</label>
+                    <label class="file-btn-full">
+                        <i class="fa-solid fa-upload"></i>
+                        <span>{{ pendingCoIcon()[i]?.name ?? 'Choose icon' }}</span>
+                        <input type="file" accept="image/*" (change)="onConstellationIconSelect(i, $event)" hidden />
+                    </label>
+                    @if (coIconPreview(i); as src) {
+                        <img [src]="src" class="preview-img" alt="" />
+                    }
+                </div>
+                <div class="form-field col-span-2">
+                    <label>Description</label>
+                    <textarea class="admin-textarea" rows="3" [value]="co.description ?? ''" (input)="setConstellation(i, 'description', $any($event.target).value)"></textarea>
+                </div>
+            </div>
+        </div>
+    }
+    <app-button text="+ Add Constellation" variant="secondary" [outline]="true" size="small" (buttonClick)="addConstellation()"></app-button>
+</div>

@@ -8,6 +8,13 @@ export interface IImageEffect {
   draw: (canvas: HTMLCanvasElement, imgUrl: string) => void;
 }
 
+export function normalize(input: string) {
+  return input
+    ?.replaceAll(/[^a-zA-Z ]/g, '')
+    .replaceAll(' ', '_')
+    .toUpperCase();
+}
+
 export const HELPER = {
   /**
    * Gets a random integer between min and max (inclusive)

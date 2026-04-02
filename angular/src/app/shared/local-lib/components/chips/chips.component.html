@@ -1,0 +1,43 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        @if (label()) {
+            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
+                @if (tooltipText()) {
+                    <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                }
+                {{ label() }}
+                @if (required()) {
+                    <span class="required-indicator">*</span>
+                }
+            </label>
+        }
+
+        @if (description()) {
+            <label class="form-description">
+                {{ description() }}
+            </label>
+        }
+
+        <div class="d-flex flex-wrap gap-3">
+            @for (option of options(); track option) {
+                <label class="chip" [class.selected]="isRoleSelected(option)">
+                    <input type="checkbox" [checked]="isRoleSelected(option)" (change)="toggleRole(option)" hidden />
+                    {{ option }}
+                </label>
+            }
+        </div>
+
+        @if (minSelected()) {
+            <span class="max-length-counter mt-2"> Select at least {{ minSelected() }} </span>
+        }
+        @if (maxSelected()) {
+            <span class="max-length-counter"> Cannot select more than {{ maxSelected() }} </span>
+        }
+
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+}

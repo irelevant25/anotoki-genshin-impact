@@ -25,6 +25,7 @@ export class ButtonComponent extends AbstractTooltipComponent {
   outline = model<boolean>(false);
   stopPropagation = model<boolean>(false);
   isBack = model<boolean>(false);
+  routerLink = model<string | undefined>(undefined);
 
   // Output
   @Output() click = new EventEmitter<Event>();
@@ -49,7 +50,12 @@ export class ButtonComponent extends AbstractTooltipComponent {
       this.buttonClick.emit(event);
     }
     if (this.isBack()) {
-      this._router.navigate(['../'], { relativeTo: this._route });
+      if (this.routerLink()) {
+        this._router.navigate([this.routerLink()], { relativeTo: this._route });
+      }
+      else {
+        this._router.navigate(['../'], { relativeTo: this._route });
+      }
     }
   }
 }

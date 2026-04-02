@@ -2,14 +2,14 @@
     <div class="dropdown-options">
         @if (emptyOption) {
             <div class="dropdown-option placeholder" [class.highlighted]="highlightedIndex === -1" (click)="selectOption()" (mouseenter)="highlightedIndexChange(highlightedIndex - 1)">
-                {{ component?.placeholder() }}
+                <span>{{ emptyOptionText ?? component?.placeholder() ?? '' }}</span>
             </div>
         }
 
         @for (option of options; track option; let i = $index) {
             <div class="dropdown-option" [class.highlighted]="i === highlightedIndex" (click)="selectOption(option)" (mouseenter)="highlightedIndexChange(i)">
                 @if (!optionTemplate) {
-                    <span>{{ option.value }}</span>
+                    <span>{{ prefix }}{{ option.value }}{{ suffix }}</span>
                 }
                 @if (optionTemplate) {
                     <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: option, item: option, index: i }"></ng-container>

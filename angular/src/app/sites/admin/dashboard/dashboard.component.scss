@@ -1,0 +1,16 @@
+.dashboard {
+  max-width: 800px;
+}
+
+.page-title {
+  margin: 0 0 var(--spacing-xs);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.page-sub {
+  margin: 0 0 var(--spacing-xl);
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+}

@@ -1,5 +1,81 @@
-.checkbox {
-  width: calc(var(--input-height) / 1.5);
-  height: var(--input-height);
-  margin-top: -5px;
+.checkbox-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+
+  // Hide the native input but keep it in flow so the sibling ~ selector works
+  input.checkbox {
+    appearance: none;
+    position: absolute;
+    opacity: 0;
+    width: calc(var(--input-height) / 1.5);
+    height: calc(var(--input-height) / 1.5);
+    cursor: pointer;
+    margin: 0;
+    z-index: 1; // stays on top for click events
+  }
+
+  .checkmark {
+    position: relative;
+    display: inline-block;
+    width: calc(var(--input-height) / 1.5);
+    height: calc(var(--input-height) / 1.5);
+    // background-color: var(--bg-card);
+    // border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+    flex-shrink: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: none;
+      left: 50%;
+      top: 42%;
+      width: 30%;
+      height: 55%;
+      border: solid white;
+      border-width: 0 2.5px 2.5px 0;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+  }
+
+  // Hover state
+  &:hover input:not(:disabled) ~ .checkmark {
+    background-color: #ccc;
+    border-color: #aaa;
+  }
+
+  // Checked state
+  input:checked ~ .checkmark {
+    background-color: #2196f3;
+    border-color: #2196f3;
+
+    &::after {
+      display: block;
+    }
+  }
+
+  // Error state
+  input.error ~ .checkmark {
+    border-color: var(--color-danger, #dc3545);
+  }
+
+  // Valid state
+  input.valid ~ .checkmark {
+    border-color: var(--color-success, #198754);
+  }
+
+  // Focus state (accessibility)
+  input:focus-visible ~ .checkmark {
+    outline: 2px solid #2196f3;
+    outline-offset: 2px;
+  }
+
+  // Disabled state
+  input:disabled ~ .checkmark {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }

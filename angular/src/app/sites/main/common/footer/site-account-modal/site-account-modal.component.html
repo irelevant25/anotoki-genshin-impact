@@ -1,0 +1,55 @@
+<app-modal [title]="'Account'" (closeModal)="closeModal()">
+    <div modal-body>
+        @if (userData) {
+            <div class="d-flex align-items-center gap-4 pb-4">
+                <div
+                    class="d-flex align-items-center justify-content-center"
+                    style="width: 3rem; height: 3rem; flex-shrink: 0; border-radius: var(--border-radius-large); background-color: var(--bg-header)"
+                >
+                    <span class="icon icon-user icon-size-6"></span>
+                </div>
+                <div class="d-flex flex-column gap-1">
+                    <span class="fw-700 fs-16">{{ userData.username }}</span>
+                    <span class="text-muted small">{{ userData.roles }}</span>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column gap-3 pt-4">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="icon icon-mail icon-size-4"></span>
+                    <span class="text-muted small" style="min-width: 5rem">Email</span>
+                    <span class="fw-500 fs-14">{{ userData.email }}</span>
+                    <span
+                        class="badge padding-small text-small ms-auto"
+                        [style.background-color]="userData.email_confirmed ? 'var(--color-success)' : 'var(--color-danger)'"
+                        [style.color]="userData.email_confirmed ? 'var(--color-success-text)' : 'var(--color-danger-text)'"
+                    >
+                        {{ userData.email_confirmed ? 'Confirmed' : 'Unconfirmed' }}
+                    </span>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <span class="icon icon-shield icon-size-4"></span>
+                    <span class="text-muted small" style="min-width: 5rem">Role</span>
+                    <span class="fw-500 fs-14">{{ userData.roles }}</span>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <span class="icon icon-gear icon-size-4"></span>
+                    <span class="text-muted small" style="min-width: 5rem">Theme</span>
+                    <span class="fw-500 fs-14">{{ userData.theme }}</span>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <span class="icon icon-calendar icon-size-4"></span>
+                    <span class="text-muted small" style="min-width: 5rem">Member since</span>
+                    <span class="fw-500 fs-14">{{ userData.created_at?.substring(0, 10) }}</span>
+                </div>
+            </div>
+        }
+    </div>
+    <div modal-footer class="d-flex gap-3 justify-content-end">
+        <app-button text="Admin panel" variant="primary" (buttonClick)="toAdmin()"> </app-button>
+        <app-button text="Logout" variant="danger" (buttonClick)="logout()"> </app-button>
+    </div>
+</app-modal>

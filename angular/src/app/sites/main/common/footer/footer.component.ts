@@ -13,6 +13,7 @@ import { StorageKeys } from '../../../../shared/state-manager.service';
 import { SiteLoginModalComponent } from './site-login-modal/site-login-modal.component';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { SiteAccountModalComponent } from './site-account-modal/site-account-modal.component';
 
 export interface ButtomMenuItem {
   id: string;
@@ -69,7 +70,7 @@ export class FooterComponent extends AbstractModalComponent {
         config: { size: '3' }
       }
     }),
-    auth: signal<ButtomMenuItem>({
+    login: signal<ButtomMenuItem>({
       id: 'site-login',
       title: 'Login',
       modal: {
@@ -77,27 +78,27 @@ export class FooterComponent extends AbstractModalComponent {
         config: { size: '1' }
       }
     }),
-    // profile: signal<ButtomMenuItem>({
-    //   id: 'site-profile',
-    //   title: 'Profile',
-    //   modal: {
-    //     compoponent: SiteVersionModalComponent,
-    //     config: { size: '3' }
-    //   }
-    // })
-    logout: signal<ButtomMenuItem>({
-      id: 'site-logout',
-      title: 'Logout',
-      hidden: true
+    account: signal<ButtomMenuItem>({
+      id: 'site-account',
+      title: 'Account',
+      modal: {
+        compoponent: SiteAccountModalComponent,
+        config: { size: '3' }
+      }
     })
+    // logout: signal<ButtomMenuItem>({
+    //   id: 'site-logout',
+    //   title: 'Logout',
+    //   hidden: true
+    // })
   };
   changelog: ChangelogEntry[] = [];
 
   constructor(private _http: HttpClient, private _storageService: LocalStorageService, private readonly _securityService: SecurityService, private readonly _notificationService: NotificationService) {
     super();
     this._securityService.isLoggedIn$.subscribe(isLoggedIn => {
-      this.menuItems['auth'].update(item => ({ ...item, hidden: isLoggedIn }));
-      this.menuItems['logout'].update(item => ({ ...item, hidden: !isLoggedIn }));
+      this.menuItems['login'].update(item => ({ ...item, hidden: isLoggedIn }));
+      this.menuItems['account'].update(item => ({ ...item, hidden: !isLoggedIn }));
     });
     this.loadVersion();
     this.initializeBackground();
@@ -117,19 +118,10 @@ export class FooterComponent extends AbstractModalComponent {
   preserveOrder = () => 0;
 
   onMenuItemClick(menuItem: ButtomMenuItem) {
-    if (menuItem.id === 'site-logout') {
-      this._securityService.logout();
-      this._notificationService.showSuccess('You was successfully logged out.');
-      return;
-    }
     if (!menuItem.modal) {
       return;
     }
     const modal: CustomModalRef<any, any> = this.openModal(menuItem.modal.compoponent, menuItem.modal.config || { size: '2' });
     modal.componentInstance.data = this.changelog;
-  }
-
-  onLogin(): void {
-
   }
 }

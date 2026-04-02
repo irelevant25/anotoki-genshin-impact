@@ -9,7 +9,7 @@ export function requiredValidator(inputComponent: AbstractInputComponent<any>): 
 
     const value = inputComponent.value();
 
-    if (value === undefined || value === null || value === '' || (typeof value === 'string' && value.trim() === '')) {
+    if (value === undefined || value === null || value === '' || Number.isNaN(value) || (typeof value === 'string' && value.trim() === '')) {
       inputComponent.setErrorMessage({ required: true });
       return { required: true };
     }

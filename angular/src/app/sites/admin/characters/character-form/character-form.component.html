@@ -1,0 +1,48 @@
+<div class="page-header justify-content-between">
+    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
+    <h1 class="page-title">{{ character().name }}</h1>
+    <h1 class="page-title">{{ pageTitle() }}</h1>
+</div>
+
+@if (loading()) {
+    <app-loader [loading]="true"></app-loader>
+} @else {
+    <app-tabs>
+        <app-tab [title]="'Base Info'" [icon]="'icon-user'">
+            <app-base-info-tab
+                [character]="character()"
+                [charIconPreviews]="charIconPreviews()"
+                [pendingCharFiles]="pendingCharFiles()"
+                [relationships]="relationships()"
+                [selectedRoles]="selectedRoles()"
+                [elements]="elements()"
+                [weaponTypes]="weaponTypes()"
+                [models]="models()"
+                [rarities]="rarities()"
+                [regions]="regions()"
+                [relationshipTypes]="relationshipTypes()"
+                [roles]="roles()"
+                [characterStates]="characterStates()"
+            />
+        </app-tab>
+        <app-tab [title]="'Voice Overs'" [icon]="'icon-microphone icon-size-4'">
+            <app-voice-overs-tab />
+        </app-tab>
+        <app-tab [title]="'Constellations'" [icon]="'icon-stars'">
+            <app-constellations-tab />
+        </app-tab>
+        <app-tab [title]="'Ascensions'" [icon]="'icon-arrow-up'">
+            <app-ascensions-tab />
+        </app-tab>
+        <app-tab [title]="'Talents'" [icon]="'icon-book'">
+            <app-talents-tab />
+        </app-tab>
+    </app-tabs>
+
+    <div class="form-footer">
+        <a [routerLink]="backLink()">
+            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
+        </a>
+        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Character'" [loading]="saving()" (buttonClick)="save()"></app-button>
+    </div>
+}

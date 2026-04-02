@@ -1,0 +1,59 @@
+<div class="page-header">
+    <h1 class="page-title">{{ config().title }}</h1>
+    @if (config().readOnly) {
+        <span class="badge-readonly">Read-only</span>
+    }
+</div>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    @if (!config().readOnly && _createFn) {
+        <div class="add-row">
+            <input class="admin-input" type="text" placeholder="New entry name..." [value]="newName()" (input)="newName.set($any($event.target).value)" (keydown.enter)="add()" />
+            <app-button text="Add" icon="fa-solid fa-plus" size="small" [loading]="saving()" [disabled]="!newName().trim()" (buttonClick)="add()"> </app-button>
+        </div>
+    }
+
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    @for (col of getColumns(); track col) {
+                        <th>{{ col }}</th>
+                    }
+                    @if (!config().readOnly && _deleteFn) {
+                        <th class="col-actions"></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (!items().length) {
+                    <tr>
+                        <td [attr.colspan]="getColumns().length + 1" class="empty-cell">No data</td>
+                    </tr>
+                }
+                @for (item of items(); track getPk(item)) {
+                    <tr>
+                        @for (col of getColumns(); track col) {
+                            <td>{{ item[col] ?? '—' }}</td>
+                        }
+                        @if (!config().readOnly && _deleteFn) {
+                            <td class="col-actions">
+                                @if (deleteConfirm() === getPk(item)) {
+                                    <span class="confirm-row">
+                                        <span class="confirm-text">Delete?</span>
+                                        <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(getPk(item))"></app-button>
+                                        <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                    </span>
+                                } @else {
+                                    <app-button icon="fa-solid fa-trash" variant="danger" [outline]="true" size="very-small" (buttonClick)="confirmDelete(getPk(item))"> </app-button>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

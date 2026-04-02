@@ -34,6 +34,7 @@ require_once __DIR__ . '/routes/users/endpoints/users.php';
 ///////////////////
 
 // models
+require_once __DIR__ . '/routes/genshin_impact/models/lookup.php';
 require_once __DIR__ . '/routes/genshin_impact/models/stat.php';
 require_once __DIR__ . '/routes/genshin_impact/models/quiz.php';
 require_once __DIR__ . '/routes/genshin_impact/models/background.php';
@@ -80,7 +81,27 @@ require_once __DIR__ . '/routes/genshin_impact/models/user_quiz_history.php';
 
 // endpoints
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_full.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/roles.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/elements.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/weapon_types.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/voice_over_types.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/relationship_types.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_states.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_models.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/talent_types.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/languages.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/food_types.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/material_types.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/material_groups.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/rarities.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/regions.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/artifact_piece_types.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_types.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/domain_levels.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_families.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_groups.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/upload.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/affiliations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_refinements.php';

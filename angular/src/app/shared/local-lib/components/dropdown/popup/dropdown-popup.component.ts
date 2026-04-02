@@ -14,6 +14,9 @@ import { ClickOutsideDirective } from '../../../click-outside.directive';
 export class DropdownPopupComponent extends AbstractPopupComponent<DropdownOption> {
   options: DropdownOption[] = [];
   emptyOption: boolean = true;
+  prefix: string | undefined;
+  suffix: string | undefined;
+  emptyOptionText: string | undefined;
 
   private _highlightedIndex: number = -1;
   private set highlightedIndex(highlightedIndex: number) {

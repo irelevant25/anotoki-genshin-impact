@@ -1,0 +1,78 @@
+<div class="sub-list">
+    @for (asc of ascensions(); track $index; let i = $index) {
+        <div class="sub-card">
+            <div class="sub-card-header">
+                <span class="sub-card-index">Phase {{ asc.phase }}</span>
+                <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeAscension(i)"></app-button>
+            </div>
+            <div class="form-grid">
+                <div class="form-field">
+                    <label>Phase</label>
+                    <input class="admin-input" type="number" [value]="asc.phase" (input)="setAscension(i, 'phase', +$any($event.target).value)" />
+                </div>
+                <div class="form-field">
+                    <label>Primary Stat *</label>
+                    <select class="admin-select" [value]="asc.primary_stat" (change)="setAscension(i, 'primary_stat', $any($event.target).value)">
+                        <option value="">— select stat —</option>
+                        @for (st of stats(); track st) {
+                            <option [value]="st">{{ st }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>Primary Stat Value</label>
+                    <input class="admin-input" type="number" step="any" [value]="asc.primary_stat_value" (input)="setAscension(i, 'primary_stat_value', +$any($event.target).value)" />
+                </div>
+                <div class="form-field">
+                    <label>Start HP</label>
+                    <input class="admin-input" type="number" step="any" [value]="asc.start_level_hp" (input)="setAscension(i, 'start_level_hp', +$any($event.target).value)" />
+                </div>
+                <div class="form-field">
+                    <label>Start ATK</label>
+                    <input class="admin-input" type="number" step="any" [value]="asc.start_level_atk" (input)="setAscension(i, 'start_level_atk', +$any($event.target).value)" />
+                </div>
+                <div class="form-field">
+                    <label>Start DEF</label>
+                    <input class="admin-input" type="number" step="any" [value]="asc.start_level_def" (input)="setAscension(i, 'start_level_def', +$any($event.target).value)" />
+                </div>
+                <div class="form-field">
+                    <label>End HP</label>
+                    <input class="admin-input" type="number" step="any" [value]="asc.end_level_hp" (input)="setAscension(i, 'end_level_hp', +$any($event.target).value)" />
+                </div>
+                <div class="form-field">
+                    <label>End ATK</label>
+                    <input class="admin-input" type="number" step="any" [value]="asc.end_level_atk" (input)="setAscension(i, 'end_level_atk', +$any($event.target).value)" />
+                </div>
+                <div class="form-field">
+                    <label>End DEF</label>
+                    <input class="admin-input" type="number" step="any" [value]="asc.end_level_def" (input)="setAscension(i, 'end_level_def', +$any($event.target).value)" />
+                </div>
+            </div>
+
+            <div class="cost-section">
+                <div class="cost-header">
+                    <span class="cost-label">Materials</span>
+                    <app-button text="+ Add Material" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addAscensionCost(i)"></app-button>
+                </div>
+                <div class="cost-cards">
+                    @for (cost of asc.costs ?? []; track $index; let ci = $index) {
+                        <div class="cost-card">
+                            <div class="cost-card-img"><i class="fa-solid fa-gem"></i></div>
+                            <select class="admin-select" [value]="cost.material_id" (change)="setAscensionCost(i, ci, 'material_id', +$any($event.target).value)">
+                                <option [value]="0">— material —</option>
+                                @for (mat of materials(); track mat.id) {
+                                    <option [value]="mat.id">{{ mat.name }}</option>
+                                }
+                            </select>
+                            <div class="cost-card-footer">
+                                <input class="admin-input" type="number" min="1" [value]="cost.quantity" (input)="setAscensionCost(i, ci, 'quantity', +$any($event.target).value)" placeholder="Qty" />
+                                <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeAscensionCost(i, ci)"></app-button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    <app-button text="+ Add Ascension Phase" variant="secondary" [outline]="true" size="small" (buttonClick)="addAscension()"></app-button>
+</div>

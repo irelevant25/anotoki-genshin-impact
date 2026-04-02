@@ -17,8 +17,12 @@
                 #inputElement
                 scroll
                 [id]="inputId"
-                [value]="value() === undefined || value() === null || value() === '' ? placeholder() : computedOption()?.value"
-                [placeholder]="placeholder()"
+                [value]="
+                    value() === undefined || value() === null || value() === ''
+                        ? (placeholder() ?? '')
+                        : (value() ? (prefix() ?? '') : '') + (computedOption()?.value ?? '') + (value() ? (suffix() ?? '') : '')
+                "
+                [placeholder]="placeholder() ?? ''"
                 [disabled]="disabled()"
                 class="form-control cursor-default"
                 [class.placeholder]="value() === undefined || value() === null || value() === ''"
@@ -29,8 +33,9 @@
                 (heightChange)="positionPopup()"
                 (blur)="onBlur()"
                 (focus)="onFocus()"
-                readonly />
-            <span class="dropdown-arrow" [class.down]="!isPopupOpen" [class.up]="isPopupOpen"></span>
+                readonly
+            />
+            <span class="dropdown-arrow" [class.down]="!isPopupOpen()" [class.up]="isPopupOpen()"></span>
         </div>
 
         @if (displayError() && hasError()) {

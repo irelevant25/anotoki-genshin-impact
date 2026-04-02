@@ -24,7 +24,7 @@
     "generate-interfaces": "node generate-interfaces.cjs"
   },
   "private": true,
-  "sideEffects": false,
+  "sideEffects": true,
   "dependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0",

@@ -18,7 +18,7 @@
                 scroll
                 [id]="inputId"
                 [value]="displayValue()"
-                [placeholder]="placeholder()"
+                [placeholder]="placeholder() ?? ''"
                 [disabled]="disabled()"
                 class="form-control cursor-default"
                 [class.placeholder]="selectedOptions().length === 0"
@@ -28,7 +28,8 @@
                 (click)="togglePopup()"
                 (blur)="onBlur()"
                 (focus)="onFocus()"
-                readonly />
+                readonly
+            />
             <span class="multiselect-arrow" [class.down]="!isPopupOpen" [class.up]="isPopupOpen"></span>
             @if (selectedOptions().length > 0) {
                 <span class="selection-count">{{ selectedOptions().length }}</span>

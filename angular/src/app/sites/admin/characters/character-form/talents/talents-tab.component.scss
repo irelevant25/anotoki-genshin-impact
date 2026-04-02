@@ -1,0 +1,32 @@
+@use "../character-form.component" as *;
+
+// ── Talent level rows ─────────────────────────────────────────────────────────
+
+.talent-level-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px dashed var(--border-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.talent-level-label {
+  width: 34px;
+  flex-shrink: 0;
+  padding-top: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+}
+
+.talent-level-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding-top: var(--spacing-xs);
+  flex-shrink: 0;
+}

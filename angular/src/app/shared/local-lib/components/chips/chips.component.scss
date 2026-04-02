@@ -1,0 +1,24 @@
+.chip {
+  padding: 5px var(--spacing-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--text-primary);
+  }
+
+  &.selected {
+    background: rgba(66, 165, 245, 0.15);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+}

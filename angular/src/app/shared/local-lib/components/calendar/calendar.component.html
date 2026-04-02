@@ -16,7 +16,7 @@
             [id]="inputId"
             [disabled]="disabled()"
             type="text"
-            [placeholder]="placeholder()"
+            [placeholder]="placeholder() ?? defaultPlaceHolder()"
             [(ngModel)]="displayValue"
             class="form-control date-input"
             [class.error]="hasError()"
@@ -24,7 +24,8 @@
             (click)="toggleCalendar($event)"
             (input)="onInput($event)"
             (blur)="onBlur()"
-            (focus)="onFocus()" />
+            (focus)="onFocus()"
+        />
 
         @if (displayError() && hasError()) {
             <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">

@@ -37,16 +37,16 @@
   &.btn-primary {
     &.btn-outline {
       border: 1px solid var(--color-primary);
-      color: var(--text-primary);
+      color: var(--color-primary-text);
 
       &:hover:not(:disabled) {
-        color: var(--color-disabled);
+        color: var(--color-primary-text);
         background-color: var(--color-primary);
       }
     }
     &:not(.btn-outline) {
       background-color: var(--color-primary);
-      color: white;
+      color: var(--color-primary-text);
 
       &:hover:not(:disabled) {
         background-color: var(--color-primary-hover);
@@ -57,17 +57,17 @@
   &.btn-secondary {
     &.btn-outline {
       border: 1px solid var(--color-secondary);
-      color: var(--text-primary);
+      color: var(--color-secondary-text);
 
       &:hover:not(:disabled) {
-        color: black;
+        color: var(--color-secondary-text);
         background-color: var(--color-secondary);
       }
     }
     &:not(.btn-outline) {
       border: 1px solid var(--border-color);
       background-color: var(--color-secondary);
-      color: black;
+      color: var(--color-secondary-text);
 
       &:hover:not(:disabled) {
         background-color: var(--color-secondary-hover);
@@ -78,16 +78,16 @@
   &.btn-danger {
     &.btn-outline {
       border: 1px solid var(--color-danger);
-      color: var(--text-primary);
+      color: var(--color-danger-text);
 
       &:hover:not(:disabled) {
-        color: var(--color-disabled);
+        color: var(--color-danger-text);
         background-color: var(--color-danger);
       }
     }
     &:not(.btn-outline) {
       background-color: var(--color-danger);
-      color: white;
+      color: var(--color-danger-text);
 
       &:hover:not(:disabled) {
         background-color: var(--color-danger-hover);
@@ -98,16 +98,16 @@
   &.btn-success {
     &.btn-outline {
       border: 1px solid var(--color-success);
-      color: var(--text-primary);
+      color: var(--color-success-text);
 
       &:hover:not(:disabled) {
-        color: white;
+        color: var(--color-success-text);
         background-color: var(--color-success);
       }
     }
     &:not(.btn-outline) {
       background-color: var(--color-success);
-      color: white;
+      color: var(--color-success-text);
 
       &:hover:not(:disabled) {
         background-color: var(--color-success-hover);
@@ -118,16 +118,16 @@
   &.btn-warning {
     &.btn-outline {
       border: 1px solid var(--color-warning);
-      color: var(--text-primary);
+      color: var(--color-warning-text);
 
       &:hover:not(:disabled) {
-        color: white;
+        color: var(--color-warning-text);
         background-color: var(--color-warning);
       }
     }
     &:not(.btn-outline) {
       background-color: var(--color-warning);
-      color: white;
+      color: var(--color-warning-text);
 
       &:hover:not(:disabled) {
         background-color: var(--color-warning-hover);
@@ -138,16 +138,16 @@
   &.btn-info {
     &.btn-outline {
       border: 1px solid var(--color-info);
-      color: var(--text-primary);
+      color: var(--color-info-text);
 
       &:hover:not(:disabled) {
-        color: white;
+        color: var(--color-info-text);
         background-color: var(--color-info);
       }
     }
     &:not(.btn-outline) {
       background-color: var(--color-info);
-      color: white;
+      color: var(--color-info-text);
 
       &:hover:not(:disabled) {
         background-color: var(--color-info-hover);
@@ -158,16 +158,16 @@
   &.btn-dark {
     &.btn-outline {
       border: 1px solid var(--color-dark);
-      color: var(--text-primary);
+      color: var(--color-dark-text);
 
       &:hover:not(:disabled) {
-        color: white;
+        color: var(--color-dark-text);
         background-color: var(--color-dark);
       }
     }
     &:not(.btn-outline) {
       background-color: var(--color-dark);
-      color: white;
+      color: var(--color-dark-text);
 
       &:hover:not(:disabled) {
         background-color: var(--color-dark-hover);

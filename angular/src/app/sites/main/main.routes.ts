@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { ROUTE_MAP } from '../../shared/routing-definition';
-import { QuizzesComponent } from './top/quizzes/quizzes.component';
-import { QuizzesBannersComponent } from './top/quizzes/banners/banners.component';
+import { QuizzesComponent } from './features/quizzes/quizzes.component';
+import { QuizzesBannersComponent } from './features/quizzes/banners/banners.component';
 import { AppComponent } from './app.component';
 
 export const routes: Routes = [

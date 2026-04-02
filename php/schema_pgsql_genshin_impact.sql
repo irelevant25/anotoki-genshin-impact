@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS weapon_types (
     name    VARCHAR(50)     PRIMARY KEY
 );
 INSERT INTO weapon_types (name) VALUES
-    ('Sword'), ('Claymore'), ('Polearm'), ('Bow'), ('Catalyst')
+    ('Sword'), ('Bow'), ('Catalyst'), ('Claymore'), ('Polearm')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -223,7 +223,7 @@ ON CONFLICT DO NOTHING;
 -- name: Rarity
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS rarities (
-    rarity    SMALLINT        PRIMARY KEY
+    name    SMALLINT        PRIMARY KEY
 );
 INSERT INTO rarities (rarity) VALUES
     (1), (2), (3), (4), (5)
@@ -301,6 +301,17 @@ CREATE TABLE IF NOT EXISTS enemy_families (
 INSERT INTO enemy_families (name) VALUES
     ('Automatons'), ('Elemental Lifeforms'), ('Hilichurls'), ('Mystical Beasts'),
     ('The Abyss'), ('Fatui'), ('Enemies of Note'), ('Other Human Factions'), ('Other')
+ON CONFLICT DO NOTHING;
+
+-----------------------------------------------------------
+-- CHARACTER_MODELS
+-- name: CharacterModel
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS character_models (
+    name VARCHAR(50) PRIMARY KEY
+);
+INSERT INTO character_models (name) VALUES
+    ('Tall Male'), ('Medium Male'), ('Short Male'), ('Tall Female'), ('Medium Female'), ('Short Female')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -508,6 +519,7 @@ CREATE TABLE IF NOT EXISTS characters (
     CONSTRAINT fk_characters_region FOREIGN KEY (region) REFERENCES regions(name),
     CONSTRAINT fk_characters_special_dish FOREIGN KEY (special_dish) REFERENCES foods(id),
     CONSTRAINT fk_characters_element FOREIGN KEY (element) REFERENCES elements(name),
+    CONSTRAINT fk_characters_rarity FOREIGN KEY (rarity) REFERENCES rarities(name),
     CONSTRAINT fk_characters_weapon_type FOREIGN KEY (weapon_type) REFERENCES weapon_types(name)
 );
 CREATE OR REPLACE TRIGGER trg_characters_protect_created
@@ -856,6 +868,7 @@ CREATE TABLE IF NOT EXISTS characters_voice_overs (
     text                TEXT            NOT NULL,
     is_alternative      BOOLEAN         NOT NULL DEFAULT FALSE, -- e.g. for traditional chinesse
     text_reading        TEXT,
+    audio               VARCHAR(255),
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by          INT             NOT NULL,
@@ -1476,7 +1489,7 @@ CREATE TABLE IF NOT EXISTS enemies_drops (
     CONSTRAINT fk_enemies_drops_enemy FOREIGN KEY (enemy_id) REFERENCES enemies(id),
     CONSTRAINT fk_enemies_drops_material FOREIGN KEY (material_id) REFERENCES materials(id),
     CONSTRAINT fk_enemies_drops_domain_level FOREIGN KEY (domain_level) REFERENCES domain_levels(name),
-    CONSTRAINT fk_enemies_drops_rarity FOREIGN KEY (rarity) REFERENCES rarities(rarity)
+    CONSTRAINT fk_enemies_drops_rarity FOREIGN KEY (rarity) REFERENCES rarities(name)
 );
 CREATE OR REPLACE TRIGGER trg_enemies_drops_protect_created
     BEFORE UPDATE ON enemies_drops

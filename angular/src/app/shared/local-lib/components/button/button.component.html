@@ -10,7 +10,8 @@
         [class.btn-outline]="outline()"
         (mouseenter)="mouseEnter()"
         (mouseleave)="mouseLeave()"
-        (click)="onClick($event)">
+        (click)="onClick($event)"
+    >
         @if (loading()) {
             <span class="loading-spinner"></span>
         }
@@ -19,6 +20,8 @@
         }
         @if (text()) {
             <span class="button-text">{{ text() }}</span>
+        } @else {
+            <ng-content></ng-content>
         }
     </button>
 }

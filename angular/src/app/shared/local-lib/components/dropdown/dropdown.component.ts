@@ -33,6 +33,10 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   selectClass = model<string>('');
   selectedOption = model<DropdownOption | undefined>(undefined);
   closeOnScroll = model<boolean>(true);
+  prefix = model<string | undefined>(undefined);
+  suffix = model<string | undefined>(undefined);
+  emptyOptionText = model<string | undefined>(undefined);
+  forceOptionWhenEmpty = model<boolean>(false);
 
   computedOptions = computed(() => {
     const raw = this.options();
@@ -55,7 +59,7 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
     const selectedOption = this.selectedOption();
     return selectedOption ?? options.find((option) => option.key == value);
   });
-  isPopupOpen: boolean = false;
+  isPopupOpen = model<boolean>(false);
   popupRef: ComponentRef<DropdownPopupComponent> | null = null;
 
   constructor(
@@ -90,20 +94,20 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   override afterValueChange(value?: Type | null): void {
     this.selectedOption.set(undefined);
     const options = this.computedOptions();
-    if (!this.emptyOption() && options.length > 0 && !options.some((option) => option.key == value)) {
+    if (!this.emptyOption() && this.forceOptionWhenEmpty() && options.length > 0 && !options.some((option) => option.key == value)) {
       this.value.set(options[0]?.key.toString());
     }
     this.cd.detectChanges();
   }
 
   override onBlur(event?: Event): void {
-    if (!this.isPopupOpen) {
+    if (!this.isPopupOpen()) {
       super.onBlur(event);
     }
   }
 
   onKeyDown(event: KeyboardEvent): void {
-    if (!this.isPopupOpen || !this.popupRef) {
+    if (!this.isPopupOpen() || !this.popupRef) {
       return;
     }
 
@@ -131,7 +135,7 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   // popup functions
 
   togglePopup(): void {
-    if (this.isPopupOpen) {
+    if (this.isPopupOpen()) {
       this.closePopup();
     } else {
       this.openPopup();
@@ -169,13 +173,13 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   }
 
   openPopup(): void {
-    if (this.isPopupOpen && this.popupRef) {
+    if (this.isPopupOpen() && this.popupRef) {
       return;
     }
 
     this.popupRef = this.createPopup();
     this.popupRef.instance.component = this;
-    this.isPopupOpen = true;
+    this.isPopupOpen.set(true);
 
     this.positionPopup();
 
@@ -193,6 +197,9 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   updatePopup(): void {
     if (this.popupRef) {
       this.popupRef.instance.options = this.computedOptions();
+      this.popupRef.instance.prefix = this.prefix();
+      this.popupRef.instance.suffix = this.suffix();
+      this.popupRef.instance.emptyOptionText = this.emptyOptionText();
       this.popupRef.instance.emptyOption = this.emptyOption();
       this.popupRef.instance.resetHighlight();
       this.popupRef.instance.optionTemplate = this.optionTemplate;
@@ -215,11 +222,11 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   }
 
   closePopup(): void {
-    if (!this.isPopupOpen) {
+    if (!this.isPopupOpen()) {
       return;
     }
     this.destroyPopup();
-    this.isPopupOpen = false;
+    this.isPopupOpen.set(false);
 
     this.onBlur();
   }

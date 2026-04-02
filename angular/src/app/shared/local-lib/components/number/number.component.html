@@ -17,13 +17,14 @@
             [value]="value() | formatNumber"
             [disabled]="disabled()"
             type="text"
-            [placeholder]="placeholder()"
+            [placeholder]="placeholder() ?? ''"
             class="form-control"
             [class.error]="hasError()"
             [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
             (input)="onInput($event)"
             (blur)="onBlur()"
-            (focus)="onFocus()" />
+            (focus)="onFocus()"
+        />
 
         @if (displayError() && hasError()) {
             <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">

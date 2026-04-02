@@ -1,5 +1,5 @@
 .tooltip-text {
-  visibility: hidden;
+  // visibility: hidden;
   position: absolute;
   z-index: 10000;
   padding: 6px 10px;
@@ -10,10 +10,13 @@
   font-size: 12px;
   font-weight: normal;
   white-space: nowrap;
-  opacity: 0;
+  // opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
-  height: fit-content;
+  // height: fit-content;
+  top: 0;
+  left: 0;
+  max-width: 500px;
 
   // Top position (default)
   &.tooltip-top {

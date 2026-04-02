@@ -32,9 +32,11 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
   minSizeBytes = model<number | undefined>(undefined);
   maxSizeBytes = model<number | undefined>(undefined);
   buttonText = model<string>('Vybrať súbory');
+  buttonOutline = model<boolean>(false);
   buttonVariant = model<ButtonVariant>('primary');
   showFileNames = model<boolean>(true);
   valueName = model<keyof T>('value' as keyof T);
+  buttonClass = model<string>('');
 
   onButtonClick(event: Event): void {
     if (!this.disabled()) {

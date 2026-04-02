@@ -18,5 +18,6 @@ class CharacterVoiceOver extends DbModel
         public readonly ?int    $character_id_7  = null,
         public readonly ?string $title_reading   = null,
         public readonly ?string $text_reading    = null,
+        public readonly ?string $audio           = null,
     ) {}
 }
