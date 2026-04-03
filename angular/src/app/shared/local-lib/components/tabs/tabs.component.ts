@@ -2,6 +2,7 @@ import { Component, ContentChildren, model, QueryList } from '@angular/core';
 import { TabComponent } from './tab/tab.component';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { AbstractRolesComponent } from '../../abstract-roles.class';
 
 @Component({
@@ -20,6 +21,7 @@ export class TabsComponent extends AbstractRolesComponent {
   constructor(
     private readonly _router: Router,
     private readonly _route: ActivatedRoute,
+    private readonly _location: Location,
   ) {
     super();
   }
@@ -68,11 +70,8 @@ export class TabsComponent extends AbstractRolesComponent {
 
   private updateUrlHash(selectedTab: TabComponent): void {
     if (selectedTab.id) {
-      this._router.navigate([], {
-        relativeTo: this._route,
-        fragment: selectedTab.id,
-        replaceUrl: true,
-      });
+      const path = this._router.url.split('#')[0];
+      this._location.replaceState(path, '', selectedTab.id);
     }
   }
 }

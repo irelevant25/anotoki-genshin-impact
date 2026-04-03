@@ -66,7 +66,7 @@
 
 <app-text-field-container [class]="'gap-2 mb-3'" [cols]="1">
     <h3 class="section-title mb-0">Icons</h3>
-    <app-text-field-container [class]="'gap-5'" [cols]="4">
+    <app-text-field-container [class]="'gap-5'" [cols]="5">
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Icon'" [buttonOutline]="true" [required]="true"></app-file>
             @if (charIconPreview('icon'); as src) {
@@ -94,7 +94,7 @@
                 </app-tooltip>
             }
         </div>
-        <div>
+        <div class="d-flex flex-col space-between">
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'In-game Icon'" [buttonOutline]="true" [required]="true"></app-file>
             @if (charIconPreview('ingame_icon'); as src) {
                 <img #img [src]="src" class="preview-img" alt="" />
@@ -104,7 +104,7 @@
             }
             <app-text [label]="'In-game Icon Name'" [(value)]="character().ingame_icon_name" [required]="true"></app-text>
         </div>
-        <div>
+        <div class="d-flex flex-col space-between">
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'In-game Icon 2'" [buttonOutline]="true" [required]="true"></app-file>
             @if (charIconPreview('ingame_icon_2'); as src) {
                 <img #img [src]="src" class="preview-img" alt="" />

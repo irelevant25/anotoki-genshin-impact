@@ -24,50 +24,13 @@
                                         <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeVoiceOver(entry.index)"></app-button>
                                     </div>
                                     <div class="form-grid">
-                                        <div class="form-field">
-                                            <label>Order *</label>
-                                            <input class="admin-input" type="number" min="1" [value]="entry.vo.order" (input)="setVoiceOver(entry.index, 'order', +$any($event.target).value)" />
-                                        </div>
-                                        <div class="form-field">
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" [checked]="entry.vo.is_alternative" (change)="setVoiceOver(entry.index, 'is_alternative', $any($event.target).checked)" />
-                                                Is Alternative
-                                            </label>
-                                        </div>
-                                        <div class="form-field col-span-2">
-                                            <label>Title *</label>
-                                            <input class="admin-input" type="text" [value]="entry.vo.title" (input)="setVoiceOver(entry.index, 'title', $any($event.target).value)" />
-                                        </div>
-                                        <div class="form-field col-span-2">
-                                            <label>Title Reading</label>
-                                            <input
-                                                class="admin-input"
-                                                type="text"
-                                                [value]="entry.vo.title_reading ?? ''"
-                                                (input)="setVoiceOver(entry.index, 'title_reading', $any($event.target).value || null)"
-                                            />
-                                        </div>
-                                        <div class="form-field col-span-2">
-                                            <label>Text *</label>
-                                            <textarea class="admin-textarea" rows="3" [value]="entry.vo.text" (input)="setVoiceOver(entry.index, 'text', $any($event.target).value)"></textarea>
-                                        </div>
-                                        <div class="form-field col-span-2">
-                                            <label>Text Reading</label>
-                                            <textarea
-                                                class="admin-textarea"
-                                                rows="2"
-                                                [value]="entry.vo.text_reading ?? ''"
-                                                (input)="setVoiceOver(entry.index, 'text_reading', $any($event.target).value || null)"
-                                            ></textarea>
-                                        </div>
-                                        <div class="form-field col-span-2">
-                                            <label>Audio File</label>
-                                            <label class="file-btn-full">
-                                                <i class="fa-solid fa-music"></i>
-                                                <span>{{ pendingVoAudio()[entry.index]?.name ?? entry.vo.audio ?? 'Choose audio file' }}</span>
-                                                <input type="file" accept="audio/*" (change)="onVoiceOverAudioSelect(entry.index, $event)" hidden />
-                                            </label>
-                                        </div>
+                                        <app-number [label]="'Order'" [(value)]="entry.vo.order" [required]="true" [min]="1"></app-number>
+                                        <app-checkbox [label]="'Is Alternative'" [(value)]="entry.vo.is_alternative" [inline]="false"></app-checkbox>
+                                        <app-text [label]="'Title'" [(value)]="entry.vo.title" [required]="true" [class]="'col-span-2'"></app-text>
+                                        <app-text [label]="'Title Reading'" [(value)]="entry.vo.title_reading" [class]="'col-span-2'"></app-text>
+                                        <app-textarea [label]="'Text'" [(value)]="entry.vo.text" [required]="true" [rows]="3" [class]="'col-span-2'"></app-textarea>
+                                        <app-textarea [label]="'Text Reading'" [(value)]="entry.vo.text_reading" [rows]="2" [class]="'col-span-2'"></app-textarea>
+                                        <app-file [label]="'Audio File'" [buttonOutline]="true" [description]="entry.vo.audio ?? ''" (inputChange)="onVoiceOverAudioSelect(entry.index, $event)" [class]="'col-span-2'"></app-file>
                                     </div>
                                 </div>
                             }

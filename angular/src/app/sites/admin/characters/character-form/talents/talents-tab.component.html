@@ -6,33 +6,18 @@
                 <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeTalent(i)"></app-button>
             </div>
             <div class="form-grid">
-                <div class="form-field">
-                    <label>Name *</label>
-                    <input class="admin-input" type="text" [value]="ta.name" (input)="setTalent(i, 'name', $any($event.target).value)" />
-                </div>
-                <div class="form-field">
-                    <label>Type *</label>
-                    <select class="admin-select" [value]="ta.type" (change)="setTalent(i, 'type', $any($event.target).value)">
-                        @for (tt of talentTypes(); track tt) {
-                            <option [value]="tt">{{ tt }}</option>
-                        }
-                    </select>
-                </div>
+                <app-text [label]="'Name'" [(value)]="ta.name" [required]="true"></app-text>
+                <app-dropdown [label]="'Type'" [options]="talentTypes()" [(value)]="ta.type" [required]="true"></app-dropdown>
                 <div class="form-field col-span-2">
-                    <label>Icon *</label>
-                    <label class="file-btn-full">
-                        <i class="fa-solid fa-upload"></i>
-                        <span>{{ pendingTaIcon()[i]?.name ?? 'Choose icon' }}</span>
-                        <input type="file" accept="image/*" (change)="onTalentIconSelect(i, $event)" hidden />
-                    </label>
+                    <app-file [label]="'Icon'" [buttonOutline]="true" (inputChange)="onTalentIconSelect(i, $event)" [required]="true"></app-file>
                     @if (taIconPreview(i); as src) {
-                        <img [src]="src" class="preview-img" alt="" />
+                        <img #img [src]="src" class="preview-img" alt="" />
+                        <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                            <img class="w-100" [src]="src" />
+                        </app-tooltip>
                     }
                 </div>
-                <div class="form-field col-span-2">
-                    <label>Description</label>
-                    <textarea class="admin-textarea" rows="4" [value]="ta.description ?? ''" (input)="setTalent(i, 'description', $any($event.target).value)"></textarea>
-                </div>
+                <app-textarea [label]="'Description'" [(value)]="ta.description" [rows]="4" [class]="'col-span-2'"></app-textarea>
             </div>
 
             <div class="cost-section">
@@ -47,12 +32,7 @@
                             @for (entry of talentCostsByLevel(i, level); track entry.ci) {
                                 <div class="cost-card">
                                     <div class="cost-card-img"><i class="fa-solid fa-gem"></i></div>
-                                    <select class="admin-select" [value]="entry.cost.material_id" (change)="setTalentCost(i, entry.ci, 'material_id', +$any($event.target).value)">
-                                        <option [value]="0">— material —</option>
-                                        @for (mat of materials(); track mat.id) {
-                                            <option [value]="mat.id">{{ mat.name }}</option>
-                                        }
-                                    </select>
+                                    <app-dropdown [options]="materialOptions()" [value]="entry.cost.material_id" (inputChange)="setTalentCost(i, entry.ci, 'material_id', $event)" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
                                     <div class="cost-card-footer">
                                         <input
                                             class="admin-input"

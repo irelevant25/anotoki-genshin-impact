@@ -1,5 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, model } from '@angular/core';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
+import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { AscensionCostFormData, AscensionFormData, MaterialEntry } from '../../../services/admin-api.service';
 
 function emptyAscension(): AscensionFormData {
@@ -15,30 +18,33 @@ function emptyAscension(): AscensionFormData {
   selector: 'app-ascensions-tab',
   templateUrl: './ascensions-tab.component.html',
   styleUrls: ['./ascensions-tab.component.scss'],
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, NumberComponent, DropdownComponent],
 })
 export class AscensionsTabComponent {
-  ascensions = signal<AscensionFormData[]>([]);
-  stats = signal<string[]>([]);
-  materials = signal<MaterialEntry[]>([]);
+  ascensions = model<AscensionFormData[]>([]);
+  stats = model<string[]>([]);
+  materials = model<MaterialEntry[]>([]);
+
+  materialOptions = computed<DropdownOption[]>(() => this.materials().map(m => ({ key: m.id, value: m.name })));
 
   addAscension(): void {
     this.ascensions.update(a => [...a, { ...emptyAscension(), phase: a.length + 1 }]);
   }
+
   removeAscension(i: number): void {
     this.ascensions.update(a => a.filter((_, idx) => idx !== i));
   }
-  setAscension(i: number, field: keyof AscensionFormData, value: any): void {
-    this.ascensions.update(a => a.map((as, idx) => idx === i ? { ...as, [field]: value } : as));
-  }
+
   addAscensionCost(ascIdx: number): void {
     this.ascensions.update(a => a.map((asc, i) => i === ascIdx
       ? { ...asc, costs: [...(asc.costs ?? []), { material_id: 0, quantity: 1 }] } : asc));
   }
+
   removeAscensionCost(ascIdx: number, costIdx: number): void {
     this.ascensions.update(a => a.map((asc, i) => i === ascIdx
       ? { ...asc, costs: (asc.costs ?? []).filter((_, ci) => ci !== costIdx) } : asc));
   }
+
   setAscensionCost(ascIdx: number, costIdx: number, field: keyof AscensionCostFormData, value: any): void {
     this.ascensions.update(a => a.map((asc, i) => i === ascIdx
       ? { ...asc, costs: (asc.costs ?? []).map((c, ci) => ci === costIdx ? { ...c, [field]: value } : c) } : asc));

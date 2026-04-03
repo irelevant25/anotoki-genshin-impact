@@ -6,29 +6,18 @@
                 <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeConstellation(i)"></app-button>
             </div>
             <div class="form-grid">
-                <div class="form-field">
-                    <label>Level</label>
-                    <input class="admin-input" type="number" min="1" max="6" [value]="co.level" (input)="setConstellation(i, 'level', +$any($event.target).value)" />
-                </div>
-                <div class="form-field">
-                    <label>Name *</label>
-                    <input class="admin-input" type="text" [value]="co.name" (input)="setConstellation(i, 'name', $any($event.target).value)" />
-                </div>
+                <app-number [label]="'Level'" [(value)]="co.level" [min]="1" [max]="6"></app-number>
+                <app-text [label]="'Name'" [(value)]="co.name" [required]="true"></app-text>
                 <div class="form-field col-span-2">
-                    <label>Icon *</label>
-                    <label class="file-btn-full">
-                        <i class="fa-solid fa-upload"></i>
-                        <span>{{ pendingCoIcon()[i]?.name ?? 'Choose icon' }}</span>
-                        <input type="file" accept="image/*" (change)="onConstellationIconSelect(i, $event)" hidden />
-                    </label>
+                    <app-file [label]="'Icon'" [buttonOutline]="true" (inputChange)="onConstellationIconSelect(i, $event)" [required]="true"></app-file>
                     @if (coIconPreview(i); as src) {
-                        <img [src]="src" class="preview-img" alt="" />
+                        <img #img [src]="src" class="preview-img" alt="" />
+                        <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                            <img class="w-100" [src]="src" />
+                        </app-tooltip>
                     }
                 </div>
-                <div class="form-field col-span-2">
-                    <label>Description</label>
-                    <textarea class="admin-textarea" rows="3" [value]="co.description ?? ''" (input)="setConstellation(i, 'description', $any($event.target).value)"></textarea>
-                </div>
+                <app-textarea [label]="'Description'" [(value)]="co.description" [rows]="3" [class]="'col-span-2'"></app-textarea>
             </div>
         </div>
     }

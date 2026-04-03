@@ -10,7 +10,6 @@ import { VoiceOversTabComponent } from './voice-overs/voice-overs-tab.component'
 import { ConstellationsTabComponent } from './constellations/constellations-tab.component';
 import { AscensionsTabComponent } from './ascensions/ascensions-tab.component';
 import { TalentsTabComponent } from './talents/talents-tab.component';
-import { map, Observable, tap } from 'rxjs';
 import {
   AdminApiService,
   AscensionFormData,
@@ -30,6 +29,7 @@ function emptyCharacter(): CharacterFormData {
     weapon_type: '',
     rarity: NaN,
     model: '',
+    region: '',
     version: '',
     voice_actor_english: '',
     voice_actor_japanese: '',
@@ -147,8 +147,33 @@ export class CharacterFormComponent {
     }
     if (this.isEdit()) {
       this.loading.set(true);
-      this.loadCharacter(Number(id)).subscribe({
-        next: () => this.loading.set(false),
+      this._api.getCharacterFull(Number(id)).subscribe({
+        next: (data) => {
+          const c = { ...emptyCharacter() };
+          Object.keys(c).forEach((k) => {
+            if (data[k] !== undefined) (c as any)[k] = data[k];
+          });
+          this.character.set(c);
+
+          const vos = data.voice_overs ?? [];
+          const cos = data.constellations ?? [];
+          const tas = data.talents ?? [];
+
+          this.voiceOvers.set(vos);
+          this.constellations.set(cos);
+          this.ascensions.set(data.ascensions ?? []);
+          this.talents.set(tas);
+          this.relationships.set(data.relationships ?? []);
+          this.selectedRoles.set(data.roles ?? []);
+
+          this.pendingVoAudio.set(vos.map(() => null));
+          this.pendingCoIcon.set(cos.map(() => null));
+          this.coIconPreviews.set(cos.map(() => null));
+          this.pendingTaIcon.set(tas.map(() => null));
+          this.taIconPreviews.set(tas.map(() => null));
+
+          this.loading.set(false)
+        },
         error: () => {
           this.loading.set(false);
           this._notify.showError('Failed to load character');
@@ -157,19 +182,19 @@ export class CharacterFormComponent {
     }
   }
 
-  ngOnDestroy(): void {
-    this.cleanupUrls();
-  }
+  // ngOnDestroy(): void {
+  //   this.cleanupUrls();
+  // }
 
-  cleanupUrls(): void {
-    Object.values(this.charIconPreviews()).forEach((u) => URL.revokeObjectURL(u));
-    this.coIconPreviews().forEach((u) => {
-      if (u) URL.revokeObjectURL(u);
-    });
-    this.taIconPreviews().forEach((u) => {
-      if (u) URL.revokeObjectURL(u);
-    });
-  }
+  // cleanupUrls(): void {
+  //   Object.values(this.charIconPreviews()).forEach((u) => URL.revokeObjectURL(u));
+  //   this.coIconPreviews().forEach((u) => {
+  //     if (u) URL.revokeObjectURL(u);
+  //   });
+  //   this.taIconPreviews().forEach((u) => {
+  //     if (u) URL.revokeObjectURL(u);
+  //   });
+  // }
 
   save(): void {
     this.saving.set(true);
@@ -188,36 +213,6 @@ export class CharacterFormComponent {
         this._notify.showError(e?.error?.message ?? 'Failed to save character');
       },
     });
-  }
-
-  loadCharacter(id: number): Observable<void> {
-    return this._api.getCharacterFull(id).pipe(
-      tap((data) => {
-        const c = { ...emptyCharacter() };
-        Object.keys(c).forEach((k) => {
-          if (data[k] !== undefined) (c as any)[k] = data[k];
-        });
-        this.character.set(c);
-
-        const vos = data.voice_overs ?? [];
-        const cos = data.constellations ?? [];
-        const tas = data.talents ?? [];
-
-        this.voiceOvers.set(vos);
-        this.constellations.set(cos);
-        this.ascensions.set(data.ascensions ?? []);
-        this.talents.set(tas);
-        this.relationships.set(data.relationships ?? []);
-        this.selectedRoles.set(data.roles ?? []);
-
-        this.pendingVoAudio.set(vos.map(() => null));
-        this.pendingCoIcon.set(cos.map(() => null));
-        this.coIconPreviews.set(cos.map(() => null));
-        this.pendingTaIcon.set(tas.map(() => null));
-        this.taIconPreviews.set(tas.map(() => null));
-      }),
-      map(() => undefined)
-    );
   }
 
   buildFormData(): FormData {

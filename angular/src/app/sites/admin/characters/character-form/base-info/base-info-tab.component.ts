@@ -38,21 +38,6 @@ export class BaseInfoTabComponent {
   roles = model<string[]>([]);
   characterStates = model<string[]>([]);
 
-  // ── Character field ───────────────────────────────────────────────────────────
-  setCharField(field: keyof CharacterFormData, value: any): void {
-    this.character.update((c) => ({ ...c, [field]: value }));
-  }
-
-  onCharFileSelect(field: keyof CharacterFormData, event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) return;
-    const oldUrl = this.charIconPreviews()[field as string];
-    if (oldUrl) URL.revokeObjectURL(oldUrl);
-    const url = URL.createObjectURL(file);
-    this.pendingCharFiles.update((m) => ({ ...m, [field]: file }));
-    this.charIconPreviews.update((m) => ({ ...m, [field]: url }));
-  }
-
   charIconPreview(field: keyof CharacterFormData): string | null {
     return this.charIconPreviews()[field as string] ?? (this.character() as any)[field] ?? null;
   }
