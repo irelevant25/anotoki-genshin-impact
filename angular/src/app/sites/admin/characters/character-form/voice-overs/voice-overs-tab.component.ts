@@ -8,6 +8,7 @@ import { FileComponent, FileItemType } from '../../../../../shared/local-lib/com
 import { AccordionComponent } from '../../../../../shared/local-lib/components/accordion/accordion.component';
 import { AccordionItemComponent } from '../../../../../shared/local-lib/components/accordion/item/item.component';
 import { VoiceOverFormData } from '../../../services/admin-api.service';
+import { TextFieldContainerComponent } from "../../../../../shared/local-lib/components/text-field-container/text-field-container.component";
 
 function emptyVoiceOver(): VoiceOverFormData {
   return { order: 1, type: 'story', language: 'English', title: '', text: '' };
@@ -17,7 +18,7 @@ function emptyVoiceOver(): VoiceOverFormData {
   selector: 'app-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, CheckboxComponent, FileComponent, AccordionComponent, AccordionItemComponent],
+  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, CheckboxComponent, FileComponent, AccordionComponent, AccordionItemComponent, TextFieldContainerComponent],
 })
 export class VoiceOversTabComponent {
   voiceOvers = model<VoiceOverFormData[]>([]);

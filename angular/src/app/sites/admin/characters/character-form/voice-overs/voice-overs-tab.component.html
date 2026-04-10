@@ -1,38 +1,45 @@
-@for (type of voiceOverTypes(); track type) {
-    <app-accordion [onlyOneOpen]="false">
-        <app-accordion-item [lazy]="true" [title]="type" [padding]="false">
-            @for (lang of languages(); track lang) {
-                <app-accordion [onlyOneOpen]="false">
-                    <app-accordion-item [lazy]="true" [title]="lang + ' (' + vosByTypeLang(type, lang).length + ')'" [padding]="false" class="secondary">
-                        <div class="vo-lang-actions">
-                            <app-button text="+ Add" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addVoiceOver(type, lang)"></app-button>
-                        </div>
-                        @for (entry of vosByTypeLang(type, lang); track entry.index) {
-                            <div class="sub-card">
-                                <div class="sub-card-header">
-                                    <span class="sub-card-index">{{ entry.vo.title || 'Untitled' }}</span>
-                                    <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeVoiceOver(entry.index)"></app-button>
-                                </div>
-                                <div class="form-grid">
-                                    <app-number [label]="'Order'" [(value)]="entry.vo.order" [required]="true" [min]="1"></app-number>
-                                    <app-checkbox [label]="'Is Alternative'" [(value)]="entry.vo.is_alternative" [inline]="false"></app-checkbox>
-                                    <app-text [label]="'Title'" [(value)]="entry.vo.title" [required]="true" [class]="'col-span-2'"></app-text>
-                                    <app-text [label]="'Title Reading'" [(value)]="entry.vo.title_reading" [class]="'col-span-2'"></app-text>
-                                    <app-textarea [label]="'Text'" [(value)]="entry.vo.text" [required]="true" [rows]="3" [class]="'col-span-2'"></app-textarea>
-                                    <app-textarea [label]="'Text Reading'" [(value)]="entry.vo.text_reading" [rows]="2" [class]="'col-span-2'"></app-textarea>
-                                    <app-file
-                                        [label]="'Audio File'"
-                                        [buttonOutline]="true"
-                                        [description]="entry.vo.audio ?? ''"
-                                        (inputChange)="onVoiceOverAudioSelect(entry.index, $event)"
-                                        [class]="'col-span-2'"
-                                    ></app-file>
-                                </div>
+<div class="d-flex flex-column gap-5">
+    @for (type of voiceOverTypes(); track type) {
+        <app-accordion [onlyOneOpen]="false">
+            <app-accordion-item [lazy]="true" [title]="type" [gap]="false">
+                @for (lang of languages(); track lang) {
+                    <app-accordion [onlyOneOpen]="false">
+                        <app-accordion-item [lazy]="true" [title]="lang + ' (' + vosByTypeLang(type, lang).length + ')'" class="secondary">
+                            <div class="vo-lang-actions">
+                                <app-button text="+ Add" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addVoiceOver(type, lang)"></app-button>
                             </div>
-                        }
-                    </app-accordion-item>
-                </app-accordion>
-            }
-        </app-accordion-item>
-    </app-accordion>
-}
+                            @for (entry of vosByTypeLang(type, lang); track entry.index) {
+                                <div class="sub-card d-flex flex-col gap-3">
+                                    <div class="sub-card-header">
+                                        <span class="sub-card-index">{{ entry.vo.title || 'Untitled' }}</span>
+                                        <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeVoiceOver(entry.index)"></app-button>
+                                    </div>
+                                    <app-text-field-container [cols]="4">
+                                        <app-text-field-container [cols]="2" [class]="'no-minmax'">
+                                            <app-number [label]="'Order'" [(value)]="entry.vo.order" [required]="true" [min]="1"></app-number>
+                                            <app-checkbox [label]="'Is Alternative'" [(value)]="entry.vo.is_alternative" [inline]="false"></app-checkbox>
+                                        </app-text-field-container>
+                                        <app-text [label]="'Title'" [(value)]="entry.vo.title" [required]="true" [class]="'col-span-2'"></app-text>
+                                        <app-text [label]="'Title Reading'" [(value)]="entry.vo.title_reading" [class]="'col-span-2'"></app-text>
+                                        <app-file
+                                            [label]="'Audio File'"
+                                            [buttonOutline]="true"
+                                            [description]="entry.vo.audio ?? ''"
+                                            (inputChange)="onVoiceOverAudioSelect(entry.index, $event)"
+                                            [class]="'col-span-2'"
+                                            [fileNamePosition]="'right'"
+                                        ></app-file>
+                                    </app-text-field-container>
+                                    <app-text-field-container [cols]="2">
+                                        <app-textarea [label]="'Text'" [(value)]="entry.vo.text" [required]="true" [rows]="3" [class]="'col-span-2'" [resize]="false"></app-textarea>
+                                        <app-textarea [label]="'Text Reading'" [(value)]="entry.vo.text_reading" [rows]="3" [class]="'col-span-2'" [resize]="false"></app-textarea>
+                                    </app-text-field-container>
+                                </div>
+                            }
+                        </app-accordion-item>
+                    </app-accordion>
+                }
+            </app-accordion-item>
+        </app-accordion>
+    }
+</div>

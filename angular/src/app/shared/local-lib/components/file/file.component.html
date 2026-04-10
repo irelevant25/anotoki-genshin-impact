@@ -18,48 +18,50 @@
             </label>
         }
 
-        <!-- Hidden file input -->
-        <input
-            #inputElement
-            [id]="inputId"
-            type="file"
-            [multiple]="multiple()"
-            [accept]="acceptAttribute"
-            [disabled]="disabled()"
-            style="display: none"
-            (change)="onFileChange($event)"
-            (blur)="onBlur()"
-            (focus)="onFocus()"
-        />
+        <div class="d-flex gap-3" [class.flex-col]="fileNamePosition() === 'bottom'" [class.flex-row]="fileNamePosition() === 'right'">
+            <!-- Hidden file input -->
+            <input
+                #inputElement
+                [id]="inputId"
+                type="file"
+                [multiple]="multiple()"
+                [accept]="acceptAttribute"
+                [disabled]="disabled()"
+                style="display: none"
+                (change)="onFileChange($event)"
+                (blur)="onBlur()"
+                (focus)="onFocus()"
+            />
 
-        <!-- File selection button -->
-        <app-button
-            [text]="multiple() ? 'Vybrat súbory' : 'Vybrat súbor'"
-            [class]="buttonClass()"
-            [variant]="buttonVariant()"
-            [disabled]="disabled()"
-            (buttonClick)="onButtonClick($event)"
-            [outline]="buttonOutline()"
-        ></app-button>
+            <!-- File selection button -->
+            <app-button
+                [text]="multiple() ? 'Vybrat súbory' : 'Vybrat súbor'"
+                [class]="buttonClass()"
+                [variant]="buttonVariant()"
+                [disabled]="disabled()"
+                (buttonClick)="onButtonClick($event)"
+                [outline]="buttonOutline()"
+            ></app-button>
 
-        <!-- Selected files display -->
-        @if (showFileNames() && (value() ?? '').length > 0) {
-            <div class="selected-files">
-                @for (item of value(); track item; let i = $index) {
-                    <div class="selected-file">
-                        <span class="file-name">{{ item.file?.name ?? item[valueName()] }}</span>
-                        <!-- TODO: prerobit na app-button -->
-                        @if (!disabled()) {
-                            <button type="button" class="remove-btn" [class]="buttonClass()" (click)="removeFile(i)">✕</button>
-                        }
-                    </div>
-                }
-                <!-- Clear all files button (for multiple files) -->
-                @if (multiple() && !disabled() && (value() ?? '').length > 1) {
-                    <app-button text="Vymazať všetky súbory" [variant]="'danger'" [class]="buttonClass()" type="button" (click)="clearFiles()"></app-button>
-                }
-            </div>
-        }
+            <!-- Selected files display -->
+            @if (showFileNames() && (value() ?? '').length > 0) {
+                <div class="selected-files">
+                    @for (item of value(); track item; let i = $index) {
+                        <div class="selected-file">
+                            <span class="file-name">{{ item.file?.name ?? item[valueName()] }}</span>
+                            <!-- TODO: prerobit na app-button -->
+                            @if (!disabled()) {
+                                <button type="button" class="remove-btn" [class]="buttonClass()" (click)="removeFile(i)">✕</button>
+                            }
+                        </div>
+                    }
+                    <!-- Clear all files button (for multiple files) -->
+                    @if (multiple() && !disabled() && (value() ?? '').length > 1) {
+                        <app-button text="Vymazať všetky súbory" [variant]="'danger'" [class]="buttonClass()" type="button" (click)="clearFiles()"></app-button>
+                    }
+                </div>
+            }
+        </div>
 
         <!-- Error message -->
         @if (displayError() && hasError()) {

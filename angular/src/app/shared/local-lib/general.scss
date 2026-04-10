@@ -218,7 +218,10 @@ button {
   }
 
   @container (max-width: #{$i * 200px}) {
-    .cols-#{$i} {
+    .cols-#{$i}:has(.no-minmax) {
+      grid-template-columns: repeat(auto-fit);
+    }
+    .cols-#{$i}:not(.no-minmax) {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }

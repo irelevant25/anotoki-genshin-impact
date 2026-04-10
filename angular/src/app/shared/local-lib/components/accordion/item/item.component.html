@@ -1,11 +1,11 @@
 <div class="accordion-item" [class]="class()">
-    <h2 class="accordion-header">
+    <h2 class="accordion-header m-0">
         <div class="accordion-title">{{ title() }}</div>
         <app-button class="p-0" [icon]="expanded() ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up'" [variant]="undefined" (buttonClick)="toggle()"></app-button>
     </h2>
     <div class="accordion-content" [class.show]="expanded()" [class.lazy]="lazy()">
-        <div>
-            <div [class]="padding() ? 'accordion-padding' : ''">
+        <div class="p-0">
+            <div [class]="gap() ? 'd-flex flex-col gap-3 px-3' : ''">
                 <ng-content></ng-content>
             </div>
         </div>

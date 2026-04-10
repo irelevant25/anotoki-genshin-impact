@@ -35,6 +35,7 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
   buttonOutline = model<boolean>(false);
   buttonVariant = model<ButtonVariant>('primary');
   showFileNames = model<boolean>(true);
+  fileNamePosition = model<'bottom' | 'right'>('bottom');
   valueName = model<keyof T>('value' as keyof T);
   buttonClass = model<string>('');
 
