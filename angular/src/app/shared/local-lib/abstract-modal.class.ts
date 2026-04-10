@@ -1,10 +1,13 @@
-import { ChangeDetectorRef, Directive, inject, model, Type } from '@angular/core';
+import { ChangeDetectorRef, Directive, inject, model, Type, ViewChild } from '@angular/core';
 import { ModalService } from './components/modal/modal.service';
 import { CustomModalRef, ModalConfig } from './components/modal/modal-core/modal-core.class';
 import { Subject, takeUntil } from 'rxjs';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @Directive({})
 export abstract class AbstractModalComponent {
+  @ViewChild(LoaderComponent) loadingElement?: LoaderComponent;
+
   loading = model<boolean>(false);
   isModalOpen: boolean = false;
 

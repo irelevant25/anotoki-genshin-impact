@@ -5,6 +5,8 @@ import { TextareaComponent } from '../../../../../shared/local-lib/components/te
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
+import { AccordionComponent } from '../../../../../shared/local-lib/components/accordion/accordion.component';
+import { AccordionItemComponent } from '../../../../../shared/local-lib/components/accordion/item/item.component';
 import { VoiceOverFormData } from '../../../services/admin-api.service';
 
 function emptyVoiceOver(): VoiceOverFormData {
@@ -15,12 +17,10 @@ function emptyVoiceOver(): VoiceOverFormData {
   selector: 'app-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, CheckboxComponent, FileComponent],
+  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, CheckboxComponent, FileComponent, AccordionComponent, AccordionItemComponent],
 })
 export class VoiceOversTabComponent {
   voiceOvers = model<VoiceOverFormData[]>([]);
-  voTypesOpen = model<Set<string>>(new Set());
-  voLangsOpen = model<Set<string>>(new Set());
   pendingVoAudio = model<(File | null)[]>([]);
   voiceOverTypes = model<string[]>([]);
   languages = model<string[]>([]);
@@ -37,23 +37,6 @@ export class VoiceOversTabComponent {
 
   vosByTypeLang(type: string, lang: string): { vo: VoiceOverFormData; index: number }[] {
     return this._vosByTypeLangMap().get(`${type}:${lang}`) ?? [];
-  }
-
-  toggleVoType(type: string): void {
-    this.voTypesOpen.update(s => { const n = new Set(s); n.has(type) ? n.delete(type) : n.add(type); return n; });
-  }
-
-  toggleVoLang(type: string, lang: string): void {
-    const key = `${type}:${lang}`;
-    this.voLangsOpen.update(s => { const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n; });
-  }
-
-  isVoTypeOpen(type: string): boolean {
-    return this.voTypesOpen().has(type);
-  }
-
-  isVoLangOpen(type: string, lang: string): boolean {
-    return this.voLangsOpen().has(`${type}:${lang}`);
   }
 
   addVoiceOver(type = 'story', language = 'English'): void {

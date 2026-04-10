@@ -1,8 +1,41 @@
+.accordion-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  margin-bottom: var(--spacing-md);
+  overflow: hidden;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .accordion-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-card);
+  border: none;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: var(--bg-hover);
+  }
+}
+
+.accordion-title {
+  align-content: center;
+}
+
+.accordion-padding {
+  padding: var(--spacing-md);
 }
 
 .accordion-content {
@@ -16,10 +49,35 @@
   }
 }
 
-.accordion-title {
-  align-content: center;
+.accordion-content > div {
+  min-height: 0;
 }
 
-.accordion-content > div {
-  min-height: 0; /* Important for grid */
+.accordion-content.lazy {
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}
+
+// ── Secondary variant for nested/inner accordions ────────────────────────────
+
+.accordion-item.secondary {
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid var(--border-color);
+  margin-bottom: 0;
+
+  .accordion-header {
+    background: none;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-bottom: none;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
 }

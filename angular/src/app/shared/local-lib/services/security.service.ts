@@ -136,12 +136,21 @@ export class SecurityService {
   }
 
   /** Clears the local session and notifies the server (fire-and-forget). */
-  logout(): void {
+  logout(callbackFunction?: (isSuccess: boolean) => void): void {
     this._storageService.remove(this.TOKEN_KEY);
     this._currentUserData.next(null);
     this._isLoggedIn.next(false);
     this._roleService.setRoles([]);
-    this._httpClient.post('/api/auth/logout', {}).pipe(catchError(() => of(null))).subscribe();
+    this._httpClient.post('/api/auth/logout', {}).subscribe({
+      next: () => {
+        this._notificationService.showSuccess('You were successfully logged out.');
+        callbackFunction?.(true);
+      },
+      error: () => {
+        this._notificationService.showError('Logout failed on server, but local session was cleared.');
+        callbackFunction?.(false);
+      },
+    });
   }
 
   /**

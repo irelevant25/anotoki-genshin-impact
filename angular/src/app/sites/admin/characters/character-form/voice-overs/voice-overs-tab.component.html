@@ -1,43 +1,38 @@
 @for (type of voiceOverTypes(); track type) {
-    <div class="vo-type-section">
-        <button class="vo-type-toggle" type="button" (click)="toggleVoType(type)">
-            <span>{{ type }}</span>
-            <i class="fa-solid fa-chevron-right vo-chevron" [class.open]="isVoTypeOpen(type)"></i>
-        </button>
-        @if (isVoTypeOpen(type)) {
+    <app-accordion [onlyOneOpen]="false">
+        <app-accordion-item [lazy]="true" [title]="type" [padding]="false">
             @for (lang of languages(); track lang) {
-                <div class="vo-lang-section">
-                    <div class="vo-lang-header">
-                        <button class="vo-lang-toggle" type="button" (click)="toggleVoLang(type, lang)">
-                            <span class="vo-lang-label">{{ lang }}</span>
-                            <span class="vo-lang-count">{{ vosByTypeLang(type, lang).length }}</span>
-                            <i class="fa-solid fa-chevron-right vo-chevron" [class.open]="isVoLangOpen(type, lang)"></i>
-                        </button>
-                        <app-button text="+ Add" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addVoiceOver(type, lang)"></app-button>
-                    </div>
-                    @if (isVoLangOpen(type, lang)) {
-                        <div class="sub-list">
-                            @for (entry of vosByTypeLang(type, lang); track entry.index) {
-                                <div class="sub-card">
-                                    <div class="sub-card-header">
-                                        <span class="sub-card-index">{{ entry.vo.title || 'Untitled' }}</span>
-                                        <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeVoiceOver(entry.index)"></app-button>
-                                    </div>
-                                    <div class="form-grid">
-                                        <app-number [label]="'Order'" [(value)]="entry.vo.order" [required]="true" [min]="1"></app-number>
-                                        <app-checkbox [label]="'Is Alternative'" [(value)]="entry.vo.is_alternative" [inline]="false"></app-checkbox>
-                                        <app-text [label]="'Title'" [(value)]="entry.vo.title" [required]="true" [class]="'col-span-2'"></app-text>
-                                        <app-text [label]="'Title Reading'" [(value)]="entry.vo.title_reading" [class]="'col-span-2'"></app-text>
-                                        <app-textarea [label]="'Text'" [(value)]="entry.vo.text" [required]="true" [rows]="3" [class]="'col-span-2'"></app-textarea>
-                                        <app-textarea [label]="'Text Reading'" [(value)]="entry.vo.text_reading" [rows]="2" [class]="'col-span-2'"></app-textarea>
-                                        <app-file [label]="'Audio File'" [buttonOutline]="true" [description]="entry.vo.audio ?? ''" (inputChange)="onVoiceOverAudioSelect(entry.index, $event)" [class]="'col-span-2'"></app-file>
-                                    </div>
-                                </div>
-                            }
+                <app-accordion [onlyOneOpen]="false">
+                    <app-accordion-item [lazy]="true" [title]="lang + ' (' + vosByTypeLang(type, lang).length + ')'" [padding]="false" class="secondary">
+                        <div class="vo-lang-actions">
+                            <app-button text="+ Add" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addVoiceOver(type, lang)"></app-button>
                         </div>
-                    }
-                </div>
+                        @for (entry of vosByTypeLang(type, lang); track entry.index) {
+                            <div class="sub-card">
+                                <div class="sub-card-header">
+                                    <span class="sub-card-index">{{ entry.vo.title || 'Untitled' }}</span>
+                                    <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeVoiceOver(entry.index)"></app-button>
+                                </div>
+                                <div class="form-grid">
+                                    <app-number [label]="'Order'" [(value)]="entry.vo.order" [required]="true" [min]="1"></app-number>
+                                    <app-checkbox [label]="'Is Alternative'" [(value)]="entry.vo.is_alternative" [inline]="false"></app-checkbox>
+                                    <app-text [label]="'Title'" [(value)]="entry.vo.title" [required]="true" [class]="'col-span-2'"></app-text>
+                                    <app-text [label]="'Title Reading'" [(value)]="entry.vo.title_reading" [class]="'col-span-2'"></app-text>
+                                    <app-textarea [label]="'Text'" [(value)]="entry.vo.text" [required]="true" [rows]="3" [class]="'col-span-2'"></app-textarea>
+                                    <app-textarea [label]="'Text Reading'" [(value)]="entry.vo.text_reading" [rows]="2" [class]="'col-span-2'"></app-textarea>
+                                    <app-file
+                                        [label]="'Audio File'"
+                                        [buttonOutline]="true"
+                                        [description]="entry.vo.audio ?? ''"
+                                        (inputChange)="onVoiceOverAudioSelect(entry.index, $event)"
+                                        [class]="'col-span-2'"
+                                    ></app-file>
+                                </div>
+                            </div>
+                        }
+                    </app-accordion-item>
+                </app-accordion>
             }
-        }
-    </div>
+        </app-accordion-item>
+    </app-accordion>
 }

@@ -15,6 +15,7 @@ import { requiredValidator } from './validators/required.class';
   ],
 })
 export abstract class AbstractInputComponent<T = string> extends AbstractTooltipComponent implements Validator {
+  static readonly registry = new Set<AbstractInputComponent<any>>();
   @ViewChild('inputElement') inputElement?: ElementRef<HTMLInputElement | HTMLSelectElement>;
   @ViewChild('labelElement') labelElement?: ElementRef<HTMLLabelElement>;
 
@@ -29,6 +30,7 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
   validators = model<ValidatorFn[]>([]);
   class = model<string | undefined>(undefined);
   displayError = model<boolean>(true);
+  width = model<'default' | 'min-content'>('default');
 
   // outputs
   inputChange = output<T | undefined | null>();
@@ -70,6 +72,7 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
 
   constructor() {
     super();
+    AbstractInputComponent.registry.add(this);
     effect(() => {
       const value = this.value();
 
@@ -95,6 +98,7 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
 
   override ngOnDestroy(): void {
     super.ngOnDestroy();
+    AbstractInputComponent.registry.delete(this);
     this.unsubscriber.next();
     this.unsubscriber.complete();
   }

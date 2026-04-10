@@ -11,6 +11,7 @@ export class AccordionItemComponent {
   title = model<string | undefined>(undefined);
   expanded = model<boolean>(false);
   padding = model<boolean>(true);
+  lazy = model<boolean>(false);
   class = model<string | undefined>(undefined);
 
   toggle(): void {

@@ -99,10 +99,6 @@ export class CharacterFormComponent {
   coIconPreviews = signal<(string | null)[]>([]);
   taIconPreviews = signal<(string | null)[]>([]);
 
-  // Voice over accordion state
-  voTypesOpen = signal<Set<string>>(new Set());
-  voLangsOpen = signal<Set<string>>(new Set());
-
   private readonly _api = inject(AdminApiService);
   private readonly _notify = inject(NotificationService);
   private readonly _route = inject(ActivatedRoute);

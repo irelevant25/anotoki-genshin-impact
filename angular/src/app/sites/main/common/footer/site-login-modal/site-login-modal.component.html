@@ -10,3 +10,5 @@
         <app-button text="Login" variant="primary" (buttonClick)="submit()"> </app-button>
     </div>
 </app-modal>
+
+<app-loader [loading]="loading()" [text]="'Logging in...'"> </app-loader>

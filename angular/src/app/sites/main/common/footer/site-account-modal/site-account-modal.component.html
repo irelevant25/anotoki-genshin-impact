@@ -53,3 +53,5 @@
         <app-button text="Logout" variant="danger" (buttonClick)="logout()"> </app-button>
     </div>
 </app-modal>
+
+<app-loader [loading]="loading()" [text]="'Logging out...'"> </app-loader>
