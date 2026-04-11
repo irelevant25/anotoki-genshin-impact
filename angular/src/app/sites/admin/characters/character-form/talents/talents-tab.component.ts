@@ -6,7 +6,8 @@ import { DropdownComponent } from '../../../../../shared/local-lib/components/dr
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
-import { MaterialEntry, TalentCostFormData, TalentFormData } from '../../../services/admin-api.service';
+import { TalentCostFormData, TalentFormData } from '../../../services/admin-api.service';
+import { Material } from '../../../../../shared/models.generated';
 
 function emptyTalent(): TalentFormData {
   return { name: '', type: 'Normal Attack', icon: '', description: '', costs: [] };
@@ -23,9 +24,9 @@ export class TalentsTabComponent {
   pendingTaIcon = model<(File | null)[]>([]);
   taIconPreviews = model<(string | null)[]>([]);
   talentTypes = model<string[]>([]);
-  materials = model<MaterialEntry[]>([]);
+  materials = model<Material[]>([]);
 
-  materialOptions = computed<DropdownOption[]>(() => this.materials().map(m => ({ key: m.id, value: m.name })));
+  materialOptions = computed<DropdownOption[]>(() => this.materials().map(m => ({ key: m.id ?? -1, value: m.name })));
 
   addTalent(): void {
     this.talents.update(t => [...t, emptyTalent()]);

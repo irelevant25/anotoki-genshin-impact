@@ -3,7 +3,8 @@ import { ButtonComponent } from '../../../../../shared/local-lib/components/butt
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
-import { AscensionCostFormData, AscensionFormData, MaterialEntry } from '../../../services/admin-api.service';
+import { AscensionCostFormData, AscensionFormData } from '../../../services/admin-api.service';
+import { Material } from '../../../../../shared/models.generated';
 
 function emptyAscension(): AscensionFormData {
   return {
@@ -23,12 +24,12 @@ function emptyAscension(): AscensionFormData {
 export class AscensionsTabComponent {
   ascensions = model<AscensionFormData[]>([]);
   stats = model<string[]>([]);
-  materials = model<MaterialEntry[]>([]);
-
-  materialOptions = computed<DropdownOption[]>(() => this.materials().map(m => ({ key: m.id, value: m.name })));
+  materials = model<Material[]>([]);
+  ascensionsSorted = computed(() => this.ascensions().sort((a, b) => a.phase - b.phase));
+  materialOptions = computed<DropdownOption[]>(() => this.materials().map(m => ({ key: m.id ?? -1, value: m.name, data: m })));
 
   addAscension(): void {
-    this.ascensions.update(a => [...a, { ...emptyAscension(), phase: a.length + 1 }]);
+    this.ascensions.update(a => [...a, { ...emptyAscension(), phase: a.length }]);
   }
 
   removeAscension(i: number): void {

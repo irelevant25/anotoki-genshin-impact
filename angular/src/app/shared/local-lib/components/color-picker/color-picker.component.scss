@@ -1,0 +1,40 @@
+.color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.color-swatch {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 6px;
+  border: 2px solid var(--border-color, #dee2e6);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    border-color: var(--color-primary, #4a90e2);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+  }
+
+  &.open {
+    border-color: var(--color-primary, #4a90e2);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+  }
+}
+
+.color-value {
+  font-size: 0.875rem;
+  color: var(--text-muted, #6c757d);
+  font-family: monospace;
+}

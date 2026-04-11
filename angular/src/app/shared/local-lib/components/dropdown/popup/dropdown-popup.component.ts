@@ -26,6 +26,11 @@ export class DropdownPopupComponent extends AbstractPopupComponent<DropdownOptio
     return this._highlightedIndex;
   }
 
+  mouseEnter(index: number, option?: DropdownOption): void {
+    this.highlightedIndexChange(index);
+    this.optionHovered.emit(option);
+  }
+
   highlightedIndexChange(newHighlightedIndex: number): void {
     this.highlightedIndex = newHighlightedIndex;
   }
@@ -57,5 +62,27 @@ export class DropdownPopupComponent extends AbstractPopupComponent<DropdownOptio
 
   clickOutside(): void {
     this.onClose.emit();
+  }
+
+  scrollToChar(char: string): void {
+    const options = this.options ?? [];
+    const lowerChar = char.toLowerCase();
+
+    const index = options.findIndex((option) => {
+      const val = option.value.toString() ?? '';
+      return val.toLowerCase().startsWith(lowerChar);
+    });
+
+    if (index === -1 || !this.mainElement?.nativeElement) {
+      return;
+    }
+
+    const listItems = this.mainElement.nativeElement.querySelectorAll('div.dropdown-options > div.dropdown-option');
+    const emptyOptionOffset = this.emptyOption === undefined || !this.emptyOption ? 1 : 0;
+    const targetItem = listItems[index + emptyOptionOffset];
+
+    if (targetItem) {
+      this.mainElement.nativeElement.scrollTop = (targetItem as HTMLElement).offsetTop;
+    }
   }
 }

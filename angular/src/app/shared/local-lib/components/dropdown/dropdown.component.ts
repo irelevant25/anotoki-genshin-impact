@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, ComponentRef, computed, ContentChild, createComponent, effect, EnvironmentInjector, model, TemplateRef } from '@angular/core';
+import { ApplicationRef, Component, ComponentRef, computed, ContentChild, createComponent, effect, EnvironmentInjector, model, output, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AbstractInputComponent } from '../../abstract-input.class';
 import { DropdownPopupComponent } from './popup/dropdown-popup.component';
@@ -38,6 +38,10 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   emptyOptionText = model<string | undefined>(undefined);
   forceOptionWhenEmpty = model<boolean>(false);
 
+  hoveredOption = output<DropdownOption | undefined>();
+  closed = output<void>();
+  opened = output<void>();
+
   computedOptions = computed(() => {
     const raw = this.options();
     if (!Array.isArray(raw)) {
@@ -58,6 +62,12 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
     const value = this.value();
     const selectedOption = this.selectedOption();
     return selectedOption ?? options.find((option) => option.key == value);
+  });
+  contentLength = computed(() => {
+    const options = this.computedOptions();
+    const inputLength = this.value()?.toString().length ?? 0;
+    const optionLength = options.reduce((longest, option) => Math.max(longest, option.value.toString().length), 0);
+    return Math.max(inputLength, optionLength);
   });
   isPopupOpen = model<boolean>(false);
   popupRef: ComponentRef<DropdownPopupComponent> | null = null;
@@ -128,6 +138,11 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
         event.preventDefault();
         this.closePopup();
         this.inputElement?.nativeElement.blur();
+        break;
+      default:
+        if (event.key.length === 1) {
+          this.popupRef?.instance?.scrollToChar(event.key);
+        }
         break;
     }
   }
@@ -218,7 +233,7 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
 
     this.popupRef.instance.top.set(inputRect.bottom + scrollTop);
     this.popupRef.instance.left.set(inputRect.left + scrollLeft);
-    this.popupRef.instance.width.set(inputRect.width);
+    // this.popupRef.instance.width.set(inputRect.width);
   }
 
   closePopup(): void {

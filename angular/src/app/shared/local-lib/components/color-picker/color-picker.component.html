@@ -1,0 +1,39 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        @if (label()) {
+            <label class="form-label" [class.required]="required()">
+                {{ label() }}
+                @if (required()) {
+                    <span class="required-indicator">*</span>
+                }
+            </label>
+        }
+
+        <div class="color-picker-wrapper" [class.disabled]="disabled()">
+            <!-- Swatch button — clicking opens/closes the popup -->
+            <div
+                #inputElement
+                class="color-swatch"
+                [class]="colorClass()"
+                [class.open]="isPopupOpen"
+                [style.background-color]="computedValue() || '#ffffff'"
+                (click)="!disabled() && togglePopup()"
+                (focus)="onFocus()"
+                (blur)="onBlur()"
+                tabindex="0"
+                role="button"
+                [attr.aria-label]="'Color picker, current color: ' + (computedValue() || '#ffffff')"
+                [attr.aria-expanded]="isPopupOpen"></div>
+
+            @if (displayColorValue()) {
+                <span class="color-value">{{ computedValue() || "—" }}</span>
+            }
+        </div>
+
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+}

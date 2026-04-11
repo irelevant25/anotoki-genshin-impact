@@ -11,21 +11,25 @@
                 }
             </label>
         }
-        <input
-            #inputElement
-            [id]="inputId"
-            [disabled]="disabled()"
-            type="text"
-            [placeholder]="placeholder() ?? defaultPlaceHolder()"
-            [(ngModel)]="displayValue"
-            class="form-control date-input"
-            [class.error]="hasError()"
-            [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
-            (click)="toggleCalendar($event)"
-            (input)="onInput($event)"
-            (blur)="onBlur()"
-            (focus)="onFocus()"
-        />
+
+        <div class="relative" (click)="toggleCalendar($event)">
+            <input
+                #inputElement
+                [id]="inputId"
+                [disabled]="disabled()"
+                type="text"
+                [placeholder]="disabled() ? defaultPlaceHolder() : (placeholder() ?? defaultPlaceHolder())"
+                [(ngModel)]="displayValue"
+                class="form-control date-input pe-12"
+                [class.error]="hasError()"
+                [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
+                (input)="onInput($event)"
+                (blur)="onBlur()"
+                (focus)="onFocus()" />
+            @if (!disabled()) {
+                <i class="icon icon-calendar icon-size-4 m-3 align-self-center absolute right me-5 cursor-pointer"></i>
+            }
+        </div>
 
         @if (displayError() && hasError()) {
             <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">

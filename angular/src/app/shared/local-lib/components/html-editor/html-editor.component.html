@@ -1,0 +1,116 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        @if (label()) {
+            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
+                @if (tooltipText()) {
+                    <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                }
+                {{ label() }}
+                @if (required()) {
+                    <span class="required-indicator">*</span>
+                }
+            </label>
+        }
+
+        @if (description()) {
+            <label class="form-description">{{ description() }}</label>
+        }
+
+        <div
+            class="html-editor-wrapper form-control"
+            [class.error]="hasError()"
+            [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
+            [class.focused]="isFocusedEditor()"
+            [class.disabled]="disabled()">
+            @if (!disabled()) {
+                <div class="html-editor-toolbar">
+                    <button type="button" class="toolbar-btn" title="Tučné (Ctrl+B)" (mousedown)="execCommand($event, 'bold')">
+                        <i class="fa-solid fa-bold"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" title="Kurzíva (Ctrl+I)" (mousedown)="execCommand($event, 'italic')">
+                        <i class="fa-solid fa-italic"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" title="Podčiarknuté (Ctrl+U)" (mousedown)="execCommand($event, 'underline')">
+                        <i class="fa-solid fa-underline"></i>
+                    </button>
+
+                    <span class="toolbar-divider"></span>
+
+                    <button type="button" class="toolbar-btn" title="Zoznam s odrážkami" (mousedown)="execCommand($event, 'insertUnorderedList')">
+                        <i class="fa-solid fa-list-ul"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" title="Číslovaný zoznam" (mousedown)="execCommand($event, 'insertOrderedList')">
+                        <i class="fa-solid fa-list-ol"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" title="Vložiť odkaz" (mousedown)="onInsertLink($event)">
+                        <i class="fa-solid fa-link"></i>
+                    </button>
+
+                    <span class="toolbar-divider"></span>
+
+                    <app-dropdown
+                        [class]="'toolbar-dropdown-field'"
+                        [value]="fontSizeValue()"
+                        [width]="'min-content'"
+                        [options]="fontSizeOptions"
+                        [emptyOption]="false"
+                        [displayError]="false"
+                        (selectedOptionChange)="onFontSizeChange($event, true)"
+                        (hoveredOption)="onFontSizeChange($event, false)"
+                        (closed)="onFontSizeClosed(); selectingFontSize.set(false)"
+                        (opened)="selectingFontSize.set(true)"></app-dropdown>
+
+                    <app-dropdown
+                        [class]="'toolbar-dropdown-field'"
+                        [value]="fontFamilyValue()"
+                        [width]="'min-content'"
+                        [options]="fontFamilyOptions"
+                        [emptyOption]="false"
+                        [displayError]="false"
+                        (selectedOptionChange)="onFontFamilyChange($event, true)"
+                        (hoveredOption)="onFontFamilyChange($event, false)"
+                        (closed)="onFontFamilyClosed(); selectingFontFamily.set(false)"
+                        (opened)="selectingFontFamily.set(true)"></app-dropdown>
+
+                    <app-color-picker
+                        [colorClass]="'color-picker-size'"
+                        [value]="foreColor()"
+                        [defaultValue]="foreColorDefault"
+                        (inputChange)="onForeColorChange($event, true)"
+                        (previewColor)="onForeColorChange($event, false)"
+                        (closed)="onForeColorClosed(); selectingForeColor.set(false)"
+                        (opened)="selectingForeColor.set(true)"></app-color-picker>
+
+                    <app-color-picker
+                        [colorClass]="'color-picker-size'"
+                        [value]="backColor()"
+                        [defaultValue]="backColorDefault"
+                        (inputChange)="onBackColorChange($event, true)"
+                        (previewColor)="onBackColorChange($event, false)"
+                        (closed)="onBackColorClosed(); selectingBackColor.set(false)"
+                        (opened)="selectingBackColor.set(true)"></app-color-picker>
+                </div>
+            }
+
+            <div
+                #editorElement
+                [id]="inputId"
+                class="html-editor-content"
+                [class.selecting]="selectingFontSize() || selectingFontFamily() || selectingForeColor() || selectingBackColor()"
+                [class.disabled]="disabled()"
+                [attr.contenteditable]="disabled() ? null : 'true'"
+                [attr.data-placeholder]="placeholder() || 'Zadajte text...'"
+                [style.min-height]="minHeight()"
+                (input)="onEditorInput($event)"
+                (focus)="onEditorFocus()"
+                (blur)="onEditorBlur()"
+                (keydown)="onEditorKeyDown($event)"></div>
+        </div>
+
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+}

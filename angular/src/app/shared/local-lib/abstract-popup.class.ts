@@ -10,9 +10,12 @@ export abstract class AbstractPopupComponent<T> {
 
   top = model<number>(0);
   left = model<number>(0);
-  width = model<number>(200);
+  minWidth = model<number>(200);
+  width = model<number>();
+  maxWidth = model<number>(300);
 
   @Output() optionSelected = new EventEmitter<T | undefined>();
+  @Output() optionHovered = new EventEmitter<T | undefined>();
   @Output() onClose = new EventEmitter<void>();
 
   readonly cd = inject(ChangeDetectorRef);
@@ -59,7 +62,7 @@ export abstract class AbstractPopupComponent<T> {
     }
 
     this.left.set(inputRect.left + scrollLeft);
-    this.width.set(inputRect.width);
+    this.minWidth.set(inputRect.width);
     this.cd.detectChanges();
   }
 }

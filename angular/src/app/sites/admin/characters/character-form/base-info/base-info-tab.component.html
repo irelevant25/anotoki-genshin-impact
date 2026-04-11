@@ -28,12 +28,12 @@
     </div>
 </div>
 
-<app-text-field-container [class]="'gap-2 mb-3'" [cols]="1">
+<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
     <h3 class="section-title mb-0">Namecard</h3>
-    <app-text-field-container [cols]="1">
+    <app-field-container [cols]="1">
         <app-textarea [label]="'Namecard Description'" [(value)]="character().namecard_description" [rows]="2" [required]="true"></app-textarea>
-    </app-text-field-container>
-    <app-text-field-container [class]="'gap-5'" [cols]="4">
+    </app-field-container>
+    <app-field-container [class]="'gap-5'" [cols]="4">
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Namecard Icon'" [buttonOutline]="true" [required]="true"></app-file>
             @if (charIconPreview('namecard_icon'); as src) {
@@ -61,12 +61,12 @@
                 </app-tooltip>
             }
         </div>
-    </app-text-field-container>
-</app-text-field-container>
+    </app-field-container>
+</app-field-container>
 
-<app-text-field-container [class]="'gap-2 mb-3'" [cols]="1">
+<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
     <h3 class="section-title mb-0">Icons</h3>
-    <app-text-field-container [class]="'gap-5'" [cols]="5">
+    <app-field-container [class]="'gap-5'" [cols]="5">
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Icon'" [buttonOutline]="true" [required]="true"></app-file>
             @if (charIconPreview('icon'); as src) {
@@ -114,8 +114,8 @@
             }
             <app-text [label]="'In-game Icon 2 Name'" [(value)]="character().ingame_icon_2_name"></app-text>
         </div>
-    </app-text-field-container>
-</app-text-field-container>
+    </app-field-container>
+</app-field-container>
 
 <div class="form-section">
     <h3 class="section-title">Roles</h3>
@@ -138,6 +138,6 @@
                 </div>
             </div>
         }
-        <app-button text="Add" variant="primary" [outline]="true" (buttonClick)="addRelationship()"></app-button>
+        <app-button variant="primary" [outline]="true" (buttonClick)="addRelationship()">Add</app-button>
     </div>
 </div>

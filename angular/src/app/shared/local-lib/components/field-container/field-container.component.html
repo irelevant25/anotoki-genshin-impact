@@ -1,7 +1,7 @@
 @if (!hidden()) {
     <fieldset [class.group]="isGroup()">
         @if (isGroup()) {
-            <legend class="form-label">Požadované termíny</legend>
+            <legend class="form-label">{{ groupText() }}</legend>
         }
         <div class="container-wrap">
             <div class="container-wrap d-grid gap-3" [class]="class() + (cols() ? ' cols-' + cols() : '')">

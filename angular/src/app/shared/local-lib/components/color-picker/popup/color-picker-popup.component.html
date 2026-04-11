@@ -1,0 +1,49 @@
+<div #mainElement class="color-picker-popup" [style.top.px]="top()" [style.left.px]="left()" (clickOutside)="clickOutside()">
+    <!-- Gradient (Saturation / Value) area -->
+    <div class="gradient-area" [style.background-color]="hueColor" (mousedown)="onGradientMouseDown($event)" (touchstart)="onGradientTouchStart($event)">
+        <div class="gradient-white"></div>
+        <div class="gradient-black"></div>
+        <div class="gradient-thumb" [style.left]="gradientThumbLeft" [style.top]="gradientThumbTop" [style.background-color]="currentHex"></div>
+    </div>
+
+    <div class="sliders-row">
+        <!-- Current color preview -->
+        <div class="color-preview-wrap">
+            <div class="checkerboard"></div>
+            <div class="color-preview" [style.background-color]="currentHex"></div>
+        </div>
+
+        <div class="sliders">
+            <!-- Hue slider -->
+            <div class="slider hue-slider" (mousedown)="onHueMouseDown($event)" (touchstart)="onHueTouchStart($event)">
+                <div class="slider-thumb" [style.left]="hueThumbLeft" [style.background-color]="hueColor"></div>
+            </div>
+
+            <!-- Alpha slider -->
+            <div class="slider alpha-slider" (mousedown)="onAlphaMouseDown($event)" (touchstart)="onAlphaTouchStart($event)">
+                <div class="checkerboard alpha-checker"></div>
+                <div class="alpha-gradient" [style.background]="alphaGradient"></div>
+                <div class="slider-thumb" [style.left]="alphaThumbLeft" [style.background-color]="currentHex"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hex input -->
+    <div class="hex-row">
+        <span class="hex-label">HEX</span>
+        <input class="hex-input" [class.error]="hexError" [value]="hexInput" (input)="onHexInput($any($event.target).value)" spellcheck="false" maxlength="9" />
+    </div>
+
+    <!-- Preset swatches -->
+    <div class="presets">
+        @for (color of presetColors; track color) {
+            <button class="preset-swatch" [style.background-color]="color" [class.selected]="color.toLowerCase() === currentHex.toLowerCase()" (click)="selectPreset(color)" [title]="color"></button>
+        }
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex">
+        <button class="btn-apply" (click)="reset()" [class.hidden]="this.hexInput === this._defaultHex">Resetovať</button>
+        <button class="btn-apply ms-auto" (click)="apply()">Aplikovať</button>
+    </div>
+</div>

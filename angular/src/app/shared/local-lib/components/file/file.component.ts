@@ -1,6 +1,5 @@
 import { Component, model } from '@angular/core';
 import { FormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
-
 import { ButtonComponent, ButtonVariant } from '../button/button.component';
 import { AbstractInputComponent } from '../../abstract-input.class';
 
@@ -21,7 +20,7 @@ type Type<T extends FileItemType = FileItemType> = T[];
     {
       provide: AbstractInputComponent,
       useExisting: FileComponent,
-    },
+    }
   ],
 })
 export class FileComponent<T extends FileItemType = FileItemType> extends AbstractInputComponent<Type<T>> {
@@ -36,7 +35,6 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
   buttonVariant = model<ButtonVariant>('primary');
   showFileNames = model<boolean>(true);
   fileNamePosition = model<'bottom' | 'right'>('bottom');
-  valueName = model<keyof T>('value' as keyof T);
   buttonClass = model<string>('');
 
   onButtonClick(event: Event): void {
@@ -148,7 +146,7 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
 
     const array = this.value() ?? [];
     array.splice(index, 1);
-    this.value.set([...array]);
+    this.value.set([]);
 
     // Clear the hidden input
     if (this.inputElement) {
@@ -173,10 +171,5 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
     this.inputChange.emit(this.value());
     this.updateErrorMessageInternal();
     this.emitValidationState();
-  }
-
-  get acceptAttribute(): string {
-    const acceptedExtensions = this.acceptedExtensions();
-    return acceptedExtensions ? acceptedExtensions.join(',') : '';
   }
 }

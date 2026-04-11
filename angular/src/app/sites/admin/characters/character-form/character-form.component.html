@@ -26,10 +26,10 @@
             />
         </app-tab>
         <app-tab [title]="'Voice Overs'" [icon]="'icon-microphone icon-size-4'">
-            <app-voice-overs-tab [voiceOvers]="voiceOvers()" [pendingVoAudio]="pendingVoAudio()" [voiceOverTypes]="voiceOverTypes()" />
+            <app-voice-overs-tab [voiceOvers]="voiceOvers()" [voiceOverTypes]="voiceOverTypes()" />
         </app-tab>
         <app-tab [title]="'Constellations'" [icon]="'icon-stars'">
-            <app-constellations-tab [constellations]="constellations()" [pendingCoIcon]="pendingCoIcon()" [coIconPreviews]="coIconPreviews()" />
+            <app-constellations-tab [constellations]="constellations()" />
         </app-tab>
         <app-tab [title]="'Ascensions'" [icon]="'icon-arrow-up'">
             <app-ascensions-tab [ascensions]="ascensions()" [stats]="stats()" [materials]="materials()" />

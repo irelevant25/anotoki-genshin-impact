@@ -34,8 +34,8 @@
 }
 
 .nav-btn:hover {
-  background-color: var(--text-muted);
-  color: var(--text-primary);
+  background-color: #e9ecef;
+  color: #495057;
 }
 
 .nav-btn:disabled {
@@ -62,7 +62,7 @@
     cursor: pointer;
   }
   & > *:hover {
-    background-color: var(--text-muted);
+    background-color: #f8f9fa;
   }
 
   & > *.selected {
@@ -75,10 +75,6 @@
   }
 }
 
-.year, .day, .month {
-  color: var(--text-primary);
-}
-
 .month-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -88,7 +84,7 @@
     cursor: pointer;
   }
   & > *:hover {
-    background-color: var(--text-muted);
+    background-color: #f8f9fa;
   }
 
   & > *.selected {
@@ -119,7 +115,7 @@
   font-weight: 600;
   font-size: 12px;
   color: var(--text-primary);
-  // background-color: var(--text-muted);
+  // background-color: #f8f9fa;
   // border-bottom: 1px solid #ddd;
 }
 
@@ -151,7 +147,7 @@
 }
 
 .day.other-month {
-  color: var(--text-muted);
+  color: #ccc;
 }
 
 .day.today {
@@ -165,14 +161,14 @@
 }
 
 .day.disabled {
-  color: var(--text-muted);
+  color: #ccc;
   cursor: not-allowed;
-  background-color: var(--text-muted);
+  background-color: #f8f9fa;
 }
 
 .day.disabled:hover {
-  background-color: var(--text-muted);
-  color: var(--text-muted);
+  background-color: #f8f9fa;
+  color: #ccc;
 }
 
 .time-controls {
@@ -193,7 +189,7 @@
 }
 
 .time-btn {
-  background: var(--text-muted);
+  background: #f8f9fa;
   border: 1px solid #ddd;
   border-radius: 4px;
   width: 100%;
@@ -208,7 +204,7 @@
 }
 
 .time-btn:hover:not(:disabled) {
-  background-color: var(--text-muted);
+  background-color: #e9ecef;
   border-color: #bbb;
 }
 
@@ -236,7 +232,7 @@
   font-size: 16px;
   font-weight: 600;
   background: white;
-  color: var(--text-primary);
+  color: #495057;
 }
 
 .time-input:focus {
@@ -246,7 +242,7 @@
 }
 
 .time-input:disabled {
-  background-color: var(--text-muted);
+  background-color: #f8f9fa;
   color: #6c757d;
 }
 
@@ -293,12 +289,12 @@
 }
 
 .cancel-btn {
-  background: var(--text-muted);
+  background: #f8f9fa;
   color: #6c757d;
 }
 
 .cancel-btn:hover {
-  background-color: var(--text-muted);
+  background-color: #e9ecef;
 }
 
 .confirm-btn {

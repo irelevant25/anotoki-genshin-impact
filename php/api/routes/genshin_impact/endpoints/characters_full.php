@@ -11,11 +11,13 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  */
 function _saveCharacterFile($file, string $folder, string $baseName): ?string
 {
-    if (!$file || $file->getError() !== UPLOAD_ERR_OK) return null;
-    $ext      = strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION));
+    if (!$file || $file->getError() !== UPLOAD_ERR_OK)
+        return null;
+    $ext = strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION));
     $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '_', $baseName);
-    $dir      = __DIR__ . '/../../../../../public/uploads/' . $folder;
-    if (!is_dir($dir)) mkdir($dir, 0755, true);
+    $dir = __DIR__ . '/../../../../../public/uploads/' . $folder;
+    if (!is_dir($dir))
+        mkdir($dir, 0755, true);
     $file->moveTo($dir . '/' . $safeName . '.' . $ext);
     return '/uploads/' . $folder . '/' . $safeName . '.' . $ext;
 }
@@ -26,10 +28,12 @@ function _saveCharacterFile($file, string $folder, string $baseName): ?string
  */
 function _saveAudioFile($file, string $folder): ?string
 {
-    if (!$file || $file->getError() !== UPLOAD_ERR_OK) return null;
+    if (!$file || $file->getError() !== UPLOAD_ERR_OK)
+        return null;
     $safeName = preg_replace('/[^a-zA-Z0-9_.-]/', '_', $file->getClientFilename());
-    $dir      = __DIR__ . '/../../../../../public/uploads/' . $folder;
-    if (!is_dir($dir)) mkdir($dir, 0755, true);
+    $dir = __DIR__ . '/../../../../../public/uploads/' . $folder;
+    if (!is_dir($dir))
+        mkdir($dir, 0755, true);
     $file->moveTo($dir . '/' . $safeName);
     return '/uploads/' . $folder . '/' . $safeName;
 }
@@ -44,19 +48,20 @@ function _applyUploads(array &$body, array $uploadedFiles): void
 
     // Character-level icons: fileKey => [field, folder, baseName]
     $charIconMap = [
-        'char_icon'                => ['icon',               'characters',      $charName],
-        'char_card_icon'           => ['card_icon',          'characters/card', $charName],
-        'char_wish_icon'           => ['wish_icon',          'characters/wish', $charName],
-        'char_ingame_icon'         => ['ingame_icon',        'characters/ingame', $charName],
-        'char_ingame_icon_2'       => ['ingame_icon_2',      'characters/ingame', $charName . '_2'],
-        'char_namecard_icon'       => ['namecard_icon',      'namecards',       $charName],
-        'char_namecard_background' => ['namecard_background','namecards',       $charName . '_bg'],
-        'char_namecard_banner'     => ['namecard_banner',    'namecards',       $charName . '_banner'],
+        'char_icon' => ['icon', 'characters', $charName],
+        'char_card_icon' => ['card_icon', 'characters/card', $charName],
+        'char_wish_icon' => ['wish_icon', 'characters/wish', $charName],
+        'char_ingame_icon' => ['ingame_icon', 'characters/ingame', $charName],
+        'char_ingame_icon_2' => ['ingame_icon_2', 'characters/ingame', $charName . '_2'],
+        'char_namecard_icon' => ['namecard_icon', 'namecards', $charName],
+        'char_namecard_background' => ['namecard_background', 'namecards', $charName . '_bg'],
+        'char_namecard_banner' => ['namecard_banner', 'namecards', $charName . '_banner'],
     ];
     foreach ($charIconMap as $fileKey => [$field, $folder, $name]) {
         if (!empty($uploadedFiles[$fileKey])) {
             $path = _saveCharacterFile($uploadedFiles[$fileKey], $folder, $name);
-            if ($path) $body['character'][$field] = $path;
+            if ($path)
+                $body['character'][$field] = $path;
         }
     }
 
@@ -66,7 +71,8 @@ function _applyUploads(array &$body, array $uploadedFiles): void
             $key = "vo_audio_{$i}_{$lang}";
             if (!empty($uploadedFiles[$key])) {
                 $path = _saveAudioFile($uploadedFiles[$key], 'voice-overs');
-                if ($path) $vo["audio_{$lang}"] = $path;
+                if ($path)
+                    $vo["audio_{$lang}"] = $path;
             }
         }
     }
@@ -76,8 +82,9 @@ function _applyUploads(array &$body, array $uploadedFiles): void
     foreach ($body['constellations'] ?? [] as $i => &$co) {
         if (!empty($uploadedFiles["co_icon_$i"])) {
             $level = $co['level'] ?? ($i + 1);
-            $path  = _saveCharacterFile($uploadedFiles["co_icon_$i"], 'constellations', $charName . '_C' . $level);
-            if ($path) $co['icon'] = $path;
+            $path = _saveCharacterFile($uploadedFiles["co_icon_$i"], 'constellations', $charName . '_C' . $level);
+            if ($path)
+                $co['icon'] = $path;
         }
     }
     unset($co);
@@ -87,7 +94,8 @@ function _applyUploads(array &$body, array $uploadedFiles): void
         if (!empty($uploadedFiles["ta_icon_$i"])) {
             $type = preg_replace('/[^a-zA-Z0-9]/', '_', $ta['type'] ?? ('talent_' . $i));
             $path = _saveCharacterFile($uploadedFiles["ta_icon_$i"], 'talents', $charName . '_' . $type);
-            if ($path) $ta['icon'] = $path;
+            if ($path)
+                $ta['icon'] = $path;
         }
     }
     unset($ta);
@@ -109,9 +117,9 @@ function _parseBody(Request $request): array
 // ── POST /api/characters/full ─────────────────────────────────────────────────
 
 $app->post('/api/characters/full', function (Request $request, Response $response) {
-    $user  = $request->getAttribute('user');
-    $pdo   = genshinDb();
-    $body  = _parseBody($request);
+    $user = $request->getAttribute('user');
+    $pdo = genshinDb();
+    $body = _parseBody($request);
 
     if (empty($body['character'])) {
         return respondJson($response, ['error' => 'Missing character data'], 400);
@@ -204,8 +212,8 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
 
 $app->put('/api/characters/{id}/full', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = (int) $args['id'];
+    $pdo = genshinDb();
+    $id = (int) $args['id'];
     $body = _parseBody($request);
 
     if (!DbQuery::from($pdo, 'characters')->find(['id' => $id])) {
@@ -327,7 +335,7 @@ $app->put('/api/characters/{id}/full', function (Request $request, Response $res
 
 $app->get('/api/characters/{id}/full', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
-    $id  = (int) $args['id'];
+    $id = (int) $args['id'];
 
     $character = DbQuery::from($pdo, 'characters')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
@@ -344,14 +352,14 @@ $app->get('/api/characters/{id}/full', function (Request $request, Response $res
         return $stmt->fetchAll();
     };
 
-    $character['voice_overs']    = $fetch('characters_voice_overs', 'character_id', $id);
-    $character['constellations'] = $fetch('characters_constellations', 'character_id', $id);
-    $character['relationships']  = $fetch('characters_relationships', 'character_id', $id);
+    $voice_overs = $fetch('characters_voice_overs', 'character_id', $id);
+    $constellations = $fetch('characters_constellations', 'character_id', $id);
+    $relationships = $fetch('characters_relationships', 'character_id', $id);
 
     // Talents with costs
-    $character['talents'] = $fetch('characters_talents', 'character_id', $id);
-    if (!empty($character['talents'])) {
-        $talentIds = array_column($character['talents'], 'id');
+    $talents = $fetch('characters_talents', 'character_id', $id);
+    if (!empty($talents)) {
+        $talentIds = array_column($talents, 'id');
         $ph = implode(',', array_fill(0, count($talentIds), '?'));
         $stmt = $pdo->prepare("SELECT * FROM characters_talents_cost WHERE character_talent_id IN ($ph) AND deleted = FALSE ORDER BY level, material_id");
         $stmt->execute($talentIds);
@@ -359,16 +367,16 @@ $app->get('/api/characters/{id}/full', function (Request $request, Response $res
         foreach ($stmt->fetchAll() as $cost) {
             $talentCosts[$cost['character_talent_id']][] = $cost;
         }
-        foreach ($character['talents'] as &$talent) {
+        foreach ($talents as &$talent) {
             $talent['costs'] = $talentCosts[$talent['id']] ?? [];
         }
         unset($talent);
     }
 
     // Ascensions with costs
-    $character['ascensions'] = $fetch('characters_ascensions', 'character_id', $id);
-    if (!empty($character['ascensions'])) {
-        $ascIds = array_column($character['ascensions'], 'id');
+    $ascensions = $fetch('characters_ascensions', 'character_id', $id);
+    if (!empty($ascensions)) {
+        $ascIds = array_column($ascensions, 'id');
         $ph = implode(',', array_fill(0, count($ascIds), '?'));
         $stmt = $pdo->prepare("SELECT * FROM characters_ascensions_cost WHERE character_ascension_id IN ($ph) AND deleted = FALSE ORDER BY material_id");
         $stmt->execute($ascIds);
@@ -376,7 +384,7 @@ $app->get('/api/characters/{id}/full', function (Request $request, Response $res
         foreach ($stmt->fetchAll() as $cost) {
             $ascCosts[$cost['character_ascension_id']][] = $cost;
         }
-        foreach ($character['ascensions'] as &$asc) {
+        foreach ($ascensions as &$asc) {
             $asc['costs'] = $ascCosts[$asc['id']] ?? [];
         }
         unset($asc);
@@ -384,7 +392,15 @@ $app->get('/api/characters/{id}/full', function (Request $request, Response $res
 
     $rolesStmt = $pdo->prepare('SELECT role_name FROM characters_roles WHERE character_id = ?');
     $rolesStmt->execute([$id]);
-    $character['roles'] = array_column($rolesStmt->fetchAll(), 'role_name');
+    $roles = array_column($rolesStmt->fetchAll(), 'role_name');
 
-    return respondJson($response, $character);
+    return respondJson($response, [
+        'character' => $character,
+        'voice_overs' => $voice_overs,
+        'constellations' => $constellations,
+        'relationships' => $relationships,
+        'talents' => $talents,
+        'ascensions' => $ascensions,
+        'roles' => $roles,
+    ]);
 });

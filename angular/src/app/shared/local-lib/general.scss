@@ -225,6 +225,10 @@ button {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
+
+  .col-span-#{$i} {
+    grid-column: span #{$i};
+  }
 }
 
 /* Margin classes */
@@ -503,4 +507,36 @@ a {
   .#{$color}-border {
     border-color: var(--color-#{$color});
   }
+}
+
+// rarities colors
+.rarity-5 {
+  color: var(--five-star);
+}
+.rarity-5-bg {
+  background-color: var(--five-star);
+}
+.rarity-4 {
+  color: var(--four-star);
+}
+.rarity-4-bg {
+  background-color: var(--four-star);
+}
+.rarity-3 {
+  color: var(--three-star);
+}
+.rarity-3-bg {
+  background-color: var(--three-star);
+}
+.rarity-2 {
+  color: var(--two-star);
+}
+.rarity-2-bg {
+  background-color: var(--two-star);
+}
+.rarity-1 {
+  color: var(--one-star);
+}
+.rarity-1-bg {
+  background-color: var(--one-star);
 }

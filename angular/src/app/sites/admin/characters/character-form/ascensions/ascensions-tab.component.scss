@@ -1,1 +1,5 @@
 @use "../character-form.component" as *;
+
+.cost-card-img > img {
+  overflow: auto;
+}

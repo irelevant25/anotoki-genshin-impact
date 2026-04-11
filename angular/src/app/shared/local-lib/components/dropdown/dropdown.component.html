@@ -17,6 +17,7 @@
                 #inputElement
                 scroll
                 [id]="inputId"
+                [attr.size]="width() === 'min-content' ? contentLength() || 1 : null"
                 [value]="
                     value() === undefined || value() === null || value() === ''
                         ? (placeholder() ?? '')

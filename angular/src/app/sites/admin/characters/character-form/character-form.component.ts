@@ -16,35 +16,15 @@ import {
   CharacterFull,
   CharacterFormData,
   ConstellationFormData,
-  MaterialEntry,
   RelationshipFormData,
   TalentFormData,
   VoiceOverFormData,
 } from '../../services/admin-api.service';
+import { Material } from '../../../../shared/models.generated';
 
-function emptyCharacter(): CharacterFormData {
-  return {
-    name: '',
-    element: '',
-    weapon_type: '',
-    rarity: NaN,
-    model: '',
-    region: '',
-    version: '',
-    voice_actor_english: '',
-    voice_actor_japanese: '',
-    voice_actor_korean: '',
-    voice_actor_chinese: '',
-    namecard_description: '',
-    namecard_icon: '',
-    namecard_background: '',
-    namecard_banner: '',
-    card_icon: '',
-    wish_icon: '',
-    ingame_icon: '',
-    icon: '',
-    is_traveler: false,
-  };
+export interface ConstellationWrapper {
+  data: ConstellationFormData;
+  icon?: File;
 }
 
 @Component({
@@ -67,9 +47,9 @@ function emptyCharacter(): CharacterFormData {
 })
 export class CharacterFormComponent {
   // Form state
-  character = signal<CharacterFormData>(emptyCharacter());
+  character = signal<CharacterFormData>({} as CharacterFormData);
   voiceOvers = signal<VoiceOverFormData[]>([]);
-  constellations = signal<ConstellationFormData[]>([]);
+  constellations = signal<ConstellationWrapper[]>([]);
   ascensions = signal<AscensionFormData[]>([]);
   talents = signal<TalentFormData[]>([]);
   relationships = signal<RelationshipFormData[]>([]);
@@ -81,7 +61,7 @@ export class CharacterFormComponent {
   talentTypes = signal<string[]>([]);
   relationshipTypes = signal<string[]>([]);
   stats = signal<string[]>([]);
-  materials = signal<MaterialEntry[]>([]);
+  materials = signal<Material[]>([]);
   elements = signal<string[]>([]);
   weaponTypes = signal<string[]>([]);
   models = signal<string[]>([]);
@@ -91,11 +71,10 @@ export class CharacterFormComponent {
 
   // File upload signals
   pendingCharFiles = signal<Record<string, File>>({});
-  pendingVoAudio = signal<Record<string, File>>({});
-  pendingCoIcon = signal<(File | null)[]>([]);
+  // pendingCoIcon = signal<(File | null)[]>([]);
   pendingTaIcon = signal<(File | null)[]>([]);
   charIconPreviews = signal<Record<string, string>>({});
-  coIconPreviews = signal<(string | null)[]>([]);
+  // coIconPreviews = signal<(string | null)[]>([]);
   taIconPreviews = signal<(string | null)[]>([]);
 
   private readonly _api = inject(AdminApiService);
@@ -143,26 +122,19 @@ export class CharacterFormComponent {
       this.loading.set(true);
       this._api.getCharacterFull(Number(id)).subscribe({
         next: (data) => {
-          const c = { ...emptyCharacter() };
-          Object.keys(c).forEach((k) => {
-            if (data[k] !== undefined) (c as any)[k] = data[k];
-          });
-          this.character.set(c);
+          this.character.set(data.character);
 
           const vos = data.voice_overs ?? [];
           const cos = data.constellations ?? [];
           const tas = data.talents ?? [];
 
           this.voiceOvers.set(vos);
-          this.constellations.set(cos);
+          this.constellations.set(cos.map((c) => ({ data: c })));
           this.ascensions.set(data.ascensions ?? []);
           this.talents.set(tas);
           this.relationships.set(data.relationships ?? []);
           this.selectedRoles.set(data.roles ?? []);
 
-          this.pendingVoAudio.set({});
-          this.pendingCoIcon.set(cos.map(() => null));
-          this.coIconPreviews.set(cos.map(() => null));
           this.pendingTaIcon.set(tas.map(() => null));
           this.taIconPreviews.set(tas.map(() => null));
 
@@ -175,20 +147,6 @@ export class CharacterFormComponent {
       });
     }
   }
-
-  // ngOnDestroy(): void {
-  //   this.cleanupUrls();
-  // }
-
-  // cleanupUrls(): void {
-  //   Object.values(this.charIconPreviews()).forEach((u) => URL.revokeObjectURL(u));
-  //   this.coIconPreviews().forEach((u) => {
-  //     if (u) URL.revokeObjectURL(u);
-  //   });
-  //   this.taIconPreviews().forEach((u) => {
-  //     if (u) URL.revokeObjectURL(u);
-  //   });
-  // }
 
   save(): void {
     this.saving.set(true);
@@ -213,7 +171,7 @@ export class CharacterFormComponent {
     const payload: CharacterFull = {
       character: this.character(),
       voice_overs: this.voiceOvers(),
-      constellations: this.constellations(),
+      constellations: this.constellations().map((c) => c.data),
       ascensions: this.ascensions(),
       talents: this.talents(),
       relationships: this.relationships(),
@@ -222,12 +180,9 @@ export class CharacterFormComponent {
     const fd = new FormData();
     fd.append('data', JSON.stringify(payload));
     Object.entries(this.pendingCharFiles()).forEach(([field, file]) => fd.append(`char_${field}`, file));
-    Object.entries(this.pendingVoAudio()).forEach(([key, file]) => {
-      fd.append(`vo_audio_${key}`, file);
-    });
-    this.pendingCoIcon().forEach((f, i) => {
-      if (f) fd.append(`co_icon_${i}`, f);
-    });
+    // this.pendingCoIcon().forEach((f, i) => {
+    //   if (f) fd.append(`co_icon_${i}`, f);
+    // });
     this.pendingTaIcon().forEach((f, i) => {
       if (f) fd.append(`ta_icon_${i}`, f);
     });

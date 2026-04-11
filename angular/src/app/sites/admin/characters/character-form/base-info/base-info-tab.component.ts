@@ -7,7 +7,7 @@ import { CalendarComponent } from '../../../../../shared/local-lib/components/ca
 import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { FileComponent } from '../../../../../shared/local-lib/components/file/file.component';
-import { TextFieldContainerComponent } from '../../../../../shared/local-lib/components/text-field-container/text-field-container.component';
+import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
 import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
 import { ChipsComponent } from "../../../../../shared/local-lib/components/chips/chips.component";
 
@@ -19,7 +19,7 @@ function emptyRelationship(): RelationshipFormData {
   selector: 'app-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, DropdownComponent, CalendarComponent, CheckboxComponent, TextareaComponent, FileComponent, TextFieldContainerComponent, TooltipComponent, ChipsComponent],
+  imports: [ButtonComponent, TextComponent, DropdownComponent, CalendarComponent, CheckboxComponent, TextareaComponent, FileComponent, FieldContainerComponent, TooltipComponent, ChipsComponent],
 })
 export class BaseInfoTabComponent {
   character = model<CharacterFormData>({} as CharacterFormData);

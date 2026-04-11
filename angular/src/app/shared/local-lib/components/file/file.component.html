@@ -25,7 +25,7 @@
                 [id]="inputId"
                 type="file"
                 [multiple]="multiple()"
-                [accept]="acceptAttribute"
+                [accept]="acceptedExtensions()?.join(', ') ?? ''"
                 [disabled]="disabled()"
                 style="display: none"
                 (change)="onFileChange($event)"
@@ -48,7 +48,7 @@
                 <div class="selected-files">
                     @for (item of value(); track item; let i = $index) {
                         <div class="selected-file">
-                            <span class="file-name">{{ item.file?.name ?? item[valueName()] }}</span>
+                            <span class="file-name">{{ item.file?.name ?? item.nazov }}</span>
                             <!-- TODO: prerobit na app-button -->
                             @if (!disabled()) {
                                 <button type="button" class="remove-btn" [class]="buttonClass()" (click)="removeFile(i)">✕</button>

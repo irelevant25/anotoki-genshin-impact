@@ -1,41 +1,69 @@
 <div class="sub-list">
-    @for (asc of ascensions(); track $index; let i = $index) {
+    @for (ascension of ascensionsSorted(); track $index; let i = $index) {
         <div class="sub-card">
             <div class="sub-card-header">
-                <span class="sub-card-index">Phase {{ asc.phase }}</span>
-                <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeAscension(i)"></app-button>
+                <span class="sub-card-index">Phase {{ ascension.phase }}</span>
+                <app-button variant="danger" [outline]="true" (buttonClick)="removeAscension(i)">Delete</app-button>
             </div>
             <div class="form-grid">
-                <app-number [label]="'Phase'" [(value)]="asc.phase"></app-number>
-                <app-dropdown [label]="'Primary Stat'" [options]="stats()" [(value)]="asc.primary_stat" [required]="true" [emptyOption]="true" [emptyOptionText]="'— select stat —'"></app-dropdown>
-                <app-number [label]="'Primary Stat Value'" [(value)]="asc.primary_stat_value" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start HP'" [(value)]="asc.start_level_hp" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start ATK'" [(value)]="asc.start_level_atk" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start DEF'" [(value)]="asc.start_level_def" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End HP'" [(value)]="asc.end_level_hp" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End ATK'" [(value)]="asc.end_level_atk" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End DEF'" [(value)]="asc.end_level_def" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Phase'" [(value)]="ascension.phase" [min]="0" [max]="6"></app-number>
+                <app-dropdown
+                    [label]="'Primary Stat'"
+                    [options]="stats()"
+                    [(value)]="ascension.primary_stat"
+                    [required]="true"
+                    [emptyOption]="true"
+                    [emptyOptionText]="'— select stat —'"
+                ></app-dropdown>
+                <app-number [label]="'Primary Stat Value'" [(value)]="ascension.primary_stat_value" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Start HP'" [(value)]="ascension.start_level_hp" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Start ATK'" [(value)]="ascension.start_level_atk" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Start DEF'" [(value)]="ascension.start_level_def" [allowDecimal]="true"></app-number>
+                <app-number [label]="'End HP'" [(value)]="ascension.end_level_hp" [allowDecimal]="true"></app-number>
+                <app-number [label]="'End ATK'" [(value)]="ascension.end_level_atk" [allowDecimal]="true"></app-number>
+                <app-number [label]="'End DEF'" [(value)]="ascension.end_level_def" [allowDecimal]="true"></app-number>
             </div>
 
-            <div class="cost-section">
-                <div class="cost-header">
-                    <span class="cost-label">Materials</span>
-                    <app-button text="+ Add Material" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addAscensionCost(i)"></app-button>
-                </div>
-                <div class="cost-cards">
-                    @for (cost of asc.costs ?? []; track $index; let ci = $index) {
-                        <div class="cost-card">
-                            <div class="cost-card-img"><i class="fa-solid fa-gem"></i></div>
-                            <app-dropdown [options]="materialOptions()" [value]="cost.material_id" (inputChange)="setAscensionCost(i, ci, 'material_id', $event)" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
-                            <div class="cost-card-footer">
-                                <input class="admin-input" type="number" min="1" [value]="cost.quantity" (input)="setAscensionCost(i, ci, 'quantity', +$any($event.target).value)" placeholder="Qty" />
-                                <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeAscensionCost(i, ci)"></app-button>
+            @if (ascension.phase !== 0) {
+                <div class="cost-section">
+                    <div class="cost-header">
+                        <span class="cost-label">Materials</span>
+                        <app-button variant="primary" [outline]="true" (buttonClick)="addAscensionCost(i)">Add</app-button>
+                    </div>
+                    <div class="cost-cards">
+                        @for (cost of ascension.costs ?? []; track $index; let ci = $index) {
+                            <div class="cost-card">
+                                <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
+                                    <img src="assets/materials/{{ materialDropdown.computedOption()?.value }}.avif" />
+                                </div>
+                                <app-dropdown
+                                    #materialDropdown
+                                    [options]="materialOptions()"
+                                    [value]="cost.material_id"
+                                    (inputChange)="setAscensionCost(i, ci, 'material_id', $event)"
+                                    [emptyOption]="true"
+                                    [emptyOptionText]="'— material —'"
+                                ></app-dropdown>
+                                <div class="cost-card-footer">
+                                    <input
+                                        class="admin-input"
+                                        type="number"
+                                        min="1"
+                                        [value]="cost.quantity"
+                                        (input)="setAscensionCost(i, ci, 'quantity', +$any($event.target).value)"
+                                        placeholder="Qty"
+                                    />
+                                    <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeAscensionCost(i, ci)"></app-button>
+                                </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     }
-    <app-button text="+ Add Ascension Phase" variant="secondary" [outline]="true" size="small" (buttonClick)="addAscension()"></app-button>
+
+    @if (ascensions().length < 7) {
+        <app-button variant="primary" [outline]="true" (buttonClick)="addAscension()">Add</app-button>
+    }
 </div>

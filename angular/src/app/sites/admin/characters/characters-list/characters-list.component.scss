@@ -124,13 +124,34 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
 
-  &.element-anemo   { background: rgba(116,194,168,0.2); color: #74c2a8; }
-  &.element-geo     { background: rgba(250,182,50,0.2);  color: #fab632; }
-  &.element-electro { background: rgba(167,87,203,0.2);  color: #a757cb; }
-  &.element-dendro  { background: rgba(126,194,54,0.2);  color: #7ec236; }
-  &.element-hydro   { background: rgba(76,194,241,0.2);  color: #4cc2f1; }
-  &.element-pyro    { background: rgba(239,103,74,0.2);  color: #ef674a; }
-  &.element-cryo    { background: rgba(159,214,227,0.2); color: #9fd6e3; }
+  &.element-anemo {
+    background: rgba(116, 194, 168, 0.2);
+    color: #74c2a8;
+  }
+  &.element-geo {
+    background: rgba(250, 182, 50, 0.2);
+    color: #fab632;
+  }
+  &.element-electro {
+    background: rgba(167, 87, 203, 0.2);
+    color: #a757cb;
+  }
+  &.element-dendro {
+    background: rgba(126, 194, 54, 0.2);
+    color: #7ec236;
+  }
+  &.element-hydro {
+    background: rgba(76, 194, 241, 0.2);
+    color: #4cc2f1;
+  }
+  &.element-pyro {
+    background: rgba(239, 103, 74, 0.2);
+    color: #ef674a;
+  }
+  &.element-cryo {
+    background: rgba(159, 214, 227, 0.2);
+    color: #9fd6e3;
+  }
 }
 
 .col-rarity {
@@ -140,9 +161,6 @@
 .rarity {
   font-size: 12px;
   letter-spacing: 1px;
-  &.rarity-5 { color: #db914f; }
-  &.rarity-4 { color: #7a6ba1; }
-  &.rarity-3 { color: #708aaa; }
 }
 
 .col-actions {

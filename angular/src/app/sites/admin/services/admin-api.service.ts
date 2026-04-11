@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Material } from '../../../shared/models.generated';
 
 export interface CharacterFull {
   character: CharacterFormData;
@@ -117,8 +118,6 @@ export interface TalentFormData {
   costs?: TalentCostFormData[];
 }
 
-export interface MaterialEntry { id: number; name: string; }
-
 export interface RelationshipFormData {
   id?: number;
   character_id?: number;
@@ -141,7 +140,7 @@ export class AdminApiService {
     return this._http.get<any[]>('/api/characters');
   }
 
-  getCharacterFull(id: number): Observable<any> {
+  getCharacterFull(id: number): Observable<CharacterFull> {
     return this._http.get<any>(`/api/characters/${id}/full`);
   }
 
@@ -176,7 +175,7 @@ export class AdminApiService {
   getLanguages(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/languages'); }
   getRarities(): Observable<any[]> { return this._http.get<any[]>('/api/rarities'); }
   getArtifactPieceTypes(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/artifact-piece-types'); }
-  getMaterials(): Observable<MaterialEntry[]> { return this._http.get<MaterialEntry[]>('/api/materials'); }
+  getMaterials(): Observable<Material[]> { return this._http.get<Material[]>('/api/materials'); }
   getMigrations(): Observable<any[]> { return this._http.get<any[]>('/api/migrations'); }
   getStats(): Observable<any[]> { return this._http.get<any[]>('/api/stats'); }
 

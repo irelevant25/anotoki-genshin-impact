@@ -28,6 +28,7 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
   minTime = model<TimeValue | null>(null);
   maxTime = model<TimeValue | null>(null);
   granularity = model<CalendarGranularity>('date');
+  defaultPlaceHolder = computed(() => (this.granularity() === 'date' ? 'dd.MM.yyyy' : this.showSeconds() ? 'dd.MM.yyyy HH:mm:ss' : 'dd.MM.yyyy HH:mm'));
 
   selectedDate: Date | null = null;
   selectedTime: TimeValue | null = null;
@@ -35,8 +36,6 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
   valueDateFormat: string = 'yyyy-MM-dd';
   displayValueDateFormat: string = 'dd.MM.yyyy';
   displayValue: string | null = null;
-
-  defaultPlaceHolder = computed(() => this.granularity() === 'date' ? 'dd.MM.yyyy' : this.showSeconds() ? 'dd.MM.yyyy HH:mm:ss' : 'dd.MM.yyyy HH:mm');
 
   private _calendarRef: ComponentRef<CalendarPickerComponent> | null = null;
 
