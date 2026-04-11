@@ -106,16 +106,16 @@ INSERT INTO talent_types (name) VALUES
     ('Witch''s Eve Rite Passive'), ('Moonsign Benediction Passive')
 ON CONFLICT DO NOTHING;
 
------------------------------------------------------------
--- LANGUAGES
--- name: Language
------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS languages (
-    name VARCHAR(50) PRIMARY KEY
-);
-INSERT INTO languages (name) VALUES
-    ('English'), ('Chinese'), ('Japanese'), ('Korean')
-ON CONFLICT DO NOTHING;
+-- -----------------------------------------------------------
+-- -- LANGUAGES
+-- -- name: Language
+-- -----------------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS languages (
+--     name VARCHAR(50) PRIMARY KEY
+-- );
+-- INSERT INTO languages (name) VALUES
+--     ('English'), ('Chinese'), ('Japanese'), ('Korean')
+-- ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
 -- FOOD_TYPES
@@ -225,7 +225,7 @@ ON CONFLICT DO NOTHING;
 CREATE TABLE IF NOT EXISTS rarities (
     name    SMALLINT        PRIMARY KEY
 );
-INSERT INTO rarities (rarity) VALUES
+INSERT INTO rarities (name) VALUES
     (1), (2), (3), (4), (5)
 ON CONFLICT DO NOTHING;
 
@@ -852,31 +852,40 @@ CREATE OR REPLACE TRIGGER trg_characters_roles_updated_at
 -- name: CharacterVoiceOver
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS characters_voice_overs (
-    id                  SERIAL          PRIMARY KEY,
-    character_id        INT             NOT NULL,   -- default element variant 1/7 
-    character_id_2      INT             NULL,       -- another element variant 2/7
-    character_id_3      INT             NULL,       -- another element variant 3/7
-    character_id_4      INT             NULL,       -- another element variant 4/7
-    character_id_5      INT             NULL,       -- another element variant 5/7
-    character_id_6      INT             NULL,       -- another element variant 6/7
-    character_id_7      INT             NULL,       -- another element variant 7/7
-    "order"             SMALLINT        NOT NULL,
-    type                VARCHAR(50)     NOT NULL,
-    language            VARCHAR(50)     NOT NULL,
-    title               VARCHAR(100)    NOT NULL,
-    title_reading       TEXT,
-    text                TEXT            NOT NULL,
-    is_alternative      BOOLEAN         NOT NULL DEFAULT FALSE, -- e.g. for traditional chinesse
-    text_reading        TEXT,
-    audio               VARCHAR(255),
-    deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
-    created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
-    created_by          INT             NOT NULL,
-    updated_at          TIMESTAMP,
-    updated_by          INT,
+    id                              SERIAL          PRIMARY KEY,
+    character_id                    INT             NOT NULL,   -- default element variant 1/7 
+    character_id_2                  INT             NULL,       -- another element variant 2/7
+    character_id_3                  INT             NULL,       -- another element variant 3/7
+    character_id_4                  INT             NULL,       -- another element variant 4/7
+    character_id_5                  INT             NULL,       -- another element variant 5/7
+    character_id_6                  INT             NULL,       -- another element variant 6/7
+    character_id_7                  INT             NULL,       -- another element variant 7/7
+    "order"                         SMALLINT        NOT NULL,
+    type                            VARCHAR(50)     NOT NULL,
+    title_english                   VARCHAR(100)    NOT NULL,
+    title_japanese                  VARCHAR(100),
+    title_chinese                   VARCHAR(100),
+    title_chinese_traditional       VARCHAR(100),
+    title_korean                    VARCHAR(100),
+    text_english                    TEXT,
+    text_japanese                   TEXT,
+    text_chinese                    TEXT,
+    text_chinese_traditional        TEXT,
+    text_korean                     TEXT,
+    text_japanese_reading           TEXT,
+    text_chinese_reading            TEXT,
+    text_korean_reading             TEXT,
+    audio_english                   VARCHAR(255),
+    audio_japanese                  VARCHAR(255),
+    audio_chinese                   VARCHAR(255),
+    audio_korean                    VARCHAR(255),
+    deleted                         BOOLEAN         NOT NULL DEFAULT FALSE,
+    created_at                      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    created_by                      INT             NOT NULL,
+    updated_at                      TIMESTAMP,
+    updated_by                      INT,
 
     CONSTRAINT fk_characters_voice_overs_type       FOREIGN KEY (type)         REFERENCES voice_over_types(name),
-    CONSTRAINT fk_characters_voice_overs_language   FOREIGN KEY (language)     REFERENCES languages(name),
     CONSTRAINT fk_characters_voice_overs_character  FOREIGN KEY (character_id) REFERENCES characters(id),
     CONSTRAINT fk_characters_voice_overs_character_2 FOREIGN KEY (character_id_2) REFERENCES characters(id),
     CONSTRAINT fk_characters_voice_overs_character_3 FOREIGN KEY (character_id_3) REFERENCES characters(id),

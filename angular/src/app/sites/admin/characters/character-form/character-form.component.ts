@@ -86,13 +86,12 @@ export class CharacterFormComponent {
   weaponTypes = signal<string[]>([]);
   models = signal<string[]>([]);
   voiceOverTypes = signal<string[]>([]);
-  languages = signal<string[]>([]);
   characterStates = signal<string[]>([]);
   rarities = signal<string[]>([]);
 
   // File upload signals
   pendingCharFiles = signal<Record<string, File>>({});
-  pendingVoAudio = signal<(File | null)[]>([]);
+  pendingVoAudio = signal<Record<string, File>>({});
   pendingCoIcon = signal<(File | null)[]>([]);
   pendingTaIcon = signal<(File | null)[]>([]);
   charIconPreviews = signal<Record<string, string>>({});
@@ -123,7 +122,6 @@ export class CharacterFormComponent {
     this._api.getWeaponTypes().subscribe((e) => this.weaponTypes.set(e.map((x) => x.name)));
     this._api.getModels().subscribe((e) => this.models.set(e.map((x) => x.name)));
     this._api.getVoiceOverTypes().subscribe((e) => this.voiceOverTypes.set(e.map((x) => x.name)));
-    this._api.getLanguages().subscribe((e) => this.languages.set(e.map((x) => x.name)));
     this._api.getCharacterStates().subscribe((e) => this.characterStates.set(e.map((x) => x.name)));
     this._api.getRarities().subscribe((e) =>
       this.rarities.set(
@@ -162,7 +160,7 @@ export class CharacterFormComponent {
           this.relationships.set(data.relationships ?? []);
           this.selectedRoles.set(data.roles ?? []);
 
-          this.pendingVoAudio.set(vos.map(() => null));
+          this.pendingVoAudio.set({});
           this.pendingCoIcon.set(cos.map(() => null));
           this.coIconPreviews.set(cos.map(() => null));
           this.pendingTaIcon.set(tas.map(() => null));
@@ -224,8 +222,8 @@ export class CharacterFormComponent {
     const fd = new FormData();
     fd.append('data', JSON.stringify(payload));
     Object.entries(this.pendingCharFiles()).forEach(([field, file]) => fd.append(`char_${field}`, file));
-    this.pendingVoAudio().forEach((f, i) => {
-      if (f) fd.append(`vo_audio_${i}`, f);
+    Object.entries(this.pendingVoAudio()).forEach(([key, file]) => {
+      fd.append(`vo_audio_${key}`, file);
     });
     this.pendingCoIcon().forEach((f, i) => {
       if (f) fd.append(`co_icon_${i}`, f);

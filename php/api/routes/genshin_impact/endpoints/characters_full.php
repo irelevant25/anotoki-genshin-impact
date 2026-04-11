@@ -60,11 +60,14 @@ function _applyUploads(array &$body, array $uploadedFiles): void
         }
     }
 
-    // Voice over audio – keeps original filename
+    // Voice over audio – per-language files
     foreach ($body['voice_overs'] ?? [] as $i => &$vo) {
-        if (!empty($uploadedFiles["vo_audio_$i"])) {
-            $path = _saveAudioFile($uploadedFiles["vo_audio_$i"], 'voice-overs');
-            if ($path) $vo['audio'] = $path;
+        foreach (['english', 'japanese', 'chinese', 'korean'] as $lang) {
+            $key = "vo_audio_{$i}_{$lang}";
+            if (!empty($uploadedFiles[$key])) {
+                $path = _saveAudioFile($uploadedFiles[$key], 'voice-overs');
+                if ($path) $vo["audio_{$lang}"] = $path;
+            }
         }
     }
     unset($vo);

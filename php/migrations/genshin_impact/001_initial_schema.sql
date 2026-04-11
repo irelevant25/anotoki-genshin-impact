@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS weapon_types (
     name    VARCHAR(50)     PRIMARY KEY
 );
 INSERT INTO weapon_types (name) VALUES
-    ('Sword'), ('Claymore'), ('Polearm'), ('Bow'), ('Catalyst')
+    ('Sword'), ('Bow'), ('Catalyst'), ('Claymore'), ('Polearm')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -106,16 +106,16 @@ INSERT INTO talent_types (name) VALUES
     ('Witch''s Eve Rite Passive'), ('Moonsign Benediction Passive')
 ON CONFLICT DO NOTHING;
 
------------------------------------------------------------
--- LANGUAGES
--- name: Language
------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS languages (
-    name VARCHAR(50) PRIMARY KEY
-);
-INSERT INTO languages (name) VALUES
-    ('English'), ('Chinese'), ('Japanese'), ('Korean')
-ON CONFLICT DO NOTHING;
+-- -----------------------------------------------------------
+-- -- LANGUAGES
+-- -- name: Language
+-- -----------------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS languages (
+--     name VARCHAR(50) PRIMARY KEY
+-- );
+-- INSERT INTO languages (name) VALUES
+--     ('English'), ('Chinese'), ('Japanese'), ('Korean')
+-- ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
 -- FOOD_TYPES
@@ -223,9 +223,9 @@ ON CONFLICT DO NOTHING;
 -- name: Rarity
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS rarities (
-    rarity    SMALLINT        PRIMARY KEY
+    name    SMALLINT        PRIMARY KEY
 );
-INSERT INTO rarities (rarity) VALUES
+INSERT INTO rarities (name) VALUES
     (1), (2), (3), (4), (5)
 ON CONFLICT DO NOTHING;
 
@@ -301,6 +301,17 @@ CREATE TABLE IF NOT EXISTS enemy_families (
 INSERT INTO enemy_families (name) VALUES
     ('Automatons'), ('Elemental Lifeforms'), ('Hilichurls'), ('Mystical Beasts'),
     ('The Abyss'), ('Fatui'), ('Enemies of Note'), ('Other Human Factions'), ('Other')
+ON CONFLICT DO NOTHING;
+
+-----------------------------------------------------------
+-- CHARACTER_MODELS
+-- name: CharacterModel
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS character_models (
+    name VARCHAR(50) PRIMARY KEY
+);
+INSERT INTO character_models (name) VALUES
+    ('Tall Male'), ('Medium Male'), ('Short Male'), ('Tall Female'), ('Medium Female'), ('Short Female')
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
@@ -508,6 +519,7 @@ CREATE TABLE IF NOT EXISTS characters (
     CONSTRAINT fk_characters_region FOREIGN KEY (region) REFERENCES regions(name),
     CONSTRAINT fk_characters_special_dish FOREIGN KEY (special_dish) REFERENCES foods(id),
     CONSTRAINT fk_characters_element FOREIGN KEY (element) REFERENCES elements(name),
+    CONSTRAINT fk_characters_rarity FOREIGN KEY (rarity) REFERENCES rarities(name),
     CONSTRAINT fk_characters_weapon_type FOREIGN KEY (weapon_type) REFERENCES weapon_types(name)
 );
 CREATE OR REPLACE TRIGGER trg_characters_protect_created
@@ -740,7 +752,7 @@ CREATE TABLE IF NOT EXISTS quizzes_states (
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS banners (
     id              SERIAL          PRIMARY KEY,
-    version         VARCHAR(10)     NOT NULL UNIQUE,
+    version         VARCHAR(10)     NOT NULL,
     name            VARCHAR(100)    NOT NULL,
     duration_from   TIMESTAMP       NOT NULL,
     duration_to     TIMESTAMP,
@@ -840,30 +852,42 @@ CREATE OR REPLACE TRIGGER trg_characters_roles_updated_at
 -- name: CharacterVoiceOver
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS characters_voice_overs (
-    id                  SERIAL          PRIMARY KEY,
-    character_id        INT             NOT NULL,   -- default element variant 1/7 
-    character_id_2      INT             NULL,       -- another element variant 2/7
-    character_id_3      INT             NULL,       -- another element variant 3/7
-    character_id_4      INT             NULL,       -- another element variant 4/7
-    character_id_5      INT             NULL,       -- another element variant 5/7
-    character_id_6      INT             NULL,       -- another element variant 6/7
-    character_id_7      INT             NULL,       -- another element variant 7/7
-    "order"             SMALLINT        NOT NULL,
-    type                VARCHAR(50)     NOT NULL,
-    language            VARCHAR(50)     NOT NULL,
-    title               VARCHAR(100)    NOT NULL,
-    title_reading       TEXT,
-    text                TEXT            NOT NULL,
-    is_alternative      BOOLEAN         NOT NULL DEFAULT FALSE, -- e.g. for traditional chinesse
-    text_reading        TEXT,
-    deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
-    created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
-    created_by          INT             NOT NULL,
-    updated_at          TIMESTAMP,
-    updated_by          INT,
+    id                              SERIAL          PRIMARY KEY,
+    character_id                    INT             NOT NULL,   -- default element variant 1/7 
+    character_id_2                  INT             NULL,       -- another element variant 2/7
+    character_id_3                  INT             NULL,       -- another element variant 3/7
+    character_id_4                  INT             NULL,       -- another element variant 4/7
+    character_id_5                  INT             NULL,       -- another element variant 5/7
+    character_id_6                  INT             NULL,       -- another element variant 6/7
+    character_id_7                  INT             NULL,       -- another element variant 7/7
+    "order"                         SMALLINT        NOT NULL,
+    type                            VARCHAR(50)     NOT NULL,
+    -- language            VARCHAR(50)     NOT NULL,
+    title_english                   VARCHAR(100)    NOT NULL,
+    title_japanese                  VARCHAR(100),
+    title_chinese                   VARCHAR(100),
+    title_chinese_traditional       VARCHAR(100),
+    title_korean                    VARCHAR(100),
+    text_english                    TEXT,
+    text_japanese                   TEXT,
+    text_chinese                    TEXT,
+    text_chinese_traditional        TEXT,
+    text_korean                     TEXT,
+    text_japanese_reading           TEXT,
+    text_chinese_reading            TEXT,
+    text_korean_reading             TEXT,
+    audio_english                   VARCHAR(255),
+    audio_japanese                  VARCHAR(255),
+    audio_chinese                   VARCHAR(255),
+    audio_korean                    VARCHAR(255),
+    deleted                         BOOLEAN         NOT NULL DEFAULT FALSE,
+    created_at                      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    created_by                      INT             NOT NULL,
+    updated_at                      TIMESTAMP,
+    updated_by                      INT,
 
     CONSTRAINT fk_characters_voice_overs_type       FOREIGN KEY (type)         REFERENCES voice_over_types(name),
-    CONSTRAINT fk_characters_voice_overs_language   FOREIGN KEY (language)     REFERENCES languages(name),
+    -- CONSTRAINT fk_characters_voice_overs_language   FOREIGN KEY (language)     REFERENCES languages(name),
     CONSTRAINT fk_characters_voice_overs_character  FOREIGN KEY (character_id) REFERENCES characters(id),
     CONSTRAINT fk_characters_voice_overs_character_2 FOREIGN KEY (character_id_2) REFERENCES characters(id),
     CONSTRAINT fk_characters_voice_overs_character_3 FOREIGN KEY (character_id_3) REFERENCES characters(id),
@@ -1476,7 +1500,7 @@ CREATE TABLE IF NOT EXISTS enemies_drops (
     CONSTRAINT fk_enemies_drops_enemy FOREIGN KEY (enemy_id) REFERENCES enemies(id),
     CONSTRAINT fk_enemies_drops_material FOREIGN KEY (material_id) REFERENCES materials(id),
     CONSTRAINT fk_enemies_drops_domain_level FOREIGN KEY (domain_level) REFERENCES domain_levels(name),
-    CONSTRAINT fk_enemies_drops_rarity FOREIGN KEY (rarity) REFERENCES rarities(rarity)
+    CONSTRAINT fk_enemies_drops_rarity FOREIGN KEY (rarity) REFERENCES rarities(name)
 );
 CREATE OR REPLACE TRIGGER trg_enemies_drops_protect_created
     BEFORE UPDATE ON enemies_drops
@@ -1484,3 +1508,19 @@ CREATE OR REPLACE TRIGGER trg_enemies_drops_protect_created
 CREATE OR REPLACE TRIGGER trg_enemies_drops_updated_at
     BEFORE UPDATE ON enemies_drops
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-----------------------------------------------------------
+-- AUDIT_LOGS
+-- name: AuditLog
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id          BIGSERIAL       PRIMARY KEY,
+    table_name  VARCHAR(100)    NOT NULL,
+    record_id   VARCHAR(100)    NOT NULL,
+    action      VARCHAR(10)     NOT NULL CHECK (action IN ('INSERT', 'UPDATE', 'DELETE')),
+    changed_by  INTEGER,
+    changed_at  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    changes     JSONB
+);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_table_record ON audit_logs (table_name, record_id);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_changed_at   ON audit_logs (changed_at);

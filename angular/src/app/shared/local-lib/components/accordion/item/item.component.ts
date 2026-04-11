@@ -14,7 +14,10 @@ export class AccordionItemComponent {
   lazy = model<boolean>(false);
   class = model<string | undefined>(undefined);
 
-  toggle(): void {
-    this.expanded.update((expanded) => !expanded);
+  toggle(event: Event, toggle: boolean): void {
+    event.stopPropagation();
+    if (toggle) {
+      this.expanded.update((expanded) => !expanded);
+    }
   }
 }

@@ -1,9 +1,9 @@
-<div class="accordion-item" [class]="class()">
+<div class="accordion-item" [class]="class()" (click)="toggle($event, true)">
     <h2 class="accordion-header m-0">
         <div class="accordion-title">{{ title() }}</div>
-        <app-button class="p-0" [icon]="expanded() ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up'" [variant]="undefined" (buttonClick)="toggle()"></app-button>
+        <app-button class="p-0" [icon]="expanded() ? 'icon-chevron-down icon-size-5 dark-color' : 'icon-chevron-up icon-size-5  dark-color'" [variant]="undefined"></app-button>
     </h2>
-    <div class="accordion-content" [class.show]="expanded()" [class.lazy]="lazy()">
+    <div class="accordion-content" [class.show]="expanded()" [class.lazy]="lazy()" (click)="toggle($event, false)">
         <div class="p-0">
             <div [class]="gap() ? 'd-flex flex-col gap-3 px-3' : ''">
                 <ng-content></ng-content>

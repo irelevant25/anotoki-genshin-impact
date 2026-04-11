@@ -53,13 +53,23 @@ export interface VoiceOverFormData {
   character_id?: number;
   order: number;
   type: string;
-  language: string;
-  title: string;
-  text: string;
-  audio?: string;
-  is_alternative?: boolean;
-  title_reading?: string;
-  text_reading?: string;
+  title_english: string;
+  title_japanese?: string;
+  title_chinese?: string;
+  title_chinese_traditional?: string;
+  title_korean?: string;
+  text_english?: string;
+  text_japanese?: string;
+  text_chinese?: string;
+  text_chinese_traditional?: string;
+  text_korean?: string;
+  text_japanese_reading?: string;
+  text_chinese_reading?: string;
+  text_korean_reading?: string;
+  audio_english?: string;
+  audio_japanese?: string;
+  audio_chinese?: string;
+  audio_korean?: string;
 }
 
 export interface ConstellationFormData {
