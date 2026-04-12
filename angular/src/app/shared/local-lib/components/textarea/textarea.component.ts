@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { AbstractInputComponent } from '../../abstract-input.class';
 import { AutoResizeDirective } from '../../auto-resize.directive';
 
-type Type = string;
+type Type = string | number;
 
 @Component({
   selector: 'app-textarea',

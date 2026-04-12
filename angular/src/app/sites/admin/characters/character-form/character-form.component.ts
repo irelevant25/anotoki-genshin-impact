@@ -19,12 +19,46 @@ import {
   RelationshipFormData,
   TalentFormData,
   VoiceOverFormData,
+  TalentCostFormData,
+  AscensionCostFormData,
 } from '../../services/admin-api.service';
 import { Material } from '../../../../shared/models.generated';
 
 export interface ConstellationWrapper {
   data: ConstellationFormData;
   icon?: File;
+}
+
+export interface TalentWrapper {
+  data: TalentFormData;
+  icon?: File;
+}
+
+export interface AscensionWrapper {
+  ascension: AscensionFormData;
+  cost: AscensionCostFormData[];
+}
+
+export interface CharacterWrapper {
+  data: CharacterFormData;
+  namecard_icon?: File;
+  namecard_background?: File;
+  namecard_banner?: File;
+  icon?: File;
+  card_icon?: File;
+  card_icon_2?: File;
+  wish_icon?: File;
+  ingame_icon?: File;
+  ingame_icon_2?: File;
+}
+
+export interface VoiceOverWrapper {
+  data: VoiceOverFormData;
+  displayTitle?: string;
+  audio_english?: File;
+  audio_japanese?: File;
+  audio_chinese?: File;
+  audio_korean?: File;
 }
 
 @Component({
@@ -47,11 +81,12 @@ export interface ConstellationWrapper {
 })
 export class CharacterFormComponent {
   // Form state
-  character = signal<CharacterFormData>({} as CharacterFormData);
-  voiceOvers = signal<VoiceOverFormData[]>([]);
+  character = signal<CharacterWrapper>({ data: {} as CharacterFormData });
+  voiceOvers = signal<VoiceOverWrapper[]>([]);
   constellations = signal<ConstellationWrapper[]>([]);
-  ascensions = signal<AscensionFormData[]>([]);
-  talents = signal<TalentFormData[]>([]);
+  ascensions = signal<AscensionWrapper[]>([]);
+  talents = signal<TalentWrapper[]>([]);
+  talentCost = signal<TalentCostFormData[]>([]);
   relationships = signal<RelationshipFormData[]>([]);
   selectedRoles = signal<string[]>([]);
 
@@ -68,14 +103,6 @@ export class CharacterFormComponent {
   voiceOverTypes = signal<string[]>([]);
   characterStates = signal<string[]>([]);
   rarities = signal<string[]>([]);
-
-  // File upload signals
-  pendingCharFiles = signal<Record<string, File>>({});
-  // pendingCoIcon = signal<(File | null)[]>([]);
-  pendingTaIcon = signal<(File | null)[]>([]);
-  charIconPreviews = signal<Record<string, string>>({});
-  // coIconPreviews = signal<(string | null)[]>([]);
-  taIconPreviews = signal<(string | null)[]>([]);
 
   private readonly _api = inject(AdminApiService);
   private readonly _notify = inject(NotificationService);
@@ -122,21 +149,14 @@ export class CharacterFormComponent {
       this.loading.set(true);
       this._api.getCharacterFull(Number(id)).subscribe({
         next: (data) => {
-          this.character.set(data.character);
-
-          const vos = data.voice_overs ?? [];
-          const cos = data.constellations ?? [];
-          const tas = data.talents ?? [];
-
-          this.voiceOvers.set(vos);
-          this.constellations.set(cos.map((c) => ({ data: c })));
-          this.ascensions.set(data.ascensions ?? []);
-          this.talents.set(tas);
+          this.character.set({ data: data.character });
+          this.voiceOvers.set(data.voice_overs?.map((x, index) => ({ data: x, index, displayTitle: '' })) ?? []);
+          this.constellations.set(data.constellations?.map((c) => ({ data: c })) ?? []);
+          this.ascensions.set(data.ascensions?.map((c) => ({ ascension: c, cost: data.ascension_cost?.filter((x) => x.character_ascension_id === c.id) ?? [] })) ?? []);
+          this.talents.set(data.talents?.map((c) => ({ data: c })) ?? []);
+          this.talentCost.set(data.talent_cost ?? []);
           this.relationships.set(data.relationships ?? []);
           this.selectedRoles.set(data.roles ?? []);
-
-          this.pendingTaIcon.set(tas.map(() => null));
-          this.taIconPreviews.set(tas.map(() => null));
 
           this.loading.set(false)
         },
@@ -167,25 +187,91 @@ export class CharacterFormComponent {
     });
   }
 
+  // buildFormData(): FormData {
+  //   const data: CharacterFull = {
+  //     character: this.character().data,
+  //     voice_overs: this.voiceOvers().map((x) => x.data),
+  //     constellations: this.constellations().map((c) => c.data),
+  //     ascensions: this.ascensions().map(x => x.ascension),
+  //     ascension_cost: this.ascensions().flatMap(x => x.cost),
+  //     talents: this.talents().map((c) => c.data),
+  //     talent_cost: this.talentCost(),
+  //     relationships: this.relationships(),
+  //     roles: this.selectedRoles(),
+  //   };
+  //   const payload = new FormData();
+  //   payload.append('data', JSON.stringify(data));
+  //   // this.pendingCoIcon().forEach((f, i) => {
+  //   //   if (f) fd.append(`co_icon_${i}`, f);
+  //   // });
+  //   // this.pendingTaIcon().forEach((f, i) => {
+  //   //   if (f) fd.append(`ta_icon_${i}`, f);
+  //   // });
+  //   return payload;
+  // }
+
   buildFormData(): FormData {
-    const payload: CharacterFull = {
-      character: this.character(),
-      voice_overs: this.voiceOvers(),
+    const data: CharacterFull = {
+      character: this.character().data,
+      voice_overs: this.voiceOvers().map((x) => x.data),
       constellations: this.constellations().map((c) => c.data),
-      ascensions: this.ascensions(),
-      talents: this.talents(),
+      ascensions: this.ascensions().map(x => x.ascension),
+      ascension_cost: this.ascensions().flatMap(x => x.cost),
+      talents: this.talents().map((c) => c.data),
+      talent_cost: this.talentCost(),
       relationships: this.relationships(),
       roles: this.selectedRoles(),
     };
-    const fd = new FormData();
-    fd.append('data', JSON.stringify(payload));
-    Object.entries(this.pendingCharFiles()).forEach(([field, file]) => fd.append(`char_${field}`, file));
-    // this.pendingCoIcon().forEach((f, i) => {
-    //   if (f) fd.append(`co_icon_${i}`, f);
-    // });
-    this.pendingTaIcon().forEach((f, i) => {
-      if (f) fd.append(`ta_icon_${i}`, f);
-    });
-    return fd;
+    const payload = new FormData();
+    payload.append('data', JSON.stringify(data));
+
+    // base info
+    const baseInfoWrapper: CharacterWrapper = JSON.parse(JSON.stringify(this.character()));
+    baseInfoWrapper.data.namecard_icon = `../assets/character/namecard_icon/${baseInfoWrapper.data.name.toUpperCase()}.png`;
+    baseInfoWrapper.data.namecard_background = `../assets/character/namecard_background/${baseInfoWrapper.data.name.toUpperCase()}.png`;
+    baseInfoWrapper.data.namecard_banner = `../assets/character/namecard_banner/${baseInfoWrapper.data.name.toUpperCase()}.png`;
+    baseInfoWrapper.data.icon = `../assets/character/icon/${baseInfoWrapper.data.name.toUpperCase()}.png`;
+    baseInfoWrapper.data.card_icon = `../assets/character/card_icon/${baseInfoWrapper.data.name.toUpperCase()}.png`;
+    baseInfoWrapper.data.card_icon_2 = baseInfoWrapper.data.card_icon_2 ? `../assets/character/card_icon/${baseInfoWrapper.data.name.toUpperCase()}.png` : undefined;
+    baseInfoWrapper.data.wish_icon = `../assets/character/wish_icon/${baseInfoWrapper.data.name.toUpperCase()}.png`;
+    baseInfoWrapper.data.ingame_icon = `../assets/character/ingame_icon/${baseInfoWrapper.data.name.toUpperCase()}${baseInfoWrapper.data.ingame_icon_name ? ' - ' + baseInfoWrapper.data.ingame_icon_name : ''}.png`;
+    baseInfoWrapper.data.ingame_icon_2 = baseInfoWrapper.data.ingame_icon_2 ? `../assets/character/ingame_icon/${baseInfoWrapper.data.name.toUpperCase()}${baseInfoWrapper.data.ingame_icon_2_name ? ' - ' + baseInfoWrapper.data.ingame_icon_2_name : ''}.png` : undefined;
+
+    if (baseInfoWrapper.namecard_icon) {
+      payload.append(baseInfoWrapper.data.namecard_icon, baseInfoWrapper.namecard_icon);
+    }
+    if (baseInfoWrapper.namecard_background) {
+      payload.append(baseInfoWrapper.data.namecard_background, baseInfoWrapper.namecard_background);
+    }
+    if (baseInfoWrapper.namecard_banner) {
+      payload.append(baseInfoWrapper.data.namecard_banner, baseInfoWrapper.namecard_banner);
+    }
+    if (baseInfoWrapper.icon) {
+      payload.append(baseInfoWrapper.data.icon, baseInfoWrapper.icon);
+    }
+    if (baseInfoWrapper.card_icon) {
+      payload.append(baseInfoWrapper.data.card_icon, baseInfoWrapper.card_icon);
+    }
+    if (baseInfoWrapper.card_icon_2 && baseInfoWrapper.data.card_icon_2) {
+      payload.append(baseInfoWrapper.data.card_icon_2, baseInfoWrapper.card_icon_2);
+    }
+    if (baseInfoWrapper.wish_icon) {
+      payload.append(baseInfoWrapper.data.wish_icon, baseInfoWrapper.wish_icon);
+    }
+    if (baseInfoWrapper.ingame_icon) {
+      payload.append(baseInfoWrapper.data.ingame_icon, baseInfoWrapper.ingame_icon);
+    }
+    if (baseInfoWrapper.ingame_icon_2 && baseInfoWrapper.data.ingame_icon_2) {
+      payload.append(baseInfoWrapper.data.ingame_icon_2, baseInfoWrapper.ingame_icon_2);
+    }
+
+    // voice overs
+
+
+    // constellations
+
+    // talents
+
+    return payload;
   }
 }

@@ -1,6 +1,6 @@
 <div class="page-header justify-content-between">
     <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
-    <h1 class="page-title">{{ character().name }}</h1>
+    <h1 class="page-title">{{ character().data.name }}</h1>
     <h1 class="page-title">{{ pageTitle() }}</h1>
 </div>
 
@@ -11,8 +11,6 @@
         <app-tab [title]="'Base Info'" [icon]="'icon-user'">
             <app-base-info-tab
                 [character]="character()"
-                [charIconPreviews]="charIconPreviews()"
-                [pendingCharFiles]="pendingCharFiles()"
                 [relationships]="relationships()"
                 [selectedRoles]="selectedRoles()"
                 [elements]="elements()"
@@ -35,7 +33,7 @@
             <app-ascensions-tab [ascensions]="ascensions()" [stats]="stats()" [materials]="materials()" />
         </app-tab>
         <app-tab [title]="'Talents'" [icon]="'icon-book'">
-            <app-talents-tab [talents]="talents()" [pendingTaIcon]="pendingTaIcon()" [taIconPreviews]="taIconPreviews()" [talentTypes]="talentTypes()" [materials]="materials()" />
+            <app-talents-tab [talents]="talents()" [talentCost]="talentCost()" [talentTypes]="talentTypes()" [materials]="materials()" />
         </app-tab>
     </app-tabs>
 

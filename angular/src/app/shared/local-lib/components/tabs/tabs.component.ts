@@ -1,4 +1,4 @@
-import { Component, ContentChildren, model, QueryList } from '@angular/core';
+import { Component, ContentChildren, model, output, QueryList } from '@angular/core';
 import { TabComponent } from './tab/tab.component';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +16,7 @@ export class TabsComponent extends AbstractRolesComponent {
 
   tabs = model<TabComponent[]>([]);
   fullWidth = model<boolean>(false);
+  activeTabChange = output<TabComponent>();
   activeTab?: TabComponent;
 
   constructor(
@@ -61,11 +62,15 @@ export class TabsComponent extends AbstractRolesComponent {
   }
 
   setActiveTab(selectedTab: TabComponent): void {
+    const previous = this.activeTab;
     this.tabs()?.forEach((tab) => {
       tab.active.set(tab === selectedTab);
     });
     this.updateUrlHash(selectedTab);
     this.activeTab = selectedTab;
+    if (previous && previous !== selectedTab) {
+      this.activeTabChange.emit(selectedTab);
+    }
   }
 
   private updateUrlHash(selectedTab: TabComponent): void {

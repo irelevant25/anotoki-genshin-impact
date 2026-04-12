@@ -964,6 +964,7 @@ CREATE OR REPLACE TRIGGER trg_characters_constellations_updated_at
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS characters_talents (
     id              SERIAL          PRIMARY KEY,
+    "order"         SMALLINT        NOT NULL,
     character_id    INT             NOT NULL,
     icon            VARCHAR(100)    NOT NULL,
     name            VARCHAR(100)    NOT NULL,
@@ -992,7 +993,7 @@ CREATE OR REPLACE TRIGGER trg_characters_talents_updated_at
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS characters_talents_cost (
     id                      SERIAL          PRIMARY KEY,
-    character_talent_id     INT             NOT NULL,
+    character_id            INT             NOT NULL,
     level                   SMALLINT        NOT NULL,
     material_id             INT             NOT NULL,
     quantity                INT             NOT NULL,
@@ -1002,8 +1003,8 @@ CREATE TABLE IF NOT EXISTS characters_talents_cost (
     updated_at              TIMESTAMP,
     updated_by              INT,
 
-    CONSTRAINT uq_characters_talents_cost_character_talent_level UNIQUE (character_talent_id, level, material_id),
-    CONSTRAINT fk_characters_talents_cost_characters_talent_id FOREIGN KEY (character_talent_id) REFERENCES characters_talents(id),
+    CONSTRAINT uq_characters_talents_cost_character_level UNIQUE (character_id, level, material_id),
+    CONSTRAINT fk_characters_talents_cost_characters_id FOREIGN KEY (character_id) REFERENCES characters(id),
     CONSTRAINT fk_characters_talents_cost_material   FOREIGN KEY (material_id) REFERENCES materials(id)
 );
 CREATE OR REPLACE TRIGGER trg_characters_talents_cost_protect_created

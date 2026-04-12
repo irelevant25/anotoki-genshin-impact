@@ -30,3 +30,7 @@
   padding-top: var(--spacing-xs);
   flex-shrink: 0;
 }
+
+.cost-card-img > img {
+  overflow: auto;
+}

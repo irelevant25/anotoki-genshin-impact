@@ -65,7 +65,7 @@ function _applyUploads(array &$body, array $uploadedFiles): void
         }
     }
 
-    // Voice over audio – per-language files
+    // Voice over audio - per-language files
     foreach ($body['voice_overs'] ?? [] as $i => &$vo) {
         foreach (['english', 'japanese', 'chinese', 'korean'] as $lang) {
             $key = "vo_audio_{$i}_{$lang}";
@@ -78,7 +78,7 @@ function _applyUploads(array &$body, array $uploadedFiles): void
     }
     unset($vo);
 
-    // Constellation icons – named {CharName}_C{level}
+    // Constellation icons - named {CharName}_C{level}
     foreach ($body['constellations'] ?? [] as $i => &$co) {
         if (!empty($uploadedFiles["co_icon_$i"])) {
             $level = $co['level'] ?? ($i + 1);
@@ -89,7 +89,7 @@ function _applyUploads(array &$body, array $uploadedFiles): void
     }
     unset($co);
 
-    // Talent icons – named {CharName}_{TalentType}
+    // Talent icons - named {CharName}_{TalentType}
     foreach ($body['talents'] ?? [] as $i => &$ta) {
         if (!empty($uploadedFiles["ta_icon_$i"])) {
             $type = preg_replace('/[^a-zA-Z0-9]/', '_', $ta['type'] ?? ('talent_' . $i));
@@ -102,7 +102,7 @@ function _applyUploads(array &$body, array $uploadedFiles): void
 }
 
 /**
- * Parses the request body – supports multipart (data field contains JSON)
+ * Parses the request body - supports multipart (data field contains JSON)
  * and plain JSON bodies.
  */
 function _parseBody(Request $request): array
@@ -166,18 +166,20 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
             }
         }
 
-        // 5. Talents (with costs)
+        // 5. Talents
         foreach ($body['talents'] ?? [] as $t) {
-            $talentId = DbQuery::insert($pdo, 'characters_talents', [
+            DbQuery::insert($pdo, 'characters_talents', [
                 ...CharacterTalent::fromBody([...$t, 'character_id' => $charId])->toDbArray(),
                 'created_by' => $user['id'],
             ]);
-            foreach ($t['costs'] ?? [] as $cost) {
-                DbQuery::insert($pdo, 'characters_talents_cost', [
-                    ...CharacterTalentCost::fromBody([...$cost, 'character_talent_id' => $talentId])->toDbArray(),
-                    'created_by' => $user['id'],
-                ]);
-            }
+        }
+
+        // 6. Talent costs
+        foreach ($body['talent_costs'] ?? [] as $cost) {
+            DbQuery::insert($pdo, 'characters_talents_cost', [
+                ...CharacterTalentCost::fromBody([...$cost, 'character_id' => $charId])->toDbArray(),
+                'created_by' => $user['id'],
+            ]);
         }
 
         // 6. Relationships
@@ -281,29 +283,27 @@ $app->put('/api/characters/{id}/full', function (Request $request, Response $res
             }
         }
 
-        // Talents: sync with nested costs
+        // Talents: soft-delete and re-insert
         if (isset($body['talents'])) {
-            $stmt = $pdo->prepare('SELECT id FROM characters_talents WHERE character_id = ? AND deleted = FALSE');
-            $stmt->execute([$id]);
-            $existingTalentIds = array_column($stmt->fetchAll(), 'id');
-            if (!empty($existingTalentIds)) {
-                $ph = implode(',', array_fill(0, count($existingTalentIds), '?'));
-                $pdo->prepare("UPDATE characters_talents_cost SET deleted = TRUE WHERE character_talent_id IN ($ph) AND deleted = FALSE")
-                    ->execute($existingTalentIds);
-            }
             $pdo->prepare('UPDATE characters_talents SET deleted = TRUE WHERE character_id = ? AND deleted = FALSE')
                 ->execute([$id]);
             foreach ($body['talents'] as $t) {
-                $talentId = DbQuery::insert($pdo, 'characters_talents', [
+                DbQuery::insert($pdo, 'characters_talents', [
                     ...CharacterTalent::fromBody([...$t, 'character_id' => $id])->toDbArray(),
                     'created_by' => $user['id'],
                 ]);
-                foreach ($t['costs'] ?? [] as $cost) {
-                    DbQuery::insert($pdo, 'characters_talents_cost', [
-                        ...CharacterTalentCost::fromBody([...$cost, 'character_talent_id' => $talentId])->toDbArray(),
-                        'created_by' => $user['id'],
-                    ]);
-                }
+            }
+        }
+
+        // Talent costs: soft-delete and re-insert
+        if (isset($body['talent_costs'])) {
+            $pdo->prepare('UPDATE characters_talents_cost SET deleted = TRUE WHERE character_id = ? AND deleted = FALSE')
+                ->execute([$id]);
+            foreach ($body['talent_costs'] as $cost) {
+                DbQuery::insert($pdo, 'characters_talents_cost', [
+                    ...CharacterTalentCost::fromBody([...$cost, 'character_id' => $id])->toDbArray(),
+                    'created_by' => $user['id'],
+                ]);
             }
         }
 
@@ -346,49 +346,22 @@ $app->get('/api/characters/{id}/full', function (Request $request, Response $res
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
-    $fetch = function (string $table, string $fkCol, int $charId) use ($pdo): array {
-        $stmt = $pdo->prepare("SELECT * FROM $table WHERE $fkCol = ? AND deleted = FALSE ORDER BY id ASC");
-        $stmt->execute([$charId]);
+    $fetch = function (string $table, string $fkCol, array $ids) use ($pdo): array {
+        if (empty($ids))
+            return [];
+        $ph = implode(',', array_fill(0, count($ids), '?'));
+        $stmt = $pdo->prepare("SELECT * FROM $table WHERE $fkCol IN ($ph) AND deleted = FALSE ORDER BY id ASC");
+        $stmt->execute($ids);
         return $stmt->fetchAll();
     };
 
-    $voice_overs = $fetch('characters_voice_overs', 'character_id', $id);
-    $constellations = $fetch('characters_constellations', 'character_id', $id);
-    $relationships = $fetch('characters_relationships', 'character_id', $id);
-
-    // Talents with costs
-    $talents = $fetch('characters_talents', 'character_id', $id);
-    if (!empty($talents)) {
-        $talentIds = array_column($talents, 'id');
-        $ph = implode(',', array_fill(0, count($talentIds), '?'));
-        $stmt = $pdo->prepare("SELECT * FROM characters_talents_cost WHERE character_talent_id IN ($ph) AND deleted = FALSE ORDER BY level, material_id");
-        $stmt->execute($talentIds);
-        $talentCosts = [];
-        foreach ($stmt->fetchAll() as $cost) {
-            $talentCosts[$cost['character_talent_id']][] = $cost;
-        }
-        foreach ($talents as &$talent) {
-            $talent['costs'] = $talentCosts[$talent['id']] ?? [];
-        }
-        unset($talent);
-    }
-
-    // Ascensions with costs
-    $ascensions = $fetch('characters_ascensions', 'character_id', $id);
-    if (!empty($ascensions)) {
-        $ascIds = array_column($ascensions, 'id');
-        $ph = implode(',', array_fill(0, count($ascIds), '?'));
-        $stmt = $pdo->prepare("SELECT * FROM characters_ascensions_cost WHERE character_ascension_id IN ($ph) AND deleted = FALSE ORDER BY material_id");
-        $stmt->execute($ascIds);
-        $ascCosts = [];
-        foreach ($stmt->fetchAll() as $cost) {
-            $ascCosts[$cost['character_ascension_id']][] = $cost;
-        }
-        foreach ($ascensions as &$asc) {
-            $asc['costs'] = $ascCosts[$asc['id']] ?? [];
-        }
-        unset($asc);
-    }
+    $voice_overs = $fetch('characters_voice_overs', 'character_id', [$id]);
+    $constellations = $fetch('characters_constellations', 'character_id', [$id]);
+    $relationships = $fetch('characters_relationships', 'character_id', [$id]);
+    $talents = $fetch('characters_talents', 'character_id', [$id]);
+    $talentCost = $fetch('characters_talents_cost', 'character_id', [$id]);
+    $ascensions = $fetch('characters_ascensions', 'character_id', [$id]);
+    $ascensionCost = $fetch('characters_ascensions_cost', 'character_ascension_id', array_column($ascensions, 'id'));
 
     $rolesStmt = $pdo->prepare('SELECT role_name FROM characters_roles WHERE character_id = ?');
     $rolesStmt->execute([$id]);
@@ -400,7 +373,9 @@ $app->get('/api/characters/{id}/full', function (Request $request, Response $res
         'constellations' => $constellations,
         'relationships' => $relationships,
         'talents' => $talents,
+        'talent_cost' => $talentCost,
         'ascensions' => $ascensions,
+        'ascension_cost' => $ascensionCost,
         'roles' => $roles,
     ]);
 });

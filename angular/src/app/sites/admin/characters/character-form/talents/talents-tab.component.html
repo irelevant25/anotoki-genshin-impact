@@ -1,60 +1,77 @@
-<div class="sub-list">
-    @for (ta of talents(); track $index; let i = $index) {
-        <div class="sub-card">
-            <div class="sub-card-header">
-                <span class="sub-card-index">{{ ta.type }} · {{ ta.name || 'Unnamed' }}</span>
-                <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeTalent(i)"></app-button>
-            </div>
-            <div class="form-grid">
-                <app-text [label]="'Name'" [(value)]="ta.name" [required]="true"></app-text>
-                <app-dropdown [label]="'Type'" [options]="talentTypes()" [(value)]="ta.type" [required]="true"></app-dropdown>
-                <div class="form-field col-span-2">
-                    <app-file [label]="'Icon'" [buttonOutline]="true" (inputChange)="onTalentIconSelect(i, $event)" [required]="true"></app-file>
-                    @if (taIconPreview(i); as src) {
-                        <img #img [src]="src" class="preview-img" alt="" />
-                        <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                            <img class="w-100" [src]="src" />
-                        </app-tooltip>
-                    }
+<app-tabs>
+    <app-tab [title]="'Talents'" [icon]="'icon-book'">
+        <div class="sub-list">
+            @for (talent of talentsSorted(); track talent; let i = $index) {
+                <div class="sub-card">
+                    <div class="sub-card-header">
+                        <span class="sub-card-index">{{ talent.data.type }} · {{ talent.data.name || 'Unnamed' }}</span>
+                        <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeTalent(i)"></app-button>
+                    </div>
+                    <app-field-container [cols]="4">
+                        <app-number [label]="'Order'" [value]="talent.data.order" [min]="1" [max]="talentsSorted().length" (inputChange)="onOrderChange(talent, $event)"></app-number>
+                        <app-text class="col-span-2" [label]="'Name'" [(value)]="talent.data.name" [required]="true"></app-text>
+                        <app-dropdown [label]="'Type'" [options]="talentTypes()" [(value)]="talent.data.type" [required]="true"></app-dropdown>
+                    </app-field-container>
+                    <app-field-container [cols]="4">
+                        <div>
+                            <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Icon'" [buttonOutline]="true" [required]="true" (inputChange)="onTalentIconSelect(talent, $event)"></app-file>
+                            @if (talent.data.icon) {
+                                <img #img [src]="talent.data.icon" class="preview-img" alt="" />
+                                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                                    <img class="w-100" [src]="talent.data.icon" />
+                                </app-tooltip>
+                            }
+                        </div>
+                        <app-textarea class="col-span-3" [label]="'Description'" [(value)]="talent.data.description" [rows]="4"></app-textarea>
+                    </app-field-container>
                 </div>
-                <app-textarea [label]="'Description'" [(value)]="ta.description" [rows]="4" [class]="'col-span-2'"></app-textarea>
-            </div>
+            }
+            <app-button text="+ Add Talent" variant="secondary" [outline]="true" size="small" (buttonClick)="addTalent()"></app-button>
+        </div>
+    </app-tab>
 
-            <div class="cost-section">
-                <div class="cost-header">
-                    <span class="cost-label">Level-up Materials</span>
-                    <app-button text="+ Add Level" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addTalentLevel(i)"></app-button>
-                </div>
-                @for (level of talentCostLevels(i); track level) {
-                    <div class="talent-level-row">
-                        <span class="talent-level-label">Lv {{ level }}</span>
+    <app-tab [title]="'Cost'" [icon]="'icon-coins'">
+        <div class="sub-list">
+            @for (costGroup of talentCostGroups(); track costGroup.cost[0]) {
+                <div class="sub-card">
+                    <div class="sub-card-header">
+                        <app-number [label]="'Level'" [value]="costGroup.level" [min]="2" [max]="10" (inputChange)="onLevelChange(costGroup, $event)"></app-number>
+                        <app-button variant="danger" [outline]="true" (buttonClick)="removeCostLevel(costGroup)">Delete</app-button>
+                    </div>
+                    <div class="cost-section">
+                        <div class="cost-header">
+                            <span class="cost-label">Materials</span>
+                            <app-button variant="primary" [outline]="true" (buttonClick)="addCostLevelMaterial(costGroup)">Add</app-button>
+                        </div>
                         <div class="cost-cards">
-                            @for (entry of talentCostsByLevel(i, level); track entry.ci) {
+                            @for (cost of costGroup.cost; track cost) {
                                 <div class="cost-card">
-                                    <div class="cost-card-img"><i class="fa-solid fa-gem"></i></div>
-                                    <app-dropdown [options]="materialOptions()" [value]="entry.cost.material_id" (inputChange)="setTalentCost(i, entry.ci, 'material_id', $event)" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
+                                    <app-number
+                                        [label]="'Order'"
+                                        [value]="cost.order"
+                                        [required]="true"
+                                        [min]="1"
+                                        [max]="costGroup.cost.length"
+                                        (inputChange)="onCostOrderChange(costGroup.cost, cost, $event)"
+                                    ></app-number>
+                                    <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
+                                        <img src="assets/materials/{{ materialDropdown.computedOption()?.value }}.avif" />
+                                    </div>
+                                    <app-dropdown #materialDropdown [options]="materialOptions()" [(value)]="cost.material_id" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
                                     <div class="cost-card-footer">
-                                        <input
-                                            class="admin-input"
-                                            type="number"
-                                            min="1"
-                                            [value]="entry.cost.quantity"
-                                            (input)="setTalentCost(i, entry.ci, 'quantity', +$any($event.target).value)"
-                                            placeholder="Qty"
-                                        />
-                                        <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeTalentCost(i, entry.ci)"></app-button>
+                                        <input class="admin-input" type="number" min="1" [(value)]="cost.quantity" placeholder="Qty" />
+                                        <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeCostLevelMaterial(cost)"></app-button>
                                     </div>
                                 </div>
                             }
                         </div>
-                        <div class="talent-level-actions">
-                            <app-button text="+ Mat" variant="secondary" [outline]="true" size="very-small" (buttonClick)="addTalentCostToLevel(i, level)"></app-button>
-                            <app-button icon="fa-solid fa-xmark" variant="danger" [outline]="true" size="very-small" (buttonClick)="removeTalentLevel(i, level)"></app-button>
-                        </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
+
+            @if (talentCostGroups().length < 9) {
+                <app-button variant="primary" [outline]="true" (buttonClick)="addCostLevel()">Add</app-button>
+            }
         </div>
-    }
-    <app-button text="+ Add Talent" variant="secondary" [outline]="true" size="small" (buttonClick)="addTalent()"></app-button>
-</div>
+    </app-tab>
+</app-tabs>

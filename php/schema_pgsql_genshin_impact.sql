@@ -778,7 +778,7 @@ CREATE TABLE IF NOT EXISTS banners_characters (
     id              SERIAL          PRIMARY KEY,
     banner_id       INT             NOT NULL,
     character_id    INT             NOT NULL,
-    "order"         SMALLINT        NOT NULL,
+    "order"         SMALLINT        NOT NULL CHECK ("order" >= 1),
     deleted         BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by      INT             NOT NULL,
@@ -804,7 +804,7 @@ CREATE TABLE IF NOT EXISTS banners_weapons (
     id              SERIAL          PRIMARY KEY,
     banner_id       INT             NOT NULL,
     weapon_id       INT             NOT NULL,
-    "order"         SMALLINT        NOT NULL,
+    "order"         SMALLINT        NOT NULL CHECK ("order" >= 1),
     deleted         BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by      INT             NOT NULL,
@@ -860,7 +860,7 @@ CREATE TABLE IF NOT EXISTS characters_voice_overs (
     character_id_5                  INT             NULL,       -- another element variant 5/7
     character_id_6                  INT             NULL,       -- another element variant 6/7
     character_id_7                  INT             NULL,       -- another element variant 7/7
-    "order"                         SMALLINT        NOT NULL,
+    "order"                         SMALLINT        NOT NULL CHECK ("order" >= 1),
     type                            VARCHAR(50)     NOT NULL,
     title_english                   VARCHAR(100)    NOT NULL,
     title_japanese                  VARCHAR(100),
@@ -962,6 +962,7 @@ CREATE OR REPLACE TRIGGER trg_characters_constellations_updated_at
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS characters_talents (
     id              SERIAL          PRIMARY KEY,
+    "order"         SMALLINT        NOT NULL CHECK ("order" >= 1),
     character_id    INT             NOT NULL,
     icon            VARCHAR(100)    NOT NULL,
     name            VARCHAR(100)    NOT NULL,
@@ -990,7 +991,8 @@ CREATE OR REPLACE TRIGGER trg_characters_talents_updated_at
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS characters_talents_cost (
     id                      SERIAL          PRIMARY KEY,
-    character_talent_id     INT             NOT NULL,
+    character_id            INT             NOT NULL,
+    "order"                 SMALLINT        NOT NULL CHECK ("order" >= 1),
     level                   SMALLINT        NOT NULL,
     material_id             INT             NOT NULL,
     quantity                INT             NOT NULL,
@@ -1000,8 +1002,8 @@ CREATE TABLE IF NOT EXISTS characters_talents_cost (
     updated_at              TIMESTAMP,
     updated_by              INT,
 
-    CONSTRAINT uq_characters_talents_cost_character_talent_level UNIQUE (character_talent_id, level, material_id),
-    CONSTRAINT fk_characters_talents_cost_characters_talent_id FOREIGN KEY (character_talent_id) REFERENCES characters_talents(id),
+    CONSTRAINT uq_characters_talents_cost_character_level UNIQUE (character_id, level, material_id),
+    CONSTRAINT fk_characters_talents_cost_characters_id FOREIGN KEY (character_id) REFERENCES characters(id),
     CONSTRAINT fk_characters_talents_cost_material   FOREIGN KEY (material_id) REFERENCES materials(id)
 );
 CREATE OR REPLACE TRIGGER trg_characters_talents_cost_protect_created
@@ -1063,6 +1065,7 @@ CREATE OR REPLACE TRIGGER trg_characters_ascensions_updated_at
 CREATE TABLE IF NOT EXISTS characters_ascensions_cost (
     id                      SERIAL          PRIMARY KEY,
     character_ascension_id  INT             NOT NULL,
+    "order"                 SMALLINT        NOT NULL CHECK ("order" >= 1),
     material_id             INT             NOT NULL,
     quantity                INT             NOT NULL,
     deleted                 BOOLEAN         NOT NULL DEFAULT FALSE,
@@ -1117,7 +1120,7 @@ CREATE TABLE IF NOT EXISTS characters_builds_weapons (
     id                  SERIAL          PRIMARY KEY,
     character_build_id  INT             NOT NULL,
     weapon_id           INT             NOT NULL,
-    "order"             SMALLINT        NOT NULL,
+    "order"             SMALLINT        NOT NULL CHECK ("order" >= 1),
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by          INT             NOT NULL,
@@ -1145,7 +1148,7 @@ CREATE TABLE IF NOT EXISTS characters_builds_artifacts (
     artifact_id         INT             NOT NULL,
     pc_2                BOOLEAN         NOT NULL DEFAULT FALSE,
     pc_4                BOOLEAN         NOT NULL DEFAULT TRUE,
-    "order"             SMALLINT        NOT NULL,
+    "order"             SMALLINT        NOT NULL CHECK ("order" >= 1),
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by          INT             NOT NULL,
@@ -1171,7 +1174,7 @@ CREATE TABLE IF NOT EXISTS characters_builds_talents (
     id                  SERIAL          PRIMARY KEY,
     character_build_id  INT             NOT NULL,
     talent_id           INT             NOT NULL,
-    "order"             SMALLINT        NOT NULL,
+    "order"             SMALLINT        NOT NULL CHECK ("order" >= 1),
     description         TEXT,
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
@@ -1253,7 +1256,7 @@ CREATE TABLE IF NOT EXISTS characters_builds_sub_stats (
     character_build_id  INT             NOT NULL,
     stat_name           VARCHAR(50)     NOT NULL,
     recommended_value   VARCHAR(50),
-    "order"             SMALLINT        NOT NULL,
+    "order"             SMALLINT        NOT NULL CHECK ("order" >= 1),
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by          INT             NOT NULL,
@@ -1279,7 +1282,7 @@ CREATE TABLE IF NOT EXISTS characters_builds_teams (
     id                  SERIAL          PRIMARY KEY,
     character_build_id  INT             NOT NULL,
     description         TEXT,
-    "order"             SMALLINT        NOT NULL,
+    "order"             SMALLINT        NOT NULL CHECK ("order" >= 1),,
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by          INT             NOT NULL,
@@ -1304,7 +1307,7 @@ CREATE TABLE IF NOT EXISTS characters_builds_teams_characters (
     id                          SERIAL          PRIMARY KEY,
     character_build_team_id     INT             NOT NULL,
     character_id                INT,
-    "order"                     SMALLINT        NOT NULL,
+    "order"                     SMALLINT        NOT NULL CHECK ("order" >= 1),
     element                     VARCHAR(50),
     flex                        BOOLEAN         NOT NULL DEFAULT FALSE,
     deleted                     BOOLEAN         NOT NULL DEFAULT FALSE,
@@ -1453,7 +1456,7 @@ CREATE TABLE IF NOT EXISTS enemies_damage_types_elements (
     id                      SERIAL          PRIMARY KEY,
     enemy_phase_id          INT             NOT NULL,
     damage_type_element     VARCHAR(50)     NOT NULL,
-    "order"                 SMALLINT        NOT NULL,
+    "order"                 SMALLINT        NOT NULL CHECK ("order" >= 1),
     deleted                 BOOLEAN         NOT NULL DEFAULT FALSE,
     created_at              TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     created_by              INT             NOT NULL,

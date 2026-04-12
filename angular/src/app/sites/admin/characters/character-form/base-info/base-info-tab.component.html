@@ -1,63 +1,63 @@
 <div class="form-section">
     <h3 class="section-title">Identity</h3>
     <div class="form-grid">
-        <app-text [label]="'Name'" [placeholder]="'e.g. Hu Tao'" [(value)]="character().name" [required]="true"></app-text>
-        <app-text [label]="'Title'" [placeholder]="'e.g. Fragrance in Thaw'" [(value)]="character().title"></app-text>
-        <app-text [label]="'Secondary Title'" [(value)]="character().secondary_title"></app-text>
-        <app-dropdown [label]="'Element'" [options]="elements()" [(value)]="character().element" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Weapon Type'" [options]="weaponTypes()" [(value)]="character().weapon_type" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Rarity'" [options]="rarities()" [(value)]="character().rarity" [suffix]="' ★'" [required]="true"> </app-dropdown>
-        <app-dropdown [label]="'Model'" [options]="models()" [(value)]="character().model" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="character().region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-        <app-calendar [label]="'Birthday'" [(value)]="character().birthday"></app-calendar>
-        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="character().version" [required]="true"></app-text>
-        <app-calendar [label]="'Release Date'" [(value)]="character().release_date"></app-calendar>
-        <app-text [label]="'Introduced'" [placeholder]="'e.g. 1.1'" [(value)]="character().introduced"></app-text>
-        <app-text [label]="'Demo Music'" [(value)]="character().demo_music"></app-text>
-        <app-checkbox [label]="'Is Traveler'" [inline]="false" [(value)]="character().is_traveler"></app-checkbox>
+        <app-text [label]="'Name'" [placeholder]="'e.g. Hu Tao'" [(value)]="character().data.name" [required]="true"></app-text>
+        <app-text [label]="'Title'" [placeholder]="'e.g. Fragrance in Thaw'" [(value)]="character().data.title"></app-text>
+        <app-text [label]="'Secondary Title'" [(value)]="character().data.secondary_title"></app-text>
+        <app-dropdown [label]="'Element'" [options]="elements()" [(value)]="character().data.element" [required]="true"></app-dropdown>
+        <app-dropdown [label]="'Weapon Type'" [options]="weaponTypes()" [(value)]="character().data.weapon_type" [required]="true"></app-dropdown>
+        <app-dropdown [label]="'Rarity'" [options]="rarities()" [(value)]="character().data.rarity" [suffix]="' ★'" [required]="true"> </app-dropdown>
+        <app-dropdown [label]="'Model'" [options]="models()" [(value)]="character().data.model" [required]="true"></app-dropdown>
+        <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="character().data.region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+        <app-calendar [label]="'Birthday'" [(value)]="character().data.birthday"></app-calendar>
+        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="character().data.version" [required]="true"></app-text>
+        <app-calendar [label]="'Release Date'" [(value)]="character().data.release_date"></app-calendar>
+        <app-text [label]="'Introduced'" [placeholder]="'e.g. 1.1'" [(value)]="character().data.introduced"></app-text>
+        <app-text [label]="'Demo Music'" [(value)]="character().data.demo_music"></app-text>
+        <app-checkbox [label]="'Is Traveler'" [inline]="false" [(value)]="character().data.is_traveler"></app-checkbox>
     </div>
 </div>
 
 <div class="form-section">
     <h3 class="section-title">Voice Actors</h3>
     <div class="form-grid">
-        <app-text [label]="'English'" [(value)]="character().voice_actor_english" [required]="true"></app-text>
-        <app-text [label]="'Japanese'" [(value)]="character().voice_actor_japanese" [required]="true"></app-text>
-        <app-text [label]="'Korean'" [(value)]="character().voice_actor_korean" [required]="true"></app-text>
-        <app-text [label]="'Chinese'" [(value)]="character().voice_actor_chinese" [required]="true"></app-text>
+        <app-text [label]="'English'" [(value)]="character().data.voice_actor_english" [required]="true"></app-text>
+        <app-text [label]="'Japanese'" [(value)]="character().data.voice_actor_japanese" [required]="true"></app-text>
+        <app-text [label]="'Korean'" [(value)]="character().data.voice_actor_korean" [required]="true"></app-text>
+        <app-text [label]="'Chinese'" [(value)]="character().data.voice_actor_chinese" [required]="true"></app-text>
     </div>
 </div>
 
 <app-field-container [class]="'gap-2 mb-3'" [cols]="1">
     <h3 class="section-title mb-0">Namecard</h3>
     <app-field-container [cols]="1">
-        <app-textarea [label]="'Namecard Description'" [(value)]="character().namecard_description" [rows]="2" [required]="true"></app-textarea>
+        <app-textarea [label]="'Namecard Description'" [(value)]="character().data.namecard_description" [rows]="2" [required]="true"></app-textarea>
     </app-field-container>
-    <app-field-container [class]="'gap-5'" [cols]="4">
+    <app-field-container [class]="'gap-5'" [cols]="5">
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Namecard Icon'" [buttonOutline]="true" [required]="true"></app-file>
-            @if (charIconPreview('namecard_icon'); as src) {
-                <img #img [src]="src" class="preview-img" />
+            @if (character().data.namecard_icon) {
+                <img #img [src]="character().data.namecard_icon" class="preview-img" />
                 <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" />
+                    <img class="w-100" [src]="character().data.namecard_icon" />
                 </app-tooltip>
             }
         </div>
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Namecard Background'" [buttonOutline]="true" [required]="true"></app-file>
-            @if (charIconPreview('namecard_background'); as src) {
-                <img #img [src]="src" class="preview-img" alt="" />
+            @if (character().data.namecard_background) {
+                <img #img [src]="character().data.namecard_background" class="preview-img" alt="" />
                 <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" />
+                    <img class="w-100" [src]="character().data.namecard_background" />
                 </app-tooltip>
             }
         </div>
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Namecard Banner'" [buttonOutline]="true" [required]="true"></app-file>
-            @if (charIconPreview('namecard_banner'); as src) {
-                <img #img [src]="src" class="preview-img" alt="" />
+            @if (character().data.namecard_banner) {
+                <img #img [src]="character().data.namecard_banner" class="preview-img" alt="" />
                 <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" />
+                    <img class="w-100" [src]="character().data.namecard_banner" />
                 </app-tooltip>
             }
         </div>
@@ -69,50 +69,50 @@
     <app-field-container [class]="'gap-5'" [cols]="5">
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Icon'" [buttonOutline]="true" [required]="true"></app-file>
-            @if (charIconPreview('icon'); as src) {
-                <img #img [src]="src" class="preview-img" />
+            @if (character().data.icon) {
+                <img #img [src]="character().data.icon" class="preview-img" />
                 <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" />
+                    <img class="w-100" [src]="character().data.icon" />
                 </app-tooltip>
             }
         </div>
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Card Icon'" [buttonOutline]="true" [required]="true"></app-file>
-            @if (charIconPreview('card_icon'); as src) {
-                <img #img [src]="src" class="preview-img" alt="" />
+            @if (character().data.card_icon) {
+                <img #img [src]="character().data.card_icon" class="preview-img" alt="" />
                 <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" />
+                    <img class="w-100" [src]="character().data.card_icon" />
                 </app-tooltip>
             }
         </div>
         <div>
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'Wish Icon'" [buttonOutline]="true" [required]="true"></app-file>
-            @if (charIconPreview('wish_icon'); as src) {
-                <img #img [src]="src" class="preview-img" alt="" />
+            @if (character().data.wish_icon) {
+                <img #img [src]="character().data.wish_icon" class="preview-img" alt="" />
                 <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" />
+                    <img class="w-100" [src]="character().data.wish_icon" />
                 </app-tooltip>
             }
         </div>
         <div class="d-flex flex-col space-between">
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'In-game Icon'" [buttonOutline]="true" [required]="true"></app-file>
-            @if (charIconPreview('ingame_icon'); as src) {
-                <img #img [src]="src" class="preview-img" alt="" />
+            @if (character().data.ingame_icon) {
+                <img #img [src]="character().data.ingame_icon" class="preview-img" alt="" />
                 <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" />
+                    <img class="w-100" [src]="character().data.ingame_icon" />
                 </app-tooltip>
             }
-            <app-text [label]="'In-game Icon Name'" [(value)]="character().ingame_icon_name" [required]="true"></app-text>
+            <app-text [label]="'In-game Icon Name'" [(value)]="character().data.ingame_icon_name" [required]="true"></app-text>
         </div>
         <div class="d-flex flex-col space-between">
             <app-file class="d-block" [buttonClass]="'w-100'" [label]="'In-game Icon 2'" [buttonOutline]="true" [required]="true"></app-file>
-            @if (charIconPreview('ingame_icon_2'); as src) {
-                <img #img [src]="src" class="preview-img" alt="" />
+            @if (character().data.ingame_icon_2) {
+                <img #img [src]="character().data.ingame_icon_2" class="preview-img" alt="" />
                 <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" />
+                    <img class="w-100" [src]="character().data.ingame_icon_2" />
                 </app-tooltip>
             }
-            <app-text [label]="'In-game Icon 2 Name'" [(value)]="character().ingame_icon_2_name"></app-text>
+            <app-text [label]="'In-game Icon 2 Name'" [(value)]="character().data.ingame_icon_2_name"></app-text>
         </div>
     </app-field-container>
 </app-field-container>

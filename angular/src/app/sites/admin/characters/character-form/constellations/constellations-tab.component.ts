@@ -16,7 +16,9 @@ import { ConstellationWrapper } from '../character-form.component';
 })
 export class ConstellationsTabComponent {
   constellations = model<ConstellationWrapper[]>([]);
-  constellationSorted = computed(() => this.constellations().sort((a, b) => a.data.level - b.data.level));
+  constellationSorted = computed(() => {
+    return this.constellations().sort((a, b) => a.data.level - b.data.level)
+  });
 
   addConstellation(): void {
     this.constellations.update(c => [...c, { data: { name: '', icon: '', description: '', level: c.length + 1 } }]);

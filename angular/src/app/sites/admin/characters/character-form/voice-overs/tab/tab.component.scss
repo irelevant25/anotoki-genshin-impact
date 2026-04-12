@@ -1,0 +1,19 @@
+@use "../../character-form.component" as *;
+
+.audio-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.audio-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.audio-filename {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  word-break: break-all;
+}

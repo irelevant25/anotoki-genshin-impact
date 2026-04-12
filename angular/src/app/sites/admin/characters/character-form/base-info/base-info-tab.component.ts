@@ -10,6 +10,7 @@ import { FileComponent } from '../../../../../shared/local-lib/components/file/f
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
 import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
 import { ChipsComponent } from "../../../../../shared/local-lib/components/chips/chips.component";
+import { CharacterWrapper } from '../character-form.component';
 
 function emptyRelationship(): RelationshipFormData {
   return { type: '', name: '', state: '' };
@@ -22,9 +23,7 @@ function emptyRelationship(): RelationshipFormData {
   imports: [ButtonComponent, TextComponent, DropdownComponent, CalendarComponent, CheckboxComponent, TextareaComponent, FileComponent, FieldContainerComponent, TooltipComponent, ChipsComponent],
 })
 export class BaseInfoTabComponent {
-  character = model<CharacterFormData>({} as CharacterFormData);
-  charIconPreviews = model<Record<string, string>>({});
-  pendingCharFiles = model<Record<string, File>>({});
+  character = model<CharacterWrapper>({ data: {} as CharacterFormData });
   relationships = model<RelationshipFormData[]>([]);
   selectedRoles = model<string[]>([]);
 
@@ -37,10 +36,6 @@ export class BaseInfoTabComponent {
   relationshipTypes = model<string[]>([]);
   roles = model<string[]>([]);
   characterStates = model<string[]>([]);
-
-  charIconPreview(field: keyof CharacterFormData): string | null {
-    return this.charIconPreviews()[field as string] ?? (this.character() as any)[field] ?? null;
-  }
 
   // ── Relationships ─────────────────────────────────────────────────────────────
   addRelationship(): void {

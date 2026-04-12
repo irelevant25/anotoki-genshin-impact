@@ -1,0 +1,32 @@
+<app-field-container [cols]="1">
+    <app-field-container [cols]="1">
+        <app-text [label]="'Title'" [(value)]="entry().data[titleKey()]"></app-text>
+    </app-field-container>
+    <app-field-container [cols]="hasReading() ? 2 : 1">
+        <app-textarea [label]="'Text'" [(value)]="entry().data[textKey()]" [rows]="3" [resize]="false"></app-textarea>
+        @if (hasReading()) {
+            <app-textarea [label]="'Text Reading'" [(value)]="entry().data[textReadingKey()]" [rows]="3" [resize]="false"></app-textarea>
+        }
+    </app-field-container>
+    <div class="audio-row">
+        <app-file [label]="'Audio File'" [buttonOutline]="true" [acceptedExtensions]="['.mp3', '.ogg', '.wav']" (inputChange)="onVoiceOverAudioSelect($event)" [fileNamePosition]="'right'"></app-file>
+        @if (entry().data[audioKey()]) {
+            <div class="audio-preview">
+                <app-button
+                    [icon]="playingKey() === index() + '_' + language() ? 'icon-stop' : 'icon-play'"
+                    variant="primary"
+                    [outline]="true"
+                    size="very-small"
+                    (buttonClick)="togglePlay()"
+                ></app-button>
+                <span class="audio-filename">{{ entry().data[audioKey()] }}</span>
+            </div>
+        }
+    </div>
+    @if (this.language() === 'chinese') {
+        <app-field-container [cols]="1">
+            <app-text [label]="'Title (Traditional Chinese)'" [(value)]="entry().data.title_chinese_traditional"></app-text>
+            <app-textarea [label]="'Text (Traditional Chinese)'" [(value)]="entry().data.text_chinese_traditional" [rows]="3" [resize]="false"></app-textarea>
+        </app-field-container>
+    }
+</app-field-container>

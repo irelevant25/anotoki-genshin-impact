@@ -3,9 +3,9 @@
         <app-accordion [onlyOneOpen]="false">
             <app-accordion-item [lazy]="true" [title]="type + ' (' + (vosByType()[type]?.length ?? 0) + ')'" [gap]="false">
                 <app-accordion [onlyOneOpen]="false">
-                    @for (entry of vosByType()[type]; track entry.index) {
+                    @for (entry of vosByType()[type]; track entry; let index = $index) {
                         <app-accordion-item [lazy]="true" [title]="entry.displayTitle" class="secondary">
-                            <div class="sub-card d-flex flex-col gap-3">
+                            <div class="sub-card">
                                 <div class="sub-card-header">
                                     <app-number
                                         [label]="'Order'"
@@ -15,136 +15,20 @@
                                         [max]="vosByType()[type]?.length ?? 1"
                                         (inputChange)="onOrderChange(entry.data, $event)"
                                     ></app-number>
-                                    <app-button variant="danger" [outline]="true" (buttonClick)="removeVoiceOver(entry.index)">Delete</app-button>
+                                    <app-button variant="danger" [outline]="true" (buttonClick)="removeVoiceOver(index)">Delete</app-button>
                                 </div>
-                                <app-tabs>
+                                <app-tabs (activeTabChange)="stopAudio()">
                                     <app-tab [title]="'English'">
-                                        <app-field-container [cols]="1">
-                                            <app-text [label]="'Title'" [(value)]="entry.data.title_english" [required]="true"></app-text>
-                                            <app-textarea [label]="'Text'" [(value)]="entry.data.text_english" [rows]="3" [resize]="false"></app-textarea>
-                                            <div class="audio-row">
-                                                <app-file
-                                                    [label]="'Audio File'"
-                                                    [value]="entry.data.audio_english ? [{ nazov: entry.data.audio_english }] : []"
-                                                    [buttonOutline]="true"
-                                                    [acceptedExtensions]="['.mp3', '.ogg', '.wav']"
-                                                    (inputChange)="onVoiceOverAudioSelect(entry, 'english', $event)"
-                                                    [fileNamePosition]="'right'"
-                                                ></app-file>
-                                                @if (entry.data.audio_english) {
-                                                    <div class="audio-preview">
-                                                        <app-button
-                                                            [icon]="playingKey() === entry.index + '_english' ? 'icon-stop' : 'icon-play'"
-                                                            variant="primary"
-                                                            [outline]="true"
-                                                            size="very-small"
-                                                            (buttonClick)="togglePlay(entry, 'english')"
-                                                        ></app-button>
-                                                        <span class="audio-filename">{{ entry.data.audio_english }}</span>
-                                                    </div>
-                                                }
-                                            </div>
-                                        </app-field-container>
+                                        <app-voice-overs-tab-item [entry]="entry" [index]="index" [language]="'english'" [(audio)]="audio" [(playingKey)]="playingKey"></app-voice-overs-tab-item>
                                     </app-tab>
                                     <app-tab [title]="'Japanese'">
-                                        <app-field-container [cols]="1">
-                                            <app-field-container [cols]="1">
-                                                <app-text [label]="'Title'" [(value)]="entry.data.title_japanese"></app-text>
-                                            </app-field-container>
-                                            <app-field-container [cols]="2">
-                                                <app-textarea [label]="'Text'" [(value)]="entry.data.text_japanese" [rows]="3" [resize]="false"></app-textarea>
-                                                <app-textarea [label]="'Text Reading'" [(value)]="entry.data.text_japanese_reading" [rows]="3" [resize]="false"></app-textarea>
-                                            </app-field-container>
-                                            <div class="audio-row">
-                                                <app-file
-                                                    [label]="'Audio File'"
-                                                    [buttonOutline]="true"
-                                                    [acceptedExtensions]="['.mp3', '.ogg', '.wav']"
-                                                    (inputChange)="onVoiceOverAudioSelect(entry, 'japanese', $event)"
-                                                    [fileNamePosition]="'right'"
-                                                ></app-file>
-                                                @if (entry.data.audio_japanese) {
-                                                    <div class="audio-preview">
-                                                        <app-button
-                                                            [icon]="playingKey() === entry.index + '_japanese' ? 'icon-stop' : 'icon-play'"
-                                                            variant="primary"
-                                                            [outline]="true"
-                                                            size="very-small"
-                                                            (buttonClick)="togglePlay(entry, 'japanese')"
-                                                        ></app-button>
-                                                        <span class="audio-filename">{{ entry.data.audio_japanese }}</span>
-                                                    </div>
-                                                }
-                                            </div>
-                                        </app-field-container>
+                                        <app-voice-overs-tab-item [entry]="entry" [index]="index" [language]="'japanese'" [(audio)]="audio" [(playingKey)]="playingKey"></app-voice-overs-tab-item>
                                     </app-tab>
                                     <app-tab [title]="'Chinese'">
-                                        <app-field-container [cols]="1">
-                                            <app-field-container [cols]="1">
-                                                <app-text [label]="'Title'" [(value)]="entry.data.title_chinese"></app-text>
-                                            </app-field-container>
-                                            <app-field-container [cols]="2">
-                                                <app-textarea [label]="'Text'" [(value)]="entry.data.text_chinese" [rows]="3" [resize]="false"></app-textarea>
-                                                <app-textarea [label]="'Text Reading'" [(value)]="entry.data.text_chinese_reading" [rows]="3" [resize]="false"></app-textarea>
-                                            </app-field-container>
-                                            <div class="audio-row">
-                                                <app-file
-                                                    [label]="'Audio File'"
-                                                    [buttonOutline]="true"
-                                                    [acceptedExtensions]="['.mp3', '.ogg', '.wav']"
-                                                    (inputChange)="onVoiceOverAudioSelect(entry, 'chinese', $event)"
-                                                    [fileNamePosition]="'right'"
-                                                ></app-file>
-                                                @if (entry.data.audio_chinese) {
-                                                    <div class="audio-preview">
-                                                        <app-button
-                                                            [icon]="playingKey() === entry.index + '_chinese' ? 'icon-stop' : 'icon-play'"
-                                                            variant="primary"
-                                                            [outline]="true"
-                                                            size="very-small"
-                                                            (buttonClick)="togglePlay(entry, 'chinese')"
-                                                        ></app-button>
-                                                        <span class="audio-filename">{{ entry.data.audio_chinese }}</span>
-                                                    </div>
-                                                }
-                                            </div>
-                                            <app-field-container [cols]="1">
-                                                <app-text [label]="'Title (Traditional Chinese)'" [(value)]="entry.data.title_chinese_traditional"></app-text>
-                                                <app-textarea [label]="'Text (Traditional Chinese)'" [(value)]="entry.data.text_chinese_traditional" [rows]="3" [resize]="false"></app-textarea>
-                                            </app-field-container>
-                                        </app-field-container>
+                                        <app-voice-overs-tab-item [entry]="entry" [index]="index" [language]="'chinese'" [(audio)]="audio" [(playingKey)]="playingKey"></app-voice-overs-tab-item>
                                     </app-tab>
                                     <app-tab [title]="'Korean'">
-                                        <app-field-container [cols]="1">
-                                            <app-field-container [cols]="1">
-                                                <app-text [label]="'Title'" [(value)]="entry.data.title_korean"></app-text>
-                                            </app-field-container>
-                                            <app-field-container [cols]="2">
-                                                <app-textarea [label]="'Text'" [(value)]="entry.data.text_korean" [rows]="3" [resize]="false"></app-textarea>
-                                                <app-textarea [label]="'Text Reading'" [(value)]="entry.data.text_korean_reading" [rows]="3" [resize]="false"></app-textarea>
-                                            </app-field-container>
-                                            <div class="audio-row">
-                                                <app-file
-                                                    [label]="'Audio File'"
-                                                    [buttonOutline]="true"
-                                                    [acceptedExtensions]="['.mp3', '.ogg', '.wav']"
-                                                    (inputChange)="onVoiceOverAudioSelect(entry, 'korean', $event)"
-                                                    [fileNamePosition]="'right'"
-                                                ></app-file>
-                                                @if (entry.data.audio_korean) {
-                                                    <div class="audio-preview">
-                                                        <app-button
-                                                            [icon]="playingKey() === entry.index + '_korean' ? 'icon-stop' : 'icon-play'"
-                                                            variant="primary"
-                                                            [outline]="true"
-                                                            size="very-small"
-                                                            (buttonClick)="togglePlay(entry, 'korean')"
-                                                        ></app-button>
-                                                        <span class="audio-filename">{{ entry.data.audio_korean }}</span>
-                                                    </div>
-                                                }
-                                            </div>
-                                        </app-field-container>
+                                        <app-voice-overs-tab-item [entry]="entry" [index]="index" [language]="'korean'" [(audio)]="audio" [(playingKey)]="playingKey"></app-voice-overs-tab-item>
                                     </app-tab>
                                 </app-tabs>
                             </div>

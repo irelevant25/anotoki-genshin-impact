@@ -4,6 +4,7 @@ class CharacterTalent extends DbModel
 {
     public function __construct(
         public readonly int $character_id,
+        public readonly int $order,
         public readonly string $name,
         public readonly string $type,
         public readonly string $icon,

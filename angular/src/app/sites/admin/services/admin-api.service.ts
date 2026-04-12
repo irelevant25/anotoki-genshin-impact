@@ -8,7 +8,9 @@ export interface CharacterFull {
   voice_overs?: VoiceOverFormData[];
   constellations?: ConstellationFormData[];
   ascensions?: AscensionFormData[];
+  ascension_cost?: AscensionCostFormData[];
   talents?: TalentFormData[];
+  talent_cost: TalentCostFormData[];
   relationships?: RelationshipFormData[];
   roles?: string[];
 }
@@ -40,6 +42,7 @@ export interface CharacterFormData {
   namecard_background: string;
   namecard_banner: string;
   card_icon: string;
+  card_icon_2?: string;
   wish_icon: string;
   ingame_icon: string;
   ingame_icon_name?: string;
@@ -83,6 +86,8 @@ export interface ConstellationFormData {
 }
 
 export interface AscensionCostFormData {
+  character_ascension_id: number;
+  order: number;
   material_id: number;
   quantity: number;
 }
@@ -99,11 +104,11 @@ export interface AscensionFormData {
   end_level_hp: number;
   end_level_atk: number;
   end_level_def: number;
-  costs?: AscensionCostFormData[];
 }
 
 export interface TalentCostFormData {
   level: number;
+  order: number;
   material_id: number;
   quantity: number;
 }
@@ -111,11 +116,11 @@ export interface TalentCostFormData {
 export interface TalentFormData {
   id?: number;
   character_id?: number;
+  order: number;
   name: string;
   type: string;
   icon: string;
   description?: string;
-  costs?: TalentCostFormData[];
 }
 
 export interface RelationshipFormData {
