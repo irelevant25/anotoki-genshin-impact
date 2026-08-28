@@ -1,0 +1,240 @@
+// Layout, inputs and sub-resource cards shared by every admin full-resource
+// form and its tab components.
+
+// ── Form layout ───────────────────────────────────────────────────────────────
+
+.form-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--spacing-md);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &.col-span-2 {
+    grid-column: span 2;
+  }
+
+  label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+  }
+}
+
+// ── Inputs ────────────────────────────────────────────────────────────────────
+
+.admin-input,
+.admin-select,
+.admin-textarea {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+}
+
+.admin-input,
+.admin-select {
+  height: var(--input-height);
+  padding: 0 var(--spacing-sm);
+}
+
+.admin-select {
+  cursor: pointer;
+  option {
+    background: var(--bg-card);
+    color: var(--text-primary);
+  }
+}
+
+.admin-textarea {
+  padding: var(--spacing-sm);
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  height: var(--input-height);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+}
+
+// ── File upload ───────────────────────────────────────────────────────────────
+
+.file-btn-full {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  width: 100%;
+  height: var(--input-height);
+  padding: 0 var(--spacing-sm);
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+  overflow: hidden;
+
+  i {
+    flex-shrink: 0;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    background: var(--color-primary);
+    color: #000;
+    border-color: var(--color-primary);
+  }
+}
+
+.preview-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+  margin-top: var(--spacing-xs);
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  cursor: zoom-in;
+}
+
+// ── Sub-resource cards ────────────────────────────────────────────────────────
+
+.sub-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  // padding: var(--spacing-md) 0;
+}
+
+.sub-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  padding: var(--spacing-md);
+}
+
+.sub-card-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.sub-card-index {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+// ── Cost cards ────────────────────────────────────────────────────────────────
+
+.cost-section {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+.cost-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.cost-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cost-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.cost-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.cost-card-img {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 22px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.cost-card-footer {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: flex-end;
+
+  app-number {
+    flex: 1;
+    min-width: 0;
+  }
+}
