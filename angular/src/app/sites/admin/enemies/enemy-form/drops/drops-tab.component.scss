@@ -1,0 +1,35 @@
+@use "../../../shared/admin-form" as *;
+@use "../../../shared/admin-list" as *;
+
+.drops-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.drops-total {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+// Dense editable grid: the inputs supply their own spacing.
+.drops-table {
+  td {
+    padding: 4px var(--spacing-xs);
+    vertical-align: middle;
+  }
+
+  app-number,
+  app-dropdown {
+    min-width: 72px;
+  }
+}
+
+.cell-range {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}

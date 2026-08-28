@@ -150,6 +150,58 @@ export interface RelationshipFormData {
   is_biological?: boolean;
 }
 
+// ── Enemies ───────────────────────────────────────────────────────────────────
+
+export interface EnemyFormData {
+  id?: number;
+  name: string;
+  icon: string;
+  description?: string | null;
+  version?: string | null;
+  interactive_map_link?: string | null;
+}
+
+export interface EnemyDamageTypeElementFormData {
+  damage_type_element: string;
+  order: number;
+}
+
+export interface EnemyPhaseFormData {
+  id?: number;
+  enemy_id?: number;
+  title: string;
+  secondary_title?: string | null;
+  icon: string;
+  art?: string | null;
+  has_weakpoint?: boolean;
+  living_being_type?: string | null;
+  living_being_family?: string | null;
+  living_being_group?: string | null;
+  damage_type_elements?: EnemyDamageTypeElementFormData[];
+}
+
+export interface EnemyDropFormData {
+  id?: number;
+  enemy_id?: number;
+  material_id?: number | null;
+  artifact_id?: number | null;
+  level_from?: number | null;
+  level_to?: number | null;
+  domain_level?: string | null;
+  world_level?: number | null;
+  quantity_from?: number | null;
+  quantity_to?: number | null;
+  drop_rate?: number | null;
+  average?: number | null;
+  rarity?: number | null;
+}
+
+export interface EnemyFull {
+  enemy: EnemyFormData;
+  phases: EnemyPhaseFormData[];
+  drops: EnemyDropFormData[];
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -280,6 +332,26 @@ export class AdminApiService {
   getEnemyGroups() { return this._nameList('/api/enemy-groups'); }
   createEnemyGroup(name: string) { return this._nameCreate('/api/enemy-groups', name); }
   deleteEnemyGroup(name: string) { return this._nameDelete('/api/enemy-groups', name); }
+
+  // ── Full resources ───────────────────────────────────────────────────────────
+
+  private _getFull<T>(path: string, id: number): Observable<T> {
+    return this._http.get<T>(`/api/${path}/${id}/full`);
+  }
+  private _createFull(path: string, data: FormData): Observable<any> {
+    return this._http.post<any>(`/api/${path}/full`, data);
+  }
+  private _updateFull(path: string, id: number, data: FormData): Observable<any> {
+    return this._http.put<any>(`/api/${path}/${id}/full`, data);
+  }
+
+  getEnemies(): Observable<any[]> { return this._http.get<any[]>('/api/enemies'); }
+  getEnemyFull(id: number) { return this._getFull<EnemyFull>('enemies', id); }
+  createEnemyFull(data: FormData) { return this._createFull('enemies', data); }
+  updateEnemyFull(id: number, data: FormData) { return this._updateFull('enemies', id, data); }
+  deleteEnemy(id: number) { return this._http.delete<any>(`/api/enemies/${id}`); }
+
+  getArtifacts(): Observable<any[]> { return this._http.get<any[]>('/api/artifacts'); }
 
   createStat(name: string) { return this._nameCreate('/api/stats', name); }
   deleteStat(id: number) { return this._http.delete<any>(`/api/stats/${id}`); }

@@ -1,0 +1,39 @@
+<div class="form-section">
+    <h3 class="section-title">Identity</h3>
+    <div class="form-grid">
+        <app-text [label]="'Name'" [placeholder]="'e.g. Pyro Slime'" [(value)]="enemy().data.name" [required]="true"></app-text>
+        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="enemy().data.version"></app-text>
+        <app-text [label]="'Interactive Map Link'" class="col-span-2" [(value)]="enemy().data.interactive_map_link"></app-text>
+    </div>
+</div>
+
+<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
+    <h3 class="section-title mb-0">Icon</h3>
+    <app-field-container [class]="'gap-5'" [cols]="5">
+        <div>
+            <app-file
+                class="d-block"
+                [buttonClass]="'w-100'"
+                [label]="'Icon'"
+                [buttonOutline]="true"
+                [required]="!iconSrc()"
+                [acceptedExtensions]="imageExtensions"
+                [showFileNames]="false"
+                (inputChange)="onIconSelect($event)"
+            ></app-file>
+            @if (iconSrc(); as src) {
+                <img #img [src]="src" class="preview-img" [alt]="enemy().data.name" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="src" [alt]="enemy().data.name" />
+                </app-tooltip>
+            }
+        </div>
+    </app-field-container>
+</app-field-container>
+
+<div class="form-section">
+    <h3 class="section-title">Description</h3>
+    <app-field-container [cols]="1">
+        <app-textarea [label]="'Description'" [(value)]="enemy().data.description" [rows]="4"></app-textarea>
+    </app-field-container>
+</div>

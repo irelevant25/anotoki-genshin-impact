@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppComponent } from './app.component';
 import { CharactersListComponent } from './characters/characters-list/characters-list.component';
 import { CharacterFormComponent } from './characters/character-form/character-form.component';
+import { EnemiesListComponent } from './enemies/enemies-list/enemies-list.component';
+import { EnemyFormComponent } from './enemies/enemy-form/enemy-form.component';
 import {
   ArtifactPieceTypesPage,
   CharacterStatesPage,
@@ -38,6 +40,11 @@ export const routes: Routes = [
       { path: 'characters', component: CharactersListComponent },
       { path: 'characters/create', component: CharacterFormComponent },
       { path: 'characters/:id/edit', component: CharacterFormComponent },
+
+      // Enemies
+      { path: 'enemies', component: EnemiesListComponent },
+      { path: 'enemies/create', component: EnemyFormComponent },
+      { path: 'enemies/:id/edit', component: EnemyFormComponent },
 
       // Read-only lookup tables
       { path: 'elements',             component: ElementsPage },

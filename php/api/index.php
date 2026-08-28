@@ -6,6 +6,7 @@ require_once __DIR__ . '/../config/jwt.php';
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
+require_once __DIR__ . '/full_resource.php';
 
 use Slim\Factory\AppFactory;
 
@@ -118,6 +119,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/enemies.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemies_phases.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemies_damage_types_elements.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemies_drops.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/enemies_full.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/banners.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/banners_characters.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/banners_weapons.php';

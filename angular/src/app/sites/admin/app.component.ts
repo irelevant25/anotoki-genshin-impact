@@ -24,9 +24,10 @@ interface NavItem {
 export class AppComponent implements OnInit {
   navGroups: NavGroup[] = [
     {
-      label: 'Characters',
+      label: 'Database',
       items: [
         { label: 'Characters', path: 'characters', icon: 'fa-solid fa-user-ninja' },
+        { label: 'Enemies', path: 'enemies', icon: 'fa-solid fa-skull-crossbones' },
       ],
     },
     {

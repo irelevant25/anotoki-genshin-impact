@@ -1,0 +1,39 @@
+<div class="page-header justify-content-between">
+    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
+    <h1 class="page-title">{{ enemy().data.name || pageTitle() }}</h1>
+</div>
+
+@if (loading()) {
+    <app-loader [loading]="true"></app-loader>
+} @else {
+    <app-tabs>
+        <app-tab [title]="'Base Info'" [icon]="'icon-info'">
+            <app-enemy-base-info-tab [(enemy)]="enemy" />
+        </app-tab>
+        <app-tab [title]="'Phases'" [icon]="'icon-layers'">
+            <app-enemy-phases-tab
+                [(phases)]="phases"
+                [enemyTypes]="enemyTypes()"
+                [enemyFamilies]="enemyFamilies()"
+                [enemyGroups]="enemyGroups()"
+                [elements]="elements()"
+            />
+        </app-tab>
+        <app-tab [title]="'Drops'" [icon]="'icon-coins'">
+            <app-enemy-drops-tab
+                [(drops)]="drops"
+                [materials]="materials()"
+                [artifacts]="artifacts()"
+                [domainLevels]="domainLevels()"
+                [rarities]="rarities()"
+            />
+        </app-tab>
+    </app-tabs>
+
+    <div class="form-footer">
+        <a [routerLink]="backLink()">
+            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
+        </a>
+        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Enemy'" [loading]="saving()" (buttonClick)="save()"></app-button>
+    </div>
+}

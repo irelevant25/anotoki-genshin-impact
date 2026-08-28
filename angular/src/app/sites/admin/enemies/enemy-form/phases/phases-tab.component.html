@@ -1,0 +1,74 @@
+<div class="sub-list">
+    @for (phase of phases(); track phase.uid; let i = $index) {
+        <div class="sub-card">
+            <div class="sub-card-header">
+                <span class="sub-card-index">Phase {{ i + 1 }} · {{ phase.data.title || 'Untitled' }}</span>
+                <app-button variant="danger" [outline]="true" (buttonClick)="removePhase(phase)">Delete</app-button>
+            </div>
+
+            <app-field-container [cols]="2">
+                <app-text [label]="'Title'" [(value)]="phase.data.title" [required]="true"></app-text>
+                <app-text [label]="'Secondary Title'" [(value)]="phase.data.secondary_title"></app-text>
+            </app-field-container>
+
+            <app-field-container [cols]="4">
+                <app-dropdown
+                    [label]="'Type'"
+                    [options]="enemyTypes()"
+                    [(value)]="phase.data.living_being_type"
+                    [emptyOption]="true"
+                    [emptyOptionText]="'— none —'"
+                ></app-dropdown>
+                <app-dropdown
+                    [label]="'Family'"
+                    [options]="enemyFamilies()"
+                    [(value)]="phase.data.living_being_family"
+                    [emptyOption]="true"
+                    [emptyOptionText]="'— none —'"
+                ></app-dropdown>
+                <app-dropdown
+                    [label]="'Group'"
+                    [options]="enemyGroups()"
+                    [(value)]="phase.data.living_being_group"
+                    [emptyOption]="true"
+                    [emptyOptionText]="'— none —'"
+                ></app-dropdown>
+                <app-checkbox [label]="'Has Weakpoint'" [inline]="false" [(value)]="phase.data.has_weakpoint"></app-checkbox>
+            </app-field-container>
+
+            <app-field-container [class]="'gap-5 mt-2'" [cols]="5">
+                @for (image of imageFields; track image.field) {
+                    <div>
+                        <app-file
+                            class="d-block"
+                            [buttonClass]="'w-100'"
+                            [label]="image.label"
+                            [buttonOutline]="true"
+                            [required]="image.required && !phaseImageSrc(phase, image.field)"
+                            [acceptedExtensions]="imageExtensions"
+                            [showFileNames]="false"
+                            (inputChange)="onImageSelect(phase, image.field, $event)"
+                        ></app-file>
+                        @if (phaseImageSrc(phase, image.field); as src) {
+                            <img #img [src]="src" class="preview-img" [alt]="image.label" />
+                            <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                                <img class="w-100" [src]="src" [alt]="image.label" />
+                            </app-tooltip>
+                        }
+                    </div>
+                }
+            </app-field-container>
+
+            <div class="cost-section">
+                <div class="cost-header">
+                    <span class="cost-label">Damage type elements</span>
+                </div>
+                <app-chips [options]="elements()" [(value)]="phase.elements"></app-chips>
+            </div>
+        </div>
+    }
+
+    @if (canAdd()) {
+        <app-button variant="primary" [outline]="true" (buttonClick)="addPhase()">Add</app-button>
+    }
+</div>

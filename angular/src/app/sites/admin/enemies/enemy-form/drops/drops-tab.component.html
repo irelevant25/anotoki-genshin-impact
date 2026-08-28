@@ -1,0 +1,87 @@
+<div class="drops-toolbar">
+    <span class="drops-total">{{ drops().length }} drops</span>
+    <app-button variant="primary" [outline]="true" (buttonClick)="addDrop()">Add</app-button>
+</div>
+
+<div class="table-wrap">
+    <table class="admin-table drops-table">
+        <thead>
+            <tr>
+                <th>Material</th>
+                <th>Artifact</th>
+                <th>Rarity</th>
+                <th>Level</th>
+                <th>World</th>
+                <th>Domain</th>
+                <th>Quantity</th>
+                <th>Drop rate</th>
+                <th>Average</th>
+                <th class="col-actions"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!drops().length) {
+                <tr>
+                    <td colspan="10" class="empty-cell">No drops yet</td>
+                </tr>
+            }
+            @for (drop of drops(); track drop.uid) {
+                <tr>
+                    <td>
+                        <app-dropdown
+                            [options]="materialOptions()"
+                            [(value)]="drop.data.material_id"
+                            [emptyOption]="true"
+                            [emptyOptionText]="'— none —'"
+                        ></app-dropdown>
+                    </td>
+                    <td>
+                        <app-dropdown
+                            [options]="artifactOptions()"
+                            [(value)]="drop.data.artifact_id"
+                            [emptyOption]="true"
+                            [emptyOptionText]="'— none —'"
+                        ></app-dropdown>
+                    </td>
+                    <td>
+                        <app-dropdown [options]="rarities()" [(value)]="drop.data.rarity" [emptyOption]="true" [emptyOptionText]="'—'"></app-dropdown>
+                    </td>
+                    <td class="cell-range">
+                        <app-number [placeholder]="'from'" [(value)]="drop.data.level_from" [min]="1"></app-number>
+                        <app-number [placeholder]="'to'" [(value)]="drop.data.level_to" [min]="1"></app-number>
+                    </td>
+                    <td><app-number [placeholder]="'lvl'" [(value)]="drop.data.world_level" [min]="0"></app-number></td>
+                    <td>
+                        <app-dropdown [options]="domainLevels()" [(value)]="drop.data.domain_level" [emptyOption]="true" [emptyOptionText]="'—'"></app-dropdown>
+                    </td>
+                    <td class="cell-range">
+                        <app-number [placeholder]="'from'" [(value)]="drop.data.quantity_from" [min]="0"></app-number>
+                        <app-number [placeholder]="'to'" [(value)]="drop.data.quantity_to" [min]="0"></app-number>
+                    </td>
+                    <td><app-number [placeholder]="'%'" [(value)]="drop.data.drop_rate" [allowDecimal]="true" [decimalPlaces]="4"></app-number></td>
+                    <td><app-number [placeholder]="'avg'" [(value)]="drop.data.average" [allowDecimal]="true" [decimalPlaces]="4"></app-number></td>
+                    <td class="col-actions">
+                        <div class="action-btns">
+                            <app-button
+                                icon="icon-copy icon-size-3"
+                                variant="secondary"
+                                [outline]="true"
+                                size="very-small"
+                                tooltipText="Duplicate"
+                                (buttonClick)="duplicateDrop(drop)"
+                            ></app-button>
+                            <app-button
+                                icon="icon-trash icon-size-3"
+                                variant="danger"
+                                [outline]="true"
+                                size="very-small"
+                                tooltipText="Delete"
+                                (buttonClick)="removeDrop(drop)"
+                            ></app-button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
