@@ -1,0 +1,55 @@
+<div class="sub-list">
+    @for (item of sorted(); track item.uid) {
+        <div class="sub-card">
+            <div class="sub-card-header">
+                <span class="sub-card-index">Phase {{ item.data.phase }}</span>
+                <app-button variant="danger" [outline]="true" (buttonClick)="removeAscension(item)">Delete</app-button>
+            </div>
+            <div class="form-grid">
+                <app-number [label]="'Phase'" [(value)]="item.data.phase" [required]="true" [min]="0" [max]="maxPhase"></app-number>
+                <app-number [label]="'Primary Stat Value'" [(value)]="item.data.primary_stat_value" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Secondary Stat Value'" [(value)]="item.data.secondary_stat_value" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Start Level From'" [(value)]="item.data.start_level_from" [min]="1"></app-number>
+                <app-number [label]="'Start Level To'" [(value)]="item.data.start_level_to" [min]="1"></app-number>
+                <app-number [label]="'End Level From'" [(value)]="item.data.end_level_from" [min]="1"></app-number>
+                <app-number [label]="'End Level To'" [(value)]="item.data.end_level_to" [min]="1"></app-number>
+            </div>
+
+            @if (item.data.phase !== 0) {
+                <div class="cost-section">
+                    <div class="cost-header">
+                        <span class="cost-label">Materials</span>
+                        <app-button variant="primary" [outline]="true" (buttonClick)="addCost(item)">Add</app-button>
+                    </div>
+                    <div class="cost-cards">
+                        @for (cost of item.costs; track cost) {
+                            <div class="cost-card">
+                                <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
+                                    @if (materialDropdown.computedOption(); as option) {
+                                        <img src="assets/materials/{{ option.value }}.avif" [alt]="option.value" />
+                                    }
+                                </div>
+                                <app-dropdown
+                                    #materialDropdown
+                                    [options]="materialOptions()"
+                                    [(value)]="cost.material_id"
+                                    [required]="true"
+                                    [emptyOption]="true"
+                                    [emptyOptionText]="'— material —'"
+                                ></app-dropdown>
+                                <div class="cost-card-footer">
+                                    <app-number [placeholder]="'Qty'" [(value)]="cost.quantity" [required]="true" [min]="1"></app-number>
+                                    <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeCost(item, cost)"></app-button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @if (canAdd()) {
+        <app-button variant="primary" [outline]="true" (buttonClick)="addAscension()">Add</app-button>
+    }
+</div>

@@ -262,6 +262,61 @@ export interface ArtifactFull {
   pieces: ArtifactPieceFormData[];
 }
 
+// ── Weapons ───────────────────────────────────────────────────────────────────
+
+export interface WeaponFormData {
+  id?: number;
+  name: string;
+  type: string;
+  rarity: number;
+  icon: string;
+  icon_name?: string | null;
+  icon_2?: string | null;
+  icon_2_name?: string | null;
+  icon_ascension?: string | null;
+  primary_stat?: string | null;
+  secondary_stat?: string | null;
+  how_to_obtain?: string[] | null;
+  effects?: string[] | null;
+  release_date?: string | null;
+  version?: string | null;
+  description?: string | null;
+}
+
+export interface WeaponRefinementFormData {
+  id?: number;
+  weapon_id?: number;
+  material_id: number;
+  quantity: number;
+  description: string;
+}
+
+export interface WeaponAscensionCostFormData {
+  id?: number;
+  weapon_ascension_id?: number;
+  material_id?: number;
+  quantity: number;
+}
+
+export interface WeaponAscensionFormData {
+  id?: number;
+  weapon_id?: number;
+  phase: number;
+  primary_stat_value: number;
+  secondary_stat_value: number;
+  start_level_from?: number | null;
+  start_level_to?: number | null;
+  end_level_from?: number | null;
+  end_level_to?: number | null;
+  costs?: WeaponAscensionCostFormData[];
+}
+
+export interface WeaponFull {
+  weapon: WeaponFormData;
+  refinements: WeaponRefinementFormData[];
+  ascensions: WeaponAscensionFormData[];
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -416,6 +471,12 @@ export class AdminApiService {
   createArtifactFull(data: FormData) { return this._createFull('artifacts', data); }
   updateArtifactFull(id: number, data: FormData) { return this._updateFull('artifacts', id, data); }
   deleteArtifact(id: number) { return this._http.delete<any>(`/api/artifacts/${id}`); }
+
+  getWeapons(): Observable<any[]> { return this._http.get<any[]>('/api/weapons'); }
+  getWeaponFull(id: number) { return this._getFull<WeaponFull>('weapons', id); }
+  createWeaponFull(data: FormData) { return this._createFull('weapons', data); }
+  updateWeaponFull(id: number, data: FormData) { return this._updateFull('weapons', id, data); }
+  deleteWeapon(id: number) { return this._http.delete<any>(`/api/weapons/${id}`); }
 
   getMaterialFull(id: number) { return this._getFull<MaterialFull>('materials', id); }
   createMaterialFull(data: FormData) { return this._createFull('materials', data); }

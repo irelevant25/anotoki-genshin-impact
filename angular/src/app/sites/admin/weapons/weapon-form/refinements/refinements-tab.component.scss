@@ -1,0 +1,14 @@
+@use "../../../shared/admin-form" as *;
+
+.refinement-hint {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.refinement-actions,
+.refinement-add {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}

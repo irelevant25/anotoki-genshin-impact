@@ -1,0 +1,93 @@
+<div class="page-header">
+    <h1 class="page-title">Weapons</h1>
+    <a routerLink="create">
+        <app-button text="Add Weapon" icon="icon-plus"></app-button>
+    </a>
+</div>
+
+<app-loader [loading]="loading()"></app-loader>
+
+@if (!loading()) {
+    <div class="filter-bar">
+        <app-text [label]="'ID'" [placeholder]="'contains'" [(value)]="filterId"></app-text>
+        <app-text [label]="'Name'" [placeholder]="'contains'" [(value)]="filterName"></app-text>
+        <app-multiselect [label]="'Type'" [options]="typeOptions()" [(value)]="filterTypes"></app-multiselect>
+        <app-dropdown
+            [label]="'Rarity'"
+            [options]="rarityOptions()"
+            [(value)]="filterRarity"
+            [suffix]="' ★'"
+            [emptyOption]="true"
+            [emptyOptionText]="'— any —'"
+        ></app-dropdown>
+        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <div class="filter-summary">
+            <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>
+            @if (hasActiveFilter()) {
+                <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+            }
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Rarity</th>
+                    <th>Version</th>
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!filtered().length) {
+                    <tr>
+                        <td colspan="7" class="empty-cell">No weapons match the filter</td>
+                    </tr>
+                }
+                @for (weapon of filtered(); track weapon.id) {
+                    <tr>
+                        <td class="col-id">{{ weapon.id }}</td>
+                        <td class="col-icon">
+                            @if (weapon.icon) {
+                                <img [src]="weapon.icon" [alt]="weapon.name" class="row-icon" />
+                            }
+                        </td>
+                        <td>{{ weapon.name }}</td>
+                        <td>{{ weapon.type }}</td>
+                        <td class="col-rarity">
+                            <span class="rarity rarity-{{ weapon.rarity }}">{{ getRarityStars(weapon.rarity) }}</span>
+                        </td>
+                        <td>{{ weapon.version ?? '—' }}</td>
+                        <td class="col-actions">
+                            @if (deleteConfirm() === weapon.id) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Delete?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(weapon.id)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </span>
+                            } @else {
+                                <div class="action-btns">
+                                    <a [routerLink]="[weapon.id, 'edit']">
+                                        <app-button icon="icon-pen icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Edit"></app-button>
+                                    </a>
+                                    <app-button
+                                        icon="icon-trash icon-size-3"
+                                        variant="danger"
+                                        [outline]="true"
+                                        size="very-small"
+                                        tooltipText="Delete"
+                                        (buttonClick)="confirmDelete(weapon.id)"
+                                    ></app-button>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

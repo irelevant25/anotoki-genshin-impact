@@ -1,0 +1,55 @@
+<p class="refinement-hint">The database has no refinement level column — the order of these rows is the level, R1 first.</p>
+
+<div class="sub-list">
+    @for (refinement of refinements(); track refinement.uid; let i = $index; let first = $first; let last = $last) {
+        <div class="sub-card">
+            <div class="sub-card-header">
+                <span class="sub-card-index">R{{ i + 1 }}</span>
+                <div class="refinement-actions">
+                    <app-button
+                        icon="icon-chevron-up icon-size-3"
+                        variant="secondary"
+                        [outline]="true"
+                        size="very-small"
+                        tooltipText="Move up"
+                        [disabled]="first"
+                        (buttonClick)="move(refinement, -1)"
+                    ></app-button>
+                    <app-button
+                        icon="icon-chevron-down icon-size-3"
+                        variant="secondary"
+                        [outline]="true"
+                        size="very-small"
+                        tooltipText="Move down"
+                        [disabled]="last"
+                        (buttonClick)="move(refinement, 1)"
+                    ></app-button>
+                    <app-button variant="danger" [outline]="true" (buttonClick)="removeRefinement(refinement)">Delete</app-button>
+                </div>
+            </div>
+            <app-field-container [cols]="4">
+                <app-dropdown
+                    [label]="'Material'"
+                    [options]="materialOptions()"
+                    [(value)]="refinement.data.material_id"
+                    [required]="true"
+                    [emptyOption]="true"
+                    [emptyOptionText]="'— material —'"
+                ></app-dropdown>
+                <app-number [label]="'Quantity'" [(value)]="refinement.data.quantity" [min]="0"></app-number>
+            </app-field-container>
+            <app-field-container [cols]="1">
+                <app-textarea [label]="'Description'" [(value)]="refinement.data.description" [rows]="3" [required]="true"></app-textarea>
+            </app-field-container>
+        </div>
+    }
+
+    @if (canAdd()) {
+        <div class="refinement-add">
+            <app-button variant="primary" [outline]="true" (buttonClick)="addRefinement()">Add</app-button>
+            @if (refinements().length) {
+                <app-button variant="secondary" [outline]="true" (buttonClick)="duplicateLast()">Duplicate last</app-button>
+            }
+        </div>
+    }
+</div>

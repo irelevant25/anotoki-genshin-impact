@@ -109,6 +109,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_refinements.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_ascensions.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_ascensions_cost.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_full.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/artifacts.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/artifact_pieces.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/artifacts_full.php';

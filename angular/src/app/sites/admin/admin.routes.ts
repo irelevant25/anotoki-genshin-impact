@@ -10,6 +10,8 @@ import { MaterialsListComponent } from './materials/materials-list/materials-lis
 import { MaterialFormComponent } from './materials/material-form/material-form.component';
 import { ArtifactsListComponent } from './artifacts/artifacts-list/artifacts-list.component';
 import { ArtifactFormComponent } from './artifacts/artifact-form/artifact-form.component';
+import { WeaponsListComponent } from './weapons/weapons-list/weapons-list.component';
+import { WeaponFormComponent } from './weapons/weapon-form/weapon-form.component';
 import {
   ArtifactPieceTypesPage,
   CharacterStatesPage,
@@ -59,6 +61,11 @@ export const routes: Routes = [
       { path: 'artifacts', component: ArtifactsListComponent },
       { path: 'artifacts/create', component: ArtifactFormComponent },
       { path: 'artifacts/:id/edit', component: ArtifactFormComponent },
+
+      // Weapons
+      { path: 'weapons', component: WeaponsListComponent },
+      { path: 'weapons/create', component: WeaponFormComponent },
+      { path: 'weapons/:id/edit', component: WeaponFormComponent },
 
       // Read-only lookup tables
       { path: 'elements',             component: ElementsPage },

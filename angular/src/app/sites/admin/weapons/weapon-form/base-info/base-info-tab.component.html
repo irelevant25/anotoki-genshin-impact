@@ -1,0 +1,77 @@
+<div class="form-section">
+    <h3 class="section-title">Identity</h3>
+    <div class="form-grid">
+        <app-text [label]="'Name'" [placeholder]="'e.g. Wolf&#8217;s Gravestone'" [(value)]="weapon().data.name" [required]="true"></app-text>
+        <app-dropdown [label]="'Type'" [options]="weaponTypes()" [(value)]="weapon().data.type" [required]="true"></app-dropdown>
+        <app-dropdown [label]="'Rarity'" [options]="rarities()" [(value)]="weapon().data.rarity" [suffix]="' ★'" [required]="true"></app-dropdown>
+        <app-dropdown
+            [label]="'Primary Stat'"
+            [options]="stats()"
+            [(value)]="weapon().data.primary_stat"
+            [emptyOption]="true"
+            [emptyOptionText]="'— none —'"
+        ></app-dropdown>
+        <app-dropdown
+            [label]="'Secondary Stat'"
+            [options]="stats()"
+            [(value)]="weapon().data.secondary_stat"
+            [emptyOption]="true"
+            [emptyOptionText]="'— none —'"
+        ></app-dropdown>
+        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="weapon().data.version"></app-text>
+        <app-calendar [label]="'Release Date'" [(value)]="weapon().data.release_date"></app-calendar>
+    </div>
+</div>
+
+<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
+    <h3 class="section-title mb-0">Icons</h3>
+    <app-field-container [class]="'gap-5'" [cols]="5">
+        @for (image of imageFields; track image.field) {
+            <div>
+                <app-file
+                    class="d-block"
+                    [buttonClass]="'w-100'"
+                    [label]="image.label"
+                    [buttonOutline]="true"
+                    [required]="image.required && !imageSrcFor(image.field)"
+                    [acceptedExtensions]="imageExtensions"
+                    [showFileNames]="false"
+                    (inputChange)="onImageSelect(image.field, $event)"
+                ></app-file>
+                @if (imageSrcFor(image.field); as src) {
+                    <img #img [src]="src" class="preview-img" [alt]="image.label" />
+                    <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                        <img class="w-100" [src]="src" [alt]="image.label" />
+                    </app-tooltip>
+                }
+            </div>
+        }
+    </app-field-container>
+    <app-field-container [cols]="3">
+        <app-text [label]="'Icon Name'" [(value)]="weapon().data.icon_name"></app-text>
+        <app-text [label]="'Icon 2 Name'" [(value)]="weapon().data.icon_2_name"></app-text>
+    </app-field-container>
+</app-field-container>
+
+<div class="form-section">
+    <h3 class="section-title">Details</h3>
+    <app-field-container [cols]="1">
+        <app-textarea [label]="'Description'" [(value)]="weapon().data.description" [rows]="3"></app-textarea>
+    </app-field-container>
+    <app-field-container [class]="'mt-3'" [cols]="2">
+        <app-textarea
+            [label]="'How To Obtain'"
+            [description]="'One source per line.'"
+            [value]="howToObtainText()"
+            (inputChange)="onHowToObtainChange($event)"
+            [rows]="3"
+        ></app-textarea>
+        <app-textarea
+            [label]="'Effects'"
+            [description]="'One tag per line, e.g. ATK.'"
+            [value]="effectsText()"
+            (inputChange)="onEffectsChange($event)"
+            [rows]="3"
+        ></app-textarea>
+    </app-field-container>
+</div>

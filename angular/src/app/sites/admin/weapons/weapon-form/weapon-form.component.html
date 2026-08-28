@@ -1,0 +1,27 @@
+<div class="page-header justify-content-between">
+    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
+    <h1 class="page-title">{{ weapon().data.name || pageTitle() }}</h1>
+</div>
+
+@if (loading()) {
+    <app-loader [loading]="true"></app-loader>
+} @else {
+    <app-tabs>
+        <app-tab [title]="'Base Info'" [icon]="'icon-info'">
+            <app-weapon-base-info-tab [(weapon)]="weapon" [weaponTypes]="weaponTypes()" [rarities]="rarities()" [stats]="stats()" />
+        </app-tab>
+        <app-tab [title]="'Refinements'" [icon]="'icon-stars'">
+            <app-weapon-refinements-tab [(refinements)]="refinements" [materials]="materials()" />
+        </app-tab>
+        <app-tab [title]="'Ascensions'" [icon]="'icon-arrow-up'">
+            <app-weapon-ascensions-tab [(ascensions)]="ascensions" [materials]="materials()" />
+        </app-tab>
+    </app-tabs>
+
+    <div class="form-footer">
+        <a [routerLink]="backLink()">
+            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
+        </a>
+        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Weapon'" [loading]="saving()" (buttonClick)="save()"></app-button>
+    </div>
+}
