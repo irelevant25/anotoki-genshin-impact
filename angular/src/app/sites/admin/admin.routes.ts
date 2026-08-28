@@ -12,6 +12,8 @@ import { ArtifactsListComponent } from './artifacts/artifacts-list/artifacts-lis
 import { ArtifactFormComponent } from './artifacts/artifact-form/artifact-form.component';
 import { WeaponsListComponent } from './weapons/weapons-list/weapons-list.component';
 import { WeaponFormComponent } from './weapons/weapon-form/weapon-form.component';
+import { FoodsListComponent } from './foods/foods-list/foods-list.component';
+import { FoodFormComponent } from './foods/food-form/food-form.component';
 import {
   ArtifactPieceTypesPage,
   CharacterStatesPage,
@@ -66,6 +68,11 @@ export const routes: Routes = [
       { path: 'weapons', component: WeaponsListComponent },
       { path: 'weapons/create', component: WeaponFormComponent },
       { path: 'weapons/:id/edit', component: WeaponFormComponent },
+
+      // Foods
+      { path: 'foods', component: FoodsListComponent },
+      { path: 'foods/create', component: FoodFormComponent },
+      { path: 'foods/:id/edit', component: FoodFormComponent },
 
       // Read-only lookup tables
       { path: 'elements',             component: ElementsPage },

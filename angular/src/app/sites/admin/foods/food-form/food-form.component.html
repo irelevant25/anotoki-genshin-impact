@@ -1,0 +1,33 @@
+<div class="page-header justify-content-between">
+    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
+    <h1 class="page-title">{{ food().data.name || pageTitle() }}</h1>
+</div>
+
+@if (loading()) {
+    <app-loader [loading]="true"></app-loader>
+} @else {
+    <app-tabs>
+        <app-tab [title]="'Base Info'" [icon]="'icon-info'">
+            <app-food-base-info-tab
+                [(food)]="food"
+                [foodTypes]="foodTypes()"
+                [regions]="regions()"
+                [rarities]="rarities()"
+                [baseDishOptions]="baseDishOptions()"
+            />
+        </app-tab>
+        <app-tab [title]="'Qualities'" [icon]="'icon-layers'">
+            <app-food-qualities-tab [(food)]="food" />
+        </app-tab>
+        <app-tab [title]="'Recipe'" [icon]="'icon-coins'">
+            <app-food-recipe-tab [(recipe)]="recipe" [materials]="materials()" />
+        </app-tab>
+    </app-tabs>
+
+    <div class="form-footer">
+        <a [routerLink]="backLink()">
+            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
+        </a>
+        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Food'" [loading]="saving()" (buttonClick)="save()"></app-button>
+    </div>
+}

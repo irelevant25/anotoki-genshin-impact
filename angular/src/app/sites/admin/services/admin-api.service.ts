@@ -317,6 +317,44 @@ export interface WeaponFull {
   ascensions: WeaponAscensionFormData[];
 }
 
+// ── Foods ─────────────────────────────────────────────────────────────────────
+
+export interface FoodFormData {
+  id?: number;
+  name: string;
+  type?: string | null;
+  region?: string | null;
+  rarity?: number | null;
+  proficiency?: number | null;
+  base_dish_id?: number | null;
+  version?: string | null;
+  effect?: string | null;
+  icon_normal?: string | null;
+  icon_delicious?: string | null;
+  icon_suspicious?: string | null;
+  description_normal?: string | null;
+  description_delicious?: string | null;
+  description_suspicious?: string | null;
+  effect_normal?: string | null;
+  effect_delicious?: string | null;
+  effect_suspicious?: string | null;
+  events?: string[] | null;
+  how_to_obtain?: string[] | null;
+  effects?: string[] | null;
+}
+
+export interface FoodRecipeFormData {
+  id?: number;
+  food_id?: number;
+  material_id?: number;
+  quantity: number;
+}
+
+export interface FoodFull {
+  food: FoodFormData;
+  recipe: FoodRecipeFormData[];
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -477,6 +515,11 @@ export class AdminApiService {
   createWeaponFull(data: FormData) { return this._createFull('weapons', data); }
   updateWeaponFull(id: number, data: FormData) { return this._updateFull('weapons', id, data); }
   deleteWeapon(id: number) { return this._http.delete<any>(`/api/weapons/${id}`); }
+
+  getFoodFull(id: number) { return this._getFull<FoodFull>('foods', id); }
+  createFoodFull(data: FormData) { return this._createFull('foods', data); }
+  updateFoodFull(id: number, data: FormData) { return this._updateFull('foods', id, data); }
+  deleteFood(id: number) { return this._http.delete<any>(`/api/foods/${id}`); }
 
   getMaterialFull(id: number) { return this._getFull<MaterialFull>('materials', id); }
   createMaterialFull(data: FormData) { return this._createFull('materials', data); }

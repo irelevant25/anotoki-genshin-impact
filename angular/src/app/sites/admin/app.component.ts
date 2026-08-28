@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
         { label: 'Materials', path: 'materials', icon: 'fa-solid fa-cubes-stacked' },
         { label: 'Artifacts', path: 'artifacts', icon: 'fa-solid fa-ring' },
         { label: 'Weapons', path: 'weapons', icon: 'fa-solid fa-khanda' },
+        { label: 'Foods', path: 'foods', icon: 'fa-solid fa-utensils' },
       ],
     },
     {

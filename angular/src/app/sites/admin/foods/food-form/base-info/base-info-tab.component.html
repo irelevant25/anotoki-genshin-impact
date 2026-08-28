@@ -1,0 +1,56 @@
+<div class="form-section">
+    <h3 class="section-title">Identity</h3>
+    <div class="form-grid">
+        <app-text [label]="'Name'" [placeholder]="'e.g. Adeptus Temptation'" [(value)]="food().data.name" [required]="true"></app-text>
+        <app-dropdown [label]="'Type'" [options]="foodTypes()" [(value)]="food().data.type" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+        <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="food().data.region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+        <app-dropdown
+            [label]="'Rarity'"
+            [options]="rarities()"
+            [(value)]="food().data.rarity"
+            [suffix]="' ★'"
+            [emptyOption]="true"
+            [emptyOptionText]="'— none —'"
+        ></app-dropdown>
+        <app-number [label]="'Proficiency'" [(value)]="food().data.proficiency" [min]="0"></app-number>
+        <app-dropdown
+            [label]="'Base Dish'"
+            [description]="'The dish this one is an upgrade of.'"
+            [options]="baseDishOptions()"
+            [(value)]="food().data.base_dish_id"
+            [emptyOption]="true"
+            [emptyOptionText]="'— none —'"
+        ></app-dropdown>
+        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="food().data.version"></app-text>
+    </div>
+</div>
+
+<div class="form-section">
+    <h3 class="section-title">Effect</h3>
+    <app-field-container [cols]="1">
+        <app-textarea [label]="'Effect'" [description]="'Shared effect text, before the per-quality wording.'" [(value)]="food().data.effect" [rows]="2"></app-textarea>
+    </app-field-container>
+    <app-field-container [class]="'mt-3'" [cols]="3">
+        <app-textarea
+            [label]="'Effect Tags'"
+            [description]="'One tag per line.'"
+            [value]="effectsText()"
+            (inputChange)="onEffectsChange($event)"
+            [rows]="3"
+        ></app-textarea>
+        <app-textarea
+            [label]="'How To Obtain'"
+            [description]="'One source per line.'"
+            [value]="howToObtainText()"
+            (inputChange)="onHowToObtainChange($event)"
+            [rows]="3"
+        ></app-textarea>
+        <app-textarea
+            [label]="'Events'"
+            [description]="'One event per line.'"
+            [value]="eventsText()"
+            (inputChange)="onEventsChange($event)"
+            [rows]="3"
+        ></app-textarea>
+    </app-field-container>
+</div>

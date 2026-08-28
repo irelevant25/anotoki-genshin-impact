@@ -1,0 +1,41 @@
+<div class="sub-list">
+    @for (entry of qualities; track entry.quality) {
+        <div class="sub-card">
+            <div class="sub-card-header">
+                <span class="sub-card-index">{{ entry.label }}</span>
+            </div>
+            <app-field-container [cols]="4">
+                <div>
+                    <app-file
+                        class="d-block"
+                        [buttonClass]="'w-100'"
+                        [label]="'Icon'"
+                        [buttonOutline]="true"
+                        [acceptedExtensions]="imageExtensions"
+                        [showFileNames]="false"
+                        (inputChange)="onIconSelect(entry.quality, $event)"
+                    ></app-file>
+                    @if (iconSrc(entry.quality); as src) {
+                        <img #img [src]="src" class="preview-img" [alt]="entry.label" />
+                        <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                            <img class="w-100" [src]="src" [alt]="entry.label" />
+                        </app-tooltip>
+                    }
+                </div>
+                <app-textarea
+                    class="col-span-2"
+                    [label]="'Description'"
+                    [value]="description(entry.quality)"
+                    (inputChange)="onDescriptionChange(entry.quality, $event)"
+                    [rows]="4"
+                ></app-textarea>
+                <app-textarea
+                    [label]="'Effect'"
+                    [value]="effect(entry.quality)"
+                    (inputChange)="onEffectChange(entry.quality, $event)"
+                    [rows]="4"
+                ></app-textarea>
+            </app-field-container>
+        </div>
+    }
+</div>

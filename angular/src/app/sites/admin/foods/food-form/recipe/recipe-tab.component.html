@@ -1,0 +1,32 @@
+<div class="cost-section">
+    <div class="cost-header">
+        <span class="cost-label">Ingredients</span>
+        <app-button variant="primary" [outline]="true" (buttonClick)="addIngredient()">Add</app-button>
+    </div>
+    <div class="cost-cards">
+        @for (entry of recipe(); track entry.uid) {
+            <div class="cost-card">
+                <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
+                    @if (materialDropdown.computedOption(); as option) {
+                        <img src="assets/materials/{{ option.value }}.avif" [alt]="option.value" />
+                    }
+                </div>
+                <app-dropdown
+                    #materialDropdown
+                    [options]="materialOptions()"
+                    [(value)]="entry.data.material_id"
+                    [required]="true"
+                    [emptyOption]="true"
+                    [emptyOptionText]="'— material —'"
+                ></app-dropdown>
+                <div class="cost-card-footer">
+                    <app-number [placeholder]="'Qty'" [(value)]="entry.data.quantity" [required]="true" [min]="1"></app-number>
+                    <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeIngredient(entry)"></app-button>
+                </div>
+            </div>
+        }
+    </div>
+    @if (!recipe().length) {
+        <p class="recipe-empty">No ingredients yet.</p>
+    }
+</div>
