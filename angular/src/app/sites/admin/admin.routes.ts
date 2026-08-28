@@ -14,6 +14,7 @@ import { WeaponsListComponent } from './weapons/weapons-list/weapons-list.compon
 import { WeaponFormComponent } from './weapons/weapon-form/weapon-form.component';
 import { FoodsListComponent } from './foods/foods-list/foods-list.component';
 import { FoodFormComponent } from './foods/food-form/food-form.component';
+import { MigrationsListComponent } from './migrations/migrations-list/migrations-list.component';
 import {
   ArtifactPieceTypesPage,
   CharacterStatesPage,
@@ -25,7 +26,6 @@ import {
   FoodTypesPage,
   MaterialGroupsPage,
   MaterialTypesPage,
-  MigrationsPage,
   RaritiesPage,
   RegionsPage,
   RelationshipTypesPage,
@@ -80,7 +80,7 @@ export const routes: Routes = [
       { path: 'character-states',     component: CharacterStatesPage },
       { path: 'rarities',             component: RaritiesPage },
       { path: 'artifact-piece-types', component: ArtifactPieceTypesPage },
-      { path: 'migrations',           component: MigrationsPage },
+      { path: 'migrations',           component: MigrationsListComponent },
 
       // Writable lookup tables
       { path: 'relationship-types',   component: RelationshipTypesPage },

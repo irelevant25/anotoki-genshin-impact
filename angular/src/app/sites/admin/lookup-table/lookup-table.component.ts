@@ -46,7 +46,6 @@ export class LookupTableComponent implements OnInit {
       'character-states': () => this._api.getCharacterStates(),
       rarities: () => this._api.getRarities(),
       'artifact-piece-types': () => this._api.getArtifactPieceTypes(),
-      migrations: () => this._api.getMigrations(),
       stats: () => this._api.getStats(),
       'relationship-types': () => this._api.getRelationshipTypes(),
       'talent-types': () => this._api.getTalentTypes(),

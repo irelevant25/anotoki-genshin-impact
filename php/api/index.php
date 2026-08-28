@@ -102,6 +102,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/domain_levels.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_families.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_groups.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/stats.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/migrations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/upload.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/affiliations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons.php';

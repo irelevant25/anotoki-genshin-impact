@@ -1,4 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
+import { AccordionComponent } from '../../../../../shared/local-lib/components/accordion/accordion.component';
+import { AccordionItemComponent } from '../../../../../shared/local-lib/components/accordion/item/item.component';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
@@ -13,7 +15,7 @@ import { DROP_KIND_OPTIONS, DropEntryWrapper, DropGroupWrapper, DropKind, emptyD
   selector: 'app-enemy-drops-tab',
   templateUrl: './drops-tab.component.html',
   styleUrls: ['./drops-tab.component.scss'],
-  imports: [ButtonComponent, NumberComponent, DropdownComponent, RadioComponent, MaterialIconDirective],
+  imports: [AccordionComponent, AccordionItemComponent, ButtonComponent, NumberComponent, DropdownComponent, RadioComponent, MaterialIconDirective],
 })
 export class DropsTabComponent {
   groups = model<DropGroupWrapper[]>([]);
@@ -28,6 +30,20 @@ export class DropsTabComponent {
   artifactOptions = computed<DropdownOption[]>(() => this.artifacts().map((artifact) => ({ key: artifact.id ?? -1, value: artifact.name })));
 
   totalEntries = computed(() => this.groups().reduce((total, group) => total + group.entries.length, 0));
+
+  /** Collapsed groups only show this, so it has to carry the conditions. */
+  groupTitle(group: DropGroupWrapper, index: number): string {
+    const level = group.level_from != null || group.level_to != null ? `Lv ${group.level_from ?? '?'}–${group.level_to ?? '∞'}` : 'Any level';
+    const parts = [`Group ${index + 1}`, level];
+    if (group.world_level != null) {
+      parts.push(`World ${group.world_level}`);
+    }
+    if (group.domain_level) {
+      parts.push(group.domain_level);
+    }
+    parts.push(`${group.entries.length} drop${group.entries.length === 1 ? '' : 's'}`);
+    return parts.join(' · ');
+  }
 
   private readonly _artifactIcons = computed(() => new Map(this.artifacts().map((artifact) => [artifact.id, artifact.icon])));
 

@@ -58,7 +58,12 @@ function requireRole(string ...$roles): callable
     return function (Request $request, RequestHandler $handler) use ($roles): Response {
         $user = $request->getAttribute('user');
 
-        if (!$user || !in_array($user['role'], $roles, true)) {
+        // Roles are spelled inconsistently across the endpoints ('ADMIN' vs
+        // 'admin'), so compare case-insensitively rather than silently refusing.
+        $userRole = strtoupper((string) ($user['role'] ?? ''));
+        $allowed = array_map('strtoupper', $roles);
+
+        if (!$user || !in_array($userRole, $allowed, true)) {
             return respondJson(new \Slim\Psr7\Response(), ['error' => 'Forbidden: insufficient permissions'], 403);
         }
 

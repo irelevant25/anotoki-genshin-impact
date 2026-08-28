@@ -1,0 +1,28 @@
+<app-modal [title]="title()" (closeModal)="close()">
+    <div modal-body class="viewer-body">
+        <app-loader #loader [loading]="loading()"></app-loader>
+
+        @if (!loader.loadingCtrl.loading()) {
+            @if (error(); as message) {
+                <p class="viewer-error">{{ message }}</p>
+            } @else {
+                <div class="viewer-meta">
+                    <span>{{ lineCount() }} lines</span>
+                    <app-button
+                        [text]="copied() ? 'Copied' : 'Copy'"
+                        [icon]="copied() ? 'icon-check' : 'icon-copy'"
+                        variant="secondary"
+                        [outline]="true"
+                        size="very-small"
+                        (buttonClick)="copy()"
+                    ></app-button>
+                </div>
+                <pre class="viewer-code"><code>{{ content() }}</code></pre>
+            }
+        }
+    </div>
+
+    <div modal-footer>
+        <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="close()"></app-button>
+    </div>
+</app-modal>

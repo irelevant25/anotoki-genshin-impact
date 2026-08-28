@@ -355,6 +355,25 @@ export interface FoodFull {
   recipe: FoodRecipeFormData[];
 }
 
+// ── Migrations ────────────────────────────────────────────────────────────────
+
+export interface MigrationEntry {
+  /** "{database}:{filename}" - migrations are only unique per database. */
+  id: string;
+  database: string;
+  filename: string;
+  applied_at: string | null;
+  status: 'applied' | 'pending' | 'applied (file missing)';
+  size: number | null;
+}
+
+export interface MigrationFile {
+  database: string;
+  filename: string;
+  size: number;
+  content: string;
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -427,7 +446,10 @@ export class AdminApiService {
   getRarities(): Observable<any[]> { return this._http.get<any[]>('/api/rarities'); }
   getArtifactPieceTypes(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/artifact-piece-types'); }
   getMaterials(): Observable<Material[]> { return this._http.get<Material[]>('/api/materials'); }
-  getMigrations(): Observable<any[]> { return this._http.get<any[]>('/api/migrations'); }
+  getMigrations(): Observable<MigrationEntry[]> { return this._http.get<MigrationEntry[]>('/api/migrations'); }
+  getMigrationFile(database: string, filename: string): Observable<MigrationFile> {
+    return this._http.get<MigrationFile>(`/api/migrations/${encodeURIComponent(database)}/${encodeURIComponent(filename)}`);
+  }
   getFoods(): Observable<IdNameEntry[]> { return this._http.get<IdNameEntry[]>('/api/foods'); }
   getStats(): Observable<any[]> { return this._http.get<any[]>('/api/stats'); }
 

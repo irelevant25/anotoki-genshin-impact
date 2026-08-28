@@ -20,7 +20,6 @@ export const VoiceOverTypesPage    = makePage({ title: 'Voice Over Types',    ap
 export const CharacterStatesPage   = makePage({ title: 'Character States',    apiKey: 'character-states',   readOnly: true });
 export const RaritiesPage          = makePage({ title: 'Rarities',            apiKey: 'rarities',           readOnly: true, pkField: 'rarity' });
 export const ArtifactPieceTypesPage= makePage({ title: 'Artifact Piece Types',apiKey: 'artifact-piece-types', readOnly: true });
-export const MigrationsPage        = makePage({ title: 'Migrations',          apiKey: 'migrations',         readOnly: true, pkField: 'id' });
 
 export const RelationshipTypesPage = makePage({ title: 'Relationship Types',  apiKey: 'relationship-types' });
 export const TalentTypesPage       = makePage({ title: 'Talent Types',        apiKey: 'talent-types' });

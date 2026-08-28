@@ -1,0 +1,55 @@
+@use "../../shared/admin-list" as *;
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.page-hint {
+  margin: 0 0 var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+
+  code {
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--bg-hover);
+  }
+}
+
+.db-title {
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.load-error {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+}
+
+.pending-badge,
+.status {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 20px;
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--border-color);
+}
+
+.pending-badge,
+.status-pending {
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+.status-applied {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}

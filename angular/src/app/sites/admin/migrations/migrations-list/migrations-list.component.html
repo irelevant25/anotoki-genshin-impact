@@ -1,0 +1,64 @@
+<div class="page-header">
+    <h1 class="page-title">Migrations</h1>
+    <div class="header-actions">
+        @if (pendingCount()) {
+            <span class="pending-badge">{{ pendingCount() }} pending</span>
+        }
+        <app-button text="Refresh" icon="icon-history" variant="secondary" [outline]="true" size="small" (buttonClick)="load()"></app-button>
+    </div>
+</div>
+
+<p class="page-hint">
+    Applied migrations come from each database's <code>migrations</code> table; files on disk that are not recorded there show as pending. Run them with
+    <code>php migration.php</code>.
+</p>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    @if (error(); as message) {
+        <p class="load-error">{{ message }}</p>
+    } @else {
+        @for (group of byDatabase(); track group.database) {
+            <h2 class="db-title">{{ group.database }}</h2>
+            <div class="table-wrap">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Migration</th>
+                            <th>Status</th>
+                            <th>Applied at</th>
+                            <th>Size</th>
+                            <th class="col-actions"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (migration of group.entries; track migration.id) {
+                            <tr>
+                                <td>{{ migration.filename }}</td>
+                                <td>
+                                    <span class="status status-{{ migration.status === 'applied' ? 'applied' : 'pending' }}">{{ migration.status }}</span>
+                                </td>
+                                <td>{{ migration.applied_at ?? '—' }}</td>
+                                <td>{{ formatSize(migration.size) }}</td>
+                                <td class="col-actions">
+                                    <app-button
+                                        text="View"
+                                        icon="icon-eye icon-size-3"
+                                        variant="secondary"
+                                        [outline]="true"
+                                        size="very-small"
+                                        [disabled]="migration.size === null"
+                                        (buttonClick)="view(migration)"
+                                    ></app-button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } @empty {
+            <p class="load-error">No migrations found.</p>
+        }
+    }
+}

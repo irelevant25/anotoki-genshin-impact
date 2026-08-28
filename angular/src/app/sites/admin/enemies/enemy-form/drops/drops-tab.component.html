@@ -5,101 +5,72 @@
 
 <div class="sub-list">
     @for (group of groups(); track group.uid; let g = $index) {
-        <div class="sub-card">
-            <div class="sub-card-header">
-                <span class="sub-card-index">Group {{ g + 1 }} · {{ group.entries.length }} drops</span>
-                <div class="group-actions">
-                    <app-button
-                        icon="icon-copy icon-size-3"
-                        variant="secondary"
-                        [outline]="true"
-                        size="very-small"
-                        tooltipText="Duplicate group"
-                        (buttonClick)="duplicateGroup(group)"
-                    ></app-button>
-                    <app-button variant="danger" [outline]="true" (buttonClick)="removeGroup(group)">Delete</app-button>
-                </div>
-            </div>
+        <app-accordion [onlyOneOpen]="false">
+            <app-accordion-item [lazy]="true" [title]="groupTitle(group, g)" [gap]="false">
+                <div class="group-body">
+                    <div class="group-actions">
+                        <app-button icon="icon-copy icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Duplicate group" (buttonClick)="duplicateGroup(group)"></app-button>
+                        <app-button variant="danger" [outline]="true" size="very-small" (buttonClick)="removeGroup(group)">Delete group</app-button>
+                    </div>
 
-            <!-- Conditions shared by every drop in the group -->
-            <div class="group-conditions">
-                <app-number [label]="'Level from'" [(value)]="group.level_from" [min]="1"></app-number>
-                <app-number [label]="'Level to'" [(value)]="group.level_to" [min]="1"></app-number>
-                <app-number [label]="'World level'" [(value)]="group.world_level" [min]="0"></app-number>
-                <app-dropdown
-                    [label]="'Domain level'"
-                    [options]="domainLevels()"
-                    [(value)]="group.domain_level"
-                    [emptyOption]="true"
-                    [emptyOptionText]="'— none —'"
-                ></app-dropdown>
-            </div>
+                    <!-- Conditions shared by every drop in the group -->
+                    <div class="group-conditions">
+                        <app-number [label]="'Level from'" [(value)]="group.level_from" [min]="1"></app-number>
+                        <app-number [label]="'Level to'" [(value)]="group.level_to" [min]="1"></app-number>
+                        <app-number [label]="'World level'" [(value)]="group.world_level" [min]="0"></app-number>
+                        <app-dropdown [label]="'Domain level'" [options]="domainLevels()" [(value)]="group.domain_level" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+                    </div>
 
-            <div class="cost-section">
-                <div class="cost-header">
-                    <span class="cost-label">Drops</span>
-                    <app-button variant="primary" [outline]="true" (buttonClick)="addEntry(group)">Add drop</app-button>
-                </div>
+                    <div class="cost-section">
+                        <div class="cost-header">
+                            <span class="cost-label">Drops</span>
+                            <app-button variant="primary" [outline]="true" (buttonClick)="addEntry(group)">Add drop</app-button>
+                        </div>
 
-                <div class="drop-cards">
-                    @for (entry of group.entries; track entry.uid) {
-                        <div class="drop-card">
-                            <app-radio
-                                [options]="kindOptions"
-                                [value]="entry.kind"
-                                [orientation]="'horizontal'"
-                                (inputChange)="onKindChange(entry, $event)"
-                            ></app-radio>
+                        <div class="drop-cards">
+                            @for (entry of group.entries; track entry.uid) {
+                                <div class="drop-card">
+                                    <app-radio [options]="kindOptions" [value]="entry.kind" [orientation]="'horizontal'" (inputChange)="onKindChange(entry, $event)"></app-radio>
 
-                            @if (entry.kind === 'material') {
-                                <app-dropdown
-                                    [options]="materialOptions()"
-                                    [(value)]="entry.data.material_id"
-                                    [required]="true"
-                                    [emptyOption]="true"
-                                    [emptyOptionText]="'— material —'"
-                                ></app-dropdown>
-                                <div class="drop-card-img">
-                                    @if (materialName(entry); as name) {
-                                        <img [appMaterialIcon]="name" [alt]="name" />
+                                    @if (entry.kind === 'material') {
+                                        <app-dropdown [options]="materialOptions()" [(value)]="entry.data.material_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
+                                        <div class="drop-card-img">
+                                            @if (materialName(entry); as name) {
+                                                <img [appMaterialIcon]="name" [alt]="name" />
+                                            }
+                                        </div>
+                                    } @else {
+                                        <app-dropdown [options]="artifactOptions()" [(value)]="entry.data.artifact_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— artifact —'"></app-dropdown>
+                                        <div class="drop-card-img">
+                                            @if (artifactIcon(entry); as src) {
+                                                <img [src]="src" alt="" />
+                                            }
+                                        </div>
                                     }
-                                </div>
-                            } @else {
-                                <app-dropdown
-                                    [options]="artifactOptions()"
-                                    [(value)]="entry.data.artifact_id"
-                                    [required]="true"
-                                    [emptyOption]="true"
-                                    [emptyOptionText]="'— artifact —'"
-                                ></app-dropdown>
-                                <div class="drop-card-img">
-                                    @if (artifactIcon(entry); as src) {
-                                        <img [src]="src" alt="" />
-                                    }
+
+                                    <div class="drop-card-fields">
+                                        <app-number [label]="'Qty from'" [(value)]="entry.data.quantity_from" [min]="0"></app-number>
+                                        <app-number [label]="'Qty to'" [(value)]="entry.data.quantity_to" [min]="0"></app-number>
+                                        <app-number [label]="'Drop rate'" [(value)]="entry.data.drop_rate" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
+                                        <app-number [label]="'Average'" [(value)]="entry.data.average" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
+                                    </div>
+
+                                    <app-button
+                                        class="align-self-center"
+                                        icon="icon-delete"
+                                        variant="danger"
+                                        [outline]="true"
+                                        size="very-small"
+                                        tooltipText="Remove drop"
+                                        (buttonClick)="removeEntry(group, entry)"
+                                    ></app-button>
                                 </div>
                             }
-
-                            <div class="drop-card-fields">
-                                <app-number [label]="'Qty from'" [(value)]="entry.data.quantity_from" [min]="0"></app-number>
-                                <app-number [label]="'Qty to'" [(value)]="entry.data.quantity_to" [min]="0"></app-number>
-                                <app-number [label]="'Drop rate'" [(value)]="entry.data.drop_rate" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
-                                <app-number [label]="'Average'" [(value)]="entry.data.average" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
-                            </div>
-
-                            <app-button
-                                class="drop-card-remove"
-                                icon="icon-delete"
-                                variant="danger"
-                                [outline]="true"
-                                size="very-small"
-                                tooltipText="Remove drop"
-                                (buttonClick)="removeEntry(group, entry)"
-                            ></app-button>
                         </div>
-                    }
+                    </div>
                 </div>
-            </div>
-        </div>
+            </app-accordion-item>
+        </app-accordion>
     }
 
     @if (!groups().length) {

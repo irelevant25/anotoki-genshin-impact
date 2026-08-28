@@ -1,0 +1,41 @@
+.viewer-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-height: 0;
+}
+
+.viewer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.viewer-error {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+}
+
+// SQL is wide; let it scroll inside the modal rather than stretching it.
+.viewer-code {
+  margin: 0;
+  padding: var(--spacing-sm);
+  max-height: 60vh;
+  overflow: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
+  tab-size: 4;
+
+  code {
+    font-family: inherit;
+    white-space: pre;
+  }
+}
