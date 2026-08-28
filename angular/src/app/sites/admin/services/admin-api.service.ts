@@ -424,7 +424,6 @@ export class AdminApiService {
   getModels(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/character-models'); }
   getVoiceOverTypes(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/voice-over-types'); }
   getCharacterStates(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/character-states'); }
-  getLanguages(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/languages'); }
   getRarities(): Observable<any[]> { return this._http.get<any[]>('/api/rarities'); }
   getArtifactPieceTypes(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/artifact-piece-types'); }
   getMaterials(): Observable<Material[]> { return this._http.get<Material[]>('/api/materials'); }

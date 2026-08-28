@@ -18,7 +18,6 @@ export const ElementsPage          = makePage({ title: 'Elements',           api
 export const WeaponTypesPage       = makePage({ title: 'Weapon Types',        apiKey: 'weapon-types',       readOnly: true });
 export const VoiceOverTypesPage    = makePage({ title: 'Voice Over Types',    apiKey: 'voice-over-types',   readOnly: true });
 export const CharacterStatesPage   = makePage({ title: 'Character States',    apiKey: 'character-states',   readOnly: true });
-export const LanguagesPage         = makePage({ title: 'Languages',           apiKey: 'languages',          readOnly: true });
 export const RaritiesPage          = makePage({ title: 'Rarities',            apiKey: 'rarities',           readOnly: true, pkField: 'rarity' });
 export const ArtifactPieceTypesPage= makePage({ title: 'Artifact Piece Types',apiKey: 'artifact-piece-types', readOnly: true });
 export const MigrationsPage        = makePage({ title: 'Migrations',          apiKey: 'migrations',         readOnly: true, pkField: 'id' });

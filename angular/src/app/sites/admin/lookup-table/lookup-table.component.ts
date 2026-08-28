@@ -44,7 +44,6 @@ export class LookupTableComponent implements OnInit {
       'weapon-types': () => this._api.getWeaponTypes(),
       'voice-over-types': () => this._api.getVoiceOverTypes(),
       'character-states': () => this._api.getCharacterStates(),
-      languages: () => this._api.getLanguages(),
       rarities: () => this._api.getRarities(),
       'artifact-piece-types': () => this._api.getArtifactPieceTypes(),
       migrations: () => this._api.getMigrations(),

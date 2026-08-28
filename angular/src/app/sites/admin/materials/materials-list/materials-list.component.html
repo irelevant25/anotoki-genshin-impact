@@ -36,6 +36,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Icon</th>
                     <th>Name</th>
                     <th>Type</th>
                     <th>Group</th>
@@ -48,12 +49,15 @@
             <tbody>
                 @if (!filtered().length) {
                     <tr>
-                        <td colspan="8" class="empty-cell">No materials match the filter</td>
+                        <td colspan="9" class="empty-cell">No materials match the filter</td>
                     </tr>
                 }
                 @for (material of filtered(); track material.id) {
                     <tr>
                         <td class="col-id">{{ material.id }}</td>
+                        <td class="col-icon">
+                            <img [appMaterialIcon]="material.name" [alt]="material.name" class="row-icon" />
+                        </td>
                         <td>{{ material.name }}</td>
                         <td>{{ material.type ?? '—' }}</td>
                         <td>{{ material.group ?? '—' }}</td>

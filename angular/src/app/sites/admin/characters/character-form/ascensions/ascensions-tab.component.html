@@ -43,7 +43,7 @@
                                 ></app-number>
                                 <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
                                     @if (materialDropdown.computedOption(); as option) {
-                                        <img src="assets/materials/{{ option.value }}.avif" [alt]="option.value" />
+                                        <img [appMaterialIcon]="option.value" [alt]="option.value" />
                                     }
                                 </div>
                                 <app-dropdown

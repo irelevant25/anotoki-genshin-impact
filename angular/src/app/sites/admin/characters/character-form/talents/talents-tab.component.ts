@@ -12,6 +12,7 @@ import { TooltipComponent } from '../../../../../shared/local-lib/components/too
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { TalentCostFormData } from '../../../services/admin-api.service';
 import { Material } from '../../../../../shared/models.generated';
+import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { emptyTalent, IMAGE_EXTENSIONS, reorder, replacePreview, resequence, TalentWrapper } from '../character-form.model';
 
 interface TalentCostGroup {
@@ -38,6 +39,7 @@ const MAX_COST_LEVEL = 10;
     FieldContainerComponent,
     TooltipComponent,
     NumberComponent,
+    MaterialIconDirective,
   ],
 })
 export class TalentsTabComponent {

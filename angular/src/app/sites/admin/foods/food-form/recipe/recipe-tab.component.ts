@@ -4,13 +4,14 @@ import { NumberComponent } from '../../../../../shared/local-lib/components/numb
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { Material } from '../../../../../shared/models.generated';
+import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { emptyRecipe, RecipeWrapper } from '../food-form.model';
 
 @Component({
   selector: 'app-food-recipe-tab',
   templateUrl: './recipe-tab.component.html',
   styleUrls: ['./recipe-tab.component.scss'],
-  imports: [ButtonComponent, NumberComponent, DropdownComponent],
+  imports: [ButtonComponent, NumberComponent, DropdownComponent, MaterialIconDirective],
 })
 export class RecipeTabComponent {
   recipe = model<RecipeWrapper[]>([]);

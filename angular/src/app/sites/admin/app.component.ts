@@ -53,7 +53,6 @@ export class AppComponent implements OnInit {
         { label: 'Weapon Types', path: 'weapon-types', icon: 'fa-solid fa-shield-halved', readOnly: true },
         { label: 'Voice Over Types', path: 'voice-over-types', icon: 'fa-solid fa-microphone', readOnly: true },
         { label: 'Character States', path: 'character-states', icon: 'fa-solid fa-circle-dot', readOnly: true },
-        { label: 'Languages', path: 'languages', icon: 'fa-solid fa-language', readOnly: true },
         { label: 'Rarities', path: 'rarities', icon: 'fa-solid fa-gem', readOnly: true },
         { label: 'Artifact Piece Types', path: 'artifact-piece-types', icon: 'fa-solid fa-puzzle-piece', readOnly: true },
       ],

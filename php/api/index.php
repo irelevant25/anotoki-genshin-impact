@@ -91,7 +91,6 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/relationship_types.php'
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_states.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_models.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/talent_types.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/languages.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/food_types.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/material_types.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/material_groups.php';
@@ -151,7 +150,18 @@ $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerReque
     $statusCode = 500;
     $message = 'Internal server error';
 
-    if ($exception instanceof \PDOException) {
+    // Slim signals unknown routes and methods as exceptions; without this they
+    // all surface as an opaque 500.
+    if ($exception instanceof \Slim\Exception\HttpNotFoundException) {
+        $statusCode = 404;
+        $message = 'Not found';
+    } elseif ($exception instanceof \Slim\Exception\HttpMethodNotAllowedException) {
+        $statusCode = 405;
+        $message = 'Method not allowed';
+    } elseif ($exception instanceof \Slim\Exception\HttpUnauthorizedException) {
+        $statusCode = 401;
+        $message = 'Unauthorized';
+    } elseif ($exception instanceof \PDOException) {
         $sqlState = $exception->getCode();
         // Data errors (22xxx) → 400 Bad Request
         if (is_string($sqlState) && str_starts_with($sqlState, '22')) {

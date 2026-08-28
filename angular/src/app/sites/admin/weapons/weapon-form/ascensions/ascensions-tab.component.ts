@@ -5,13 +5,14 @@ import { DropdownComponent } from '../../../../../shared/local-lib/components/dr
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { Material } from '../../../../../shared/models.generated';
 import { WeaponAscensionCostFormData } from '../../../services/admin-api.service';
+import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { AscensionWrapper, emptyAscension, MAX_WEAPON_ASCENSIONS } from '../weapon-form.model';
 
 @Component({
   selector: 'app-weapon-ascensions-tab',
   templateUrl: './ascensions-tab.component.html',
   styleUrls: ['./ascensions-tab.component.scss'],
-  imports: [ButtonComponent, NumberComponent, DropdownComponent],
+  imports: [ButtonComponent, NumberComponent, DropdownComponent, MaterialIconDirective],
 })
 export class AscensionsTabComponent {
   ascensions = model<AscensionWrapper[]>([]);

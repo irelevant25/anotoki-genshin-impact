@@ -8,12 +8,13 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
+import { MaterialIconDirective } from '../../shared/material-icon.directive';
 
 @Component({
   selector: 'app-materials-list',
   templateUrl: './materials-list.component.html',
   styleUrls: ['./materials-list.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent],
+  imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent, MaterialIconDirective],
 })
 export class MaterialsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'materials';
