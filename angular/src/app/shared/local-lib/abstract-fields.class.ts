@@ -1,7 +1,6 @@
 import { Component, ElementRef, inject, QueryList, ViewChildren } from '@angular/core';
 import { AbstractInputComponent } from './abstract-input.class';
 import { AbstractModalComponent } from './abstract-modal.class';
-import { NotificationService } from './components/notification/notification.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { replaceObjectValues } from './helper.class';
@@ -37,7 +36,6 @@ export abstract class FieldsComponent<TRequestInput, TData = any> extends Abstra
 
   abstract form: TRequestInput;
 
-  readonly notificationService = inject(NotificationService);
   protected readonly _route$ = inject(ActivatedRoute);
   private readonly _elementRef = inject(ElementRef);
 

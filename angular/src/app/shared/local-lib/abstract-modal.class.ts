@@ -3,6 +3,7 @@ import { ModalService } from './components/modal/modal.service';
 import { CustomModalRef, ModalConfig } from './components/modal/modal-core/modal-core.class';
 import { Subject, takeUntil } from 'rxjs';
 import { LoaderComponent } from './components/loader/loader.component';
+import { NotificationService } from './components/notification/notification.service';
 
 @Directive({})
 export abstract class AbstractModalComponent {
@@ -15,6 +16,7 @@ export abstract class AbstractModalComponent {
   protected readonly unsubscriber = new Subject<void>();
   protected readonly modalRef = inject(CustomModalRef, { optional: true });
   protected readonly modalService = inject(ModalService);
+  protected readonly notificationService = inject(NotificationService);
 
   ngOnDestroy(): void {
     this.unsubscriber.next();

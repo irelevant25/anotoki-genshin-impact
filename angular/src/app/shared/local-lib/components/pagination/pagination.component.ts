@@ -1,4 +1,4 @@
-import { Component, ViewChild, model, input, computed } from '@angular/core';
+import { Component, model, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownComponent } from '../dropdown/dropdown.component';
@@ -18,9 +18,8 @@ export interface ICalculatedPage {
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent {
-  @ViewChild(NumberComponent) pageInput?: NumberComponent;
-
   page = model<number>(1);
+  normalizedPage = computed(() => this.page() + 1);
   pageSize = model<number>(10);
 
   total = input<number>(0);
@@ -35,11 +34,15 @@ export class PaginationComponent {
   formattedTotal = computed(() => thousandSeparator(this.total()));
   formattedTotalPages = computed(() => thousandSeparator(this.totalPages()));
 
-  goToPage(page: number): void {
-    this.page.set(page);
+  goToPage(page?: string | number | null): void {
+    this.page.set(Number(page) - 1);
   }
 
   onBlur(): void {
-    this.page.set(this.page() || 1);
+    if (this.page() === null || this.page() === undefined || Number.isNaN(this.page())) {
+      this.page.set(0);
+    } else {
+      this.page.set(this.page());
+    }
   }
 }

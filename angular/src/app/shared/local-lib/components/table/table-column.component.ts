@@ -31,6 +31,7 @@ export class TableColumnComponent<T> {
   sortField = model<string | undefined>(undefined);
   pipe = model<PipeTransform | undefined>(undefined);
   noWrap = model<boolean | undefined>(undefined);
+  hide = model<boolean>(false);
 
   // Allow custom template to be projected
   @ContentChild(TemplateRef) template?: TemplateRef<any>;

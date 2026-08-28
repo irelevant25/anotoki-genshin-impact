@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList, ChangeDetectorRef, inject, LOCALE_ID, model, effect, output, input } from '@angular/core';
+import { Component, ContentChildren, QueryList, inject, LOCALE_ID, model, effect, output, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -58,12 +58,15 @@ export class TableComponent<T> extends AbstractRolesComponent {
   page = model<number>(1);
   pageSize = model<number>(10);
   pageSizeOptions = model<number[]>([5, 10, 25, 50, 100]);
-  selectable = model<boolean>(false);
-  selectableMultiple = model<boolean>(false);
-  selectedRows = model<T[]>([]);
   wrapColNames = model<boolean>(true);
   columnReorderable = model<boolean>(false);
   currentSort = model<SortEvent>({ column: '', direction: undefined });
+  selectable = model<boolean>(false);
+  selectableMultiple = model<boolean>(false);
+  selectedRows = model<T[]>([]);
+  selectedRowsKey = computed(() => this.selectedRows().map((row) => getValueByKey(row, this.selectedPropertyKey())));
+  selectedPropertyKey = model<string>('id');
+  selectAllState = computed<boolean>(() => this.data().result.every((r) => this.selectedRowsKey().includes(getValueByKey(r, this.selectedPropertyKey()))));
 
   rowClass = input<((row: T) => string) | undefined>();
 
@@ -72,9 +75,10 @@ export class TableComponent<T> extends AbstractRolesComponent {
   onRequest = output<TableEvent>();
 
   OrderEnum = OrderEnum;
+  getValueByKey = getValueByKey;
 
   // Internal columns array that combines both input columns and content children
-  internalColumns: TableColumnComponent<T>[] = [];
+  internalColumns = model<TableColumnComponent<T>[]>([]);
 
   // Drag and drop state
   resetable: boolean = false;
@@ -88,10 +92,7 @@ export class TableComponent<T> extends AbstractRolesComponent {
   private _lastPage: number = NaN;
   private _lastPageSize: number = NaN;
 
-  constructor(
-    private readonly _slovakDatePipe: SlovakDatePipe,
-    private readonly _cdr: ChangeDetectorRef,
-  ) {
+  constructor(private readonly _slovakDatePipe: SlovakDatePipe) {
     super();
     effect(() => {
       this.data();
@@ -106,7 +107,6 @@ export class TableComponent<T> extends AbstractRolesComponent {
 
   ngAfterViewInit(): void {
     this.setupColumns();
-    this._cdr.detectChanges();
   }
 
   trackByIndex(index: number, item: any): number {
@@ -121,10 +121,10 @@ export class TableComponent<T> extends AbstractRolesComponent {
 
     if (this.data().poradie?.length > 0) {
       // Reorder columns based on columnOrder array
-      this.internalColumns = this.reorderColumnsByKeys(allColumns, this.data().poradie) ?? [];
+      this.internalColumns.set(this.reorderColumnsByKeys(allColumns, this.data().poradie) ?? []);
     } else {
       // Use default order and initialize columnOrder array
-      this.internalColumns = allColumns;
+      this.internalColumns.set(allColumns);
       if (allColumns.length > 0) {
         Object.assign(
           this.data().poradie ?? [],
@@ -244,11 +244,11 @@ export class TableComponent<T> extends AbstractRolesComponent {
 
     if (fromIndex !== toIndex) {
       // Reorder the columns array
-      const newColumns = [...this.internalColumns];
+      const newColumns = [...this.internalColumns()];
       const draggedColumn = newColumns.splice(fromIndex, 1)[0];
       newColumns.splice(toIndex, 0, draggedColumn);
 
-      this.internalColumns = newColumns;
+      this.internalColumns.set(newColumns);
 
       // Update the columnOrder array
       const newColumnOrder = newColumns.filter((x) => x.key).map((col) => col.key?.toString() ?? '');
@@ -308,19 +308,21 @@ export class TableComponent<T> extends AbstractRolesComponent {
         direction: this.currentSort().direction,
       },
       page: {
-        page: this.page() - 1,
+        page: this.page(),
         pageSize: this.pageSize(),
       },
       reloadData,
     };
   }
 
-  onPageChange(): void {
-    if (!this.page() || this.page() === this._lastPage) {
+  onPageChange(emitEvent: boolean = true): void {
+    if (this.page() === null || Number.isNaN(this.page()) || this.page() === undefined || this.page() === this._lastPage) {
       return;
     }
     this._lastPage = this.page();
-    this.onRequestData();
+    if (emitEvent) {
+      this.onRequestData();
+    }
   }
 
   onPageSizeChange(): void {
@@ -342,22 +344,25 @@ export class TableComponent<T> extends AbstractRolesComponent {
 
   onSelectionChange(row: T): void {
     const isSelected = this.selectedRows().includes(row);
-    let selectedRows = this.selectedRows();
+    let selectedRows: T[];
     if (isSelected) {
-      selectedRows = this.selectedRows().filter((r) => r !== row);
+      selectedRows = this.selectedRows().filter((r) => getValueByKey(r, this.selectedPropertyKey()) !== getValueByKey(row, this.selectedPropertyKey()));
+    } else if (!this.selectableMultiple()) {
+      selectedRows = [row];
     } else {
-      if (!this.selectableMultiple()) {
-        selectedRows = [];
-      }
-      selectedRows.push(row);
-      this.selectedRows.set(selectedRows);
+      selectedRows = [...this.selectedRows(), row];
     }
+    this.selectedRows.set(selectedRows);
   }
 
-  isRowSelected(row: T): boolean {
-    return this.selectedRows()
-      .map((x: any) => x['id'])
-      .includes((row as any)['id']);
+  onSelectAllChange(checked?: boolean | null): void {
+    if (!checked) {
+      this.selectedRows.set([]);
+    } else {
+      const current = this.selectedRows();
+      const toAdd = this.data().result.filter((row) => !current.includes(row));
+      this.selectedRows.set([...current, ...toAdd]);
+    }
   }
 
   getCellValue(row: T, key?: string | number | symbol | undefined): any {

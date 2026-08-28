@@ -94,7 +94,6 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   }
 
   selectOption(option?: DropdownOption): void {
-    this.selectedOption.set(option);
     this.value.set(option?.key);
     this.inputChange.emit(this.value());
     this.emitValidationState();
@@ -102,12 +101,12 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
   }
 
   override afterValueChange(value?: Type | null): void {
-    this.selectedOption.set(undefined);
     const options = this.computedOptions();
-    if (!this.emptyOption() && this.forceOptionWhenEmpty() && options.length > 0 && !options.some((option) => option.key == value)) {
+    if (!this.emptyOption() && options.length > 0 && !options.some((option) => option.key == value)) {
       this.value.set(options[0]?.key.toString());
+    } else {
+      this.selectedOption.set(this.computedOption());
     }
-    this.cd.detectChanges();
   }
 
   override onBlur(event?: Event): void {

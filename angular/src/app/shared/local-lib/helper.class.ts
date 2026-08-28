@@ -56,7 +56,7 @@ export function replaceObjectValues(source: any, replacement: any, replaceFilled
       if (typeof sourceValue === 'object' && sourceValue !== null && typeof replacementValue === 'object' && replacementValue !== null) {
         // Both are objects, recurse deeply (preserve the reference)
         replaceObjectValues(sourceValue, replacementValue, replaceFilledValues, addMissingProperties);
-      } else if (replacementValue !== undefined && replacementValue !== null && (replaceFilledValues || sourceValue === undefined || sourceValue === null || sourceValue === '' || sourceValue === 0)) {
+      } else if (replaceFilledValues || sourceValue === undefined || sourceValue === null || sourceValue === '' || sourceValue === 0) {
         // Replace the value directly in the original object
         source[key] = copyObject(replacementValue);
       }

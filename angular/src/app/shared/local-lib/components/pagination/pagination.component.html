@@ -13,15 +13,16 @@
         <span class="page-info d-flex gap-1">
             <span style="align-content: center">Stránka</span>
             <app-number
-                #pageInput
                 style="min-width: 40px; display: block"
                 [ngStyle]="{ width: totalPages().toString().length + 3 + 'ch' }"
-                [(value)]="page"
+                [value]="normalizedPage()"
+                (valueChange)="goToPage($event)"
                 [allowDecimal]="false"
                 [allowNegative]="false"
                 [min]="1"
                 [max]="totalPages()"
-                (blurChange)="onBlur()"></app-number>
+                (blurChange)="onBlur()"
+            ></app-number>
             <span style="align-content: center">
                 z
                 <strong>{{ formattedTotalPages() }}</strong>
@@ -30,9 +31,11 @@
 
         <div class="pagination-buttons d-flex gap-1">
             <!-- TODO: prerobit na app-button -->
-            <button class="pagination-btn" [disabled]="page() <= 1" (click)="goToPage(page() - 1)" title="Predchádzajúca stránka"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="pagination-btn" [disabled]="normalizedPage() <= 1" (click)="goToPage(normalizedPage() - 1)" title="Predchádzajúca stránka"><i class="fa-solid fa-arrow-left"></i></button>
             <!-- TODO: prerobit na app-button -->
-            <button class="pagination-btn" [disabled]="page() >= totalPages()" (click)="goToPage(page() + 1)" title="Ďalšia stránka"><i class="fa-solid fa-arrow-right"></i></button>
+            <button class="pagination-btn" [disabled]="normalizedPage() >= totalPages()" (click)="goToPage(normalizedPage() + 1)" title="Ďalšia stránka">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
     </div>
 </div>

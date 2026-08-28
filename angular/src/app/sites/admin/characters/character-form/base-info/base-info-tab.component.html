@@ -2,7 +2,7 @@
     <h3 class="section-title">Identity</h3>
     <div class="form-grid">
         <app-text [label]="'Name'" [placeholder]="'e.g. Hu Tao'" [(value)]="character().data.name" [required]="true"></app-text>
-        <app-text [label]="'Title'" [placeholder]="'e.g. Fragrance in Thaw'" [(value)]="character().data.title"></app-text>
+        <app-text [label]="'Title'" class="col-span-2" [placeholder]="'e.g. Fragrance in Thaw'" [(value)]="character().data.title"></app-text>
         <app-text [label]="'Secondary Title'" [(value)]="character().data.secondary_title"></app-text>
         <app-dropdown [label]="'Element'" [options]="elements()" [(value)]="character().data.element" [required]="true"></app-dropdown>
         <app-dropdown [label]="'Weapon Type'" [options]="weaponTypes()" [(value)]="character().data.weapon_type" [required]="true"></app-dropdown>

@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { DataTableData, RowClickEvent, TableComponent, TableEvent } from './components/table/table.component';
 import { Observable, takeUntil } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { removeEmptyPropertiesDeep } from './helper.class';
-import { NotificationService } from './components/notification/notification.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FilterComponent } from './components/filter/filter.component';
 import { AbstractModalComponent } from './abstract-modal.class';
@@ -39,9 +38,6 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
 
   private readonly _router$ = inject(Router);
   private readonly _route$ = inject(ActivatedRoute);
-  private readonly _cd$ = inject(ChangeDetectorRef);
-
-  readonly notificationService = inject(NotificationService);
 
   ngAfterViewInit(): void {
     this.resetTableData();
@@ -55,8 +51,9 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
       throw new Error('Missing template reference variable "#table" on html component tag.');
     } else {
       if (this.table) {
-        this.table.page.set(this.request.page + 1);
+        this.table.page.set(this.request.page);
         this.table.pageSize.set(this.request.limit);
+        this.table.onPageChange(false);
         this.table.currentSort.set({
           column: this.request.sort ?? '',
           direction: this.request.order,
@@ -103,10 +100,10 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
     return data;
   }
 
-  rowClick(rowClickEvent?: RowClickEvent<TTableData>): void {
+  async rowClick(rowClickEvent?: RowClickEvent<TTableData>): Promise<void> {
     const detailPageValue = rowClickEvent?.row[this.detailPropertyName];
     if (detailPageValue) {
-      void this._router$.navigate([detailPageValue], { relativeTo: this._route$ });
+      await this._router$.navigate([detailPageValue], { relativeTo: this._route$ });
     }
   }
 
@@ -117,24 +114,17 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
   }
 
   onFilter(): void {
-    if (this.request.page) {
-      this.request.page = 0;
-      if (this.table) {
-        this.table.page.set(this.request.page + 1);
-      }
+    this.request.page = 0;
+    if (this.table) {
+      this.table.page.set(this.request.page);
+      this.table.onPageChange(false);
     }
     this.loadData(this.request);
   }
 
   onReset(): void {
-    if (this.request.page) {
-      this.request.page = 1;
-      if (this.table) {
-        this.table.page.set(this.request.page);
-      }
-    }
     this.request.filter = {};
-    this.loadData(this.request);
+    this.onFilter();
   }
 
   onTableChange(tableEvent: TableEvent): void {
@@ -145,8 +135,7 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
       this.request.sort = tableEvent.sort.column;
     }
     if (tableEvent?.reloadData) {
-      this.loadData();
-      this._cd$.detectChanges();
+      this.refresh();
     }
   }
 
