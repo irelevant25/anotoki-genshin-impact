@@ -1,0 +1,23 @@
+@use "../../../shared/admin-form" as *;
+
+.rarity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.rarity-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-card);
+  opacity: 0.6;
+
+  &.enabled {
+    opacity: 1;
+    border-color: var(--color-primary);
+  }
+}

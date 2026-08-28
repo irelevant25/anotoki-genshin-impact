@@ -1,0 +1,41 @@
+<div class="sub-list">
+    @for (piece of pieces(); track piece.uid) {
+        <div class="sub-card">
+            <div class="sub-card-header">
+                <span class="sub-card-index">{{ piece.data.type }} · {{ piece.data.name || 'Unnamed' }}</span>
+                <app-button variant="danger" [outline]="true" (buttonClick)="removePiece(piece)">Delete</app-button>
+            </div>
+            <app-field-container [cols]="4">
+                <app-dropdown [label]="'Type'" [options]="typeOptionsFor(piece)" [(value)]="piece.data.type" [required]="true"></app-dropdown>
+                <app-text class="col-span-2" [label]="'Name'" [(value)]="piece.data.name" [required]="true"></app-text>
+                <div>
+                    <app-file
+                        class="d-block"
+                        [buttonClass]="'w-100'"
+                        [label]="'Icon'"
+                        [buttonOutline]="true"
+                        [required]="!iconSrc(piece)"
+                        [acceptedExtensions]="imageExtensions"
+                        [showFileNames]="false"
+                        (inputChange)="onIconSelect(piece, $event)"
+                    ></app-file>
+                    @if (iconSrc(piece); as src) {
+                        <img #img [src]="src" class="preview-img" [alt]="piece.data.name" />
+                        <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                            <img class="w-100" [src]="src" [alt]="piece.data.name" />
+                        </app-tooltip>
+                    }
+                </div>
+            </app-field-container>
+        </div>
+    }
+
+    @if (canAdd()) {
+        <div class="pieces-actions">
+            <app-button variant="primary" [outline]="true" (buttonClick)="addPiece()">Add</app-button>
+            <app-button variant="secondary" [outline]="true" (buttonClick)="addAllMissing()">
+                Add all {{ availableTypes().length }} missing
+            </app-button>
+        </div>
+    }
+</div>

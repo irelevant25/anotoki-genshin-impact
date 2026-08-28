@@ -1,0 +1,7 @@
+@use "../../../shared/admin-form" as *;
+
+.pieces-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}

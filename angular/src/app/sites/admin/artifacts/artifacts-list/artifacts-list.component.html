@@ -1,0 +1,81 @@
+<div class="page-header">
+    <h1 class="page-title">Artifacts</h1>
+    <a routerLink="create">
+        <app-button text="Add Artifact" icon="icon-plus"></app-button>
+    </a>
+</div>
+
+<app-loader [loading]="loading()"></app-loader>
+
+@if (!loading()) {
+    <div class="filter-bar">
+        <app-text [label]="'ID'" [placeholder]="'contains'" [(value)]="filterId"></app-text>
+        <app-text [label]="'Name'" [placeholder]="'contains'" [(value)]="filterName"></app-text>
+        <app-multiselect [label]="'Rarity'" [options]="rarityOptions" [(value)]="filterRarities"></app-multiselect>
+        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <div class="filter-summary">
+            <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>
+            @if (hasActiveFilter()) {
+                <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+            }
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Rarities</th>
+                    <th>Version</th>
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!filtered().length) {
+                    <tr>
+                        <td colspan="6" class="empty-cell">No artifacts match the filter</td>
+                    </tr>
+                }
+                @for (artifact of filtered(); track artifact.id) {
+                    <tr>
+                        <td class="col-id">{{ artifact.id }}</td>
+                        <td class="col-icon">
+                            @if (artifact.icon) {
+                                <img [src]="artifact.icon" [alt]="artifact.name" class="row-icon" />
+                            }
+                        </td>
+                        <td>{{ artifact.name }}</td>
+                        <td>{{ raritiesOf(artifact) }}</td>
+                        <td>{{ artifact.version ?? '—' }}</td>
+                        <td class="col-actions">
+                            @if (deleteConfirm() === artifact.id) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Delete?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(artifact.id)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </span>
+                            } @else {
+                                <div class="action-btns">
+                                    <a [routerLink]="[artifact.id, 'edit']">
+                                        <app-button icon="icon-pen icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Edit"></app-button>
+                                    </a>
+                                    <app-button
+                                        icon="icon-trash icon-size-3"
+                                        variant="danger"
+                                        [outline]="true"
+                                        size="very-small"
+                                        tooltipText="Delete"
+                                        (buttonClick)="confirmDelete(artifact.id)"
+                                    ></app-button>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

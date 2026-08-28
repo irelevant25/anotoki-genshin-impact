@@ -227,6 +227,41 @@ export interface MaterialFull {
   groups: MaterialGroupJoinFormData[];
 }
 
+// ── Artifacts ─────────────────────────────────────────────────────────────────
+
+export interface ArtifactFormData {
+  id?: number;
+  name: string;
+  icon: string;
+  version?: string | null;
+  effects?: string[] | null;
+  two_piece?: string | null;
+  four_piece?: string | null;
+  has_rarity_1?: boolean;
+  has_rarity_2?: boolean;
+  has_rarity_3?: boolean;
+  has_rarity_4?: boolean;
+  has_rarity_5?: boolean;
+  how_to_obtain_quality_1?: string[] | null;
+  how_to_obtain_quality_2?: string[] | null;
+  how_to_obtain_quality_3?: string[] | null;
+  how_to_obtain_quality_4?: string[] | null;
+  how_to_obtain_quality_5?: string[] | null;
+}
+
+export interface ArtifactPieceFormData {
+  id?: number;
+  artifact_id?: number;
+  name: string;
+  type: string;
+  icon: string;
+}
+
+export interface ArtifactFull {
+  artifact: ArtifactFormData;
+  pieces: ArtifactPieceFormData[];
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -377,6 +412,10 @@ export class AdminApiService {
   deleteEnemy(id: number) { return this._http.delete<any>(`/api/enemies/${id}`); }
 
   getArtifacts(): Observable<any[]> { return this._http.get<any[]>('/api/artifacts'); }
+  getArtifactFull(id: number) { return this._getFull<ArtifactFull>('artifacts', id); }
+  createArtifactFull(data: FormData) { return this._createFull('artifacts', data); }
+  updateArtifactFull(id: number, data: FormData) { return this._updateFull('artifacts', id, data); }
+  deleteArtifact(id: number) { return this._http.delete<any>(`/api/artifacts/${id}`); }
 
   getMaterialFull(id: number) { return this._getFull<MaterialFull>('materials', id); }
   createMaterialFull(data: FormData) { return this._createFull('materials', data); }

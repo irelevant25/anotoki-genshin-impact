@@ -1,0 +1,58 @@
+import { Component, model } from '@angular/core';
+import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
+import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
+import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
+import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
+import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
+import { IMAGE_EXTENSIONS, imageSrc, setImage, toLines } from '../../../shared/admin-full-resource.model';
+import { ARTIFACT_RARITIES, ArtifactWrapper, emptyArtifact } from '../artifact-form.model';
+
+@Component({
+  selector: 'app-artifact-base-info-tab',
+  templateUrl: './base-info-tab.component.html',
+  styleUrls: ['./base-info-tab.component.scss'],
+  imports: [TextComponent, TextareaComponent, CheckboxComponent, FileComponent, FieldContainerComponent, TooltipComponent],
+})
+export class BaseInfoTabComponent {
+  artifact = model<ArtifactWrapper>(emptyArtifact());
+
+  readonly imageExtensions = IMAGE_EXTENSIONS;
+  readonly rarities = ARTIFACT_RARITIES;
+
+  iconSrc(): string | undefined {
+    return imageSrc(this.artifact().images.icon, this.artifact().data.icon);
+  }
+
+  onIconSelect(files: FileItemType[] | undefined | null): void {
+    this.artifact.update((artifact) => {
+      const slot = artifact.images.icon ?? {};
+      setImage(slot, files?.[0]?.file);
+      return { ...artifact, images: { ...artifact.images, icon: slot } };
+    });
+  }
+
+  hasRarity(rarity: number): boolean {
+    return !!this.artifact().data[`has_rarity_${rarity}`];
+  }
+
+  setRarity(rarity: number, value: boolean | undefined | null): void {
+    this.artifact().data[`has_rarity_${rarity}`] = !!value;
+  }
+
+  effectsText(): string {
+    return (this.artifact().data.effects ?? []).join('\n');
+  }
+
+  onEffectsChange(value: string | number | undefined | null): void {
+    this.artifact().data.effects = toLines(value);
+  }
+
+  obtainText(rarity: number): string {
+    return ((this.artifact().data[`how_to_obtain_quality_${rarity}`] as string[] | undefined) ?? []).join('\n');
+  }
+
+  onObtainChange(rarity: number, value: string | number | undefined | null): void {
+    this.artifact().data[`how_to_obtain_quality_${rarity}`] = toLines(value);
+  }
+}

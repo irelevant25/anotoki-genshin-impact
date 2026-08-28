@@ -1,0 +1,24 @@
+<div class="page-header justify-content-between">
+    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
+    <h1 class="page-title">{{ artifact().data.name || pageTitle() }}</h1>
+</div>
+
+@if (loading()) {
+    <app-loader [loading]="true"></app-loader>
+} @else {
+    <app-tabs>
+        <app-tab [title]="'Base Info'" [icon]="'icon-info'">
+            <app-artifact-base-info-tab [(artifact)]="artifact" />
+        </app-tab>
+        <app-tab [title]="'Pieces'" [icon]="'icon-layers'">
+            <app-artifact-pieces-tab [(pieces)]="pieces" [pieceTypes]="pieceTypes()" />
+        </app-tab>
+    </app-tabs>
+
+    <div class="form-footer">
+        <a [routerLink]="backLink()">
+            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
+        </a>
+        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Artifact'" [loading]="saving()" (buttonClick)="save()"></app-button>
+    </div>
+}
