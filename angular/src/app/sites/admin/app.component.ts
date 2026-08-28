@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
       items: [
         { label: 'Characters', path: 'characters', icon: 'fa-solid fa-user-ninja' },
         { label: 'Enemies', path: 'enemies', icon: 'fa-solid fa-skull-crossbones' },
+        { label: 'Materials', path: 'materials', icon: 'fa-solid fa-cubes-stacked' },
       ],
     },
     {

@@ -202,6 +202,31 @@ export interface EnemyFull {
   drops: EnemyDropFormData[];
 }
 
+// ── Materials ─────────────────────────────────────────────────────────────────
+
+export interface MaterialFormData {
+  id?: number;
+  name: string;
+  type?: string | null;
+  group?: string | null;
+  region?: string | null;
+  rarity?: number | null;
+  description?: string | null;
+  how_to_obtain?: string[] | null;
+  version?: string | null;
+}
+
+export interface MaterialGroupJoinFormData {
+  id?: number;
+  material_id?: number;
+  group?: string | null;
+}
+
+export interface MaterialFull {
+  material: MaterialFormData;
+  groups: MaterialGroupJoinFormData[];
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -352,6 +377,11 @@ export class AdminApiService {
   deleteEnemy(id: number) { return this._http.delete<any>(`/api/enemies/${id}`); }
 
   getArtifacts(): Observable<any[]> { return this._http.get<any[]>('/api/artifacts'); }
+
+  getMaterialFull(id: number) { return this._getFull<MaterialFull>('materials', id); }
+  createMaterialFull(data: FormData) { return this._createFull('materials', data); }
+  updateMaterialFull(id: number, data: FormData) { return this._updateFull('materials', id, data); }
+  deleteMaterial(id: number) { return this._http.delete<any>(`/api/materials/${id}`); }
 
   createStat(name: string) { return this._nameCreate('/api/stats', name); }
   deleteStat(id: number) { return this._http.delete<any>(`/api/stats/${id}`); }

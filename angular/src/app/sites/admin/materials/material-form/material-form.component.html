@@ -1,0 +1,66 @@
+<div class="page-header justify-content-between">
+    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
+    <h1 class="page-title">{{ material().name || pageTitle() }}</h1>
+</div>
+
+@if (loading()) {
+    <app-loader [loading]="true"></app-loader>
+} @else {
+    <div class="form-section">
+        <h3 class="section-title">Identity</h3>
+        <div class="form-grid">
+            <app-text [label]="'Name'" [placeholder]="'e.g. Dandelion Seed'" [(value)]="material().name" [required]="true"></app-text>
+            <app-dropdown [label]="'Type'" [options]="materialTypes()" [(value)]="material().type" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+            <app-dropdown
+                [label]="'Primary Group'"
+                [options]="materialGroups()"
+                [(value)]="material().group"
+                [emptyOption]="true"
+                [emptyOptionText]="'— none —'"
+            ></app-dropdown>
+            <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="material().region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+            <app-dropdown
+                [label]="'Rarity'"
+                [options]="rarities()"
+                [(value)]="material().rarity"
+                [suffix]="' ★'"
+                [emptyOption]="true"
+                [emptyOptionText]="'— none —'"
+            ></app-dropdown>
+            <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="material().version"></app-text>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3 class="section-title">Additional Groups</h3>
+        <app-field-container [cols]="2">
+            <app-multiselect
+                [label]="'Groups'"
+                [description]="'Extra groups this material belongs to, beyond the primary one.'"
+                [options]="materialGroups()"
+                [(value)]="groups"
+            ></app-multiselect>
+        </app-field-container>
+    </div>
+
+    <div class="form-section">
+        <h3 class="section-title">Details</h3>
+        <app-field-container [cols]="2">
+            <app-textarea [label]="'Description'" [(value)]="material().description" [rows]="4"></app-textarea>
+            <app-textarea
+                [label]="'How To Obtain'"
+                [description]="'One source per line.'"
+                [value]="howToObtainText()"
+                (inputChange)="onHowToObtainChange($event)"
+                [rows]="4"
+            ></app-textarea>
+        </app-field-container>
+    </div>
+
+    <div class="form-footer">
+        <a [routerLink]="backLink()">
+            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
+        </a>
+        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Material'" [loading]="saving()" (buttonClick)="save()"></app-button>
+    </div>
+}

@@ -1,0 +1,93 @@
+<div class="page-header">
+    <h1 class="page-title">Materials</h1>
+    <a routerLink="create">
+        <app-button text="Add Material" icon="icon-plus"></app-button>
+    </a>
+</div>
+
+<app-loader [loading]="loading()"></app-loader>
+
+@if (!loading()) {
+    <div class="filter-bar">
+        <app-text [label]="'ID'" [placeholder]="'contains'" [(value)]="filterId"></app-text>
+        <app-text [label]="'Name'" [placeholder]="'contains'" [(value)]="filterName"></app-text>
+        <app-multiselect [label]="'Type'" [options]="typeOptions()" [(value)]="filterTypes"></app-multiselect>
+        <app-multiselect [label]="'Group'" [options]="groupOptions()" [(value)]="filterGroups"></app-multiselect>
+        <app-multiselect [label]="'Region'" [options]="regionOptions()" [(value)]="filterRegions"></app-multiselect>
+        <app-dropdown
+            [label]="'Rarity'"
+            [options]="rarityOptions()"
+            [(value)]="filterRarity"
+            [suffix]="' ★'"
+            [emptyOption]="true"
+            [emptyOptionText]="'— any —'"
+        ></app-dropdown>
+        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <div class="filter-summary">
+            <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>
+            @if (hasActiveFilter()) {
+                <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+            }
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Group</th>
+                    <th>Region</th>
+                    <th>Rarity</th>
+                    <th>Version</th>
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!filtered().length) {
+                    <tr>
+                        <td colspan="8" class="empty-cell">No materials match the filter</td>
+                    </tr>
+                }
+                @for (material of filtered(); track material.id) {
+                    <tr>
+                        <td class="col-id">{{ material.id }}</td>
+                        <td>{{ material.name }}</td>
+                        <td>{{ material.type ?? '—' }}</td>
+                        <td>{{ material.group ?? '—' }}</td>
+                        <td>{{ material.region ?? '—' }}</td>
+                        <td class="col-rarity">
+                            <span class="rarity rarity-{{ material.rarity }}">{{ getRarityStars(material.rarity) }}</span>
+                        </td>
+                        <td>{{ material.version ?? '—' }}</td>
+                        <td class="col-actions">
+                            @if (deleteConfirm() === material.id) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Delete?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(material.id)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </span>
+                            } @else {
+                                <div class="action-btns">
+                                    <a [routerLink]="[material.id, 'edit']">
+                                        <app-button icon="icon-pen icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Edit"></app-button>
+                                    </a>
+                                    <app-button
+                                        icon="icon-trash icon-size-3"
+                                        variant="danger"
+                                        [outline]="true"
+                                        size="very-small"
+                                        tooltipText="Delete"
+                                        (buttonClick)="confirmDelete(material.id)"
+                                    ></app-button>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
