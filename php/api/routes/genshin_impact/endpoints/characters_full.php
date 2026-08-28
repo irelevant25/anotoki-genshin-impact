@@ -11,15 +11,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  */
 function _saveCharacterFile($file, string $folder, string $baseName): ?string
 {
-    if (!$file || $file->getError() !== UPLOAD_ERR_OK)
-        return null;
-    $ext = strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION));
-    $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '_', $baseName);
-    $dir = __DIR__ . '/../../../../../public/uploads/' . $folder;
-    if (!is_dir($dir))
-        mkdir($dir, 0755, true);
-    $file->moveTo($dir . '/' . $safeName . '.' . $ext);
-    return '/uploads/' . $folder . '/' . $safeName . '.' . $ext;
+    // Extension allowlist and script-execution hardening live in full_resource.php.
+    return _fullSaveUpload($file, $folder, $baseName);
 }
 
 /**
@@ -28,14 +21,14 @@ function _saveCharacterFile($file, string $folder, string $baseName): ?string
  */
 function _saveAudioFile($file, string $folder): ?string
 {
-    if (!$file || $file->getError() !== UPLOAD_ERR_OK)
+    if (!$file || $file->getError() !== UPLOAD_ERR_OK) {
         return null;
-    $safeName = preg_replace('/[^a-zA-Z0-9_.-]/', '_', $file->getClientFilename());
-    $dir = __DIR__ . '/../../../../../public/uploads/' . $folder;
-    if (!is_dir($dir))
-        mkdir($dir, 0755, true);
-    $file->moveTo($dir . '/' . $safeName);
-    return '/uploads/' . $folder . '/' . $safeName;
+    }
+    // Keep the original name, but rebuild it from a checked extension rather
+    // than trusting whatever the client sent.
+    $clientName = $file->getClientFilename() ?? '';
+    $stem = preg_replace('/[^a-zA-Z0-9_-]/', '_', pathinfo($clientName, PATHINFO_FILENAME));
+    return _fullSaveUpload($file, $folder, $stem);
 }
 
 /**

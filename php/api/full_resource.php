@@ -17,21 +17,63 @@
 
 // ── Uploads ───────────────────────────────────────────────────────────────────
 
+/** Extensions accepted for upload. Anything else is dropped, never written. */
+const UPLOAD_ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'avif', 'webp', 'gif', 'ogg', 'mp3', 'wav', 'opus', 'm4a'];
+
+/** Image extensions are additionally checked to actually decode as an image. */
+const UPLOAD_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'avif', 'webp', 'gif'];
+
+/**
+ * Belt and braces: even with an extension allowlist, keep the web server from
+ * ever executing anything under the uploads tree.
+ */
+function _fullHardenUploadDir(string $dir): void
+{
+    $htaccess = $dir . '/.htaccess';
+    if (!file_exists($htaccess)) {
+        file_put_contents($htaccess, implode("\n", [
+            'php_flag engine off',
+            'RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .phps',
+            'RemoveType .php .phtml .php3 .php4 .php5 .php7 .phps',
+        ]) . "\n");
+    }
+}
+
 /**
  * Saves one uploaded file as `{baseName}.{ext}` under `public/uploads/{folder}`.
  * Returns the public path, or null when nothing usable was sent.
+ *
+ * The extension comes from the client, so it is checked against an allowlist
+ * before anything touches the disk - otherwise a `.php` upload landing in a
+ * web-served directory is remote code execution.
  */
 function _fullSaveUpload($file, string $folder, string $baseName): ?string
 {
     if (!$file || $file->getError() !== UPLOAD_ERR_OK) {
         return null;
     }
-    $ext = strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION));
+
+    $ext = strtolower(pathinfo($file->getClientFilename() ?? '', PATHINFO_EXTENSION));
+    if (!in_array($ext, UPLOAD_ALLOWED_EXTENSIONS, true)) {
+        return null;
+    }
+    // A file claiming to be an image must decode as one.
+    if (in_array($ext, UPLOAD_IMAGE_EXTENSIONS, true) && $ext !== 'avif') {
+        $stream = $file->getStream();
+        $stream->rewind();
+        if (@getimagesizefromstring($stream->getContents()) === false) {
+            return null;
+        }
+        $stream->rewind();
+    }
+
     $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '_', $baseName);
     $dir = __DIR__ . '/../public/uploads/' . $folder;
     if (!is_dir($dir)) {
         mkdir($dir, 0755, true);
     }
+    _fullHardenUploadDir(__DIR__ . '/../public/uploads');
+
     $file->moveTo($dir . '/' . $safeName . '.' . $ext);
     return '/uploads/' . $folder . '/' . $safeName . '.' . $ext;
 }
