@@ -24,6 +24,42 @@ function _assetsRoot(): string
 }
 
 /**
+ * One path segment, safe to join into a destination.
+ *
+ * Folder segments are built from database values a editor controls (a
+ * character's name, a voice over's type), so they have to be stripped of
+ * separators and traversal before they reach the filesystem. Returns null when
+ * nothing usable is left.
+ */
+function _assetPathSegment(string $segment): ?string
+{
+    // `:` is written as " - " on disk, matching how the voice over files are
+    // named, so an uploaded clip lands where the importer looks for it.
+    // "Chat: Hobbies" has to come out as "Chat - Hobbies", not "Chat -  Hobbies".
+    $segment = str_replace(':', ' - ', $segment);
+    $segment = preg_replace('#[\\\\/*?"<>|\x00-\x1F]#', '', $segment);
+    $segment = trim(preg_replace('/ {2,}/', ' ', $segment));
+    if ($segment === '' || $segment === '.' || $segment === '..' || str_starts_with($segment, '.')) {
+        return null;
+    }
+    return $segment;
+}
+
+/** Sanitises every segment of a relative folder path. */
+function _assetFolder(string $folder): ?string
+{
+    $segments = [];
+    foreach (explode('/', $folder) as $segment) {
+        $clean = _assetPathSegment($segment);
+        if ($clean === null) {
+            return null;
+        }
+        $segments[] = $clean;
+    }
+    return $segments ? implode('/', $segments) : null;
+}
+
+/**
  * The asset naming used throughout the data: upper case, apostrophes, quotes
  * and hyphens dropped, every other run of non-alphanumerics collapsed to `_`.
  *
@@ -140,11 +176,18 @@ function _resolveVoiceOverTarget(PDO $pdo, array $row, string $field): ?array
     $character = (string) $stmt->fetchColumn();
 
     $title = trim((string) ($row[$titleColumn] ?? ''));
-    if ($character === '' || $title === '' || empty($row['type'])) {
+    if ($title === '' || empty($row['type'])) {
         return null;
     }
 
-    return ['folder' => 'character/voice_overs/' . $character . '/' . $row['type'] . '/' . $code, 'base' => $title];
+    // Both of these are editor-supplied values that become folder names.
+    $characterSegment = _assetPathSegment($character);
+    $typeSegment = _assetPathSegment((string) $row['type']);
+    if ($characterSegment === null || $typeSegment === null) {
+        return null;
+    }
+
+    return ['folder' => 'character/voice_overs/' . $characterSegment . '/' . $typeSegment . '/' . $code, 'base' => $title];
 }
 
 /** `phase#` becomes the phase's position among its enemy's phases. */
@@ -198,9 +241,15 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
     // Build the file name from the row, exactly as the existing assets are named.
     $rawName = (string) ($row[$spec['name_column'] ?? 'name'] ?? '');
     $baseName = assetBaseName($rawName);
-    if (!empty($spec['literal_name']) && preg_match('#^[^\\/:*?"<>|]+$#', $rawName)) {
-        // Prefer the display name; the client looks for "{name}.avif" first.
-        $baseName = trim($rawName);
+    if (!empty($spec['literal_name'])) {
+        // Materials are looked up as "{name}.avif" first, so prefer the display
+        // name - but only when it survives sanitising unchanged. Anything with a
+        // separator, a leading dot or a forbidden character falls back to the
+        // UPPER_SNAKE form, which the client also resolves.
+        $literal = _assetPathSegment($rawName);
+        if ($literal !== null && $literal === trim($rawName)) {
+            $baseName = $literal;
+        }
     }
     if ($baseName === '') {
         return respondJson($response, ['error' => 'Row has no name to build a file name from'], 409);
@@ -263,13 +312,24 @@ function _saveAssetUpload($file, string $folder, string $baseName, bool $audio =
     // The name comes from the database, but keep it filesystem-safe regardless.
     // Only the characters Windows forbids are stripped - voice over titles are
     // Japanese, Chinese and Korean, and must survive intact.
-    $safeName = trim(preg_replace('#[\\/:*?"<>|]#', '', $baseName));
-    if ($safeName === '') {
+    $safeName = _assetPathSegment($baseName);
+    $safeFolder = _assetFolder($folder);
+    if ($safeName === null || $safeFolder === null) {
         return null;
     }
-    $dir = _assetsRoot() . '/' . $folder;
+
+    $dir = _assetsRoot() . '/' . $safeFolder;
     if (!is_dir($dir)) {
         mkdir($dir, 0755, true);
+    }
+
+    // Segments are already free of separators and traversal, so this can only
+    // fail if something upstream changes - refuse rather than write blind.
+    $root = realpath(_assetsRoot());
+    $resolved = realpath($dir);
+    if ($root === false || $resolved === false || !str_starts_with($resolved, $root)) {
+        error_log('[upload] refusing to write outside the assets root: ' . $dir);
+        return null;
     }
 
     $file->moveTo($dir . '/' . $safeName . '.' . $ext);
