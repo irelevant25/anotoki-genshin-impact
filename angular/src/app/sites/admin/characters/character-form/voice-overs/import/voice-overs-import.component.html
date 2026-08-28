@@ -1,0 +1,139 @@
+<app-modal [title]="'Import Voice Overs'" (closeModal)="cancel()">
+    <div modal-body class="import-body">
+        <!-- Step 1 -->
+        <section class="import-step">
+            <h4 class="import-step-title"><span class="import-step-number">1</span> Voice over data</h4>
+            <app-file
+                [label]="'JSON file'"
+                [buttonText]="'Choose JSON'"
+                [buttonOutline]="true"
+                [acceptedExtensions]="['.json']"
+                [fileNamePosition]="'right'"
+                (inputChange)="onJsonFileSelect($event)"
+            ></app-file>
+            <app-textarea
+                [label]="'…or paste it here'"
+                [description]="'A flat array, an object keyed by type, or a voice_overs wrapper. Order is filled per type when absent.'"
+                [value]="json()"
+                (inputChange)="onJsonChange($event)"
+                [rows]="6"
+                [resize]="true"
+            ></app-textarea>
+
+            <details class="import-example">
+                <summary>Expected structure</summary>
+                <pre>{{ jsonExample }}</pre>
+                <p class="import-hint">
+                    Only <code>type</code> and <code>title_english</code> are required; every other field is optional. Titles must match the audio file names — that is what the matching is based on.
+                </p>
+            </details>
+
+            @if (jsonError()) {
+                <p class="import-message error">{{ jsonError() }}</p>
+            } @else if (parsed(); as wrappers) {
+                <p class="import-message ok">Parsed {{ wrappers.length }} voice overs — {{ typeSummary() }}</p>
+                @if (unknownTypes().length) {
+                    <p class="import-message warn">Unknown type{{ unknownTypes().length === 1 ? '' : 's' }}: {{ unknownTypes().join(', ') }}. The API will reject these.</p>
+                }
+            }
+        </section>
+
+        <!-- Step 2 -->
+        <section class="import-step" [class.disabled]="!parsed()">
+            <h4 class="import-step-title"><span class="import-step-number">2</span> Audio folder</h4>
+            <p class="import-hint">
+                Pick the character folder holding <code>{{ folderLayout }}</code
+                >. Files are matched by title, not uploaded — rows will point at
+                <code>{{ assetRoot() }}</code>
+            </p>
+            <app-file
+                [label]="'Character voice over folder'"
+                [buttonText]="'Choose folder'"
+                [buttonOutline]="true"
+                [directory]="true"
+                [showFileNames]="false"
+                [disabled]="!!folderBlockedReason()"
+                (inputChange)="onAudioFolderSelect($event)"
+            ></app-file>
+
+            @if (folderBlockedReason(); as reason) {
+                <p class="import-message warn">{{ reason }}</p>
+            }
+
+            @if (audioError()) {
+                <p class="import-message error">{{ audioError() }}</p>
+            } @else if (audioFileCount()) {
+                <p class="import-message ok">{{ audioFileCount() }} audio files found</p>
+            }
+        </section>
+
+        <!-- Step 3 -->
+        @if (result(); as matchResult) {
+            <section class="import-step">
+                <h4 class="import-step-title"><span class="import-step-number">3</span> Result</h4>
+                <div class="import-stats">
+                    <div class="import-stat ok">
+                        <span class="import-stat-value">{{ matchResult.matched }}</span>
+                        <span class="import-stat-label">matched</span>
+                    </div>
+                    <div class="import-stat">
+                        <span class="import-stat-value">{{ matchResult.duplicates }}</span>
+                        <span class="import-stat-label">duplicate spelling</span>
+                    </div>
+                    <div class="import-stat" [class.warn]="unresolvedCount() > 0">
+                        <span class="import-stat-value">{{ unresolvedCount() }}</span>
+                        <span class="import-stat-label">need assigning</span>
+                    </div>
+                    <div class="import-stat" [class.warn]="matchResult.missing.length > 0">
+                        <span class="import-stat-value">{{ matchResult.missing.length }}</span>
+                        <span class="import-stat-label">slots without audio</span>
+                    </div>
+                </div>
+
+                @if (matchResult.missing.length) {
+                    <p class="import-message warn">No audio for: {{ missingSummary() }}. These stay empty and can be filled in on the tab.</p>
+                }
+
+                @if (matchResult.unmatched.length) {
+                    <div class="unmatched-list">
+                        <div class="unmatched-header">Files that need a home</div>
+                        @for (match of matchResult.unmatched; track match.audio.relativePath) {
+                            <div class="unmatched-row" [class.resolved]="!!match.target">
+                                <div class="unmatched-file">
+                                    <span class="unmatched-path">{{ match.audio.relativePath }}</span>
+                                    <span class="unmatched-reason">{{ match.reason }}</span>
+                                </div>
+                                <app-dropdown
+                                    [options]="languageOptions"
+                                    [value]="match.audio.language"
+                                    [emptyOption]="true"
+                                    [emptyOptionText]="'— language —'"
+                                    (inputChange)="assignLanguage(match, $event)"
+                                ></app-dropdown>
+                                <app-dropdown
+                                    [options]="voiceOverOptions()"
+                                    [value]="match.target?.uid"
+                                    [emptyOption]="true"
+                                    [emptyOptionText]="'— skip this file —'"
+                                    (inputChange)="assignTarget(match, $event)"
+                                ></app-dropdown>
+                            </div>
+                        }
+                    </div>
+                }
+            </section>
+        }
+    </div>
+
+    <div modal-footer class="import-footer">
+        <app-checkbox
+            [label]="existingCount() ? 'Replace the ' + existingCount() + ' existing voice overs' : 'Replace existing voice overs '"
+            [inline]="true"
+            [(value)]="replaceExisting"
+        ></app-checkbox>
+        <div class="import-footer-actions">
+            <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancel()"></app-button>
+            <app-button [text]="parsed() ? 'Import ' + parsed()!.length + ' voice overs' : 'Import'" [disabled]="!canImport()" (buttonClick)="confirmImport()"></app-button>
+        </div>
+    </div>
+</app-modal>

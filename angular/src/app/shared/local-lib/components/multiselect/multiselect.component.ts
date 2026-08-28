@@ -86,16 +86,14 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
   ) {
     super();
 
-    // Sync selectedOptions with value
+    // Sync selectedOptions with value, including when it is cleared from outside.
     effect(() => {
       const value = this.value();
       const options = this.computedOptions();
 
-      if (Array.isArray(value) && value.length > 0) {
-        const selected = options.filter((opt) => value.includes(opt.key));
-        if (JSON.stringify(selected) !== JSON.stringify(this.selectedOptions())) {
-          this.selectedOptions.set(selected);
-        }
+      const selected = Array.isArray(value) ? options.filter((opt) => value.includes(opt.key)) : [];
+      if (JSON.stringify(selected) !== JSON.stringify(this.selectedOptions())) {
+        this.selectedOptions.set(selected);
       }
     });
 

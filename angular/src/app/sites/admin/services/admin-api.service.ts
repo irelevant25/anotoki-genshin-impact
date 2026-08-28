@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Material } from '../../../shared/models.generated';
 
+/** Shape returned by GET /api/characters/{id}/full - sub-resource costs come back flat. */
 export interface CharacterFull {
   character: CharacterFormData;
   voice_overs?: VoiceOverFormData[];
@@ -10,9 +11,24 @@ export interface CharacterFull {
   ascensions?: AscensionFormData[];
   ascension_cost?: AscensionCostFormData[];
   talents?: TalentFormData[];
-  talent_cost: TalentCostFormData[];
+  talent_cost?: TalentCostFormData[];
   relationships?: RelationshipFormData[];
   roles?: string[];
+}
+
+/**
+ * Shape accepted by POST/PUT /api/characters[/{id}]/full.
+ * The backend nests ascension costs under each ascension and expects `talent_costs`.
+ */
+export interface CharacterFullPayload {
+  character: CharacterFormData;
+  voice_overs: VoiceOverFormData[];
+  constellations: ConstellationFormData[];
+  ascensions: (AscensionFormData & { costs: AscensionCostFormData[] })[];
+  talents: TalentFormData[];
+  talent_costs: TalentCostFormData[];
+  relationships: RelationshipFormData[];
+  roles: string[];
 }
 
 export interface CharacterFormData {
@@ -34,10 +50,10 @@ export interface CharacterFormData {
   voice_actor_japanese: string;
   voice_actor_korean: string;
   voice_actor_chinese: string;
-  how_to_obtain?: any;
-  affiliations?: any;
+  how_to_obtain?: string[] | null;
+  affiliations?: string[] | null;
   namecard_description: string;
-  namecard_sources?: any;
+  namecard_sources?: string[] | null;
   namecard_icon: string;
   namecard_background: string;
   namecard_banner: string;
@@ -88,7 +104,8 @@ export interface ConstellationFormData {
 export interface AscensionCostFormData {
   character_ascension_id: number;
   order: number;
-  material_id: number;
+  /** Unset until a material is picked - unique per ascension phase. */
+  material_id?: number;
   quantity: number;
 }
 
@@ -109,7 +126,8 @@ export interface AscensionFormData {
 export interface TalentCostFormData {
   level: number;
   order: number;
-  material_id: number;
+  /** Unset until a material is picked - unique per talent level. */
+  material_id?: number;
   quantity: number;
 }
 
@@ -129,10 +147,26 @@ export interface RelationshipFormData {
   type: string;
   name: string;
   state: string;
+  is_biological?: boolean;
 }
 
 export interface NameEntry { name: string; }
+export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
+
+/** Character columns stored as JSONB - PDO hands them back as raw JSON strings. */
+const CHARACTER_JSON_FIELDS = ['how_to_obtain', 'affiliations', 'namecard_sources'] as const;
+
+function parseJsonColumn(value: unknown): unknown {
+  if (typeof value !== 'string') {
+    return value;
+  }
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
+}
 
 
 @Injectable({ providedIn: 'root' })
@@ -146,7 +180,15 @@ export class AdminApiService {
   }
 
   getCharacterFull(id: number): Observable<CharacterFull> {
-    return this._http.get<any>(`/api/characters/${id}/full`);
+    return this._http.get<CharacterFull>(`/api/characters/${id}/full`).pipe(
+      map((full) => {
+        const character = { ...full.character } as Record<string, unknown>;
+        for (const field of CHARACTER_JSON_FIELDS) {
+          character[field] = parseJsonColumn(character[field]);
+        }
+        return { ...full, character: character as unknown as CharacterFormData };
+      })
+    );
   }
 
   createCharacterFull(data: FormData): Observable<any> {
@@ -182,6 +224,7 @@ export class AdminApiService {
   getArtifactPieceTypes(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/artifact-piece-types'); }
   getMaterials(): Observable<Material[]> { return this._http.get<Material[]>('/api/materials'); }
   getMigrations(): Observable<any[]> { return this._http.get<any[]>('/api/migrations'); }
+  getFoods(): Observable<IdNameEntry[]> { return this._http.get<IdNameEntry[]>('/api/foods'); }
   getStats(): Observable<any[]> { return this._http.get<any[]>('/api/stats'); }
 
   // ── Lookup tables (CRUD) ─────────────────────────────────────────────────────

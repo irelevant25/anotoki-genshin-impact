@@ -11,7 +11,7 @@
     <div class="dropdown-options">
         @if (emptyOption) {
             <div class="dropdown-option placeholder" [class.highlighted]="highlightedIndex === -1" (click)="selectOption()" (mouseenter)="mouseEnter(highlightedIndex - 1)">
-                {{ component?.placeholder() }}
+                {{ emptyOptionText ?? component?.placeholder() }}
             </div>
         }
 

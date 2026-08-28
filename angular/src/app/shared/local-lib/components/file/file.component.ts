@@ -25,12 +25,14 @@ type Type<T extends FileItemType = FileItemType> = T[];
 })
 export class FileComponent<T extends FileItemType = FileItemType> extends AbstractInputComponent<Type<T>> {
   multiple = model<boolean>(false);
+  /** Pick a whole folder; each File then carries its `webkitRelativePath`. */
+  directory = model<boolean>(false);
   maxFiles = model<number | undefined>(undefined);
   minFiles = model<number | undefined>(undefined);
   acceptedExtensions = model<string[] | undefined>(undefined);
   minSizeBytes = model<number | undefined>(undefined);
   maxSizeBytes = model<number | undefined>(undefined);
-  buttonText = model<string>('Vybrať súbory');
+  buttonText = model<string | undefined>(undefined);
   buttonOutline = model<boolean>(false);
   buttonVariant = model<ButtonVariant>('primary');
   showFileNames = model<boolean>(true);

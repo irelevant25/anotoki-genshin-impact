@@ -1,12 +1,19 @@
 <div class="sub-list">
-    @for (item of constellationSorted(); track item; let i = $index) {
+    @for (item of sorted(); track item.uid) {
         <div class="sub-card">
             <div class="sub-card-header">
                 <span class="sub-card-index">C{{ item.data.level }} · {{ item.data.name || 'Unnamed' }}</span>
-                <app-button variant="danger" [outline]="true" (buttonClick)="removeConstellation(i)">Delete</app-button>
+                <app-button variant="danger" [outline]="true" (buttonClick)="removeConstellation(item)">Delete</app-button>
             </div>
             <app-field-container [cols]="4">
-                <app-number [label]="'Level'" [value]="item.data.level" [min]="1" [max]="6" (inputChange)="onLevelChange(i, $event)"></app-number>
+                <app-number
+                    [label]="'Level'"
+                    [value]="item.data.level"
+                    [required]="true"
+                    [min]="1"
+                    [max]="maxConstellations"
+                    (inputChange)="onLevelChange(item, $event)"
+                ></app-number>
                 <app-text class="col-span-3" [label]="'Name'" [(value)]="item.data.name" [required]="true"></app-text>
             </app-field-container>
             <app-field-container [cols]="4">
@@ -16,24 +23,24 @@
                         [buttonClass]="'w-100'"
                         [label]="'Icon'"
                         [buttonOutline]="true"
-                        [required]="true"
-                        [acceptedExtensions]="['.jpg', '.jpeg', '.png', '.avif', '.webp']"
-                        (inputChange)="onConstellationIconSelect(item, $event)"
+                        [required]="!iconSrc(item)"
+                        [acceptedExtensions]="imageExtensions"
                         [showFileNames]="false"
+                        (inputChange)="onIconSelect(item, $event)"
                     ></app-file>
-                    @if (item.data.icon) {
-                        <img #img [src]="item.data.icon" class="preview-img" />
+                    @if (iconSrc(item); as src) {
+                        <img #img [src]="src" class="preview-img" [alt]="item.data.name" />
                         <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                            <img class="w-100" [src]="item.data.icon" />
+                            <img class="w-100" [src]="src" [alt]="item.data.name" />
                         </app-tooltip>
                     }
                 </div>
-                <app-textarea class="col-span-3" [label]="'Description'" [(value)]="item.data.description" [rows]="4" [class]="'col-span-2'"></app-textarea>
+                <app-textarea class="col-span-3" [label]="'Description'" [(value)]="item.data.description" [rows]="4"></app-textarea>
             </app-field-container>
         </div>
     }
 
-    @if (constellations().length < 6) {
+    @if (canAdd()) {
         <app-button variant="primary" [outline]="true" (buttonClick)="addConstellation()">Add</app-button>
     }
 </div>

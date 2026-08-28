@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { NotificationService } from './components/notification/notification.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AbstractModalComponent } from './abstract-modal.class';
 
@@ -12,7 +11,6 @@ export abstract class AbstractDetailComponent<T extends Record<string, any>> ext
   id?: number | string;
 
   protected readonly _route$ = inject(ActivatedRoute);
-  protected readonly notificationService = inject(NotificationService);
 
   constructor() {
     super();

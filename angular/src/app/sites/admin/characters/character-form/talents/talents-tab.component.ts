@@ -1,4 +1,4 @@
-import { Component, computed, model } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
@@ -7,159 +7,154 @@ import { DropdownOption } from '../../../../../shared/local-lib/services/options
 import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { TabsComponent } from '../../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../../shared/local-lib/components/tabs/tab/tab.component';
-import { TalentCostFormData, TalentFormData } from '../../../services/admin-api.service';
+import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
+import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
+import { TalentCostFormData } from '../../../services/admin-api.service';
 import { Material } from '../../../../../shared/models.generated';
-import { FieldContainerComponent } from "../../../../../shared/local-lib/components/field-container/field-container.component";
-import { TooltipComponent } from "../../../../../shared/local-lib/components/tooltip/tooltip.component";
-import { TalentWrapper } from '../character-form.component';
-import { NumberComponent } from "../../../../../shared/local-lib/components/number/number.component";
+import { emptyTalent, IMAGE_EXTENSIONS, reorder, replacePreview, resequence, TalentWrapper } from '../character-form.model';
 
-interface TalenCostGroup {
+interface TalentCostGroup {
   level: number;
   cost: TalentCostFormData[];
 }
+
+/** Talents level from 2 to 10, so a character has at most nine cost levels. */
+const MIN_COST_LEVEL = 2;
+const MAX_COST_LEVEL = 10;
 
 @Component({
   selector: 'app-talents-tab',
   templateUrl: './talents-tab.component.html',
   styleUrls: ['./talents-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, TextareaComponent, DropdownComponent, FileComponent, TabsComponent, TabComponent, FieldContainerComponent, TooltipComponent, NumberComponent],
+  imports: [
+    ButtonComponent,
+    TextComponent,
+    TextareaComponent,
+    DropdownComponent,
+    FileComponent,
+    TabsComponent,
+    TabComponent,
+    FieldContainerComponent,
+    TooltipComponent,
+    NumberComponent,
+  ],
 })
 export class TalentsTabComponent {
   talents = model<TalentWrapper[]>([]);
-  talentsSorted = computed(() => {
-    return this.talents().sort((a, b) => a.data.order - b.data.order)
-  });
-
-  talentTypes = model<string[]>([]);
-  materials = model<Material[]>([]);
-  materialOptions = computed<DropdownOption[]>(() => {
-    return this.materials().map(m => ({ key: m.id ?? -1, value: m.name, data: m }))
-  });
-
   talentCost = model<TalentCostFormData[]>([]);
-  talentCostGroups = computed<TalenCostGroup[]>(() => {
-    const talentCost = this.talentCost();
-    const costLevels: TalenCostGroup[] = [];
-    for (const cost of talentCost) {
-      const costLevel = costLevels.find(x => x.level === cost.level);
-      if (costLevel) {
-        costLevel.cost.push(cost);
+  talentTypes = input<string[]>([]);
+  materials = input<Material[]>([]);
+
+  readonly imageExtensions = IMAGE_EXTENSIONS;
+  readonly minCostLevel = MIN_COST_LEVEL;
+  readonly maxCostLevel = MAX_COST_LEVEL;
+
+  sortedTalents = computed(() => [...this.talents()].sort((a, b) => a.data.order - b.data.order));
+  materialOptions = computed<DropdownOption[]>(() => this.materials().map((material) => ({ key: material.id ?? -1, value: material.name, data: material })));
+
+  /** Costs grouped per talent level, which is how the tab presents them. */
+  costGroups = computed<TalentCostGroup[]>(() => {
+    const groups = new Map<number, TalentCostFormData[]>();
+    for (const cost of this.talentCost()) {
+      const group = groups.get(cost.level);
+      if (group) {
+        group.push(cost);
       } else {
-        costLevels.push({ level: cost.level, cost: [cost] });
+        groups.set(cost.level, [cost]);
       }
     }
-    costLevels.forEach(x => x.cost.sort((a, b) => a.order - b.order));
-    return costLevels.sort((a, b) => a.level - b.level);
+    return [...groups.entries()]
+      .map(([level, cost]) => ({ level, cost: cost.sort((a, b) => a.order - b.order) }))
+      .sort((a, b) => a.level - b.level);
   });
+
+  canAddCostLevel = computed(() => this.costGroups().length < MAX_COST_LEVEL - MIN_COST_LEVEL + 1);
+
+  // ── Talents ─────────────────────────────────────────────────────────────────
 
   addTalent(): void {
-    this.talents.update(t => [...t, { data: { name: '', type: 'Normal Attack', icon: '', description: '', order: t.length } }]);
+    this.talents.update((talents) => [...talents, emptyTalent(talents.length + 1, this.talentTypes()[0] ?? '')]);
   }
 
-  removeTalent(i: number): void {
-    this.talents.update(t => t.filter((_, idx) => idx !== i));
-  }
-
-  costsByLevel(level: number): { cost: TalentCostFormData; ci: number }[] {
-    return this.talentCost()
-      .map((cost, ci) => ({ cost, ci }))
-      .filter(({ cost }) => cost.level === level);
-  }
-
-  onTalentIconSelect(item: TalentWrapper, files: FileItemType[] | undefined | null): void {
-    const file = files?.[0]?.file;
-    item.icon = file;
-    item.data.icon = file ? URL.createObjectURL(file) : '';
-  }
-
-  onPhaseChange(index: number, newOrder: number | string | null | undefined): void {
-    const order = Number(newOrder);
-    if (!order || isNaN(order)) {
-      return;
-    }
-    const talents = this.talents();
-    const oldOrder = talents[index].data.order;
-    if (order === oldOrder) {
-      return;
-    }
-
-    this.talents.update(list => {
-      const updated = [...list];
-      for (let i = 0; i < updated.length; i++) {
-        const updatingConstellation = updated[i];
-        if (i === index) {
-          updatingConstellation.data.order = order;
-        } else if (oldOrder < order && updatingConstellation.data.order > oldOrder && updatingConstellation.data.order <= order) {
-          updatingConstellation.data.order = updatingConstellation.data.order - 1;
-        } else if (oldOrder > order && updatingConstellation.data.order >= order && updatingConstellation.data.order < oldOrder) {
-          updatingConstellation.data.order = updatingConstellation.data.order + 1;
-        }
-      }
-      return updated;
+  removeTalent(wrapper: TalentWrapper): void {
+    replacePreview(wrapper.preview, undefined);
+    this.talents.update((talents) => {
+      const remaining = talents.filter((talent) => talent !== wrapper);
+      resequence(
+        remaining,
+        (talent) => talent.data.order,
+        (talent, order) => (talent.data.order = order)
+      );
+      return remaining;
     });
   }
+
+  /** Preview for a picked icon, falling back to the path already stored on the talent. */
+  iconSrc(wrapper: TalentWrapper): string | undefined {
+    return wrapper.preview ?? wrapper.data.icon ?? undefined;
+  }
+
+  onIconSelect(wrapper: TalentWrapper, files: FileItemType[] | undefined | null): void {
+    const file = files?.[0]?.file;
+    // The stored path stays untouched - the API rewrites it once the upload lands.
+    wrapper.preview = replacePreview(wrapper.preview, file);
+    wrapper.icon = file;
+  }
+
+  onTalentOrderChange(wrapper: TalentWrapper, newOrder: number | string | null | undefined): void {
+    this.talents.update((talents) => {
+      const changed = reorder(
+        talents,
+        wrapper,
+        newOrder,
+        (talent) => talent.data.order,
+        (talent, order) => (talent.data.order = order)
+      );
+      return changed ? [...talents] : talents;
+    });
+  }
+
+  // ── Costs ───────────────────────────────────────────────────────────────────
 
   addCostLevel(): void {
-    const costs = this.talentCost();
-    const nextLevel = costs.length > 0 ? Math.max(...costs.map(c => c.level)) + 1 : 2;
-    this.talentCost.update(c => [...c, { level: nextLevel, material_id: 0, quantity: 1, order: c.length }]);
-  }
-
-  removeCostLevel(costGroup: TalenCostGroup): void {
-    this.talentCost.update(c => c.filter(x => x.level !== costGroup.level));
-  }
-
-  addCostLevelMaterial(costGroup: TalenCostGroup): void {
-    this.talentCost.update(c => [...c, { level: costGroup.level, material_id: 0, quantity: 0, order: c.length }]);
-  }
-
-  removeCostLevelMaterial(cost: TalentCostFormData): void {
-    this.talentCost.update(c => c.filter(x => x !== cost));
-    if (this.talentCost().length === 0) {
-      this.addCostLevel();
-    }
-  }
-
-  onOrderChange(item: TalentWrapper, newOrder: number | string | null | undefined): void {
-    const order = Number(newOrder);
-    if (!order || isNaN(order)) {
+    const groups = this.costGroups();
+    const nextLevel = groups.length > 0 ? Math.max(...groups.map((group) => group.level)) + 1 : MIN_COST_LEVEL;
+    if (nextLevel > MAX_COST_LEVEL) {
       return;
     }
-    const oldOrder = item.data.order;
-    if (order === oldOrder) {
-      return;
-    }
+    this.talentCost.update((costs) => [...costs, { level: nextLevel, quantity: 1, order: 1 }]);
+  }
 
-    this.talents.update(list => {
-      const updated = [...list];
-      for (let i = 0; i < updated.length; i++) {
-        if (updated[i] === item) {
-          updated[i].data.order = order;
-        } else if (oldOrder < order && updated[i].data.order > oldOrder && updated[i].data.order <= order) {
-          updated[i].data.order = updated[i].data.order - 1;
-        } else if (oldOrder > order && updated[i].data.order >= order && updated[i].data.order < oldOrder) {
-          updated[i].data.order = updated[i].data.order + 1;
-        }
-      }
-      return updated;
+  removeCostLevel(group: TalentCostGroup): void {
+    this.talentCost.update((costs) => costs.filter((cost) => cost.level !== group.level));
+  }
+
+  addCostMaterial(group: TalentCostGroup): void {
+    this.talentCost.update((costs) => [...costs, { level: group.level, quantity: 1, order: group.cost.length + 1 }]);
+  }
+
+  removeCostMaterial(group: TalentCostGroup, cost: TalentCostFormData): void {
+    this.talentCost.update((costs) => {
+      const remaining = costs.filter((current) => current !== cost);
+      resequence(
+        remaining.filter((current) => current.level === group.level),
+        (current) => current.order,
+        (current, order) => (current.order = order)
+      );
+      return remaining;
     });
   }
 
-  onLevelChange(costGroup: TalenCostGroup, newLevel: number | string | null | undefined): void {
+  onCostLevelChange(group: TalentCostGroup, newLevel: number | string | null | undefined): void {
     const level = Number(newLevel);
-    if (!level || isNaN(level)) {
+    if (!Number.isFinite(level) || level < MIN_COST_LEVEL || level > MAX_COST_LEVEL || level === group.level) {
       return;
     }
 
-    const oldLevel = costGroup.level;
-    if (level === oldLevel) {
-      return;
-    }
-
-    this.talentCost.update(list => {
-      const updated = [...list];
-      for (const cost of updated) {
+    this.talentCost.update((costs) => {
+      const oldLevel = group.level;
+      for (const cost of costs) {
         if (cost.level === oldLevel) {
           cost.level = level;
         } else if (oldLevel < level && cost.level > oldLevel && cost.level <= level) {
@@ -168,33 +163,20 @@ export class TalentsTabComponent {
           cost.level += 1;
         }
       }
-      return updated;
+      return [...costs];
     });
   }
 
-  onCostOrderChange(array: TalentCostFormData[], cost: TalentCostFormData, newOrder: number | string | null | undefined): void {
-    const order = Number(newOrder);
-    if (!order || isNaN(order)) {
-      return;
-    }
-    const oldOrder = cost.order;
-    if (order === oldOrder) {
-      return;
-    }
-
-    this.talentCost.update(list => {
-      const talentCost = [...list];
-      const updated = talentCost.filter(x => array.includes(x));
-      for (let i = 0; i < updated.length; i++) {
-        if (updated[i] === cost) {
-          updated[i].order = order;
-        } else if (oldOrder < order && updated[i].order > oldOrder && updated[i].order <= order) {
-          updated[i].order = updated[i].order - 1;
-        } else if (oldOrder > order && updated[i].order >= order && updated[i].order < oldOrder) {
-          updated[i].order = updated[i].order + 1;
-        }
-      }
-      return talentCost;
+  onCostOrderChange(group: TalentCostGroup, cost: TalentCostFormData, newOrder: number | string | null | undefined): void {
+    this.talentCost.update((costs) => {
+      const changed = reorder(
+        group.cost,
+        cost,
+        newOrder,
+        (current) => current.order,
+        (current, order) => (current.order = order)
+      );
+      return changed ? [...costs] : costs;
     });
   }
 }

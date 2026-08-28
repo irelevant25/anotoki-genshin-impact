@@ -24,7 +24,8 @@
                 #inputElement
                 [id]="inputId"
                 type="file"
-                [multiple]="multiple()"
+                [multiple]="multiple() || directory()"
+                [attr.webkitdirectory]="directory() ? '' : null"
                 [accept]="acceptedExtensions()?.join(', ') ?? ''"
                 [disabled]="disabled()"
                 style="display: none"
@@ -35,7 +36,7 @@
 
             <!-- File selection button -->
             <app-button
-                [text]="multiple() ? 'Vybrat súbory' : 'Vybrat súbor'"
+                [text]="buttonText() ?? (directory() ? 'Vybrat priečinok' : multiple() ? 'Vybrat súbory' : 'Vybrat súbor')"
                 [class]="buttonClass()"
                 [variant]="buttonVariant()"
                 [disabled]="disabled()"

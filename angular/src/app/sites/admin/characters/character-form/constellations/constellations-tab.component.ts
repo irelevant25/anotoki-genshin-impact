@@ -5,59 +5,65 @@ import { TextareaComponent } from '../../../../../shared/local-lib/components/te
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
-import { FieldContainerComponent } from "../../../../../shared/local-lib/components/field-container/field-container.component";
-import { ConstellationWrapper } from '../character-form.component';
+import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { ConstellationWrapper, emptyConstellation, IMAGE_EXTENSIONS, reorder, replacePreview, resequence } from '../character-form.model';
+
+const MAX_CONSTELLATIONS = 6;
 
 @Component({
   selector: 'app-constellations-tab',
   templateUrl: './constellations-tab.component.html',
   styleUrls: ['./constellations-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, FileComponent, TooltipComponent, FieldContainerComponent, FieldContainerComponent],
+  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, FileComponent, TooltipComponent, FieldContainerComponent],
 })
 export class ConstellationsTabComponent {
   constellations = model<ConstellationWrapper[]>([]);
-  constellationSorted = computed(() => {
-    return this.constellations().sort((a, b) => a.data.level - b.data.level)
-  });
+
+  readonly imageExtensions = IMAGE_EXTENSIONS;
+  readonly maxConstellations = MAX_CONSTELLATIONS;
+
+  sorted = computed(() => [...this.constellations()].sort((a, b) => a.data.level - b.data.level));
+  canAdd = computed(() => this.constellations().length < MAX_CONSTELLATIONS);
 
   addConstellation(): void {
-    this.constellations.update(c => [...c, { data: { name: '', icon: '', description: '', level: c.length + 1 } }]);
+    this.constellations.update((constellations) => [...constellations, emptyConstellation(constellations.length + 1)]);
   }
 
-  removeConstellation(i: number): void {
-    this.constellations.update(c => c.filter((_, idx) => idx !== i));
+  removeConstellation(wrapper: ConstellationWrapper): void {
+    replacePreview(wrapper.preview, undefined);
+    this.constellations.update((constellations) => {
+      const remaining = constellations.filter((constellation) => constellation !== wrapper);
+      resequence(
+        remaining,
+        (constellation) => constellation.data.level,
+        (constellation, level) => (constellation.data.level = level)
+      );
+      return remaining;
+    });
   }
 
-  onConstellationIconSelect(item: ConstellationWrapper, files: FileItemType[] | undefined | null): void {
+  /** Preview for a picked icon, falling back to the path already stored on the constellation. */
+  iconSrc(wrapper: ConstellationWrapper): string | undefined {
+    return wrapper.preview ?? wrapper.data.icon ?? undefined;
+  }
+
+  onIconSelect(wrapper: ConstellationWrapper, files: FileItemType[] | undefined | null): void {
     const file = files?.[0]?.file;
-    item.icon = file;
-    item.data.icon = file ? URL.createObjectURL(file) : '';
+    // The stored path stays untouched - the API rewrites it once the upload lands.
+    wrapper.preview = replacePreview(wrapper.preview, file);
+    wrapper.icon = file;
   }
 
-  onLevelChange(index: number, newLevel: number | string | null | undefined): void {
-    const level = Number(newLevel);
-    if (!level || isNaN(level)) {
-      return;
-    }
-    const constellations = this.constellations();
-    const oldLevel = constellations[index].data.level;
-    if (level === oldLevel) {
-      return;
-    }
-
-    this.constellations.update(list => {
-      const updated = [...list];
-      for (let i = 0; i < updated.length; i++) {
-        const updatingConstellation = updated[i];
-        if (i === index) {
-          updatingConstellation.data.level = level;
-        } else if (oldLevel < level && updatingConstellation.data.level > oldLevel && updatingConstellation.data.level <= level) {
-          updatingConstellation.data.level = updatingConstellation.data.level - 1;
-        } else if (oldLevel > level && updatingConstellation.data.level >= level && updatingConstellation.data.level < oldLevel) {
-          updatingConstellation.data.level = updatingConstellation.data.level + 1;
-        }
-      }
-      return updated;
+  onLevelChange(wrapper: ConstellationWrapper, newLevel: number | string | null | undefined): void {
+    this.constellations.update((constellations) => {
+      const changed = reorder(
+        constellations,
+        wrapper,
+        newLevel,
+        (constellation) => constellation.data.level,
+        (constellation, level) => (constellation.data.level = level)
+      );
+      return changed ? [...constellations] : constellations;
     });
   }
 }

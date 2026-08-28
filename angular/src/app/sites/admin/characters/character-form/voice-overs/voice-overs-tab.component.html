@@ -1,34 +1,47 @@
+<div class="vo-toolbar">
+    <span class="vo-total">{{ voiceOvers().length }} voice overs</span>
+    <div class="vo-toolbar-actions">
+        <app-button text="Import from files" icon="icon-upload" variant="primary" [outline]="true" (buttonClick)="openImport()"></app-button>
+        @if (deleteAllArmed()) {
+            <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancelDeleteAll()"></app-button>
+            <app-button [text]="'Delete all ' + voiceOvers().length + '?'" variant="danger" (buttonClick)="deleteAll()"></app-button>
+        } @else {
+            <app-button text="Delete all" variant="danger" [outline]="true" [disabled]="!voiceOvers().length" (buttonClick)="deleteAll()"></app-button>
+        }
+    </div>
+</div>
+
 <div class="d-flex flex-column gap-5">
-    @for (type of voiceOverTypes(); track type) {
+    @for (group of groups(); track group.type) {
         <app-accordion [onlyOneOpen]="false">
-            <app-accordion-item [lazy]="true" [title]="type + ' (' + (vosByType()[type]?.length ?? 0) + ')'" [gap]="false">
+            <app-accordion-item [lazy]="true" [title]="group.type + ' (' + group.entries.length + ')'" [gap]="false">
                 <app-accordion [onlyOneOpen]="false">
-                    @for (entry of vosByType()[type]; track entry; let index = $index) {
-                        <app-accordion-item [lazy]="true" [title]="entry.displayTitle" class="secondary">
+                    @for (entry of group.entries; track entry.wrapper.uid) {
+                        <app-accordion-item [lazy]="true" [title]="entry.title" class="secondary">
                             <div class="sub-card">
                                 <div class="sub-card-header">
                                     <app-number
                                         [label]="'Order'"
-                                        [value]="entry.data.order"
+                                        [value]="entry.wrapper.data.order"
                                         [required]="true"
                                         [min]="1"
-                                        [max]="vosByType()[type]?.length ?? 1"
-                                        (inputChange)="onOrderChange(entry.data, $event)"
+                                        [max]="group.entries.length"
+                                        (inputChange)="onOrderChange(entry.wrapper, $event)"
                                     ></app-number>
-                                    <app-button variant="danger" [outline]="true" (buttonClick)="removeVoiceOver(index)">Delete</app-button>
+                                    <app-button variant="danger" [outline]="true" (buttonClick)="removeVoiceOver(entry.wrapper)">Delete</app-button>
                                 </div>
                                 <app-tabs (activeTabChange)="stopAudio()">
                                     <app-tab [title]="'English'">
-                                        <app-voice-overs-tab-item [entry]="entry" [index]="index" [language]="'english'" [(audio)]="audio" [(playingKey)]="playingKey"></app-voice-overs-tab-item>
+                                        <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'english'" [(audio)]="audio" [(playingKey)]="playingKey" />
                                     </app-tab>
                                     <app-tab [title]="'Japanese'">
-                                        <app-voice-overs-tab-item [entry]="entry" [index]="index" [language]="'japanese'" [(audio)]="audio" [(playingKey)]="playingKey"></app-voice-overs-tab-item>
+                                        <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'japanese'" [(audio)]="audio" [(playingKey)]="playingKey" />
                                     </app-tab>
                                     <app-tab [title]="'Chinese'">
-                                        <app-voice-overs-tab-item [entry]="entry" [index]="index" [language]="'chinese'" [(audio)]="audio" [(playingKey)]="playingKey"></app-voice-overs-tab-item>
+                                        <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'chinese'" [(audio)]="audio" [(playingKey)]="playingKey" />
                                     </app-tab>
                                     <app-tab [title]="'Korean'">
-                                        <app-voice-overs-tab-item [entry]="entry" [index]="index" [language]="'korean'" [(audio)]="audio" [(playingKey)]="playingKey"></app-voice-overs-tab-item>
+                                        <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'korean'" [(audio)]="audio" [(playingKey)]="playingKey" />
                                     </app-tab>
                                 </app-tabs>
                             </div>
@@ -36,8 +49,8 @@
                     }
                 </app-accordion>
             </app-accordion-item>
-            <div class="vo-lang-actions mt-2">
-                <app-button variant="primary" [outline]="true" (buttonClick)="addVoiceOver(type)">Add {{ type }}</app-button>
+            <div class="mt-2">
+                <app-button variant="primary" [outline]="true" (buttonClick)="addVoiceOver(group.type)">Add {{ group.type }}</app-button>
             </div>
         </app-accordion>
     }

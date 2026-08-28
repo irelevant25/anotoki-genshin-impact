@@ -1,14 +1,29 @@
 <div class="page-header">
     <h1 class="page-title">Characters</h1>
-    <a routerLink="create" class="btn-add">
-        <i class="fa-solid fa-plus"></i>
-        Add Character
+    <a routerLink="create">
+        <app-button text="Add Character" icon="icon-plus"></app-button>
     </a>
 </div>
 
 <app-loader [loading]="loading()"></app-loader>
 
 @if (!loading()) {
+    <div class="filter-bar">
+        <app-text [label]="'ID'" [placeholder]="'contains'" [(value)]="filterId"></app-text>
+        <app-text [label]="'Name'" [placeholder]="'contains'" [(value)]="filterName"></app-text>
+        <app-multiselect [label]="'Element'" [options]="elementOptions()" [(value)]="filterElements"></app-multiselect>
+        <app-multiselect [label]="'Weapon'" [options]="weaponOptions()" [(value)]="filterWeapons"></app-multiselect>
+        <app-dropdown [label]="'Rarity'" [options]="rarityOptions()" [(value)]="filterRarity" [suffix]="' ★'" [emptyOption]="true" [emptyOptionText]="'— any —'"></app-dropdown>
+        <app-multiselect [label]="'Region'" [options]="regionOptions()" [(value)]="filterRegions"></app-multiselect>
+        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <div class="filter-summary">
+            <span class="filter-count">{{ filteredCharacters().length }} / {{ characters().length }}</span>
+            @if (hasActiveFilter()) {
+                <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+            }
+        </div>
+    </div>
+
     <div class="table-wrap">
         <table class="admin-table">
             <thead>
@@ -25,12 +40,12 @@
                 </tr>
             </thead>
             <tbody>
-                @if (!charactersOrderByVersion().length) {
+                @if (!filteredCharacters().length) {
                     <tr>
-                        <td colspan="9" class="empty-cell">No characters found</td>
+                        <td colspan="9" class="empty-cell">No characters match the filter</td>
                     </tr>
                 }
-                @for (char of charactersOrderByVersion(); track char.id) {
+                @for (char of filteredCharacters(); track char.id) {
                     <tr>
                         <td class="col-id">{{ char.id }}</td>
                         <td class="col-icon">

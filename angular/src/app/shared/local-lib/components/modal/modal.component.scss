@@ -31,8 +31,16 @@
   .modal-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-bottom: 15px;
     flex-shrink: 0; // Prevent header from shrinking
+
+    h2 {
+      margin: 0;
+      font-size: var(--font-size-xl, 20px);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
   }
 
   .modal-body {
@@ -48,7 +56,7 @@
   }
 
   .modal-body:has(*) {
-    border-top: 2px solid #dddddd;
+    border-top: 1px solid var(--border-color);
     // padding: 15px;
     flex: 1 1 auto; // Allow body to grow and shrink
     min-height: 0; // Important for overflow to work in flexbox
@@ -56,7 +64,7 @@
   }
 
   .modal-footer:has(*) {
-    border-top: 2px solid #dddddd;
+    border-top: 1px solid var(--border-color);
     padding-top: 15px;
     flex-shrink: 0; // Prevent footer from shrinking
   }
@@ -88,16 +96,16 @@
   }
 
   .modal-body::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--bg-hover);
     border-radius: 4px;
   }
 
   .modal-body::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
+    background: var(--border-color);
     border-radius: 4px;
   }
 
   .modal-body::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+    background: var(--text-muted);
   }
 }

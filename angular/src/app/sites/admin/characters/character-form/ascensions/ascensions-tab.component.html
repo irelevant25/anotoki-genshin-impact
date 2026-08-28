@@ -1,46 +1,62 @@
 <div class="sub-list">
-    @for (item of ascensionsSorted(); track $index; let i = $index) {
+    @for (item of sorted(); track item.wrapper.uid) {
         <div class="sub-card">
             <div class="sub-card-header">
-                <span class="sub-card-index">Phase {{ item.ascension.phase }}</span>
-                <app-button variant="danger" [outline]="true" (buttonClick)="removeAscension(i)">Delete</app-button>
+                <span class="sub-card-index">Phase {{ item.wrapper.ascension.phase }}</span>
+                <app-button variant="danger" [outline]="true" (buttonClick)="removeAscension(item.wrapper)">Delete</app-button>
             </div>
             <div class="form-grid">
-                <app-number [label]="'Phase'" [(value)]="item.ascension.phase" [min]="0" [max]="6"></app-number>
+                <app-number [label]="'Phase'" [(value)]="item.wrapper.ascension.phase" [required]="true" [min]="0" [max]="maxPhase"></app-number>
                 <app-dropdown
                     [label]="'Primary Stat'"
                     [options]="stats()"
-                    [(value)]="item.ascension.primary_stat"
+                    [(value)]="item.wrapper.ascension.primary_stat"
                     [required]="true"
                     [emptyOption]="true"
                     [emptyOptionText]="'— select stat —'"
                 ></app-dropdown>
-                <app-number [label]="'Primary Stat Value'" [(value)]="item.ascension.primary_stat_value" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start HP'" [(value)]="item.ascension.start_level_hp" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start ATK'" [(value)]="item.ascension.start_level_atk" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start DEF'" [(value)]="item.ascension.start_level_def" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End HP'" [(value)]="item.ascension.end_level_hp" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End ATK'" [(value)]="item.ascension.end_level_atk" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End DEF'" [(value)]="item.ascension.end_level_def" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Primary Stat Value'" [(value)]="item.wrapper.ascension.primary_stat_value" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Start HP'" [(value)]="item.wrapper.ascension.start_level_hp" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Start ATK'" [(value)]="item.wrapper.ascension.start_level_atk" [allowDecimal]="true"></app-number>
+                <app-number [label]="'Start DEF'" [(value)]="item.wrapper.ascension.start_level_def" [allowDecimal]="true"></app-number>
+                <app-number [label]="'End HP'" [(value)]="item.wrapper.ascension.end_level_hp" [allowDecimal]="true"></app-number>
+                <app-number [label]="'End ATK'" [(value)]="item.wrapper.ascension.end_level_atk" [allowDecimal]="true"></app-number>
+                <app-number [label]="'End DEF'" [(value)]="item.wrapper.ascension.end_level_def" [allowDecimal]="true"></app-number>
             </div>
 
-            @if (item.ascension.phase !== 0) {
+            @if (item.wrapper.ascension.phase !== 0) {
                 <div class="cost-section">
                     <div class="cost-header">
                         <span class="cost-label">Materials</span>
-                        <app-button variant="primary" [outline]="true" (buttonClick)="addAscensionCost(i)">Add</app-button>
+                        <app-button variant="primary" [outline]="true" (buttonClick)="addCost(item.wrapper)">Add</app-button>
                     </div>
                     <div class="cost-cards">
-                        @for (cost of item.cost; track cost; let ci = $index) {
+                        @for (cost of item.cost; track cost) {
                             <div class="cost-card">
-                                <app-number [label]="'Order'" [value]="cost.order" [required]="true" [min]="1" [max]="item.cost.length" (inputChange)="onOrderChange(item, cost, $event)"></app-number>
+                                <app-number
+                                    [label]="'Order'"
+                                    [value]="cost.order"
+                                    [required]="true"
+                                    [min]="1"
+                                    [max]="item.cost.length"
+                                    (inputChange)="onCostOrderChange(item.wrapper, cost, $event)"
+                                ></app-number>
                                 <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
-                                    <img src="assets/materials/{{ materialDropdown.computedOption()?.value }}.avif" />
+                                    @if (materialDropdown.computedOption(); as option) {
+                                        <img src="assets/materials/{{ option.value }}.avif" [alt]="option.value" />
+                                    }
                                 </div>
-                                <app-dropdown #materialDropdown [options]="materialOptions()" [(value)]="cost.material_id" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
+                                <app-dropdown
+                                    #materialDropdown
+                                    [options]="materialOptions()"
+                                    [(value)]="cost.material_id"
+                                    [required]="true"
+                                    [emptyOption]="true"
+                                    [emptyOptionText]="'— material —'"
+                                ></app-dropdown>
                                 <div class="cost-card-footer">
-                                    <input class="admin-input" type="number" min="1" [(value)]="cost.quantity" placeholder="Qty" />
-                                    <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeAscensionCost(i, ci)"></app-button>
+                                    <app-number [placeholder]="'Qty'" [(value)]="cost.quantity" [required]="true" [min]="1"></app-number>
+                                    <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeCost(item.wrapper, cost)"></app-button>
                                 </div>
                             </div>
                         }
@@ -50,7 +66,7 @@
         </div>
     }
 
-    @if (ascensions().length < 7) {
+    @if (canAdd()) {
         <app-button variant="primary" [outline]="true" (buttonClick)="addAscension()">Add</app-button>
     }
 </div>

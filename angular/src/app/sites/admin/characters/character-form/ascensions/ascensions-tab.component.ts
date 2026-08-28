@@ -1,11 +1,14 @@
-import { Component, computed, model } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { Material } from '../../../../../shared/models.generated';
-import { AscensionWrapper } from '../character-form.component';
 import { AscensionCostFormData } from '../../../services/admin-api.service';
+import { AscensionWrapper, emptyAscension, reorder, resequence } from '../character-form.model';
+
+/** Phases 0 (base stats) through 6. */
+const MAX_ASCENSIONS = 7;
 
 @Component({
   selector: 'app-ascensions-tab',
@@ -15,63 +18,59 @@ import { AscensionCostFormData } from '../../../services/admin-api.service';
 })
 export class AscensionsTabComponent {
   ascensions = model<AscensionWrapper[]>([]);
-  ascensionsSorted = computed(() => {
-    this.ascensions().forEach(x => x.cost.sort((a, b) => a.order - b.order));
-    return this.ascensions().sort((a, b) => a.ascension.phase - b.ascension.phase);
-  });
-  stats = model<string[]>([]);
-  materials = model<Material[]>([]);
-  materialOptions = computed<DropdownOption[]>(() => this.materials().map(m => ({ key: m.id ?? -1, value: m.name, data: m })));
+  stats = input<string[]>([]);
+  materials = input<Material[]>([]);
+
+  readonly maxPhase = MAX_ASCENSIONS - 1;
+
+  sorted = computed(() =>
+    [...this.ascensions()]
+      .sort((a, b) => a.ascension.phase - b.ascension.phase)
+      .map((wrapper) => ({ wrapper, cost: [...wrapper.cost].sort((a, b) => a.order - b.order) }))
+  );
+  canAdd = computed(() => this.ascensions().length < MAX_ASCENSIONS);
+  materialOptions = computed<DropdownOption[]>(() => this.materials().map((material) => ({ key: material.id ?? -1, value: material.name, data: material })));
 
   addAscension(): void {
-    this.ascensions.update(a => [...a, {
-      ascension: {
-        primary_stat: '', primary_stat_value: 0,
-        start_level_hp: 0, start_level_atk: 0, start_level_def: 0,
-        end_level_hp: 0, end_level_atk: 0, end_level_def: 0, phase: a.length
-      },
-      cost: []
-    }]);
+    this.ascensions.update((ascensions) => {
+      const nextPhase = ascensions.length === 0 ? 0 : Math.max(...ascensions.map((wrapper) => wrapper.ascension.phase)) + 1;
+      return [...ascensions, emptyAscension(Math.min(nextPhase, this.maxPhase))];
+    });
   }
 
-  removeAscension(i: number): void {
-    this.ascensions.update(a => a.filter((_, idx) => idx !== i));
+  removeAscension(wrapper: AscensionWrapper): void {
+    this.ascensions.update((ascensions) => ascensions.filter((ascension) => ascension !== wrapper));
   }
 
-  addAscensionCost(ascIdx: number): void {
-    this.ascensions.update(a => a.map((asc, i) => i === ascIdx
-      ? { ...asc, cost: [...asc.cost, { character_ascension_id: asc.ascension.id ?? -1, material_id: 0, quantity: 0, order: asc.cost.length }] } : asc));
+  addCost(wrapper: AscensionWrapper): void {
+    this.ascensions.update((ascensions) => {
+      wrapper.cost = [...wrapper.cost, { character_ascension_id: wrapper.ascension.id ?? -1, quantity: 1, order: wrapper.cost.length + 1 }];
+      return [...ascensions];
+    });
   }
 
-  removeAscensionCost(ascIdx: number, costIdx: number): void {
-    this.ascensions.update(a => a.map((asc, i) => i === ascIdx
-      ? { ...asc, cost: (asc.cost ?? []).filter((_, ci) => ci !== costIdx) } : asc));
+  removeCost(wrapper: AscensionWrapper, cost: AscensionCostFormData): void {
+    this.ascensions.update((ascensions) => {
+      wrapper.cost = wrapper.cost.filter((current) => current !== cost);
+      resequence(
+        wrapper.cost,
+        (current) => current.order,
+        (current, order) => (current.order = order)
+      );
+      return [...ascensions];
+    });
   }
 
-  onOrderChange(item: AscensionWrapper, cost: AscensionCostFormData, newOrder: number | string | null | undefined): void {
-    const order = Number(newOrder);
-    if (!order || isNaN(order)) {
-      return;
-    }
-    const oldOrder = cost.order;
-    if (order === oldOrder) {
-      return;
-    }
-
-    this.ascensions.update(list => {
-      const ascensions = [...list];
-      const updatedAscension = ascensions.find(x => x === item);
-      const updated = updatedAscension?.cost ?? []
-      for (let i = 0; i < updated.length; i++) {
-        if (updated[i] === cost) {
-          updated[i].order = order;
-        } else if (oldOrder < order && updated[i].order > oldOrder && updated[i].order <= order) {
-          updated[i].order = updated[i].order - 1;
-        } else if (oldOrder > order && updated[i].order >= order && updated[i].order < oldOrder) {
-          updated[i].order = updated[i].order + 1;
-        }
-      }
-      return ascensions;
+  onCostOrderChange(wrapper: AscensionWrapper, cost: AscensionCostFormData, newOrder: number | string | null | undefined): void {
+    this.ascensions.update((ascensions) => {
+      const changed = reorder(
+        wrapper.cost,
+        cost,
+        newOrder,
+        (current) => current.order,
+        (current, order) => (current.order = order)
+      );
+      return changed ? [...ascensions] : ascensions;
     });
   }
 }

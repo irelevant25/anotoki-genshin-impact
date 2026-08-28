@@ -50,6 +50,7 @@ function _applyUploads(array &$body, array $uploadedFiles): void
     $charIconMap = [
         'char_icon' => ['icon', 'characters', $charName],
         'char_card_icon' => ['card_icon', 'characters/card', $charName],
+        'char_card_icon_2' => ['card_icon_2', 'characters/card', $charName . '_2'],
         'char_wish_icon' => ['wish_icon', 'characters/wish', $charName],
         'char_ingame_icon' => ['ingame_icon', 'characters/ingame', $charName],
         'char_ingame_icon_2' => ['ingame_icon_2', 'characters/ingame', $charName . '_2'],

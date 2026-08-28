@@ -1,6 +1,6 @@
 @if (!hidden()) {
     <div class="form-field" [class]="class()">
-        <div #labelElement class="d-flex" [class.flex-row]="inline()" [class.flex-col]="!inline()">
+        <div #labelElement class="d-flex gap-2" [class.flex-row]="inline()" [class.flex-col]="!inline()">
             @if (label() && labelPosition() === 'left') {
                 <label [for]="inputId" class="form-label w-auto align-content-center" [class.required]="required()">
                     @if (tooltipText()) {
