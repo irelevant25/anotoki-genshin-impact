@@ -20,13 +20,7 @@
             />
         </app-tab>
         <app-tab [title]="'Drops'" [icon]="'icon-coins'">
-            <app-enemy-drops-tab
-                [(drops)]="drops"
-                [materials]="materials()"
-                [artifacts]="artifacts()"
-                [domainLevels]="domainLevels()"
-                [rarities]="rarities()"
-            />
+            <app-enemy-drops-tab [(groups)]="dropGroups" [materials]="materials()" [artifacts]="artifacts()" [domainLevels]="domainLevels()" />
         </app-tab>
     </app-tabs>
 

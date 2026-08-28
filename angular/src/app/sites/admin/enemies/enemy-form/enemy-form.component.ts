@@ -6,7 +6,7 @@ import { LoaderComponent } from '../../../../shared/local-lib/components/loader/
 import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { Material } from '../../../../shared/models.generated';
-import { AdminApiService, EnemyFull } from '../../services/admin-api.service';
+import { AdminApiService, ArtifactFormData, EnemyFull } from '../../services/admin-api.service';
 import { AdminFormComponent } from '../../shared/admin-form.class';
 import {
   buildFullFormData,
@@ -22,7 +22,7 @@ import {
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { PhasesTabComponent } from './phases/phases-tab.component';
 import { DropsTabComponent } from './drops/drops-tab.component';
-import { DropWrapper, emptyEnemy, EnemyWrapper, PhaseWrapper } from './enemy-form.model';
+import { DropGroupWrapper, emptyEnemy, EnemyWrapper, flattenDropGroups, groupDrops, PhaseWrapper } from './enemy-form.model';
 
 @Component({
   selector: 'app-enemy-form',
@@ -36,7 +36,7 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
 
   enemy = signal<EnemyWrapper>(emptyEnemy());
   phases = signal<PhaseWrapper[]>([]);
-  drops = signal<DropWrapper[]>([]);
+  dropGroups = signal<DropGroupWrapper[]>([]);
 
   // Lookups
   enemyTypes = signal<string[]>([]);
@@ -44,9 +44,8 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
   enemyGroups = signal<string[]>([]);
   elements = signal<string[]>([]);
   domainLevels = signal<string[]>([]);
-  rarities = signal<string[]>([]);
   materials = signal<Material[]>([]);
-  artifacts = signal<{ id: number; name: string }[]>([]);
+  artifacts = signal<ArtifactFormData[]>([]);
 
   private readonly _api = inject(AdminApiService);
 
@@ -67,7 +66,6 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
       enemyGroups: this._api.getEnemyGroups(),
       elements: this._api.getElements(),
       domainLevels: this._api.getDomainLevels(),
-      rarities: this._api.getRarities(),
       materials: this._api.getMaterials(),
       artifacts: this._api.getArtifacts(),
     }).subscribe({
@@ -78,7 +76,6 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
         this.enemyGroups.set(names(result.enemyGroups));
         this.elements.set(names(result.elements));
         this.domainLevels.set(names(result.domainLevels));
-        this.rarities.set(names(result.rarities).sort().reverse());
         this.materials.set(result.materials);
         this.artifacts.set(result.artifacts);
         this.loadingLookups.set(false);
@@ -112,7 +109,7 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
         elements: [...(phase.damage_type_elements ?? [])].sort((a, b) => a.order - b.order).map((entry) => entry.damage_type_element),
       }))
     );
-    this.drops.set((data.drops ?? []).map((drop) => ({ uid: createUid(), data: drop })));
+    this.dropGroups.set(groupDrops(data.drops ?? []));
   }
 
   protected override beforeReload(): void {
@@ -143,18 +140,20 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
         // Order is the position in the list; the API stores it per element.
         damage_type_elements: phase.elements.map((element, index) => ({ damage_type_element: element, order: index + 1 })),
       })),
-      drops: this.drops().map((drop) => ({
-        ...drop.data,
-        material_id: toOptionalNumber(drop.data.material_id) ?? null,
-        artifact_id: toOptionalNumber(drop.data.artifact_id) ?? null,
-        level_from: toOptionalNumber(drop.data.level_from) ?? null,
-        level_to: toOptionalNumber(drop.data.level_to) ?? null,
-        world_level: toOptionalNumber(drop.data.world_level) ?? null,
-        quantity_from: toOptionalNumber(drop.data.quantity_from) ?? null,
-        quantity_to: toOptionalNumber(drop.data.quantity_to) ?? null,
-        drop_rate: toOptionalNumber(drop.data.drop_rate) ?? null,
-        average: toOptionalNumber(drop.data.average) ?? null,
-        rarity: toOptionalNumber(drop.data.rarity) ?? null,
+      // `rarity` is not edited here - it belongs to the material or artifact -
+      // but it is passed through so a save does not wipe the stored value.
+      drops: flattenDropGroups(this.dropGroups()).map((drop) => ({
+        ...drop,
+        material_id: toOptionalNumber(drop.material_id) ?? null,
+        artifact_id: toOptionalNumber(drop.artifact_id) ?? null,
+        level_from: toOptionalNumber(drop.level_from) ?? null,
+        level_to: toOptionalNumber(drop.level_to) ?? null,
+        world_level: toOptionalNumber(drop.world_level) ?? null,
+        quantity_from: toOptionalNumber(drop.quantity_from) ?? null,
+        quantity_to: toOptionalNumber(drop.quantity_to) ?? null,
+        drop_rate: toOptionalNumber(drop.drop_rate) ?? null,
+        average: toOptionalNumber(drop.average) ?? null,
+        rarity: toOptionalNumber(drop.rarity) ?? null,
       })),
     };
 
@@ -162,9 +161,14 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
   }
 
   protected override extraValidation(): string | undefined {
-    const emptyDrop = this.drops().findIndex((drop) => !toNumber(drop.data.material_id) && !toNumber(drop.data.artifact_id));
-    if (emptyDrop >= 0) {
-      return `Drop ${emptyDrop + 1} needs either a material or an artifact.`;
+    const groups = this.dropGroups();
+    for (let g = 0; g < groups.length; g++) {
+      const index = groups[g].entries.findIndex((entry) =>
+        entry.kind === 'material' ? !toNumber(entry.data.material_id) : !toNumber(entry.data.artifact_id)
+      );
+      if (index >= 0) {
+        return `Group ${g + 1}, drop ${index + 1} has no ${groups[g].entries[index].kind} selected.`;
+      }
     }
     return undefined;
   }

@@ -1,12 +1,11 @@
 @use "../../../shared/admin-form" as *;
-@use "../../../shared/admin-list" as *;
 
 .drops-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-md);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
 }
 
 .drops-total {
@@ -15,21 +14,71 @@
   font-variant-numeric: tabular-nums;
 }
 
-// Dense editable grid: the inputs supply their own spacing.
-.drops-table {
-  td {
-    padding: 4px var(--spacing-xs);
-    vertical-align: middle;
-  }
-
-  app-number,
-  app-dropdown {
-    min-width: 72px;
-  }
+.drops-empty {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
 }
 
-.cell-range {
+.group-actions {
   display: flex;
   gap: var(--spacing-xs);
   align-items: center;
+}
+
+// The conditions apply to the whole group, so they sit in one row above it.
+.group-conditions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--spacing-md);
+}
+
+// Each dropped item is a column: what it is, then its numbers underneath.
+.drop-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.drop-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  width: 200px;
+  flex-shrink: 0;
+  padding: var(--spacing-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.drop-card-img {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.drop-card-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xs);
+}
+
+.drop-card-remove {
+  position: absolute;
+  top: var(--spacing-xs);
+  right: var(--spacing-xs);
 }
