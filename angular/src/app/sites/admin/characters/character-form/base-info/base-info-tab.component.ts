@@ -7,11 +7,11 @@ import { DropdownOption } from '../../../../../shared/local-lib/services/options
 import { CalendarComponent } from '../../../../../shared/local-lib/components/calendar/calendar.component';
 import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
 import { ChipsComponent } from '../../../../../shared/local-lib/components/chips/chips.component';
-import { CharacterImageField, CharacterWrapper, emptyCharacter, IMAGE_EXTENSIONS, replacePreview } from '../character-form.model';
+import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../../shared/image-upload/image-upload.component';
+import { CharacterImageField, CharacterWrapper, emptyCharacter, revokePicked } from '../character-form.model';
 
 interface ImageFieldConfig {
   field: CharacterImageField;
@@ -55,9 +55,8 @@ function emptyRelationship(): RelationshipFormData {
     CalendarComponent,
     CheckboxComponent,
     TextareaComponent,
-    FileComponent,
     FieldContainerComponent,
-    TooltipComponent,
+    EntityImageComponent,
     ChipsComponent,
   ],
 })
@@ -77,7 +76,6 @@ export class BaseInfoTabComponent {
   characterStates = input<string[]>([]);
   foods = input<IdNameEntry[]>([]);
 
-  readonly imageExtensions = IMAGE_EXTENSIONS;
   readonly namecardImages = NAMECARD_IMAGES;
   readonly characterImages = CHARACTER_IMAGES;
 
@@ -90,23 +88,32 @@ export class BaseInfoTabComponent {
 
   // ── Images ──────────────────────────────────────────────────────────────────
 
-  /** Preview for a picked file, falling back to the path already stored on the character. */
-  imageSrc(field: CharacterImageField): string | undefined {
-    const character = this.character();
-    return character.previews[field] ?? (character.data[field] as string | undefined) ?? undefined;
+  /** Stored path for a field; the slot itself shows a pending pick if there is one. */
+  imagePath(field: CharacterImageField): string | undefined {
+    return (this.character().data[field] as string | undefined) ?? undefined;
   }
 
-  onImageSelect(field: CharacterImageField, files: FileItemType[] | undefined | null): void {
-    const file = files?.[0]?.file;
+  imageName(field: CharacterImageField): string | undefined {
+    return (this.character().data as unknown as Record<string, unknown>)[`${field}_name`] as string | undefined;
+  }
+
+  pendingFor(field: CharacterImageField): PickedImage | undefined {
+    return this.character().pending[field];
+  }
+
+  onPicked(field: CharacterImageField, picked: PickedImage): void {
     this.character.update((character) => {
-      const previews = { ...character.previews, [field]: replacePreview(character.previews[field], file) };
-      const nextFiles = { ...character.files };
-      if (file) {
-        nextFiles[field] = file;
-      } else {
-        delete nextFiles[field];
-      }
-      return { ...character, files: nextFiles, previews };
+      revokePicked(character.pending[field]);
+      return { ...character, pending: { ...character.pending, [field]: picked } };
+    });
+  }
+
+  onCleared(field: CharacterImageField): void {
+    this.character.update((character) => {
+      revokePicked(character.pending[field]);
+      const pending = { ...character.pending };
+      delete pending[field];
+      return { ...character, pending };
     });
   }
 

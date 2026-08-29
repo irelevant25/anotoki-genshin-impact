@@ -4,16 +4,16 @@ import { TextComponent } from '../../../../../shared/local-lib/components/text/t
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
-import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { TabsComponent } from '../../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { TalentCostFormData } from '../../../services/admin-api.service';
 import { Material } from '../../../../../shared/models.generated';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
-import { emptyTalent, IMAGE_EXTENSIONS, reorder, replacePreview, resequence, TalentWrapper } from '../character-form.model';
+import { emptyTalent, reorder, revokePicked, resequence, TalentWrapper } from '../character-form.model';
+import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 
 interface TalentCostGroup {
   level: number;
@@ -29,15 +29,14 @@ const MAX_COST_LEVEL = 10;
   templateUrl: './talents-tab.component.html',
   styleUrls: ['./talents-tab.component.scss'],
   imports: [
+    EntityImageComponent,
     ButtonComponent,
     TextComponent,
     TextareaComponent,
     DropdownComponent,
-    FileComponent,
     TabsComponent,
     TabComponent,
     FieldContainerComponent,
-    TooltipComponent,
     NumberComponent,
     MaterialIconDirective,
   ],
@@ -48,7 +47,6 @@ export class TalentsTabComponent {
   talentTypes = input<string[]>([]);
   materials = input<Material[]>([]);
 
-  readonly imageExtensions = IMAGE_EXTENSIONS;
   readonly minCostLevel = MIN_COST_LEVEL;
   readonly maxCostLevel = MAX_COST_LEVEL;
 
@@ -80,7 +78,7 @@ export class TalentsTabComponent {
   }
 
   removeTalent(wrapper: TalentWrapper): void {
-    replacePreview(wrapper.preview, undefined);
+    revokePicked(wrapper.pending);
     this.talents.update((talents) => {
       const remaining = talents.filter((talent) => talent !== wrapper);
       resequence(
@@ -92,16 +90,19 @@ export class TalentsTabComponent {
     });
   }
 
-  /** Preview for a picked icon, falling back to the path already stored on the talent. */
-  iconSrc(wrapper: TalentWrapper): string | undefined {
-    return wrapper.preview ?? wrapper.data.icon ?? undefined;
+  /** Stored path; the slot shows a pending pick when there is one. */
+  iconPath(wrapper: TalentWrapper): string | undefined {
+    return wrapper.data.icon || undefined;
   }
 
-  onIconSelect(wrapper: TalentWrapper, files: FileItemType[] | undefined | null): void {
-    const file = files?.[0]?.file;
-    // The stored path stays untouched - the API rewrites it once the upload lands.
-    wrapper.preview = replacePreview(wrapper.preview, file);
-    wrapper.icon = file;
+  onPicked(wrapper: TalentWrapper, picked: PickedImage): void {
+    revokePicked(wrapper.pending);
+    wrapper.pending = picked;
+  }
+
+  onCleared(wrapper: TalentWrapper): void {
+    revokePicked(wrapper.pending);
+    wrapper.pending = undefined;
   }
 
   onTalentOrderChange(wrapper: TalentWrapper, newOrder: number | string | null | undefined): void {

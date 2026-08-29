@@ -20,24 +20,16 @@
                         <app-dropdown [label]="'Type'" [options]="talentTypes()" [(value)]="talent.data.type" [required]="true"></app-dropdown>
                     </app-field-container>
                     <app-field-container [cols]="4">
-                        <div>
-                            <app-file
-                                class="d-block"
-                                [buttonClass]="'w-100'"
-                                [label]="'Icon'"
-                                [buttonOutline]="true"
-                                [required]="!iconSrc(talent)"
-                                [acceptedExtensions]="imageExtensions"
-                                [showFileNames]="false"
-                                (inputChange)="onIconSelect(talent, $event)"
-                            ></app-file>
-                            @if (iconSrc(talent); as src) {
-                                <img #img [src]="src" class="preview-img" [alt]="talent.data.name" />
-                                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                                    <img class="w-100" [src]="src" [alt]="talent.data.name" />
-                                </app-tooltip>
-                            }
-                        </div>
+                        <app-entity-image
+                        [label]="'Icon'"
+                        [field]="'icon'"
+                        [required]="true"
+                        [path]="iconPath(talent)"
+                        [name]="talent.data.icon_name"
+                        [pending]="talent.pending"
+                        (picked)="onPicked(talent, $event)"
+                        (cleared)="onCleared(talent)"
+                    />
                         <app-textarea class="col-span-3" [label]="'Description'" [(value)]="talent.data.description" [rows]="4"></app-textarea>
                     </app-field-container>
                 </div>

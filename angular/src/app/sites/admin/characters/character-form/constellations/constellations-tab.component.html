@@ -17,24 +17,16 @@
                 <app-text class="col-span-3" [label]="'Name'" [(value)]="item.data.name" [required]="true"></app-text>
             </app-field-container>
             <app-field-container [cols]="4">
-                <div>
-                    <app-file
-                        class="d-block"
-                        [buttonClass]="'w-100'"
+                <app-entity-image
                         [label]="'Icon'"
-                        [buttonOutline]="true"
-                        [required]="!iconSrc(item)"
-                        [acceptedExtensions]="imageExtensions"
-                        [showFileNames]="false"
-                        (inputChange)="onIconSelect(item, $event)"
-                    ></app-file>
-                    @if (iconSrc(item); as src) {
-                        <img #img [src]="src" class="preview-img" [alt]="item.data.name" />
-                        <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                            <img class="w-100" [src]="src" [alt]="item.data.name" />
-                        </app-tooltip>
-                    }
-                </div>
+                        [field]="'icon'"
+                        [required]="true"
+                        [path]="iconPath(item)"
+                        [name]="item.data.icon_name"
+                        [pending]="item.pending"
+                        (picked)="onPicked(item, $event)"
+                        (cleared)="onCleared(item)"
+                    />
                 <app-textarea class="col-span-3" [label]="'Description'" [(value)]="item.data.description" [rows]="4"></app-textarea>
             </app-field-container>
         </div>

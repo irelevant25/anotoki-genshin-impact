@@ -3,10 +3,10 @@ import { ButtonComponent } from '../../../../../shared/local-lib/components/butt
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
-import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
-import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { ConstellationWrapper, emptyConstellation, IMAGE_EXTENSIONS, reorder, replacePreview, resequence } from '../character-form.model';
+import { ConstellationWrapper, emptyConstellation, reorder, revokePicked, resequence } from '../character-form.model';
+import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 
 const MAX_CONSTELLATIONS = 6;
 
@@ -14,12 +14,11 @@ const MAX_CONSTELLATIONS = 6;
   selector: 'app-constellations-tab',
   templateUrl: './constellations-tab.component.html',
   styleUrls: ['./constellations-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, FileComponent, TooltipComponent, FieldContainerComponent],
+  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, EntityImageComponent, FieldContainerComponent],
 })
 export class ConstellationsTabComponent {
   constellations = model<ConstellationWrapper[]>([]);
 
-  readonly imageExtensions = IMAGE_EXTENSIONS;
   readonly maxConstellations = MAX_CONSTELLATIONS;
 
   sorted = computed(() => [...this.constellations()].sort((a, b) => a.data.level - b.data.level));
@@ -30,7 +29,7 @@ export class ConstellationsTabComponent {
   }
 
   removeConstellation(wrapper: ConstellationWrapper): void {
-    replacePreview(wrapper.preview, undefined);
+    revokePicked(wrapper.pending);
     this.constellations.update((constellations) => {
       const remaining = constellations.filter((constellation) => constellation !== wrapper);
       resequence(
@@ -42,16 +41,19 @@ export class ConstellationsTabComponent {
     });
   }
 
-  /** Preview for a picked icon, falling back to the path already stored on the constellation. */
-  iconSrc(wrapper: ConstellationWrapper): string | undefined {
-    return wrapper.preview ?? wrapper.data.icon ?? undefined;
+  /** Stored path; the slot shows a pending pick when there is one. */
+  iconPath(wrapper: ConstellationWrapper): string | undefined {
+    return wrapper.data.icon || undefined;
   }
 
-  onIconSelect(wrapper: ConstellationWrapper, files: FileItemType[] | undefined | null): void {
-    const file = files?.[0]?.file;
-    // The stored path stays untouched - the API rewrites it once the upload lands.
-    wrapper.preview = replacePreview(wrapper.preview, file);
-    wrapper.icon = file;
+  onPicked(wrapper: ConstellationWrapper, picked: PickedImage): void {
+    revokePicked(wrapper.pending);
+    wrapper.pending = picked;
+  }
+
+  onCleared(wrapper: ConstellationWrapper): void {
+    revokePicked(wrapper.pending);
+    wrapper.pending = undefined;
   }
 
   onLevelChange(wrapper: ConstellationWrapper, newLevel: number | string | null | undefined): void {

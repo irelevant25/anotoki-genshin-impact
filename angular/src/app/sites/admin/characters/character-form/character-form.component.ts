@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, inject, OnDestroy, OnInit, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable, of, switchMap } from 'rxjs';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { AbstractInputComponent } from '../../../../shared/local-lib/abstract-input.class';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
@@ -21,9 +21,10 @@ import {
   TalentCostFormData,
 } from '../../services/admin-api.service';
 import { Material } from '../../../../shared/models.generated';
+import { PickedImage } from '../../shared/image-upload/image-upload.component';
+import { PendingImage } from '../../shared/admin-form.class';
 import {
   AscensionWrapper,
-  CHARACTER_IMAGE_UPLOAD_KEYS,
   CharacterImageField,
   CharacterWrapper,
   ConstellationWrapper,
@@ -33,6 +34,7 @@ import {
   toBoolean,
   toNumber,
   toOptionalNumber,
+  revokePicked,
   toStringArray,
   VOICE_OVER_LANGUAGES,
   VoiceOverWrapper,
@@ -175,8 +177,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
             affiliations: toStringArray(data.character.affiliations),
             namecard_sources: toStringArray(data.character.namecard_sources),
           },
-          files: {},
-          previews: {},
+          pending: {},
         });
         this.voiceOvers.set((data.voice_overs ?? []).map((voiceOver) => ({ uid: createUid(), data: voiceOver, audio: {} })));
         this.constellations.set((data.constellations ?? []).map((constellation) => ({ uid: createUid(), data: constellation })));
@@ -208,25 +209,50 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     }
 
     this.saving.set(true);
-    const payload = this._buildFormData();
-    const id = this.characterId();
-    const request = this.isEdit() && id !== null ? this._api.updateCharacterFull(id, payload) : this._api.createCharacterFull(payload);
 
-    request.subscribe({
-      next: (result) => {
-        this.saving.set(false);
-        this._notify.showSuccess(this.isEdit() ? 'Character updated' : 'Character created');
-        if (this.isEdit()) {
-          this._loadCharacter(this.characterId()!);
-        } else {
-          this._router.navigate(['/admin/characters', result.id, 'edit']);
-        }
-      },
-      error: (error) => {
-        this.saving.set(false);
-        this._notify.showError(error?.error?.error ?? error?.error?.message ?? 'Failed to save character');
-      },
-    });
+    // Picked images go up first, so the payload can carry the paths they
+    // landed on and one save writes the row and its image columns together.
+    this._uploadPendingImages()
+      .pipe(
+        switchMap(() => {
+          const payload = this._buildFormData();
+          const id = this.characterId();
+          return this.isEdit() && id !== null ? this._api.updateCharacterFull(id, payload) : this._api.createCharacterFull(payload);
+        })
+      )
+      .subscribe({
+        next: (result) => {
+          this.saving.set(false);
+          this._notify.showSuccess(this.isEdit() ? 'Character updated' : 'Character created');
+          if (this.isEdit()) {
+            this._loadCharacter(this.characterId()!);
+          } else {
+            this._router.navigate(['/admin/characters', result.id, 'edit']);
+          }
+        },
+        error: (error) => {
+          this.saving.set(false);
+          this._notify.showError(error?.error?.error ?? error?.error?.message ?? 'Failed to save character');
+        },
+      });
+  }
+
+  /** Sends every picked image and writes the stored path back onto the model. */
+  private _uploadPendingImages(): Observable<unknown> {
+    const pending = this._collectPendingImages();
+    if (!pending.length) {
+      return of(null);
+    }
+    return forkJoin(
+      pending.map((entry) =>
+        this._api.uploadImage(entry.entity, entry.field, entry.picked.file, entry.picked.name).pipe(
+          switchMap((result) => {
+            entry.apply(result.path, result.name);
+            return of(result);
+          })
+        )
+      )
+    );
   }
 
   /** Touches every input in the form so errors become visible, then reports validity. */
@@ -296,14 +322,8 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     const payload = new FormData();
     payload.append('data', JSON.stringify(this._buildPayload()));
 
-    const character = this.character();
-    for (const [field, key] of Object.entries(CHARACTER_IMAGE_UPLOAD_KEYS) as [CharacterImageField, string][]) {
-      const file = character.files[field];
-      if (file) {
-        payload.append(key, file, file.name);
-      }
-    }
-
+    // Images already went up during save; only voice over audio still rides
+    // along, since its folder depends on the row it belongs to.
     this.voiceOvers().forEach((voiceOver, index) => {
       for (const language of VOICE_OVER_LANGUAGES) {
         const file = voiceOver.audio[language];
@@ -313,19 +333,55 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.constellations().forEach((constellation, index) => {
-      if (constellation.icon) {
-        payload.append(`co_icon_${index}`, constellation.icon, constellation.icon.name);
-      }
-    });
-
-    this.talents().forEach((talent, index) => {
-      if (talent.icon) {
-        payload.append(`ta_icon_${index}`, talent.icon, talent.icon.name);
-      }
-    });
-
     return payload;
+  }
+
+  /** Every image picked on any tab, with where to write the result. */
+  private _collectPendingImages(): PendingImage[] {
+    const pending: PendingImage[] = [];
+    const character = this.character();
+
+    for (const [field, picked] of Object.entries(character.pending) as [CharacterImageField, PickedImage][]) {
+      pending.push({
+        entity: 'character',
+        field,
+        picked,
+        apply: (path: string, name: string) => {
+          character.data[field] = path;
+          (character.data as unknown as Record<string, unknown>)[`${field}_name`] = name;
+        },
+      });
+    }
+
+    for (const constellation of this.constellations()) {
+      if (constellation.pending) {
+        pending.push({
+          entity: 'character-constellation',
+          field: 'icon',
+          picked: constellation.pending,
+          apply: (path: string, name: string) => {
+            constellation.data.icon = path;
+            constellation.data.icon_name = name;
+          },
+        });
+      }
+    }
+
+    for (const talent of this.talents()) {
+      if (talent.pending) {
+        pending.push({
+          entity: 'character-talent',
+          field: 'icon',
+          picked: talent.pending,
+          apply: (path: string, name: string) => {
+            talent.data.icon = path;
+            talent.data.icon_name = name;
+          },
+        });
+      }
+    }
+
+    return pending;
   }
 
   private _buildPayload(): CharacterFullPayload {
@@ -379,11 +435,8 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
   }
 
   private _revokePreviews(): void {
-    const previews = [
-      ...Object.values(this.character().previews),
-      ...this.constellations().map((constellation) => constellation.preview),
-      ...this.talents().map((talent) => talent.preview),
-    ];
-    previews.forEach((url) => url && URL.revokeObjectURL(url));
+    Object.values(this.character().pending).forEach(revokePicked);
+    this.constellations().forEach((constellation) => revokePicked(constellation.pending));
+    this.talents().forEach((talent) => revokePicked(talent.pending));
   }
 }

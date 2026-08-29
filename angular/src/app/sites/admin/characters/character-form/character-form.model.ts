@@ -1,3 +1,4 @@
+import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import {
   AscensionCostFormData,
   AscensionFormData,
@@ -48,9 +49,8 @@ export const AUDIO_EXTENSIONS = ['.mp3', '.ogg', '.wav', '.opus'];
  */
 export interface CharacterWrapper {
   data: CharacterFormData;
-  files: Partial<Record<CharacterImageField, File>>;
-  /** Object URLs for freshly picked files, keyed by the same field. */
-  previews: Partial<Record<CharacterImageField, string>>;
+  /** Images picked but not uploaded yet, keyed by column. */
+  pending: Partial<Record<CharacterImageField, PickedImage>>;
 }
 
 export interface VoiceOverWrapper {
@@ -62,15 +62,13 @@ export interface VoiceOverWrapper {
 export interface ConstellationWrapper {
   uid: number;
   data: ConstellationFormData;
-  icon?: File;
-  preview?: string;
+  pending?: PickedImage;
 }
 
 export interface TalentWrapper {
   uid: number;
   data: TalentFormData;
-  icon?: File;
-  preview?: string;
+  pending?: PickedImage;
 }
 
 export interface AscensionWrapper {
@@ -89,7 +87,7 @@ export function createUid(): number {
 }
 
 export function emptyCharacter(): CharacterWrapper {
-  return { data: { is_traveler: false } as CharacterFormData, files: {}, previews: {} };
+  return { data: { is_traveler: false } as CharacterFormData, pending: {} };
 }
 
 export function emptyVoiceOver(type: string, order: number): VoiceOverWrapper {
@@ -194,10 +192,9 @@ export function resequence<T>(items: T[], getOrder: (item: T) => number, setOrde
 
 // ── Object URLs ───────────────────────────────────────────────────────────────
 
-/** Replaces a preview object URL, revoking the one it supersedes. */
-export function replacePreview(previous: string | undefined, file: File | undefined): string | undefined {
-  if (previous) {
-    URL.revokeObjectURL(previous);
+/** Releases a pick's object URL; call before replacing or discarding it. */
+export function revokePicked(picked: PickedImage | undefined): void {
+  if (picked?.preview) {
+    URL.revokeObjectURL(picked.preview);
   }
-  return file ? URL.createObjectURL(file) : undefined;
 }

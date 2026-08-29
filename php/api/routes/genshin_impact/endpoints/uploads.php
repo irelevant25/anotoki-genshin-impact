@@ -115,6 +115,14 @@ function _uploadTargets(): array
                 'art' => ['folder' => 'enemies', 'suffix' => 'full_art'],
             ],
         ],
+        'character-constellation' => [
+            'table' => 'characters_constellations',
+            'fields' => ['icon' => ['folder' => 'character/constellations']],
+        ],
+        'character-talent' => [
+            'table' => 'characters_talents',
+            'fields' => ['icon' => ['folder' => 'character/talents']],
+        ],
         'artifact' => [
             'table' => 'artifacts',
             'fields' => ['icon' => ['folder' => 'artifacts']],

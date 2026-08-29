@@ -66,24 +66,16 @@
     </app-field-container>
     <app-field-container [class]="'gap-5'" [cols]="5">
         @for (image of namecardImages; track image.field) {
-            <div>
-                <app-file
-                    class="d-block"
-                    [buttonClass]="'w-100'"
-                    [label]="image.label"
-                    [buttonOutline]="true"
-                    [required]="image.required && !imageSrc(image.field)"
-                    [acceptedExtensions]="imageExtensions"
-                    [showFileNames]="false"
-                    (inputChange)="onImageSelect(image.field, $event)"
-                ></app-file>
-                @if (imageSrc(image.field); as src) {
-                    <img #img [src]="src" class="preview-img" [alt]="image.label" />
-                    <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                        <img class="w-100" [src]="src" [alt]="image.label" />
-                    </app-tooltip>
-                }
-            </div>
+            <app-entity-image
+                [label]="image.label"
+                [field]="image.field"
+                [required]="image.required"
+                [path]="imagePath(image.field)"
+                [name]="imageName(image.field)"
+                [pending]="pendingFor(image.field)"
+                (picked)="onPicked(image.field, $event)"
+                (cleared)="onCleared(image.field)"
+            />
         }
     </app-field-container>
 </app-field-container>
@@ -92,61 +84,40 @@
     <h3 class="section-title mb-0">Icons</h3>
     <app-field-container [class]="'gap-5'" [cols]="5">
         @for (image of characterImages; track image.field) {
-            <div>
-                <app-file
-                    class="d-block"
-                    [buttonClass]="'w-100'"
-                    [label]="image.label"
-                    [buttonOutline]="true"
-                    [required]="image.required && !imageSrc(image.field)"
-                    [acceptedExtensions]="imageExtensions"
-                    [showFileNames]="false"
-                    (inputChange)="onImageSelect(image.field, $event)"
-                ></app-file>
-                @if (imageSrc(image.field); as src) {
-                    <img #img [src]="src" class="preview-img" [alt]="image.label" />
-                    <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                        <img class="w-100" [src]="src" [alt]="image.label" />
-                    </app-tooltip>
-                }
-            </div>
+            <app-entity-image
+                [label]="image.label"
+                [field]="image.field"
+                [required]="image.required"
+                [path]="imagePath(image.field)"
+                [name]="imageName(image.field)"
+                [pending]="pendingFor(image.field)"
+                (picked)="onPicked(image.field, $event)"
+                (cleared)="onCleared(image.field)"
+            />
         }
-        <div class="d-flex flex-col space-between">
-            <app-file
-                class="d-block"
-                [buttonClass]="'w-100'"
+        <div class="d-flex flex-col space-between gap-2">
+            <app-entity-image
                 [label]="'In-game Icon'"
-                [buttonOutline]="true"
-                [required]="!imageSrc('ingame_icon')"
-                [acceptedExtensions]="imageExtensions"
-                [showFileNames]="false"
-                (inputChange)="onImageSelect('ingame_icon', $event)"
-            ></app-file>
-            @if (imageSrc('ingame_icon'); as src) {
-                <img #img [src]="src" class="preview-img" alt="In-game Icon" />
-                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" alt="In-game Icon" />
-                </app-tooltip>
-            }
-            <app-text [label]="'In-game Icon Name'" [(value)]="character().data.ingame_icon_name"></app-text>
+                [field]="'ingame_icon'"
+                [required]="true"
+                [path]="imagePath('ingame_icon')"
+                [name]="imageName('ingame_icon')"
+                [pending]="pendingFor('ingame_icon')"
+                (picked)="onPicked('ingame_icon', $event)"
+                (cleared)="onCleared('ingame_icon')"
+            />
         </div>
-        <div class="d-flex flex-col space-between">
-            <app-file
-                class="d-block"
-                [buttonClass]="'w-100'"
+        <div class="d-flex flex-col space-between gap-2">
+            <app-entity-image
                 [label]="'In-game Icon 2'"
-                [buttonOutline]="true"
-                [acceptedExtensions]="imageExtensions"
-                [showFileNames]="false"
-                (inputChange)="onImageSelect('ingame_icon_2', $event)"
-            ></app-file>
-            @if (imageSrc('ingame_icon_2'); as src) {
-                <img #img [src]="src" class="preview-img" alt="In-game Icon 2" />
-                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" alt="In-game Icon 2" />
-                </app-tooltip>
-            }
-            <app-text [label]="'In-game Icon 2 Name'" [(value)]="character().data.ingame_icon_2_name"></app-text>
+                [field]="'ingame_icon_2'"
+                [required]="false"
+                [path]="imagePath('ingame_icon_2')"
+                [name]="imageName('ingame_icon_2')"
+                [pending]="pendingFor('ingame_icon_2')"
+                (picked)="onPicked('ingame_icon_2', $event)"
+                (cleared)="onCleared('ingame_icon_2')"
+            />
         </div>
     </app-field-container>
 </app-field-container>
