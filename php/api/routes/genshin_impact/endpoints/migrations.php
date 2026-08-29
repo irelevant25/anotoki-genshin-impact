@@ -82,19 +82,34 @@ $app->get('/api/migrations', function (Request $request, Response $response) {
     return respondJson($response, $items);
 })->add(requireRole('ADMIN'))->add(requireAuth());
 
-// ── GET /api/migrations/{database}/{filename} ─────────────────────────────────
+// ── GET /api/migrations/file?database=&filename= ──────────────────────────────
 // The SQL itself, for display in the admin UI.
+//
+// The file name is a query parameter rather than a path segment: PHP's built-in
+// server treats a URI ending in a known extension as a static file request and
+// answers it itself, so ".../001_initial_schema.sql" never reaches the router.
 
-$app->get('/api/migrations/{database}/{filename}', function (Request $request, Response $response, array $args) {
-    $path = _migrationFilePath($args['database'], $args['filename']);
+$app->get('/api/migrations/file', function (Request $request, Response $response) {
+    $query = $request->getQueryParams();
+    $database = (string) ($query['database'] ?? '');
+    $filename = (string) ($query['filename'] ?? '');
+
+    $path = _migrationFilePath($database, $filename);
     if (!$path) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
+    $content = file_get_contents($path);
+    // A migration that is not valid UTF-8 would make json_encode return false
+    // and send an empty body, which reads as an opaque failure in the client.
+    if (!mb_check_encoding($content, 'UTF-8')) {
+        $content = mb_convert_encoding($content, 'UTF-8', 'Windows-1252');
+    }
+
     return respondJson($response, [
-        'database' => $args['database'],
-        'filename' => $args['filename'],
+        'database' => $database,
+        'filename' => $filename,
         'size' => filesize($path),
-        'content' => file_get_contents($path),
+        'content' => $content,
     ]);
 })->add(requireRole('ADMIN'))->add(requireAuth());

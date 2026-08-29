@@ -36,7 +36,9 @@ export class MigrationViewerComponent extends AbstractModalComponent {
       },
       error: (error) => {
         this.loading.set(false);
-        this.error.set(error?.error?.error ?? 'Could not read the migration file.');
+        // Include the status: an opaque message here cost real debugging time.
+        const detail = error?.error?.error ?? error?.message ?? 'unknown error';
+        this.error.set(`Could not read the migration file (HTTP ${error?.status ?? '?'}): ${detail}`);
         this.cd.markForCheck();
       },
     });

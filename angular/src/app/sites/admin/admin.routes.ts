@@ -15,6 +15,7 @@ import { WeaponFormComponent } from './weapons/weapon-form/weapon-form.component
 import { FoodsListComponent } from './foods/foods-list/foods-list.component';
 import { FoodFormComponent } from './foods/food-form/food-form.component';
 import { MigrationsListComponent } from './migrations/migrations-list/migrations-list.component';
+import { FilesManagerComponent } from './files/files-manager/files-manager.component';
 import {
   ArtifactPieceTypesPage,
   CharacterStatesPage,
@@ -80,6 +81,7 @@ export const routes: Routes = [
       { path: 'character-states',     component: CharacterStatesPage },
       { path: 'rarities',             component: RaritiesPage },
       { path: 'artifact-piece-types', component: ArtifactPieceTypesPage },
+      { path: 'files',                component: FilesManagerComponent },
       { path: 'migrations',           component: MigrationsListComponent },
 
       // Writable lookup tables

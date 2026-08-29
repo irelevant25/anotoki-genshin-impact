@@ -105,6 +105,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/stats.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/migrations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/upload.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/uploads.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/files.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/affiliations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_refinements.php';

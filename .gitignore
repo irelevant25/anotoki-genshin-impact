@@ -4,3 +4,4 @@
 
 # Uploaded media is served from disk, never committed.
 php/public/uploads/
+php/storage/

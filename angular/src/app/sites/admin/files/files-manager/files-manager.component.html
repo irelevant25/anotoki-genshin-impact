@@ -1,0 +1,144 @@
+<div class="page-header">
+    <h1 class="page-title">Files</h1>
+    <div class="header-actions">
+        <app-button
+            [text]="showTrash() ? 'Back to files' : 'Trash'"
+            [icon]="showTrash() ? 'icon-chevron-left' : 'icon-trash'"
+            variant="secondary"
+            [outline]="true"
+            size="small"
+            (buttonClick)="toggleTrash()"
+        ></app-button>
+    </div>
+</div>
+
+<p class="page-hint">Files live under <code>assets/</code>. Deleting moves a file to a trash folder outside the site, so it can be restored.</p>
+
+<div class="files-layout">
+    <aside class="folder-pane">
+        <app-text [placeholder]="'Filter folders…'" [(value)]="folderFilter"></app-text>
+        <app-loader [loading]="loadingFolders()"></app-loader>
+        <div class="folder-list">
+            @for (entry of visibleFolders(); track entry.folder) {
+                <button type="button" class="folder-item" [class.active]="entry.folder === selectedFolder() && !showTrash()" (click)="selectFolder(entry.folder)">
+                    <span class="folder-name">{{ entry.folder }}</span>
+                    <span class="folder-count">{{ entry.files }}</span>
+                </button>
+            } @empty {
+                <p class="pane-empty">No folders match.</p>
+            }
+        </div>
+    </aside>
+
+    <section class="file-pane">
+        @if (showTrash()) {
+            <h2 class="pane-title">Trash</h2>
+            <app-loader [loading]="loadingFiles()"></app-loader>
+            @if (!loadingFiles()) {
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>Folder</th>
+                                <th>Deleted</th>
+                                <th>Size</th>
+                                <th class="col-actions"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (entry of trash(); track entry.trashed) {
+                                <tr>
+                                    <td>{{ entry.name }}</td>
+                                    <td>{{ entry.folder }}</td>
+                                    <td>{{ entry.deleted_at }}</td>
+                                    <td>{{ formatSize(entry.size) }}</td>
+                                    <td class="col-actions">
+                                        <app-button
+                                            text="Restore"
+                                            variant="secondary"
+                                            [outline]="true"
+                                            size="very-small"
+                                            [loading]="busy() === entry.trashed"
+                                            (buttonClick)="restore(entry)"
+                                        ></app-button>
+                                    </td>
+                                </tr>
+                            } @empty {
+                                <tr>
+                                    <td colspan="5" class="empty-cell">The trash is empty</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        } @else {
+            <div class="file-toolbar">
+                <h2 class="pane-title">{{ selectedFolder() || 'Pick a folder' }}</h2>
+                <div class="toolbar-right">
+                    <app-text [placeholder]="'Search files…'" [value]="search()" (inputChange)="onSearchChange($event)"></app-text>
+                    <app-file
+                        [buttonText]="'Upload'"
+                        [buttonOutline]="true"
+                        [multiple]="true"
+                        [showFileNames]="false"
+                        [disabled]="!selectedFolder()"
+                        (inputChange)="onUpload($event)"
+                    ></app-file>
+                </div>
+            </div>
+
+            <app-loader [loading]="loadingFiles()"></app-loader>
+
+            @if (!loadingFiles()) {
+                <div class="file-meta">
+                    <span>{{ rangeLabel() }}</span>
+                    @if (totalPages() > 1) {
+                        <span class="pager">
+                            <app-button icon="icon-chevron-left" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === 1" (buttonClick)="goToPage(page() - 1)"></app-button>
+                            <span class="pager-label">{{ page() }} / {{ totalPages() }}</span>
+                            <app-button icon="icon-chevron-right" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === totalPages()" (buttonClick)="goToPage(page() + 1)"></app-button>
+                        </span>
+                    }
+                </div>
+
+                <div class="file-grid">
+                    @for (file of files(); track file.name) {
+                        <div class="file-card">
+                            <div class="file-thumb">
+                                @if (isPreviewable(file)) {
+                                    <img [src]="file.url" [alt]="file.name" loading="lazy" />
+                                } @else {
+                                    <span class="file-ext">{{ file.extension || 'file' }}</span>
+                                }
+                            </div>
+                            <span class="file-name" [title]="file.name">{{ file.name }}</span>
+                            <span class="file-size">{{ formatSize(file.size) }}</span>
+
+                            @if (deleteConfirm() === file.name) {
+                                <div class="file-actions">
+                                    <app-button text="Delete" variant="danger" size="very-small" [loading]="busy() === file.name" (buttonClick)="deleteFile(file)"></app-button>
+                                    <app-button text="Cancel" variant="secondary" [outline]="true" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </div>
+                            } @else {
+                                <div class="file-actions">
+                                    <app-file
+                                        [buttonText]="'Replace'"
+                                        [buttonOutline]="true"
+                                        [buttonVariant]="'secondary'"
+                                        [showFileNames]="false"
+                                        (inputChange)="onReplace(file, $event)"
+                                    ></app-file>
+                                    <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Delete" (buttonClick)="confirmDelete(file)"></app-button>
+                                </div>
+                            }
+                        </div>
+                    } @empty {
+                        <p class="pane-empty">No files here.</p>
+                    }
+                </div>
+            }
+        }
+    </section>
+</div>

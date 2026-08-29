@@ -374,6 +374,39 @@ export interface MigrationFile {
   content: string;
 }
 
+// ── Asset files ───────────────────────────────────────────────────────────────
+
+export interface AssetFolder {
+  folder: string;
+  files: number;
+}
+
+export interface AssetFile {
+  name: string;
+  extension: string;
+  size: number;
+  modified: string;
+  /** Path the site loads it by, e.g. "assets/materials/Foo.avif". */
+  url: string;
+}
+
+export interface AssetFilePage {
+  folder: string;
+  total: number;
+  page: number;
+  pageSize: number;
+  files: AssetFile[];
+}
+
+export interface TrashedFile {
+  folder: string;
+  /** Stamped name on disk, used to restore it. */
+  trashed: string;
+  name: string;
+  deleted_at: string;
+  size: number;
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -447,8 +480,43 @@ export class AdminApiService {
   getArtifactPieceTypes(): Observable<NameEntry[]> { return this._http.get<NameEntry[]>('/api/artifact-piece-types'); }
   getMaterials(): Observable<Material[]> { return this._http.get<Material[]>('/api/materials'); }
   getMigrations(): Observable<MigrationEntry[]> { return this._http.get<MigrationEntry[]>('/api/migrations'); }
+  // ── Asset files ──────────────────────────────────────────────────────────────
+
+  getAssetFolders(): Observable<AssetFolder[]> { return this._http.get<AssetFolder[]>('/api/files/folders'); }
+
+  getAssetFiles(folder: string, search: string, page: number): Observable<AssetFilePage> {
+    return this._http.get<AssetFilePage>('/api/files', { params: { folder, search, page } });
+  }
+
+  /** Omit `name` to create; pass an existing name to replace that file. */
+  uploadAssetFile(folder: string, file: File, name?: string): Observable<{ url: string }> {
+    const form = new FormData();
+    form.append('folder', folder);
+    form.append('file', file, file.name);
+    if (name) {
+      form.append('name', name);
+    }
+    return this._http.post<{ url: string }>('/api/files', form);
+  }
+
+  /** Moves the file to the trash; it stays recoverable. */
+  deleteAssetFile(folder: string, name: string): Observable<unknown> {
+    return this._http.delete('/api/files', { params: { folder, name } });
+  }
+
+  getTrashedFiles(): Observable<TrashedFile[]> { return this._http.get<TrashedFile[]>('/api/files/trash'); }
+
+  restoreAssetFile(folder: string, trashed: string): Observable<unknown> {
+    const form = new FormData();
+    form.append('folder', folder);
+    form.append('trashed', trashed);
+    return this._http.post('/api/files/restore', form);
+  }
+
   getMigrationFile(database: string, filename: string): Observable<MigrationFile> {
-    return this._http.get<MigrationFile>(`/api/migrations/${encodeURIComponent(database)}/${encodeURIComponent(filename)}`);
+    // Query parameters, not path segments: a URI ending in .sql is intercepted
+    // by PHP's built-in server before it reaches the router.
+    return this._http.get<MigrationFile>('/api/migrations/file', { params: { database, filename } });
   }
   getFoods(): Observable<IdNameEntry[]> { return this._http.get<IdNameEntry[]>('/api/foods'); }
   getStats(): Observable<any[]> { return this._http.get<any[]>('/api/stats'); }
