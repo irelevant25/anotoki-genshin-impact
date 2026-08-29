@@ -143,31 +143,31 @@ function _uploadTargets(): array
             'table' => 'characters_voice_overs',
             'resolver' => '_resolveVoiceOverTarget',
             'fields' => [
-                'audio_english' => [],
-                'audio_japanese' => [],
-                'audio_chinese' => [],
-                'audio_korean' => [],
+                'audio_english' => ['name_column' => null],
+                'audio_japanese' => ['name_column' => null],
+                'audio_chinese' => ['name_column' => null],
+                'audio_korean' => ['name_column' => null],
             ],
         ],
         // Materials have no icon column; the site resolves art by display name.
         'material' => [
             'table' => 'materials',
             'literal_name' => true,
-            'fields' => ['icon' => ['folder' => 'materials', 'no_column' => true]],
+            'fields' => ['icon' => ['folder' => 'materials']],
         ],
         // Banner art is "{version} - {name}", also resolved by name.
         'banner' => [
             'table' => 'banners',
             'resolver' => '_resolveBannerTarget',
-            'fields' => ['icon' => ['no_column' => true]],
+            'fields' => ['icon' => ['folder' => 'banners']],
         ],
         // A background is a full image plus a "- preview" thumbnail.
         'background' => [
             'table' => 'backgrounds',
             'literal_name' => true,
             'fields' => [
-                'image' => ['folder' => 'backgrounds', 'no_column' => true],
-                'preview' => ['folder' => 'backgrounds', 'suffix' => 'preview', 'no_column' => true],
+                'image' => ['folder' => 'backgrounds'],
+                'preview' => ['folder' => 'backgrounds', 'suffix' => 'preview'],
             ],
         ],
     ];
@@ -241,8 +241,9 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
     $spec = $targets[$entity];
     $fieldSpec = $spec['fields'][$field];
     $pdo = genshinDb();
+    $id = (int) $args['id'];
 
-    $row = DbQuery::from($pdo, $spec['table'])->find(['id' => (int) $args['id']]);
+    $row = DbQuery::from($pdo, $spec['table'])->find(['id' => $id]);
     if (!$row) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -252,42 +253,77 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
         return respondJson($response, ['error' => 'No file sent under the "file" part'], 400);
     }
 
-    // Some targets need more than a column lookup to place the file.
+    // Voice over clips resolve their folder from the character, type and
+    // language; everything else declares a fixed folder.
+    $isAudio = false;
+    $folder = $fieldSpec['folder'] ?? null;
+    $suggested = null;
     if (isset($spec['resolver'])) {
         $resolved = ($spec['resolver'])($pdo, $row, $field);
         if (!$resolved) {
-            return respondJson($response, ['error' => 'Row is missing the data needed to name this file'], 409);
+            return respondJson($response, ['error' => 'Row is missing the data needed to place this file'], 409);
         }
-        // Voice over clips are audio; banner art is an image.
+        $folder = $resolved['folder'];
+        $suggested = $resolved['base'];
         $isAudio = !empty($resolved['audio']);
-        $path = _saveAssetUpload($file, $resolved['folder'], $resolved['base'], $isAudio);
-        if (!$path) {
-            return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
-        }
-
-        $stored = empty($fieldSpec['no_column']);
-        if ($stored) {
-            $user = $request->getAttribute('user');
-            DbQuery::update($pdo, $spec['table'], [$field => $path, 'updated_by' => $user['id']], (int) $args['id']);
-        }
-        return respondJson($response, ['entity' => $entity, 'id' => (int) $args['id'], 'field' => $field, 'path' => $path, 'stored' => $stored]);
+    }
+    if (!$folder) {
+        return respondJson($response, ['error' => "No folder configured for '$entity/$field'"], 500);
     }
 
-    // Build the file name from the row, exactly as the existing assets are named.
+    // The name comes from the client. When it is omitted the old convention is
+    // used, so an upload without one still lands where the site expects.
+    $body = $request->getParsedBody() ?? [];
+    $requested = trim((string) ($body['name'] ?? ''));
+    $baseName = $requested !== '' ? _assetPathSegment($requested) : ($suggested ?? _defaultUploadName($pdo, $spec, $fieldSpec, $row));
+
+    if ($baseName === null || $baseName === '') {
+        return respondJson($response, ['error' => 'A file name is required'], 422);
+    }
+
+    $path = _saveAssetUpload($file, $folder, $baseName, $isAudio);
+    if (!$path) {
+        return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
+    }
+
+    // Store the path and, where the table has one, the chosen name beside it.
+    $user = $request->getAttribute('user');
+    $update = [$field => $path, 'updated_by' => $user['id']];
+    $nameColumn = array_key_exists('name_column', $fieldSpec) ? $fieldSpec['name_column'] : $field . '_name';
+    if ($nameColumn !== null) {
+        $update[$nameColumn] = $baseName;
+    }
+    DbQuery::update($pdo, $spec['table'], $update, $id);
+
+    return respondJson($response, [
+        'entity' => $entity,
+        'id' => $id,
+        'field' => $field,
+        'name' => $baseName,
+        'nameColumn' => $nameColumn,
+        'path' => $path,
+    ]);
+})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+
+/**
+ * The name an upload gets when the client does not supply one: the old
+ * convention of the entity's name plus the field's suffix.
+ */
+function _defaultUploadName(PDO $pdo, array $spec, array $fieldSpec, array $row): ?string
+{
     $rawName = (string) ($row[$spec['name_column'] ?? 'name'] ?? '');
     $baseName = assetBaseName($rawName);
+
     if (!empty($spec['literal_name'])) {
         // Materials are looked up as "{name}.avif" first, so prefer the display
-        // name - but only when it survives sanitising unchanged. Anything with a
-        // separator, a leading dot or a forbidden character falls back to the
-        // UPPER_SNAKE form, which the client also resolves.
+        // name - but only when it survives sanitising unchanged.
         $literal = _assetPathSegment($rawName);
         if ($literal !== null && $literal === trim($rawName)) {
             $baseName = $literal;
         }
     }
     if ($baseName === '') {
-        return respondJson($response, ['error' => 'Row has no name to build a file name from'], 409);
+        return null;
     }
 
     $suffix = $fieldSpec['suffix'] ?? null;
@@ -300,24 +336,8 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
         $baseName .= ' - ' . $suffix;
     }
 
-    $path = _saveAssetUpload($file, $fieldSpec['folder'], $baseName);
-    if (!$path) {
-        return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
-    }
-
-    if (empty($fieldSpec['no_column'])) {
-        $user = $request->getAttribute('user');
-        DbQuery::update($pdo, $spec['table'], [$field => $path, 'updated_by' => $user['id']], (int) $args['id']);
-    }
-
-    return respondJson($response, [
-        'entity' => $entity,
-        'id' => (int) $args['id'],
-        'field' => $field,
-        'path' => $path,
-        'stored' => empty($fieldSpec['no_column']),
-    ]);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+    return $baseName;
+}
 
 /**
  * Writes into the served asset tree rather than public/uploads, so the file is

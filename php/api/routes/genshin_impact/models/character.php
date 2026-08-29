@@ -37,6 +37,13 @@ class Character extends DbModel
         public readonly ?string $release_date = null,
         public readonly ?string $introduced = null,
         public readonly ?string $demo_music = null,
+        public readonly ?string $icon_name = null,
+        public readonly ?string $card_icon_name = null,
+        public readonly ?string $card_icon_2_name = null,
+        public readonly ?string $wish_icon_name = null,
+        public readonly ?string $namecard_icon_name = null,
+        public readonly ?string $namecard_background_name = null,
+        public readonly ?string $namecard_banner_name = null,
     ) {
     }
 

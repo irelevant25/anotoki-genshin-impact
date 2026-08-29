@@ -1,0 +1,35 @@
+<app-modal [title]="title()" (closeModal)="cancel()">
+    <div modal-body class="upload-body">
+        <app-file
+            [label]="'File'"
+            [buttonText]="'Choose image'"
+            [buttonOutline]="true"
+            [acceptedExtensions]="imageExtensions"
+            [fileNamePosition]="'right'"
+            (inputChange)="onFileSelect($event)"
+        ></app-file>
+
+        @if (preview(); as src) {
+            <div class="upload-preview">
+                <img [src]="src" [alt]="trimmedName()" />
+            </div>
+        }
+
+        <app-text
+            [label]="'Name'"
+            [description]="'Without folder or extension. The server puts the file in the right folder for this field.'"
+            [placeholder]="'e.g. HU_TAO'"
+            [(value)]="name"
+            [required]="true"
+        ></app-text>
+
+        @if (error(); as message) {
+            <p class="upload-error">{{ message }}</p>
+        }
+    </div>
+
+    <div modal-footer class="upload-footer">
+        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancel()"></app-button>
+        <app-button text="Upload" [disabled]="!canSubmit()" [loading]="loading()" (buttonClick)="submit()"></app-button>
+    </div>
+</app-modal>

@@ -23,6 +23,9 @@ class Food extends DbModel
         public readonly ?array $how_to_obtain = null,
         public readonly ?array $effects = null,
         public readonly ?string $version = null,
+        public readonly ?string $icon_normal_name = null,
+        public readonly ?string $icon_delicious_name = null,
+        public readonly ?string $icon_suspicious_name = null,
     ) {
     }
 

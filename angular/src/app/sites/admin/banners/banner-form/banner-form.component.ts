@@ -6,7 +6,6 @@ import { LoaderComponent } from '../../../../shared/local-lib/components/loader/
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { CalendarComponent } from '../../../../shared/local-lib/components/calendar/calendar.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { FieldContainerComponent } from '../../../../shared/local-lib/components/field-container/field-container.component';
 import { TooltipComponent } from '../../../../shared/local-lib/components/tooltip/tooltip.component';
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
 import { AdminApiService, BannerFormData, BannerFull } from '../../services/admin-api.service';
@@ -31,7 +30,6 @@ interface FeaturedWrapper {
     TextComponent,
     CalendarComponent,
     DropdownComponent,
-    FieldContainerComponent,
     TooltipComponent,
     MaterialIconDirective,
   ],

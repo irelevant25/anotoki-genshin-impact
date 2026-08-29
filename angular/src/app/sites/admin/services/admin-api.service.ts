@@ -475,6 +475,17 @@ export interface AuditLogQuery {
   page: number;
 }
 
+export interface EntityUploadResult {
+  entity: string;
+  id: number;
+  field: string;
+  /** Base name the file was stored under, no folder and no extension. */
+  name: string;
+  /** Column the name went into, or null when the table has none. */
+  nameColumn: string | null;
+  path: string;
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -678,11 +689,17 @@ export class AdminApiService {
     return this._http.get<AuditLogPage>('/api/audit-logs', { params });
   }
 
-  /** Uploads a file for one entity field; the server decides the destination. */
-  uploadEntityFile(entity: string, id: number, field: string, file: File): Observable<{ path: string }> {
+  /**
+   * Uploads a file for one entity field. The client chooses the name; the
+   * server works out the folder and stores both the path and the name.
+   */
+  uploadEntityFile(entity: string, id: number, field: string, file: File, name?: string): Observable<EntityUploadResult> {
     const form = new FormData();
     form.append('file', file, file.name);
-    return this._http.post<{ path: string }>(`/api/uploads/${entity}/${id}/${field}`, form);
+    if (name) {
+      form.append('name', name);
+    }
+    return this._http.post<EntityUploadResult>(`/api/uploads/${entity}/${id}/${field}`, form);
   }
 
   getEnemies(): Observable<any[]> { return this._http.get<any[]>('/api/enemies'); }

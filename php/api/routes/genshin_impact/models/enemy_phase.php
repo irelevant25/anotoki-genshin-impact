@@ -12,6 +12,8 @@ class EnemyPhase extends DbModel
         public readonly ?string $secondary_title     = null,
         public readonly ?string $art = null,
         public readonly ?bool $has_weakpoint = null,
+        public readonly ?string $icon_name = null,
+        public readonly ?string $art_name = null,
     ) {
     }
 }

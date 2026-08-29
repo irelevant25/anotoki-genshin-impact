@@ -7,5 +7,7 @@ class Banner extends DbModel
         public readonly string  $version,
         public readonly string  $duration_from,
         public readonly ?string $duration_to = null,
+        public readonly ?string $icon = null,
+        public readonly ?string $icon_name = null,
     ) {}
 }

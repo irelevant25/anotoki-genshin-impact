@@ -1,0 +1,55 @@
+.entity-image {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.entity-image-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+}
+
+.required-indicator {
+  color: var(--color-danger);
+}
+
+.entity-image-frame {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+
+  &.empty {
+    border-style: dashed;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+  }
+}
+
+.entity-image-empty {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+// The stored base name, which is what the upload modal edits.
+.entity-image-name {
+  max-width: 100%;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

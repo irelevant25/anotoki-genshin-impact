@@ -18,6 +18,7 @@ class Weapon extends DbModel
         public readonly ?string $release_date = null,
         public readonly ?string $version = null,
         public readonly ?string $description = null,
+        public readonly ?string $icon_ascension_name = null,
     ) {
     }
 

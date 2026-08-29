@@ -1,0 +1,34 @@
+<div class="entity-image">
+    <span class="entity-image-label" [class.required]="required()">
+        {{ label() }}
+        @if (required()) {
+            <span class="required-indicator">*</span>
+        }
+    </span>
+
+    <div class="entity-image-frame" [class.empty]="!hasImage()">
+        @if (src(); as source) {
+            <img #img [src]="source" [alt]="label()" />
+            <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                <img class="w-100" [src]="source" [alt]="label()" />
+            </app-tooltip>
+        } @else {
+            <span class="entity-image-empty">none</span>
+        }
+    </div>
+
+    @if (name()) {
+        <span class="entity-image-name" [title]="name()!">{{ name() }}</span>
+    }
+
+    <app-button
+        [text]="hasImage() ? 'Replace' : 'Upload'"
+        icon="icon-upload"
+        variant="secondary"
+        [outline]="true"
+        size="very-small"
+        [disabled]="!canUpload()"
+        [tooltipText]="canUpload() ? '' : 'Save first, then images can be uploaded'"
+        (buttonClick)="open()"
+    ></app-button>
+</div>

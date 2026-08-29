@@ -8,6 +8,7 @@ class Enemy extends DbModel
         public readonly ?string $version = null,
         public readonly ?string $description = null,
         public readonly ?string $interactive_map_link = null,
+        public readonly ?string $icon_name = null,
     ) {
     }
 }

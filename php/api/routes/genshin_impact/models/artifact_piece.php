@@ -7,5 +7,6 @@ class ArtifactPiece extends DbModel
         public readonly string $icon,
         public readonly string $type,
         public readonly string $name,
+        public readonly ?string $icon_name = null,
     ) {}
 }

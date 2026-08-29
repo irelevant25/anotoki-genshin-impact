@@ -19,6 +19,7 @@ class Artifact extends DbModel
         public readonly bool    $has_rarity_3            = false,
         public readonly bool    $has_rarity_4            = false,
         public readonly bool    $has_rarity_5            = true,
+        public readonly ?string $icon_name = null,
     ) {
     }
 
