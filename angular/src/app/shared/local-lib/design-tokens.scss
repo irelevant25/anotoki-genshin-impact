@@ -1,3 +1,278 @@
+////
+/// Every design value the app uses lives here.
+///
+/// Two layers:
+///
+///   :root          primitives that do not change with the theme - spacing,
+///                  type, radii, sizes, and the fixed Genshin palette.
+///
+///   palette-*      everything that does change: surfaces, text, borders and
+///                  the brand and status families. Both mixins define the
+///                  *same* set of names, so neither theme can be missing a
+///                  token and fall back to an unstyled value.
+///
+/// Light is the default, written straight onto :root. A page that never sets
+/// `data-theme` is therefore a complete light theme rather than a colourless
+/// one. `[data-theme="dark"]` swaps the palette; `[data-theme="light"]` puts it
+/// back, so it also wins over the system-preference rule at the bottom.
+///
+/// Nothing outside this file should contain a raw colour. If a component needs
+/// one it does not have, add it here first.
+////
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Light palette
+//
+// Cool neutral: white cards on a faintly grey page. Text stops short of pure
+// black so long pages are easier on the eye.
+// ─────────────────────────────────────────────────────────────────────────────
+@mixin palette-light {
+  color-scheme: light;
+
+  // Surfaces, from the page backwards
+  --bg-page: #f4f6f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #eef1f6;
+  --bg-header: #ffffff;
+  --bg-sidebar: #ffffff;
+  --bg-input: #ffffff;
+  --bg-hover: #eef1f6;
+  --bg-active: #e4e9f1;
+  --bg-table-header: #eef1f6;
+  --bg-table-header-text: #55616f;
+  // Sits over the page to focus a dialog.
+  --bg-backdrop: rgb(23 28 35 / 45%);
+
+  // The main site floats frosted panels over a wallpaper; these are the fills
+  // that let the picture through. Admin pages use the solid surfaces above.
+  --bg-veil: rgb(255 255 255 / 62%);
+  --bg-veil-strong: rgb(255 255 255 / 88%);
+  --bg-veil-soft: rgb(255 255 255 / 14%);
+  --border-veil: rgb(255 255 255 / 60%);
+
+  // Tooltips stay a dark bubble in both themes, so they read as an overlay
+  // rather than as another panel.
+  --bg-tooltip: #2b3441;
+  --text-tooltip: #ffffff;
+
+  // Text
+  --text-primary: #1c2430;
+  --text-secondary: #55616f;
+  --text-muted: #6b7684;
+  --text-light: #6b7684;
+  --text-inverse: #ffffff;
+
+  // Borders
+  --border-color: #dde2e9;
+  --border-color-subtle: #e9edf2;
+  --border-color-dark: #b6bfca;
+
+  // Brand
+  --color-main: #067a52;
+  --color-main-text: #ffffff;
+  --color-main-hover: #056240;
+  --color-main-light: #e2f7ef;
+  --color-main-light-text: #075f42;
+  --color-main-light-border: #b6e8d6;
+
+  --color-primary: #1f6feb;
+  --color-primary-text: #ffffff;
+  --color-primary-hover: #1a5cc4;
+  --color-primary-light: #e7f0fe;
+  --color-primary-light-text: #14428f;
+  --color-primary-light-border: #bcd6fb;
+
+  // Secondary is the quiet button: a surface, not a colour.
+  --color-secondary: #eef1f6;
+  --color-secondary-text: #1c2430;
+  --color-secondary-hover: #e0e5ee;
+  --color-secondary-light: #f6f8fa;
+  --color-secondary-light-text: #1c2430;
+  --color-secondary-light-border: #dde2e9;
+
+  --color-danger: #c62828;
+  --color-danger-text: #ffffff;
+  --color-danger-hover: #a31f1f;
+  --color-danger-light: #fdecec;
+  --color-danger-light-text: #8e1f1f;
+  --color-danger-light-border: #f6c6c6;
+
+  --color-success: #1a7f4b;
+  --color-success-text: #ffffff;
+  --color-success-hover: #14653c;
+  --color-success-light: #e4f6ec;
+  --color-success-light-text: #115e37;
+  --color-success-light-border: #b5e3c9;
+
+  --color-warning: #a55a00;
+  --color-warning-text: #ffffff;
+  --color-warning-hover: #874900;
+  --color-warning-light: #fdf1e0;
+  --color-warning-light-text: #7c4400;
+  --color-warning-light-border: #f3d5ab;
+
+  --color-info: #0e7490;
+  --color-info-text: #ffffff;
+  --color-info-hover: #0b5c73;
+  --color-info-light: #e2f4f8;
+  --color-info-light-text: #0a566b;
+  --color-info-light-border: #b3e0ec;
+
+  // "light" and "dark" are literal shades, used for chips and quiet fills.
+  --color-light: #f4f6f9;
+  --color-light-text: #1c2430;
+  --color-light-hover: #e7ebf1;
+
+  --color-dark: #2b3441;
+  --color-dark-text: #ffffff;
+  --color-dark-hover: #3b4757;
+  --color-dark-light: #4a586a;
+  --color-dark-light-text: #ffffff;
+
+  --color-disabled: #eef1f6;
+  --color-disabled-text: #79838f;
+
+  --color-link: #1a63d8;
+  --color-link-hover: #1550b4;
+  --color-nav-link: #2b3441;
+
+  --color-version: #6c5ce7;
+  --color-version-text: #ffffff;
+  --color-version-light: #8b7cf0;
+
+  // Shadows and translucent overlays
+  --color-shadow: rgb(23 28 35 / 8%);
+  --color-alpha: rgb(23 28 35 / 22%);
+  --shadow-small: 0 1px 2px rgb(23 28 35 / 8%);
+  --shadow-medium: 0 2px 8px rgb(23 28 35 / 10%);
+  --shadow-large: 0 8px 24px rgb(23 28 35 / 14%);
+  // The halo an input or button gets while focused.
+  --focus-ring: rgb(31 111 235 / 25%);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Dark palette
+//
+// Blue-grey rather than flat grey, and the surfaces step up in clear stages so
+// cards, hovers and headers stay apart from each other. Text is off-white:
+// pure white on near-black glares.
+// ─────────────────────────────────────────────────────────────────────────────
+@mixin palette-dark {
+  color-scheme: dark;
+
+  --bg-page: #12161c;
+  --bg-card: #1a1f27;
+  --bg-card-hover: #232935;
+  --bg-header: #1a1f27;
+  --bg-sidebar: #161b22;
+  --bg-input: #12161c;
+  --bg-hover: #232935;
+  --bg-active: #2c3441;
+  --bg-table-header: #232935;
+  --bg-table-header-text: #97a3b2;
+  --bg-backdrop: rgb(4 6 9 / 60%);
+
+  --bg-veil: rgb(18 22 28 / 66%);
+  --bg-veil-strong: rgb(18 22 28 / 90%);
+  --bg-veil-soft: rgb(255 255 255 / 8%);
+  --border-veil: rgb(255 255 255 / 12%);
+
+  --bg-tooltip: #39434f;
+  --text-tooltip: #e3e9ef;
+
+  --text-primary: #e3e9ef;
+  --text-secondary: #a3b0bf;
+  --text-muted: #78848f;
+  --text-light: #78848f;
+  --text-inverse: #12161c;
+
+  --border-color: #2c343f;
+  --border-color-subtle: #232935;
+  --border-color-dark: #44505f;
+
+  --color-main: #2ec48c;
+  --color-main-text: #06251a;
+  --color-main-hover: #4ad3a0;
+  --color-main-light: #16302a;
+  --color-main-light-text: #7fe3bd;
+  --color-main-light-border: #235345;
+
+  --color-primary: #2f6feb;
+  --color-primary-text: #ffffff;
+  --color-primary-hover: #2560d0;
+  --color-primary-light: #17263f;
+  --color-primary-light-text: #8cbcff;
+  --color-primary-light-border: #2a4570;
+
+  --color-secondary: #262e3a;
+  --color-secondary-text: #e3e9ef;
+  --color-secondary-hover: #313b49;
+  --color-secondary-light: #1f2731;
+  --color-secondary-light-text: #e3e9ef;
+  --color-secondary-light-border: #2c343f;
+
+  --color-danger: #f2645c;
+  --color-danger-text: #2b0a08;
+  --color-danger-hover: #f7827b;
+  --color-danger-light: #351a19;
+  --color-danger-light-text: #ff9d97;
+  --color-danger-light-border: #5c2b28;
+
+  --color-success: #3fbb75;
+  --color-success-text: #062616;
+  --color-success-hover: #5fcd8d;
+  --color-success-light: #16301f;
+  --color-success-light-text: #85dcaa;
+  --color-success-light-border: #235338;
+
+  --color-warning: #e0a13a;
+  --color-warning-text: #2a1c04;
+  --color-warning-hover: #eeb659;
+  --color-warning-light: #33270f;
+  --color-warning-light-text: #f0c887;
+  --color-warning-light-border: #574121;
+
+  --color-info: #45b6d6;
+  --color-info-text: #04222b;
+  --color-info-hover: #67c7e1;
+  --color-info-light: #142c34;
+  --color-info-light-text: #92d8ea;
+  --color-info-light-border: #22505f;
+
+  --color-light: #262e3a;
+  --color-light-text: #e3e9ef;
+  --color-light-hover: #313b49;
+
+  --color-dark: #e3e9ef;
+  --color-dark-text: #12161c;
+  --color-dark-hover: #c8d2dc;
+  --color-dark-light: #a3b0bf;
+  --color-dark-light-text: #12161c;
+
+  --color-disabled: #232935;
+  --color-disabled-text: #7b8794;
+
+  // Links carry their own lighter blue: the button blue is too dark to read
+  // as text on a dark surface.
+  --color-link: #6cb0ff;
+  --color-link-hover: #8cc3ff;
+  --color-nav-link: #a3b0bf;
+
+  --color-version: #9b8cf5;
+  --color-version-text: #17102e;
+  --color-version-light: #b6abf8;
+
+  --color-shadow: rgb(0 0 0 / 40%);
+  --color-alpha: rgb(0 0 0 / 45%);
+  --shadow-small: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-medium: 0 2px 8px rgb(0 0 0 / 45%);
+  --shadow-large: 0 8px 24px rgb(0 0 0 / 55%);
+  --focus-ring: rgb(47 111 235 / 40%);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Primitives + the default (light) palette
+// ─────────────────────────────────────────────────────────────────────────────
 :root {
   // Spacing
   --spacing-xxs: 4px;
@@ -6,6 +281,7 @@
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
+  --spacing-2xl: 48px;
 
   // Typography
   --font-size-xs: 10px;
@@ -21,20 +297,37 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
+  --line-height-tight: 1.25;
+  --line-height-base: 1.5;
+
   // Borders
   --border-radius: 4px;
   --border-radius-medium: 6px;
   --border-radius-large: 8px;
+  --border-radius-pill: 999px;
 
-  // Component heights
+  // Component sizes
   --input-height: 2.5rem;
   --button-height-xs: 28px;
   --button-height-sm: 32px;
   --button-height: 36px;
   --button-height-lg: 40px;
 
-    //
-  // Genshin colors
+  // Motion
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+
+  // Stacking. Kept in one place so a popup cannot end up under a modal.
+  --z-sticky: 100;
+  --z-backdrop: 900;
+  --z-modal: 1000;
+  --z-popup: 1100;
+  --z-tooltip: 1200;
+  --z-notification: 1300;
+
+  //
+  // Genshin colours - the same in both themes; they belong to the game, not
+  // to the interface.
   //
 
   --genshin-blue: #69c0de;
@@ -75,160 +368,33 @@
   --cryo-secondary-white: #7bbecf;
   --cryo-accent-white: #5a9cab;
 
-  /* 5 star rarity color */
+  /* Quiz difficulty */
+  --level-easy: #0f9d63;
+  --level-medium: #2563eb;
+  --level-hard: #7c3aed;
+
+  /* Rarity */
   --five-star: #db914f;
-
-  /* 4 star rarity color */
   --four-star: #7a6ba1;
-
-  /* 3 star rarity color */
   --three-star: #708aaa;
-
-  /* 2 star rarity color */
   --two-star: #638879;
-
-  /* 1 star rarity color */
   --one-star: #7a7b7f;
+
+  @include palette-light;
 }
 
-/* Light Mode - Manual toggle class (explicit) */
+// An explicit choice always wins.
 [data-theme="light"] {
-  // Colors
-  --color-main: rgb(13, 173, 117);
-  --color-main-text: #2d3436;
-  --color-main-light: #dcfce7;
-  --color-main-light-text: #000000;
-  --color-main-light-border: rgb(187 247 208);
-
-  --color-primary: #1976d2;
-  --color-primary-text: #ffffff;
-  --color-primary-light: rgb(59 130 246);
-  --color-primary-light-text: #fff;
-  --color-primary-hover: #0f4f99;
-
-  --color-secondary: #f5f5f5;
-  --color-secondary-hover: #cecece;
-  --color-secondary-text: #212121;
-
-  --color-danger: #d32f2f;
-  --color-danger-text: #ffffff;
-  --color-danger-light: rgb(248 113 113);
-  --color-danger-light-text: #fff;
-  --color-danger-hover: #971e1e;
-
-  --color-success: #388e3c;
-  --color-success-text: #ffffff;
-  --color-success-light: rgb(16 185 129);
-  --color-success-light-text: #fff;
-  --color-success-hover: #225c25;
-
-  --color-warning: #f57c00;
-  --color-warning-text: #ffffff;
-  --color-warning-light: hsl(34 100% 56%);
-  --color-warning-light-text: #fff;
-  --color-warning-hover: #b65200;
-
-  --color-info: #2196f3;
-  --color-info-hover: #145ba3;
-  --color-info-text: #ffffff;
-
-  --color-dark: #212121;
-  --color-dark-text: #ffffff;
-  --color-dark-light: #424242;
-  --color-dark-light-text: #ffffff;
-  --color-dark-hover: #5f5f5f;
-
-  --color-link: #1976d2;
-  --color-disabled: #f3f5f7;
-  --color-nav-link: #2c3e50;
-  --color-version: #6c5ce7;
-  --color-version-light: #818cf8;
-  --color-shadow: rgba(0, 0, 0, 0.05);
-
-  // Backgrounds
-  --bg-page: hsl(0 0% 98% / 1);
-  --bg-card: #fcfcfc;
-  --bg-card-hover: #f0f0f0;
-  --bg-header: #e3f2fd;
-  --bg-table-header-text: #6c7c93;
-  --bg-table-header: #f3f5f7;
-  --bg-hover: #f0f0f0;
-
-  // Text colors
-  --text-primary: #333333;
-  --text-secondary: #757575;
-  --text-muted: #9e9e9e;
-
-  // Borders
-  --border-color: #d4d4d4;
-  --border-color-dark: #757575;
-
-  // Shadows
-  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-large: 0 4px 16px rgba(0, 0, 0, 0.1);
-
-  // alpha
-  --color-alpha: rgba(0, 0, 0, 0.25);
+  @include palette-light;
 }
 
-/* Dark Mode - Manual toggle class */
 [data-theme="dark"] {
-  // Dark Mode Colors
-  --color-primary: #42a5f5;
-  --color-primary-hover: #2196f3;
-  --color-primary-text: #e7e7e7;
+  @include palette-dark;
+}
 
-  --color-secondary: #8f8f8f;
-  --color-secondary-hover: #afafaf;
-  --color-secondary-text: #ffffff;
-
-  --color-danger: #f44336;
-  --color-danger-light: hsla(4, 90%, 58%, 0.5);
-  --color-danger-hover: #ff6659;
-  --color-danger-text: #ffffff;
-
-  --color-success: #66bb6a;
-  --color-success-light: hsla(123, 38%, 57%, 0.5);
-  --color-success-hover: #81c784;
-  --color-success-text: #FFFFFF;
-
-  --color-warning: #ffa726;
-  --color-warning-light: hsla(35, 100%, 59%, 0.5);
-  --color-warning-hover: #ffb74d;
-  --color-warning-text: #000000;
-
-  --color-info: #29b6f6;
-  --color-info-hover: #4fc3f7;
-  --color-info-text: #000000;
-
-  --color-dark: #e0e0e0;
-  --color-dark-hover: #bdbdbd;
-  --color-dark-text: #000000;
-
-  --color-link: #42a5f5;
-  --color-disabled: #424242;
-  --color-nav-link: #90caf9;
-
-  // Dark Mode Backgrounds
-  --bg-page: #121212;
-  --bg-card: #1e1e1e;
-  --bg-card-hover: #2a2a2a;
-  --bg-header: #1f1f1f;
-  --bg-table-header: #2a2a2a;
-  --bg-hover: #212121;
-
-  // Dark Mode Text colors
-  --text-primary: #ffffff;
-  --text-secondary: #b0b0b0;
-  --text-muted: #585858;
-
-  // Dark Mode Borders
-  --border-color: #404040;
-  --border-color-dark: #616161;
-
-  // Dark Mode Shadows
-  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-large: 0 4px 16px rgba(0, 0, 0, 0.5);
+// Before anything has been chosen, follow the operating system.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include palette-dark;
+  }
 }

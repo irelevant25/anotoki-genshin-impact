@@ -1,5 +1,5 @@
 <div class="bottom-container">
-    <app-theme-toggle class="mx-5" style="display: none"></app-theme-toggle>
+    <app-theme-toggle class="mx-5"></app-theme-toggle>
 
     @for (menuItemSignal of menuItems | keyvalue: preserveOrder; track menuItemSignal.value().id) {
         @let menuItem = menuItemSignal.value();

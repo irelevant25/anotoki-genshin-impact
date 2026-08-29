@@ -4,7 +4,7 @@ img {
   cursor: pointer;
   transition: transform 0.2s ease;
   border: 2px solid transparent;
-  border-radius: 8px;
+  border-radius: var(--border-radius-large);
   object-fit: cover;
 
   &:hover {

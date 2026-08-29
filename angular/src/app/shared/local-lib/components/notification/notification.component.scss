@@ -13,9 +13,9 @@
 .notification {
   display: flex;
   align-items: flex-start;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-medium);
   animation: slideIn 0.3s ease-out;
   border-left: 4px solid;
   max-width: 400px;
@@ -23,27 +23,27 @@
 }
 
 .notification--success {
-  background-color: #f0f9ff;
-  border-left-color: #10b981;
-  color: #065f46;
+  background-color: var(--color-success-light);
+  border-left-color: var(--color-success);
+  color: var(--color-success-light-text);
 }
 
 .notification--error {
-  background-color: #fef2f2;
-  border-left-color: #ef4444;
-  color: #991b1b;
+  background-color: var(--color-danger-light);
+  border-left-color: var(--color-danger);
+  color: var(--color-danger-light-text);
 }
 
 .notification--info {
-  background-color: #eff6ff;
-  border-left-color: #3b82f6;
-  color: #1e40af;
+  background-color: var(--color-info-light);
+  border-left-color: var(--color-info);
+  color: var(--color-info-light-text);
 }
 
 .notification--warning {
-  background-color: #fffbeb;
-  border-left-color: #f59e0b;
-  color: #92400e;
+  background-color: var(--color-warning-light);
+  border-left-color: var(--color-warning);
+  color: var(--color-warning-light-text);
 }
 
 .notification__icon {
@@ -65,7 +65,7 @@
 }
 
 .notification__message {
-  font-size: 14px;
+  font-size: var(--font-size-base);
   line-height: 1.5;
   word-wrap: break-word;
 }
@@ -74,9 +74,9 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: var(--spacing-xxs);
   margin-left: 8px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   opacity: 0.7;
   transition: opacity 0.2s;
   flex-shrink: 0;

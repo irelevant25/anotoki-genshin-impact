@@ -6,7 +6,7 @@
   color: var(--text-secondary);
 
   code {
-    padding: 1px 4px;
+    padding: 1px var(--spacing-xxs);
     border-radius: 3px;
     background: var(--bg-hover);
     word-break: break-all;
@@ -40,7 +40,7 @@
 
 .featured-order {
   width: 24px;
-  padding-bottom: 6px;
+  padding-bottom: var(--spacing-xs);
   flex-shrink: 0;
   font-size: var(--font-size-sm);
   color: var(--text-muted);

@@ -25,7 +25,7 @@
 .upload-name {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xxs);
 }
 
 .upload-name-label {

@@ -1,138 +1,105 @@
-import { Injectable, signal, effect, PLATFORM_ID, inject } from '@angular/core';
+import { Injectable, signal, computed, effect, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
-export type Theme = 'light' | 'dark';
+/** `auto` follows the operating system; the other two override it. */
+export type Theme = 'light' | 'dark' | 'auto';
 
-@Injectable({
-  providedIn: 'root',
-})
+/** What actually gets put on the document. */
+export type ResolvedTheme = 'light' | 'dark';
+
+const STORAGE_KEY = 'preferred-theme';
+const THEMES: Theme[] = ['light', 'dark', 'auto'];
+
+/**
+ * Owns the light/dark choice for both sites.
+ *
+ * The preference is one of three values; what lands on `<html data-theme>` is
+ * always resolved to light or dark, so the stylesheet only ever deals with two.
+ * Nothing is chosen by default: a first-time visitor gets whatever their system
+ * asks for, and the choice is remembered once they make one.
+ */
+@Injectable({ providedIn: 'root' })
 export class ThemeToggleService {
   private readonly _platformId = inject(PLATFORM_ID);
-  THEME_STORAGE_KEY = 'preferred-theme';
+  private readonly _browser = isPlatformBrowser(this._platformId);
 
-  // Signal to track current theme
-  currentTheme = signal<Theme>('light');
+  /** What the user picked, `auto` until they pick something. */
+  readonly currentTheme = signal<Theme>('auto');
+  /** Tracks the OS setting so `auto` can follow it while the page is open. */
+  private readonly _systemPrefersDark = signal(false);
 
-  // Computed signal for the effective theme
-  effectiveTheme = signal<Theme>('light');
+  /** What is actually showing. */
+  readonly effectiveTheme = computed<ResolvedTheme>(() => {
+    const chosen = this.currentTheme();
+    if (chosen !== 'auto') {
+      return chosen;
+    }
+    return this._systemPrefersDark() ? 'dark' : 'light';
+  });
+
+  readonly isDarkMode = computed(() => this.effectiveTheme() === 'dark');
+  readonly isLightMode = computed(() => this.effectiveTheme() === 'light');
 
   constructor() {
-    // Initialize theme on service creation
-    if (isPlatformBrowser(this._platformId)) {
-      this.initializeTheme();
-      // this.setupMediaQueryListener();
+    if (this._browser) {
+      this._restore();
+      this._watchSystem();
     }
 
-    // Effect to apply theme changes to DOM
     effect(() => {
-      if (isPlatformBrowser(this._platformId)) {
-        this.applyThemeToDOM(this.effectiveTheme());
+      const theme = this.effectiveTheme();
+      if (this._browser) {
+        this._apply(theme);
       }
     });
   }
 
-  /**
-   * Set the theme preference
-   */
   setTheme(theme: Theme): void {
     this.currentTheme.set(theme);
-
-    if (isPlatformBrowser(this._platformId)) {
-      // Save to localStorage
-      localStorage.setItem(this.THEME_STORAGE_KEY, theme);
-
-      // Update effective theme
-      this.updateEffectiveTheme();
+    if (!this._browser) {
+      return;
+    }
+    try {
+      if (theme === 'auto') {
+        localStorage.removeItem(STORAGE_KEY);
+      } else {
+        localStorage.setItem(STORAGE_KEY, theme);
+      }
+    } catch {
+      // Private browsing and blocked storage: the choice just will not persist.
     }
   }
 
-  /**
-   * Toggle between light and dark mode
-   */
+  /** Flips to the opposite of what is on screen, which also leaves `auto`. */
   toggleTheme(): void {
-    const current = this.currentTheme();
-    this.setTheme(current === 'light' ? 'dark' : 'light');
-    // if (current === 'auto') {
-    //   // If auto, switch to opposite of current system preference
-    //   const systemDark = this.getSystemPreference();
-    //   this.setTheme(systemDark ? 'light' : 'dark');
-    // } else {
-    //   this.setTheme(current === 'light' ? 'dark' : 'light');
-    // }
+    this.setTheme(this.isDarkMode() ? 'light' : 'dark');
   }
 
-  /**
-   * Get the current system color scheme preference
-   */
-  // private getSystemPreference(): boolean {
-  //   if (!isPlatformBrowser(this._platformId)) {
-  //     return false;
-  //   }
-  //   return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  // }
-
-  /**
-   * Initialize theme from localStorage or system preference
-   */
-  private initializeTheme(): void {
-    const savedTheme = localStorage.getItem(this.THEME_STORAGE_KEY) as Theme;
-
-    if (savedTheme) {
-      this.currentTheme.set(savedTheme);
+  private _restore(): void {
+    this._systemPrefersDark.set(this._query()?.matches ?? false);
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem(STORAGE_KEY);
+    } catch {
+      saved = null;
     }
-
-    this.updateEffectiveTheme();
+    if (saved && (THEMES as string[]).includes(saved)) {
+      this.currentTheme.set(saved as Theme);
+    }
   }
 
-  /**
-   * Update the effective theme based on current theme setting
-   */
-  private updateEffectiveTheme(): void {
-    const current = this.currentTheme();
-    this.effectiveTheme.set(current);
-    // if (current === 'auto') {
-    //   this.effectiveTheme.set(this.getSystemPreference() ? 'dark' : 'light');
-    // } else {
-    //   this.effectiveTheme.set(current);
-    // }
+  private _watchSystem(): void {
+    this._query()?.addEventListener('change', (event) => this._systemPrefersDark.set(event.matches));
   }
 
-  /**
-   * Apply theme to DOM by setting data-theme attribute
-   */
-  private applyThemeToDOM(theme: Theme): void {
-    document.documentElement.setAttribute('data-theme', theme);
-
-    // Optional: Also add a CSS class for additional styling hooks
-    document.documentElement.classList.remove('light-theme', 'dark-theme');
-    document.documentElement.classList.add(`${theme}-theme`);
+  private _query(): MediaQueryList | null {
+    return typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   }
 
-  /**
-   * Setup listener for system theme changes
-   */
-  // private setupMediaQueryListener(): void {
-  //   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-  //   mediaQuery.addEventListener('change', (e) => {
-  //     // Only update if current theme is 'auto'
-  //     if (this.currentTheme() === 'auto') {
-  //       this.effectiveTheme.set(e.matches ? 'dark' : 'light');
-  //     }
-  //   });
-  // }
-
-  /**
-   * Check if dark mode is currently active
-   */
-  isDarkMode(): boolean {
-    return this.effectiveTheme() === 'dark';
-  }
-
-  /**
-   * Check if light mode is currently active
-   */
-  isLightMode(): boolean {
-    return this.effectiveTheme() === 'light';
+  private _apply(theme: ResolvedTheme): void {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    root.classList.remove('light-theme', 'dark-theme');
+    root.classList.add(`${theme}-theme`);
   }
 }

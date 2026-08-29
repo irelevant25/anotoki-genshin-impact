@@ -8,12 +8,12 @@ $radius: 4px;
   width: 240px;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: var(--border-radius-large);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-sm);
   user-select: none;
 }
 
@@ -57,7 +57,7 @@ $radius: 4px;
 .sliders-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm);
 }
 
 .color-preview-wrap {
@@ -170,7 +170,7 @@ $radius: 4px;
 .hex-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacing-xs);
 }
 
 .hex-label {
@@ -240,7 +240,7 @@ $radius: 4px;
 
 .btn-apply {
   height: 28px;
-  padding: 0 16px;
+  padding: 0 var(--spacing-md);
   font-size: 0.8rem;
   font-weight: 600;
   background-color: var(--color-primary, #4a90e2);

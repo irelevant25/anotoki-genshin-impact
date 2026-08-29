@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: var(--font-size-base);
 }
 
 .col-name {
@@ -42,32 +42,14 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
 
-  &.element-anemo {
-    background: rgba(116, 194, 168, 0.2);
-    color: #74c2a8;
+  // One rule per element, from the shared Genshin palette. The label is blended
+  // towards the theme's text colour so a pale element like Cryo stays readable
+  // on a white card and a dark one stays readable on a dark card.
+  @each $element in "anemo", "geo", "electro", "dendro", "hydro", "pyro", "cryo" {
+    &.element-#{$element} {
+      background: color-mix(in srgb, var(--#{$element}-primary-white) 20%, transparent);
+      color: color-mix(in srgb, var(--#{$element}-primary-white) 62%, var(--text-primary));
+    }
   }
-  &.element-geo {
-    background: rgba(250, 182, 50, 0.2);
-    color: #fab632;
-  }
-  &.element-electro {
-    background: rgba(167, 87, 203, 0.2);
-    color: #a757cb;
-  }
-  &.element-dendro {
-    background: rgba(126, 194, 54, 0.2);
-    color: #7ec236;
-  }
-  &.element-hydro {
-    background: rgba(76, 194, 241, 0.2);
-    color: #4cc2f1;
-  }
-  &.element-pyro {
-    background: rgba(239, 103, 74, 0.2);
-    color: #ef674a;
-  }
-  &.element-cryo {
-    background: rgba(159, 214, 227, 0.2);
-    color: #9fd6e3;
-  }
+
 }

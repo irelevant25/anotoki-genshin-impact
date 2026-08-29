@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ThemeToggleService } from './theme-toggle.service';
 
-import { ThemeToggleService, Theme } from './theme-toggle.service';
-
+/** A single button that flips between light and dark. */
 @Component({
   selector: 'app-theme-toggle',
   imports: [],
@@ -9,18 +9,9 @@ import { ThemeToggleService, Theme } from './theme-toggle.service';
   styleUrl: './theme-toggle.component.scss',
 })
 export class ThemeToggleComponent {
-  showAdvancedOptions = false;
-  showStatus = false;
+  readonly theme = inject(ThemeToggleService);
 
-  constructor(public readonly themeToggleService: ThemeToggleService) {}
-
-  toggleTheme(): void {
-    this.themeToggleService.toggleTheme();
-  }
-
-  onThemeChange(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    const theme = target.value as Theme;
-    this.themeToggleService.setTheme(theme);
+  toggle(): void {
+    this.theme.toggleTheme();
   }
 }

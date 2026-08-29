@@ -22,7 +22,7 @@
     background-clip: padding-box;
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-large);
     outline: 0;
     padding: 1.5rem;
     min-height: 0; // Important for flexbox children to shrink
@@ -97,12 +97,12 @@
 
   .modal-body::-webkit-scrollbar-track {
     background: var(--bg-hover);
-    border-radius: 4px;
+    border-radius: var(--border-radius);
   }
 
   .modal-body::-webkit-scrollbar-thumb {
     background: var(--border-color);
-    border-radius: 4px;
+    border-radius: var(--border-radius);
   }
 
   .modal-body::-webkit-scrollbar-thumb:hover {

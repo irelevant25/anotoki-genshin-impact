@@ -14,11 +14,11 @@
 .input-prefix,
 .input-suffix {
   padding: 0 0.75rem;
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
+  background-color: var(--bg-hover);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
-  color: #6c757d;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   white-space: nowrap;
 }
@@ -54,40 +54,40 @@
 // Error state styling for prefix/suffix
 .form-control.error ~ .input-suffix,
 .input-prefix ~ .form-control.error ~ .input-suffix {
-  border-color: #dc3545;
+  border-color: var(--color-danger);
 }
 
 .input-wrapper:has(.form-control.error) {
   .input-prefix,
   .input-suffix {
-    border-color: #dc3545;
+    border-color: var(--color-danger);
   }
 }
 
 // Valid state styling for prefix/suffix
 .form-control.valid ~ .input-suffix,
 .input-prefix ~ .form-control.valid ~ .input-suffix {
-  border-color: #28a745;
+  border-color: var(--color-success);
 }
 
 .input-wrapper:has(.form-control.valid) {
   .input-prefix,
   .input-suffix {
-    border-color: #28a745;
+    border-color: var(--color-success);
   }
 }
 
 // Disabled state
 .form-control:disabled ~ .input-suffix,
 .input-prefix ~ .form-control:disabled ~ .input-suffix {
-  background-color: #e9ecef;
+  background-color: var(--bg-active);
   opacity: 0.6;
 }
 
 .input-wrapper:has(.form-control:disabled) {
   .input-prefix,
   .input-suffix {
-    background-color: #e9ecef;
+    background-color: var(--bg-active);
     opacity: 0.6;
   }
 }

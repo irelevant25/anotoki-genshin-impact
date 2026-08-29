@@ -23,7 +23,7 @@
     height: calc(var(--input-height) / 1.5);
     // background-color: var(--bg-card);
     // border: 2px solid #ccc;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     transition: background-color 0.15s ease, border-color 0.15s ease;
     flex-shrink: 0;
 
@@ -43,14 +43,14 @@
 
   // Hover state
   &:hover input:not(:disabled) ~ .checkmark {
-    background-color: #ccc;
-    border-color: #aaa;
+    background-color: var(--border-color-dark);
+    border-color: var(--border-color-dark);
   }
 
   // Checked state
   input:checked ~ .checkmark {
-    background-color: #2196f3;
-    border-color: #2196f3;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
 
     &::after {
       display: block;
@@ -59,17 +59,17 @@
 
   // Error state
   input.error ~ .checkmark {
-    border-color: var(--color-danger, #dc3545);
+    border-color: var(--color-danger, var(--color-danger));
   }
 
   // Valid state
   input.valid ~ .checkmark {
-    border-color: var(--color-success, #198754);
+    border-color: var(--color-success, var(--color-success));
   }
 
   // Focus state (accessibility)
   input:focus-visible ~ .checkmark {
-    outline: 2px solid #2196f3;
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
 

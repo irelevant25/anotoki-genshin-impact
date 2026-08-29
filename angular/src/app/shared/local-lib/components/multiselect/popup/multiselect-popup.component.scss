@@ -4,8 +4,8 @@
   color: var(--text-primary);
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
   max-height: 250px;
   overflow-y: auto;
 }
@@ -27,15 +27,15 @@
   }
 
   &.highlighted {
-    background-color: var(--color-primary-light, rgba(25, 118, 210, 0.1));
+    background-color: var(--color-primary-light);
   }
 
   &.selected {
-    background-color: var(--color-primary-lighter, rgba(25, 118, 210, 0.05));
+    background-color: var(--color-primary-light);
   }
 
   &.highlighted.selected {
-    background-color: var(--color-primary-light, rgba(25, 118, 210, 0.15));
+    background-color: var(--color-primary-light);
   }
 }
 
@@ -47,7 +47,7 @@
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm);
   cursor: pointer;
   width: 100%;
   margin: 0;
@@ -56,7 +56,7 @@
     width: 13px;
     height: 13px;
     cursor: pointer;
-    accent-color: var(--color-primary, #1976d2);
+    accent-color: var(--color-primary);
     flex-shrink: 0;
   }
 }
@@ -70,7 +70,7 @@
 
 .no-options {
   padding: 12px;
-  color: var(--text-muted, #666);
+  color: var(--text-muted);
   font-style: italic;
   text-align: center;
 }

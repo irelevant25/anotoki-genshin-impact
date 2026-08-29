@@ -43,12 +43,12 @@
 
 .step-circle.completed {
   background: var(--color-success);
-  color: white;
+  color: var(--color-success-text);
 }
 
 .step-circle.active {
   background: var(--color-info);
-  color: white;
+  color: var(--color-info-text);
   transform: scale(1.1);
 }
 
@@ -61,12 +61,12 @@
 }
 
 .step-label.active {
-  color: #007bff;
+  color: var(--color-primary);
   font-weight: 600;
 }
 
 .step-label.completed {
-  color: #28a745;
+  color: var(--color-success);
   font-weight: 600;
 }
 
@@ -76,19 +76,19 @@
   left: calc(60% + 20px);
   width: calc(80% - 40px);
   height: 3px;
-  background: #e9ecef;
+  background: var(--bg-active);
   transition: background 0.3s ease;
 }
 
 .step-connector.completed {
-  background: #28a745;
+  background: var(--color-success);
 }
 
 .stepper-content {
   // min-height: 300px;
   // background: white;
-  border-bottom: 1px solid #e9ecef;
-  border-radius: 8px;
+  border-bottom: 1px solid var(--bg-active);
+  border-radius: var(--border-radius-large);
   margin-bottom: 1rem;
 }
 

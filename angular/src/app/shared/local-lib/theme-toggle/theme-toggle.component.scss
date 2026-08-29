@@ -1,65 +1,26 @@
-.theme-toggle-container {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
 .theme-toggle-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  // border: 1px solid var(--border-color);
-  // border-radius: var(--border-radius);
-  // background: var(--bg-card);
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: var(--font-size-lg);
-}
-
-.theme-toggle-btn:hover {
-  background: var(--bg-hover);
-  border-color: var(--border-color-dark);
-}
-
-.theme-toggle-btn:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-.theme-icon {
-  transition: transform 0.2s ease;
-}
-
-.theme-toggle-btn:hover .theme-icon {
-  transform: scale(1.1);
-}
-
-.theme-select {
-  padding: var(--spacing-xxs) var(--spacing-sm);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  background: var(--bg-card);
-  color: var(--text-primary);
-  font-size: var(--font-size-sm);
-  min-width: 80px;
-}
-
-.theme-select:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-.theme-status {
-  font-size: var(--font-size-xs);
+  width: var(--button-height);
+  height: var(--button-height);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-large);
+  background: transparent;
   color: var(--text-secondary);
-  padding: var(--spacing-xxs);
-  background: var(--bg-hover);
-  border-radius: var(--border-radius);
-}
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
 
-.current-theme {
-  text-transform: capitalize;
+  &:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }

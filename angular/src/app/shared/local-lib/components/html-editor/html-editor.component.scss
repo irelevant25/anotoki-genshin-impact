@@ -7,7 +7,7 @@
 
   &.focused {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+    box-shadow: 0 0 0 2px var(--focus-ring);
   }
 
   &.disabled {
@@ -83,7 +83,7 @@
       min-height: unset;
       font-size: var(--font-size-sm);
       padding: 0 var(--spacing-xs);
-      padding-right: 24px;
+      padding-right: var(--spacing-lg);
     }
   }
 

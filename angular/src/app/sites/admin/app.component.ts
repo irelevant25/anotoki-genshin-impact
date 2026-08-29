@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NotificationComponent } from '../../shared/local-lib/components/notification/notification.component';
 import { CommonModule } from '@angular/common';
+import { ThemeToggleComponent } from '../../shared/local-lib/theme-toggle/theme-toggle.component';
 
 interface NavGroup {
   label: string;
@@ -19,9 +20,9 @@ interface NavItem {
   selector: 'app-admin-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NotificationComponent, CommonModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NotificationComponent, CommonModule, ThemeToggleComponent],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   navGroups: NavGroup[] = [
     {
       label: 'Database',
@@ -68,8 +69,4 @@ export class AppComponent implements OnInit {
       ],
     },
   ];
-
-  ngOnInit(): void {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
 }

@@ -17,7 +17,7 @@
   }
 
   &.selected {
-    background: rgba(66, 165, 245, 0.15);
+    background: var(--color-primary-light);
     border-color: var(--color-primary);
     color: var(--color-primary);
   }

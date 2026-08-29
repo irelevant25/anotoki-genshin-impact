@@ -50,7 +50,7 @@
   line-height: 1.5;
 
   code {
-    padding: 1px 4px;
+    padding: 1px var(--spacing-xxs);
     border-radius: 3px;
     background: var(--bg-hover);
     color: var(--text-secondary);
@@ -66,10 +66,10 @@
     color: var(--color-primary);
   }
   &.warn {
-    color: var(--color-warning, #e0a800);
+    color: var(--color-warning);
   }
   &.error {
-    color: var(--color-danger, #e05252);
+    color: var(--color-danger);
   }
 }
 
@@ -94,7 +94,7 @@
     border-color: var(--color-primary);
   }
   &.warn {
-    border-color: var(--color-warning, #e0a800);
+    border-color: var(--color-warning);
   }
 }
 

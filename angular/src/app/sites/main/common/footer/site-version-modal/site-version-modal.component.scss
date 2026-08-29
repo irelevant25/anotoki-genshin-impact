@@ -7,7 +7,7 @@
 }
 
 .bottom-container #version {
-  font-size: 14px;
+  font-size: var(--font-size-base);
   opacity: 0.8;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .version-card {
-  background-color: var(--card-bg);
+  background-color: var(--bg-card);
   border-radius: 1rem;
   padding: 2rem;
   margin-bottom: 2rem;
@@ -45,7 +45,7 @@
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--border-color-subtle);
 }
 
 .version-number {
@@ -58,7 +58,7 @@
 
 .version-number span {
   background-color: var(--color-version);
-  color: white;
+  color: var(--color-version-text);
   border-radius: 1rem;
   padding: 0.2rem 0.8rem;
   font-size: 1rem;

@@ -47,8 +47,8 @@
 }
 
 .action-delete {
-  color: var(--color-danger-light, #f87171);
-  border-color: var(--color-danger-light, #f87171);
+  color: var(--color-danger);
+  border-color: var(--color-danger);
 }
 
 // Expanded diff, rendered as a nested table inside the row.
@@ -70,7 +70,7 @@
   font-size: var(--font-size-sm);
 
   th {
-    padding: 4px var(--spacing-sm);
+    padding: var(--spacing-xxs) var(--spacing-sm);
     text-align: left;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -79,7 +79,7 @@
   }
 
   td {
-    padding: 4px var(--spacing-sm);
+    padding: var(--spacing-xxs) var(--spacing-sm);
     vertical-align: top;
     border-top: 1px solid var(--border-color);
     word-break: break-word;

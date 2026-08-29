@@ -2,12 +2,12 @@
   // visibility: hidden;
   position: fixed;
   z-index: 10000;
-  padding: 6px 10px;
-  background-color: #333;
-  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--bg-tooltip);
+  color: var(--text-tooltip);
   text-align: center;
-  border-radius: 4px;
-  font-size: 12px;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
   font-weight: normal;
   white-space: nowrap;
   // opacity: 0;
@@ -28,7 +28,7 @@
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: #333 transparent transparent transparent;
+      border-color: var(--bg-tooltip) transparent transparent transparent;
     }
   }
 
@@ -42,7 +42,7 @@
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: transparent transparent #333 transparent;
+      border-color: transparent transparent var(--bg-tooltip) transparent;
     }
   }
 
@@ -56,7 +56,7 @@
       margin-top: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: transparent transparent transparent #333;
+      border-color: transparent transparent transparent var(--bg-tooltip);
     }
   }
 
@@ -70,7 +70,7 @@
       margin-top: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: transparent #333 transparent transparent;
+      border-color: transparent var(--bg-tooltip) transparent transparent;
     }
   }
 }

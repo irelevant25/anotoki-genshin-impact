@@ -1,8 +1,8 @@
 .bar {
-  color: white;
+  color: var(--color-dark-text);
   // height: 80px;
   gap: 1rem;
-  background: rgb(59, 59, 59);
+  background: var(--color-dark);
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -10,7 +10,7 @@
 
 .link {
   align-content: center;
-  color: white;
+  color: var(--color-dark-text);
   white-space: nowrap;
   text-decoration: underline;
   &:hover {

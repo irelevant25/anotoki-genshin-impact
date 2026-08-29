@@ -13,7 +13,7 @@
   line-height: 1.5;
 
   code {
-    padding: 1px 4px;
+    padding: 1px var(--spacing-xxs);
     border-radius: 3px;
     background: var(--bg-hover);
   }

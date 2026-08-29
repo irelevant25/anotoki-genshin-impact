@@ -12,7 +12,7 @@
 .color-swatch {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 6px;
+  border-radius: var(--border-radius-medium);
   border: 2px solid var(--border-color, #dee2e6);
   cursor: pointer;
   flex-shrink: 0;
