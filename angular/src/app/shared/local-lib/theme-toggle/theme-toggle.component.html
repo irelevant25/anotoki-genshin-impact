@@ -5,5 +5,5 @@
     [attr.aria-label]="theme.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
     [title]="theme.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
 >
-    <i class="fa-solid" [class.fa-sun]="theme.isDarkMode()" [class.fa-moon]="!theme.isDarkMode()"></i>
+    <span class="icon icon-size-4" [class.icon-sun]="theme.isDarkMode()" [class.icon-moon]="!theme.isDarkMode()"></span>
 </button>

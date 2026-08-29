@@ -35,22 +35,38 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
-                    <span class="icon icon-gear icon-size-4"></span>
-                    <span class="text-muted small" style="min-width: 5rem">Theme</span>
-                    <span class="fw-500 fs-14">{{ userData.theme }}</span>
-                </div>
-
-                <div class="d-flex align-items-center gap-3">
                     <span class="icon icon-calendar icon-size-4"></span>
                     <span class="text-muted small" style="min-width: 5rem">Member since</span>
                     <span class="fw-500 fs-14">{{ userData.created_at?.substring(0, 10) }}</span>
                 </div>
             </div>
+        } @else {
+            <p class="signed-out-note">You are not signed in. The appearance setting below is remembered on this device.</p>
         }
+
+        <div class="theme-row">
+            <span class="icon icon-gear icon-size-4"></span>
+            <span class="text-muted small theme-row-label">Appearance</span>
+            <div class="theme-choices">
+                @for (option of themeOptions; track option.value) {
+                    <app-button
+                        [text]="option.label"
+                        [variant]="theme.currentTheme() === option.value ? 'primary' : 'secondary'"
+                        [outline]="theme.currentTheme() !== option.value"
+                        size="very-small"
+                        (buttonClick)="setTheme(option.value)"
+                    ></app-button>
+                }
+            </div>
+        </div>
     </div>
     <div modal-footer class="d-flex gap-3 justify-content-end">
-        <app-button text="Admin panel" variant="primary" (buttonClick)="toAdmin()"> </app-button>
-        <app-button text="Logout" variant="danger" (buttonClick)="logout()"> </app-button>
+        @if (userData) {
+            <app-button text="Admin panel" variant="primary" (buttonClick)="toAdmin()"> </app-button>
+            <app-button text="Logout" variant="danger" (buttonClick)="logout()"> </app-button>
+        } @else {
+            <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="closeModal()"> </app-button>
+        }
     </div>
 </app-modal>
 

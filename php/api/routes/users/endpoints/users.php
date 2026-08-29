@@ -3,7 +3,7 @@
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-$includeCols = 'id, role, username, email, background, theme, version, created_at, updated_at';
+$includeCols = 'id, role, username, email, background, theme_main, theme_admin, version, created_at, updated_at';
 
 // GET all users
 $app->get('/api/users', function (Request $request, Response $response) use ($includeCols) {

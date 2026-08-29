@@ -26,7 +26,7 @@
   padding: var(--spacing-sm);
   max-height: 60vh;
   overflow: auto;
-  background: var(--bg-card);
+  background: var(--bg-code);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   color: var(--text-primary);
@@ -39,3 +39,14 @@
     white-space: pre;
   }
 }
+
+// Syntax colours; the tokeniser tags each run and the template names it here.
+.tok-plain      { color: var(--code-plain); }
+.tok-keyword    { color: var(--code-keyword); font-weight: var(--font-weight-semibold); }
+.tok-type       { color: var(--code-type); }
+.tok-string     { color: var(--code-string); }
+.tok-number     { color: var(--code-number); }
+.tok-comment    { color: var(--code-comment); font-style: italic; }
+.tok-function   { color: var(--code-function); }
+.tok-operator   { color: var(--code-operator); }
+.tok-identifier { color: var(--code-plain); }

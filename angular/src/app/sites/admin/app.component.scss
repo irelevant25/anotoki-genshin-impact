@@ -32,7 +32,6 @@
   height: 56px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--spacing-sm);
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
@@ -46,11 +45,6 @@
   text-decoration: none;
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-lg);
-
-  i {
-    color: var(--genshin-gold);
-    font-size: 18px;
-  }
 
   &:hover span {
     color: var(--color-primary);

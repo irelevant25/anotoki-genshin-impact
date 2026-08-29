@@ -65,7 +65,8 @@ CREATE TABLE IF NOT EXISTS users (
     background          VARCHAR(100)    NULL,
     language            VARCHAR(50)     NOT NULL DEFAULT 'English',
     deleted             BOOLEAN         NOT NULL DEFAULT FALSE,
-    theme               VARCHAR(50)     NOT NULL DEFAULT 'auto',
+    theme_main          VARCHAR(50)     NOT NULL DEFAULT 'auto',
+    theme_admin         VARCHAR(50)     NOT NULL DEFAULT 'auto',
     version             VARCHAR(10),
     token               VARCHAR(64)     UNIQUE,
     token_expires_at    TIMESTAMP,
@@ -74,7 +75,8 @@ CREATE TABLE IF NOT EXISTS users (
 
     CONSTRAINT fk_users_role  FOREIGN KEY (role)  REFERENCES roles(name),
     CONSTRAINT fk_users_language FOREIGN KEY (language) REFERENCES languages(name),
-    CONSTRAINT fk_users_theme FOREIGN KEY (theme) REFERENCES themes(name)
+    CONSTRAINT fk_users_theme_main FOREIGN KEY (theme_main) REFERENCES themes(name),
+    CONSTRAINT fk_users_theme_admin FOREIGN KEY (theme_admin) REFERENCES themes(name)
 );
 CREATE OR REPLACE TRIGGER trg_users_updated_at
     BEFORE UPDATE ON users

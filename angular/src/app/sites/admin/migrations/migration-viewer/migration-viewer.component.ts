@@ -4,6 +4,7 @@ import { ModalComponent } from '../../../../shared/local-lib/components/modal/mo
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { AdminApiService } from '../../services/admin-api.service';
+import { SqlToken, tokenizeSql } from '../../../../shared/local-lib/sql-highlight';
 
 /** Read-only view of a migration's SQL, opened from the migrations list. */
 @Component({
@@ -22,6 +23,8 @@ export class MigrationViewerComponent extends AbstractModalComponent {
   copied = signal(false);
 
   lineCount = computed(() => (this.content() ? this.content().split('\n').length : 0));
+  /** Coloured runs of the file. Rendered one span each - never as raw markup. */
+  tokens = computed<SqlToken[]>(() => tokenizeSql(this.content()));
   title = computed(() => `${this.filename()} · ${this.database()}`);
 
   private readonly _api = inject(AdminApiService);

@@ -55,6 +55,17 @@
   --bg-tooltip: #2b3441;
   --text-tooltip: #ffffff;
 
+  // Syntax highlighting for the read-only SQL viewer.
+  --bg-code: #f7f8fa;
+  --code-plain: #1c2430;
+  --code-keyword: #9226a8;
+  --code-type: #0e7490;
+  --code-string: #0a6b3d;
+  --code-number: #b45309;
+  --code-comment: #6b7684;
+  --code-function: #1a5cc4;
+  --code-operator: #55616f;
+
   // Text
   --text-primary: #1c2430;
   --text-secondary: #55616f;
@@ -179,6 +190,16 @@
 
   --bg-tooltip: #39434f;
   --text-tooltip: #e3e9ef;
+
+  --bg-code: #12161c;
+  --code-plain: #e3e9ef;
+  --code-keyword: #d9a2ee;
+  --code-type: #6fd3ea;
+  --code-string: #8fd9a8;
+  --code-number: #f0b866;
+  --code-comment: #78848f;
+  --code-function: #8cbcff;
+  --code-operator: #a3b0bf;
 
   --text-primary: #e3e9ef;
   --text-secondary: #a3b0bf;

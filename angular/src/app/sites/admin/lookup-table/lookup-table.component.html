@@ -11,7 +11,7 @@
     @if (!config().readOnly && _createFn) {
         <div class="add-row">
             <input class="admin-input" type="text" placeholder="New entry name..." [value]="newName()" (input)="newName.set($any($event.target).value)" (keydown.enter)="add()" />
-            <app-button text="Add" icon="fa-solid fa-plus" size="small" [loading]="saving()" [disabled]="!newName().trim()" (buttonClick)="add()"> </app-button>
+            <app-button text="Add" icon="icon-plus" size="small" [loading]="saving()" [disabled]="!newName().trim()" (buttonClick)="add()"> </app-button>
         </div>
     }
 
@@ -47,7 +47,7 @@
                                         <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
                                     </span>
                                 } @else {
-                                    <app-button icon="fa-solid fa-trash" variant="danger" [outline]="true" size="very-small" (buttonClick)="confirmDelete(getPk(item))"> </app-button>
+                                    <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Delete" (buttonClick)="confirmDelete(getPk(item))"></app-button>
                                 }
                             </td>
                         }

@@ -12,7 +12,9 @@ export interface UserInfo {
   username: string;
   roles: string;
   background?: string;
-  theme?: string;
+  /** Light/dark choice, kept per area - see ThemeToggleService. */
+  theme_main?: string;
+  theme_admin?: string;
   email?: string;
   email_confirmed?: boolean;
   version?: string;
@@ -25,7 +27,8 @@ interface MeResponse {
   email: string;
   role: string;
   background?: string;
-  theme?: string;
+  theme_main?: string;
+  theme_admin?: string;
   email_confirmed?: boolean;
   version?: string;
   created_at?: string;
@@ -171,7 +174,8 @@ export class SecurityService {
       email: user.email,
       roles: user.role,
       background: user.background,
-      theme: user.theme,
+      theme_main: user.theme_main,
+      theme_admin: user.theme_admin,
       email_confirmed: user.email_confirmed,
       version: user.version,
       created_at: user.created_at,

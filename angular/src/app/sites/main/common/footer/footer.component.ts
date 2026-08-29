@@ -6,7 +6,6 @@ import { CustomModalRef, ModalConfig } from '../../../../shared/local-lib/compon
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SiteFeedbackContactModalComponent } from './site-feedback-contact-modal/site-feedback-contact-modal.component';
-import { ThemeToggleComponent } from '../../../../shared/local-lib/theme-toggle/theme-toggle.component';
 import { SiteBackgroundsModalComponent } from './site-backgrounds/site-backgrounds-modal.component';
 import { LocalStorageService } from '../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../shared/state-manager.service';
@@ -31,7 +30,7 @@ export interface ButtomMenuItem {
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
-  imports: [NgTemplateOutlet, KeyValuePipe, ThemeToggleComponent],
+  imports: [NgTemplateOutlet, KeyValuePipe],
   providers: [],
 })
 export class FooterComponent extends AbstractModalComponent {
@@ -98,7 +97,8 @@ export class FooterComponent extends AbstractModalComponent {
     super();
     this._securityService.isLoggedIn$.subscribe(isLoggedIn => {
       this.menuItems['login'].update(item => ({ ...item, hidden: isLoggedIn }));
-      this.menuItems['account'].update(item => ({ ...item, hidden: !isLoggedIn }));
+      // Account stays reachable signed out: it holds the appearance setting,
+      // which a visitor is allowed to change.
     });
     this.loadVersion();
     this.initializeBackground();

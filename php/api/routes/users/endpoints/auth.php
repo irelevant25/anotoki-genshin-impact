@@ -43,7 +43,8 @@ $app->post('/api/auth/register', function (Request $request, Response $response)
             'email'           => $body['email'],
             'role'            => 'USER',
             'background'      => null,
-            'theme'           => 'auto',
+            'theme_main'      => 'auto',
+            'theme_admin'     => 'auto',
             'email_confirmed' => false,
             'version'         => null,
             'created_at'      => date('Y-m-d H:i:s'),
@@ -77,7 +78,8 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
             'email'           => $user['email'],
             'role'            => $user['role'],
             'background'      => $user['background'],
-            'theme'           => $user['theme'],
+            'theme_main'      => $user['theme_main'],
+            'theme_admin'     => $user['theme_admin'],
             'email_confirmed' => (bool) $user['email_confirmed'],
             'version'         => $user['version'],
             'created_at'      => $user['created_at'],
@@ -96,11 +98,39 @@ $app->get('/api/auth/me', function (Request $request, Response $response) {
         'email'           => $user['email'],
         'role'            => $user['role'],
         'background'      => $user['background'],
-        'theme'           => $user['theme'],
+        'theme_main'      => $user['theme_main'],
+        'theme_admin'     => $user['theme_admin'],
         'email_confirmed' => (bool) $user['email_confirmed'],
         'version'         => $user['version'],
         'created_at'      => $user['created_at'],
     ]);
+})->add(requireAuth());
+
+// ---------------------------------------------------------------------------
+// PUT /api/auth/theme  — saves the caller's own light/dark choice
+//
+// One row per area: the site and the admin panel are remembered separately.
+// Anyone signed in may change their own; no wider rights are involved.
+// ---------------------------------------------------------------------------
+$app->put('/api/auth/theme', function (Request $request, Response $response) {
+    $body  = $request->getParsedBody() ?? [];
+    $area  = $body['area']  ?? '';
+    $theme = $body['theme'] ?? '';
+
+    $columns = ['main' => 'theme_main', 'admin' => 'theme_admin'];
+    if (!isset($columns[$area])) {
+        return respondJson($response, ['error' => "Unknown area '$area'"], 400);
+    }
+    if (!in_array($theme, ['light', 'dark', 'auto'], true)) {
+        return respondJson($response, ['error' => "Unknown theme '$theme'"], 400);
+    }
+
+    $user = $request->getAttribute('user');
+    $pdo  = usersDb();
+    $stmt = $pdo->prepare("UPDATE users SET {$columns[$area]} = ? WHERE id = ?");
+    $stmt->execute([$theme, $user['id']]);
+
+    return respondJson($response, ['area' => $area, 'theme' => $theme]);
 })->add(requireAuth());
 
 // ---------------------------------------------------------------------------

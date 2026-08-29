@@ -8,7 +8,8 @@ class User extends DbModel
         public readonly string  $password,
         public readonly ?string $role       = null,
         public readonly ?string $background = null,
-        public readonly ?string $theme      = null,
+        public readonly ?string $theme_main  = null,
+        public readonly ?string $theme_admin = null,
         public readonly ?string $version    = null,
     ) {}
 }

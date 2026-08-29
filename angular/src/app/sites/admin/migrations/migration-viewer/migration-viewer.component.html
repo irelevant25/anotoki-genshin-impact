@@ -17,7 +17,7 @@
                         (buttonClick)="copy()"
                     ></app-button>
                 </div>
-                <pre class="viewer-code"><code>{{ content() }}</code></pre>
+                <pre class="viewer-code"><code>@for (token of tokens(); track $index) {<span class="tok-{{ token.kind }}">{{ token.text }}</span>}</code></pre>
             }
         }
     </div>
