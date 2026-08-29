@@ -26,32 +26,8 @@ const UPLOAD_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'avif', 'webp', 'gif'];
 /** Raster uploads that are re-encoded to AVIF; the original is kept alongside. */
 const UPLOAD_CONVERT_TO_AVIF = ['png', 'jpg', 'jpeg', 'webp'];
 
-/** AVIF is visually near-lossless well below the GD default of 30. */
-const UPLOAD_AVIF_QUALITY = 60;
-
-/**
- * Writes an AVIF copy of a raster upload. Returns false when GD cannot encode
- * AVIF, in which case the caller keeps the original.
- */
-function _fullConvertToAvif(string $source, string $target): bool
-{
-    if (!function_exists('imageavif')) {
-        error_log('[upload] GD AVIF support unavailable - keeping ' . basename($source) . ' as-is. Enable extension=gd in php.ini.');
-        return false;
-    }
-
-    $image = @imagecreatefromstring((string) file_get_contents($source));
-    if (!$image) {
-        return false;
-    }
-    imagepalettetotruecolor($image);
-    imagealphablending($image, false);
-    imagesavealpha($image, true);
-    $ok = @imageavif($image, $target, UPLOAD_AVIF_QUALITY);
-    imagedestroy($image);
-
-    return $ok && is_file($target);
-}
+/** Audio uploads that are re-encoded to Opus; the original is kept alongside. */
+const UPLOAD_CONVERT_TO_OPUS = ['mp3', 'ogg', 'wav', 'm4a'];
 
 /**
  * Belt and braces: even with an extension allowlist, keep the web server from
@@ -109,7 +85,7 @@ function _fullSaveUpload($file, string $folder, string $baseName): ?string
     // The site loads AVIF, so a raster upload is converted and the AVIF path is
     // what gets stored. The original stays on disk next to it.
     if (in_array($ext, UPLOAD_CONVERT_TO_AVIF, true)
-        && _fullConvertToAvif($dir . '/' . $safeName . '.' . $ext, $dir . '/' . $safeName . '.avif')) {
+        && mediaToAvif($dir . '/' . $safeName . '.' . $ext, $dir . '/' . $safeName . '.avif')) {
         return '/uploads/' . $folder . '/' . $safeName . '.avif';
     }
 

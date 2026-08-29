@@ -6,6 +6,7 @@ require_once __DIR__ . '/../config/jwt.php';
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
+require_once __DIR__ . '/media_convert.php';
 require_once __DIR__ . '/full_resource.php';
 
 use Slim\Factory\AppFactory;

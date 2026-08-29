@@ -458,15 +458,33 @@ function _saveAssetUpload($file, string $folder, string $baseName, bool $audio =
         return null;
     }
 
-    $file->moveTo($dir . '/' . $safeName . '.' . $ext);
+    $stored = $dir . '/' . $safeName . '.' . $ext;
+    $file->moveTo($stored);
 
     // Voice over rows store a bare `assets/...` path; images use `../assets/...`.
     $prefix = $audio ? 'assets/' : '../assets/';
 
-    if (!$audio && in_array($ext, UPLOAD_CONVERT_TO_AVIF, true)
-        && _fullConvertToAvif($dir . '/' . $safeName . '.' . $ext, $dir . '/' . $safeName . '.avif')) {
-        return $prefix . $folder . '/' . $safeName . '.avif';
+    // The site serves AVIF and Opus, so an upload is re-encoded and the
+    // converted path is what gets stored. The original stays beside it, and
+    // when nothing here can encode, the original is what is stored instead.
+    $converted = _convertAssetUpload($stored, $dir . '/' . $safeName, $ext, $audio);
+
+    return $prefix . $folder . '/' . $safeName . '.' . ($converted ?? $ext);
+}
+
+/**
+ * Re-encodes an upload into the format the site serves. Returns the new
+ * extension, or null when the file is kept as it arrived.
+ */
+function _convertAssetUpload(string $stored, string $targetStem, string $ext, bool $audio): ?string
+{
+    if ($audio) {
+        return in_array($ext, UPLOAD_CONVERT_TO_OPUS, true) && mediaToOpus($stored, $targetStem . '.opus')
+            ? 'opus'
+            : null;
     }
 
-    return $prefix . $folder . '/' . $safeName . '.' . $ext;
+    return in_array($ext, UPLOAD_CONVERT_TO_AVIF, true) && mediaToAvif($stored, $targetStem . '.avif')
+        ? 'avif'
+        : null;
 }
