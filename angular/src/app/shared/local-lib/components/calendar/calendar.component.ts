@@ -28,14 +28,29 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
   minTime = model<TimeValue | null>(null);
   maxTime = model<TimeValue | null>(null);
   granularity = model<CalendarGranularity>('date');
-  defaultPlaceHolder = computed(() => (this.granularity() === 'date' ? 'dd.MM.yyyy' : this.showSeconds() ? 'dd.MM.yyyy HH:mm:ss' : 'dd.MM.yyyy HH:mm'));
+
+  /**
+   * Day and month only, for dates where the year means nothing - a character's
+   * birthday. The column stays a DATE, so the value still carries a year:
+   * `yearlessYear`, which is what the stored birthdays already use.
+   */
+  hideYear = model<boolean>(false);
+  yearlessYear = model<number>(4);
+
+  defaultPlaceHolder = computed(() =>
+    this.granularity() === 'date' ? this.displayValueDateFormat : this.showSeconds() ? `${this.displayValueDateFormat} HH:mm:ss` : `${this.displayValueDateFormat} HH:mm`
+  );
 
   selectedDate: Date | null = null;
   selectedTime: TimeValue | null = null;
   showCalendar = false;
   valueDateFormat: string = 'yyyy-MM-dd';
-  displayValueDateFormat: string = 'dd.MM.yyyy';
   displayValue: string | null = null;
+
+  /** `02.04.` while the year is hidden, `02.04.2024` otherwise. */
+  get displayValueDateFormat(): string {
+    return this.hideYear() ? 'dd.MM.' : 'dd.MM.yyyy';
+  }
 
   private _calendarRef: ComponentRef<CalendarPickerComponent> | null = null;
 
@@ -61,7 +76,7 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
       const timeValue = this.getFormatValueTime(this.displayValue, true);
       const granularity = this.granularity();
       if (granularity === 'date') {
-        this.value.set(dateValue);
+        this.value.set(this._withStoredYear(dateValue));
         this.displayValue = dateDisplayValue;
       } else if (granularity === 'datetime') {
         this.value.set(`${dateValue}T${timeValue}`);
@@ -165,6 +180,7 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
       this._calendarRef.instance.maxTime = this.maxTime();
       this._calendarRef.instance.disabled = this.disabled();
       this._calendarRef.instance.granularity = granularity;
+      this._calendarRef.instance.hideYear = this.hideYear();
 
       this._calendarRef.instance.init();
     }
@@ -180,7 +196,8 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
       injector: this._injector,
     });
 
-    // Set input properties
+    // Open on the date already in the field rather than on today.
+    this.checkValue();
     this.updateCalendar();
 
     // Subscribe to events
@@ -197,7 +214,7 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
       const showSeconds = this.showSeconds();
       if (granularity === 'date') {
         const date = DynamicDateTimeConverter.formatDateTime(this.selectedDate ?? new Date(), this.valueFormat);
-        this.value.set(date);
+        this.value.set(this._withStoredYear(date));
         this.updateDisplayValue(this.value());
       } else if (granularity === 'datetime') {
         const selectedDatetime = new Date(this.selectedDate ?? new Date());
@@ -229,6 +246,17 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
     document.body.appendChild(this._calendarRef.location.nativeElement);
 
     this.showCalendar = true;
+  }
+
+  /**
+   * The picker works in a year it can handle; the value keeps the one the data
+   * uses. Years below 100 are the reason: `new Date(4, ...)` means 1904.
+   */
+  private _withStoredYear(isoDate: string): string {
+    if (!this.hideYear() || isoDate.length < 4) {
+      return isoDate;
+    }
+    return String(this.yearlessYear()).padStart(4, '0') + isoDate.slice(4);
   }
 
   private isDateValueValid(value: string | null | undefined, format: string): boolean {

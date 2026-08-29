@@ -1,6 +1,9 @@
 .calendar-popup {
   position: fixed;
   background-color: var(--bg-card);
+  // The popup is appended to <body>, so it inherits the page's text colour
+  // rather than the field's. Set it here or the days come out unreadable.
+  color: var(--text-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-large);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -15,11 +18,22 @@
   padding: 12px;
   background-color: var(--bg-card-hover);
   color: var(--text-primary);
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
   border-radius: 4px 4px 0 0;
 
+  // Angular scopes each compound with an attribute, so a nested rule outweighs
+  // the bare `.nav-btn:hover` below - the hover states have to live here too.
   .nav-btn {
     color: var(--text-primary);
+
+    &:hover:not(:disabled) {
+      background-color: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    &:disabled:hover {
+      background-color: transparent;
+    }
   }
 }
 
@@ -30,22 +44,12 @@
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 4px;
-  color: #6c757d;
-}
-
-.nav-btn:hover {
-  background-color: #e9ecef;
-  color: #495057;
+  color: var(--text-secondary);
 }
 
 .nav-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.nav-btn:disabled:hover {
-  background-color: transparent;
-  color: #6c757d;
 }
 
 .month-year {
@@ -62,16 +66,16 @@
     cursor: pointer;
   }
   & > *:hover {
-    background-color: #f8f9fa;
+    background-color: var(--bg-card-hover);
   }
 
   & > *.selected {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
   }
 
   & > *.selected:hover {
-    background-color: #0056b3;
+    background-color: var(--color-primary-hover);
   }
 }
 
@@ -84,22 +88,22 @@
     cursor: pointer;
   }
   & > *:hover {
-    background-color: #f8f9fa;
+    background-color: var(--bg-card-hover);
   }
 
   & > *.selected {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
   }
 
   & > *.selected:hover {
-    background-color: #0056b3;
+    background-color: var(--color-primary-hover);
   }
 }
 
 .date-header-grid {
   background-color: var(--bg-card-hover);
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .date-header-grid,
@@ -114,13 +118,10 @@
   text-align: center;
   font-weight: 600;
   font-size: 12px;
-  color: var(--text-primary);
-  // background-color: #f8f9fa;
-  // border-bottom: 1px solid #ddd;
+  color: var(--text-secondary);
 }
 
 .day {
-  // padding: 8px;
   border-radius: 25px;
   padding: 9px 11px;
   text-align: center;
@@ -128,6 +129,7 @@
   border: 1px solid transparent;
   font-size: 14px;
   min-height: 32px;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,16 +140,16 @@
 }
 
 .day.selected {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .day.selected:hover {
-  background-color: #0056b3;
+  background-color: var(--color-primary-hover);
 }
 
 .day.other-month {
-  color: #ccc;
+  color: var(--text-muted);
 }
 
 .day.today {
@@ -156,19 +158,19 @@
 }
 
 .day.today.selected {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .day.disabled {
-  color: #ccc;
+  color: var(--text-muted);
   cursor: not-allowed;
-  background-color: #f8f9fa;
+  background-color: var(--color-disabled);
 }
 
 .day.disabled:hover {
-  background-color: #f8f9fa;
-  color: #ccc;
+  background-color: var(--color-disabled);
+  color: var(--text-muted);
 }
 
 .time-controls {
@@ -177,7 +179,7 @@
   justify-content: center;
   padding: 12px;
   gap: 8px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
 }
 
 .time-control {
@@ -189,8 +191,8 @@
 }
 
 .time-btn {
-  background: #f8f9fa;
-  border: 1px solid #ddd;
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   width: 100%;
   height: 28px;
@@ -199,13 +201,14 @@
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  color: #6c757d;
+  color: var(--text-secondary);
   transition: all 0.2s;
 }
 
 .time-btn:hover:not(:disabled) {
-  background-color: #e9ecef;
-  border-color: #bbb;
+  background-color: var(--bg-hover);
+  border-color: var(--border-color-dark);
+  color: var(--text-primary);
 }
 
 .time-btn:disabled {
@@ -227,28 +230,28 @@
   width: 100%;
   height: 36px;
   text-align: center;
-  border: 2px solid #ddd;
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
-  background: white;
-  color: #495057;
+  background: var(--bg-card);
+  color: var(--text-primary);
 }
 
 .time-input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-alpha);
 }
 
 .time-input:disabled {
-  background-color: #f8f9fa;
-  color: #6c757d;
+  background-color: var(--color-disabled);
+  color: var(--text-secondary);
 }
 
 .time-label {
   font-size: 11px;
-  color: #6c757d;
+  color: var(--text-secondary);
   font-weight: 500;
   margin-top: 4px;
 }
@@ -256,7 +259,7 @@
 .time-separator {
   font-size: 20px;
   font-weight: bold;
-  color: #6c757d;
+  color: var(--text-secondary);
   margin: 0 4px;
   align-self: center;
   margin-top: -20px;
@@ -266,13 +269,13 @@
   display: flex;
   justify-content: space-between;
   padding: 12px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   gap: 8px;
 }
 
 .actions {
   display: flex;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   padding: 5px;
   gap: 5px;
 }
@@ -280,7 +283,7 @@
 .action-btn {
   flex: 1;
   padding: 8px 16px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
@@ -289,23 +292,24 @@
 }
 
 .cancel-btn {
-  background: #f8f9fa;
-  color: #6c757d;
+  background: var(--bg-card-hover);
+  color: var(--text-secondary);
 }
 
 .cancel-btn:hover {
-  background-color: #e9ecef;
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
 }
 
 .confirm-btn {
-  background: #007bff;
-  color: white;
-  border-color: #007bff;
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
 }
 
 .confirm-btn:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 .hide {

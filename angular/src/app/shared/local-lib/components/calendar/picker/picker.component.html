@@ -2,13 +2,13 @@
     @if (granularity === "date" || granularity === "datetime") {
         <div class="calendar-header">
             <button type="button" (click)="previous()" class="nav-btn" [disabled]="!canNavigateToPrevious()">&lt;</button>
-            <span class="month-year" (click)="gridToggle()">{{ monthNames[currentMonth] }} {{ currentYear }}</span>
+            <span class="month-year" (click)="gridToggle()">{{ monthNames[currentMonth] }}@if (!hideYear) { {{ currentYear }} }</span>
             <button type="button" (click)="next()" class="nav-btn" [disabled]="!canNavigateToNext()">&gt;</button>
         </div>
     }
 
     <!-- SELECTING YEAR -->
-    <div class="year-grid" [class.hide]="!selectingYear">
+    <div class="year-grid" [class.hide]="!selectingYear || hideYear">
         @for (year of selectableYears; track year) {
             <div class="year" [class.selected]="year === currentYear" (click)="selectYear(year)">{{ year }}</div>
         }

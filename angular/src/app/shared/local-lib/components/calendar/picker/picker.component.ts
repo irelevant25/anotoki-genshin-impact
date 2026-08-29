@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, ChangeDetectorRef, ViewChild, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ClickOutsideDirective } from '../../../click-outside.directive';
+import { DynamicDateTimeConverter } from '../../../datetime-helper.class';
 
 interface CalendarDay {
   date: number;
@@ -42,6 +43,8 @@ export class CalendarPickerComponent {
   maxTime: TimeValue | null = null;
   disabled: boolean = false;
   granularity: CalendarGranularity = 'date';
+  /** Day and month only: no year in the header, and no year to pick. */
+  hideYear: boolean = false;
   anchorElement?: ElementRef<any>;
 
   confirm = output();
@@ -92,7 +95,10 @@ export class CalendarPickerComponent {
 
   initializeCalendar(): void {
     if (!this.selectedDate) {
-      this.selectedDate = new Date();
+      const today = new Date();
+      // Without a year to show, open in one the whole grid can rely on - a
+      // leap year, so the 29th of February is reachable.
+      this.selectedDate = this.hideYear ? new Date(DynamicDateTimeConverter.DEFAULT_YEAR, today.getMonth(), today.getDate()) : today;
     }
     this.currentYear = this.selectedDate.getFullYear();
     this.currentMonth = this.selectedDate.getMonth();
@@ -105,6 +111,12 @@ export class CalendarPickerComponent {
   }
 
   gridToggle(): void {
+    if (this.hideYear) {
+      // Only two views to cycle: the days and the months.
+      this.selectingMonth = !this.selectingMonth;
+      this._cdr.detectChanges();
+      return;
+    }
     if (this.selectingYear) {
       this.selectingYear = false;
       this.selectingMonth = true;
@@ -154,7 +166,9 @@ export class CalendarPickerComponent {
 
   previousMonth(): void {
     this.currentMonth = this.currentMonth === 0 ? 11 : (this.currentMonth - 1) % 12;
-    if (this.currentMonth === 11) {
+    // With the year hidden December wraps round to January instead of moving
+    // to a year nobody can see.
+    if (this.currentMonth === 11 && !this.hideYear) {
       this.currentYear--;
     }
     this.generateCalendarDays();
@@ -162,7 +176,7 @@ export class CalendarPickerComponent {
 
   nextMonth(): void {
     this.currentMonth = (this.currentMonth + 1) % 12;
-    if (this.currentMonth === 0) {
+    if (this.currentMonth === 0 && !this.hideYear) {
       this.currentYear++;
     }
     this.generateCalendarDays();

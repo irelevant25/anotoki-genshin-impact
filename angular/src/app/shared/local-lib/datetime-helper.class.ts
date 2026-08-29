@@ -1,4 +1,10 @@
 export class DynamicDateTimeConverter {
+  /**
+   * Stands in when a format carries no year, e.g. the `dd.MM.` a birthday is
+   * shown as. A leap year, so the 29th of February stays a valid date.
+   */
+  static readonly DEFAULT_YEAR = 2000;
+
   static readonly MONTH_NAMES = {
     short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -256,8 +262,13 @@ export class DynamicDateTimeConverter {
       }
     }
 
-    if (year === null || month === null || day === null) {
+    // A format may leave the year out - a birthday is day and month only.
+    // Month and day still have to be there for this to be a date.
+    if (month === null || day === null) {
       return null;
+    }
+    if (year === null) {
+      year = this.DEFAULT_YEAR;
     }
 
     return { year, month, day, hour, minute, second, millisecond };
