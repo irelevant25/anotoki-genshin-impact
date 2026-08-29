@@ -1,0 +1,45 @@
+<app-modal [title]="file()?.name ?? 'Preview'" (closeModal)="close()">
+    <div modal-body class="preview-body">
+        @if (file(); as asset) {
+            @if (isImage()) {
+                @if (failed()) {
+                    <p class="preview-error">This image could not be loaded.</p>
+                } @else {
+                    <div class="preview-stage" [class.fit]="fitToWindow()">
+                        <img [src]="asset.url" [alt]="asset.name" (load)="onImageLoad($event)" (error)="failed.set(true)" />
+                    </div>
+                }
+            } @else if (isAudio()) {
+                <div class="preview-audio">
+                    <span class="preview-audio-icon icon icon-music icon-size-8"></span>
+                    <app-audio-player [src]="asset.url" [label]="asset.name" />
+                </div>
+            } @else {
+                <p class="preview-error">No preview available for .{{ asset.extension }} files.</p>
+            }
+
+            <dl class="preview-meta">
+                <div><dt>Path</dt><dd class="preview-path">{{ asset.url }}</dd></div>
+                <div><dt>Size</dt><dd>{{ sizeLabel() }}</dd></div>
+                @if (dimensionsLabel()) {
+                    <div><dt>Dimensions</dt><dd>{{ dimensionsLabel() }}</dd></div>
+                }
+                <div><dt>Modified</dt><dd>{{ asset.modified }}</dd></div>
+            </dl>
+        }
+    </div>
+
+    <div modal-footer class="preview-footer">
+        @if (isImage() && !failed() && canToggleSize()) {
+            <app-button
+                [text]="fitToWindow() ? 'Actual size' : 'Fit to window'"
+                icon="icon-expand"
+                variant="secondary"
+                [outline]="true"
+                size="small"
+                (buttonClick)="toggleSize()"
+            ></app-button>
+        }
+        <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="close()"></app-button>
+    </div>
+</app-modal>

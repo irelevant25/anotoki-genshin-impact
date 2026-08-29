@@ -1,0 +1,48 @@
+<div class="audio-player" [class.error]="error()">
+    <audio
+        #audioElement
+        [src]="src()"
+        [autoplay]="autoplay()"
+        preload="metadata"
+        (loadedmetadata)="onLoadedMetadata()"
+        (timeupdate)="onTimeUpdate()"
+        (play)="playing.set(true)"
+        (pause)="playing.set(false)"
+        (ended)="playing.set(false)"
+        (error)="error.set(true)"
+    ></audio>
+
+    @if (label()) {
+        <span class="audio-label" [title]="label()">{{ label() }}</span>
+    }
+
+    @if (error()) {
+        <span class="audio-error">This file could not be played.</span>
+    } @else {
+        <div class="audio-controls">
+            <app-button
+                [icon]="playing() ? 'icon-pause' : 'icon-play'"
+                variant="primary"
+                [outline]="true"
+                size="very-small"
+                [tooltipText]="playing() ? 'Pause' : 'Play'"
+                (buttonClick)="togglePlay()"
+            ></app-button>
+            <app-button icon="icon-stop" variant="secondary" [outline]="true" size="very-small" tooltipText="Stop" (buttonClick)="stop()"></app-button>
+
+            <span class="audio-time">{{ elapsedLabel() }}</span>
+            <input
+                class="audio-seek"
+                type="range"
+                min="0"
+                max="100"
+                step="0.1"
+                [value]="progress()"
+                [disabled]="duration() <= 0"
+                aria-label="Seek"
+                (input)="onSeek($event)"
+            />
+            <span class="audio-time">{{ durationLabel() }}</span>
+        </div>
+    }
+</div>

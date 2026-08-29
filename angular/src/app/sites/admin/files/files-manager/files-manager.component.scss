@@ -164,9 +164,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  padding: 0;
   background: var(--bg-hover);
+  border: 1px solid transparent;
   border-radius: var(--border-radius);
   overflow: hidden;
+  color: var(--text-secondary);
+
+  &.clickable {
+    cursor: zoom-in;
+
+    &:hover {
+      border-color: var(--color-primary);
+    }
+  }
+
+  &:disabled {
+    cursor: default;
+  }
 
   img {
     width: 100%;

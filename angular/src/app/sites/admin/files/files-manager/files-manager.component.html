@@ -106,13 +106,22 @@
                 <div class="file-grid">
                     @for (file of files(); track file.name) {
                         <div class="file-card">
-                            <div class="file-thumb">
-                                @if (isPreviewable(file)) {
+                            <button
+                                type="button"
+                                class="file-thumb"
+                                [class.clickable]="canPreview(file)"
+                                [disabled]="!canPreview(file)"
+                                [title]="canPreview(file) ? 'Open ' + file.name : file.name"
+                                (click)="openPreview(file)"
+                            >
+                                @if (isImage(file)) {
                                     <img [src]="file.url" [alt]="file.name" loading="lazy" />
+                                } @else if (isAudio(file)) {
+                                    <span class="icon icon-music icon-size-8"></span>
                                 } @else {
                                     <span class="file-ext">{{ file.extension || 'file' }}</span>
                                 }
-                            </div>
+                            </button>
                             <span class="file-name" [title]="file.name">{{ file.name }}</span>
                             <span class="file-size">{{ formatSize(file.size) }}</span>
 

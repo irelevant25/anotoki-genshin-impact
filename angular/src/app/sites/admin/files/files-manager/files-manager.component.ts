@@ -4,10 +4,9 @@ import { LoaderComponent } from '../../../../shared/local-lib/components/loader/
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { AdminApiService, AssetFile, AssetFolder, TrashedFile } from '../../services/admin-api.service';
-
-/** Extensions the grid previews inline; anything else gets a file chip. */
-const PREVIEWABLE = ['avif', 'png', 'jpg', 'jpeg', 'webp', 'gif'];
+import { FilePreviewComponent, isPreviewableFile, PLAYABLE_AUDIO, PREVIEWABLE_IMAGES } from '../file-preview/file-preview.component';
 
 @Component({
   selector: 'app-files-manager',
@@ -15,7 +14,7 @@ const PREVIEWABLE = ['avif', 'png', 'jpg', 'jpeg', 'webp', 'gif'];
   styleUrls: ['./files-manager.component.scss'],
   imports: [ButtonComponent, LoaderComponent, TextComponent, FileComponent],
 })
-export class FilesManagerComponent implements OnInit {
+export class FilesManagerComponent extends AbstractModalComponent implements OnInit {
   folders = signal<AssetFolder[]>([]);
   folderFilter = signal<string | number | null | undefined>('');
   selectedFolder = signal<string>('');
@@ -115,8 +114,25 @@ export class FilesManagerComponent implements OnInit {
     this.loadFiles();
   }
 
-  isPreviewable(file: AssetFile): boolean {
-    return PREVIEWABLE.includes(file.extension);
+  isImage(file: AssetFile): boolean {
+    return PREVIEWABLE_IMAGES.includes(file.extension);
+  }
+
+  isAudio(file: AssetFile): boolean {
+    return PLAYABLE_AUDIO.includes(file.extension);
+  }
+
+  /** Images open full size, audio opens a player; anything else is not clickable. */
+  canPreview(file: AssetFile): boolean {
+    return isPreviewableFile(file.extension);
+  }
+
+  openPreview(file: AssetFile): void {
+    if (!this.canPreview(file)) {
+      return;
+    }
+    const modal = this.modalService.open<FilePreviewComponent>(FilePreviewComponent, { size: '5', scrollable: true });
+    modal.componentInstance.file.set(file);
   }
 
   formatSize(bytes: number): string {
