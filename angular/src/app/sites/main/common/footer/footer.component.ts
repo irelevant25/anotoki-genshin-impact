@@ -111,7 +111,7 @@ export class FooterComponent extends AbstractModalComponent {
 
   initializeBackground(): void {
     const savedBackground = this._storageService.read(StorageKeys.BACKGROUND);
-    const defaultBackground = 'assets/wallpaper/Fontaine.avif';
+    const defaultBackground = 'assets/backgrounds/Fontaine.avif';
     document.body.style.backgroundImage = `url("${savedBackground || defaultBackground}")`;
   }
 

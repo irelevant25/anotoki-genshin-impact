@@ -1,0 +1,57 @@
+<div class="page-header">
+    <h1 class="page-title">Backgrounds</h1>
+</div>
+
+<p class="page-hint">
+    Site wallpapers. Images have no database column — they are resolved from the name, as <code>{{ imagePattern }}</code> and
+    <code>{{ previewPattern }}</code>.
+</p>
+
+<div class="add-row">
+    <app-text [placeholder]="'New background name…'" [(value)]="newName"></app-text>
+    <app-button text="Add" icon="icon-plus" size="small" [disabled]="!newName()" (buttonClick)="add()"></app-button>
+</div>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="background-grid">
+        @for (entry of backgrounds(); track entry.id) {
+            <div class="background-card">
+                <div class="background-image">
+                    <img [appMaterialIcon]="entry.name" [appAssetFolder]="'backgrounds'" [alt]="entry.name" loading="lazy" />
+                </div>
+
+                <div class="background-head">
+                    @if (renaming() === entry.id) {
+                        <app-text class="rename-input" [(value)]="renameValue"></app-text>
+                        <app-button text="Save" variant="primary" size="very-small" [loading]="busy() === entry.id" (buttonClick)="saveRename(entry)"></app-button>
+                        <app-button text="Cancel" variant="secondary" [outline]="true" size="very-small" (buttonClick)="cancelRename()"></app-button>
+                    } @else {
+                        <span class="background-name" [title]="entry.name">{{ entry.name }}</span>
+                        <app-button icon="icon-pen icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Rename" (buttonClick)="startRename(entry)"></app-button>
+                    }
+                </div>
+
+                <div class="background-preview">
+                    <img [appMaterialIcon]="previewName(entry)" [appAssetFolder]="'backgrounds'" [alt]="entry.name + ' preview'" loading="lazy" />
+                    <span class="background-preview-label">preview</span>
+                </div>
+
+                <div class="background-actions">
+                    <app-file [buttonText]="'Image'" [buttonOutline]="true" [buttonVariant]="'secondary'" [showFileNames]="false" [acceptedExtensions]="imageExtensions" (inputChange)="upload(entry, 'image', $event)"></app-file>
+                    <app-file [buttonText]="'Preview'" [buttonOutline]="true" [buttonVariant]="'secondary'" [showFileNames]="false" [acceptedExtensions]="imageExtensions" (inputChange)="upload(entry, 'preview', $event)"></app-file>
+
+                    @if (deleteConfirm() === entry.id) {
+                        <app-button text="Confirm" variant="danger" size="very-small" [loading]="busy() === entry.id" (buttonClick)="delete(entry)"></app-button>
+                        <app-button text="No" variant="secondary" [outline]="true" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                    } @else {
+                        <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Remove" (buttonClick)="confirmDelete(entry)"></app-button>
+                    }
+                </div>
+            </div>
+        } @empty {
+            <p class="pane-empty">No backgrounds yet. Add one above, then upload its image and preview.</p>
+        }
+    </div>
+}

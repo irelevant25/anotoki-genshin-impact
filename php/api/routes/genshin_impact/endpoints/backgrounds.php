@@ -5,7 +5,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 // GET all backgrounds
 $app->get('/api/backgrounds', function (Request $request, Response $response) {
-    $stmt = genshinDb()->query('SELECT * FROM backgrounds WHERE deleted = 0 ORDER BY name ASC');
+    $stmt = genshinDb()->query('SELECT * FROM backgrounds WHERE deleted = FALSE ORDER BY name ASC');
     return respondJson($response, $stmt->fetchAll());
 });
 
@@ -39,7 +39,7 @@ $app->put('/api/backgrounds/{id}', function (Request $request, Response $respons
     $user = $request->getAttribute('user');
     $pdo  = genshinDb();
 
-    $stmt = $pdo->prepare('SELECT id FROM backgrounds WHERE id = ? AND deleted = 0');
+    $stmt = $pdo->prepare('SELECT id FROM backgrounds WHERE id = ? AND deleted = FALSE');
     $stmt->execute([$args['id']]);
     if (!$stmt->fetch()) {
         return respondJson($response, ['error' => 'Not found'], 404);
@@ -59,7 +59,7 @@ $app->put('/api/backgrounds/{id}', function (Request $request, Response $respons
 $app->delete('/api/backgrounds/{id}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
-    $stmt = $pdo->prepare('SELECT id FROM backgrounds WHERE id = ? AND deleted = 0');
+    $stmt = $pdo->prepare('SELECT id FROM backgrounds WHERE id = ? AND deleted = FALSE');
     $stmt->execute([$args['id']]);
     if (!$stmt->fetch()) {
         return respondJson($response, ['error' => 'Not found'], 404);

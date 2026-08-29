@@ -1,8 +1,8 @@
 import { Directive, effect, ElementRef, inject, input } from '@angular/core';
 
 /**
- * Materials have no icon column - their art is resolved from the name, and the
- * asset dump uses two conventions:
+ * Some entities have no icon column - materials, banners and backgrounds resolve
+ * their art from the name instead, and the asset dump uses two conventions:
  *
  *   "Dandelion Seed"      -> assets/materials/Dandelion Seed.avif
  *   "Adventurer's EXP"    -> assets/materials/ADVENTURERS_EXP.png
@@ -10,7 +10,7 @@ import { Directive, effect, ElementRef, inject, input } from '@angular/core';
  * The browser cannot stat the folder, so the candidates are tried in order and
  * the next one is used whenever the current src fails to load.
  */
-export const MATERIAL_ASSET_ROOT = 'assets/materials';
+export const DEFAULT_ASSET_FOLDER = 'materials';
 
 /** Apostrophes, quotes and hyphens are dropped; every other run becomes one underscore. */
 export function materialUpperSnake(name: string): string {
@@ -21,16 +21,13 @@ export function materialUpperSnake(name: string): string {
     .replace(/^_+|_+$/g, '');
 }
 
-export function materialIconCandidates(name: string | number | undefined | null): string[] {
+export function materialIconCandidates(name: string | number | undefined | null, folder = DEFAULT_ASSET_FOLDER): string[] {
   const trimmed = String(name ?? '').trim();
   if (!trimmed) {
     return [];
   }
-  return [
-    `${MATERIAL_ASSET_ROOT}/${trimmed}.avif`,
-    `${MATERIAL_ASSET_ROOT}/${trimmed}.png`,
-    `${MATERIAL_ASSET_ROOT}/${materialUpperSnake(trimmed)}.png`,
-  ];
+  const root = `assets/${folder}`;
+  return [`${root}/${trimmed}.avif`, `${root}/${trimmed}.png`, `${root}/${materialUpperSnake(trimmed)}.png`];
 }
 
 @Directive({
@@ -39,6 +36,8 @@ export function materialIconCandidates(name: string | number | undefined | null)
 })
 export class MaterialIconDirective {
   appMaterialIcon = input<string | number | undefined | null>();
+  /** Folder under assets/ to look in; materials by default. */
+  appAssetFolder = input<string>(DEFAULT_ASSET_FOLDER);
 
   private readonly _element = inject(ElementRef<HTMLImageElement>);
   private _candidates: string[] = [];
@@ -46,7 +45,7 @@ export class MaterialIconDirective {
 
   constructor() {
     effect(() => {
-      this._candidates = materialIconCandidates(this.appMaterialIcon());
+      this._candidates = materialIconCandidates(this.appMaterialIcon(), this.appAssetFolder());
       this._index = 0;
       this._apply();
     });

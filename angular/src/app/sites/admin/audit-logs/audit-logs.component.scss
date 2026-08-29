@@ -1,0 +1,115 @@
+@use "../shared/admin-list" as *;
+
+.page-hint {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.log-row {
+  cursor: pointer;
+
+  &:hover {
+    background: var(--bg-hover);
+  }
+
+  &.expanded {
+    background: var(--bg-hover);
+  }
+}
+
+.log-when {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.log-count {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.action {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 20px;
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--border-color);
+}
+
+.action-insert {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.action-update {
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+.action-delete {
+  color: var(--color-danger-light, #f87171);
+  border-color: var(--color-danger-light, #f87171);
+}
+
+// Expanded diff, rendered as a nested table inside the row.
+.detail-row > td {
+  padding: 0 var(--spacing-md) var(--spacing-md) !important;
+  background: var(--bg-card);
+}
+
+.detail-empty {
+  margin: 0;
+  padding: var(--spacing-sm) 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+
+  th {
+    padding: 4px var(--spacing-sm);
+    text-align: left;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  td {
+    padding: 4px var(--spacing-sm);
+    vertical-align: top;
+    border-top: 1px solid var(--border-color);
+    word-break: break-word;
+  }
+}
+
+.detail-field {
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.detail-old {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.detail-new {
+  color: var(--text-primary);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
+}
+
+.pager-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}

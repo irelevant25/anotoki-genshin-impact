@@ -155,6 +155,21 @@ function _uploadTargets(): array
             'literal_name' => true,
             'fields' => ['icon' => ['folder' => 'materials', 'no_column' => true]],
         ],
+        // Banner art is "{version} - {name}", also resolved by name.
+        'banner' => [
+            'table' => 'banners',
+            'resolver' => '_resolveBannerTarget',
+            'fields' => ['icon' => ['no_column' => true]],
+        ],
+        // A background is a full image plus a "- preview" thumbnail.
+        'background' => [
+            'table' => 'backgrounds',
+            'literal_name' => true,
+            'fields' => [
+                'image' => ['folder' => 'backgrounds', 'no_column' => true],
+                'preview' => ['folder' => 'backgrounds', 'suffix' => 'preview', 'no_column' => true],
+            ],
+        ],
     ];
 }
 
@@ -187,7 +202,21 @@ function _resolveVoiceOverTarget(PDO $pdo, array $row, string $field): ?array
         return null;
     }
 
-    return ['folder' => 'character/voice_overs/' . $characterSegment . '/' . $typeSegment . '/' . $code, 'base' => $title];
+    return ['folder' => 'character/voice_overs/' . $characterSegment . '/' . $typeSegment . '/' . $code, 'base' => $title, 'audio' => true];
+}
+
+/**
+ * Banner art is named after the banner rather than snake-cased:
+ *   assets/banners/1.0 - Ballad in Goblets 2020-09-28.avif
+ */
+function _resolveBannerTarget(PDO $pdo, array $row, string $field): ?array
+{
+    $version = trim((string) ($row['version'] ?? ''));
+    $name = trim((string) ($row['name'] ?? ''));
+    if ($version === '' || $name === '') {
+        return null;
+    }
+    return ['folder' => 'banners', 'base' => $version . ' - ' . $name];
 }
 
 /** `phase#` becomes the phase's position among its enemy's phases. */
@@ -229,13 +258,19 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
         if (!$resolved) {
             return respondJson($response, ['error' => 'Row is missing the data needed to name this file'], 409);
         }
-        $path = _saveAssetUpload($file, $resolved['folder'], $resolved['base'], true);
+        // Voice over clips are audio; banner art is an image.
+        $isAudio = !empty($resolved['audio']);
+        $path = _saveAssetUpload($file, $resolved['folder'], $resolved['base'], $isAudio);
         if (!$path) {
             return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
         }
-        $user = $request->getAttribute('user');
-        DbQuery::update($pdo, $spec['table'], [$field => $path, 'updated_by' => $user['id']], (int) $args['id']);
-        return respondJson($response, ['entity' => $entity, 'id' => (int) $args['id'], 'field' => $field, 'path' => $path, 'stored' => true]);
+
+        $stored = empty($fieldSpec['no_column']);
+        if ($stored) {
+            $user = $request->getAttribute('user');
+            DbQuery::update($pdo, $spec['table'], [$field => $path, 'updated_by' => $user['id']], (int) $args['id']);
+        }
+        return respondJson($response, ['entity' => $entity, 'id' => (int) $args['id'], 'field' => $field, 'path' => $path, 'stored' => $stored]);
     }
 
     // Build the file name from the row, exactly as the existing assets are named.

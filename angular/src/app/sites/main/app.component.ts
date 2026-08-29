@@ -13,6 +13,6 @@ import { FooterComponent } from './common/footer/footer.component';
 })
 export class AppComponent {
   constructor() {
-    document.body.style.backgroundImage = `url('assets/wallpaper/Fontaine.avif')`;
+    document.body.style.backgroundImage = `url('assets/backgrounds/Fontaine.avif')`;
   }
 }

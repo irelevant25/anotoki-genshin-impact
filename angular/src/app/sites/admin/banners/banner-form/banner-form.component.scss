@@ -1,0 +1,53 @@
+@use "../../shared/admin-form" as *;
+
+.art-hint {
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+
+  code {
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--bg-hover);
+    word-break: break-all;
+  }
+}
+
+.art-preview {
+  max-width: 420px;
+  width: 100%;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--bg-hover);
+  cursor: zoom-in;
+}
+
+.featured-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+}
+
+// Order is the row position, so each row shows its rank and can be moved.
+.featured-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-xs);
+  width: 100%;
+  max-width: 560px;
+}
+
+.featured-order {
+  width: 24px;
+  padding-bottom: 6px;
+  flex-shrink: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.featured-picker {
+  flex: 1;
+  min-width: 0;
+}

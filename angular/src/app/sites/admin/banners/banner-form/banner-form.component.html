@@ -1,0 +1,69 @@
+<div class="page-header justify-content-between">
+    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
+    <h1 class="page-title">{{ banner().name || pageTitle() }}</h1>
+</div>
+
+@if (loading()) {
+    <app-loader [loading]="true"></app-loader>
+} @else {
+    <div class="form-section">
+        <h3 class="section-title">Run</h3>
+        <div class="form-grid">
+            <app-text class="col-span-2" [label]="'Name'" [placeholder]="'e.g. Ballad in Goblets 2020-09-28'" [(value)]="banner().name" [required]="true"></app-text>
+            <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="banner().version" [required]="true"></app-text>
+            <app-calendar [label]="'From'" [(value)]="banner().duration_from" [required]="true"></app-calendar>
+            <app-calendar [label]="'To'" [(value)]="banner().duration_to"></app-calendar>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3 class="section-title">Art</h3>
+        <p class="art-hint">
+            Banner art has no database column — it is resolved from the name, as <code>assets/banners/{{ artName() }}</code>. Upload or replace it on the Files
+            page.
+        </p>
+        <img #art [appMaterialIcon]="artName()" [appAssetFolder]="'banners'" [alt]="banner().name" class="art-preview" />
+        <app-tooltip [targetHTMLElement]="art" [standalone]="true">
+            <img class="w-100" [appMaterialIcon]="artName()" [appAssetFolder]="'banners'" [alt]="banner().name" />
+        </app-tooltip>
+    </div>
+
+    <div class="form-section">
+        <h3 class="section-title">Featured Characters</h3>
+        <div class="featured-list">
+            @for (entry of characters(); track entry.uid; let i = $index; let first = $first; let last = $last) {
+                <div class="featured-row">
+                    <span class="featured-order">{{ i + 1 }}</span>
+                    <app-dropdown class="featured-picker" [options]="characterOptions()" [(value)]="entry.id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— character —'"></app-dropdown>
+                    <app-button icon="icon-chevron-up icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Move up" [disabled]="first" (buttonClick)="move('characters', entry, -1)"></app-button>
+                    <app-button icon="icon-chevron-down icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Move down" [disabled]="last" (buttonClick)="move('characters', entry, 1)"></app-button>
+                    <app-button icon="icon-delete" variant="danger" [outline]="true" size="very-small" tooltipText="Remove" (buttonClick)="remove('characters', entry)"></app-button>
+                </div>
+            }
+            <app-button variant="primary" [outline]="true" (buttonClick)="add('characters')">Add character</app-button>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3 class="section-title">Featured Weapons</h3>
+        <div class="featured-list">
+            @for (entry of weapons(); track entry.uid; let i = $index; let first = $first; let last = $last) {
+                <div class="featured-row">
+                    <span class="featured-order">{{ i + 1 }}</span>
+                    <app-dropdown class="featured-picker" [options]="weaponOptions()" [(value)]="entry.id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— weapon —'"></app-dropdown>
+                    <app-button icon="icon-chevron-up icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Move up" [disabled]="first" (buttonClick)="move('weapons', entry, -1)"></app-button>
+                    <app-button icon="icon-chevron-down icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Move down" [disabled]="last" (buttonClick)="move('weapons', entry, 1)"></app-button>
+                    <app-button icon="icon-delete" variant="danger" [outline]="true" size="very-small" tooltipText="Remove" (buttonClick)="remove('weapons', entry)"></app-button>
+                </div>
+            }
+            <app-button variant="primary" [outline]="true" (buttonClick)="add('weapons')">Add weapon</app-button>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <a [routerLink]="backLink()">
+            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
+        </a>
+        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Banner'" [loading]="saving()" (buttonClick)="save()"></app-button>
+    </div>
+}

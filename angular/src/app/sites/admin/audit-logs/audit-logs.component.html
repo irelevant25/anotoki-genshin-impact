@@ -1,0 +1,93 @@
+<div class="page-header">
+    <h1 class="page-title">Audit Logs</h1>
+    <span class="badge-readonly">Read-only</span>
+</div>
+
+<p class="page-hint">Every insert, update and soft delete recorded by the API. Click a row to see what changed.</p>
+
+<div class="filter-bar">
+    <app-dropdown [label]="'Table'" [options]="tables()" [(value)]="filterTable" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <app-dropdown [label]="'Action'" [options]="actions()" [(value)]="filterAction" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <app-dropdown [label]="'User'" [options]="userOptions()" [(value)]="filterUser" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <app-text [label]="'Record ID'" [placeholder]="'exact'" [(value)]="filterRecordId" (blurChange)="applyFilters()"></app-text>
+    <app-calendar [label]="'From'" [(value)]="filterFrom" (inputChange)="applyFilters()"></app-calendar>
+    <app-calendar [label]="'To'" [(value)]="filterTo" (inputChange)="applyFilters()"></app-calendar>
+    <div class="filter-summary">
+        <span class="filter-count">{{ rangeLabel() }}</span>
+        @if (hasActiveFilter()) {
+            <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+        }
+    </div>
+</div>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>When</th>
+                    <th>Table</th>
+                    <th>Record</th>
+                    <th>Action</th>
+                    <th>By</th>
+                    <th>Changes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!items().length) {
+                    <tr>
+                        <td colspan="6" class="empty-cell">No entries match the filter</td>
+                    </tr>
+                }
+                @for (entry of items(); track entry.id) {
+                    <tr class="log-row" [class.expanded]="expanded() === entry.id" (click)="toggle(entry)">
+                        <td class="log-when">{{ entry.changed_at }}</td>
+                        <td>{{ entry.table_name }}</td>
+                        <td class="col-id">{{ entry.record_id }}</td>
+                        <td><span class="action action-{{ entry.action | lowercase }}">{{ entry.action }}</span></td>
+                        <td>{{ entry.changed_by_username ?? entry.changed_by ?? '—' }}</td>
+                        <td class="log-count">{{ changeCount(entry) }} field{{ changeCount(entry) === 1 ? '' : 's' }}</td>
+                    </tr>
+                    @if (expanded() === entry.id) {
+                        <tr class="detail-row">
+                            <td colspan="6">
+                                @if (!changeRows(entry).length) {
+                                    <p class="detail-empty">No field details were recorded.</p>
+                                } @else {
+                                    <table class="detail-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Field</th>
+                                                <th>Before</th>
+                                                <th>After</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (change of changeRows(entry); track change.column) {
+                                                <tr>
+                                                    <td class="detail-field">{{ change.column }}</td>
+                                                    <td class="detail-old">{{ change.from || '—' }}</td>
+                                                    <td class="detail-new">{{ change.to }}</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (totalPages() > 1) {
+        <div class="pager">
+            <app-button icon="icon-chevron-left" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === 1" (buttonClick)="goToPage(page() - 1)"></app-button>
+            <span class="pager-label">{{ page() }} / {{ totalPages() }}</span>
+            <app-button icon="icon-chevron-right" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === totalPages()" (buttonClick)="goToPage(page() + 1)"></app-button>
+        </div>
+    }
+}

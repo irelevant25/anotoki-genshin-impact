@@ -32,7 +32,10 @@ export class AppComponent implements OnInit {
         { label: 'Artifacts', path: 'artifacts', icon: 'fa-solid fa-ring' },
         { label: 'Weapons', path: 'weapons', icon: 'fa-solid fa-khanda' },
         { label: 'Foods', path: 'foods', icon: 'fa-solid fa-utensils' },
+        { label: 'Banners', path: 'banners', icon: 'fa-solid fa-scroll' },
+        { label: 'Backgrounds', path: 'backgrounds', icon: 'fa-solid fa-image' },
         { label: 'Files', path: 'files', icon: 'fa-solid fa-folder-open' },
+        { label: 'Audit Logs', path: 'audit-logs', icon: 'fa-solid fa-clock-rotate-left', readOnly: true },
       ],
     },
     {

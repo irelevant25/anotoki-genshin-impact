@@ -16,6 +16,10 @@ import { FoodsListComponent } from './foods/foods-list/foods-list.component';
 import { FoodFormComponent } from './foods/food-form/food-form.component';
 import { MigrationsListComponent } from './migrations/migrations-list/migrations-list.component';
 import { FilesManagerComponent } from './files/files-manager/files-manager.component';
+import { BannersListComponent } from './banners/banners-list/banners-list.component';
+import { BannerFormComponent } from './banners/banner-form/banner-form.component';
+import { BackgroundsListComponent } from './backgrounds/backgrounds-list/backgrounds-list.component';
+import { AuditLogsComponent } from './audit-logs/audit-logs.component';
 import {
   ArtifactPieceTypesPage,
   CharacterStatesPage,
@@ -81,6 +85,13 @@ export const routes: Routes = [
       { path: 'character-states',     component: CharacterStatesPage },
       { path: 'rarities',             component: RaritiesPage },
       { path: 'artifact-piece-types', component: ArtifactPieceTypesPage },
+      // Banners
+      { path: 'banners', component: BannersListComponent },
+      { path: 'banners/create', component: BannerFormComponent },
+      { path: 'banners/:id/edit', component: BannerFormComponent },
+
+      { path: 'backgrounds',          component: BackgroundsListComponent },
+      { path: 'audit-logs',           component: AuditLogsComponent },
       { path: 'files',                component: FilesManagerComponent },
       { path: 'migrations',           component: MigrationsListComponent },
 

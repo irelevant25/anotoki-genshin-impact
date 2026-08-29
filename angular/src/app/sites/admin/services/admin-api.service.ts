@@ -407,6 +407,74 @@ export interface TrashedFile {
   size: number;
 }
 
+// ── Banners ───────────────────────────────────────────────────────────────────
+
+export interface BannerFormData {
+  id?: number;
+  name: string;
+  version: string;
+  duration_from: string;
+  duration_to?: string | null;
+}
+
+export interface BannerEntryFormData {
+  id?: number;
+  banner_id?: number;
+  character_id?: number;
+  weapon_id?: number;
+  order: number;
+}
+
+export interface BannerFull {
+  banner: BannerFormData;
+  characters: BannerEntryFormData[];
+  weapons: BannerEntryFormData[];
+}
+
+// ── Backgrounds ───────────────────────────────────────────────────────────────
+
+export interface BackgroundEntry {
+  id: number;
+  name: string;
+}
+
+// ── Audit logs ────────────────────────────────────────────────────────────────
+
+export interface AuditLogEntry {
+  id: number;
+  table_name: string;
+  record_id: string;
+  action: 'INSERT' | 'UPDATE' | 'DELETE';
+  changed_by: number | null;
+  changed_by_username: string | null;
+  changed_at: string;
+  /** Column -> { old, new }; absent for inserts, which log the whole row. */
+  changes: Record<string, unknown> | null;
+}
+
+export interface AuditLogPage {
+  total: number;
+  page: number;
+  pageSize: number;
+  items: AuditLogEntry[];
+}
+
+export interface AuditLogFilters {
+  tables: string[];
+  actions: string[];
+  users: { id: number; username: string }[];
+}
+
+export interface AuditLogQuery {
+  table?: string;
+  action?: string;
+  user?: string;
+  recordId?: string;
+  from?: string;
+  to?: string;
+  page: number;
+}
+
 export interface NameEntry { name: string; }
 export interface IdNameEntry { id: number; name: string; }
 export interface UploadResult { filename: string; path: string; }
@@ -585,6 +653,36 @@ export class AdminApiService {
   }
   private _updateFull(path: string, id: number, data: FormData): Observable<any> {
     return this._http.put<any>(`/api/${path}/${id}/full`, data);
+  }
+
+  getBanners(): Observable<any[]> { return this._http.get<any[]>('/api/banners'); }
+  getBannerFull(id: number) { return this._getFull<BannerFull>('banners', id); }
+  createBannerFull(data: FormData) { return this._createFull('banners', data); }
+  updateBannerFull(id: number, data: FormData) { return this._updateFull('banners', id, data); }
+  deleteBanner(id: number) { return this._http.delete<any>(`/api/banners/${id}`); }
+
+  getBackgrounds(): Observable<BackgroundEntry[]> { return this._http.get<BackgroundEntry[]>('/api/backgrounds'); }
+  createBackground(name: string) { return this._http.post<BackgroundEntry>('/api/backgrounds', { name }); }
+  updateBackground(id: number, name: string) { return this._http.put<BackgroundEntry>(`/api/backgrounds/${id}`, { name }); }
+  deleteBackground(id: number) { return this._http.delete<any>(`/api/backgrounds/${id}`); }
+
+  getAuditLogFilters(): Observable<AuditLogFilters> { return this._http.get<AuditLogFilters>('/api/audit-logs/filters'); }
+  getAuditLogs(query: AuditLogQuery): Observable<AuditLogPage> {
+    const params: Record<string, string> = { page: String(query.page) };
+    for (const key of ['table', 'action', 'user', 'recordId', 'from', 'to'] as const) {
+      const value = query[key];
+      if (value) {
+        params[key] = value;
+      }
+    }
+    return this._http.get<AuditLogPage>('/api/audit-logs', { params });
+  }
+
+  /** Uploads a file for one entity field; the server decides the destination. */
+  uploadEntityFile(entity: string, id: number, field: string, file: File): Observable<{ path: string }> {
+    const form = new FormData();
+    form.append('file', file, file.name);
+    return this._http.post<{ path: string }>(`/api/uploads/${entity}/${id}/${field}`, form);
   }
 
   getEnemies(): Observable<any[]> { return this._http.get<any[]>('/api/enemies'); }
