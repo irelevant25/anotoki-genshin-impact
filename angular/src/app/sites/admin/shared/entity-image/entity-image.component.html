@@ -1,12 +1,12 @@
 <div class="entity-image">
-    <span class="entity-image-label" [class.required]="required()">
+    <span class="entity-image-label">
         {{ label() }}
         @if (required()) {
             <span class="required-indicator">*</span>
         }
     </span>
 
-    <div class="entity-image-frame" [class.empty]="!hasImage()">
+    <div class="entity-image-frame" [class.empty]="!src()" [class.pending]="!!pending()">
         @if (src(); as source) {
             <img #img [src]="source" [alt]="label()" />
             <app-tooltip [targetHTMLElement]="img" [standalone]="true">
@@ -17,18 +17,25 @@
         }
     </div>
 
-    @if (name()) {
-        <span class="entity-image-name" [title]="name()!">{{ name() }}</span>
+    @if (displayName()) {
+        <span class="entity-image-name" [title]="displayName()">{{ displayName() }}</span>
     }
 
-    <app-button
-        [text]="hasImage() ? 'Replace' : 'Upload'"
-        icon="icon-upload"
-        variant="secondary"
-        [outline]="true"
-        size="very-small"
-        [disabled]="!canUpload()"
-        [tooltipText]="canUpload() ? '' : 'Save first, then images can be uploaded'"
-        (buttonClick)="open()"
-    ></app-button>
+    <div class="entity-image-actions">
+        <app-button
+            [text]="hasImage() ? 'Replace' : 'Upload'"
+            icon="icon-upload"
+            variant="secondary"
+            [outline]="true"
+            size="very-small"
+            (buttonClick)="open()"
+        ></app-button>
+        @if (pending()) {
+            <app-button icon="icon-close" variant="secondary" [outline]="true" size="very-small" tooltipText="Discard this pick" (buttonClick)="clear()"></app-button>
+        }
+    </div>
+
+    @if (pending()) {
+        <span class="entity-image-hint">uploads on save</span>
+    }
 </div>

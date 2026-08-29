@@ -1,15 +1,31 @@
 import { computed, Directive, ElementRef, inject, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, of, switchMap } from 'rxjs';
 import { AbstractInputComponent } from '../../../shared/local-lib/abstract-input.class';
+import { AdminApiService } from '../services/admin-api.service';
+import { PickedImage } from './image-upload/image-upload.component';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
 import { TabsComponent } from '../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../shared/local-lib/components/tabs/tab/tab.component';
+
+/** An image picked but not yet sent, and where to put the result. */
+export interface PendingImage {
+  /** Upload target, e.g. 'character' or 'artifact-piece'. */
+  entity: string;
+  field: string;
+  picked: PickedImage;
+  /** Writes the stored path and name back onto the form's model. */
+  apply: (path: string, name: string) => void;
+}
 
 /**
  * Shared behaviour for the admin "full resource" forms: route id handling,
  * load / save lifecycle, and validation that can point at the offending field
  * even when it sits on a tab that is not showing.
+ *
+ * Images picked on the form are uploaded as part of saving, so creating an
+ * entity stays one step and child rows get their images even though they are
+ * re-inserted on every save.
  */
 @Directive()
 export abstract class AdminFormComponent<TFull> {
@@ -31,6 +47,7 @@ export abstract class AdminFormComponent<TFull> {
   backLink = computed(() => (this.isEdit() ? '../..' : '..'));
 
   protected readonly notify = inject(NotificationService);
+  private readonly _uploadApi = inject(AdminApiService);
   protected readonly route = inject(ActivatedRoute);
   protected readonly router = inject(Router);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
@@ -44,6 +61,11 @@ export abstract class AdminFormComponent<TFull> {
   /** Copies the loaded resource into the form signals. */
   protected abstract applyLoaded(data: TFull): void;
   protected abstract buildFormData(): FormData;
+
+  /** Images waiting to be uploaded; the base class sends them before saving. */
+  protected collectPendingImages(): PendingImage[] {
+    return [];
+  }
 
   /** Extra checks the inputs cannot express; return a message to block saving. */
   protected extraValidation(): string | undefined {
@@ -86,25 +108,50 @@ export abstract class AdminFormComponent<TFull> {
     }
 
     this.saving.set(true);
-    const payload = this.buildFormData();
-    const id = this.entityId();
-    const request = this.isEdit() && id !== null ? this.update(id, payload) : this.create(payload);
 
-    request.subscribe({
-      next: (result) => {
-        this.saving.set(false);
-        this.notify.showSuccess(`${this.entityLabel} ${this.isEdit() ? 'updated' : 'created'}`);
-        if (this.isEdit()) {
-          this.load(this.entityId()!);
-        } else {
-          this.router.navigate([this.listRoute, (result as { id: number }).id, 'edit']);
-        }
-      },
-      error: (error) => {
-        this.saving.set(false);
-        this.notify.showError(error?.error?.error ?? error?.error?.message ?? `Failed to save ${this.entityLabel.toLowerCase()}`);
-      },
-    });
+    // Upload first: the payload carries the resulting paths, so one save writes
+    // both the row and its image columns.
+    this._uploadPending()
+      .pipe(
+        switchMap(() => {
+          const payload = this.buildFormData();
+          const id = this.entityId();
+          return this.isEdit() && id !== null ? this.update(id, payload) : this.create(payload);
+        })
+      )
+      .subscribe({
+        next: (result) => {
+          this.saving.set(false);
+          this.notify.showSuccess(`${this.entityLabel} ${this.isEdit() ? 'updated' : 'created'}`);
+          if (this.isEdit()) {
+            this.load(this.entityId()!);
+          } else {
+            this.router.navigate([this.listRoute, (result as { id: number }).id, 'edit']);
+          }
+        },
+        error: (error) => {
+          this.saving.set(false);
+          this.notify.showError(error?.error?.error ?? error?.error?.message ?? `Failed to save ${this.entityLabel.toLowerCase()}`);
+        },
+      });
+  }
+
+  /** Sends every picked image and writes the stored path back onto the model. */
+  private _uploadPending(): Observable<unknown> {
+    const pending = this.collectPendingImages();
+    if (!pending.length) {
+      return of(null);
+    }
+    return forkJoin(
+      pending.map((entry) =>
+        this._uploadApi.uploadImage(entry.entity, entry.field, entry.picked.file, entry.picked.name).pipe(
+          switchMap((result) => {
+            entry.apply(result.path, result.name);
+            return of(result);
+          })
+        )
+      )
+    );
   }
 
   /** Touches every input in the form so errors become visible, then reports validity. */

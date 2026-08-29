@@ -1,16 +1,25 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
-import { AdminApiService, EntityUploadResult } from '../../services/admin-api.service';
 import { IMAGE_EXTENSIONS } from '../admin-full-resource.model';
 
+/** What the modal hands back: nothing has been sent to the server yet. */
+export interface PickedImage {
+  file: File;
+  name: string;
+  /** Object URL for the form to show until the next load. */
+  preview: string;
+}
+
 /**
- * Uploads one image for one entity field. The user picks a file and a name; the
- * server knows the folder from the entity and field, so nothing here decides
- * where the file goes.
+ * Picks one image and the name to store it under.
+ *
+ * Nothing is uploaded here - the form keeps the file and sends it when it is
+ * saved, so creating an entity stays a single step and child rows (which are
+ * re-inserted on every save) can have images too.
  */
 @Component({
   selector: 'app-image-upload',
@@ -20,8 +29,6 @@ import { IMAGE_EXTENSIONS } from '../admin-full-resource.model';
 })
 export class ImageUploadComponent extends AbstractModalComponent {
   /** Set by the opener before the modal renders. */
-  entity = signal<string>('');
-  entityId = signal<number>(0);
   field = signal<string>('');
   /** Shown in the title, e.g. "Card Icon". */
   label = signal<string>('Image');
@@ -38,8 +45,6 @@ export class ImageUploadComponent extends AbstractModalComponent {
   title = computed(() => `Upload ${this.label()}`);
   trimmedName = computed(() => String(this.name() ?? '').trim());
   canSubmit = computed(() => !!this.file() && this.trimmedName().length > 0);
-
-  private readonly _api = inject(AdminApiService);
 
   /** Called by the opener once the inputs are set. */
   init(): void {
@@ -61,24 +66,13 @@ export class ImageUploadComponent extends AbstractModalComponent {
 
   submit(): void {
     const file = this.file();
-    if (!file || !this.canSubmit()) {
+    const preview = this.preview();
+    if (!file || !preview || !this.canSubmit()) {
       return;
     }
-    this.loading.set(true);
-    this.error.set(undefined);
-
-    this._api.uploadEntityFile(this.entity(), this.entityId(), this.field(), file, this.trimmedName()).subscribe({
-      next: (result) => {
-        this.loading.set(false);
-        this._revoke();
-        this.modalRef?.close(result satisfies EntityUploadResult);
-      },
-      error: (error) => {
-        this.loading.set(false);
-        this.error.set(error?.error?.error ?? `Upload failed (HTTP ${error?.status ?? '?'})`);
-        this.cd.markForCheck();
-      },
-    });
+    // Hand the object URL over; the form owns revoking it from here.
+    this.preview.set(undefined);
+    this.modalRef?.close({ file, name: this.trimmedName(), preview } satisfies PickedImage);
   }
 
   cancel(): void {

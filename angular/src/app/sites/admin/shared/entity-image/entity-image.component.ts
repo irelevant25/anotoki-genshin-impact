@@ -2,15 +2,14 @@ import { Component, computed, inject, input, output } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { TooltipComponent } from '../../../../shared/local-lib/components/tooltip/tooltip.component';
 import { ModalService } from '../../../../shared/local-lib/components/modal/modal.service';
-import { EntityUploadResult } from '../../services/admin-api.service';
-import { ImageUploadComponent } from '../image-upload/image-upload.component';
+import { ImageUploadComponent, PickedImage } from '../image-upload/image-upload.component';
 
 /**
- * One image slot on a form: the current picture, its stored name, and a button
- * that opens the upload modal.
+ * One image slot on a form: the current picture, the name it is stored under,
+ * and a button that opens the picker.
  *
- * Uploading writes to the row immediately, so it needs an id - on a form that
- * has not been saved yet the button explains that instead.
+ * Picking does not upload. The form holds the file and sends it when saved, so
+ * this works on an entity that does not exist yet.
  */
 @Component({
   selector: 'app-entity-image',
@@ -20,45 +19,41 @@ import { ImageUploadComponent } from '../image-upload/image-upload.component';
 })
 export class EntityImageComponent {
   label = input.required<string>();
-  entity = input.required<string>();
   field = input.required<string>();
-  /** Null until the row is saved; uploading is disabled while it is. */
-  entityId = input<number | null>(null);
 
-  /** Stored path, used as the image source. */
+  /** Stored path, used as the image source once saved. */
   path = input<string | null | undefined>(undefined);
   /** Stored base name, shown under the image and pre-filled when replacing. */
   name = input<string | null | undefined>(undefined);
+  /** Set once something is picked but not yet saved. */
+  pending = input<PickedImage | undefined>(undefined);
   required = input<boolean>(false);
 
-  /** Emitted after a successful upload so the form can update its state. */
-  uploaded = output<EntityUploadResult>();
+  picked = output<PickedImage>();
+  cleared = output<void>();
 
   private readonly _modals = inject(ModalService);
 
-  canUpload = computed(() => !!this.entityId());
-  hasImage = computed(() => !!this.path() || !!this.name());
-
-  /** Falls back to the name when no path is stored yet, as some tables have none. */
-  src = computed(() => this.path() || undefined);
+  /** A pending pick wins over the stored image, so the user sees their choice. */
+  src = computed(() => this.pending()?.preview ?? this.path() ?? undefined);
+  displayName = computed(() => this.pending()?.name ?? this.name() ?? '');
+  hasImage = computed(() => !!this.src() || !!this.displayName());
 
   open(): void {
-    const id = this.entityId();
-    if (!id) {
-      return;
-    }
-    const modal = this._modals.open<ImageUploadComponent, EntityUploadResult | undefined>(ImageUploadComponent, { size: '3' });
-    modal.componentInstance.entity.set(this.entity());
-    modal.componentInstance.entityId.set(id);
+    const modal = this._modals.open<ImageUploadComponent, PickedImage | undefined>(ImageUploadComponent, { size: '3' });
     modal.componentInstance.field.set(this.field());
     modal.componentInstance.label.set(this.label());
-    modal.componentInstance.currentName.set(String(this.name() ?? ''));
+    modal.componentInstance.currentName.set(this.displayName());
     modal.componentInstance.init();
 
     modal.closed.subscribe((result) => {
       if (result) {
-        this.uploaded.emit(result);
+        this.picked.emit(result);
       }
     });
+  }
+
+  clear(): void {
+    this.cleared.emit();
   }
 }

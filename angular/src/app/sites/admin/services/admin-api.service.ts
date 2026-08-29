@@ -55,16 +55,22 @@ export interface CharacterFormData {
   namecard_description: string;
   namecard_sources?: string[] | null;
   namecard_icon: string;
+  namecard_icon_name?: string | null;
   namecard_background: string;
+  namecard_background_name?: string | null;
   namecard_banner: string;
+  namecard_banner_name?: string | null;
   card_icon: string;
   card_icon_2?: string;
+  card_icon_2_name?: string | null;
   wish_icon: string;
+  wish_icon_name?: string | null;
   ingame_icon: string;
   ingame_icon_name?: string;
   ingame_icon_2?: string;
   ingame_icon_2_name?: string;
   icon: string;
+  icon_name?: string | null;
   special_dish?: number;
 }
 
@@ -98,6 +104,7 @@ export interface ConstellationFormData {
   name: string;
   level: number;
   icon: string;
+  icon_name?: string | null;
   description?: string;
 }
 
@@ -138,6 +145,7 @@ export interface TalentFormData {
   name: string;
   type: string;
   icon: string;
+  icon_name?: string | null;
   description?: string;
 }
 
@@ -156,6 +164,7 @@ export interface EnemyFormData {
   id?: number;
   name: string;
   icon: string;
+  icon_name?: string | null;
   description?: string | null;
   version?: string | null;
   interactive_map_link?: string | null;
@@ -172,7 +181,9 @@ export interface EnemyPhaseFormData {
   title: string;
   secondary_title?: string | null;
   icon: string;
+  icon_name?: string | null;
   art?: string | null;
+  art_name?: string | null;
   has_weakpoint?: boolean;
   living_being_type?: string | null;
   living_being_family?: string | null;
@@ -207,6 +218,8 @@ export interface EnemyFull {
 export interface MaterialFormData {
   id?: number;
   name: string;
+  icon?: string | null;
+  icon_name?: string | null;
   type?: string | null;
   group?: string | null;
   region?: string | null;
@@ -233,6 +246,7 @@ export interface ArtifactFormData {
   id?: number;
   name: string;
   icon: string;
+  icon_name?: string | null;
   version?: string | null;
   effects?: string[] | null;
   two_piece?: string | null;
@@ -255,6 +269,7 @@ export interface ArtifactPieceFormData {
   name: string;
   type: string;
   icon: string;
+  icon_name?: string | null;
 }
 
 export interface ArtifactFull {
@@ -274,6 +289,7 @@ export interface WeaponFormData {
   icon_2?: string | null;
   icon_2_name?: string | null;
   icon_ascension?: string | null;
+  icon_ascension_name?: string | null;
   primary_stat?: string | null;
   secondary_stat?: string | null;
   how_to_obtain?: string[] | null;
@@ -330,8 +346,11 @@ export interface FoodFormData {
   version?: string | null;
   effect?: string | null;
   icon_normal?: string | null;
+  icon_normal_name?: string | null;
   icon_delicious?: string | null;
+  icon_delicious_name?: string | null;
   icon_suspicious?: string | null;
+  icon_suspicious_name?: string | null;
   description_normal?: string | null;
   description_delicious?: string | null;
   description_suspicious?: string | null;
@@ -412,6 +431,8 @@ export interface TrashedFile {
 export interface BannerFormData {
   id?: number;
   name: string;
+  icon?: string | null;
+  icon_name?: string | null;
   version: string;
   duration_from: string;
   duration_to?: string | null;
@@ -436,6 +457,10 @@ export interface BannerFull {
 export interface BackgroundEntry {
   id: number;
   name: string;
+  image?: string | null;
+  image_name?: string | null;
+  preview?: string | null;
+  preview_name?: string | null;
 }
 
 // ── Audit logs ────────────────────────────────────────────────────────────────
@@ -690,8 +715,20 @@ export class AdminApiService {
   }
 
   /**
-   * Uploads a file for one entity field. The client chooses the name; the
-   * server works out the folder and stores both the path and the name.
+   * Stores an image for an entity field without touching the database, and
+   * returns where it landed. Used while saving a form, so a new entity and
+   * re-inserted child rows can both have images.
+   */
+  uploadImage(entity: string, field: string, file: File, name: string): Observable<EntityUploadResult> {
+    const form = new FormData();
+    form.append('file', file, file.name);
+    form.append('name', name);
+    return this._http.post<EntityUploadResult>(`/api/uploads/${entity}/${field}`, form);
+  }
+
+  /**
+   * Uploads a file for one entity field and writes it onto the row. The client
+   * chooses the name; the server works out the folder.
    */
   uploadEntityFile(entity: string, id: number, field: string, file: File, name?: string): Observable<EntityUploadResult> {
     const form = new FormData();

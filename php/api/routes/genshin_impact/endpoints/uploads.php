@@ -305,6 +305,51 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
     ]);
 })->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
+// ── POST /api/uploads/{entity}/{field} ────────────────────────────────────────
+//
+// Stores a file without touching the database. The form holds the picked file
+// until it is saved, then uploads here and puts the returned path and name into
+// the payload it was going to send anyway.
+//
+// This is what lets a not-yet-created entity have images, and what lets child
+// rows have them at all: children are re-inserted on every save, so their ids
+// are not stable enough to upload against.
+
+$app->post('/api/uploads/{entity}/{field}', function (Request $request, Response $response, array $args) {
+    $targets = _uploadTargets();
+    $entity = $args['entity'];
+    $field = $args['field'];
+
+    if (!isset($targets[$entity]['fields'][$field])) {
+        return respondJson($response, ['error' => "Unknown upload target '$entity/$field'"], 400);
+    }
+
+    $fieldSpec = $targets[$entity]['fields'][$field];
+    $folder = $fieldSpec['folder'] ?? null;
+    if (!$folder) {
+        // Voice over clips need the row to know their folder.
+        return respondJson($response, ['error' => "'$entity/$field' needs an existing record to upload against"], 400);
+    }
+
+    $file = $request->getUploadedFiles()['file'] ?? null;
+    if (!$file) {
+        return respondJson($response, ['error' => 'No file sent under the "file" part'], 400);
+    }
+
+    $body = $request->getParsedBody() ?? [];
+    $baseName = _assetPathSegment(trim((string) ($body['name'] ?? '')));
+    if ($baseName === null) {
+        return respondJson($response, ['error' => 'A file name is required'], 422);
+    }
+
+    $path = _saveAssetUpload($file, $folder, $baseName);
+    if (!$path) {
+        return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
+    }
+
+    return respondJson($response, ['entity' => $entity, 'field' => $field, 'name' => $baseName, 'path' => $path]);
+})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+
 /**
  * The name an upload gets when the client does not supply one: the old
  * convention of the entity's name plus the field's suffix.
