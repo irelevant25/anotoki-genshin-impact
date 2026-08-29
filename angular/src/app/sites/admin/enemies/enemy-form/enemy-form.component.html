@@ -13,6 +13,7 @@
         <app-tab [title]="'Phases'" [icon]="'icon-layers'">
             <app-enemy-phases-tab
                 [(phases)]="phases"
+                [enemyName]="enemy().data.name"
                 [enemyTypes]="enemyTypes()"
                 [enemyFamilies]="enemyFamilies()"
                 [enemyGroups]="enemyGroups()"

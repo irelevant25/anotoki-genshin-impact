@@ -27,24 +27,15 @@
     <h3 class="section-title mb-0">Icons</h3>
     <app-field-container [class]="'gap-5'" [cols]="5">
         @for (image of imageFields; track image.field) {
-            <div>
-                <app-file
-                    class="d-block"
-                    [buttonClass]="'w-100'"
-                    [label]="image.label"
-                    [buttonOutline]="true"
-                    [required]="image.required && !imageSrcFor(image.field)"
-                    [acceptedExtensions]="imageExtensions"
-                    [showFileNames]="false"
-                    (inputChange)="onImageSelect(image.field, $event)"
-                ></app-file>
-                @if (imageSrcFor(image.field); as src) {
-                    <img #img [src]="src" class="preview-img" [alt]="image.label" />
-                    <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                        <img class="w-100" [src]="src" [alt]="image.label" />
-                    </app-tooltip>
-                }
-            </div>
+            <app-entity-image
+                [label]="image.label"
+                [required]="image.required"
+                [path]="imagePath(image.field)"
+                [name]="imageName(image.field)"
+                [pending]="pendingFor(image.field)"
+                (picked)="onPicked(image.field, $event)"
+                (cleared)="onCleared(image.field)"
+            />
         }
     </app-field-container>
     <app-field-container [cols]="3">

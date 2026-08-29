@@ -6,8 +6,9 @@ import { LoaderComponent } from '../../../../shared/local-lib/components/loader/
 import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { AdminApiService, ArtifactFull } from '../../services/admin-api.service';
-import { AdminFormComponent } from '../../shared/admin-form.class';
-import { buildFullFormData, childFileKey, createUid, parentFileKey, revokeImages, toBoolean, toStringArray, UploadPart } from '../../shared/admin-full-resource.model';
+import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
+import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toStringArray } from '../../shared/admin-full-resource.model';
+import { toAssetBaseName } from '../../shared/asset-name';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { PiecesTabComponent } from './pieces/pieces-tab.component';
 import { ARTIFACT_RARITIES, ArtifactWrapper, emptyArtifact, PieceWrapper } from './artifact-form.model';
@@ -72,26 +73,55 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
     }
     artifact.effects = toStringArray(artifact.effects);
 
-    this.artifact.set({ data: artifact, images: {} });
-    this.pieces.set((data.pieces ?? []).map((piece) => ({ uid: createUid(), data: piece, images: {} })));
+    this.artifact.set({ data: artifact });
+    this.pieces.set((data.pieces ?? []).map((piece) => ({ uid: createUid(), data: piece })));
   }
 
   protected override beforeReload(): void {
-    revokeImages([...Object.values(this.artifact().images), ...this.pieces().flatMap((piece) => Object.values(piece.images))]);
+    revokeAllPicked([this.artifact().pending, ...this.pieces().map((piece) => piece.pending)]);
+  }
+
+  /**
+   * Names are read now rather than when the file was picked, so renaming the
+   * set or a piece before saving still stores its picture under the new name.
+   */
+  protected override collectPendingImages(): PendingImage[] {
+    const pending: PendingImage[] = [];
+    const artifact = this.artifact();
+
+    if (artifact.pending) {
+      pending.push({
+        entity: 'artifact',
+        field: 'icon',
+        picked: artifact.pending,
+        name: toAssetBaseName(artifact.data.name),
+        apply: (path, name) => {
+          artifact.data.icon = path;
+          artifact.data.icon_name = name;
+        },
+      });
+    }
+
+    for (const piece of this.pieces()) {
+      if (piece.pending) {
+        pending.push({
+          entity: 'artifact-piece',
+          field: 'icon',
+          picked: piece.pending,
+          name: toAssetBaseName(piece.data.name),
+          apply: (path, name) => {
+            piece.data.icon = path;
+            piece.data.icon_name = name;
+          },
+        });
+      }
+    }
+
+    return pending;
   }
 
   protected buildFormData(): FormData {
     const artifact = this.artifact();
-    const uploads: UploadPart[] = [];
-
-    if (artifact.images.icon?.file) {
-      uploads.push({ key: parentFileKey('icon'), file: artifact.images.icon.file });
-    }
-    this.pieces().forEach((piece, index) => {
-      if (piece.images.icon?.file) {
-        uploads.push({ key: childFileKey('pieces', index, 'icon'), file: piece.images.icon.file });
-      }
-    });
 
     const data = { ...artifact.data };
     for (const rarity of ARTIFACT_RARITIES) {
@@ -100,7 +130,7 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
     }
     data.effects = toStringArray(data.effects);
 
-    return buildFullFormData({ artifact: data, pieces: this.pieces().map((piece) => piece.data) }, uploads);
+    return buildFullFormData({ artifact: data, pieces: this.pieces().map((piece) => piece.data) });
   }
 
   protected override extraValidation(): string | undefined {

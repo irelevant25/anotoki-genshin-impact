@@ -22,10 +22,37 @@
   }
 }
 
-.upload-error {
-  margin: 0;
+.upload-name {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.upload-name-label {
   font-size: var(--font-size-sm);
-  color: var(--color-danger);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.upload-name-value {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, monospace;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.upload-name-hint {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.upload-name-missing {
+  font-size: var(--font-size-sm);
+  color: var(--color-warning);
 }
 
 .upload-footer {

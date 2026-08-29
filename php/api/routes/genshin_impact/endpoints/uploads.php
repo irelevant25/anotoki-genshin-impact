@@ -84,7 +84,13 @@ function assetBaseName(string $name): string
  * Describes every upload the admin UI can make.
  *
  * Each entry resolves to the row that owns the column, the folder under
- * assets/, and how the file is named. `suffix` is appended as " - {suffix}".
+ * assets/, and how the file is named. `suffix` is appended as " - {suffix}",
+ * `variant` directly ("HU_TAO2"), and `parent` names the row a child's file is
+ * filed under.
+ *
+ * These are only the fallback names: the admin derives the same names on the
+ * client and sends them with the upload. They matter when something posts
+ * without one.
  */
 function _uploadTargets(): array
 {
@@ -94,10 +100,10 @@ function _uploadTargets(): array
             'fields' => [
                 'icon' => ['folder' => 'character/icon'],
                 'card_icon' => ['folder' => 'character/card_icon'],
-                'card_icon_2' => ['folder' => 'character/card_icon', 'suffix' => '2'],
+                'card_icon_2' => ['folder' => 'character/card_icon', 'variant' => '2'],
                 'wish_icon' => ['folder' => 'character/wish_icon'],
-                'ingame_icon' => ['folder' => 'character/ingame_icon', 'suffix_column' => 'ingame_icon_name'],
-                'ingame_icon_2' => ['folder' => 'character/ingame_icon', 'suffix_column' => 'ingame_icon_2_name'],
+                'ingame_icon' => ['folder' => 'character/ingame_icon'],
+                'ingame_icon_2' => ['folder' => 'character/ingame_icon', 'variant' => '2'],
                 'namecard_icon' => ['folder' => 'character/namecard_icon'],
                 'namecard_background' => ['folder' => 'character/namecard_background'],
                 'namecard_banner' => ['folder' => 'character/namecard_banner'],
@@ -107,9 +113,11 @@ function _uploadTargets(): array
             'table' => 'enemies',
             'fields' => ['icon' => ['folder' => 'enemies']],
         ],
+        // A phase is filed under its enemy: an enemy's phases share a name, so
+        // they are told apart by position and by what the picture shows.
         'enemy-phase' => [
             'table' => 'enemies_phases',
-            'name_column' => 'title',
+            'parent' => ['table' => 'enemies', 'key' => 'enemy_id'],
             'fields' => [
                 'icon' => ['folder' => 'enemies', 'suffix' => 'phase#'],
                 'art' => ['folder' => 'enemies', 'suffix' => 'full_art'],
@@ -135,7 +143,7 @@ function _uploadTargets(): array
             'table' => 'weapons',
             'fields' => [
                 'icon' => ['folder' => 'weapons'],
-                'icon_2' => ['folder' => 'weapons', 'suffix' => '2'],
+                'icon_2' => ['folder' => 'weapons', 'variant' => '2'],
                 'icon_ascension' => ['folder' => 'weapons', 'suffix' => 'ascension'],
             ],
         ],
@@ -364,7 +372,14 @@ $app->post('/api/uploads/{entity}/{field}', function (Request $request, Response
  */
 function _defaultUploadName(PDO $pdo, array $spec, array $fieldSpec, array $row): ?string
 {
-    $rawName = (string) ($row[$spec['name_column'] ?? 'name'] ?? '');
+    // A child's file is named after its parent where the data does that.
+    if (isset($spec['parent'])) {
+        $stmt = $pdo->prepare("SELECT name FROM {$spec['parent']['table']} WHERE id = ?");
+        $stmt->execute([$row[$spec['parent']['key']]]);
+        $rawName = (string) $stmt->fetchColumn();
+    } else {
+        $rawName = (string) ($row[$spec['name_column'] ?? 'name'] ?? '');
+    }
     $baseName = assetBaseName($rawName);
 
     if (!empty($spec['literal_name'])) {
@@ -379,11 +394,14 @@ function _defaultUploadName(PDO $pdo, array $spec, array $fieldSpec, array $row)
         return null;
     }
 
+    // A variant is a second take on the same picture: HU_TAO -> HU_TAO2.
+    if (!empty($fieldSpec['variant'])) {
+        return $baseName . $fieldSpec['variant'];
+    }
+
     $suffix = $fieldSpec['suffix'] ?? null;
     if ($suffix === 'phase#') {
         $suffix = _resolvePhaseSuffix($pdo, $row);
-    } elseif (isset($fieldSpec['suffix_column'])) {
-        $suffix = $row[$fieldSpec['suffix_column']] ?? null;
     }
     if ($suffix !== null && $suffix !== '') {
         $baseName .= ' - ' . $suffix;

@@ -38,24 +38,15 @@
 
             <app-field-container [class]="'gap-5 mt-2'" [cols]="5">
                 @for (image of imageFields; track image.field) {
-                    <div>
-                        <app-file
-                            class="d-block"
-                            [buttonClass]="'w-100'"
-                            [label]="image.label"
-                            [buttonOutline]="true"
-                            [required]="image.required && !phaseImageSrc(phase, image.field)"
-                            [acceptedExtensions]="imageExtensions"
-                            [showFileNames]="false"
-                            (inputChange)="onImageSelect(phase, image.field, $event)"
-                        ></app-file>
-                        @if (phaseImageSrc(phase, image.field); as src) {
-                            <img #img [src]="src" class="preview-img" [alt]="image.label" />
-                            <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                                <img class="w-100" [src]="src" [alt]="image.label" />
-                            </app-tooltip>
-                        }
-                    </div>
+                    <app-entity-image
+                        [label]="image.label"
+                        [required]="image.required"
+                        [path]="imagePath(phase, image.field)"
+                        [name]="imageName(phase, image.field)"
+                        [pending]="phase.pending[image.field]"
+                        (picked)="onPicked(phase, image.field, $event)"
+                        (cleared)="onCleared(phase, image.field)"
+                    />
                 }
             </app-field-container>
 

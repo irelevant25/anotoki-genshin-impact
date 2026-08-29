@@ -6,7 +6,7 @@
         }
     </span>
 
-    <div class="entity-image-frame" [class.empty]="!src()" [class.pending]="!!pending()">
+    <div class="entity-image-frame" [class.empty]="!src()" [class.pending]="!!pending()" [class.error]="hasError()">
         @if (src(); as source) {
             <img #img [src]="source" [alt]="label()" />
             <app-tooltip [targetHTMLElement]="img" [standalone]="true">
@@ -37,5 +37,9 @@
 
     @if (pending()) {
         <span class="entity-image-hint">uploads on save</span>
+    }
+
+    @if (displayError() && hasError()) {
+        <div class="error-message" role="alert" aria-live="polite">{{ errorMessage() }}</div>
     }
 </div>

@@ -8,12 +8,12 @@ import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/t
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
 import { Material } from '../../../../shared/models.generated';
 import { AdminApiService, FoodFull, IdNameEntry } from '../../services/admin-api.service';
-import { AdminFormComponent } from '../../shared/admin-form.class';
-import { buildFullFormData, createUid, parentFileKey, revokeImages, toNumber, toOptionalNumber, toStringArray, UploadPart } from '../../shared/admin-full-resource.model';
+import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
+import { buildFullFormData, createUid, revokeAllPicked, toNumber, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { QualitiesTabComponent } from './qualities/qualities-tab.component';
 import { RecipeTabComponent } from './recipe/recipe-tab.component';
-import { emptyFood, FOOD_QUALITIES, FoodWrapper, RecipeWrapper } from './food-form.model';
+import { emptyFood, FOOD_QUALITIES, foodImageName, FoodWrapper, RecipeWrapper } from './food-form.model';
 
 @Component({
   selector: 'app-food-form',
@@ -100,25 +100,35 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
         how_to_obtain: toStringArray(data.food.how_to_obtain),
         effects: toStringArray(data.food.effects),
       },
-      images: {},
+      pending: {},
     });
     this.recipe.set((data.recipe ?? []).map((entry) => ({ uid: createUid(), data: entry })));
   }
 
   protected override beforeReload(): void {
-    revokeImages(Object.values(this.food().images));
+    revokeAllPicked(Object.values(this.food().pending));
+  }
+
+  /**
+   * Names are read now rather than when the file was picked, so renaming the
+   * dish before saving still stores its pictures under the new name.
+   */
+  protected override collectPendingImages(): PendingImage[] {
+    const food = this.food();
+    return FOOD_QUALITIES.filter(({ quality }) => food.pending[`icon_${quality}`]).map(({ quality }) => ({
+      entity: 'food',
+      field: `icon_${quality}`,
+      picked: food.pending[`icon_${quality}`]!,
+      name: foodImageName(food.data.name, quality),
+      apply: (path: string, name: string) => {
+        food.data[`icon_${quality}`] = path;
+        food.data[`icon_${quality}_name`] = name;
+      },
+    }));
   }
 
   protected buildFormData(): FormData {
     const food = this.food();
-    const uploads: UploadPart[] = [];
-    for (const { quality } of FOOD_QUALITIES) {
-      const field = `icon_${quality}` as const;
-      const file = food.images[field]?.file;
-      if (file) {
-        uploads.push({ key: parentFileKey(field), file });
-      }
-    }
 
     const payload = {
       food: {
@@ -136,7 +146,7 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
       })),
     };
 
-    return buildFullFormData(payload, uploads);
+    return buildFullFormData(payload);
   }
 
   protected override extraValidation(): string | undefined {

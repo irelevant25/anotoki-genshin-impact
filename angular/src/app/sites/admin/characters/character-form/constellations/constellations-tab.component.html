@@ -19,10 +19,9 @@
             <app-field-container [cols]="4">
                 <app-entity-image
                         [label]="'Icon'"
-                        [field]="'icon'"
                         [required]="true"
                         [path]="iconPath(item)"
-                        [name]="item.data.icon_name"
+                        [name]="iconName(item)"
                         [pending]="item.pending"
                         (picked)="onPicked(item, $event)"
                         (cleared)="onCleared(item)"

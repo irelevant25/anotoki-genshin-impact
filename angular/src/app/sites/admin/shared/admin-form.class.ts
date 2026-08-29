@@ -14,6 +14,11 @@ export interface PendingImage {
   entity: string;
   field: string;
   picked: PickedImage;
+  /**
+   * What to store the file as. Read when saving rather than when picking, so
+   * renaming the entity first still lands the file under the new name.
+   */
+  name: string;
   /** Writes the stored path and name back onto the form's model. */
   apply: (path: string, name: string) => void;
 }
@@ -144,7 +149,7 @@ export abstract class AdminFormComponent<TFull> {
     }
     return forkJoin(
       pending.map((entry) =>
-        this._uploadApi.uploadImage(entry.entity, entry.field, entry.picked.file, entry.picked.name).pipe(
+        this._uploadApi.uploadImage(entry.entity, entry.field, entry.picked.file, entry.name).pipe(
           switchMap((result) => {
             entry.apply(result.path, result.name);
             return of(result);
@@ -164,6 +169,13 @@ export abstract class AdminFormComponent<TFull> {
     if (invalid.length > 0) {
       this.notify.showError(`Please fix ${invalid.length} invalid field${invalid.length === 1 ? '' : 's'} before saving.`);
       this.revealInput(invalid[0].elementRef.nativeElement);
+      return false;
+    }
+
+    // Image names are derived from what the entity is called, so an unnamed
+    // entity has nowhere to put its pictures.
+    if (this.collectPendingImages().some((entry) => !entry.name)) {
+      this.notify.showError(`Name the ${this.entityLabel.toLowerCase()} before uploading its images.`);
       return false;
     }
 

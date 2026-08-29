@@ -1,32 +1,45 @@
 import { Component, model } from '@angular/core';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
-import { IMAGE_EXTENSIONS, imageSrc, setImage } from '../../../shared/admin-full-resource.model';
+import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../../shared/image-upload/image-upload.component';
+import { revokePicked } from '../../../shared/admin-full-resource.model';
+import { toAssetBaseName } from '../../../shared/asset-name';
 import { emptyEnemy, EnemyWrapper } from '../enemy-form.model';
 
 @Component({
   selector: 'app-enemy-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextComponent, TextareaComponent, FileComponent, FieldContainerComponent, TooltipComponent],
+  imports: [TextComponent, TextareaComponent, FieldContainerComponent, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   enemy = model<EnemyWrapper>(emptyEnemy());
 
-  readonly imageExtensions = IMAGE_EXTENSIONS;
-
-  iconSrc(): string | undefined {
-    return imageSrc(this.enemy().images.icon, this.enemy().data.icon);
+  /** Stored path; the slot shows a pending pick when there is one. */
+  iconPath(): string | undefined {
+    return this.enemy().data.icon || undefined;
   }
 
-  onIconSelect(files: FileItemType[] | undefined | null): void {
+  /** Derived from the name input, so it follows a rename while the form is open. */
+  iconName(): string {
+    return toAssetBaseName(this.enemy().data.name);
+  }
+
+  onPicked(picked: PickedImage): void {
     this.enemy.update((enemy) => {
-      const slot = enemy.images.icon ?? {};
-      setImage(slot, files?.[0]?.file);
-      return { ...enemy, images: { ...enemy.images, icon: slot } };
+      revokePicked(enemy.pending.icon);
+      return { ...enemy, pending: { ...enemy.pending, icon: picked } };
+    });
+  }
+
+  onCleared(): void {
+    this.enemy.update((enemy) => {
+      revokePicked(enemy.pending.icon);
+      const pending = { ...enemy.pending };
+      delete pending.icon;
+      return { ...enemy, pending };
     });
   }
 }

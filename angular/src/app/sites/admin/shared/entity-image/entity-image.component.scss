@@ -36,6 +36,11 @@
     border-color: var(--color-primary);
   }
 
+  // A required slot with nothing in it, once the form has been touched.
+  &.error {
+    border-color: var(--color-danger);
+  }
+
   img {
     width: 100%;
     height: 100%;
@@ -49,7 +54,7 @@
   color: var(--text-muted);
 }
 
-// The stored base name, which is what the upload modal edits.
+// The name the file is stored under, derived from the entity.
 .entity-image-name {
   max-width: 100%;
   font-size: var(--font-size-sm);
@@ -67,4 +72,9 @@
 .entity-image-hint {
   font-size: var(--font-size-sm);
   color: var(--color-primary);
+}
+
+.error-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
 }

@@ -9,8 +9,11 @@ import { DropdownComponent } from '../../../../shared/local-lib/components/dropd
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { FieldContainerComponent } from '../../../../shared/local-lib/components/field-container/field-container.component';
 import { AdminApiService, MaterialFormData, MaterialFull } from '../../services/admin-api.service';
-import { AdminFormComponent } from '../../shared/admin-form.class';
-import { buildFullFormData, toLines, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
+import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
+import { buildFullFormData, revokePicked, toLines, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
+import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../shared/image-upload/image-upload.component';
+import { toAssetLiteralName } from '../../shared/asset-name';
 
 @Component({
   selector: 'app-material-form',
@@ -25,6 +28,7 @@ import { buildFullFormData, toLines, toOptionalNumber, toStringArray } from '../
     DropdownComponent,
     MultiselectComponent,
     FieldContainerComponent,
+    EntityImageComponent,
   ],
 })
 export class MaterialFormComponent extends AdminFormComponent<MaterialFull> implements OnInit {
@@ -32,6 +36,8 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
   protected readonly listRoute = '/admin/materials';
 
   material = signal<MaterialFormData>({ name: '' });
+  /** Picked but not uploaded yet; sent when the form is saved. */
+  pendingIcon = signal<PickedImage | undefined>(undefined);
   /** Extra groups, stored in the join table alongside the primary `group`. */
   groups = signal<(string | number | boolean)[]>([]);
 
@@ -93,22 +99,61 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
     this.groups.set((data.groups ?? []).map((entry) => entry.group).filter((group): group is string => !!group));
   }
 
+  // ── Icon ────────────────────────────────────────────────────────────────────────
+
+  /** Material art is resolved by display name, so it is stored as typed. */
+  iconName = computed(() => toAssetLiteralName(this.material().name));
+
+  onIconPicked(picked: PickedImage): void {
+    revokePicked(this.pendingIcon());
+    this.pendingIcon.set(picked);
+  }
+
+  onIconCleared(): void {
+    revokePicked(this.pendingIcon());
+    this.pendingIcon.set(undefined);
+  }
+
+  protected override beforeReload(): void {
+    revokePicked(this.pendingIcon());
+    this.pendingIcon.set(undefined);
+  }
+
+  /**
+   * The name is read now rather than when the file was picked, so renaming the
+   * material before saving still stores its picture under the new name.
+   */
+  protected override collectPendingImages(): PendingImage[] {
+    const picked = this.pendingIcon();
+    if (!picked) {
+      return [];
+    }
+    return [
+      {
+        entity: 'material',
+        field: 'icon',
+        picked,
+        name: this.iconName(),
+        // Written through the signal: editing a field replaces the object, so a
+        // reference taken here would not be the one that gets sent.
+        apply: (path: string, name: string) => this.material.update((material) => ({ ...material, icon: path, icon_name: name })),
+      },
+    ];
+  }
+
   onHowToObtainChange(value: string | number | undefined | null): void {
     this.material.update((material) => ({ ...material, how_to_obtain: toLines(value) }));
   }
 
   protected buildFormData(): FormData {
     const material = this.material();
-    return buildFullFormData(
-      {
-        material: {
-          ...material,
-          rarity: toOptionalNumber(material.rarity) ?? null,
-          how_to_obtain: toStringArray(material.how_to_obtain),
-        },
-        groups: this.groups().map((group) => ({ group: String(group) })),
+    return buildFullFormData({
+      material: {
+        ...material,
+        rarity: toOptionalNumber(material.rarity) ?? null,
+        how_to_obtain: toStringArray(material.how_to_obtain),
       },
-      []
-    );
+      groups: this.groups().map((group) => ({ group: String(group) })),
+    });
   }
 }

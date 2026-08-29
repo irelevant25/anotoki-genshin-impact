@@ -7,6 +7,7 @@ import { FieldContainerComponent } from '../../../../../shared/local-lib/compone
 import { ConstellationWrapper, emptyConstellation, reorder, revokePicked, resequence } from '../character-form.model';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
+import { toAssetBaseName } from '../../../shared/asset-name';
 
 const MAX_CONSTELLATIONS = 6;
 
@@ -44,6 +45,11 @@ export class ConstellationsTabComponent {
   /** Stored path; the slot shows a pending pick when there is one. */
   iconPath(wrapper: ConstellationWrapper): string | undefined {
     return wrapper.data.icon || undefined;
+  }
+
+  /** Constellation art is named after the constellation itself. */
+  iconName(wrapper: ConstellationWrapper): string {
+    return toAssetBaseName(wrapper.data.name);
   }
 
   onPicked(wrapper: ConstellationWrapper, picked: PickedImage): void {

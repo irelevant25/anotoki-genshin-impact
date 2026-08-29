@@ -2,21 +2,25 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
-import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { AdminApiService, BackgroundEntry } from '../../services/admin-api.service';
-import { IMAGE_EXTENSIONS } from '../../shared/admin-full-resource.model';
-import { MaterialIconDirective } from '../../shared/material-icon.directive';
+import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../shared/image-upload/image-upload.component';
+import { revokePicked } from '../../shared/admin-full-resource.model';
+import { assetSuffix, toAssetLiteralName } from '../../shared/asset-name';
 
 /**
- * Site backgrounds: a name plus two images resolved from it —
- * `assets/backgrounds/{name}.avif` and `{name} - preview.avif`.
+ * Site backgrounds: a name plus a wallpaper and its thumbnail, both filed
+ * under that name.
+ *
+ * Unlike the entity forms this page has no save button, so a picked image is
+ * uploaded straight away against the row it belongs to.
  */
 @Component({
   selector: 'app-backgrounds-list',
   templateUrl: './backgrounds-list.component.html',
   styleUrls: ['./backgrounds-list.component.scss'],
-  imports: [ButtonComponent, LoaderComponent, TextComponent, FileComponent, MaterialIconDirective],
+  imports: [ButtonComponent, LoaderComponent, TextComponent, EntityImageComponent],
 })
 export class BackgroundsListComponent implements OnInit {
   backgrounds = signal<BackgroundEntry[]>([]);
@@ -28,12 +32,8 @@ export class BackgroundsListComponent implements OnInit {
   renameValue = signal<string | number | null | undefined>('');
   deleteConfirm = signal<number | undefined>(undefined);
 
-  readonly imageExtensions = IMAGE_EXTENSIONS;
-  /** Kept out of the template - literal braces there read as an ICU message. */
-  readonly imagePattern = 'assets/backgrounds/{name}.avif';
-  readonly previewPattern = '{name} - preview.avif';
-  /** Cache-buster so a replaced image is not served from the browser cache. */
-  reloadToken = signal(Date.now());
+  /** Shown until the reload lands, so a replaced picture is visible at once. */
+  picked = signal<Record<string, PickedImage>>({});
 
   private readonly _api = inject(AdminApiService);
   private readonly _notify = inject(NotificationService);
@@ -127,27 +127,46 @@ export class BackgroundsListComponent implements OnInit {
     });
   }
 
+  // ── Images ─────────────────────────────────────────────────────────────────────
+
+  /** Both files are named after the background; the thumbnail says so. */
+  imageName(entry: BackgroundEntry, field: 'image' | 'preview'): string {
+    const base = toAssetLiteralName(entry.name);
+    return field === 'preview' ? assetSuffix(base, 'preview') : base;
+  }
+
+  pendingFor(entry: BackgroundEntry, field: 'image' | 'preview'): PickedImage | undefined {
+    return this.picked()[`${entry.id}:${field}`];
+  }
+
   /** `image` is the full wallpaper, `preview` the thumbnail beside it. */
-  upload(entry: BackgroundEntry, field: 'image' | 'preview', items: FileItemType[] | undefined | null): void {
-    const file = items?.[0]?.file;
-    if (!file) {
-      return;
-    }
+  onPicked(entry: BackgroundEntry, field: 'image' | 'preview', picked: PickedImage): void {
+    const key = `${entry.id}:${field}`;
+    revokePicked(this.picked()[key]);
+    this.picked.update((current) => ({ ...current, [key]: picked }));
+
     this.busy.set(entry.id);
-    this._api.uploadEntityFile('background', entry.id, field, file).subscribe({
-      next: () => {
+    this._api.uploadEntityFile('background', entry.id, field, picked.file, this.imageName(entry, field)).subscribe({
+      next: (result) => {
         this.busy.set(undefined);
-        this.reloadToken.set(Date.now());
+        entry[field] = result.path;
+        entry[`${field}_name`] = result.name;
         this._notify.showSuccess(`${entry.name} ${field} updated`);
       },
       error: (error) => {
         this.busy.set(undefined);
+        this._clearPicked(key);
         this._notify.showError(error?.error?.error ?? `Could not upload the ${field}`);
       },
     });
   }
 
-  previewName(entry: BackgroundEntry): string {
-    return `${entry.name} - preview`;
+  private _clearPicked(key: string): void {
+    revokePicked(this.picked()[key]);
+    this.picked.update((current) => {
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
   }
 }

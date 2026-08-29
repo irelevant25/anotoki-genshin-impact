@@ -1,69 +1,34 @@
 /**
- * Client side of the `/api/{entity}/full` contract.
+ * Client side of the `/api/{entity}/full` contract: the whole resource travels
+ * as JSON under `data`.
  *
- * The whole resource travels as JSON under `data`, and every picked file as a
- * separate part whose name the server rebuilds from the same rules:
- *   file_{field}                     for the parent row
- *   file_{childKey}_{index}_{field}  for a child row
+ * Images do not ride along here. They are picked into the form, uploaded on
+ * save through `/api/uploads/{entity}/{field}`, and the paths they land on go
+ * into the payload - see `AdminFormComponent`.
  */
+
+import type { PickedImage } from './image-upload/image-upload.component';
 
 export const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.avif', '.webp'];
 
-export function parentFileKey(field: string): string {
-  return `file_${field}`;
-}
-
-export function childFileKey(childKey: string, index: number, field: string): string {
-  return `file_${childKey}_${index}_${field}`;
-}
-
-export interface UploadPart {
-  key: string;
-  file: File;
-}
-
-export function buildFullFormData(payload: unknown, uploads: UploadPart[]): FormData {
+export function buildFullFormData(payload: unknown): FormData {
   const form = new FormData();
   form.append('data', JSON.stringify(payload));
-  for (const upload of uploads) {
-    form.append(upload.key, upload.file, upload.file.name);
-  }
   return form;
 }
 
-// ── Image slots ───────────────────────────────────────────────────────────────
+// ── Picked images ─────────────────────────────────────────────────────────────
 
-/**
- * One image column: the path already stored on the row, plus a newly picked
- * file and its preview URL. The stored path is left alone - the API rewrites
- * it once the upload lands.
- */
-export interface ImageSlot {
-  file?: File;
-  preview?: string;
-}
-
-/** Preview for a picked file, falling back to the path stored on the row. */
-export function imageSrc(slot: ImageSlot | undefined, storedPath: string | undefined | null): string | undefined {
-  return slot?.preview ?? storedPath ?? undefined;
-}
-
-/** Points a slot at a newly picked file, revoking the preview it supersedes. */
-export function setImage(slot: ImageSlot, file: File | undefined): void {
-  if (slot.preview) {
-    URL.revokeObjectURL(slot.preview);
+/** Releases a pick's object URL; call before replacing or discarding it. */
+export function revokePicked(picked: PickedImage | undefined): void {
+  if (picked?.preview) {
+    URL.revokeObjectURL(picked.preview);
   }
-  slot.file = file;
-  slot.preview = file ? URL.createObjectURL(file) : undefined;
 }
 
-export function revokeImages(slots: (ImageSlot | undefined)[]): void {
-  for (const slot of slots) {
-    if (slot?.preview) {
-      URL.revokeObjectURL(slot.preview);
-      slot.preview = undefined;
-    }
-  }
+/** Releases several at once, e.g. when a form reloads. */
+export function revokeAllPicked(picked: (PickedImage | undefined)[]): void {
+  picked.forEach(revokePicked);
 }
 
 // ── Value coercion ────────────────────────────────────────────────────────────

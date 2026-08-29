@@ -2,33 +2,45 @@ import { Component, model } from '@angular/core';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
-import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
-import { IMAGE_EXTENSIONS, imageSrc, setImage, toLines } from '../../../shared/admin-full-resource.model';
+import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../../shared/image-upload/image-upload.component';
+import { revokePicked, toLines } from '../../../shared/admin-full-resource.model';
+import { toAssetBaseName } from '../../../shared/asset-name';
 import { ARTIFACT_RARITIES, ArtifactWrapper, emptyArtifact } from '../artifact-form.model';
 
 @Component({
   selector: 'app-artifact-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextComponent, TextareaComponent, CheckboxComponent, FileComponent, FieldContainerComponent, TooltipComponent],
+  imports: [TextComponent, TextareaComponent, CheckboxComponent, FieldContainerComponent, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   artifact = model<ArtifactWrapper>(emptyArtifact());
 
-  readonly imageExtensions = IMAGE_EXTENSIONS;
   readonly rarities = ARTIFACT_RARITIES;
 
-  iconSrc(): string | undefined {
-    return imageSrc(this.artifact().images.icon, this.artifact().data.icon);
+  /** Stored path; the slot shows a pending pick when there is one. */
+  iconPath(): string | undefined {
+    return this.artifact().data.icon || undefined;
   }
 
-  onIconSelect(files: FileItemType[] | undefined | null): void {
+  /** Derived from the name input, so it follows a rename while the form is open. */
+  iconName(): string {
+    return toAssetBaseName(this.artifact().data.name);
+  }
+
+  onPicked(picked: PickedImage): void {
     this.artifact.update((artifact) => {
-      const slot = artifact.images.icon ?? {};
-      setImage(slot, files?.[0]?.file);
-      return { ...artifact, images: { ...artifact.images, icon: slot } };
+      revokePicked(artifact.pending);
+      return { ...artifact, pending: picked };
+    });
+  }
+
+  onCleared(): void {
+    this.artifact.update((artifact) => {
+      revokePicked(artifact.pending);
+      return { ...artifact, pending: undefined };
     });
   }
 

@@ -1,5 +1,7 @@
 import { FoodFormData, FoodRecipeFormData } from '../../services/admin-api.service';
-import { createUid, ImageSlot } from '../../shared/admin-full-resource.model';
+import { createUid } from '../../shared/admin-full-resource.model';
+import { PickedImage } from '../../shared/image-upload/image-upload.component';
+import { assetSuffix, toAssetBaseName } from '../../shared/asset-name';
 
 /** A dish exists in three qualities, each with its own icon, text and effect. */
 export type FoodQuality = 'normal' | 'delicious' | 'suspicious';
@@ -17,7 +19,16 @@ export type IndexedFood = FoodFormData & Record<string, unknown>;
 
 export interface FoodWrapper {
   data: IndexedFood;
-  images: Partial<Record<FoodImageField, ImageSlot>>;
+  /** Pictures picked but not uploaded yet, keyed by column. */
+  pending: Partial<Record<FoodImageField, PickedImage>>;
+}
+
+/**
+ * The three qualities share the dish's name and are told apart by a word:
+ *   MOON_PIE - normal,  MOON_PIE - delicious,  MOON_PIE - suspicious
+ */
+export function foodImageName(foodName: string | null | undefined, quality: FoodQuality): string {
+  return assetSuffix(toAssetBaseName(foodName), quality);
 }
 
 export interface RecipeWrapper {
@@ -26,7 +37,7 @@ export interface RecipeWrapper {
 }
 
 export function emptyFood(): FoodWrapper {
-  return { data: { name: '' } as IndexedFood, images: {} };
+  return { data: { name: '' } as IndexedFood, pending: {} };
 }
 
 export function emptyRecipe(): RecipeWrapper {

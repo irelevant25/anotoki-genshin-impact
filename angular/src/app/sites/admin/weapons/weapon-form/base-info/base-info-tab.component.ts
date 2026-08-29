@@ -3,17 +3,17 @@ import { TextComponent } from '../../../../../shared/local-lib/components/text/t
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { CalendarComponent } from '../../../../../shared/local-lib/components/calendar/calendar.component';
-import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
-import { IMAGE_EXTENSIONS, imageSrc, setImage, toLines } from '../../../shared/admin-full-resource.model';
-import { emptyWeapon, WEAPON_IMAGE_FIELDS, WeaponImageField, WeaponWrapper } from '../weapon-form.model';
+import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../../shared/image-upload/image-upload.component';
+import { revokePicked, toLines } from '../../../shared/admin-full-resource.model';
+import { emptyWeapon, WEAPON_IMAGE_FIELDS, weaponImageName, WeaponImageField, WeaponWrapper } from '../weapon-form.model';
 
 @Component({
   selector: 'app-weapon-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextComponent, TextareaComponent, DropdownComponent, CalendarComponent, FileComponent, FieldContainerComponent, TooltipComponent],
+  imports: [TextComponent, TextareaComponent, DropdownComponent, CalendarComponent, FieldContainerComponent, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   weapon = model<WeaponWrapper>(emptyWeapon());
@@ -22,21 +22,38 @@ export class BaseInfoTabComponent {
   rarities = input<string[]>([]);
   stats = input<string[]>([]);
 
-  readonly imageExtensions = IMAGE_EXTENSIONS;
   readonly imageFields = WEAPON_IMAGE_FIELDS;
 
   howToObtainText = computed(() => (this.weapon().data.how_to_obtain ?? []).join('\n'));
   effectsText = computed(() => (this.weapon().data.effects ?? []).join('\n'));
 
-  imageSrcFor(field: WeaponImageField): string | undefined {
-    return imageSrc(this.weapon().images[field], this.weapon().data[field] as string | undefined);
+  /** Stored path; the slot shows a pending pick when there is one. */
+  imagePath(field: WeaponImageField): string | undefined {
+    return (this.weapon().data[field] as string | undefined) || undefined;
   }
 
-  onImageSelect(field: WeaponImageField, files: FileItemType[] | undefined | null): void {
+  /** Derived from the name input, so it follows a rename while the form is open. */
+  imageName(field: WeaponImageField): string {
+    return weaponImageName(this.weapon().data.name, field);
+  }
+
+  pendingFor(field: WeaponImageField): PickedImage | undefined {
+    return this.weapon().pending[field];
+  }
+
+  onPicked(field: WeaponImageField, picked: PickedImage): void {
     this.weapon.update((weapon) => {
-      const slot = weapon.images[field] ?? {};
-      setImage(slot, files?.[0]?.file);
-      return { ...weapon, images: { ...weapon.images, [field]: slot } };
+      revokePicked(weapon.pending[field]);
+      return { ...weapon, pending: { ...weapon.pending, [field]: picked } };
+    });
+  }
+
+  onCleared(field: WeaponImageField): void {
+    this.weapon.update((weapon) => {
+      revokePicked(weapon.pending[field]);
+      const pending = { ...weapon.pending };
+      delete pending[field];
+      return { ...weapon, pending };
     });
   }
 

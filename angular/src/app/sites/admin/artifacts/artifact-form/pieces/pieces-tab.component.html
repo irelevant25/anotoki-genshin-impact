@@ -8,24 +8,15 @@
             <app-field-container [cols]="4">
                 <app-dropdown [label]="'Type'" [options]="typeOptionsFor(piece)" [(value)]="piece.data.type" [required]="true"></app-dropdown>
                 <app-text class="col-span-2" [label]="'Name'" [(value)]="piece.data.name" [required]="true"></app-text>
-                <div>
-                    <app-file
-                        class="d-block"
-                        [buttonClass]="'w-100'"
-                        [label]="'Icon'"
-                        [buttonOutline]="true"
-                        [required]="!iconSrc(piece)"
-                        [acceptedExtensions]="imageExtensions"
-                        [showFileNames]="false"
-                        (inputChange)="onIconSelect(piece, $event)"
-                    ></app-file>
-                    @if (iconSrc(piece); as src) {
-                        <img #img [src]="src" class="preview-img" [alt]="piece.data.name" />
-                        <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                            <img class="w-100" [src]="src" [alt]="piece.data.name" />
-                        </app-tooltip>
-                    }
-                </div>
+                <app-entity-image
+                    [label]="'Icon'"
+                    [required]="true"
+                    [path]="iconPath(piece)"
+                    [name]="iconName(piece)"
+                    [pending]="piece.pending"
+                    (picked)="onPicked(piece, $event)"
+                    (cleared)="onCleared(piece)"
+                />
             </app-field-container>
         </div>
     }

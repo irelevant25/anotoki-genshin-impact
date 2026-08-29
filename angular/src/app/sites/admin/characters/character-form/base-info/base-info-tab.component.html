@@ -9,7 +9,7 @@
         <app-dropdown [label]="'Rarity'" [options]="rarities()" [(value)]="character().data.rarity" [suffix]="' ★'" [required]="true"></app-dropdown>
         <app-dropdown [label]="'Model'" [options]="models()" [(value)]="character().data.model" [required]="true"></app-dropdown>
         <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="character().data.region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-        <app-calendar [label]="'Birthday'" [(value)]="character().data.birthday"></app-calendar>
+        <app-calendar [label]="'Birthday'" [(value)]="character().data.birthday" [hideYear]="true"></app-calendar>
         <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="character().data.version" [required]="true"></app-text>
         <app-calendar [label]="'Release Date'" [(value)]="character().data.release_date"></app-calendar>
         <app-text [label]="'Introduced'" [placeholder]="'e.g. 1.1'" [(value)]="character().data.introduced"></app-text>
@@ -68,7 +68,6 @@
         @for (image of namecardImages; track image.field) {
             <app-entity-image
                 [label]="image.label"
-                [field]="image.field"
                 [required]="image.required"
                 [path]="imagePath(image.field)"
                 [name]="imageName(image.field)"
@@ -86,7 +85,6 @@
         @for (image of characterImages; track image.field) {
             <app-entity-image
                 [label]="image.label"
-                [field]="image.field"
                 [required]="image.required"
                 [path]="imagePath(image.field)"
                 [name]="imageName(image.field)"
@@ -98,7 +96,6 @@
         <div class="d-flex flex-col space-between gap-2">
             <app-entity-image
                 [label]="'In-game Icon'"
-                [field]="'ingame_icon'"
                 [required]="true"
                 [path]="imagePath('ingame_icon')"
                 [name]="imageName('ingame_icon')"
@@ -110,7 +107,6 @@
         <div class="d-flex flex-col space-between gap-2">
             <app-entity-image
                 [label]="'In-game Icon 2'"
-                [field]="'ingame_icon_2'"
                 [required]="false"
                 [path]="imagePath('ingame_icon_2')"
                 [name]="imageName('ingame_icon_2')"

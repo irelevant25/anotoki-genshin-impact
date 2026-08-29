@@ -9,24 +9,15 @@
 <app-field-container [class]="'gap-2 mb-3'" [cols]="1">
     <h3 class="section-title mb-0">Icon</h3>
     <app-field-container [class]="'gap-5'" [cols]="5">
-        <div>
-            <app-file
-                class="d-block"
-                [buttonClass]="'w-100'"
-                [label]="'Set Icon'"
-                [buttonOutline]="true"
-                [required]="!iconSrc()"
-                [acceptedExtensions]="imageExtensions"
-                [showFileNames]="false"
-                (inputChange)="onIconSelect($event)"
-            ></app-file>
-            @if (iconSrc(); as src) {
-                <img #img [src]="src" class="preview-img" [alt]="artifact().data.name" />
-                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                    <img class="w-100" [src]="src" [alt]="artifact().data.name" />
-                </app-tooltip>
-            }
-        </div>
+        <app-entity-image
+            [label]="'Set Icon'"
+            [required]="true"
+            [path]="iconPath()"
+            [name]="iconName()"
+            [pending]="artifact().pending"
+            (picked)="onPicked($event)"
+            (cleared)="onCleared()"
+        />
     </app-field-container>
 </app-field-container>
 

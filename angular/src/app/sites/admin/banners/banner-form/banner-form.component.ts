@@ -6,12 +6,14 @@ import { LoaderComponent } from '../../../../shared/local-lib/components/loader/
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { CalendarComponent } from '../../../../shared/local-lib/components/calendar/calendar.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { TooltipComponent } from '../../../../shared/local-lib/components/tooltip/tooltip.component';
+import { FieldContainerComponent } from '../../../../shared/local-lib/components/field-container/field-container.component';
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
 import { AdminApiService, BannerFormData, BannerFull } from '../../services/admin-api.service';
-import { AdminFormComponent } from '../../shared/admin-form.class';
-import { buildFullFormData, createUid, resequence, toNumber } from '../../shared/admin-full-resource.model';
-import { MaterialIconDirective } from '../../shared/material-icon.directive';
+import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
+import { buildFullFormData, createUid, resequence, revokePicked, toNumber } from '../../shared/admin-full-resource.model';
+import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../shared/image-upload/image-upload.component';
+import { toAssetLiteralName } from '../../shared/asset-name';
 
 interface FeaturedWrapper {
   uid: number;
@@ -30,8 +32,8 @@ interface FeaturedWrapper {
     TextComponent,
     CalendarComponent,
     DropdownComponent,
-    TooltipComponent,
-    MaterialIconDirective,
+    FieldContainerComponent,
+    EntityImageComponent,
   ],
 })
 export class BannerFormComponent extends AdminFormComponent<BannerFull> implements OnInit {
@@ -45,8 +47,10 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
   characterOptions = signal<DropdownOption[]>([]);
   weaponOptions = signal<DropdownOption[]>([]);
 
-  /** Art has no column; it is named "{version} - {name}". */
-  artName = computed(() => `${this.banner().version} - ${this.banner().name}`);
+  /** Banner art is filed as "{version} - {name}", kept as typed. */
+  artName = computed(() => toAssetLiteralName(`${this.banner().version} - ${this.banner().name}`));
+  /** Picked but not uploaded yet; sent when the form is saved. */
+  pendingArt = signal<PickedImage | undefined>(undefined);
 
   private readonly _api = inject(AdminApiService);
 
@@ -96,15 +100,49 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
     this.weapons.set([...(data.weapons ?? [])].sort((a, b) => a.order - b.order).map((entry) => ({ uid: createUid(), id: entry.weapon_id, order: entry.order })));
   }
 
-  protected buildFormData(): FormData {
-    return buildFullFormData(
+  // ── Art ─────────────────────────────────────────────────────────────────────────
+
+  onArtPicked(picked: PickedImage): void {
+    revokePicked(this.pendingArt());
+    this.pendingArt.set(picked);
+  }
+
+  onArtCleared(): void {
+    revokePicked(this.pendingArt());
+    this.pendingArt.set(undefined);
+  }
+
+  protected override beforeReload(): void {
+    revokePicked(this.pendingArt());
+    this.pendingArt.set(undefined);
+  }
+
+  /**
+   * The name is read now rather than when the file was picked, so editing the
+   * version or name before saving still stores the art under the new name.
+   */
+  protected override collectPendingImages(): PendingImage[] {
+    const picked = this.pendingArt();
+    if (!picked) {
+      return [];
+    }
+    return [
       {
-        banner: this.banner(),
-        characters: this.characters().map((entry, index) => ({ character_id: toNumber(entry.id), order: index + 1 })),
-        weapons: this.weapons().map((entry, index) => ({ weapon_id: toNumber(entry.id), order: index + 1 })),
+        entity: 'banner',
+        field: 'icon',
+        picked,
+        name: this.artName(),
+        apply: (path: string, name: string) => this.banner.update((banner) => ({ ...banner, icon: path, icon_name: name })),
       },
-      []
-    );
+    ];
+  }
+
+  protected buildFormData(): FormData {
+    return buildFullFormData({
+      banner: this.banner(),
+      characters: this.characters().map((entry, index) => ({ character_id: toNumber(entry.id), order: index + 1 })),
+      weapons: this.weapons().map((entry, index) => ({ weapon_id: toNumber(entry.id), order: index + 1 })),
+    });
   }
 
   protected override extraValidation(): string | undefined {

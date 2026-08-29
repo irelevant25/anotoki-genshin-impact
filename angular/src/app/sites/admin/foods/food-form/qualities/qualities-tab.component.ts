@@ -1,34 +1,51 @@
 import { Component, model } from '@angular/core';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
-import { IMAGE_EXTENSIONS, imageSrc, setImage } from '../../../shared/admin-full-resource.model';
-import { emptyFood, FOOD_QUALITIES, FoodImageField, FoodQuality, FoodWrapper } from '../food-form.model';
+import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../../shared/image-upload/image-upload.component';
+import { revokePicked } from '../../../shared/admin-full-resource.model';
+import { emptyFood, FOOD_QUALITIES, foodImageName, FoodImageField, FoodQuality, FoodWrapper } from '../food-form.model';
 
 @Component({
   selector: 'app-food-qualities-tab',
   templateUrl: './qualities-tab.component.html',
   styleUrls: ['./qualities-tab.component.scss'],
-  imports: [TextareaComponent, FileComponent, FieldContainerComponent, TooltipComponent],
+  imports: [TextareaComponent, FieldContainerComponent, EntityImageComponent],
 })
 export class QualitiesTabComponent {
   food = model<FoodWrapper>(emptyFood());
 
-  readonly imageExtensions = IMAGE_EXTENSIONS;
   readonly qualities = FOOD_QUALITIES;
 
-  iconSrc(quality: FoodQuality): string | undefined {
-    const field = `icon_${quality}` as FoodImageField;
-    return imageSrc(this.food().images[field], this.food().data[field] as string | undefined);
+  /** Stored path; the slot shows a pending pick when there is one. */
+  iconPath(quality: FoodQuality): string | undefined {
+    return (this.food().data[`icon_${quality}`] as string | undefined) || undefined;
   }
 
-  onIconSelect(quality: FoodQuality, files: FileItemType[] | undefined | null): void {
+  /** Derived from the name input, so it follows a rename while the form is open. */
+  iconName(quality: FoodQuality): string {
+    return foodImageName(this.food().data.name, quality);
+  }
+
+  pendingFor(quality: FoodQuality): PickedImage | undefined {
+    return this.food().pending[`icon_${quality}` as FoodImageField];
+  }
+
+  onPicked(quality: FoodQuality, picked: PickedImage): void {
     const field = `icon_${quality}` as FoodImageField;
     this.food.update((food) => {
-      const slot = food.images[field] ?? {};
-      setImage(slot, files?.[0]?.file);
-      return { ...food, images: { ...food.images, [field]: slot } };
+      revokePicked(food.pending[field]);
+      return { ...food, pending: { ...food.pending, [field]: picked } };
+    });
+  }
+
+  onCleared(quality: FoodQuality): void {
+    const field = `icon_${quality}` as FoodImageField;
+    this.food.update((food) => {
+      revokePicked(food.pending[field]);
+      const pending = { ...food.pending };
+      delete pending[field];
+      return { ...food, pending };
     });
   }
 

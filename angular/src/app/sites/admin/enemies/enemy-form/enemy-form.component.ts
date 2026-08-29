@@ -7,22 +7,13 @@ import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { Material } from '../../../../shared/models.generated';
 import { AdminApiService, ArtifactFormData, EnemyFull } from '../../services/admin-api.service';
-import { AdminFormComponent } from '../../shared/admin-form.class';
-import {
-  buildFullFormData,
-  childFileKey,
-  createUid,
-  parentFileKey,
-  revokeImages,
-  toBoolean,
-  toNumber,
-  toOptionalNumber,
-  UploadPart,
-} from '../../shared/admin-full-resource.model';
+import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
+import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toNumber, toOptionalNumber } from '../../shared/admin-full-resource.model';
+import { toAssetBaseName } from '../../shared/asset-name';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { PhasesTabComponent } from './phases/phases-tab.component';
 import { DropsTabComponent } from './drops/drops-tab.component';
-import { DropGroupWrapper, emptyEnemy, EnemyWrapper, flattenDropGroups, groupDrops, PhaseWrapper } from './enemy-form.model';
+import { DropGroupWrapper, emptyEnemy, EnemyWrapper, flattenDropGroups, groupDrops, phaseImageName, PhaseImageField, PhaseWrapper } from './enemy-form.model';
 
 @Component({
   selector: 'app-enemy-form',
@@ -100,12 +91,12 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
   }
 
   protected applyLoaded(data: EnemyFull): void {
-    this.enemy.set({ data: data.enemy, images: {} });
+    this.enemy.set({ data: data.enemy, pending: {} });
     this.phases.set(
       (data.phases ?? []).map((phase) => ({
         uid: createUid(),
         data: { ...phase, has_weakpoint: toBoolean(phase.has_weakpoint) },
-        images: {},
+        pending: {},
         elements: [...(phase.damage_type_elements ?? [])].sort((a, b) => a.order - b.order).map((entry) => entry.damage_type_element),
       }))
     );
@@ -113,24 +104,54 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
   }
 
   protected override beforeReload(): void {
-    revokeImages([...Object.values(this.enemy().images), ...this.phases().flatMap((phase) => Object.values(phase.images))]);
+    revokeAllPicked([...Object.values(this.enemy().pending), ...this.phases().flatMap((phase) => Object.values(phase.pending))]);
+  }
+
+  /**
+   * Names are read now rather than when the file was picked, so renaming the
+   * enemy before saving still stores its pictures under the new name.
+   */
+  protected override collectPendingImages(): PendingImage[] {
+    const pending: PendingImage[] = [];
+    const enemy = this.enemy();
+
+    if (enemy.pending.icon) {
+      pending.push({
+        entity: 'enemy',
+        field: 'icon',
+        picked: enemy.pending.icon,
+        name: toAssetBaseName(enemy.data.name),
+        apply: (path, name) => {
+          enemy.data.icon = path;
+          enemy.data.icon_name = name;
+        },
+      });
+    }
+
+    this.phases().forEach((phase, index) => {
+      for (const field of ['icon', 'art'] as PhaseImageField[]) {
+        const picked = phase.pending[field];
+        if (!picked) {
+          continue;
+        }
+        pending.push({
+          entity: 'enemy-phase',
+          field,
+          picked,
+          name: phaseImageName(enemy.data.name, field, index),
+          apply: (path, name) => {
+            phase.data[field] = path;
+            phase.data[`${field}_name`] = name;
+          },
+        });
+      }
+    });
+
+    return pending;
   }
 
   protected buildFormData(): FormData {
     const enemy = this.enemy();
-    const uploads: UploadPart[] = [];
-
-    if (enemy.images.icon?.file) {
-      uploads.push({ key: parentFileKey('icon'), file: enemy.images.icon.file });
-    }
-    this.phases().forEach((phase, index) => {
-      for (const field of ['icon', 'art'] as const) {
-        const file = phase.images[field]?.file;
-        if (file) {
-          uploads.push({ key: childFileKey('phases', index, field), file });
-        }
-      }
-    });
 
     const payload = {
       enemy: enemy.data,
@@ -157,7 +178,7 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
       })),
     };
 
-    return buildFullFormData(payload, uploads);
+    return buildFullFormData(payload);
   }
 
   protected override extraValidation(): string | undefined {

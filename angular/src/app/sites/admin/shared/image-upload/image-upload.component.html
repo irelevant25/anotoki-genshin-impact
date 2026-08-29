@@ -11,21 +11,19 @@
 
         @if (preview(); as src) {
             <div class="upload-preview">
-                <img [src]="src" [alt]="trimmedName()" />
+                <img [src]="src" [alt]="name()" />
             </div>
         }
 
-        <app-text
-            [label]="'Name'"
-            [description]="'Without folder or extension. The file is uploaded when you save, into the folder for this field.'"
-            [placeholder]="'e.g. HU_TAO'"
-            [(value)]="name"
-            [required]="true"
-        ></app-text>
-
-        @if (error(); as message) {
-            <p class="upload-error">{{ message }}</p>
-        }
+        <div class="upload-name">
+            <span class="upload-name-label">Saved as</span>
+            @if (name()) {
+                <code class="upload-name-value">{{ name() }}</code>
+                <span class="upload-name-hint">Named after the entity - rename it there and this follows.</span>
+            } @else {
+                <span class="upload-name-missing">Give the entity a name first - the file is named after it.</span>
+            }
+        </div>
     </div>
 
     <div modal-footer class="upload-footer">

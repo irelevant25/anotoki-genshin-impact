@@ -1,4 +1,7 @@
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
+import { assetVariant, toAssetBaseName } from '../../shared/asset-name';
+
+export { revokePicked } from '../../shared/admin-full-resource.model';
 import {
   AscensionCostFormData,
   AscensionFormData,
@@ -21,18 +24,22 @@ export type CharacterImageField =
   | 'namecard_background'
   | 'namecard_banner';
 
-/** FormData part name the API expects for each character image. */
-export const CHARACTER_IMAGE_UPLOAD_KEYS: Record<CharacterImageField, string> = {
-  icon: 'char_icon',
-  card_icon: 'char_card_icon',
-  card_icon_2: 'char_card_icon_2',
-  wish_icon: 'char_wish_icon',
-  ingame_icon: 'char_ingame_icon',
-  ingame_icon_2: 'char_ingame_icon_2',
-  namecard_icon: 'char_namecard_icon',
-  namecard_background: 'char_namecard_background',
-  namecard_banner: 'char_namecard_banner',
+/** Fields holding a second take on the same picture; stored as `NAME2`. */
+const CHARACTER_IMAGE_VARIANTS: Partial<Record<CharacterImageField, string>> = {
+  card_icon_2: '2',
+  ingame_icon_2: '2',
 };
+
+/**
+ * What a character's picture is stored as: the character's own name, upper
+ * snake cased, with `2` appended for the second of a pair. Derived rather than
+ * typed, so renaming the character renames what its next upload lands as.
+ */
+export function characterImageName(characterName: string | null | undefined, field: CharacterImageField): string {
+  const base = toAssetBaseName(characterName);
+  const variant = CHARACTER_IMAGE_VARIANTS[field];
+  return variant ? assetVariant(base, variant) : base;
+}
 
 export type VoiceOverLanguage = 'english' | 'japanese' | 'chinese' | 'korean';
 
@@ -188,13 +195,4 @@ export function resequence<T>(items: T[], getOrder: (item: T) => number, setOrde
   [...items]
     .sort((a, b) => getOrder(a) - getOrder(b))
     .forEach((item, index) => setOrder(item, index + 1));
-}
-
-// ── Object URLs ───────────────────────────────────────────────────────────────
-
-/** Releases a pick's object URL; call before replacing or discarding it. */
-export function revokePicked(picked: PickedImage | undefined): void {
-  if (picked?.preview) {
-    URL.revokeObjectURL(picked.preview);
-  }
 }

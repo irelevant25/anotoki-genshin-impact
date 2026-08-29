@@ -23,8 +23,10 @@ import {
 import { Material } from '../../../../shared/models.generated';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { PendingImage } from '../../shared/admin-form.class';
+import { toAssetBaseName } from '../../shared/asset-name';
 import {
   AscensionWrapper,
+  characterImageName,
   CharacterImageField,
   CharacterWrapper,
   ConstellationWrapper,
@@ -245,7 +247,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     }
     return forkJoin(
       pending.map((entry) =>
-        this._api.uploadImage(entry.entity, entry.field, entry.picked.file, entry.picked.name).pipe(
+        this._api.uploadImage(entry.entity, entry.field, entry.picked.file, entry.name).pipe(
           switchMap((result) => {
             entry.apply(result.path, result.name);
             return of(result);
@@ -265,6 +267,13 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     if (invalid.length > 0) {
       this._notify.showError(`Please fix ${invalid.length} invalid field${invalid.length === 1 ? '' : 's'} before saving.`);
       this._revealInput(invalid[0].elementRef.nativeElement);
+      return false;
+    }
+
+    // Image names are derived from what the row is called, so an unnamed row
+    // has nowhere to put its picture.
+    if (this._collectPendingImages().some((entry) => !entry.name)) {
+      this._notify.showError('Name the character, constellation or talent before uploading its image.');
       return false;
     }
 
@@ -341,11 +350,14 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     const pending: PendingImage[] = [];
     const character = this.character();
 
+    // Names are read now rather than when the file was picked, so renaming the
+    // character (or a constellation) before saving still stores it correctly.
     for (const [field, picked] of Object.entries(character.pending) as [CharacterImageField, PickedImage][]) {
       pending.push({
         entity: 'character',
         field,
         picked,
+        name: characterImageName(character.data.name, field),
         apply: (path: string, name: string) => {
           character.data[field] = path;
           (character.data as unknown as Record<string, unknown>)[`${field}_name`] = name;
@@ -359,6 +371,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
           entity: 'character-constellation',
           field: 'icon',
           picked: constellation.pending,
+          name: toAssetBaseName(constellation.data.name),
           apply: (path: string, name: string) => {
             constellation.data.icon = path;
             constellation.data.icon_name = name;
@@ -373,6 +386,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
           entity: 'character-talent',
           field: 'icon',
           picked: talent.pending,
+          name: toAssetBaseName(talent.data.name),
           apply: (path: string, name: string) => {
             talent.data.icon = path;
             talent.data.icon_name = name;

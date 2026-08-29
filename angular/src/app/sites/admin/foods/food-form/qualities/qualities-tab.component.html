@@ -5,23 +5,14 @@
                 <span class="sub-card-index">{{ entry.label }}</span>
             </div>
             <app-field-container [cols]="4">
-                <div>
-                    <app-file
-                        class="d-block"
-                        [buttonClass]="'w-100'"
-                        [label]="'Icon'"
-                        [buttonOutline]="true"
-                        [acceptedExtensions]="imageExtensions"
-                        [showFileNames]="false"
-                        (inputChange)="onIconSelect(entry.quality, $event)"
-                    ></app-file>
-                    @if (iconSrc(entry.quality); as src) {
-                        <img #img [src]="src" class="preview-img" [alt]="entry.label" />
-                        <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                            <img class="w-100" [src]="src" [alt]="entry.label" />
-                        </app-tooltip>
-                    }
-                </div>
+                <app-entity-image
+                    [label]="'Icon'"
+                    [path]="iconPath(entry.quality)"
+                    [name]="iconName(entry.quality)"
+                    [pending]="pendingFor(entry.quality)"
+                    (picked)="onPicked(entry.quality, $event)"
+                    (cleared)="onCleared(entry.quality)"
+                />
                 <app-textarea
                     class="col-span-2"
                     [label]="'Description'"

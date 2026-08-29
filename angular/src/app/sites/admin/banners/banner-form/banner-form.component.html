@@ -16,17 +16,19 @@
         </div>
     </div>
 
-    <div class="form-section">
-        <h3 class="section-title">Art</h3>
-        <p class="art-hint">
-            Banner art has no database column — it is resolved from the name, as <code>assets/banners/{{ artName() }}</code>. Upload or replace it on the Files
-            page.
-        </p>
-        <img #art [appMaterialIcon]="artName()" [appAssetFolder]="'banners'" [alt]="banner().name" class="art-preview" />
-        <app-tooltip [targetHTMLElement]="art" [standalone]="true">
-            <img class="w-100" [appMaterialIcon]="artName()" [appAssetFolder]="'banners'" [alt]="banner().name" />
-        </app-tooltip>
-    </div>
+    <app-field-container [class]="'gap-2 mb-3'" [cols]="1">
+        <h3 class="section-title mb-0">Art</h3>
+        <app-field-container [class]="'gap-5'" [cols]="4">
+            <app-entity-image
+                [label]="'Banner Art'"
+                [path]="banner().icon"
+                [name]="artName()"
+                [pending]="pendingArt()"
+                (picked)="onArtPicked($event)"
+                (cleared)="onArtCleared()"
+            />
+        </app-field-container>
+    </app-field-container>
 
     <div class="form-section">
         <h3 class="section-title">Featured Characters</h3>

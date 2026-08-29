@@ -43,20 +43,6 @@
   min-width: 0;
 }
 
-// Wallpapers are wide; show them at a fixed aspect so the grid stays even.
-.background-image {
-  aspect-ratio: 16 / 9;
-  background: var(--bg-hover);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
 .background-head {
   display: flex;
   align-items: center;
@@ -79,25 +65,12 @@
   min-width: 0;
 }
 
-.background-preview {
-  display: flex;
-  align-items: center;
+// The two slots sit side by side; the wallpaper is wide, so give it more room.
+.background-images {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
   gap: var(--spacing-sm);
-
-  img {
-    width: 96px;
-    height: 54px;
-    object-fit: cover;
-    border-radius: var(--border-radius);
-    background: var(--bg-hover);
-  }
-}
-
-.background-preview-label {
-  font-size: var(--font-size-sm);
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  align-items: start;
 }
 
 .background-actions {

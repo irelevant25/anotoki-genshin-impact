@@ -7,12 +7,12 @@ import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { Material } from '../../../../shared/models.generated';
 import { AdminApiService, WeaponFull } from '../../services/admin-api.service';
-import { AdminFormComponent } from '../../shared/admin-form.class';
-import { buildFullFormData, createUid, parentFileKey, revokeImages, toNumber, toOptionalNumber, toStringArray, UploadPart } from '../../shared/admin-full-resource.model';
+import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
+import { buildFullFormData, createUid, revokeAllPicked, toNumber, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { RefinementsTabComponent } from './refinements/refinements-tab.component';
 import { AscensionsTabComponent } from './ascensions/ascensions-tab.component';
-import { AscensionWrapper, emptyWeapon, RefinementWrapper, WEAPON_IMAGE_FIELDS, WeaponWrapper } from './weapon-form.model';
+import { AscensionWrapper, emptyWeapon, RefinementWrapper, WEAPON_IMAGE_FIELDS, weaponImageName, WeaponWrapper } from './weapon-form.model';
 
 @Component({
   selector: 'app-weapon-form',
@@ -96,7 +96,7 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
         how_to_obtain: toStringArray(data.weapon.how_to_obtain),
         effects: toStringArray(data.weapon.effects),
       },
-      images: {},
+      pending: {},
     });
     this.refinements.set((data.refinements ?? []).map((refinement) => ({ uid: createUid(), data: refinement })));
     this.ascensions.set(
@@ -107,18 +107,30 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
   }
 
   protected override beforeReload(): void {
-    revokeImages(Object.values(this.weapon().images));
+    revokeAllPicked(Object.values(this.weapon().pending));
+  }
+
+  /**
+   * Names are read now rather than when the file was picked, so renaming the
+   * weapon before saving still stores its pictures under the new name.
+   */
+  protected override collectPendingImages(): PendingImage[] {
+    const weapon = this.weapon();
+    return WEAPON_IMAGE_FIELDS.filter(({ field }) => weapon.pending[field]).map(({ field }) => ({
+      entity: 'weapon',
+      field,
+      picked: weapon.pending[field]!,
+      name: weaponImageName(weapon.data.name, field),
+      apply: (path: string, name: string) => {
+        const data = weapon.data as unknown as Record<string, unknown>;
+        data[field] = path;
+        data[`${field}_name`] = name;
+      },
+    }));
   }
 
   protected buildFormData(): FormData {
     const weapon = this.weapon();
-    const uploads: UploadPart[] = [];
-    for (const { field } of WEAPON_IMAGE_FIELDS) {
-      const file = weapon.images[field]?.file;
-      if (file) {
-        uploads.push({ key: parentFileKey(field), file });
-      }
-    }
 
     const payload = {
       weapon: {
@@ -147,7 +159,7 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
       })),
     };
 
-    return buildFullFormData(payload, uploads);
+    return buildFullFormData(payload);
   }
 
   protected override extraValidation(): string | undefined {

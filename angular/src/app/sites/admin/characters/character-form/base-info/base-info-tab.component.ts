@@ -11,7 +11,7 @@ import { FieldContainerComponent } from '../../../../../shared/local-lib/compone
 import { ChipsComponent } from '../../../../../shared/local-lib/components/chips/chips.component';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
-import { CharacterImageField, CharacterWrapper, emptyCharacter, revokePicked } from '../character-form.model';
+import { characterImageName, CharacterImageField, CharacterWrapper, emptyCharacter, revokePicked } from '../character-form.model';
 
 interface ImageFieldConfig {
   field: CharacterImageField;
@@ -93,8 +93,9 @@ export class BaseInfoTabComponent {
     return (this.character().data[field] as string | undefined) ?? undefined;
   }
 
-  imageName(field: CharacterImageField): string | undefined {
-    return (this.character().data as unknown as Record<string, unknown>)[`${field}_name`] as string | undefined;
+  /** Derived from the name input, so it follows a rename while the form is open. */
+  imageName(field: CharacterImageField): string {
+    return characterImageName(this.character().data.name, field);
   }
 
   pendingFor(field: CharacterImageField): PickedImage | undefined {

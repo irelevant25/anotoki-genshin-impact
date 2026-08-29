@@ -1,5 +1,7 @@
 import { EnemyDropFormData, EnemyFormData, EnemyPhaseFormData } from '../../services/admin-api.service';
-import { createUid, ImageSlot } from '../../shared/admin-full-resource.model';
+import { createUid } from '../../shared/admin-full-resource.model';
+import { PickedImage } from '../../shared/image-upload/image-upload.component';
+import { assetSuffix, toAssetBaseName } from '../../shared/asset-name';
 
 /** Image columns on the enemy row and on each phase. */
 export type EnemyImageField = 'icon';
@@ -7,15 +9,26 @@ export type PhaseImageField = 'icon' | 'art';
 
 export interface EnemyWrapper {
   data: EnemyFormData;
-  images: Partial<Record<EnemyImageField, ImageSlot>>;
+  /** Pictures picked but not uploaded yet, keyed by column. */
+  pending: Partial<Record<EnemyImageField, PickedImage>>;
 }
 
 export interface PhaseWrapper {
   uid: number;
   data: EnemyPhaseFormData;
-  images: Partial<Record<PhaseImageField, ImageSlot>>;
+  pending: Partial<Record<PhaseImageField, PickedImage>>;
   /** Elements this phase deals damage with, kept ordered. */
   elements: string[];
+}
+
+/**
+ * Phase art is filed under the enemy, not the phase: an enemy's phases share a
+ * name, so they are told apart by their position and by what they show.
+ *   BUBBLY_SEAHORSE - phase1,  BUBBLY_SEAHORSE - full_art
+ */
+export function phaseImageName(enemyName: string | null | undefined, field: PhaseImageField, index: number): string {
+  const base = toAssetBaseName(enemyName);
+  return assetSuffix(base, field === 'art' ? 'full_art' : `phase${index + 1}`);
 }
 
 /** A drop row points at either a material or an artifact, never both. */
@@ -47,11 +60,11 @@ export interface DropGroupWrapper {
 }
 
 export function emptyEnemy(): EnemyWrapper {
-  return { data: { name: '', icon: '' }, images: {} };
+  return { data: { name: '', icon: '' }, pending: {} };
 }
 
 export function emptyPhase(): PhaseWrapper {
-  return { uid: createUid(), data: { title: '', icon: '', has_weakpoint: false }, images: {}, elements: [] };
+  return { uid: createUid(), data: { title: '', icon: '', has_weakpoint: false }, pending: {}, elements: [] };
 }
 
 export function emptyDropEntry(kind: DropKind = 'material'): DropEntryWrapper {

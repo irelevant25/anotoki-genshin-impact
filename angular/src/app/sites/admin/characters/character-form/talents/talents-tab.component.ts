@@ -14,6 +14,7 @@ import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { emptyTalent, reorder, revokePicked, resequence, TalentWrapper } from '../character-form.model';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
+import { toAssetBaseName } from '../../../shared/asset-name';
 
 interface TalentCostGroup {
   level: number;
@@ -93,6 +94,11 @@ export class TalentsTabComponent {
   /** Stored path; the slot shows a pending pick when there is one. */
   iconPath(wrapper: TalentWrapper): string | undefined {
     return wrapper.data.icon || undefined;
+  }
+
+  /** Talent art is named after the talent itself. */
+  iconName(wrapper: TalentWrapper): string {
+    return toAssetBaseName(wrapper.data.name);
   }
 
   onPicked(wrapper: TalentWrapper, picked: PickedImage): void {

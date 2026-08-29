@@ -2,23 +2,22 @@ import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { FileComponent, FileItemType } from '../../../../../shared/local-lib/components/file/file.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { TooltipComponent } from '../../../../../shared/local-lib/components/tooltip/tooltip.component';
-import { IMAGE_EXTENSIONS, imageSrc, revokeImages, setImage } from '../../../shared/admin-full-resource.model';
+import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
+import { PickedImage } from '../../../shared/image-upload/image-upload.component';
+import { revokePicked } from '../../../shared/admin-full-resource.model';
+import { toAssetBaseName } from '../../../shared/asset-name';
 import { emptyPiece, PieceWrapper } from '../artifact-form.model';
 
 @Component({
   selector: 'app-artifact-pieces-tab',
   templateUrl: './pieces-tab.component.html',
   styleUrls: ['./pieces-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, DropdownComponent, FileComponent, FieldContainerComponent, TooltipComponent],
+  imports: [ButtonComponent, TextComponent, DropdownComponent, FieldContainerComponent, EntityImageComponent],
 })
 export class PiecesTabComponent {
   pieces = model<PieceWrapper[]>([]);
   pieceTypes = input<string[]>([]);
-
-  readonly imageExtensions = IMAGE_EXTENSIONS;
 
   /** Types not yet used, so a set cannot get two Plumes. */
   availableTypes = computed(() => {
@@ -43,18 +42,28 @@ export class PiecesTabComponent {
   }
 
   removePiece(wrapper: PieceWrapper): void {
-    revokeImages(Object.values(wrapper.images));
+    revokePicked(wrapper.pending);
     this.pieces.update((pieces) => pieces.filter((piece) => piece !== wrapper));
   }
 
-  iconSrc(wrapper: PieceWrapper): string | undefined {
-    return imageSrc(wrapper.images.icon, wrapper.data.icon);
+  /** Stored path; the slot shows a pending pick when there is one. */
+  iconPath(wrapper: PieceWrapper): string | undefined {
+    return wrapper.data.icon || undefined;
   }
 
-  onIconSelect(wrapper: PieceWrapper, files: FileItemType[] | undefined | null): void {
-    const slot = wrapper.images.icon ?? {};
-    setImage(slot, files?.[0]?.file);
-    wrapper.images.icon = slot;
+  /** A piece's art is named after the piece, not the set it belongs to. */
+  iconName(wrapper: PieceWrapper): string {
+    return toAssetBaseName(wrapper.data.name);
+  }
+
+  onPicked(wrapper: PieceWrapper, picked: PickedImage): void {
+    revokePicked(wrapper.pending);
+    wrapper.pending = picked;
+  }
+
+  onCleared(wrapper: PieceWrapper): void {
+    revokePicked(wrapper.pending);
+    wrapper.pending = undefined;
   }
 
   /** The piece's own type plus the ones nobody else has taken. */

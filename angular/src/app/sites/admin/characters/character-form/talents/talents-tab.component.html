@@ -22,10 +22,9 @@
                     <app-field-container [cols]="4">
                         <app-entity-image
                         [label]="'Icon'"
-                        [field]="'icon'"
                         [required]="true"
                         [path]="iconPath(talent)"
-                        [name]="talent.data.icon_name"
+                        [name]="iconName(talent)"
                         [pending]="talent.pending"
                         (picked)="onPicked(talent, $event)"
                         (cleared)="onCleared(talent)"
