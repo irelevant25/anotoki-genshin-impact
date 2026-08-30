@@ -699,6 +699,29 @@ export class AdminApiService {
 
   getDashboardStats(): Observable<DashboardStats> { return this._http.get<DashboardStats>('/api/dashboard/stats'); }
 
+  // ── Backups ──────────────────────────────────────────────────────────────────
+
+  getBackups(): Observable<BackupEntry[]> { return this._http.get<BackupEntry[]>('/api/backups'); }
+  getBackupStatus(): Observable<BackupStatus> { return this._http.get<BackupStatus>('/api/backups/status'); }
+
+  /** Runs pg_dump for every database, so this takes seconds rather than none. */
+  createBackup(description: string) {
+    return this._http.post<BackupEntry>('/api/backups', { description });
+  }
+  deleteBackup(id: string) { return this._http.delete<any>(`/api/backups/${encodeURIComponent(id)}`); }
+
+  /**
+   * One database's dump file, as a blob.
+   *
+   * A plain link would be simpler, but the endpoint wants the bearer token
+   * and an anchor cannot carry a header.
+   */
+  downloadBackup(id: string, alias: string): Observable<Blob> {
+    return this._http.get(`/api/backups/${encodeURIComponent(id)}/download/${encodeURIComponent(alias)}`, {
+      responseType: 'blob',
+    });
+  }
+
   // ── Localization ─────────────────────────────────────────────────────────────
 
   /** `all` includes the ones switched off, which the site chooser does not show. */
@@ -923,4 +946,53 @@ export interface DashboardStats {
     keys: number;
     languages: { code: string; name: string; native_name: string; enabled: boolean; translated: number }[];
   };
+}
+
+/** One table inside a dump, as it was at the moment the dump was taken. */
+export interface BackupTableCount {
+  name: string;
+  rows: number;
+}
+
+export interface BackupDatabase {
+  alias: string;
+  name: string;
+  file: string;
+  size: number | null;
+  duration_ms: number | null;
+  rows: number;
+  tables: BackupTableCount[];
+  /** Set when this database could not be dumped; the rest still were. */
+  error: string | null;
+}
+
+export interface BackupEntry {
+  id: string;
+  created_at: string;
+  created_by: string | null;
+  description: string | null;
+  /** complete | partial | failed | incomplete */
+  status: string;
+  format?: string;
+  pg_dump_version?: string | null;
+  duration_ms: number | null;
+  size: number;
+  databases: BackupDatabase[];
+  /** Only on a backup that never finished, explaining what it is. */
+  note?: string;
+}
+
+/** What the server can and cannot do, before anybody presses the button. */
+export interface BackupStatus {
+  driver: string | null;
+  supported: boolean;
+  pg_dump: string | null;
+  pg_dump_version: string | null;
+  pg_restore: string | null;
+  directory: string;
+  writable: boolean;
+  free_space: number | null;
+  backup_count: number;
+  stored_size: number;
+  databases: { alias: string; name: string; size: number | null; tables: number | null; error: string | null }[];
 }

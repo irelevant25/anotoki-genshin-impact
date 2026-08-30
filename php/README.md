@@ -28,6 +28,21 @@ cp config/database.php config/database.local.php
 # Edit config/database.local.php with your actual DB credentials
 ```
 
+### Backups (optional)
+
+The **Backups** page in the admin site shells out to `pg_dump`, which it finds
+on `PATH` or in the usual PostgreSQL install directories. If it is somewhere
+else, point at it:
+
+```bash
+# config/backup.local.php
+<?php return ['pg_dump' => '/opt/pgsql/18/bin/pg_dump'];
+```
+
+Dumps are written to `storage/backups/`, one directory per backup holding a
+`.dump` per database plus a `backup.json` manifest. `storage/` is gitignored —
+a dump contains every row in the database, password hashes included.
+
 ### Run init script (it will create database and apply schema.sql and create first migration schema)
 
 ```bash

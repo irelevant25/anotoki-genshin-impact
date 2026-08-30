@@ -1,0 +1,187 @@
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.summary-spacer {
+  flex: 1 1 auto;
+}
+
+.summary-date {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.pill {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: capitalize;
+  border: 1px solid transparent;
+}
+
+.status-complete {
+  background: var(--color-success-light);
+  color: var(--color-success-light-text);
+  border-color: var(--color-success-light-border);
+}
+
+.status-partial,
+.status-incomplete {
+  background: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  border-color: var(--color-warning-light-border);
+}
+
+.status-failed {
+  background: var(--color-danger-light);
+  color: var(--color-danger-light-text);
+  border-color: var(--color-danger-light-border);
+}
+
+.description {
+  margin: 0 0 var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.note {
+  margin: 0 0 var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+}
+
+// ── The numbers at the top ───────────────────────────────────────────────────
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+
+.fact-label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+// ── One database ─────────────────────────────────────────────────────────────
+
+.database {
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+
+  &.is-failed {
+    border-color: var(--color-danger-light-border);
+    background: var(--color-danger-light);
+  }
+}
+
+.database-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.database-name {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.database-meta {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.database-error {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger-light-text);
+}
+
+.database-spacer {
+  flex: 1 1 var(--spacing-md);
+}
+
+.restore {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.restore-command {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 2px var(--spacing-xs);
+  background: var(--bg-hover);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+// ── Row counts ───────────────────────────────────────────────────────────────
+
+.tables {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0 var(--spacing-lg);
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--border-color-subtle);
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  padding: 1px 0;
+  font-size: var(--font-size-sm);
+
+  // An empty table is not a problem, but it is the thing worth spotting.
+  &.is-empty {
+    color: var(--text-muted);
+  }
+}
+
+.table-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.table-rows {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}

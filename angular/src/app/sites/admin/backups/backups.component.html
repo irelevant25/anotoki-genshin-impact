@@ -1,0 +1,128 @@
+<div class="page-header">
+    <h1 class="page-title">Backups</h1>
+    @if (troubled()) {
+        <span class="badge-warn">{{ troubled() }} to check</span>
+    }
+    <div class="header-actions">
+        <span class="stored">{{ backups().length }} kept · {{ formatSize(totalSize()) }}</span>
+        <app-button text="Refresh" icon="icon-history" variant="secondary" [outline]="true" size="small" (buttonClick)="load(); loadStatus()"></app-button>
+    </div>
+</div>
+
+<p class="page-hint">
+    Every database in one go — accounts, translations and game content together, because restoring one afternoon's content against another afternoon's accounts
+    is the mess a backup is meant to prevent. Files stay on the server; use <strong>Download</strong> in a backup to get one somewhere else. Nothing here restores
+    anything: that is a deliberate act for a shell prompt, with the site stopped.
+</p>
+
+@if (blockedReason(); as reason) {
+    <p class="blocked">{{ reason }}</p>
+}
+
+@if (status(); as info) {
+    <div class="env-strip">
+        <div class="env-item">
+            <span class="env-label">pg_dump</span>
+            <span class="env-value" [title]="info.pg_dump ?? ''">{{ info.pg_dump_version ? 'v' + info.pg_dump_version : 'not found' }}</span>
+        </div>
+        <div class="env-item">
+            <span class="env-label">Stored in</span>
+            <span class="env-value is-path" [title]="info.directory">{{ info.directory }}</span>
+        </div>
+        <div class="env-item">
+            <span class="env-label">Free space</span>
+            <span class="env-value">{{ formatSize(info.free_space) }}</span>
+        </div>
+        @for (database of info.databases; track database.alias) {
+            <div class="env-item">
+                <span class="env-label">{{ database.alias }}</span>
+                <span class="env-value" [class.is-error]="!!database.error">
+                    {{ database.error ?? formatSize(database.size) + ' · ' + database.tables + ' tables' }}
+                </span>
+            </div>
+        }
+    </div>
+}
+
+<div class="create-bar">
+    <div class="create-description">
+        <app-text
+            [label]="'Description'"
+            [placeholder]="'what this one is for — optional'"
+            [disabled]="creating() || !!blockedReason()"
+            [(value)]="description"
+        ></app-text>
+    </div>
+    <app-button
+        [text]="creating() ? 'Dumping… ' + elapsed() + 's' : 'Create backup'"
+        icon="icon-database"
+        [loading]="creating()"
+        [disabled]="creating() || !!blockedReason()"
+        (buttonClick)="create()"
+    ></app-button>
+</div>
+
+<app-loader #loader [loading]="busy()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th class="col-when">Created</th>
+                    <th>Description</th>
+                    <th class="col-status">Status</th>
+                    <th class="col-num">Databases</th>
+                    <th class="col-num">Rows</th>
+                    <th class="col-num">Size</th>
+                    <th class="col-num">Took</th>
+                    <th class="col-by">By</th>
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!backups().length) {
+                    <tr>
+                        <td colspan="9" class="empty-cell">No backups yet</td>
+                    </tr>
+                }
+                @for (backup of backups(); track backup.id) {
+                    <tr [class.is-troubled]="backup.status !== 'complete'">
+                        <td class="col-when">
+                            {{ backup.created_at | date: 'yyyy-MM-dd HH:mm' }}
+                            <span class="row-id">{{ backup.id }}</span>
+                        </td>
+                        <td class="col-description">{{ backup.description || '—' }}</td>
+                        <td class="col-status"><span class="pill status-{{ backup.status }}">{{ backup.status }}</span></td>
+                        <td class="col-num">{{ databaseLabel(backup) }}</td>
+                        <td class="col-num">{{ rowsOf(backup) | number }}</td>
+                        <td class="col-num">{{ formatSize(backup.size) }}</td>
+                        <td class="col-num">{{ formatDuration(backup.duration_ms) }}</td>
+                        <td class="col-by">{{ backup.created_by || '—' }}</td>
+                        <td class="col-actions">
+                            @if (deleteConfirm() === backup.id) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Delete?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(backup.id)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </span>
+                            } @else {
+                                <div class="action-btns">
+                                    <app-button text="View" variant="secondary" [outline]="true" size="very-small" (buttonClick)="view(backup)"></app-button>
+                                    <app-button
+                                        icon="icon-trash icon-size-3"
+                                        variant="danger"
+                                        [outline]="true"
+                                        size="very-small"
+                                        tooltipText="Delete this backup and its files"
+                                        (buttonClick)="confirmDelete(backup.id)"
+                                    ></app-button>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

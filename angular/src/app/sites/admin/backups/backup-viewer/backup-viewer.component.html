@@ -1,0 +1,100 @@
+<app-modal [title]="title()" (closeModal)="closeModal()">
+    <div modal-body>
+        @if (backup(); as entry) {
+            <div class="summary">
+                <span class="pill status-{{ entry.status }}">{{ entry.status }}</span>
+                <span class="summary-spacer"></span>
+                <span class="summary-date">{{ entry.created_at | date: 'd MMM yyyy, HH:mm' }}</span>
+            </div>
+
+            @if (entry.description) {
+                <p class="description">{{ entry.description }}</p>
+            }
+
+            @if (entry.note) {
+                <p class="note">{{ entry.note }}</p>
+            }
+
+            <div class="facts">
+                <div class="fact"><span class="fact-label">Taken by</span><span>{{ entry.created_by || 'unknown' }}</span></div>
+                <div class="fact"><span class="fact-label">Total size</span><span>{{ formatSize(entry.size) }}</span></div>
+                <div class="fact"><span class="fact-label">Rows</span><span>{{ totalRows() | number }}</span></div>
+                <div class="fact"><span class="fact-label">Took</span><span>{{ formatDuration(entry.duration_ms) }}</span></div>
+                @if (entry.format) {
+                    <div class="fact"><span class="fact-label">Format</span><span>{{ entry.format }}</span></div>
+                }
+                @if (entry.pg_dump_version) {
+                    <div class="fact"><span class="fact-label">pg_dump</span><span>v{{ entry.pg_dump_version }}</span></div>
+                }
+            </div>
+
+            @for (database of entry.databases; track database.alias) {
+                <div class="database" [class.is-failed]="!!database.error">
+                    <div class="database-head">
+                        <span class="database-name">{{ database.alias }}</span>
+                        @if (database.error) {
+                            <span class="database-error">{{ database.error }}</span>
+                        } @else {
+                            <span class="database-meta">
+                                {{ formatSize(database.size) }} · {{ database.rows | number }} rows in {{ database.tables.length }} tables ·
+                                {{ formatDuration(database.duration_ms) }}
+                            </span>
+                        }
+                        <span class="database-spacer"></span>
+                        @if (!database.error) {
+                            <app-button
+                                [text]="database.tables.length ? (isExpanded(database.alias) ? 'Hide tables' : 'Tables') : 'No tables'"
+                                variant="secondary"
+                                [outline]="true"
+                                size="very-small"
+                                [disabled]="!database.tables.length"
+                                (buttonClick)="toggle(database.alias)"
+                            ></app-button>
+                            <app-button
+                                [text]="downloading() === database.alias ? 'Preparing…' : 'Download'"
+                                icon="icon-download icon-size-3"
+                                variant="secondary"
+                                [outline]="true"
+                                size="very-small"
+                                [loading]="downloading() === database.alias"
+                                [disabled]="!!downloading()"
+                                (buttonClick)="download(database)"
+                            ></app-button>
+                        }
+                    </div>
+
+                    @if (!database.error) {
+                        <div class="restore">
+                            <code class="restore-command">{{ restoreCommand(database) }}</code>
+                            <app-button
+                                icon="icon-copy icon-size-3"
+                                variant="secondary"
+                                [outline]="true"
+                                size="very-small"
+                                tooltipText="Copy the restore command"
+                                (buttonClick)="copyRestoreCommand(database)"
+                            ></app-button>
+                        </div>
+                    }
+
+                    @if (isExpanded(database.alias)) {
+                        <div class="tables">
+                            @for (table of database.tables; track table.name) {
+                                <div class="table-row" [class.is-empty]="!table.rows">
+                                    <span class="table-name">{{ table.name }}</span>
+                                    <span class="table-rows">{{ table.rows | number }}</span>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            } @empty {
+                <p class="note">This backup has no databases recorded — it never got that far.</p>
+            }
+        }
+    </div>
+
+    <div modal-footer class="footer">
+        <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="closeModal()"></app-button>
+    </div>
+</app-modal>

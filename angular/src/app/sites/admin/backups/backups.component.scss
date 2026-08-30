@@ -1,0 +1,198 @@
+@use "../shared/admin-list" as *;
+
+.page-header {
+  gap: var(--spacing-md);
+  justify-content: flex-start;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.stored {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.badge-warn {
+  font-size: var(--font-size-xs);
+  background: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  border: 1px solid var(--color-warning-light-border);
+  border-radius: var(--border-radius);
+  padding: 2px 8px;
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.page-hint {
+  margin: 0 0 var(--spacing-md);
+  max-width: 90ch;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+// Why the button is off, said once and plainly, rather than a disabled
+// control the reader has to guess about.
+.blocked {
+  margin: 0 0 var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-danger-light);
+  color: var(--color-danger-light-text);
+  border: 1px solid var(--color-danger-light-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+}
+
+// ── What the server can do ───────────────────────────────────────────────────
+
+.env-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+}
+
+.env-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.env-label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.env-value {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+
+  &.is-path {
+    font-family: var(--font-family-mono, monospace);
+    font-size: var(--font-size-xs);
+    max-width: 42ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.is-error {
+    color: var(--color-danger);
+  }
+}
+
+// ── Making one ───────────────────────────────────────────────────────────────
+
+.create-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.create-description {
+  flex: 1 1 320px;
+  max-width: 480px;
+}
+
+// ── The list ─────────────────────────────────────────────────────────────────
+
+.col-when {
+  white-space: nowrap;
+  width: 190px;
+}
+
+.row-id {
+  display: block;
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.col-description {
+  color: var(--text-secondary);
+}
+
+.col-num {
+  width: 110px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.col-by,
+.col-status {
+  width: 120px;
+  white-space: nowrap;
+}
+
+.pill {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: capitalize;
+  border: 1px solid transparent;
+}
+
+.status-complete {
+  background: var(--color-success-light);
+  color: var(--color-success-light-text);
+  border-color: var(--color-success-light-border);
+}
+
+.status-partial,
+.status-incomplete {
+  background: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  border-color: var(--color-warning-light-border);
+}
+
+.status-failed {
+  background: var(--color-danger-light);
+  color: var(--color-danger-light-text);
+  border-color: var(--color-danger-light-border);
+}
+
+// A backup that is not whole should not look like the ones that are.
+.is-troubled td {
+  background: var(--color-warning-light);
+}
+
+.empty-cell {
+  text-align: center;
+  color: var(--text-muted);
+  padding: var(--spacing-xl) !important;
+}
+
+.action-btns {
+  display: flex;
+  gap: var(--spacing-xs);
+  justify-content: flex-end;
+}
+
+.confirm-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  justify-content: flex-end;
+}
+
+.confirm-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+  white-space: nowrap;
+}

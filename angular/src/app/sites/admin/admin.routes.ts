@@ -21,6 +21,7 @@ import { BannerFormComponent } from './banners/banner-form/banner-form.component
 import { BackgroundsListComponent } from './backgrounds/backgrounds-list/backgrounds-list.component';
 import { AuditLogsComponent } from './audit-logs/audit-logs.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { BackupsComponent } from './backups/backups.component';
 import { LanguagesComponent } from './localization/languages/languages.component';
 import { TranslationsComponent } from './localization/translations/translations.component';
 import {
@@ -102,6 +103,7 @@ export const routes: Routes = [
       { path: 'audit-logs',           component: AuditLogsComponent },
       { path: 'files',                component: FilesManagerComponent },
       { path: 'migrations',           component: MigrationsListComponent },
+      { path: 'backups',              component: BackupsComponent },
 
       // Writable lookup tables
       { path: 'relationship-types',   component: RelationshipTypesPage },

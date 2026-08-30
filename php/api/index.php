@@ -4,6 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/jwt.php';
 require_once __DIR__ . '/../config/site.php';
+require_once __DIR__ . '/../config/backup.php';
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
@@ -34,6 +35,7 @@ require_once __DIR__ . '/routes/users/endpoints/auth.php';
 require_once __DIR__ . '/routes/users/endpoints/users.php';
 require_once __DIR__ . '/routes/users/endpoints/languages.php';
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
+require_once __DIR__ . '/routes/users/endpoints/backups.php';
 
 ///////////////////
 // GENSHIN IMPACT
