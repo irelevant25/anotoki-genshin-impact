@@ -15,6 +15,12 @@
     anything: that is a deliberate act for a shell prompt, with the site stopped.
 </p>
 
+<p class="page-hint">
+    <strong>Live</strong> is what a database takes up on disk right now — rows, every index, and space Postgres has reclaimed but not handed back, which is why an
+    empty one is still several megabytes. A <strong>dump</strong> holds only the rows, compressed, and rebuilds the indexes on restore. A dump coming out several
+    times smaller is normal and is not a sign anything was left out; the row counts inside a backup are what confirm that.
+</p>
+
 @if (blockedReason(); as reason) {
     <p class="blocked">{{ reason }}</p>
 }
@@ -37,7 +43,7 @@
             <div class="env-item">
                 <span class="env-label">{{ database.alias }}</span>
                 <span class="env-value" [class.is-error]="!!database.error">
-                    {{ database.error ?? formatSize(database.size) + ' · ' + database.tables + ' tables' }}
+                    {{ database.error ?? database.tables + ' tables · ' + formatSize(database.size) + ' live' }}
                 </span>
             </div>
         }
@@ -74,7 +80,7 @@
                     <th class="col-status">Status</th>
                     <th class="col-num">Databases</th>
                     <th class="col-num">Rows</th>
-                    <th class="col-num">Size</th>
+                    <th class="col-num">Dump size</th>
                     <th class="col-num">Took</th>
                     <th class="col-by">By</th>
                     <th class="col-actions"></th>

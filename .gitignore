@@ -5,3 +5,9 @@
 # Uploaded media is served from disk, never committed.
 php/public/uploads/
 php/storage/
+
+# Per-machine config: credentials, paths, which site this deployment is.
+# database.local.php was committed before this rule and stays tracked on
+# purpose - it holds local development values only, and production is
+# configured separately.
+*.local.php
