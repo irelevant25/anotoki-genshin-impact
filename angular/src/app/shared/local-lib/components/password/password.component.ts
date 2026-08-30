@@ -20,6 +20,13 @@ export class PasswordComponent extends AbstractInputComponent<Type> {
   showToggle = model<boolean>(true);
   isPasswordVisible = model<boolean>(false);
 
+  /**
+   * Defaults to a sign-in box. Set 'new-password' when the field is for
+   * choosing one, or the browser offers the saved credentials for the site and
+   * fills the surrounding username and email fields along with them.
+   */
+  autocomplete = model<string>('current-password');
+
   onInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     const newValue = target.value;

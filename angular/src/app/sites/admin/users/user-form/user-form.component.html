@@ -1,16 +1,30 @@
 <app-modal [title]="title()" (closeModal)="closeModal()">
     <div modal-body class="form">
-        <app-text [label]="'Username'" [required]="true" [(value)]="username" [disabled]="saving()"></app-text>
-        <app-text [label]="'Email'" [required]="true" [(value)]="email" [disabled]="saving()"></app-text>
+        <app-text [label]="'Username'" [required]="true" [autocomplete]="'off'" [(value)]="username" [disabled]="saving()"></app-text>
+        <app-text [label]="'Email'" [required]="true" [autocomplete]="'off'" [(value)]="email" [disabled]="saving()"></app-text>
 
         @if (isNew()) {
-            <app-password
-                [label]="'Password'"
-                [required]="true"
-                [description]="'At least ' + passwordMinLength() + ' characters. They can change it themselves afterwards.'"
-                [(value)]="password"
-                [disabled]="saving()"
-            ></app-password>
+            <div class="password-row">
+                <app-password
+                    [label]="'Password'"
+                    [required]="true"
+                    [autocomplete]="'new-password'"
+                    [description]="'Generated for you. Read it out to them — they can change it themselves once they are in.'"
+                    [(value)]="password"
+                    [(isPasswordVisible)]="passwordVisible"
+                    [disabled]="saving()"
+                ></app-password>
+                <app-button
+                    text="New one"
+                    icon="icon-refresh icon-size-3"
+                    variant="secondary"
+                    [outline]="true"
+                    size="small"
+                    [disabled]="saving()"
+                    tooltipText="Generate a different password"
+                    (buttonClick)="regenerate()"
+                ></app-button>
+            </div>
         }
 
         <app-dropdown [label]="'Role'" [options]="roles()" [(value)]="role" [disabled]="saving() || isSelf()"></app-dropdown>

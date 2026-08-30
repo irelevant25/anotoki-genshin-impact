@@ -28,10 +28,10 @@
         <input
             #inputElement
             [id]="inputId"
-            [type]="type()"
             [value]="computedValue()"
             [disabled]="disabled()"
             [placeholder]="placeholder() ?? ''"
+            [attr.autocomplete]="autocomplete()"
             class="form-control input-text"
             [class.error]="hasError()"
             [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"

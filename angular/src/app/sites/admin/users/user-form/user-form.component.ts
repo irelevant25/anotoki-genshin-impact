@@ -7,6 +7,7 @@ import { DropdownComponent } from '../../../../shared/local-lib/components/dropd
 import { CheckboxComponent } from '../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { PasswordComponent } from '../../../../shared/local-lib/components/password/password.component';
 import { AccountEntry, AdminApiService } from '../../services/admin-api.service';
+import { GENERATED_PASSWORD_LENGTH, randomPassword } from '../random-password';
 
 /**
  * Creating an account by hand, or changing one that exists.
@@ -38,6 +39,13 @@ export class UserFormComponent extends AbstractModalComponent {
   readonly confirmed = signal(false);
   readonly saving = signal(false);
 
+  /**
+   * Shown rather than dotted out. A password nobody chose is a password
+   * somebody has to read off the screen to pass on, and hiding it helps no
+   * one - there is nothing here they did not just generate.
+   */
+  readonly passwordVisible = signal(true);
+
   readonly isNew = computed(() => !this.account());
 
   readonly title = computed(() => (this.isNew() ? 'New account' : `Edit ${this.account()?.username}`));
@@ -55,12 +63,23 @@ export class UserFormComponent extends AbstractModalComponent {
   /** Called by the opener once the inputs above are set. */
   start(): void {
     const account = this.account();
+
     if (account) {
       this.username.set(account.username);
       this.email.set(account.email);
       this.role.set(account.role);
       this.confirmed.set(account.email_confirmed);
+      return;
     }
+
+    // A new account arrives with a password already in it, so the common case
+    // is to read it out and move on rather than invent one.
+    this.regenerate();
+  }
+
+  regenerate(): void {
+    this.password.set(randomPassword(GENERATED_PASSWORD_LENGTH));
+    this.passwordVisible.set(true);
   }
 
   save(): void {

@@ -20,3 +20,20 @@
 .footer-spacer {
   flex: 1 1 auto;
 }
+
+// The generate button sits beside the field, not under it, so it reads as
+// something that acts on the password rather than a step of its own.
+.password-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+
+  > app-password {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  > app-button {
+    margin-top: 1.75rem;
+  }
+}
