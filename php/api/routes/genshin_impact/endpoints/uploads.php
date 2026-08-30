@@ -460,6 +460,8 @@ function _saveAssetUpload($file, string $folder, string $baseName, bool $audio =
 
     $stored = $dir . '/' . $safeName . '.' . $ext;
     $file->moveTo($stored);
+    // The Files page counts what is on disk, so its cache is now out of date.
+    _assetFolderCacheClear();
 
     // Voice over rows store a bare `assets/...` path; images use `../assets/...`.
     $prefix = $audio ? 'assets/' : '../assets/';

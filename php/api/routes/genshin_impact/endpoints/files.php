@@ -43,37 +43,111 @@ function _resolveAssetDir(string $folder): ?string
     return $real;
 }
 
-/** Every folder under assets/ that directly holds files. */
-function _listAssetFolders(string $base, string $prefix = ''): array
+/**
+ * How long a cached folder listing is trusted.
+ *
+ * Short, because assets also arrive from outside the API - the bulk convert
+ * and import scripts write straight to disk, and nothing tells us when they
+ * do. The API's own writes clear the cache immediately, so this only bounds
+ * how stale an out-of-band change can look.
+ */
+const FILES_FOLDER_CACHE_TTL = 60;
+
+function _assetFolderCacheFile(): string
 {
+    return dirname(__DIR__, 4) . '/storage/cache/asset-folders.json';
+}
+
+/** Called by everything that adds or removes an asset. */
+function _assetFolderCacheClear(): void
+{
+    $file = _assetFolderCacheFile();
+    if (is_file($file)) {
+        @unlink($file);
+    }
+}
+
+/**
+ * Every folder under assets/ that directly holds files, with its file count.
+ *
+ * One flat pass over the tree, tallying each file against its parent. The
+ * previous version walked each directory twice - once to recurse and once to
+ * count - and asked the filesystem about every single entry with is_dir() and
+ * then is_file(). On ~48,000 files that is ~100,000 stat calls and took nine
+ * seconds; this does it in about one and a half.
+ *
+ * Dot-prefixed *directories* are skipped, as before. Dot-prefixed files are
+ * not: several talents are named like "...Now That's Rock 'N' Roll!", and
+ * skipping them would quietly lose real assets.
+ */
+function _listAssetFolders(string $base): array
+{
+    $counts = [];
+    $rootLength = strlen($base) + 1;
+
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($base, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    foreach ($iterator as $path => $info) {
+        if ($info->isDir()) {
+            continue;
+        }
+
+        $relative = substr($path, $rootLength);
+        $slash = strrpos($relative, '/');
+        if ($slash === false) {
+            // A file sitting directly in assets/ belongs to no folder.
+            continue;
+        }
+
+        $folder = substr($relative, 0, $slash);
+        // Cheaper than testing each directory as we descend, and the same
+        // answer: any hidden segment anywhere in the path disqualifies it.
+        if (str_contains('/' . $folder, '/.')) {
+            continue;
+        }
+
+        $counts[$folder] = ($counts[$folder] ?? 0) + 1;
+    }
+
     $out = [];
-    foreach (scandir($base) ?: [] as $entry) {
-        if ($entry === '.' || $entry === '..' || str_starts_with($entry, '.')) {
-            continue;
-        }
-        $path = $base . '/' . $entry;
-        if (!is_dir($path)) {
-            continue;
-        }
-        $relative = $prefix === '' ? $entry : $prefix . '/' . $entry;
-        $files = 0;
-        foreach (scandir($path) ?: [] as $child) {
-            if ($child !== '.' && $child !== '..' && is_file($path . '/' . $child)) {
-                $files++;
-            }
-        }
-        if ($files > 0) {
-            $out[] = ['folder' => $relative, 'files' => $files];
-        }
-        $out = array_merge($out, _listAssetFolders($path, $relative));
+    foreach ($counts as $folder => $files) {
+        $out[] = ['folder' => $folder, 'files' => $files];
     }
     return $out;
 }
 
-$app->get('/api/files/folders', function (Request $request, Response $response) {
+/** The folder listing, from cache when it is still fresh. */
+function _assetFolders(bool $refresh = false): array
+{
+    $file = _assetFolderCacheFile();
+
+    if (!$refresh && is_file($file) && (time() - (int) filemtime($file)) < FILES_FOLDER_CACHE_TTL) {
+        $cached = json_decode((string) file_get_contents($file), true);
+        if (is_array($cached)) {
+            return $cached;
+        }
+    }
+
     $folders = _listAssetFolders(_assetsRoot());
     usort($folders, fn($a, $b) => strcmp($a['folder'], $b['folder']));
-    return respondJson($response, $folders);
+
+    if (!is_dir(dirname($file))) {
+        @mkdir(dirname($file), 0775, true);
+    }
+    // A cache that cannot be written is not worth failing the request over.
+    @file_put_contents($file, json_encode($folders));
+
+    return $folders;
+}
+
+$app->get('/api/files/folders', function (Request $request, Response $response) {
+    // ?refresh=1 rebuilds regardless, for when assets were changed on disk and
+    // the wait for the cache to expire is the wrong answer.
+    $refresh = ($request->getQueryParams()['refresh'] ?? '') === '1';
+    return respondJson($response, _assetFolders($refresh));
 })->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 $app->get('/api/files', function (Request $request, Response $response) {
@@ -149,6 +223,7 @@ $app->post('/api/files', function (Request $request, Response $response) {
         return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
     }
 
+    _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'path' => $path, 'url' => ltrim(str_replace('../', '', $path), '/')]);
 })->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
@@ -175,6 +250,7 @@ $app->delete('/api/files', function (Request $request, Response $response) {
         return respondJson($response, ['error' => 'Could not move the file to trash'], 500);
     }
 
+    _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'name' => $name, 'trashed' => $stamped]);
 })->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
@@ -242,5 +318,6 @@ $app->post('/api/files/restore', function (Request $request, Response $response)
         return respondJson($response, ['error' => 'Could not restore the file'], 500);
     }
 
+    _assetFolderCacheClear();
     return respondJson($response, ['folder' => $safeFolder, 'name' => $name]);
 })->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
