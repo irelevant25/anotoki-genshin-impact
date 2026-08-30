@@ -3,7 +3,7 @@
         @if (label()) {
             <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
                 @if (tooltipText()) {
-                    <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
                 }
                 {{ label() }}
                 @if (required()) {
@@ -25,25 +25,25 @@
             @if (!disabled()) {
                 <div class="html-editor-toolbar">
                     <button type="button" class="toolbar-btn" title="Tučné (Ctrl+B)" (mousedown)="execCommand($event, 'bold')">
-                        <i class="fa-solid fa-bold"></i>
+                        <i class="icon icon-bold"></i>
                     </button>
                     <button type="button" class="toolbar-btn" title="Kurzíva (Ctrl+I)" (mousedown)="execCommand($event, 'italic')">
-                        <i class="fa-solid fa-italic"></i>
+                        <i class="icon icon-italic"></i>
                     </button>
                     <button type="button" class="toolbar-btn" title="Podčiarknuté (Ctrl+U)" (mousedown)="execCommand($event, 'underline')">
-                        <i class="fa-solid fa-underline"></i>
+                        <i class="icon icon-underline"></i>
                     </button>
 
                     <span class="toolbar-divider"></span>
 
                     <button type="button" class="toolbar-btn" title="Zoznam s odrážkami" (mousedown)="execCommand($event, 'insertUnorderedList')">
-                        <i class="fa-solid fa-list-ul"></i>
+                        <i class="icon icon-list"></i>
                     </button>
                     <button type="button" class="toolbar-btn" title="Číslovaný zoznam" (mousedown)="execCommand($event, 'insertOrderedList')">
-                        <i class="fa-solid fa-list-ol"></i>
+                        <i class="icon icon-list-ordered"></i>
                     </button>
                     <button type="button" class="toolbar-btn" title="Vložiť odkaz" (mousedown)="onInsertLink($event)">
-                        <i class="fa-solid fa-link"></i>
+                        <i class="icon icon-link"></i>
                     </button>
 
                     <span class="toolbar-divider"></span>

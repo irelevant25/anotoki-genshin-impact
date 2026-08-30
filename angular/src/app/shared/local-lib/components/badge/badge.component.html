@@ -3,7 +3,7 @@
         @if (label()) {
             <label #labelElement [for]="inputId" class="form-label">
                 @if (tooltipText()) {
-                    <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
                 }
                 {{ label() }}
             </label>

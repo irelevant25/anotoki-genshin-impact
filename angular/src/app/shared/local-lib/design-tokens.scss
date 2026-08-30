@@ -4,7 +4,7 @@
 /// Two layers:
 ///
 ///   :root          primitives that do not change with the theme - spacing,
-///                  type, radii, sizes, and the fixed Genshin palette.
+///                  type, sizes, and the fixed Genshin palette.
 ///
 ///   palette-*      everything that does change: surfaces, text, borders and
 ///                  the brand and status families. Both mixins define the

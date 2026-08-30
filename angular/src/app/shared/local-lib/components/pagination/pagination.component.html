@@ -31,10 +31,10 @@
 
         <div class="pagination-buttons d-flex gap-1">
             <!-- TODO: prerobit na app-button -->
-            <button class="pagination-btn" [disabled]="normalizedPage() <= 1" (click)="goToPage(normalizedPage() - 1)" title="Predchádzajúca stránka"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="pagination-btn" [disabled]="normalizedPage() <= 1" (click)="goToPage(normalizedPage() - 1)" title="Predchádzajúca stránka"><i class="icon icon-arrow-left"></i></button>
             <!-- TODO: prerobit na app-button -->
             <button class="pagination-btn" [disabled]="normalizedPage() >= totalPages()" (click)="goToPage(normalizedPage() + 1)" title="Ďalšia stránka">
-                <i class="fa-solid fa-arrow-right"></i>
+                <i class="icon icon-arrow-right"></i>
             </button>
         </div>
     </div>

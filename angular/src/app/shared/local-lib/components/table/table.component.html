@@ -15,7 +15,7 @@
                 @if (columnReorderable()) {
                     <app-button
                         class="p-0 reorder-button"
-                        icon="fa-solid fa-arrows-rotate"
+                        icon="icon icon-refresh"
                         [variant]="resetable ? 'primary' : 'danger'"
                         size="small"
                         [outline]="!resetable"
@@ -61,17 +61,17 @@
                                             @if (column.sortable()) {
                                                 <span class="sort-icon">
                                                     @if (currentSort().column === (column.sortField() ?? column.key()) && currentSort().direction === OrderEnum.ASC) {
-                                                        <i class="fa-solid fa-arrow-down-a-z"></i>
+                                                        <i class="icon icon-sort-asc"></i>
                                                     } @else if (currentSort().column === (column.sortField() ?? column.key()) && currentSort().direction === OrderEnum.DESC) {
-                                                        <i class="fa-solid fa-arrow-up-z-a"></i>
+                                                        <i class="icon icon-sort-desc"></i>
                                                     } @else {
-                                                        <i class="fa-solid fa-arrows-up-down"></i>
+                                                        <i class="icon icon-sort"></i>
                                                     }
                                                 </span>
                                             }
                                             <!--
                                         <span *ngIf="columnReorderable()" class="drag-handle">
-                                        <i class="fa-solid fa-grip-vertical"></i>
+                                        <i class="icon icon-grip"></i>
                                         </span>
                                         --></div>
                                     </div>
@@ -134,7 +134,7 @@
                 @if (columnReorderable()) {
                     <app-button
                         class="p-0 reorder-button"
-                        icon="fa-solid fa-arrows-rotate"
+                        icon="icon icon-refresh"
                         [variant]="resetable ? 'primary' : 'danger'"
                         size="small"
                         [outline]="!resetable"

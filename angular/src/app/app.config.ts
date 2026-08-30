@@ -6,6 +6,7 @@ import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { ConfigService } from "./shared/local-lib/services/config.service";
 import { SecurityService } from "./shared/local-lib/services/security.service";
 import { httpInterceptor } from "./shared/local-lib/services/http.interceptor";
+import { ThemeToggleService } from "./shared/local-lib/theme-toggle/theme-toggle.service";
 
 // export const appConfig: ApplicationConfig = {
 // providers: [provideRouter(routes, withHashLocation()), provideHttpClient()],
@@ -19,6 +20,10 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const configService = inject(ConfigService);
       const securityService = inject(SecurityService);
+      // Nothing else asks for the theme until a page happens to need it, and a
+      // root service is only built when something injects it - so ask here, or
+      // the document loads with no theme at all and falls back to the system.
+      inject(ThemeToggleService);
 
       return (async (): Promise<void> => {
         await configService.init();

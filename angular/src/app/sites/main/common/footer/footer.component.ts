@@ -9,7 +9,6 @@ import { SiteFeedbackContactModalComponent } from './site-feedback-contact-modal
 import { SiteBackgroundsModalComponent } from './site-backgrounds/site-backgrounds-modal.component';
 import { LocalStorageService } from '../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../shared/state-manager.service';
-import { SiteLoginModalComponent } from './site-login-modal/site-login-modal.component';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { SiteAccountModalComponent } from './site-account-modal/site-account-modal.component';
@@ -69,14 +68,6 @@ export class FooterComponent extends AbstractModalComponent {
         config: { size: '3' }
       }
     }),
-    login: signal<ButtomMenuItem>({
-      id: 'site-login',
-      title: 'Login',
-      modal: {
-        compoponent: SiteLoginModalComponent,
-        config: { size: '1' }
-      }
-    }),
     account: signal<ButtomMenuItem>({
       id: 'site-account',
       title: 'Account',
@@ -95,11 +86,6 @@ export class FooterComponent extends AbstractModalComponent {
 
   constructor(private _http: HttpClient, private _storageService: LocalStorageService, private readonly _securityService: SecurityService, private readonly _notificationService: NotificationService) {
     super();
-    this._securityService.isLoggedIn$.subscribe(isLoggedIn => {
-      this.menuItems['login'].update(item => ({ ...item, hidden: isLoggedIn }));
-      // Account stays reachable signed out: it holds the appearance setting,
-      // which a visitor is allowed to change.
-    });
     this.loadVersion();
     this.initializeBackground();
   }

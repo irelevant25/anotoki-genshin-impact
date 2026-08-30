@@ -4,7 +4,7 @@
             @if (label() && labelPosition() === 'left') {
                 <label [for]="inputId" class="form-label w-auto align-content-center" [class.required]="required()">
                     @if (tooltipText()) {
-                        <i #tooltipElement class="fa-solid fa-circle-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                        <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
                     }
                     {{ label() }}
                     @if (required()) {

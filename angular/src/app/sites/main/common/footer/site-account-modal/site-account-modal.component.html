@@ -41,7 +41,7 @@
                 </div>
             </div>
         } @else {
-            <p class="signed-out-note">You are not signed in. The appearance setting below is remembered on this device.</p>
+            <p class="signed-out-note">You are not signed in. Your appearance choice is remembered on this device.</p>
         }
 
         <div class="theme-row">
@@ -66,6 +66,7 @@
             <app-button text="Logout" variant="danger" (buttonClick)="logout()"> </app-button>
         } @else {
             <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="closeModal()"> </app-button>
+            <app-button text="Sign in" variant="primary" (buttonClick)="login()"> </app-button>
         }
     </div>
 </app-modal>

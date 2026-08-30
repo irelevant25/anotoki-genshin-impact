@@ -16,6 +16,15 @@ export type ResolvedTheme = 'light' | 'dark';
 export type ThemeArea = 'main' | 'admin';
 
 const THEMES: Theme[] = ['light', 'dark', 'auto'];
+
+/**
+ * What each area looks like before anyone chooses. The site reads better light
+ * and the admin panel is worked in for hours, so it starts dark.
+ */
+const DEFAULT_THEME: Record<ThemeArea, Theme> = {
+  main: 'light',
+  admin: 'dark',
+};
 const STORAGE_KEY: Record<ThemeArea, string> = {
   main: 'theme-main',
   admin: 'theme-admin',
@@ -49,7 +58,7 @@ export class ThemeToggleService {
   /** Which area the current URL belongs to. */
   readonly area = signal<ThemeArea>('main');
 
-  private readonly _preferences = signal<Record<ThemeArea, Theme>>({ main: 'auto', admin: 'auto' });
+  private readonly _preferences = signal<Record<ThemeArea, Theme>>({ ...DEFAULT_THEME });
   /** Tracks the OS setting so `auto` can follow it while the page is open. */
   private readonly _systemPrefersDark = signal(false);
   /** Whether there is an account to save the choice to. */
@@ -109,9 +118,11 @@ export class ThemeToggleService {
 
   private _restore(): void {
     this._systemPrefersDark.set(this._query()?.matches ?? false);
-    this.area.set(this._areaFor(this._router.url));
+    // The router has not navigated yet at startup, so read the address bar -
+    // otherwise /admin would flash the site's theme before correcting itself.
+    this.area.set(this._areaFor(typeof location !== 'undefined' ? location.pathname : this._router.url));
 
-    const stored: Record<ThemeArea, Theme> = { main: 'auto', admin: 'auto' };
+    const stored: Record<ThemeArea, Theme> = { ...DEFAULT_THEME };
     for (const area of ['main', 'admin'] as ThemeArea[]) {
       const saved = this._read(STORAGE_KEY[area]);
       if (saved) {
@@ -154,8 +165,8 @@ export class ThemeToggleService {
 
   private _restorePreferencesFromStorage(): void {
     this._preferences.set({
-      main: this._read(STORAGE_KEY.main) ?? 'auto',
-      admin: this._read(STORAGE_KEY.admin) ?? 'auto',
+      main: this._read(STORAGE_KEY.main) ?? DEFAULT_THEME.main,
+      admin: this._read(STORAGE_KEY.admin) ?? DEFAULT_THEME.admin,
     });
   }
 

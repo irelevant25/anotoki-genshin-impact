@@ -7,6 +7,8 @@ import { Observable, of } from 'rxjs';
 import { ButtonComponent } from "../../../../../shared/local-lib/components/button/button.component";
 import { LoaderComponent } from "../../../../../shared/local-lib/components/loader/loader.component";
 import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme-toggle/theme-toggle.service';
+import { ModalService } from '../../../../../shared/local-lib/components/modal/modal.service';
+import { SiteLoginModalComponent } from '../site-login-modal/site-login-modal.component';
 
 @Component({
   selector: 'app-site-account-modal',
@@ -20,6 +22,7 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
 
   /** The site's own appearance; the admin panel keeps a separate one. */
   readonly theme = inject(ThemeToggleService);
+  private readonly _modals = inject(ModalService);
   readonly themeOptions: { value: Theme; label: string }[] = [
     { value: 'light', label: 'Light' },
     { value: 'dark', label: 'Dark' },
@@ -46,6 +49,12 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
         }
       });
     });
+  }
+
+  /** Signing in happens in its own modal; this one is the way to it. */
+  login(): void {
+    this.closeModal();
+    this._modals.open(SiteLoginModalComponent, { size: '1' });
   }
 
   setTheme(theme: Theme): void {

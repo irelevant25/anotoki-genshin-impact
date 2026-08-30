@@ -27,6 +27,7 @@
     box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .version-card::before {
@@ -87,7 +88,7 @@
 }
 
 .section-title.added {
-  color: var(--color-success-light);
+  color: var(--color-success);
 }
 
 .section-title.fixed {
@@ -127,6 +128,10 @@
     background-color: var(--color-success-light);
     color: var(--color-success-light-text);
   }
+}
+
+.changes-list.added li::before {
+  color: var(--color-success);
 }
 
 .changes-list.fixed li::before {
