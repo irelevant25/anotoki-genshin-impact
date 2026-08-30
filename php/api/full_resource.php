@@ -84,8 +84,10 @@ function _fullSaveUpload($file, string $folder, string $baseName): ?string
 
     // The site loads AVIF, so a raster upload is converted and the AVIF path is
     // what gets stored. The original stays on disk next to it.
-    if (in_array($ext, UPLOAD_CONVERT_TO_AVIF, true)
-        && mediaToAvif($dir . '/' . $safeName . '.' . $ext, $dir . '/' . $safeName . '.avif')) {
+    if (
+        in_array($ext, UPLOAD_CONVERT_TO_AVIF, true)
+        && mediaToAvif($dir . '/' . $safeName . '.' . $ext, $dir . '/' . $safeName . '.avif')
+    ) {
         return '/uploads/' . $folder . '/' . $safeName . '.avif';
     }
 
@@ -209,7 +211,8 @@ function _fullDeleteChildren(PDO $pdo, array $specs, int $parentId): void
  */
 function registerFullResource($app, string $path, string $table, string $modelClass, string $bodyKey, array $children, array $uploads = []): void
 {
-    $app->get("/api/$path/{id}/full", function ($request, $response, array $args) use ($table, $bodyKey, $children) {
+    // GET one full resource
+    $app->get("/api/$path/{id:[0-9]+}/full", function ($request, $response, array $args) use ($table, $bodyKey, $children) {
         $pdo = genshinDb();
         $id = (int) $args['id'];
 
@@ -223,6 +226,26 @@ function registerFullResource($app, string $path, string $table, string $modelCl
         }
 
         return respondJson($response, [$bodyKey => $parent, ..._fullFetchChildren($pdo, $children, $id)]);
+    });
+
+    // GET ALL full resources
+    $app->get("/api/$path/full", function ($request, $response) use ($table, $children) {
+        $pdo = genshinDb();
+
+        $parents = DbQuery::from($pdo, $table)
+            ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
+            ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
+            ->fetchAll();
+
+        foreach ($parents as &$parent) {
+            $parent = [
+                ...$parent,
+                ..._fullFetchChildren($pdo, $children, (int) $parent['id']),
+            ];
+        }
+        unset($parent);
+
+        return respondJson($response, $parents);
     });
 
     $app->post("/api/$path/full", function ($request, $response) use ($table, $modelClass, $bodyKey, $children, $uploads) {
@@ -251,7 +274,7 @@ function registerFullResource($app, string $path, string $table, string $modelCl
         return respondJson($response, DbQuery::from($pdo, $table)->find(['id' => $id]), 201);
     })->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
-    $app->put("/api/$path/{id}/full", function ($request, $response, array $args) use ($table, $modelClass, $bodyKey, $children, $uploads) {
+    $app->put("/api/$path/{id:[0-9]+}/full", function ($request, $response, array $args) use ($table, $modelClass, $bodyKey, $children, $uploads) {
         $user = $request->getAttribute('user');
         $pdo = genshinDb();
         $id = (int) $args['id'];

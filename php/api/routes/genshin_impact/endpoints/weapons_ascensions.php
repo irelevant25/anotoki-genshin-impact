@@ -14,7 +14,7 @@ $app->get('/api/weapons-ascensions', function (Request $request, Response $respo
 });
 
 // GET single
-$app->get('/api/weapons-ascensions/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'weapons_ascensions')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/weapons-ascensions/{id}', function (Request $request, Response $
 // POST create
 $app->post('/api/weapons-ascensions', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'weapons_ascensions', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'weapons_ascensions', [
         ...WeaponAscension::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/weapons-ascensions', function (Request $request, Response $resp
 })->add(validateRequest(WeaponAscension::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/weapons-ascensions/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'weapons_ascensions')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/weapons-ascensions/{id}', function (Request $request, Response $
 })->add(validateRequest(WeaponAscension::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/weapons-ascensions/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'weapons_ascensions')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

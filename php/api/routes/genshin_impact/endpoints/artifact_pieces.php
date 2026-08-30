@@ -14,7 +14,7 @@ $app->get('/api/artifacts-pieces', function (Request $request, Response $respons
 });
 
 // GET single
-$app->get('/api/artifacts-pieces/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/artifacts-pieces/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'artifacts_pieces')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/artifacts-pieces/{id}', function (Request $request, Response $re
 // POST create
 $app->post('/api/artifacts-pieces', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'artifacts_pieces', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'artifacts_pieces', [
         ...ArtifactPiece::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/artifacts-pieces', function (Request $request, Response $respon
 })->add(validateRequest(ArtifactPiece::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/artifacts-pieces/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/artifacts-pieces/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'artifacts_pieces')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/artifacts-pieces/{id}', function (Request $request, Response $re
 })->add(validateRequest(ArtifactPiece::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/artifacts-pieces/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/artifacts-pieces/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'artifacts_pieces')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

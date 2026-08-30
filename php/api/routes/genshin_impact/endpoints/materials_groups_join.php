@@ -14,7 +14,7 @@ $app->get('/api/materials-groups-join', function (Request $request, Response $re
 });
 
 // GET single
-$app->get('/api/materials-groups-join/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/materials-groups-join/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'materials_groups_join')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/materials-groups-join/{id}', function (Request $request, Respons
 // POST create
 $app->post('/api/materials-groups-join', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'materials_groups_join', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'materials_groups_join', [
         ...MaterialGroupJoin::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/materials-groups-join', function (Request $request, Response $r
 })->add(validateRequest(MaterialGroupJoin::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/materials-groups-join/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/materials-groups-join/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'materials_groups_join')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/materials-groups-join/{id}', function (Request $request, Respons
 })->add(validateRequest(MaterialGroupJoin::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/materials-groups-join/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/materials-groups-join/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'materials_groups_join')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

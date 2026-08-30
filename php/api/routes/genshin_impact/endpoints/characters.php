@@ -27,7 +27,7 @@ $app->get('/api/characters/minimal', function (Request $request, Response $respo
 });
 
 // GET single character
-$app->get('/api/characters/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $character = DbQuery::from(genshinDb(), 'characters')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -69,7 +69,7 @@ $app->post('/api/characters', function (Request $request, Response $response) us
 })->add(validateRequest(Character::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update character
-$app->put('/api/characters/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
 
@@ -91,7 +91,7 @@ $app->put('/api/characters/{id}', function (Request $request, Response $response
 })->add(validateRequest(Character::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE character
-$app->delete('/api/characters/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
     if (!DbQuery::from($pdo, 'characters')->find(['id' => $args['id']])) {

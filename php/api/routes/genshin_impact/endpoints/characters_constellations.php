@@ -13,7 +13,7 @@ $app->get('/api/characters-constellations', function (Request $request, Response
 });
 
 // GET single character constellation
-$app->get('/api/characters-constellations/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/characters-constellations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'characters_constellations')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -26,8 +26,8 @@ $app->get('/api/characters-constellations/{id}', function (Request $request, Res
 // POST create character constellation
 $app->post('/api/characters-constellations', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'characters_constellations', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'characters_constellations', [
         ...CharacterConstellation::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -38,9 +38,9 @@ $app->post('/api/characters-constellations', function (Request $request, Respons
 })->add(validateRequest(CharacterConstellation::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update character constellation
-$app->put('/api/characters-constellations/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/characters-constellations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'characters_constellations')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -56,7 +56,7 @@ $app->put('/api/characters-constellations/{id}', function (Request $request, Res
 })->add(validateRequest(CharacterConstellation::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE character constellation
-$app->delete('/api/characters-constellations/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/characters-constellations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'characters_constellations')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

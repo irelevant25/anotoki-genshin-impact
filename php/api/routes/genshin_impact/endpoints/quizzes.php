@@ -10,7 +10,7 @@ $app->get('/api/quizzes', function (Request $request, Response $response) {
 });
 
 // GET single quiz
-$app->get('/api/quizzes/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $stmt = genshinDb()->prepare('SELECT * FROM quizzes WHERE id = ?');
     $stmt->execute([$args['id']]);
     $item = $stmt->fetch();
@@ -23,7 +23,7 @@ $app->get('/api/quizzes/{id}', function (Request $request, Response $response, a
 // POST create quiz
 $app->post('/api/quizzes', function (Request $request, Response $response) {
     $pdo = genshinDb();
-    $id  = DbQuery::insert($pdo, 'quizzes', Quiz::fromBody($request->getParsedBody())->toDbArray());
+    $id = DbQuery::insert($pdo, 'quizzes', Quiz::fromBody($request->getParsedBody())->toDbArray());
 
     $stmt = $pdo->prepare('SELECT * FROM quizzes WHERE id = ?');
     $stmt->execute([$id]);
@@ -31,7 +31,7 @@ $app->post('/api/quizzes', function (Request $request, Response $response) {
 })->add(validateRequest(Quiz::class))->add(requireRole('admin', 'editor'))->add(requireAuth());
 
 // PUT update quiz
-$app->put('/api/quizzes/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
     $stmt = $pdo->prepare('SELECT id FROM quizzes WHERE id = ? AND deleted = 0');
@@ -48,7 +48,7 @@ $app->put('/api/quizzes/{id}', function (Request $request, Response $response, a
 })->add(validateRequest(Quiz::class, true))->add(requireRole('admin', 'editor'))->add(requireAuth());
 
 // DELETE quiz
-$app->delete('/api/quizzes/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
     $stmt = $pdo->prepare('SELECT id FROM quizzes WHERE id = ? AND deleted = 0');

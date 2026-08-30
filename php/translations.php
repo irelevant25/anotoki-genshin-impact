@@ -32,7 +32,7 @@ const SOURCE_ROOT = __DIR__ . '/../angular/src/app';
  */
 const KEY_NAMESPACES = [
     'common', 'nav', 'footer', 'account', 'theme',
-    'login', 'feedback', 'backgrounds', 'changelog', 'notFound', 'quiz',
+    'login', 'feedback', 'backgrounds', 'changelog', 'notFound', 'quiz', 'database',
 ];
 
 // ─── Key discovery ────────────────────────────────────────────────────────────

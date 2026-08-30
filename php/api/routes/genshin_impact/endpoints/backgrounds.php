@@ -10,7 +10,7 @@ $app->get('/api/backgrounds', function (Request $request, Response $response) {
 });
 
 // GET single background
-$app->get('/api/backgrounds/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $stmt = genshinDb()->prepare('SELECT * FROM backgrounds WHERE id = ?');
     $stmt->execute([$args['id']]);
     $item = $stmt->fetch();
@@ -23,8 +23,8 @@ $app->get('/api/backgrounds/{id}', function (Request $request, Response $respons
 // POST create background
 $app->post('/api/backgrounds', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'backgrounds', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'backgrounds', [
         ...Background::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -35,9 +35,9 @@ $app->post('/api/backgrounds', function (Request $request, Response $response) {
 })->add(validateRequest(Background::class))->add(requireRole('admin', 'editor'))->add(requireAuth());
 
 // PUT update background
-$app->put('/api/backgrounds/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
 
     $stmt = $pdo->prepare('SELECT id FROM backgrounds WHERE id = ? AND deleted = FALSE');
     $stmt->execute([$args['id']]);
@@ -56,7 +56,7 @@ $app->put('/api/backgrounds/{id}', function (Request $request, Response $respons
 })->add(validateRequest(Background::class, true))->add(requireRole('admin', 'editor'))->add(requireAuth());
 
 // DELETE background
-$app->delete('/api/backgrounds/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
     $stmt = $pdo->prepare('SELECT id FROM backgrounds WHERE id = ? AND deleted = FALSE');

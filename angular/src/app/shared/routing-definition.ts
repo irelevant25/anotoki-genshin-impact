@@ -60,6 +60,35 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
       path: 'voice',
       notInMenu: true,
     },
+  },
+
+  database: {
+    title: 'Database',
+    path: 'database',
+
+    characters: {
+      title: 'Characters',
+      path: 'characters',
+      notInMenu: true,
+    },
+
+    materials: {
+      title: 'Materials',
+      path: 'materials',
+      notInMenu: true,
+    },
+
+    weapons: {
+      title: 'Weapons',
+      path: 'weapons',
+      notInMenu: true,
+    },
+
+    banners: {
+      title: 'Banners',
+      path: 'banners',
+      notInMenu: true,
+    },
   }
 };
 

@@ -14,7 +14,7 @@ $app->get('/api/characters-builds-talents', function (Request $request, Response
 });
 
 // GET single
-$app->get('/api/characters-builds-talents/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/characters-builds-talents/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'characters_builds_talents')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/characters-builds-talents/{id}', function (Request $request, Res
 // POST create
 $app->post('/api/characters-builds-talents', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'characters_builds_talents', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'characters_builds_talents', [
         ...CharacterBuildTalent::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/characters-builds-talents', function (Request $request, Respons
 })->add(validateRequest(CharacterBuildTalent::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/characters-builds-talents/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/characters-builds-talents/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'characters_builds_talents')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/characters-builds-talents/{id}', function (Request $request, Res
 })->add(validateRequest(CharacterBuildTalent::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/characters-builds-talents/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/characters-builds-talents/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'characters_builds_talents')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

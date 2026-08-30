@@ -14,7 +14,7 @@ $app->get('/api/enemies-drops', function (Request $request, Response $response) 
 });
 
 // GET single
-$app->get('/api/enemies-drops/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/enemies-drops/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'enemies_drops')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/enemies-drops/{id}', function (Request $request, Response $respo
 // POST create
 $app->post('/api/enemies-drops', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'enemies_drops', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'enemies_drops', [
         ...EnemyDrop::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/enemies-drops', function (Request $request, Response $response)
 })->add(validateRequest(EnemyDrop::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/enemies-drops/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/enemies-drops/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'enemies_drops')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/enemies-drops/{id}', function (Request $request, Response $respo
 })->add(validateRequest(EnemyDrop::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/enemies-drops/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/enemies-drops/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'enemies_drops')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

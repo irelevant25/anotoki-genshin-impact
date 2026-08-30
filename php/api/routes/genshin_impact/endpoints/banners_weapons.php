@@ -14,7 +14,7 @@ $app->get('/api/banners-weapons', function (Request $request, Response $response
 });
 
 // GET single
-$app->get('/api/banners-weapons/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/banners-weapons/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'banners_weapons')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/banners-weapons/{id}', function (Request $request, Response $res
 // POST create
 $app->post('/api/banners-weapons', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'banners_weapons', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'banners_weapons', [
         ...BannerWeapon::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/banners-weapons', function (Request $request, Response $respons
 })->add(validateRequest(BannerWeapon::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/banners-weapons/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/banners-weapons/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'banners_weapons')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/banners-weapons/{id}', function (Request $request, Response $res
 })->add(validateRequest(BannerWeapon::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/banners-weapons/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/banners-weapons/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'banners_weapons')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

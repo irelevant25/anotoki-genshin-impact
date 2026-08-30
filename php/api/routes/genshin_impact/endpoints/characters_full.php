@@ -206,7 +206,7 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
 
 // ── PUT /api/characters/{id}/full ─────────────────────────────────────────────
 
-$app->put('/api/characters/{id}/full', function (Request $request, Response $response, array $args) {
+$app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
     $id = (int) $args['id'];
@@ -327,7 +327,7 @@ $app->put('/api/characters/{id}/full', function (Request $request, Response $res
 
 // ── GET /api/characters/{id}/full ─────────────────────────────────────────────
 
-$app->get('/api/characters/{id}/full', function (Request $request, Response $response, array $args) {
+$app->get('/api/characters/{id:[0-9]+}/full', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     $id = (int) $args['id'];
 

@@ -10,7 +10,7 @@ $app->get('/api/user-quiz-history', function (Request $request, Response $respon
 })->add(requireRole('admin'))->add(requireAuth());
 
 // GET single user quiz history entry
-$app->get('/api/user-quiz-history/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/user-quiz-history/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $stmt = genshinDb()->prepare('SELECT * FROM user_quiz_history WHERE id = ?');
     $stmt->execute([$args['id']]);
     $item = $stmt->fetch();
@@ -23,7 +23,7 @@ $app->get('/api/user-quiz-history/{id}', function (Request $request, Response $r
 // POST create user quiz history entry
 $app->post('/api/user-quiz-history', function (Request $request, Response $response) {
     $pdo = genshinDb();
-    $id  = DbQuery::insert($pdo, 'user_quiz_history', UserQuizHistory::fromBody($request->getParsedBody())->toDbArray());
+    $id = DbQuery::insert($pdo, 'user_quiz_history', UserQuizHistory::fromBody($request->getParsedBody())->toDbArray());
 
     $stmt = $pdo->prepare('SELECT * FROM user_quiz_history WHERE id = ?');
     $stmt->execute([$id]);
@@ -31,7 +31,7 @@ $app->post('/api/user-quiz-history', function (Request $request, Response $respo
 })->add(validateRequest(UserQuizHistory::class))->add(requireAuth());
 
 // DELETE user quiz history entry
-$app->delete('/api/user-quiz-history/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/user-quiz-history/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
     $stmt = $pdo->prepare('SELECT id FROM user_quiz_history WHERE id = ?');

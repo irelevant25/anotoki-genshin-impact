@@ -13,7 +13,7 @@ $app->get('/api/characters-affiliations', function (Request $request, Response $
 });
 
 // GET single character affiliation
-$app->get('/api/characters-affiliations/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/characters-affiliations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'characters_affiliations')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -26,8 +26,8 @@ $app->get('/api/characters-affiliations/{id}', function (Request $request, Respo
 // POST create character affiliation
 $app->post('/api/characters-affiliations', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'characters_affiliations', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'characters_affiliations', [
         ...CharacterAffiliation::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -38,7 +38,7 @@ $app->post('/api/characters-affiliations', function (Request $request, Response 
 })->add(validateRequest(CharacterAffiliation::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE character affiliation
-$app->delete('/api/characters-affiliations/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/characters-affiliations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'characters_affiliations')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

@@ -14,7 +14,7 @@ $app->get('/api/weapons-refinements', function (Request $request, Response $resp
 });
 
 // GET single
-$app->get('/api/weapons-refinements/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/weapons-refinements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'weapons_refinements')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/weapons-refinements/{id}', function (Request $request, Response 
 // POST create
 $app->post('/api/weapons-refinements', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'weapons_refinements', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'weapons_refinements', [
         ...WeaponRefinement::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/weapons-refinements', function (Request $request, Response $res
 })->add(validateRequest(WeaponRefinement::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/weapons-refinements/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/weapons-refinements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'weapons_refinements')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/weapons-refinements/{id}', function (Request $request, Response 
 })->add(validateRequest(WeaponRefinement::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/weapons-refinements/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/weapons-refinements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'weapons_refinements')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

@@ -14,7 +14,7 @@ $app->get('/api/banners-characters', function (Request $request, Response $respo
 });
 
 // GET single
-$app->get('/api/banners-characters/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/banners-characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'banners_characters')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/banners-characters/{id}', function (Request $request, Response $
 // POST create
 $app->post('/api/banners-characters', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'banners_characters', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'banners_characters', [
         ...BannerCharacter::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/banners-characters', function (Request $request, Response $resp
 })->add(validateRequest(BannerCharacter::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/banners-characters/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/banners-characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'banners_characters')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/banners-characters/{id}', function (Request $request, Response $
 })->add(validateRequest(BannerCharacter::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/banners-characters/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/banners-characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'banners_characters')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

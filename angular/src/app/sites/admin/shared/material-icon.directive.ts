@@ -26,7 +26,7 @@ export function materialIconCandidates(name: string | number | undefined | null,
   if (!trimmed) {
     return [];
   }
-  const root = `assets/${folder}`;
+  const root = `assets/${folder.split('.').join('/')}`;
   return [`${root}/${trimmed}.avif`, `${root}/${trimmed}.png`, `${root}/${materialUpperSnake(trimmed)}.png`];
 }
 

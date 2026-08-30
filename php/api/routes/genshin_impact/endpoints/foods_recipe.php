@@ -14,7 +14,7 @@ $app->get('/api/foods-recipe', function (Request $request, Response $response) {
 });
 
 // GET single
-$app->get('/api/foods-recipe/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/foods-recipe/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'foods_recipe')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/foods-recipe/{id}', function (Request $request, Response $respon
 // POST create
 $app->post('/api/foods-recipe', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'foods_recipe', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'foods_recipe', [
         ...FoodRecipe::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/foods-recipe', function (Request $request, Response $response) 
 })->add(validateRequest(FoodRecipe::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/foods-recipe/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/foods-recipe/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'foods_recipe')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/foods-recipe/{id}', function (Request $request, Response $respon
 })->add(validateRequest(FoodRecipe::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/foods-recipe/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/foods-recipe/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'foods_recipe')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

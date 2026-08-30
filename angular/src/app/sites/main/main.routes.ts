@@ -5,6 +5,8 @@ import { ROUTE_MAP } from '../../shared/routing-definition';
 import { QuizzesComponent } from './features/quizzes/quizzes.component';
 import { QuizzesBannersComponent } from './features/quizzes/banners/banners.component';
 import { AppComponent } from './app.component';
+import { DatabaseComponent } from './features/database/database.component';
+import { DatabaseBannersComponent } from './features/database/banners/banners.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +21,16 @@ export const routes: Routes = [
           {
             path: ROUTE_MAP.map['quizzes'].banners.path,
             component: QuizzesBannersComponent,
+          },
+        ],
+      },
+      {
+        path: ROUTE_MAP.map['database'].path,
+        children: [
+          { path: '', component: DatabaseComponent },
+          {
+            path: ROUTE_MAP.map['database'].banners.path,
+            component: DatabaseBannersComponent,
           },
         ],
       },

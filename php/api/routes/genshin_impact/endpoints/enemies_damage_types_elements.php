@@ -14,7 +14,7 @@ $app->get('/api/enemies-damage-types-elements', function (Request $request, Resp
 });
 
 // GET single
-$app->get('/api/enemies-damage-types-elements/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'enemies_damage_types_elements')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/enemies-damage-types-elements/{id}', function (Request $request,
 // POST create
 $app->post('/api/enemies-damage-types-elements', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'enemies_damage_types_elements', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'enemies_damage_types_elements', [
         ...EnemyDamageTypeElement::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/enemies-damage-types-elements', function (Request $request, Res
 })->add(validateRequest(EnemyDamageTypeElement::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/enemies-damage-types-elements/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'enemies_damage_types_elements')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/enemies-damage-types-elements/{id}', function (Request $request,
 })->add(validateRequest(EnemyDamageTypeElement::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/enemies-damage-types-elements/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'enemies_damage_types_elements')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

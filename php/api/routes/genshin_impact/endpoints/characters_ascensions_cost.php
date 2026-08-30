@@ -14,7 +14,7 @@ $app->get('/api/characters-ascensions-cost', function (Request $request, Respons
 });
 
 // GET single
-$app->get('/api/characters-ascensions-cost/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/characters-ascensions-cost/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'characters_ascensions_cost')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/characters-ascensions-cost/{id}', function (Request $request, Re
 // POST create
 $app->post('/api/characters-ascensions-cost', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'characters_ascensions_cost', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'characters_ascensions_cost', [
         ...CharacterAscensionCost::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/characters-ascensions-cost', function (Request $request, Respon
 })->add(validateRequest(CharacterAscensionCost::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/characters-ascensions-cost/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/characters-ascensions-cost/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'characters_ascensions_cost')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/characters-ascensions-cost/{id}', function (Request $request, Re
 })->add(validateRequest(CharacterAscensionCost::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/characters-ascensions-cost/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/characters-ascensions-cost/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'characters_ascensions_cost')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

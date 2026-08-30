@@ -15,7 +15,7 @@ $app->get('/api/users', function (Request $request, Response $response) use ($in
 });
 
 // GET single user
-$app->get('/api/users/{id}', function (Request $request, Response $response, array $args) use ($includeCols) {
+$app->get('/api/users/{id:[0-9]+}', function (Request $request, Response $response, array $args) use ($includeCols) {
     $user = DbQuery::from(usersDb(), 'users')
         ->includeCols($includeCols)
         ->fetch('_t.id = ? AND _t.deleted = false', [$args['id']]);
@@ -27,7 +27,7 @@ $app->get('/api/users/{id}', function (Request $request, Response $response, arr
 
 // POST create user
 $app->post('/api/users', function (Request $request, Response $response) use ($includeCols) {
-    $pdo  = usersDb();
+    $pdo = usersDb();
     $data = array_filter(User::fromBody($request->getParsedBody())->toDbArray(), fn($v) => $v !== null);
     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
@@ -38,7 +38,7 @@ $app->post('/api/users', function (Request $request, Response $response) use ($i
 })->add(validateRequest(User::class))->add(requireRole('admin'))->add(requireAuth());
 
 // PUT update user
-$app->put('/api/users/{id}', function (Request $request, Response $response, array $args) use ($includeCols) {
+$app->put('/api/users/{id:[0-9]+}', function (Request $request, Response $response, array $args) use ($includeCols) {
     $pdo = usersDb();
 
     if (!DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$args['id']])) {
@@ -56,7 +56,7 @@ $app->put('/api/users/{id}', function (Request $request, Response $response, arr
 })->add(validateRequest(User::class, true))->add(requireRole('admin'))->add(requireAuth());
 
 // DELETE user
-$app->delete('/api/users/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/users/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = usersDb();
 
     if (!DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$args['id']])) {

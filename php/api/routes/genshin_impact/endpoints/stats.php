@@ -10,7 +10,7 @@ $app->get('/api/stats', function (Request $request, Response $response) {
 });
 
 // GET single stat
-$app->get('/api/stats/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $stmt = genshinDb()->prepare('SELECT * FROM stats WHERE id = ?');
     $stmt->execute([$args['id']]);
     $item = $stmt->fetch();
@@ -23,7 +23,7 @@ $app->get('/api/stats/{id}', function (Request $request, Response $response, arr
 // POST create stat
 $app->post('/api/stats', function (Request $request, Response $response) {
     $pdo = genshinDb();
-    $id  = DbQuery::insert($pdo, 'stats', Stat::fromBody($request->getParsedBody())->toDbArray());
+    $id = DbQuery::insert($pdo, 'stats', Stat::fromBody($request->getParsedBody())->toDbArray());
 
     $stmt = $pdo->prepare('SELECT * FROM stats WHERE id = ?');
     $stmt->execute([$id]);
@@ -31,7 +31,7 @@ $app->post('/api/stats', function (Request $request, Response $response) {
 })->add(validateRequest(Stat::class))->add(requireRole('admin', 'editor'))->add(requireAuth());
 
 // PUT update stat
-$app->put('/api/stats/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
     $stmt = $pdo->prepare('SELECT id FROM stats WHERE id = ?');
@@ -48,7 +48,7 @@ $app->put('/api/stats/{id}', function (Request $request, Response $response, arr
 })->add(validateRequest(Stat::class, true))->add(requireRole('admin', 'editor'))->add(requireAuth());
 
 // DELETE stat
-$app->delete('/api/stats/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
     $stmt = $pdo->prepare('SELECT id FROM stats WHERE id = ?');

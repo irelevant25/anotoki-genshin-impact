@@ -23,7 +23,7 @@ $app->get('/api/materials/by-name/{name}', function (Request $request, Response 
 });
 
 // GET single
-$app->get('/api/materials/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/materials/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'materials')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -36,8 +36,8 @@ $app->get('/api/materials/{id}', function (Request $request, Response $response,
 // POST create
 $app->post('/api/materials', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'materials', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'materials', [
         ...Material::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -48,9 +48,9 @@ $app->post('/api/materials', function (Request $request, Response $response) {
 })->add(validateRequest(Material::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/materials/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/materials/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'materials')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -66,7 +66,7 @@ $app->put('/api/materials/{id}', function (Request $request, Response $response,
 })->add(validateRequest(Material::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/materials/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/materials/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'materials')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);

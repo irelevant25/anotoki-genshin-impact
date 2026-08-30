@@ -14,7 +14,7 @@ $app->get('/api/enemies-phases', function (Request $request, Response $response)
 });
 
 // GET single
-$app->get('/api/enemies-phases/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/api/enemies-phases/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = DbQuery::from(genshinDb(), 'enemies_phases')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
@@ -27,8 +27,8 @@ $app->get('/api/enemies-phases/{id}', function (Request $request, Response $resp
 // POST create
 $app->post('/api/enemies-phases', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
-    $id   = DbQuery::insert($pdo, 'enemies_phases', [
+    $pdo = genshinDb();
+    $id = DbQuery::insert($pdo, 'enemies_phases', [
         ...EnemyPhase::fromBody($request->getParsedBody())->toDbArray(),
         'created_by' => $user['id'],
     ]);
@@ -39,9 +39,9 @@ $app->post('/api/enemies-phases', function (Request $request, Response $response
 })->add(validateRequest(EnemyPhase::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // PUT update
-$app->put('/api/enemies-phases/{id}', function (Request $request, Response $response, array $args) {
+$app->put('/api/enemies-phases/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $user = $request->getAttribute('user');
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'enemies_phases')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
@@ -57,7 +57,7 @@ $app->put('/api/enemies-phases/{id}', function (Request $request, Response $resp
 })->add(validateRequest(EnemyPhase::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
 
 // DELETE
-$app->delete('/api/enemies-phases/{id}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/enemies-phases/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     if (!DbQuery::from($pdo, 'enemies_phases')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
