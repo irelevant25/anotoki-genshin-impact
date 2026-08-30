@@ -45,6 +45,7 @@ $app->post('/api/auth/register', function (Request $request, Response $response)
             'background'      => null,
             'theme_main'      => 'light',
             'theme_admin'     => 'dark',
+            'language'        => 'en',
             'email_confirmed' => false,
             'version'         => null,
             'created_at'      => date('Y-m-d H:i:s'),
@@ -80,6 +81,7 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
             'background'      => $user['background'],
             'theme_main'      => $user['theme_main'],
             'theme_admin'     => $user['theme_admin'],
+            'language'        => $user['language'],
             'email_confirmed' => (bool) $user['email_confirmed'],
             'version'         => $user['version'],
             'created_at'      => $user['created_at'],
@@ -100,6 +102,7 @@ $app->get('/api/auth/me', function (Request $request, Response $response) {
         'background'      => $user['background'],
         'theme_main'      => $user['theme_main'],
         'theme_admin'     => $user['theme_admin'],
+        'language'        => $user['language'],
         'email_confirmed' => (bool) $user['email_confirmed'],
         'version'         => $user['version'],
         'created_at'      => $user['created_at'],
@@ -131,6 +134,29 @@ $app->put('/api/auth/theme', function (Request $request, Response $response) {
     $stmt->execute([$theme, $user['id']]);
 
     return respondJson($response, ['area' => $area, 'theme' => $theme]);
+})->add(requireAuth());
+
+// ---------------------------------------------------------------------------
+// PUT /api/auth/language  — saves the caller's own reading language
+//
+// The site only. The admin panel is English, so there is nothing to remember
+// for it. Anyone signed in may change their own; no wider rights are involved.
+// ---------------------------------------------------------------------------
+$app->put('/api/auth/language', function (Request $request, Response $response) {
+    $body = $request->getParsedBody() ?? [];
+    $code = strtolower(trim((string) ($body['language'] ?? '')));
+
+    $pdo      = usersDb();
+    $language = DbQuery::from($pdo, 'languages')->find(['code' => $code]);
+
+    if (!$language || !$language['enabled']) {
+        return respondJson($response, ['error' => "Unknown or unavailable language '$code'"], 400);
+    }
+
+    $user = $request->getAttribute('user');
+    $pdo->prepare('UPDATE users SET language = ? WHERE id = ?')->execute([$code, $user['id']]);
+
+    return respondJson($response, ['language' => $code]);
 })->add(requireAuth());
 
 // ---------------------------------------------------------------------------

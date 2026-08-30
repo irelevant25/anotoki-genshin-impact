@@ -1,5 +1,6 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { KeyValuePipe, NgTemplateOutlet } from '@angular/common';
+import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
 import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { CustomModalRef, ModalConfig } from '../../../../shared/local-lib/components/modal/modal-core/modal-core.class';
@@ -15,7 +16,14 @@ import { SiteAccountModalComponent } from './site-account-modal/site-account-mod
 
 export interface ButtomMenuItem {
   id: string;
+  /** A translation key, unless `titleLiteral` says otherwise. */
   title: string;
+  /**
+   * Text to show as-is. Proper nouns and the version number are not
+   * translatable, and running them through the pipe would only report them
+   * as missing strings.
+   */
+  titleLiteral?: string;
   icon?: string;
   url?: string;
   hidden?: boolean;
@@ -29,7 +37,7 @@ export interface ButtomMenuItem {
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
-  imports: [NgTemplateOutlet, KeyValuePipe],
+  imports: [NgTemplateOutlet, KeyValuePipe, TranslatePipe],
   providers: [],
 })
 export class FooterComponent extends AbstractModalComponent {
@@ -40,7 +48,7 @@ export class FooterComponent extends AbstractModalComponent {
     // }),
     backgrounds: signal<ButtomMenuItem>({
       id: 'site-backgrounds',
-      title: 'Backgrounds',
+      title: 'footer.backgrounds',
       modal: {
         compoponent: SiteBackgroundsModalComponent,
         config: { size: '6' }
@@ -48,7 +56,7 @@ export class FooterComponent extends AbstractModalComponent {
     }),
     feedback: signal<ButtomMenuItem>({
       id: 'site-feedback-contact',
-      title: 'Feedback/Contact',
+      title: 'footer.feedback',
       modal: {
         compoponent: SiteFeedbackContactModalComponent,
         config: { size: '3' }
@@ -56,13 +64,14 @@ export class FooterComponent extends AbstractModalComponent {
     }),
     github: signal<ButtomMenuItem>({
       id: 'site-github',
-      title: 'GitHub',
+      title: 'footer.github',
+      titleLiteral: 'GitHub',
       icon: 'icon-github fs-18 d-block', // Changed from icon path to CSS class
       url: 'https://github.com/irelevant25/anotoki-genshin-impact',
     }),
     versions: signal<ButtomMenuItem>({
       id: 'site-versions',
-      title: 'Versions',
+      title: 'footer.versions',
       modal: {
         compoponent: SiteVersionModalComponent,
         config: { size: '3' }
@@ -70,7 +79,7 @@ export class FooterComponent extends AbstractModalComponent {
     }),
     account: signal<ButtomMenuItem>({
       id: 'site-account',
-      title: 'Account',
+      title: 'footer.account',
       modal: {
         compoponent: SiteAccountModalComponent,
         config: { size: '3' }
@@ -92,7 +101,7 @@ export class FooterComponent extends AbstractModalComponent {
 
   async loadVersion(): Promise<void> {
     this.changelog = await firstValueFrom(this._http.get<ChangelogEntry[]>('./changelog.json'));
-    this.menuItems['versions'].update(item => ({ ...item, title: `v${this.changelog[0].version}` }));
+    this.menuItems['versions'].update(item => ({ ...item, titleLiteral: `v${this.changelog[0].version}` }));
   }
 
   initializeBackground(): void {

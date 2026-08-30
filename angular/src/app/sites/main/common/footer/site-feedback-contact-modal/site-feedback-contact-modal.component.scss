@@ -1,0 +1,18 @@
+// Who the message is from, kept together and set slightly apart from the
+// report itself - it is about the sender, not about the problem.
+.from-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  background: var(--bg-veil, transparent);
+}
+
+.from-note {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--text-muted);
+}

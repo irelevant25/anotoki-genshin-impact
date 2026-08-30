@@ -1,0 +1,93 @@
+<div class="page-header">
+    <h1 class="page-title">Feedback</h1>
+    @if (unread()) {
+        <span class="badge-new">{{ unread() }} unread</span>
+    }
+</div>
+
+<p class="page-hint">Messages sent through the contact form on the site. The text is what somebody wrote, so nothing here edits it — only the status moves.</p>
+
+<div class="filter-bar">
+    <app-text [label]="'Search'" [placeholder]="'title, text or sender'" [(value)]="filterSearch" (blurChange)="applyFilters()"></app-text>
+    <app-dropdown [label]="'Status'" [options]="statusOptions()" [(value)]="filterStatus" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <app-dropdown [label]="'Type'" [options]="typeOptions()" [(value)]="filterType" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <app-dropdown [label]="'Section'" [options]="sectionOptions()" [(value)]="filterSection" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <div class="filter-summary">
+        <span class="filter-count">{{ rangeLabel() }}</span>
+        @if (hasActiveFilter()) {
+            <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+        }
+    </div>
+</div>
+
+<app-loader #loader [loading]="busy()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th class="col-id">ID</th>
+                    <th class="col-when">Received</th>
+                    <th class="col-type">Type</th>
+                    <th class="col-status">Status</th>
+                    <th class="col-section">Section</th>
+                    <th>Summary</th>
+                    <th class="col-from">From</th>
+                    <th class="col-page">Page</th>
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!items().length) {
+                    <tr>
+                        <td colspan="9" class="empty-cell">No messages match the filter</td>
+                    </tr>
+                }
+                @for (entry of items(); track entry.id) {
+                    <tr [class.is-new]="entry.status === 'new'">
+                        <td class="col-id">{{ entry.id }}</td>
+                        <td class="col-when">{{ entry.created_at | date: 'yyyy-MM-dd HH:mm' }}</td>
+                        <td class="col-type"><span class="pill type-{{ entry.type.toLowerCase() }}">{{ entry.type }}</span></td>
+                        <td class="col-status"><span class="pill status-{{ entry.status }}">{{ entry.status }}</span></td>
+                        <td class="col-section">{{ entry.section || '—' }}</td>
+                        <td class="col-summary" [title]="summaryOf(entry)">{{ summaryOf(entry) }}</td>
+                        <td class="col-from" [class.is-anonymous]="!entry.username && !entry.email">{{ senderOf(entry) }}</td>
+                        <td class="col-page">{{ entry.page_url || '—' }}</td>
+                        <td class="col-actions">
+                            @if (deleteConfirm() === entry.id) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Delete?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(entry.id)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </span>
+                            } @else {
+                                <div class="action-btns">
+                                    <app-button text="View" variant="secondary" [outline]="true" size="very-small" (buttonClick)="view(entry)"></app-button>
+                                    @if (canDelete) {
+                                        <app-button
+                                            icon="icon-trash icon-size-3"
+                                            variant="danger"
+                                            [outline]="true"
+                                            size="very-small"
+                                            tooltipText="Delete"
+                                            (buttonClick)="confirmDelete(entry.id)"
+                                        ></app-button>
+                                    }
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (totalPages() > 1) {
+        <div class="pager">
+            <app-button text="Previous" variant="secondary" [outline]="true" size="small" [disabled]="page() <= 1" (buttonClick)="goToPage(page() - 1)"></app-button>
+            <span class="pager-label">Page {{ page() }} of {{ totalPages() }}</span>
+            <app-button text="Next" variant="secondary" [outline]="true" size="small" [disabled]="page() >= totalPages()" (buttonClick)="goToPage(page() + 1)"></app-button>
+        </div>
+    }
+}

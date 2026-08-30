@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/jwt.php';
+require_once __DIR__ . '/../config/site.php';
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
@@ -26,10 +27,13 @@ require_once __DIR__ . '/meddleware/auth.php';
 require_once __DIR__ . '/routes/users/models/migration.php';
 require_once __DIR__ . '/routes/users/models/user.php';
 require_once __DIR__ . '/routes/users/models/role.php';
+require_once __DIR__ . '/routes/users/models/language.php';
 
 // endpoints
 require_once __DIR__ . '/routes/users/endpoints/auth.php';
 require_once __DIR__ . '/routes/users/endpoints/users.php';
+require_once __DIR__ . '/routes/users/endpoints/languages.php';
+require_once __DIR__ . '/routes/users/endpoints/translations.php';
 
 ///////////////////
 // GENSHIN IMPACT
@@ -105,6 +109,8 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_groups.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/stats.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/migrations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/audit_logs.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/feedback.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/dashboard.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/upload.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/uploads.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/files.php';

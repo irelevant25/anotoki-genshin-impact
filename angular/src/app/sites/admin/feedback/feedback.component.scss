@@ -1,0 +1,129 @@
+@use "../shared/admin-list" as *;
+
+.page-hint {
+  margin: 0 0 var(--spacing-lg);
+  max-width: 80ch;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.badge-new {
+  font-size: var(--font-size-xs);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: var(--border-radius);
+  padding: 2px 8px;
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+// An unread row earns a marker down its edge rather than a coloured
+// background, which would fight with the status pill next to it.
+tr.is-new td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+.pill {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  border-radius: var(--border-radius);
+  padding: 1px 7px;
+  font-weight: var(--font-weight-semibold);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.type-bug {
+  background: var(--color-danger-light);
+  color: var(--color-danger-light-text);
+}
+.type-suggestion {
+  background: var(--color-info-light);
+  color: var(--color-info-light-text);
+}
+.type-other {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+
+.status-new {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.status-read {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+.status-resolved {
+  background: var(--color-success-light);
+  color: var(--color-success-light-text);
+}
+.status-spam {
+  background: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+}
+
+.col-when {
+  width: 140px;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.col-type,
+.col-status {
+  width: 110px;
+}
+
+.col-section {
+  width: 130px;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+// The one column allowed to take the slack, and to be cut off when it does.
+.col-summary {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.col-from {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.col-page {
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.is-anonymous {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.col-actions {
+  width: 170px;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.pager-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}

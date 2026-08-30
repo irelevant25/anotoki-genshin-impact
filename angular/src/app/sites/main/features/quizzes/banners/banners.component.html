@@ -8,7 +8,7 @@
         @if (!isQuestionComplete()) {
             <app-autocomplete
                 #autocomplete
-                placeholder="Search character..."
+                [placeholder]="'quiz.searchCharacter' | translate"
                 [minChars]="0"
                 [staticOptions]="characters()"
                 (selectedOptionChange)="handleCharacterSelection($event); autocomplete.reset()"
@@ -20,11 +20,11 @@
             </app-autocomplete>
         }
         @if (!isDaily() && isQuestionComplete()) {
-            <app-button [text]="'Next'" [variant] variant="primary" (buttonClick)="resetQuiz()"></app-button>
+            <app-button [text]="'quiz.next' | translate" [variant] variant="primary" (buttonClick)="resetQuiz()"></app-button>
         }
     </div>
     <div class="d-flex justify-content-center my-2">
-        Tries:
+        {{ 'quiz.tries' | translate }}
         <p class="ms-1">{{ tries().length }}</p>
         /
         <p>{{ CONFIG.triesMax }}</p>

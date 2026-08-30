@@ -20,6 +20,9 @@ import { BannersListComponent } from './banners/banners-list/banners-list.compon
 import { BannerFormComponent } from './banners/banner-form/banner-form.component';
 import { BackgroundsListComponent } from './backgrounds/backgrounds-list/backgrounds-list.component';
 import { AuditLogsComponent } from './audit-logs/audit-logs.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { LanguagesComponent } from './localization/languages/languages.component';
+import { TranslationsComponent } from './localization/translations/translations.component';
 import {
   ArtifactPieceTypesPage,
   CharacterStatesPage,
@@ -90,7 +93,12 @@ export const routes: Routes = [
       { path: 'banners/create', component: BannerFormComponent },
       { path: 'banners/:id/edit', component: BannerFormComponent },
 
+      // Localization - the site's own text, not game content
+      { path: 'languages',            component: LanguagesComponent },
+      { path: 'translations',         component: TranslationsComponent },
+
       { path: 'backgrounds',          component: BackgroundsListComponent },
+      { path: 'feedback',             component: FeedbackComponent },
       { path: 'audit-logs',           component: AuditLogsComponent },
       { path: 'files',                component: FilesManagerComponent },
       { path: 'migrations',           component: MigrationsListComponent },

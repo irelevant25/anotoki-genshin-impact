@@ -1,13 +1,13 @@
 <div class="container d-flex flex-wrap justify-content-center gap-5 text-align-center">
-    @for (item of QUIZZES; track item.id) {
+    @for (item of QUIZZES; track item.path) {
         <div class="card px-5 pb-5" [routerLink]="item.path">
-            <div class="help-icon right" data-bs-toggle="tooltip" data-bs-placement="left" title="About Banners">
+            <div class="help-icon right" data-bs-toggle="tooltip" data-bs-placement="left" [title]="item.modalTitle | translate">
                 <i class="bi bi-question-circle-fill" data-bs-toggle="modal" data-bs-target="#site-banners-modal" onclick="event.stopPropagation()"></i>
             </div>
             <img [src]="item.cardImage" loading="lazy" />
             <div class="card-body">
-                <h3 class="card-title">{{ item.title }}</h3>
-                <p class="card-text">{{ item.cardInfo }}</p>
+                <h3 class="card-title">{{ item.title | translate }}</h3>
+                <p class="card-text">{{ item.cardInfo | translate }}</p>
             </div>
         </div>
     }

@@ -9,12 +9,14 @@ import { LoaderComponent } from "../../../../../shared/local-lib/components/load
 import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme-toggle/theme-toggle.service';
 import { ModalService } from '../../../../../shared/local-lib/components/modal/modal.service';
 import { SiteLoginModalComponent } from '../site-login-modal/site-login-modal.component';
+import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
+import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 
 @Component({
   selector: 'app-site-account-modal',
   templateUrl: './site-account-modal.component.html',
   styleUrls: ['./site-account-modal.component.scss'],
-  imports: [ModalComponent, ReactiveFormsModule, ButtonComponent, LoaderComponent],
+  imports: [ModalComponent, ReactiveFormsModule, ButtonComponent, LoaderComponent, TranslatePipe],
   providers: [],
 })
 export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
@@ -23,11 +25,15 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
   /** The site's own appearance; the admin panel keeps a separate one. */
   readonly theme = inject(ThemeToggleService);
   private readonly _modals = inject(ModalService);
+  /** Labels are keys - the chooser is translated like everything else. */
   readonly themeOptions: { value: Theme; label: string }[] = [
-    { value: 'light', label: 'Light' },
-    { value: 'dark', label: 'Dark' },
-    { value: 'auto', label: 'System' },
+    { value: 'light', label: 'theme.light' },
+    { value: 'dark', label: 'theme.dark' },
+    { value: 'auto', label: 'theme.auto' },
   ];
+
+  /** The language the site is read in; the admin panel stays English. */
+  readonly i18n = inject(TranslationService);
 
   constructor(private readonly _securityService: SecurityService) {
     super();
@@ -55,6 +61,10 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
   login(): void {
     this.closeModal();
     this._modals.open(SiteLoginModalComponent, { size: '1' });
+  }
+
+  setLanguage(code: string): void {
+    void this.i18n.setLanguage(code);
   }
 
   setTheme(theme: Theme): void {

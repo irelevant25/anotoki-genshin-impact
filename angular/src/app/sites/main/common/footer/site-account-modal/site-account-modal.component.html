@@ -1,4 +1,4 @@
-<app-modal [title]="'Account'" (closeModal)="closeModal()">
+<app-modal [title]="'account.title' | translate" (closeModal)="closeModal()">
     <div modal-body>
         @if (userData) {
             <div class="d-flex align-items-center gap-4 pb-4">
@@ -17,40 +17,40 @@
             <div class="d-flex flex-column gap-3 pt-4">
                 <div class="d-flex align-items-center gap-3">
                     <span class="icon icon-mail icon-size-4"></span>
-                    <span class="text-muted small" style="min-width: 5rem">Email</span>
+                    <span class="text-muted small" style="min-width: 5rem">{{ 'account.email' | translate }}</span>
                     <span class="fw-500 fs-14">{{ userData.email }}</span>
                     <span
                         class="badge padding-small text-small ms-auto"
                         [style.background-color]="userData.email_confirmed ? 'var(--color-success)' : 'var(--color-danger)'"
                         [style.color]="userData.email_confirmed ? 'var(--color-success-text)' : 'var(--color-danger-text)'"
                     >
-                        {{ userData.email_confirmed ? 'Confirmed' : 'Unconfirmed' }}
+                        {{ (userData.email_confirmed ? 'account.confirmed' : 'account.unconfirmed') | translate }}
                     </span>
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
                     <span class="icon icon-shield icon-size-4"></span>
-                    <span class="text-muted small" style="min-width: 5rem">Role</span>
+                    <span class="text-muted small" style="min-width: 5rem">{{ 'account.role' | translate }}</span>
                     <span class="fw-500 fs-14">{{ userData.roles }}</span>
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
                     <span class="icon icon-calendar icon-size-4"></span>
-                    <span class="text-muted small" style="min-width: 5rem">Member since</span>
+                    <span class="text-muted small" style="min-width: 5rem">{{ 'account.memberSince' | translate }}</span>
                     <span class="fw-500 fs-14">{{ userData.created_at?.substring(0, 10) }}</span>
                 </div>
             </div>
         } @else {
-            <p class="signed-out-note">You are not signed in. Your appearance choice is remembered on this device.</p>
+            <p class="signed-out-note">{{ 'account.signedOutNote' | translate }}</p>
         }
 
         <div class="theme-row">
             <span class="icon icon-gear icon-size-4"></span>
-            <span class="text-muted small theme-row-label">Appearance</span>
+            <span class="text-muted small theme-row-label">{{ 'account.appearance' | translate }}</span>
             <div class="theme-choices">
                 @for (option of themeOptions; track option.value) {
                     <app-button
-                        [text]="option.label"
+                        [text]="option.label | translate"
                         [variant]="theme.currentTheme() === option.value ? 'primary' : 'secondary'"
                         [outline]="theme.currentTheme() !== option.value"
                         size="very-small"
@@ -59,16 +59,35 @@
                 }
             </div>
         </div>
+
+        <!-- Languages come from the database, so this list grows without a deploy. -->
+        @if (i18n.languages().length > 1) {
+            <div class="theme-row">
+                <span class="icon icon-globe icon-size-4"></span>
+                <span class="text-muted small theme-row-label">{{ 'account.language' | translate }}</span>
+                <div class="theme-choices">
+                    @for (language of i18n.languages(); track language.code) {
+                        <app-button
+                            [text]="language.native_name"
+                            [variant]="i18n.language() === language.code ? 'primary' : 'secondary'"
+                            [outline]="i18n.language() !== language.code"
+                            size="very-small"
+                            (buttonClick)="setLanguage(language.code)"
+                        ></app-button>
+                    }
+                </div>
+            </div>
+        }
     </div>
     <div modal-footer class="d-flex gap-3 justify-content-end">
         @if (userData) {
-            <app-button text="Admin panel" variant="primary" (buttonClick)="toAdmin()"> </app-button>
-            <app-button text="Logout" variant="danger" (buttonClick)="logout()"> </app-button>
+            <app-button [text]="'account.adminPanel' | translate" variant="primary" (buttonClick)="toAdmin()"> </app-button>
+            <app-button [text]="'common.logout' | translate" variant="danger" (buttonClick)="logout()"> </app-button>
         } @else {
-            <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="closeModal()"> </app-button>
-            <app-button text="Sign in" variant="primary" (buttonClick)="login()"> </app-button>
+            <app-button [text]="'common.close' | translate" variant="secondary" [outline]="true" (buttonClick)="closeModal()"> </app-button>
+            <app-button [text]="'common.signIn' | translate" variant="primary" (buttonClick)="login()"> </app-button>
         }
     </div>
 </app-modal>
 
-<app-loader [loading]="loading()" [text]="'Logging out...'"> </app-loader>
+<app-loader [loading]="loading()" [text]="'account.loggingOut' | translate"> </app-loader>

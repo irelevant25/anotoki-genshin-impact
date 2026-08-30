@@ -6,6 +6,7 @@ import { AutocompleteComponent } from '../../../../../shared/local-lib/component
 import { DropdownOption, OptionsHelperService } from '../../../../../shared/local-lib/services/options-helper.service';
 import { HttpClient } from '@angular/common/http';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 
 export interface IBannersState {
   triesMax: number;
@@ -25,7 +26,7 @@ interface IConfigItem {
   selector: 'app-quizzes-banners',
   templateUrl: './banners.component.html',
   styleUrls: ['./banners.component.scss'],
-  imports: [RouterModule, AutocompleteComponent, ButtonComponent],
+  imports: [RouterModule, AutocompleteComponent, ButtonComponent, TranslatePipe],
   providers: []
 })
 export class QuizzesBannersComponent {

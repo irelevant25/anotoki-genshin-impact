@@ -15,6 +15,8 @@ export interface UserInfo {
   /** Light/dark choice, kept per area - see ThemeToggleService. */
   theme_main?: string;
   theme_admin?: string;
+  /** Language code the site is read in - see TranslationService. */
+  language?: string;
   email?: string;
   email_confirmed?: boolean;
   version?: string;
@@ -29,6 +31,7 @@ interface MeResponse {
   background?: string;
   theme_main?: string;
   theme_admin?: string;
+  language?: string;
   email_confirmed?: boolean;
   version?: string;
   created_at?: string;
@@ -176,6 +179,7 @@ export class SecurityService {
       background: user.background,
       theme_main: user.theme_main,
       theme_admin: user.theme_admin,
+      language: user.language,
       email_confirmed: user.email_confirmed,
       version: user.version,
       created_at: user.created_at,

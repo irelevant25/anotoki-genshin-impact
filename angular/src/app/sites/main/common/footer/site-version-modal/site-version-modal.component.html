@@ -1,4 +1,4 @@
-<app-modal [title]="'Changelog'" (closeModal)="closeModal()">
+<app-modal [title]="'changelog.title' | translate" (closeModal)="closeModal()">
     <div modal-body class="d-flex cols flex-wrap gap-3">
         @for (entry of data; track entry.version; let index = $index) {
             <div [class.version-card]="true" [class.highlight]="index === 0">
@@ -6,7 +6,7 @@
                     <div class="version-number">
                         v{{ entry.version }}
                         @if (index === 0) {
-                            <span>Latest</span>
+                            <span>{{ 'changelog.latest' | translate }}</span>
                         }
                     </div>
                     <div class="version-date">{{ formatDate(entry.date) }}</div>
@@ -16,14 +16,14 @@
                     <div class="changes-section">
                         <div class="section-title added">
                             <span class="icon icon-add"></span>
-                            Added
+                            {{ 'changelog.added' | translate }}
                         </div>
                         <ul class="changes-list added">
                             @for (item of entry.changes.added; track item) {
                                 <li>
                                     {{ item }}
                                     @if (index === 0) {
-                                        <app-badge class="d-inline-flex" [type]="'success-light'" [radius]="'1rem'" padding="small">new</app-badge>
+                                        <app-badge class="d-inline-flex" [type]="'success-light'" [radius]="'1rem'" padding="small">{{ 'changelog.new' | translate }}</app-badge>
                                     }
                                 </li>
                             }
@@ -35,7 +35,7 @@
                     <div class="changes-section">
                         <div class="section-title fixed">
                             <span class="icon icon-chevron-down"></span>
-                            Fixed
+                            {{ 'changelog.fixed' | translate }}
                         </div>
                         @if (entry.changes.fixed && entry.changes.fixed.length > 0) {
                             <ul class="changes-list fixed">
@@ -44,7 +44,7 @@
                                 }
                             </ul>
                         } @else {
-                            <div class="empty-notice">No fixes in this version</div>
+                            <div class="empty-notice">{{ 'changelog.noFixes' | translate }}</div>
                         }
                     </div>
                 }
@@ -53,7 +53,7 @@
                     <div class="changes-section">
                         <div class="section-title updated">
                             <span class="icon icon-clock"></span>
-                            Updated
+                            {{ 'changelog.updated' | translate }}
                         </div>
                         <ul class="changes-list updated">
                             @for (item of entry.changes.updated; track item) {

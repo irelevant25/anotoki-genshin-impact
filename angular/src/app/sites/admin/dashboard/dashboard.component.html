@@ -1,4 +1,97 @@
-<div class="dashboard">
+<div class="page-header">
     <h1 class="page-title">Dashboard</h1>
-    <p class="page-sub">Welcome to the Genshin Impact admin panel.</p>
 </div>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading() && stats(); as data) {
+    <!-- Things waiting on a person, first. -->
+    <div class="attention-row">
+        <a class="attention-card" routerLink="/admin/feedback" [class.is-quiet]="!data.feedback.new">
+            <span class="attention-value">{{ data.feedback.new }}</span>
+            <span class="attention-label">unread feedback</span>
+            <span class="attention-meta">{{ data.feedback.total }} in total · {{ data.feedback.last7 }} this week</span>
+        </a>
+
+        <div class="attention-card is-quiet">
+            <span class="attention-value">{{ data.activity.last7 }}</span>
+            <span class="attention-label">edits this week</span>
+            <span class="attention-meta">{{ data.activity.today }} today · {{ data.activity.last30 }} in 30 days</span>
+        </div>
+
+        @for (language of translationCoverage(); track language.code) {
+            <a class="attention-card is-quiet" routerLink="/admin/translations">
+                <span class="attention-value">{{ language.percent }}%</span>
+                <span class="attention-label">{{ language.native_name }} translated</span>
+                <span class="attention-meta">{{ language.translated }} of {{ language.total }} strings</span>
+            </a>
+        }
+    </div>
+
+    <!-- Two panels of equal height: what is missing, and what changed. -->
+    <div class="columns">
+        <section class="panel">
+            <header class="panel-head">
+                <h2 class="panel-title">Gaps in the database</h2>
+                <span class="panel-note">Records missing rows they ought to have</span>
+            </header>
+
+            @if (!gaps().length) {
+                <p class="panel-empty">Nothing missing. Every check came back complete.</p>
+            } @else {
+                <ul class="gaps">
+                    @for (gap of gaps(); track gap.label) {
+                        <li class="gap">
+                            <a class="gap-row" [routerLink]="['/admin', gap.route]">
+                                <span class="gap-label">{{ gap.label }}</span>
+                                <span class="gap-count">{{ gap.missing }}<span class="gap-total">/{{ gap.total }}</span></span>
+                            </a>
+                            <div class="gap-bar">
+                                <div class="gap-fill" [class.is-severe]="gap.severe" [style.width.%]="gap.percent"></div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+        </section>
+
+        <section class="panel">
+            <header class="panel-head">
+                <h2 class="panel-title">Recent changes</h2>
+                <a class="panel-link" routerLink="/admin/audit-logs">Audit log</a>
+            </header>
+
+            @if (!data.activity.recent.length) {
+                <p class="panel-empty">Nothing recorded yet.</p>
+            } @else {
+                <ul class="feed">
+                    @for (entry of data.activity.recent; track entry.id) {
+                        <li class="feed-item">
+                            <span class="pill" [class]="'action-' + entry.action.toLowerCase()">{{ entry.action }}</span>
+                            <span class="feed-title">{{ entry.table_name }} #{{ entry.record_id }}</span>
+                            <span class="feed-meta">
+                                {{ entry.changed_by_username || 'system' }} · {{ entry.changed_at | date: 'd MMM HH:mm' }}
+                            </span>
+                        </li>
+                    }
+                </ul>
+            }
+        </section>
+    </div>
+
+    <section class="panel panel-content">
+        <header class="panel-head">
+            <h2 class="panel-title">Content</h2>
+        </header>
+
+        <div class="content-grid">
+            @for (entry of data.content; track entry.table) {
+                <a class="content-card" [routerLink]="['/admin', entry.route]">
+                    <span class="icon {{ entry.icon }}"></span>
+                    <span class="content-value">{{ entry.total }}</span>
+                    <span class="content-label">{{ entry.label }}</span>
+                </a>
+            }
+        </div>
+    </section>
+}

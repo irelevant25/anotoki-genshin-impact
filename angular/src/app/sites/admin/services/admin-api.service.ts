@@ -679,6 +679,65 @@ export class AdminApiService {
   createEnemyGroup(name: string) { return this._nameCreate('/api/enemy-groups', name); }
   deleteEnemyGroup(name: string) { return this._nameDelete('/api/enemy-groups', name); }
 
+  // ── Feedback ─────────────────────────────────────────────────────────────────
+
+  getFeedback(params: Record<string, string | number>): Observable<FeedbackPage> {
+    const clean: Record<string, string> = {};
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== '' && value !== null && value !== undefined) {
+        clean[key] = String(value);
+      }
+    }
+    return this._http.get<FeedbackPage>('/api/feedback', { params: clean });
+  }
+  getFeedbackFilters(): Observable<FeedbackFilters> { return this._http.get<FeedbackFilters>('/api/feedback/filters'); }
+  getFeedbackEntry(id: number): Observable<FeedbackEntry> { return this._http.get<FeedbackEntry>(`/api/feedback/${id}`); }
+  setFeedbackStatus(id: number, status: string) { return this._http.put<any>(`/api/feedback/${id}/status`, { status }); }
+  deleteFeedback(id: number) { return this._http.delete<any>(`/api/feedback/${id}`); }
+
+  // ── Dashboard ────────────────────────────────────────────────────────────────
+
+  getDashboardStats(): Observable<DashboardStats> { return this._http.get<DashboardStats>('/api/dashboard/stats'); }
+
+  // ── Localization ─────────────────────────────────────────────────────────────
+
+  /** `all` includes the ones switched off, which the site chooser does not show. */
+  getLanguages(all = false): Observable<SiteLanguage[]> {
+    return this._http.get<SiteLanguage[]>('/api/languages', all ? { params: { all: '1' } } : {});
+  }
+  createLanguage(language: Partial<SiteLanguage>) { return this._http.post<SiteLanguage>('/api/languages', language); }
+  updateLanguage(code: string, language: Partial<SiteLanguage>) {
+    return this._http.put<SiteLanguage>(`/api/languages/${encodeURIComponent(code)}`, language);
+  }
+  deleteLanguage(code: string) { return this._http.delete<any>(`/api/languages/${encodeURIComponent(code)}`); }
+
+  getTranslationGrid(): Observable<TranslationGrid> { return this._http.get<TranslationGrid>('/api/admin/translations'); }
+
+  /** A blank value clears the row, which reads as untranslated rather than empty. */
+  saveTranslations(values: Record<string, Record<string, string>>) {
+    return this._http.put<{ written: number; cleared: number }>('/api/admin/translations', { values });
+  }
+
+  exportTranslations(code: string): Observable<Record<string, string>> {
+    return this._http.get<Record<string, string>>(`/api/translations/${encodeURIComponent(code)}/export`);
+  }
+  importTranslations(code: string, values: Record<string, string>, createMissingKeys = false) {
+    return this._http.put<{ written: number; cleared: number; keys_created: number }>(
+      `/api/translations/${encodeURIComponent(code)}/import`,
+      { values, create_missing_keys: createMissingKeys },
+    );
+  }
+
+  createTranslationKey(name: string, site: string, description?: string) {
+    return this._http.post<TranslationKeyEntry>('/api/translation-keys', { name, site, description: description ?? null });
+  }
+  updateTranslationKey(name: string, changes: { description?: string | null; site?: string }) {
+    return this._http.put<TranslationKeyEntry>(`/api/translation-keys/${encodeURIComponent(name)}`, changes);
+  }
+  deleteTranslationKey(name: string) {
+    return this._http.delete<any>(`/api/translation-keys/${encodeURIComponent(name)}`);
+  }
+
   // ── Full resources ───────────────────────────────────────────────────────────
 
   private _getFull<T>(path: string, id: number): Observable<T> {
@@ -769,4 +828,99 @@ export class AdminApiService {
 
   createStat(name: string) { return this._nameCreate('/api/stats', name); }
   deleteStat(id: number) { return this._http.delete<any>(`/api/stats/${id}`); }
+}
+
+/** A language the site can be read in. */
+export interface SiteLanguage {
+  code: string;
+  name: string;
+  native_name: string;
+  enabled: boolean;
+  sort_order: number;
+}
+
+export interface TranslationKeyEntry {
+  name: string;
+  description: string | null;
+  /** 'common' when every site loads it, otherwise the site that owns it. */
+  site: string;
+}
+
+/** One of the sites sharing this database, plus the pseudo-site 'common'. */
+export interface TranslationSite {
+  code: string;
+  name: string;
+}
+
+/** Every key against every language - what the translations editor renders. */
+export interface TranslationGrid {
+  languages: SiteLanguage[];
+  keys: (TranslationKeyEntry & { values: Record<string, string> })[];
+  sites: TranslationSite[];
+  /** Which site this deployment serves. */
+  currentSite: string;
+}
+
+/** One message from the site's contact form. */
+export interface FeedbackEntry {
+  id: number;
+  type: string;
+  status: string;
+  section: string | null;
+  title: string | null;
+  /** Null when the message was sent anonymously, signed in or not. */
+  user_id: number | null;
+  username: string | null;
+  email: string | null;
+  message: string | null;
+  steps_to_reproduce: string | null;
+  expected_behavior: string | null;
+  actual_behavior: string | null;
+  browser_device_info: string | null;
+  details: string | null;
+  why_important: string | null;
+  additional_info: string | null;
+  page_url: string | null;
+  user_agent: string | null;
+  language: string | null;
+  created_at: string;
+  updated_at: string | null;
+}
+
+export interface FeedbackPage {
+  total: number;
+  page: number;
+  pageSize: number;
+  items: FeedbackEntry[];
+}
+
+export interface FeedbackFilters {
+  sections: string[];
+  statuses: string[];
+  types: string[];
+  byStatus: Record<string, number>;
+  byType: Record<string, number>;
+}
+
+export interface DashboardStats {
+  content: { label: string; table: string; route: string; icon: string; total: number }[];
+  /** Records missing something they ought to have, biggest job first. */
+  gaps: { label: string; route: string; missing: number; total: number }[];
+  feedback: {
+    total: number;
+    new: number;
+    last7: number;
+    last30: number;
+    byType: { type: string; total: number }[];
+  };
+  activity: {
+    today: number;
+    last7: number;
+    last30: number;
+    recent: { id: number; table_name: string; record_id: string; action: string; changed_at: string; changed_by_username: string | null }[];
+  };
+  translations: {
+    keys: number;
+    languages: { code: string; name: string; native_name: string; enabled: boolean; translated: number }[];
+  };
 }

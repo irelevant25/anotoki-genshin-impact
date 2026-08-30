@@ -4,6 +4,7 @@ import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { BadgeComponent } from "../../../../../shared/local-lib/components/badge/badge.component";
 import { StorageKeys } from '../../../../../shared/state-manager.service';
+import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 
 export interface ChangelogEntry {
   version: string;
@@ -19,7 +20,7 @@ export interface ChangelogEntry {
   selector: 'app-site-version-modal',
   templateUrl: './site-version-modal.component.html',
   styleUrls: ['./site-version-modal.component.scss'],
-  imports: [ModalComponent, BadgeComponent],
+  imports: [ModalComponent, BadgeComponent, TranslatePipe],
   providers: [],
 })
 export class SiteVersionModalComponent extends AbstractModalComponent {

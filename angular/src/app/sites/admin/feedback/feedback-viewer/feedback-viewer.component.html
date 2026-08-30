@@ -1,0 +1,58 @@
+<app-modal [title]="title()" (closeModal)="close()">
+    <div modal-body>
+        @if (entry(); as message) {
+            <div class="summary">
+                <span class="pill" [class]="'type-' + message.type.toLowerCase()">{{ message.type }}</span>
+                <span class="pill" [class]="'status-' + message.status">{{ message.status }}</span>
+                @if (message.section) {
+                    <span class="chip">{{ message.section }}</span>
+                }
+                <span class="summary-spacer"></span>
+                <span class="summary-date">{{ message.created_at | date: 'd MMM yyyy, HH:mm' }}</span>
+            </div>
+
+            <div class="from">
+                <span class="from-label">From</span>
+                <span class="from-value" [class.is-anonymous]="!message.username && !message.email">{{ sender() }}</span>
+            </div>
+
+            @if (!fields().length) {
+                <p class="empty">This message has no text beyond its title.</p>
+            }
+
+            @for (field of fields(); track field.label) {
+                <div class="field">
+                    <div class="field-label">{{ field.label }}</div>
+                    <div class="field-value">{{ field.value }}</div>
+                </div>
+            }
+
+            <div class="context">
+                @if (message.page_url) {
+                    <span><strong>Page</strong> {{ message.page_url }}</span>
+                }
+                @if (message.language) {
+                    <span><strong>Language</strong> {{ message.language }}</span>
+                }
+                @if (message.user_agent) {
+                    <span class="context-agent"><strong>User agent</strong> {{ message.user_agent }}</span>
+                }
+            </div>
+        }
+    </div>
+
+    <div modal-footer class="footer">
+        <span class="footer-label">Mark as</span>
+        @for (status of statuses(); track status) {
+            <app-button
+                [text]="status"
+                [variant]="entry()?.status === status ? 'primary' : 'secondary'"
+                [outline]="entry()?.status !== status"
+                size="very-small"
+                (buttonClick)="setStatus(status)"
+            ></app-button>
+        }
+        <span class="footer-spacer"></span>
+        <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="close()"></app-button>
+    </div>
+</app-modal>

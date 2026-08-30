@@ -4,6 +4,7 @@ import { ModalComponent } from '../../../../../shared/local-lib/components/modal
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../../shared/state-manager.service';
+import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 
 interface IBackground {
   name: string;
@@ -15,7 +16,7 @@ interface IBackground {
   selector: 'app-site-backgrounds-modal',
   templateUrl: './site-backgrounds-modal.component.html',
   styleUrls: ['./site-backgrounds-modal.component.scss'],
-  imports: [ModalComponent, ReactiveFormsModule],
+  imports: [ModalComponent, ReactiveFormsModule, TranslatePipe],
   providers: [],
 })
 export class SiteBackgroundsModalComponent extends AbstractModalComponent {

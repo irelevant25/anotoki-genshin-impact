@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    imports: [RouterModule],
+    imports: [RouterModule, TranslatePipe],
     providers: []
 })
 export class HeaderComponent {
     MENU_ITEMS_TOP = {
         daily: {
             id: 'daily',
-            title: 'Daily',
+            title: 'nav.daily',
             badgeIcon: true,
             helpIcon: true,
             modalTitle: 'About Daily',
@@ -37,7 +38,7 @@ export class HeaderComponent {
         },
         quizzes: {
             id: 'quizzes',
-            title: 'Quizzes',
+            title: 'nav.quizzes',
             badgeIcon: false,
             helpIcon: true,
             modalTitle: 'About Quizzes',
@@ -60,7 +61,7 @@ export class HeaderComponent {
         },
         games: {
             id: 'games',
-            title: 'Games',
+            title: 'nav.games',
             badgeIcon: false,
             helpIcon: true,
             modalTitle: 'About Games',
@@ -81,11 +82,11 @@ export class HeaderComponent {
         },
         database: {
             id: 'database',
-            title: 'Database',
+            title: 'nav.database',
         },
         profile: {
             id: 'profile',
-            title: 'Profile',
+            title: 'nav.profile',
         },
     };
     menuItems: any = Object.values(this.MENU_ITEMS_TOP)

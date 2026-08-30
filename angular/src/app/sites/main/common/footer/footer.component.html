@@ -17,6 +17,6 @@
     @if (item.icon) {
         <span class="icon {{ item.icon }}"></span>
     } @else {
-        <div>{{ item.title }}</div>
+        <div>{{ item.titleLiteral || (item.title | translate) }}</div>
     }
 </ng-template>

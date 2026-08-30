@@ -1,0 +1,108 @@
+<div class="page-header">
+    <h1 class="page-title">Languages</h1>
+</div>
+
+<p class="page-note">
+    What the site offers in its language chooser. The admin panel itself is English only. A new language is readable immediately — every string it has no
+    translation for falls back to English.
+</p>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="add-row">
+        <input
+            class="admin-input code-input"
+            type="text"
+            placeholder="Code (en, sk, pt-br)"
+            [value]="draft().code"
+            (input)="updateDraft('code', $any($event.target).value)"
+            (keydown.enter)="add()"
+        />
+        <input class="admin-input" type="text" placeholder="English name (Slovak)" [value]="draft().name" (input)="updateDraft('name', $any($event.target).value)" (keydown.enter)="add()" />
+        <input
+            class="admin-input"
+            type="text"
+            placeholder="Native name (Slovenčina)"
+            [value]="draft().native_name"
+            (input)="updateDraft('native_name', $any($event.target).value)"
+            (keydown.enter)="add()"
+        />
+        <app-button text="Add" icon="icon-plus" size="small" [loading]="saving()" [disabled]="!canAdd()" (buttonClick)="add()"></app-button>
+    </div>
+
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th class="col-code">Code</th>
+                    <th>Name</th>
+                    <th>Shown as</th>
+                    <th class="col-order">Order</th>
+                    <th class="col-enabled">On the site</th>
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!languages().length) {
+                    <tr>
+                        <td colspan="6" class="empty-cell">No languages</td>
+                    </tr>
+                }
+                @for (language of languages(); track language.code) {
+                    <tr [class.is-disabled]="!language.enabled">
+                        <td class="col-code">
+                            <code>{{ language.code }}</code>
+                            @if (language.code === fallback) {
+                                <span class="badge-fallback" title="Every other language falls back to this one">fallback</span>
+                            }
+                        </td>
+                        <td>
+                            <input class="cell-input" type="text" [value]="language.name" (blur)="rename(language, 'name', $any($event.target).value)" />
+                        </td>
+                        <td>
+                            <input class="cell-input" type="text" [value]="language.native_name" (blur)="rename(language, 'native_name', $any($event.target).value)" />
+                        </td>
+                        <td class="col-order">
+                            <input class="cell-input order-input" type="number" [value]="language.sort_order" (blur)="reorder(language, $any($event.target).value)" />
+                        </td>
+                        <td class="col-enabled">
+                            <!-- English is what everything falls back to, so it cannot be hidden. -->
+                            @if (language.code === fallback) {
+                                <span class="text-muted small">always</span>
+                            } @else {
+                                <app-button
+                                    [text]="language.enabled ? 'Offered' : 'Hidden'"
+                                    [variant]="language.enabled ? 'success' : 'secondary'"
+                                    [outline]="!language.enabled"
+                                    size="very-small"
+                                    (buttonClick)="toggleEnabled(language)"
+                                ></app-button>
+                            }
+                        </td>
+                        <td class="col-actions">
+                            @if (language.code === fallback) {
+                                <span class="text-muted small">—</span>
+                            } @else if (deleteConfirm() === language.code) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Delete with its translations?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(language.code)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </span>
+                            } @else {
+                                <app-button
+                                    icon="icon-trash icon-size-3"
+                                    variant="danger"
+                                    [outline]="true"
+                                    size="very-small"
+                                    tooltipText="Delete"
+                                    (buttonClick)="confirmDelete(language.code)"
+                                ></app-button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -70,3 +70,29 @@ function requireRole(string ...$roles): callable
         return $handler->handle($request);
     };
 }
+
+/**
+ * The signed-in user, or null - without refusing the request either way.
+ *
+ * For endpoints that are open to everyone but behave differently when they
+ * know who is asking, such as the feedback form: signing in fills the sender
+ * in for you, but not signing in is a perfectly good way to send one.
+ *
+ * Not middleware, because middleware here exists to reject. Call it from
+ * inside the handler.
+ */
+function optionalAuthUser(Request $request): ?array
+{
+    $authHeader = $request->getHeaderLine('Authorization');
+    if (empty($authHeader) || !str_starts_with($authHeader, 'Bearer ')) {
+        return null;
+    }
+
+    $decoded = jwtVerify(substr($authHeader, 7));
+    if (!$decoded) {
+        // An expired token is not an error here, just an anonymous visitor.
+        return null;
+    }
+
+    return DbQuery::from(usersDb(), 'users')->fetch('_t.id = ? AND _t.deleted = false', [$decoded['sub']]) ?: null;
+}

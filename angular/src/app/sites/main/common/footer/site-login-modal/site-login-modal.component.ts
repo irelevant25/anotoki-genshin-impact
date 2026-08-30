@@ -7,6 +7,7 @@ import { FieldsComponent } from '../../../../../shared/local-lib/abstract-fields
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { PasswordComponent } from '../../../../../shared/local-lib/components/password/password.component';
 import { LoaderComponent } from "../../../../../shared/local-lib/components/loader/loader.component";
+import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 
 interface ILogin {
   email: string;
@@ -17,7 +18,7 @@ interface ILogin {
   selector: 'app-site-login-modal',
   templateUrl: './site-login-modal.component.html',
   styleUrls: ['./site-login-modal.component.scss'],
-  imports: [ModalComponent, ReactiveFormsModule, TextComponent, ButtonComponent, PasswordComponent, LoaderComponent],
+  imports: [ModalComponent, ReactiveFormsModule, TextComponent, ButtonComponent, PasswordComponent, LoaderComponent, TranslatePipe],
   providers: [],
 })
 export class SiteLoginModalComponent extends FieldsComponent<ILogin> {

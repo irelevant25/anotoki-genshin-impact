@@ -1,0 +1,173 @@
+<div class="page-header">
+    <h1 class="page-title">Translations</h1>
+    @if (dirtyCount()) {
+        <span class="badge-dirty">{{ dirtyCount() }} unsaved</span>
+    }
+    <div class="header-actions">
+        <app-button text="Discard" variant="secondary" [outline]="true" size="small" [disabled]="!dirtyCount()" (buttonClick)="discard()"></app-button>
+        <app-button text="Save" icon="icon-check" size="small" [loading]="saving()" [disabled]="!dirtyCount()" (buttonClick)="save()"></app-button>
+    </div>
+</div>
+
+<p class="page-note">
+    The site's own text. Game content is not translated here. An empty box means untranslated — that string falls back to English, so clearing a box is how you
+    undo a translation. Keys marked <strong>Shared</strong> are loaded by every site in the family; the rest belong to one site only.
+</p>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="coverage-row">
+        @for (language of coverage(); track language.code) {
+            <div class="coverage-card" [class.is-disabled]="!language.enabled">
+                <div class="coverage-head">
+                    <code>{{ language.code }}</code>
+                    <span class="coverage-name">{{ language.native_name }}</span>
+                    @if (!language.enabled) {
+                        <span class="badge-hidden">hidden</span>
+                    }
+                </div>
+                <div class="coverage-bar">
+                    <div class="coverage-fill" [style.width.%]="language.percent"></div>
+                </div>
+                <div class="coverage-meta">
+                    <span>{{ language.done }} / {{ language.total }} · {{ language.percent }}%</span>
+                    <span class="coverage-io">
+                        <button type="button" class="link-button" (click)="exportLanguage(language.code)">Export</button>
+                        <label class="link-button">
+                            Import
+                            <input type="file" accept="application/json,.json" hidden (change)="importLanguage(language.code, $event)" />
+                        </label>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="toolbar">
+        <input class="admin-input grow" type="search" placeholder="Filter by key, note or text..." [value]="filter()" (input)="filter.set($any($event.target).value)" />
+
+        <select class="admin-input" [value]="missingIn()" (change)="missingIn.set($any($event.target).value)">
+            <option value="">All keys</option>
+            @for (language of languages(); track language.code) {
+                <option [value]="language.code">Missing in {{ language.native_name }}</option>
+            }
+        </select>
+
+        <select class="admin-input" [value]="siteFilter()" (change)="siteFilter.set($any($event.target).value)">
+            <option value="">Every scope</option>
+            @for (site of sites(); track site.code) {
+                <option [value]="site.code">{{ site.name }}</option>
+            }
+        </select>
+
+        <app-button
+            [text]="showDescriptions() ? 'Hide notes' : 'Show notes'"
+            variant="secondary"
+            [outline]="true"
+            size="small"
+            (buttonClick)="showDescriptions.set(!showDescriptions())"
+        ></app-button>
+
+        <span class="toolbar-spacer"></span>
+
+        <input class="admin-input" type="text" placeholder="New key (area.thing)" [value]="newKey()" (input)="newKey.set($any($event.target).value)" (keydown.enter)="addKey()" />
+        <select class="admin-input" [value]="newKeySite()" (change)="newKeySite.set($any($event.target).value)">
+            @for (site of sites(); track site.code) {
+                <option [value]="site.code">{{ site.name }}</option>
+            }
+        </select>
+        <app-button text="Add key" icon="icon-plus" size="small" [disabled]="!newKey().trim()" (buttonClick)="addKey()"></app-button>
+    </div>
+
+    <div class="result-count">{{ rows().length }} of {{ coverage()[0]?.total ?? 0 }} keys</div>
+
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th class="col-key">Key</th>
+                    <th class="col-site">Scope</th>
+                    @for (language of languages(); track language.code) {
+                        <th>
+                            {{ language.native_name }}
+                            @if (language.code === fallback) {
+                                <span class="th-note">fallback</span>
+                            }
+                        </th>
+                    }
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!rows().length) {
+                    <tr>
+                        <td [attr.colspan]="languages().length + 3" class="empty-cell">Nothing matches</td>
+                    </tr>
+                }
+                @for (row of rows(); track row.name) {
+                    <tr [class.is-foreign]="isForeign(row)">
+                        <td class="col-key">
+                            <code>{{ row.name }}</code>
+                            @if (showDescriptions()) {
+                                <input
+                                    class="cell-input note-input"
+                                    type="text"
+                                    placeholder="Where does this appear?"
+                                    [value]="row.description ?? ''"
+                                    (blur)="saveDescription(row, $any($event.target).value)"
+                                />
+                            } @else if (row.description) {
+                                <span class="key-note">{{ row.description }}</span>
+                            }
+                        </td>
+
+                        <td class="col-site">
+                            <select class="cell-input site-select" [value]="row.site" (change)="setSite(row, $any($event.target).value)">
+                                @for (site of sites(); track site.code) {
+                                    <option [value]="site.code">{{ site.name }}</option>
+                                }
+                            </select>
+                            @if (isForeign(row)) {
+                                <span class="foreign-note" title="This key belongs to another site, so this admin panel's own visitors never load it">not loaded here</span>
+                            }
+                        </td>
+
+                        @for (language of languages(); track language.code) {
+                            <td>
+                                <textarea
+                                    class="cell-input value-input"
+                                    rows="1"
+                                    [class.is-edited]="isEdited(row.name, language.code)"
+                                    [class.is-missing]="!valueOf(row, language.code)"
+                                    [placeholder]="language.code === fallback ? 'Required — nothing to fall back to' : 'Falls back to English'"
+                                    [value]="valueOf(row, language.code)"
+                                    (input)="setValue(row, language.code, $any($event.target).value)"
+                                ></textarea>
+                            </td>
+                        }
+
+                        <td class="col-actions">
+                            @if (deleteConfirm() === row.name) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Delete?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="deleteKey(row.name)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
+                                </span>
+                            } @else {
+                                <app-button
+                                    icon="icon-trash icon-size-3"
+                                    variant="danger"
+                                    [outline]="true"
+                                    size="very-small"
+                                    tooltipText="Delete this key in every language"
+                                    (buttonClick)="confirmDelete(row.name)"
+                                ></app-button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
