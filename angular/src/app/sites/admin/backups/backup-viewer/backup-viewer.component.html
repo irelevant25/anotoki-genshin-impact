@@ -60,6 +60,15 @@
                                 [disabled]="!!downloading()"
                                 (buttonClick)="download(database)"
                             ></app-button>
+                            <app-button
+                                text="Restore"
+                                icon="icon-history icon-size-3"
+                                variant="danger"
+                                [outline]="true"
+                                size="very-small"
+                                tooltipText="Replace this database with what is in this backup"
+                                (buttonClick)="restore(database)"
+                            ></app-button>
                         }
                     </div>
 

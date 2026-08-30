@@ -30,9 +30,9 @@ cp config/database.php config/database.local.php
 
 ### Backups (optional)
 
-The **Backups** page in the admin site shells out to `pg_dump`, which it finds
-on `PATH` or in the usual PostgreSQL install directories. If it is somewhere
-else, point at it:
+The **Backups** page in the admin site shells out to `pg_dump` and `pg_restore`,
+which it finds on `PATH` or in the usual PostgreSQL install directories. If they
+are somewhere else, point at them:
 
 ```bash
 # config/backup.local.php
@@ -42,6 +42,13 @@ else, point at it:
 Dumps are written to `storage/backups/`, one directory per backup holding a
 `.dump` per database plus a `backup.json` manifest. `storage/` is gitignored —
 a dump contains every row in the database, password hashes included.
+
+Restoring is done per database from inside a backup. It replaces everything in
+that database, so it asks for the admin's password and a typed confirmation,
+keeps the button unavailable for 30 seconds, and takes a backup of the current
+state first. It runs in a single transaction, so a failure leaves the database
+untouched. Note that `pg_restore --clean` drops only the objects the dump
+contains: a table created after the backup was taken survives the restore.
 
 ### Run init script (it will create database and apply schema.sql and create first migration schema)
 

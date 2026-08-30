@@ -20,6 +20,9 @@ export class TextComponent extends AbstractInputComponent<Type> {
   maxLength = model<number | undefined>(undefined);
   maxLengthCounter = model<boolean>(true);
 
+  /** 'password' masks what is typed; everything else behaves as before. */
+  type = model<'text' | 'password'>('text');
+
   remainingChars: number = 0;
   remainsWord: string = '';
   charsWord: string = '';

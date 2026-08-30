@@ -722,6 +722,25 @@ export class AdminApiService {
     });
   }
 
+  /** What restoring this database would cost, counted table by table. */
+  getRestorePreview(id: string, alias: string): Observable<RestorePreview> {
+    return this._http.get<RestorePreview>(`/api/backups/${encodeURIComponent(id)}/preview/${encodeURIComponent(alias)}`);
+  }
+
+  /**
+   * Replaces a database with what is in this backup.
+   *
+   * `confirm` must be the database's own alias and `password` the caller's
+   * own, both checked again on the server - the browser is not what decides
+   * whether this is allowed.
+   */
+  restoreBackup(id: string, alias: string, password: string, confirm: string): Observable<RestoreResult> {
+    return this._http.post<RestoreResult>(
+      `/api/backups/${encodeURIComponent(id)}/restore/${encodeURIComponent(alias)}`,
+      { password, confirm },
+    );
+  }
+
   // ── Localization ─────────────────────────────────────────────────────────────
 
   /** `all` includes the ones switched off, which the site chooser does not show. */
@@ -995,4 +1014,47 @@ export interface BackupStatus {
   backup_count: number;
   stored_size: number;
   databases: { alias: string; name: string; size: number | null; tables: number | null; error: string | null }[];
+}
+
+/**
+ * One table that differs between the database now and the backup.
+ *
+ * `kind` says what a restore does to it:
+ *   changed - the table is in both; `delta` rows exist now and are not in the
+ *             backup, so a positive delta is rows destroyed
+ *   created - only in the backup; the restore brings the table back
+ *   kept    - only in the database now. pg_restore --clean drops only what the
+ *             dump contains, so this table is left exactly as it is and the
+ *             database ends up not quite matching the backup
+ */
+export interface RestoreDifference {
+  name: string;
+  live: number | null;
+  backup: number | null;
+  delta: number;
+  kind: 'changed' | 'created' | 'kept';
+}
+
+export interface RestorePreview {
+  id: string;
+  alias: string;
+  name: string;
+  created_at: string | null;
+  live: { rows: number; tables: number };
+  backup: { rows: number; tables: number };
+  /** Rows that exist now, are absent from the backup, and would be destroyed. */
+  lost: number;
+  differences: RestoreDifference[];
+}
+
+export interface RestoreResult {
+  restored: string;
+  from: string;
+  /** The backup taken of the old state immediately before replacing it. */
+  safety_backup: string;
+  duration_ms: number;
+  disconnected: number;
+  rows: number;
+  tables: { name: string; rows: number }[];
+  warnings: string[];
 }

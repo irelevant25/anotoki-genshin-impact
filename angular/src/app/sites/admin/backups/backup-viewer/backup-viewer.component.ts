@@ -1,9 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
+import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { AdminApiService, BackupDatabase, BackupEntry } from '../../services/admin-api.service';
+import { RestoreConfirmComponent } from '../restore-confirm/restore-confirm.component';
 
 /**
  * One backup in full: what went into each database's dump, and how to get the
@@ -70,6 +72,32 @@ export class BackupViewerComponent extends AbstractModalComponent {
         this.downloading.set(null);
         this.notificationService.showError('Failed to download the dump');
       },
+    });
+  }
+
+  /**
+   * Opens the confirmation that stands between this and a replaced database.
+   *
+   * Everything that makes the restore safe lives in there, and the server
+   * checks it again regardless - this only opens a door.
+   */
+  restore(database: BackupDatabase): void {
+    const backup = this.backup();
+    if (!backup) {
+      return;
+    }
+
+    const modal = this.modalService.open<RestoreConfirmComponent>(RestoreConfirmComponent, { size: '4', scrollable: true });
+    modal.componentInstance.backup.set(backup);
+    modal.componentInstance.alias.set(database.alias);
+    modal.componentInstance.start();
+
+    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((restored) => {
+      // A restore leaves a fresh safety backup behind, so the list underneath
+      // is out of date the moment one finishes.
+      if (restored) {
+        this.closeModal(true);
+      }
     });
   }
 

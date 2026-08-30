@@ -12,6 +12,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  *   POST   /api/backups                         make one now
  *   DELETE /api/backups/{id}                    throw one away
  *   GET    /api/backups/{id}/download/{alias}   one database's dump file
+ *   GET    /api/backups/{id}/preview/{alias}    what restoring it would cost
+ *   POST   /api/backups/{id}/restore/{alias}    put one back
  *
  * A backup is a directory holding one dump per configured database plus a
  * backup.json manifest. Every database goes in, not just this site's: the
@@ -274,15 +276,9 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE, function (Request $request, Respons
 // last on purpose: its presence is what marks the backup finished.
 
 $app->post('/api/backups', function (Request $request, Response $response) {
-    $config = backupDatabaseConfig();
-    if (($config['driver'] ?? null) !== 'pgsql') {
-        return respondJson($response, ['error' => 'Backups are only implemented for PostgreSQL'], 422);
-    }
-
-    if (!backupBinary('pg_dump')) {
-        return respondJson($response, [
-            'error' => 'pg_dump was not found. Install the PostgreSQL client tools, or point config/backup.local.php at them.',
-        ], 422);
+    $refusal = backupRefusalReason();
+    if ($refusal) {
+        return respondJson($response, ['error' => $refusal], 422);
     }
 
     $body = $request->getParsedBody() ?? [];
@@ -291,6 +287,44 @@ $app->post('/api/backups', function (Request $request, Response $response) {
 
     $user = $request->getAttribute('user');
 
+    try {
+        $manifest = backupCreate($description, $user['username'] ?? null);
+    } catch (\RuntimeException $e) {
+        return respondJson($response, ['error' => $e->getMessage()], 500);
+    }
+
+    return respondJson($response, $manifest, $manifest['status'] === 'failed' ? 500 : 201);
+})->add(requireRole('ADMIN'))->add(requireAuth());
+
+/**
+ * Why a backup cannot be made here, or null when it can.
+ *
+ * Checked before the button does anything, and again before a restore takes
+ * its safety copy - a restore without one is not a thing worth allowing.
+ */
+function backupRefusalReason(): ?string
+{
+    $config = backupDatabaseConfig();
+
+    if (($config['driver'] ?? null) !== 'pgsql') {
+        return 'Backups are only implemented for PostgreSQL';
+    }
+
+    if (!backupBinary('pg_dump')) {
+        return 'pg_dump was not found. Install the PostgreSQL client tools, or point config/backup.local.php at them.';
+    }
+
+    return null;
+}
+
+/**
+ * Dumps every configured database into a new backup and returns its manifest.
+ *
+ * Shared by the button and by the safety copy a restore takes first, so both
+ * produce the same thing and both appear in the same list.
+ */
+function backupCreate(?string $description, ?string $createdBy): array
+{
     // A dump of a hundred megabytes takes seconds, not milliseconds, and a
     // half-written one is worse than none - so let it finish even if the
     // browser gives up waiting.
@@ -301,7 +335,7 @@ $app->post('/api/backups', function (Request $request, Response $response) {
     $directory = backupDirectory() . '/' . $id;
 
     if (!mkdir($directory, 0775, true) && !is_dir($directory)) {
-        return respondJson($response, ['error' => 'Could not create the backup directory'], 500);
+        throw new \RuntimeException('Could not create the backup directory');
     }
 
     $started = microtime(true);
@@ -357,7 +391,7 @@ $app->post('/api/backups', function (Request $request, Response $response) {
     $manifest = [
         'id' => $id,
         'created_at' => date(DATE_ATOM),
-        'created_by' => $user['username'] ?? null,
+        'created_by' => $createdBy,
         'description' => $description,
         'status' => $failed ? ($allFailed ? 'failed' : 'partial') : 'complete',
         'format' => 'pg_dump custom',
@@ -370,8 +404,8 @@ $app->post('/api/backups', function (Request $request, Response $response) {
 
     $manifest['size'] = backupSize($directory);
 
-    return respondJson($response, $manifest, $allFailed ? 500 : 201);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+    return $manifest;
+}
 
 // ── DELETE /api/backups/{id} ─────────────────────────────────────────────────
 
@@ -417,4 +451,334 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/download/{alias:[a-z0-9_]+}', fu
         ->withHeader('Content-Type', 'application/octet-stream')
         ->withHeader('Content-Length', (string) filesize($file))
         ->withHeader('Content-Disposition', 'attachment; filename="' . $args['id'] . '-' . $args['alias'] . '.dump"');
+})->add(requireRole('ADMIN'))->add(requireAuth());
+
+// ═════════════════════════════════════════════════════════════════════════════
+// Restoring
+// ═════════════════════════════════════════════════════════════════════════════
+//
+// Putting a dump back replaces everything in a database. Four things stand
+// between a click and that happening: the operator retypes their password, they
+// type the database's name, a countdown in the UI keeps the button unavailable
+// for long enough to think, and the server takes a fresh backup of what is
+// about to be destroyed before it destroys it.
+//
+// The restore itself runs in a single transaction, so a failure halfway leaves
+// the database exactly as it was rather than half-replaced.
+
+/**
+ * A connection that is not the shared cached one.
+ *
+ * Restoring needs to disconnect everything from the target database, including
+ * this process's own handle to it, and then read it again afterwards. Going
+ * through getDb() would hand back the connection that was just terminated.
+ */
+function backupFreshPdo(string $dbname): PDO
+{
+    $config = backupDatabaseConfig();
+
+    $pdo = new PDO(
+        "pgsql:host={$config['host']};port={$config['port']};dbname={$dbname}",
+        $config['username'],
+        $config['password']
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+    return $pdo;
+}
+
+/**
+ * Disconnects everything else from a database, so its objects can be dropped.
+ *
+ * Issued from a connection to a different database: a session cannot terminate
+ * every connection to the database it is itself connected to. Anything the site
+ * is doing at that moment ends with an error, which is the honest outcome - the
+ * data underneath it is about to be replaced.
+ */
+function backupTerminateConnections(string $dbname): int
+{
+    $config = backupDatabaseConfig();
+
+    $elsewhere = null;
+    foreach ($config['databases'] ?? [] as $candidate) {
+        if ($candidate !== $dbname) {
+            $elsewhere = $candidate;
+            break;
+        }
+    }
+
+    // A single-database install has nowhere to stand; pg_restore will still
+    // manage unless something else holds a lock.
+    if ($elsewhere === null) {
+        return 0;
+    }
+
+    $pdo = backupFreshPdo($elsewhere);
+    $statement = $pdo->prepare(
+        'SELECT pg_terminate_backend(pid) FROM pg_stat_activity
+         WHERE datname = ? AND pid <> pg_backend_pid()'
+    );
+    $statement->execute([$dbname]);
+
+    return $statement->rowCount();
+}
+
+/** Runs pg_restore for one database, all or nothing. */
+function backupRunRestore(string $dbname, string $file): array
+{
+    $config = backupDatabaseConfig();
+    $binary = backupBinary('pg_restore');
+
+    if (!$binary) {
+        return ['ok' => false, 'error' => 'pg_restore was not found on this server'];
+    }
+
+    $command = [
+        $binary,
+        '--host=' . $config['host'],
+        '--port=' . $config['port'],
+        '--username=' . $config['username'],
+        '--dbname=' . $dbname,
+        // Drop what is there before recreating it, and do the whole thing in
+        // one transaction so a failure rolls back to the state it started in.
+        '--clean',
+        '--if-exists',
+        '--single-transaction',
+        // The dump records who owned each object. Skipping that lets a backup
+        // restore onto a server whose roles are named differently.
+        '--no-owner',
+        '--no-privileges',
+        $file,
+    ];
+
+    $environment = getenv();
+    $environment['PGPASSWORD'] = (string) ($config['password'] ?? '');
+
+    $descriptors = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
+    $process = @proc_open($command, $descriptors, $pipes, null, $environment);
+
+    if (!is_resource($process)) {
+        return ['ok' => false, 'error' => 'Could not start pg_restore'];
+    }
+
+    stream_get_contents($pipes[1]);
+    $errors = stream_get_contents($pipes[2]);
+    fclose($pipes[1]);
+    fclose($pipes[2]);
+    $exitCode = proc_close($process);
+
+    $lines = array_values(array_filter(array_map('trim', explode("\n", (string) $errors))));
+
+    if ($exitCode !== 0) {
+        return ['ok' => false, 'error' => $lines ? end($lines) : "pg_restore exited with code $exitCode"];
+    }
+
+    // pg_restore reports harmless complaints on stderr and still succeeds; they
+    // are worth showing without calling the restore a failure.
+    return ['ok' => true, 'error' => null, 'warnings' => array_slice($lines, 0, 10)];
+}
+
+// ── GET /api/backups/{id}/preview/{alias} ────────────────────────────────────
+// What restoring this database would cost, table by table, so the warning can
+// name it rather than gesture at it.
+
+$app->get('/api/backups/' . BACKUP_ID_ROUTE . '/preview/{alias:[a-z0-9_]+}', function (Request $request, Response $response, array $args) {
+    $directory = backupPath($args['id']);
+    $databases = backupDatabases();
+
+    if (!$directory || !array_key_exists($args['alias'], $databases)) {
+        return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    $manifest = backupReadManifest($args['id'], $directory);
+    $inBackup = null;
+    foreach ($manifest['databases'] ?? [] as $entry) {
+        if ($entry['alias'] === $args['alias']) {
+            $inBackup = $entry;
+        }
+    }
+
+    if (!$inBackup || $inBackup['error'] || !is_file($directory . '/' . $args['alias'] . '.dump')) {
+        return respondJson($response, ['error' => 'This backup has no usable dump for that database'], 422);
+    }
+
+    try {
+        $live = backupTableCounts(getDb($args['alias']));
+    } catch (\Throwable $e) {
+        return respondJson($response, ['error' => 'That database cannot be reached'], 503);
+    }
+
+    $liveByName = array_column($live, 'rows', 'name');
+    $backupByName = array_column($inBackup['tables'], 'rows', 'name');
+
+    // Every table either side knows about, so a table that exists now and is
+    // not in the backup shows up as the whole loss it is.
+    $names = array_unique(array_merge(array_keys($liveByName), array_keys($backupByName)));
+    sort($names);
+
+    $differences = [];
+    foreach ($names as $name) {
+        $liveRows = $liveByName[$name] ?? null;
+        $backupRows = $backupByName[$name] ?? null;
+
+        if ($liveRows === $backupRows) {
+            continue;
+        }
+
+        // pg_restore --clean drops only the objects the dump contains, so a
+        // table created since the backup is not removed - it is left exactly
+        // as it is, and the database ends up not quite matching the backup.
+        // Verified, not assumed: a table planted before a restore survived it.
+        $kind = 'changed';
+        if ($backupRows === null) {
+            $kind = 'kept';
+        } elseif ($liveRows === null) {
+            $kind = 'created';
+        }
+
+        $differences[] = [
+            'name' => $name,
+            'live' => $liveRows,
+            'backup' => $backupRows,
+            // Positive means rows that exist now and are not in the backup, so
+            // they are the ones a restore loses. Meaningless for 'kept'.
+            'delta' => $kind === 'kept' ? 0 : ($liveRows ?? 0) - ($backupRows ?? 0),
+            'kind' => $kind,
+        ];
+    }
+
+    // Biggest loss first: that is what somebody needs to see before deciding.
+    usort($differences, fn($a, $b) => $b['delta'] <=> $a['delta']);
+
+    $lost = 0;
+    foreach ($differences as $difference) {
+        if ($difference['delta'] > 0) {
+            $lost += $difference['delta'];
+        }
+    }
+
+    return respondJson($response, [
+        'id' => $args['id'],
+        'alias' => $args['alias'],
+        'name' => $databases[$args['alias']],
+        'created_at' => $manifest['created_at'] ?? null,
+        'live' => ['rows' => array_sum($liveByName), 'tables' => count($liveByName)],
+        'backup' => ['rows' => array_sum($backupByName), 'tables' => count($backupByName)],
+        // Rows that exist now, are not in the backup, and are in a table the
+        // restore replaces. This is the number that is actually destroyed.
+        'lost' => $lost,
+        'differences' => $differences,
+    ]);
+})->add(requireRole('ADMIN'))->add(requireAuth());
+
+// ── POST /api/backups/{id}/restore/{alias} ───────────────────────────────────
+
+$app->post('/api/backups/' . BACKUP_ID_ROUTE . '/restore/{alias:[a-z0-9_]+}', function (Request $request, Response $response, array $args) {
+    $directory = backupPath($args['id']);
+    $databases = backupDatabases();
+    $alias = $args['alias'];
+
+    if (!$directory || !array_key_exists($alias, $databases)) {
+        return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    $file = $directory . '/' . $alias . '.dump';
+    if (!is_file($file)) {
+        return respondJson($response, ['error' => 'This backup has no dump for that database'], 422);
+    }
+
+    if (!backupBinary('pg_restore')) {
+        return respondJson($response, [
+            'error' => 'pg_restore was not found. Install the PostgreSQL client tools, or point config/backup.local.php at them.',
+        ], 422);
+    }
+
+    $body = $request->getParsedBody() ?? [];
+    $user = $request->getAttribute('user');
+
+    // Typing the name is what makes this deliberate rather than a misclick.
+    if (trim((string) ($body['confirm'] ?? '')) !== $alias) {
+        return respondJson($response, ['error' => "Type {$alias} to confirm"], 422);
+    }
+
+    // And the password is what makes it this person rather than whoever found
+    // the screen unlocked.
+    $password = (string) ($body['password'] ?? '');
+    if ($password === '' || !password_verify($password, (string) ($user['password'] ?? ''))) {
+        return respondJson($response, ['error' => 'That password is not right'], 403);
+    }
+
+    $refusal = backupRefusalReason();
+    if ($refusal) {
+        return respondJson($response, ['error' => 'Refusing to restore without a safety backup: ' . $refusal], 422);
+    }
+
+    set_time_limit(0);
+    ignore_user_abort(true);
+
+    // The state about to be replaced, kept before it is replaced. This is the
+    // undo, and it is the reason a restore is survivable at all.
+    try {
+        $safety = backupCreate(
+            'Safety copy taken automatically before restoring ' . $alias . ' from ' . $args['id'],
+            $user['username'] ?? null
+        );
+    } catch (\RuntimeException $e) {
+        return respondJson($response, ['error' => 'Refusing to restore: the safety backup failed. ' . $e->getMessage()], 500);
+    }
+
+    foreach ($safety['databases'] as $entry) {
+        if ($entry['alias'] === $alias && $entry['error']) {
+            return respondJson($response, [
+                'error' => 'Refusing to restore: the safety backup of ' . $alias . ' failed. ' . $entry['error'],
+                'safety_backup' => $safety['id'],
+            ], 500);
+        }
+    }
+
+    $started = microtime(true);
+    $terminated = 0;
+
+    try {
+        $terminated = backupTerminateConnections($databases[$alias]);
+    } catch (\Throwable $e) {
+        // Not fatal on its own: pg_restore will say so if something still
+        // holds a lock, and the transaction will roll back if it cannot.
+        error_log('[backups] could not disconnect sessions: ' . $e->getMessage());
+    }
+
+    $restore = backupRunRestore($databases[$alias], $file);
+    $duration = (int) round((microtime(true) - $started) * 1000);
+
+    if (!$restore['ok']) {
+        return respondJson($response, [
+            'error' => $restore['error'],
+            'safety_backup' => $safety['id'],
+            'duration_ms' => $duration,
+            // --single-transaction means a failure changed nothing, which is
+            // the one piece of news worth leading with.
+            'rolled_back' => true,
+        ], 500);
+    }
+
+    // Read the result back on a new connection - the old one was disconnected
+    // along with everything else - so the answer is what is in there now.
+    $tables = [];
+    try {
+        $tables = backupTableCounts(backupFreshPdo($databases[$alias]));
+    } catch (\Throwable $e) {
+        error_log('[backups] restored but could not count: ' . $e->getMessage());
+    }
+
+    return respondJson($response, [
+        'restored' => $alias,
+        'from' => $args['id'],
+        'safety_backup' => $safety['id'],
+        'duration_ms' => $duration,
+        'disconnected' => $terminated,
+        'rows' => array_sum(array_column($tables, 'rows')),
+        'tables' => $tables,
+        'warnings' => $restore['warnings'] ?? [],
+    ]);
 })->add(requireRole('ADMIN'))->add(requireAuth());

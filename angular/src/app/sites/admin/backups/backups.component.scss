@@ -122,10 +122,6 @@
   color: var(--text-muted);
 }
 
-.col-description {
-  color: var(--text-secondary);
-}
-
 .col-num {
   width: 110px;
   text-align: right;
@@ -172,27 +168,4 @@
   background: var(--color-warning-light);
 }
 
-.empty-cell {
-  text-align: center;
-  color: var(--text-muted);
-  padding: var(--spacing-xl) !important;
-}
-
-.action-btns {
-  display: flex;
-  gap: var(--spacing-xs);
-  justify-content: flex-end;
-}
-
-.confirm-row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  justify-content: flex-end;
-}
-
-.confirm-text {
-  font-size: var(--font-size-sm);
-  color: var(--color-danger);
-  white-space: nowrap;
-}
+// .empty-cell, .action-btns and .confirm-row come from admin-list above.

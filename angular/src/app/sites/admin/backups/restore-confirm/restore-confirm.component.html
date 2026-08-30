@@ -1,0 +1,131 @@
+<app-modal [title]="'Restore ' + alias()" (closeModal)="closeModal()">
+    <div modal-body>
+        <div class="danger-banner">
+            <i class="icon icon-triangle-alert icon-size-5"></i>
+            <div class="danger-text">
+                <strong class="danger-title">This replaces everything in {{ alias() }}.</strong>
+                <span>
+                    The database is dropped and rebuilt from a copy taken {{ age() }}. Anything added, edited or deleted since then is gone — there is no undo
+                    beyond the safety backup taken automatically a moment before it happens.
+                </span>
+            </div>
+        </div>
+
+        <app-loader #loader [loading]="loadingPreview()"></app-loader>
+
+        @if (previewError(); as message) {
+            <p class="preview-error">{{ message }}</p>
+        }
+
+        @if (!loader.loadingCtrl.loading() && preview(); as info) {
+            <div class="balance">
+                <div class="balance-side">
+                    <span class="balance-label">In the database now</span>
+                    <span class="balance-rows">{{ info.live.rows | number }}</span>
+                    <span class="balance-tables">rows in {{ info.live.tables }} tables</span>
+                </div>
+                <i class="icon icon-arrow-right balance-arrow"></i>
+                <div class="balance-side">
+                    <span class="balance-label">After restoring</span>
+                    <span class="balance-rows">{{ info.backup.rows | number }}</span>
+                    <span class="balance-tables">rows in {{ info.backup.tables }} tables</span>
+                </div>
+            </div>
+
+            <p class="taken">Backup {{ info.id }}, taken {{ info.created_at | date: 'd MMM yyyy, HH:mm' }}.</p>
+
+            @if (info.lost) {
+                <div class="section is-loss">
+                    <div class="section-head">
+                        <strong>{{ info.lost | number }} rows will be destroyed</strong>
+                        <span>in {{ losses().length }} {{ losses().length === 1 ? 'table' : 'tables' }}</span>
+                    </div>
+                    <div class="rows">
+                        @for (row of losses(); track row.name) {
+                            <div class="row">
+                                <span class="row-name">{{ row.name }}</span>
+                                <span class="row-change">{{ row.live | number }} → {{ row.backup | number }}</span>
+                                <span class="row-delta">−{{ row.delta | number }}</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            } @else if (!info.differences.length) {
+                <p class="section is-quiet">Nothing has changed since this backup was taken. Restoring it would leave the database exactly as it is now.</p>
+            } @else {
+                <p class="section is-quiet">No rows would be destroyed — nothing in this database has been added since the backup.</p>
+            }
+
+            @if (returning().length) {
+                <div class="section">
+                    <div class="section-head">
+                        <strong>{{ returning().length }} {{ returning().length === 1 ? 'table comes' : 'tables come' }} back</strong>
+                        <span>they are in the backup and not in the database now</span>
+                    </div>
+                    <div class="rows">
+                        @for (row of returning(); track row.name) {
+                            <div class="row">
+                                <span class="row-name">{{ row.name }}</span>
+                                <span class="row-change">gone → {{ row.backup | number }}</span>
+                                <span class="row-delta is-gain">+{{ row.backup | number }}</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            @if (untouched().length) {
+                <div class="section">
+                    <div class="section-head">
+                        <strong>{{ untouched().length }} {{ untouched().length === 1 ? 'table is' : 'tables are' }} left alone</strong>
+                        <span>not in this backup, so the restore does not touch them — the database will not match the backup exactly</span>
+                    </div>
+                    <div class="rows">
+                        @for (row of untouched(); track row.name) {
+                            <div class="row">
+                                <span class="row-name">{{ row.name }}</span>
+                                <span class="row-change">{{ row.live | number }} rows, kept as they are</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <div class="also">
+                <strong>Also worth knowing</strong>
+                <ul>
+                    <li>Everyone using the site is disconnected from this database while it happens.</li>
+                    <li>A backup of the current state is taken first, automatically, and appears in the list — that is your way back.</li>
+                    <li>It runs in one transaction: if anything fails, the database is left exactly as it is now.</li>
+                    @if (alias() === 'users') {
+                        <li class="is-loud">This is the accounts database. Users, roles, passwords and site translations all go back to how they were.</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="gate">
+                <app-text [label]="'Type ' + alias() + ' to confirm'" [placeholder]="alias()" [(value)]="typedName" [disabled]="running()"></app-text>
+                <app-text [label]="'Your password'" [type]="'password'" [placeholder]="'the one you signed in with'" [(value)]="password" [disabled]="running()"></app-text>
+            </div>
+        }
+    </div>
+
+    <div modal-footer class="footer">
+        @if (remaining() > 0) {
+            <span class="countdown">Restore unlocks in {{ remaining() }}s</span>
+        } @else if (!nameMatches()) {
+            <span class="countdown">Type the database name to continue</span>
+        } @else if (!hasPassword()) {
+            <span class="countdown">Enter your password to continue</span>
+        }
+        <span class="footer-spacer"></span>
+        <app-button text="Cancel" variant="secondary" [outline]="true" [disabled]="running()" (buttonClick)="closeModal()"></app-button>
+        <app-button
+            [text]="running() ? 'Restoring…' : 'Restore ' + alias()"
+            variant="danger"
+            [loading]="running()"
+            [disabled]="!canRestore()"
+            (buttonClick)="restore()"
+        ></app-button>
+    </div>
+</app-modal>

@@ -130,7 +130,12 @@ export class BackupsComponent extends AbstractModalComponent implements OnInit, 
   }
 
   view(backup: BackupEntry): void {
-    const modal = this.openModal<BackupViewerComponent>(BackupViewerComponent, { size: '4', scrollable: true });
+    // A restore inside the viewer leaves a fresh safety backup behind, so the
+    // list is out of date the moment one finishes.
+    const modal = this.openModal<BackupViewerComponent>(BackupViewerComponent, { size: '4', scrollable: true }, () => {
+      this.load();
+      this.loadStatus();
+    });
     modal.componentInstance.backup.set(backup);
   }
 
