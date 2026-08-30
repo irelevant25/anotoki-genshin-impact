@@ -24,7 +24,7 @@ $app->post('/api/regions', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM regions WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(Region::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(Region::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->delete('/api/regions/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +35,4 @@ $app->delete('/api/regions/{name}', function (Request $request, Response $respon
     }
     $pdo->prepare('DELETE FROM regions WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

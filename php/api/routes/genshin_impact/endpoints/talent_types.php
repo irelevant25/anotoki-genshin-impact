@@ -24,7 +24,7 @@ $app->post('/api/talent-types', function (Request $request, Response $response) 
     $stmt = $pdo->prepare('SELECT * FROM talent_types WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(TalentType::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(TalentType::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->delete('/api/talent-types/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +35,4 @@ $app->delete('/api/talent-types/{name}', function (Request $request, Response $r
     }
     $pdo->prepare('DELETE FROM talent_types WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

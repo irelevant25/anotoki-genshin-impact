@@ -66,7 +66,7 @@ $app->post('/api/characters', function (Request $request, Response $response) us
         ->find(['id' => $id]);
 
     return respondJson($response, $result, 201);
-})->add(validateRequest(Character::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(Character::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update character
 $app->put('/api/characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -88,7 +88,7 @@ $app->put('/api/characters/{id:[0-9]+}', function (Request $request, Response $r
         ->find(['id' => $args['id']]);
 
     return respondJson($response, $character);
-})->add(validateRequest(Character::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(Character::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE character
 $app->delete('/api/characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -100,4 +100,4 @@ $app->delete('/api/characters/{id:[0-9]+}', function (Request $request, Response
 
     DbQuery::update($pdo, 'characters', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

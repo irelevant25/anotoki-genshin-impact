@@ -28,7 +28,7 @@ $app->post('/api/quizzes', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM quizzes WHERE id = ?');
     $stmt->execute([$id]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(Quiz::class))->add(requireRole('admin', 'editor'))->add(requireAuth());
+})->add(validateRequest(Quiz::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update quiz
 $app->put('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -45,7 +45,7 @@ $app->put('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $resp
     $stmt = $pdo->prepare('SELECT * FROM quizzes WHERE id = ?');
     $stmt->execute([$args['id']]);
     return respondJson($response, $stmt->fetch());
-})->add(validateRequest(Quiz::class, true))->add(requireRole('admin', 'editor'))->add(requireAuth());
+})->add(validateRequest(Quiz::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE quiz
 $app->delete('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -59,4 +59,4 @@ $app->delete('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $r
 
     DbQuery::update($pdo, 'quizzes', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('admin', 'editor'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

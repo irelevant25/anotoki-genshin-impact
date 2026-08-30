@@ -35,7 +35,7 @@ $app->post('/api/characters-affiliations', function (Request $request, Response 
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterAffiliation::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterAffiliation::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE character affiliation
 $app->delete('/api/characters-affiliations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -45,4 +45,4 @@ $app->delete('/api/characters-affiliations/{id:[0-9]+}', function (Request $requ
     }
     DbQuery::update($pdo, 'characters_affiliations', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

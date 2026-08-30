@@ -212,7 +212,7 @@ $app->get('/api/backups', function (Request $request, Response $response) {
     usort($items, fn($a, $b) => $b['id'] <=> $a['id']);
 
     return respondJson($response, $items);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── GET /api/backups/status ──────────────────────────────────────────────────
 // Everything the page needs to say whether a backup can be made at all, and
@@ -258,7 +258,7 @@ $app->get('/api/backups/status', function (Request $request, Response $response)
         'stored_size' => $stored,
         'databases' => $databases,
     ]);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── GET /api/backups/{id} ────────────────────────────────────────────────────
 
@@ -269,7 +269,7 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE, function (Request $request, Respons
     }
 
     return respondJson($response, backupReadManifest($args['id'], $directory));
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── POST /api/backups ────────────────────────────────────────────────────────
 // Dumps every configured database, then writes the manifest. The manifest goes
@@ -294,7 +294,7 @@ $app->post('/api/backups', function (Request $request, Response $response) {
     }
 
     return respondJson($response, $manifest, $manifest['status'] === 'failed' ? 500 : 201);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 /**
  * Why a backup cannot be made here, or null when it can.
@@ -418,11 +418,15 @@ $app->delete('/api/backups/' . BACKUP_ID_ROUTE, function (Request $request, Resp
     backupRemove($directory);
 
     return respondJson($response, ['deleted' => $args['id']]);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── GET /api/backups/{id}/download/{alias} ───────────────────────────────────
 // A backup sitting on the same disk as the database it came from is only half
 // a backup. This is how it gets somewhere else.
+//
+// Admins only, unlike the rest of the reading here. Handing over a dump is not
+// showing somebody a page: it is every row in the database, password hashes
+// included, in a file they can walk away with.
 
 $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/download/{alias:[a-z0-9_]+}', function (Request $request, Response $response, array $args) {
     $directory = backupPath($args['id']);
@@ -451,7 +455,7 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/download/{alias:[a-z0-9_]+}', fu
         ->withHeader('Content-Type', 'application/octet-stream')
         ->withHeader('Content-Length', (string) filesize($file))
         ->withHeader('Content-Disposition', 'attachment; filename="' . $args['id'] . '-' . $args['alias'] . '.dump"');
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ═════════════════════════════════════════════════════════════════════════════
 // Restoring
@@ -670,7 +674,7 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/preview/{alias:[a-z0-9_]+}', fun
         'lost' => $lost,
         'differences' => $differences,
     ]);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── POST /api/backups/{id}/restore/{alias} ───────────────────────────────────
 
@@ -781,4 +785,4 @@ $app->post('/api/backups/' . BACKUP_ID_ROUTE . '/restore/{alias:[a-z0-9_]+}', fu
         'tables' => $tables,
         'warnings' => $restore['warnings'] ?? [],
     ]);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());

@@ -36,7 +36,7 @@ $app->post('/api/artifacts-pieces', function (Request $request, Response $respon
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(ArtifactPiece::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(ArtifactPiece::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/artifacts-pieces/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/artifacts-pieces/{id:[0-9]+}', function (Request $request, Respo
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(ArtifactPiece::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(ArtifactPiece::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/artifacts-pieces/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/artifacts-pieces/{id:[0-9]+}', function (Request $request, Re
     }
     DbQuery::update($pdo, 'artifacts_pieces', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

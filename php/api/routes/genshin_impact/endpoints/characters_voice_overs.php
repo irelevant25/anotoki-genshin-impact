@@ -35,7 +35,7 @@ $app->post('/api/characters-voice-overs', function (Request $request, Response $
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterVoiceOver::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterVoiceOver::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update character voice over
 $app->put('/api/characters-voice-overs/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -53,7 +53,7 @@ $app->put('/api/characters-voice-overs/{id:[0-9]+}', function (Request $request,
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(CharacterVoiceOver::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterVoiceOver::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE character voice over
 $app->delete('/api/characters-voice-overs/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -63,4 +63,4 @@ $app->delete('/api/characters-voice-overs/{id:[0-9]+}', function (Request $reque
     }
     DbQuery::update($pdo, 'characters_voice_overs', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

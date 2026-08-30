@@ -36,7 +36,7 @@ $app->post('/api/characters-ascensions-cost', function (Request $request, Respon
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterAscensionCost::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterAscensionCost::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/characters-ascensions-cost/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/characters-ascensions-cost/{id:[0-9]+}', function (Request $requ
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(CharacterAscensionCost::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterAscensionCost::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/characters-ascensions-cost/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/characters-ascensions-cost/{id:[0-9]+}', function (Request $r
     }
     DbQuery::update($pdo, 'characters_ascensions_cost', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

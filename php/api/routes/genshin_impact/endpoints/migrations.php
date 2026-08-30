@@ -80,7 +80,7 @@ $app->get('/api/migrations', function (Request $request, Response $response) {
     usort($items, fn($a, $b) => [$a['database'], $a['filename']] <=> [$b['database'], $b['filename']]);
 
     return respondJson($response, $items);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── GET /api/migrations/file?database=&filename= ──────────────────────────────
 // The SQL itself, for display in the admin UI.
@@ -112,4 +112,4 @@ $app->get('/api/migrations/file', function (Request $request, Response $response
         'size' => filesize($path),
         'content' => $content,
     ]);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());

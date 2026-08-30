@@ -36,7 +36,7 @@ $app->post('/api/enemies-drops', function (Request $request, Response $response)
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(EnemyDrop::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(EnemyDrop::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/enemies-drops/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/enemies-drops/{id:[0-9]+}', function (Request $request, Response
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(EnemyDrop::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(EnemyDrop::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/enemies-drops/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/enemies-drops/{id:[0-9]+}', function (Request $request, Respo
     }
     DbQuery::update($pdo, 'enemies_drops', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

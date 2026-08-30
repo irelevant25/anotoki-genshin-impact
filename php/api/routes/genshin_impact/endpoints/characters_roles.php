@@ -35,7 +35,7 @@ $app->post('/api/characters-roles', function (Request $request, Response $respon
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterRole::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterRole::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE character role
 $app->delete('/api/characters-roles/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -45,4 +45,4 @@ $app->delete('/api/characters-roles/{id:[0-9]+}', function (Request $request, Re
     }
     DbQuery::update($pdo, 'characters_roles', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

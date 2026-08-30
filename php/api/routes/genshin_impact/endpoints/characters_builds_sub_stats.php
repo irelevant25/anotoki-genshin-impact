@@ -36,7 +36,7 @@ $app->post('/api/characters-builds-sub-stats', function (Request $request, Respo
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterBuildSubStat::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterBuildSubStat::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/characters-builds-sub-stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/characters-builds-sub-stats/{id:[0-9]+}', function (Request $req
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(CharacterBuildSubStat::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterBuildSubStat::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/characters-builds-sub-stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/characters-builds-sub-stats/{id:[0-9]+}', function (Request $
     }
     DbQuery::update($pdo, 'characters_builds_sub_stats', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

@@ -36,7 +36,7 @@ $app->post('/api/banners', function (Request $request, Response $response) {
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(Banner::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(Banner::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/banners/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/banners/{id:[0-9]+}', function (Request $request, Response $resp
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(Banner::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(Banner::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/banners/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/banners/{id:[0-9]+}', function (Request $request, Response $r
     }
     DbQuery::update($pdo, 'banners', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

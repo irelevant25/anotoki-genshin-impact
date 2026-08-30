@@ -319,7 +319,7 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
         'nameColumn' => $nameColumn,
         'path' => $path,
     ]);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ── POST /api/uploads/{entity}/{field} ────────────────────────────────────────
 //
@@ -364,7 +364,7 @@ $app->post('/api/uploads/{entity}/{field}', function (Request $request, Response
     }
 
     return respondJson($response, ['entity' => $entity, 'field' => $field, 'name' => $baseName, 'path' => $path]);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 /**
  * The name an upload gets when the client does not supply one: the old

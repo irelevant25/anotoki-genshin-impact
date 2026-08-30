@@ -35,7 +35,7 @@ $app->post('/api/characters-constellations', function (Request $request, Respons
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterConstellation::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterConstellation::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update character constellation
 $app->put('/api/characters-constellations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -53,7 +53,7 @@ $app->put('/api/characters-constellations/{id:[0-9]+}', function (Request $reque
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(CharacterConstellation::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(CharacterConstellation::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE character constellation
 $app->delete('/api/characters-constellations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -63,4 +63,4 @@ $app->delete('/api/characters-constellations/{id:[0-9]+}', function (Request $re
     }
     DbQuery::update($pdo, 'characters_constellations', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

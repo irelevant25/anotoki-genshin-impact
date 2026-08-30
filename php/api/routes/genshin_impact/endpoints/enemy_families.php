@@ -24,7 +24,7 @@ $app->post('/api/enemy-families', function (Request $request, Response $response
     $stmt = $pdo->prepare('SELECT * FROM enemy_families WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(EnemyFamily::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(EnemyFamily::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->delete('/api/enemy-families/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +35,4 @@ $app->delete('/api/enemy-families/{name}', function (Request $request, Response 
     }
     $pdo->prepare('DELETE FROM enemy_families WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

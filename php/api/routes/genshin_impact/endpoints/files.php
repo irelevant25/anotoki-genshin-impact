@@ -148,7 +148,7 @@ $app->get('/api/files/folders', function (Request $request, Response $response) 
     // the wait for the cache to expire is the wrong answer.
     $refresh = ($request->getQueryParams()['refresh'] ?? '') === '1';
     return respondJson($response, _assetFolders($refresh));
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->get('/api/files', function (Request $request, Response $response) {
     $query = $request->getQueryParams();
@@ -195,7 +195,7 @@ $app->get('/api/files', function (Request $request, Response $response) {
         'pageSize' => FILES_PAGE_SIZE,
         'files' => $files,
     ]);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ── Upload: creates a new file, or replaces one of the same name ──────────────
 
@@ -225,7 +225,7 @@ $app->post('/api/files', function (Request $request, Response $response) {
 
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'path' => $path, 'url' => ltrim(str_replace('../', '', $path), '/')]);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ── Delete: moves to trash rather than unlinking ──────────────────────────────
 
@@ -252,7 +252,7 @@ $app->delete('/api/files', function (Request $request, Response $response) {
 
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'name' => $name, 'trashed' => $stamped]);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ── Trash ─────────────────────────────────────────────────────────────────────
 
@@ -287,7 +287,7 @@ $app->get('/api/files/trash', function (Request $request, Response $response) {
     $items = _listTrash(_trashRoot());
     usort($items, fn($a, $b) => strcmp($b['trashed'], $a['trashed']));
     return respondJson($response, $items);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->post('/api/files/restore', function (Request $request, Response $response) {
     $body = $request->getParsedBody() ?? [];
@@ -320,4 +320,4 @@ $app->post('/api/files/restore', function (Request $request, Response $response)
 
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $safeFolder, 'name' => $name]);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

@@ -24,7 +24,7 @@ $app->post('/api/material-types', function (Request $request, Response $response
     $stmt = $pdo->prepare('SELECT * FROM material_types WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(MaterialType::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(MaterialType::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->delete('/api/material-types/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +35,4 @@ $app->delete('/api/material-types/{name}', function (Request $request, Response 
     }
     $pdo->prepare('DELETE FROM material_types WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

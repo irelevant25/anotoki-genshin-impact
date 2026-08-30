@@ -32,7 +32,7 @@ $app->post('/api/backgrounds', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM backgrounds WHERE id = ?');
     $stmt->execute([$id]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(Background::class))->add(requireRole('admin', 'editor'))->add(requireAuth());
+})->add(validateRequest(Background::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update background
 $app->put('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -53,7 +53,7 @@ $app->put('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $
     $stmt = $pdo->prepare('SELECT * FROM backgrounds WHERE id = ?');
     $stmt->execute([$args['id']]);
     return respondJson($response, $stmt->fetch());
-})->add(validateRequest(Background::class, true))->add(requireRole('admin', 'editor'))->add(requireAuth());
+})->add(validateRequest(Background::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE background
 $app->delete('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -67,4 +67,4 @@ $app->delete('/api/backgrounds/{id:[0-9]+}', function (Request $request, Respons
 
     DbQuery::update($pdo, 'backgrounds', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('admin', 'editor'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

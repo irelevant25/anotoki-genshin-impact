@@ -29,7 +29,7 @@ $app->post('/api/roles', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM roles WHERE name = ?');
     $stmt->execute([$request->getParsedBody()['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(Role::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(Role::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE role
 $app->delete('/api/roles/{name}', function (Request $request, Response $response, array $args) {
@@ -43,4 +43,4 @@ $app->delete('/api/roles/{name}', function (Request $request, Response $response
 
     $pdo->prepare('DELETE FROM roles WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

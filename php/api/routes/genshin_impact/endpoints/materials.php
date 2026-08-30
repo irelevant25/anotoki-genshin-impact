@@ -45,7 +45,7 @@ $app->post('/api/materials', function (Request $request, Response $response) {
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(Material::class))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(Material::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/materials/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -63,7 +63,7 @@ $app->put('/api/materials/{id:[0-9]+}', function (Request $request, Response $re
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(Material::class, true))->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(validateRequest(Material::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/materials/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -73,4 +73,4 @@ $app->delete('/api/materials/{id:[0-9]+}', function (Request $request, Response 
     }
     DbQuery::update($pdo, 'materials', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

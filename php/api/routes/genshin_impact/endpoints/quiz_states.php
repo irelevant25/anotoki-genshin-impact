@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/quiz-states', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM quizzes_states ORDER BY created_at DESC');
     return respondJson($response, $stmt->fetchAll());
-})->add(requireRole('admin'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // GET single quiz state by composite key
 $app->get('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Response $response, array $args) {
@@ -18,12 +18,17 @@ $app->get('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Re
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-})->add(requireAuth());
+})->add(requireSelfOrAdmin('user_id'))->add(requireAuth());
 
 // POST create quiz state
 $app->post('/api/quiz-states', function (Request $request, Response $response) {
     $pdo  = genshinDb();
     $data = array_filter(QuizState::fromBody($request->getParsedBody())->toDbArray(), fn($v) => $v !== null);
+
+    // The body says whose progress this is; the token says who is asking.
+    if ($refusal = refuseForeignUserId($request, $data['user_id'] ?? null)) {
+        return respondJson($response, ['error' => $refusal], $refusal === 'user_id is required' ? 422 : 403);
+    }
 
     $stmt = $pdo->prepare('SELECT user_id FROM quizzes_states WHERE user_id = ? AND quiz_id = ?');
     $stmt->execute([$data['user_id'], $data['quiz_id']]);
@@ -56,7 +61,7 @@ $app->put('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Re
     $stmt = $pdo->prepare('SELECT * FROM quizzes_states WHERE user_id = ? AND quiz_id = ?');
     $stmt->execute([$args['user_id'], $args['quiz_id']]);
     return respondJson($response, $stmt->fetch());
-})->add(validateRequest(QuizState::class, true))->add(requireAuth());
+})->add(validateRequest(QuizState::class, true))->add(requireSelfOrAdmin('user_id'))->add(requireAuth());
 
 // DELETE quiz state by composite key
 $app->delete('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Response $response, array $args) {
@@ -71,4 +76,4 @@ $app->delete('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request,
     $pdo->prepare('DELETE FROM quizzes_states WHERE user_id = ? AND quiz_id = ?')
         ->execute([$args['user_id'], $args['quiz_id']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireAuth());
+})->add(requireSelfOrAdmin('user_id'))->add(requireAuth());

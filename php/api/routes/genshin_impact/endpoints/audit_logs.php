@@ -31,7 +31,7 @@ $app->get('/api/audit-logs/filters', function (Request $request, Response $respo
     }
 
     return respondJson($response, ['tables' => $tables, 'actions' => $actions, 'users' => $users]);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 $app->get('/api/audit-logs', function (Request $request, Response $response) {
     $query = $request->getQueryParams();
@@ -102,4 +102,4 @@ $app->get('/api/audit-logs', function (Request $request, Response $response) {
         'pageSize' => AUDIT_PAGE_SIZE,
         'items' => $rows,
     ]);
-})->add(requireRole('ADMIN'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());

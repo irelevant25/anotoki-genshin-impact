@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/quiz-stats-history', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM quiz_stats_history ORDER BY created_at DESC');
     return respondJson($response, $stmt->fetchAll());
-})->add(requireRole('admin'))->add(requireAuth());
+})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // GET single quiz stats history entry by composite key
 $app->get('/api/quiz-stats-history/{user_id}/{character_id}/{quiz_id}', function (Request $request, Response $response, array $args) {
@@ -18,12 +18,17 @@ $app->get('/api/quiz-stats-history/{user_id}/{character_id}/{quiz_id}', function
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-})->add(requireAuth());
+})->add(requireSelfOrAdmin('user_id'))->add(requireAuth());
 
 // POST create quiz stats history entry
 $app->post('/api/quiz-stats-history', function (Request $request, Response $response) {
     $pdo  = genshinDb();
     $data = QuizStatsHistory::fromBody($request->getParsedBody())->toDbArray();
+
+    // The body says whose progress this is; the token says who is asking.
+    if ($refusal = refuseForeignUserId($request, $data['user_id'] ?? null)) {
+        return respondJson($response, ['error' => $refusal], $refusal === 'user_id is required' ? 422 : 403);
+    }
 
     $stmt = $pdo->prepare('SELECT user_id FROM quiz_stats_history WHERE user_id = ? AND character_id = ? AND quiz_id = ?');
     $stmt->execute([$data['user_id'], $data['character_id'], $data['quiz_id']]);
@@ -56,7 +61,7 @@ $app->put('/api/quiz-stats-history/{user_id}/{character_id}/{quiz_id}', function
     $stmt = $pdo->prepare('SELECT * FROM quiz_stats_history WHERE user_id = ? AND character_id = ? AND quiz_id = ?');
     $stmt->execute([$args['user_id'], $args['character_id'], $args['quiz_id']]);
     return respondJson($response, $stmt->fetch());
-})->add(validateRequest(QuizStatsHistory::class, true))->add(requireAuth());
+})->add(validateRequest(QuizStatsHistory::class, true))->add(requireSelfOrAdmin('user_id'))->add(requireAuth());
 
 // DELETE quiz stats history entry by composite key
 $app->delete('/api/quiz-stats-history/{user_id}/{character_id}/{quiz_id}', function (Request $request, Response $response, array $args) {
@@ -71,4 +76,4 @@ $app->delete('/api/quiz-stats-history/{user_id}/{character_id}/{quiz_id}', funct
     $pdo->prepare('DELETE FROM quiz_stats_history WHERE user_id = ? AND character_id = ? AND quiz_id = ?')
         ->execute([$args['user_id'], $args['character_id'], $args['quiz_id']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireAuth());
+})->add(requireSelfOrAdmin('user_id'))->add(requireAuth());

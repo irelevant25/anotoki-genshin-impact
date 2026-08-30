@@ -96,3 +96,81 @@ function optionalAuthUser(Request $request): ?array
 
     return DbQuery::from(usersDb(), 'users')->fetch('_t.id = ? AND _t.deleted = false', [$decoded['sub']]) ?: null;
 }
+
+// ---------------------------------------------------------------------------
+// Who is allowed to do what
+// ---------------------------------------------------------------------------
+// Three roles, and three shapes of endpoint:
+//
+//   Game content    reading is public, writing is ADMIN or EDITOR. The site is
+//                   a reference work - the whole point is that anyone can read
+//                   it without an account.
+//
+//   System          the admin site's own machinery: accounts, audit logs,
+//                   migrations, backups, feedback. ADMIN does everything,
+//                   EDITOR can look but not touch, nobody else sees it.
+//
+//   Somebody's own  quiz progress and history. Yours, or an admin's to see.
+//   data
+//
+// The constants below name those groups so an endpoint says which one it is
+// rather than repeating a role list that drifts out of step file by file.
+
+/** Writing game content: entries, lookup tables, uploaded files. */
+const ROLES_CONTENT = ['ADMIN', 'EDITOR'];
+
+/** Reading the System area. Editors get to look. */
+const ROLES_SYSTEM_READ = ['ADMIN', 'EDITOR'];
+
+/** Changing anything in the System area. */
+const ROLES_SYSTEM_WRITE = ['ADMIN'];
+
+function isAdminUser(?array $user): bool
+{
+    return strtoupper((string) ($user['role'] ?? '')) === 'ADMIN';
+}
+
+/**
+ * Middleware: the row has to belong to whoever is asking, unless they are an
+ * admin.
+ *
+ * `$param` is the route placeholder holding the user id. Without this, every
+ * signed-in account could read and rewrite every other account's quiz progress
+ * simply by changing the number in the URL.
+ */
+function requireSelfOrAdmin(string $param = 'user_id'): callable
+{
+    return function (Request $request, RequestHandler $handler) use ($param): Response {
+        $user = $request->getAttribute('user');
+        $route = \Slim\Routing\RouteContext::fromRequest($request)->getRoute();
+        $target = $route?->getArgument($param);
+
+        if (!isAdminUser($user) && (string) $target !== (string) ($user['id'] ?? '')) {
+            return respondJson(new \Slim\Psr7\Response(), ['error' => 'Forbidden: that is not yours'], 403);
+        }
+
+        return $handler->handle($request);
+    };
+}
+
+/**
+ * The same rule for a user id that arrives in the body rather than the path.
+ *
+ * Returns an error message, or null when the caller may act for that user.
+ * Not middleware: the body has already been parsed by the time a handler runs,
+ * and only the handler knows which field carries the id.
+ */
+function refuseForeignUserId(Request $request, mixed $userId): ?string
+{
+    $user = $request->getAttribute('user');
+
+    if ($userId === null || $userId === '') {
+        return 'user_id is required';
+    }
+
+    if (!isAdminUser($user) && (string) $userId !== (string) ($user['id'] ?? '')) {
+        return 'Forbidden: that is not yours';
+    }
+
+    return null;
+}
