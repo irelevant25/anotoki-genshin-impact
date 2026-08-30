@@ -5,6 +5,8 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { AdminApiService, BackupDatabase, BackupEntry } from '../../services/admin-api.service';
+import { RoleService } from '../../../../shared/local-lib/services/role.service';
+import { Roles } from '../../../../shared/local-lib/services/options-helper.service';
 import { RestoreConfirmComponent } from '../restore-confirm/restore-confirm.component';
 
 /**
@@ -22,6 +24,10 @@ import { RestoreConfirmComponent } from '../restore-confirm/restore-confirm.comp
 })
 export class BackupViewerComponent extends AbstractModalComponent {
   private readonly _api = inject(AdminApiService);
+  private readonly _roles = inject(RoleService);
+
+  /** Handing over a dump, or replacing a database with one, is admin work. */
+  readonly canManage = this._roles.hasRole(Roles.ADMIN);
 
   /** Set by the opener before the modal renders. */
   readonly backup = signal<BackupEntry | null>(null);

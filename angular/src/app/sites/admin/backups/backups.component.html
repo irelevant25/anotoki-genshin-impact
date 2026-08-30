@@ -1,7 +1,7 @@
 <div class="page-header">
     <h1 class="page-title">Backups</h1>
     @if (troubled()) {
-        <span class="badge-warn">{{ troubled() }} to check</span>
+        <span class="pill status-partial">{{ troubled() }} to check</span>
     }
     <div class="header-actions">
         <span class="stored">{{ backups().length }} kept · {{ formatSize(totalSize()) }}</span>
@@ -51,23 +51,19 @@
     </div>
 }
 
-<div class="create-bar">
-    <div class="create-description">
-        <app-text
-            [label]="'Description'"
-            [placeholder]="'what this one is for — optional'"
+@if (canManage) {
+    <div class="create-bar">
+        <app-button
+            [text]="creating() ? 'Dumping… ' + elapsed() + 's' : 'Create backup'"
+            icon="icon-database"
+            [loading]="creating()"
             [disabled]="creating() || !!blockedReason()"
-            [(value)]="description"
-        ></app-text>
+            (buttonClick)="askToCreate()"
+        ></app-button>
     </div>
-    <app-button
-        [text]="creating() ? 'Dumping… ' + elapsed() + 's' : 'Create backup'"
-        icon="icon-database"
-        [loading]="creating()"
-        [disabled]="creating() || !!blockedReason()"
-        (buttonClick)="create()"
-    ></app-button>
-</div>
+} @else {
+    <p class="read-only-note">You can see the backups here. Making, downloading and restoring them is an admin's job.</p>
+}
 
 <app-loader #loader [loading]="busy()"></app-loader>
 
@@ -116,14 +112,16 @@
                             } @else {
                                 <div class="action-btns">
                                     <app-button text="View" variant="secondary" [outline]="true" size="very-small" (buttonClick)="view(backup)"></app-button>
-                                    <app-button
-                                        icon="icon-trash icon-size-3"
-                                        variant="danger"
-                                        [outline]="true"
-                                        size="very-small"
-                                        tooltipText="Delete this backup and its files"
-                                        (buttonClick)="confirmDelete(backup.id)"
-                                    ></app-button>
+                                    @if (canManage) {
+                                        <app-button
+                                            icon="icon-trash icon-size-3"
+                                            variant="danger"
+                                            [outline]="true"
+                                            size="very-small"
+                                            tooltipText="Delete this backup and its files"
+                                            (buttonClick)="confirmDelete(backup.id)"
+                                        ></app-button>
+                                    }
                                 </div>
                             }
                         </td>

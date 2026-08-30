@@ -71,6 +71,7 @@ export class AppComponent {
     {
       label: 'System',
       items: [
+        { label: 'Accounts', path: 'accounts', icon: 'icon icon-user-group' },
         { label: 'Feedback', path: 'feedback', icon: 'icon icon-mail' },
         { label: 'Audit Logs', path: 'audit-logs', icon: 'icon icon-history', readOnly: true },
         { label: 'Migrations', path: 'migrations', icon: 'icon icon-database', readOnly: true },

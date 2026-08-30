@@ -1,0 +1,104 @@
+@use "../shared/admin-list" as *;
+
+.page-header {
+  gap: var(--spacing-md);
+  justify-content: flex-start;
+}
+
+.summary {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.header-actions {
+  margin-left: auto;
+}
+
+.page-hint {
+  margin: 0 0 var(--spacing-md);
+  max-width: 90ch;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.read-only-note {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.col-role,
+.col-state {
+  width: 110px;
+}
+
+.col-when {
+  width: 120px;
+  white-space: nowrap;
+}
+
+.pill {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border: 1px solid transparent;
+}
+
+.role-admin {
+  background: var(--color-primary-light);
+  color: var(--color-primary-light-text);
+  border-color: var(--color-primary-light-border);
+}
+
+.role-editor {
+  background: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  border-color: var(--color-warning-light-border);
+}
+
+.role-user {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+.state-enabled {
+  background: var(--color-success-light);
+  color: var(--color-success-light-text);
+  border-color: var(--color-success-light-border);
+}
+
+.state-disabled {
+  background: var(--color-danger-light);
+  color: var(--color-danger-light-text);
+  border-color: var(--color-danger-light-border);
+}
+
+// A disabled account is still listed, and should not read as an active one.
+.is-disabled td {
+  opacity: 0.65;
+}
+
+.chip-self,
+.chip-unconfirmed {
+  margin-left: var(--spacing-xs);
+  padding: 0 6px;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-xs);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+}
+
+.chip-self {
+  border-color: var(--color-primary-light-border);
+  color: var(--color-primary);
+}
+
+.no-actions {
+  color: var(--text-muted);
+}

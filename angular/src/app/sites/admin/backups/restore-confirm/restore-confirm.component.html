@@ -105,7 +105,7 @@
 
             <div class="gate">
                 <app-text [label]="'Type ' + alias() + ' to confirm'" [placeholder]="alias()" [(value)]="typedName" [disabled]="running()"></app-text>
-                <app-text [label]="'Your password'" [type]="'password'" [placeholder]="'the one you signed in with'" [(value)]="password" [disabled]="running()"></app-text>
+                <app-password [label]="'Your password'" [placeholder]="'the one you signed in with'" [(value)]="password" [disabled]="running()"></app-password>
             </div>
         }
     </div>

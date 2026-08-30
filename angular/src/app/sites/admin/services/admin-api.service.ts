@@ -699,6 +699,36 @@ export class AdminApiService {
 
   getDashboardStats(): Observable<DashboardStats> { return this._http.get<DashboardStats>('/api/dashboard/stats'); }
 
+  // ── Accounts ─────────────────────────────────────────────────────────────────
+
+  getUsers(params: { search?: string; role?: string; status?: string } = {}): Observable<AccountEntry[]> {
+    const clean: Record<string, string> = {};
+    for (const [key, value] of Object.entries(params)) {
+      if (value) {
+        clean[key] = String(value);
+      }
+    }
+    return this._http.get<AccountEntry[]>('/api/users', { params: clean });
+  }
+
+  getUserFilters(): Observable<AccountFilters> { return this._http.get<AccountFilters>('/api/users/filters'); }
+
+  createUser(account: NewAccount) { return this._http.post<AccountEntry>('/api/users', account); }
+
+  /** Everything except the password, which has its own endpoint. */
+  updateUser(id: number, changes: Partial<AccountEntry>) {
+    return this._http.put<AccountEntry>(`/api/users/${id}`, changes);
+  }
+
+  setUserPassword(id: number, password: string) {
+    return this._http.put<{ message: string; note: string }>(`/api/users/${id}/password`, { password });
+  }
+
+  /** Disabling is reversible and destroys nothing; it is the `deleted` flag. */
+  setUserEnabled(id: number, enabled: boolean) {
+    return this._http.put<AccountEntry>(`/api/users/${id}/enabled`, { enabled });
+  }
+
   // ── Backups ──────────────────────────────────────────────────────────────────
 
   getBackups(): Observable<BackupEntry[]> { return this._http.get<BackupEntry[]>('/api/backups'); }
@@ -1057,4 +1087,45 @@ export interface RestoreResult {
   rows: number;
   tables: { name: string; rows: number }[];
   warnings: string[];
+}
+
+/**
+ * One account, as the admin site sees it.
+ *
+ * `deleted` is what the API checks on every authenticated request, so it is
+ * what "disabled" means here - the account stays, it just cannot be used.
+ * The password hash is never in this shape because it is never sent.
+ */
+export interface AccountEntry {
+  id: number;
+  role: string;
+  username: string;
+  email: string;
+  email_confirmed: boolean;
+  background: string | null;
+  language: string;
+  theme_main: string;
+  theme_admin: string;
+  deleted: boolean;
+  version: string | null;
+  created_at: string;
+  updated_at: string | null;
+}
+
+export interface NewAccount {
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  language?: string;
+}
+
+export interface AccountFilters {
+  roles: string[];
+  byRole: Record<string, number>;
+  disabled: number;
+  total: number;
+  /** How many admins are left, so the UI can explain a refused change. */
+  admins: number;
+  passwordMinLength: number;
 }

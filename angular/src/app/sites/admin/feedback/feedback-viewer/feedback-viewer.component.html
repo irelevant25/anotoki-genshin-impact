@@ -42,7 +42,9 @@
     </div>
 
     <div modal-footer class="footer">
-        <span class="footer-label">Mark as</span>
+        @if (statuses().length) {
+            <span class="footer-label">Mark as</span>
+        }
         @for (status of statuses(); track status) {
             <app-button
                 [text]="status"

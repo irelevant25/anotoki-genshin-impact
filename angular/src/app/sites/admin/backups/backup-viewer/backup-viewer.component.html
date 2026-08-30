@@ -50,25 +50,27 @@
                                 [disabled]="!database.tables.length"
                                 (buttonClick)="toggle(database.alias)"
                             ></app-button>
-                            <app-button
-                                [text]="downloading() === database.alias ? 'Preparing…' : 'Download'"
-                                icon="icon-download icon-size-3"
-                                variant="secondary"
-                                [outline]="true"
-                                size="very-small"
-                                [loading]="downloading() === database.alias"
-                                [disabled]="!!downloading()"
-                                (buttonClick)="download(database)"
-                            ></app-button>
-                            <app-button
-                                text="Restore"
-                                icon="icon-history icon-size-3"
-                                variant="danger"
-                                [outline]="true"
-                                size="very-small"
-                                tooltipText="Replace this database with what is in this backup"
-                                (buttonClick)="restore(database)"
-                            ></app-button>
+                            @if (canManage) {
+                                <app-button
+                                    [text]="downloading() === database.alias ? 'Preparing…' : 'Download'"
+                                    icon="icon-download icon-size-3"
+                                    variant="secondary"
+                                    [outline]="true"
+                                    size="very-small"
+                                    [loading]="downloading() === database.alias"
+                                    [disabled]="!!downloading()"
+                                    (buttonClick)="download(database)"
+                                ></app-button>
+                                <app-button
+                                    text="Restore"
+                                    icon="icon-history icon-size-3"
+                                    variant="danger"
+                                    [outline]="true"
+                                    size="very-small"
+                                    tooltipText="Replace this database with what is in this backup"
+                                    (buttonClick)="restore(database)"
+                                ></app-button>
+                            }
                         }
                     </div>
 

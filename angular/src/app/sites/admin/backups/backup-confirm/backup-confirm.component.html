@@ -1,0 +1,55 @@
+<app-modal [title]="'Create a backup'" (closeModal)="closeModal()">
+    <div modal-body>
+        <p class="lead">Every database goes in. It takes a few seconds, and the site is unresponsive while it runs.</p>
+
+        <div class="databases">
+            @for (database of databases(); track database.alias) {
+                <div class="database">
+                    <span class="database-name">{{ database.alias }}</span>
+                    <span class="database-meta">{{ database.tables }} tables · {{ formatSize(database.size) }} live</span>
+                </div>
+            }
+            @for (database of unreachable(); track database.alias) {
+                <div class="database is-error">
+                    <span class="database-name">{{ database.alias }}</span>
+                    <span class="database-meta">{{ database.error }} — it will be recorded as failed</span>
+                </div>
+            }
+        </div>
+
+        @if (status(); as info) {
+            <div class="facts">
+                <div class="fact">
+                    <span class="fact-label">Tables</span>
+                    <span>{{ tableTotal() | number }}</span>
+                </div>
+                <div class="fact">
+                    <span class="fact-label">Dump size</span>
+                    <span>usually around {{ formatSize(estimate()) }}</span>
+                </div>
+                <div class="fact">
+                    <span class="fact-label">Free space</span>
+                    <span>{{ formatSize(info.free_space) }}</span>
+                </div>
+                <div class="fact">
+                    <span class="fact-label">Already kept</span>
+                    <span>{{ info.backup_count }} backups, {{ formatSize(info.stored_size) }}</span>
+                </div>
+            </div>
+        }
+
+        <app-text
+            [label]="'Description'"
+            [placeholder]="'what this one is for — optional, but you will want it in six months'"
+            [maxLength]="200"
+            [maxLengthCounter]="false"
+            [(value)]="description"
+        ></app-text>
+    </div>
+
+    <div modal-footer class="footer">
+        <span class="footer-spacer"></span>
+        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="closeModal()"></app-button>
+        <app-button text="Create backup" icon="icon-database" (buttonClick)="confirm()"></app-button>
+    </div>
+</app-modal>

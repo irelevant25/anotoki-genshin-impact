@@ -4,6 +4,7 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
+import { PasswordComponent } from '../../../../shared/local-lib/components/password/password.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { AdminApiService, BackupEntry, RestorePreview } from '../../services/admin-api.service';
 
@@ -27,7 +28,7 @@ const RESTORE_COOLDOWN = 30;
   selector: 'app-restore-confirm',
   templateUrl: './restore-confirm.component.html',
   styleUrls: ['./restore-confirm.component.scss'],
-  imports: [DatePipe, DecimalPipe, ModalComponent, ButtonComponent, TextComponent, LoaderComponent],
+  imports: [DatePipe, DecimalPipe, ModalComponent, ButtonComponent, TextComponent, PasswordComponent, LoaderComponent],
 })
 export class RestoreConfirmComponent extends AbstractModalComponent implements OnDestroy {
   private readonly _api = inject(AdminApiService);
@@ -41,7 +42,7 @@ export class RestoreConfirmComponent extends AbstractModalComponent implements O
   readonly previewError = signal<string | null>(null);
 
   readonly typedName = signal<string | number | null | undefined>('');
-  readonly password = signal<string | number | null | undefined>('');
+  readonly password = signal<string | null | undefined>('');
   readonly running = signal(false);
 
   readonly remaining = signal(RESTORE_COOLDOWN);

@@ -1,28 +1,37 @@
 import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
+import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
-import { TextComponent } from '../../../shared/local-lib/components/text/text.component';
 import { AdminApiService, BackupEntry, BackupStatus } from '../services/admin-api.service';
+import { RoleService } from '../../../shared/local-lib/services/role.service';
+import { Roles } from '../../../shared/local-lib/services/options-helper.service';
 import { BackupViewerComponent } from './backup-viewer/backup-viewer.component';
+import { BackupConfirmComponent } from './backup-confirm/backup-confirm.component';
 
 /**
  * Whole-database backups.
  *
- * One row per backup, one dump file inside it per database. Nothing here
- * restores anything: putting a dump back is a deliberate act that belongs at a
- * shell prompt, where it can be done with the site stopped and with the
- * command in front of you.
+ * One row per backup, one dump file inside it per database. Making, downloading
+ * and restoring them are admin-only; an editor sees the list and nothing else.
  */
 @Component({
   selector: 'app-admin-backups',
   templateUrl: './backups.component.html',
   styleUrls: ['./backups.component.scss'],
-  imports: [DatePipe, DecimalPipe, ButtonComponent, LoaderComponent, TextComponent],
+  imports: [DatePipe, DecimalPipe, ButtonComponent, LoaderComponent],
 })
 export class BackupsComponent extends AbstractModalComponent implements OnInit, OnDestroy {
   private readonly _api = inject(AdminApiService);
+  private readonly _roles = inject(RoleService);
+
+  /**
+   * Backups are System: an editor may look at the list, and that is all.
+   * The server enforces it either way; hiding the buttons is so nobody is
+   * offered something that will only refuse them.
+   */
+  readonly canManage = this._roles.hasRole(Roles.ADMIN);
 
   readonly backups = signal<BackupEntry[]>([]);
   readonly status = signal<BackupStatus | null>(null);
@@ -94,11 +103,24 @@ export class BackupsComponent extends AbstractModalComponent implements OnInit, 
     });
   }
 
-  create(): void {
-    if (this.creating() || this.blockedReason()) {
+  /** Asks first, then runs. The description is easiest to write beforehand. */
+  askToCreate(): void {
+    if (this.creating() || this.blockedReason() || !this.canManage) {
       return;
     }
 
+    const modal = this.modalService.open<BackupConfirmComponent>(BackupConfirmComponent, { size: '3' });
+    modal.componentInstance.status.set(this.status());
+
+    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((confirmed) => {
+      if (confirmed) {
+        this.description.set(modal.componentInstance.descriptionText);
+        this.create();
+      }
+    });
+  }
+
+  private create(): void {
     this.creating.set(true);
     this.elapsed.set(0);
     this._timer = setInterval(() => this.elapsed.update((seconds) => seconds + 1), 1000);

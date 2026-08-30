@@ -1,0 +1,39 @@
+<app-modal [title]="title()" (closeModal)="closeModal()">
+    <div modal-body class="form">
+        <app-text [label]="'Username'" [required]="true" [(value)]="username" [disabled]="saving()"></app-text>
+        <app-text [label]="'Email'" [required]="true" [(value)]="email" [disabled]="saving()"></app-text>
+
+        @if (isNew()) {
+            <app-password
+                [label]="'Password'"
+                [required]="true"
+                [description]="'At least ' + passwordMinLength() + ' characters. They can change it themselves afterwards.'"
+                [(value)]="password"
+                [disabled]="saving()"
+            ></app-password>
+        }
+
+        <app-dropdown [label]="'Role'" [options]="roles()" [(value)]="role" [disabled]="saving() || isSelf()"></app-dropdown>
+
+        @if (isSelf()) {
+            <p class="note">This is your own account, so its role is fixed here — nobody gets to remove their own way back in.</p>
+        }
+
+        @if (!isNew()) {
+            <app-checkbox [label]="'Email confirmed'" [(value)]="confirmed" [disabled]="saving()"></app-checkbox>
+            <p class="note">The password is not changed here. Use <strong>Password</strong> in the list to set a new one.</p>
+        }
+    </div>
+
+    <div modal-footer class="footer">
+        <span class="footer-spacer"></span>
+        <app-button text="Cancel" variant="secondary" [outline]="true" [disabled]="saving()" (buttonClick)="closeModal()"></app-button>
+        <app-button
+            [text]="isNew() ? 'Create account' : 'Save'"
+            icon="icon-check"
+            [loading]="saving()"
+            [disabled]="!canSave()"
+            (buttonClick)="save()"
+        ></app-button>
+    </div>
+</app-modal>

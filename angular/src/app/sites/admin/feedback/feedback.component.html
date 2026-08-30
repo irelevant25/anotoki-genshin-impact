@@ -64,7 +64,7 @@
                             } @else {
                                 <div class="action-btns">
                                     <app-button text="View" variant="secondary" [outline]="true" size="very-small" (buttonClick)="view(entry)"></app-button>
-                                    @if (canDelete) {
+                                    @if (canManage) {
                                         <app-button
                                             icon="icon-trash icon-size-3"
                                             variant="danger"

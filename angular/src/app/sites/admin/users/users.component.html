@@ -1,0 +1,123 @@
+<div class="page-header">
+    <h1 class="page-title">Accounts</h1>
+    @if (summary(); as text) {
+        <span class="summary">{{ text }}</span>
+    }
+    <div class="header-actions">
+        @if (canManage) {
+            <app-button text="New account" icon="icon-user-check" size="small" (buttonClick)="create()"></app-button>
+        }
+    </div>
+</div>
+
+<p class="page-hint">
+    Everyone who can sign in. <strong>Disabling</strong> an account is reversible and destroys nothing — the person simply cannot sign in, and any page they have
+    open stops working on its next request. There is no way to read anybody's password here; an admin can only set a new one.
+</p>
+
+@if (!canManage) {
+    <p class="read-only-note">You can see who exists. Creating accounts, changing roles and passwords, and disabling people are an admin's job.</p>
+}
+
+<div class="filter-bar">
+    <app-text [label]="'Search'" [placeholder]="'username or email'" [(value)]="filterSearch" (blurChange)="applyFilters()"></app-text>
+    <app-dropdown
+        [label]="'Role'"
+        [options]="roleOptions()"
+        [(value)]="filterRole"
+        [emptyOption]="true"
+        [emptyOptionText]="'— any —'"
+        (inputChange)="applyFilters()"
+    ></app-dropdown>
+    <app-dropdown
+        [label]="'Status'"
+        [options]="statusOptions"
+        [(value)]="filterStatus"
+        [emptyOption]="true"
+        [emptyOptionText]="'— any —'"
+        (inputChange)="applyFilters()"
+    ></app-dropdown>
+    <div class="filter-summary">
+        <span class="filter-count">{{ accounts().length }} shown</span>
+        @if (hasActiveFilter()) {
+            <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+        }
+    </div>
+</div>
+
+<app-loader #loader [loading]="busy()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th class="col-id">ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th class="col-role">Role</th>
+                    <th class="col-state">Status</th>
+                    <th class="col-when">Joined</th>
+                    <th class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!accounts().length) {
+                    <tr>
+                        <td colspan="7" class="empty-cell">No accounts match the filter</td>
+                    </tr>
+                }
+                @for (account of accounts(); track account.id) {
+                    <tr [class.is-disabled]="account.deleted">
+                        <td class="col-id">{{ account.id }}</td>
+                        <td class="col-username">
+                            {{ account.username }}
+                            @if (isSelf(account)) {
+                                <span class="chip-self">you</span>
+                            }
+                        </td>
+                        <td class="col-email">
+                            {{ account.email }}
+                            @if (!account.email_confirmed) {
+                                <span class="chip-unconfirmed" title="This address was never confirmed">unconfirmed</span>
+                            }
+                        </td>
+                        <td class="col-role"><span class="pill role-{{ account.role.toLowerCase() }}">{{ account.role }}</span></td>
+                        <td class="col-state">
+                            <span class="pill state-{{ account.deleted ? 'disabled' : 'enabled' }}">{{ account.deleted ? 'disabled' : 'enabled' }}</span>
+                        </td>
+                        <td class="col-when">{{ account.created_at | date: 'yyyy-MM-dd' }}</td>
+                        <td class="col-actions">
+                            @if (!canManage) {
+                                <span class="no-actions">—</span>
+                            } @else if (disableConfirm() === account.id) {
+                                <span class="confirm-row">
+                                    <span class="confirm-text">Disable {{ account.username }}?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="setEnabled(account, false)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDisable()"></app-button>
+                                </span>
+                            } @else {
+                                <div class="action-btns">
+                                    <app-button text="Edit" variant="secondary" [outline]="true" size="very-small" (buttonClick)="edit(account)"></app-button>
+                                    <app-button
+                                        text="Password"
+                                        variant="secondary"
+                                        [outline]="true"
+                                        size="very-small"
+                                        tooltipText="Set a new password without knowing the old one"
+                                        (buttonClick)="changePassword(account)"
+                                    ></app-button>
+                                    @if (account.deleted) {
+                                        <app-button text="Enable" variant="success" [outline]="true" size="very-small" (buttonClick)="setEnabled(account, true)"></app-button>
+                                    } @else if (!isSelf(account)) {
+                                        <app-button text="Disable" variant="danger" [outline]="true" size="very-small" (buttonClick)="askToDisable(account.id)"></app-button>
+                                    }
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

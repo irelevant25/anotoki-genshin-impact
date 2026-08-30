@@ -49,11 +49,12 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
   readonly unread = computed(() => this.filters()?.byStatus?.['new'] ?? 0);
 
   /**
-   * Deleting is an admin's call; an editor can triage but not destroy.
+   * Feedback is System, so an editor reads it and nothing more - the status
+   * and the delete button are both admin-only, and the server agrees.
    * Roles are fixed for the session by the time any admin page renders, so
    * this is read once rather than tracked.
    */
-  readonly canDelete = this._roles.hasRole(Roles.ADMIN);
+  readonly canManage = this._roles.hasRole(Roles.ADMIN);
 
   readonly totalPages = computed(() => Math.max(1, Math.ceil(this.total() / this.pageSize())));
 
@@ -126,11 +127,13 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
   view(entry: FeedbackEntry): void {
     const modal = this.openModal<FeedbackViewerComponent>(FeedbackViewerComponent, { size: '4', scrollable: true });
     modal.componentInstance.entry.set(entry);
-    modal.componentInstance.statuses.set(this.statusOptions());
+    modal.componentInstance.statuses.set(this.canManage ? this.statusOptions() : []);
 
     // Opening a message is what marks it read: it is the moment somebody
-    // actually looked at it, which is what "new" was tracking.
-    if (entry.status === 'new') {
+    // actually looked at it, which is what "new" was tracking. An editor
+    // cannot write the status, so for them it stays as it was rather than
+    // firing a request that only comes back 403.
+    if (entry.status === 'new' && this.canManage) {
       this._setStatus(entry, 'read');
     }
 

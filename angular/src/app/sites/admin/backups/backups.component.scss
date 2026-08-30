@@ -18,18 +18,8 @@
   white-space: nowrap;
 }
 
-.badge-warn {
-  font-size: var(--font-size-xs);
-  background: var(--color-warning-light);
-  color: var(--color-warning-light-text);
-  border: 1px solid var(--color-warning-light-border);
-  border-radius: var(--border-radius);
-  padding: 2px 8px;
-  font-weight: var(--font-weight-semibold);
-  white-space: nowrap;
-}
-
-.page-hint {
+.page-hint,
+.read-only-note {
   margin: 0 0 var(--spacing-md);
   max-width: 90ch;
   color: var(--text-secondary);
@@ -98,14 +88,16 @@
 
 .create-bar {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
 }
 
-.create-description {
-  flex: 1 1 320px;
-  max-width: 480px;
+// What an editor sees where the buttons would be, so the page does not just
+// look broken to them.
+.read-only-note {
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 // ── The list ─────────────────────────────────────────────────────────────────
