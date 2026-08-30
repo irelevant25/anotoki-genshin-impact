@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NotificationService } from '../notification/notification.service';
+import { NotificationService } from '../components/notification/notification.service';
 
 export interface ErrorContext {
   operation: string;
@@ -45,13 +45,19 @@ export class ErrorHandlerService {
         message = `Nemáte dostatočné oprávnenia pre ${context.operation}`;
         break;
       case 404:
-        message = `Požadované dáta pre ${context.operation} neboli nájdené`;
+        message = `Požadované dáta pre ${context.operation} neboli nájdené: ${error.error?.message}`;
         break;
       case 409:
         message = `Konflikt pri ${context.operation}: ${error.error?.message || 'Dáta boli medzičasom zmenené'}`;
         break;
+      case 413:
+        message = `Nahraný súbor je príliš veľký.`;
+        break;
       case 422:
         message = `Validačná chyba pri ${context.operation}: ${this.extractValidationErrors(error)}`;
+        break;
+      case 501:
+        message = `Táto funkcionalita je stále vo vývoji.`;
         break;
       case 500:
         message = `Chyba servera pri ${context.operation}. Skúste to znovu neskôr.`;

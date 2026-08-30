@@ -96,7 +96,6 @@ export class UserPasswordComponent extends AbstractModalComponent {
       error: (e) => {
         this.saving.set(false);
         this.notificationService.showError(e?.error?.error ?? 'Could not set that password');
-        this.cd.markForCheck();
       },
     });
   }

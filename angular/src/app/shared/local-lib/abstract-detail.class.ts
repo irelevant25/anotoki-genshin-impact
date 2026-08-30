@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AbstractModalComponent } from './abstract-modal.class';
 
@@ -8,18 +7,17 @@ import { AbstractModalComponent } from './abstract-modal.class';
 export abstract class AbstractDetailComponent<T extends Record<string, any>> extends AbstractModalComponent {
   routeIdName: string = 'id';
   detailData?: Partial<T> = {};
-  id?: number | string;
-
-  protected readonly _route$ = inject(ActivatedRoute);
+  get id(): number | string | undefined {
+    const id = this.route.snapshot.paramMap.get(this.routeIdName) ?? '';
+    if (id === null) {
+      console.error(`No id with name ${this.routeIdName} was found in route params`);
+      return undefined;
+    }
+    return id;
+  }
 
   constructor() {
     super();
-    const id = this._route$.snapshot.paramMap.get(this.routeIdName) ?? '';
-    if (id === null) {
-      console.error(`No id with name ${this.routeIdName} was found in route params`);
-    } else {
-      this.id = id;
-    }
   }
 
   ngOnInit(): void {

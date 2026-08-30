@@ -2,7 +2,7 @@
     <ul class="nav-tabs">
         @for (tab of tabs(); track tab) {
             @if (tab.visible()) {
-                <li class="nav-tabs-item" (click)="setActiveTab(tab)" [class.active]="tab.active()" [class.flex-1]="fullWidth()">
+                <li class="nav-tabs-item" (click)="setActiveTab(tab)" [class.active]="tab.active()" [class]="tab.class()" [class.flex-1]="fullWidth()">
                     @if (tab?.icon()) {
                         <i [class]="'icon ' + tab?.icon() + ' me-1'"></i>
                     }

@@ -49,11 +49,9 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
     this.loading.set(true);
     this._securityService.logout((isSuccess) => {
       this.loading.set(false);
-      this.loadingElement?.loadingCtrl.loading$.subscribe(loading => {
-        if (!loading && isSuccess) {
-          this.closeModal(true);
-        }
-      });
+      if (isSuccess) {
+        this.closeModal(true);
+      }
     });
   }
 

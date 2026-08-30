@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { ButtonComponent } from '../local-lib/button/button.component';
+import { ButtonComponent } from '../components/button/button.component';
 import { Subject } from 'rxjs';
-import { AppLocalStorageService } from '../local-lib/services/app-local-storage.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-cookies',
@@ -15,7 +15,7 @@ export class CookiesComponent {
   hideBar: boolean = true;
 
   constructor(
-    private readonly _storageService: AppLocalStorageService,
+    private readonly _storageService: LocalStorageService,
     private readonly _cd: ChangeDetectorRef,
   ) { }
 

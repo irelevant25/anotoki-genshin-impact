@@ -113,7 +113,6 @@ export class UserFormComponent extends AbstractModalComponent {
       error: (e) => {
         this.saving.set(false);
         this.notificationService.showError(e?.error?.error ?? 'Could not save that');
-        this.cd.markForCheck();
       },
     });
   }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AbstractPopupComponent } from '../../../abstract-popup.class';
 import { DropdownOption } from '../../../services/options-helper.service';
+import { AbstractPopupComponent } from '../../../abstract-popup.class';
 
 @Component({
   selector: 'app-autocomplete-popup',

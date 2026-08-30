@@ -1,0 +1,12 @@
+@if (!hidden()) {
+    <fieldset [class.group]="isGroup()">
+        @if (isGroup()) {
+            <legend class="form-label">{{ groupText() }}</legend>
+        }
+        <div class="container-wrap">
+            <div class="container-wrap d-grid" [class]="class() + (cols() ? ' cols-' + cols() : '')">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </fieldset>
+}

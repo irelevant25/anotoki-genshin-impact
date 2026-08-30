@@ -12,6 +12,7 @@ import { ButtonComponent } from '../button/button.component';
 @Injectable()
 export class ModalComponent {
   title = model<string | undefined>(undefined);
+  subtitle = model<string | undefined>(undefined);
   class = model<string | undefined>(undefined);
   disabled = model<boolean>(false);
 

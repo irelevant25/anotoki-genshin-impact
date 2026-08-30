@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AbstractTooltipComponent } from '../../abstract-tooltip.class';
+import { isNullOrEmpty } from '../../helper.class';
 
 export type BadgeType =
   | 'main'
@@ -18,7 +19,9 @@ export type BadgeType =
   | 'info'
   | 'dark'
   | 'link'
-  | 'none';
+  | 'none'
+  | 'muted'
+  | 'disabled';
 
 @Component({
   selector: 'app-badge',
@@ -44,7 +47,7 @@ export class BadgeComponent extends AbstractTooltipComponent {
   badgeBackground = computed(() => (this.type() === 'none' ? '' : `var(--color-${this.type()})`));
   badgeClasses = computed(() => `padding-${this.padding()} text-${this.textSize()}`);
   badges = computed<string[] | number[]>(() => {
-    const values = this.value();
+    const values = this.value()?.filter((x) => !isNullOrEmpty(x));
     const property = this.propertyName();
     if (values && property) {
       const properties = property.split('.');

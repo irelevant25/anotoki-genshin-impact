@@ -13,7 +13,7 @@ const FORMAT_MAP: Record<SlovakDateFormat, string> = {
   standalone: true,
 })
 export class SlovakDatePipe implements PipeTransform {
-  transform(value: string | null | undefined, format: SlovakDateFormat = 'date'): string {
+  transform(value: string | null | undefined | number, format: SlovakDateFormat = 'date'): string {
     if (!value) {
       return '';
     }
@@ -22,7 +22,7 @@ export class SlovakDatePipe implements PipeTransform {
 
     if (isNaN(date.getTime())) {
       console.warn(`SlovakDatePipe: invalid date "${value}"`);
-      return value;
+      return value.toString();
     }
 
     const tokens: Record<string, string> = {

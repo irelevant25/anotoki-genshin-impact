@@ -1,8 +1,8 @@
 <app-modal [title]="'login.title' | translate" (closeModal)="closeModal()">
     <div modal-body>
         <form class="feedback-form d-flex flex-col flex-wrap gap-3">
-            <app-text [label]="'login.email' | translate" [placeholder]="'login.emailPlaceholder' | translate" [(value)]="form.email" [required]="true"> </app-text>
-            <app-password [label]="'login.password' | translate" [placeholder]="'login.passwordPlaceholder' | translate" [(value)]="form.password" [required]="true"> </app-password>
+            <app-text [label]="'login.email' | translate" [placeholder]="'login.emailPlaceholder' | translate" [(value)]="form().email" [required]="true"> </app-text>
+            <app-password [label]="'login.password' | translate" [placeholder]="'login.passwordPlaceholder' | translate" [(value)]="form().password" [required]="true"> </app-password>
         </form>
     </div>
     <div modal-footer class="d-flex gap-3 justify-content-end">

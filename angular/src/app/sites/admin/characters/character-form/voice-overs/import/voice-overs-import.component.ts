@@ -131,7 +131,6 @@ export class VoiceOversImportComponent extends AbstractModalComponent {
       .then((text) => {
         this.json.set(text);
         this.parseJson(text);
-        this.cd.markForCheck();
       })
       .catch(() => this.jsonError.set('Could not read the file.'));
   }

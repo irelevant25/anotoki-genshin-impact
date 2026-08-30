@@ -18,6 +18,8 @@ export abstract class AbstractPopupComponent<T> {
   @Output() optionHovered = new EventEmitter<T | undefined>();
   @Output() onClose = new EventEmitter<void>();
 
+  // A popup lives outside the host's view and some of its inputs are set from
+  // async callbacks (a search result), which schedule nothing in a zoneless app.
   readonly cd = inject(ChangeDetectorRef);
 
   ngAfterViewInit(): void {
@@ -63,6 +65,5 @@ export abstract class AbstractPopupComponent<T> {
 
     this.left.set(inputRect.left + scrollLeft);
     this.minWidth.set(inputRect.width);
-    this.cd.detectChanges();
   }
 }

@@ -179,9 +179,10 @@ table > tbody > tr > td {
   padding-right: var(--spacing-sm);
 }
 
+// Padding now comes from the [paginationPX] / [paginationPY] toggles on the
+// wrapper itself, so a table can sit flush inside a card.
 .pagination-wrapper {
-  padding-left: var(--spacing-lg);
-  padding-right: var(--spacing-lg);
+  flex-shrink: 0;
 }
 
 @keyframes spin {

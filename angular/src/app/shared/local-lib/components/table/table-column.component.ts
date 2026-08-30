@@ -1,4 +1,5 @@
-import { Component, TemplateRef, ContentChild, PipeTransform, model, effect } from '@angular/core';
+import { Component, TemplateRef, ContentChild, PipeTransform, model, effect, output, input } from '@angular/core';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 // Example of custom column template
 // <app-table-column key="stavPohladavky" label="Stav pohľadávky" [sortable]="true">
@@ -11,6 +12,12 @@ import { Component, TemplateRef, ContentChild, PipeTransform, model, effect } fr
 
 export type DeepKeys<T> = T extends Record<string, any> ? keyof T | { [K in keyof T]: DeepKeys<T[K]> extends infer U ? (U extends string ? `${string & K}.${U}` : never) : never }[keyof T] : never;
 export type ColumnType = 'text' | 'number' | 'date' | 'time' | 'timeWithSeconds' | 'timeText' | 'timeTextWithSeconds' | 'datetime' | 'datetimeWithSeconds' | 'boolean' | 'action';
+export interface ColumnCheckbox<T> {
+  checkbox: CheckboxComponent;
+  value: boolean;
+  column: TableColumnComponent<T>;
+  index: number;
+}
 
 @Component({
   selector: 'app-table-column',
@@ -22,7 +29,7 @@ export class TableColumnComponent<T> {
   sortable = model<boolean>(false);
   width = model<string | undefined>(undefined);
   minWidth = model<string | undefined>(undefined);
-  maxWidth = model<string | undefined>(undefined);
+  maxWidth = model<string | undefined>('500px');
   type = model<ColumnType>('text');
   decimalPlaces = model<number | undefined>(undefined);
   class = model<string | undefined>(undefined);
@@ -32,6 +39,10 @@ export class TableColumnComponent<T> {
   pipe = model<PipeTransform | undefined>(undefined);
   noWrap = model<boolean | undefined>(undefined);
   hide = model<boolean>(false);
+  checkbox = input<boolean>(false);
+  checkboxDisabled = input<boolean>(false);
+  checkboxChange = output<ColumnCheckbox<T>>();
+  checkboxInitialized = output<ColumnCheckbox<T>>();
 
   // Allow custom template to be projected
   @ContentChild(TemplateRef) template?: TemplateRef<any>;

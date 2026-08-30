@@ -1,5 +1,6 @@
-import { Component, model } from '@angular/core';
+import { Component, model, signal } from '@angular/core';
 import { FormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
+
 import { ButtonComponent, ButtonVariant } from '../button/button.component';
 import { AbstractInputComponent } from '../../abstract-input.class';
 
@@ -20,7 +21,7 @@ type Type<T extends FileItemType = FileItemType> = T[];
     {
       provide: AbstractInputComponent,
       useExisting: FileComponent,
-    }
+    },
   ],
 })
 export class FileComponent<T extends FileItemType = FileItemType> extends AbstractInputComponent<Type<T>> {
@@ -38,8 +39,12 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
   showFileNames = model<boolean>(true);
   fileNamePosition = model<'bottom' | 'right'>('bottom');
   buttonClass = model<string>('');
+  hideButton = model<boolean>(false);
+  showDragAndDropArea = model<boolean>(false);
 
-  onButtonClick(event: Event): void {
+  isDragging = signal(false);
+
+  onButtonClick(event?: Event): void {
     if (!this.disabled()) {
       this.inputElement?.nativeElement.click();
     }
@@ -47,8 +52,35 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
 
   onFileChange(event: Event): void {
     const target = event.target as HTMLInputElement;
-    const files = target.files;
+    this.addFiles(target.files);
+  }
 
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.disabled()) {
+      return;
+    }
+    this.isDragging.set(true);
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging.set(false);
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging.set(false);
+    if (this.disabled()) {
+      return;
+    }
+    this.addFiles(event.dataTransfer?.files ?? null);
+  }
+
+  private addFiles(files: FileList | null): void {
     if (files && files.length > 0) {
       const newFiles = Array.from(files).map((x) => ({ file: x })) as T[];
       if (this.multiple()) {
@@ -148,7 +180,7 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
 
     const array = this.value() ?? [];
     array.splice(index, 1);
-    this.value.set([]);
+    this.value.set([...array]);
 
     // Clear the hidden input
     if (this.inputElement) {
@@ -165,13 +197,22 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
       return;
     }
 
-    this.value.set([]);
     if (this.inputElement) {
       this.inputElement.nativeElement.value = '';
     }
 
+    if (this.value()?.length === 0) {
+      return;
+    }
+
+    this.value.set([]);
     this.inputChange.emit(this.value());
     this.updateErrorMessageInternal();
     this.emitValidationState();
+  }
+
+  get acceptAttribute(): string {
+    const acceptedExtensions = this.acceptedExtensions();
+    return acceptedExtensions ? acceptedExtensions.join(',') : '';
   }
 }

@@ -72,7 +72,6 @@ export class BackupViewerComponent extends AbstractModalComponent {
       next: (blob) => {
         this.downloading.set(null);
         this._save(blob, `${backup.id}-${database.alias}.dump`);
-        this.cd.markForCheck();
       },
       error: () => {
         this.downloading.set(null);

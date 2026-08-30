@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, Inject, Input, Output, PLATFORM_ID, SimpleChanges, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Inject, Input, Output, PLATFORM_ID, SimpleChanges, NgZone } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Directive({ selector: '[clickOutside]' })
@@ -14,14 +14,6 @@ export class ClickOutsideDirective {
 
   @Input() clickOutsideEvents: string = '';
 
-  @Input() set detach(detach: boolean) {
-    if (detach) {
-      this._cd.detach();
-    } else {
-      this._cd.reattach();
-    }
-  }
-
   @Output() clickOutside: EventEmitter<Event> = new EventEmitter<Event>();
 
   private _nodesExcluded: Element[] = [];
@@ -31,7 +23,6 @@ export class ClickOutsideDirective {
     private readonly _el: ElementRef,
     private readonly _ngZone: NgZone,
     @Inject(PLATFORM_ID) private readonly _platformId: object,
-    private readonly _cd: ChangeDetectorRef,
   ) {
     this._initOnClickBody = this._initOnClickBody.bind(this);
     this._onClickBody = this._onClickBody.bind(this);

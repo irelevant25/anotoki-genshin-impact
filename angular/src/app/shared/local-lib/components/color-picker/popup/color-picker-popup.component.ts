@@ -28,6 +28,9 @@ export class ColorPickerPopupComponent extends AbstractPopupComponent<string> {
   // Default color for reset (also used to initialize the picker)
   _defaultHex: string = '#FFF';
 
+  // When true, shows a "No color" button that emits null on click
+  allowNoColor: boolean = false;
+
   // Dragging state
   isDraggingGradient = false;
   isDraggingHue = false;
@@ -76,7 +79,6 @@ export class ColorPickerPopupComponent extends AbstractPopupComponent<string> {
 
     this.top.set(top);
     this.left.set(left);
-    this.cd.detectChanges();
   }
 
   // ─── Computed helpers ─────────────────────────────────────────────────────
@@ -280,6 +282,14 @@ export class ColorPickerPopupComponent extends AbstractPopupComponent<string> {
     this.setFromHex(this._defaultHex);
     this.emitColor();
     this.optionSelected.emit(this._defaultHex);
+    this.onClose.emit();
+  }
+
+  selectNoColor(): void {
+    this.hexInput = '';
+    this.hexError = false;
+    this.optionHovered.emit(undefined);
+    this.optionSelected.emit(undefined);
     this.onClose.emit();
   }
 

@@ -1,4 +1,10 @@
+import type { OrderEnum } from './abstract-table.class';
+import type { SortEvent } from './components/table/table.component';
+
 export function copyObject<T>(obj: T): T {
+  if (obj === null || obj === undefined) {
+    return obj;
+  }
   return JSON.parse(JSON.stringify(obj)) as T;
 }
 
@@ -161,4 +167,155 @@ export function thousandSeparator(num: number | string, thousandSeparator: strin
 
   // Add decimal part back if it exists
   return decimalPart ? `${result}${decimalSeparator}${decimalPart}` : result;
+}
+
+function normalizeText(value: string): string {
+  return value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+function valueMatches(value: any, normalizedTerm: string): boolean {
+  if (value === null || value === undefined) {
+    return false;
+  }
+  if (typeof value === 'string') {
+    return normalizeText(value).includes(normalizedTerm);
+  }
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return normalizeText(value.toString()).includes(normalizedTerm);
+  }
+  if (Array.isArray(value)) {
+    return value.some((item) => valueMatches(item, normalizedTerm));
+  }
+  if (typeof value === 'object') {
+    return Object.values(value).some((nested) => valueMatches(nested, normalizedTerm));
+  }
+  return false;
+}
+
+const ISO_DATE_REGEX = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:?\d{2})?)?$/;
+
+function isIsoDateString(value: any): value is string {
+  return typeof value === 'string' && ISO_DATE_REGEX.test(value);
+}
+
+function compareValues(a: any, b: any): number {
+  const aEmpty = a === null || a === undefined || a === '';
+  const bEmpty = b === null || b === undefined || b === '';
+  if (aEmpty && bEmpty) {
+    return 0;
+  }
+  if (aEmpty) {
+    return 1;
+  }
+  if (bEmpty) {
+    return -1;
+  }
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a - b;
+  }
+  if (typeof a === 'boolean' && typeof b === 'boolean') {
+    return a === b ? 0 : a ? 1 : -1;
+  }
+  if (isIsoDateString(a) && isIsoDateString(b)) {
+    return new Date(a).getTime() - new Date(b).getTime();
+  }
+  return normalizeText(String(a)).localeCompare(normalizeText(String(b)));
+}
+
+export function filterInData(term: string, array: any[], sort?: SortEvent): any[] {
+  if (term === null || term === undefined) {
+    return array;
+  }
+  const normalizedTerm = normalizeText(term);
+  const filtered = array.filter((item) => valueMatches(item, normalizedTerm));
+
+  if (!sort?.column || !sort.direction) {
+    return filtered;
+  }
+
+  // Compared as a literal rather than through OrderEnum, so this file does not
+  // have to import the table module at runtime and close an import cycle.
+  const direction: number = sort.direction === ('ASC' as OrderEnum) ? 1 : -1;
+  return filtered.sort((a, b) => direction * compareValues(getValueByKey(a, sort.column), getValueByKey(b, sort.column)));
+}
+
+export function isNullOrEmpty(input: any): boolean {
+  return input === null || input === undefined || input === '' || Number.isNaN(input);
+}
+
+function fontSizeAttrToCss(size: string): string {
+  const map: Record<string, string> = {
+    '1': 'xx-small',
+    '2': 'x-small',
+    '3': 'small',
+    '4': 'medium',
+    '5': 'large',
+    '6': 'x-large',
+    '7': 'xx-large',
+  };
+  return map[size] ?? 'medium';
+}
+
+function convertFontsToSpans(container: HTMLElement): void {
+  const fonts = Array.from(container.querySelectorAll<HTMLElement>('font'));
+  for (const font of fonts) {
+    const span = document.createElement('span');
+    const styles: string[] = [];
+    const face = font.getAttribute('face');
+    const color = font.getAttribute('color');
+    const size = font.getAttribute('size');
+    if (face) {
+      styles.push(`font-family: ${face}`);
+    }
+    if (color) {
+      styles.push(`color: ${color}`);
+    }
+    if (size) {
+      styles.push(`font-size: ${fontSizeAttrToCss(size)}`);
+    }
+    const existing = font.getAttribute('style');
+    if (existing && existing.trim()) {
+      styles.push(existing.replace(/;\s*$/, ''));
+    }
+    if (styles.length) {
+      span.setAttribute('style', styles.join('; '));
+    }
+    while (font.firstChild) {
+      span.appendChild(font.firstChild);
+    }
+    font.parentNode?.replaceChild(span, font);
+  }
+}
+
+function renameTags(container: HTMLElement, from: string, to: string): void {
+  const elements = Array.from(container.querySelectorAll(from));
+  for (const old of elements) {
+    const renamed = document.createElement(to);
+    for (const attr of Array.from(old.attributes)) {
+      renamed.setAttribute(attr.name, attr.value);
+    }
+    while (old.firstChild) {
+      renamed.appendChild(old.firstChild);
+    }
+    old.parentNode?.replaceChild(renamed, old);
+  }
+}
+
+/**
+ * Normalizes HTML to modern, semantic markup:
+ *  - <font face/color/size> -> <span style="...">
+ *  - <b> -> <strong>
+ *  - <i> -> <em>
+ * Existing attributes and inline styles on the original element are preserved.
+ */
+export function normalizeHtml(html: string | null | undefined): string {
+  if (!html) {
+    return html ?? '';
+  }
+  const container = document.createElement('div');
+  container.innerHTML = html;
+  convertFontsToSpans(container);
+  renameTags(container, 'b', 'strong');
+  renameTags(container, 'i', 'em');
+  return container.innerHTML;
 }

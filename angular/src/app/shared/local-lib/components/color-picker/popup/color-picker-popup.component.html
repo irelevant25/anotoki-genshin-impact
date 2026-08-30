@@ -36,6 +36,9 @@
 
     <!-- Preset swatches -->
     <div class="presets">
+        @if (allowNoColor) {
+            <button class="preset-swatch no-color" (click)="selectNoColor()" title="Bez farby"></button>
+        }
         @for (color of presetColors; track color) {
             <button class="preset-swatch" [style.background-color]="color" [class.selected]="color.toLowerCase() === currentHex.toLowerCase()" (click)="selectPreset(color)" [title]="color"></button>
         }

@@ -1,7 +1,7 @@
 @if (!hidden()) {
     <div class="data-table-container">
-        @if ((showPagination() && (paginationType() === 'top' || paginationType() === 'both')) || columnReorderable()) {
-            <div class="pagination-wrapper d-flex w-100 border-top py-2 gap-5">
+        @if ((showPagination() && (paginationType() === "top" || paginationType() === "both")) || columnReorderable()) {
+            <div class="pagination-wrapper d-flex w-100 gap-5" [class.border-top]="paginationBorderTop()" [class.px-5]="paginationPX()" [class.py-2]="paginationPY()">
                 <app-pagination
                     class="flex-1"
                     style="align-content: center"
@@ -10,8 +10,7 @@
                     [(pageSize)]="pageSize"
                     [pageSizeOptions]="pageSizeOptions()"
                     (pageChange)="onPageChange()"
-                    (pageSizeChange)="onPageSizeChange()"
-                ></app-pagination>
+                    (pageSizeChange)="onPageSizeChange()"></app-pagination>
                 @if (columnReorderable()) {
                     <app-button
                         class="p-0 reorder-button"
@@ -20,8 +19,7 @@
                         size="small"
                         [outline]="!resetable"
                         [tooltipText]="resetable ? 'Resetovať usporiadanie stĺpcov' : 'Usporiadanie stĺpcov je v predvolenom nastavení'"
-                        (buttonClick)="resetColumnOrder()"
-                    ></app-button>
+                        (buttonClick)="resetColumnOrder()"></app-button>
                 }
             </div>
         }
@@ -45,6 +43,7 @@
                                     [class]="getHeaderClass(i)"
                                     [class.sortable]="column.sortable()"
                                     [class.hidden]="column.hide()"
+                                    [class.align-content-start]="column.checkbox()"
                                     [draggable]="columnReorderable()"
                                     (click)="onSort(column, $event)"
                                     (dragstart)="onDragStart($event, i)"
@@ -54,11 +53,26 @@
                                     (drop)="onDrop($event, i)"
                                     (dragend)="onDragEnd()"
                                     [style.width]="column.width() && i === 0 ? 'calc(' + column.width() + ' + 16px)' : column.width()"
-                                >
-                                    <div class="header-content" [class.no-wrap]="column.noWrap || !wrapColNames()">
-                                        <span>{{ column.label() }}</span>
-                                        <div class="header-icons">
-                                            @if (column.sortable()) {
+                                    [style.minWidth]="column.minWidth() && i === 0 ? 'calc(' + column.minWidth() + ' + 16px)' : column.minWidth()"
+                                    [style.maxWidth]="column.maxWidth() && i === 0 ? 'calc(' + column.maxWidth() + ' + 16px)' : column.maxWidth()">
+                                    <div
+                                        class="header-content"
+                                        [class.flex-wrap]="column.checkbox()"
+                                        [class.justify-content-center]="column.checkbox()"
+                                        [class.no-wrap]="column.noWrap || !wrapColNames()">
+                                        @if (column.checkbox()) {
+                                            <app-checkbox
+                                                #checkbox
+                                                class="w-100 align-items-center"
+                                                [inline]="false"
+                                                (click)="$event.stopPropagation()"
+                                                (inputChange)="column.checkboxChange.emit({ checkbox, value: !!$event, column, index: i })"
+                                                (initialized)="column.checkboxInitialized.emit({ checkbox, value: !!$event, column, index: i })"
+                                                [disabled]="column.checkboxDisabled()"></app-checkbox>
+                                        }
+                                        <span [class.white-space-normal]="column.type() !== 'action'" [class.word-break]="column.type() !== 'action'">{{ column.label() }}</span>
+                                        @if (column.sortable()) {
+                                            <div class="header-icons">
                                                 <span class="sort-icon">
                                                     @if (currentSort().column === (column.sortField() ?? column.key()) && currentSort().direction === OrderEnum.ASC) {
                                                         <i class="icon icon-sort-asc"></i>
@@ -68,17 +82,24 @@
                                                         <i class="icon icon-sort"></i>
                                                     }
                                                 </span>
-                                            }
-                                            <!--
+
+                                                <!--
                                         <span *ngIf="columnReorderable()" class="drag-handle">
                                         <i class="icon icon-grip"></i>
                                         </span>
-                                        --></div>
+                                        -->
+                                            </div>
+                                        }
                                     </div>
                                 </th>
                             }
                             @if (!column.label()) {
-                                <th [class]="getHeaderClass(i)" [style.width]="column.width()" [class.hidden]="column.hide()"></th>
+                                <th
+                                    [class]="getHeaderClass(i)"
+                                    [style.width]="column.width()"
+                                    [style.minWidth]="column.minWidth() && i === 0 ? 'calc(' + column.minWidth() + ' + 16px)' : column.minWidth()"
+                                    [style.maxWidth]="column.maxWidth() && i === 0 ? 'calc(' + column.maxWidth() + ' + 16px)' : column.maxWidth()"
+                                    [class.hidden]="column.hide()"></th>
                             }
                         }
                     </tr>
@@ -86,7 +107,7 @@
                 <tbody>
                     @if (!loading() && data().result.length === 0) {
                         <tr class="no-data-row">
-                            <td [attr.colspan]="internalColumns.length + (selectable() ? 1 : 0)" class="no-data-cell">
+                            <td [attr.colspan]="internalColumns().length + (selectable() ? 1 : 0)" class="no-data-cell">
                                 {{ noDataMessage() }}
                             </td>
                         </tr>
@@ -99,12 +120,18 @@
                                         #checkbox
                                         [labelPosition]="'right'"
                                         (inputChange)="onSelectionChange(row)"
-                                        [value]="tableRowElement.classList.contains('row-selected')"
-                                    ></app-checkbox>
+                                        [value]="tableRowElement.classList.contains('row-selected')"></app-checkbox>
                                 </td>
                             }
                             @for (column of internalColumns(); track column) {
-                                <td [class]="getCellClass(column, row)" [class.no-wrap]="column.noWrap()" (click)="onRowClick(row, i, column)" [class.hidden]="column.hide()">
+                                <td
+                                    [class]="getCellClass(column, row)"
+                                    [class.no-wrap]="column.noWrap()"
+                                    (click)="onRowClick(row, i, column)"
+                                    [class.hidden]="column.hide()"
+                                    [style.width]="column.width() && i === 0 ? 'calc(' + column.width() + ' + 16px)' : column.width()"
+                                    [style.minWidth]="column.minWidth() && i === 0 ? 'calc(' + column.minWidth() + ' + 16px)' : column.minWidth()"
+                                    [style.maxWidth]="column.maxWidth() && i === 0 ? 'calc(' + column.maxWidth() + ' + 16px)' : column.maxWidth()">
                                     @if (column.template) {
                                         <ng-container *ngTemplateOutlet="column.template; context: { $implicit: row, column: column, value: getCellValue(row, column.key()), index: i }"></ng-container>
                                     } @else {
@@ -119,8 +146,8 @@
             <app-loader [loading]="loading()"></app-loader>
         </div>
 
-        @if ((showPagination() && (paginationType() === 'bottom' || paginationType() === 'both')) || columnReorderable()) {
-            <div class="pagination-wrapper d-flex w-100 border-bottom py-2 gap-5">
+        @if ((showPagination() && (paginationType() === "bottom" || paginationType() === "both")) || columnReorderable()) {
+            <div class="pagination-wrapper d-flex w-100 gap-5" [class.border-bottom]="paginationBorderBottom()" [class.px-5]="paginationPX()" [class.py-2]="paginationPY()">
                 <app-pagination
                     class="flex-1"
                     style="align-content: center"
@@ -129,8 +156,7 @@
                     [(pageSize)]="pageSize"
                     [pageSizeOptions]="pageSizeOptions()"
                     (pageChange)="onPageChange()"
-                    (pageSizeChange)="onPageSizeChange()"
-                ></app-pagination>
+                    (pageSizeChange)="onPageSizeChange()"></app-pagination>
                 @if (columnReorderable()) {
                     <app-button
                         class="p-0 reorder-button"
@@ -139,8 +165,7 @@
                         size="small"
                         [outline]="!resetable"
                         [tooltipText]="resetable ? 'Resetovať usporiadanie stĺpcov' : 'Usporiadanie stĺpcov je v predvolenom nastavení'"
-                        (buttonClick)="resetColumnOrder()"
-                    ></app-button>
+                        (buttonClick)="resetColumnOrder()"></app-button>
                 }
             </div>
         }

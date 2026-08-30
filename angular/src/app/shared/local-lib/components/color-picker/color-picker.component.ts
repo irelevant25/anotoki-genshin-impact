@@ -19,6 +19,7 @@ export class ColorPickerComponent extends AbstractInputComponent<string> {
   displayColorValue = model<boolean>(false);
   colorClass = model<string>();
   defaultValue = model<string>();
+  allowNoColor = model<boolean>(true);
 
   previewColor = output<string | undefined>();
   closed = output<void>();
@@ -70,11 +71,12 @@ export class ColorPickerComponent extends AbstractInputComponent<string> {
     const currentValue = this.value() ?? this.defaultValue() ?? '';
     this.popupRef.instance.setFromHex(currentValue);
     this.popupRef.instance._defaultHex = this.defaultValue() ?? '';
+    this.popupRef.instance.allowNoColor = this.allowNoColor();
 
     // Live-update the swatch as the user drags
-    this.popupRef.instance.optionSelected.subscribe((hex: string) => {
-      this.value.set(hex);
-      this.inputChange.emit(hex);
+    this.popupRef.instance.optionSelected.subscribe((hex?: string) => {
+      this.value.set(hex ?? null);
+      this.inputChange.emit(hex ?? null);
       this.emitValidationState();
     });
 

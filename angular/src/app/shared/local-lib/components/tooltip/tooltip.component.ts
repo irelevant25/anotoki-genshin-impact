@@ -40,8 +40,7 @@ export class TooltipComponent extends AbstractRolesComponent {
       //     this.positionTooltip();
       //   }
       // });
-    }
-    else {
+    } else {
       this.positionTooltip();
     }
   }

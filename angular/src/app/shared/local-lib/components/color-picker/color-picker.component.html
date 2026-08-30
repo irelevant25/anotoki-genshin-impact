@@ -16,13 +16,14 @@
                 class="color-swatch"
                 [class]="colorClass()"
                 [class.open]="isPopupOpen"
-                [style.background-color]="computedValue() || '#ffffff'"
+                [class.no-color]="!value()"
+                [style.background-color]="value() || '#ffffff'"
                 (click)="!disabled() && togglePopup()"
                 (focus)="onFocus()"
                 (blur)="onBlur()"
                 tabindex="0"
                 role="button"
-                [attr.aria-label]="'Color picker, current color: ' + (computedValue() || '#ffffff')"
+                [attr.aria-label]="'Color picker, current color: ' + (value() || 'none')"
                 [attr.aria-expanded]="isPopupOpen"></div>
 
             @if (displayColorValue()) {

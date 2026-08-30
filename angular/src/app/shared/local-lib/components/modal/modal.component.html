@@ -1,12 +1,17 @@
 <div class="modal-content" [class]="class()">
     <div class="modal-header">
         @if (title()) {
-            <h2 class="govuk-label">
+            <h2>
                 {{ title() }}
             </h2>
         }
         <app-button class="p-0 ms-5" icon="icon-close" variant="secondary" [outline]="true" tooltipText="Zatvoriť" (buttonClick)="closeDialog()"></app-button>
     </div>
+    @if (subtitle()) {
+        <p class="modal-subtitle text-muted mb-3">
+            {{ subtitle() }}
+        </p>
+    }
     <div class="modal-body">
         <ng-content select="[modal-body]"></ng-content>
     </div>

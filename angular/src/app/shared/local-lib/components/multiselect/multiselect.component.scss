@@ -46,3 +46,13 @@
   text-align: center;
   pointer-events: none;
 }
+
+// Shown only with [showBadges]; the cross dims until the badge is hovered so it
+// does not compete with the label next to it.
+.badge-remove {
+  background-color: var(--color-main-light-text);
+
+  &:hover {
+    background-color: var(--color-primary-light-text);
+  }
+}

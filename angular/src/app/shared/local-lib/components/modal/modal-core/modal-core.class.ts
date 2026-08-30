@@ -75,7 +75,7 @@ export class CustomModalRef<T = any, R = any> extends ModalRef<T, R> {
   }
 
   update(options: Partial<ModalOptions>): void {
-    this.options = { ...this.options, ...options };
+    this.options = { ...this.options, ...options } satisfies ModalOptions;
     // Apply updated options to the modal container
     if (this._containerRef.instance.updateOptions) {
       this._containerRef.instance.updateOptions(this.options);

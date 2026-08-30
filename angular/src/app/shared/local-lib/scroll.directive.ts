@@ -36,7 +36,7 @@ export class ScrollDirective {
     }
 
     this._scrollListener = (event: any): void => {
-      if (event.target === this._popup?.popupRef?.location.nativeElement.firstChild) {
+      if (this._popup?.popupRef?.location.nativeElement.contains(event.target)) {
         return;
       }
       if (this._popup?.closeOnScroll()) {

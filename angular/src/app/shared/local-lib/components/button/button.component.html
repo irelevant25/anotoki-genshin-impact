@@ -10,13 +10,12 @@
         [class.btn-outline]="outline()"
         (mouseenter)="mouseEnter()"
         (mouseleave)="mouseLeave()"
-        (click)="onClick($event)"
-    >
+        (click)="onClick($event)">
         @if (loading()) {
             <span class="loading-spinner"></span>
         }
         @if (icon() && !loading()) {
-            <span [class]="'icon ' + icon()" [ngClass]="!isHovered() && variant() ? '' : ''"></span>
+            <span [class]="'icon ' + icon()" [ngClass]="[!isHovered() && variant() ? '' : '', iconClass()]"></span>
         }
         @if (text()) {
             <span class="button-text">{{ text() }}</span>

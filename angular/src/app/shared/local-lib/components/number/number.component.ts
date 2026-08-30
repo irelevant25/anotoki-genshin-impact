@@ -10,13 +10,14 @@ export class NumberPipe implements PipeTransform {
     this._padding = padding;
     return this;
   }
-  transform(key?: Type, padding?: number): string {
-    let result = Number.isNaN(key) ? '' : (key?.toString() ?? '');
+  transform(value?: Type, padding?: number): string {
+    let result = Number.isNaN(value) ? '' : (value?.toString() ?? '');
     const actualPadding = padding ?? this._padding;
 
-    if (typeof key === 'number' && actualPadding !== undefined) {
-      result = key.toFixed(actualPadding);
+    if (typeof value === 'number' && actualPadding !== undefined) {
+      result = value.toFixed(actualPadding);
     }
+
     return result.replace('.', ',');
   }
 }

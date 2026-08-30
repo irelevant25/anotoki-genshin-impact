@@ -1,9 +1,11 @@
-import { ChangeDetectorRef, Directive, ElementRef, forwardRef, inject, signal, computed, effect, ViewChild, model, output, untracked } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, signal, computed, effect, ViewChild, model, output, untracked } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { ValidationErrorService } from './services/validation.service';
 import { AbstractTooltipComponent } from './abstract-tooltip.class';
 import { requiredValidator } from './validators/required.class';
+import { DomSanitizer } from '@angular/platform-browser';
+import { isNullOrEmpty } from './helper.class';
 
 @Directive({
   providers: [
@@ -16,21 +18,25 @@ import { requiredValidator } from './validators/required.class';
 })
 export abstract class AbstractInputComponent<T = string> extends AbstractTooltipComponent implements Validator {
   static readonly registry = new Set<AbstractInputComponent<any>>();
+  static readonly registryVersion = signal(0);
+
   @ViewChild('inputElement') inputElement?: ElementRef<HTMLInputElement | HTMLSelectElement>;
   @ViewChild('labelElement') labelElement?: ElementRef<HTMLLabelElement>;
 
   // inputs
-  value = model<T | undefined | null>(undefined);
+  value = model<T | undefined | null>();
   required = model<boolean>(false);
   label = model<string>('');
   placeholder = model<string | undefined>();
   description = model<string>('');
   disabled = model<boolean>(false);
-  customErrorMessage = model<string | undefined>(undefined);
+  customErrorMessage = model<string | undefined>();
   validators = model<ValidatorFn[]>([]);
-  class = model<string | undefined>(undefined);
+  class = model<string | undefined>();
   displayError = model<boolean>(true);
   width = model<'default' | 'min-content'>('default');
+  sanitize = model<boolean>(false);
+  inputClass = model<string>('');
 
   // outputs
   inputChange = output<T | undefined | null>();
@@ -40,21 +46,25 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
   validationChange = output<boolean>();
 
   // Internal state signals
-  isTouched = signal<boolean>(false);
-  isFocused = signal<boolean>(false);
+  isTouched = model<boolean>(false);
+  isFocused = model<boolean>(false);
   errorMessage = signal<string | undefined>(undefined);
 
   // Computed signals
   hasError = computed(() => {
-    return !!this.errorMessage() && this.isTouched();
+    return this.errorMessage() !== undefined && this.errorMessage() !== null && this.isTouched() && !this.disabled();
   });
   isValid = computed(() => !this.errorMessage());
   isNullOrEmpty = computed(() => {
     const val = this.computedValue();
-    return val === undefined || val === null || val === '' || Number.isNaN(val);
+    return isNullOrEmpty(val);
   });
   computedValue = computed(() => {
-    return this.value() ?? '';
+    const value = this.value() ?? '';
+    if (this.sanitize()) {
+      return this.sanitizer.bypassSecurityTrustHtml(value as string) as string;
+    }
+    return value;
   });
 
   onValidatorChange?: () => void;
@@ -66,13 +76,14 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
   } as AbstractControl;
 
   readonly elementRef = inject(ElementRef);
-  protected readonly cd = inject(ChangeDetectorRef);
+  readonly sanitizer = inject(DomSanitizer);
   protected readonly validationErrorService$ = inject(ValidationErrorService);
   protected skipAfterValueChange = false;
 
   constructor() {
     super();
     AbstractInputComponent.registry.add(this);
+    AbstractInputComponent.registryVersion.update((v) => v + 1);
     effect(() => {
       const value = this.value();
 
@@ -99,6 +110,7 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
   override ngOnDestroy(): void {
     super.ngOnDestroy();
     AbstractInputComponent.registry.delete(this);
+    AbstractInputComponent.registryVersion.update((v) => v + 1);
     this.unsubscriber.next();
     this.unsubscriber.complete();
   }
@@ -117,11 +129,6 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
     this.inputElement?.nativeElement.focus();
     this.isFocused.set(true);
     this.focusChange.emit(this.isFocused());
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    // For forms integration - would need a writable signal if needed
-    this.cd.markForCheck();
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
@@ -152,7 +159,7 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  protected afterValueChange(value?: T | null): void { }
+  protected afterValueChange(value?: T | null): void {}
 
   registerOnValidatorChange(fn: () => void): void {
     this.onValidatorChange = fn;
@@ -162,7 +169,7 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
     const customMsg = this.customErrorMessage();
 
     // Custom error message overrides everything
-    if (customMsg) {
+    if (customMsg !== null && customMsg !== undefined) {
       this.errorMessage.set(customMsg);
       return;
     }
@@ -177,7 +184,7 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
   }
 
   setErrorMessage(validationErrors: ValidationErrors | null): void {
-    let message = '';
+    let message;
 
     if (validationErrors) {
       message = this.validationErrorService$.getFirstErrorMessage(validationErrors);

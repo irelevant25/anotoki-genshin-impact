@@ -201,11 +201,16 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
       this.selectOption(option);
     });
 
+    this.popupRef.instance.optionHovered.subscribe((option?: DropdownOption) => {
+      this.hoveredOption.emit(option);
+    });
+
     this.popupRef.instance.onClose.subscribe(() => {
       this.closePopup();
     });
 
     this.updatePopup();
+    this.opened.emit();
   }
 
   updatePopup(): void {
@@ -217,7 +222,6 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
       this.popupRef.instance.emptyOption = this.emptyOption();
       this.popupRef.instance.resetHighlight();
       this.popupRef.instance.optionTemplate = this.optionTemplate;
-      // this.popupRef.instance.positionPopup();
     }
   }
 
@@ -241,7 +245,7 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
     }
     this.destroyPopup();
     this.isPopupOpen.set(false);
-
     this.onBlur();
+    this.closed.emit();
   }
 }

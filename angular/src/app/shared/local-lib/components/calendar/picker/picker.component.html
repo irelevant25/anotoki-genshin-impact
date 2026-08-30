@@ -1,4 +1,4 @@
-<div class="calendar-popup" #popup [style.left.px]="position.left" [style.top.px]="position.top" (clickOutside)="onCancel()">
+<div class="calendar-popup" #popup [style.left.px]="position().left" [style.top.px]="position().top" (clickOutside)="onCancel()">
     @if (granularity === "date" || granularity === "datetime") {
         <div class="calendar-header">
             <button type="button" (click)="previous()" class="nav-btn" [disabled]="!canNavigateToPrevious()">&lt;</button>

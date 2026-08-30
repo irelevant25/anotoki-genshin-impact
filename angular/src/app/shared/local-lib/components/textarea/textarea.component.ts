@@ -22,7 +22,7 @@ export class TextareaComponent extends AbstractInputComponent<Type> {
   dynamicRows = model<boolean>(false);
   maxLength = model<number | undefined>(undefined);
   maxLengthCounter = model<boolean>(true);
-  height = model<string>('auto');
+  height = model<string>('100px');
   resize = model<boolean>(true);
 
   remainingChars: number = 0;

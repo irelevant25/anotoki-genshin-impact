@@ -36,21 +36,25 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
    */
   hideYear = model<boolean>(false);
   yearlessYear = model<number>(4);
-
-  defaultPlaceHolder = computed(() =>
-    this.granularity() === 'date' ? this.displayValueDateFormat : this.showSeconds() ? `${this.displayValueDateFormat} HH:mm:ss` : `${this.displayValueDateFormat} HH:mm`
-  );
+  defaultPlaceHolder = computed(() => {
+    if (this.granularity() === 'date') {
+      return this.displayValueDateFormat;
+    } else if (this.granularity() === 'datetime') {
+      return this.showSeconds() ? `${this.displayValueDateFormat} HH:mm:ss` : `${this.displayValueDateFormat} HH:mm`;
+    }
+    return this.showSeconds() ? 'HH:mm:ss' : 'HH:mm';
+  });
 
   selectedDate: Date | null = null;
   selectedTime: TimeValue | null = null;
   showCalendar = false;
   valueDateFormat: string = 'yyyy-MM-dd';
-  displayValue: string | null = null;
 
   /** `02.04.` while the year is hidden, `02.04.2024` otherwise. */
   get displayValueDateFormat(): string {
     return this.hideYear() ? 'dd.MM.' : 'dd.MM.yyyy';
   }
+  displayValue: string | null = null;
 
   private _calendarRef: ComponentRef<CalendarPickerComponent> | null = null;
 
@@ -96,7 +100,15 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
   }
 
   updateDisplayValue(value?: string | null): void {
-    this.displayValue = value ? DynamicDateTimeConverter.formatDateTime(new Date(value), this.displayValueFormat) : '';
+    if (!value) {
+      this.displayValue = '';
+      return;
+    }
+    if (this.granularity() === 'time') {
+      this.displayValue = value;
+      return;
+    }
+    this.displayValue = DynamicDateTimeConverter.formatDateTime(new Date(value), this.displayValueFormat);
   }
 
   toggleCalendar(event: Event): void {
@@ -222,10 +234,11 @@ export class CalendarComponent extends AbstractInputComponent<Type> {
         this.value.set(DynamicDateTimeConverter.formatDateTime(selectedDatetime, this.valueFormat));
         this.updateDisplayValue(this.value());
       } else if (granularity === 'time') {
-        const time = Object.values(this.selectedTime ?? { hours: 0, minutes: 0, seconds: 0 })
-          .map((x) => x.toString().padStart(2, '0'))
-          .join(':');
-        this.value.set(showSeconds ? time : time.slice(0, -3));
+        const t = this.selectedTime ?? { hours: 0, minutes: 0, seconds: 0 };
+        const hh = (t.hours ?? 0).toString().padStart(2, '0');
+        const mm = (t.minutes ?? 0).toString().padStart(2, '0');
+        const ss = (t.seconds ?? 0).toString().padStart(2, '0');
+        this.value.set(showSeconds ? `${hh}:${mm}:${ss}` : `${hh}:${mm}`);
         this.updateDisplayValue(this.value());
       }
       if (granularity === 'date') {

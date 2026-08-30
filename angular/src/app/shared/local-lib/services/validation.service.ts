@@ -13,9 +13,23 @@ export class ValidationErrorService {
     required: () => 'Toto pole je povinné',
     min: (min: any) => `Minimálna hodnota je ${min}`,
     max: (max: any) => `Maximálna hodnota je ${max}`,
-    minlength: (requiredLength: any) => `Minimálna dĺžka je ${requiredLength} ${requiredLength <= 0 || requiredLength >= 5 ? 'znakov' : requiredLength === 1 ? 'znak' : 'znaky'}`,
-    maxlength: (requiredLength: any) => `Maximálna dĺžka je ${requiredLength} ${requiredLength <= 0 || requiredLength >= 5 ? 'znakov' : requiredLength === 1 ? 'znak' : 'znaky'}`,
-    lengthRange: (error: any) => `Maximálna dĺžka musí byť medzi ${error.minlength} a ${error.maxlength} znakov`,
+    minlength: (requiredLength: any) => {
+      if (requiredLength === 0 || requiredLength >= 5) {
+        return `Minimálna dĺžka je ${requiredLength} znakov.`;
+      } else if (requiredLength === 1) {
+        return `Minimálna dĺžka je ${requiredLength} znak.`;
+      }
+      return `Minimálna dĺžka sú ${requiredLength} znaky.`;
+    },
+    maxlength: (requiredLength: any) => {
+      if (requiredLength === 0 || requiredLength >= 5) {
+        return `Maximálna dĺžka je ${requiredLength} znakov.`;
+      } else if (requiredLength === 1) {
+        return `Maximálna dĺžka je ${requiredLength} znak.`;
+      }
+      return `Maximálna dĺžka sú ${requiredLength} znaky.`;
+    },
+    lengthRange: (error: any) => `Dĺžka musí byť medzi ${error.minlength} a ${error.maxlength} znakmi.`,
     email: () => 'Neplatná emailová adresa. Požadovany format: xxx@yyy.zzz',
     phoneNumber: () => 'Neplatné telefónne číslo',
     forbiddenValue: (value: any) => `Hodnota "${value}" nie je povolená`,
@@ -23,7 +37,17 @@ export class ValidationErrorService {
     numberRange: (error: any) => `Hodnota musí byť medzi ${error.min} a ${error.max}`,
     uniqueValue: (value: any) => `Hodnota "${value}" už existuje`,
     dateRangeInvalid: () => 'Neplatný dátumový rozsah',
+    timeRangeInvalid: () => 'Neplatný časový rozsah',
     rangeInvalid: () => 'Neplatný číselný rozsah',
+    invalidExtension: (acceptedExtensions: string[]): string => {
+      const baseMessage = 'Neplatný typ súboru.';
+      const singleExtension = `Povolený typ súboru: ${acceptedExtensions}`;
+      // spojenie pola ', ' (ciarka a medzera) a nasledne nahradenie poslednej ciarky s medzerou spojkou 'a' (pouzitim reverse)
+      const multipleExtensions = `Povolené typy súborov: ${acceptedExtensions.join(', ').split('').reverse().join('').replace(',', ' a ').split('').reverse().join('')}`;
+      return !acceptedExtensions.length ? baseMessage : `${baseMessage} ${acceptedExtensions.length === 1 ? singleExtension : multipleExtensions}`;
+    },
+    includes: () => 'Zvolená položka už bola pridaná.',
+    includesMany: () => 'Kombinácia vybraných položiek už bola pridaná.',
     custom: () => 'Neplatná hodnota',
   };
 
@@ -95,7 +119,7 @@ export class ValidationErrorService {
         return acc;
       }, {} as ErrorMessageConfig);
 
-    this._defaultErrorMessages = { ...this._defaultErrorMessages, ...filteredDefaults };
+    this._defaultErrorMessages = { ...this._defaultErrorMessages, ...filteredDefaults } satisfies ErrorMessageConfig;
   }
 
   /**

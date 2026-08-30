@@ -34,6 +34,9 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
   selectAllEnabled = model<boolean>(true);
   selectedOptions = model<DropdownOption[]>([]);
   closeOnScroll = model<boolean>(true);
+  /** Off by default so an existing field keeps showing the comma-separated list. */
+  showBadges = model<boolean>(false);
+  allowSearch = model<boolean>(false);
 
   computedOptions = computed(() => {
     const raw = this.options();
@@ -54,6 +57,20 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
   displayValue = computed(() => {
     const selected = this.selectedOptions();
     const maxDisplay = this.maxDisplayItems();
+
+    if (this.showBadges()) {
+      const count = this.selectedOptions().length;
+      if (count === 0) {
+        return 'Žiadna vybraná hodnota';
+      } else if (count === 1) {
+        return '1 vybraná hodnota';
+      } else if (count > 1 && count < 5) {
+        return `${count} vybrané hodnoty`;
+      } else if (count > 4) {
+        return `${count} vybraných hodnôt`;
+      }
+      return '';
+    }
 
     if (selected.length === 0) {
       return '';
@@ -86,14 +103,18 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
   ) {
     super();
 
-    // Sync selectedOptions with value, including when it is cleared from outside.
+    // Sync selectedOptions with value
     effect(() => {
       const value = this.value();
       const options = this.computedOptions();
 
-      const selected = Array.isArray(value) ? options.filter((opt) => value.includes(opt.key)) : [];
-      if (JSON.stringify(selected) !== JSON.stringify(this.selectedOptions())) {
-        this.selectedOptions.set(selected);
+      if (Array.isArray(value) && value.length > 0) {
+        const selected = options.filter((opt) => value.includes(opt.key));
+        if (JSON.stringify(selected) !== JSON.stringify(this.selectedOptions())) {
+          this.selectedOptions.set(selected);
+        }
+      } else {
+        this.selectedOptions.set([]);
       }
     });
 
@@ -118,6 +139,13 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
       current.splice(index, 1);
     }
 
+    this.selectedOptions.set(current);
+    this.updateValue();
+  }
+
+  removeSelectedOption(index: number): void {
+    const current = [...this.selectedOptions()];
+    current.splice(index, 1);
     this.selectedOptions.set(current);
     this.updateValue();
   }
@@ -149,10 +177,6 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
     this.value.set(keys);
     this.inputChange.emit(this.value());
     this.emitValidationState();
-  }
-
-  override afterValueChange(value?: Type | null): void {
-    this.cd.detectChanges();
   }
 
   override onBlur(event?: Event): void {
@@ -229,6 +253,7 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
 
     this.popupRef = this.createPopup();
     this.popupRef.instance.component = this;
+    this.popupRef.instance.allowSearch = this.allowSearch();
     this.isPopupOpen = true;
 
     this.positionPopup();

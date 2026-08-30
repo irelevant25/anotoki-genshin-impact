@@ -26,7 +26,7 @@
         }
 
         @if (disabled()) {
-            <div #inputElement class="form-control" [style.height]="height()" [class.disabled]="disabled()" [innerHTML]="computedValue()"></div>
+            <div #inputElement class="form-control overflow-auto break-word" [class]="inputClass()" [style.height]="height()" [class.disabled]="disabled()" [innerHTML]="computedValue()"></div>
         } @else {
             <textarea
                 #inputElement
@@ -39,14 +39,14 @@
                 [disabled]="disabled()"
                 [placeholder]="placeholder() ?? ''"
                 class="form-control"
+                [class]="inputClass()"
                 [class.resize]="resize()"
                 [style.height]="height()"
                 [class.error]="hasError()"
-                [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
+                [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
                 (input)="onInput($event)"
                 (blur)="onBlur()"
-                (focus)="onFocus()"
-            ></textarea>
+                (focus)="onFocus()"></textarea>
         }
 
         @if (displayError() && hasError()) {

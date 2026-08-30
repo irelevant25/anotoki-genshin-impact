@@ -1,4 +1,4 @@
-import { ApplicationRef, ComponentRef, createComponent, Directive, ElementRef, EnvironmentInjector, inject, model, ViewChild } from '@angular/core';
+import { ApplicationRef, ComponentRef, createComponent, Directive, ElementRef, EnvironmentInjector, inject, model, output, ViewChild } from '@angular/core';
 import { TooltipComponent, TooltipPosition } from './components/tooltip/tooltip.component';
 import { AbstractRolesComponent } from './abstract-roles.class';
 
@@ -9,7 +9,7 @@ export abstract class AbstractTooltipComponent extends AbstractRolesComponent {
   tooltipText = model<string>('');
   tooltipPosition = model<TooltipPosition>('top');
   isHovered = model<boolean>(false);
-  initialized: boolean = false;
+  initialized = output<boolean>();
 
   private _tooltipPopupRef: ComponentRef<TooltipComponent> | null = null;
 
@@ -18,7 +18,7 @@ export abstract class AbstractTooltipComponent extends AbstractRolesComponent {
   private readonly _element$ = inject(ElementRef);
 
   ngAfterViewInit(): void {
-    this.initialized = true;
+    this.initialized.emit(true);
   }
 
   ngOnDestroy(): void {

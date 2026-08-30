@@ -1,5 +1,4 @@
 import { Component, effect, inject, Injector, model, Signal, signal } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
 
 export class Loading {
   private _loadingStartTime = 0;
@@ -7,7 +6,6 @@ export class Loading {
   private _delayedLoading = signal(false);
 
   readonly loading: Signal<boolean> = this._delayedLoading.asReadonly();
-  readonly loading$ = toObservable(this.loading);
 
   constructor(
     private _source: Signal<boolean>,

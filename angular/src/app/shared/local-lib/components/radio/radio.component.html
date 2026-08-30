@@ -1,6 +1,6 @@
 @if (!hidden()) {
     <div class="form-field" [class]="class()">
-        <fieldset class="radio-fieldset" [class.error]="hasError()" [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()">
+        <fieldset class="radio-fieldset" [class.error]="hasError()" [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()">
             @if (label()) {
                 <legend class="form-label" [class.required]="required()">
                     @if (tooltipText()) {

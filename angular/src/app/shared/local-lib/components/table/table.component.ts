@@ -40,6 +40,8 @@ export interface RowClickEvent<T> {
 
 export type PaginationType = 'top' | 'bottom' | 'both';
 
+export const EMPTY_TABLE = { result: [], total: 0, poradie: [] };
+
 @Component({
   selector: 'app-table',
   imports: [CommonModule, PaginationComponent, LoaderComponent, CheckboxComponent, ButtonComponent],
@@ -55,6 +57,10 @@ export class TableComponent<T> extends AbstractRolesComponent {
   noDataMessage = model<string>('Žiadne dáta na zobrazenie');
   showPagination = model<boolean>(true);
   paginationType = model<PaginationType>('both');
+  paginationBorderTop = model<boolean>(true);
+  paginationBorderBottom = model<boolean>(true);
+  paginationPX = model<boolean>(true);
+  paginationPY = model<boolean>(true);
   page = model<number>(1);
   pageSize = model<number>(10);
   pageSizeOptions = model<number[]>([5, 10, 25, 50, 100]);
@@ -66,7 +72,7 @@ export class TableComponent<T> extends AbstractRolesComponent {
   selectedRows = model<T[]>([]);
   selectedRowsKey = computed(() => this.selectedRows().map((row) => getValueByKey(row, this.selectedPropertyKey())));
   selectedPropertyKey = model<string>('id');
-  selectAllState = computed<boolean>(() => this.data().result.every((r) => this.selectedRowsKey().includes(getValueByKey(r, this.selectedPropertyKey()))));
+  selectAllState = computed<boolean>(() => (this.data().result.length > 0 ? this.data().result.every((r) => this.selectedRowsKey().includes(getValueByKey(r, this.selectedPropertyKey()))) : false));
 
   rowClass = input<((row: T) => string) | undefined>();
 
@@ -155,7 +161,7 @@ export class TableComponent<T> extends AbstractRolesComponent {
   }
 
   onSort(column: TableColumnComponent<T>, event?: Event): void {
-    if (!column.sortable) {
+    if (!column.sortable()) {
       return;
     }
 

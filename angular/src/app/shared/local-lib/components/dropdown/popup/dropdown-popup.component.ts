@@ -60,10 +60,6 @@ export class DropdownPopupComponent extends AbstractPopupComponent<DropdownOptio
     this.highlightedIndex = -1;
   }
 
-  clickOutside(): void {
-    this.onClose.emit();
-  }
-
   scrollToChar(char: string): void {
     const options = this.options ?? [];
     const lowerChar = char.toLowerCase();
@@ -84,5 +80,9 @@ export class DropdownPopupComponent extends AbstractPopupComponent<DropdownOptio
     if (targetItem) {
       this.mainElement.nativeElement.scrollTop = (targetItem as HTMLElement).offsetTop;
     }
+  }
+
+  clickOutside(): void {
+    this.onClose.emit();
   }
 }

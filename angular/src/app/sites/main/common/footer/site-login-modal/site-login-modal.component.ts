@@ -22,17 +22,17 @@ interface ILogin {
   providers: [],
 })
 export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
-  form: ILogin = {
+  form = model<ILogin>({
     email: '',
     password: '',
-  };
+  });
 
   constructor(private readonly _securityService: SecurityService) {
     super();
   }
 
   override submit(): void {
-    super.submit(this._securityService.login(this.form.email, this.form.password), {
+    super.submit(this._securityService.login(this.form().email, this.form().password), {
       success: 'Login was successful.',
       error: 'Login failed.',
     });

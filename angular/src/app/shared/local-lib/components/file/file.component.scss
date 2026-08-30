@@ -23,3 +23,45 @@
     }
   }
 }
+
+// Opt-in via [showDragAndDropArea]; the hidden input is still what actually
+// takes the files, so clicking the area just forwards to it.
+.drag-drop-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 0.75rem;
+  border: 2px dashed var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--bg-card);
+  color: var(--text-secondary, var(--text-primary));
+  cursor: pointer;
+  text-align: center;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+
+  &:hover,
+  &.is-dragging {
+    border-color: var(--color-primary);
+    background-color: var(--bg-hover, var(--bg-card));
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .drag-drop-title {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .drag-drop-subtitle {
+    font-size: 0.8125rem;
+  }
+}

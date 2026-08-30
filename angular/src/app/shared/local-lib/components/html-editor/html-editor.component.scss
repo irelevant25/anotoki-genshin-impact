@@ -125,3 +125,36 @@
     text-decoration: underline;
   }
 }
+
+// Step used by the indent / outdent buttons on plain blocks; lists fall back to
+// the browser's own indent command.
+.html-editor-wrapper {
+  --html-editor-indent: 20px;
+}
+
+.toolbar-btn.active {
+  background-color: var(--color-secondary);
+  border-color: var(--border-color);
+}
+
+// The raw HTML behind the [icon-code] toggle. Sits where the editable area
+// would, so switching back and forth does not move the surrounding layout.
+.html-editor-source {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--spacing-sm);
+  border: none;
+  outline: none;
+  resize: vertical;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  white-space: pre;
+}
+
+.html-editor-content[hidden] {
+  display: none;
+}

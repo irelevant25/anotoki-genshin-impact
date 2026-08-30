@@ -80,7 +80,6 @@ export class FeedbackViewerComponent extends AbstractModalComponent {
       next: () => {
         this.entry.update((current) => (current ? { ...current, status } : current));
         this._changed = true;
-        this.cd.markForCheck();
       },
       error: (e) => this.notificationService.showError(e?.error?.error ?? 'Failed to update'),
     });

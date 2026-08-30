@@ -9,6 +9,13 @@
                 @if (required()) {
                     <span class="required-indicator">*</span>
                 }
+                @if (maxLength() && maxLengthCounter()) {
+                    <span class="max-length-counter">
+                        ({{ remainsWord }}
+                        {{ remainingChars }}
+                        {{ charsWord }})
+                    </span>
+                }
             </label>
         }
 
@@ -18,8 +25,9 @@
 
         <div
             class="html-editor-wrapper form-control"
+            [class]="inputClass()"
             [class.error]="hasError()"
-            [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
+            [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
             [class.focused]="isFocusedEditor()"
             [class.disabled]="disabled()">
             @if (!disabled()) {
@@ -41,6 +49,12 @@
                     </button>
                     <button type="button" class="toolbar-btn" title="Číslovaný zoznam" (mousedown)="execCommand($event, 'insertOrderedList')">
                         <i class="icon icon-list-ordered"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" title="Zväčšiť odsadenie (Tab)" (mousedown)="onIndent($event)">
+                        <i class="icon icon-indent"></i>
+                    </button>
+                    <button type="button" class="toolbar-btn" title="Zmenšiť odsadenie (Shift+Tab)" (mousedown)="onOutdent($event)">
+                        <i class="icon icon-outdent"></i>
                     </button>
                     <button type="button" class="toolbar-btn" title="Vložiť odkaz" (mousedown)="onInsertLink($event)">
                         <i class="icon icon-link"></i>
@@ -89,6 +103,12 @@
                         (previewColor)="onBackColorChange($event, false)"
                         (closed)="onBackColorClosed(); selectingBackColor.set(false)"
                         (opened)="selectingBackColor.set(true)"></app-color-picker>
+
+                    <span class="toolbar-divider"></span>
+
+                    <button type="button" class="toolbar-btn" [class.active]="showSource()" [title]="showSource() ? 'Zobraziť vizuálne' : 'Zobraziť zdrojový HTML'" (mousedown)="toggleSource($event)">
+                        <i class="icon icon-code"></i>
+                    </button>
                 </div>
             }
 
@@ -98,6 +118,7 @@
                 class="html-editor-content"
                 [class.selecting]="selectingFontSize() || selectingFontFamily() || selectingForeColor() || selectingBackColor()"
                 [class.disabled]="disabled()"
+                [hidden]="showSource()"
                 [attr.contenteditable]="disabled() ? null : 'true'"
                 [attr.data-placeholder]="placeholder() || 'Zadajte text...'"
                 [style.min-height]="minHeight()"
@@ -105,6 +126,10 @@
                 (focus)="onEditorFocus()"
                 (blur)="onEditorBlur()"
                 (keydown)="onEditorKeyDown($event)"></div>
+
+            @if (showSource()) {
+                <textarea class="html-editor-source" [style.min-height]="minHeight()" [value]="sourceValue()" (input)="onSourceInput($event)" spellcheck="false"></textarea>
+            }
         </div>
 
         @if (displayError() && hasError()) {

@@ -1,11 +1,10 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, effect, model, ViewChild } from '@angular/core';
 import { DataTableData, RowClickEvent, TableComponent, TableEvent } from './components/table/table.component';
 import { Observable, takeUntil } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { removeEmptyPropertiesDeep } from './helper.class';
+import { isNullOrEmpty, removeEmptyPropertiesDeep } from './helper.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FilterComponent } from './components/filter/filter.component';
-import { AbstractModalComponent } from './abstract-modal.class';
+import { InputValidationComponent } from './abstract-input-validation.class';
 
 export enum OrderEnum {
   ASC = 'ASC',
@@ -21,9 +20,17 @@ export interface TableDataRequest<T> {
 }
 
 @Component({ template: '' })
-export abstract class AbstractTableComponent<TFilter extends Record<string, any>, TTableData> extends AbstractModalComponent {
+export abstract class AbstractTableComponent<
+  TFilter extends Record<string, any>,
+  TTableData extends Record<string, any>,
+  TFilterSearch extends Record<string, any> = any,
+> extends InputValidationComponent {
   @ViewChild('table') table?: TableComponent<TTableData>;
   @ViewChild('filter') filter?: FilterComponent<TFilter>;
+
+  readonly = model<boolean>(true);
+
+  selectedRows = model<TTableData[]>([]);
 
   detailPropertyName: keyof TTableData = 'id' as keyof TTableData;
   initRequest = true;
@@ -35,11 +42,43 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
     order: OrderEnum.ASC,
     filter: {},
   };
+  requestSearch: TableDataRequest<TFilterSearch> = {
+    page: 0,
+    limit: 10,
+    sort: undefined,
+    order: OrderEnum.ASC,
+    filter: {},
+  };
+  searchTimeout: any;
+  lastSearchValue?: string | undefined;
 
-  private readonly _router$ = inject(Router);
-  private readonly _route$ = inject(ActivatedRoute);
+  routeIdName: string = 'id';
+  get id(): number | string | undefined {
+    const id = this.route.snapshot.paramMap.get(this.routeIdName) ?? '';
+    if (id === null) {
+      console.error(`No id with name ${this.routeIdName} was found in route params`);
+      return undefined;
+    }
+    return id;
+  }
 
-  ngAfterViewInit(): void {
+  constructor() {
+    super();
+    let initialRun = true;
+    effect(() => {
+      const readonly = this.readonly();
+      if (initialRun) {
+        initialRun = false;
+        return;
+      }
+      if (readonly) {
+        this.loadData();
+      }
+    });
+  }
+
+  override ngAfterViewInit(): void {
+    super.ngAfterViewInit();
     this.resetTableData();
 
     if (!this.filter) {
@@ -78,6 +117,8 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
   }
 
   protected loadData(request?: TableDataRequest<TFilter>): void {
+    this.lastSearchValue = undefined;
+    this.requestSearch.filter = {};
     this.loading.set(true);
     request = removeEmptyPropertiesDeep(request ?? this.request);
     request.filter = request.filter ?? {};
@@ -96,24 +137,34 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
       });
   }
 
-  protected mapData(data: DataTableData<TTableData>): DataTableData<TTableData> {
+  protected mapData(data: DataTableData<any>): DataTableData<TTableData> {
     return data;
   }
 
   async rowClick(rowClickEvent?: RowClickEvent<TTableData>): Promise<void> {
     const detailPageValue = rowClickEvent?.row[this.detailPropertyName];
     if (detailPageValue) {
-      await this._router$.navigate([detailPageValue], { relativeTo: this._route$ });
+      await this.router.navigate([detailPageValue], { relativeTo: this.route });
+    } else {
+      console.error(`Detail page value not found for property ${String(this.detailPropertyName)} on row:`, rowClickEvent?.row);
     }
   }
 
   protected abstract loadData$(request: TableDataRequest<TFilter>): Observable<any>;
 
   refresh(): void {
-    this.loadData();
+    if (!isNullOrEmpty(this.lastSearchValue)) {
+      this.loadDataSearch();
+    } else {
+      this.loadData();
+    }
   }
 
   onFilter(): void {
+    this.markAllAsTouched();
+    if (this.isInvalid()) {
+      return;
+    }
     this.request.page = 0;
     if (this.table) {
       this.table.page.set(this.request.page);
@@ -133,6 +184,11 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
       this.request.limit = tableEvent.page.pageSize;
       this.request.order = tableEvent.sort.direction;
       this.request.sort = tableEvent.sort.column;
+
+      this.requestSearch.page = tableEvent.page.page;
+      this.requestSearch.limit = tableEvent.page.pageSize;
+      this.requestSearch.order = tableEvent.sort.direction;
+      this.requestSearch.sort = tableEvent.sort.column;
     }
     if (tableEvent?.reloadData) {
       this.refresh();
@@ -141,5 +197,47 @@ export abstract class AbstractTableComponent<TFilter extends Record<string, any>
 
   protected override onModalSuccess(): void {
     this.refresh();
+  }
+
+  protected loadDataSearch(requestSearch?: TableDataRequest<TFilterSearch>): void {
+    this.request.filter = {};
+    this.loading.set(true);
+    requestSearch = removeEmptyPropertiesDeep(requestSearch ?? this.requestSearch);
+    requestSearch.filter = requestSearch.filter ?? {};
+    this.loadDataSearch$(requestSearch)
+      .pipe(takeUntil(this.unsubscriber))
+      .subscribe({
+        next: (result) => {
+          this.tableData = this.mapData(result);
+          this.loading.set(false);
+        },
+        error: (e: HttpErrorResponse) => {
+          this.resetTableData();
+          this.loading.set(false);
+          this.notificationService.showError(`Nastala chyba pri načítaní dat: ${e?.error?.message}`);
+        },
+      });
+  }
+
+  protected loadDataSearch$(requestSearch?: TableDataRequest<TFilterSearch>): Observable<any> {
+    throw new Error('Method not overriden.');
+  }
+
+  searchValueChanged(searchValue: string | undefined | null): void {
+    if (isNullOrEmpty(searchValue) && isNullOrEmpty(this.lastSearchValue)) {
+      return;
+    }
+    if (this.requestSearch.page) {
+      this.requestSearch.page = 1;
+      if (this.table) {
+        this.table.page.set(this.requestSearch.page);
+        this.table.onPageChange(false);
+      }
+    }
+    this.lastSearchValue = JSON.stringify(this.requestSearch.filter);
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => {
+      this.loadDataSearch(this.requestSearch);
+    }, 500);
   }
 }

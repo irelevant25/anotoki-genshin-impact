@@ -18,31 +18,52 @@
             </label>
         }
 
-        <div class="d-flex gap-3" [class.flex-col]="fileNamePosition() === 'bottom'" [class.flex-row]="fileNamePosition() === 'right'">
-            <!-- Hidden file input -->
-            <input
-                #inputElement
-                [id]="inputId"
-                type="file"
-                [multiple]="multiple() || directory()"
-                [attr.webkitdirectory]="directory() ? '' : null"
-                [accept]="acceptedExtensions()?.join(', ') ?? ''"
-                [disabled]="disabled()"
-                style="display: none"
-                (change)="onFileChange($event)"
-                (blur)="onBlur()"
-                (focus)="onFocus()"
-            />
+        <!-- Hidden file input -->
+        <input
+            #inputElement
+            [id]="inputId"
+            type="file"
+            [multiple]="multiple() || directory()"
+            [attr.webkitdirectory]="directory() ? '' : null"
+            [accept]="acceptAttribute"
+            [disabled]="disabled()"
+            style="display: none"
+            (change)="onFileChange($event)"
+            (blur)="onBlur()"
+            (focus)="onFocus()" />
 
+        <!-- Drag & drop area -->
+        @if (showDragAndDropArea()) {
+            <div
+                class="drag-drop-area"
+                [class.is-dragging]="isDragging()"
+                [class.is-disabled]="disabled()"
+                role="button"
+                tabindex="0"
+                (click)="onButtonClick()"
+                (keydown.enter)="onButtonClick()"
+                (keydown.space)="onButtonClick(); $event.preventDefault()"
+                (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)"
+                (drop)="onDrop($event)">
+                <i class="icon icon-upload icon-size-8"></i>
+                <div class="drag-drop-title">Pretiahnite súbory sem alebo kliknite pre výber</div>
+                <div class="drag-drop-subtitle">Podporované sú všetky typy súborov</div>
+            </div>
+        }
+
+        <div class="d-flex gap-3" [class.flex-col]="fileNamePosition() === 'bottom'" [class.flex-row]="fileNamePosition() === 'right'">
             <!-- File selection button -->
-            <app-button
-                [text]="buttonText() ?? (directory() ? 'Vybrat priečinok' : multiple() ? 'Vybrat súbory' : 'Vybrat súbor')"
-                [class]="buttonClass()"
-                [variant]="buttonVariant()"
-                [disabled]="disabled()"
-                (buttonClick)="onButtonClick($event)"
-                [outline]="buttonOutline()"
-            ></app-button>
+            @if (!hideButton()) {
+                <app-button
+                    [text]="buttonText() ?? (directory() ? 'Vybrat priečinok' : multiple() ? 'Vybrat súbory' : 'Vybrat súbor')"
+                    [class]="buttonClass()"
+                    [variant]="buttonVariant()"
+                    [disabled]="disabled()"
+                    (buttonClick)="onButtonClick($event)"
+                    [outline]="buttonOutline()"
+                ></app-button>
+            }
 
             <!-- Selected files display -->
             @if (showFileNames() && (value() ?? '').length > 0) {

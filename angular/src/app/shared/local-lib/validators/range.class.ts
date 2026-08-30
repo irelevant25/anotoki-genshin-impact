@@ -1,6 +1,6 @@
 import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { CalendarComponent } from '../calendar/calendar.component';
-import { NumberComponent } from '../number/number.component';
+import { CalendarComponent } from '../components/calendar/calendar.component';
+import { NumberComponent } from '../components/number/number.component';
 
 export function dateRangeValidator(from?: CalendarComponent, to?: CalendarComponent): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

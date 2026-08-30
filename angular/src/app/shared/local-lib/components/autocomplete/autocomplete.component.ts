@@ -1,5 +1,4 @@
-import { Component, model, ComponentRef, TemplateRef, ContentChild, ApplicationRef, createComponent, EnvironmentInjector, effect } from '@angular/core';
-
+import { Component, model, ComponentRef, TemplateRef, ContentChild, ApplicationRef, createComponent, EnvironmentInjector, effect, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutocompletePopupComponent } from './popup/autocomplete-popup.component';
 import { Observable, Subscription } from 'rxjs';
@@ -49,7 +48,9 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
   removeDiacritics = model<boolean>(true);
   closeOnScroll = model<boolean>(true);
   customValue = model<boolean>(false);
-  displayValue = model<string | undefined>(undefined);
+  displayValueInput = input<string | undefined>(undefined, { alias: 'displayValue' });
+  displayValueChange = output<string | undefined>();
+  displayValue = signal<string | undefined>(undefined);
   selectedOption = model<DropdownOption | undefined>(undefined);
 
   loading: boolean = false;
@@ -66,9 +67,14 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
   ) {
     super();
     effect(() => {
+      const v = this.displayValueInput();
+      this.displayValue.set(v?.trim() ?? undefined);
+    });
+    effect(() => {
       const customValueEnabled = this.customValue();
       const displayValue = this.displayValue();
       if (customValueEnabled) {
+        this.skipAfterValueChange = true;
         this.value.set(displayValue);
       }
     });
@@ -83,21 +89,29 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
 
   protected override afterValueChange(value?: Type): void {
     if (!value) {
-      this.displayValue.set(undefined);
+      this.setDisplayValue(undefined);
+    } else {
+      this.setDisplayValue(this.displayValueInput());
     }
+  }
+
+  private setDisplayValue(value: string | undefined): void {
+    this.displayValue.set(value);
+    this.displayValueChange.emit(value);
   }
 
   onInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     const customValue = this.customValue();
     if (customValue) {
+      this.skipAfterValueChange = true;
       this.value.set(this.displayValue());
     } else if (this.value()) {
       this.skipAfterValueChange = true;
       this.value.set(undefined);
     }
     this.inputChange.emit(this.value());
-    this.displayValue.set(target.value);
+    this.setDisplayValue(target.value);
     this.initOptions();
   }
 
@@ -194,7 +208,8 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
   }
 
   selectOption(option?: DropdownOption): void {
-    this.displayValue.set(option?.value.toString());
+    this.setDisplayValue(option?.value.toString());
+    this.skipAfterValueChange = true;
     this.value.set(option?.key.toString());
     this.inputChange.emit(this.value());
     this.selectedOption.set(option);
@@ -262,10 +277,12 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
       const minChars = this.minChars();
       this.popupRef.instance.options = this.currentOptions;
       this.popupRef.instance.minCharsValid = (this.displayValue() ?? '').length >= minChars;
-      this.popupRef.instance.loading = this.loading;
-      this.popupRef.instance.optionTemplate = this.optionTemplate;
       this.popupRef.instance.minChars = minChars;
+      this.popupRef.instance.loading = this.loading;
       this.popupRef.instance.resetHighlight();
+      this.popupRef.instance.optionTemplate = this.optionTemplate;
+      // Reached from the search subscription and the debounce timer, neither of
+      // which schedules a render on its own.
       this.popupRef.instance.cd.detectChanges();
     }
   }
@@ -293,7 +310,7 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
 
     const customValue = this.customValue();
     if (!customValue && !this.value()) {
-      this.displayValue.set(undefined);
+      this.setDisplayValue(undefined);
     }
     this.onBlur();
 
@@ -306,7 +323,7 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
 
   reset(): void {
     this.selectedOption.set(undefined);
-    this.displayValue.set(undefined);
+    this.setDisplayValue(undefined);
     this.value.set(undefined);
     this.inputChange.emit(this.value());
   }

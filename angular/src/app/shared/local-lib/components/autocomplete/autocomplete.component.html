@@ -29,15 +29,14 @@
             [disabled]="disabled()"
             class="form-control input-text"
             [class.error]="hasError()"
-            [class.valid]="validators().length && (displayValue() || isTouched()) && !hasError()"
+            [class.valid]="(validators().length || required()) && (displayValue() || isTouched()) && !hasError()"
             (clickOutside)="closePopup()"
             (heightChange)="positionPopup()"
             (input)="onInput($event)"
             (blur)="onBlur()"
             (focus)="onFocus()"
             (keydown)="onKeyDown($event)"
-            autocomplete="off"
-        ></textarea>
+            autocomplete="off"></textarea>
 
         @if (displayError() && hasError()) {
             <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">

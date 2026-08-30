@@ -16,12 +16,13 @@ export class ButtonComponent extends AbstractTooltipComponent {
   text = model<string>('');
   type = model<'button' | 'submit' | 'reset'>('button');
   variant = model<ButtonVariant | undefined>('primary');
-  size = model<ButtonSize>('medium');
+  size = model<ButtonSize | undefined>('medium');
   disabled = model<boolean>(false);
   loading = model<boolean>(false);
   icon = model<string>('');
-  buttonClass = model<string>('');
   class = model<string | undefined>(undefined);
+  buttonClass = model<string>('');
+  iconClass = model<string>('');
   outline = model<boolean>(false);
   stopPropagation = model<boolean>(false);
   isBack = model<boolean>(false);
@@ -52,8 +53,7 @@ export class ButtonComponent extends AbstractTooltipComponent {
     if (this.isBack()) {
       if (this.routerLink()) {
         this._router.navigate([this.routerLink()], { relativeTo: this._route });
-      }
-      else {
+      } else {
         this._router.navigate(['../'], { relativeTo: this._route });
       }
     }

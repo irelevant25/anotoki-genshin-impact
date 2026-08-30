@@ -53,7 +53,7 @@ export class ModalService {
     modalRef._setComponentRef(contentRef);
 
     // Setup container
-    containerRef.instance.options = options;
+    containerRef.instance.options.set(options);
     containerRef.instance.modalRef = modalRef;
     containerRef.instance.contentComponentRef = contentRef;
 

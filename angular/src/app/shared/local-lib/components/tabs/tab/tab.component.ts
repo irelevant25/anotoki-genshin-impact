@@ -11,6 +11,7 @@ export class TabComponent {
   visible = model<boolean>(true);
   active = model<boolean>(false);
   icon = model<string>();
+  class = model<string>();
 
   click = output<boolean>();
 
@@ -24,6 +25,6 @@ export class TabComponent {
   }
 
   get id(): string {
-    return `tab-${removeDiacritics(this.title()?.replaceAll(' ', ''))}`;
+    return `tab-${removeDiacritics(this.title()?.replaceAll(' ', '').split('(')[0])}`;
   }
 }

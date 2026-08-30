@@ -138,7 +138,6 @@ export class RestoreConfirmComponent extends AbstractModalComponent implements O
         this.notificationService.showError(
           e?.error?.rolled_back ? `${message} — nothing was changed.` : message,
         );
-        this.cd.markForCheck();
       },
     });
   }

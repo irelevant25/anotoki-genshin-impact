@@ -26,16 +26,16 @@
                 [placeholder]="placeholder() ?? ''"
                 [disabled]="disabled()"
                 class="form-control cursor-default"
+                [class]="inputClass()"
                 [class.placeholder]="value() === undefined || value() === null || value() === ''"
                 [class.error]="hasError()"
-                [class.valid]="validators().length && (!isNullOrEmpty() || isTouched()) && !hasError()"
+                [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
                 (keydown)="onKeyDown($event)"
                 (click)="togglePopup()"
                 (heightChange)="positionPopup()"
                 (blur)="onBlur()"
                 (focus)="onFocus()"
-                readonly
-            />
+                readonly />
             <span class="dropdown-arrow" [class.down]="!isPopupOpen()" [class.up]="isPopupOpen()"></span>
         </div>
 

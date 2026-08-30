@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, model, Output } from '@angular/core';
+import { Component, EventEmitter, model, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { AbstractRolesComponent } from '../../abstract-roles.class';
 
@@ -9,20 +9,16 @@ import { AbstractRolesComponent } from '../../abstract-roles.class';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent<T extends Record<string, any>> extends AbstractRolesComponent {
-  filter = model<T | undefined>(undefined);
-  @Input() nastavenie: boolean = false;
+  filter = model<T>();
+  insideContainer = model<boolean>(true);
+  class = model<string>();
 
-  // @Output() filterChange = new EventEmitter<T>();
   @Output() onToggleFilter = new EventEmitter();
   @Output() onReset = new EventEmitter();
   @Output() onFilter = new EventEmitter();
 
-  filtersExpanded: boolean = true;
-  filterNastavenieExpanded: boolean = false;
-
-  toggleFilters(): void {
-    this.filtersExpanded = !this.filtersExpanded;
-  }
+  filterExpanded = model<boolean>(true);
+  filterNastavenieExpanded = model<boolean>(false);
 
   reset(): void {
     this.onReset.emit();
@@ -34,5 +30,6 @@ export class FilterComponent<T extends Record<string, any>> extends AbstractRole
 
   toggleFilter(): void {
     this.onToggleFilter.emit();
+    this.filterExpanded.update((value) => !value);
   }
 }

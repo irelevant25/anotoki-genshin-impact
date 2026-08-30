@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ChangeDetectorRef, ViewChild, output } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ClickOutsideDirective } from '../../../click-outside.directive';
 import { DynamicDateTimeConverter } from '../../../datetime-helper.class';
@@ -32,7 +32,7 @@ export class CalendarPickerComponent {
   // inputs
   selectedDate: Date | null = null;
   selectedTime: TimeValue | null = null;
-  position: { left: number; top: number } = { left: 0, top: 0 };
+  position = signal<{ left: number; top: number }>({ left: 0, top: 0 });
   minDate: Date | null = null;
   maxDate: Date | null = null;
   showSeconds: boolean = false;
@@ -72,10 +72,11 @@ export class CalendarPickerComponent {
 
   private _scrollableParents: HTMLElement[] = [];
 
-  constructor(private _cdr: ChangeDetectorRef) {}
-
   ngOnInit(): void {
     this.attachScrollListeners();
+  }
+
+  ngAfterViewInit(): void {
     this.calculatePosition();
   }
 
@@ -114,7 +115,6 @@ export class CalendarPickerComponent {
     if (this.hideYear) {
       // Only two views to cycle: the days and the months.
       this.selectingMonth = !this.selectingMonth;
-      this._cdr.detectChanges();
       return;
     }
     if (this.selectingYear) {
@@ -127,7 +127,6 @@ export class CalendarPickerComponent {
       this.selectingYear = true;
       this.selectingMonth = false;
     }
-    this._cdr.detectChanges();
   }
 
   selectYear(year: number): void {
@@ -150,7 +149,6 @@ export class CalendarPickerComponent {
     } else {
       this.previousMonth();
     }
-    this._cdr.detectChanges();
   }
 
   next(): void {
@@ -161,13 +159,10 @@ export class CalendarPickerComponent {
     } else {
       this.nextMonth();
     }
-    this._cdr.detectChanges();
   }
 
   previousMonth(): void {
     this.currentMonth = this.currentMonth === 0 ? 11 : (this.currentMonth - 1) % 12;
-    // With the year hidden December wraps round to January instead of moving
-    // to a year nobody can see.
     if (this.currentMonth === 11 && !this.hideYear) {
       this.currentYear--;
     }
@@ -251,8 +246,6 @@ export class CalendarPickerComponent {
         disabled: isDisabled,
       });
     }
-
-    this._cdr.detectChanges();
   }
 
   private isDateDisabled(date: Date): boolean {
@@ -471,8 +464,10 @@ export class CalendarPickerComponent {
     } else if (spaceAbove >= calendarHeight + gap) {
       // Position above the input
       top = rect.top - calendarHeight - gap;
+    } else if (spaceAbove > spaceBelow) {
+      // Not enough space either way, prefer the side with more room
+      top = Math.max(gap, rect.top - calendarHeight - gap);
     } else {
-      // Not enough space either way, default to below
       top = rect.bottom + gap;
     }
 
@@ -486,8 +481,7 @@ export class CalendarPickerComponent {
       left = 10;
     }
 
-    this.position = { left, top };
-    this._cdr.detectChanges();
+    this.position.set({ left, top });
   }
 
   @HostListener('window:scroll')

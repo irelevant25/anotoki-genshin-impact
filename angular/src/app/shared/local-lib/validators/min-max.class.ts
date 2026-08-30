@@ -1,5 +1,5 @@
 import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { NumberComponent } from '../number/number.component';
+import { NumberComponent } from '../components/number/number.component';
 
 export function minValidator(numberComponent: NumberComponent, minValue: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
