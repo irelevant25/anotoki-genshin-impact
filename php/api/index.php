@@ -128,6 +128,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/artifacts_full.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/materials.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/materials_groups_join.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/materials_full.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/materials_usage.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/backgrounds.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/foods.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/foods_recipe.php';
