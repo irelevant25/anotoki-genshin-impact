@@ -754,7 +754,7 @@ CREATE TABLE IF NOT EXISTS user_quiz_history (
     character_id    INT             NOT NULL,
     quiz_id         INT             NOT NULL,
     win             BOOLEAN         NOT NULL,
-    attemps         INT             NOT NULL,
+    attempts        INT             NOT NULL,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_user_quiz_history_user FOREIGN KEY (user_id) REFERENCES users(id),
@@ -772,7 +772,7 @@ CREATE TABLE IF NOT EXISTS quiz_stats_history (
     quiz_id         INT             NOT NULL,
     wins            INT             NOT NULL,
     losses          INT             NOT NULL,
-    attemps         INT             NOT NULL,
+    attempts        INT             NOT NULL,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP       NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
 

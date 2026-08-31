@@ -129,6 +129,15 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/materials.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/materials_groups_join.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/materials_full.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/materials_usage.php';
+// The four below have existed since the schema was written but were never
+// required here, so none of their routes were ever registered - which is why
+// nothing a quiz sent could be saved.
+require_once __DIR__ . '/routes/genshin_impact/endpoints/quizzes.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/quiz_states.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/quiz_stats_history.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/user_quiz_history.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/quiz_voice_over.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/quiz_progress.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/backgrounds.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/foods.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/foods_recipe.php';

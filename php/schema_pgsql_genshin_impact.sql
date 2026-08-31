@@ -760,8 +760,9 @@ CREATE TABLE IF NOT EXISTS quizzes_states (
     state           JSONB,
     is_daily        BOOLEAN     NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP,
 
-    PRIMARY KEY (user_id, quiz_id),
+    PRIMARY KEY (user_id, quiz_id, is_daily),
     CONSTRAINT fk_quizzes_states_quiz FOREIGN KEY (quiz_id) REFERENCES quizzes(id)
 );
 
@@ -1385,7 +1386,8 @@ CREATE TABLE IF NOT EXISTS user_quiz_history (
     character_id    INT             NOT NULL,
     quiz_id         INT             NOT NULL,
     win             BOOLEAN         NOT NULL,
-    attemps         INT             NOT NULL,
+    attempts        INT             NOT NULL,
+    difficulty      SMALLINT,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_user_quiz_history_character FOREIGN KEY (character_id) REFERENCES characters(id),
@@ -1402,7 +1404,7 @@ CREATE TABLE IF NOT EXISTS quiz_stats_history (
     quiz_id         INT             NOT NULL,
     wins            INT             NOT NULL,
     losses          INT             NOT NULL,
-    attemps         INT             NOT NULL,
+    attempts        INT             NOT NULL,
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP,
 

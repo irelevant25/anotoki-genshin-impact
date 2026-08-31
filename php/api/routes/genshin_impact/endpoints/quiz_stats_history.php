@@ -36,7 +36,13 @@ $app->post('/api/quiz-stats-history', function (Request $request, Response $resp
         return respondJson($response, ['error' => 'Entry already exists'], 409);
     }
 
-    DbQuery::insert($pdo, 'quiz_stats_history', $data);
+    // A plain insert rather than DbQuery::insert: that helper ends its statement
+    // with RETURNING id, and this table is keyed on its columns rather than on a
+    // serial, so there is no id to return.
+    $columns = implode(', ', array_map(fn($column) => '"' . $column . '"', array_keys($data)));
+    $placeholders = implode(', ', array_fill(0, count($data), '?'));
+    $pdo->prepare("INSERT INTO quiz_stats_history ($columns) VALUES ($placeholders)")
+        ->execute(array_map(fn($value) => is_bool($value) ? (int) $value : $value, array_values($data)));
 
     $stmt = $pdo->prepare('SELECT * FROM quiz_stats_history WHERE user_id = ? AND character_id = ? AND quiz_id = ?');
     $stmt->execute([$data['user_id'], $data['character_id'], $data['quiz_id']]);
