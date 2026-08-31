@@ -1,0 +1,178 @@
+// Ported from old/sites/top/games/tournament.css - the setup form, the pair of
+// faces, and the podium.
+//
+// The old sheet fixed its colours (a purple bar, gold/silver/bronze blocks on
+// white); the shapes are the same, the colours come from the palette, and the
+// three medals keep their own since they mean the same thing in either theme.
+
+.setup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  max-width: 320px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) 0;
+}
+
+.tournament {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg) 0;
+}
+
+.match-count {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.pair {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-2xl);
+  flex-wrap: wrap;
+}
+
+.contender {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  width: 180px;
+  max-width: 38vw;
+  padding: var(--spacing-sm);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius-large);
+  background: var(--bg-veil);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    opacity var(--transition-base);
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-large);
+  }
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+    border-color: var(--color-primary);
+  }
+
+  // The verdict, held for a moment so the click is seen before the next pair.
+  &.chosen {
+    border-color: var(--color-success);
+    transform: scale(1.05);
+  }
+
+  &.beaten {
+    opacity: 0.4;
+  }
+}
+
+.contender-name {
+  font-weight: var(--font-weight-semibold);
+}
+
+// ── Single elimination ends with one face ───────────────────────────────────
+.champion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    max-height: 18rem;
+    max-width: 100%;
+  }
+}
+
+.champion-name {
+  margin: var(--spacing-sm) 0 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--genshin-gold);
+}
+
+// ── The other two end with three ────────────────────────────────────────────
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.podium-place {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  max-width: 30vw;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.podium-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  width: 100%;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  color: var(--color-primary-text);
+  text-align: center;
+}
+
+.podium-rank {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.podium-name {
+  font-weight: var(--font-weight-semibold);
+}
+
+.podium-wins {
+  font-size: var(--font-size-sm);
+  opacity: 0.85;
+}
+
+// Height as well as colour, so the order reads without knowing the medals.
+.place-1 {
+  order: 2;
+
+  .podium-block {
+    background-color: var(--genshin-gold);
+    color: var(--text-tooltip);
+    padding-bottom: var(--spacing-xl);
+  }
+}
+
+.place-2 {
+  order: 1;
+
+  .podium-block {
+    background-color: var(--medal-silver);
+    color: var(--text-tooltip);
+    padding-bottom: var(--spacing-lg);
+  }
+}
+
+.place-3 {
+  order: 3;
+
+  .podium-block {
+    background-color: var(--medal-bronze);
+    padding-bottom: var(--spacing-md);
+  }
+}

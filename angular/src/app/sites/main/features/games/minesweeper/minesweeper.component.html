@@ -1,0 +1,51 @@
+<div class="container game-container">
+    <!-- The one reaction that kills this round. Everything on the board is read
+         against it, so it stays in view rather than sitting in a help modal. -->
+    <div class="reaction">
+        <span class="reaction-name">{{ reaction().name }}</span>
+        <span class="reaction-elements">
+            @for (element of reaction().elements; track element; let last = $last) {
+                <span [class]="element">{{ element }}</span>
+                @if (!last) {
+                    <span class="reaction-plus">+</span>
+                }
+            }
+        </span>
+    </div>
+
+    @if (outcome() !== 'playing') {
+        <p class="game-over" [class]="outcome()">
+            {{ (outcome() === 'win' ? 'game.minesweeper.win' : 'game.minesweeper.lose') | translate }}
+        </p>
+    }
+
+    <div class="grid" [class.awaiting-first-click]="!started()">
+        @for (cell of cells(); track cell.row + ',' + cell.col) {
+            <button
+                type="button"
+                class="cell"
+                [class]="cell.revealed && cell.element ? 'element-' + cell.element : ''"
+                [class.revealed]="cell.revealed"
+                [class.bomb]="cell.revealed && cell.isBomb"
+                [class.clickable]="isClickable(cell)"
+                [disabled]="!isClickable(cell)"
+                (click)="click(cell)"
+            >
+                {{ cellContent(cell) }}
+            </button>
+        }
+    </div>
+
+    <p class="game-stats">{{ 'game.minesweeper.revealed' | translate: { revealed: revealedCount(), total: total } }}</p>
+
+    <button type="button" class="new-game" (click)="newGame()">{{ 'game.minesweeper.newGame' | translate }}</button>
+
+    <div class="legend">
+        @for (element of elements; track element) {
+            <span class="legend-item">
+                <span class="legend-colour" [class]="'element-' + element"></span>
+                {{ element }}
+            </span>
+        }
+    </div>
+</div>

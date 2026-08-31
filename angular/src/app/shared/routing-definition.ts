@@ -88,6 +88,23 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
     },
   },
 
+  games: {
+    title: 'Games',
+    path: 'games',
+
+    tournament: {
+      title: 'Tournament',
+      path: 'tournament',
+      notInMenu: true,
+    },
+
+    minesweeper: {
+      title: 'Minesweeper',
+      path: 'minesweeper',
+      notInMenu: true,
+    },
+  },
+
   database: {
     title: 'Database',
     path: 'database',

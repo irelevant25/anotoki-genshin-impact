@@ -1,0 +1,82 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        @if (!tournament()) {
+            <div class="setup">
+                <app-dropdown [label]="'game.tournament.formatLabel' | translate" [options]="formatOptions()" [(value)]="format"></app-dropdown>
+
+                <app-dropdown [label]="'game.tournament.sizeLabel' | translate" [options]="sizeOptions" [(value)]="size"></app-dropdown>
+
+                <app-button [text]="'game.tournament.start' | translate" variant="primary" size="large" (buttonClick)="start()"></app-button>
+            </div>
+        } @else {
+            <div class="tournament">
+                @if (match(); as match) {
+                    <p class="match-count">{{ 'game.tournament.matches' | translate: { played: played() + 1, total: total() } }}</p>
+
+                    <div class="pair">
+                        @for (contender of [match.a, match.b]; track contender.id) {
+                            <button
+                                type="button"
+                                class="contender"
+                                [class.chosen]="picked()?.name === contender.name"
+                                [class.beaten]="picked() && picked().name !== contender.name"
+                                [disabled]="!!picked()"
+                                [title]="contender.name"
+                                (click)="pick(contender)"
+                            >
+                                <img [appMaterialIcon]="contender.icon_name ?? contender.name" [appAssetFolder]="'character.icon'" [alt]="contender.name" loading="lazy" />
+                                <span class="contender-name">{{ contender.name }}</span>
+                            </button>
+                        }
+                    </div>
+                }
+
+                @if (champion(); as champion) {
+                    <div class="champion">
+                        <img
+                            [appMaterialIcon]="champion.wish_icon_name ?? champion.name"
+                            [appAssetFolder]="'character.wish_icon'"
+                            [alt]="champion.name"
+                            [title]="champion.name"
+                            loading="lazy"
+                        />
+                        <p class="champion-name">{{ champion.name }}</p>
+                    </div>
+                }
+
+                @if (podium().length) {
+                    <div class="podium">
+                        @for (place of podium(); track place.entrant.id) {
+                            <div class="podium-place" [class]="'place-' + place.place">
+                                <img
+                                    [appMaterialIcon]="place.entrant.wish_icon_name ?? place.entrant.name"
+                                    [appAssetFolder]="'character.wish_icon'"
+                                    [alt]="place.entrant.name"
+                                    [title]="place.entrant.name"
+                                    loading="lazy"
+                                />
+                                <div class="podium-block">
+                                    <span class="podium-rank">{{ place.place }}</span>
+                                    <span class="podium-name">{{ place.entrant.name }}</span>
+                                    @if (place.wins !== undefined) {
+                                        <span class="podium-wins">{{ 'game.tournament.wins' | translate: { wins: place.wins } }}</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+
+                <app-button
+                    [text]="(isOver() ? 'game.tournament.again' : 'game.tournament.back') | translate"
+                    variant="primary"
+                    [outline]="!isOver()"
+                    size="large"
+                    (buttonClick)="backToSetup()"
+                ></app-button>
+            </div>
+        }
+    }
+</div>

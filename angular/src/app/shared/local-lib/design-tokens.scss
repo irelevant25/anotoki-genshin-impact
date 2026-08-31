@@ -436,6 +436,11 @@
   --cryo-secondary-white: #7bbecf;
   --cryo-accent-white: #5a9cab;
 
+  /* Podium places in the tournament game. Fixed in both themes, the same way
+     the element colours are - a silver medal is silver wherever it is shown. */
+  --medal-silver: #a8adb3;
+  --medal-bronze: #b87333;
+
   /* Quiz difficulty */
   --level-easy: #0f9d63;
   --level-medium: #2563eb;
