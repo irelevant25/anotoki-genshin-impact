@@ -108,7 +108,7 @@
                     @if (!loading() && data().result.length === 0) {
                         <tr class="no-data-row">
                             <td [attr.colspan]="internalColumns().length + (selectable() ? 1 : 0)" class="no-data-cell">
-                                {{ noDataMessage() }}
+                                {{ noDataText() }}
                             </td>
                         </tr>
                     }

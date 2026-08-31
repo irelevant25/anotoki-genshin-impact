@@ -10,6 +10,7 @@ import { copyObject, getValueByKey } from '../../helper.class';
 import { ButtonComponent } from '../button/button.component';
 import { AbstractRolesComponent } from '../../abstract-roles.class';
 import { SlovakDatePipe } from '../../pipes/date.pipe';
+import { TranslationService } from '../../i18n/translation.service';
 
 export interface SortEvent {
   column: string;
@@ -52,9 +53,14 @@ export const EMPTY_TABLE = { result: [], total: 0, poradie: [] };
 export class TableComponent<T> extends AbstractRolesComponent {
   @ContentChildren(TableColumnComponent) columnComponents?: QueryList<TableColumnComponent<T>>;
 
+  private readonly _i18n = inject(TranslationService);
+
+  /** What an empty table says: the caller's wording, or the translated default. */
+  readonly noDataText = computed(() => this.noDataMessage() ?? this._i18n.t('table.noData'));
+
   data = model<DataTableData<T>>({ result: [], total: 0, poradie: [] });
   loading = model<boolean>(false);
-  noDataMessage = model<string>('Žiadne dáta na zobrazenie');
+  noDataMessage = model<string | undefined>(undefined);
   showPagination = model<boolean>(true);
   paginationType = model<PaginationType>('both');
   paginationBorderTop = model<boolean>(true);

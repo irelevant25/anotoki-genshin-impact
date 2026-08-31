@@ -1,9 +1,10 @@
-import { ApplicationRef, Component, ComponentRef, computed, ContentChild, createComponent, effect, EnvironmentInjector, model, TemplateRef } from '@angular/core';
+import { ApplicationRef, Component, ComponentRef, computed, ContentChild, createComponent, effect, EnvironmentInjector, inject, model, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AbstractInputComponent } from '../../abstract-input.class';
 import { MultiselectPopupComponent } from './popup/multiselect-popup.component';
 import { DropdownOption } from '../../services/options-helper.service';
 import { SCROLL_POPUP, ScrollDirective, ScrollPopup } from '../../scroll.directive';
+import { TranslationService } from '../../i18n/translation.service';
 
 export type MultiselectOptionsType = DropdownOption[] | string[] | number[];
 
@@ -27,6 +28,8 @@ type Type = (string | number | boolean)[];
 })
 export class MultiselectComponent extends AbstractInputComponent<Type> implements ScrollPopup {
   @ContentChild(TemplateRef) optionTemplate?: TemplateRef<any>;
+
+  private readonly _i18n = inject(TranslationService);
 
   options = model<MultiselectOptionsType>([]);
   selectClass = model<string>('');
@@ -59,17 +62,10 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
     const maxDisplay = this.maxDisplayItems();
 
     if (this.showBadges()) {
-      const count = this.selectedOptions().length;
-      if (count === 0) {
-        return 'Žiadna vybraná hodnota';
-      } else if (count === 1) {
-        return '1 vybraná hodnota';
-      } else if (count > 1 && count < 5) {
-        return `${count} vybrané hodnoty`;
-      } else if (count > 4) {
-        return `${count} vybraných hodnôt`;
-      }
-      return '';
+      const count = selected.length;
+      return count === 0
+        ? this._i18n.t('multiselect.selected.none')
+        : this._i18n.t(this._pluralKey('multiselect.selected', count), { count });
     }
 
     if (selected.length === 0) {
@@ -85,8 +81,22 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
       .map((opt) => opt.value)
       .join(', ');
     const remaining = selected.length - maxDisplay;
-    return `${displayed} (+${remaining} more)`;
+    return `${displayed} ${this._i18n.t(this._pluralKey('multiselect.more', remaining), { count: remaining })}`;
   });
+
+  /**
+   * Which plural form a language wants for `count`, as a key suffix.
+   *
+   * The count is deliberately not compared against numbers here: Slovak wants
+   * separate wording for two-to-four where English does not, and a language
+   * added later will want something neither of them does. `Intl.PluralRules`
+   * already knows every language's own buckets. A form with no string of its
+   * own falls back to `other`, which every language has.
+   */
+  private _pluralKey(base: string, count: number): string {
+    const form = new Intl.PluralRules(this._i18n.language()).select(count);
+    return this._i18n.has(`${base}.${form}`) ? `${base}.${form}` : `${base}.other`;
+  }
 
   isAllSelected = computed(() => {
     const options = this.computedOptions();
