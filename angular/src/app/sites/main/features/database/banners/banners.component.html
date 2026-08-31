@@ -1,8 +1,8 @@
 <div class="container w-100">
-    <div class="database-page">
-        <app-loader [loading]="loading()"></app-loader>
+    <app-loader #loader [loading]="loading()"></app-loader>
 
-        @if (!loading()) {
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="database-page">
             <div class="px-5 py-2">
                 <div class="d-flex flex-wrap gap-2 justify-content-center py-3">
                     <app-dropdown
@@ -68,6 +68,6 @@
                     }
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
 </div>

@@ -9,10 +9,15 @@
   justify-content: center;
   z-index: 10; // Ensure it's above other content
   // background-color: transparent;
+
+  // Lets the waypoint below measure the space it has been given. The overlay
+  // is always 100% of its host in both axes, so this is a definite size and
+  // `cqmin` resolves against it.
+  container-type: size;
 }
 
 .loading-overlay-color {
-  background-color: var(--text-muted); // Semi-transparent backdrop
+  background-color: var(--text-primary); // Semi-transparent backdrop
   opacity: 0.5;
 }
 
@@ -43,5 +48,270 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// The teleport waypoint, ported from old/utils/loading.{js,css}
+//
+// The old site drew this at a fixed 300px square because it had the whole page
+// to itself. Here it is an overlay inside whatever it was dropped into - a
+// table wrap, a card, a 250px list placeholder - so every measurement is a
+// fraction of `--loader-size`, and that shrinks to fit rather than spilling
+// over the neighbours. The floor keeps it visible in a container too small to
+// hold it at all.
+//
+// The keyframes carry a `waypoint-` prefix to keep them together and apart from
+// the `spin` above; Angular rewrites the names per component, so they could not
+// have collided with another component's either way.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Where each element's mark sits, and when it pulses. Positions are percentages
+// of the square, so they hold as it scales.
+$element-marks: (
+  anemo: (delay: 0s, top: 10%, left: 20%),
+  geo: (delay: 0.5s, top: 70%, left: 15%),
+  electro: (delay: 1s, top: 20%, right: 15%),
+  hydro: (delay: 1.5s, top: 65%, right: 20%),
+  pyro: (delay: 2s, top: 40%, left: 10%),
+  cryo: (delay: 2.5s, bottom: 15%, left: 50%),
+  dendro: (delay: 3s, top: 15%, left: 50%),
+);
+
+.waypoint-loader {
+  --loader-size: clamp(120px, 100cqmin, 300px);
+
+  position: relative;
+  width: var(--loader-size);
+  height: var(--loader-size);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .teleport-waypoint {
+    position: relative;
+    width: 40%;
+    height: 40%;
+    animation: waypoint-spin 8s linear infinite;
+  }
+
+  .waypoint-outer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--genshin-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--genshin-blue);
+  }
+
+  .waypoint-inner {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    border: 2px solid var(--genshin-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--genshin-blue);
+  }
+
+  .waypoint-star {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  // Five spokes at even fifths of a turn.
+  .star-point {
+    position: absolute;
+    width: 2px;
+    height: 50%;
+    background: var(--genshin-gold);
+    transform-origin: bottom center;
+    box-shadow: 0 0 5px var(--genshin-gold);
+
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}) {
+        transform: rotate(#{($i - 1) * 72}deg);
+      }
+    }
+  }
+
+  .element-symbols,
+  .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .element {
+    position: absolute;
+    width: calc(var(--loader-size) * 0.1);
+    height: calc(var(--loader-size) * 0.1);
+    border-radius: 50%;
+    opacity: 0;
+    animation: waypoint-pulse 4s infinite;
+  }
+
+  @each $name, $mark in $element-marks {
+    .element.#{$name} {
+      background: var(--#{$name}-secondary-white);
+
+      @each $property, $value in $mark {
+        @if $property == delay {
+          animation-delay: $value;
+        } @else {
+          #{$property}: $value;
+        }
+      }
+    }
+  }
+
+  .particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--genshin-gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: waypoint-float 3s infinite;
+    box-shadow: 0 0 5px var(--genshin-gold);
+  }
+
+  .progress-bar {
+    position: relative;
+    width: calc(var(--loader-size) * 0.667);
+    height: max(3px, calc(var(--loader-size) * 0.02));
+    background: var(--bg-veil-soft);
+    border-radius: var(--border-radius-pill);
+    margin-top: calc(var(--loader-size) * 0.067);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, var(--genshin-blue), var(--genshin-gold));
+    border-radius: var(--border-radius-pill);
+    animation: waypoint-fill 3s infinite;
+    box-shadow: 0 0 8px var(--genshin-blue);
+  }
+
+  .loading-text {
+    margin-top: calc(var(--loader-size) * 0.1);
+    color: var(--genshin-blue);
+    font-size: max(var(--font-size-2xl), calc(var(--loader-size) * 0.06));
+    letter-spacing: 2px;
+    text-align: center;
+    text-shadow: 0 0 5px var(--genshin-blue);
+
+    // The trailing dots are decoration, so they are drawn rather than put in
+    // the text a screen reader announces.
+    &::after {
+      content: "";
+      animation: waypoint-dots 1.5s infinite;
+    }
+  }
+}
+
+@keyframes waypoint-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes waypoint-pulse {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes waypoint-dots {
+  0%,
+  20% {
+    content: "";
+  }
+  40% {
+    content: ".";
+  }
+  60% {
+    content: "..";
+  }
+  80%,
+  100% {
+    content: "...";
+  }
+}
+
+@keyframes waypoint-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(calc(var(--loader-size) * -0.333)) translateX(calc(var(--loader-size) * var(--particle-drift, 0)));
+    opacity: 0;
+  }
+}
+
+@keyframes waypoint-fill {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+// Everything here turns, drifts or pulses at once, which is a lot of movement
+// to put in front of someone who has asked for less. The shapes stay; only the
+// motion stops, with the pieces left at the point in their cycle where they
+// read best.
+@media (prefers-reduced-motion: reduce) {
+  .waypoint-loader {
+    .teleport-waypoint {
+      animation: none;
+    }
+
+    .particles {
+      display: none;
+    }
+
+    .element {
+      animation: none;
+      opacity: 0.8;
+    }
+
+    .progress-fill {
+      animation: none;
+      width: 100%;
+    }
   }
 }

@@ -1,16 +1,60 @@
 @if (loadingCtrl.loading()) {
-    <div class="loading-overlay loading-overlay-color">
-        <div class="loading-content"></div>
+    <!-- The tint is its own layer: putting the opacity on the layer that holds
+         the content would fade the content with it. -->
+    <div class="loading-overlay loading-overlay-color br-50">
+        @if (variant() === 'plain') {
+            <div class="loading-content"></div>
+        }
     </div>
 }
 
 @if (loadingCtrl.loading()) {
-    <div class="loading-overlay">
-        <div class="loading-content">
-            @if (spinner()) {
-                <div class="loading-spinner"></div>
-            }
-            <span>{{ text() }}</span>
-        </div>
+    <div class="loading-overlay" role="status" aria-live="polite">
+        @if (variant() === 'waypoint') {
+            <div class="waypoint-loader">
+                <div class="teleport-waypoint" aria-hidden="true">
+                    <div class="waypoint-outer"></div>
+                    <div class="waypoint-inner"></div>
+                    <div class="waypoint-star">
+                        <div class="star-point"></div>
+                        <div class="star-point"></div>
+                        <div class="star-point"></div>
+                        <div class="star-point"></div>
+                        <div class="star-point"></div>
+                    </div>
+                </div>
+
+                <!-- Named rather than left to :nth-child, so the colour a mark
+                     takes is readable here and in the stylesheet. -->
+                <div class="element-symbols" aria-hidden="true">
+                    <div class="element anemo"></div>
+                    <div class="element geo"></div>
+                    <div class="element electro"></div>
+                    <div class="element hydro"></div>
+                    <div class="element pyro"></div>
+                    <div class="element cryo"></div>
+                    <div class="element dendro"></div>
+                </div>
+
+                <div class="particles" aria-hidden="true">
+                    @for (particle of particles; track $index) {
+                        <div class="particle" [style.left.%]="particle.left" [style.top.%]="particle.top" [style.animation-delay.s]="particle.delay" [style.--particle-drift]="particle.drift"></div>
+                    }
+                </div>
+
+                <div class="progress-bar" aria-hidden="true">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <div class="loading-text">{{ text() }}</div>
+            </div>
+        } @else {
+            <div class="loading-content">
+                @if (spinner()) {
+                    <div class="loading-spinner"></div>
+                }
+                <span>{{ text() }}</span>
+            </div>
+        }
     </div>
 }

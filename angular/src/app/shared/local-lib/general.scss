@@ -114,6 +114,13 @@ button {
   text-align: end;
 }
 
+// Font size classes
+@for $i from 1 through 50 {
+  .br-#{$i} {
+    border-radius: $i * 1px;
+  }
+}
+
 // Font weight classes
 @for $i from 1 through 8 {
   .fw-#{$i*100} {

@@ -84,7 +84,9 @@ export class DatabaseCharactersComponent {
         this.characters.set(characters.sort((a, b) => String(a.name).localeCompare(String(b.name))));
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false)
+      },
     });
   }
 

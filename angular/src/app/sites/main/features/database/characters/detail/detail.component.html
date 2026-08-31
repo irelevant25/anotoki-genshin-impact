@@ -1,8 +1,8 @@
 <div class="container w-100">
-    <div class="database-page character-detail">
-        <app-loader [loading]="loading()"></app-loader>
+    <app-loader #loader [loading]="loading()"></app-loader>
 
-        @if (!loading()) {
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="database-page character-detail">
             @if (character(); as character) {
                 <div class="body p-4">
                     <!-- Header section -->
@@ -144,6 +144,6 @@
             } @else {
                 <div class="not-found">{{ 'database.detail.notFound' | translate }}</div>
             }
-        }
-    </div>
+        </div>
+    }
 </div>

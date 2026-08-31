@@ -1,8 +1,8 @@
 <div class="container w-100">
-    <div class="database-page material-detail">
-        <app-loader [loading]="loading()"></app-loader>
+    <app-loader #loader [loading]="loading()"></app-loader>
 
-        @if (!loading()) {
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="database-page material-detail">
             @if (material(); as material) {
                 <div class="p-4 d-flex flex-row gap-3 flex-column-mobile">
                     <div class="d-flex flex-column flex-1 text-center-mobile gap-3 left-bar">
@@ -102,6 +102,6 @@
             } @else {
                 <div class="not-found">{{ 'database.detail.notFound' | translate }}</div>
             }
-        }
-    </div>
+        </div>
+    }
 </div>
