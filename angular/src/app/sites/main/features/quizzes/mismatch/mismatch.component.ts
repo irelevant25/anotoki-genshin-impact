@@ -8,6 +8,7 @@ import { LoaderComponent } from '../../../../../shared/local-lib/components/load
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
+import { todayString } from '../shared/daily';
 import { QuizProgressService } from '../shared/quiz-progress.service';
 import { QuizId, QuizState, difficultyName } from '../shared/quiz.types';
 
@@ -98,9 +99,12 @@ export class QuizzesMismatchComponent {
     const byName = (name?: string) => this.characters().find((character) => character.name === name);
     const options = (saved?.options ?? []).map(byName).filter(Boolean);
 
-    // Restored only if the whole set comes back; a set missing a face is not a
-    // question any more.
-    if (saved && saved.options?.length && options.length === saved.options.length && byName(saved.answer)) {
+    // Restored only if the whole set comes back and, for a daily game, if it is
+    // today's - the daily slot is reused, so yesterday's answered question would
+    // otherwise still be sitting there.
+    const isForToday = !this.isDaily() || saved?.date === todayString();
+
+    if (saved && isForToday && saved.options?.length && options.length === saved.options.length && byName(saved.answer)) {
       this.difficulty.set(saved.difficulty);
       this.quizSet.set({
         options,
@@ -191,7 +195,9 @@ export class QuizzesMismatchComponent {
       triesMax: 1,
       triesEffects: [],
       isQuestionComplete: this.isQuestionComplete(),
+      isSuccess: this.isQuestionComplete() ? this.isSuccess() : undefined,
       difficulty: this.difficulty(),
+      date: this.isDaily() ? todayString() : undefined,
       choicesAmount: this.choicesAmount(),
       options: set?.options.map((character) => character.name),
       answer: set?.answer?.name,

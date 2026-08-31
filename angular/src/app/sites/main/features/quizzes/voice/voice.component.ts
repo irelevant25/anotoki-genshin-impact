@@ -61,7 +61,7 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
     const saved = this.progress.get(this.quizId, this.isDaily());
     const character = saved?.questionEntity ? this.characters().find((x) => x.name === saved.questionEntity) : undefined;
 
-    if (!saved?.voiceOverId || !character) {
+    if (!saved?.voiceOverId || !character || !this.isForToday(saved)) {
       this.newQuestion();
       return;
     }
@@ -80,15 +80,7 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
   }
 
   protected override saveState(): void {
-    const state: QuizState = {
-      questionEntity: this.questionEntity()?.name,
-      tries: this.tries().map((character) => character.name),
-      triesMax: this.triesMax(),
-      triesEffects: this.triesEffects(),
-      isQuestionComplete: this.isQuestionComplete(),
-      difficulty: this.difficulty(),
-      voiceOverId: this.voiceOver()?.id,
-    };
-    this.progress.save(this.quizId, state, this.isDaily());
+    // Everything the others write, plus the line that was drawn.
+    this.progress.save(this.quizId, { ...this.buildState(), voiceOverId: this.voiceOver()?.id }, this.isDaily());
   }
 }

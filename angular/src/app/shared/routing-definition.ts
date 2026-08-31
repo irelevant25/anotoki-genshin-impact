@@ -4,13 +4,39 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
   title: 'root',
   path: '',
 
+  // Every quiz can come up as a daily, so all six have a path here. The two
+  // that were here before were a stub, and one of them was spelled 'mismach'.
   daily: {
     title: 'Daily',
     path: 'daily',
 
-    mismach: {
+    banners: {
+      title: 'Banners',
+      path: 'banners',
+      notInMenu: true,
+    },
+
+    pixelate: {
+      title: 'Pixelate',
+      path: 'pixelate',
+      notInMenu: true,
+    },
+
+    mismatch: {
       title: 'Mismatch',
-      path: 'mismach',
+      path: 'mismatch',
+      notInMenu: true,
+    },
+
+    music: {
+      title: 'Music',
+      path: 'music',
+      notInMenu: true,
+    },
+
+    dish: {
+      title: 'Dish',
+      path: 'dish',
       notInMenu: true,
     },
 

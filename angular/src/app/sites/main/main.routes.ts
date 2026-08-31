@@ -10,6 +10,7 @@ import { QuizzesMusicComponent } from './features/quizzes/music/music.component'
 import { QuizzesPixelateComponent } from './features/quizzes/pixelate/pixelate.component';
 import { QuizzesVoiceComponent } from './features/quizzes/voice/voice.component';
 import { AppComponent } from './app.component';
+import { DailyComponent } from './features/daily/daily.component';
 import { DatabaseComponent } from './features/database/database.component';
 import { DatabaseBannersComponent } from './features/database/banners/banners.component';
 import { DatabaseCharactersComponent } from './features/database/characters/characters.component';
@@ -25,6 +26,21 @@ export const routes: Routes = [
     component: AppComponent,
     children: [
       { path: '', component: HomeComponent },
+      // The daily run is the same six quizzes, told through the route data that
+      // they are today's question rather than a fresh one. That flag is what
+      // sends their saved game to the daily slot and stamps it with the date.
+      {
+        path: ROUTE_MAP.map['daily'].path,
+        children: [
+          { path: '', component: DailyComponent },
+          { path: ROUTE_MAP.map['daily'].banners.path, component: QuizzesBannersComponent, data: { daily: true } },
+          { path: ROUTE_MAP.map['daily'].dish.path, component: QuizzesDishComponent, data: { daily: true } },
+          { path: ROUTE_MAP.map['daily'].mismatch.path, component: QuizzesMismatchComponent, data: { daily: true } },
+          { path: ROUTE_MAP.map['daily'].music.path, component: QuizzesMusicComponent, data: { daily: true } },
+          { path: ROUTE_MAP.map['daily'].pixelate.path, component: QuizzesPixelateComponent, data: { daily: true } },
+          { path: ROUTE_MAP.map['daily'].voice.path, component: QuizzesVoiceComponent, data: { daily: true } },
+        ],
+      },
       {
         path: ROUTE_MAP.map['quizzes'].path,
         children: [

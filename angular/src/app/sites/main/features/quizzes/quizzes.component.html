@@ -5,13 +5,13 @@
                  data-bs-target pointing at #site-banners-modal on every card.
                  There is no Bootstrap and no such modal, so it opened nothing.
                  The longer description it would have shown is on the icon. -->
-            <i class="icon icon-info help-icon" [title]="item.modalTitle | translate"></i>
+            <i class="icon icon-info help-icon" [title]="item.about | translate"></i>
 
-            <img [src]="item.cardImage" [alt]="item.title | translate" loading="lazy" />
+            <img [src]="item.image" [alt]="item.title | translate" loading="lazy" />
 
             <div class="card-body">
                 <h3 class="card-title">{{ item.title | translate }}</h3>
-                <p class="card-text">{{ item.cardInfo | translate }}</p>
+                <p class="card-text">{{ item.info | translate }}</p>
             </div>
         </a>
     }

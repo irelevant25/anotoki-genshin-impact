@@ -4,6 +4,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { StateService } from '../../../../../shared/state-manager.service';
+import { todayString } from './daily';
 import { QuizProgressService } from './quiz-progress.service';
 import { QuizId, QuizState, difficultyName } from './quiz.types';
 
@@ -142,7 +143,7 @@ export abstract class CharacterQuizComponent {
     const saved = this.progress.get(this.quizId, this.isDaily());
     const character = saved?.questionEntity ? this.characters().find((x) => x.name === saved.questionEntity) : undefined;
 
-    if (saved && character && this.canAsk(character)) {
+    if (saved && character && this.canAsk(character) && this.isForToday(saved)) {
       this.difficulty.set(saved.difficulty);
       this.questionEntity.set(character);
       this.tries.set(saved.tries.map((name) => this.characters().find((x) => x.name === name)).filter(Boolean));
@@ -194,15 +195,32 @@ export abstract class CharacterQuizComponent {
     this.newQuestion();
   }
 
-  protected saveState(): void {
-    const state: QuizState = {
+  /**
+   * Whether a saved daily game belongs to today.
+   *
+   * The daily slot is reused every day, so without this yesterday's finished
+   * question would be restored this morning and the day would start already
+   * over. An ordinary game has no expiry.
+   */
+  protected isForToday(saved: QuizState): boolean {
+    return !this.isDaily() || saved.date === todayString();
+  }
+
+  /** What is written down, with the day stamped on it for a daily game. */
+  protected buildState(): QuizState {
+    return {
       questionEntity: this.questionEntity()?.name,
       tries: this.tries().map((character) => character.name),
       triesMax: this.triesMax(),
       triesEffects: this.triesEffects(),
       isQuestionComplete: this.isQuestionComplete(),
+      isSuccess: this.isQuestionComplete() ? this.isSuccess() : undefined,
       difficulty: this.difficulty(),
+      date: this.isDaily() ? todayString() : undefined,
     };
-    this.progress.save(this.quizId, state, this.isDaily());
+  }
+
+  protected saveState(): void {
+    this.progress.save(this.quizId, this.buildState(), this.isDaily());
   }
 }

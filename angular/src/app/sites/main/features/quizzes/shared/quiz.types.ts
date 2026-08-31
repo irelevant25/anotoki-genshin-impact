@@ -47,6 +47,22 @@ export interface QuizState {
   triesEffects: QuizEffect[];
   isQuestionComplete: boolean;
   difficulty: number;
+  /**
+   * Whether it was won, recorded rather than worked out again later.
+   *
+   * The Daily page needs to say won or lost without loading each quiz, and
+   * mismatch could not answer that anyway - it keeps the set and the answer,
+   * not which face was clicked.
+   */
+  isSuccess?: boolean;
+  /**
+   * The day a daily game belongs to, as YYYY-MM-DD in UTC.
+   *
+   * A daily game is stored in the same slot every day, so without this
+   * yesterday's finished question would come back as today's. Absent on an
+   * ordinary game, which has no expiry.
+   */
+  date?: string;
   /** Mismatch keeps its whole set, since it cannot be redrawn from one name. */
   choicesAmount?: number;
   options?: string[];

@@ -1,0 +1,74 @@
+@use "../quizzes/shared/quiz-card" as *;
+
+.daily-header {
+  text-align: center;
+
+  h1 {
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+.daily-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.daily-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-2xl);
+}
+
+.daily-empty {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+// The mark goes on the card's own corner rather than replacing anything, so a
+// played card is still recognisably the same card.
+.status-badge {
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  padding: var(--spacing-xxs) var(--spacing-sm);
+  border-radius: var(--border-radius-pill);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+// A border as well as a badge: colour alone would say nothing to a reader who
+// cannot tell these three apart.
+.card.status-started {
+  border-color: var(--color-warning);
+
+  .status-badge {
+    background-color: var(--color-warning);
+    color: var(--color-warning-text);
+  }
+}
+
+.card.status-won {
+  border-color: var(--color-success);
+
+  .status-badge {
+    background-color: var(--color-success);
+    color: var(--color-success-text);
+  }
+}
+
+.card.status-lost {
+  border-color: var(--color-danger);
+
+  .status-badge {
+    background-color: var(--color-danger);
+    color: var(--color-danger-text);
+  }
+
+  // Finished and lost - there is nothing more to do with it today.
+  img {
+    filter: grayscale(0.6);
+  }
+}

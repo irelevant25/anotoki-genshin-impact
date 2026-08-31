@@ -1,0 +1,39 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="daily-header">
+            <h1>{{ 'daily.title' | translate }}</h1>
+            <p class="daily-subtitle">
+                @if (allDone()) {
+                    {{ 'daily.allDone' | translate }}
+                } @else {
+                    {{ 'daily.remaining' | translate: { count: remaining() } }}
+                }
+            </p>
+        </div>
+
+        <div class="daily-cards">
+            @for (entry of entries(); track entry.card.id) {
+                <!-- Same card as on the Quizzes page, under /daily so the quiz
+                     knows it is playing today's question rather than a fresh one. -->
+                <a class="card px-5 pb-5" [class]="'status-' + entry.status" [routerLink]="['/', 'daily', entry.card.path]">
+                    <i class="icon icon-info help-icon" [title]="entry.card.about | translate"></i>
+
+                    @if (entry.status !== 'new') {
+                        <span class="status-badge">{{ 'daily.status.' + entry.status | translate }}</span>
+                    }
+
+                    <img [src]="entry.card.image" [alt]="entry.card.title | translate" loading="lazy" />
+
+                    <div class="card-body">
+                        <h3 class="card-title">{{ entry.card.title | translate }}</h3>
+                        <p class="card-text">{{ entry.card.info | translate }}</p>
+                    </div>
+                </a>
+            } @empty {
+                <p class="daily-empty">{{ 'daily.none' | translate }}</p>
+            }
+        </div>
+    }
+</div>
