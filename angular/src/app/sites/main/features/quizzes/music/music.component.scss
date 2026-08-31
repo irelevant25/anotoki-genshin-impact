@@ -1,0 +1,6 @@
+// The title is the giveaway, so it appears only once the question is over.
+.track-name {
+  margin: var(--spacing-sm) 0 0;
+  color: var(--text-primary);
+  font-style: italic;
+}

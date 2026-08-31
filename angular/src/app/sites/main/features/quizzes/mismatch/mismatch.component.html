@@ -1,0 +1,49 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="quiz-container">
+            @if (!isDaily()) {
+                <div class="quiz-difficulty" [class]="'level-' + difficultyString()">
+                    <span class="recommended-ar">{{ 'quiz.difficulty.' + difficultyString() | translate }}</span>
+                </div>
+            }
+
+            @if (quizSet(); as set) {
+                <p class="mismatch-prompt">{{ 'quiz.mismatch.prompt' | translate }}</p>
+
+                <div class="character-grid">
+                    @for (character of set.options; track character.id) {
+                        <button
+                            type="button"
+                            class="character-choice"
+                            [class.correct]="isQuestionComplete() && character.name === set.answer.name"
+                            [class.wrong]="isQuestionComplete() && character.name === picked()?.name && character.name !== set.answer.name"
+                            [class.dimmed]="isQuestionComplete() && character.name !== set.answer.name && character.name !== picked()?.name"
+                            [disabled]="isQuestionComplete()"
+                            [title]="character.name"
+                            (click)="choose(character)"
+                        >
+                            <img [appMaterialIcon]="character.icon_name ?? character.name" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
+                        </button>
+                    }
+                </div>
+
+                <!-- Saying what the rest had in common is the whole explanation
+                     of why that one was the answer. -->
+                @if (isQuestionComplete()) {
+                    <p class="mismatch-reason">
+                        {{ (isSuccess() ? 'quiz.mismatch.right' : 'quiz.mismatch.wrong') | translate }}
+                        <span class="mismatch-common">{{ set.commonValue }}</span>
+                    </p>
+
+                    @if (!isDaily()) {
+                        <app-button [text]="'quiz.next' | translate" variant="primary" size="large" (buttonClick)="next()"></app-button>
+                    }
+                }
+            } @else {
+                <p class="mismatch-prompt">{{ 'quiz.mismatch.noSet' | translate }}</p>
+            }
+        </div>
+    }
+</div>

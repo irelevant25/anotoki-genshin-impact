@@ -1,0 +1,73 @@
+// Ported from the player half of old/sites/top/quizzes/music.css, which
+// voice.css carried a byte-identical copy of.
+//
+// The old file painted it in fixed colours - a dark grey slab, a green bar and
+// green buttons - which was fine on a site with one theme. The shapes are the
+// same; the colours come from the palette so it holds up in both.
+
+.player-container {
+  max-width: 350px;
+  margin: 0 auto;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-large);
+  background: var(--bg-tooltip);
+  color: var(--text-tooltip);
+}
+
+audio {
+  display: none;
+}
+
+.progress-container {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  margin: var(--spacing-sm) 0;
+  border-radius: 5px;
+  background-color: var(--bg-veil-soft);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  border-radius: 5px;
+  background-color: var(--color-success);
+  // The playhead is followed frame by frame, so the width is already smooth;
+  // a transition on top of that would only make it lag behind the sound.
+  will-change: width;
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-base);
+  font-variant-numeric: tabular-nums;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+
+  button {
+    padding: var(--spacing-xxs) var(--spacing-sm);
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--color-success);
+    color: var(--color-success-text);
+    cursor: pointer;
+    transition: background-color var(--transition-base);
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-success-hover);
+    }
+
+    &:disabled {
+      background-color: var(--color-disabled);
+      color: var(--color-disabled-text);
+      cursor: not-allowed;
+    }
+  }
+}

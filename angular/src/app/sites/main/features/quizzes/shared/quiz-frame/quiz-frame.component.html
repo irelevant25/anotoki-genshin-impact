@@ -1,0 +1,59 @@
+<div class="quiz-container">
+    <!-- The daily run sets the difficulty for you, so there is nothing to report. -->
+    @if (!isDaily()) {
+        <div class="quiz-difficulty" [class]="'level-' + difficulty()">
+            <span class="recommended-ar">{{ 'quiz.difficulty.' + difficulty() | translate }}</span>
+        </div>
+    }
+
+    <ng-content></ng-content>
+
+    <div class="quiz-search">
+        @if (!isQuestionComplete()) {
+            <app-autocomplete
+                #autocomplete
+                class="w-100"
+                [placeholder]="'quiz.searchCharacter' | translate"
+                [minChars]="0"
+                [staticOptions]="options()"
+                (selectedOptionChange)="guess.emit($event); autocomplete.reset()"
+            >
+                <ng-template let-option>
+                    <img [appMaterialIcon]="option.data.icon_name ?? option.data.name" [appAssetFolder]="'character.icon'" [alt]="option.data.name" loading="lazy" />
+                    <span>{{ option.data.name }}</span>
+                </ng-template>
+            </app-autocomplete>
+        }
+
+        <!-- The daily run gives one question a day, so there is no next. -->
+        @if (!isDaily() && isQuestionComplete()) {
+            <app-button [text]="'quiz.next' | translate" variant="primary" size="large" (buttonClick)="next.emit()"></app-button>
+        }
+    </div>
+
+    <div class="quiz-tries-score">
+        <span>{{ 'quiz.tries' | translate }}</span>
+        <span>{{ triesCount() }} / {{ triesMax() }}</span>
+    </div>
+
+    <div class="quiz-tries">
+        @for (tried of tries(); track $index) {
+            <div class="quiz-try" [class.empty]="!tried">
+                @if (tried) {
+                    <img [appMaterialIcon]="tried.icon_name ?? tried.name" [appAssetFolder]="'character.icon'" [alt]="tried.name" [title]="tried.name" loading="lazy" />
+                }
+            </div>
+        }
+    </div>
+
+    @if (isQuestionComplete() && answer(); as character) {
+        <img
+            class="quiz-answer"
+            [appMaterialIcon]="character.wish_icon_name ?? character.name"
+            [appAssetFolder]="'character.wish_icon'"
+            [alt]="character.name"
+            [title]="character.name"
+            loading="lazy"
+        />
+    }
+</div>

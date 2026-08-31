@@ -14,15 +14,16 @@
             (guess)="guess($event)"
             (next)="next()"
         >
-            @if (questionEntity(); as character) {
-                <img
-                    class="quiz-question-image"
-                    [class]="effectClasses()"
-                    [appMaterialIcon]="character.namecard_banner_name ?? character.name"
-                    [appAssetFolder]="'character.namecard_banner'"
-                    alt=""
-                    loading="eager"
-                />
+            @if (questionEntity()?.dish; as dish) {
+                <div class="dish">
+                    <!-- The food art is filed under the dish's own name, not the
+                         upper-cased icon name the character tables use. -->
+                    <img class="quiz-question-image" [class]="effectClasses()" [appMaterialIcon]="dish.name" [appAssetFolder]="'foods'" alt="" loading="eager" />
+
+                    @if (isQuestionComplete()) {
+                        <p class="dish-name">{{ dish.name }}</p>
+                    }
+                </div>
             }
         </app-quiz-frame>
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IBannersState } from '../sites/main/features/quizzes/banners/banners.component';
+import { QuizId, QuizLevel, QuizState } from '../sites/main/features/quizzes/shared/quiz.types';
 import { LocalStorageService } from './local-lib/services/local-storage.service';
 import { HELPER } from './helper';
 
@@ -11,7 +11,7 @@ export interface IStateBottomMenu {
 
 export interface IStateTopMenu {
   daily: IStateDailyMenu;
-  banners: { dailyState?: IBannersState; state?: IBannersState; };
+  banners: { dailyState?: QuizState; state?: QuizState; };
   pixelate: { dailyState?: any; state?: any; };
   mismatch: { dailyState?: any; state?: any; };
   music: { dailyState?: any; state?: any; };
@@ -105,6 +105,30 @@ export class StateService {
 
   readonly APP_CONFIG = {
     topMenu: {
+      banners: {
+        id: 'site-banners',
+        1: {
+          triesMax: 5,
+          triesEffects: [
+            { try: 0, class: 'difficulty-3' }
+          ]
+        },
+        2: {
+          triesMax: 4,
+          triesEffects: [
+            { try: 0, class: 'difficulty-2 difficulty-3' },
+            { try: 1, class: 'difficulty-2' }
+          ]
+        },
+        3: {
+          triesMax: 3,
+          triesEffects: [
+            { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3' },
+            { try: 1, class: 'difficulty-1 difficulty-2' },
+            { try: 2, class: 'difficulty-1' }
+          ]
+        }
+      },
       pixelate: {
         id: 'site-pixelate',
         1: {
@@ -242,17 +266,90 @@ export class StateService {
     }
   };
 
-  constructor(private readonly _storageService: LocalStorageService) { }
-
-  getTopMenuBannersState(daily: boolean = false): IBannersState | undefined {
-    if (daily === true) return this.data.topMenu.banners.dailyState;
-    else return this.data.topMenu.banners.state;
+  constructor(private readonly _storageService: LocalStorageService) {
+    this.loadData();
   }
 
-  saveTopMenuBannersState(state: IBannersState, daily: boolean = false) {
-    if (daily === true) this.data.topMenu.banners.dailyState = { ...state };
-    else this.data.topMenu.banners.state = { ...state };
+  /**
+   * Reads back what saveData wrote.
+   *
+   * Without this the service only ever held its defaults - it has been writing
+   * to localStorage since it was added and never reading, so every quiz began
+   * again on each reload. Merged one level deep rather than assigned, so a key
+   * added to the defaults since the last save is still present afterwards.
+   */
+  loadData(): boolean {
+    try {
+      const saved = localStorage.getItem(StorageKeys.STORAGE_KEY);
+      if (!saved) {
+        return false;
+      }
+
+      const parsed = JSON.parse(saved) as Partial<IState>;
+      this._data = {
+        ...this._data,
+        ...parsed,
+        stats: { ...this._data.stats, ...parsed.stats },
+        bottomMenu: { ...this._data.bottomMenu, ...parsed.bottomMenu },
+        topMenu: { ...this._data.topMenu, ...parsed.topMenu },
+      };
+      return true;
+    } catch (error) {
+      // A half-written or hand-edited entry should cost the defaults, not the
+      // page.
+      console.error('Error reading data from localStorage:', error);
+      return false;
+    }
+  }
+
+  /** The difficulty the whole site is set to. 1 easy, 2 medium, 3 hard. */
+  getDifficulty(): number {
+    const difficulty = Number(this.data.bottomMenu.difficulty);
+    return difficulty >= 1 && difficulty <= 3 ? difficulty : 1;
+  }
+
+  /**
+   * The tries and reveal steps for one quiz at one difficulty.
+   *
+   * APP_CONFIG is a literal, so its entries have six different inferred shapes
+   * and cannot be indexed by a QuizId without this. QuizLevel is what they all
+   * actually are.
+   */
+  getQuizLevel(quizId: QuizId, difficulty: number): QuizLevel {
+    const quiz = (this.APP_CONFIG.topMenu as unknown as Record<string, Record<number, QuizLevel>>)[quizId];
+    return quiz?.[difficulty] ?? {};
+  }
+
+  /**
+   * A quiz's saved question, by name rather than by a method per quiz - the six
+   * of them keep the same shape, and there is nothing for six copies to differ
+   * about.
+   */
+  getQuizState(quizId: QuizId, daily: boolean = false): QuizState | undefined {
+    const entry = this.data.topMenu[quizId];
+    return daily ? entry?.dailyState : entry?.state;
+  }
+
+  saveQuizState(quizId: QuizId, state: QuizState, daily: boolean = false): boolean {
+    const entry = this.data.topMenu[quizId];
+    if (daily) entry.dailyState = { ...state };
+    else entry.state = { ...state };
     return this.saveData(this.data);
+  }
+
+  clearQuizState(quizId: QuizId, daily: boolean = false): boolean {
+    const entry = this.data.topMenu[quizId];
+    if (daily) entry.dailyState = undefined;
+    else entry.state = undefined;
+    return this.saveData(this.data);
+  }
+
+  getTopMenuBannersState(daily: boolean = false): QuizState | undefined {
+    return this.getQuizState('banners', daily);
+  }
+
+  saveTopMenuBannersState(state: QuizState, daily: boolean = false) {
+    return this.saveQuizState('banners', state, daily);
   }
 
   getTopMenuDailyState(): IStateDailyMenu {

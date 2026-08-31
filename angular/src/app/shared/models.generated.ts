@@ -395,7 +395,8 @@ export interface QuizHistory {
   characterId: number;
   quizId: number;
   win: boolean;
-  attemps: number;
+  attempts: number;
+  difficulty?: number | null;
   createdAt?: string | null;
 }
 
@@ -405,7 +406,7 @@ export interface QuizStatsHistory {
   quizId: number;
   wins: number;
   losses: number;
-  attemps: number;
+  attempts: number;
   createdAt?: string | null;
   updatedAt?: string | null;
 }

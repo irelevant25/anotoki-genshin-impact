@@ -1,0 +1,30 @@
+// What a quiz puts in the frame, and the three ways it is hidden.
+//
+// These live with each quiz rather than with the frame because they are used on
+// projected content - see the note in quiz-frame.scss.
+
+// ── The question ────────────────────────────────────────────────────────────
+//
+// A plate behind the art, because several of these images are transparent
+// cutouts that would otherwise dissolve into the wallpaper.
+.quiz-question-image {
+  background-color: var(--bg-veil-strong);
+  border-radius: var(--border-radius-pill);
+  max-width: 100%;
+  height: auto;
+}
+
+// The three ways a question is hidden, hardest first. A level stacks them: on
+// hard the first try shows a blurred, grey, half-cropped picture, and each try
+// takes one away.
+.difficulty-1 {
+  filter: grayscale(1);
+}
+
+.difficulty-2 {
+  filter: grayscale(1) blur(2.5px);
+}
+
+.difficulty-3 {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}

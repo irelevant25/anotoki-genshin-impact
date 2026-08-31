@@ -14,15 +14,10 @@
             (guess)="guess($event)"
             (next)="next()"
         >
-            @if (questionEntity(); as character) {
-                <img
-                    class="quiz-question-image"
-                    [class]="effectClasses()"
-                    [appMaterialIcon]="character.namecard_banner_name ?? character.name"
-                    [appAssetFolder]="'character.namecard_banner'"
-                    alt=""
-                    loading="eager"
-                />
+            <app-quiz-audio-player [src]="trackUrl()" [limit]="limit()"></app-quiz-audio-player>
+
+            @if (isQuestionComplete() && questionEntity(); as character) {
+                <p class="track-name">{{ character.demo_music }}</p>
             }
         </app-quiz-frame>
     }

@@ -1,0 +1,80 @@
+// The frame every quiz is drawn in, ported from the old site's per-quiz CSS.
+//
+// Those six files were near-identical copies of each other - the same container,
+// the same tries row, the same answer image, the same three reveal filters -
+// differing only in the selector they were scoped under. They are here once.
+//
+// The old files hooked onto `[name="question"]` and friends, which were markup
+// attributes Vue needed. Classes say the same thing without the indirection.
+//
+// Split in two because Angular scopes a component's styles to that component,
+// and content projected into <ng-content> keeps the scope of whoever wrote it:
+// the frame cannot style a question handed to it, so each quiz styles its own.
+
+.quiz-container {
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+// The difficulty badge above the question. Its colours are the quiz-difficulty
+// ones already defined in styles.scss (.level-easy / .level-medium / .level-hard).
+.quiz-difficulty {
+  // margin-bottom: var(--spacing-sm);
+  text-transform: capitalize;
+}
+
+// ── Search and next ─────────────────────────────────────────────────────────
+.quiz-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  margin: 0 auto;
+  max-width: 320px;
+}
+
+// ── Tries ───────────────────────────────────────────────────────────────────
+.quiz-tries-score {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xxs);
+  margin: var(--spacing-sm) 0;
+  color: var(--text-primary);
+}
+
+.quiz-tries {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xxs);
+}
+
+// Every slot is drawn, filled or not, so the number of guesses left is visible
+// rather than something to work out from the counter.
+.quiz-try {
+  width: 72px;
+  max-width: 20vw;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--border-radius-large);
+  background-color: var(--bg-veil);
+  border: 1px solid var(--border-veil);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &.empty {
+    background-color: var(--bg-veil-soft);
+  }
+}
+
+.quiz-answer {
+  display: block;
+  margin: var(--spacing-md) auto 0;
+  max-height: 15rem;
+  max-width: 100%;
+}

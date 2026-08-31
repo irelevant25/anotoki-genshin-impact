@@ -1,0 +1,17 @@
+@use "../shared/quiz-frame" as *;
+@use "../shared/quiz-mismatch" as *;
+
+.mismatch-prompt {
+  margin: 0 0 var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.mismatch-reason {
+  margin: var(--spacing-md) 0;
+  color: var(--text-primary);
+}
+
+.mismatch-common {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}

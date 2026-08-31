@@ -1,14 +1,18 @@
 <div class="container d-flex flex-wrap justify-content-center gap-5 text-align-center">
     @for (item of QUIZZES; track item.path) {
-        <div class="card px-5 pb-5" [routerLink]="item.path">
-            <div class="help-icon right" data-bs-toggle="tooltip" data-bs-placement="left" [title]="item.modalTitle | translate">
-                <i class="bi bi-question-circle-fill" data-bs-toggle="modal" data-bs-target="#site-banners-modal" onclick="event.stopPropagation()"></i>
-            </div>
-            <img [src]="item.cardImage" loading="lazy" />
+        <a class="card px-5 pb-5" [routerLink]="item.path">
+            <!-- The old markup opened a Bootstrap modal here, from a
+                 data-bs-target pointing at #site-banners-modal on every card.
+                 There is no Bootstrap and no such modal, so it opened nothing.
+                 The longer description it would have shown is on the icon. -->
+            <i class="icon icon-info help-icon" [title]="item.modalTitle | translate"></i>
+
+            <img [src]="item.cardImage" [alt]="item.title | translate" loading="lazy" />
+
             <div class="card-body">
                 <h3 class="card-title">{{ item.title | translate }}</h3>
                 <p class="card-text">{{ item.cardInfo | translate }}</p>
             </div>
-        </div>
+        </a>
     }
 </div>

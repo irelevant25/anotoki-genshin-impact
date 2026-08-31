@@ -14,16 +14,9 @@
             (guess)="guess($event)"
             (next)="next()"
         >
-            @if (questionEntity(); as character) {
-                <img
-                    class="quiz-question-image"
-                    [class]="effectClasses()"
-                    [appMaterialIcon]="character.namecard_banner_name ?? character.name"
-                    [appAssetFolder]="'character.namecard_banner'"
-                    alt=""
-                    loading="eager"
-                />
-            }
+            <!-- A canvas rather than an image with a filter: CSS has no way to
+                 draw hard-edged blocks, and blurring is a different puzzle. -->
+            <canvas #canvas class="quiz-question-canvas"></canvas>
         </app-quiz-frame>
     }
 </div>

@@ -20,3 +20,17 @@ img {
   object-fit: contain;
   object-position: top;
 }
+
+// The card is a link now rather than a div with a routerLink, so it needs the
+// link colours turned off explicitly.
+.card {
+  color: inherit;
+  text-decoration: none;
+}
+
+.help-icon {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  color: var(--text-muted);
+}

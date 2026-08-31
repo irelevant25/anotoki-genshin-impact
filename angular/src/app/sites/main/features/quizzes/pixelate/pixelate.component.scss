@@ -1,0 +1,12 @@
+// The canvas is drawn at a fixed 175px square and scaled up by the browser, so
+// it needs the same crisp scaling the drawing itself uses - left smooth, the
+// blocks would be blurred back out again at display size.
+.quiz-question-canvas {
+  width: 300px;
+  max-width: 80vw;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: var(--border-radius-large);
+  background-color: var(--bg-veil-strong);
+  image-rendering: pixelated;
+}

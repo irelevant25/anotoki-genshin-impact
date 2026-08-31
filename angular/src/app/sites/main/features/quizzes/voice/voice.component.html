@@ -1,0 +1,34 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <app-quiz-frame
+            [difficulty]="difficultyString()"
+            [isDaily]="isDaily()"
+            [isQuestionComplete]="isQuestionComplete()"
+            [tries]="displayTries()"
+            [triesCount]="tries().length"
+            [triesMax]="triesMax()"
+            [options]="searchOptions()"
+            [answer]="questionEntity()"
+            (guess)="guess($event)"
+            (next)="next()"
+        >
+            <div class="voice-question">
+                @if (voiceOver(); as line) {
+                    @if (isQuestionComplete()) {
+                        <p class="voice-title">{{ line.title_english }}</p>
+                    }
+
+                    <p class="voice-text" [class]="effectClasses()">{{ questionText() }}</p>
+
+                    <!-- Off the page rather than merely invisible for the first
+                         two tries: a hidden player is still a playable one. -->
+                    @if (!isAudioHidden()) {
+                        <app-quiz-audio-player [src]="audioUrl()" [limit]="limit()"></app-quiz-audio-player>
+                    }
+                }
+            </div>
+        </app-quiz-frame>
+    }
+</div>

@@ -1,0 +1,30 @@
+.voice-question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.voice-title {
+  margin: 0;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.voice-text {
+  max-width: 40rem;
+  margin: 0 auto;
+  color: var(--text-primary);
+  line-height: var(--line-height-base);
+}
+
+// The first try shows half a line and cuts it off mid-sentence. Ported from
+// old/sites/top/quizzes/voice.css.
+.half-text {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

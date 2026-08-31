@@ -1,0 +1,29 @@
+::ng-deep {
+  .autocomplete-popup {
+    max-height: 300px !important;
+  }
+
+  .autocomplete-option {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 100px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .autocomplete-option.active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .autocomplete-option img {
+    width: 100px;
+  }
+
+  .autocomplete-option span {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+}

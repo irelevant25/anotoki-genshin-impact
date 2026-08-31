@@ -1,0 +1,19 @@
+@use "../shared/quiz-question" as *;
+
+.dish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quiz-question-image {
+  width: 200px;
+  max-width: 60vw;
+}
+
+// Named only once it is over: the name is the answer.
+.dish-name {
+  margin: var(--spacing-sm) 0 0;
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+}

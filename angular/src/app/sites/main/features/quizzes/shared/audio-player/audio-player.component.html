@@ -1,0 +1,28 @@
+<div class="player-container">
+    <!-- The browser's own controls would let the whole clip be played, which is
+         the one thing this quiz cannot allow, so the element itself stays out
+         of the layout and the transport below drives it. -->
+    <audio
+        #audio
+        preload="metadata"
+        [src]="src()"
+        (loadedmetadata)="onLoadedMetadata()"
+        (play)="onPlay()"
+        (pause)="onPause()"
+        (ended)="onEnded()"></audio>
+
+    <div class="progress-container">
+        <div class="progress-bar" [style.width.%]="progress()"></div>
+    </div>
+
+    <div class="time-display">
+        <span>{{ currentTimeText() }}</span>
+        <span>{{ durationText() }}</span>
+    </div>
+
+    <div class="controls">
+        <button type="button" (click)="play()" [disabled]="isPlaying()">{{ 'quiz.play' | translate }}</button>
+        <button type="button" (click)="pause()" [disabled]="!isPlaying()">{{ 'quiz.pause' | translate }}</button>
+        <button type="button" (click)="restart()">{{ 'quiz.restart' | translate }}</button>
+    </div>
+</div>

@@ -4,6 +4,11 @@ import { HomeComponent } from './home/home.component';
 import { ROUTE_MAP } from '../../shared/routing-definition';
 import { QuizzesComponent } from './features/quizzes/quizzes.component';
 import { QuizzesBannersComponent } from './features/quizzes/banners/banners.component';
+import { QuizzesDishComponent } from './features/quizzes/dish/dish.component';
+import { QuizzesMismatchComponent } from './features/quizzes/mismatch/mismatch.component';
+import { QuizzesMusicComponent } from './features/quizzes/music/music.component';
+import { QuizzesPixelateComponent } from './features/quizzes/pixelate/pixelate.component';
+import { QuizzesVoiceComponent } from './features/quizzes/voice/voice.component';
 import { AppComponent } from './app.component';
 import { DatabaseComponent } from './features/database/database.component';
 import { DatabaseBannersComponent } from './features/database/banners/banners.component';
@@ -27,6 +32,26 @@ export const routes: Routes = [
           {
             path: ROUTE_MAP.map['quizzes'].banners.path,
             component: QuizzesBannersComponent,
+          },
+          {
+            path: ROUTE_MAP.map['quizzes'].dish.path,
+            component: QuizzesDishComponent,
+          },
+          {
+            path: ROUTE_MAP.map['quizzes'].mismatch.path,
+            component: QuizzesMismatchComponent,
+          },
+          {
+            path: ROUTE_MAP.map['quizzes'].music.path,
+            component: QuizzesMusicComponent,
+          },
+          {
+            path: ROUTE_MAP.map['quizzes'].pixelate.path,
+            component: QuizzesPixelateComponent,
+          },
+          {
+            path: ROUTE_MAP.map['quizzes'].voice.path,
+            component: QuizzesVoiceComponent,
           },
         ],
       },

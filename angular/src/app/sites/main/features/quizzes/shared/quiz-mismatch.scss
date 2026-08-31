@@ -1,0 +1,50 @@
+// The odd-one-out grid, ported from the .character-grid rules the old CSS
+// carried in every quiz file even though only mismatch ever used them.
+
+.character-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.character-choice {
+  width: 120px;
+  max-width: 22vw;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--border-radius-large);
+  background: var(--bg-veil);
+  cursor: pointer;
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base);
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-large);
+  }
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+    border-color: var(--color-primary);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  // Once it is over, the odd one out is marked and the rest fade back.
+  &.correct {
+    border-color: var(--color-success);
+  }
+
+  &.wrong {
+    border-color: var(--color-danger);
+  }
+
+  &.dimmed {
+    opacity: 0.45;
+  }
+}

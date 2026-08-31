@@ -1,43 +1,9 @@
-::ng-deep {
-  .autocomplete-popup {
-    max-height: 302px !important;
-  }
+@use "../shared/quiz-question" as *;
+@use "../shared/quiz-autocomplete" as *;
 
-  .autocomplete-option {
-    display: flex;
-    align-items: center;
-    padding: 5px !important;
-    position: relative;
-    overflow: hidden;
-    height: 100px;
-  }
-
-  .autocomplete-option.highlighted {
-    background-color: rgba(0, 0, 0, 0.1) !important;
-    color: black !important;
-  }
-
-  .autocomplete-option img {
-    width: 100px;
-    max-height: 250px;
-    object-fit: cover;
-    object-position: top;
-  }
-
-  .autocomplete-itoptionem span {
-    margin-left: var(--spacing-sm);
-    font-size: var(--font-size-lg);
-  }
-
-  .try-img {
-    max-height: 100px;
-  }
-
-  .answer-img {
-    max-height: 42rem;
-  }
-
-  canvas {
-    max-width: 100%;
-  }
+// The banner is wide rather than square, so it gets a cap of its own; the rest
+// of the question styling - the plate behind it and the three reveal filters -
+// comes from the shared partial.
+.quiz-question-image {
+  max-height: 20rem;
 }
