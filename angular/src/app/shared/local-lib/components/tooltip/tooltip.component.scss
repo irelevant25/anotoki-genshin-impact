@@ -24,7 +24,7 @@
       content: "";
       position: absolute;
       top: 100%;
-      left: 50%;
+      left: var(--tooltip-arrow-offset, 50%);
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
@@ -38,7 +38,7 @@
       content: "";
       position: absolute;
       bottom: 100%;
-      left: 50%;
+      left: var(--tooltip-arrow-offset, 50%);
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
@@ -51,7 +51,7 @@
     &::after {
       content: "";
       position: absolute;
-      top: 50%;
+      top: var(--tooltip-arrow-offset, 50%);
       left: 100%;
       margin-top: -5px;
       border-width: 5px;
@@ -65,7 +65,7 @@
     &::after {
       content: "";
       position: absolute;
-      top: 50%;
+      top: var(--tooltip-arrow-offset, 50%);
       right: 100%;
       margin-top: -5px;
       border-width: 5px;

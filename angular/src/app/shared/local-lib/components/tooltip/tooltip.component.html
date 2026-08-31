@@ -1,5 +1,5 @@
 @if (!hidden()) {
-    <span class="tooltip-text" [ngClass]="'tooltip-' + tooltipPosition()" [class.hidden-v]="standalone() && !isHovered()">
+    <span class="tooltip-text" [ngClass]="'tooltip-' + resolvedPosition()" [class.hidden-v]="standalone() && !isHovered()">
         {{ tooltipText() }}
         <ng-content></ng-content>
     </span>
