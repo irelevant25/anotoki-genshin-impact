@@ -1,0 +1,73 @@
+// The pieces every database page draws: a picture with a caption strip under
+// it, the translucent fact panel beside it, and the two lines that report what
+// a filter left behind.
+//
+// These were copied into five stylesheets before this file existed. They are
+// here once and pulled in with `@use`, so a change to the tile shape happens in
+// one place.
+//
+// Everything reads from the theme tokens - the veils and text colours flip with
+// the theme, so a caption is dark-on-light in the light theme and light-on-dark
+// in the dark one rather than staying a white strip on a dark page.
+
+// Anchors the absolutely-positioned loader, and keeps the page from collapsing
+// while it spins. Every database page - list and detail - needs it.
+.database-page {
+  min-height: 250px;
+  position: relative;
+}
+
+.top-border {
+  border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+}
+
+.bottom-border {
+  border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+}
+
+.name {
+  background-color: var(--bg-veil);
+  color: var(--text-primary);
+}
+
+// Opt-in lift, on anything clickable in a grid of pictures.
+.hover:hover {
+  transform: scale(1.05);
+
+  div {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+// The rounded panel the facts sit in, beside the art on a detail page.
+.info {
+  background-color: var(--bg-veil);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-large);
+  padding: var(--spacing-sm);
+}
+
+.rarity-stars {
+  color: var(--genshin-gold);
+  letter-spacing: 2px;
+}
+
+.result-count {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  padding-bottom: var(--spacing-sm);
+}
+
+.no-results {
+  width: 100%;
+  text-align: center;
+  color: var(--text-muted);
+  padding: var(--spacing-xl) 0;
+}
+
+.not-found {
+  text-align: center;
+  color: var(--text-muted);
+  padding: var(--spacing-xl) 0;
+}

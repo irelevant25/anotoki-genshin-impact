@@ -1,0 +1,75 @@
+<div class="container w-100">
+    <div class="database-page">
+        <app-loader [loading]="loading()"></app-loader>
+
+        @if (!loading()) {
+            <div class="px-5 py-2">
+                <div class="filters">
+                    <div class="chip-block">
+                        <span class="chip-label">{{ 'database.filters.weaponType' | translate }}</span>
+                        <div class="chip-group">
+                            @for (type of types(); track type) {
+                                <button type="button" class="chip" [class.selected]="filterType() === type" [title]="type" [attr.aria-pressed]="filterType() === type" (click)="toggleType(type)">
+                                    <img [appMaterialIcon]="type" [appAssetFolder]="'weapon_types'" [alt]="type" loading="lazy" />
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="chip-block">
+                        <span class="chip-label">{{ 'database.filters.rarity' | translate }}</span>
+                        <div class="chip-group">
+                            @for (rarity of rarities(); track rarity) {
+                                <button
+                                    type="button"
+                                    class="chip"
+                                    [class]="'quality-' + rarity"
+                                    [class.selected]="filterRarity() === rarity"
+                                    [attr.aria-pressed]="filterRarity() === rarity"
+                                    (click)="toggleRarity(rarity)"
+                                >
+                                    {{ rarity }}&#9733;
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <app-dropdown
+                        [label]="'database.filters.version' | translate"
+                        [options]="versionOptions()"
+                        [(value)]="filterVersion"
+                        [emptyOption]="true"
+                        [emptyOptionText]="'database.filters.anyVersion' | translate"
+                    ></app-dropdown>
+
+                    <app-text [label]="'database.filters.name' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName"></app-text>
+
+                    <app-button [text]="'database.filters.reset' | translate" variant="primary" [outline]="true" size="large" (buttonClick)="resetFilters()" class="mt-auto"></app-button>
+                </div>
+
+                <div class="result-count">{{ 'database.results.count' | translate: { shown: filteredWeapons().length, total: weapons().length } }}</div>
+
+                <div class="card-grid">
+                    @for (weapon of filteredWeapons(); track weapon.id) {
+                        <a class="entity-card weapon-card" [routerLink]="[weapon.id]">
+                            <div class="art">
+                                <img
+                                    [appMaterialIcon]="weapon.icon_name ?? weapon.name"
+                                    [appAssetFolder]="'weapons'"
+                                    [alt]="weapon.name"
+                                    [title]="weapon.name"
+                                    loading="lazy"
+                                    [class]="'quality-' + (weapon.rarity ?? '0')"
+                                />
+                                <img class="type-badge" [appMaterialIcon]="weapon.type" [appAssetFolder]="'weapon_types'" [alt]="weapon.type" [title]="weapon.type" loading="lazy" />
+                            </div>
+                            <div class="name">{{ weapon.name }}</div>
+                        </a>
+                    } @empty {
+                        <div class="no-results">{{ 'database.results.none' | translate }}</div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

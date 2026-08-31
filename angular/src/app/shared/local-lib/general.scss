@@ -419,6 +419,74 @@ button {
   align-self: start;
 }
 
+.box-shadow-none {
+  box-shadow: none;
+}
+
+.border-collapse {
+  border-collapse: collapse;
+}
+
+.list-style-none {
+  list-style: none;
+}
+
+// Table utilities, in the shape Bootstrap gives them - the markup that uses them
+// was written against Bootstrap, so the class names and selectors stay as they
+// are. The plumbing does not: Bootstrap paints these through
+// `--bs-table-accent-bg`, which is read by a `.table` base rule that this
+// project has no equivalent of. Setting that property here paints nothing, so
+// the fills are written straight onto the cells instead.
+//
+// Bootstrap's matching `color` is dropped with it. The washes are translucent,
+// so whatever the text was already is still legible over them - and pointing
+// `color` at a variable that does not exist would silently throw the cell's own
+// colour away.
+
+.table-bordered > :not(caption) > * {
+  border-style: solid;
+  border-color: var(--border-color);
+  border-width: 1px 0;
+}
+
+.table-bordered > :not(caption) > * > * {
+  border-style: solid;
+  border-color: var(--border-color);
+  border-width: 0 1px;
+}
+
+.table-borderless > :not(caption) > * > * {
+  border-bottom-width: 0;
+}
+
+.table-borderless > :not(:first-child) {
+  border-top-width: 0;
+}
+
+// The stripe and both states paint the cells rather than the row: a cell
+// background sits over a row background, so a row-level fill disappears the
+// moment any cell has one of its own.
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--bg-row-striped);
+}
+
+.table-striped-columns > :not(caption) > tr > :nth-child(2n) {
+  background-color: var(--bg-row-striped);
+}
+
+// The first selector is what lets an active row beat the stripe beneath it.
+// `.table-active` on its own is the lighter of the two and would lose on the
+// odd rows, which are the ones where being able to see the state matters.
+.table-striped > tbody > tr.table-active > *,
+.table-active,
+.table-active > * {
+  background-color: var(--bg-row-active);
+}
+
+.table-hover > tbody > tr:hover > * {
+  background-color: var(--bg-row-hover);
+}
+
 /* columns margin helper classes */
 @for $i from 1 through 5 {
   .cols-m-#{$i} {

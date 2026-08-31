@@ -1,0 +1,105 @@
+<div class="container w-100">
+    <div class="database-page">
+        <app-loader [loading]="loading()"></app-loader>
+
+        @if (!loading()) {
+            <div class="px-5 py-2">
+                <div class="filters">
+                    <div class="chip-block">
+                        <span class="chip-label">{{ 'database.filters.element' | translate }}</span>
+                        <div class="chip-group">
+                            @for (element of elements(); track element) {
+                                <button
+                                    type="button"
+                                    class="chip element-chip"
+                                    [class.selected]="filterElement() === element"
+                                    [title]="element"
+                                    [attr.aria-pressed]="filterElement() === element"
+                                    (click)="toggleElement(element)"
+                                >
+                                    <img [appMaterialIcon]="element" [appAssetFolder]="'elements'" [alt]="element" loading="lazy" />
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="chip-block">
+                        <span class="chip-label">{{ 'database.filters.weaponType' | translate }}</span>
+                        <div class="chip-group">
+                            @for (weaponType of weaponTypes(); track weaponType) {
+                                <button
+                                    type="button"
+                                    class="chip"
+                                    [class.selected]="filterWeaponType() === weaponType"
+                                    [title]="weaponType"
+                                    [attr.aria-pressed]="filterWeaponType() === weaponType"
+                                    (click)="toggleWeaponType(weaponType)"
+                                >
+                                    <img [appMaterialIcon]="weaponType" [appAssetFolder]="'weapon_types'" [alt]="weaponType" loading="lazy" />
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="chip-block">
+                        <span class="chip-label">{{ 'database.filters.rarity' | translate }}</span>
+                        <div class="chip-group">
+                            @for (rarity of rarities(); track rarity) {
+                                <button
+                                    type="button"
+                                    class="chip"
+                                    [class]="'quality-' + rarity"
+                                    [class.selected]="filterRarity() === rarity"
+                                    [attr.aria-pressed]="filterRarity() === rarity"
+                                    (click)="toggleRarity(rarity)"
+                                >
+                                    {{ rarity }}&#9733;
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <app-dropdown
+                        [label]="'database.filters.region' | translate"
+                        [options]="regionOptions()"
+                        [(value)]="filterRegion"
+                        [emptyOption]="true"
+                        [emptyOptionText]="'database.filters.anyRegion' | translate"
+                    ></app-dropdown>
+
+                    <app-dropdown
+                        [label]="'database.filters.version' | translate"
+                        [options]="versionOptions()"
+                        [(value)]="filterVersion"
+                        [emptyOption]="true"
+                        [emptyOptionText]="'database.filters.anyVersion' | translate"
+                    ></app-dropdown>
+
+                    <app-text [label]="'database.filters.name' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName"></app-text>
+
+                    <app-button [text]="'database.filters.reset' | translate" variant="primary" [outline]="true" size="large" (buttonClick)="resetFilters()" class="mt-auto"></app-button>
+                </div>
+
+                <div class="result-count">{{ 'database.results.count' | translate: { shown: filteredCharacters().length, total: characters().length } }}</div>
+
+                <div class="card-grid">
+                    @for (character of filteredCharacters(); track character.id) {
+                        <a class="entity-card character-card" [class]="'element-' + (character.element ?? '').toLowerCase()" [routerLink]="[character.id]">
+                            <img
+                                [appMaterialIcon]="character.icon_name ?? character.name"
+                                [appAssetFolder]="'character.icon'"
+                                [alt]="character.name"
+                                [title]="character.name"
+                                loading="lazy"
+                                [class]="'quality-' + (character.rarity ?? '0')"
+                            />
+                            <div class="name">{{ character.name }}</div>
+                        </a>
+                    } @empty {
+                        <div class="no-results">{{ 'database.results.none' | translate }}</div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

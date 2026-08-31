@@ -1,0 +1,40 @@
+@use "../material-tiles" as *;
+
+.talent-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.talent-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: var(--spacing-md);
+  object-fit: contain;
+}
+
+.talent-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.talent-type {
+  margin-left: var(--spacing-sm);
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  padding: 3px var(--spacing-xs);
+  border-radius: var(--border-radius-pill);
+  font-size: var(--font-size-sm);
+}
+
+.talent-description {
+  line-height: var(--line-height-base);
+}
+
+.talent-level-table {
+  th,
+  td {
+    min-width: 90px;
+  }
+}

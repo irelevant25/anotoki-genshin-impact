@@ -1,0 +1,32 @@
+.constellation-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.constellation-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: var(--spacing-md);
+  object-fit: contain;
+}
+
+.constellation-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+// Purple, to tell a constellation apart from the blue talent badge at a glance.
+.constellation-level {
+  margin-left: var(--spacing-sm);
+  background-color: var(--genshin-purple);
+  color: var(--color-primary-text);
+  padding: 3px var(--spacing-xs);
+  border-radius: var(--border-radius-pill);
+  font-size: var(--font-size-sm);
+}
+
+.constellation-description {
+  line-height: var(--line-height-base);
+}

@@ -1,0 +1,71 @@
+<div id="ascensions">
+    <div class="cost-table ascension-table w-100" style="overflow-x: auto">
+        <table class="table-striped table-hover border-collapse">
+            <thead>
+                <tr>
+                    <th class="checkbox-column"></th>
+                    <th>{{ 'database.detail.phase' | translate }}</th>
+                    <th>HP</th>
+                    <th>ATK</th>
+                    <th>DEF</th>
+                    <th>{{ primaryStat() || ('database.detail.primaryStat' | translate) }}</th>
+                    <th>{{ 'database.detail.materials' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (ascension of ascensions(); track ascension.id) {
+                    <tr>
+                        <td class="checkbox-column">
+                            @if (ascension.phase > 0) {
+                                <input type="checkbox" [checked]="selectedPhases().has(ascension.phase)" (change)="togglePhase(ascension.phase)" />
+                            }
+                        </td>
+                        <td>{{ ascension.phase }}</td>
+                        <td>{{ ascension.start_level_hp ?? '-' }} &rarr; {{ ascension.end_level_hp ?? '-' }}</td>
+                        <td>{{ ascension.start_level_atk ?? '-' }} &rarr; {{ ascension.end_level_atk ?? '-' }}</td>
+                        <td>{{ ascension.start_level_def ?? '-' }} &rarr; {{ ascension.end_level_def ?? '-' }}</td>
+                        <td>{{ ascension.primary_stat_value ?? '-' }}</td>
+                        @if (!ascension.costs.length) {
+                            <td>-</td>
+                        } @else {
+                            <td>
+                                <div class="d-flex flex-row flex-nowrap gap-2">
+                                    @for (cost of ascension.costs; track cost.id) {
+                                        @if (cost.material) {
+                                            <a class="material-item hover" [routerLink]="['../../', 'materials', cost.material.id]" [title]="cost.material.name">
+                                                <div class="top-border w-100" [class]="'quality-' + (cost.material.rarity ?? '0')">
+                                                    <img [appMaterialIcon]="cost.material.icon_name ?? cost.material.name" [appAssetFolder]="'materials'" [alt]="cost.material.name" loading="lazy" />
+                                                </div>
+                                                <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                                                    <span class="my-1 mx-3">x{{ cost.quantity }}</span>
+                                                </div>
+                                            </a>
+                                        }
+                                    }
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="total-materials">
+        <h3>{{ 'database.detail.totalAscensionMaterials' | translate }}</h3>
+        <div class="d-flex flex-wrap gap-3">
+            @for (total of totals(); track total.material.id) {
+                <a class="total-material-item hover" [routerLink]="['../../', 'materials', total.material.id]" [title]="total.material.name">
+                    <div class="top-border w-100" [class]="'quality-' + (total.material.rarity ?? '0')">
+                        <img [appMaterialIcon]="total.material.icon_name ?? total.material.name" [appAssetFolder]="'materials'" [alt]="total.material.name" loading="lazy" />
+                    </div>
+                    <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                        <span class="my-1 mx-3">{{ total.material.name }} x{{ total.quantity }}</span>
+                    </div>
+                </a>
+            } @empty {
+                <span class="text-muted">-</span>
+            }
+        </div>
+    </div>
+</div>

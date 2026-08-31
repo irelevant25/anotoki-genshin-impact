@@ -1,0 +1,38 @@
+<div id="voice-overs" class="voiceover-container">
+    <div class="voiceover-header">
+        <div class="voiceover-filters">
+            <div class="filter-group">
+                <span class="filter-group-label">{{ 'database.detail.language' | translate }}:</span>
+                @for (entry of languages; track entry.code) {
+                    <button type="button" class="filter-btn" [class.active]="language() === entry.code" (click)="language.set(entry.code)">{{ entry.code.toUpperCase() }}</button>
+                }
+            </div>
+            <div class="filter-group">
+                <span class="filter-group-label">{{ 'database.detail.type' | translate }}:</span>
+                <button type="button" class="filter-btn story" [class.active]="type() === 'story'" (click)="type.set('story')">{{ 'database.detail.story' | translate }}</button>
+                <button type="button" class="filter-btn combat" [class.active]="type() === 'combat'" (click)="type.set('combat')">{{ 'database.detail.combat' | translate }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="voicelines-container">
+        @for (line of lines(); track line.id) {
+            <div class="voiceline-card">
+                <div class="voiceline-header">
+                    <div class="voiceline-title">{{ line.title }}</div>
+                    <div [class]="type() + '-badge'">{{ 'database.detail.' + type() | translate }}</div>
+                </div>
+                <div class="voiceline-content">
+                    <div class="voiceline-text">{{ line.text }}</div>
+                    @if (line.audio) {
+                        <div class="audio-container">
+                            <audio preload="none" controls [src]="line.audio"></audio>
+                        </div>
+                    }
+                </div>
+            </div>
+        } @empty {
+            <div class="empty-state">{{ 'database.detail.noVoiceLines' | translate }}</div>
+        }
+    </div>
+</div>

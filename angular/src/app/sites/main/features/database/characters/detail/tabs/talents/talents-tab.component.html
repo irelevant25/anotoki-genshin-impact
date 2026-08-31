@@ -1,0 +1,78 @@
+<div id="talents">
+    <div class="talents-info">
+        @for (talent of talents(); track talent.id) {
+            <div class="p-3">
+                <div class="talent-header">
+                    <img class="talent-icon m-0" [appMaterialIcon]="talent.icon_name ?? talent.name" [appAssetFolder]="'character.talents'" [alt]="talent.name" loading="lazy" />
+                    <h3 class="talent-name">{{ talent.name }}</h3>
+                    <span class="talent-type">{{ talent.type }}</span>
+                </div>
+                <div class="talent-description">{{ talent.description }}</div>
+            </div>
+        } @empty {
+            <div class="p-3 text-muted">-</div>
+        }
+    </div>
+
+    @if (levels().length) {
+        <div class="cost-table talent-level-table">
+            <h3>{{ 'database.detail.talentLevelUpMaterials' | translate }}</h3>
+            <table class="table-striped table-hover border-collapse">
+                <thead>
+                    <tr>
+                        <th class="checkbox-column"></th>
+                        <th>{{ 'database.detail.level' | translate }}</th>
+                        <th>{{ 'database.detail.materials' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (row of levels(); track row.level) {
+                        <tr>
+                            <td class="checkbox-column">
+                                <input type="checkbox" [checked]="selectedLevels().has(row.level)" (change)="toggleLevel(row.level)" />
+                            </td>
+                            <td>{{ 'database.detail.level' | translate }} {{ row.level }}</td>
+                            <td>
+                                <div class="d-flex flex-row flex-nowrap gap-2">
+                                    @for (cost of row.costs; track cost.id) {
+                                        @if (cost.material) {
+                                            <a class="material-item hover" [routerLink]="['../../', 'materials', cost.material.id]" [title]="cost.material.name">
+                                                <div class="top-border w-100" [class]="'quality-' + (cost.material.rarity ?? '0')">
+                                                    <img [appMaterialIcon]="cost.material.icon_name ?? cost.material.name" [appAssetFolder]="'materials'" [alt]="cost.material.name" loading="lazy" />
+                                                </div>
+                                                <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                                                    <span class="my-1 mx-3">x{{ cost.quantity }}</span>
+                                                </div>
+                                            </a>
+                                        }
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <p>
+                <em>{{ 'database.detail.talentNote' | translate }}</em>
+            </p>
+        </div>
+
+        <div class="total-materials">
+            <h3>{{ 'database.detail.totalTalentMaterials' | translate }}</h3>
+            <div class="d-flex flex-wrap gap-3">
+                @for (total of totals(); track total.material.id) {
+                    <a class="total-material-item hover" [routerLink]="['../../', 'materials', total.material.id]" [title]="total.material.name">
+                        <div class="top-border w-100" [class]="'quality-' + (total.material.rarity ?? '0')">
+                            <img [appMaterialIcon]="total.material.icon_name ?? total.material.name" [appAssetFolder]="'materials'" [alt]="total.material.name" loading="lazy" />
+                        </div>
+                        <div class="name bottom-border w-100 h-100 d-flex justify-content-center">
+                            <span class="my-1 mx-3">{{ total.material.name }} x{{ total.quantity }}</span>
+                        </div>
+                    </a>
+                } @empty {
+                    <span class="text-muted">-</span>
+                }
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,107 @@
+<div class="container w-100">
+    <div class="database-page material-detail">
+        <app-loader [loading]="loading()"></app-loader>
+
+        @if (!loading()) {
+            @if (material(); as material) {
+                <div class="p-4 d-flex flex-row gap-3 flex-column-mobile">
+                    <div class="d-flex flex-column flex-1 text-center-mobile gap-3 left-bar">
+                        <h3 class="text-center">{{ material.name }}</h3>
+                        <img
+                            class="border-full mx-auto"
+                            [appMaterialIcon]="material.icon_name ?? material.name"
+                            [appAssetFolder]="'materials'"
+                            [alt]="material.name"
+                            [class]="'quality-' + (material.rarity ?? '0')"
+                            loading="lazy"
+                        />
+
+                        <div class="d-flex flex-column gap-2 info">
+                            <div>
+                                <span class="d-flex fw-bold">{{ 'database.filters.version' | translate }}:</span>
+                                <span class="d-flex text-start">{{ versionLabel(material.version) || '-' }}</span>
+                            </div>
+                            <div>
+                                <span class="d-flex fw-bold">{{ 'database.filters.rarity' | translate }}:</span>
+                                @if (material.rarity) {
+                                    <span class="d-flex text-start rarity-stars">{{ rarityStars() }}</span>
+                                } @else {
+                                    <span class="d-flex text-start">N/A</span>
+                                }
+                            </div>
+                            <div>
+                                <span class="d-flex fw-bold">{{ 'database.filters.category' | translate }}:</span>
+                                <span class="d-flex text-start">{{ material.type ?? '-' }}</span>
+                            </div>
+                            <div>
+                                <span class="d-flex fw-bold">{{ 'database.detail.group' | translate }}:</span>
+                                <span class="d-flex text-start">{{ groupNames().join(', ') || '-' }}</span>
+                            </div>
+                            <div>
+                                <span class="d-flex fw-bold">{{ 'database.filters.region' | translate }}:</span>
+                                <span class="d-flex text-start">{{ material.region ?? 'N/A' }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column gap-3 w-100">
+                        @if (material.description) {
+                            <h3>{{ 'database.detail.description' | translate }}</h3>
+                            <span>{{ material.description }}</span>
+                        }
+
+                        <h3>{{ 'database.detail.usedFor' | translate }}</h3>
+
+                        @if (!usedAnywhere()) {
+                            <span class="text-muted">{{ 'database.detail.usedNowhere' | translate }}</span>
+                        }
+
+                        @for (section of sections; track section.key) {
+                            @if (itemsFor(section.key).length) {
+                                <div class="d-flex flex-row flex-wrap gap-3">
+                                    <span class="fw-bold w-100">{{ section.label | translate: { count: itemsFor(section.key).length } }}:</span>
+
+                                    @for (item of visibleFor(section.key); track item.id) {
+                                        <a class="d-flex flex-column card-container hover" [routerLink]="['../../', section.target, item.id]" [title]="item.name">
+                                            <img
+                                                class="top-border"
+                                                [appMaterialIcon]="item.icon_name ?? item.name"
+                                                [appAssetFolder]="section.folder"
+                                                [alt]="item.name"
+                                                [class]="'quality-' + (item.rarity ?? '0')"
+                                                loading="lazy"
+                                            />
+                                            <div class="name text-center bottom-border py-1">{{ item.name }}</div>
+                                            <div class="quantity text-center">x{{ item.quantity }}</div>
+                                        </a>
+                                    }
+
+                                    @if (hiddenCount(section.key)) {
+                                        <button type="button" class="show-all" (click)="toggleSection(section.key)">
+                                            @if (expanded().has(section.key)) {
+                                                {{ 'database.detail.showLess' | translate }}
+                                            } @else {
+                                                {{ 'database.detail.showAll' | translate: { count: hiddenCount(section.key) } }}
+                                            }
+                                        </button>
+                                    }
+                                </div>
+                            }
+                        }
+
+                        @if (howToObtain().length) {
+                            <h3>{{ 'database.detail.howToObtain' | translate }}</h3>
+                            <ul class="d-flex flex-column gap-2 list-style-none">
+                                @for (entry of howToObtain(); track entry) {
+                                    <li>{{ entry }}</li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+            } @else {
+                <div class="not-found">{{ 'database.detail.notFound' | translate }}</div>
+            }
+        }
+    </div>
+</div>

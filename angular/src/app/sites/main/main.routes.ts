@@ -7,6 +7,12 @@ import { QuizzesBannersComponent } from './features/quizzes/banners/banners.comp
 import { AppComponent } from './app.component';
 import { DatabaseComponent } from './features/database/database.component';
 import { DatabaseBannersComponent } from './features/database/banners/banners.component';
+import { DatabaseCharactersComponent } from './features/database/characters/characters.component';
+import { DatabaseMaterialsComponent } from './features/database/materials/materials.component';
+import { DatabaseWeaponsComponent } from './features/database/weapons/weapons.component';
+import { DatabaseCharacterDetailComponent } from './features/database/characters/detail/detail.component';
+import { DatabaseMaterialDetailComponent } from './features/database/materials/detail/detail.component';
+import { DatabaseWeaponDetailComponent } from './features/database/weapons/detail/detail.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +37,27 @@ export const routes: Routes = [
           {
             path: ROUTE_MAP.map['database'].banners.path,
             component: DatabaseBannersComponent,
+          },
+          {
+            path: ROUTE_MAP.map['database'].characters.path,
+            children: [
+              { path: '', component: DatabaseCharactersComponent },
+              { path: ':id', component: DatabaseCharacterDetailComponent },
+            ],
+          },
+          {
+            path: ROUTE_MAP.map['database'].materials.path,
+            children: [
+              { path: '', component: DatabaseMaterialsComponent },
+              { path: ':id', component: DatabaseMaterialDetailComponent },
+            ],
+          },
+          {
+            path: ROUTE_MAP.map['database'].weapons.path,
+            children: [
+              { path: '', component: DatabaseWeaponsComponent },
+              { path: ':id', component: DatabaseWeaponDetailComponent },
+            ],
           },
         ],
       },

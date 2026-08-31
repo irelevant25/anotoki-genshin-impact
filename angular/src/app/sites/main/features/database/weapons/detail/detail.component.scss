@@ -1,0 +1,90 @@
+@use "../../shared/item-tile" as *;
+
+// Ported from old/sites/top/database/weapons/detail.css.
+
+.weapon-detail {
+  img {
+    height: fit-content;
+    object-fit: contain;
+  }
+
+  .name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .border-full {
+    border-radius: var(--border-radius-large);
+  }
+
+  .left-bar {
+    img {
+      max-width: 256px;
+    }
+  }
+
+  .card-container {
+    width: 60px;
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    color: inherit;
+
+    img,
+    div {
+      width: 60px;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    tbody tr td:not(:last-child) {
+      padding: var(--spacing-xxs);
+    }
+  }
+
+  .number-btn {
+    margin: 0 var(--spacing-xxs) var(--spacing-sm) 0;
+    min-width: 40px;
+    padding: var(--spacing-xxs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-primary);
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+
+    &.btn-primary {
+      background: var(--color-primary);
+      color: var(--color-primary-text);
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+  }
+
+  .text-content {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-base);
+  }
+
+  @media (max-width: 768px) {
+    .flex-column-mobile {
+      flex-direction: column;
+    }
+
+    .text-center-mobile {
+      text-align: center;
+    }
+  }
+}

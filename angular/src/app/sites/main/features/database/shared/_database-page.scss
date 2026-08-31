@@ -1,0 +1,114 @@
+@use "item-tile" as *;
+
+// Shared skin for the database list pages. Each page keeps its own card shape
+// in its own stylesheet; what lives here is the frame around them - the filter
+// bar and the grid.
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+}
+
+// A row of toggles - rarities, elements, weapon types. Clicking the one that is
+// already on turns it off, so the group needs no "any" entry of its own.
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  width: 38px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--border-radius-pill);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+
+  img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+
+  &:hover {
+    transform: scale(1.15);
+    box-shadow: var(--shadow-glow);
+  }
+
+  &.selected {
+    transform: scale(1.15);
+    border-color: var(--genshin-gold);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+.chip-label {
+  width: 100%;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: var(--spacing-xxs);
+}
+
+.chip-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) 0;
+}
+
+// Every card is a picture with a caption; the tiers differ only in colour.
+.entity-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+  }
+
+  .name {
+    padding: var(--spacing-xxs) 4px;
+    font-size: var(--font-size-sm);
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow);
+  }
+}

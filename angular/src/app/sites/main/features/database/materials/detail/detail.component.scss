@@ -1,0 +1,72 @@
+@use "../../shared/item-tile" as *;
+
+// Ported from old/sites/top/database/materials/detail.css.
+
+.material-detail {
+  img {
+    height: fit-content;
+    object-fit: contain;
+  }
+
+  .name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .left-bar {
+    img {
+      max-width: 256px;
+    }
+  }
+
+  .border-full {
+    border-radius: var(--border-radius-large);
+  }
+
+  .card-container {
+    width: 90px;
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    color: inherit;
+
+    img,
+    div {
+      width: 90px;
+    }
+  }
+
+  .quantity {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+  }
+
+  // Sits in the flow at the end of a section's tiles, so it reads as the last
+  // item in the row rather than a control detached from the list.
+  .show-all {
+    align-self: center;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-pill);
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    transition: all var(--transition-base);
+
+    &:hover {
+      background: var(--color-primary);
+      color: var(--color-primary-text);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .flex-column-mobile {
+      flex-direction: column;
+    }
+
+    .text-center-mobile {
+      text-align: center;
+    }
+  }
+}

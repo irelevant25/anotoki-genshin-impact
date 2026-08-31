@@ -1,0 +1,17 @@
+@use "../shared/database-page" as *;
+
+// The densest of the three grids. There are hundreds of materials and the art
+// is a small object on a plain ground, so it survives being shown this size and
+// the reader gets far more of the list in one screen.
+.material-card {
+  width: 140px;
+
+  .name {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  img {
+    height: 140px;
+  }
+}

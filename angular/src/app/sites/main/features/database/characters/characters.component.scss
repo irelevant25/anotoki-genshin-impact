@@ -1,0 +1,27 @@
+@use "../shared/database-page" as *;
+
+// Portrait cards: the tallest of the three grids, because a character icon is
+// the one piece of art worth showing at size.
+.character-card {
+  width: 140px;
+
+  // The element reads off a coloured rail down the card rather than another
+  // badge - the icons are already in the filter bar directly above.
+  // border-left: 3px solid transparent;
+  // border-radius: var(--border-radius-large);
+
+  // @each $element in (anemo, cryo, dendro, electro, geo, hydro, pyro) {
+  //   &.element-#{$element} {
+  //     border-left-color: var(--#{$element}-primary-white);
+  //   }
+  // }
+
+  img {
+    height: 140px;
+  }
+}
+
+.element-chip img {
+  // Element art is drawn light, so it needs its own edge to stay legible.
+  filter: drop-shadow(0 0 1px var(--color-shadow));
+}

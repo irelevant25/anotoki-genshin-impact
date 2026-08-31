@@ -40,12 +40,19 @@
   --bg-active: #e4e9f1;
   --bg-table-header: #eef1f6;
   --bg-table-header-text: #55616f;
+
+  // Row washes for the table utilities in general.scss. Translucent rather than
+  // solid so they also work on the main site's veiled panels, where a solid fill
+  // would read as an opaque band over the wallpaper.
+  --bg-row-striped: rgb(23 28 35 / 6%);
+  --bg-row-hover: rgb(23 28 35 / 10%);
+  --bg-row-active: rgb(23 28 35 / 12%);
   // Sits over the page to focus a dialog.
   --bg-backdrop: rgb(23 28 35 / 45%);
 
   // The main site floats frosted panels over a wallpaper; these are the fills
   // that let the picture through. Admin pages use the solid surfaces above.
-  --bg-veil: rgb(255 255 255 / 62%);
+  --bg-veil: rgb(255 255 255 / 70%);
   --bg-veil-strong: rgb(255 255 255 / 88%);
   --bg-veil-soft: rgb(255 255 255 / 14%);
   --border-veil: rgb(255 255 255 / 60%);
@@ -75,8 +82,10 @@
 
   // Borders
   --border-color: #dde2e9;
+  --border-color-distinct: #3f4142;
   --border-color-subtle: #e9edf2;
   --border-color-dark: #b6bfca;
+  --border-color-dark-distinct: #4b5158;
 
   // Brand
   --color-main: #067a52;
@@ -157,8 +166,22 @@
   --shadow-small: 0 1px 2px rgb(23 28 35 / 8%);
   --shadow-medium: 0 2px 8px rgb(23 28 35 / 10%);
   --shadow-large: 0 8px 24px rgb(23 28 35 / 14%);
+  // Not a drop shadow: an even halo, for a card that lifts on hover.
+  --shadow-glow: 0 0 20px rgb(23 28 35 / 45%);
   // The halo an input or button gets while focused.
   --focus-ring: rgb(31 111 235 / 25%);
+
+  // Element name colour for text. The fixed element palette below is tuned for
+  // fills, not for reading: on the light page five of the seven "secondary"
+  // shades fall under 3:1. These are the darker accents instead, with cryo
+  // taken down further because even its accent is a pale ice blue.
+  --anemo-text: #3d7d69;
+  --geo-text: #9e6e17;
+  --electro-text: #62317a;
+  --dendro-text: #4e7a20;
+  --hydro-text: #1f7ca3;
+  --pyro-text: #a83a22;
+  --cryo-text: #4f8996;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -181,6 +204,12 @@
   --bg-active: #2c3441;
   --bg-table-header: #232935;
   --bg-table-header-text: #97a3b2;
+
+  // Lightening washes here, for the same reason the surfaces step up rather
+  // than down in this palette.
+  --bg-row-striped: rgb(255 255 255 / 4%);
+  --bg-row-hover: rgb(255 255 255 / 8%);
+  --bg-row-active: rgb(255 255 255 / 12%);
   --bg-backdrop: rgb(4 6 9 / 60%);
 
   --bg-veil: rgb(18 22 28 / 66%);
@@ -210,6 +239,7 @@
   --border-color: #2c343f;
   --border-color-subtle: #232935;
   --border-color-dark: #44505f;
+  --border-color-dark--distinct: #9fabb9;
 
   --color-main: #2ec48c;
   --color-main-text: #06251a;
@@ -288,7 +318,18 @@
   --shadow-small: 0 1px 2px rgb(0 0 0 / 40%);
   --shadow-medium: 0 2px 8px rgb(0 0 0 / 45%);
   --shadow-large: 0 8px 24px rgb(0 0 0 / 55%);
+  --shadow-glow: 0 0 20px rgb(0 0 0 / 60%);
   --focus-ring: rgb(47 111 235 / 40%);
+
+  // On the dark page the accents are too deep to read, so the light end of each
+  // element ramp is used instead.
+  --anemo-text: #74c2a8;
+  --geo-text: #fab632;
+  --electro-text: #a757cb;
+  --dendro-text: #7ec236;
+  --hydro-text: #4cc2f1;
+  --pyro-text: #ef674a;
+  --cryo-text: #9fd6e3;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -353,6 +394,12 @@
 
   --genshin-blue: #69c0de;
   --genshin-gold: #f7cf33;
+  // Constellations are purple on the character page, as they are in the game.
+  --genshin-purple: #6a4a95;
+
+  /* Voice-over kinds, as the old site coloured them */
+  --story-color: #78a9db;
+  --combat-color: #e07a5f;
 
   /* Anemo (Wind) - Green */
   --anemo-primary-white: #74c2a8;

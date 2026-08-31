@@ -1,0 +1,150 @@
+// Ported from the voice-over half of old/sites/top/database/characters/detail.css.
+//
+// The old file pinned the cards to white with near-black text, which reads as a
+// bright hole punched in the dark theme. They use the veil tokens instead, so a
+// card is a light panel in the light theme and a dark one in the dark theme.
+
+.voiceover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.voiceover-filters {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--bg-veil-strong);
+  padding: var(--spacing-xxs) var(--spacing-sm);
+  border-radius: var(--border-radius-pill);
+  box-shadow: var(--shadow-small);
+}
+
+.filter-group-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-muted);
+}
+
+.filter-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  padding: var(--spacing-xxs) var(--spacing-sm);
+  border-radius: var(--border-radius-pill);
+  color: var(--text-primary);
+  transition: all var(--transition-base);
+
+  &:hover {
+    background-color: var(--color-primary-light);
+  }
+
+  &.active {
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+  }
+
+  // Story and combat keep their own colours so the badge on a card and the
+  // button that selected it are visibly the same thing.
+  &.story.active {
+    background-color: var(--story-color);
+  }
+
+  &.combat.active {
+    background-color: var(--combat-color);
+  }
+}
+
+.voicelines-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.voiceline-card {
+  background-color: var(--bg-veil-strong);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-large);
+  overflow: hidden;
+  box-shadow: var(--shadow-medium);
+  transition: all var(--transition-base);
+  border: 1px solid var(--border-color);
+
+  &:hover {
+    box-shadow: var(--shadow-large);
+    transform: translateY(-2px);
+  }
+}
+
+.voiceline-header {
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.voiceline-title {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.voiceline-content {
+  padding: var(--spacing-md);
+}
+
+.voiceline-text {
+  margin-bottom: var(--spacing-md);
+  line-height: var(--line-height-base);
+  font-size: var(--font-size-base);
+}
+
+.story-badge,
+.combat-badge {
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  border-radius: var(--border-radius-pill);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+}
+
+// A wash of the badge's own colour, derived rather than written out twice.
+.story-badge {
+  background-color: color-mix(in srgb, var(--story-color) 20%, transparent);
+  color: var(--story-color);
+}
+
+.combat-badge {
+  background-color: color-mix(in srgb, var(--combat-color) 20%, transparent);
+  color: var(--combat-color);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-muted);
+}
+
+.audio-container {
+  width: 100%;
+  margin-top: var(--spacing-sm);
+
+  audio {
+    width: 100%;
+    height: 36px;
+    border-radius: 18px;
+  }
+}

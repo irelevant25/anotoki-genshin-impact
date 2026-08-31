@@ -329,3 +329,18 @@ h1, h2, h3, h4, h5, h6 {
 a:has(.icon) {
   color: unset;
 }
+
+/* Element colours, as the old site used them: `.pyro` tints the text, `.pyro-bg`
+   fills the ground behind it. The variables were already here; only the classes
+   that reach for them were missing. */
+@each $element in (anemo, geo, electro, dendro, hydro, pyro, cryo) {
+  .#{$element} {
+    color: var(--#{$element}-text);
+  }
+
+  .#{$element}-bg {
+    // Same white the brand fills use for their own text.
+    color: var(--color-primary-text);
+    background-color: var(--#{$element}-secondary-white);
+  }
+}

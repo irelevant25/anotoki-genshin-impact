@@ -1,0 +1,32 @@
+@use "../shared/database-page" as *;
+
+// Square tiles, smaller than the character portraits: a weapon icon carries far
+// less detail, and there are enough of them that density helps.
+
+.weapon-card {
+  width: 140px;
+
+  .art {
+    position: relative;
+    line-height: 0;
+  }
+
+  img {
+    height: 140px;
+  }
+
+  // The type is stamped on the art itself rather than given a filter rail, so
+  // the grid stays readable when no type filter is applied. The disc stays dark
+  // in both themes because the glyph on it is always light.
+  .type-badge {
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    border-radius: var(--border-radius-pill);
+    background: var(--bg-tooltip);
+    box-shadow: var(--shadow-small);
+  }
+}

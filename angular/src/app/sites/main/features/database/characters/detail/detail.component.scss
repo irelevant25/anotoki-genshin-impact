@@ -1,0 +1,132 @@
+@use "../../shared/item-tile" as *;
+
+// Ported from old/sites/top/database/characters/detail.css. The old rules were
+// scoped by #site-characters-detail; Angular scopes them per component instead,
+// so the wrapper is gone but the shape is the one that was there.
+
+.character-detail {
+  #banner {
+    max-width: 100%;
+  }
+
+  /* Character Header */
+  .character-header {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+  }
+
+  .character-image {
+    width: 250px;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-medium);
+    object-fit: cover;
+  }
+
+  .character-basics {
+    flex: 1;
+  }
+
+  .character-name {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+  }
+
+  .rarity-stars {
+    display: inline-flex;
+    margin-left: var(--spacing-sm);
+    font-size: var(--font-size-2xl);
+  }
+
+  .character-title {
+    font-size: var(--font-size-lg);
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .character-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .info-label {
+    font-weight: var(--font-weight-bold);
+    margin-right: var(--spacing-sm);
+    min-width: 70px;
+  }
+
+  .info-value {
+    display: flex;
+    align-items: center;
+  }
+
+  .element-icon,
+  .weapon-icon,
+  .region-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: var(--spacing-xs);
+    object-fit: contain;
+  }
+
+  // Region glyphs are drawn light, so they keep a dark disc in both themes.
+  .region-icon {
+    background-color: var(--bg-tooltip);
+    border-radius: var(--border-radius-pill);
+  }
+
+  .voice-actors,
+  .demo-music {
+    margin-top: var(--spacing-lg);
+  }
+
+  .voice-actor {
+    margin-bottom: var(--spacing-xxs);
+  }
+
+  /* Tabs */
+  .tabs-navigation {
+    font-size: var(--font-size-xl);
+    display: flex;
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--border-color-dark-distinct);
+  }
+
+  .tab-button {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    position: relative;
+  }
+
+  .tab-button.active {
+    color: var(--color-primary);
+  }
+
+  .tab-button.active::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+  }
+
+  @media (max-width: 768px) {
+    .character-info {
+      grid-template-columns: 1fr;
+    }
+
+    .flex-column-mobile {
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,76 @@
+<div class="container w-100">
+    <div class="database-page">
+        <app-loader [loading]="loading()"></app-loader>
+
+        @if (!loading()) {
+            <div class="px-5 py-2">
+                <div class="filters">
+                    <div class="chip-block">
+                        <span class="chip-label">{{ 'database.filters.rarity' | translate }}</span>
+                        <div class="chip-group">
+                            @for (rarity of rarities(); track rarity) {
+                                <button
+                                    type="button"
+                                    class="chip"
+                                    [class]="'quality-' + rarity"
+                                    [class.selected]="filterRarity() === rarity"
+                                    [attr.aria-pressed]="filterRarity() === rarity"
+                                    (click)="toggleRarity(rarity)"
+                                >
+                                    {{ rarity }}&#9733;
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <app-dropdown
+                        [label]="'database.filters.category' | translate"
+                        [options]="categoryOptions()"
+                        [(value)]="filterCategory"
+                        [emptyOption]="true"
+                        [emptyOptionText]="'database.filters.anyCategory' | translate"
+                    ></app-dropdown>
+
+                    <app-dropdown
+                        [label]="'database.filters.region' | translate"
+                        [options]="regionOptions()"
+                        [(value)]="filterRegion"
+                        [emptyOption]="true"
+                        [emptyOptionText]="'database.filters.anyRegion' | translate"
+                    ></app-dropdown>
+
+                    <app-dropdown
+                        [label]="'database.filters.version' | translate"
+                        [options]="versionOptions()"
+                        [(value)]="filterVersion"
+                        [emptyOption]="true"
+                        [emptyOptionText]="'database.filters.anyVersion' | translate"
+                    ></app-dropdown>
+
+                    <app-text [label]="'database.filters.name' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName"></app-text>
+
+                    <app-button [text]="'database.filters.reset' | translate" variant="primary" [outline]="true" size="large" (buttonClick)="resetFilters()" class="mt-auto"></app-button>
+                </div>
+
+                <div class="result-count">{{ 'database.results.count' | translate: { shown: filteredMaterials().length, total: materials().length } }}</div>
+
+                <div class="card-grid">
+                    @for (material of filteredMaterials(); track material.id) {
+                        <a class="entity-card material-card" [routerLink]="[material.id]" [title]="material.name + (material.type ? ' - ' + material.type : '')">
+                            <img
+                                [appMaterialIcon]="material.icon_name ?? material.name"
+                                [appAssetFolder]="'materials'"
+                                [alt]="material.name"
+                                loading="lazy"
+                                [class]="'quality-' + (material.rarity ?? '0')"
+                            />
+                            <div class="name">{{ material.name }}</div>
+                        </a>
+                    } @empty {
+                        <div class="no-results">{{ 'database.results.none' | translate }}</div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
