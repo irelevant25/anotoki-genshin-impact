@@ -57,11 +57,18 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
       return { key: option, value: String(option) };
     });
   });
+  /**
+   * The option the input shows, worked out from the value alone.
+   *
+   * It must not read `selectedOption`: that signal is written from this one, so
+   * preferring it here made the pair feed each other. Once it held an option,
+   * every later value found the old option sitting in front of the lookup, and
+   * the input went on showing the first thing picked while the value moved on.
+   */
   computedOption = computed(() => {
     const options = this.computedOptions();
     const value = this.value();
-    const selectedOption = this.selectedOption();
-    return selectedOption ?? options.find((option) => option.key == value);
+    return options.find((option) => option.key == value);
   });
   contentLength = computed(() => {
     const options = this.computedOptions();
