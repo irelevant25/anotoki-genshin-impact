@@ -32,6 +32,36 @@ function switchNodeVersion (version) {
     }
 }
 
+/**
+ * Rebuilds src/app/api from the backend before the dev server comes up.
+ *
+ * The client is generated from the API's own route table, so a route added in
+ * PHP is callable from TypeScript without anyone remembering to run anything.
+ * Nothing here touches a database - the spec is read from index.php's route
+ * collector and from the schema files as text.
+ *
+ * Deliberately not fatal. The generated client is committed, so a checkout with
+ * no PHP on PATH still starts; it just serves what is already there. Failing
+ * here would mean a broken PHP install stops the front end from running at all,
+ * which is the wrong trade for a convenience.
+ */
+function regenerateApiClient () {
+    const steps = [
+        ['reading the API', 'php ../php/generate-api-spec.php'],
+        ['writing the client', 'node generate-api.mjs'],
+    ];
+
+    for (const [label, command] of steps) {
+        try {
+            execSync(command, { stdio: 'inherit' });
+        } catch (error) {
+            console.warn(`\nSkipped ${label}: ${error.message.split('\n')[0]}`);
+            console.warn('Starting with the committed API client instead. Run `npm run api` once this is fixed.\n');
+            return;
+        }
+    }
+}
+
 const currentVersion = getCurrentNodeVersion();
 const requiredVersion = getRequiredNodeVersion();
 
@@ -45,3 +75,5 @@ if (currentVersion === `v${requiredVersion}` || currentVersion === `${requiredVe
     console.log(`Switching to Node.js version ${requiredVersion}`);
     switchNodeVersion(requiredVersion);
 }
+
+regenerateApiClient();

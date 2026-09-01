@@ -21,7 +21,9 @@
     "lint-no-warn": "npx eslint . --ext .ts --quiet",
     "server": "lite-server",
     "bundle-analyze": "ng build && start https://esbuild.github.io/analyze/",
-    "generate-interfaces": "node generate-interfaces.cjs"
+    "api:spec": "php ../php/generate-api-spec.php",
+    "api:client": "node generate-api.mjs",
+    "api": "npm run api:spec && npm run api:client"
   },
   "private": true,
   "sideEffects": true,
