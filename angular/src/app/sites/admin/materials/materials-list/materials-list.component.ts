@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AdminApiService } from '../../services/admin-api.service';
+import { MaterialApiService } from '../../../../api';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
@@ -61,18 +61,18 @@ export class MaterialsListComponent extends AdminListComponent<any> implements O
       (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== '')
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _materialApi = inject(MaterialApiService);
 
   ngOnInit(): void {
     this.load();
   }
 
   protected fetch(): Observable<any[]> {
-    return this._api.getMaterials() as unknown as Observable<any[]>;
+    return this._materialApi.getMaterials() as unknown as Observable<any[]>;
   }
 
   protected remove(id: number): Observable<unknown> {
-    return this._api.deleteMaterial(id);
+    return this._materialApi.deleteMaterial(id);
   }
 
   resetFilters(): void {

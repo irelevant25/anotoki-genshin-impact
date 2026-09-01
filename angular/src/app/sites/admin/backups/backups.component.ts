@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
-import { AdminApiService, BackupEntry, BackupStatus } from '../services/admin-api.service';
+import { BackupApiService, BackupEntry, BackupStatus } from '../../../api';
 import { RoleService } from '../../../shared/local-lib/services/role.service';
 import { Roles } from '../../../shared/local-lib/services/options-helper.service';
 import { BackupViewerComponent } from './backup-viewer/backup-viewer.component';
@@ -23,7 +23,7 @@ import { BackupConfirmComponent } from './backup-confirm/backup-confirm.componen
   imports: [DatePipe, DecimalPipe, ButtonComponent, LoaderComponent],
 })
 export class BackupsComponent extends AbstractModalComponent implements OnInit, OnDestroy {
-  private readonly _api = inject(AdminApiService);
+  private readonly _backupApi = inject(BackupApiService);
   private readonly _roles = inject(RoleService);
 
   /**
@@ -84,7 +84,7 @@ export class BackupsComponent extends AbstractModalComponent implements OnInit, 
 
   load(): void {
     this.busy.set(true);
-    this._api.getBackups().subscribe({
+    this._backupApi.getBackups().subscribe({
       next: (backups) => {
         this.backups.set(backups ?? []);
         this.busy.set(false);
@@ -97,7 +97,7 @@ export class BackupsComponent extends AbstractModalComponent implements OnInit, 
   }
 
   loadStatus(): void {
-    this._api.getBackupStatus().subscribe({
+    this._backupApi.getBackupStatus().subscribe({
       next: (status) => this.status.set(status),
       error: () => undefined,
     });
@@ -125,7 +125,7 @@ export class BackupsComponent extends AbstractModalComponent implements OnInit, 
     this.elapsed.set(0);
     this._timer = setInterval(() => this.elapsed.update((seconds) => seconds + 1), 1000);
 
-    this._api.createBackup(String(this.description() ?? '').trim()).subscribe({
+    this._backupApi.createBackup({ description: String(this.description() ?? '').trim() }).subscribe({
       next: (backup) => {
         this._stopTimer();
         this.creating.set(false);
@@ -170,7 +170,7 @@ export class BackupsComponent extends AbstractModalComponent implements OnInit, 
   }
 
   delete(id: string): void {
-    this._api.deleteBackup(id).subscribe({
+    this._backupApi.deleteBackup(id).subscribe({
       next: () => {
         this.deleteConfirm.set(null);
         this.notificationService.showSuccess('Backup deleted');

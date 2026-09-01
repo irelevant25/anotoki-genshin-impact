@@ -36,18 +36,18 @@
                             <span class="database-error">{{ database.error }}</span>
                         } @else {
                             <span class="database-meta">
-                                {{ database.rows | number }} rows in {{ database.tables.length }} tables · dump {{ formatSize(database.size) }} ·
+                                {{ database.rows | number }} rows in {{ database.tables?.length ?? 0 }} tables · dump {{ formatSize(database.size) }} ·
                                 {{ formatDuration(database.duration_ms) }}
                             </span>
                         }
                         <span class="database-spacer"></span>
                         @if (!database.error) {
                             <app-button
-                                [text]="database.tables.length ? (isExpanded(database.alias) ? 'Hide tables' : 'Tables') : 'No tables'"
+                                [text]="database.tables?.length ? (isExpanded(database.alias) ? 'Hide tables' : 'Tables') : 'No tables'"
                                 variant="secondary"
                                 [outline]="true"
                                 size="very-small"
-                                [disabled]="!database.tables.length"
+                                [disabled]="!database.tables?.length"
                                 (buttonClick)="toggle(database.alias)"
                             ></app-button>
                             @if (canManage) {

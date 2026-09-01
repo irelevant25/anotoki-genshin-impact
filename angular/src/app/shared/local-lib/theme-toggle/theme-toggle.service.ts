@@ -1,10 +1,10 @@
 import { Injectable, signal, computed, effect, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LocalStorageService } from '../services/local-storage.service';
 import { SecurityService } from '../services/security.service';
+import { AuthApiService } from '../../../api';
 
 /** `auto` follows the operating system; the other two override it. */
 export type Theme = 'light' | 'dark' | 'auto';
@@ -51,7 +51,7 @@ export class ThemeToggleService {
   private readonly _platformId = inject(PLATFORM_ID);
   private readonly _browser = isPlatformBrowser(this._platformId);
   private readonly _storage = inject(LocalStorageService);
-  private readonly _http = inject(HttpClient);
+  private readonly _authApi = inject(AuthApiService);
   private readonly _router = inject(Router);
   private readonly _security = inject(SecurityService);
 
@@ -175,7 +175,7 @@ export class ThemeToggleService {
     if (!this._signedIn) {
       return;
     }
-    this._http.put('/api/auth/theme', { area, theme }).subscribe({
+    this._authApi.setTheme({ area, theme }).subscribe({
       // A failed save is not worth interrupting anyone: the choice still
       // applies here and is remembered locally.
       error: () => undefined,

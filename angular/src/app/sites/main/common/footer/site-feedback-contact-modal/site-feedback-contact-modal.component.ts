@@ -1,6 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
@@ -13,6 +12,7 @@ import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pi
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { SecurityService, UserInfo } from '../../../../../shared/local-lib/services/security.service';
+import { FeedbackApiService } from '../../../../../api';
 
 type FeedbackType = 'Bug' | 'Suggestion' | 'Other';
 
@@ -38,7 +38,7 @@ export class SiteFeedbackContactModalComponent extends AbstractModalComponent {
   feedbackType: FeedbackType = 'Bug';
 
   private readonly _i18n = inject(TranslationService);
-  private readonly _http = inject(HttpClient);
+  private readonly _feedbackApi = inject(FeedbackApiService);
   private readonly _security = inject(SecurityService);
 
   readonly user = signal<UserInfo | null>(null);
@@ -148,9 +148,9 @@ export class SiteFeedbackContactModalComponent extends AbstractModalComponent {
     this.loading.set(true);
 
     // The API names its columns as the database does; the form does not.
-    this._http
-      .post('/api/feedback', {
-        type: form.type,
+    this._feedbackApi
+      .sendFeedback({
+        type: form.type ?? this.feedbackType,
         section: form.section || null,
         title: form.title || null,
         email: form.email || null,

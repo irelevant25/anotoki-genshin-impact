@@ -1,4 +1,4 @@
-import { ArtifactFormData, ArtifactPieceFormData } from '../../services/admin-api.service';
+import { ArtifactFormData, ArtifactPieceFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { createUid } from '../../shared/admin-full-resource.model';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 

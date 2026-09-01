@@ -4,7 +4,7 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
-import { BackupStatus } from '../../services/admin-api.service';
+import { BackupStatus } from '../../../../api';
 
 /**
  * Confirms a backup before it runs.

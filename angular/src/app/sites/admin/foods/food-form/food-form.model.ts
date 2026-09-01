@@ -1,4 +1,4 @@
-import { FoodFormData, FoodRecipeFormData } from '../../services/admin-api.service';
+import { FoodFormData, FoodRecipeFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { createUid } from '../../shared/admin-full-resource.model';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { assetSuffix, toAssetBaseName } from '../../shared/asset-name';

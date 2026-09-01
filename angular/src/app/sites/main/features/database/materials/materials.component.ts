@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
@@ -9,6 +8,7 @@ import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pi
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildValueOptions, buildVersionOptions, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
 import { asNumber, asOption, asText, bindFiltersToUrl } from '../shared/filter-url';
+import { MaterialApiService } from '../../../../../api';
 
 @Component({
   selector: 'app-database-materials',
@@ -17,7 +17,7 @@ import { asNumber, asOption, asText, bindFiltersToUrl } from '../shared/filter-u
   imports: [RouterModule, ButtonComponent, DropdownComponent, TextComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseMaterialsComponent {
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _materialApi = inject(MaterialApiService);
 
   materials = signal<any[]>([]);
   loading = signal(true);
@@ -74,7 +74,7 @@ export class DatabaseMaterialsComponent {
       name: [this.filterName, asText],
     });
 
-    this._httpClient.get<any[]>('/api/materials').subscribe({
+    this._materialApi.getMaterials().subscribe({
       next: (materials) => {
         this.materials.set(materials.sort((a, b) => String(a.name).localeCompare(String(b.name))));
         this.loading.set(false);

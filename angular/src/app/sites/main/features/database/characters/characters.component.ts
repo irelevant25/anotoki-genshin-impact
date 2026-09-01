@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
@@ -9,6 +8,7 @@ import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pi
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
 import { asNumber, asOption, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
+import { CharacterApiService } from '../../../../../api';
 
 @Component({
   selector: 'app-database-characters',
@@ -17,7 +17,7 @@ import { asNumber, asOption, asText, asToggle, bindFiltersToUrl } from '../share
   imports: [RouterModule, ButtonComponent, DropdownComponent, TextComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseCharactersComponent {
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _characterApi = inject(CharacterApiService);
 
   characters = signal<any[]>([]);
   loading = signal(true);
@@ -79,7 +79,7 @@ export class DatabaseCharactersComponent {
       name: [this.filterName, asText],
     });
 
-    this._httpClient.get<any[]>('/api/characters').subscribe({
+    this._characterApi.getCharacters().subscribe({
       next: (characters) => {
         this.characters.set(characters.sort((a, b) => String(a.name).localeCompare(String(b.name))));
         this.loading.set(false);

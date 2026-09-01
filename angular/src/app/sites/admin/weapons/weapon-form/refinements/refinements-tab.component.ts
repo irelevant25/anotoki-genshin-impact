@@ -5,7 +5,7 @@ import { NumberComponent } from '../../../../../shared/local-lib/components/numb
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { Material } from '../../../../../shared/models.generated';
+import { Audited, Material } from '../../../../../api';
 import { emptyRefinement, RefinementWrapper } from '../weapon-form.model';
 
 /** Weapons refine from R1 to R5. */
@@ -19,7 +19,7 @@ const MAX_REFINEMENTS = 5;
 })
 export class RefinementsTabComponent {
   refinements = model<RefinementWrapper[]>([]);
-  materials = input<Material[]>([]);
+  materials = input<Audited<Material>[]>([]);
 
   materialOptions = computed<DropdownOption[]>(() => this.materials().map((material) => ({ key: material.id ?? -1, value: material.name })));
   canAdd = computed(() => this.refinements().length < MAX_REFINEMENTS);

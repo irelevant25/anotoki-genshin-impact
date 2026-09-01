@@ -6,7 +6,7 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { PasswordComponent } from '../../../../shared/local-lib/components/password/password.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { AdminApiService, BackupEntry, RestorePreview } from '../../services/admin-api.service';
+import { BackupApiService, BackupEntry, BackupPreview } from '../../../../api';
 
 /** How long the button stays out of reach, in seconds. */
 const RESTORE_COOLDOWN = 30;
@@ -31,13 +31,13 @@ const RESTORE_COOLDOWN = 30;
   imports: [DatePipe, DecimalPipe, ModalComponent, ButtonComponent, TextComponent, PasswordComponent, LoaderComponent],
 })
 export class RestoreConfirmComponent extends AbstractModalComponent implements OnDestroy {
-  private readonly _api = inject(AdminApiService);
+  private readonly _backupApi = inject(BackupApiService);
 
   /** Both set by the opener before the modal renders. */
   readonly backup = signal<BackupEntry | null>(null);
   readonly alias = signal('');
 
-  readonly preview = signal<RestorePreview | null>(null);
+  readonly preview = signal<BackupPreview | null>(null);
   readonly loadingPreview = signal(true);
   readonly previewError = signal<string | null>(null);
 
@@ -100,7 +100,7 @@ export class RestoreConfirmComponent extends AbstractModalComponent implements O
       return;
     }
 
-    this._api.getRestorePreview(backup.id, this.alias()).subscribe({
+    this._backupApi.previewBackup(backup.id, this.alias()).subscribe({
       next: (preview) => {
         this.preview.set(preview);
         this.loadingPreview.set(false);
@@ -124,7 +124,12 @@ export class RestoreConfirmComponent extends AbstractModalComponent implements O
     }
 
     this.running.set(true);
-    this._api.restoreBackup(backup.id, this.alias(), String(this.password() ?? ''), String(this.typedName() ?? '').trim()).subscribe({
+    this._backupApi
+      .restoreBackup(backup.id, this.alias(), {
+        password: String(this.password() ?? ''),
+        confirm: String(this.typedName() ?? '').trim(),
+      })
+      .subscribe({
       next: (result) => {
         this.running.set(false);
         this.notificationService.showSuccess(

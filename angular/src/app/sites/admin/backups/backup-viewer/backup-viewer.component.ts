@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { AdminApiService, BackupDatabase, BackupEntry } from '../../services/admin-api.service';
+import { BackupApiService, BackupDatabase, BackupEntry } from '../../../../api';
 import { RoleService } from '../../../../shared/local-lib/services/role.service';
 import { Roles } from '../../../../shared/local-lib/services/options-helper.service';
 import { RestoreConfirmComponent } from '../restore-confirm/restore-confirm.component';
@@ -23,7 +23,7 @@ import { RestoreConfirmComponent } from '../restore-confirm/restore-confirm.comp
   imports: [DatePipe, DecimalPipe, ModalComponent, ButtonComponent],
 })
 export class BackupViewerComponent extends AbstractModalComponent {
-  private readonly _api = inject(AdminApiService);
+  private readonly _backupApi = inject(BackupApiService);
   private readonly _roles = inject(RoleService);
 
   /** Handing over a dump, or replacing a database with one, is admin work. */
@@ -68,7 +68,7 @@ export class BackupViewerComponent extends AbstractModalComponent {
     }
 
     this.downloading.set(database.alias);
-    this._api.downloadBackup(backup.id, database.alias).subscribe({
+    this._backupApi.downloadBackup(backup.id, database.alias).subscribe({
       next: (blob) => {
         this.downloading.set(null);
         this._save(blob, `${backup.id}-${database.alias}.dump`);

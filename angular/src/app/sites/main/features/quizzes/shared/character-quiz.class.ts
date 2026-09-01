@@ -1,5 +1,4 @@
 import { computed, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
@@ -7,6 +6,7 @@ import { StateService } from '../../../../../shared/state-manager.service';
 import { todayString } from './daily';
 import { QuizProgressService } from './quiz-progress.service';
 import { QuizId, QuizState, difficultyName } from './quiz.types';
+import { CharacterApiService } from '../../../../../api';
 
 /**
  * Everything the five "which character is this?" quizzes do.
@@ -23,7 +23,7 @@ import { QuizId, QuizState, difficultyName } from './quiz.types';
  * Mismatch is not one of these. It asks a different question and has no tries.
  */
 export abstract class CharacterQuizComponent {
-  protected readonly httpClient = inject(HttpClient);
+  protected readonly characterApi = inject(CharacterApiService);
   protected readonly stateService = inject(StateService);
   protected readonly progress = inject(QuizProgressService);
   private readonly _activatedRoute = inject(ActivatedRoute);
@@ -112,7 +112,7 @@ export abstract class CharacterQuizComponent {
    * that lives in another table.
    */
   protected fetchCharacters(): Observable<any[]> {
-    return this.httpClient.get<any[]>('/api/characters/minimal');
+    return this.characterApi.getCharactersMinimal();
   }
 
   protected load(): void {

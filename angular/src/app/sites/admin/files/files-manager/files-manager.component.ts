@@ -5,7 +5,7 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { AdminApiService, AssetFile, AssetFolder, TrashedFile } from '../../services/admin-api.service';
+import { AssetFile, AssetFolder, FileApiService, toFormData, TrashedFile } from '../../../../api';
 import { FilePreviewComponent, isPreviewableFile, PLAYABLE_AUDIO, PREVIEWABLE_IMAGES } from '../file-preview/file-preview.component';
 
 @Component({
@@ -49,7 +49,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     return `${from}–${Math.min(this.page() * this.pageSize(), this.total())} of ${this.total()}`;
   });
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _fileApi = inject(FileApiService);
   private readonly _notify = inject(NotificationService);
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
 
   loadFolders(): void {
     this.loadingFolders.set(true);
-    this._api.getAssetFolders().subscribe({
+    this._fileApi.getAssetFolders().subscribe({
       next: (data) => {
         this.folders.set(data ?? []);
         this.loadingFolders.set(false);
@@ -86,7 +86,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
       return;
     }
     this.loadingFiles.set(true);
-    this._api.getAssetFiles(folder, String(this.search() ?? ''), this.page()).subscribe({
+    this._fileApi.getAssetFiles({ folder, search: String(this.search() ?? ''), page: this.page() }).subscribe({
       next: (data) => {
         this.files.set(data.files ?? []);
         this.total.set(data.total ?? 0);
@@ -166,7 +166,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     let failed = 0;
 
     for (const file of files) {
-      this._api.uploadAssetFile(folder, file, name).subscribe({
+      this._fileApi.uploadAssetFile(toFormData({ folder, file, name })).subscribe({
         next: () => this._finishUpload(--remaining, failed, success),
         error: (error) => {
           failed++;
@@ -198,7 +198,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
 
   deleteFile(file: AssetFile): void {
     this.busy.set(file.name);
-    this._api.deleteAssetFile(this.selectedFolder(), file.name).subscribe({
+    this._fileApi.deleteAssetFile({ folder: this.selectedFolder(), name: file.name }).subscribe({
       next: () => {
         this.busy.set(undefined);
         this.deleteConfirm.set(undefined);
@@ -224,7 +224,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
 
   loadTrash(): void {
     this.loadingFiles.set(true);
-    this._api.getTrashedFiles().subscribe({
+    this._fileApi.getTrashedFiles().subscribe({
       next: (data) => {
         this.trash.set(data ?? []);
         this.loadingFiles.set(false);
@@ -238,7 +238,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
 
   restore(entry: TrashedFile): void {
     this.busy.set(entry.trashed);
-    this._api.restoreAssetFile(entry.folder, entry.trashed).subscribe({
+    this._fileApi.restoreAssetFile(toFormData({ folder: entry.folder, trashed: entry.trashed })).subscribe({
       next: () => {
         this.busy.set(undefined);
         this._notify.showSuccess(`${entry.name} restored`);

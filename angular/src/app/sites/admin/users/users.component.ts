@@ -9,7 +9,7 @@ import { DropdownComponent } from '../../../shared/local-lib/components/dropdown
 import { RoleService } from '../../../shared/local-lib/services/role.service';
 import { Roles } from '../../../shared/local-lib/services/options-helper.service';
 import { SecurityService } from '../../../shared/local-lib/services/security.service';
-import { AccountEntry, AccountFilters, AdminApiService } from '../services/admin-api.service';
+import { AdminUser, UserApiService, UserFilters, UserQuery } from '../../../api';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserPasswordComponent } from './user-password/user-password.component';
 
@@ -28,15 +28,15 @@ import { UserPasswordComponent } from './user-password/user-password.component';
   imports: [DatePipe, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent],
 })
 export class UsersComponent extends AbstractModalComponent implements OnInit {
-  private readonly _api = inject(AdminApiService);
+  private readonly _userApi = inject(UserApiService);
   private readonly _roles = inject(RoleService);
   private readonly _security = inject(SecurityService);
 
   /** Accounts are System: an editor sees the list and changes nothing. */
   readonly canManage = this._roles.hasRole(Roles.ADMIN);
 
-  readonly accounts = signal<AccountEntry[]>([]);
-  readonly filters = signal<AccountFilters | null>(null);
+  readonly accounts = signal<AdminUser[]>([]);
+  readonly filters = signal<UserFilters | null>(null);
   readonly busy = signal(false);
 
   readonly filterSearch = signal<string | number | null | undefined>('');
@@ -79,11 +79,11 @@ export class UsersComponent extends AbstractModalComponent implements OnInit {
 
   load(): void {
     this.busy.set(true);
-    this._api
+    this._userApi
       .getUsers({
         search: String(this.filterSearch() ?? '').trim(),
         role: String(this.filterRole() ?? ''),
-        status: String(this.filterStatus() ?? ''),
+        status: (String(this.filterStatus() ?? '') || undefined) as UserQuery['status'],
       })
       .subscribe({
         next: (accounts) => {
@@ -115,7 +115,7 @@ export class UsersComponent extends AbstractModalComponent implements OnInit {
     modal.componentInstance.start();
   }
 
-  edit(account: AccountEntry): void {
+  edit(account: AdminUser): void {
     const modal = this.openModal<UserFormComponent>(UserFormComponent, { size: '3' }, () => this._reload());
     modal.componentInstance.roles.set(this.roleOptions());
     modal.componentInstance.passwordMinLength.set(this.filters()?.passwordMinLength ?? 8);
@@ -125,7 +125,7 @@ export class UsersComponent extends AbstractModalComponent implements OnInit {
     modal.componentInstance.start();
   }
 
-  changePassword(account: AccountEntry): void {
+  changePassword(account: AdminUser): void {
     const modal = this.openModal<UserPasswordComponent>(UserPasswordComponent, { size: '2' });
     modal.componentInstance.account.set(account);
     modal.componentInstance.minLength.set(this.filters()?.passwordMinLength ?? 8);
@@ -139,8 +139,8 @@ export class UsersComponent extends AbstractModalComponent implements OnInit {
     this.disableConfirm.set(null);
   }
 
-  setEnabled(account: AccountEntry, enabled: boolean): void {
-    this._api.setUserEnabled(account.id, enabled).subscribe({
+  setEnabled(account: AdminUser, enabled: boolean): void {
+    this._userApi.setUserEnabled(account.id, { enabled }).subscribe({
       next: () => {
         this.disableConfirm.set(null);
         this.notificationService.showSuccess(enabled ? `${account.username} can sign in again` : `${account.username} is disabled`);
@@ -153,7 +153,7 @@ export class UsersComponent extends AbstractModalComponent implements OnInit {
     });
   }
 
-  isSelf(account: AccountEntry): boolean {
+  isSelf(account: AdminUser): boolean {
     return account.username === this.myUsername();
   }
 
@@ -163,7 +163,7 @@ export class UsersComponent extends AbstractModalComponent implements OnInit {
   }
 
   private _loadFilters(): void {
-    this._api.getUserFilters().subscribe({
+    this._userApi.getUserFilters().subscribe({
       next: (filters) => this.filters.set(filters),
       error: () => undefined,
     });

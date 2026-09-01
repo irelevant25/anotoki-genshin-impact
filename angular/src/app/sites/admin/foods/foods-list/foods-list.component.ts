@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AdminApiService } from '../../services/admin-api.service';
+import { FoodApiService } from '../../../../api';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
@@ -56,18 +56,18 @@ export class FoodsListComponent extends AdminListComponent<any> implements OnIni
       (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== '')
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _foodApi = inject(FoodApiService);
 
   ngOnInit(): void {
     this.load();
   }
 
   protected fetch(): Observable<any[]> {
-    return this._api.getFoods() as unknown as Observable<any[]>;
+    return this._foodApi.getFoods() as unknown as Observable<any[]>;
   }
 
   protected remove(id: number): Observable<unknown> {
-    return this._api.deleteFood(id);
+    return this._foodApi.deleteFood(id);
   }
 
   resetFilters(): void {

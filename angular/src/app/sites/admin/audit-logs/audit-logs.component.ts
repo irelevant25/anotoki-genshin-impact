@@ -7,7 +7,7 @@ import { DropdownComponent } from '../../../shared/local-lib/components/dropdown
 import { CalendarComponent } from '../../../shared/local-lib/components/calendar/calendar.component';
 import { DropdownOption } from '../../../shared/local-lib/services/options-helper.service';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
-import { AdminApiService, AuditLogEntry } from '../services/admin-api.service';
+import { AuditLogApiService, AuditLogEntry } from '../../../api';
 
 interface ChangeRow {
   column: string;
@@ -62,7 +62,7 @@ export class AuditLogsComponent implements OnInit {
       !!this.filterTo()
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _auditLogApi = inject(AuditLogApiService);
   private readonly _notify = inject(NotificationService);
 
   ngOnInit(): void {
@@ -71,7 +71,7 @@ export class AuditLogsComponent implements OnInit {
   }
 
   private _loadFilters(): void {
-    this._api.getAuditLogFilters().subscribe({
+    this._auditLogApi.getAuditLogFilters().subscribe({
       next: (data) => {
         this.tables.set(data.tables ?? []);
         this.actions.set(data.actions ?? []);
@@ -84,8 +84,8 @@ export class AuditLogsComponent implements OnInit {
   load(): void {
     this.loading.set(true);
     this.expanded.set(undefined);
-    this._api
-      .getAuditLogs({
+    this._auditLogApi
+      .getAuditLogPage({
         table: this._asString(this.filterTable()),
         action: this._asString(this.filterAction()),
         user: this._asString(this.filterUser()),

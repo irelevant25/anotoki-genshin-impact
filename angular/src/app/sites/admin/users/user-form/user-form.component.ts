@@ -6,7 +6,7 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { CheckboxComponent } from '../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { PasswordComponent } from '../../../../shared/local-lib/components/password/password.component';
-import { AccountEntry, AdminApiService } from '../../services/admin-api.service';
+import { UserApiService, AdminUser } from '../../../../api';
 import { GENERATED_PASSWORD_LENGTH, randomPassword } from '../random-password';
 
 /**
@@ -24,10 +24,10 @@ import { GENERATED_PASSWORD_LENGTH, randomPassword } from '../random-password';
   imports: [ModalComponent, ButtonComponent, TextComponent, DropdownComponent, CheckboxComponent, PasswordComponent],
 })
 export class UserFormComponent extends AbstractModalComponent {
-  private readonly _api = inject(AdminApiService);
+  private readonly _userApi = inject(UserApiService);
 
   /** All set by the opener before the modal renders. */
-  readonly account = signal<AccountEntry | null>(null);
+  readonly account = signal<AdminUser | null>(null);
   readonly roles = signal<string[]>([]);
   readonly passwordMinLength = signal(8);
   readonly isSelf = signal(false);
@@ -91,13 +91,13 @@ export class UserFormComponent extends AbstractModalComponent {
     const account = this.account();
 
     const request = account
-      ? this._api.updateUser(account.id, {
+      ? this._userApi.updateUser(account.id, {
           username: String(this.username() ?? '').trim(),
           email: String(this.email() ?? '').trim(),
           role: String(this.role() ?? 'USER'),
           email_confirmed: this.confirmed(),
         })
-      : this._api.createUser({
+      : this._userApi.createUser({
           username: String(this.username() ?? '').trim(),
           email: String(this.email() ?? '').trim(),
           password: String(this.password() ?? ''),

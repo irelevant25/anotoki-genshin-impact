@@ -3,8 +3,8 @@ import { ButtonComponent } from '../../../../../shared/local-lib/components/butt
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
-import { Material } from '../../../../../shared/models.generated';
-import { WeaponAscensionCostFormData } from '../../../services/admin-api.service';
+import { Audited, Material } from '../../../../../api';
+import { WeaponAscensionCostFormData } from '../../../../../sites/admin/shared/admin-form.model';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { AscensionWrapper, emptyAscension, MAX_WEAPON_ASCENSIONS } from '../weapon-form.model';
 
@@ -16,7 +16,7 @@ import { AscensionWrapper, emptyAscension, MAX_WEAPON_ASCENSIONS } from '../weap
 })
 export class AscensionsTabComponent {
   ascensions = model<AscensionWrapper[]>([]);
-  materials = input<Material[]>([]);
+  materials = input<Audited<Material>[]>([]);
 
   readonly maxPhase = MAX_WEAPON_ASCENSIONS - 1;
 

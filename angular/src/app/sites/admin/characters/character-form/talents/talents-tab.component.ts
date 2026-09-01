@@ -8,8 +8,8 @@ import { TabsComponent } from '../../../../../shared/local-lib/components/tabs/t
 import { TabComponent } from '../../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
-import { TalentCostFormData } from '../../../services/admin-api.service';
-import { Material } from '../../../../../shared/models.generated';
+import { TalentCostFormData } from '../../../../../sites/admin/shared/admin-form.model';
+import { Audited, Material } from '../../../../../api';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { emptyTalent, reorder, revokePicked, resequence, TalentWrapper } from '../character-form.model';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
@@ -46,7 +46,7 @@ export class TalentsTabComponent {
   talents = model<TalentWrapper[]>([]);
   talentCost = model<TalentCostFormData[]>([]);
   talentTypes = input<string[]>([]);
-  materials = input<Material[]>([]);
+  materials = input<Audited<Material>[]>([]);
 
   readonly minCostLevel = MIN_COST_LEVEL;
   readonly maxCostLevel = MAX_COST_LEVEL;

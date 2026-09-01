@@ -1,3 +1,4 @@
+import { parseJsonColumn } from '../../../../../api';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 
 /**
@@ -116,8 +117,13 @@ export function matchesTerm(value: unknown, loweredTerm: string): boolean {
  * A jsonb column read as a list of lines. The dumps are not consistent - some
  * columns hold an array, some a single string, some an object keyed by anything
  * - so everything is flattened to strings and the blanks dropped.
+ *
+ * The value is decoded first. JSONB comes back from the API as a raw JSON
+ * string, so without this a list of two affiliations rendered as one line
+ * reading `["Wangsheng Funeral Parlor","Hu Family"]`.
  */
-export function asList(value: unknown): string[] {
+export function asList(input: unknown): string[] {
+  const value = parseJsonColumn(input);
   if (value === null || value === undefined || value === '') {
     return [];
   }

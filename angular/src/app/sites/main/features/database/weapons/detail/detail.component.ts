@@ -1,11 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { LoaderComponent } from '../../../../../../shared/local-lib/components/loader/loader.component';
 import { TranslatePipe } from '../../../../../../shared/local-lib/i18n/translate.pipe';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { asList, versionLabel } from '../../shared/database-helpers';
+import { MaterialApiService, WeaponApiService } from '../../../../../../api';
 
 @Component({
   selector: 'app-database-weapon-detail',
@@ -14,7 +14,8 @@ import { asList, versionLabel } from '../../shared/database-helpers';
   imports: [RouterModule, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseWeaponDetailComponent {
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _weaponApi = inject(WeaponApiService);
+  private readonly _materialApi = inject(MaterialApiService);
   private readonly _route = inject(ActivatedRoute);
 
   weapon = signal<any | null>(null);
@@ -44,8 +45,8 @@ export class DatabaseWeaponDetailComponent {
           // The costs name a material by id only, so the material list comes
           // along to give each one a name and an icon.
           return forkJoin({
-            full: this._httpClient.get<any>(`/api/weapons/${id}/full`),
-            materials: this._httpClient.get<any[]>('/api/materials'),
+            full: this._weaponApi.getWeaponFull(Number(id)),
+            materials: this._materialApi.getMaterials(),
           });
         }),
       )

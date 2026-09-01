@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AdminApiService } from '../../services/admin-api.service';
+import { ArtifactApiService } from '../../../../api';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
@@ -47,18 +47,18 @@ export class ArtifactsListComponent extends AdminListComponent<any> implements O
       (this.filterVersions() ?? []).length > 0
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _artifactApi = inject(ArtifactApiService);
 
   ngOnInit(): void {
     this.load();
   }
 
   protected fetch(): Observable<any[]> {
-    return this._api.getArtifacts();
+    return this._artifactApi.getArtifacts();
   }
 
   protected remove(id: number): Observable<unknown> {
-    return this._api.deleteArtifact(id);
+    return this._artifactApi.deleteArtifact(id);
   }
 
   /** The rarities an artifact set actually drops at, from its has_rarity_N flags. */

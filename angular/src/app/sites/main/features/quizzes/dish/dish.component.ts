@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { CharacterQuizComponent } from '../shared/character-quiz.class';
 import { QuizFrameComponent } from '../shared/quiz-frame/quiz-frame.component';
 import { QuizId } from '../shared/quiz.types';
+import { FoodApiService } from '../../../../../api';
 
 /**
  * Guess the character from the dish only they can cook.
@@ -37,14 +38,21 @@ export class QuizzesDishComponent extends CharacterQuizComponent {
    * to find its picture. The two lists are independent, so they are fetched
    * together and joined here rather than one after the other.
    */
+  private readonly foodApi = inject(FoodApiService);
+
   protected override fetchCharacters(): Observable<any[]> {
     return forkJoin({
-      characters: this.httpClient.get<any[]>('/api/characters/minimal'),
-      foods: this.httpClient.get<any[]>('/api/foods'),
+      characters: this.characterApi.getCharactersMinimal(),
+      foods: this.foodApi.getFoods(),
     }).pipe(
       map(({ characters, foods }) => {
         const foodsById = new Map(foods.map((food) => [food.id, food]));
-        return characters.map((character) => ({ ...character, dish: foodsById.get(character.special_dish) ?? null }));
+        // Most characters have no dish of their own, and `special_dish` is null
+        // for them rather than absent.
+        return characters.map((character) => ({
+          ...character,
+          dish: character.special_dish === null ? null : foodsById.get(character.special_dish) ?? null,
+        }));
       }),
     );
   }

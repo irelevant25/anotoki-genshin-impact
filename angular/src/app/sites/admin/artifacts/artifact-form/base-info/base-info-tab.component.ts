@@ -5,7 +5,7 @@ import { CheckboxComponent } from '../../../../../shared/local-lib/components/ch
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
-import { revokePicked, toLines } from '../../../shared/admin-full-resource.model';
+import { revokePicked, toLines, toStringArray } from '../../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../../shared/asset-name';
 import { ARTIFACT_RARITIES, ArtifactWrapper, emptyArtifact } from '../artifact-form.model';
 
@@ -53,7 +53,7 @@ export class BaseInfoTabComponent {
   }
 
   effectsText(): string {
-    return (this.artifact().data.effects ?? []).join('\n');
+    return toStringArray(this.artifact().data.effects).join('\n');
   }
 
   onEffectsChange(value: string | number | undefined | null): void {
@@ -61,7 +61,7 @@ export class BaseInfoTabComponent {
   }
 
   obtainText(rarity: number): string {
-    return ((this.artifact().data[`how_to_obtain_quality_${rarity}`] as string[] | undefined) ?? []).join('\n');
+    return toStringArray((this.artifact().data[`how_to_obtain_quality_${rarity}`] as string[] | undefined)).join('\n');
   }
 
   onObtainChange(rarity: number, value: string | number | undefined | null): void {

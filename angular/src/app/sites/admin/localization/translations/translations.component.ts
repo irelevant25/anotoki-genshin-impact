@@ -1,6 +1,6 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AdminApiService, SiteLanguage, TranslationGrid, TranslationSite } from '../../services/admin-api.service';
+import { TranslationApiService, Language, TranslationAdminView, TranslationSite } from '../../../../api';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
@@ -28,13 +28,13 @@ interface GridRow {
   imports: [FormsModule, ButtonComponent, LoaderComponent],
 })
 export class TranslationsComponent implements OnInit {
-  private readonly _api = inject(AdminApiService);
+  private readonly _translationApi = inject(TranslationApiService);
   private readonly _notify = inject(NotificationService);
 
   readonly loading = signal(false);
   readonly saving = signal(false);
 
-  private readonly _grid = signal<TranslationGrid | null>(null);
+  private readonly _grid = signal<TranslationAdminView | null>(null);
   /** Pending changes, as key -> language code -> text. */
   private readonly _edits = signal<Record<string, Record<string, string>>>({});
 
@@ -53,7 +53,7 @@ export class TranslationsComponent implements OnInit {
 
   readonly fallback = FALLBACK_LANGUAGE;
 
-  readonly languages = computed<SiteLanguage[]>(() => this._grid()?.languages ?? []);
+  readonly languages = computed<Language[]>(() => this._grid()?.languages ?? []);
   readonly sites = computed<TranslationSite[]>(() => this._grid()?.sites ?? []);
   /** The site this admin panel belongs to, which is the interesting one. */
   readonly currentSite = computed(() => this._grid()?.currentSite ?? '');
@@ -123,7 +123,7 @@ export class TranslationsComponent implements OnInit {
 
   load(): void {
     this.loading.set(true);
-    this._api.getTranslationGrid().subscribe({
+    this._translationApi.getAdminTranslations().subscribe({
       next: (grid) => {
         this._grid.set(grid);
         this._edits.set({});
@@ -182,7 +182,7 @@ export class TranslationsComponent implements OnInit {
     }
 
     this.saving.set(true);
-    this._api.saveTranslations(edits).subscribe({
+    this._translationApi.saveAdminTranslations({ values: edits }).subscribe({
       next: (result) => {
         this.saving.set(false);
         const cleared = result.cleared ? `, ${result.cleared} cleared` : '';
@@ -203,7 +203,7 @@ export class TranslationsComponent implements OnInit {
     if (!name) {
       return;
     }
-    this._api.createTranslationKey(name, this.newKeySite()).subscribe({
+    this._translationApi.createTranslationKey({ name, site: this.newKeySite(), description: null }).subscribe({
       next: () => {
         this.newKey.set('');
         this.load();
@@ -217,7 +217,7 @@ export class TranslationsComponent implements OnInit {
     if ((row.description ?? '') === description.trim()) {
       return;
     }
-    this._api.updateTranslationKey(row.name, { description: description.trim() || null }).subscribe({
+    this._translationApi.updateTranslationKey(row.name, { description: description.trim() || null }).subscribe({
       next: () => this.load(),
       error: (e) => this._notify.showError(e?.error?.error ?? 'Failed to save the note'),
     });
@@ -228,7 +228,7 @@ export class TranslationsComponent implements OnInit {
     if (site === row.site) {
       return;
     }
-    this._api.updateTranslationKey(row.name, { site }).subscribe({
+    this._translationApi.updateTranslationKey(row.name, { site }).subscribe({
       next: () => this.load(),
       error: (e) => this._notify.showError(e?.error?.error ?? 'Failed to move the key'),
     });
@@ -243,7 +243,7 @@ export class TranslationsComponent implements OnInit {
   }
 
   deleteKey(name: string): void {
-    this._api.deleteTranslationKey(name).subscribe({
+    this._translationApi.deleteTranslationKey(name).subscribe({
       next: (result) => {
         this.deleteConfirm.set(null);
         this.load();
@@ -260,7 +260,7 @@ export class TranslationsComponent implements OnInit {
 
   /** Bulk work is easier in a text editor, so a language can leave and return. */
   exportLanguage(code: string): void {
-    this._api.exportTranslations(code).subscribe({
+    this._translationApi.exportTranslations(code).subscribe({
       next: (values) => {
         const blob = new Blob([JSON.stringify(values, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -290,7 +290,7 @@ export class TranslationsComponent implements OnInit {
         if (!values || typeof values !== 'object' || Array.isArray(values)) {
           throw new Error('not an object');
         }
-        this._api.importTranslations(code, values).subscribe({
+        this._translationApi.importTranslations(code, { values }).subscribe({
           next: (result) => {
             this._notify.showSuccess(`Imported ${result.written} string(s)`);
             this.load();

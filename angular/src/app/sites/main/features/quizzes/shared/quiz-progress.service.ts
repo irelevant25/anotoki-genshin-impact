@@ -1,15 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { StateService } from '../../../../../shared/state-manager.service';
 import { QuizId, QuizState } from './quiz.types';
-
-interface SavedGame {
-  quiz: QuizId;
-  state: QuizState;
-  is_daily: boolean;
-}
+import { QuizApiService } from '../../../../../api';
 
 /**
  * Where a quiz's progress lives.
@@ -26,7 +20,7 @@ interface SavedGame {
  */
 @Injectable({ providedIn: 'root' })
 export class QuizProgressService {
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _quizApi = inject(QuizApiService);
   private readonly _stateService = inject(StateService);
   private readonly _securityService = inject(SecurityService);
 
@@ -58,10 +52,15 @@ export class QuizProgressService {
       return of(undefined);
     }
 
-    return this._httpClient.get<SavedGame[]>('/api/quiz/progress').pipe(
+    return this._quizApi.getQuizProgress().pipe(
       tap((games) => {
         this._remote.clear();
-        games.forEach((game) => this._remote.set(this._key(game.quiz, game.is_daily), game.state));
+        // The server stores a saved game as an opaque blob - what is in it is
+        // this side's business - so its shape is asserted here rather than typed
+        // across the wire.
+        games.forEach((game) =>
+          this._remote.set(this._key(game.quiz as QuizId, game.is_daily), game.state as QuizState),
+        );
         this._loaded = true;
       }),
       map(() => undefined),
@@ -83,7 +82,7 @@ export class QuizProgressService {
     }
 
     this._remote.set(this._key(quizId, daily), state);
-    this._httpClient.put(`/api/quiz/progress/${quizId}`, { state, is_daily: daily }).subscribe({
+    this._quizApi.updateQuizProgress(quizId, { state, is_daily: daily }).subscribe({
       // Nothing to tell the player: the game is safe in the browser either way,
       // and a notification per guess would be its own annoyance.
       error: () => undefined,
@@ -102,8 +101,8 @@ export class QuizProgressService {
       return;
     }
 
-    this._httpClient
-      .post('/api/quiz/result', { quiz: quizId, character_id: characterId, win, attempts, difficulty })
+    this._quizApi
+      .submitQuizResult({ quiz: quizId, character_id: characterId, win, attempts, difficulty })
       .subscribe({ error: () => undefined });
   }
 

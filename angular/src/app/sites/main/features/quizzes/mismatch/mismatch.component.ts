@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { HELPER } from '../../../../../shared/helper';
@@ -11,6 +10,7 @@ import { MaterialIconDirective } from '../../../../admin/shared/material-icon.di
 import { todayString } from '../shared/daily';
 import { QuizProgressService } from '../shared/quiz-progress.service';
 import { QuizId, QuizState, difficultyName } from '../shared/quiz.types';
+import { CharacterApiService } from '../../../../../api';
 
 /** The three things a set can have in common. */
 const PROPERTIES = ['element', 'weapon_type', 'region'] as const;
@@ -41,7 +41,7 @@ interface QuizSet {
   imports: [LoaderComponent, ButtonComponent, TranslatePipe, MaterialIconDirective],
 })
 export class QuizzesMismatchComponent {
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _characterApi = inject(CharacterApiService);
   private readonly _stateService = inject(StateService);
   private readonly _progress = inject(QuizProgressService);
   private readonly _activatedRoute = inject(ActivatedRoute);
@@ -64,7 +64,7 @@ export class QuizzesMismatchComponent {
     this._activatedRoute.data.subscribe((data) => this.isDaily.set(!!data['daily']));
     this.difficulty.set(this._stateService.getDifficulty());
 
-    forkJoin({ characters: this._httpClient.get<any[]>('/api/characters/minimal'), progress: this._progress.ready() }).subscribe({
+    forkJoin({ characters: this._characterApi.getCharactersMinimal(), progress: this._progress.ready() }).subscribe({
       next: ({ characters }) => {
         // Travellers are excluded here for the same reason as in the search
         // box: twelve rows carrying two names, and one of them is Anemo, Geo,

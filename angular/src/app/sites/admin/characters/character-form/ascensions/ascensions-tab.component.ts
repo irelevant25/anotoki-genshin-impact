@@ -3,8 +3,8 @@ import { ButtonComponent } from '../../../../../shared/local-lib/components/butt
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
-import { Material } from '../../../../../shared/models.generated';
-import { AscensionCostFormData } from '../../../services/admin-api.service';
+import { Audited, Material } from '../../../../../api';
+import { AscensionCostFormData } from '../../../../../sites/admin/shared/admin-form.model';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { AscensionWrapper, emptyAscension, reorder, resequence } from '../character-form.model';
 
@@ -20,7 +20,7 @@ const MAX_ASCENSIONS = 7;
 export class AscensionsTabComponent {
   ascensions = model<AscensionWrapper[]>([]);
   stats = input<string[]>([]);
-  materials = input<Material[]>([]);
+  materials = input<Audited<Material>[]>([]);
 
   readonly maxPhase = MAX_ASCENSIONS - 1;
 

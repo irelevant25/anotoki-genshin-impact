@@ -2,7 +2,7 @@ import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AdminApiService } from '../services/admin-api.service';
+import { LookupApiService, StatApiService } from '../../../api';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
 import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
@@ -30,7 +30,8 @@ export class LookupTableComponent implements OnInit {
   newName = signal('');
   deleteConfirm = signal<string | null>(null);
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _lookupApi = inject(LookupApiService);
+  private readonly _statApi = inject(StatApiService);
   private readonly _notify = inject(NotificationService);
 
   private get _pkField(): string {
@@ -40,43 +41,43 @@ export class LookupTableComponent implements OnInit {
   private get _listFn(): () => Observable<any[]> {
     const key = this.config().apiKey;
     const map: Record<string, () => Observable<any[]>> = {
-      elements: () => this._api.getElements(),
-      'weapon-types': () => this._api.getWeaponTypes(),
-      'voice-over-types': () => this._api.getVoiceOverTypes(),
-      'character-states': () => this._api.getCharacterStates(),
-      rarities: () => this._api.getRarities(),
-      'artifact-piece-types': () => this._api.getArtifactPieceTypes(),
-      stats: () => this._api.getStats(),
-      'relationship-types': () => this._api.getRelationshipTypes(),
-      'talent-types': () => this._api.getTalentTypes(),
-      'food-types': () => this._api.getFoodTypes(),
-      'material-types': () => this._api.getMaterialTypes(),
-      'material-groups': () => this._api.getMaterialGroups(),
-      regions: () => this._api.getRegions(),
-      roles: () => this._api.getRoles(),
-      'enemy-types': () => this._api.getEnemyTypes(),
-      'domain-levels': () => this._api.getDomainLevels(),
-      'enemy-families': () => this._api.getEnemyFamilies(),
-      'enemy-groups': () => this._api.getEnemyGroups(),
+      elements: () => this._lookupApi.getElements(),
+      'weapon-types': () => this._lookupApi.getWeaponTypes(),
+      'voice-over-types': () => this._lookupApi.getVoiceOverTypes(),
+      'character-states': () => this._lookupApi.getCharacterStates(),
+      rarities: () => this._lookupApi.getRarities(),
+      'artifact-piece-types': () => this._lookupApi.getArtifactPieceTypes(),
+      stats: () => this._statApi.getStats(),
+      'relationship-types': () => this._lookupApi.getRelationshipTypes(),
+      'talent-types': () => this._lookupApi.getTalentTypes(),
+      'food-types': () => this._lookupApi.getFoodTypes(),
+      'material-types': () => this._lookupApi.getMaterialTypes(),
+      'material-groups': () => this._lookupApi.getMaterialGroups(),
+      regions: () => this._lookupApi.getRegions(),
+      roles: () => this._lookupApi.getRoles(),
+      'enemy-types': () => this._lookupApi.getEnemyTypes(),
+      'domain-levels': () => this._lookupApi.getDomainLevels(),
+      'enemy-families': () => this._lookupApi.getEnemyFamilies(),
+      'enemy-groups': () => this._lookupApi.getEnemyGroups(),
     };
-    return map[key] ?? (() => this._api.getElements());
+    return map[key] ?? (() => this._lookupApi.getElements());
   }
 
   get _createFn(): ((name: string) => Observable<any>) | null {
     const key = this.config().apiKey;
     const map: Record<string, (name: string) => Observable<any>> = {
-      'relationship-types': (n) => this._api.createRelationshipType(n),
-      'talent-types': (n) => this._api.createTalentType(n),
-      'food-types': (n) => this._api.createFoodType(n),
-      'material-types': (n) => this._api.createMaterialType(n),
-      'material-groups': (n) => this._api.createMaterialGroup(n),
-      regions: (n) => this._api.createRegion(n),
-      roles: (n) => this._api.createRole(n),
-      'enemy-types': (n) => this._api.createEnemyType(n),
-      'domain-levels': (n) => this._api.createDomainLevel(n),
-      'enemy-families': (n) => this._api.createEnemyFamily(n),
-      'enemy-groups': (n) => this._api.createEnemyGroup(n),
-      stats: (n) => this._api.createStat(n),
+      'relationship-types': (n) => this._lookupApi.createRelationshipType({ name: n }),
+      'talent-types': (n) => this._lookupApi.createTalentType({ name: n }),
+      'food-types': (n) => this._lookupApi.createFoodType({ name: n }),
+      'material-types': (n) => this._lookupApi.createMaterialType({ name: n }),
+      'material-groups': (n) => this._lookupApi.createMaterialGroup({ name: n }),
+      regions: (n) => this._lookupApi.createRegion({ name: n }),
+      roles: (n) => this._lookupApi.createRole({ name: n }),
+      'enemy-types': (n) => this._lookupApi.createEnemyType({ name: n }),
+      'domain-levels': (n) => this._lookupApi.createDomainLevel({ name: n }),
+      'enemy-families': (n) => this._lookupApi.createEnemyFamily({ name: n }),
+      'enemy-groups': (n) => this._lookupApi.createEnemyGroup({ name: n }),
+      stats: (n) => this._statApi.createStat({ name: n }),
     };
     return map[key] ?? null;
   }
@@ -84,18 +85,18 @@ export class LookupTableComponent implements OnInit {
   get _deleteFn(): ((name: string) => Observable<any>) | null {
     const key = this.config().apiKey;
     const map: Record<string, (name: string) => Observable<any>> = {
-      'relationship-types': (n) => this._api.deleteRelationshipType(n),
-      'talent-types': (n) => this._api.deleteTalentType(n),
-      'food-types': (n) => this._api.deleteFoodType(n),
-      'material-types': (n) => this._api.deleteMaterialType(n),
-      'material-groups': (n) => this._api.deleteMaterialGroup(n),
-      regions: (n) => this._api.deleteRegion(n),
-      roles: (n) => this._api.deleteRole(n),
-      'enemy-types': (n) => this._api.deleteEnemyType(n),
-      'domain-levels': (n) => this._api.deleteDomainLevel(n),
-      'enemy-families': (n) => this._api.deleteEnemyFamily(n),
-      'enemy-groups': (n) => this._api.deleteEnemyGroup(n),
-      stats: (id) => this._api.deleteStat(Number(id)),
+      'relationship-types': (n) => this._lookupApi.deleteRelationshipType(n),
+      'talent-types': (n) => this._lookupApi.deleteTalentType(n),
+      'food-types': (n) => this._lookupApi.deleteFoodType(n),
+      'material-types': (n) => this._lookupApi.deleteMaterialType(n),
+      'material-groups': (n) => this._lookupApi.deleteMaterialGroup(n),
+      regions: (n) => this._lookupApi.deleteRegion(n),
+      roles: (n) => this._lookupApi.deleteRole(n),
+      'enemy-types': (n) => this._lookupApi.deleteEnemyType(n),
+      'domain-levels': (n) => this._lookupApi.deleteDomainLevel(n),
+      'enemy-families': (n) => this._lookupApi.deleteEnemyFamily(n),
+      'enemy-groups': (n) => this._lookupApi.deleteEnemyGroup(n),
+      stats: (id) => this._statApi.deleteStat(Number(id)),
     };
     return map[key] ?? null;
   }

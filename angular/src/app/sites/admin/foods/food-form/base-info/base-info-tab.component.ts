@@ -5,7 +5,7 @@ import { NumberComponent } from '../../../../../shared/local-lib/components/numb
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { toLines } from '../../../shared/admin-full-resource.model';
+import { toLines, toStringArray } from '../../../shared/admin-full-resource.model';
 import { emptyFood, FoodWrapper } from '../food-form.model';
 
 @Component({
@@ -22,9 +22,9 @@ export class BaseInfoTabComponent {
   rarities = input<string[]>([]);
   baseDishOptions = input<DropdownOption[]>([]);
 
-  eventsText = computed(() => (this.food().data.events ?? []).join('\n'));
-  howToObtainText = computed(() => (this.food().data.how_to_obtain ?? []).join('\n'));
-  effectsText = computed(() => (this.food().data.effects ?? []).join('\n'));
+  eventsText = computed(() => toStringArray(this.food().data.events).join('\n'));
+  howToObtainText = computed(() => toStringArray(this.food().data.how_to_obtain).join('\n'));
+  effectsText = computed(() => toStringArray(this.food().data.effects).join('\n'));
 
   onEventsChange(value: string | number | undefined | null): void {
     this.food().data.events = toLines(value);

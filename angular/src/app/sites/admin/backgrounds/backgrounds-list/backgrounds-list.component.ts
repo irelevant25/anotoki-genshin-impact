@@ -3,7 +3,7 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
-import { AdminApiService, BackgroundEntry } from '../../services/admin-api.service';
+import { Background, BackgroundApiService, FileApiService, toFormData } from '../../../../api';
 import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { revokePicked } from '../../shared/admin-full-resource.model';
@@ -23,7 +23,7 @@ import { assetSuffix, toAssetLiteralName } from '../../shared/asset-name';
   imports: [ButtonComponent, LoaderComponent, TextComponent, EntityImageComponent],
 })
 export class BackgroundsListComponent implements OnInit {
-  backgrounds = signal<BackgroundEntry[]>([]);
+  backgrounds = signal<Background[]>([]);
   loading = signal(false);
   busy = signal<number | undefined>(undefined);
 
@@ -35,7 +35,8 @@ export class BackgroundsListComponent implements OnInit {
   /** Shown until the reload lands, so a replaced picture is visible at once. */
   picked = signal<Record<string, PickedImage>>({});
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _backgroundApi = inject(BackgroundApiService);
+  private readonly _fileApi = inject(FileApiService);
   private readonly _notify = inject(NotificationService);
 
   ngOnInit(): void {
@@ -44,7 +45,7 @@ export class BackgroundsListComponent implements OnInit {
 
   load(): void {
     this.loading.set(true);
-    this._api.getBackgrounds().subscribe({
+    this._backgroundApi.getBackgrounds().subscribe({
       next: (data) => {
         this.backgrounds.set(data ?? []);
         this.loading.set(false);
@@ -61,7 +62,7 @@ export class BackgroundsListComponent implements OnInit {
     if (!name) {
       return;
     }
-    this._api.createBackground(name).subscribe({
+    this._backgroundApi.createBackground({ name }).subscribe({
       next: () => {
         this.newName.set('');
         this._notify.showSuccess(`${name} added`);
@@ -71,7 +72,7 @@ export class BackgroundsListComponent implements OnInit {
     });
   }
 
-  startRename(entry: BackgroundEntry): void {
+  startRename(entry: Background): void {
     this.renaming.set(entry.id);
     this.renameValue.set(entry.name);
   }
@@ -80,14 +81,14 @@ export class BackgroundsListComponent implements OnInit {
     this.renaming.set(undefined);
   }
 
-  saveRename(entry: BackgroundEntry): void {
+  saveRename(entry: Background): void {
     const name = String(this.renameValue() ?? '').trim();
     if (!name || name === entry.name) {
       this.cancelRename();
       return;
     }
     this.busy.set(entry.id);
-    this._api.updateBackground(entry.id, name).subscribe({
+    this._backgroundApi.updateBackground(entry.id, { name }).subscribe({
       next: () => {
         this.busy.set(undefined);
         this.renaming.set(undefined);
@@ -102,7 +103,7 @@ export class BackgroundsListComponent implements OnInit {
     });
   }
 
-  confirmDelete(entry: BackgroundEntry): void {
+  confirmDelete(entry: Background): void {
     this.deleteConfirm.set(entry.id);
   }
 
@@ -110,9 +111,9 @@ export class BackgroundsListComponent implements OnInit {
     this.deleteConfirm.set(undefined);
   }
 
-  delete(entry: BackgroundEntry): void {
+  delete(entry: Background): void {
     this.busy.set(entry.id);
-    this._api.deleteBackground(entry.id).subscribe({
+    this._backgroundApi.deleteBackground(entry.id).subscribe({
       next: () => {
         this.busy.set(undefined);
         this.deleteConfirm.set(undefined);
@@ -130,23 +131,25 @@ export class BackgroundsListComponent implements OnInit {
   // ── Images ─────────────────────────────────────────────────────────────────────
 
   /** Both files are named after the background; the thumbnail says so. */
-  imageName(entry: BackgroundEntry, field: 'image' | 'preview'): string {
+  imageName(entry: Background, field: 'image' | 'preview'): string {
     const base = toAssetLiteralName(entry.name);
     return field === 'preview' ? assetSuffix(base, 'preview') : base;
   }
 
-  pendingFor(entry: BackgroundEntry, field: 'image' | 'preview'): PickedImage | undefined {
+  pendingFor(entry: Background, field: 'image' | 'preview'): PickedImage | undefined {
     return this.picked()[`${entry.id}:${field}`];
   }
 
   /** `image` is the full wallpaper, `preview` the thumbnail beside it. */
-  onPicked(entry: BackgroundEntry, field: 'image' | 'preview', picked: PickedImage): void {
+  onPicked(entry: Background, field: 'image' | 'preview', picked: PickedImage): void {
     const key = `${entry.id}:${field}`;
     revokePicked(this.picked()[key]);
     this.picked.update((current) => ({ ...current, [key]: picked }));
 
     this.busy.set(entry.id);
-    this._api.uploadEntityFile('background', entry.id, field, picked.file, this.imageName(entry, field)).subscribe({
+    this._fileApi
+      .uploadRecordFile('background', entry.id, field, toFormData({ file: picked.file, name: this.imageName(entry, field) }))
+      .subscribe({
       next: (result) => {
         this.busy.set(undefined);
         entry[field] = result.path;

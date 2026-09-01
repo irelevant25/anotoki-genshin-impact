@@ -6,8 +6,8 @@ import { LoaderComponent } from '../../../../shared/local-lib/components/loader/
 import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
-import { Material } from '../../../../shared/models.generated';
-import { AdminApiService, FoodFull, IdNameEntry } from '../../services/admin-api.service';
+import { Audited, Material } from '../../../../api';
+import { FoodApiService, LookupApiService, MaterialApiService, FoodFull, IdNameEntry } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
 import { buildFullFormData, createUid, revokeAllPicked, toNumber, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
@@ -31,7 +31,7 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
   foodTypes = signal<string[]>([]);
   regions = signal<string[]>([]);
   rarities = signal<string[]>([]);
-  materials = signal<Material[]>([]);
+  materials = signal<Audited<Material>[]>([]);
   foods = signal<IdNameEntry[]>([]);
 
   /** A dish can be the upgraded form of another; it must not point at itself. */
@@ -41,7 +41,9 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
       .map((food) => ({ key: food.id, value: food.name }))
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _foodApi = inject(FoodApiService);
+  private readonly _lookupApi = inject(LookupApiService);
+  private readonly _materialApi = inject(MaterialApiService);
 
   ngOnInit(): void {
     this._loadLookups();
@@ -55,14 +57,16 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
   private _loadLookups(): void {
     this.loadingLookups.set(true);
     forkJoin({
-      foodTypes: this._api.getFoodTypes(),
-      regions: this._api.getRegions(),
-      rarities: this._api.getRarities(),
-      materials: this._api.getMaterials(),
-      foods: this._api.getFoods(),
+      foodTypes: this._lookupApi.getFoodTypes(),
+      regions: this._lookupApi.getRegions(),
+      rarities: this._lookupApi.getRarities(),
+      materials: this._materialApi.getMaterials(),
+      foods: this._foodApi.getFoods(),
     }).subscribe({
       next: (result) => {
-        const names = (entries: { name: string }[]) => entries.map((entry) => entry.name);
+        // `rarities.name` is a SMALLINT, so this list is the one place a lookup
+        // answers with numbers rather than text.
+        const names = (entries: { name: string | number }[]) => entries.map((entry) => String(entry.name));
         this.foodTypes.set(names(result.foodTypes));
         this.regions.set(names(result.regions));
         this.rarities.set(names(result.rarities).sort().reverse());
@@ -78,15 +82,15 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
   }
 
   protected fetch(id: number): Observable<FoodFull> {
-    return this._api.getFoodFull(id);
+    return this._foodApi.getFoodFull(id);
   }
 
   protected create(payload: FormData): Observable<{ id: number }> {
-    return this._api.createFoodFull(payload);
+    return this._foodApi.createFoodFull(payload);
   }
 
   protected update(id: number, payload: FormData): Observable<unknown> {
-    return this._api.updateFoodFull(id, payload);
+    return this._foodApi.updateFoodFull(id, payload);
   }
 
   protected applyLoaded(data: FoodFull): void {

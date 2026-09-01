@@ -8,7 +8,8 @@ import { TextareaComponent } from '../../../../shared/local-lib/components/texta
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { FieldContainerComponent } from '../../../../shared/local-lib/components/field-container/field-container.component';
-import { AdminApiService, MaterialFormData, MaterialFull } from '../../services/admin-api.service';
+import { LookupApiService, MaterialApiService, MaterialFull } from '../../../../api';
+import { MaterialFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
 import { buildFullFormData, revokePicked, toLines, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
 import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
@@ -46,9 +47,10 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
   regions = signal<string[]>([]);
   rarities = signal<string[]>([]);
 
-  howToObtainText = computed(() => (this.material().how_to_obtain ?? []).join('\n'));
+  howToObtainText = computed(() => toStringArray(this.material().how_to_obtain).join('\n'));
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _lookupApi = inject(LookupApiService);
+  private readonly _materialApi = inject(MaterialApiService);
 
   ngOnInit(): void {
     this._loadLookups();
@@ -58,13 +60,15 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
   private _loadLookups(): void {
     this.loadingLookups.set(true);
     forkJoin({
-      materialTypes: this._api.getMaterialTypes(),
-      materialGroups: this._api.getMaterialGroups(),
-      regions: this._api.getRegions(),
-      rarities: this._api.getRarities(),
+      materialTypes: this._lookupApi.getMaterialTypes(),
+      materialGroups: this._lookupApi.getMaterialGroups(),
+      regions: this._lookupApi.getRegions(),
+      rarities: this._lookupApi.getRarities(),
     }).subscribe({
       next: (result) => {
-        const names = (entries: { name: string }[]) => entries.map((entry) => entry.name);
+        // `rarities.name` is a SMALLINT, so this list is the one place a lookup
+        // answers with numbers rather than text.
+        const names = (entries: { name: string | number }[]) => entries.map((entry) => String(entry.name));
         this.materialTypes.set(names(result.materialTypes));
         this.materialGroups.set(names(result.materialGroups));
         this.regions.set(names(result.regions));
@@ -79,15 +83,15 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
   }
 
   protected fetch(id: number): Observable<MaterialFull> {
-    return this._api.getMaterialFull(id);
+    return this._materialApi.getMaterialFull(id);
   }
 
   protected create(payload: FormData): Observable<{ id: number }> {
-    return this._api.createMaterialFull(payload);
+    return this._materialApi.createMaterialFull(payload);
   }
 
   protected update(id: number, payload: FormData): Observable<unknown> {
-    return this._api.updateMaterialFull(id, payload);
+    return this._materialApi.updateMaterialFull(id, payload);
   }
 
   protected applyLoaded(data: MaterialFull): void {

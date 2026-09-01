@@ -1,4 +1,4 @@
-import { VoiceOverFormData } from '../../../../services/admin-api.service';
+import { VoiceOverFormData } from '../../../../../../sites/admin/shared/admin-form.model';
 import { createUid, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
 
 /**

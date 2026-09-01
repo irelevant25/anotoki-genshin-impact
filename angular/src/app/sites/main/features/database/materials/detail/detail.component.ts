@@ -1,20 +1,13 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { LoaderComponent } from '../../../../../../shared/local-lib/components/loader/loader.component';
 import { TranslatePipe } from '../../../../../../shared/local-lib/i18n/translate.pipe';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { asList, versionLabel } from '../../shared/database-helpers';
+import { MaterialApiService, MaterialUsage } from '../../../../../../api';
 
 type UsageSection = 'characters_ascension' | 'characters_talent' | 'weapons_ascension' | 'weapons_refinement';
-
-interface MaterialUsage {
-  characters_ascension: any[];
-  characters_talent: any[];
-  weapons_ascension: any[];
-  weapons_refinement: any[];
-}
 
 /** Mora is spent by 111 characters and 230 weapons; the rest is behind a button. */
 const USAGE_PAGE_SIZE = 20;
@@ -26,7 +19,7 @@ const USAGE_PAGE_SIZE = 20;
   imports: [RouterModule, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseMaterialDetailComponent {
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _materialApi = inject(MaterialApiService);
   private readonly _route = inject(ActivatedRoute);
 
   material = signal<any | null>(null);
@@ -68,8 +61,8 @@ export class DatabaseMaterialDetailComponent {
             return of(null);
           }
           return forkJoin({
-            full: this._httpClient.get<any>(`/api/materials/${id}/full`),
-            usage: this._httpClient.get<MaterialUsage>(`/api/materials/${id}/usage`),
+            full: this._materialApi.getMaterialFull(Number(id)),
+            usage: this._materialApi.getMaterialUsage(Number(id)),
           });
         }),
       )

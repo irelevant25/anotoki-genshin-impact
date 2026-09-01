@@ -1,4 +1,4 @@
-import { WeaponAscensionCostFormData, WeaponAscensionFormData, WeaponFormData, WeaponRefinementFormData } from '../../services/admin-api.service';
+import { WeaponAscensionCostFormData, WeaponAscensionFormData, WeaponFormData, WeaponRefinementFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { createUid } from '../../shared/admin-full-resource.model';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { assetSuffix, assetVariant, toAssetBaseName } from '../../shared/asset-name';

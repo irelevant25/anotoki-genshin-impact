@@ -5,7 +5,7 @@ import { TextareaComponent } from '../../../../../../shared/local-lib/components
 import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';
 import { FieldContainerComponent } from '../../../../../../shared/local-lib/components/field-container/field-container.component';
 import { AUDIO_EXTENSIONS, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
-import { VoiceOverFormData } from '../../../../services/admin-api.service';
+import { VoiceOverFormData } from '../../../../../../sites/admin/shared/admin-form.model';
 
 @Component({
   selector: 'app-voice-overs-tab-item',

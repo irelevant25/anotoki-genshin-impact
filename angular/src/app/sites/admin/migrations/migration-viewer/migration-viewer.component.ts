@@ -3,7 +3,7 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { AdminApiService } from '../../services/admin-api.service';
+import { MigrationApiService } from '../../../../api';
 import { SqlToken, tokenizeSql } from '../../../../shared/local-lib/sql-highlight';
 
 /** Read-only view of a migration's SQL, opened from the migrations list. */
@@ -27,11 +27,11 @@ export class MigrationViewerComponent extends AbstractModalComponent {
   tokens = computed<SqlToken[]>(() => tokenizeSql(this.content()));
   title = computed(() => `${this.filename()} · ${this.database()}`);
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _migrationApi = inject(MigrationApiService);
 
   load(): void {
     this.loading.set(true);
-    this._api.getMigrationFile(this.database(), this.filename()).subscribe({
+    this._migrationApi.getMigrationFile({ database: this.database(), filename: this.filename() }).subscribe({
       next: (file) => {
         this.content.set(file.content ?? '');
         this.loading.set(false);

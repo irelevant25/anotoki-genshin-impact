@@ -1,4 +1,4 @@
-import { EnemyDropFormData, EnemyFormData, EnemyPhaseFormData } from '../../services/admin-api.service';
+import { EnemyDropFormData, EnemyFormData, EnemyPhaseFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { createUid } from '../../shared/admin-full-resource.model';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { assetSuffix, toAssetBaseName } from '../../shared/asset-name';

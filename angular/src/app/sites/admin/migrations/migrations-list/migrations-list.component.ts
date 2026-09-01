@@ -3,7 +3,7 @@ import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { AdminApiService, MigrationEntry } from '../../services/admin-api.service';
+import { MigrationApiService, MigrationEntry } from '../../../../api';
 import { MigrationViewerComponent } from '../migration-viewer/migration-viewer.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class MigrationsListComponent extends AbstractModalComponent implements O
 
   pendingCount = computed(() => this.migrations().filter((migration) => migration.status === 'pending').length);
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _migrationApi = inject(MigrationApiService);
 
   ngOnInit(): void {
     this.load();
@@ -36,7 +36,7 @@ export class MigrationsListComponent extends AbstractModalComponent implements O
   load(): void {
     this.loading.set(true);
     this.error.set(undefined);
-    this._api.getMigrations().subscribe({
+    this._migrationApi.getMigrations().subscribe({
       next: (data) => {
         this.migrations.set(data ?? []);
         this.loading.set(false);

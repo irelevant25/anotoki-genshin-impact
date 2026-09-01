@@ -1,7 +1,7 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { takeUntil } from 'rxjs';
-import { AdminApiService, FeedbackEntry, FeedbackFilters } from '../services/admin-api.service';
+import { FeedbackApiService, Feedback, FeedbackFilters } from '../../../api';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
@@ -25,10 +25,10 @@ import { FeedbackViewerComponent } from './feedback-viewer/feedback-viewer.compo
   imports: [DatePipe, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent],
 })
 export class FeedbackComponent extends AbstractModalComponent implements OnInit {
-  private readonly _api = inject(AdminApiService);
+  private readonly _feedbackApi = inject(FeedbackApiService);
   private readonly _roles = inject(RoleService);
 
-  readonly items = signal<FeedbackEntry[]>([]);
+  readonly items = signal<Feedback[]>([]);
   readonly total = signal(0);
   readonly page = signal(1);
   readonly pageSize = signal(25);
@@ -81,8 +81,8 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
 
   load(): void {
     this.busy.set(true);
-    this._api
-      .getFeedback({
+    this._feedbackApi
+      .getFeedbackPage({
         page: this.page(),
         type: String(this.filterType() ?? ''),
         status: String(this.filterStatus() ?? ''),
@@ -124,7 +124,7 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
     this.load();
   }
 
-  view(entry: FeedbackEntry): void {
+  view(entry: Feedback): void {
     const modal = this.openModal<FeedbackViewerComponent>(FeedbackViewerComponent, { size: '4', scrollable: true });
     modal.componentInstance.entry.set(entry);
     modal.componentInstance.statuses.set(this.canManage ? this.statusOptions() : []);
@@ -154,7 +154,7 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
   }
 
   delete(id: number): void {
-    this._api.deleteFeedback(id).subscribe({
+    this._feedbackApi.deleteFeedbackEntry(id).subscribe({
       next: () => {
         this.deleteConfirm.set(null);
         this.notificationService.showSuccess('Deleted');
@@ -169,7 +169,7 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
   }
 
   /** The title, or the opening of whichever text field this type filled in. */
-  summaryOf(entry: FeedbackEntry): string {
+  summaryOf(entry: Feedback): string {
     if (entry.title) {
       return entry.title;
     }
@@ -177,15 +177,15 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
     return body ? body.slice(0, 70) + (body.length > 70 ? '…' : '') : '—';
   }
 
-  senderOf(entry: FeedbackEntry): string {
+  senderOf(entry: Feedback): string {
     if (entry.username) {
       return entry.email ? `${entry.username} (${entry.email})` : entry.username;
     }
     return entry.email || 'Anonymous';
   }
 
-  private _setStatus(entry: FeedbackEntry, status: string): void {
-    this._api.setFeedbackStatus(entry.id, status).subscribe({
+  private _setStatus(entry: Feedback, status: Feedback['status']): void {
+    this._feedbackApi.updateFeedbackStatus(entry.id, { status }).subscribe({
       next: () => {
         this.items.update((items) => items.map((item) => (item.id === entry.id ? { ...item, status } : item)));
         this._loadFilters();
@@ -195,7 +195,7 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
   }
 
   private _loadFilters(): void {
-    this._api.getFeedbackFilters().subscribe({
+    this._feedbackApi.getFeedbackFilters().subscribe({
       next: (filters) => this.filters.set(filters),
       error: () => undefined,
     });

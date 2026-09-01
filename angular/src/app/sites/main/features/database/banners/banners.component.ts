@@ -1,7 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { OptionsHelperService } from '../../../../../shared/local-lib/services/options-helper.service';
-import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
@@ -11,6 +10,7 @@ import { LoaderComponent } from '../../../../../shared/local-lib/components/load
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildVersionOptions, isChosen, matchesTerm } from '../shared/database-helpers';
 import { asOption, asText, bindFiltersToUrl } from '../shared/filter-url';
+import { BannerApiService, CharacterApiService, WeaponApiService } from '../../../../../api';
 
 @Component({
   selector: 'app-database-banners',
@@ -57,7 +57,9 @@ export class DatabaseBannersComponent {
   });
 
   readonly optionsHelperService = inject(OptionsHelperService);
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _bannerApi = inject(BannerApiService);
+  private readonly _characterApi = inject(CharacterApiService);
+  private readonly _weaponApi = inject(WeaponApiService);
 
   constructor() {
     // The filters go in the URL, so coming back from a detail page finds the
@@ -71,9 +73,9 @@ export class DatabaseBannersComponent {
     // The three lists do not depend on one another - only the merge below does -
     // so they go out together rather than one after the next.
     forkJoin({
-      characters: this._httpClient.get<any[]>('/api/characters'),
-      weapons: this._httpClient.get<any[]>('/api/weapons'),
-      banners: this._httpClient.get<any[]>('/api/banners/full'),
+      characters: this._characterApi.getCharacters(),
+      weapons: this._weaponApi.getWeapons(),
+      banners: this._bannerApi.getBannersFull(),
     }).subscribe({
       next: ({ characters, weapons, banners }) => {
         this.characters.set(characters);

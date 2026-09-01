@@ -3,7 +3,7 @@ import { ButtonComponent } from '../../../../../shared/local-lib/components/butt
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
-import { Material } from '../../../../../shared/models.generated';
+import { Audited, Material } from '../../../../../api';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { emptyRecipe, RecipeWrapper } from '../food-form.model';
 
@@ -15,7 +15,7 @@ import { emptyRecipe, RecipeWrapper } from '../food-form.model';
 })
 export class RecipeTabComponent {
   recipe = model<RecipeWrapper[]>([]);
-  materials = input<Material[]>([]);
+  materials = input<Audited<Material>[]>([]);
 
   materialOptions = computed<DropdownOption[]>(() => this.materials().map((material) => ({ key: material.id ?? -1, value: material.name, data: material })));
 

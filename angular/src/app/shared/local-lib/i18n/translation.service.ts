@@ -1,21 +1,20 @@
 import { Injectable, PLATFORM_ID, computed, effect, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
 import { LocalStorageService } from '../services/local-storage.service';
 import { SecurityService } from '../services/security.service';
+import { AuthApiService, Language, LanguageApiService, TranslationApiService } from '../../../api';
 
-/** A language the site can be read in, as the API describes it. */
-export interface SiteLanguage {
-  code: string;
-  name: string;
-  /** The language as its own speakers write it - what a chooser should show. */
-  native_name: string;
-  enabled: boolean;
-  sort_order: number;
-}
+/**
+ * A language the site can be read in.
+ *
+ * The `languages` row itself, under the name this service has always used
+ * for it. `native_name` is the language as its own speakers write it, which
+ * is what a chooser should show.
+ */
+export type SiteLanguage = Language;
 
 /**
  * What everything falls back to. The server merges English underneath every
@@ -53,7 +52,9 @@ export class TranslationService {
   private readonly _platformId = inject(PLATFORM_ID);
   private readonly _browser = isPlatformBrowser(this._platformId);
   private readonly _storage = inject(LocalStorageService);
-  private readonly _http = inject(HttpClient);
+  private readonly _languageApi = inject(LanguageApiService);
+  private readonly _translationApi = inject(TranslationApiService);
+  private readonly _authApi = inject(AuthApiService);
   private readonly _router = inject(Router);
   private readonly _security = inject(SecurityService);
 
@@ -175,7 +176,7 @@ export class TranslationService {
 
   private async _loadFromServer(): Promise<void> {
     try {
-      const languages = await firstValueFrom(this._http.get<SiteLanguage[]>('/api/languages'));
+      const languages = await firstValueFrom(this._languageApi.getLanguages());
       this._languages.set(languages);
       await this._loadBundle(this._resolve(languages));
     } catch {
@@ -187,9 +188,7 @@ export class TranslationService {
   /** True when the strings for `code` are now in force. */
   private async _loadBundle(code: string): Promise<boolean> {
     try {
-      const bundle = await firstValueFrom(
-        this._http.get<{ language: string; values: Record<string, string> }>(`/api/translations/${code}`),
-      );
+      const bundle = await firstValueFrom(this._translationApi.getTranslations(code));
       // The server has the last word on which language answered: asking for
       // one that has been retired gets the fallback back instead.
       this.language.set(bundle.language);
@@ -287,7 +286,7 @@ export class TranslationService {
     if (!this._signedIn) {
       return;
     }
-    this._http.put('/api/auth/language', { language: code }).subscribe({
+    this._authApi.setLanguage({ language: code }).subscribe({
       // A failed save is not worth interrupting anyone over: the choice still
       // applies here and is remembered on this device.
       error: () => undefined,

@@ -1,6 +1,7 @@
 import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { IdNameEntry, RelationshipFormData } from '../../../services/admin-api.service';
+import { IdNameEntry } from '../../../../../api';
+import { RelationshipFormData } from '../../../shared/admin-form.model';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
@@ -12,6 +13,7 @@ import { ChipsComponent } from '../../../../../shared/local-lib/components/chips
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { characterImageName, CharacterImageField, CharacterWrapper, emptyCharacter, revokePicked } from '../character-form.model';
+import { toStringArray } from '../../../../../sites/admin/shared/admin-full-resource.model';
 
 interface ImageFieldConfig {
   field: CharacterImageField;
@@ -82,9 +84,9 @@ export class BaseInfoTabComponent {
   foodOptions = computed<DropdownOption[]>(() => this.foods().map((food) => ({ key: food.id, value: food.name })));
 
   /** Newline-separated editing surfaces for the JSONB string-array columns. */
-  howToObtainText = computed(() => (this.character().data.how_to_obtain ?? []).join('\n'));
-  affiliationsText = computed(() => (this.character().data.affiliations ?? []).join('\n'));
-  namecardSourcesText = computed(() => (this.character().data.namecard_sources ?? []).join('\n'));
+  howToObtainText = computed(() => toStringArray(this.character().data.how_to_obtain).join('\n'));
+  affiliationsText = computed(() => toStringArray(this.character().data.affiliations).join('\n'));
+  namecardSourcesText = computed(() => toStringArray(this.character().data.namecard_sources).join('\n'));
 
   // ── Images ──────────────────────────────────────────────────────────────────
 

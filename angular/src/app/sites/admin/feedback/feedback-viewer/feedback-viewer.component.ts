@@ -3,10 +3,10 @@ import { DatePipe } from '@angular/common';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { AdminApiService, FeedbackEntry } from '../../services/admin-api.service';
+import { FeedbackApiService, Feedback } from '../../../../api';
 
 /** The long-text fields, in reading order, with what to call each one. */
-const DETAIL_FIELDS: { field: keyof FeedbackEntry; label: string }[] = [
+const DETAIL_FIELDS: { field: keyof Feedback; label: string }[] = [
   { field: 'message', label: 'Message' },
   { field: 'details', label: 'Details' },
   { field: 'why_important', label: 'Why it matters' },
@@ -30,11 +30,11 @@ const DETAIL_FIELDS: { field: keyof FeedbackEntry; label: string }[] = [
   imports: [DatePipe, ModalComponent, ButtonComponent],
 })
 export class FeedbackViewerComponent extends AbstractModalComponent {
-  private readonly _api = inject(AdminApiService);
+  private readonly _feedbackApi = inject(FeedbackApiService);
 
   /** Set by the opener before the modal renders. */
-  readonly entry = signal<FeedbackEntry | null>(null);
-  readonly statuses = signal<string[]>([]);
+  readonly entry = signal<Feedback | null>(null);
+  readonly statuses = signal<Feedback['status'][]>([]);
 
   /** True once the status was changed, so the list knows to reload. */
   private _changed = false;
@@ -70,13 +70,13 @@ export class FeedbackViewerComponent extends AbstractModalComponent {
     return entry.email || 'Anonymous';
   });
 
-  setStatus(status: string): void {
+  setStatus(status: Feedback['status']): void {
     const entry = this.entry();
     if (!entry || entry.status === status) {
       return;
     }
 
-    this._api.setFeedbackStatus(entry.id, status).subscribe({
+    this._feedbackApi.updateFeedbackStatus(entry.id, { status }).subscribe({
       next: () => {
         this.entry.update((current) => (current ? { ...current, status } : current));
         this._changed = true;

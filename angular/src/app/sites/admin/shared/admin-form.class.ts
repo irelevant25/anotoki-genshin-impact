@@ -2,11 +2,11 @@ import { computed, Directive, ElementRef, inject, QueryList, signal, ViewChild, 
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
 import { AbstractInputComponent } from '../../../shared/local-lib/abstract-input.class';
-import { AdminApiService } from '../services/admin-api.service';
 import { PickedImage } from './image-upload/image-upload.component';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
 import { TabsComponent } from '../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../shared/local-lib/components/tabs/tab/tab.component';
+import { FileApiService, toFormData } from '../../../api';
 
 /** An image picked but not yet sent, and where to put the result. */
 export interface PendingImage {
@@ -52,7 +52,7 @@ export abstract class AdminFormComponent<TFull> {
   backLink = computed(() => (this.isEdit() ? '../..' : '..'));
 
   protected readonly notify = inject(NotificationService);
-  private readonly _uploadApi = inject(AdminApiService);
+  private readonly _fileApi = inject(FileApiService);
   protected readonly route = inject(ActivatedRoute);
   protected readonly router = inject(Router);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
@@ -149,12 +149,14 @@ export abstract class AdminFormComponent<TFull> {
     }
     return forkJoin(
       pending.map((entry) =>
-        this._uploadApi.uploadImage(entry.entity, entry.field, entry.picked.file, entry.name).pipe(
-          switchMap((result) => {
-            entry.apply(result.path, result.name);
-            return of(result);
-          })
-        )
+        this._fileApi
+          .uploadEntityFile(entry.entity, entry.field, toFormData({ file: entry.picked.file, name: entry.name }))
+          .pipe(
+            switchMap((result) => {
+              entry.apply(result.path, result.name);
+              return of(result);
+            })
+          )
       )
     );
   }

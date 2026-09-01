@@ -1,11 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { LoaderComponent } from '../../../../../../shared/local-lib/components/loader/loader.component';
 import { TranslatePipe } from '../../../../../../shared/local-lib/i18n/translate.pipe';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { asList, versionLabel } from '../../shared/database-helpers';
+import { CharacterApiService, MaterialApiService } from '../../../../../../api';
 import { CharacterAscensionsTabComponent } from './tabs/ascensions/ascensions-tab.component';
 import { CharacterTalentsTabComponent } from './tabs/talents/talents-tab.component';
 import { CharacterConstellationsTabComponent } from './tabs/constellations/constellations-tab.component';
@@ -30,7 +30,8 @@ type CharacterTab = 'ascensions' | 'talents' | 'constellations' | 'build' | 'voi
   ],
 })
 export class DatabaseCharacterDetailComponent {
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _characterApi = inject(CharacterApiService);
+  private readonly _materialApi = inject(MaterialApiService);
   private readonly _route = inject(ActivatedRoute);
 
   character = signal<any | null>(null);
@@ -85,8 +86,8 @@ export class DatabaseCharacterDetailComponent {
           }
           // Costs name a material by id only, so the material list comes along.
           return forkJoin({
-            full: this._httpClient.get<any>(`/api/characters/${id}/full`),
-            materials: this._httpClient.get<any[]>('/api/materials'),
+            full: this._characterApi.getCharacterFull(Number(id)),
+            materials: this._materialApi.getMaterials(),
           });
         }),
       )
@@ -108,7 +109,11 @@ export class DatabaseCharacterDetailComponent {
 
           const costsByAscension = new Map<number, any[]>();
           for (const cost of full.ascension_cost ?? []) {
-            costsByAscension.set(cost.character_ascension_id, [...(costsByAscension.get(cost.character_ascension_id) ?? []), withMaterial(cost)]);
+            const phase = cost.character_ascension_id;
+            if (phase === undefined) {
+              continue;
+            }
+            costsByAscension.set(phase, [...(costsByAscension.get(phase) ?? []), withMaterial(cost)]);
           }
           this.ascensions.set(
             [...(full.ascensions ?? [])]

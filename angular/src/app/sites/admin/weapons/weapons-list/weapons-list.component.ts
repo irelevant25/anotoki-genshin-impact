@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AdminApiService } from '../../services/admin-api.service';
+import { WeaponApiService } from '../../../../api';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
@@ -52,18 +52,18 @@ export class WeaponsListComponent extends AdminListComponent<any> implements OnI
       (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== '')
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _weaponApi = inject(WeaponApiService);
 
   ngOnInit(): void {
     this.load();
   }
 
   protected fetch(): Observable<any[]> {
-    return this._api.getWeapons();
+    return this._weaponApi.getWeapons();
   }
 
   protected remove(id: number): Observable<unknown> {
-    return this._api.deleteWeapon(id);
+    return this._weaponApi.deleteWeapon(id);
   }
 
   resetFilters(): void {

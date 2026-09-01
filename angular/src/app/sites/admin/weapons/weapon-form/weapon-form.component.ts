@@ -5,8 +5,8 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
-import { Material } from '../../../../shared/models.generated';
-import { AdminApiService, WeaponFull } from '../../services/admin-api.service';
+import { Audited, Material } from '../../../../api';
+import { LookupApiService, MaterialApiService, StatApiService, WeaponApiService, WeaponFull } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
 import { buildFullFormData, createUid, revokeAllPicked, toNumber, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
@@ -40,9 +40,12 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
   weaponTypes = signal<string[]>([]);
   rarities = signal<string[]>([]);
   stats = signal<string[]>([]);
-  materials = signal<Material[]>([]);
+  materials = signal<Audited<Material>[]>([]);
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _lookupApi = inject(LookupApiService);
+  private readonly _materialApi = inject(MaterialApiService);
+  private readonly _statApi = inject(StatApiService);
+  private readonly _weaponApi = inject(WeaponApiService);
 
   ngOnInit(): void {
     this._loadLookups();
@@ -56,13 +59,15 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
   private _loadLookups(): void {
     this.loadingLookups.set(true);
     forkJoin({
-      weaponTypes: this._api.getWeaponTypes(),
-      rarities: this._api.getRarities(),
-      stats: this._api.getStats(),
-      materials: this._api.getMaterials(),
+      weaponTypes: this._lookupApi.getWeaponTypes(),
+      rarities: this._lookupApi.getRarities(),
+      stats: this._statApi.getStats(),
+      materials: this._materialApi.getMaterials(),
     }).subscribe({
       next: (result) => {
-        const names = (entries: { name: string }[]) => entries.map((entry) => entry.name);
+        // `rarities.name` is a SMALLINT, so this list is the one place a lookup
+        // answers with numbers rather than text.
+        const names = (entries: { name: string | number }[]) => entries.map((entry) => String(entry.name));
         this.weaponTypes.set(names(result.weaponTypes));
         this.rarities.set(names(result.rarities).sort().reverse());
         this.stats.set(names(result.stats));
@@ -77,15 +82,15 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
   }
 
   protected fetch(id: number): Observable<WeaponFull> {
-    return this._api.getWeaponFull(id);
+    return this._weaponApi.getWeaponFull(id);
   }
 
   protected create(payload: FormData): Observable<{ id: number }> {
-    return this._api.createWeaponFull(payload);
+    return this._weaponApi.createWeaponFull(payload);
   }
 
   protected update(id: number, payload: FormData): Observable<unknown> {
-    return this._api.updateWeaponFull(id, payload);
+    return this._weaponApi.updateWeaponFull(id, payload);
   }
 
   protected applyLoaded(data: WeaponFull): void {

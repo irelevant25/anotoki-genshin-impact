@@ -1,9 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { QuizAudioPlayerComponent } from '../shared/audio-player/audio-player.component';
 import { CharacterQuizComponent } from '../shared/character-quiz.class';
 import { QuizFrameComponent } from '../shared/quiz-frame/quiz-frame.component';
 import { QuizId, QuizState } from '../shared/quiz.types';
+import { QuizApiService } from '../../../../../api';
 
 /**
  * Guess the character from one of their voice lines.
@@ -37,6 +38,8 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
   /** Seconds the player may reveal. Undefined once it is over: play it all. */
   readonly limit = computed(() => (this.isQuestionComplete() ? undefined : this.currentEffect()?.data));
 
+  private readonly _quizApi = inject(QuizApiService);
+
   constructor() {
     super();
     this.load();
@@ -44,7 +47,7 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
 
   /** The server has already excluded the travellers and the unanswerable lines. */
   protected override newQuestion(): void {
-    this.httpClient.get<any>('/api/quiz/voice-over/random').subscribe({
+    this._quizApi.getRandomVoiceOverRound().subscribe({
       next: (voiceOver) => {
         this.voiceOver.set(voiceOver);
         this.questionEntity.set(this.characters().find((character) => character.name === voiceOver.character_name) ?? null);
@@ -67,7 +70,7 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
     }
 
     // The line itself has to come back from the server; only its id was kept.
-    this.httpClient.get<any>(`/api/characters-voice-overs/${saved.voiceOverId}`).subscribe({
+    this.characterApi.getCharacterVoiceOver(saved.voiceOverId).subscribe({
       next: (voiceOver) => {
         this.voiceOver.set(voiceOver);
         this.difficulty.set(saved.difficulty);

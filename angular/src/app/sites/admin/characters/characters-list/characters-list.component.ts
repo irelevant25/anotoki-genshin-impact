@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AdminApiService } from '../../services/admin-api.service';
+import { CharacterApiService } from '../../../../api';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
@@ -99,7 +99,7 @@ export class CharactersListComponent implements OnInit {
       (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== '')
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _characterApi = inject(CharacterApiService);
   private readonly _notify = inject(NotificationService);
 
   ngOnInit(): void {
@@ -108,7 +108,7 @@ export class CharactersListComponent implements OnInit {
 
   load(): void {
     this.loading.set(true);
-    this._api.getCharacters().subscribe({
+    this._characterApi.getCharacters().subscribe({
       next: (data) => {
         this.characters.set(data);
         this.loading.set(false);
@@ -139,7 +139,7 @@ export class CharactersListComponent implements OnInit {
   }
 
   delete(id: number): void {
-    this._api.deleteCharacter(id).subscribe({
+    this._characterApi.deleteCharacter(id).subscribe({
       next: () => {
         this.deleteConfirm.set(null);
         this.load();

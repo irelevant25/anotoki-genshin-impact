@@ -5,7 +5,7 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
-import { AdminApiService, ArtifactFull } from '../../services/admin-api.service';
+import { ArtifactApiService, LookupApiService, ArtifactFull } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
 import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toStringArray } from '../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../shared/asset-name';
@@ -28,7 +28,8 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
 
   pieceTypes = signal<string[]>([]);
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _artifactApi = inject(ArtifactApiService);
+  private readonly _lookupApi = inject(LookupApiService);
 
   ngOnInit(): void {
     this._loadLookups();
@@ -41,7 +42,7 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
 
   private _loadLookups(): void {
     this.loadingLookups.set(true);
-    forkJoin({ pieceTypes: this._api.getArtifactPieceTypes() }).subscribe({
+    forkJoin({ pieceTypes: this._lookupApi.getArtifactPieceTypes() }).subscribe({
       next: (result) => {
         this.pieceTypes.set(result.pieceTypes.map((entry) => entry.name));
         this.loadingLookups.set(false);
@@ -54,15 +55,15 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
   }
 
   protected fetch(id: number): Observable<ArtifactFull> {
-    return this._api.getArtifactFull(id);
+    return this._artifactApi.getArtifactFull(id);
   }
 
   protected create(payload: FormData): Observable<{ id: number }> {
-    return this._api.createArtifactFull(payload);
+    return this._artifactApi.createArtifactFull(payload);
   }
 
   protected update(id: number, payload: FormData): Observable<unknown> {
-    return this._api.updateArtifactFull(id, payload);
+    return this._artifactApi.updateArtifactFull(id, payload);
   }
 
   protected applyLoaded(data: ArtifactFull): void {

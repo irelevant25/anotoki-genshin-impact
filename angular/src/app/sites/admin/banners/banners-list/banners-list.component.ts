@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AdminApiService } from '../../services/admin-api.service';
+import { BannerApiService } from '../../../../api';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
@@ -37,18 +37,18 @@ export class BannersListComponent extends AdminListComponent<any> implements OnI
     () => !!String(this.filterId() ?? '').trim() || !!String(this.filterName() ?? '').trim() || (this.filterVersions() ?? []).length > 0
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _bannerApi = inject(BannerApiService);
 
   ngOnInit(): void {
     this.load();
   }
 
   protected fetch(): Observable<any[]> {
-    return this._api.getBanners();
+    return this._bannerApi.getBanners();
   }
 
   protected remove(id: number): Observable<unknown> {
-    return this._api.deleteBanner(id);
+    return this._bannerApi.deleteBanner(id);
   }
 
   /** Banner art has no column; it is named "{version} - {name}". */

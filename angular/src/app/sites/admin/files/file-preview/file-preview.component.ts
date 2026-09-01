@@ -3,7 +3,7 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { AudioPlayerComponent } from '../../../../shared/local-lib/components/audio-player/audio-player.component';
-import { AssetFile } from '../../services/admin-api.service';
+import { AssetFile } from '../../../../api';
 
 export const PREVIEWABLE_IMAGES = ['avif', 'png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'];
 export const PLAYABLE_AUDIO = ['ogg', 'mp3', 'wav', 'opus', 'm4a', 'aac', 'flac'];

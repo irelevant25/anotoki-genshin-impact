@@ -12,15 +12,9 @@ import { VoiceOversTabComponent } from './voice-overs/voice-overs-tab.component'
 import { ConstellationsTabComponent } from './constellations/constellations-tab.component';
 import { AscensionsTabComponent } from './ascensions/ascensions-tab.component';
 import { TalentsTabComponent } from './talents/talents-tab.component';
-import {
-  AdminApiService,
-  AscensionCostFormData,
-  CharacterFullPayload,
-  IdNameEntry,
-  RelationshipFormData,
-  TalentCostFormData,
-} from '../../services/admin-api.service';
-import { Material } from '../../../../shared/models.generated';
+import { CharacterApiService, FileApiService, FoodApiService, LookupApiService, MaterialApiService, StatApiService, IdNameEntry } from '../../../../api';
+import { AscensionCostFormData, CharacterFullPayload, RelationshipFormData, TalentCostFormData } from '../../../../sites/admin/shared/admin-form.model';
+import { Audited, Material, toFormData } from '../../../../api';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { PendingImage } from '../../shared/admin-form.class';
 import { toAssetBaseName } from '../../shared/asset-name';
@@ -80,7 +74,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
   talentTypes = signal<string[]>([]);
   relationshipTypes = signal<string[]>([]);
   stats = signal<string[]>([]);
-  materials = signal<Material[]>([]);
+  materials = signal<Audited<Material>[]>([]);
   elements = signal<string[]>([]);
   weaponTypes = signal<string[]>([]);
   models = signal<string[]>([]);
@@ -99,7 +93,12 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
   pageTitle = computed(() => (this.isEdit() ? 'Edit Character' : 'Create Character'));
   backLink = computed(() => (this.isEdit() ? '../..' : '..'));
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _characterApi = inject(CharacterApiService);
+  private readonly _fileApi = inject(FileApiService);
+  private readonly _foodApi = inject(FoodApiService);
+  private readonly _lookupApi = inject(LookupApiService);
+  private readonly _materialApi = inject(MaterialApiService);
+  private readonly _statApi = inject(StatApiService);
   private readonly _notify = inject(NotificationService);
   private readonly _route = inject(ActivatedRoute);
   private readonly _router = inject(Router);
@@ -126,22 +125,24 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
   private _loadLookups(): void {
     this.loadingLookups.set(true);
     forkJoin({
-      regions: this._api.getRegions(),
-      roles: this._api.getRoles(),
-      talentTypes: this._api.getTalentTypes(),
-      relationshipTypes: this._api.getRelationshipTypes(),
-      stats: this._api.getStats(),
-      materials: this._api.getMaterials(),
-      elements: this._api.getElements(),
-      weaponTypes: this._api.getWeaponTypes(),
-      models: this._api.getModels(),
-      voiceOverTypes: this._api.getVoiceOverTypes(),
-      characterStates: this._api.getCharacterStates(),
-      rarities: this._api.getRarities(),
-      foods: this._api.getFoods(),
+      regions: this._lookupApi.getRegions(),
+      roles: this._lookupApi.getRoles(),
+      talentTypes: this._lookupApi.getTalentTypes(),
+      relationshipTypes: this._lookupApi.getRelationshipTypes(),
+      stats: this._statApi.getStats(),
+      materials: this._materialApi.getMaterials(),
+      elements: this._lookupApi.getElements(),
+      weaponTypes: this._lookupApi.getWeaponTypes(),
+      models: this._lookupApi.getCharacterModels(),
+      voiceOverTypes: this._lookupApi.getVoiceOverTypes(),
+      characterStates: this._lookupApi.getCharacterStates(),
+      rarities: this._lookupApi.getRarities(),
+      foods: this._foodApi.getFoods(),
     }).subscribe({
       next: (result) => {
-        const names = (entries: { name: string }[]) => entries.map((entry) => entry.name);
+        // `rarities.name` is a SMALLINT, so this list is the one place a lookup
+        // answers with numbers rather than text.
+        const names = (entries: { name: string | number }[]) => entries.map((entry) => String(entry.name));
         this.regions.set(names(result.regions));
         this.roles.set(names(result.roles));
         this.talentTypes.set(names(result.talentTypes));
@@ -167,7 +168,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
   private _loadCharacter(id: number): void {
     this._revokePreviews();
     this.loadingCharacter.set(true);
-    this._api.getCharacterFull(id).subscribe({
+    this._characterApi.getCharacterFull(id).subscribe({
       next: (data) => {
         this.character.set({
           data: {
@@ -219,7 +220,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
         switchMap(() => {
           const payload = this._buildFormData();
           const id = this.characterId();
-          return this.isEdit() && id !== null ? this._api.updateCharacterFull(id, payload) : this._api.createCharacterFull(payload);
+          return this.isEdit() && id !== null ? this._characterApi.updateCharacterFull(id, payload) : this._characterApi.createCharacterFull(payload);
         })
       )
       .subscribe({
@@ -247,7 +248,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     }
     return forkJoin(
       pending.map((entry) =>
-        this._api.uploadImage(entry.entity, entry.field, entry.picked.file, entry.name).pipe(
+        this._fileApi.uploadEntityFile(entry.entity, entry.field, toFormData({ file: entry.picked.file, name: entry.name })).pipe(
           switchMap((result) => {
             entry.apply(result.path, result.name);
             return of(result);

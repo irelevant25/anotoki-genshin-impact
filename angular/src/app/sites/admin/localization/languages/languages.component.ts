@@ -1,6 +1,6 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AdminApiService, SiteLanguage } from '../../services/admin-api.service';
+import { LanguageApiService, Language } from '../../../../api';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
@@ -28,10 +28,10 @@ interface DraftLanguage {
   imports: [FormsModule, ButtonComponent, LoaderComponent],
 })
 export class LanguagesComponent implements OnInit {
-  private readonly _api = inject(AdminApiService);
+  private readonly _languageApi = inject(LanguageApiService);
   private readonly _notify = inject(NotificationService);
 
-  readonly languages = signal<SiteLanguage[]>([]);
+  readonly languages = signal<Language[]>([]);
   readonly loading = signal(false);
   readonly saving = signal(false);
   readonly deleteConfirm = signal<string | null>(null);
@@ -52,7 +52,7 @@ export class LanguagesComponent implements OnInit {
   load(): void {
     this.loading.set(true);
     // Disabled languages included: this page is where they are switched back on.
-    this._api.getLanguages(true).subscribe({
+    this._languageApi.getLanguages({ all: 1 }).subscribe({
       next: (languages) => {
         this.languages.set(languages);
         this.loading.set(false);
@@ -74,7 +74,7 @@ export class LanguagesComponent implements OnInit {
     }
     const draft = this.draft();
     this.saving.set(true);
-    this._api
+    this._languageApi
       .createLanguage({
         code: draft.code.trim().toLowerCase(),
         name: draft.name.trim(),
@@ -94,12 +94,12 @@ export class LanguagesComponent implements OnInit {
       });
   }
 
-  rename(language: SiteLanguage, field: 'name' | 'native_name', value: string): void {
+  rename(language: Language, field: 'name' | 'native_name', value: string): void {
     const trimmed = value.trim();
     if (!trimmed || trimmed === language[field]) {
       return;
     }
-    this._api.updateLanguage(language.code, { [field]: trimmed }).subscribe({
+    this._languageApi.updateLanguage(language.code, { [field]: trimmed }).subscribe({
       next: () => this.load(),
       error: (e) => {
         this.load();
@@ -108,12 +108,12 @@ export class LanguagesComponent implements OnInit {
     });
   }
 
-  reorder(language: SiteLanguage, value: string): void {
+  reorder(language: Language, value: string): void {
     const order = Number(value);
     if (!Number.isFinite(order) || order === language.sort_order) {
       return;
     }
-    this._api.updateLanguage(language.code, { sort_order: order }).subscribe({
+    this._languageApi.updateLanguage(language.code, { sort_order: order }).subscribe({
       next: () => this.load(),
       error: (e) => {
         this.load();
@@ -122,8 +122,8 @@ export class LanguagesComponent implements OnInit {
     });
   }
 
-  toggleEnabled(language: SiteLanguage): void {
-    this._api.updateLanguage(language.code, { enabled: !language.enabled }).subscribe({
+  toggleEnabled(language: Language): void {
+    this._languageApi.updateLanguage(language.code, { enabled: !language.enabled }).subscribe({
       next: () => {
         this.load();
         this._notify.showSuccess(language.enabled ? `${language.name} hidden from the site` : `${language.name} is now offered on the site`);
@@ -144,7 +144,7 @@ export class LanguagesComponent implements OnInit {
   }
 
   delete(code: string): void {
-    this._api.deleteLanguage(code).subscribe({
+    this._languageApi.deleteLanguage(code).subscribe({
       next: (result) => {
         this.deleteConfirm.set(null);
         this.load();

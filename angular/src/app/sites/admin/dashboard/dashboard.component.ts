@@ -1,7 +1,7 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { AdminApiService, DashboardStats } from '../services/admin-api.service';
+import { DashboardApiService, DashboardStats } from '../../../api';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
 
@@ -20,7 +20,7 @@ import { LoaderComponent } from '../../../shared/local-lib/components/loader/loa
   imports: [DatePipe, RouterLink, LoaderComponent],
 })
 export class DashboardComponent implements OnInit {
-  private readonly _api = inject(AdminApiService);
+  private readonly _dashboardApi = inject(DashboardApiService);
   private readonly _notify = inject(NotificationService);
 
   readonly stats = signal<DashboardStats | null>(null);
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
 
   load(): void {
     this.loading.set(true);
-    this._api.getDashboardStats().subscribe({
+    this._dashboardApi.getDashboardStats().subscribe({
       next: (stats) => {
         this.stats.set(stats);
         this.loading.set(false);

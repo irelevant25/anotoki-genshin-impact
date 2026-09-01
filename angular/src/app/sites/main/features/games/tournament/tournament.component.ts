@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
@@ -8,6 +7,7 @@ import { TranslationService } from '../../../../../shared/local-lib/i18n/transla
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { shuffle, Tournament, TOURNAMENT_SIZES, TournamentFormat } from './tournament.class';
+import { CharacterApiService } from '../../../../../api';
 
 /** How long a chosen face stays lit before the next pair comes up. */
 const PICK_PAUSE_MS = 450;
@@ -28,7 +28,7 @@ const PICK_PAUSE_MS = 450;
   imports: [ButtonComponent, DropdownComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class GamesTournamentComponent {
-  private readonly _httpClient = inject(HttpClient);
+  private readonly _characterApi = inject(CharacterApiService);
   private readonly _i18n = inject(TranslationService);
 
   readonly loading = signal(true);
@@ -103,7 +103,7 @@ export class GamesTournamentComponent {
   readonly champion = computed(() => (this.placings().length === 1 ? this.placings()[0].entrant : null));
 
   constructor() {
-    this._httpClient.get<any[]>('/api/characters/minimal').subscribe({
+    this._characterApi.getCharactersMinimal().subscribe({
       next: (characters) => {
         // Travellers are left out for the same reason as everywhere else: one
         // character across twelve rows would meet themselves in the bracket.

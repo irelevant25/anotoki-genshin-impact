@@ -2,14 +2,7 @@ import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { assetVariant, toAssetBaseName } from '../../shared/asset-name';
 
 export { revokePicked } from '../../shared/admin-full-resource.model';
-import {
-  AscensionCostFormData,
-  AscensionFormData,
-  CharacterFormData,
-  ConstellationFormData,
-  TalentFormData,
-  VoiceOverFormData,
-} from '../../services/admin-api.service';
+import { AscensionCostFormData, AscensionFormData, CharacterFormData, ConstellationFormData, TalentFormData, VoiceOverFormData } from '../../../../sites/admin/shared/admin-form.model';
 
 // ── Image / audio upload contract ─────────────────────────────────────────────
 

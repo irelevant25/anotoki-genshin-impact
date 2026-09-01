@@ -7,6 +7,7 @@
  * into the payload - see `AdminFormComponent`.
  */
 
+import { parseJsonColumn } from '../../../api';
 import type { PickedImage } from './image-upload/image-upload.component';
 
 export const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.avif', '.webp'];
@@ -55,17 +56,8 @@ export function toBoolean(value: unknown): boolean {
   return value === true || value === 1 || value === 't' || value === 'true' || value === '1';
 }
 
-/** JSONB columns arrive as raw JSON strings from PDO. */
-export function parseJsonColumn(value: unknown): unknown {
-  if (typeof value !== 'string') {
-    return value;
-  }
-  try {
-    return JSON.parse(value);
-  } catch {
-    return value;
-  }
-}
+/** Re-exported so the forms keep importing it from here. */
+export { parseJsonColumn };
 
 export function toStringArray(value: unknown): string[] {
   const parsed = parseJsonColumn(value);

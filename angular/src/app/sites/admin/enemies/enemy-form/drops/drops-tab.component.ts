@@ -6,8 +6,8 @@ import { NumberComponent } from '../../../../../shared/local-lib/components/numb
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { RadioComponent } from '../../../../../shared/local-lib/components/radio/radio.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
-import { Material } from '../../../../../shared/models.generated';
-import { ArtifactFormData } from '../../../services/admin-api.service';
+import { Artifact, Audited, Material } from '../../../../../api';
+import { ArtifactFormData } from '../../../../../sites/admin/shared/admin-form.model';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { DROP_KIND_OPTIONS, DropEntryWrapper, DropGroupWrapper, DropKind, emptyDropEntry, emptyDropGroup } from '../enemy-form.model';
 
@@ -20,8 +20,8 @@ import { DROP_KIND_OPTIONS, DropEntryWrapper, DropGroupWrapper, DropKind, emptyD
 export class DropsTabComponent {
   groups = model<DropGroupWrapper[]>([]);
 
-  materials = input<Material[]>([]);
-  artifacts = input<ArtifactFormData[]>([]);
+  materials = input<Audited<Material>[]>([]);
+  artifacts = input<Audited<Artifact>[]>([]);
   domainLevels = input<string[]>([]);
 
   readonly kindOptions = DROP_KIND_OPTIONS;

@@ -3,7 +3,7 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { PasswordComponent } from '../../../../shared/local-lib/components/password/password.component';
-import { AccountEntry, AdminApiService } from '../../services/admin-api.service';
+import { UserApiService, AdminUser } from '../../../../api';
 import { GENERATED_PASSWORD_LENGTH, randomPassword } from '../random-password';
 
 /**
@@ -20,10 +20,10 @@ import { GENERATED_PASSWORD_LENGTH, randomPassword } from '../random-password';
   imports: [ModalComponent, ButtonComponent, PasswordComponent],
 })
 export class UserPasswordComponent extends AbstractModalComponent {
-  private readonly _api = inject(AdminApiService);
+  private readonly _userApi = inject(UserApiService);
 
   /** Both set by the opener before the modal renders. */
-  readonly account = signal<AccountEntry | null>(null);
+  readonly account = signal<AdminUser | null>(null);
   readonly minLength = signal(8);
 
   readonly password = signal<string | null | undefined>('');
@@ -87,7 +87,7 @@ export class UserPasswordComponent extends AbstractModalComponent {
     }
 
     this.saving.set(true);
-    this._api.setUserPassword(account.id, String(this.password() ?? '')).subscribe({
+    this._userApi.setUserPassword(account.id, { password: String(this.password() ?? '') }).subscribe({
       next: (result) => {
         this.saving.set(false);
         this.notificationService.showSuccess(`New password set for ${account.username}. ${result.note}`);

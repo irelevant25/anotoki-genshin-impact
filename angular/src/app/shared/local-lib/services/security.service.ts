@@ -6,7 +6,7 @@ import { NotificationService } from '../components/notification/notification.ser
 import { jwtDecode } from '../jwt-decode';
 import { RoleService } from './role.service';
 import { Roles } from './options-helper.service';
-import { HttpClient } from '@angular/common/http';
+import { AuthApiService, AuthUser } from '../../../api';
 
 export interface UserInfo {
   username: string;
@@ -22,24 +22,6 @@ export interface UserInfo {
   version?: string;
   token?: string;
   created_at?: string;
-}
-
-interface MeResponse {
-  username: string;
-  email: string;
-  role: string;
-  background?: string;
-  theme_main?: string;
-  theme_admin?: string;
-  language?: string;
-  email_confirmed?: boolean;
-  version?: string;
-  created_at?: string;
-}
-
-interface LoginResponse {
-  token: string;
-  user: MeResponse;
 }
 
 const ROLE_MAP: Record<string, Roles> = {
@@ -75,7 +57,7 @@ export class SecurityService {
     private readonly _storageService: LocalStorageService,
     private readonly _notificationService: NotificationService,
     private readonly _roleService: RoleService,
-    private readonly _httpClient: HttpClient,
+    private readonly _authApi: AuthApiService,
   ) { }
 
   get accessToken(): string | undefined {
@@ -113,7 +95,7 @@ export class SecurityService {
       // Expose the token so the auth interceptor can attach it to the /me request
       this._currentUserData.next({ username: '', roles: '', token });
 
-      this._httpClient.get<MeResponse>('/api/auth/me').pipe(
+      this._authApi.getCurrentUser().pipe(
         catchError(() => {
           this._storageService.remove(this.TOKEN_KEY);
           this._currentUserData.next(null);
@@ -133,7 +115,7 @@ export class SecurityService {
    * Returns an Observable so the caller can react to success or failure.
    */
   login(email: string, password: string): Observable<void> {
-    return this._httpClient.post<LoginResponse>('/api/auth/login', { email, password }).pipe(
+    return this._authApi.login({ email, password }).pipe(
       map((res) => {
         this._storageService.write(this.TOKEN_KEY, res.token);
         this._applySession(res.user, res.token);
@@ -147,7 +129,7 @@ export class SecurityService {
     this._currentUserData.next(null);
     this._isLoggedIn.next(false);
     this._roleService.setRoles([]);
-    this._httpClient.post('/api/auth/logout', {}).subscribe({
+    this._authApi.logout({}).subscribe({
       next: () => {
         this._notificationService.showSuccess('You were successfully logged out.');
         callbackFunction?.(true);
@@ -171,17 +153,19 @@ export class SecurityService {
     }
   }
 
-  private _applySession(user: MeResponse, token: string): void {
+  private _applySession(user: AuthUser, token: string): void {
     this._currentUserData.next({
       username: user.username,
       email: user.email,
       roles: user.role,
-      background: user.background,
+      // The API says null where this shape says absent; both mean the same
+      // thing here, and the rest of the app already reads these as optional.
+      background: user.background ?? undefined,
       theme_main: user.theme_main,
       theme_admin: user.theme_admin,
       language: user.language,
       email_confirmed: user.email_confirmed,
-      version: user.version,
+      version: user.version ?? undefined,
       created_at: user.created_at,
       token,
     });

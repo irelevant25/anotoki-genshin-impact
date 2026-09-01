@@ -5,8 +5,9 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
-import { Material } from '../../../../shared/models.generated';
-import { AdminApiService, ArtifactFormData, EnemyFull } from '../../services/admin-api.service';
+import { Artifact, Audited, Material } from '../../../../api';
+import { ArtifactApiService, EnemyApiService, LookupApiService, MaterialApiService, EnemyFull } from '../../../../api';
+import { ArtifactFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
 import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toNumber, toOptionalNumber } from '../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../shared/asset-name';
@@ -35,10 +36,13 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
   enemyGroups = signal<string[]>([]);
   elements = signal<string[]>([]);
   domainLevels = signal<string[]>([]);
-  materials = signal<Material[]>([]);
-  artifacts = signal<ArtifactFormData[]>([]);
+  materials = signal<Audited<Material>[]>([]);
+  artifacts = signal<Audited<Artifact>[]>([]);
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _artifactApi = inject(ArtifactApiService);
+  private readonly _enemyApi = inject(EnemyApiService);
+  private readonly _lookupApi = inject(LookupApiService);
+  private readonly _materialApi = inject(MaterialApiService);
 
   ngOnInit(): void {
     this._loadLookups();
@@ -52,13 +56,13 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
   private _loadLookups(): void {
     this.loadingLookups.set(true);
     forkJoin({
-      enemyTypes: this._api.getEnemyTypes(),
-      enemyFamilies: this._api.getEnemyFamilies(),
-      enemyGroups: this._api.getEnemyGroups(),
-      elements: this._api.getElements(),
-      domainLevels: this._api.getDomainLevels(),
-      materials: this._api.getMaterials(),
-      artifacts: this._api.getArtifacts(),
+      enemyTypes: this._lookupApi.getEnemyTypes(),
+      enemyFamilies: this._lookupApi.getEnemyFamilies(),
+      enemyGroups: this._lookupApi.getEnemyGroups(),
+      elements: this._lookupApi.getElements(),
+      domainLevels: this._lookupApi.getDomainLevels(),
+      materials: this._materialApi.getMaterials(),
+      artifacts: this._artifactApi.getArtifacts(),
     }).subscribe({
       next: (result) => {
         const names = (entries: { name: string }[]) => entries.map((entry) => entry.name);
@@ -79,15 +83,15 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
   }
 
   protected fetch(id: number): Observable<EnemyFull> {
-    return this._api.getEnemyFull(id);
+    return this._enemyApi.getEnemyFull(id);
   }
 
   protected create(payload: FormData): Observable<{ id: number }> {
-    return this._api.createEnemyFull(payload);
+    return this._enemyApi.createEnemyFull(payload);
   }
 
   protected update(id: number, payload: FormData): Observable<unknown> {
-    return this._api.updateEnemyFull(id, payload);
+    return this._enemyApi.updateEnemyFull(id, payload);
   }
 
   protected applyLoaded(data: EnemyFull): void {

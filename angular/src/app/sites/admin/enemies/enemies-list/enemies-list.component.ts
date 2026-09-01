@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AdminApiService } from '../../services/admin-api.service';
+import { EnemyApiService } from '../../../../api';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
@@ -35,18 +35,18 @@ export class EnemiesListComponent extends AdminListComponent<any> implements OnI
     () => !!String(this.filterId() ?? '').trim() || !!String(this.filterName() ?? '').trim() || (this.filterVersions() ?? []).length > 0
   );
 
-  private readonly _api = inject(AdminApiService);
+  private readonly _enemyApi = inject(EnemyApiService);
 
   ngOnInit(): void {
     this.load();
   }
 
   protected fetch(): Observable<any[]> {
-    return this._api.getEnemies();
+    return this._enemyApi.getEnemies();
   }
 
   protected remove(id: number): Observable<unknown> {
-    return this._api.deleteEnemy(id);
+    return this._enemyApi.deleteEnemy(id);
   }
 
   resetFilters(): void {
