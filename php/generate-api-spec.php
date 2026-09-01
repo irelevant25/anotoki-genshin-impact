@@ -69,6 +69,47 @@ function routeSourceFile(callable|string $callable, string $pattern): string
     return basename($file);
 }
 
+/**
+ * Every status a handler's respondJson() calls name, 200 where one names none.
+ *
+ * The status is the call's last argument, and the one before it can be an array
+ * spanning several lines with commas of its own, so the arguments are walked
+ * with the brackets counted rather than matched with a pattern.
+ */
+function respondJsonStatuses(string $body): array
+{
+    $statuses = [];
+    $offset = 0;
+
+    while (($at = strpos($body, 'respondJson(', $offset)) !== false) {
+        $depth = 0;
+        $last = '';
+        $i = $at + strlen('respondJson(') - 1;
+
+        for ($length = strlen($body); $i < $length; $i++) {
+            $char = $body[$i];
+            if ($char === '(' || $char === '[') {
+                $depth++;
+            } elseif ($char === ')' || $char === ']') {
+                if (--$depth === 0) {
+                    break;
+                }
+            } elseif ($depth === 1 && $char === ',') {
+                $last = '';
+                continue;
+            }
+            if ($depth === 1) {
+                $last .= $char;
+            }
+        }
+
+        $statuses[] = ctype_digit(trim($last)) ? (int) trim($last) : 200;
+        $offset = $at + 1;
+    }
+
+    return $statuses;
+}
+
 /** `/api/characters/{id:[0-9]+}/full` -> `/api/characters/{id}/full` plus the arg names. */
 function splitPattern(string $pattern): array
 {
@@ -95,7 +136,16 @@ function splitPattern(string $pattern): array
  */
 function readHandler(callable|string $callable): array
 {
-    $blank = ['tables' => [], 'expanded' => [], 'payload' => null, 'partial' => false, 'auth' => false, 'roles' => []];
+    $blank = [
+        'tables' => [],
+        'success' => 200,
+        'statuses' => [],
+        'expanded' => [],
+        'payload' => null,
+        'partial' => false,
+        'auth' => false,
+        'roles' => [],
+    ];
 
     if (!($callable instanceof Closure)) {
         return $blank;
@@ -125,6 +175,21 @@ function readHandler(callable|string $callable): array
     }
     if (!$tables && preg_match_all('/\bFROM\s+(\w+)/i', $body, $m)) {
         $tables = array_values(array_unique($m[1]));
+    }
+
+    // Every status the handler can answer with. A handler answers several ways
+    // - 404 where a row is missing, 422 where a body will not do - so the
+    // success is the lowest 2xx among them, and the rest are the failures it
+    // can actually produce, which is better than guessing at them later.
+    $statuses = respondJsonStatuses($body);
+    sort($statuses);
+    $statuses = array_values(array_unique($statuses));
+
+    $success = null;
+    foreach ($statuses as $status) {
+        if ($status < 300 && ($success === null || $status < $success)) {
+            $success = $status;
+        }
     }
 
     // includeExternal() swaps a foreign key for the row it points at, so a
@@ -157,6 +222,8 @@ function readHandler(callable|string $callable): array
 
     return [
         'tables' => $tables,
+        'success' => $success ?? 200,
+        'statuses' => $statuses,
         'expanded' => $expanded,
         'payload' => $payload,
         'partial' => $partial,
@@ -383,6 +450,9 @@ unset($route);
 
 $spec = [
     'generated' => 'php/generate-api-spec.php - do not edit by hand',
+    // Which site this deployment serves. The route table is the same either
+    // way; this only names the API in the document generated from it.
+    'site' => currentSite(),
     'routes' => $routes,
     'models' => array_values($models),
     'tables' => array_values($tables),

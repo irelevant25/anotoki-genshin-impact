@@ -1,5 +1,6 @@
 {
     "generated": "php/generate-api-spec.php - do not edit by hand",
+    "site": "genshin_impact",
     "routes": [
         {
             "method": "GET",
@@ -11,6 +12,10 @@
                 "translations",
                 "translation_keys",
                 "sites"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -31,6 +36,11 @@
                 "languages",
                 "translations"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -46,6 +56,10 @@
             "args": [],
             "file": "affiliations.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -61,6 +75,10 @@
             "args": [],
             "file": "affiliations.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -83,6 +101,11 @@
             ],
             "file": "affiliations.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -103,6 +126,11 @@
             ],
             "file": "affiliations.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -123,6 +151,11 @@
             ],
             "file": "affiliations.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -143,6 +176,10 @@
             "tables": [
                 "artifact_piece_types"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -156,6 +193,10 @@
             "file": "artifacts.php",
             "tables": [
                 "artifacts"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [
                 "created_by",
@@ -173,6 +214,10 @@
             "file": "artifacts.php",
             "tables": [
                 "artifacts"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -193,6 +238,10 @@
             "tables": [
                 "artifacts_pieces"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -209,6 +258,10 @@
             "file": "artifact_pieces.php",
             "tables": [
                 "artifacts_pieces"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -234,6 +287,11 @@
             "tables": [
                 "artifacts_pieces"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -255,6 +313,11 @@
             "file": "artifact_pieces.php",
             "tables": [
                 "artifacts_pieces"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -278,6 +341,11 @@
             "tables": [
                 "artifacts_pieces"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -296,6 +364,10 @@
             "args": [],
             "file": "artifacts_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -311,6 +383,11 @@
             "args": [],
             "file": "artifacts_full.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -333,6 +410,11 @@
             "tables": [
                 "artifacts"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -355,6 +437,11 @@
             "tables": [
                 "artifacts"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -376,6 +463,11 @@
             "file": "artifacts.php",
             "tables": [
                 "artifacts"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -400,6 +492,11 @@
             ],
             "file": "artifacts_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -420,6 +517,11 @@
             ],
             "file": "artifacts_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -437,6 +539,10 @@
             "tables": [
                 "audit_logs",
                 "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -456,6 +562,10 @@
                 "audit_logs",
                 "users"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -473,6 +583,11 @@
             "tables": [
                 "languages"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -487,6 +602,12 @@
             "tables": [
                 "users"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                401
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -499,6 +620,10 @@
             "args": [],
             "file": "auth.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -511,6 +636,10 @@
             "args": [],
             "file": "auth.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -523,6 +652,13 @@
             "args": [],
             "file": "auth.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                401,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -537,6 +673,12 @@
             "tables": [
                 "users"
             ],
+            "success": 201,
+            "statuses": [
+                201,
+                400,
+                409
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -549,6 +691,11 @@
             "args": [],
             "file": "auth.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -563,6 +710,10 @@
             "tables": [
                 "backgrounds"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -576,6 +727,10 @@
             "file": "backgrounds.php",
             "tables": [
                 "backgrounds"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "Background",
@@ -599,6 +754,11 @@
             "tables": [
                 "backgrounds"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -621,6 +781,11 @@
             "tables": [
                 "backgrounds"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -639,6 +804,11 @@
             "file": "backgrounds.php",
             "tables": [
                 "backgrounds"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": "Background",
@@ -655,6 +825,10 @@
             "args": [],
             "file": "backups.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -670,6 +844,12 @@
             "args": [],
             "file": "backups.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                422,
+                500
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -684,6 +864,10 @@
             "args": [],
             "file": "backups.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -704,6 +888,11 @@
             ],
             "file": "backups.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -723,6 +912,11 @@
             ],
             "file": "backups.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -747,6 +941,11 @@
             ],
             "file": "backups.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                404,
+                500
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -770,6 +969,13 @@
             ],
             "file": "backups.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422,
+                503
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -794,6 +1000,14 @@
             ],
             "file": "backups.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                403,
+                404,
+                422,
+                500
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -810,6 +1024,10 @@
             "tables": [
                 "banners"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -827,6 +1045,10 @@
             "tables": [
                 "banners"
             ],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -846,6 +1068,10 @@
             "tables": [
                 "banners_characters"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -862,6 +1088,10 @@
             "file": "banners_characters.php",
             "tables": [
                 "banners_characters"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -887,6 +1117,11 @@
             "tables": [
                 "banners_characters"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -908,6 +1143,11 @@
             "file": "banners_characters.php",
             "tables": [
                 "banners_characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -931,6 +1171,11 @@
             "tables": [
                 "banners_characters"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -951,6 +1196,10 @@
             "tables": [
                 "banners_weapons"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -967,6 +1216,10 @@
             "file": "banners_weapons.php",
             "tables": [
                 "banners_weapons"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -992,6 +1245,11 @@
             "tables": [
                 "banners_weapons"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1013,6 +1271,11 @@
             "file": "banners_weapons.php",
             "tables": [
                 "banners_weapons"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -1036,6 +1299,11 @@
             "tables": [
                 "banners_weapons"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1054,6 +1322,10 @@
             "args": [],
             "file": "banners_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1069,6 +1341,11 @@
             "args": [],
             "file": "banners_full.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1091,6 +1368,11 @@
             "tables": [
                 "banners"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1113,6 +1395,11 @@
             "tables": [
                 "banners"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1134,6 +1421,11 @@
             "file": "banners.php",
             "tables": [
                 "banners"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -1158,6 +1450,11 @@
             ],
             "file": "banners_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1178,6 +1475,11 @@
             ],
             "file": "banners_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1195,6 +1497,10 @@
             "tables": [
                 "character_models"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1208,6 +1514,10 @@
             "file": "characters_states.php",
             "tables": [
                 "character_states"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -1223,6 +1533,11 @@
             "tables": [
                 "characters"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1236,6 +1551,10 @@
             "file": "characters.php",
             "tables": [
                 "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [
                 "created_by",
@@ -1253,6 +1572,10 @@
             "file": "characters.php",
             "tables": [
                 "characters"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -1271,6 +1594,10 @@
             "args": [],
             "file": "characters_affiliations.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1286,6 +1613,10 @@
             "args": [],
             "file": "characters_affiliations.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -1308,6 +1639,11 @@
             ],
             "file": "characters_affiliations.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1328,6 +1664,11 @@
             ],
             "file": "characters_affiliations.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1345,6 +1686,10 @@
             "tables": [
                 "characters_ascensions"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1361,6 +1706,10 @@
             "file": "characters_ascensions.php",
             "tables": [
                 "characters_ascensions"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -1381,6 +1730,10 @@
             "tables": [
                 "characters_ascensions_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1397,6 +1750,10 @@
             "file": "characters_ascensions_cost.php",
             "tables": [
                 "characters_ascensions_cost"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -1422,6 +1779,11 @@
             "tables": [
                 "characters_ascensions_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1444,6 +1806,11 @@
             "tables": [
                 "characters_ascensions_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1465,6 +1832,11 @@
             "file": "characters_ascensions_cost.php",
             "tables": [
                 "characters_ascensions_cost"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -1491,6 +1863,11 @@
             "tables": [
                 "characters_ascensions"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1513,6 +1890,11 @@
             "tables": [
                 "characters_ascensions"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1534,6 +1916,11 @@
             "file": "characters_ascensions.php",
             "tables": [
                 "characters_ascensions"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -1555,6 +1942,10 @@
             "tables": [
                 "characters_builds"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1572,6 +1963,10 @@
             "tables": [
                 "characters_builds"
             ],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -1591,6 +1986,10 @@
             "tables": [
                 "characters_builds_artifacts"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1607,6 +2006,10 @@
             "file": "characters_builds_artifacts.php",
             "tables": [
                 "characters_builds_artifacts"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -1632,6 +2035,11 @@
             "tables": [
                 "characters_builds_artifacts"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1654,6 +2062,11 @@
             "tables": [
                 "characters_builds_artifacts"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1675,6 +2088,11 @@
             "file": "characters_builds_artifacts.php",
             "tables": [
                 "characters_builds_artifacts"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -1696,6 +2114,10 @@
             "tables": [
                 "characters_builds_main_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1713,6 +2135,10 @@
             "tables": [
                 "characters_builds_main_stats"
             ],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -1737,6 +2163,11 @@
             "tables": [
                 "characters_builds_main_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1758,6 +2189,11 @@
             "file": "characters_builds_main_stats.php",
             "tables": [
                 "characters_builds_main_stats"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -1781,6 +2217,11 @@
             "tables": [
                 "characters_builds_main_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1801,6 +2242,10 @@
             "tables": [
                 "characters_builds_recommended_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1817,6 +2262,10 @@
             "file": "characters_builds_recommended_stats.php",
             "tables": [
                 "characters_builds_recommended_stats"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -1842,6 +2291,11 @@
             "tables": [
                 "characters_builds_recommended_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1864,6 +2318,11 @@
             "tables": [
                 "characters_builds_recommended_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1885,6 +2344,11 @@
             "file": "characters_builds_recommended_stats.php",
             "tables": [
                 "characters_builds_recommended_stats"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -1906,6 +2370,10 @@
             "tables": [
                 "characters_builds_sub_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -1923,6 +2391,10 @@
             "tables": [
                 "characters_builds_sub_stats"
             ],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -1947,6 +2419,11 @@
             "tables": [
                 "characters_builds_sub_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -1968,6 +2445,11 @@
             "file": "characters_builds_sub_stats.php",
             "tables": [
                 "characters_builds_sub_stats"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -1991,6 +2473,11 @@
             "tables": [
                 "characters_builds_sub_stats"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2011,6 +2498,10 @@
             "tables": [
                 "characters_builds_talents"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2027,6 +2518,10 @@
             "file": "characters_builds_talents.php",
             "tables": [
                 "characters_builds_talents"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -2052,6 +2547,11 @@
             "tables": [
                 "characters_builds_talents"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2074,6 +2574,11 @@
             "tables": [
                 "characters_builds_talents"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2095,6 +2600,11 @@
             "file": "characters_builds_talents.php",
             "tables": [
                 "characters_builds_talents"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2116,6 +2626,10 @@
             "tables": [
                 "characters_builds_teams"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2133,6 +2647,10 @@
             "tables": [
                 "characters_builds_teams"
             ],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -2152,6 +2670,10 @@
             "tables": [
                 "characters_builds_teams_characters"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2168,6 +2690,10 @@
             "file": "characters_builds_teams_characters.php",
             "tables": [
                 "characters_builds_teams_characters"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -2193,6 +2719,11 @@
             "tables": [
                 "characters_builds_teams_characters"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2215,6 +2746,11 @@
             "tables": [
                 "characters_builds_teams_characters"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2236,6 +2772,11 @@
             "file": "characters_builds_teams_characters.php",
             "tables": [
                 "characters_builds_teams_characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2262,6 +2803,11 @@
             "tables": [
                 "characters_builds_teams"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2283,6 +2829,11 @@
             "file": "characters_builds_teams.php",
             "tables": [
                 "characters_builds_teams"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2306,6 +2857,11 @@
             "tables": [
                 "characters_builds_teams"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2326,6 +2882,10 @@
             "tables": [
                 "characters_builds_weapons"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2342,6 +2902,10 @@
             "file": "characters_builds_weapons.php",
             "tables": [
                 "characters_builds_weapons"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -2367,6 +2931,11 @@
             "tables": [
                 "characters_builds_weapons"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2389,6 +2958,11 @@
             "tables": [
                 "characters_builds_weapons"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2410,6 +2984,11 @@
             "file": "characters_builds_weapons.php",
             "tables": [
                 "characters_builds_weapons"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2436,6 +3015,11 @@
             "tables": [
                 "characters_builds"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2458,6 +3042,11 @@
             "tables": [
                 "characters_builds"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2479,6 +3068,11 @@
             "file": "characters_builds.php",
             "tables": [
                 "characters_builds"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2500,6 +3094,10 @@
             "tables": [
                 "characters_constellations"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2517,6 +3115,10 @@
             "tables": [
                 "characters_constellations"
             ],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -2541,6 +3143,11 @@
             "tables": [
                 "characters_constellations"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2562,6 +3169,11 @@
             "file": "characters_constellations.php",
             "tables": [
                 "characters_constellations"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2585,6 +3197,11 @@
             "tables": [
                 "characters_constellations"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2605,6 +3222,10 @@
             "tables": [
                 "characters_relationships"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2621,6 +3242,10 @@
             "file": "characters_relationships.php",
             "tables": [
                 "characters_relationships"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -2646,6 +3271,11 @@
             "tables": [
                 "characters_relationships"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2667,6 +3297,11 @@
             "file": "characters_relationships.php",
             "tables": [
                 "characters_relationships"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2690,6 +3325,11 @@
             "tables": [
                 "characters_relationships"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2710,6 +3350,10 @@
             "tables": [
                 "characters_roles"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2726,6 +3370,10 @@
             "file": "characters_roles.php",
             "tables": [
                 "characters_roles"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -2751,6 +3399,11 @@
             "tables": [
                 "characters_roles"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2773,6 +3426,11 @@
             "tables": [
                 "characters_roles"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2790,6 +3448,10 @@
             "tables": [
                 "characters_talents"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2806,6 +3468,10 @@
             "file": "characters_talents.php",
             "tables": [
                 "characters_talents"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -2826,6 +3492,10 @@
             "tables": [
                 "characters_talents_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2842,6 +3512,10 @@
             "file": "characters_talents_cost.php",
             "tables": [
                 "characters_talents_cost"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -2867,6 +3541,11 @@
             "tables": [
                 "characters_talents_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2889,6 +3568,11 @@
             "tables": [
                 "characters_talents_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -2910,6 +3594,11 @@
             "file": "characters_talents_cost.php",
             "tables": [
                 "characters_talents_cost"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2936,6 +3625,11 @@
             "tables": [
                 "characters_talents"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -2957,6 +3651,11 @@
             "file": "characters_talents.php",
             "tables": [
                 "characters_talents"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -2980,6 +3679,11 @@
             "tables": [
                 "characters_talents"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3000,6 +3704,10 @@
             "tables": [
                 "characters_voice_overs"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3016,6 +3724,10 @@
             "file": "characters_voice_overs.php",
             "tables": [
                 "characters_voice_overs"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -3041,6 +3753,11 @@
             "tables": [
                 "characters_voice_overs"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3063,6 +3780,11 @@
             "tables": [
                 "characters_voice_overs"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3084,6 +3806,11 @@
             "file": "characters_voice_overs.php",
             "tables": [
                 "characters_voice_overs"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -3112,6 +3839,11 @@
                 "characters_talents_cost",
                 "characters_relationships"
             ],
+            "success": 201,
+            "statuses": [
+                201,
+                400
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -3130,6 +3862,10 @@
             "file": "characters.php",
             "tables": [
                 "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -3150,6 +3886,11 @@
             "tables": [
                 "characters"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3171,6 +3912,11 @@
             "file": "characters.php",
             "tables": [
                 "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -3193,6 +3939,11 @@
             "file": "characters.php",
             "tables": [
                 "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -3218,6 +3969,11 @@
             "file": "characters_full.php",
             "tables": [
                 "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -3245,6 +4001,11 @@
                 "characters_talents",
                 "characters_talents_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3269,6 +4030,10 @@
                 "translation_keys",
                 "languages"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3286,6 +4051,10 @@
             "tables": [
                 "domain_levels"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3299,6 +4068,10 @@
             "file": "domain_levels.php",
             "tables": [
                 "domain_levels"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "DomainLevel",
@@ -3322,6 +4095,11 @@
             "tables": [
                 "domain_levels"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3344,6 +4122,11 @@
             "tables": [
                 "domain_levels"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3358,6 +4141,10 @@
             "tables": [
                 "elements"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3371,6 +4158,10 @@
             "file": "enemies.php",
             "tables": [
                 "enemies"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [
                 "created_by",
@@ -3388,6 +4179,10 @@
             "file": "enemies.php",
             "tables": [
                 "enemies"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -3408,6 +4203,10 @@
             "tables": [
                 "enemies_damage_types_elements"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3424,6 +4223,10 @@
             "file": "enemies_damage_types_elements.php",
             "tables": [
                 "enemies_damage_types_elements"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -3449,6 +4252,11 @@
             "tables": [
                 "enemies_damage_types_elements"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3471,6 +4279,11 @@
             "tables": [
                 "enemies_damage_types_elements"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3492,6 +4305,11 @@
             "file": "enemies_damage_types_elements.php",
             "tables": [
                 "enemies_damage_types_elements"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -3513,6 +4331,10 @@
             "tables": [
                 "enemies_drops"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3530,6 +4352,10 @@
             "tables": [
                 "enemies_drops"
             ],
+            "success": 201,
+            "statuses": [
+                201
+            ],
             "expanded": [
                 "created_by"
             ],
@@ -3554,6 +4380,11 @@
             "tables": [
                 "enemies_drops"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3575,6 +4406,11 @@
             "file": "enemies_drops.php",
             "tables": [
                 "enemies_drops"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -3598,6 +4434,11 @@
             "tables": [
                 "enemies_drops"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3618,6 +4459,10 @@
             "tables": [
                 "enemies_phases"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3634,6 +4479,10 @@
             "file": "enemies_phases.php",
             "tables": [
                 "enemies_phases"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -3659,6 +4508,11 @@
             "tables": [
                 "enemies_phases"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3680,6 +4534,11 @@
             "file": "enemies_phases.php",
             "tables": [
                 "enemies_phases"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -3703,6 +4562,11 @@
             "tables": [
                 "enemies_phases"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3721,6 +4585,10 @@
             "args": [],
             "file": "enemies_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3736,6 +4604,11 @@
             "args": [],
             "file": "enemies_full.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3758,6 +4631,11 @@
             "tables": [
                 "enemies"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3780,6 +4658,11 @@
             "tables": [
                 "enemies"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3801,6 +4684,11 @@
             "file": "enemies.php",
             "tables": [
                 "enemies"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -3825,6 +4713,11 @@
             ],
             "file": "enemies_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -3845,6 +4738,11 @@
             ],
             "file": "enemies_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3862,6 +4760,10 @@
             "tables": [
                 "enemy_families"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3875,6 +4777,10 @@
             "file": "enemy_families.php",
             "tables": [
                 "enemy_families"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "EnemyFamily",
@@ -3898,6 +4804,11 @@
             "tables": [
                 "enemy_families"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3920,6 +4831,11 @@
             "tables": [
                 "enemy_families"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3934,6 +4850,10 @@
             "tables": [
                 "enemy_groups"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3947,6 +4867,10 @@
             "file": "enemy_groups.php",
             "tables": [
                 "enemy_groups"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "EnemyGroup",
@@ -3970,6 +4894,11 @@
             "tables": [
                 "enemy_groups"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -3992,6 +4921,11 @@
             "tables": [
                 "enemy_groups"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4006,6 +4940,10 @@
             "tables": [
                 "enemy_types"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4019,6 +4957,10 @@
             "file": "enemy_types.php",
             "tables": [
                 "enemy_types"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "EnemyType",
@@ -4042,6 +4984,11 @@
             "tables": [
                 "enemy_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4064,6 +5011,11 @@
             "tables": [
                 "enemy_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4077,6 +5029,10 @@
             "file": "feedback.php",
             "tables": [
                 "feedback"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -4095,6 +5051,12 @@
             "tables": [
                 "feedback"
             ],
+            "success": 201,
+            "statuses": [
+                201,
+                422,
+                429
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4108,6 +5070,10 @@
             "file": "feedback.php",
             "tables": [
                 "feedback"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -4131,6 +5097,11 @@
             "tables": [
                 "feedback"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4151,6 +5122,11 @@
             "file": "feedback.php",
             "tables": [
                 "feedback"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": null,
@@ -4172,6 +5148,12 @@
             ],
             "file": "feedback.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4186,6 +5168,12 @@
             "args": [],
             "file": "files.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                500
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4201,6 +5189,11 @@
             "args": [],
             "file": "files.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4216,6 +5209,13 @@
             "args": [],
             "file": "files.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                404,
+                415
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4231,6 +5231,10 @@
             "args": [],
             "file": "files.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4246,6 +5250,13 @@
             "args": [],
             "file": "files.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                409,
+                500
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4261,6 +5272,10 @@
             "args": [],
             "file": "files.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4278,6 +5293,10 @@
             "tables": [
                 "food_types"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4291,6 +5310,10 @@
             "file": "food_types.php",
             "tables": [
                 "food_types"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "FoodType",
@@ -4314,6 +5337,11 @@
             "tables": [
                 "food_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4336,6 +5364,11 @@
             "tables": [
                 "food_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4349,6 +5382,10 @@
             "file": "foods.php",
             "tables": [
                 "foods"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [
                 "created_by",
@@ -4366,6 +5403,10 @@
             "file": "foods.php",
             "tables": [
                 "foods"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -4386,6 +5427,10 @@
             "tables": [
                 "foods_recipe"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -4402,6 +5447,10 @@
             "file": "foods_recipe.php",
             "tables": [
                 "foods_recipe"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -4427,6 +5476,11 @@
             "tables": [
                 "foods_recipe"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4448,6 +5502,11 @@
             "file": "foods_recipe.php",
             "tables": [
                 "foods_recipe"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -4471,6 +5530,11 @@
             "tables": [
                 "foods_recipe"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -4489,6 +5553,10 @@
             "args": [],
             "file": "foods_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -4504,6 +5572,11 @@
             "args": [],
             "file": "foods_full.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4526,6 +5599,11 @@
             "tables": [
                 "foods"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4548,6 +5626,11 @@
             "tables": [
                 "foods"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -4569,6 +5652,11 @@
             "file": "foods.php",
             "tables": [
                 "foods"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -4593,6 +5681,11 @@
             ],
             "file": "foods_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -4613,6 +5706,11 @@
             ],
             "file": "foods_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4630,6 +5728,10 @@
             "tables": [
                 "languages"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4643,6 +5745,12 @@
             "file": "languages.php",
             "tables": [
                 "languages"
+            ],
+            "success": 201,
+            "statuses": [
+                201,
+                409,
+                422
             ],
             "expanded": [],
             "payload": "User\\Language",
@@ -4666,6 +5774,12 @@
             "tables": [
                 "languages"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                409
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4688,6 +5802,12 @@
             "tables": [
                 "languages"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                409
+            ],
             "expanded": [],
             "payload": "User\\Language",
             "partial": true,
@@ -4705,6 +5825,10 @@
             "tables": [
                 "material_groups"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4718,6 +5842,10 @@
             "file": "material_groups.php",
             "tables": [
                 "material_groups"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "MaterialGroup",
@@ -4741,6 +5869,11 @@
             "tables": [
                 "material_groups"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4763,6 +5896,11 @@
             "tables": [
                 "material_groups"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4777,6 +5915,10 @@
             "tables": [
                 "material_types"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4790,6 +5932,10 @@
             "file": "material_types.php",
             "tables": [
                 "material_types"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "MaterialType",
@@ -4813,6 +5959,11 @@
             "tables": [
                 "material_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4835,6 +5986,11 @@
             "tables": [
                 "material_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4848,6 +6004,10 @@
             "file": "materials.php",
             "tables": [
                 "materials"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [
                 "created_by",
@@ -4865,6 +6025,10 @@
             "file": "materials.php",
             "tables": [
                 "materials"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -4885,6 +6049,10 @@
             "tables": [
                 "materials_groups_join"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -4901,6 +6069,10 @@
             "file": "materials_groups_join.php",
             "tables": [
                 "materials_groups_join"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -4926,6 +6098,11 @@
             "tables": [
                 "materials_groups_join"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -4948,6 +6125,11 @@
             "tables": [
                 "materials_groups_join"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -4969,6 +6151,11 @@
             "file": "materials_groups_join.php",
             "tables": [
                 "materials_groups_join"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -4995,6 +6182,11 @@
             "tables": [
                 "materials"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5007,6 +6199,10 @@
             "args": [],
             "file": "materials_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -5022,6 +6218,11 @@
             "args": [],
             "file": "materials_full.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5044,6 +6245,11 @@
             "tables": [
                 "materials"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5066,6 +6272,11 @@
             "tables": [
                 "materials"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -5087,6 +6298,11 @@
             "file": "materials.php",
             "tables": [
                 "materials"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -5111,6 +6327,11 @@
             ],
             "file": "materials_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -5131,6 +6352,11 @@
             ],
             "file": "materials_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5153,6 +6379,11 @@
             "tables": [
                 "materials"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5166,6 +6397,10 @@
             "file": "migrations.php",
             "tables": [
                 "migrations"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -5182,6 +6417,11 @@
             "args": [],
             "file": "migrations.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5199,6 +6439,10 @@
             "tables": [
                 "quizzes_states"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5215,6 +6459,12 @@
             "file": "quiz_states.php",
             "tables": [
                 "quizzes_states"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                201,
+                409
             ],
             "expanded": [],
             "payload": "QuizState",
@@ -5239,6 +6489,11 @@
             "tables": [
                 "quizzes_states"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5261,6 +6516,11 @@
             "file": "quiz_states.php",
             "tables": [
                 "quizzes_states"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": null,
@@ -5285,6 +6545,11 @@
             "tables": [
                 "quizzes_states"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": "QuizState",
             "partial": true,
@@ -5298,6 +6563,10 @@
             "file": "quiz_stats_history.php",
             "tables": [
                 "quiz_stats_history"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -5315,6 +6584,12 @@
             "file": "quiz_stats_history.php",
             "tables": [
                 "quiz_stats_history"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                201,
+                409
             ],
             "expanded": [],
             "payload": "QuizStatsHistory",
@@ -5343,6 +6618,11 @@
             "tables": [
                 "quiz_stats_history"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5370,6 +6650,11 @@
             "tables": [
                 "quiz_stats_history"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5396,6 +6681,11 @@
             "file": "quiz_stats_history.php",
             "tables": [
                 "quiz_stats_history"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": "QuizStatsHistory",
@@ -5410,6 +6700,10 @@
             "file": "quiz_progress.php",
             "tables": [
                 "quizzes_states"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -5429,6 +6723,11 @@
             "file": "quiz_progress.php",
             "tables": [
                 "quizzes_states"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": null,
@@ -5447,6 +6746,12 @@
             ],
             "file": "quiz_progress.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5460,6 +6765,12 @@
             "file": "quiz_progress.php",
             "tables": [
                 "characters"
+            ],
+            "success": 201,
+            "statuses": [
+                201,
+                404,
+                422
             ],
             "expanded": [],
             "payload": null,
@@ -5475,6 +6786,10 @@
             "tables": [
                 "quiz_stats_history"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5489,6 +6804,11 @@
             "tables": [
                 "characters_voice_overs"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5503,6 +6823,10 @@
             "tables": [
                 "quizzes"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5516,6 +6840,10 @@
             "file": "quizzes.php",
             "tables": [
                 "quizzes"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "Quiz",
@@ -5539,6 +6867,11 @@
             "tables": [
                 "quizzes"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5561,6 +6894,11 @@
             "tables": [
                 "quizzes"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5579,6 +6917,11 @@
             "file": "quizzes.php",
             "tables": [
                 "quizzes"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": "Quiz",
@@ -5597,6 +6940,10 @@
             "tables": [
                 "rarities"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5611,6 +6958,10 @@
             "tables": [
                 "regions"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5624,6 +6975,10 @@
             "file": "regions.php",
             "tables": [
                 "regions"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "Region",
@@ -5647,6 +7002,11 @@
             "tables": [
                 "regions"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5669,6 +7029,11 @@
             "tables": [
                 "regions"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5683,6 +7048,10 @@
             "tables": [
                 "relationship_types"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5696,6 +7065,10 @@
             "file": "relationship_types.php",
             "tables": [
                 "relationship_types"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "RelationshipType",
@@ -5719,6 +7092,11 @@
             "tables": [
                 "relationship_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5741,6 +7119,11 @@
             "tables": [
                 "relationship_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5755,6 +7138,10 @@
             "tables": [
                 "roles"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5768,6 +7155,10 @@
             "file": "roles.php",
             "tables": [
                 "roles"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "Role",
@@ -5791,6 +7182,11 @@
             "tables": [
                 "roles"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5813,6 +7209,11 @@
             "tables": [
                 "roles"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5827,6 +7228,10 @@
             "tables": [
                 "stats"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5840,6 +7245,10 @@
             "file": "stats.php",
             "tables": [
                 "stats"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "Stat",
@@ -5863,6 +7272,11 @@
             "tables": [
                 "stats"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5884,6 +7298,11 @@
             "file": "stats.php",
             "tables": [
                 "stats"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": null,
@@ -5904,6 +7323,11 @@
             "tables": [
                 "stats"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": "Stat",
             "partial": true,
@@ -5921,6 +7345,10 @@
             "tables": [
                 "talent_types"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5934,6 +7362,10 @@
             "file": "talent_types.php",
             "tables": [
                 "talent_types"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [],
             "payload": "TalentType",
@@ -5957,6 +7389,11 @@
             "tables": [
                 "talent_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5979,6 +7416,11 @@
             "tables": [
                 "talent_types"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -5993,6 +7435,12 @@
             "tables": [
                 "translation_keys",
                 "sites"
+            ],
+            "success": 201,
+            "statuses": [
+                201,
+                409,
+                422
             ],
             "expanded": [],
             "payload": "User\\TranslationKey",
@@ -6016,6 +7464,11 @@
             "tables": [
                 "translation_keys"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6039,6 +7492,12 @@
                 "translation_keys",
                 "sites"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422
+            ],
             "expanded": [],
             "payload": "User\\TranslationKey",
             "partial": true,
@@ -6061,6 +7520,8 @@
             "tables": [
                 "languages"
             ],
+            "success": 200,
+            "statuses": [],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6079,6 +7540,11 @@
             "file": "translations.php",
             "tables": [
                 "languages"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": null,
@@ -6102,6 +7568,12 @@
             "tables": [
                 "languages"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6117,6 +7589,11 @@
             "args": [],
             "file": "upload.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6141,6 +7618,13 @@
             ],
             "file": "uploads.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                415,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6169,6 +7653,16 @@
             ],
             "file": "uploads.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                404,
+                409,
+                415,
+                422,
+                500
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6186,6 +7680,10 @@
             "tables": [
                 "user_quiz_history"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6202,6 +7700,11 @@
             "file": "user_quiz_history.php",
             "tables": [
                 "user_quiz_history"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                201
             ],
             "expanded": [],
             "payload": "UserQuizHistory",
@@ -6222,6 +7725,11 @@
             "tables": [
                 "user_quiz_history"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6243,6 +7751,12 @@
             "tables": [
                 "user_quiz_history"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                403,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6256,6 +7770,10 @@
             "file": "users.php",
             "tables": [
                 "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -6274,6 +7792,12 @@
             "tables": [
                 "users"
             ],
+            "success": 201,
+            "statuses": [
+                201,
+                409,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6289,6 +7813,10 @@
             "file": "users.php",
             "tables": [
                 "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [],
             "payload": null,
@@ -6312,6 +7840,12 @@
             "tables": [
                 "users"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6332,6 +7866,11 @@
             "file": "users.php",
             "tables": [
                 "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [],
             "payload": null,
@@ -6354,6 +7893,13 @@
             "file": "users.php",
             "tables": [
                 "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                409,
+                422
             ],
             "expanded": [],
             "payload": null,
@@ -6376,6 +7922,12 @@
             "tables": [
                 "users"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6397,6 +7949,12 @@
             "tables": [
                 "users"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6413,6 +7971,10 @@
             "tables": [
                 "voice_over_types"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6427,6 +7989,10 @@
             "tables": [
                 "weapon_types"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6440,6 +8006,10 @@
             "file": "weapons.php",
             "tables": [
                 "weapons"
+            ],
+            "success": 200,
+            "statuses": [
+                200
             ],
             "expanded": [
                 "created_by",
@@ -6457,6 +8027,10 @@
             "file": "weapons.php",
             "tables": [
                 "weapons"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -6477,6 +8051,10 @@
             "tables": [
                 "weapons_ascensions"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6493,6 +8071,10 @@
             "file": "weapons_ascensions.php",
             "tables": [
                 "weapons_ascensions"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -6513,6 +8095,10 @@
             "tables": [
                 "weapons_ascensions_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6529,6 +8115,10 @@
             "file": "weapons_ascensions_cost.php",
             "tables": [
                 "weapons_ascensions_cost"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -6554,6 +8144,11 @@
             "tables": [
                 "weapons_ascensions_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6576,6 +8171,11 @@
             "tables": [
                 "weapons_ascensions_cost"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6597,6 +8197,11 @@
             "file": "weapons_ascensions_cost.php",
             "tables": [
                 "weapons_ascensions_cost"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -6623,6 +8228,11 @@
             "tables": [
                 "weapons_ascensions"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6644,6 +8254,11 @@
             "file": "weapons_ascensions.php",
             "tables": [
                 "weapons_ascensions"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -6667,6 +8282,11 @@
             "tables": [
                 "weapons_ascensions"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6687,6 +8307,10 @@
             "tables": [
                 "weapons_refinements"
             ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6703,6 +8327,10 @@
             "file": "weapons_refinements.php",
             "tables": [
                 "weapons_refinements"
+            ],
+            "success": 201,
+            "statuses": [
+                201
             ],
             "expanded": [
                 "created_by"
@@ -6728,6 +8356,11 @@
             "tables": [
                 "weapons_refinements"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6749,6 +8382,11 @@
             "file": "weapons_refinements.php",
             "tables": [
                 "weapons_refinements"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -6772,6 +8410,11 @@
             "tables": [
                 "weapons_refinements"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6790,6 +8433,10 @@
             "args": [],
             "file": "weapons_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6805,6 +8452,11 @@
             "args": [],
             "file": "weapons_full.php",
             "tables": [],
+            "success": 201,
+            "statuses": [
+                201,
+                400
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6827,6 +8479,11 @@
             "tables": [
                 "weapons"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,
@@ -6849,6 +8506,11 @@
             "tables": [
                 "weapons"
             ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6870,6 +8532,11 @@
             "file": "weapons.php",
             "tables": [
                 "weapons"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
             ],
             "expanded": [
                 "created_by",
@@ -6894,6 +8561,11 @@
             ],
             "file": "weapons_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [
                 "created_by",
                 "updated_by"
@@ -6914,6 +8586,11 @@
             ],
             "file": "weapons_full.php",
             "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
             "expanded": [],
             "payload": null,
             "partial": false,

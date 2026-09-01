@@ -49,6 +49,7 @@ function regenerateApiClient () {
     const steps = [
         ['reading the API', 'php ../php/generate-api-spec.php'],
         ['writing the client', 'node generate-api.mjs'],
+        ['writing the reference', 'node generate-openapi.mjs'],
     ];
 
     for (const [label, command] of steps) {

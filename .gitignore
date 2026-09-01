@@ -11,3 +11,8 @@ php/storage/
 # purpose - it holds local development values only, and production is
 # configured separately.
 *.local.php
+
+# Written by generate-openapi.mjs while it asks the compiler about the API
+# types, and removed again on the way out. Ignored so a crashed run cannot
+# leave it behind in a commit.
+angular/.openapi-probe.ts

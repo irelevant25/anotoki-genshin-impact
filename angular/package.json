@@ -23,7 +23,8 @@
     "bundle-analyze": "ng build && start https://esbuild.github.io/analyze/",
     "api:spec": "php ../php/generate-api-spec.php",
     "api:client": "node generate-api.mjs",
-    "api": "npm run api:spec && npm run api:client"
+    "api:docs": "node generate-openapi.mjs",
+    "api": "npm run api:spec && npm run api:client && npm run api:docs"
   },
   "private": true,
   "sideEffects": true,
