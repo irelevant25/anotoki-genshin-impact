@@ -241,8 +241,8 @@ INSERT INTO regions (name) VALUES
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
--- CHARACTER_ROLES
--- name: CharacterRole
+-- ROLES
+-- name: Role
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS roles (
     name VARCHAR(50) PRIMARY KEY

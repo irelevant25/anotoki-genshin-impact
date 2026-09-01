@@ -223,4 +223,8 @@ $app->add(function ($request, $handler) {
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
 });
 
-$app->run();
+// The API-client generator loads this file purely to read the route table, and
+// must not serve a request while doing it.
+if (!defined('ANOTOKI_ROUTES_ONLY')) {
+    $app->run();
+}
