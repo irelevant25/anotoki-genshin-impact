@@ -37,5 +37,7 @@ registerFullResource(
     [
         '_parent' => ['icon' => 'enemies'],
         'phases' => ['icon' => 'enemies', 'art' => 'enemies'],
-    ]
+    ],
+    full: EnemyFull::class,
+    fullRow: EnemyFullRow::class,
 );

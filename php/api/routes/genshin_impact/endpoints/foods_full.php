@@ -21,5 +21,7 @@ registerFullResource(
     ],
     [
         '_parent' => ['icon_normal' => 'foods', 'icon_delicious' => 'foods', 'icon_suspicious' => 'foods'],
-    ]
+    ],
+    full: FoodFull::class,
+    fullRow: FoodFullRow::class,
 );

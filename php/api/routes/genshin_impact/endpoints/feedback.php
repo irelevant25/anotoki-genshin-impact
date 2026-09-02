@@ -127,7 +127,7 @@ $app->post('/api/feedback', function (Request $request, Response $response) {
     // Deliberately thin: the sender does not need the row back, and handing an
     // id to an unauthenticated caller invites poking at it.
     return respondJson($response, ['message' => 'Thank you - your message has been received.'], 201);
-});
+})->add(responds(ApiMessage::class));
 
 // ---------------------------------------------------------------------------
 // GET /api/feedback/filters
@@ -156,7 +156,7 @@ $app->get('/api/feedback/filters', function (Request $request, Response $respons
         'byStatus' => $byStatus,
         'byType' => $byType,
     ]);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(FeedbackFilters::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // GET /api/feedback
@@ -217,7 +217,7 @@ $app->get('/api/feedback', function (Request $request, Response $response) {
         'pageSize' => FEEDBACK_PAGE_SIZE,
         'items' => $rows,
     ]);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(FeedbackPage::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // GET /api/feedback/{id}
@@ -233,7 +233,7 @@ $app->get('/api/feedback/{id:[0-9]+}', function (Request $request, Response $res
     unset($row['submitter_hash']);
 
     return respondJson($response, $row);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds('feedback'))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // PUT /api/feedback/{id}/status
@@ -256,7 +256,7 @@ $app->put('/api/feedback/{id}/status', function (Request $request, Response $res
         return respondJson($response, ['error' => 'Not found'], 404);
     }
     return respondJson($response, ['id' => (int) $args['id'], 'status' => $status]);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds(FeedbackStatusChanged::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // DELETE /api/feedback/{id}
@@ -272,4 +272,4 @@ $app->delete('/api/feedback/{id:[0-9]+}', function (Request $request, Response $
     return $stmt->rowCount()
         ? respondJson($response, ['message' => 'Deleted successfully'])
         : respondJson($response, ['error' => 'Not found'], 404);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds('feedback'))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());

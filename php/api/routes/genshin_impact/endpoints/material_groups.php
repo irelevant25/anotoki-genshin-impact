@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/material-groups', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM material_groups ORDER BY name ASC');
     return respondJson($response, $stmt->fetchAll());
-});
+})->add(responds('material_groups', list: true));
 
 $app->get('/api/material-groups/{name}', function (Request $request, Response $response, array $args) {
     $stmt = genshinDb()->prepare('SELECT * FROM material_groups WHERE name = ?');
@@ -15,7 +15,7 @@ $app->get('/api/material-groups/{name}', function (Request $request, Response $r
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('material_groups'));
 
 $app->post('/api/material-groups', function (Request $request, Response $response) {
     $pdo = genshinDb();
@@ -24,7 +24,7 @@ $app->post('/api/material-groups', function (Request $request, Response $respons
     $stmt = $pdo->prepare('SELECT * FROM material_groups WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(MaterialGroup::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('material_groups'))->add(validateRequest(MaterialGroup::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->delete('/api/material-groups/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +35,4 @@ $app->delete('/api/material-groups/{name}', function (Request $request, Response
     }
     $pdo->prepare('DELETE FROM material_groups WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('material_groups'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

@@ -11,7 +11,7 @@ $app->get('/api/weapons-ascensions', function (Request $request, Response $respo
         ->orderBy('weapon_id', 'phase')
         ->fetchAll();
     return respondJson($response, $items);
-});
+})->add(responds('weapons_ascensions', list: true));
 
 // GET single
 $app->get('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -22,7 +22,7 @@ $app->get('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, Res
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('weapons_ascensions'));
 
 // POST create
 $app->post('/api/weapons-ascensions', function (Request $request, Response $response) {
@@ -36,7 +36,7 @@ $app->post('/api/weapons-ascensions', function (Request $request, Response $resp
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(WeaponAscension::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('weapons_ascensions'))->add(validateRequest(WeaponAscension::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, Res
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(WeaponAscension::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('weapons_ascensions'))->add(validateRequest(WeaponAscension::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/weapons-ascensions/{id:[0-9]+}', function (Request $request, 
     }
     DbQuery::update($pdo, 'weapons_ascensions', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('weapons_ascensions'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

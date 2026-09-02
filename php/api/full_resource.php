@@ -209,8 +209,37 @@ function _fullDeleteChildren(PDO $pdo, array $specs, int $parentId): void
  * @param array  $children child specs, see the file header
  * @param array  $uploads  upload spec, see fullResourceApplyUploads()
  */
-function registerFullResource($app, string $path, string $table, string $modelClass, string $bodyKey, array $children, array $uploads = []): void
+/**
+ * What the four routes below answer with, per resource.
+ *
+ * Everywhere else a route says this for itself, with `->add(responds(...))`
+ * beside the handler. These four share one closure between six resources, so
+ * there is nowhere to write a literal that means one of them - the registrar
+ * declares all four at once instead, and the spec generator reads this.
+ *
+ * Called with arguments to record, without them to read back.
+ *
+ * @param string|null $full The `{id}/full` shape: the parent under its own key,
+ *                          children hung off it.
+ * @param string|null $row  The `/full` listing shape, which is not a list of
+ *                          the above: listing spreads the parent's own columns
+ *                          at the top level and hangs the children off those.
+ */
+function fullResourceShapes(?string $path = null, ?string $table = null, ?string $full = null, ?string $row = null): array
 {
+    static $declared = [];
+
+    if ($path !== null) {
+        $declared[$path] = ['table' => $table, 'full' => $full, 'row' => $row];
+    }
+
+    return $declared;
+}
+
+function registerFullResource($app, string $path, string $table, string $modelClass, string $bodyKey, array $children, array $uploads = [], ?string $full = null, ?string $fullRow = null): void
+{
+    fullResourceShapes($path, $table, $full, $fullRow);
+
     // GET one full resource
     $app->get("/api/$path/{id:[0-9]+}/full", function ($request, $response, array $args) use ($table, $bodyKey, $children) {
         $pdo = genshinDb();

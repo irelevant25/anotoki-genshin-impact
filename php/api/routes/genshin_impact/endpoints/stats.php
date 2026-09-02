@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/stats', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM stats ORDER BY name ASC');
     return respondJson($response, $stmt->fetchAll());
-});
+})->add(responds('stats', list: true));
 
 // GET single stat
 $app->get('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -18,7 +18,7 @@ $app->get('/api/stats/{id:[0-9]+}', function (Request $request, Response $respon
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('stats'));
 
 // POST create stat
 $app->post('/api/stats', function (Request $request, Response $response) {
@@ -28,7 +28,7 @@ $app->post('/api/stats', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM stats WHERE id = ?');
     $stmt->execute([$id]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(Stat::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('stats'))->add(validateRequest(Stat::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update stat
 $app->put('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -45,7 +45,7 @@ $app->put('/api/stats/{id:[0-9]+}', function (Request $request, Response $respon
     $stmt = $pdo->prepare('SELECT * FROM stats WHERE id = ?');
     $stmt->execute([$args['id']]);
     return respondJson($response, $stmt->fetch());
-})->add(validateRequest(Stat::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('stats'))->add(validateRequest(Stat::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE stat
 $app->delete('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -59,4 +59,4 @@ $app->delete('/api/stats/{id:[0-9]+}', function (Request $request, Response $res
 
     $pdo->prepare('DELETE FROM stats WHERE id = ?')->execute([$args['id']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('stats'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

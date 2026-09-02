@@ -56,7 +56,7 @@ $app->get('/api/quiz/progress', function (Request $request, Response $response) 
     }, $statement->fetchAll(PDO::FETCH_ASSOC));
 
     return respondJson($response, $games);
-})->add(requireAuth());
+})->add(responds(QuizProgress::class, list: true))->add(requireAuth());
 
 // PUT my saved game for one quiz. Upsert: a quiz is saved after every guess, and
 // whether that is the first one is not something the caller should have to know.
@@ -90,7 +90,7 @@ $app->put('/api/quiz/progress/{quiz}', function (Request $request, Response $res
     $statement->execute([$user['id'], $quizId, (int) $isDaily, json_encode($state)]);
 
     return respondJson($response, ['quiz' => $args['quiz'], 'is_daily' => $isDaily]);
-})->add(requireAuth());
+})->add(responds(QuizProgressSaved::class))->add(requireAuth());
 
 // DELETE my saved game, for when a quiz is finished with and started afresh.
 $app->delete('/api/quiz/progress/{quiz}', function (Request $request, Response $response, array $args) {
@@ -107,7 +107,7 @@ $app->delete('/api/quiz/progress/{quiz}', function (Request $request, Response $
     $statement->execute([$user['id'], $quizId, (int) in_array($isDaily, ['1', 'true'], true)]);
 
     return respondJson($response, ['deleted' => $statement->rowCount()]);
-})->add(requireAuth());
+})->add(responds(QuizProgressDeleted::class))->add(requireAuth());
 
 // POST a finished question.
 //
@@ -166,7 +166,7 @@ $app->post('/api/quiz/result', function (Request $request, Response $response) {
     }
 
     return respondJson($response, ['recorded' => true], 201);
-})->add(requireAuth());
+})->add(responds(QuizResultAck::class))->add(requireAuth());
 
 // GET my totals, so a profile page has something to draw.
 $app->get('/api/quiz/stats', function (Request $request, Response $response) {
@@ -184,4 +184,4 @@ $app->get('/api/quiz/stats', function (Request $request, Response $response) {
     $statement->execute([$user['id']]);
 
     return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
-})->add(requireAuth());
+})->add(responds(QuizStatsRow::class, list: true))->add(requireAuth());

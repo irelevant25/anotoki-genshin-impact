@@ -22,5 +22,7 @@ registerFullResource(
     [
         '_parent' => ['icon' => 'artifacts'],
         'pieces' => ['icon' => 'artifacts'],
-    ]
+    ],
+    full: ArtifactFull::class,
+    fullRow: ArtifactFullRow::class,
 );

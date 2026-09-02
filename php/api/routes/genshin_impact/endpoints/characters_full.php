@@ -201,7 +201,7 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
         ->find(['id' => $charId]);
 
     return respondJson($response, $character, 201);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 
 // ── PUT /api/characters/{id}/full ─────────────────────────────────────────────
@@ -322,7 +322,7 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
         ->find(['id' => $id]);
 
     return respondJson($response, $character);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 
 // ── GET /api/characters/{id}/full ─────────────────────────────────────────────
@@ -372,4 +372,4 @@ $app->get('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
         'ascension_cost' => $ascensionCost,
         'roles' => $roles,
     ]);
-});
+})->add(responds(CharacterFull::class));

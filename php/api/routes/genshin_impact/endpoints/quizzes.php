@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/quizzes', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM quizzes WHERE deleted = FALSE ORDER BY name ASC');
     return respondJson($response, $stmt->fetchAll());
-});
+})->add(responds('quizzes', list: true));
 
 // GET single quiz
 $app->get('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -18,7 +18,7 @@ $app->get('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $resp
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('quizzes'));
 
 // POST create quiz
 $app->post('/api/quizzes', function (Request $request, Response $response) {
@@ -28,7 +28,7 @@ $app->post('/api/quizzes', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM quizzes WHERE id = ?');
     $stmt->execute([$id]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(Quiz::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('quizzes'))->add(validateRequest(Quiz::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update quiz
 $app->put('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -45,7 +45,7 @@ $app->put('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $resp
     $stmt = $pdo->prepare('SELECT * FROM quizzes WHERE id = ?');
     $stmt->execute([$args['id']]);
     return respondJson($response, $stmt->fetch());
-})->add(validateRequest(Quiz::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('quizzes'))->add(validateRequest(Quiz::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE quiz
 $app->delete('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -59,4 +59,4 @@ $app->delete('/api/quizzes/{id:[0-9]+}', function (Request $request, Response $r
 
     DbQuery::update($pdo, 'quizzes', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('quizzes'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

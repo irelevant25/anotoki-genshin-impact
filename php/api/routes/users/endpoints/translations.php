@@ -63,7 +63,7 @@ $app->get('/api/translations/{code}', function (Request $request, Response $resp
         ->withHeader('Content-Type', 'application/json')
         ->withHeader('ETag', $etag)
         ->withHeader('Cache-Control', 'no-cache');
-});
+})->add(responds(TranslationBundleResponse::class));
 
 // ---------------------------------------------------------------------------
 // GET /api/translations/{code}/export  — one language, on its own
@@ -133,7 +133,7 @@ $app->get('/api/admin/translations', function (Request $request, Response $respo
         // and show at a glance what its own visitors will actually see.
         'currentSite' => currentSite(),
     ]);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds(TranslationAdminView::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // PUT /api/admin/translations  — save whatever the grid changed
@@ -206,7 +206,7 @@ $app->put('/api/admin/translations', function (Request $request, Response $respo
     }
 
     return respondJson($response, ['written' => $written, 'cleared' => $cleared]);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds(TranslationSaveResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // PUT /api/translations/{code}/import  — a whole language from a JSON file
@@ -276,7 +276,7 @@ $app->put('/api/translations/{code}/import', function (Request $request, Respons
         'cleared'      => $cleared,
         'keys_created' => $createMissing ? count($unknown) : 0,
     ]);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds(TranslationImportResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // POST /api/translation-keys
@@ -307,7 +307,7 @@ $app->post('/api/translation-keys', function (Request $request, Response $respon
     $stmt = $pdo->prepare('SELECT name, description, site FROM translation_keys WHERE name = ?');
     $stmt->execute([$name]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(User\TranslationKey::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('translation_keys'))->add(validateRequest(User\TranslationKey::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // PUT /api/translation-keys/{name}  — edit the note explaining where it appears
@@ -336,7 +336,7 @@ $app->put('/api/translation-keys/{name}', function (Request $request, Response $
     $stmt = $pdo->prepare('SELECT name, description, site FROM translation_keys WHERE name = ?');
     $stmt->execute([$args['name']]);
     return respondJson($response, $stmt->fetch());
-})->add(validateRequest(User\TranslationKey::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('translation_keys'))->add(validateRequest(User\TranslationKey::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // DELETE /api/translation-keys/{name}  — and every translation of it
@@ -359,4 +359,4 @@ $app->delete('/api/translation-keys/{name}', function (Request $request, Respons
         'message'              => 'Deleted successfully',
         'translations_deleted' => $translations,
     ]);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds(TranslationKeyDeleted::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

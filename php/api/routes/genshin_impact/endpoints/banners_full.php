@@ -27,5 +27,7 @@ registerFullResource(
             'fk' => 'banner_id',
             'model' => BannerWeapon::class,
         ],
-    ]
+    ],
+    full: BannerFull::class,
+    fullRow: BannerFullRow::class,
 );

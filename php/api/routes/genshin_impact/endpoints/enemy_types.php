@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/enemy-types', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM enemy_types ORDER BY name ASC');
     return respondJson($response, $stmt->fetchAll());
-});
+})->add(responds('enemy_types', list: true));
 
 $app->get('/api/enemy-types/{name}', function (Request $request, Response $response, array $args) {
     $stmt = genshinDb()->prepare('SELECT * FROM enemy_types WHERE name = ?');
@@ -15,7 +15,7 @@ $app->get('/api/enemy-types/{name}', function (Request $request, Response $respo
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('enemy_types'));
 
 $app->post('/api/enemy-types', function (Request $request, Response $response) {
     $pdo = genshinDb();
@@ -24,7 +24,7 @@ $app->post('/api/enemy-types', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM enemy_types WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(EnemyType::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('enemy_types'))->add(validateRequest(EnemyType::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->delete('/api/enemy-types/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +35,4 @@ $app->delete('/api/enemy-types/{name}', function (Request $request, Response $re
     }
     $pdo->prepare('DELETE FROM enemy_types WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('enemy_types'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

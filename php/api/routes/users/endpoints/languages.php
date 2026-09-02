@@ -37,7 +37,7 @@ $app->get('/api/languages', function (Request $request, Response $response) {
     }
 
     return respondJson($response, $rows);
-});
+})->add(responds('languages', list: true));
 
 // ---------------------------------------------------------------------------
 // POST /api/languages
@@ -73,7 +73,7 @@ $app->post('/api/languages', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT code, name, native_name, enabled, sort_order FROM languages WHERE code = ?');
     $stmt->execute([$code]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(User\Language::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('languages'))->add(validateRequest(User\Language::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // PUT /api/languages/{code}
@@ -109,7 +109,7 @@ $app->put('/api/languages/{code}', function (Request $request, Response $respons
     $stmt = $pdo->prepare('SELECT code, name, native_name, enabled, sort_order FROM languages WHERE code = ?');
     $stmt->execute([$code]);
     return respondJson($response, $stmt->fetch());
-})->add(validateRequest(User\Language::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('languages'))->add(validateRequest(User\Language::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // DELETE /api/languages/{code}
@@ -147,4 +147,4 @@ $app->delete('/api/languages/{code}', function (Request $request, Response $resp
         'translations_deleted' => $translations,
         'users_moved'          => $moved->rowCount(),
     ]);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds(LanguageDeleted::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

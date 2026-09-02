@@ -11,7 +11,7 @@ $app->get('/api/materials-groups-join', function (Request $request, Response $re
         ->orderBy('material_id')
         ->fetchAll();
     return respondJson($response, $items);
-});
+})->add(responds('materials_groups_join', list: true));
 
 // GET single
 $app->get('/api/materials-groups-join/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -22,7 +22,7 @@ $app->get('/api/materials-groups-join/{id:[0-9]+}', function (Request $request, 
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('materials_groups_join'));
 
 // POST create
 $app->post('/api/materials-groups-join', function (Request $request, Response $response) {
@@ -36,7 +36,7 @@ $app->post('/api/materials-groups-join', function (Request $request, Response $r
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(MaterialGroupJoin::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('materials_groups_join'))->add(validateRequest(MaterialGroupJoin::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/materials-groups-join/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/materials-groups-join/{id:[0-9]+}', function (Request $request, 
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(MaterialGroupJoin::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('materials_groups_join'))->add(validateRequest(MaterialGroupJoin::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/materials-groups-join/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/materials-groups-join/{id:[0-9]+}', function (Request $reques
     }
     DbQuery::update($pdo, 'materials_groups_join', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('materials_groups_join'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

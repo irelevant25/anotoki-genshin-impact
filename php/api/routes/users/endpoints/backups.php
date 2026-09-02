@@ -212,7 +212,7 @@ $app->get('/api/backups', function (Request $request, Response $response) {
     usort($items, fn($a, $b) => $b['id'] <=> $a['id']);
 
     return respondJson($response, $items);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(BackupEntry::class, list: true))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── GET /api/backups/status ──────────────────────────────────────────────────
 // Everything the page needs to say whether a backup can be made at all, and
@@ -258,7 +258,7 @@ $app->get('/api/backups/status', function (Request $request, Response $response)
         'stored_size' => $stored,
         'databases' => $databases,
     ]);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(BackupStatus::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── GET /api/backups/{id} ────────────────────────────────────────────────────
 
@@ -269,7 +269,7 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE, function (Request $request, Respons
     }
 
     return respondJson($response, backupReadManifest($args['id'], $directory));
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(BackupEntry::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── POST /api/backups ────────────────────────────────────────────────────────
 // Dumps every configured database, then writes the manifest. The manifest goes
@@ -294,7 +294,7 @@ $app->post('/api/backups', function (Request $request, Response $response) {
     }
 
     return respondJson($response, $manifest, $manifest['status'] === 'failed' ? 500 : 201);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds(BackupEntry::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 /**
  * Why a backup cannot be made here, or null when it can.
@@ -418,7 +418,7 @@ $app->delete('/api/backups/' . BACKUP_ID_ROUTE, function (Request $request, Resp
     backupRemove($directory);
 
     return respondJson($response, ['deleted' => $args['id']]);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds(ApiMessage::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── GET /api/backups/{id}/download/{alias} ───────────────────────────────────
 // A backup sitting on the same disk as the database it came from is only half
@@ -674,7 +674,7 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/preview/{alias:[a-z0-9_]+}', fun
         'lost' => $lost,
         'differences' => $differences,
     ]);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(BackupPreview::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── POST /api/backups/{id}/restore/{alias} ───────────────────────────────────
 
@@ -785,4 +785,4 @@ $app->post('/api/backups/' . BACKUP_ID_ROUTE . '/restore/{alias:[a-z0-9_]+}', fu
         'tables' => $tables,
         'warnings' => $restore['warnings'] ?? [],
     ]);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds(RestoreResult::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());

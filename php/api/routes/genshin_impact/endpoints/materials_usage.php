@@ -76,4 +76,4 @@ $app->get('/api/materials/{id:[0-9]+}/usage', function (Request $request, Respon
         'weapons_ascension' => $weaponsAscension,
         'weapons_refinement' => $weaponsRefinement,
     ]);
-});
+})->add(responds(MaterialUsage::class));

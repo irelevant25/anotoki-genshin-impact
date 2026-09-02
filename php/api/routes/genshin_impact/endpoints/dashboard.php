@@ -188,4 +188,4 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
         'activity'     => $activity,
         'translations' => $translations,
     ]);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(DashboardStats::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());

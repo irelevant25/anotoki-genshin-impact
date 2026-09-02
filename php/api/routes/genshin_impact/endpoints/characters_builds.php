@@ -11,7 +11,7 @@ $app->get('/api/characters-builds', function (Request $request, Response $respon
         ->orderBy('id')
         ->fetchAll();
     return respondJson($response, $items);
-});
+})->add(responds('characters_builds', list: true));
 
 // GET single
 $app->get('/api/characters-builds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -22,7 +22,7 @@ $app->get('/api/characters-builds/{id:[0-9]+}', function (Request $request, Resp
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('characters_builds'));
 
 // POST create
 $app->post('/api/characters-builds', function (Request $request, Response $response) {
@@ -36,7 +36,7 @@ $app->post('/api/characters-builds', function (Request $request, Response $respo
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterBuild::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_builds'))->add(validateRequest(CharacterBuild::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/characters-builds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/characters-builds/{id:[0-9]+}', function (Request $request, Resp
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(CharacterBuild::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_builds'))->add(validateRequest(CharacterBuild::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/characters-builds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/characters-builds/{id:[0-9]+}', function (Request $request, R
     }
     DbQuery::update($pdo, 'characters_builds', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_builds'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

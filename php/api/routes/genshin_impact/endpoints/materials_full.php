@@ -20,5 +20,7 @@ registerFullResource(
             'fk' => 'material_id',
             'model' => MaterialGroupJoin::class,
         ],
-    ]
+    ],
+    full: MaterialFull::class,
+    fullRow: MaterialFullRow::class,
 );

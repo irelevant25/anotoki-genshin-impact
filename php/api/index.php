@@ -8,6 +8,7 @@ require_once __DIR__ . '/../config/backup.php';
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
+require_once __DIR__ . '/response.php';
 require_once __DIR__ . '/media_convert.php';
 require_once __DIR__ . '/full_resource.php';
 
@@ -29,6 +30,12 @@ require_once __DIR__ . '/routes/users/models/migration.php';
 require_once __DIR__ . '/routes/users/models/user.php';
 require_once __DIR__ . '/routes/users/models/role.php';
 require_once __DIR__ . '/routes/users/models/language.php';
+
+// responses
+require_once __DIR__ . '/routes/users/responses/auth.php';
+require_once __DIR__ . '/routes/users/responses/user.php';
+require_once __DIR__ . '/routes/users/responses/backup.php';
+require_once __DIR__ . '/routes/users/responses/translation.php';
 
 // endpoints
 require_once __DIR__ . '/routes/users/endpoints/auth.php';
@@ -86,6 +93,13 @@ require_once __DIR__ . '/routes/genshin_impact/models/banner_weapon.php';
 require_once __DIR__ . '/routes/genshin_impact/models/quiz_state.php';
 require_once __DIR__ . '/routes/genshin_impact/models/quiz_stats_history.php';
 require_once __DIR__ . '/routes/genshin_impact/models/user_quiz_history.php';
+
+// responses
+require_once __DIR__ . '/routes/genshin_impact/responses/common.php';
+require_once __DIR__ . '/routes/genshin_impact/responses/file.php';
+require_once __DIR__ . '/routes/genshin_impact/responses/admin.php';
+require_once __DIR__ . '/routes/genshin_impact/responses/quiz.php';
+require_once __DIR__ . '/routes/genshin_impact/responses/content.php';
 
 // endpoints
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters.php';

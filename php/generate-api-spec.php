@@ -140,6 +140,8 @@ function readHandler(callable|string $callable): array
         'tables' => [],
         'success' => 200,
         'statuses' => [],
+        'responds' => null,
+        'source' => null,
         'expanded' => [],
         'payload' => null,
         'partial' => false,
@@ -161,10 +163,13 @@ function readHandler(callable|string $callable): array
     $body = implode('', array_slice($lines, $reflection->getStartLine() - 1, $reflection->getEndLine() - $reflection->getStartLine() + 1));
 
     // The middleware chain runs from the closing brace to the statement's `;`.
+    // Where that ends is worth keeping: it is where a declaration goes.
     $chain = '';
+    $chainEnd = null;
     for ($i = $reflection->getEndLine() - 1, $end = min(count($lines), $i + 12); $i < $end; $i++) {
         $chain .= $lines[$i];
         if (str_contains($lines[$i], ';')) {
+            $chainEnd = $i + 1;
             break;
         }
     }
@@ -199,6 +204,16 @@ function readHandler(callable|string $callable): array
         $expanded = array_values(array_unique($m[1]));
     }
 
+    // `->add(responds('characters', list: true))` - what the route answers with,
+    // said by the route rather than inferred from the query inside it.
+    $responds = null;
+    if (preg_match('/responds\(\s*(?:\\\\?([\w\\\\]+)::class|\'([^\']*)\')\s*(?:,\s*list:\s*(true|false)\s*)?\)/', $chain, $m)) {
+        $responds = [
+            'shape' => ($m[1] ?? '') !== '' ? $m[1] : $m[2],
+            'list' => ($m[3] ?? 'false') === 'true',
+        ];
+    }
+
     $payload = null;
     $partial = false;
     if (preg_match('/validateRequest\(\s*\\\\?([\w\\\\]+)::class\s*(?:,\s*(true|false))?/', $chain, $m)) {
@@ -224,12 +239,45 @@ function readHandler(callable|string $callable): array
         'tables' => $tables,
         'success' => $success ?? 200,
         'statuses' => $statuses,
+        'responds' => $responds,
+        'source' => $chainEnd === null ? null : ['file' => $file, 'line' => $chainEnd],
         'expanded' => $expanded,
         'payload' => $payload,
         'partial' => $partial,
         'auth' => str_contains($chain, 'requireAuth()') || $roles !== [],
         'roles' => $roles,
     ];
+}
+
+/**
+ * What a route registered by registerFullResource() answers with.
+ *
+ * Those four share one closure between six resources, so there is no literal in
+ * the source that means one of them. The registrar declares all four per
+ * resource instead, and this turns that declaration into the same shape a
+ * `->add(responds(...))` would have produced.
+ */
+function fullResourceResponds(string $method, string $pattern): ?array
+{
+    if (!preg_match('#^/api/([a-z0-9\-]+)/(?:\{id\}/)?full$#', $pattern, $m)) {
+        return null;
+    }
+
+    $declared = fullResourceShapes()[$m[1]] ?? null;
+    if ($declared === null) {
+        return null;
+    }
+
+    $one = str_contains($pattern, '{id}');
+
+    // A create or an update re-reads the parent alone before replying.
+    if ($method === 'POST' || $method === 'PUT') {
+        return ['shape' => $declared['table'], 'list' => false];
+    }
+
+    return $one
+        ? ['shape' => $declared['full'], 'list' => false]
+        : ['shape' => $declared['row'], 'list' => true];
 }
 
 $routes = [];
@@ -247,6 +295,7 @@ foreach ($app->getRouteCollector()->getRoutes() as $route) {
             'args' => $args,
             'file' => routeSourceFile($route->getCallable(), $pattern),
             ...$handler,
+            'responds' => $handler['responds'] ?? fullResourceResponds($method, $pattern),
         ];
     }
 }
@@ -314,6 +363,101 @@ foreach (array_diff(get_declared_classes(), $modelsBefore) as $class) {
 }
 
 ksort($models);
+
+// ── Response shapes, from the ResponseShape subclasses ────────────────────────
+
+/**
+ * A docblock split into the `@var` type it names and the prose around it.
+ *
+ * PHP has no type for "array of what", so `@var Foo[]` is where that is said.
+ * `@merges` is read the same way, off the class rather than a property.
+ */
+function parseDoc(string|false $doc): array
+{
+    if ($doc === false) {
+        return ['var' => null, 'merges' => null, 'text' => null];
+    }
+
+    $body = preg_replace('#^\s*/\*\*|\*/\s*$#', '', $doc);
+
+    $var = null;
+    $extends = null;
+    $text = [];
+
+    foreach (explode("\n", $body) as $line) {
+        $line = trim(ltrim(trim($line), '*'));
+
+        // `@var Foo[] some prose` - the type, then anything after it. The type
+        // can hold spaces of its own inside `array<string, int>`, so it is
+        // matched rather than split on the first space.
+        if (preg_match('/^@var\s+([\w\\\\]+(?:<[^>]*>)?(?:\[\])?(?:\|null)?)\s*(.*)$/', $line, $m)) {
+            $var = $m[1];
+            if (trim($m[2]) !== '') {
+                $text[] = trim($m[2]);
+            }
+            continue;
+        }
+        if (preg_match('/^@merges\s+([\w\\\\]+)/', $line, $m)) {
+            $extends = $m[1];
+            continue;
+        }
+        if (str_starts_with($line, '@')) {
+            continue;
+        }
+        $text[] = $line;
+    }
+
+    $text = trim(implode("\n", $text));
+
+    return ['var' => $var, 'merges' => $extends, 'text' => $text === '' ? null : $text];
+}
+
+$shapes = [];
+foreach (array_diff(get_declared_classes(), $modelsBefore) as $class) {
+    if (!is_subclass_of($class, ResponseShape::class)) {
+        continue;
+    }
+
+    $reflection = new ReflectionClass($class);
+    $constructor = $reflection->getConstructor();
+    if ($constructor === null) {
+        continue;
+    }
+
+    // A promoted parameter keeps its docblock on the property it becomes, which
+    // is the only place reflection will hand it back.
+    $docs = [];
+    foreach ($reflection->getProperties() as $property) {
+        $docs[$property->getName()] = parseDoc($property->getDocComment());
+    }
+
+    $fields = [];
+    foreach ($constructor->getParameters() as $param) {
+        $type = phpTypeToJson($param->getType());
+        $doc = $docs[$param->getName()] ?? ['var' => null, 'text' => null];
+
+        $fields[] = [
+            'name' => $param->getName(),
+            'types' => $type['types'],
+            'nullable' => $type['nullable'],
+            'optional' => $param->isDefaultValueAvailable(),
+            'of' => $doc['var'],
+            'description' => $doc['text'],
+        ];
+    }
+
+    $classDoc = parseDoc($reflection->getDocComment());
+
+    $shapes[$class] = [
+        'name' => $class,
+        'file' => basename($reflection->getFileName()),
+        'merges' => $classDoc['merges'],
+        'description' => $classDoc['text'],
+        'fields' => $fields,
+    ];
+}
+
+ksort($shapes);
 
 // ── Row shapes, from the schema files ─────────────────────────────────────────
 
@@ -455,15 +599,20 @@ $spec = [
     'site' => currentSite(),
     'routes' => $routes,
     'models' => array_values($models),
+    'shapes' => array_values($shapes),
     'tables' => array_values($tables),
 ];
 
 file_put_contents($outPath, json_encode($spec, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");
 
+$declared = count(array_filter($routes, fn($route) => $route['responds'] !== null));
+
 printf(
-    "%s\n  %d routes, %d models, %d tables\n",
+    "%s\n  %d routes (%d declaring a response), %d models, %d shapes, %d tables\n",
     realpath($outPath) ?: $outPath,
     count($routes),
+    $declared,
     count($models),
+    count($shapes),
     count($tables)
 );

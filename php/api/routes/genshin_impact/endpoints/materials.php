@@ -11,7 +11,7 @@ $app->get('/api/materials', function (Request $request, Response $response) {
         ->orderBy('name')
         ->fetchAll();
     return respondJson($response, $items);
-});
+})->add(responds('materials', list: true));
 
 // GET by name (must be before /{id} to avoid route collision)
 $app->get('/api/materials/by-name/{name}', function (Request $request, Response $response, array $args) {
@@ -20,7 +20,7 @@ $app->get('/api/materials/by-name/{name}', function (Request $request, Response 
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('materials'));
 
 // GET single
 $app->get('/api/materials/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -31,7 +31,7 @@ $app->get('/api/materials/{id:[0-9]+}', function (Request $request, Response $re
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('materials'));
 
 // POST create
 $app->post('/api/materials', function (Request $request, Response $response) {
@@ -45,7 +45,7 @@ $app->post('/api/materials', function (Request $request, Response $response) {
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(Material::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('materials'))->add(validateRequest(Material::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/materials/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -63,7 +63,7 @@ $app->put('/api/materials/{id:[0-9]+}', function (Request $request, Response $re
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(Material::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('materials'))->add(validateRequest(Material::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/materials/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -73,4 +73,4 @@ $app->delete('/api/materials/{id:[0-9]+}', function (Request $request, Response 
     }
     DbQuery::update($pdo, 'materials', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('materials'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

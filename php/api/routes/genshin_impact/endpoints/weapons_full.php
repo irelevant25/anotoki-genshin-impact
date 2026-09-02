@@ -36,5 +36,7 @@ registerFullResource(
     ],
     [
         '_parent' => ['icon' => 'weapons', 'icon_2' => 'weapons', 'icon_ascension' => 'weapons'],
-    ]
+    ],
+    full: WeaponFull::class,
+    fullRow: WeaponFullRow::class,
 );

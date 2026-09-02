@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/roles', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM roles ORDER BY name ASC');
     return respondJson($response, $stmt->fetchAll());
-});
+})->add(responds('roles', list: true));
 
 // GET single role
 $app->get('/api/roles/{name}', function (Request $request, Response $response, array $args) {
@@ -19,7 +19,7 @@ $app->get('/api/roles/{name}', function (Request $request, Response $response, a
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('roles'));
 
 // POST create role
 $app->post('/api/roles', function (Request $request, Response $response) {
@@ -29,7 +29,7 @@ $app->post('/api/roles', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM roles WHERE name = ?');
     $stmt->execute([$request->getParsedBody()['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(Role::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('roles'))->add(validateRequest(Role::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE role
 $app->delete('/api/roles/{name}', function (Request $request, Response $response, array $args) {
@@ -43,4 +43,4 @@ $app->delete('/api/roles/{name}', function (Request $request, Response $response
 
     $pdo->prepare('DELETE FROM roles WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('roles'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

@@ -51,7 +51,7 @@ $app->post('/api/auth/register', function (Request $request, Response $response)
             'created_at'      => date('Y-m-d H:i:s'),
         ],
     ], 201);
-});
+})->add(responds(AuthSession::class));
 
 // ---------------------------------------------------------------------------
 // POST /api/auth/login
@@ -87,7 +87,7 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
             'created_at'      => $user['created_at'],
         ],
     ]);
-});
+})->add(responds(AuthSession::class));
 
 // ---------------------------------------------------------------------------
 // GET /api/auth/me  — returns fresh user data for the bearer token owner
@@ -107,7 +107,7 @@ $app->get('/api/auth/me', function (Request $request, Response $response) {
         'version'         => $user['version'],
         'created_at'      => $user['created_at'],
     ]);
-})->add(requireAuth());
+})->add(responds(AuthUser::class))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // PUT /api/auth/theme  — saves the caller's own light/dark choice
@@ -134,7 +134,7 @@ $app->put('/api/auth/theme', function (Request $request, Response $response) {
     $stmt->execute([$theme, $user['id']]);
 
     return respondJson($response, ['area' => $area, 'theme' => $theme]);
-})->add(requireAuth());
+})->add(responds(ThemeChanged::class))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // PUT /api/auth/language  — saves the caller's own reading language
@@ -157,7 +157,7 @@ $app->put('/api/auth/language', function (Request $request, Response $response) 
     $pdo->prepare('UPDATE users SET language = ? WHERE id = ?')->execute([$code, $user['id']]);
 
     return respondJson($response, ['language' => $code]);
-})->add(requireAuth());
+})->add(responds(LanguageChanged::class))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // POST /api/auth/logout  — stateless JWT: real logout happens client-side;
@@ -165,7 +165,7 @@ $app->put('/api/auth/language', function (Request $request, Response $response) 
 // ---------------------------------------------------------------------------
 $app->post('/api/auth/logout', function (Request $_request, Response $response) {
     return respondJson($response, ['message' => 'Logged out']);
-});
+})->add(responds(ApiMessage::class));
 
 // ---------------------------------------------------------------------------
 // PUT /api/auth/password
@@ -191,4 +191,4 @@ $app->put('/api/auth/password', function (Request $request, Response $response) 
         ->execute([password_hash($body['new_password'], PASSWORD_DEFAULT), $user['id']]);
 
     return respondJson($response, ['message' => 'Password changed successfully']);
-})->add(requireAuth());
+})->add(responds(ApiMessage::class))->add(requireAuth());

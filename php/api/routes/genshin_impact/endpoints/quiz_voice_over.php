@@ -59,4 +59,4 @@ $app->get('/api/quiz/voice-over/random', function (Request $request, Response $r
     return $row
         ? respondJson($response, $row)
         : respondJson($response, ['error' => 'No voice over available'], 404);
-});
+})->add(responds(QuizVoiceOverRound::class));

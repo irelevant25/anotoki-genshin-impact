@@ -11,7 +11,7 @@ $app->get('/api/characters-builds-recommended-stats', function (Request $request
         ->orderBy('id')
         ->fetchAll();
     return respondJson($response, $items);
-});
+})->add(responds('characters_builds_recommended_stats', list: true));
 
 // GET single
 $app->get('/api/characters-builds-recommended-stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -22,7 +22,7 @@ $app->get('/api/characters-builds-recommended-stats/{id:[0-9]+}', function (Requ
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('characters_builds_recommended_stats'));
 
 // POST create
 $app->post('/api/characters-builds-recommended-stats', function (Request $request, Response $response) {
@@ -36,7 +36,7 @@ $app->post('/api/characters-builds-recommended-stats', function (Request $reques
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterBuildRecommendedStat::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_builds_recommended_stats'))->add(validateRequest(CharacterBuildRecommendedStat::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/characters-builds-recommended-stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/characters-builds-recommended-stats/{id:[0-9]+}', function (Requ
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(CharacterBuildRecommendedStat::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_builds_recommended_stats'))->add(validateRequest(CharacterBuildRecommendedStat::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/characters-builds-recommended-stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/characters-builds-recommended-stats/{id:[0-9]+}', function (R
     }
     DbQuery::update($pdo, 'characters_builds_recommended_stats', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_builds_recommended_stats'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

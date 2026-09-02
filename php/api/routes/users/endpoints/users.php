@@ -123,7 +123,7 @@ $app->get('/api/users', function (Request $request, Response $response) {
     $statement->execute($params);
 
     return respondJson($response, $statement->fetchAll());
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(AdminUser::class, list: true))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── GET /api/users/filters ───────────────────────────────────────────────────
 
@@ -143,7 +143,7 @@ $app->get('/api/users/filters', function (Request $request, Response $response) 
         'admins' => userAdminCount($pdo),
         'passwordMinLength' => USER_PASSWORD_MIN,
     ]);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(UserFilters::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── GET /api/users/{id} ──────────────────────────────────────────────────────
 
@@ -155,7 +155,7 @@ $app->get('/api/users/{id:[0-9]+}', function (Request $request, Response $respon
     return $user
         ? respondJson($response, $user)
         : respondJson($response, ['error' => 'Not found'], 404);
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds(AdminUser::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── POST /api/users ──────────────────────────────────────────────────────────
 // Creating an account by hand, for the people who should not have to register
@@ -211,7 +211,7 @@ $app->post('/api/users', function (Request $request, Response $response) {
     ]);
 
     return respondJson($response, $insert->fetch(), 201);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds(AdminUser::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── PUT /api/users/{id} ──────────────────────────────────────────────────────
 // Username, email, role and language. The password has its own endpoint, so it
@@ -289,7 +289,7 @@ $app->put('/api/users/{id:[0-9]+}', function (Request $request, Response $respon
     $update->execute([...array_values($changes), $id]);
 
     return respondJson($response, $update->fetch());
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds(AdminUser::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── PUT /api/users/{id}/password ─────────────────────────────────────────────
 // An admin setting somebody's password without knowing the old one, which is
@@ -319,7 +319,7 @@ $app->put('/api/users/{id:[0-9]+}/password', function (Request $request, Respons
         'message' => 'Password changed',
         'note' => 'Any session they already have stays signed in until its token expires.',
     ]);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds(ApiMessage::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── PUT /api/users/{id}/enabled ──────────────────────────────────────────────
 // `deleted` is what the rest of the API already checks on every request, so
@@ -359,7 +359,7 @@ $app->put('/api/users/{id:[0-9]+}/enabled', function (Request $request, Response
     $update->execute([$enabled ? 'false' : 'true', $id]);
 
     return respondJson($response, $update->fetch());
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds(AdminUser::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── DELETE /api/users/{id} ───────────────────────────────────────────────────
 // The same soft delete as disabling, kept because the rest of the API and
@@ -389,4 +389,4 @@ $app->delete('/api/users/{id:[0-9]+}', function (Request $request, Response $res
     $pdo->prepare('UPDATE users SET deleted = true, updated_at = CURRENT_TIMESTAMP WHERE id = ?')->execute([$id]);
 
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds('users'))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());

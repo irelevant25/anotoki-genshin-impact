@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/user-quiz-history', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM user_quiz_history ORDER BY created_at DESC');
     return respondJson($response, $stmt->fetchAll());
-})->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})->add(responds('user_quiz_history', list: true))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // GET single user quiz history entry
 $app->get('/api/user-quiz-history/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -26,7 +26,7 @@ $app->get('/api/user-quiz-history/{id:[0-9]+}', function (Request $request, Resp
     }
 
     return respondJson($response, $item);
-})->add(requireAuth());
+})->add(responds('user_quiz_history'))->add(requireAuth());
 
 // POST create user quiz history entry
 $app->post('/api/user-quiz-history', function (Request $request, Response $response) {
@@ -43,7 +43,7 @@ $app->post('/api/user-quiz-history', function (Request $request, Response $respo
     $stmt = $pdo->prepare('SELECT * FROM user_quiz_history WHERE id = ?');
     $stmt->execute([$id]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(validateRequest(UserQuizHistory::class))->add(requireAuth());
+})->add(responds('user_quiz_history'))->add(validateRequest(UserQuizHistory::class))->add(requireAuth());
 
 // DELETE user quiz history entry
 $app->delete('/api/user-quiz-history/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -57,4 +57,4 @@ $app->delete('/api/user-quiz-history/{id:[0-9]+}', function (Request $request, R
 
     $pdo->prepare('DELETE FROM user_quiz_history WHERE id = ?')->execute([$args['id']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
+})->add(responds('user_quiz_history'))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());

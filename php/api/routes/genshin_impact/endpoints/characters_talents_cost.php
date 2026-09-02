@@ -11,7 +11,7 @@ $app->get('/api/characters-talents-cost', function (Request $request, Response $
         ->orderBy('id')
         ->fetchAll();
     return respondJson($response, $items);
-});
+})->add(responds('characters_talents_cost', list: true));
 
 // GET single
 $app->get('/api/characters-talents-cost/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -22,7 +22,7 @@ $app->get('/api/characters-talents-cost/{id:[0-9]+}', function (Request $request
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('characters_talents_cost'));
 
 // POST create
 $app->post('/api/characters-talents-cost', function (Request $request, Response $response) {
@@ -36,7 +36,7 @@ $app->post('/api/characters-talents-cost', function (Request $request, Response 
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(CharacterTalentCost::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_talents_cost'))->add(validateRequest(CharacterTalentCost::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/characters-talents-cost/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/characters-talents-cost/{id:[0-9]+}', function (Request $request
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(CharacterTalentCost::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_talents_cost'))->add(validateRequest(CharacterTalentCost::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/characters-talents-cost/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/characters-talents-cost/{id:[0-9]+}', function (Request $requ
     }
     DbQuery::update($pdo, 'characters_talents_cost', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('characters_talents_cost'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

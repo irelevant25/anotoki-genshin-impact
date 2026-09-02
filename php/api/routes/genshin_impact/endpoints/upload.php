@@ -49,4 +49,4 @@ $app->post('/api/upload', function (Request $request, Response $response) {
         'filename' => $filename,
         'path' => '/uploads/' . $folder . '/' . $filename,
     ], 201);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds(UploadResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

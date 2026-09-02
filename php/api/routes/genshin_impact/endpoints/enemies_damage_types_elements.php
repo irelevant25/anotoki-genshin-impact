@@ -11,7 +11,7 @@ $app->get('/api/enemies-damage-types-elements', function (Request $request, Resp
         ->orderBy('enemy_phase_id')
         ->fetchAll();
     return respondJson($response, $items);
-});
+})->add(responds('enemies_damage_types_elements', list: true));
 
 // GET single
 $app->get('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -22,7 +22,7 @@ $app->get('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $r
     return $item
         ? respondJson($response, $item)
         : respondJson($response, ['error' => 'Not found'], 404);
-});
+})->add(responds('enemies_damage_types_elements'));
 
 // POST create
 $app->post('/api/enemies-damage-types-elements', function (Request $request, Response $response) {
@@ -36,7 +36,7 @@ $app->post('/api/enemies-damage-types-elements', function (Request $request, Res
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(validateRequest(EnemyDamageTypeElement::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('enemies_damage_types_elements'))->add(validateRequest(EnemyDamageTypeElement::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // PUT update
 $app->put('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -54,7 +54,7 @@ $app->put('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $r
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(validateRequest(EnemyDamageTypeElement::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('enemies_damage_types_elements'))->add(validateRequest(EnemyDamageTypeElement::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 // DELETE
 $app->delete('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,4 @@ $app->delete('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request
     }
     DbQuery::update($pdo, 'enemies_damage_types_elements', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})->add(responds('enemies_damage_types_elements'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
