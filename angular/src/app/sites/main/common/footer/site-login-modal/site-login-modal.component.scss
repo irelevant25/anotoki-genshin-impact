@@ -1,0 +1,30 @@
+.login-problem {
+  margin: 0;
+  color: var(--color-danger);
+}
+
+// The address is right and the password is right; only the confirmation is
+// missing. Kept together so the offer to resend reads as the answer to it.
+.login-unconfirmed {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.login-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+
+  // Buttons rather than anchors: they go nowhere, they open a dialog. Stripped
+  // back to look like the link they read as.
+  .link {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+  }
+}

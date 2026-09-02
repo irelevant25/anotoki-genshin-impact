@@ -139,6 +139,23 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
   profile: {
     title: 'Profile',
     path: 'profile',
+  },
+
+  // Where the two emailed links land. Not in the menu because nobody navigates
+  // to them - they are arrived at from a mail client, with a token attached.
+  // The paths are half of a contract: config/mail.php builds the links out of
+  // its base_url and these, so renaming one here breaks every message already
+  // sent.
+  confirmEmail: {
+    title: 'Confirm email',
+    path: 'confirm-email',
+    notInMenu: true,
+  },
+
+  resetPassword: {
+    title: 'Reset password',
+    path: 'reset-password',
+    notInMenu: true,
   }
 };
 

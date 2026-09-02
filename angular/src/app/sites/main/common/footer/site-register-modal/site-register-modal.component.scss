@@ -1,0 +1,26 @@
+// Shared by the register modal and the two pages the emailed links land on:
+// the same message, whether it is being shown in a dialog or on its own page.
+
+.register-sent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.register-lead {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.register-note {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+// Both the local refusals and whatever the server said, which is prose meant
+// to be read rather than a code to be matched on.
+.register-problem {
+  margin: 0;
+  color: var(--color-danger);
+}

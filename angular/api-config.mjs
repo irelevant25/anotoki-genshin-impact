@@ -100,6 +100,10 @@ export const RESPONSES = {
  */
 export const BODIES = {
   'POST /api/auth/register': 'RegisterRequest',
+  'POST /api/auth/confirm': 'ConfirmEmailRequest',
+  'POST /api/auth/confirm/resend': 'EmailRequest',
+  'POST /api/auth/password/forgot': 'EmailRequest',
+  'POST /api/auth/password/reset': 'PasswordResetRequest',
   'POST /api/auth/login': 'LoginRequest',
   'PUT /api/auth/theme': 'ThemeRequest',
   'PUT /api/auth/language': 'LanguageRequest',
@@ -171,6 +175,10 @@ export const NAMES = {
   'POST /api/auth/logout': 'logout',
   'POST /api/auth/register': 'register',
   'GET /api/auth/me': 'getCurrentUser',
+  'POST /api/auth/confirm': 'confirmEmail',
+  'POST /api/auth/confirm/resend': 'resendConfirmation',
+  'POST /api/auth/password/forgot': 'requestPasswordReset',
+  'POST /api/auth/password/reset': 'resetPassword',
   'PUT /api/auth/theme': 'setTheme',
   'PUT /api/auth/language': 'setLanguage',
   'PUT /api/auth/password': 'changePassword',

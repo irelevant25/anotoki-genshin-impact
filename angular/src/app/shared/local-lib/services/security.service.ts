@@ -6,7 +6,7 @@ import { NotificationService } from '../components/notification/notification.ser
 import { jwtDecode } from '../jwt-decode';
 import { RoleService } from './role.service';
 import { Roles } from './options-helper.service';
-import { AuthApiService, AuthUser } from '../../../api';
+import { AuthApiService, AuthMailRequested, AuthPending, AuthSession, AuthUser } from '../../../api';
 
 export interface UserInfo {
   username: string;
@@ -115,12 +115,53 @@ export class SecurityService {
    * Returns an Observable so the caller can react to success or failure.
    */
   login(email: string, password: string): Observable<void> {
-    return this._authApi.login({ email, password }).pipe(
-      map((res) => {
-        this._storageService.write(this.TOKEN_KEY, res.token);
-        this._applySession(res.user, res.token);
-      }),
-    );
+    return this._authApi.login({ email, password }).pipe(map((session) => this.adoptSession(session)));
+  }
+
+  /**
+   * Creates an account. No session comes back and none is meant to: the
+   * address has to be confirmed before the account can be used, so what the
+   * caller gets is whether the message went out.
+   */
+  register(username: string, email: string, password: string, language?: string): Observable<AuthPending> {
+    return this._authApi.register({ username, email, password, language });
+  }
+
+  /**
+   * Confirms an address from the link in the message, and signs the account in.
+   *
+   * Holding the link is proof of the mailbox, which is a stronger claim than
+   * the password they would otherwise be asked for, so there is no reason to
+   * ask for one as well.
+   */
+  confirmEmail(token: string): Observable<void> {
+    return this._authApi.confirmEmail({ token }).pipe(map((session) => this.adoptSession(session)));
+  }
+
+  /** Sets a new password from a reset link, and signs the account in. */
+  resetPassword(token: string, password: string): Observable<void> {
+    return this._authApi.resetPassword({ token, password }).pipe(map((session) => this.adoptSession(session)));
+  }
+
+  /**
+   * Asks for another confirmation message, or for a reset link.
+   *
+   * Both answer the same whatever they find - whether the address has an
+   * account, whether it still needs confirming - so neither tells the caller
+   * anything to act on beyond that the request was made.
+   */
+  resendConfirmation(email: string): Observable<AuthMailRequested> {
+    return this._authApi.resendConfirmation({ email });
+  }
+
+  requestPasswordReset(email: string): Observable<AuthMailRequested> {
+    return this._authApi.requestPasswordReset({ email });
+  }
+
+  /** Takes up a session handed back by any endpoint that issues one. */
+  adoptSession(session: AuthSession): void {
+    this._storageService.write(this.TOKEN_KEY, session.token);
+    this._applySession(session.user, session.token);
   }
 
   /** Clears the local session and notifies the server (fire-and-forget). */

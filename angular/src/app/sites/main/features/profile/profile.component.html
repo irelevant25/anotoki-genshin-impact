@@ -62,31 +62,31 @@
                         <h2>{{ 'profile.quizzes.title' | translate }}</h2>
 
                         <ul class="rows">
-                            @for (quiz of quizzes(); track quiz.id) {
-                                <li class="row" [class.row-untouched]="quiz.totals.played === 0">
+                            @for (entry of quizzes(); track entry.id) {
+                                <li class="row" [class.row-untouched]="entry.totals.played === 0">
                                     <span class="row-name">
-                                        @if (quizLink(quiz.id); as link) {
-                                            <a class="link" [routerLink]="link">{{ quizTitle(quiz.id) | translate }}</a>
+                                        @if (quizLink(entry.id); as link) {
+                                            <a class="link" [routerLink]="link">{{ quizTitle(entry.id) | translate }}</a>
                                         } @else {
-                                            {{ quizTitle(quiz.id) }}
+                                            {{ quizTitle(entry.id) }}
                                         }
                                     </span>
 
                                     <!-- Width against the busiest quiz, so the bars say
                                          how much of the playing each one accounts for;
                                          the split inside says how it went. -->
-                                    <span class="row-bar" [title]="quiz.totals.wins + ' / ' + quiz.totals.played">
+                                    <span class="row-bar" [title]="entry.totals.wins + ' / ' + entry.totals.played">
                                         <span class="bar-track">
-                                            <span class="bar-fill" [style.width.%]="(quiz.totals.played * 100) / busiestQuiz()">
-                                                <span class="bar-won" [style.width.%]="quiz.totals.winRate"></span>
+                                            <span class="bar-fill" [style.width.%]="(entry.totals.played * 100) / busiestQuiz()">
+                                                <span class="bar-won" [style.width.%]="entry.totals.winRate"></span>
                                             </span>
                                         </span>
                                     </span>
 
-                                    <span class="row-figure">{{ quiz.totals.played }}</span>
+                                    <span class="row-figure">{{ entry.totals.played }}</span>
                                     <span class="row-figure row-rate">
-                                        @if (quiz.totals.played) {
-                                            {{ quiz.totals.winRate | number: '1.0-0' }}%
+                                        @if (entry.totals.played) {
+                                            {{ entry.totals.winRate | number: '1.0-0' }}%
                                         } @else {
                                             &mdash;
                                         }

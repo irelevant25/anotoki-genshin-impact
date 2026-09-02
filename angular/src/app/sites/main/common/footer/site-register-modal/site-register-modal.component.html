@@ -1,0 +1,74 @@
+<app-modal [title]="'account.register.title' | translate" (closeModal)="closeModal()">
+    <div modal-body>
+        @if (sentTo(); as email) {
+            <!-- The account exists and cannot be used yet. Nothing to do here
+                 but say where to look, and offer another copy. -->
+            <div class="register-sent">
+                @if (delivered()) {
+                    <p class="register-lead">{{ 'account.register.sent' | translate: { email: email } }}</p>
+                    <p class="register-note">{{ 'account.register.sentNote' | translate }}</p>
+                } @else {
+                    <p class="register-lead register-problem">{{ 'account.register.notSent' | translate: { email: email } }}</p>
+                    <p class="register-note">{{ 'account.register.notSentNote' | translate }}</p>
+                }
+
+                <app-button [text]="'account.confirm.resendAction' | translate" variant="secondary" (buttonClick)="resend()"></app-button>
+            </div>
+        } @else {
+            <form class="d-flex flex-col flex-wrap gap-3">
+                <app-text
+                    [label]="'account.register.username' | translate"
+                    [placeholder]="'account.register.usernamePlaceholder' | translate"
+                    [(value)]="form().username"
+                    [required]="true"
+                    autocomplete="username"
+                ></app-text>
+
+                <app-text
+                    [label]="'login.email' | translate"
+                    [placeholder]="'login.emailPlaceholder' | translate"
+                    [(value)]="form().email"
+                    [required]="true"
+                    autocomplete="email"
+                ></app-text>
+
+                <app-password
+                    [label]="'login.password' | translate"
+                    [placeholder]="'login.passwordPlaceholder' | translate"
+                    [description]="'account.register.passwordHint' | translate: { count: passwordMin }"
+                    [(value)]="form().password"
+                    [required]="true"
+                    autocomplete="new-password"
+                ></app-password>
+
+                <app-password
+                    [label]="'account.register.passwordAgain' | translate"
+                    [(value)]="form().passwordAgain"
+                    [required]="true"
+                    autocomplete="new-password"
+                ></app-password>
+
+                @if (refusal(); as refusal) {
+                    <p class="register-problem">
+                        @if (refusalIsKey()) {
+                            {{ refusal | translate }}
+                        } @else {
+                            {{ refusal }}
+                        }
+                    </p>
+                }
+            </form>
+        }
+    </div>
+
+    <div modal-footer class="d-flex gap-3 justify-content-end">
+        @if (sentTo()) {
+            <app-button [text]="'common.close' | translate" variant="primary" (buttonClick)="finish()"></app-button>
+        } @else {
+            <app-button [text]="'common.cancel' | translate" variant="secondary" (buttonClick)="cancel()"></app-button>
+            <app-button [text]="'account.register.action' | translate" variant="primary" (buttonClick)="submitRegistration()"></app-button>
+        }
+    </div>
+</app-modal>
+
+<app-loader [loading]="loading()" [text]="'account.register.working' | translate"></app-loader>

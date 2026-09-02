@@ -56,3 +56,36 @@ class LanguageChanged extends ResponseShape
     {
     }
 }
+
+/**
+ * What registration hands back: no session, because there is not one yet.
+ *
+ * The account exists and cannot be used until the address on it is confirmed,
+ * so the only useful things to say are which address the message went to and
+ * whether it actually went. `sent` false is not an error - the account is made
+ * either way - but it lets the page offer to try again instead of telling
+ * somebody to go and look for a message that was never posted.
+ */
+class AuthPending extends ResponseShape
+{
+    public function __construct(
+        public readonly string $email,
+        public readonly bool $sent,
+    ) {
+    }
+}
+
+/**
+ * The answer from the two endpoints that take an address and may send to it.
+ *
+ * Always the same, and says nothing about what was found. Whether there is an
+ * account behind an address, whether it still needs confirming, whether it has
+ * a password to reset - none of that is anything an endpoint open to the whole
+ * internet should be willing to tell apart.
+ */
+class AuthMailRequested extends ResponseShape
+{
+    public function __construct(public readonly bool $requested)
+    {
+    }
+}

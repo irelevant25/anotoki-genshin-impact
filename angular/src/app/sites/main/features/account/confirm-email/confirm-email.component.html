@@ -1,0 +1,28 @@
+<div class="container w-100">
+    <div class="account-landing">
+        @switch (state()) {
+            @case ('working') {
+                <app-loader [loading]="true" [text]="'account.confirm.working' | translate"></app-loader>
+            }
+
+            @case ('done') {
+                <h1>{{ 'account.confirm.doneTitle' | translate }}</h1>
+                <p>{{ 'account.confirm.doneText' | translate }}</p>
+                <app-button [text]="'account.confirm.doneAction' | translate" variant="primary" routerLink="/"></app-button>
+            }
+
+            @case ('failed') {
+                <h1>{{ 'account.confirm.failedTitle' | translate }}</h1>
+                <p>{{ 'account.confirm.failedText' | translate }}</p>
+                <p class="account-note">{{ 'account.confirm.failedNote' | translate }}</p>
+                <app-button [text]="'account.confirm.doneAction' | translate" variant="secondary" routerLink="/"></app-button>
+            }
+
+            @case ('missing') {
+                <h1>{{ 'account.confirm.missingTitle' | translate }}</h1>
+                <p>{{ 'account.confirm.missingText' | translate }}</p>
+                <app-button [text]="'account.confirm.doneAction' | translate" variant="secondary" routerLink="/"></app-button>
+            }
+        }
+    </div>
+</div>

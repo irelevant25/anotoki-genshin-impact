@@ -5,8 +5,25 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiMessage, AuthSession, AuthUser, LanguageChanged, ThemeChanged } from '../models';
-import { ChangePasswordRequest, LanguageRequest, LoginRequest, RegisterRequest, ThemeRequest } from '../types';
+import {
+  ApiMessage,
+  AuthMailRequested,
+  AuthPending,
+  AuthSession,
+  AuthUser,
+  LanguageChanged,
+  ThemeChanged,
+} from '../models';
+import {
+  ChangePasswordRequest,
+  ConfirmEmailRequest,
+  EmailRequest,
+  LanguageRequest,
+  LoginRequest,
+  PasswordResetRequest,
+  RegisterRequest,
+  ThemeRequest,
+} from '../types';
 
 /**
  * Registering, signing in, and the settings that hang off the signed-in account.
@@ -14,6 +31,13 @@ import { ChangePasswordRequest, LanguageRequest, LoginRequest, RegisterRequest, 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {
   private readonly _http = inject(HttpClient);
+
+  /**
+   * `POST /api/auth/confirm`
+   */
+  confirmEmail(body: ConfirmEmailRequest): Observable<AuthSession> {
+    return this._http.post<AuthSession>('/api/auth/confirm', body);
+  }
 
   /**
    * `GET /api/auth/me`
@@ -50,8 +74,29 @@ export class AuthApiService {
   /**
    * `POST /api/auth/register`
    */
-  register(body: RegisterRequest): Observable<AuthSession> {
-    return this._http.post<AuthSession>('/api/auth/register', body);
+  register(body: RegisterRequest): Observable<AuthPending> {
+    return this._http.post<AuthPending>('/api/auth/register', body);
+  }
+
+  /**
+   * `POST /api/auth/password/forgot`
+   */
+  requestPasswordReset(body: EmailRequest): Observable<AuthMailRequested> {
+    return this._http.post<AuthMailRequested>('/api/auth/password/forgot', body);
+  }
+
+  /**
+   * `POST /api/auth/confirm/resend`
+   */
+  resendConfirmation(body: EmailRequest): Observable<AuthMailRequested> {
+    return this._http.post<AuthMailRequested>('/api/auth/confirm/resend', body);
+  }
+
+  /**
+   * `POST /api/auth/password/reset`
+   */
+  resetPassword(body: PasswordResetRequest): Observable<AuthSession> {
+    return this._http.post<AuthSession>('/api/auth/password/reset', body);
   }
 
   /**

@@ -1,13 +1,46 @@
 <app-modal [title]="'login.title' | translate" (closeModal)="closeModal()">
     <div modal-body>
         <form class="feedback-form d-flex flex-col flex-wrap gap-3">
-            <app-text [label]="'login.email' | translate" [placeholder]="'login.emailPlaceholder' | translate" [(value)]="form().email" [required]="true"> </app-text>
-            <app-password [label]="'login.password' | translate" [placeholder]="'login.passwordPlaceholder' | translate" [(value)]="form().password" [required]="true"> </app-password>
+            <app-text
+                [label]="'login.email' | translate"
+                [placeholder]="'login.emailPlaceholder' | translate"
+                [(value)]="form().email"
+                [required]="true"
+                autocomplete="email"
+            ></app-text>
+            <app-password
+                [label]="'login.password' | translate"
+                [placeholder]="'login.passwordPlaceholder' | translate"
+                [(value)]="form().password"
+                [required]="true"
+                autocomplete="current-password"
+            ></app-password>
+
+            <!-- Right credentials, unconfirmed address. Not a failure to report
+                 and forget: there is something to do about it, here. -->
+            @if (needsConfirmation()) {
+                <div class="login-unconfirmed">
+                    <p class="login-problem">{{ 'login.unconfirmed' | translate }}</p>
+                    <app-button
+                        [text]="'account.confirm.resendAction' | translate"
+                        variant="secondary"
+                        size="small"
+                        (buttonClick)="resendConfirmation()"
+                    ></app-button>
+                </div>
+            } @else if (refusal(); as refusal) {
+                <p class="login-problem">{{ refusal }}</p>
+            }
+
+            <div class="login-links">
+                <button type="button" class="link" (click)="forgotPassword()">{{ 'login.forgotPassword' | translate }}</button>
+                <button type="button" class="link" (click)="register()">{{ 'login.noAccount' | translate }}</button>
+            </div>
         </form>
     </div>
     <div modal-footer class="d-flex gap-3 justify-content-end">
         <app-button [text]="'common.cancel' | translate" variant="secondary" (buttonClick)="cancel()"> </app-button>
-        <app-button [text]="'common.login' | translate" variant="primary" (buttonClick)="submit()"> </app-button>
+        <app-button [text]="'common.login' | translate" variant="primary" (buttonClick)="login()"> </app-button>
     </div>
 </app-modal>
 

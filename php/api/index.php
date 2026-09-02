@@ -11,6 +11,8 @@ require_once __DIR__ . '/model.php';
 require_once __DIR__ . '/response.php';
 require_once __DIR__ . '/media_convert.php';
 require_once __DIR__ . '/full_resource.php';
+require_once __DIR__ . '/mail.php';
+require_once __DIR__ . '/one_time_token.php';
 
 use Slim\Factory\AppFactory;
 

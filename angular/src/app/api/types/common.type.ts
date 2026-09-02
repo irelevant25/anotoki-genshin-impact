@@ -12,6 +12,20 @@
 /** What a failed request carries, whatever the status. */
 export interface ApiError {
   error: string;
+  /**
+   * A stable name for the refusal, on the few that the caller has to tell
+   * apart rather than merely show.
+   *
+   * `error` is prose meant for a person and may be reworded at any time, so a
+   * page that has to *do* something different - offer to resend a confirmation
+   * rather than say the password was wrong - reads this instead. Absent on
+   * every refusal where the message is the whole answer.
+   *
+   *   email_not_confirmed  the credentials were right, the address is not
+   *                        confirmed, and the account cannot be used yet
+   *   invalid_token        a link that has expired, been used, or never was
+   */
+  code?: string;
 }
 
 /** A 422 from validateRequest(): one message per field that would not do. */

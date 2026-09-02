@@ -1266,6 +1266,88 @@
         ]
       }
     },
+    "/api/auth/confirm": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "confirmEmail",
+        "summary": "Confirm email",
+        "description": "Public. Reads `users`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/confirm/resend": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "resendConfirmation",
+        "summary": "Resend confirmation",
+        "description": "Public.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMailRequested"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
     "/api/auth/language": {
       "put": {
         "tags": [
@@ -1326,7 +1408,7 @@
         ],
         "operationId": "login",
         "summary": "Login",
-        "description": "Public. Reads `users`.",
+        "description": "Public.",
         "requestBody": {
           "required": true,
           "content": {
@@ -1348,8 +1430,8 @@
               }
             }
           },
-          "400": {
-            "description": "The request was malformed.",
+          "401": {
+            "description": "No token, or one that has expired.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1358,8 +1440,18 @@
               }
             }
           },
-          "401": {
-            "description": "No token, or one that has expired.",
+          "403": {
+            "description": "Signed in, but without the role this needs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The body was understood but will not do.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1508,6 +1600,98 @@
         ]
       }
     },
+    "/api/auth/password/forgot": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "requestPasswordReset",
+        "summary": "Request password reset",
+        "description": "Public.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMailRequested"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/password/reset": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "resetPassword",
+        "summary": "Reset password",
+        "description": "Public. Reads `users`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordResetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The body was understood but will not do.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
     "/api/auth/register": {
       "post": {
         "tags": [
@@ -1532,13 +1716,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthSession"
+                  "$ref": "#/components/schemas/AuthPending"
                 }
               }
             }
           },
-          "400": {
-            "description": "The request was malformed.",
+          "409": {
+            "description": "That would collide with something that already exists.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1547,8 +1731,8 @@
               }
             }
           },
-          "409": {
-            "description": "That would collide with something that already exists.",
+          "422": {
+            "description": "The body was understood but will not do.",
             "content": {
               "application/json": {
                 "schema": {
@@ -19977,6 +20161,10 @@
         "properties": {
           "error": {
             "type": "string"
+          },
+          "code": {
+            "description": "A stable name for the refusal, on the few that the caller has to tell apart rather than merely show. `error` is prose meant for a person and may be reworded at any time, so a page that has to *do* something different - offer to resend a confirmation rather than say the password was wrong - reads this instead. Absent on every refusal where the message is the whole answer. email_not_confirmed  the credentials were right, the address is not confirmed, and the account cannot be used yet invalid_token        a link that has expired, been used, or never was",
+            "type": "string"
           }
         },
         "required": [
@@ -21963,6 +22151,38 @@
         ],
         "additionalProperties": false
       },
+      "AuthMailRequested": {
+        "title": "AuthMailRequested",
+        "description": "The answer from the two endpoints that take an address and may send to it. Always the same, and says nothing about what was found. Whether there is an account behind an address, whether it still needs confirming, whether it has a password to reset - none of that is anything an endpoint open to the whole internet should be willing to tell apart.",
+        "type": "object",
+        "properties": {
+          "requested": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "requested"
+        ],
+        "additionalProperties": false
+      },
+      "AuthPending": {
+        "title": "AuthPending",
+        "description": "What registration hands back: no session, because there is not one yet. The account exists and cannot be used until the address on it is confirmed, so the only useful things to say are which address the message went to and whether it actually went. `sent` false is not an error - the account is made either way - but it lets the page offer to try again instead of telling somebody to go and look for a message that was never posted.",
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "sent": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "email",
+          "sent"
+        ],
+        "additionalProperties": false
+      },
       "AuthSession": {
         "title": "AuthSession",
         "description": "What a successful register or login hands back.",
@@ -23731,6 +23951,20 @@
         ],
         "additionalProperties": false
       },
+      "ConfirmEmailRequest": {
+        "title": "ConfirmEmailRequest",
+        "description": "The token out of a confirmation link.",
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "additionalProperties": false
+      },
       "DashboardActivity": {
         "title": "DashboardActivity",
         "description": "The shape of a `DashboardActivity` response.",
@@ -24035,6 +24269,20 @@
         },
         "required": [
           "name"
+        ],
+        "additionalProperties": false
+      },
+      "EmailRequest": {
+        "title": "EmailRequest",
+        "description": "An address, for the two endpoints that will send to it if there is an account behind it - resending a confirmation, and asking to reset a password. Both answer the same whatever they find, so there is nothing to read back beyond that the request was made.",
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
         ],
         "additionalProperties": false
       },
@@ -39226,6 +39474,24 @@
         ],
         "additionalProperties": false
       },
+      "PasswordResetRequest": {
+        "title": "PasswordResetRequest",
+        "description": "The token out of a reset link, and the password to put behind it.",
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "password"
+        ],
+        "additionalProperties": false
+      },
       "Quiz": {
         "title": "Quiz",
         "description": "A row of `quizzes` as the API reads it back.",
@@ -39968,6 +40234,10 @@
           },
           "password": {
             "type": "string"
+          },
+          "language": {
+            "description": "The language the form was filled in in, so the confirmation arrives in it. Sent rather than settled afterwards: the account is written and the message goes out in the same breath, before anybody has signed in to set anything.",
+            "type": "string"
           }
         },
         "required": [
@@ -40465,7 +40735,7 @@
             "type": "object",
             "additionalProperties": false
           },
-          "__@iterator@30": {
+          "__@iterator@31": {
             "description": "Iterator",
             "type": "object",
             "additionalProperties": false
@@ -40521,7 +40791,7 @@
           "matchAll",
           "replaceAll",
           "at",
-          "__@iterator@30"
+          "__@iterator@31"
         ],
         "additionalProperties": false
       },

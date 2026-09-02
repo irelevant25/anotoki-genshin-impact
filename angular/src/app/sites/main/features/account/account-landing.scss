@@ -1,0 +1,38 @@
+// The two pages an emailed link lands on. One panel, centred, saying what
+// happened - shared because they are the same page with different words in it.
+
+.account-landing {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-veil);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  text-align: center;
+
+  h1 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  form {
+    width: 100%;
+    text-align: start;
+  }
+}
+
+.account-note {
+  color: var(--text-secondary);
+}
+
+.account-problem {
+  color: var(--color-danger);
+}

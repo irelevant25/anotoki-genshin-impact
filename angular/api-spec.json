@@ -753,6 +753,57 @@
             ]
         },
         {
+            "method": "POST",
+            "path": "/api/auth/confirm",
+            "args": [],
+            "file": "auth.php",
+            "tables": [
+                "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                400
+            ],
+            "responds": {
+                "shape": "AuthSession",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 130
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/confirm/resend",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "AuthMailRequested",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 152
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
+        },
+        {
             "method": "PUT",
             "path": "/api/auth/language",
             "args": [],
@@ -771,7 +822,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 160
+                "line": 299
             },
             "expanded": [],
             "payload": null,
@@ -784,14 +835,13 @@
             "path": "/api/auth/login",
             "args": [],
             "file": "auth.php",
-            "tables": [
-                "users"
-            ],
+            "tables": [],
             "success": 200,
             "statuses": [
                 200,
-                400,
-                401
+                401,
+                403,
+                422
             ],
             "responds": {
                 "shape": "AuthSession",
@@ -799,7 +849,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 90
+                "line": 182
             },
             "expanded": [],
             "payload": null,
@@ -823,7 +873,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 168
+                "line": 307
             },
             "expanded": [],
             "payload": null,
@@ -847,7 +897,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 110
+                "line": 249
             },
             "expanded": [],
             "payload": null,
@@ -874,12 +924,64 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 194
+                "line": 336
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/password/forgot",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "AuthMailRequested",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 206
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/password/reset",
+            "args": [],
+            "file": "auth.php",
+            "tables": [
+                "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                422
+            ],
+            "responds": {
+                "shape": "AuthSession",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 242
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
             "roles": []
         },
         {
@@ -893,16 +995,16 @@
             "success": 201,
             "statuses": [
                 201,
-                400,
-                409
+                409,
+                422
             ],
             "responds": {
-                "shape": "AuthSession",
+                "shape": "AuthPending",
                 "list": false
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 54
+                "line": 105
             },
             "expanded": [],
             "payload": null,
@@ -927,7 +1029,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 137
+                "line": 276
             },
             "expanded": [],
             "payload": null,
@@ -15275,6 +15377,52 @@
                     "name": "username",
                     "types": [
                         "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AuthMailRequested",
+            "file": "auth.php",
+            "merges": null,
+            "description": "The answer from the two endpoints that take an address and may send to it.\n\nAlways the same, and says nothing about what was found. Whether there is an\naccount behind an address, whether it still needs confirming, whether it has\na password to reset - none of that is anything an endpoint open to the whole\ninternet should be willing to tell apart.",
+            "fields": [
+                {
+                    "name": "requested",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AuthPending",
+            "file": "auth.php",
+            "merges": null,
+            "description": "What registration hands back: no session, because there is not one yet.\n\nThe account exists and cannot be used until the address on it is confirmed,\nso the only useful things to say are which address the message went to and\nwhether it actually went. `sent` false is not an error - the account is made\neither way - but it lets the page offer to try again instead of telling\nsomebody to go and look for a message that was never posted.",
+            "fields": [
+                {
+                    "name": "email",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "sent",
+                    "types": [
+                        "bool"
                     ],
                     "nullable": false,
                     "optional": false,

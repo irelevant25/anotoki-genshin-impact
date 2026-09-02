@@ -23,6 +23,8 @@ import { DatabaseCharacterDetailComponent } from './features/database/characters
 import { DatabaseMaterialDetailComponent } from './features/database/materials/detail/detail.component';
 import { DatabaseWeaponDetailComponent } from './features/database/weapons/detail/detail.component';
 import { ProfileComponent } from './features/profile/profile.component';
+import { ConfirmEmailComponent } from './features/account/confirm-email/confirm-email.component';
+import { ResetPasswordComponent } from './features/account/reset-password/reset-password.component';
 
 export const routes: Routes = [
   {
@@ -118,6 +120,11 @@ export const routes: Routes = [
       // is signed in, and it says so itself rather than bouncing a visitor to
       // a login they may not want.
       { path: ROUTE_MAP.map['profile'].path, component: ProfileComponent },
+
+      // Arrived at from a mail client, token in the query string. Both read it
+      // once and drop it out of the address bar.
+      { path: ROUTE_MAP.map['confirmEmail'].path, component: ConfirmEmailComponent },
+      { path: ROUTE_MAP.map['resetPassword'].path, component: ResetPasswordComponent },
       { path: '**', component: NotFoundComponent },
     ],
   },
