@@ -5,7 +5,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DashboardStats } from '../types';
+import { DashboardStats } from '../models';
 
 /**
  * The counts on the admin landing page.

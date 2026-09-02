@@ -5,18 +5,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {
-  ApiMessage,
-  AuthSession,
-  AuthUser,
-  ChangePasswordRequest,
-  LanguageChanged,
-  LanguageRequest,
-  LoginRequest,
-  RegisterRequest,
-  ThemeChanged,
-  ThemeRequest,
-} from '../types';
+import { ApiMessage, AuthSession, AuthUser, LanguageChanged, ThemeChanged } from '../models';
+import { ChangePasswordRequest, LanguageRequest, LoginRequest, RegisterRequest, ThemeRequest } from '../types';
 
 /**
  * Registering, signing in, and the settings that hang off the signed-in account.

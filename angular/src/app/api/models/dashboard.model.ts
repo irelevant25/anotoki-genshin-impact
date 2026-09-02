@@ -29,3 +29,96 @@ export interface Feedback {
   created_at: string | null;
   updated_at: string | null;
 }
+
+/**
+ * The shape of a `DashboardActivity` response.
+ */
+export interface DashboardActivity {
+  today: number;
+  last7: number;
+  last30: number;
+  recent: DashboardChange[];
+}
+
+/**
+ * The shape of a `DashboardChange` response.
+ */
+export interface DashboardChange {
+  id: number;
+  table_name: string;
+  record_id: string;
+  action: string;
+  changed_at: string;
+  changed_by_username: string | null;
+}
+
+/**
+ * One row of the content counts, and where to go to edit it.
+ */
+export interface DashboardContent {
+  label: string;
+  table: string;
+  route: string;
+  icon: string;
+  total: number;
+}
+
+/**
+ * The shape of a `DashboardFeedback` response.
+ */
+export interface DashboardFeedback {
+  total: number;
+  new: number;
+  last7: number;
+  last30: number;
+  byType: DashboardFeedbackType[];
+}
+
+/**
+ * The shape of a `DashboardFeedbackType` response.
+ */
+export interface DashboardFeedbackType {
+  type: string;
+  total: number;
+}
+
+/**
+ * Records missing something they ought to have.
+ */
+export interface DashboardGap {
+  label: string;
+  route: string;
+  missing: number;
+  total: number;
+}
+
+/**
+ * The shape of a `DashboardLanguage` response.
+ */
+export interface DashboardLanguage {
+  code: string;
+  name: string;
+  native_name: string;
+  enabled: boolean;
+  translated: number;
+}
+
+/**
+ * The shape of a `DashboardStats` response.
+ */
+export interface DashboardStats {
+  content: DashboardContent[];
+  /** Biggest job first. */
+  gaps: DashboardGap[];
+  feedback: DashboardFeedback;
+  activity: DashboardActivity;
+  translations: DashboardTranslations;
+}
+
+/**
+ * The shape of a `DashboardTranslations` response.
+ */
+export interface DashboardTranslations {
+  keys: number;
+  languages: DashboardLanguage[];
+}

@@ -15,3 +15,49 @@ export interface AuditLog {
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
   changes: string | null;
 }
+
+/**
+ * One logged change.
+ *
+ * Two things differ from the `audit_logs` row: the username is joined in, and
+ * `changes` is decoded - the column stores it as JSON text.
+ */
+export interface AuditLogEntry {
+  id: number;
+  table_name: string;
+  record_id: string;
+  /** INSERT | UPDATE | DELETE */
+  action: string;
+  changed_by: number | null;
+  changed_by_username: string | null;
+  changed_at: string;
+  /** Column to { old, new }. Absent on an insert, which logs the whole row. */
+  changes: Record<string, unknown> | null;
+}
+
+/**
+ * The shape of a `AuditLogFilters` response.
+ */
+export interface AuditLogFilters {
+  tables: string[];
+  actions: string[];
+  users: AuditLogUser[];
+}
+
+/**
+ * The shape of a `AuditLogPage` response.
+ */
+export interface AuditLogPage {
+  total: number;
+  page: number;
+  pageSize: number;
+  items: AuditLogEntry[];
+}
+
+/**
+ * An account, reduced to what the audit filter needs to name it.
+ */
+export interface AuditLogUser {
+  id: number;
+  username: string;
+}

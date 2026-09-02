@@ -8,24 +8,11 @@
 
 import { User } from '../models';
 
-/** An account as the API publishes it. */
-export type AdminUser = Omit<User, 'password' | 'token' | 'token_expires_at'>;
-
 export interface UserQuery {
   /** Matches username or email, case-insensitively. */
   search?: string;
   role?: string;
   status?: 'enabled' | 'disabled';
-}
-
-export interface UserFilters {
-  roles: string[];
-  byRole: Record<string, number>;
-  disabled: number;
-  total: number;
-  /** How many admins are left, so the UI can explain a refused change. */
-  admins: number;
-  passwordMinLength: number;
 }
 
 export interface UserCreateRequest {

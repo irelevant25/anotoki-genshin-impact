@@ -11,11 +11,13 @@ import {
   EnemyDamageTypeElementPayload,
   EnemyDrop,
   EnemyDropPayload,
+  EnemyFull,
+  EnemyFullRow,
   EnemyPayload,
   EnemyPhase,
   EnemyPhasePayload,
 } from '../models';
-import { ApiMessage, EnemyFull, Expanded } from '../types';
+import { Expanded } from '../types';
 
 /**
  * Enemies, their phases, their drops and their elemental behaviour.
@@ -74,8 +76,8 @@ export class EnemyApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteEnemy(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/enemies/${id}`);
+  deleteEnemy(id: number): Observable<Enemy> {
+    return this._http.delete<Enemy>(`/api/enemies/${id}`);
   }
 
   /**
@@ -83,8 +85,8 @@ export class EnemyApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteEnemyDamageTypeElement(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/enemies-damage-types-elements/${id}`);
+  deleteEnemyDamageTypeElement(id: number): Observable<EnemyDamageTypeElement> {
+    return this._http.delete<EnemyDamageTypeElement>(`/api/enemies-damage-types-elements/${id}`);
   }
 
   /**
@@ -92,8 +94,8 @@ export class EnemyApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteEnemyDrop(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/enemies-drops/${id}`);
+  deleteEnemyDrop(id: number): Observable<EnemyDrop> {
+    return this._http.delete<EnemyDrop>(`/api/enemies-drops/${id}`);
   }
 
   /**
@@ -101,8 +103,8 @@ export class EnemyApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteEnemyPhase(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/enemies-phases/${id}`);
+  deleteEnemyPhase(id: number): Observable<EnemyPhase> {
+    return this._http.delete<EnemyPhase>(`/api/enemies-phases/${id}`);
   }
 
   /**
@@ -115,8 +117,8 @@ export class EnemyApiService {
   /**
    * `GET /api/enemies/full`
    */
-  getEnemiesFull(): Observable<EnemyFull[]> {
-    return this._http.get<EnemyFull[]>('/api/enemies/full');
+  getEnemiesFull(): Observable<EnemyFullRow[]> {
+    return this._http.get<EnemyFullRow[]>('/api/enemies/full');
   }
 
   /**

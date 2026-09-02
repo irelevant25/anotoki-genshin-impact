@@ -7,8 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   AssetFilePage,
-  AssetFileQuery,
-  AssetFileRef,
   AssetFolder,
   AssetRestoreResult,
   AssetTrashResult,
@@ -17,7 +15,8 @@ import {
   RecordUploadResult,
   TrashedFile,
   UploadResult,
-} from '../types';
+} from '../models';
+import { AssetFileQuery, AssetFileRef } from '../types';
 import { toHttpParams } from '../http-params';
 
 /**

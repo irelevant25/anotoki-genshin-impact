@@ -5,8 +5,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Language, LanguagePayload } from '../models';
-import { LanguageDeleted, LanguageQuery } from '../types';
+import { Language, LanguageDeleted, LanguagePayload } from '../models';
+import { LanguageQuery } from '../types';
 import { toHttpParams } from '../http-params';
 
 /**

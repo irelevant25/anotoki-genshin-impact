@@ -5,8 +5,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Food, FoodPayload, FoodRecipe, FoodRecipePayload } from '../models';
-import { ApiMessage, Expanded, FoodFull } from '../types';
+import { Food, FoodFull, FoodFullRow, FoodPayload, FoodRecipe, FoodRecipePayload } from '../models';
+import { Expanded } from '../types';
 
 /**
  * Dishes and their recipes.
@@ -47,8 +47,8 @@ export class FoodApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteFood(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/foods/${id}`);
+  deleteFood(id: number): Observable<Food> {
+    return this._http.delete<Food>(`/api/foods/${id}`);
   }
 
   /**
@@ -56,8 +56,8 @@ export class FoodApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteFoodRecipe(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/foods-recipe/${id}`);
+  deleteFoodRecipe(id: number): Observable<FoodRecipe> {
+    return this._http.delete<FoodRecipe>(`/api/foods-recipe/${id}`);
   }
 
   /**
@@ -98,8 +98,8 @@ export class FoodApiService {
   /**
    * `GET /api/foods/full`
    */
-  getFoodsFull(): Observable<FoodFull[]> {
-    return this._http.get<FoodFull[]>('/api/foods/full');
+  getFoodsFull(): Observable<FoodFullRow[]> {
+    return this._http.get<FoodFullRow[]>('/api/foods/full');
   }
 
   /**

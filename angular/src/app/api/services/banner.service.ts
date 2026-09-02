@@ -9,11 +9,13 @@ import {
   Banner,
   BannerCharacter,
   BannerCharacterPayload,
+  BannerFull,
+  BannerFullRow,
   BannerPayload,
   BannerWeapon,
   BannerWeaponPayload,
 } from '../models';
-import { ApiMessage, BannerFull, Expanded } from '../types';
+import { Expanded } from '../types';
 
 /**
  * Wish banners and the characters and weapons on them.
@@ -63,8 +65,8 @@ export class BannerApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteBanner(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/banners/${id}`);
+  deleteBanner(id: number): Observable<Banner> {
+    return this._http.delete<Banner>(`/api/banners/${id}`);
   }
 
   /**
@@ -72,8 +74,8 @@ export class BannerApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteBannerCharacter(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/banners-characters/${id}`);
+  deleteBannerCharacter(id: number): Observable<BannerCharacter> {
+    return this._http.delete<BannerCharacter>(`/api/banners-characters/${id}`);
   }
 
   /**
@@ -81,8 +83,8 @@ export class BannerApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteBannerWeapon(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/banners-weapons/${id}`);
+  deleteBannerWeapon(id: number): Observable<BannerWeapon> {
+    return this._http.delete<BannerWeapon>(`/api/banners-weapons/${id}`);
   }
 
   /**
@@ -123,8 +125,8 @@ export class BannerApiService {
   /**
    * `GET /api/banners/full`
    */
-  getBannersFull(): Observable<BannerFull[]> {
-    return this._http.get<BannerFull[]>('/api/banners/full');
+  getBannersFull(): Observable<BannerFullRow[]> {
+    return this._http.get<BannerFullRow[]>('/api/banners/full');
   }
 
   /**

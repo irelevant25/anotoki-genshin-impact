@@ -5,16 +5,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Feedback } from '../models';
-import {
-  ApiMessage,
-  FeedbackFilters,
-  FeedbackPage,
-  FeedbackQuery,
-  FeedbackRequest,
-  FeedbackStatusChanged,
-  FeedbackStatusRequest,
-} from '../types';
+import { ApiMessage, Feedback, FeedbackFilters, FeedbackPage, FeedbackStatusChanged } from '../models';
+import { FeedbackQuery, FeedbackRequest, FeedbackStatusRequest } from '../types';
 import { toHttpParams } from '../http-params';
 
 /**
@@ -29,8 +21,8 @@ export class FeedbackApiService {
    *
    * Requires the `ADMIN` role.
    */
-  deleteFeedbackEntry(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/feedback/${id}`);
+  deleteFeedbackEntry(id: number): Observable<Feedback> {
+    return this._http.delete<Feedback>(`/api/feedback/${id}`);
   }
 
   /**

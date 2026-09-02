@@ -11,11 +11,13 @@ import {
   WeaponAscensionCost,
   WeaponAscensionCostPayload,
   WeaponAscensionPayload,
+  WeaponFull,
+  WeaponFullRow,
   WeaponPayload,
   WeaponRefinement,
   WeaponRefinementPayload,
 } from '../models';
-import { ApiMessage, Expanded, WeaponFull } from '../types';
+import { Expanded } from '../types';
 
 /**
  * Weapons, their refinements and their ascension costs.
@@ -74,8 +76,8 @@ export class WeaponApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteWeapon(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/weapons/${id}`);
+  deleteWeapon(id: number): Observable<Weapon> {
+    return this._http.delete<Weapon>(`/api/weapons/${id}`);
   }
 
   /**
@@ -83,8 +85,8 @@ export class WeaponApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteWeaponAscension(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/weapons-ascensions/${id}`);
+  deleteWeaponAscension(id: number): Observable<WeaponAscension> {
+    return this._http.delete<WeaponAscension>(`/api/weapons-ascensions/${id}`);
   }
 
   /**
@@ -92,8 +94,8 @@ export class WeaponApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteWeaponAscensionCost(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/weapons-ascensions-cost/${id}`);
+  deleteWeaponAscensionCost(id: number): Observable<WeaponAscensionCost> {
+    return this._http.delete<WeaponAscensionCost>(`/api/weapons-ascensions-cost/${id}`);
   }
 
   /**
@@ -101,8 +103,8 @@ export class WeaponApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteWeaponRefinement(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/weapons-refinements/${id}`);
+  deleteWeaponRefinement(id: number): Observable<WeaponRefinement> {
+    return this._http.delete<WeaponRefinement>(`/api/weapons-refinements/${id}`);
   }
 
   /**
@@ -171,8 +173,8 @@ export class WeaponApiService {
   /**
    * `GET /api/weapons/full`
    */
-  getWeaponsFull(): Observable<WeaponFull[]> {
-    return this._http.get<WeaponFull[]>('/api/weapons/full');
+  getWeaponsFull(): Observable<WeaponFullRow[]> {
+    return this._http.get<WeaponFullRow[]>('/api/weapons/full');
   }
 
   /**

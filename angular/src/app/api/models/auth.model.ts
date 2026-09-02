@@ -23,3 +23,55 @@ export interface User {
   created_at: string | null;
   updated_at: string | null;
 }
+
+/**
+ * A bare acknowledgement. Most writes that return nothing else return this.
+ */
+export interface ApiMessage {
+  message: string;
+  /** Some endpoints add a sentence explaining what did *not* happen. */
+  note?: string | null;
+}
+
+/**
+ * What a successful register or login hands back.
+ */
+export interface AuthSession {
+  /** The bearer token. Every later request carries it. */
+  token: string;
+  user: AuthUser;
+}
+
+/**
+ * An account as the auth endpoints describe it. Never carries the password.
+ */
+export interface AuthUser {
+  username: string;
+  email: string;
+  role: string;
+  background: string | null;
+  /** The site's own light/dark choice. */
+  theme_main: string;
+  /** The admin panel's, remembered separately. */
+  theme_admin: string;
+  language: string;
+  email_confirmed: boolean;
+  version: string | null;
+  created_at: string;
+}
+
+/**
+ * The shape of a `LanguageChanged` response.
+ */
+export interface LanguageChanged {
+  language: string;
+}
+
+/**
+ * Echoed back so the caller can confirm what was stored.
+ */
+export interface ThemeChanged {
+  /** `main` or `admin`. */
+  area: string;
+  theme: string;
+}

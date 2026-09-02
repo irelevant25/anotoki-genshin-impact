@@ -2,6 +2,9 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { User } from './auth.model';
+import type { Language } from './translation.model';
+
 /**
  * A body `User\Language` accepts, as validateBody() checks it.
  *
@@ -15,4 +18,14 @@ export interface LanguagePayload {
   native_name: string;
   enabled?: boolean | null;
   sort_order?: number | null;
+}
+
+/**
+ * Deleting a language: the translations that went with it, and the accounts
+ * that were reading in it and have been moved to the fallback.
+ */
+export interface LanguageDeleted {
+  message: string;
+  translations_deleted: number;
+  users_moved: number;
 }

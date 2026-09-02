@@ -110,3 +110,74 @@ export interface UserQuizHistoryPayload {
   attempts?: number;
   difficulty?: number | null;
 }
+
+/**
+ * What the quiz endpoints answer with.
+ *
+ * A saved game's `state` is deliberately opaque: it is the front end's own
+ * shape, stored as it arrives. What is in it is the browser's business; only
+ * who it belongs to is the server's.
+ */
+export interface QuizProgress {
+  /** The quiz's name, which is what the URL uses. */
+  quiz: string;
+  /** The front end's own shape, stored as it arrives and handed back untouched. Nothing on this side reads into it. */
+  state: Record<string, unknown>;
+  is_daily: boolean;
+}
+
+/**
+ * The shape of a `QuizProgressDeleted` response.
+ */
+export interface QuizProgressDeleted {
+  deleted: number;
+}
+
+/**
+ * The shape of a `QuizProgressSaved` response.
+ */
+export interface QuizProgressSaved {
+  quiz: string;
+  is_daily: boolean;
+}
+
+/**
+ * The shape of a `QuizResultAck` response.
+ */
+export interface QuizResultAck {
+  recorded: boolean;
+}
+
+/**
+ * A player's totals for one character in one quiz.
+ */
+export interface QuizStatsRow {
+  quiz: string;
+  character_id: number;
+  character_name: string;
+  icon_name: string | null;
+  wins: number;
+  losses: number;
+  attempts: number;
+}
+
+/**
+ * A voice over drawn at random, with the character it belongs to.
+ *
+ * Only lines with both English audio and English text are drawn, and the
+ * Travellers are left out - one character across twelve rows would meet
+ * themselves.
+ */
+export interface QuizVoiceOverRound {
+  id: number;
+  type: string;
+  title_english: string;
+  text_english: string;
+  audio_english: string;
+  character_id: number;
+  character_name: string;
+  icon_name: string | null;
+  wish_icon_name: string | null;
+  rarity: number;
+  element: string;
+}

@@ -64,7 +64,12 @@ export function emptyEnemy(): EnemyWrapper {
 }
 
 export function emptyPhase(): PhaseWrapper {
-  return { uid: createUid(), data: { title: '', icon: '', has_weakpoint: false }, pending: {}, elements: [] };
+  return {
+    uid: createUid(),
+    data: { title: '', icon: '', has_weakpoint: false, damage_type_elements: [] },
+    pending: {},
+    elements: [],
+  };
 }
 
 export function emptyDropEntry(kind: DropKind = 'material'): DropEntryWrapper {

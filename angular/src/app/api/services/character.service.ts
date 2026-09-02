@@ -31,6 +31,7 @@ import {
   CharacterBuildWeaponPayload,
   CharacterConstellation,
   CharacterConstellationPayload,
+  CharacterFull,
   CharacterPayload,
   CharacterRelationship,
   CharacterRelationshipPayload,
@@ -43,7 +44,7 @@ import {
   CharacterVoiceOver,
   CharacterVoiceOverPayload,
 } from '../models';
-import { ApiMessage, CharacterFull, Expanded } from '../types';
+import { Expanded } from '../types';
 
 /**
  * Characters and everything hanging off one - talents, ascensions, constellations, builds.
@@ -228,8 +229,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacter(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters/${id}`);
+  deleteCharacter(id: number): Observable<Character> {
+    return this._http.delete<Character>(`/api/characters/${id}`);
   }
 
   /**
@@ -237,8 +238,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterAscension(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-ascensions/${id}`);
+  deleteCharacterAscension(id: number): Observable<CharacterAscension> {
+    return this._http.delete<CharacterAscension>(`/api/characters-ascensions/${id}`);
   }
 
   /**
@@ -246,8 +247,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterAscensionCost(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-ascensions-cost/${id}`);
+  deleteCharacterAscensionCost(id: number): Observable<CharacterAscensionCost> {
+    return this._http.delete<CharacterAscensionCost>(`/api/characters-ascensions-cost/${id}`);
   }
 
   /**
@@ -255,8 +256,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuild(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds/${id}`);
+  deleteCharacterBuild(id: number): Observable<CharacterBuild> {
+    return this._http.delete<CharacterBuild>(`/api/characters-builds/${id}`);
   }
 
   /**
@@ -264,8 +265,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuildArtifact(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds-artifacts/${id}`);
+  deleteCharacterBuildArtifact(id: number): Observable<CharacterBuildArtifact> {
+    return this._http.delete<CharacterBuildArtifact>(`/api/characters-builds-artifacts/${id}`);
   }
 
   /**
@@ -273,8 +274,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuildMainStat(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds-main-stats/${id}`);
+  deleteCharacterBuildMainStat(id: number): Observable<CharacterBuildMainStat> {
+    return this._http.delete<CharacterBuildMainStat>(`/api/characters-builds-main-stats/${id}`);
   }
 
   /**
@@ -282,8 +283,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuildRecommendedStat(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds-recommended-stats/${id}`);
+  deleteCharacterBuildRecommendedStat(id: number): Observable<CharacterBuildRecommendedStat> {
+    return this._http.delete<CharacterBuildRecommendedStat>(`/api/characters-builds-recommended-stats/${id}`);
   }
 
   /**
@@ -291,8 +292,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuildSubStat(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds-sub-stats/${id}`);
+  deleteCharacterBuildSubStat(id: number): Observable<CharacterBuildSubStat> {
+    return this._http.delete<CharacterBuildSubStat>(`/api/characters-builds-sub-stats/${id}`);
   }
 
   /**
@@ -300,8 +301,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuildTalent(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds-talents/${id}`);
+  deleteCharacterBuildTalent(id: number): Observable<CharacterBuildTalent> {
+    return this._http.delete<CharacterBuildTalent>(`/api/characters-builds-talents/${id}`);
   }
 
   /**
@@ -309,8 +310,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuildTeam(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds-teams/${id}`);
+  deleteCharacterBuildTeam(id: number): Observable<CharacterBuildTeam> {
+    return this._http.delete<CharacterBuildTeam>(`/api/characters-builds-teams/${id}`);
   }
 
   /**
@@ -318,8 +319,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuildTeamCharacter(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds-teams-characters/${id}`);
+  deleteCharacterBuildTeamCharacter(id: number): Observable<CharacterBuildTeamCharacter> {
+    return this._http.delete<CharacterBuildTeamCharacter>(`/api/characters-builds-teams-characters/${id}`);
   }
 
   /**
@@ -327,8 +328,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterBuildWeapon(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-builds-weapons/${id}`);
+  deleteCharacterBuildWeapon(id: number): Observable<CharacterBuildWeapon> {
+    return this._http.delete<CharacterBuildWeapon>(`/api/characters-builds-weapons/${id}`);
   }
 
   /**
@@ -336,8 +337,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterConstellation(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-constellations/${id}`);
+  deleteCharacterConstellation(id: number): Observable<CharacterConstellation> {
+    return this._http.delete<CharacterConstellation>(`/api/characters-constellations/${id}`);
   }
 
   /**
@@ -345,8 +346,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterRelationship(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-relationships/${id}`);
+  deleteCharacterRelationship(id: number): Observable<CharacterRelationship> {
+    return this._http.delete<CharacterRelationship>(`/api/characters-relationships/${id}`);
   }
 
   /**
@@ -354,8 +355,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterRole(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-roles/${id}`);
+  deleteCharacterRole(id: number): Observable<CharacterRole> {
+    return this._http.delete<CharacterRole>(`/api/characters-roles/${id}`);
   }
 
   /**
@@ -363,8 +364,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterTalent(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-talents/${id}`);
+  deleteCharacterTalent(id: number): Observable<CharacterTalent> {
+    return this._http.delete<CharacterTalent>(`/api/characters-talents/${id}`);
   }
 
   /**
@@ -372,8 +373,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterTalentCost(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-talents-cost/${id}`);
+  deleteCharacterTalentCost(id: number): Observable<CharacterTalentCost> {
+    return this._http.delete<CharacterTalentCost>(`/api/characters-talents-cost/${id}`);
   }
 
   /**
@@ -381,8 +382,8 @@ export class CharacterApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteCharacterVoiceOver(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/characters-voice-overs/${id}`);
+  deleteCharacterVoiceOver(id: number): Observable<CharacterVoiceOver> {
+    return this._http.delete<CharacterVoiceOver>(`/api/characters-voice-overs/${id}`);
   }
 
   /**

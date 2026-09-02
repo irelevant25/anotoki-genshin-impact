@@ -15,21 +15,6 @@ export interface FeedbackQuery {
   page?: number;
 }
 
-export interface FeedbackPage {
-  total: number;
-  page: number;
-  pageSize: number;
-  items: Feedback[];
-}
-
-export interface FeedbackFilters {
-  sections: string[];
-  statuses: Feedback['status'][];
-  types: string[];
-  byStatus: Record<string, number>;
-  byType: Record<string, number>;
-}
-
 export interface FeedbackStatusRequest {
   status: string;
 }
@@ -57,8 +42,3 @@ export interface FeedbackRequest {
   language?: string | null;
 }
 
-/** Echoed back after a status change, so the list can update in place. */
-export interface FeedbackStatusChanged {
-  id: number;
-  status: string;
-}

@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { Saved } from '../types/common.type';
+
 /**
  * A row of `foods` as the API reads it back.
  */
@@ -103,3 +105,18 @@ export interface FoodRecipePayload {
   material_id: number;
   quantity: number;
 }
+
+/**
+ * The shape of a `FoodFull` response.
+ */
+export interface FoodFull {
+  food: Saved<FoodPayload>;
+  recipe: Saved<FoodRecipePayload>[];
+}
+
+/**
+ * The shape of a `FoodFullRow` response.
+ */
+export type FoodFullRow = Food & {
+  recipe: Saved<FoodRecipePayload>[];
+};

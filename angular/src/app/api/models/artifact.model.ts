@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { Saved } from '../types/common.type';
+
 /**
  * A row of `artifacts` as the API reads it back.
  */
@@ -101,3 +103,18 @@ export interface ArtifactPiecePayload {
   name: string;
   icon_name?: string | null;
 }
+
+/**
+ * The shape of a `ArtifactFull` response.
+ */
+export interface ArtifactFull {
+  artifact: Saved<ArtifactPayload>;
+  pieces: Saved<ArtifactPiecePayload>[];
+}
+
+/**
+ * The shape of a `ArtifactFullRow` response.
+ */
+export type ArtifactFullRow = Artifact & {
+  pieces: Saved<ArtifactPiecePayload>[];
+};

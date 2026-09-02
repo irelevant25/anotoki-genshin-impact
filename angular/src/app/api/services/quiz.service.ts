@@ -9,23 +9,19 @@ import {
   Quiz,
   QuizHistory,
   QuizPayload,
+  QuizProgress,
+  QuizProgressDeleted,
+  QuizProgressSaved,
+  QuizResultAck,
   QuizState,
   QuizStatePayload,
   QuizStatsHistory,
   QuizStatsHistoryPayload,
+  QuizStatsRow,
+  QuizVoiceOverRound,
   UserQuizHistoryPayload,
 } from '../models';
-import {
-  ApiMessage,
-  QuizProgress,
-  QuizProgressDeleted,
-  QuizProgressRequest,
-  QuizProgressSaved,
-  QuizResultAck,
-  QuizResultRequest,
-  QuizStats,
-  QuizVoiceOverRound,
-} from '../types';
+import { QuizProgressRequest, QuizResultRequest } from '../types';
 
 /**
  * The quizzes, a player's progress through them, and the history behind the stats.
@@ -75,8 +71,8 @@ export class QuizApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteQuiz(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/quizzes/${id}`);
+  deleteQuiz(id: number): Observable<Quiz> {
+    return this._http.delete<Quiz>(`/api/quizzes/${id}`);
   }
 
   /**
@@ -84,8 +80,8 @@ export class QuizApiService {
    *
    * Requires the `ADMIN` role.
    */
-  deleteQuizHistory(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/user-quiz-history/${id}`);
+  deleteQuizHistory(id: number): Observable<QuizHistory> {
+    return this._http.delete<QuizHistory>(`/api/user-quiz-history/${id}`);
   }
 
   /**
@@ -102,8 +98,8 @@ export class QuizApiService {
    *
    * Requires a signed-in user.
    */
-  deleteQuizState(userId: number, quizId: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/quiz-states/${userId}/${quizId}`);
+  deleteQuizState(userId: number, quizId: number): Observable<QuizState> {
+    return this._http.delete<QuizState>(`/api/quiz-states/${userId}/${quizId}`);
   }
 
   /**
@@ -111,8 +107,8 @@ export class QuizApiService {
    *
    * Requires a signed-in user.
    */
-  deleteQuizStatsHistory(userId: number, characterId: number, quizId: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/quiz-stats-history/${userId}/${characterId}/${quizId}`);
+  deleteQuizStatsHistory(userId: number, characterId: number, quizId: number): Observable<QuizStatsHistory> {
+    return this._http.delete<QuizStatsHistory>(`/api/quiz-stats-history/${userId}/${characterId}/${quizId}`);
   }
 
   /**
@@ -172,8 +168,8 @@ export class QuizApiService {
    *
    * Requires a signed-in user.
    */
-  getQuizStats(): Observable<QuizStats> {
-    return this._http.get<QuizStats>('/api/quiz/stats');
+  getQuizStats(): Observable<QuizStatsRow[]> {
+    return this._http.get<QuizStatsRow[]>('/api/quiz/stats');
   }
 
   /**

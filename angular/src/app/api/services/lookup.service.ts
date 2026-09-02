@@ -36,7 +36,6 @@ import {
   VoiceOverType,
   WeaponType,
 } from '../models';
-import { ApiMessage } from '../types';
 
 /**
  * The name-keyed lookup tables. Every one is a list of `{ name }`, read to fill a dropdown.
@@ -149,8 +148,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteDomainLevel(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/domain-levels/${encodeURIComponent(name)}`);
+  deleteDomainLevel(name: string): Observable<DomainLevel> {
+    return this._http.delete<DomainLevel>(`/api/domain-levels/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -158,8 +157,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteEnemyFamily(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/enemy-families/${encodeURIComponent(name)}`);
+  deleteEnemyFamily(name: string): Observable<EnemyFamily> {
+    return this._http.delete<EnemyFamily>(`/api/enemy-families/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -167,8 +166,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteEnemyGroup(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/enemy-groups/${encodeURIComponent(name)}`);
+  deleteEnemyGroup(name: string): Observable<EnemyGroup> {
+    return this._http.delete<EnemyGroup>(`/api/enemy-groups/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -176,8 +175,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteEnemyType(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/enemy-types/${encodeURIComponent(name)}`);
+  deleteEnemyType(name: string): Observable<EnemyType> {
+    return this._http.delete<EnemyType>(`/api/enemy-types/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -185,8 +184,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteFoodType(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/food-types/${encodeURIComponent(name)}`);
+  deleteFoodType(name: string): Observable<FoodType> {
+    return this._http.delete<FoodType>(`/api/food-types/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -194,8 +193,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteMaterialGroup(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/material-groups/${encodeURIComponent(name)}`);
+  deleteMaterialGroup(name: string): Observable<MaterialGroup> {
+    return this._http.delete<MaterialGroup>(`/api/material-groups/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -203,8 +202,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteMaterialType(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/material-types/${encodeURIComponent(name)}`);
+  deleteMaterialType(name: string): Observable<MaterialType> {
+    return this._http.delete<MaterialType>(`/api/material-types/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -212,8 +211,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteRegion(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/regions/${encodeURIComponent(name)}`);
+  deleteRegion(name: string): Observable<Region> {
+    return this._http.delete<Region>(`/api/regions/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -221,8 +220,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteRelationshipType(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/relationship-types/${encodeURIComponent(name)}`);
+  deleteRelationshipType(name: string): Observable<RelationshipType> {
+    return this._http.delete<RelationshipType>(`/api/relationship-types/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -230,8 +229,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteRole(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/roles/${encodeURIComponent(name)}`);
+  deleteRole(name: string): Observable<Role> {
+    return this._http.delete<Role>(`/api/roles/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -239,8 +238,8 @@ export class LookupApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteTalentType(name: string): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/talent-types/${encodeURIComponent(name)}`);
+  deleteTalentType(name: string): Observable<TalentType> {
+    return this._http.delete<TalentType>(`/api/talent-types/${encodeURIComponent(name)}`);
   }
 
   /**

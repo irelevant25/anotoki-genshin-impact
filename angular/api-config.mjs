@@ -9,8 +9,9 @@
  * and generate-openapi.mjs writing the document that describes the same API to
  * everything else.
  *
- * Nothing here emits anything. Add a route to the backend and the two things
- * worth checking are RESPONSES, if the response is not a plain table row, and
+ * Nothing here emits anything, and nothing here describes a response any more:
+ * every route says that for itself, in `->add(responds(...))` beside its own
+ * handler. Add a route to the backend and the only thing worth checking here is
  * NAMES, if the mechanical name comes out awkward.
  */
 
@@ -81,109 +82,17 @@ export const GROUP_DOCS = {
 };
 
 /**
- * Endpoints whose response no table describes, and the hand-written type that
- * does describe it. `T` is the type name; it must be exported from api/types.
+ * The one endpoint whose response has no shape to name.
+ *
+ * Everything else says what it answers with beside its own handler, in
+ * `->add(responds(...))`. The translation export is a bare key-to-string map,
+ * and a PHP constructor has no way to describe an index signature, so it stays
+ * declared here. (The backup download is bytes rather than a shape; that is
+ * BLOBS, further down.)
  */
 export const RESPONSES = {
-  'POST /api/auth/register': 'AuthSession',
-  'POST /api/auth/login': 'AuthSession',
-  'GET /api/auth/me': 'AuthUser',
-  'PUT /api/auth/theme': 'ThemeChanged',
-  'PUT /api/auth/language': 'LanguageChanged',
-  'POST /api/auth/logout': 'ApiMessage',
-  'PUT /api/auth/password': 'ApiMessage',
-
-  'GET /api/users': 'AdminUser[]',
-  'GET /api/users/{id}': 'AdminUser',
-  'POST /api/users': 'AdminUser',
-  'PUT /api/users/{id}': 'AdminUser',
-  'GET /api/users/filters': 'UserFilters',
-  'PUT /api/users/{id}/password': 'ApiMessage',
-  'PUT /api/users/{id}/enabled': 'AdminUser',
-
-  'GET /api/translations/{code}': 'TranslationBundleResponse',
   'GET /api/translations/{code}/export': 'TranslationBundle',
-  'PUT /api/translations/{code}/import': 'TranslationImportResult',
-  'GET /api/admin/translations': 'TranslationAdminView',
-  'PUT /api/admin/translations': 'TranslationSaveResult',
-  'DELETE /api/languages/{code}': 'LanguageDeleted',
-  'DELETE /api/translation-keys/{name}': 'TranslationKeyDeleted',
-
-  'GET /api/backups': 'BackupEntry[]',
-  'GET /api/backups/status': 'BackupStatus',
-  'GET /api/backups/{id}': 'BackupEntry',
-  'POST /api/backups': 'BackupEntry',
-  'DELETE /api/backups/{id}': 'ApiMessage',
-  'GET /api/backups/{id}/preview/{alias}': 'BackupPreview',
-  'POST /api/backups/{id}/restore/{alias}': 'RestoreResult',
-
-  'GET /api/characters/{id}/full': 'CharacterFull',
-
-  'GET /api/materials/{id}/usage': 'MaterialUsage',
-
-  'GET /api/dashboard/stats': 'DashboardStats',
-
-  'GET /api/feedback': 'FeedbackPage',
-  'GET /api/feedback/filters': 'FeedbackFilters',
-  'POST /api/feedback': 'ApiMessage',
-  'PUT /api/feedback/{id}/status': 'FeedbackStatusChanged',
-
-  'GET /api/files': 'AssetFilePage',
-  'GET /api/files/folders': 'AssetFolder[]',
-  'GET /api/files/trash': 'TrashedFile[]',
-  'POST /api/files': 'AssetUploadResult',
-  'POST /api/files/restore': 'AssetRestoreResult',
-  'DELETE /api/files': 'AssetTrashResult',
-  'POST /api/upload': 'UploadResult',
-  'POST /api/uploads/{entity}/{field}': 'EntityUploadResult',
-  'POST /api/uploads/{entity}/{id}/{field}': 'RecordUploadResult',
-
-  'GET /api/migrations': 'MigrationEntry[]',
-  'GET /api/migrations/file': 'MigrationFile',
-
-  'GET /api/audit-logs': 'AuditLogPage',
-  'GET /api/audit-logs/filters': 'AuditLogFilters',
-
-  'GET /api/quiz/progress': 'QuizProgress[]',
-  'PUT /api/quiz/progress/{quiz}': 'QuizProgressSaved',
-  'DELETE /api/quiz/progress/{quiz}': 'QuizProgressDeleted',
-  'POST /api/quiz/result': 'QuizResultAck',
-  'GET /api/quiz/stats': 'QuizStats',
-  'GET /api/quiz/voice-over/random': 'QuizVoiceOverRound',
 };
-
-/**
- * The `/full` endpoints.
- *
- * Only the two reads answer with the composite. A create or an update answers
- * with the parent row on its own - registerFullResource() re-reads just the
- * parent before replying - so those are typed from the table like any other
- * write, and the entry below is only for the shapes that are composite.
- */
-for (const [entity, type] of [
-  ['weapons', 'WeaponFull'],
-  ['artifacts', 'ArtifactFull'],
-  ['materials', 'MaterialFull'],
-  ['foods', 'FoodFull'],
-  ['enemies', 'EnemyFull'],
-  ['banners', 'BannerFull'],
-]) {
-  RESPONSES[`GET /api/${entity}/full`] = `${type}[]`;
-  RESPONSES[`GET /api/${entity}/{id}/full`] = type;
-}
-
-/** A create or update through `/full` answers with the parent row alone. */
-for (const [entity, row] of [
-  ['weapons', 'Weapon'],
-  ['artifacts', 'Artifact'],
-  ['materials', 'Material'],
-  ['foods', 'Food'],
-  ['enemies', 'Enemy'],
-  ['banners', 'Banner'],
-]) {
-  RESPONSES[`POST /api/${entity}/full`] = row;
-  RESPONSES[`PUT /api/${entity}/{id}/full`] = row;
-}
 
 /**
  * Request bodies the PHP models do not describe, and the hand-written type
@@ -449,6 +358,41 @@ export function analyse(spec) {
 
   const payloadName = (className) => `${pascal(className.split('\\').pop())}Payload`;
 
+  const shapeByName = new Map(spec.shapes.map((shape) => [shape.name, shape]));
+
+  const SCALARS = { string: 'string', int: 'number', float: 'number', bool: 'boolean', mixed: 'unknown' };
+
+  /**
+   * One name out of a `@var` or `@merges` docblock, as TypeScript.
+   *
+   * Resolved the way response.php says: a response shape, then a model, then a
+   * table. A model becomes the payload rather than the row, because the place a
+   * model appears in a response is inside a `/full` body - and there it is the
+   * thing being edited, with the id and the parent link filled in on save.
+   */
+  function namedType(name) {
+    if (SCALARS[name]) return SCALARS[name];
+    if (shapeByName.has(name)) return name;
+
+    const model = resolveModel(name);
+    if (model) return `Saved<${payloadName(model.name)}>`;
+
+    const table = tableByName.get(name);
+    if (table?.interface) return table.interface;
+
+    return 'unknown';
+  }
+
+  /** A whole `@var` expression: `Foo[]`, `array<string, int>`, `Foo[]|null`. */
+  function docType(of) {
+    const map = of.match(/^array<\s*([\w\\]+)\s*,\s*([\w\\]+)\s*>$/);
+    if (map) return `Record<${namedType(map[1])}, ${namedType(map[2])}>`;
+
+    // `|null` is already carried by the PHP type being nullable.
+    const base = of.replace(/\|null$/, '');
+    return base.endsWith('[]') ? `${namedType(base.slice(0, -2))}[]` : namedType(base);
+  }
+
   /** The table a route answers from, when the schema knows it. */
   const tableOf = (route) => (route.tables.length ? tableByName.get(route.tables[0]) : undefined);
 
@@ -476,22 +420,36 @@ export function analyse(spec) {
 
 
 
+  /**
+   * The row a table answers with, with any expanded foreign keys applied.
+   *
+   * includeExternal() swaps a key for the row it points at, so `created_by` is
+   * the user rather than their id wherever the handler asked for that.
+   */
+  function rowType(table, expanded) {
+    if (!expanded.length) return table.interface;
+    return `Expanded<${table.interface}, ${expanded.map((column) => `'${column}'`).join(' | ')}>`;
+  }
+
+  /**
+   * What a route answers with.
+   *
+   * The route says so itself now - `->add(responds('characters', list: true))`
+   * beside the handler - so this reads the declaration rather than guessing
+   * from the DbQuery call inside the body. RESPONSES is what is left for the
+   * two that have no shape to name: a file download, and the translation export,
+   * which is a bare key-to-string map with no constructor that can describe it.
+   */
   function responseType(route) {
     const key = `${route.method} ${route.path}`;
     if (BLOBS.has(key)) return 'Blob';
     if (RESPONSES[key]) return RESPONSES[key];
+    if (!route.responds) return 'unknown';
 
-    const table = tableOf(route);
-    if (!table?.interface) return 'unknown';
+    const table = tableByName.get(route.responds.shape);
+    const one = table ? rowType(table, route.expanded) : route.responds.shape;
 
-    if (route.method === 'DELETE') return 'ApiMessage';
-
-    const one = route.args.length > 0 || route.method === 'POST';
-    const row = route.expanded.length
-      ? `Expanded<${table.interface}, ${route.expanded.map((c) => `'${c}'`).join(' | ')}>`
-      : table.interface;
-
-    return one ? row : `${row}[]`;
+    return route.responds.list ? `${one}[]` : one;
   }
 
   function bodyType(route) {
@@ -520,5 +478,9 @@ export function analyse(spec) {
     responseType,
     bodyType,
     payloadName,
+    shapeByName,
+    namedType,
+    docType,
+    rowType,
   };
 }

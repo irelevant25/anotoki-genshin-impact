@@ -5,29 +5,6 @@
  * and deliberately so - `password` never leaves the server, for anybody.
  */
 
-/** The account as the auth endpoints describe it. Never includes the password. */
-export interface AuthUser {
-  username: string;
-  email: string;
-  role: string;
-  background: string | null;
-  /** The site's own light/dark choice. */
-  theme_main: string;
-  /** The admin panel's, remembered separately. */
-  theme_admin: string;
-  language: string;
-  email_confirmed: boolean;
-  version: string | null;
-  created_at: string;
-}
-
-/** What a successful register or login hands back. */
-export interface AuthSession {
-  /** The bearer token. The interceptor puts it on every later request. */
-  token: string;
-  user: AuthUser;
-}
-
 export interface LoginRequest {
   email: string;
   password: string;
@@ -47,17 +24,7 @@ export interface ThemeRequest {
   theme: 'light' | 'dark' | 'auto';
 }
 
-/** Echoed back so the caller can confirm what was stored. */
-export interface ThemeChanged {
-  area: ThemeArea;
-  theme: string;
-}
-
 export interface LanguageRequest {
-  language: string;
-}
-
-export interface LanguageChanged {
   language: string;
 }
 

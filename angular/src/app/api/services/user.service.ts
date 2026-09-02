@@ -5,16 +5,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {
-  AdminUser,
-  ApiMessage,
-  EnabledRequest,
-  SetPasswordRequest,
-  UserCreateRequest,
-  UserFilters,
-  UserQuery,
-  UserUpdateRequest,
-} from '../types';
+import { AdminUser, ApiMessage, User, UserFilters } from '../models';
+import { EnabledRequest, SetPasswordRequest, UserCreateRequest, UserQuery, UserUpdateRequest } from '../types';
 import { toHttpParams } from '../http-params';
 
 /**
@@ -38,8 +30,8 @@ export class UserApiService {
    *
    * Requires the `ADMIN` role.
    */
-  deleteUser(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/users/${id}`);
+  deleteUser(id: number): Observable<User> {
+    return this._http.delete<User>(`/api/users/${id}`);
   }
 
   /**

@@ -184,10 +184,10 @@ export class FeedbackComponent extends AbstractModalComponent implements OnInit 
     return entry.email || 'Anonymous';
   }
 
-  private _setStatus(entry: Feedback, status: Feedback['status']): void {
+  private _setStatus(entry: Feedback, status: string): void {
     this._feedbackApi.updateFeedbackStatus(entry.id, { status }).subscribe({
       next: () => {
-        this.items.update((items) => items.map((item) => (item.id === entry.id ? { ...item, status } : item)));
+        this.items.update((items) => items.map((item) => (item.id === entry.id ? { ...item, status: status as Feedback['status'] } : item)));
         this._loadFilters();
       },
       error: () => undefined,

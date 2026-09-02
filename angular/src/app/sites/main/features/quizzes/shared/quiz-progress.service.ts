@@ -59,7 +59,7 @@ export class QuizProgressService {
         // this side's business - so its shape is asserted here rather than typed
         // across the wire.
         games.forEach((game) =>
-          this._remote.set(this._key(game.quiz as QuizId, game.is_daily), game.state as QuizState),
+          this._remote.set(this._key(game.quiz as QuizId, game.is_daily), game.state as unknown as QuizState),
         );
         this._loaded = true;
       }),

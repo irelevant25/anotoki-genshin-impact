@@ -10,3 +10,27 @@ export interface Migration {
   filename: string;
   applied_at: string | null;
 }
+
+/**
+ * The shape of a `MigrationEntry` response.
+ */
+export interface MigrationEntry {
+  /** `{database}:{filename}` - unique only within its database. */
+  id: string;
+  database: string;
+  filename: string;
+  applied_at: string | null;
+  /** applied | pending | applied (file missing) */
+  status: string;
+  size: number | null;
+}
+
+/**
+ * The shape of a `MigrationFile` response.
+ */
+export interface MigrationFile {
+  database: string;
+  filename: string;
+  size: number;
+  content: string;
+}

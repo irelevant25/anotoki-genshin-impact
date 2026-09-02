@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { Saved } from '../types/common.type';
+
 /**
  * A row of `materials` as the API reads it back.
  */
@@ -70,4 +72,59 @@ export interface MaterialPayload {
 export interface MaterialGroupJoinPayload {
   material_id: number;
   group?: string | null;
+}
+
+/**
+ * A character that spends a material, and how much of it.
+ *
+ * `quantity` is a string: Postgres returns SUM() over an integer column as
+ * `numeric`, which PDO hands over as text.
+ */
+export interface MaterialCharacterSpender {
+  id: number;
+  name: string;
+  icon_name: string | null;
+  rarity: number | null;
+  quantity: string;
+  element: string;
+}
+
+/**
+ * The shape of a `MaterialFull` response.
+ */
+export interface MaterialFull {
+  material: Saved<MaterialPayload>;
+  groups: Saved<MaterialGroupJoinPayload>[];
+}
+
+/**
+ * The shape of a `MaterialFullRow` response.
+ */
+export type MaterialFullRow = Material & {
+  groups: Saved<MaterialGroupJoinPayload>[];
+};
+
+/**
+ * Everything that spends one material.
+ *
+ * Summed per character or weapon, so each is listed once however many phases
+ * or refinement steps it spends the material across.
+ */
+export interface MaterialUsage {
+  characters_ascension: MaterialCharacterSpender[];
+  characters_talent: MaterialCharacterSpender[];
+  weapons_ascension: MaterialWeaponSpender[];
+  weapons_refinement: MaterialWeaponSpender[];
+}
+
+/**
+ * A weapon that spends a material. Carries its type where a character has an element.
+ */
+export interface MaterialWeaponSpender {
+  id: number;
+  name: string;
+  icon_name: string | null;
+  rarity: number | null;
+  quantity: string;
+  type: string;
 }

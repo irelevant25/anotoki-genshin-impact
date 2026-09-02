@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { Saved } from '../types/common.type';
+
 /**
  * A row of `banners` as the API reads it back.
  */
@@ -91,3 +93,20 @@ export interface BannerWeaponPayload {
   weapon_id: number;
   order: number;
 }
+
+/**
+ * The shape of a `BannerFull` response.
+ */
+export interface BannerFull {
+  banner: Saved<BannerPayload>;
+  characters: Saved<BannerCharacterPayload>[];
+  weapons: Saved<BannerWeaponPayload>[];
+}
+
+/**
+ * The shape of a `BannerFullRow` response.
+ */
+export type BannerFullRow = Banner & {
+  characters: Saved<BannerCharacterPayload>[];
+  weapons: Saved<BannerWeaponPayload>[];
+};

@@ -5,8 +5,16 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Material, MaterialGroupJoin, MaterialGroupJoinPayload, MaterialPayload } from '../models';
-import { ApiMessage, Expanded, MaterialFull, MaterialUsage } from '../types';
+import {
+  Material,
+  MaterialFull,
+  MaterialFullRow,
+  MaterialGroupJoin,
+  MaterialGroupJoinPayload,
+  MaterialPayload,
+  MaterialUsage,
+} from '../models';
+import { Expanded } from '../types';
 
 /**
  * Materials, the groups they belong to, and where each one is spent.
@@ -47,8 +55,8 @@ export class MaterialApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteMaterial(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/materials/${id}`);
+  deleteMaterial(id: number): Observable<Material> {
+    return this._http.delete<Material>(`/api/materials/${id}`);
   }
 
   /**
@@ -56,8 +64,8 @@ export class MaterialApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteMaterialGroupJoin(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/materials-groups-join/${id}`);
+  deleteMaterialGroupJoin(id: number): Observable<MaterialGroupJoin> {
+    return this._http.delete<MaterialGroupJoin>(`/api/materials-groups-join/${id}`);
   }
 
   /**
@@ -105,8 +113,8 @@ export class MaterialApiService {
   /**
    * `GET /api/materials/full`
    */
-  getMaterialsFull(): Observable<MaterialFull[]> {
-    return this._http.get<MaterialFull[]>('/api/materials/full');
+  getMaterialsFull(): Observable<MaterialFullRow[]> {
+    return this._http.get<MaterialFullRow[]>('/api/materials/full');
   }
 
   /**

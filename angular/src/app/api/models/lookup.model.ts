@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { User } from './auth.model';
+
 /**
  * A row of `artifact_piece_types` as the API reads it back.
  */

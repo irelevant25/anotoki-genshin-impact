@@ -6,7 +6,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Stat, StatPayload } from '../models';
-import { ApiMessage } from '../types';
 
 /**
  * The stat names the rest of the data refers to.
@@ -29,8 +28,8 @@ export class StatApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteStat(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/stats/${id}`);
+  deleteStat(id: number): Observable<Stat> {
+    return this._http.delete<Stat>(`/api/stats/${id}`);
   }
 
   /**

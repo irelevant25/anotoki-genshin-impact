@@ -10,23 +10,25 @@
  * method per endpoint. Components ask a service; nothing outside src/app/api
  * touches HttpClient.
  *
- * Two interfaces come out of each table, because the API has two shapes for
- * every resource and conflating them is how `id` ends up optional everywhere:
+ * Three kinds of interface come out of the backend, and keeping them apart is
+ * the whole point - conflating them is how `id` ends up optional everywhere:
  *
- *   Character         a row as it is read - id, created_at, created_by, and
- *                     every column the schema declares
- *   CharacterPayload  a body as it is written - exactly the fields the PHP
- *                     model's constructor takes, which is exactly what
- *                     validateBody() will accept
+ *   Character         a row as it is read, from the schema: id, created_at,
+ *                     created_by, and every column declared
+ *   CharacterPayload  a body as it is written, from the model's constructor,
+ *                     which is exactly what validateBody() will accept
+ *   CharacterFull     a response that is neither, from the ResponseShape class
+ *                     beside the handler that returns it
  *
- * What the generator cannot know is written by hand in src/app/api/types and
- * imported here by name: the composite `/full` bodies, the paged listings, and
- * the handful of endpoints that answer with something no table describes.
+ * Nothing about a response is written by hand on this side any more. What is
+ * left in src/app/api/types is the type-level plumbing - `Expanded`, `Saved` -
+ * and the request and query shapes, which no endpoint declares because several
+ * of them check their own bodies rather than going through validateRequest().
  *
- * Which service a route joins, what its method is called and what it answers
- * with are decisions rather than facts, so they live in api-config.mjs -
- * which generate-openapi.mjs reads too, so the client and the document
- * describe the same API in the same words.
+ * Which service a route joins and what its method is called are decisions
+ * rather than facts, so they live in api-config.mjs - which generate-openapi.mjs
+ * reads too, so the client and the document describe the same API in the same
+ * words.
  */
 
 import fs from 'node:fs';
@@ -50,8 +52,20 @@ const SPEC = path.join(HERE, 'api-spec.json');
 const OUT = path.join(HERE, 'src/app/api');
 
 const spec = JSON.parse(fs.readFileSync(SPEC, 'utf8'));
-const { routes, skipped, groupOf, tableOf, operationName, responseType, bodyType, payloadName, resolveModel } =
-  analyse(spec);
+const {
+  routes,
+  skipped,
+  groupOf,
+  tableOf,
+  operationName,
+  responseType,
+  bodyType,
+  payloadName,
+  resolveModel,
+  shapeByName,
+  namedType,
+  docType,
+} = analyse(spec);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Emit
@@ -130,6 +144,42 @@ function emitPayloadInterface(model) {
   return lines.join('\n');
 }
 
+/**
+ * A response shape, as the PHP class declares it.
+ *
+ * `@merges X` means the fields arrive alongside X's rather than nested under a
+ * key, which is what registerFullResource() does with a child's own children -
+ * so it comes out as an intersection rather than an interface of its own.
+ */
+function emitShapeInterface(shape) {
+  const lines = [];
+
+  const description = shape.description ?? `The shape of a \`${shape.name}\` response.`;
+
+  lines.push('/**');
+  for (const line of description.split('\n')) {
+    lines.push(line ? ` * ${line}` : ' *');
+  }
+  lines.push(' */');
+
+  const merged = shape.merges ? namedType(shape.merges) : null;
+  lines.push(merged ? `export type ${shape.name} = ${merged} & {` : `export interface ${shape.name} {`);
+
+  for (const field of shape.fields) {
+    if (field.description) {
+      lines.push(`  /** ${field.description.replace(/\n/g, ' ')} */`);
+    }
+    // A response is not a request: nullable here means the key is present and
+    // holds null, not that it may be left out. Only a default makes it optional.
+    const type = field.of ? docType(field.of) : phpToTs(field, false);
+    const nullable = field.nullable && !type.endsWith('null') ? ' | null' : '';
+    lines.push(`  ${field.name}${field.optional ? '?' : ''}: ${type}${nullable};`);
+  }
+
+  lines.push(merged ? '};' : '}');
+  return lines.join('\n');
+}
+
 // ── models/<group>.model.ts ───────────────────────────────────────────────────
 
 const modelFiles = new Map();
@@ -156,11 +206,82 @@ for (const model of spec.models) {
   exportedTypes.set(name, group);
 }
 
+/**
+ * A response shape joins the service that answers with it.
+ *
+ * Most are named by a route. The rest are named by another shape - a
+ * BackupDatabase only exists inside a BackupEntry - so those follow whichever
+ * shape refers to them, resolved until nothing moves.
+ */
+const groupOfShape = new Map();
+for (const route of routes) {
+  const name = route.responds?.shape;
+  if (name && shapeByName.has(name) && !groupOfShape.has(name)) groupOfShape.set(name, groupOf(route));
+}
+
+for (let settled = false; !settled; ) {
+  settled = true;
+  for (const shape of spec.shapes) {
+    const group = groupOfShape.get(shape.name);
+    if (!group) continue;
+
+    for (const referenced of [shape.merges, ...shape.fields.map((field) => field.of)]) {
+      const base = referenced?.replace(/\|null$/, '').replace(/\[\]$/, '');
+      if (base && shapeByName.has(base) && !groupOfShape.has(base)) {
+        groupOfShape.set(base, group);
+        settled = false;
+      }
+    }
+  }
+}
+
+for (const shape of spec.shapes) {
+  const group = groupOfShape.get(shape.name);
+  if (!group || exportedTypes.has(shape.name)) continue;
+  addTo(group, emitShapeInterface(shape));
+  exportedTypes.set(shape.name, group);
+}
+
 fs.mkdirSync(path.join(OUT, 'models'), { recursive: true });
 fs.mkdirSync(path.join(OUT, 'services'), { recursive: true });
 
+/**
+ * The type-level helpers a model file leans on.
+ *
+ * Imported from the file that declares them rather than through the barrel: the
+ * barrel reaches back into models, and a leaf import keeps that out of a cycle.
+ */
+const HELPERS = ['Expanded', 'Saved', 'UserStamp'];
+
 for (const [group, blocks] of modelFiles) {
-  const body = [HEADER('php/generate-api-spec.php'), blocks.join('\n\n'), ''].join('\n');
+  const text = blocks.join('\n\n');
+  const used = HELPERS.filter((helper) => new RegExp(`\\b${helper}<`).test(text));
+
+  // A shape can name a type belonging to another service - a FeedbackPage holds
+  // Feedback rows - so each file imports whatever it does not declare itself.
+  const declared = new Set([...text.matchAll(/^export (?:interface|type) (\w+)/gm)].map((hit) => hit[1]));
+  const byFile = new Map();
+
+  for (const name of new Set([...text.matchAll(/\b([A-Z]\w+)\b/g)].map((hit) => hit[1]))) {
+    const from = exportedTypes.get(name);
+    if (!from || from === group || declared.has(name)) continue;
+    if (!byFile.has(from)) byFile.set(from, []);
+    byFile.get(from).push(name);
+  }
+
+  const borrowed = [...byFile]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([from, names]) => `import type { ${names.sort().join(', ')} } from './${from}.model';`);
+
+  const body = [
+    HEADER('php/generate-api-spec.php'),
+    ...(used.length ? [`import type { ${used.join(', ')} } from '../types/common.type';`] : []),
+    ...borrowed,
+    ...(used.length || borrowed.length ? [''] : []),
+    text,
+    '',
+  ].join('\n');
+
   fs.writeFileSync(path.join(OUT, 'models', `${group}.model.ts`), body.replace(/\n/g, '\r\n'));
 }
 

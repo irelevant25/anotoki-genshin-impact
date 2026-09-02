@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { Saved } from '../types/common.type';
+
 /**
  * A row of `enemies` as the API reads it back.
  */
@@ -153,3 +155,28 @@ export interface EnemyPhasePayload {
   icon_name?: string | null;
   art_name?: string | null;
 }
+
+/**
+ * The shape of a `EnemyFull` response.
+ */
+export interface EnemyFull {
+  enemy: Saved<EnemyPayload>;
+  phases: EnemyPhaseFull[];
+  drops: Saved<EnemyDropPayload>[];
+}
+
+/**
+ * The shape of a `EnemyFullRow` response.
+ */
+export type EnemyFullRow = Enemy & {
+  phases: EnemyPhaseFull[];
+  drops: Saved<EnemyDropPayload>[];
+};
+
+/**
+ * One phase, with the elements it takes damage from merged in beside its own
+ * columns.
+ */
+export type EnemyPhaseFull = Saved<EnemyPhasePayload> & {
+  damage_type_elements: Saved<EnemyDamageTypeElementPayload>[];
+};

@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { User } from './auth.model';
+
 /**
  * A row of `languages` as the API reads it back.
  */
@@ -35,4 +37,77 @@ export interface TranslationKeyPayload {
   name: string;
   description?: string | null;
   site?: string | null;
+}
+
+/**
+ * Everything the translation editor draws in one request.
+ *
+ * Deliberately includes keys nothing has translated yet: those are the rows
+ * that need attention.
+ */
+export interface TranslationAdminView {
+  /** The rows, so a disabled language still lists its own settings. */
+  languages: Language[];
+  keys: TranslationGridKey[];
+  sites: TranslationSite[];
+  /** Which site this deployment serves. */
+  currentSite: string;
+}
+
+/**
+ * `GET /api/translations/{code}` - the strings, and which language they turned
+ * out to be.
+ *
+ * An unknown or retired code answers in the fallback rather than failing, so
+ * `language` is worth reading: it is not always the code that was asked for.
+ * `values` is a flat key-to-string map with English merged underneath, so a key
+ * with no string in this language still answers with something readable.
+ */
+export interface TranslationBundleResponse {
+  language: string;
+  values: Record<string, string>;
+}
+
+/**
+ * One key in the editing grid, with what every language has for it.
+ */
+export interface TranslationGridKey {
+  name: string;
+  description: string | null;
+  /** `common` when every site loads it, otherwise the site that owns it. */
+  site: string;
+  values: Record<string, string>;
+}
+
+/**
+ * The shape of a `TranslationImportResult` response.
+ */
+export interface TranslationImportResult {
+  written: number;
+  cleared: number;
+  keys_created: number;
+}
+
+/**
+ * Deleting a key takes its translations with it, by cascade.
+ */
+export interface TranslationKeyDeleted {
+  message: string;
+  translations_deleted: number;
+}
+
+/**
+ * The shape of a `TranslationSaveResult` response.
+ */
+export interface TranslationSaveResult {
+  written: number;
+  cleared: number;
+}
+
+/**
+ * One of the sites sharing this database, plus the pseudo-site `common`.
+ */
+export interface TranslationSite {
+  code: string;
+  name: string;
 }

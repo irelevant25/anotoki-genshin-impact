@@ -1,16 +1,13 @@
 /**
- * The plumbing every service leans on.
+ * The type-level plumbing the generated client leans on.
  *
- * Hand-written: nothing in the backend declares these, they describe how it
- * behaves. Everything in ../models is generated and must not be edited.
+ * Everything that describes a response now comes from the backend: rows from
+ * the schema, bodies from the models, and anything else from the ResponseShape
+ * classes beside the handlers that return them. What is left here is the small
+ * amount that has no PHP declaration to come from - the mapped types below, and
+ * the request and query shapes in the other files, which no endpoint declares
+ * because several of them validate their own bodies by hand.
  */
-
-/** A bare acknowledgement. Most writes that return nothing else return this. */
-export interface ApiMessage {
-  message: string;
-  /** Some endpoints add a sentence explaining what did *not* happen. */
-  note?: string;
-}
 
 /** What a failed request carries, whatever the status. */
 export interface ApiError {

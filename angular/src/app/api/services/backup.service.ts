@@ -5,15 +5,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {
-  ApiMessage,
-  BackupEntry,
-  BackupPreview,
-  BackupRequest,
-  BackupStatus,
-  RestoreRequest,
-  RestoreResult,
-} from '../types';
+import { ApiMessage, BackupEntry, BackupPreview, BackupStatus, RestoreResult } from '../models';
+import { BackupRequest, RestoreRequest } from '../types';
 
 /**
  * Database dumps: listing them, making them, and restoring one.

@@ -5,7 +5,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MigrationEntry, MigrationFile, MigrationFileQuery } from '../types';
+import { MigrationEntry, MigrationFile } from '../models';
+import { MigrationFileQuery } from '../types';
 import { toHttpParams } from '../http-params';
 
 /**

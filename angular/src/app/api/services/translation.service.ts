@@ -5,17 +5,16 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TranslationKey, TranslationKeyPayload } from '../models';
 import {
   TranslationAdminView,
-  TranslationBundle,
   TranslationBundleResponse,
-  TranslationImportRequest,
   TranslationImportResult,
+  TranslationKey,
   TranslationKeyDeleted,
-  TranslationSaveRequest,
+  TranslationKeyPayload,
   TranslationSaveResult,
-} from '../types';
+} from '../models';
+import { TranslationBundle, TranslationImportRequest, TranslationSaveRequest } from '../types';
 
 /**
  * Translation keys and their strings, per language.

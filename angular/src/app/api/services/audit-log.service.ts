@@ -5,7 +5,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuditLogFilters, AuditLogPage, AuditLogQuery } from '../types';
+import { AuditLogFilters, AuditLogPage } from '../models';
+import { AuditLogQuery } from '../types';
 import { toHttpParams } from '../http-params';
 
 /**

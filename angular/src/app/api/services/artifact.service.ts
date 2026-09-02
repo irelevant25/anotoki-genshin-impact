@@ -5,8 +5,15 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Artifact, ArtifactPayload, ArtifactPiece, ArtifactPiecePayload } from '../models';
-import { ApiMessage, ArtifactFull, Expanded } from '../types';
+import {
+  Artifact,
+  ArtifactFull,
+  ArtifactFullRow,
+  ArtifactPayload,
+  ArtifactPiece,
+  ArtifactPiecePayload,
+} from '../models';
+import { Expanded } from '../types';
 
 /**
  * Artifact sets and the pieces in them.
@@ -47,8 +54,8 @@ export class ArtifactApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteArtifact(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/artifacts/${id}`);
+  deleteArtifact(id: number): Observable<Artifact> {
+    return this._http.delete<Artifact>(`/api/artifacts/${id}`);
   }
 
   /**
@@ -56,8 +63,8 @@ export class ArtifactApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteArtifactPiece(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/artifacts-pieces/${id}`);
+  deleteArtifactPiece(id: number): Observable<ArtifactPiece> {
+    return this._http.delete<ArtifactPiece>(`/api/artifacts-pieces/${id}`);
   }
 
   /**
@@ -98,8 +105,8 @@ export class ArtifactApiService {
   /**
    * `GET /api/artifacts/full`
    */
-  getArtifactsFull(): Observable<ArtifactFull[]> {
-    return this._http.get<ArtifactFull[]>('/api/artifacts/full');
+  getArtifactsFull(): Observable<ArtifactFullRow[]> {
+    return this._http.get<ArtifactFullRow[]>('/api/artifacts/full');
   }
 
   /**

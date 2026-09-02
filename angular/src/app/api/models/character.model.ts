@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { Saved } from '../types/common.type';
+
 /**
  * A row of `characters` as the API reads it back.
  */
@@ -696,4 +698,25 @@ export interface CharacterVoiceOverPayload {
   audio_japanese?: string | null;
   audio_chinese?: string | null;
   audio_korean?: string | null;
+}
+
+/**
+ * `GET /api/characters/{id}/full`
+ *
+ * The odd one out: characters predate registerFullResource(), so their costs
+ * come back flat rather than nested under the phase or level they belong to.
+ * The write side nests ascension costs and spells the talent costs
+ * `talent_costs`, which is why the form rebuilds the body rather than putting
+ * back what it was given.
+ */
+export interface CharacterFull {
+  character: Saved<CharacterPayload>;
+  voice_overs: Saved<CharacterVoiceOverPayload>[];
+  constellations: Saved<CharacterConstellationPayload>[];
+  ascensions: Saved<CharacterAscensionPayload>[];
+  ascension_cost: Saved<CharacterAscensionCostPayload>[];
+  talents: Saved<CharacterTalentPayload>[];
+  talent_cost: Saved<CharacterTalentCostPayload>[];
+  relationships: Saved<CharacterRelationshipPayload>[];
+  roles: string[];
 }

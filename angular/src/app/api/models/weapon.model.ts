@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { Saved } from '../types/common.type';
+
 /**
  * A row of `weapons` as the API reads it back.
  */
@@ -155,3 +157,31 @@ export interface WeaponRefinementPayload {
   description: string;
   quantity: number;
 }
+
+/**
+ * One ascension phase, with the materials it costs.
+ *
+ * registerFullResource() merges a child's own children in beside its columns
+ * rather than nesting them under a key, so this is a WeaponAscension with one
+ * more field - which is what `@merges` says.
+ */
+export type WeaponAscensionFull = Saved<WeaponAscensionPayload> & {
+  costs: Saved<WeaponAscensionCostPayload>[];
+};
+
+/**
+ * The shape of a `WeaponFull` response.
+ */
+export interface WeaponFull {
+  weapon: Saved<WeaponPayload>;
+  refinements: Saved<WeaponRefinementPayload>[];
+  ascensions: WeaponAscensionFull[];
+}
+
+/**
+ * The shape of a `WeaponFullRow` response.
+ */
+export type WeaponFullRow = Weapon & {
+  refinements: Saved<WeaponRefinementPayload>[];
+  ascensions: WeaponAscensionFull[];
+};

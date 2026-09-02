@@ -34,7 +34,7 @@ export class FeedbackViewerComponent extends AbstractModalComponent {
 
   /** Set by the opener before the modal renders. */
   readonly entry = signal<Feedback | null>(null);
-  readonly statuses = signal<Feedback['status'][]>([]);
+  readonly statuses = signal<string[]>([]);
 
   /** True once the status was changed, so the list knows to reload. */
   private _changed = false;
@@ -70,7 +70,7 @@ export class FeedbackViewerComponent extends AbstractModalComponent {
     return entry.email || 'Anonymous';
   });
 
-  setStatus(status: Feedback['status']): void {
+  setStatus(status: string): void {
     const entry = this.entry();
     if (!entry || entry.status === status) {
       return;
@@ -78,7 +78,7 @@ export class FeedbackViewerComponent extends AbstractModalComponent {
 
     this._feedbackApi.updateFeedbackStatus(entry.id, { status }).subscribe({
       next: () => {
-        this.entry.update((current) => (current ? { ...current, status } : current));
+        this.entry.update((current) => (current ? { ...current, status: status as Feedback['status'] } : current));
         this._changed = true;
       },
       error: (e) => this.notificationService.showError(e?.error?.error ?? 'Failed to update'),

@@ -6,7 +6,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Background, BackgroundPayload } from '../models';
-import { ApiMessage } from '../types';
 
 /**
  * Site backgrounds a visitor can pick between.
@@ -29,8 +28,8 @@ export class BackgroundApiService {
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteBackground(id: number): Observable<ApiMessage> {
-    return this._http.delete<ApiMessage>(`/api/backgrounds/${id}`);
+  deleteBackground(id: number): Observable<Background> {
+    return this._http.delete<Background>(`/api/backgrounds/${id}`);
   }
 
   /**

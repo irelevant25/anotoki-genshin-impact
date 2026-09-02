@@ -59,7 +59,7 @@ export function emptyRefinement(): RefinementWrapper {
 export function emptyAscension(phase: number): AscensionWrapper {
   return {
     uid: createUid(),
-    data: { phase, primary_stat_value: 0, secondary_stat_value: 0 },
+    data: { phase, primary_stat_value: 0, secondary_stat_value: 0, costs: [] },
     costs: [],
   };
 }
