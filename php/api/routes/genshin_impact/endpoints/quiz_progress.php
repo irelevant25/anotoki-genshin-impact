@@ -185,3 +185,82 @@ $app->get('/api/quiz/stats', function (Request $request, Response $response) {
 
     return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
 })->add(responds(QuizStatsRow::class, list: true))->add(requireAuth());
+
+// ── The reads behind the profile page ────────────────────────────────────────
+//
+// /api/quiz/stats above hands back the lifetime table as it stands: one row per
+// character per quiz. That covers most of a profile - how a player does at each
+// quiz, and how they do against each character - but two things it cannot
+// answer at all, because neither difficulty nor the date is part of its key.
+// Winning on hard and winning on easy land in the same row, and a row that has
+// been added to for a year cannot say when any of it happened.
+//
+// Both survive in user_quiz_history, which keeps one row per finished question,
+// so these three aggregate from the log instead. Like every route above, the
+// player comes from the bearer token: there is no id on the wire to forge.
+
+// GET my totals split by difficulty.
+$app->get('/api/quiz/stats/difficulty', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+
+    $statement = genshinDb()->prepare(
+        'SELECT q.name AS quiz,
+                h.difficulty,
+                COUNT(*) FILTER (WHERE h.win)     AS wins,
+                COUNT(*) FILTER (WHERE NOT h.win) AS losses,
+                COALESCE(SUM(h.attempts), 0)      AS attempts
+           FROM user_quiz_history h
+           JOIN quizzes q ON q.id = h.quiz_id
+          WHERE h.user_id = ?
+          GROUP BY q.name, h.difficulty
+          ORDER BY q.name, h.difficulty'
+    );
+    $statement->execute([$user['id']]);
+
+    return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
+})->add(responds(QuizDifficultyRow::class, list: true))->add(requireAuth());
+
+// GET the days I played on, over the past year.
+//
+// Only the days with something on them. A year of mostly zeroes would be 365
+// rows saying nothing, and the page has to decide how far back it draws anyway,
+// so it fills its own gaps.
+$app->get('/api/quiz/activity', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+
+    $statement = genshinDb()->prepare(
+        "SELECT to_char(h.created_at::date, 'YYYY-MM-DD') AS day,
+                COUNT(*)                          AS played,
+                COUNT(*) FILTER (WHERE h.win)     AS wins
+           FROM user_quiz_history h
+          WHERE h.user_id = ?
+            AND h.created_at >= CURRENT_DATE - INTERVAL '1 year'
+          GROUP BY 1
+          ORDER BY 1"
+    );
+    $statement->execute([$user['id']]);
+
+    return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
+})->add(responds(QuizActivityDay::class, list: true))->add(requireAuth());
+
+// GET my last twenty finished questions, newest first.
+//
+// A fixed count rather than a ?limit: this is one list on one page, and a
+// number on the query string would be a knob with nothing to turn it.
+$app->get('/api/quiz/results', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+
+    $statement = genshinDb()->prepare(
+        'SELECT h.id, q.name AS quiz, c.id AS character_id, c.name AS character_name,
+                c.icon_name, h.win, h.attempts, h.difficulty, h.created_at
+           FROM user_quiz_history h
+           JOIN quizzes q ON q.id = h.quiz_id
+           JOIN characters c ON c.id = h.character_id
+          WHERE h.user_id = ?
+          ORDER BY h.created_at DESC, h.id DESC
+          LIMIT 20'
+    );
+    $statement->execute([$user['id']]);
+
+    return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
+})->add(responds(QuizRecentResult::class, list: true))->add(requireAuth());

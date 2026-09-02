@@ -8865,6 +8865,32 @@
         },
         {
             "method": "GET",
+            "path": "/api/quiz/activity",
+            "args": [],
+            "file": "quiz_progress.php",
+            "tables": [
+                "user_quiz_history"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "QuizActivityDay",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_progress.php",
+                "line": 244
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "GET",
             "path": "/api/quiz/progress",
             "args": [],
             "file": "quiz_progress.php",
@@ -8982,6 +9008,32 @@
         },
         {
             "method": "GET",
+            "path": "/api/quiz/results",
+            "args": [],
+            "file": "quiz_progress.php",
+            "tables": [
+                "user_quiz_history"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "QuizRecentResult",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_progress.php",
+                "line": 266
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "GET",
             "path": "/api/quiz/stats",
             "args": [],
             "file": "quiz_progress.php",
@@ -8999,6 +9051,32 @@
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_progress.php",
                 "line": 187
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "GET",
+            "path": "/api/quiz/stats/difficulty",
+            "args": [],
+            "file": "quiz_progress.php",
+            "tables": [
+                "user_quiz_history"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "QuizDifficultyRow",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_progress.php",
+                "line": 221
             },
             "expanded": [],
             "payload": null,
@@ -17198,6 +17276,102 @@
             ]
         },
         {
+            "name": "QuizActivityDay",
+            "file": "quiz.php",
+            "merges": null,
+            "description": "A day a player answered something, and how much of it they got right.",
+            "fields": [
+                {
+                    "name": "day",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "The day as YYYY-MM-DD. Days with nothing on them are not sent."
+                },
+                {
+                    "name": "played",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "wins",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "QuizDifficultyRow",
+            "file": "quiz.php",
+            "merges": null,
+            "description": "A player's totals for one quiz at one difficulty.\n\nquiz_stats_history cannot answer this: it is keyed on the user, the character\nand the quiz, so a hard win and an easy one land in the same row and add up\nto a total that has forgotten which was which. The per-question log kept the\ndifficulty, so these are aggregated from there instead.",
+            "fields": [
+                {
+                    "name": "quiz",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "difficulty",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "1 easy, 2 medium, 3 hard - the numbers the front end's config is\nkeyed by. Null on questions answered before the column was added."
+                },
+                {
+                    "name": "wins",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "losses",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "attempts",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "QuizProgress",
             "file": "quiz.php",
             "merges": null,
@@ -17273,6 +17447,104 @@
                     "name": "is_daily",
                     "types": [
                         "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "QuizRecentResult",
+            "file": "quiz.php",
+            "merges": null,
+            "description": "One finished question, with enough of the character to draw them.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "quiz",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "character_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "character_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "win",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "attempts",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "difficulty",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "created_at",
+                    "types": [
+                        "string"
                     ],
                     "nullable": false,
                     "optional": false,

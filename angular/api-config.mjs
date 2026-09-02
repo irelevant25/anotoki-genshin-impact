@@ -187,6 +187,9 @@ export const NAMES = {
   'DELETE /api/quiz/progress/{quiz}': 'deleteQuizProgress',
   'POST /api/quiz/result': 'submitQuizResult',
   'GET /api/quiz/stats': 'getQuizStats',
+  'GET /api/quiz/stats/difficulty': 'getQuizStatsByDifficulty',
+  'GET /api/quiz/activity': 'getQuizActivity',
+  'GET /api/quiz/results': 'getRecentQuizResults',
 
   'GET /api/translations/{code}': 'getTranslations',
   'GET /api/translations/{code}/export': 'exportTranslations',

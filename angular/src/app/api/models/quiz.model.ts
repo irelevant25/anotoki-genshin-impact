@@ -112,6 +112,33 @@ export interface UserQuizHistoryPayload {
 }
 
 /**
+ * A day a player answered something, and how much of it they got right.
+ */
+export interface QuizActivityDay {
+  /** The day as YYYY-MM-DD. Days with nothing on them are not sent. */
+  day: string;
+  played: number;
+  wins: number;
+}
+
+/**
+ * A player's totals for one quiz at one difficulty.
+ *
+ * quiz_stats_history cannot answer this: it is keyed on the user, the character
+ * and the quiz, so a hard win and an easy one land in the same row and add up
+ * to a total that has forgotten which was which. The per-question log kept the
+ * difficulty, so these are aggregated from there instead.
+ */
+export interface QuizDifficultyRow {
+  quiz: string;
+  /** 1 easy, 2 medium, 3 hard - the numbers the front end's config is keyed by. Null on questions answered before the column was added. */
+  difficulty: number | null;
+  wins: number;
+  losses: number;
+  attempts: number;
+}
+
+/**
  * What the quiz endpoints answer with.
  *
  * A saved game's `state` is deliberately opaque: it is the front end's own
@@ -139,6 +166,21 @@ export interface QuizProgressDeleted {
 export interface QuizProgressSaved {
   quiz: string;
   is_daily: boolean;
+}
+
+/**
+ * One finished question, with enough of the character to draw them.
+ */
+export interface QuizRecentResult {
+  id: number;
+  quiz: string;
+  character_id: number;
+  character_name: string;
+  icon_name: string | null;
+  win: boolean;
+  attempts: number;
+  difficulty: number | null;
+  created_at: string;
 }
 
 /**

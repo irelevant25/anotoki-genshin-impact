@@ -7,11 +7,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   Quiz,
+  QuizActivityDay,
+  QuizDifficultyRow,
   QuizHistory,
   QuizPayload,
   QuizProgress,
   QuizProgressDeleted,
   QuizProgressSaved,
+  QuizRecentResult,
   QuizResultAck,
   QuizState,
   QuizStatePayload,
@@ -119,6 +122,15 @@ export class QuizApiService {
   }
 
   /**
+   * `GET /api/quiz/activity`
+   *
+   * Requires a signed-in user.
+   */
+  getQuizActivity(): Observable<QuizActivityDay[]> {
+    return this._http.get<QuizActivityDay[]>('/api/quiz/activity');
+  }
+
+  /**
    * `GET /api/user-quiz-history`
    *
    * Requires the `ADMIN` or `EDITOR` role.
@@ -173,6 +185,15 @@ export class QuizApiService {
   }
 
   /**
+   * `GET /api/quiz/stats/difficulty`
+   *
+   * Requires a signed-in user.
+   */
+  getQuizStatsByDifficulty(): Observable<QuizDifficultyRow[]> {
+    return this._http.get<QuizDifficultyRow[]>('/api/quiz/stats/difficulty');
+  }
+
+  /**
    * `GET /api/quiz-stats-history`
    *
    * Requires the `ADMIN` or `EDITOR` role.
@@ -202,6 +223,15 @@ export class QuizApiService {
    */
   getRandomVoiceOverRound(): Observable<QuizVoiceOverRound> {
     return this._http.get<QuizVoiceOverRound>('/api/quiz/voice-over/random');
+  }
+
+  /**
+   * `GET /api/quiz/results`
+   *
+   * Requires a signed-in user.
+   */
+  getRecentQuizResults(): Observable<QuizRecentResult[]> {
+    return this._http.get<QuizRecentResult[]>('/api/quiz/results');
   }
 
   /**

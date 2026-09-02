@@ -15332,6 +15332,42 @@
         ]
       }
     },
+    "/api/quiz/activity": {
+      "get": {
+        "tags": [
+          "quiz"
+        ],
+        "operationId": "getQuizActivity",
+        "summary": "Get quiz activity",
+        "description": "Requires a signed-in user. Reads `user_quiz_history`.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuizActivityDay"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/quiz/progress": {
       "get": {
         "tags": [
@@ -15574,6 +15610,42 @@
         ]
       }
     },
+    "/api/quiz/results": {
+      "get": {
+        "tags": [
+          "quiz"
+        ],
+        "operationId": "getRecentQuizResults",
+        "summary": "Get recent quiz results",
+        "description": "Requires a signed-in user. Reads `user_quiz_history`.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuizRecentResult"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/quiz/stats": {
       "get": {
         "tags": [
@@ -15591,6 +15663,42 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/QuizStatsRow"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/quiz/stats/difficulty": {
+      "get": {
+        "tags": [
+          "quiz"
+        ],
+        "operationId": "getQuizStatsByDifficulty",
+        "summary": "Get quiz stats by difficulty",
+        "description": "Requires a signed-in user. Reads `user_quiz_history`.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuizDifficultyRow"
                   }
                 }
               }
@@ -39151,6 +39259,67 @@
         ],
         "additionalProperties": false
       },
+      "QuizActivityDay": {
+        "title": "QuizActivityDay",
+        "description": "A day a player answered something, and how much of it they got right.",
+        "type": "object",
+        "properties": {
+          "day": {
+            "description": "The day as YYYY-MM-DD. Days with nothing on them are not sent.",
+            "type": "string"
+          },
+          "played": {
+            "type": "number"
+          },
+          "wins": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "day",
+          "played",
+          "wins"
+        ],
+        "additionalProperties": false
+      },
+      "QuizDifficultyRow": {
+        "title": "QuizDifficultyRow",
+        "description": "A player's totals for one quiz at one difficulty. quiz_stats_history cannot answer this: it is keyed on the user, the character and the quiz, so a hard win and an easy one land in the same row and add up to a total that has forgotten which was which. The per-question log kept the difficulty, so these are aggregated from there instead.",
+        "type": "object",
+        "properties": {
+          "quiz": {
+            "type": "string"
+          },
+          "difficulty": {
+            "description": "1 easy, 2 medium, 3 hard - the numbers the front end's config is keyed by. Null on questions answered before the column was added.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "wins": {
+            "type": "number"
+          },
+          "losses": {
+            "type": "number"
+          },
+          "attempts": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "quiz",
+          "difficulty",
+          "wins",
+          "losses",
+          "attempts"
+        ],
+        "additionalProperties": false
+      },
       "QuizHistory": {
         "title": "QuizHistory",
         "description": "A row of `user_quiz_history` as the API reads it back.",
@@ -39275,6 +39444,66 @@
         "required": [
           "quiz",
           "is_daily"
+        ],
+        "additionalProperties": false
+      },
+      "QuizRecentResult": {
+        "title": "QuizRecentResult",
+        "description": "One finished question, with enough of the character to draw them.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "quiz": {
+            "type": "string"
+          },
+          "character_id": {
+            "type": "number"
+          },
+          "character_name": {
+            "type": "string"
+          },
+          "icon_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "win": {
+            "type": "boolean"
+          },
+          "attempts": {
+            "type": "number"
+          },
+          "difficulty": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "quiz",
+          "character_id",
+          "character_name",
+          "icon_name",
+          "win",
+          "attempts",
+          "difficulty",
+          "created_at"
         ],
         "additionalProperties": false
       },
