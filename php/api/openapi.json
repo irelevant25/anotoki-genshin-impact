@@ -1863,6 +1863,16 @@
               }
             }
           },
+          "429": {
+            "description": "Too many of these, too quickly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "default": {
             "$ref": "#/components/responses/Error"
           }
@@ -2373,6 +2383,123 @@
           }
         },
         "security": []
+      }
+    },
+    "/api/auth/sessions": {
+      "delete": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "endOtherSessions",
+        "summary": "End other sessions",
+        "description": "Requires a signed-in user.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionsEnded"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "getSessions",
+        "summary": "Get sessions",
+        "description": "Requires a signed-in user.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionList"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/sessions/{id}": {
+      "delete": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "endSession",
+        "summary": "End session",
+        "description": "Requires a signed-in user.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "description": "No such record.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/auth/theme": {
@@ -41146,6 +41273,134 @@
         },
         "required": [
           "name"
+        ],
+        "additionalProperties": false
+      },
+      "SessionEntry": {
+        "title": "SessionEntry",
+        "description": "One session: where the account was signed in, how, and whether it still is. `ip` and `user_agent` are what the request carried, unexamined. They are shown so a person can recognise their own devices, not relied on for anything - a user agent is a string the caller chooses.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "method": {
+            "description": "password, login_code, google, or email_link.",
+            "type": "string"
+          },
+          "ip": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "user_agent": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "last_seen_at": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "expires_at": {
+            "type": "string"
+          },
+          "revoked_at": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "revoked_reason": {
+            "description": "Why it ended, where anything but its own expiry ended it.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "active": {
+            "description": "Neither revoked nor expired - worked out here, against our own clock.",
+            "type": "boolean"
+          },
+          "current": {
+            "description": "The session asking. The page will not offer to end this one by surprise.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "method",
+          "ip",
+          "user_agent",
+          "created_at",
+          "last_seen_at",
+          "expires_at",
+          "revoked_at",
+          "revoked_reason",
+          "active",
+          "current"
+        ],
+        "additionalProperties": false
+      },
+      "SessionList": {
+        "title": "SessionList",
+        "description": "Every session this account has had, and how many attempts have failed since it last succeeded. The count is deliberately \"since the last good sign-in\" rather than a lifetime total: a number that only grows says nothing, and the question worth answering is whether somebody has been trying lately.",
+        "type": "object",
+        "properties": {
+          "sessions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionEntry"
+            }
+          },
+          "failed_since_last_login": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "sessions",
+          "failed_since_last_login"
+        ],
+        "additionalProperties": false
+      },
+      "SessionsEnded": {
+        "title": "SessionsEnded",
+        "description": "How many sessions \"sign out everywhere else\" actually ended.",
+        "type": "object",
+        "properties": {
+          "ended": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "ended"
         ],
         "additionalProperties": false
       },

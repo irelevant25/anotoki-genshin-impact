@@ -5,12 +5,20 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 /**
- * Middleware: validates Bearer JWT, fetches fresh user from DB,
- * and attaches it as the 'user' request attribute.
+ * Middleware: validates Bearer JWT, checks the session behind it is still
+ * live, fetches fresh user from DB, and attaches both as request attributes.
+ *
+ * The session check is what makes signing out mean anything. A signature that
+ * verifies is no longer enough on its own: the token names a session row, and
+ * a revoked or expired row refuses the request however good the signature is.
+ *
+ * A token from before sessions existed carries no `sid` and is refused, so the
+ * one deploy that introduces this asks everybody to sign in again. That is the
+ * honest outcome - those tokens answer to nothing and cannot be revoked.
  *
  * If less than 24 h remain on the token, a freshly issued JWT is sent
  * back in the X-Refresh-Token response header so the client can store
- * it without an extra round-trip.
+ * it without an extra round-trip. It names the same session.
  */
 function requireAuth(): callable
 {
@@ -28,20 +36,36 @@ function requireAuth(): callable
             return respondJson(new \Slim\Psr7\Response(), ['error' => 'Invalid or expired token'], 401);
         }
 
+        $pdo = usersDb();
+        $session = findSession($pdo, (string) ($decoded['sid'] ?? ''));
+
+        if (!$session) {
+            return respondJson(new \Slim\Psr7\Response(), ['error' => 'Session has ended', 'code' => 'session_ended'], 401);
+        }
+
         // Fetch a fresh copy of the user so deleted/changed accounts are caught
-        $pdo  = usersDb();
         $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$decoded['sub']]);
 
         if (!$user) {
             return respondJson(new \Slim\Psr7\Response(), ['error' => 'User not found or inactive'], 401);
         }
 
-        $response = $handler->handle($request->withAttribute('user', $user));
+        // A session belongs to one account, and a token that names somebody
+        // else's is not a token this API issued.
+        if ((int) $session['user_id'] !== (int) $user['id']) {
+            return respondJson(new \Slim\Psr7\Response(), ['error' => 'Session has ended', 'code' => 'session_ended'], 401);
+        }
+
+        touchSession($pdo, $session);
+
+        $response = $handler->handle(
+            $request->withAttribute('user', $user)->withAttribute('session', $session),
+        );
 
         // Auto-renew: if less than 24 h remain, issue a fresh 48 h token
         $timeLeft = $decoded['exp'] - time();
         if ($timeLeft > 0 && $timeLeft < 86400) {
-            $newToken = jwtIssue($user['id'], $user['username'], $user['email'], $user['role']);
+            $newToken = jwtIssue($user['id'], $user['username'], $user['email'], $user['role'], $session['token_id']);
             $response = $response->withHeader('X-Refresh-Token', $newToken);
         }
 

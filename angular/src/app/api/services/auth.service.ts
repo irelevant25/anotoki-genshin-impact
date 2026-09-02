@@ -13,6 +13,8 @@ import {
   AuthSession,
   AuthUser,
   LanguageChanged,
+  SessionList,
+  SessionsEnded,
   ThemeChanged,
   TotpRecoveryCodes,
   TotpSetup,
@@ -84,6 +86,24 @@ export class AuthApiService {
   }
 
   /**
+   * `DELETE /api/auth/sessions`
+   *
+   * Requires a signed-in user.
+   */
+  endOtherSessions(): Observable<SessionsEnded> {
+    return this._http.delete<SessionsEnded>('/api/auth/sessions');
+  }
+
+  /**
+   * `DELETE /api/auth/sessions/{id}`
+   *
+   * Requires a signed-in user.
+   */
+  endSession(id: number): Observable<ApiMessage> {
+    return this._http.delete<ApiMessage>(`/api/auth/sessions/${id}`);
+  }
+
+  /**
    * `GET /api/auth/providers`
    */
   getAuthProviders(): Observable<AuthProviders> {
@@ -97,6 +117,15 @@ export class AuthApiService {
    */
   getCurrentUser(): Observable<AuthUser> {
     return this._http.get<AuthUser>('/api/auth/me');
+  }
+
+  /**
+   * `GET /api/auth/sessions`
+   *
+   * Requires a signed-in user.
+   */
+  getSessions(): Observable<SessionList> {
+    return this._http.get<SessionList>('/api/auth/sessions');
   }
 
   /**

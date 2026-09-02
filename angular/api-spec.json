@@ -772,7 +772,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 837
+                "line": 906
             },
             "expanded": [],
             "payload": null,
@@ -798,7 +798,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 810
+                "line": 876
             },
             "expanded": [],
             "payload": null,
@@ -824,7 +824,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 862
+                "line": 931
             },
             "expanded": [],
             "payload": null,
@@ -849,7 +849,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 780
+                "line": 841
             },
             "expanded": [],
             "payload": null,
@@ -876,7 +876,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 191
+                "line": 202
             },
             "expanded": [],
             "payload": null,
@@ -900,7 +900,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 213
+                "line": 224
             },
             "expanded": [],
             "payload": null,
@@ -929,7 +929,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 525
+                "line": 586
             },
             "expanded": [],
             "payload": null,
@@ -956,7 +956,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 622
+                "line": 683
             },
             "expanded": [],
             "payload": null,
@@ -984,7 +984,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 594
+                "line": 655
             },
             "expanded": [],
             "payload": null,
@@ -1011,7 +1011,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 379
+                "line": 416
             },
             "expanded": [],
             "payload": null,
@@ -1030,7 +1030,8 @@
                 200,
                 401,
                 403,
-                422
+                422,
+                429
             ],
             "responds": {
                 "shape": "AuthSession",
@@ -1038,7 +1039,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 262
+                "line": 296
             },
             "expanded": [],
             "payload": null,
@@ -1062,7 +1063,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 650
+                "line": 711
             },
             "expanded": [],
             "payload": null,
@@ -1087,7 +1088,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 682
+                "line": 743
             },
             "expanded": [],
             "payload": null,
@@ -1111,7 +1112,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 387
+                "line": 442
             },
             "expanded": [],
             "payload": null,
@@ -1135,7 +1136,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 329
+                "line": 366
             },
             "expanded": [],
             "payload": null,
@@ -1162,7 +1163,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 416
+                "line": 477
             },
             "expanded": [],
             "payload": null,
@@ -1189,7 +1190,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 740
+                "line": 801
             },
             "expanded": [],
             "payload": null,
@@ -1213,7 +1214,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 286
+                "line": 320
             },
             "expanded": [],
             "payload": null,
@@ -1241,7 +1242,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 322
+                "line": 359
             },
             "expanded": [],
             "payload": null,
@@ -1269,7 +1270,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 710
+                "line": 771
             },
             "expanded": [],
             "payload": null,
@@ -1293,7 +1294,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 448
+                "line": 509
             },
             "expanded": [],
             "payload": null,
@@ -1321,12 +1322,90 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 166
+                "line": 177
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": false,
+            "roles": []
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/auth/sessions",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "SessionsEnded",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 1022
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "GET",
+            "path": "/api/auth/sessions",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "SessionList",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 980
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/auth/sessions/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
+            "responds": {
+                "shape": "ApiMessage",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 1004
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
             "roles": []
         },
         {
@@ -1346,7 +1425,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 356
+                "line": 393
             },
             "expanded": [],
             "payload": null,
@@ -18530,6 +18609,170 @@
                     "nullable": false,
                     "optional": false,
                     "of": "string[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "SessionEntry",
+            "file": "auth.php",
+            "merges": null,
+            "description": "One session: where the account was signed in, how, and whether it still is.\n\n`ip` and `user_agent` are what the request carried, unexamined. They are\nshown so a person can recognise their own devices, not relied on for\nanything - a user agent is a string the caller chooses.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "method",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "password, login_code, google, or email_link."
+                },
+                {
+                    "name": "ip",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "user_agent",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "created_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "last_seen_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "expires_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "revoked_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "revoked_reason",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "Why it ended, where anything but its own expiry ended it."
+                },
+                {
+                    "name": "active",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Neither revoked nor expired - worked out here, against our own clock."
+                },
+                {
+                    "name": "current",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "The session asking. The page will not offer to end this one by surprise."
+                }
+            ]
+        },
+        {
+            "name": "SessionList",
+            "file": "auth.php",
+            "merges": null,
+            "description": "Every session this account has had, and how many attempts have failed since\nit last succeeded.\n\nThe count is deliberately \"since the last good sign-in\" rather than a\nlifetime total: a number that only grows says nothing, and the question\nworth answering is whether somebody has been trying lately.",
+            "fields": [
+                {
+                    "name": "sessions",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "SessionEntry[]",
+                    "description": null
+                },
+                {
+                    "name": "failed_since_last_login",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "SessionsEnded",
+            "file": "auth.php",
+            "merges": null,
+            "description": "How many sessions \"sign out everywhere else\" actually ended.",
+            "fields": [
+                {
+                    "name": "ended",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
                     "description": null
                 }
             ]

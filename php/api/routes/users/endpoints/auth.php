@@ -97,11 +97,22 @@ function authWaysIn(PDO $pdo, array $user): int
     return (int) authPasswordLoginAvailable($user) + (int) (identityFor($pdo, (int) $user['id'], IDENTITY_GOOGLE) !== null);
 }
 
-/** A signed-in session: the bearer token, and who it belongs to. */
-function authSession(array $user): array
+/**
+ * A signed-in session: a row, the bearer token that names it, and who it
+ * belongs to.
+ *
+ * `method` is how this one was signed in, and is what makes the session list
+ * worth reading - "Google, an hour ago, from this address" rather than a bare
+ * timestamp. The successful attempt is recorded alongside, so the count of
+ * failures since the last good sign-in has something to count from.
+ */
+function authSession(PDO $pdo, Request $request, array $user, string $method): array
 {
+    $tokenId = openSession($pdo, (int) $user['id'], $method, $request);
+    recordLoginAttempt($pdo, $request, (string) $user['email'], (int) $user['id'], $method, 'ok');
+
     return [
-        'token' => jwtIssue((int) $user['id'], $user['username'], $user['email'], $user['role']),
+        'token' => jwtIssue((int) $user['id'], $user['username'], $user['email'], $user['role'], $tokenId),
         'user'  => authUserPayload($user),
     ];
 }
@@ -187,7 +198,7 @@ $app->post('/api/auth/confirm', function (Request $request, Response $response) 
 
     // Signed in on the spot. Holding the link is proof of the mailbox, which is
     // a stronger claim than the password they would otherwise be asked for.
-    return respondJson($response, authSession($user));
+    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_EMAIL_LINK));
 })->add(responds(AuthSession::class));
 
 // ---------------------------------------------------------------------------
@@ -222,9 +233,24 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
         return respondJson($response, ['error' => 'email and password are required'], 422);
     }
 
-    $user = authFindByEmail(usersDb(), (string) $body['email']);
+    $pdo = usersDb();
+    $email = (string) $body['email'];
+
+    // Checked before anything else is, including whether the account exists -
+    // a limiter that only applies to real addresses tells you which ones those
+    // are. See loginAttemptsExceeded() for why it is not keyed on the address
+    // alone.
+    if (loginAttemptsExceeded($pdo, $request, $email)) {
+        return respondJson($response, [
+            'error' => 'Too many attempts. Wait a few minutes and try again.',
+            'code'  => 'too_many_attempts',
+        ], 429);
+    }
+
+    $user = authFindByEmail($pdo, $email);
 
     if (!$user) {
+        recordLoginAttempt($pdo, $request, $email, null, SESSION_METHOD_PASSWORD, 'unknown_email');
         return respondJson($response, ['error' => 'Invalid credentials'], 401);
     }
 
@@ -237,6 +263,7 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
     // try. Nothing is sent from here: the code has to be asked for, through an
     // endpoint that answers the same for every address.
     if (!authPasswordLoginAvailable($user)) {
+        recordLoginAttempt($pdo, $request, $email, (int) $user['id'], SESSION_METHOD_PASSWORD, 'password_unavailable');
         return respondJson($response, [
             'error' => 'This account signs in another way',
             'code'  => 'password_login_unavailable',
@@ -244,21 +271,28 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
     }
 
     if (!password_verify((string) $body['password'], $user['password'])) {
+        recordLoginAttempt($pdo, $request, $email, (int) $user['id'], SESSION_METHOD_PASSWORD, 'bad_password');
         return respondJson($response, ['error' => 'Invalid credentials'], 401);
     }
 
-    if ($refusal = authTotpRefusal($response, usersDb(), $user, $body['totp'] ?? null)) {
+    if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null)) {
+        // The password was right, so this is worth telling apart from a wrong
+        // one: it is either the owner reaching for their phone or somebody who
+        // has the password and not the phone.
+        $missing = trim((string) ($body['totp'] ?? '')) === '';
+        recordLoginAttempt($pdo, $request, $email, (int) $user['id'], SESSION_METHOD_PASSWORD, $missing ? 'totp_required' : 'bad_totp');
         return $refusal;
     }
 
     if (!$user['email_confirmed']) {
+        recordLoginAttempt($pdo, $request, $email, (int) $user['id'], SESSION_METHOD_PASSWORD, 'unconfirmed');
         return respondJson($response, [
             'error' => 'Confirm your email address before signing in',
             'code'  => 'email_not_confirmed',
         ], 403);
     }
 
-    return respondJson($response, authSession($user));
+    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_PASSWORD));
 })->add(responds(AuthSession::class));
 
 // ---------------------------------------------------------------------------
@@ -310,15 +344,18 @@ $app->post('/api/auth/password/reset', function (Request $request, Response $res
         ->execute([password_hash($password, PASSWORD_DEFAULT), $token['user_id']]);
 
     // Anything else outstanding is a spare key to an account whose password has
-    // just changed.
+    // just changed - both the unused reset links and any session somebody else
+    // is already signed in on. Resetting a password is the usual way somebody
+    // takes an account back, and it should take it back completely.
     revokeOneTimeTokens($pdo, (int) $token['user_id'], TOKEN_PASSWORD_RESET);
+    revokeSessionsFor($pdo, (int) $token['user_id'], SESSION_REVOKED_PASSWORD);
 
     $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$token['user_id']]);
     if (!$user) {
         return respondJson($response, ['error' => 'That link is no longer valid', 'code' => 'invalid_token'], 400);
     }
 
-    return respondJson($response, authSession($user));
+    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_EMAIL_LINK));
 })->add(responds(AuthSession::class));
 
 // ---------------------------------------------------------------------------
@@ -379,10 +416,28 @@ $app->put('/api/auth/language', function (Request $request, Response $response) 
 })->add(responds(LanguageChanged::class))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
-// POST /api/auth/logout  — stateless JWT: real logout happens client-side;
-// this endpoint exists so the FE can fire a courtesy call.
+// POST /api/auth/logout
+//
+// This used to be a courtesy call: the browser cleared its own copy and the
+// token stayed valid until it expired, so signing out did not sign anything
+// out. Now it ends the session the token names, and the token stops working.
+//
+// requireAuth is deliberately not on it. A caller whose session has already
+// ended, or whose token is past its expiry, is trying to do the thing that has
+// already happened - answering 401 to that would be pedantry. Whatever it
+// finds, the answer is the same.
 // ---------------------------------------------------------------------------
-$app->post('/api/auth/logout', function (Request $_request, Response $response) {
+$app->post('/api/auth/logout', function (Request $request, Response $response) {
+    $header = $request->getHeaderLine('Authorization');
+    $decoded = str_starts_with($header, 'Bearer ') ? jwtVerify(substr($header, 7)) : null;
+
+    if ($decoded && !empty($decoded['sid'])) {
+        $pdo = usersDb();
+        if ($session = findSession($pdo, (string) $decoded['sid'])) {
+            revokeSession($pdo, (int) $session['id'], SESSION_REVOKED_SIGNOUT);
+        }
+    }
+
     return respondJson($response, ['message' => 'Logged out']);
 })->add(responds(ApiMessage::class));
 
@@ -411,6 +466,12 @@ $app->put('/api/auth/password', function (Request $request, Response $response) 
     $pdo = usersDb();
     $pdo->prepare('UPDATE users SET password = ? WHERE id = ?')
         ->execute([password_hash($body['new_password'], PASSWORD_DEFAULT), $user['id']]);
+
+    // Everywhere else is signed out. Changing a password is what somebody does
+    // when they think another person has it, and leaving that person's session
+    // running would make the change ceremonial.
+    $session = $request->getAttribute('session');
+    revokeSessionsFor($pdo, (int) $user['id'], SESSION_REVOKED_PASSWORD, $session ? (int) $session['id'] : null);
 
     return respondJson($response, ['message' => 'Password changed successfully']);
 })->add(responds(ApiMessage::class))->add(requireAuth());
@@ -484,7 +545,7 @@ $app->post('/api/auth/google', function (Request $request, Response $response) {
             return $refusal;
         }
 
-        return respondJson($response, authSession($user));
+        return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE));
     }
 
     if ($verified && $email !== '' && ($user = authFindByEmail($pdo, $email))) {
@@ -502,7 +563,7 @@ $app->post('/api/auth/google', function (Request $request, Response $response) {
         $pdo->prepare('UPDATE users SET email_confirmed = TRUE WHERE id = ?')->execute([$user['id']]);
         $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']]);
 
-        return respondJson($response, authSession($user));
+        return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE));
     }
 
     if (!$verified || $email === '') {
@@ -521,7 +582,7 @@ $app->post('/api/auth/google', function (Request $request, Response $response) {
 
     $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$userId]);
 
-    return respondJson($response, authSession($user), 201);
+    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE), 201);
 })->add(responds(AuthSession::class));
 
 /**
@@ -678,7 +739,7 @@ $app->post('/api/auth/login/code/verify', function (Request $request, Response $
         return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
     }
 
-    return respondJson($response, authSession($user));
+    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_LOGIN_CODE));
 })->add(responds(AuthSession::class));
 
 /**
@@ -806,6 +867,11 @@ $app->post('/api/auth/2fa/enable', function (Request $request, Response $respons
     $pdo->prepare('UPDATE users SET totp_enabled = TRUE WHERE id = ?')->execute([$user['id']]);
     $codes = generateRecoveryCodes($pdo, (int) $user['id']);
 
+    // Other sessions were signed in without the second factor, which is what
+    // was just decided to be insufficient.
+    $session = $request->getAttribute('session');
+    revokeSessionsFor($pdo, (int) $user['id'], SESSION_REVOKED_SECURITY, $session ? (int) $session['id'] : null);
+
     return respondJson($response, ['recovery_codes' => $codes]);
 })->add(responds(TotpRecoveryCodes::class))->add(requireAuth());
 
@@ -832,6 +898,9 @@ $app->post('/api/auth/2fa/disable', function (Request $request, Response $respon
 
     $pdo->prepare('UPDATE users SET totp_enabled = FALSE, totp_secret = NULL WHERE id = ?')->execute([$user['id']]);
     $pdo->prepare('DELETE FROM user_recovery_codes WHERE user_id = ?')->execute([$user['id']]);
+
+    $session = $request->getAttribute('session');
+    revokeSessionsFor($pdo, (int) $user['id'], SESSION_REVOKED_SECURITY, $session ? (int) $session['id'] : null);
 
     return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));
 })->add(responds(AuthUser::class))->add(requireAuth());
@@ -860,3 +929,94 @@ $app->post('/api/auth/2fa/recovery', function (Request $request, Response $respo
 
     return respondJson($response, ['recovery_codes' => generateRecoveryCodes($pdo, (int) $user['id'])]);
 })->add(responds(TotpRecoveryCodes::class))->add(requireAuth());
+
+// ---------------------------------------------------------------------------
+// Sessions
+//
+// Where an account can see what has been signed in as it, and end anything it
+// does not recognise. Everything here is scoped to the caller's own account by
+// the query rather than by a check afterwards - there is no path through which
+// one account can name another's session.
+// ---------------------------------------------------------------------------
+
+/**
+ * GET /api/auth/sessions - where this account is signed in, and where it was.
+ *
+ * Live ones and finished ones together, newest first, because the useful
+ * question is usually about one that has already ended. `current` marks the
+ * session asking, so the page can say "this device" and refuse to offer a
+ * button that would sign the reader out by surprise.
+ *
+ * `failed_since_last_login` rides along because it belongs to the same
+ * question and would otherwise be a second request to answer half of it.
+ */
+$app->get('/api/auth/sessions', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+    $current = $request->getAttribute('session');
+    $pdo = usersDb();
+
+    $sessions = array_map(static function (array $session) use ($current): array {
+        return [
+            'id' => (int) $session['id'],
+            'method' => $session['method'],
+            'ip' => $session['ip'],
+            'user_agent' => $session['user_agent'],
+            'created_at' => $session['created_at'],
+            'last_seen_at' => $session['last_seen_at'],
+            'expires_at' => $session['expires_at'],
+            'revoked_at' => $session['revoked_at'],
+            'revoked_reason' => $session['revoked_reason'],
+            // Worked out here rather than left to the caller, which would have
+            // to compare an expiry against a clock it does not share with us.
+            'active' => $session['revoked_at'] === null && strtotime((string) $session['expires_at']) > time(),
+            'current' => $current !== null && (int) $session['id'] === (int) $current['id'],
+        ];
+    }, sessionsFor($pdo, (int) $user['id']));
+
+    return respondJson($response, [
+        'sessions' => $sessions,
+        'failed_since_last_login' => failedAttemptsSinceLastLogin($pdo, (int) $user['id']),
+    ]);
+})->add(responds(SessionList::class))->add(requireAuth());
+
+/**
+ * DELETE /api/auth/sessions/{id} - end one of them.
+ *
+ * Including the current one, which is simply signing out from a page that
+ * happens to list it. The user_id in the WHERE clause is what makes this safe:
+ * a session belonging to somebody else is not found rather than refused, so
+ * the endpoint cannot be used to discover which ids exist.
+ */
+$app->delete('/api/auth/sessions/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
+    $user = $request->getAttribute('user');
+    $pdo = usersDb();
+
+    $statement = $pdo->prepare('SELECT id FROM user_sessions WHERE id = ? AND user_id = ?');
+    $statement->execute([$args['id'], $user['id']]);
+
+    if (!$statement->fetch()) {
+        return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    revokeSession($pdo, (int) $args['id'], SESSION_REVOKED_ELSEWHERE);
+
+    return respondJson($response, ['message' => 'Session ended']);
+})->add(responds(ApiMessage::class))->add(requireAuth());
+
+/**
+ * DELETE /api/auth/sessions - end all of them but this one.
+ *
+ * The button for somebody who suspects an old phone, a shared machine or
+ * somebody else entirely. This one is spared deliberately: signing the reader
+ * out as well would send them to a login form instead of showing them that it
+ * worked.
+ */
+$app->delete('/api/auth/sessions', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+    $current = $request->getAttribute('session');
+    $pdo = usersDb();
+
+    $ended = revokeSessionsFor($pdo, (int) $user['id'], SESSION_REVOKED_ELSEWHERE, $current ? (int) $current['id'] : null);
+
+    return respondJson($response, ['ended' => $ended]);
+})->add(responds(SessionsEnded::class))->add(requireAuth());

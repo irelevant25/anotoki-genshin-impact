@@ -1,0 +1,62 @@
+<div class="sessions">
+    <!-- Somebody has been trying since the last time this account got in. The
+         first thing worth saying, so it goes above the list. -->
+    @if (failedAttempts() > 0) {
+        <p class="sessions-warning">{{ 'profile.sessions.failedAttempts' | translate: { count: failedAttempts() } }}</p>
+    }
+
+    @if (failed()) {
+        <p class="sessions-warning">{{ 'profile.sessions.failed' | translate }}</p>
+    }
+
+    <ul class="session-list">
+        @for (session of sessions(); track session.id) {
+            <li class="session" [class.session-current]="session.current" [class.session-ended]="!session.active">
+                <div class="session-what">
+                    <span class="session-method">{{ 'profile.sessions.method.' + session.method | translate }}</span>
+                    <span class="session-browser">{{ browser(session) }}</span>
+                </div>
+
+                <div class="session-where">
+                    <span class="session-status" [class.session-status-live]="session.active">{{ statusKey(session) | translate }}</span>
+                    @if (session.ip) {
+                        <span class="session-ip">{{ session.ip }}</span>
+                    }
+                </div>
+
+                <div class="session-when">
+                    <span>{{ 'profile.sessions.started' | translate }} {{ session.created_at | slovakDate: 'datetime' }}</span>
+                    @if (session.active && session.last_seen_at) {
+                        <span class="session-seen">{{ 'profile.sessions.lastSeen' | translate }} {{ session.last_seen_at | slovakDate: 'datetime' }}</span>
+                    }
+                </div>
+
+                <!-- Only for a live session that is not the one reading this.
+                     Ending your own from here would drop somebody on a login
+                     form with no explanation; the sign-out button does that. -->
+                @if (session.active && !session.current) {
+                    <app-button
+                        [text]="'profile.sessions.end' | translate"
+                        variant="secondary"
+                        size="very-small"
+                        [outline]="true"
+                        (buttonClick)="endSession(session)"
+                    ></app-button>
+                }
+            </li>
+        } @empty {
+            <li class="session-none">{{ 'profile.sessions.none' | translate }}</li>
+        }
+    </ul>
+
+    @if (hasOthers()) {
+        <app-button
+            [text]="'profile.sessions.endOthers' | translate"
+            variant="danger"
+            size="small"
+            [outline]="true"
+            [loading]="loading()"
+            (buttonClick)="endOthers()"
+        ></app-button>
+    }
+</div>

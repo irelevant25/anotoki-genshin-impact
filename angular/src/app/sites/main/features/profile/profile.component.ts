@@ -13,6 +13,7 @@ import { MaterialIconDirective } from '../../../admin/shared/material-icon.direc
 import { SiteLoginModalComponent } from '../../common/footer/site-login-modal/site-login-modal.component';
 import { difficultyName } from '../quizzes/shared/quiz.types';
 import { ActivityGridComponent } from './activity-grid/activity-grid.component';
+import { ProfileSessionsComponent } from './sessions/sessions.component';
 import {
   ActivityCell,
   CharacterBreakdown,
@@ -60,6 +61,7 @@ const ACTIVITY_WEEKS = 13;
     MaterialIconDirective,
     ButtonComponent,
     ActivityGridComponent,
+    ProfileSessionsComponent,
   ],
 })
 export class ProfileComponent {

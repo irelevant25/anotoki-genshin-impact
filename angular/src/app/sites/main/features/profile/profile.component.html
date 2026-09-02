@@ -20,6 +20,15 @@
                     <p class="profile-warning">{{ 'profile.failed' | translate }}</p>
                 }
 
+                <!-- Before the quiz sections, and outside them. Whether
+                     anybody has played has no bearing on where their account
+                     is signed in, and this is the part with a security
+                     consequence. -->
+                <section class="profile-section">
+                    <h2>{{ 'profile.sessions.title' | translate }}</h2>
+                    <app-profile-sessions></app-profile-sessions>
+                </section>
+
                 @if (empty()) {
                     <div class="profile-empty">
                         <h2>{{ 'profile.empty.title' | translate }}</h2>

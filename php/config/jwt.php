@@ -30,8 +30,17 @@ function getJwtSecret(): string
 
 /**
  * Issues a signed JWT valid for 48 hours.
+ *
+ * `sid` names the session row the token belongs to. It is what makes signing
+ * out mean something: without it a token answered to nothing once issued and
+ * stayed good until it expired, however many times somebody signed out.
+ *
+ * It is optional only so a token can still be minted where there is no session
+ * to name - which, after the session work, is nowhere, but a signature that
+ * silently produced an unusable token would be worse than one that did not
+ * compile.
  */
-function jwtIssue(int $userId, string $username, string $email, string $role): string
+function jwtIssue(int $userId, string $username, string $email, string $role, ?string $sessionId = null): string
 {
     $header  = _jwtBase64UrlEncode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
     $payload = _jwtBase64UrlEncode(json_encode([
@@ -39,6 +48,7 @@ function jwtIssue(int $userId, string $username, string $email, string $role): s
         'username' => $username,
         'email'    => $email,
         'role'     => $role,
+        'sid'      => $sessionId,
         'iat'      => time(),
         'exp'      => time() + 172800, // 48 hours
     ]));

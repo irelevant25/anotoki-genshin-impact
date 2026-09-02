@@ -6,7 +6,17 @@ import { NotificationService } from '../components/notification/notification.ser
 import { jwtDecode } from '../jwt-decode';
 import { RoleService } from './role.service';
 import { Roles } from './options-helper.service';
-import { AuthApiService, AuthMailRequested, AuthPending, AuthSession, AuthUser, TotpRecoveryCodes, TotpSetup } from '../../../api';
+import {
+  AuthApiService,
+  AuthMailRequested,
+  AuthPending,
+  AuthSession,
+  AuthUser,
+  SessionList,
+  SessionsEnded,
+  TotpRecoveryCodes,
+  TotpSetup,
+} from '../../../api';
 
 export interface UserInfo {
   username: string;
@@ -276,22 +286,58 @@ export class SecurityService {
     this._applySession(session.user, session.token);
   }
 
-  /** Clears the local session and notifies the server (fire-and-forget). */
+  /**
+   * Ends the session on the server, then clears it here.
+   *
+   * That order matters now. The server ends the session the token names, and
+   * the interceptor attaches the token by reading it from the very state this
+   * used to clear first - so clearing first sent an unauthenticated request,
+   * signed out locally, and left the session running until it expired. Which
+   * is exactly the thing sessions were added to stop.
+   *
+   * The local side is cleared either way. A request that failed must not leave
+   * somebody looking at a page that still thinks they are signed in.
+   */
   logout(callbackFunction?: (isSuccess: boolean) => void): void {
-    this._storageService.remove(this.TOKEN_KEY);
-    this._currentUserData.next(null);
-    this._isLoggedIn.next(false);
-    this._roleService.setRoles([]);
     this._authApi.logout({}).subscribe({
       next: () => {
+        this._clearSession();
         this._notificationService.showSuccess('You were successfully logged out.');
         callbackFunction?.(true);
       },
       error: () => {
+        this._clearSession();
         this._notificationService.showError('Logout failed on server, but local session was cleared.');
         callbackFunction?.(false);
       },
     });
+  }
+
+  private _clearSession(): void {
+    this._storageService.remove(this.TOKEN_KEY);
+    this._currentUserData.next(null);
+    this._isLoggedIn.next(false);
+    this._roleService.setRoles([]);
+  }
+
+  /**
+   * Where this account is signed in, and where it has been.
+   *
+   * Live sessions and finished ones together - the useful question is often
+   * about one that has already ended.
+   */
+  getSessions(): Observable<SessionList> {
+    return this._authApi.getSessions();
+  }
+
+  /** Ends one session, which may be this one. */
+  endSession(id: number): Observable<unknown> {
+    return this._authApi.endSession(id);
+  }
+
+  /** Ends every session but this one. */
+  endOtherSessions(): Observable<SessionsEnded> {
+    return this._authApi.endOtherSessions();
   }
 
   /**

@@ -154,3 +154,58 @@ class TotpRecoveryCodes extends ResponseShape
     ) {
     }
 }
+
+/**
+ * One session: where the account was signed in, how, and whether it still is.
+ *
+ * `ip` and `user_agent` are what the request carried, unexamined. They are
+ * shown so a person can recognise their own devices, not relied on for
+ * anything - a user agent is a string the caller chooses.
+ */
+class SessionEntry extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        /** password, login_code, google, or email_link. */
+        public readonly string $method,
+        public readonly ?string $ip,
+        public readonly ?string $user_agent,
+        public readonly string $created_at,
+        public readonly ?string $last_seen_at,
+        public readonly string $expires_at,
+        public readonly ?string $revoked_at,
+        /** Why it ended, where anything but its own expiry ended it. */
+        public readonly ?string $revoked_reason,
+        /** Neither revoked nor expired - worked out here, against our own clock. */
+        public readonly bool $active,
+        /** The session asking. The page will not offer to end this one by surprise. */
+        public readonly bool $current,
+    ) {
+    }
+}
+
+/**
+ * Every session this account has had, and how many attempts have failed since
+ * it last succeeded.
+ *
+ * The count is deliberately "since the last good sign-in" rather than a
+ * lifetime total: a number that only grows says nothing, and the question
+ * worth answering is whether somebody has been trying lately.
+ */
+class SessionList extends ResponseShape
+{
+    public function __construct(
+        /** @var SessionEntry[] */
+        public readonly array $sessions,
+        public readonly int $failed_since_last_login,
+    ) {
+    }
+}
+
+/** How many sessions "sign out everywhere else" actually ended. */
+class SessionsEnded extends ResponseShape
+{
+    public function __construct(public readonly int $ended)
+    {
+    }
+}

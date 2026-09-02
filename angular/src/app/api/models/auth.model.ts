@@ -118,6 +118,51 @@ export interface LanguageChanged {
 }
 
 /**
+ * One session: where the account was signed in, how, and whether it still is.
+ *
+ * `ip` and `user_agent` are what the request carried, unexamined. They are
+ * shown so a person can recognise their own devices, not relied on for
+ * anything - a user agent is a string the caller chooses.
+ */
+export interface SessionEntry {
+  id: number;
+  /** password, login_code, google, or email_link. */
+  method: string;
+  ip: string | null;
+  user_agent: string | null;
+  created_at: string;
+  last_seen_at: string | null;
+  expires_at: string;
+  revoked_at: string | null;
+  /** Why it ended, where anything but its own expiry ended it. */
+  revoked_reason: string | null;
+  /** Neither revoked nor expired - worked out here, against our own clock. */
+  active: boolean;
+  /** The session asking. The page will not offer to end this one by surprise. */
+  current: boolean;
+}
+
+/**
+ * Every session this account has had, and how many attempts have failed since
+ * it last succeeded.
+ *
+ * The count is deliberately "since the last good sign-in" rather than a
+ * lifetime total: a number that only grows says nothing, and the question
+ * worth answering is whether somebody has been trying lately.
+ */
+export interface SessionList {
+  sessions: SessionEntry[];
+  failed_since_last_login: number;
+}
+
+/**
+ * How many sessions "sign out everywhere else" actually ended.
+ */
+export interface SessionsEnded {
+  ended: number;
+}
+
+/**
  * Echoed back so the caller can confirm what was stored.
  */
 export interface ThemeChanged {
