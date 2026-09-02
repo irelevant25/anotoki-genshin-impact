@@ -41298,6 +41298,17 @@
               }
             ]
           },
+          "mac": {
+            "description": "The caller's hardware address, and null nearly always.  Only knowable when the caller shares a network with the server, and so is still in its neighbour table - a MAC address does not survive a router. See requestMac().",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
           "user_agent": {
             "anyOf": [
               {
@@ -41358,6 +41369,7 @@
           "id",
           "method",
           "ip",
+          "mac",
           "user_agent",
           "created_at",
           "last_seen_at",

@@ -22,6 +22,11 @@
                     @if (session.ip) {
                         <span class="session-ip">{{ session.ip }}</span>
                     }
+                    <!-- Only ever filled in for a sign-in from this network:
+                         a hardware address does not survive a router. -->
+                    @if (session.mac) {
+                        <span class="session-mac">{{ 'profile.sessions.mac' | translate }} {{ session.mac }}</span>
+                    }
                 </div>
 
                 <div class="session-when">

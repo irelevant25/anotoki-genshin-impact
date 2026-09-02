@@ -1,0 +1,25 @@
+-----------------------------------------------------------
+-- THE HARDWARE ADDRESS, WHERE THERE IS ONE TO HAVE
+--
+-- A session already records the address it was signed in from. This adds the
+-- MAC address next to it - but only because it is occasionally knowable, not
+-- because it usually is, and the column is nullable for the honest reason.
+--
+-- A MAC address lives one layer below the one HTTP arrives on. Every router a
+-- request crosses strips the sender's and writes its own, so what reaches a
+-- public server is the last hop's hardware, never the caller's. There is no
+-- header carrying it and no header worth trusting if there were, which is why
+-- this is read on the server or not at all.
+--
+-- It survives exactly one case: the caller is on the same network as the
+-- server, and so is still in its neighbour table. On a LAN - a phone against a
+-- development machine, a browser on the office network - that is a real
+-- answer. From the internet it is NULL, and NULL is the truthful value.
+--
+-- Recorded once, when the session opens. It is a fact about how a machine was
+-- attached at that moment, not a name for the machine: a laptop moving between
+-- networks keeps its MAC, one with privacy addressing enabled does not, and
+-- neither is worth chasing with an update.
+-----------------------------------------------------------
+
+ALTER TABLE user_sessions ADD COLUMN IF NOT EXISTS mac VARCHAR(17);

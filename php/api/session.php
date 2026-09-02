@@ -68,6 +68,124 @@ function requestUserAgent(Request $request): ?string
     return $agent === '' ? null : substr($agent, 0, 255);
 }
 
+/**
+ * The caller's hardware address, on the rare occasion there is one to read.
+ *
+ * A MAC address belongs to the link the request last crossed, not to the
+ * request. Every router rewrites it, so a public server sees its own upstream
+ * hop and never the caller - and there is no header carrying the real one, nor
+ * would a header be worth believing if there were. So this is read here or not
+ * at all, and "not at all" is the usual answer.
+ *
+ * What it does catch is a caller on the same network as the server, which is
+ * still in its neighbour table: a phone against a development machine, a
+ * browser on the same office network. Everything else gets null, and null is
+ * the truthful value rather than a gap to be filled with a guess.
+ *
+ * Nothing is spawned for an address that could not possibly be a neighbour,
+ * which keeps this off the sign-in path of every real deployment.
+ */
+function requestMac(Request $request): ?string
+{
+    $ip = requestIp($request);
+
+    if ($ip === null || !macWorthLookingUp($ip)) {
+        return null;
+    }
+
+    return arpLookup($ip) ?? null;
+}
+
+/**
+ * Whether an address could be a neighbour at all.
+ *
+ * Private and link-local ranges only. A public address is by definition
+ * somewhere beyond a router, and loopback never appears in a neighbour table -
+ * so both are answered without touching the system. IPv6 is left out because
+ * its neighbours live somewhere other than the ARP table on both platforms,
+ * and a nullable column is a better answer than a second implementation.
+ */
+function macWorthLookingUp(string $ip): bool
+{
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) === false) {
+        return false;
+    }
+
+    if (str_starts_with($ip, '127.')) {
+        return false;
+    }
+
+    // False here means the address is private or reserved - the only kind that
+    // can share a link with us.
+    return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false;
+}
+
+/**
+ * Looks one address up in the system's neighbour table.
+ *
+ * Linux first, by reading /proc/net/arp, which needs no process and no shell.
+ * Windows has no equivalent file, so it falls back to `arp`, and only if the
+ * host has not disabled the means of running it - shared hosting usually has,
+ * which is fine: shared hosting is also where the answer is always null.
+ *
+ * The address reaching the command line has already been through
+ * FILTER_VALIDATE_IP and is escaped besides, so there is nothing in it for a
+ * shell to find interesting.
+ */
+function arpLookup(string $ip): ?string
+{
+    $table = @file_get_contents('/proc/net/arp');
+
+    if ($table === false) {
+        $table = shellAvailable() ? @shell_exec('arp -a ' . escapeshellarg($ip) . ' 2>&1') : null;
+    }
+
+    if (!is_string($table) || $table === '') {
+        return null;
+    }
+
+    foreach (explode("\n", $table) as $line) {
+        $fields = preg_split('/\s+/', trim($line));
+
+        if ($fields === false || !in_array($ip, $fields, true)) {
+            continue;
+        }
+
+        foreach ($fields as $field) {
+            $mac = normaliseMac($field);
+
+            // All zeroes is the table saying it asked and got no answer.
+            if ($mac !== null && $mac !== '00:00:00:00:00:00') {
+                return $mac;
+            }
+        }
+    }
+
+    return null;
+}
+
+/** A MAC in one shape, from either of the two the platforms print. */
+function normaliseMac(string $value): ?string
+{
+    if (!preg_match('/^[0-9a-f]{2}([:-][0-9a-f]{2}){5}$/i', $value)) {
+        return null;
+    }
+
+    return strtolower(str_replace('-', ':', $value));
+}
+
+/** Whether this host will let us run anything at all. */
+function shellAvailable(): bool
+{
+    if (!function_exists('shell_exec')) {
+        return false;
+    }
+
+    $disabled = array_map('trim', explode(',', (string) ini_get('disable_functions')));
+
+    return !in_array('shell_exec', $disabled, true);
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Sessions
 // ─────────────────────────────────────────────────────────────────────────────
@@ -84,9 +202,9 @@ function openSession(PDO $pdo, int $userId, string $method, Request $request): s
     $tokenId = bin2hex(random_bytes(16));
 
     $pdo->prepare(
-        'INSERT INTO user_sessions (user_id, token_id, method, ip, user_agent, last_seen_at, expires_at)
-              VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP + (? * INTERVAL \'1 second\'))'
-    )->execute([$userId, $tokenId, $method, requestIp($request), requestUserAgent($request), SESSION_LIFETIME]);
+        'INSERT INTO user_sessions (user_id, token_id, method, ip, mac, user_agent, last_seen_at, expires_at)
+              VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP + (? * INTERVAL \'1 second\'))'
+    )->execute([$userId, $tokenId, $method, requestIp($request), requestMac($request), requestUserAgent($request), SESSION_LIFETIME]);
 
     return $tokenId;
 }
