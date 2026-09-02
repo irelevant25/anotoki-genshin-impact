@@ -1,7 +1,15 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { inject } from '@angular/core';
-import qrcode from 'qrcode-generator';
+import { encodeQr } from './qr-encoder';
+
+/**
+ * The quiet zone, in modules.
+ *
+ * Four is what the standard asks for, and it is not decoration: a scanner
+ * finds the symbol by its border, and a QR pressed up against other content is
+ * a QR that often will not read.
+ */
+const QUIET_ZONE = 4;
 
 /**
  * One QR code, as inline SVG.
@@ -9,10 +17,8 @@ import qrcode from 'qrcode-generator';
  * SVG rather than a canvas so it scales with the layout and prints properly,
  * and inline so there is no image request for something computed locally.
  *
- * The only thing this is used for is an otpauth:// URI, which is short enough
- * that the encoder picks a small version on its own - version 0 means "the
- * smallest that fits". Error correction is M, the usual compromise: readable
- * with a smudge on it without doubling the size.
+ * The dark modules are merged into horizontal runs rather than drawn one at a
+ * time, which turns a few thousand rectangles into a few hundred.
  */
 @Component({
   selector: 'app-qr-code',
@@ -23,11 +29,12 @@ import qrcode from 'qrcode-generator';
         line-height: 0;
       }
 
-      /* The library sizes the tag itself; this makes it fit its box instead. */
       .qr ::ng-deep svg {
         width: 100%;
         height: auto;
         max-width: 220px;
+        /* Always light, whatever the page theme - a scanner expects dark on
+           light, and an inverted QR is one many will not read. */
         background: #ffffff;
       }
     `,
@@ -39,14 +46,35 @@ export class QrCodeComponent {
   private readonly _sanitizer = inject(DomSanitizer);
 
   readonly svg = computed<SafeHtml>(() => {
-    const code = qrcode(0, 'M');
-    code.addData(this.value());
-    code.make();
+    const modules = encodeQr(this.value());
+    const size = modules.length + QUIET_ZONE * 2;
+    const rects: string[] = [];
 
-    // The markup is generated here from a value this component was given, and
-    // never contains anything from a response - bypassing the sanitiser is
-    // safe because there is no untrusted input in it. Angular strips SVG
-    // otherwise, which would leave an empty box.
-    return this._sanitizer.bypassSecurityTrustHtml(code.createSvgTag({ cellSize: 4, margin: 2 }));
+    modules.forEach((row, y) => {
+      let runStart: number | null = null;
+
+      // One rectangle per run of dark modules, closed off at the row's end.
+      for (let x = 0; x <= row.length; x++) {
+        const dark = x < row.length && row[x];
+
+        if (dark && runStart === null) {
+          runStart = x;
+        } else if (!dark && runStart !== null) {
+          rects.push(`<rect x="${runStart + QUIET_ZONE}" y="${y + QUIET_ZONE}" width="${x - runStart}" height="1"/>`);
+          runStart = null;
+        }
+      }
+    });
+
+    const svg =
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges">` +
+      `<rect width="${size}" height="${size}" fill="#ffffff"/>` +
+      `<g fill="#000000">${rects.join('')}</g>` +
+      `</svg>`;
+
+    // The markup is built here out of numbers this component computed, and
+    // never contains anything from a response - so there is no untrusted input
+    // in it to sanitise. Angular strips SVG otherwise, leaving an empty box.
+    return this._sanitizer.bypassSecurityTrustHtml(svg);
   });
 }

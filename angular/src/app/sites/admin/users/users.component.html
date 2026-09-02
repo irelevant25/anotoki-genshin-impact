@@ -67,50 +67,50 @@
                         <td colspan="7" class="empty-cell">No accounts match the filter</td>
                     </tr>
                 }
-                @for (account of accounts(); track account.id) {
-                    <tr [class.is-disabled]="account.deleted">
-                        <td class="col-id">{{ account.id }}</td>
+                @for (row of accounts(); track row.id) {
+                    <tr [class.is-disabled]="row.deleted">
+                        <td class="col-id">{{ row.id }}</td>
                         <td class="col-username">
-                            {{ account.username }}
-                            @if (isSelf(account)) {
+                            {{ row.username }}
+                            @if (isSelf(row)) {
                                 <span class="chip-self">you</span>
                             }
                         </td>
                         <td class="col-email">
-                            {{ account.email }}
-                            @if (!account.email_confirmed) {
+                            {{ row.email }}
+                            @if (!row.email_confirmed) {
                                 <span class="chip-unconfirmed" title="This address was never confirmed">unconfirmed</span>
                             }
                         </td>
-                        <td class="col-role"><span class="pill role-{{ account.role.toLowerCase() }}">{{ account.role }}</span></td>
+                        <td class="col-role"><span class="pill role-{{ row.role.toLowerCase() }}">{{ row.role }}</span></td>
                         <td class="col-state">
-                            <span class="pill state-{{ account.deleted ? 'disabled' : 'enabled' }}">{{ account.deleted ? 'disabled' : 'enabled' }}</span>
+                            <span class="pill state-{{ row.deleted ? 'disabled' : 'enabled' }}">{{ row.deleted ? 'disabled' : 'enabled' }}</span>
                         </td>
-                        <td class="col-when">{{ account.created_at | date: 'yyyy-MM-dd' }}</td>
+                        <td class="col-when">{{ row.created_at | date: 'yyyy-MM-dd' }}</td>
                         <td class="col-actions">
                             @if (!canManage) {
                                 <span class="no-actions">—</span>
-                            } @else if (disableConfirm() === account.id) {
+                            } @else if (disableConfirm() === row.id) {
                                 <span class="confirm-row">
-                                    <span class="confirm-text">Disable {{ account.username }}?</span>
-                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="setEnabled(account, false)"></app-button>
+                                    <span class="confirm-text">Disable {{ row.username }}?</span>
+                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="setEnabled(row, false)"></app-button>
                                     <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDisable()"></app-button>
                                 </span>
                             } @else {
                                 <div class="action-btns">
-                                    <app-button text="Edit" variant="secondary" [outline]="true" size="very-small" (buttonClick)="edit(account)"></app-button>
+                                    <app-button text="Edit" variant="secondary" [outline]="true" size="very-small" (buttonClick)="edit(row)"></app-button>
                                     <app-button
                                         text="Password"
                                         variant="secondary"
                                         [outline]="true"
                                         size="very-small"
                                         tooltipText="Set a new password without knowing the old one"
-                                        (buttonClick)="changePassword(account)"
+                                        (buttonClick)="changePassword(row)"
                                     ></app-button>
-                                    @if (account.deleted) {
-                                        <app-button text="Enable" variant="success" [outline]="true" size="very-small" (buttonClick)="setEnabled(account, true)"></app-button>
-                                    } @else if (!isSelf(account)) {
-                                        <app-button text="Disable" variant="danger" [outline]="true" size="very-small" (buttonClick)="askToDisable(account.id)"></app-button>
+                                    @if (row.deleted) {
+                                        <app-button text="Enable" variant="success" [outline]="true" size="very-small" (buttonClick)="setEnabled(row, true)"></app-button>
+                                    } @else if (!isSelf(row)) {
+                                        <app-button text="Disable" variant="danger" [outline]="true" size="very-small" (buttonClick)="askToDisable(row.id)"></app-button>
                                     }
                                 </div>
                             }
