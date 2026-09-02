@@ -8,6 +8,15 @@
 export interface LoginRequest {
   email: string;
   password: string;
+  /**
+   * A code from the authenticator app, for accounts that require one.
+   *
+   * Optional because most do not, and because the caller cannot know in
+   * advance which is which - the request is made without it, refused with
+   * `totp_required`, and made again with it. A recovery code is accepted here
+   * too, and is spent by being used.
+   */
+  totp?: string;
 }
 
 export interface RegisterRequest {
@@ -53,12 +62,27 @@ export interface PasswordResetRequest {
  */
 export interface GoogleCredentialRequest {
   credential: string;
+  /** See LoginRequest - two-factor applies to every way in, not just this one. */
+  totp?: string;
+}
+
+/**
+ * A code from the authenticator app, or a recovery code where one is allowed.
+ *
+ * Turning two-factor off and asking for new recovery codes both require one,
+ * for the same reason changing a password requires the old one: somebody at a
+ * signed-in machine should not be able to quietly remove it.
+ */
+export interface TotpCodeRequest {
+  code: string;
 }
 
 /** An address and the six digits that were emailed to it. */
 export interface LoginCodeRequest {
   email: string;
   code: string;
+  /** See LoginRequest - two-factor applies to every way in, not just this one. */
+  totp?: string;
 }
 
 /**

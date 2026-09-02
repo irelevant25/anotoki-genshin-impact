@@ -17,6 +17,8 @@ interface ILogin {
   email: string;
   password: string;
   code: string;
+  /** From the authenticator app, or a recovery code. */
+  totp: string;
 }
 
 /**
@@ -27,7 +29,7 @@ interface ILogin {
  * the way into that account - which is a thing to do next rather than a
  * failure to report.
  */
-type LoginStep = 'password' | 'code' | 'unconfirmed';
+type LoginStep = 'password' | 'code' | 'unconfirmed' | 'totp';
 
 @Component({
   selector: 'app-site-login-modal',
@@ -44,7 +46,18 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
     email: '',
     password: '',
     code: '',
+    totp: '',
   });
+
+  /**
+   * Which way in was being used when a second factor turned out to be needed.
+   *
+   * The API takes the whole sign-in again with the code attached rather than
+   * handing out a half-session to finish later, so whatever was in flight has
+   * to be repeatable - which for Google means keeping the token it gave us.
+   */
+  private _pending: 'password' | 'code' | 'google' | null = null;
+  private _googleCredential: string | null = null;
 
   readonly step = signal<LoginStep>('password');
 
@@ -71,29 +84,11 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
     this.refusal.set(null);
     this.loading.set(true);
 
-    this._security.login(this.form().email.trim(), this.form().password).subscribe({
+    this._pending = 'password';
+
+    this._security.login(this.form().email.trim(), this.form().password, this._totp()).subscribe({
       next: () => this._signedIn(),
-      error: (error: HttpErrorResponse) => {
-        this.loading.set(false);
-
-        // `code` is the stable name for a refusal; the prose beside it may be
-        // reworded at any time, so neither of these matches on the message.
-        switch (error?.error?.code) {
-          case 'email_not_confirmed':
-            this.step.set('unconfirmed');
-            return;
-
-          // Made through Google, or the password has been switched off. Nothing
-          // is emailed from here - the code is asked for by pressing the button.
-          case 'password_login_unavailable':
-            this.step.set('code');
-            this.refusal.set(this._i18n.t('login.otherWayIn'));
-            return;
-
-          default:
-            this.refusal.set(this._i18n.t('login.failed'));
-        }
-      },
+      error: (error: HttpErrorResponse) => this._refused(error, 'login.failed'),
     });
   }
 
@@ -101,14 +96,35 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
   signInWithGoogle(credential: string): void {
     this.refusal.set(null);
     this.loading.set(true);
+    this._pending = 'google';
+    this._googleCredential = credential;
 
-    this._security.signInWithGoogle(credential).subscribe({
+    this._security.signInWithGoogle(credential, this._totp()).subscribe({
       next: () => this._signedIn(),
-      error: () => {
-        this.loading.set(false);
-        this.refusal.set(this._i18n.t('login.googleFailed'));
-      },
+      error: (error: HttpErrorResponse) => this._refused(error, 'login.googleFailed'),
     });
+  }
+
+  /**
+   * Repeats whatever was in flight, now with the authenticator code attached.
+   *
+   * Nothing was kept server-side between the two attempts - the second request
+   * carries everything the first did - so there is no half-finished sign-in
+   * anywhere to expire or be stolen.
+   */
+  submitTotp(): void {
+    if (!this.form().totp.trim()) {
+      return;
+    }
+
+    switch (this._pending) {
+      case 'password':
+        return this.login();
+      case 'code':
+        return this.submitCode();
+      case 'google':
+        return this._googleCredential ? this.signInWithGoogle(this._googleCredential) : undefined;
+    }
   }
 
   /** Moves to the code form, whether or not the password was ever tried. */
@@ -161,12 +177,11 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
     this.refusal.set(null);
     this.loading.set(true);
 
-    this._security.signInWithCode(this.form().email.trim(), code).subscribe({
+    this._pending = 'code';
+
+    this._security.signInWithCode(this.form().email.trim(), code, this._totp()).subscribe({
       next: () => this._signedIn(),
-      error: () => {
-        this.loading.set(false);
-        this.refusal.set(this._i18n.t('login.badCode'));
-      },
+      error: (error: HttpErrorResponse) => this._refused(error, 'login.badCode'),
     });
   }
 
@@ -198,6 +213,47 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
 
   cancel(): void {
     this.closeModal(false);
+  }
+
+  /** Empty until the second factor has actually been asked for. */
+  private _totp(): string | undefined {
+    return this.form().totp.trim() || undefined;
+  }
+
+  /**
+   * The refusals worth telling apart, in one place.
+   *
+   * `code` is the stable name for each; the prose beside it may be reworded at
+   * any time, so nothing here matches on the message.
+   */
+  private _refused(error: HttpErrorResponse, fallbackKey: string): void {
+    this.loading.set(false);
+
+    switch (error?.error?.code) {
+      case 'email_not_confirmed':
+        this.step.set('unconfirmed');
+        return;
+
+      // Made through Google, or the password has been switched off. Nothing is
+      // emailed from here - the code is asked for by pressing the button.
+      case 'password_login_unavailable':
+        this.step.set('code');
+        this.refusal.set(this._i18n.t('login.otherWayIn'));
+        return;
+
+      case 'totp_required':
+        this.step.set('totp');
+        this.refusal.set(null);
+        return;
+
+      case 'totp_invalid':
+        this.step.set('totp');
+        this.refusal.set(this._i18n.t('login.badTotp'));
+        return;
+
+      default:
+        this.refusal.set(this._i18n.t(fallbackKey));
+    }
   }
 
   private _signedIn(): void {

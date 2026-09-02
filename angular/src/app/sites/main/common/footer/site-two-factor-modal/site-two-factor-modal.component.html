@@ -1,0 +1,112 @@
+<app-modal
+    [title]="(step() === 'disable' ? 'account.twoFactor.offTitle' : 'account.twoFactor.onTitle') | translate"
+    (closeModal)="closeModal()"
+>
+    <div modal-body>
+        @switch (step()) {
+            @case ('setup') {
+                <div class="two-factor">
+                    <p class="two-factor-note">{{ 'account.twoFactor.scanLead' | translate }}</p>
+
+                    @if (uri(); as uri) {
+                        <app-qr-code [value]="uri"></app-qr-code>
+
+                        <!-- For a phone reading this page, where there is no
+                             second screen to point a camera at. -->
+                        <a class="link" [href]="uri">{{ 'account.twoFactor.openInApp' | translate }}</a>
+
+                        <div class="two-factor-key">
+                            <span class="text-muted small">{{ 'account.twoFactor.manualKey' | translate }}</span>
+                            <code>{{ readableSecret() }}</code>
+                        </div>
+                    }
+
+                    <p class="two-factor-note">{{ 'account.twoFactor.confirmLead' | translate }}</p>
+
+                    <app-text
+                        [label]="'account.twoFactor.code' | translate"
+                        [placeholder]="'account.twoFactor.codePlaceholder' | translate"
+                        [(value)]="form().code"
+                        [required]="true"
+                        autocomplete="one-time-code"
+                    ></app-text>
+
+                    @if (refusal(); as refusal) {
+                        <p class="two-factor-problem">{{ refusal }}</p>
+                    }
+                </div>
+            }
+
+            @case ('codes') {
+                <div class="two-factor">
+                    <p class="two-factor-lead">{{ 'account.twoFactor.codesTitle' | translate }}</p>
+                    <p class="two-factor-note">{{ 'account.twoFactor.codesLead' | translate }}</p>
+
+                    <ul class="recovery-codes">
+                        @for (code of recoveryCodes(); track code) {
+                            <li><code>{{ code }}</code></li>
+                        }
+                    </ul>
+
+                    <app-button
+                        [text]="'account.twoFactor.copy' | translate"
+                        variant="secondary"
+                        size="small"
+                        (buttonClick)="copyCodes()"
+                    ></app-button>
+
+                    <!-- Not a formality: these are the only way back in, they
+                         cannot be shown again, and the button below stays
+                         unavailable until this is ticked. -->
+                    <label class="two-factor-confirm">
+                        <input type="checkbox" [checked]="codesSaved()" (change)="codesSaved.set(!codesSaved())" />
+                        <span>{{ 'account.twoFactor.codesSaved' | translate }}</span>
+                    </label>
+                </div>
+            }
+
+            @case ('disable') {
+                <div class="two-factor">
+                    <p class="two-factor-note">{{ 'account.twoFactor.offLead' | translate }}</p>
+
+                    <app-text
+                        [label]="'account.twoFactor.code' | translate"
+                        [placeholder]="'account.twoFactor.codePlaceholder' | translate"
+                        [(value)]="form().code"
+                        [required]="true"
+                        autocomplete="one-time-code"
+                    ></app-text>
+
+                    @if (refusal(); as refusal) {
+                        <p class="two-factor-problem">{{ refusal }}</p>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    <div modal-footer class="d-flex gap-3 justify-content-end">
+        @switch (step()) {
+            @case ('setup') {
+                <app-button [text]="'common.cancel' | translate" variant="secondary" (buttonClick)="cancel()"></app-button>
+                <app-button [text]="'account.twoFactor.turnOn' | translate" variant="primary" (buttonClick)="confirm()"></app-button>
+            }
+
+            @case ('codes') {
+                <app-button
+                    [text]="'common.close' | translate"
+                    variant="primary"
+                    [disabled]="!codesSaved()"
+                    (buttonClick)="finish()"
+                ></app-button>
+            }
+
+            @case ('disable') {
+                <app-button [text]="'common.cancel' | translate" variant="secondary" (buttonClick)="cancel()"></app-button>
+                <app-button [text]="'account.twoFactor.turnOff' | translate" variant="danger" (buttonClick)="disable()"></app-button>
+            }
+        }
+    </div>
+</app-modal>
+
+<app-loader [loading]="loading()"></app-loader>

@@ -118,6 +118,28 @@
                     }
                 </div>
 
+                <div class="method">
+                    <span class="icon icon-shield icon-size-4"></span>
+                    <div class="method-body">
+                        <span class="fw-500 fs-14">{{ 'account.twoFactor.title' | translate }}</span>
+                        <span class="text-muted small">
+                            @if (userData.totp_enabled) {
+                                {{ 'account.twoFactor.on' | translate: { count: userData.recovery_codes_remaining ?? 0 } }}
+                            } @else {
+                                {{ 'account.twoFactor.off' | translate }}
+                            }
+                        </span>
+                    </div>
+
+                    <app-button
+                        [text]="(userData.totp_enabled ? 'account.methods.disable' : 'account.methods.enable') | translate"
+                        variant="secondary"
+                        size="very-small"
+                        [outline]="!!userData.totp_enabled"
+                        (buttonClick)="twoFactor()"
+                    ></app-button>
+                </div>
+
                 @if (refusal(); as refusal) {
                     <p class="method-problem">{{ refusal }}</p>
                 }

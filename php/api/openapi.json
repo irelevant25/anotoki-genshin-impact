@@ -1266,6 +1266,249 @@
         ]
       }
     },
+    "/api/auth/2fa/disable": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "disableTwoFactor",
+        "summary": "Disable two factor",
+        "description": "Requires a signed-in user. Reads `users`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TotpCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUser"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/2fa/enable": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "enableTwoFactor",
+        "summary": "Enable two factor",
+        "description": "Requires a signed-in user.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TotpCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TotpRecoveryCodes"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/2fa/recovery": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "regenerateRecoveryCodes",
+        "summary": "Regenerate recovery codes",
+        "description": "Requires a signed-in user.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TotpCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TotpRecoveryCodes"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/2fa/setup": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "startTwoFactorSetup",
+        "summary": "Start two factor setup",
+        "description": "Requires a signed-in user.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TotpSetup"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/auth/confirm": {
       "post": {
         "tags": [
@@ -22683,6 +22926,14 @@
                 "type": "string"
               }
             ]
+          },
+          "totp_enabled": {
+            "description": "Whether a code from an authenticator app is required to sign in.",
+            "type": "boolean"
+          },
+          "recovery_codes_remaining": {
+            "description": "Unused recovery codes left. Zero when two-factor is off.",
+            "type": "number"
           }
         },
         "required": [
@@ -22699,7 +22950,9 @@
           "has_password",
           "password_login_enabled",
           "google_connected",
-          "google_email"
+          "google_email",
+          "totp_enabled",
+          "recovery_codes_remaining"
         ],
         "additionalProperties": false
       },
@@ -29898,6 +30151,10 @@
         "type": "object",
         "properties": {
           "credential": {
+            "type": "string"
+          },
+          "totp": {
+            "description": "See LoginRequest - two-factor applies to every way in, not just this one.",
             "type": "string"
           }
         },
@@ -38469,6 +38726,10 @@
           },
           "code": {
             "type": "string"
+          },
+          "totp": {
+            "description": "See LoginRequest - two-factor applies to every way in, not just this one.",
+            "type": "string"
           }
         },
         "required": [
@@ -38486,6 +38747,10 @@
             "type": "string"
           },
           "password": {
+            "type": "string"
+          },
+          "totp": {
+            "description": "A code from the authenticator app, for accounts that require one. Optional because most do not, and because the caller cannot know in advance which is which - the request is made without it, refused with `totp_required`, and made again with it. A recovery code is accepted here too, and is spent by being used.",
             "type": "string"
           }
         },
@@ -41314,6 +41579,57 @@
         "required": [
           "area",
           "theme"
+        ],
+        "additionalProperties": false
+      },
+      "TotpCodeRequest": {
+        "title": "TotpCodeRequest",
+        "description": "A code from the authenticator app, or a recovery code where one is allowed. Turning two-factor off and asking for new recovery codes both require one, for the same reason changing a password requires the old one: somebody at a signed-in machine should not be able to quietly remove it.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false
+      },
+      "TotpRecoveryCodes": {
+        "title": "TotpRecoveryCodes",
+        "description": "The way back in when the phone is gone. Returned exactly once, when they are generated, because only their hashes are kept. There is no endpoint that can show them again - asking for another set replaces them.",
+        "type": "object",
+        "properties": {
+          "recovery_codes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "recovery_codes"
+        ],
+        "additionalProperties": false
+      },
+      "TotpSetup": {
+        "title": "TotpSetup",
+        "description": "A freshly issued two-factor secret, on its way to an authenticator app. Both forms of the same thing: the URI is what a QR code encodes, and the secret is what somebody types when there is no camera to hand. Nothing is required of the account until a code computed from it has been handed back.",
+        "type": "object",
+        "properties": {
+          "secret": {
+            "description": "Base32, as an authenticator expects it typed.",
+            "type": "string"
+          },
+          "uri": {
+            "description": "The otpauth:// URI a QR code carries.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "secret",
+          "uri"
         ],
         "additionalProperties": false
       },

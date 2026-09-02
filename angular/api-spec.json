@@ -754,6 +754,111 @@
         },
         {
             "method": "POST",
+            "path": "/api/auth/2fa/disable",
+            "args": [],
+            "file": "auth.php",
+            "tables": [
+                "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                409
+            ],
+            "responds": {
+                "shape": "AuthUser",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 837
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/2fa/enable",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                409
+            ],
+            "responds": {
+                "shape": "TotpRecoveryCodes",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 810
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/2fa/recovery",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                409
+            ],
+            "responds": {
+                "shape": "TotpRecoveryCodes",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 862
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/2fa/setup",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                409
+            ],
+            "responds": {
+                "shape": "TotpSetup",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 780
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "POST",
             "path": "/api/auth/confirm",
             "args": [],
             "file": "auth.php",
@@ -771,7 +876,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 163
+                "line": 191
             },
             "expanded": [],
             "payload": null,
@@ -795,7 +900,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 185
+                "line": 213
             },
             "expanded": [],
             "payload": null,
@@ -824,7 +929,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 483
+                "line": 525
             },
             "expanded": [],
             "payload": null,
@@ -851,7 +956,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 580
+                "line": 622
             },
             "expanded": [],
             "payload": null,
@@ -879,7 +984,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 552
+                "line": 594
             },
             "expanded": [],
             "payload": null,
@@ -906,7 +1011,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 347
+                "line": 379
             },
             "expanded": [],
             "payload": null,
@@ -933,7 +1038,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 230
+                "line": 262
             },
             "expanded": [],
             "payload": null,
@@ -957,7 +1062,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 608
+                "line": 650
             },
             "expanded": [],
             "payload": null,
@@ -982,7 +1087,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 636
+                "line": 682
             },
             "expanded": [],
             "payload": null,
@@ -1006,7 +1111,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 355
+                "line": 387
             },
             "expanded": [],
             "payload": null,
@@ -1030,7 +1135,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 297
+                "line": 329
             },
             "expanded": [],
             "payload": null,
@@ -1057,7 +1162,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 384
+                "line": 416
             },
             "expanded": [],
             "payload": null,
@@ -1084,7 +1189,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 694
+                "line": 740
             },
             "expanded": [],
             "payload": null,
@@ -1108,7 +1213,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 254
+                "line": 286
             },
             "expanded": [],
             "payload": null,
@@ -1136,7 +1241,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 290
+                "line": 322
             },
             "expanded": [],
             "payload": null,
@@ -1164,7 +1269,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 664
+                "line": 710
             },
             "expanded": [],
             "payload": null,
@@ -1188,7 +1293,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 416
+                "line": 448
             },
             "expanded": [],
             "payload": null,
@@ -1216,7 +1321,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 138
+                "line": 166
             },
             "expanded": [],
             "payload": null,
@@ -1241,7 +1346,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 324
+                "line": 356
             },
             "expanded": [],
             "payload": null,
@@ -15844,6 +15949,26 @@
                     "optional": false,
                     "of": null,
                     "description": "The Google address that is connected, for the account page to show."
+                },
+                {
+                    "name": "totp_enabled",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether a code from an authenticator app is required to sign in."
+                },
+                {
+                    "name": "recovery_codes_remaining",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Unused recovery codes left. Zero when two-factor is off."
                 }
             ]
         },
@@ -18434,6 +18559,52 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                }
+            ]
+        },
+        {
+            "name": "TotpRecoveryCodes",
+            "file": "auth.php",
+            "merges": null,
+            "description": "The way back in when the phone is gone.\n\nReturned exactly once, when they are generated, because only their hashes\nare kept. There is no endpoint that can show them again - asking for another\nset replaces them.",
+            "fields": [
+                {
+                    "name": "recovery_codes",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "TotpSetup",
+            "file": "auth.php",
+            "merges": null,
+            "description": "A freshly issued two-factor secret, on its way to an authenticator app.\n\nBoth forms of the same thing: the URI is what a QR code encodes, and the\nsecret is what somebody types when there is no camera to hand. Nothing is\nrequired of the account until a code computed from it has been handed back.",
+            "fields": [
+                {
+                    "name": "secret",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Base32, as an authenticator expects it typed."
+                },
+                {
+                    "name": "uri",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "The otpauth:// URI a QR code carries."
                 }
             ]
         },

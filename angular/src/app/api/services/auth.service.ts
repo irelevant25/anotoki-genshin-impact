@@ -14,6 +14,8 @@ import {
   AuthUser,
   LanguageChanged,
   ThemeChanged,
+  TotpRecoveryCodes,
+  TotpSetup,
 } from '../models';
 import {
   ChangePasswordRequest,
@@ -28,6 +30,7 @@ import {
   RegisterRequest,
   SetOwnPasswordRequest,
   ThemeRequest,
+  TotpCodeRequest,
 } from '../types';
 
 /**
@@ -54,12 +57,30 @@ export class AuthApiService {
   }
 
   /**
+   * `POST /api/auth/2fa/disable`
+   *
+   * Requires a signed-in user.
+   */
+  disableTwoFactor(body: TotpCodeRequest): Observable<AuthUser> {
+    return this._http.post<AuthUser>('/api/auth/2fa/disable', body);
+  }
+
+  /**
    * `DELETE /api/auth/google/link`
    *
    * Requires a signed-in user.
    */
   disconnectGoogle(): Observable<AuthUser> {
     return this._http.delete<AuthUser>('/api/auth/google/link');
+  }
+
+  /**
+   * `POST /api/auth/2fa/enable`
+   *
+   * Requires a signed-in user.
+   */
+  enableTwoFactor(body: TotpCodeRequest): Observable<TotpRecoveryCodes> {
+    return this._http.post<TotpRecoveryCodes>('/api/auth/2fa/enable', body);
   }
 
   /**
@@ -99,6 +120,15 @@ export class AuthApiService {
    */
   logout(body: Record<string, unknown>): Observable<ApiMessage> {
     return this._http.post<ApiMessage>('/api/auth/logout', body);
+  }
+
+  /**
+   * `POST /api/auth/2fa/recovery`
+   *
+   * Requires a signed-in user.
+   */
+  regenerateRecoveryCodes(body: TotpCodeRequest): Observable<TotpRecoveryCodes> {
+    return this._http.post<TotpRecoveryCodes>('/api/auth/2fa/recovery', body);
   }
 
   /**
@@ -184,5 +214,14 @@ export class AuthApiService {
    */
   signInWithGoogle(body: GoogleCredentialRequest): Observable<AuthSession> {
     return this._http.post<AuthSession>('/api/auth/google', body);
+  }
+
+  /**
+   * `POST /api/auth/2fa/setup`
+   *
+   * Requires a signed-in user.
+   */
+  startTwoFactorSetup(body: Record<string, unknown>): Observable<TotpSetup> {
+    return this._http.post<TotpSetup>('/api/auth/2fa/setup', body);
   }
 }

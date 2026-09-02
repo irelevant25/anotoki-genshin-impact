@@ -33,6 +33,10 @@ class AuthUser extends ResponseShape
         public readonly bool $google_connected,
         /** The Google address that is connected, for the account page to show. */
         public readonly ?string $google_email,
+        /** Whether a code from an authenticator app is required to sign in. */
+        public readonly bool $totp_enabled,
+        /** Unused recovery codes left. Zero when two-factor is off. */
+        public readonly int $recovery_codes_remaining,
     ) {
     }
 }
@@ -113,6 +117,40 @@ class AuthProviders extends ResponseShape
     public function __construct(
         public readonly bool $google_enabled,
         public readonly ?string $google_client_id,
+    ) {
+    }
+}
+
+/**
+ * A freshly issued two-factor secret, on its way to an authenticator app.
+ *
+ * Both forms of the same thing: the URI is what a QR code encodes, and the
+ * secret is what somebody types when there is no camera to hand. Nothing is
+ * required of the account until a code computed from it has been handed back.
+ */
+class TotpSetup extends ResponseShape
+{
+    public function __construct(
+        /** Base32, as an authenticator expects it typed. */
+        public readonly string $secret,
+        /** The otpauth:// URI a QR code carries. */
+        public readonly string $uri,
+    ) {
+    }
+}
+
+/**
+ * The way back in when the phone is gone.
+ *
+ * Returned exactly once, when they are generated, because only their hashes
+ * are kept. There is no endpoint that can show them again - asking for another
+ * set replaces them.
+ */
+class TotpRecoveryCodes extends ResponseShape
+{
+    public function __construct(
+        /** @var string[] */
+        public readonly array $recovery_codes,
     ) {
     }
 }

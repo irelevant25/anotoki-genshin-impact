@@ -1,0 +1,63 @@
+.two-factor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  text-align: center;
+}
+
+.two-factor-lead {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.two-factor-note {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.two-factor-problem {
+  margin: 0;
+  color: var(--color-danger);
+}
+
+// The typed-in form of the secret, for setting an app up without a camera.
+.two-factor-key {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxs);
+
+  code {
+    font-size: var(--font-size-lg);
+    letter-spacing: 2px;
+    // Breaks between the four-character groups rather than mid-group.
+    word-spacing: var(--spacing-xs);
+  }
+}
+
+// Two columns, so ten codes read as a block to be copied rather than a list to
+// be scrolled.
+.recovery-codes {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: var(--spacing-xxs) var(--spacing-lg);
+  list-style: none;
+  margin: 0;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-veil-soft);
+
+  code {
+    font-size: var(--font-size-lg);
+    letter-spacing: 1px;
+  }
+}
+
+.two-factor-confirm {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  text-align: start;
+}

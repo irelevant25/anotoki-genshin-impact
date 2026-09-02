@@ -104,6 +104,10 @@ export interface AuthUser {
   google_connected: boolean;
   /** The Google address that is connected, for the account page to show. */
   google_email: string | null;
+  /** Whether a code from an authenticator app is required to sign in. */
+  totp_enabled: boolean;
+  /** Unused recovery codes left. Zero when two-factor is off. */
+  recovery_codes_remaining: number;
 }
 
 /**
@@ -120,4 +124,29 @@ export interface ThemeChanged {
   /** `main` or `admin`. */
   area: string;
   theme: string;
+}
+
+/**
+ * The way back in when the phone is gone.
+ *
+ * Returned exactly once, when they are generated, because only their hashes
+ * are kept. There is no endpoint that can show them again - asking for another
+ * set replaces them.
+ */
+export interface TotpRecoveryCodes {
+  recovery_codes: string[];
+}
+
+/**
+ * A freshly issued two-factor secret, on its way to an authenticator app.
+ *
+ * Both forms of the same thing: the URI is what a QR code encodes, and the
+ * secret is what somebody types when there is no camera to hand. Nothing is
+ * required of the account until a code computed from it has been handed back.
+ */
+export interface TotpSetup {
+  /** Base32, as an authenticator expects it typed. */
+  secret: string;
+  /** The otpauth:// URI a QR code carries. */
+  uri: string;
 }

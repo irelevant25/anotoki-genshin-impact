@@ -6,7 +6,7 @@ import { NotificationService } from '../components/notification/notification.ser
 import { jwtDecode } from '../jwt-decode';
 import { RoleService } from './role.service';
 import { Roles } from './options-helper.service';
-import { AuthApiService, AuthMailRequested, AuthPending, AuthSession, AuthUser } from '../../../api';
+import { AuthApiService, AuthMailRequested, AuthPending, AuthSession, AuthUser, TotpRecoveryCodes, TotpSetup } from '../../../api';
 
 export interface UserInfo {
   username: string;
@@ -31,6 +31,10 @@ export interface UserInfo {
   password_login_enabled?: boolean;
   google_connected?: boolean;
   google_email?: string;
+  /** Whether a code from an authenticator app is required to sign in. */
+  totp_enabled?: boolean;
+  /** Unused recovery codes left, so the account page can warn when they run low. */
+  recovery_codes_remaining?: number;
 }
 
 const ROLE_MAP: Record<string, Roles> = {
@@ -71,6 +75,17 @@ export class SecurityService {
 
   get accessToken(): string | undefined {
     return this._currentUserData.value?.token;
+  }
+
+  /**
+   * The account as it stands, for a one-shot read.
+   *
+   * currentUserData$ is the way to follow it; this is for the callers that
+   * only want to know once - which way a modal should open, say - and would
+   * otherwise subscribe and immediately unsubscribe.
+   */
+  currentUser(): UserInfo | null {
+    return this._currentUserData.value;
   }
 
   /**
@@ -123,8 +138,8 @@ export class SecurityService {
    * Authenticates with email + password.
    * Returns an Observable so the caller can react to success or failure.
    */
-  login(email: string, password: string): Observable<void> {
-    return this._authApi.login({ email, password }).pipe(map((session) => this.adoptSession(session)));
+  login(email: string, password: string, totp?: string): Observable<void> {
+    return this._authApi.login({ email, password, totp }).pipe(map((session) => this.adoptSession(session)));
   }
 
   /**
@@ -174,8 +189,8 @@ export class SecurityService {
    * Google's, and that it was minted for this site - so all this does is carry
    * it across.
    */
-  signInWithGoogle(credential: string): Observable<void> {
-    return this._authApi.signInWithGoogle({ credential }).pipe(map((session) => this.adoptSession(session)));
+  signInWithGoogle(credential: string, totp?: string): Observable<void> {
+    return this._authApi.signInWithGoogle({ credential, totp }).pipe(map((session) => this.adoptSession(session)));
   }
 
   /** Asks for a sign-in code by email, and signs in with one. */
@@ -183,8 +198,8 @@ export class SecurityService {
     return this._authApi.requestLoginCode({ email });
   }
 
-  signInWithCode(email: string, code: string): Observable<void> {
-    return this._authApi.signInWithCode({ email, code }).pipe(map((session) => this.adoptSession(session)));
+  signInWithCode(email: string, code: string, totp?: string): Observable<void> {
+    return this._authApi.signInWithCode({ email, code, totp }).pipe(map((session) => this.adoptSession(session)));
   }
 
   /**
@@ -209,6 +224,50 @@ export class SecurityService {
 
   setPasswordLoginEnabled(enabled: boolean): Observable<AuthUser> {
     return this._authApi.setPasswordLoginEnabled({ enabled }).pipe(tap((user) => this._refreshUser(user)));
+  }
+
+  /**
+   * Setting up two-factor, in the three steps the API asks for.
+   *
+   * `startTwoFactor` issues a secret and requires nothing; `enableTwoFactor`
+   * proves it was scanned and answers with the recovery codes, which is the
+   * only time they can be read; `disableTwoFactor` needs a code for the same
+   * reason changing a password needs the old one.
+   */
+  startTwoFactor(): Observable<TotpSetup> {
+    return this._authApi.startTwoFactorSetup({});
+  }
+
+  enableTwoFactor(code: string): Observable<TotpRecoveryCodes> {
+    // The account itself changed - it now demands a code - so the session is
+    // refreshed rather than left saying two-factor is off.
+    return this._authApi.enableTwoFactor({ code }).pipe(tap(() => this.refreshCurrentUser()));
+  }
+
+  disableTwoFactor(code: string): Observable<AuthUser> {
+    return this._authApi.disableTwoFactor({ code }).pipe(tap((user) => this._refreshUser(user)));
+  }
+
+  regenerateRecoveryCodes(code: string): Observable<TotpRecoveryCodes> {
+    return this._authApi.regenerateRecoveryCodes({ code }).pipe(tap(() => this.refreshCurrentUser()));
+  }
+
+  /**
+   * Re-reads the account behind the current token.
+   *
+   * For the endpoints that change it without answering with it - enabling
+   * two-factor hands back recovery codes, not an account, and the account page
+   * still has to notice.
+   */
+  refreshCurrentUser(): void {
+    if (!this._currentUserData.value?.token) {
+      return;
+    }
+
+    this._authApi.getCurrentUser().subscribe({
+      next: (user) => this._refreshUser(user),
+      error: () => undefined,
+    });
   }
 
   /** Takes up a session handed back by any endpoint that issues one. */
@@ -279,6 +338,8 @@ export class SecurityService {
       password_login_enabled: user.password_login_enabled,
       google_connected: user.google_connected,
       google_email: user.google_email ?? undefined,
+      totp_enabled: user.totp_enabled,
+      recovery_codes_remaining: user.recovery_codes_remaining,
       token,
     });
     this._isLoggedIn.next(true);

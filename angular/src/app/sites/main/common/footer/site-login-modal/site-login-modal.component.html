@@ -1,6 +1,23 @@
 <app-modal [title]="'login.title' | translate" (closeModal)="closeModal()">
     <div modal-body>
         <form class="feedback-form d-flex flex-col flex-wrap gap-3">
+            @if (step() === 'totp') {
+                <p class="login-note">{{ 'login.totpLead' | translate }}</p>
+
+                <app-text
+                    [label]="'login.totp' | translate"
+                    [placeholder]="'login.totpPlaceholder' | translate"
+                    [(value)]="form().totp"
+                    [required]="true"
+                    autocomplete="one-time-code"
+                ></app-text>
+
+                @if (refusal(); as refusal) {
+                    <p class="login-problem">{{ refusal }}</p>
+                }
+
+                <p class="text-muted small">{{ 'login.totpRecovery' | translate }}</p>
+            } @else {
             <app-text
                 [label]="'login.email' | translate"
                 [placeholder]="'login.emailPlaceholder' | translate"
@@ -67,13 +84,16 @@
             <div class="login-links">
                 <button type="button" class="link" (click)="register()">{{ 'login.noAccount' | translate }}</button>
             </div>
+            }
         </form>
     </div>
 
     <div modal-footer class="d-flex gap-3 justify-content-end">
         <app-button [text]="'common.cancel' | translate" variant="secondary" (buttonClick)="cancel()"></app-button>
 
-        @if (step() === 'code') {
+        @if (step() === 'totp') {
+            <app-button [text]="'login.codeAction' | translate" variant="primary" (buttonClick)="submitTotp()"></app-button>
+        } @else if (step() === 'code') {
             @if (codeSent()) {
                 <app-button [text]="'login.codeAction' | translate" variant="primary" (buttonClick)="submitCode()"></app-button>
             } @else {

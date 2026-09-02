@@ -47,7 +47,35 @@ function authUserPayload(array $user): array
         'password_login_enabled' => (bool) ($user['password_login_enabled'] ?? true),
         'google_connected' => $identity !== null,
         'google_email'     => $identity['email'] ?? null,
+        'totp_enabled'     => (bool) ($user['totp_enabled'] ?? false),
+        // So the account page can say "3 left" and mean it.
+        'recovery_codes_remaining' => empty($user['totp_enabled']) ? 0 : recoveryCodesRemaining(usersDb(), (int) $user['id']),
     ];
+}
+
+/**
+ * The second factor, for the three endpoints that issue a session.
+ *
+ * Answers null when the sign-in may go ahead, and a response when it may not -
+ * so each of them reads the same single line. `totp_required` and
+ * `totp_invalid` are told apart because the front end does different things
+ * with them: one asks for a code, the other says the code was wrong.
+ */
+function authTotpRefusal(Response $response, PDO $pdo, array $user, ?string $code): ?Response
+{
+    if (empty($user['totp_enabled'])) {
+        return null;
+    }
+
+    if (trim((string) $code) === '') {
+        return respondJson($response, ['error' => 'A code from your authenticator app is needed', 'code' => 'totp_required'], 403);
+    }
+
+    if (totpChallengePassed($pdo, $user, $code)) {
+        return null;
+    }
+
+    return respondJson($response, ['error' => 'That code is not right', 'code' => 'totp_invalid'], 403);
 }
 
 /**
@@ -217,6 +245,10 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
 
     if (!password_verify((string) $body['password'], $user['password'])) {
         return respondJson($response, ['error' => 'Invalid credentials'], 401);
+    }
+
+    if ($refusal = authTotpRefusal($response, usersDb(), $user, $body['totp'] ?? null)) {
+        return $refusal;
     }
 
     if (!$user['email_confirmed']) {
@@ -448,10 +480,20 @@ $app->post('/api/auth/google', function (Request $request, Response $response) {
     $verified = !empty($claims['email_verified']);
 
     if ($user = identityOwner($pdo, IDENTITY_GOOGLE, $subject)) {
+        if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null)) {
+            return $refusal;
+        }
+
         return respondJson($response, authSession($user));
     }
 
     if ($verified && $email !== '' && ($user = authFindByEmail($pdo, $email))) {
+        // Checked before anything is attached: an account with 2FA on must not
+        // gain a new way in on the strength of a Google token alone.
+        if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null)) {
+            return $refusal;
+        }
+
         attachIdentity($pdo, (int) $user['id'], IDENTITY_GOOGLE, $subject, $email);
 
         // Google has just vouched for the address, which is the same thing the
@@ -626,6 +668,10 @@ $app->post('/api/auth/login/code/verify', function (Request $request, Response $
         return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
     }
 
+    if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null)) {
+        return $refusal;
+    }
+
     $token = findLoginCode($pdo, (int) $user['id'], $code);
 
     if (!$token || !consumeOneTimeToken($pdo, (int) $token['id'])) {
@@ -692,3 +738,125 @@ $app->put('/api/auth/password/enabled', function (Request $request, Response $re
 
     return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));
 })->add(responds(AuthUser::class))->add(requireAuth());
+
+// ---------------------------------------------------------------------------
+// Two-factor authentication
+//
+// Off unless somebody turns it on, and once it is on it applies to every way
+// into the account - password, emailed code and Google alike. A single rule is
+// easier to hold in the head than a list of exceptions, and an account that
+// demanded a code from one door and not another would be worth less than it
+// appeared to be.
+//
+// Setting it up has three steps because the middle one matters: a secret is
+// issued and shown, a code computed from it is handed back as proof that it
+// was really scanned, and only then does the account start requiring one. An
+// account that started demanding codes the moment a QR was drawn would lock
+// out anybody whose camera did not focus.
+// ---------------------------------------------------------------------------
+
+/**
+ * POST /api/auth/2fa/setup - issue a secret and show it.
+ *
+ * Nothing is required yet. The secret is written to the account so the enable
+ * step can check a code against it, but `totp_enabled` stays false and sign-in
+ * is unaffected until it flips. Asking again replaces the secret, which is
+ * what somebody who abandoned the setup halfway and came back expects.
+ */
+$app->post('/api/auth/2fa/setup', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+
+    if (!empty($user['totp_enabled'])) {
+        return respondJson($response, ['error' => 'Two-factor authentication is already on', 'code' => 'totp_already_on'], 409);
+    }
+
+    $secret = totpSecret();
+    usersDb()->prepare('UPDATE users SET totp_secret = ? WHERE id = ?')->execute([$secret, $user['id']]);
+
+    return respondJson($response, [
+        'secret' => $secret,
+        'uri' => totpUri($secret, (string) $user['email']),
+    ]);
+})->add(responds(TotpSetup::class))->add(requireAuth());
+
+/**
+ * POST /api/auth/2fa/enable - prove the secret was scanned, and turn it on.
+ *
+ * The recovery codes are generated here and returned once. They are stored
+ * hashed, so this is genuinely the only time they can be shown - which is why
+ * the front end makes rather a fuss about writing them down.
+ */
+$app->post('/api/auth/2fa/enable', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+    $body = $request->getParsedBody() ?? [];
+    $pdo = usersDb();
+
+    if (!empty($user['totp_enabled'])) {
+        return respondJson($response, ['error' => 'Two-factor authentication is already on', 'code' => 'totp_already_on'], 409);
+    }
+
+    if (empty($user['totp_secret'])) {
+        return respondJson($response, ['error' => 'Start again - there is no secret to confirm', 'code' => 'totp_not_started'], 409);
+    }
+
+    if (!totpVerify((string) $user['totp_secret'], (string) ($body['code'] ?? ''))) {
+        return respondJson($response, ['error' => 'That code is not right', 'code' => 'totp_invalid'], 400);
+    }
+
+    $pdo->prepare('UPDATE users SET totp_enabled = TRUE WHERE id = ?')->execute([$user['id']]);
+    $codes = generateRecoveryCodes($pdo, (int) $user['id']);
+
+    return respondJson($response, ['recovery_codes' => $codes]);
+})->add(responds(TotpRecoveryCodes::class))->add(requireAuth());
+
+/**
+ * POST /api/auth/2fa/disable - turn it off again.
+ *
+ * A current code is required, for the same reason changing a password requires
+ * the old one: somebody sitting at a signed-in machine should not be able to
+ * quietly remove the thing that would have stopped them. A recovery code is
+ * accepted too - being locked out of the app is exactly when this is needed.
+ */
+$app->post('/api/auth/2fa/disable', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+    $body = $request->getParsedBody() ?? [];
+    $pdo = usersDb();
+
+    if (empty($user['totp_enabled'])) {
+        return respondJson($response, ['error' => 'Two-factor authentication is not on', 'code' => 'totp_not_on'], 409);
+    }
+
+    if (!totpChallengePassed($pdo, $user, (string) ($body['code'] ?? ''))) {
+        return respondJson($response, ['error' => 'That code is not right', 'code' => 'totp_invalid'], 400);
+    }
+
+    $pdo->prepare('UPDATE users SET totp_enabled = FALSE, totp_secret = NULL WHERE id = ?')->execute([$user['id']]);
+    $pdo->prepare('DELETE FROM user_recovery_codes WHERE user_id = ?')->execute([$user['id']]);
+
+    return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));
+})->add(responds(AuthUser::class))->add(requireAuth());
+
+/**
+ * POST /api/auth/2fa/recovery - a fresh set of recovery codes.
+ *
+ * The old ones stop working, including any that were never used: somebody
+ * asking for new codes is usually doing it because they are no longer sure who
+ * has seen the old ones.
+ */
+$app->post('/api/auth/2fa/recovery', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+    $body = $request->getParsedBody() ?? [];
+    $pdo = usersDb();
+
+    if (empty($user['totp_enabled'])) {
+        return respondJson($response, ['error' => 'Two-factor authentication is not on', 'code' => 'totp_not_on'], 409);
+    }
+
+    // A code from the app only. A recovery code cannot mint ten more of itself
+    // - that would make one leaked code permanent.
+    if (!totpVerify((string) $user['totp_secret'], (string) ($body['code'] ?? ''))) {
+        return respondJson($response, ['error' => 'That code is not right', 'code' => 'totp_invalid'], 400);
+    }
+
+    return respondJson($response, ['recovery_codes' => generateRecoveryCodes($pdo, (int) $user['id'])]);
+})->add(responds(TotpRecoveryCodes::class))->add(requireAuth());

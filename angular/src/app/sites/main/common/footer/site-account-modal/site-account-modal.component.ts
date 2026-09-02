@@ -12,6 +12,7 @@ import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme
 import { ModalService } from '../../../../../shared/local-lib/components/modal/modal.service';
 import { SiteLoginModalComponent } from '../site-login-modal/site-login-modal.component';
 import { SiteSetPasswordModalComponent } from '../site-set-password-modal/site-set-password-modal.component';
+import { SiteTwoFactorModalComponent } from '../site-two-factor-modal/site-two-factor-modal.component';
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 
@@ -96,6 +97,17 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
   /** Setting a first password is a form, so it gets a modal of its own. */
   setPassword(): void {
     this._modals.open(SiteSetPasswordModalComponent, { size: '1' });
+  }
+
+  /**
+   * Two-factor, on or off - the modal reads the account and works out which.
+   *
+   * Off is deliberately the default for this site: being locked out of a game
+   * reference is worse than somebody getting into one, so it is offered rather
+   * than pressed.
+   */
+  twoFactor(): void {
+    this._modals.open(SiteTwoFactorModalComponent, { size: '1' });
   }
 
   private _run(request: Observable<unknown>, successKey: string): void {

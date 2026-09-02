@@ -14,6 +14,7 @@ require_once __DIR__ . '/full_resource.php';
 require_once __DIR__ . '/mail.php';
 require_once __DIR__ . '/one_time_token.php';
 require_once __DIR__ . '/google_identity.php';
+require_once __DIR__ . '/totp.php';
 
 use Slim\Factory\AppFactory;
 
