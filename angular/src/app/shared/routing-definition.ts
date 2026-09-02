@@ -132,6 +132,13 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
       path: 'banners',
       notInMenu: true,
     },
+  },
+
+  // The header has linked to this since the menu was written; until now there
+  // was no route behind it.
+  profile: {
+    title: 'Profile',
+    path: 'profile',
   }
 };
 

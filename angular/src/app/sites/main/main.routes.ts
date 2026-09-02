@@ -22,6 +22,7 @@ import { DatabaseWeaponsComponent } from './features/database/weapons/weapons.co
 import { DatabaseCharacterDetailComponent } from './features/database/characters/detail/detail.component';
 import { DatabaseMaterialDetailComponent } from './features/database/materials/detail/detail.component';
 import { DatabaseWeaponDetailComponent } from './features/database/weapons/detail/detail.component';
+import { ProfileComponent } from './features/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -113,6 +114,10 @@ export const routes: Routes = [
           },
         ],
       },
+      // No guard: the page is reachable from the header whether or not anybody
+      // is signed in, and it says so itself rather than bouncing a visitor to
+      // a login they may not want.
+      { path: ROUTE_MAP.map['profile'].path, component: ProfileComponent },
       { path: '**', component: NotFoundComponent },
     ],
   },

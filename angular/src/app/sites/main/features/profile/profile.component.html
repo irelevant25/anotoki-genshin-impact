@@ -1,0 +1,290 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="profile">
+            @if (user(); as user) {
+                <header class="profile-header">
+                    <h1>{{ user.username }}</h1>
+                    <p class="profile-meta">
+                        <span class="role-badge">{{ user.roles }}</span>
+                        @if (user.created_at) {
+                            <span>{{ 'profile.memberSince' | translate }} {{ user.created_at | slovakDate }}</span>
+                        }
+                    </p>
+                </header>
+
+                <!-- A read that failed is said out loud: the rest of the page is
+                     real, and a quietly missing section reads as a zero. -->
+                @if (failed()) {
+                    <p class="profile-warning">{{ 'profile.failed' | translate }}</p>
+                }
+
+                @if (empty()) {
+                    <div class="profile-empty">
+                        <h2>{{ 'profile.empty.title' | translate }}</h2>
+                        <p>{{ 'profile.empty.text' | translate }}</p>
+                        <a class="link" [routerLink]="['/', 'quizzes']">{{ 'profile.empty.action' | translate }}</a>
+                    </div>
+                } @else {
+                    <!-- ── The headline figures ──────────────────────────── -->
+                    <section class="profile-section">
+                        <div class="figures">
+                            <div class="figure">
+                                <span class="figure-value">{{ totals().played }}</span>
+                                <span class="figure-label">{{ 'profile.overview.played' | translate }}</span>
+                            </div>
+                            <div class="figure">
+                                <span class="figure-value">{{ totals().winRate | number: '1.0-0' }}%</span>
+                                <span class="figure-label">{{ 'profile.overview.winRate' | translate }}</span>
+                            </div>
+                            <div class="figure">
+                                <span class="figure-value">{{ totals().averageAttempts | number: '1.0-1' }}</span>
+                                <span class="figure-label">{{ 'profile.overview.attempts' | translate }}</span>
+                            </div>
+                            <div class="figure">
+                                <span class="figure-value">{{ characters().length }}</span>
+                                <span class="figure-label">{{ 'profile.overview.characters' | translate }}</span>
+                            </div>
+                            <div class="figure">
+                                <span class="figure-value">{{ quizzesPlayed() }} / {{ quizzes().length }}</span>
+                                <span class="figure-label">{{ 'profile.overview.quizzes' | translate }}</span>
+                            </div>
+                            <div class="figure">
+                                <span class="figure-value">{{ activity().current }}</span>
+                                <span class="figure-label">{{ 'profile.overview.streak' | translate }}</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ── Per quiz ──────────────────────────────────────── -->
+                    <section class="profile-section">
+                        <h2>{{ 'profile.quizzes.title' | translate }}</h2>
+
+                        <ul class="rows">
+                            @for (quiz of quizzes(); track quiz.id) {
+                                <li class="row" [class.row-untouched]="quiz.totals.played === 0">
+                                    <span class="row-name">
+                                        @if (quizLink(quiz.id); as link) {
+                                            <a class="link" [routerLink]="link">{{ quizTitle(quiz.id) | translate }}</a>
+                                        } @else {
+                                            {{ quizTitle(quiz.id) }}
+                                        }
+                                    </span>
+
+                                    <!-- Width against the busiest quiz, so the bars say
+                                         how much of the playing each one accounts for;
+                                         the split inside says how it went. -->
+                                    <span class="row-bar" [title]="quiz.totals.wins + ' / ' + quiz.totals.played">
+                                        <span class="bar-track">
+                                            <span class="bar-fill" [style.width.%]="(quiz.totals.played * 100) / busiestQuiz()">
+                                                <span class="bar-won" [style.width.%]="quiz.totals.winRate"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+
+                                    <span class="row-figure">{{ quiz.totals.played }}</span>
+                                    <span class="row-figure row-rate">
+                                        @if (quiz.totals.played) {
+                                            {{ quiz.totals.winRate | number: '1.0-0' }}%
+                                        } @else {
+                                            &mdash;
+                                        }
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+
+                        <p class="rows-legend">
+                            <span class="swatch swatch-won"></span> {{ 'profile.legend.won' | translate }}
+                            <span class="swatch swatch-lost"></span> {{ 'profile.legend.lost' | translate }}
+                        </p>
+                    </section>
+
+                    <!-- ── Per difficulty ────────────────────────────────── -->
+                    <section class="profile-section">
+                        <h2>{{ 'profile.difficulty.title' | translate }}</h2>
+
+                        @if (difficulties().length) {
+                            <ul class="rows">
+                                @for (entry of difficulties(); track entry.difficulty) {
+                                    <li class="row">
+                                        <span class="row-name">{{ difficultyLabel(entry.difficulty) | translate }}</span>
+                                        <span class="row-bar" [title]="entry.totals.wins + ' / ' + entry.totals.played">
+                                            <span class="bar-track">
+                                                <span class="bar-fill" [style.width.%]="100">
+                                                    <span class="bar-won" [style.width.%]="entry.totals.winRate"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <span class="row-figure">{{ entry.totals.played }}</span>
+                                        <span class="row-figure row-rate">{{ entry.totals.winRate | number: '1.0-0' }}%</span>
+                                    </li>
+                                }
+                            </ul>
+                        } @else {
+                            <p class="section-empty">{{ 'profile.difficulty.none' | translate }}</p>
+                        }
+                    </section>
+
+                    <!-- ── Activity ──────────────────────────────────────── -->
+                    <section class="profile-section">
+                        <h2>{{ 'profile.activity.title' | translate }}</h2>
+
+                        <p class="section-note">
+                            {{ 'profile.activity.summary' | translate: { days: activity().days, longest: activity().longest } }}
+                        </p>
+
+                        <app-activity-grid [cells]="activityCells()"></app-activity-grid>
+                    </section>
+
+                    <!-- ── Per character ─────────────────────────────────── -->
+                    <section class="profile-section">
+                        <h2>{{ 'profile.characters.title' | translate }}</h2>
+
+                        @if (highlights(); as picks) {
+                            <div class="highlights">
+                                @if (picks.mostMet; as character) {
+                                    <div class="highlight">
+                                        <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
+                                        <span class="highlight-label">{{ 'profile.characters.mostMet' | translate }}</span>
+                                        <span class="highlight-name">{{ character.name }}</span>
+                                        <span class="highlight-value">{{ 'profile.characters.times' | translate: { count: character.totals.played } }}</span>
+                                    </div>
+                                }
+                                @if (picks.best; as character) {
+                                    <div class="highlight highlight-best">
+                                        <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
+                                        <span class="highlight-label">{{ 'profile.characters.best' | translate }}</span>
+                                        <span class="highlight-name">{{ character.name }}</span>
+                                        <span class="highlight-value">{{ character.totals.winRate | number: '1.0-0' }}%</span>
+                                    </div>
+                                }
+                                @if (picks.toughest; as character) {
+                                    <div class="highlight highlight-toughest">
+                                        <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
+                                        <span class="highlight-label">{{ 'profile.characters.toughest' | translate }}</span>
+                                        <span class="highlight-name">{{ character.name }}</span>
+                                        <span class="highlight-value">{{ character.totals.winRate | number: '1.0-0' }}%</span>
+                                    </div>
+                                }
+                                @if (!picks.best) {
+                                    <p class="section-note">{{ 'profile.characters.needMore' | translate: { count: minPlayed } }}</p>
+                                }
+                            </div>
+                        }
+
+                        <table class="characters">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="sortable"
+                                        scope="col"
+                                        tabindex="0"
+                                        (click)="toggleSort('name')"
+                                        (keydown.enter)="toggleSort('name')"
+                                        (keydown.space)="toggleSort('name')"
+                                    >
+                                        {{ 'profile.characters.column.character' | translate }}
+                                        @if (sort() === 'name') {
+                                            <span class="sort-mark">{{ sortDescending() ? '▾' : '▴' }}</span>
+                                        }
+                                    </th>
+                                    <th
+                                        class="sortable numeric"
+                                        scope="col"
+                                        tabindex="0"
+                                        (click)="toggleSort('played')"
+                                        (keydown.enter)="toggleSort('played')"
+                                        (keydown.space)="toggleSort('played')"
+                                    >
+                                        {{ 'profile.characters.column.played' | translate }}
+                                        @if (sort() === 'played') {
+                                            <span class="sort-mark">{{ sortDescending() ? '▾' : '▴' }}</span>
+                                        }
+                                    </th>
+                                    <th class="numeric" scope="col">{{ 'profile.characters.column.won' | translate }}</th>
+                                    <th class="numeric" scope="col">{{ 'profile.characters.column.lost' | translate }}</th>
+                                    <th
+                                        class="sortable numeric"
+                                        scope="col"
+                                        tabindex="0"
+                                        (click)="toggleSort('winRate')"
+                                        (keydown.enter)="toggleSort('winRate')"
+                                        (keydown.space)="toggleSort('winRate')"
+                                    >
+                                        {{ 'profile.characters.column.winRate' | translate }}
+                                        @if (sort() === 'winRate') {
+                                            <span class="sort-mark">{{ sortDescending() ? '▾' : '▴' }}</span>
+                                        }
+                                    </th>
+                                    <th class="numeric" scope="col">{{ 'profile.characters.column.attempts' | translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (character of sortedCharacters(); track character.characterId) {
+                                    <tr>
+                                        <td>
+                                            <a class="character-cell" [routerLink]="['/', 'database', 'characters', character.characterId]">
+                                                <img
+                                                    [appMaterialIcon]="character.icon"
+                                                    [appAssetFolder]="'character.icon'"
+                                                    [alt]="character.name"
+                                                    loading="lazy"
+                                                />
+                                                <span>{{ character.name }}</span>
+                                            </a>
+                                        </td>
+                                        <td class="numeric">{{ character.totals.played }}</td>
+                                        <td class="numeric">{{ character.totals.wins }}</td>
+                                        <td class="numeric">{{ character.totals.losses }}</td>
+                                        <td class="numeric">{{ character.totals.winRate | number: '1.0-0' }}%</td>
+                                        <td class="numeric">{{ character.totals.averageAttempts | number: '1.0-1' }}</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- ── The last twenty ───────────────────────────────── -->
+                    <section class="profile-section">
+                        <h2>{{ 'profile.recent.title' | translate }}</h2>
+
+                        @if (recent().length) {
+                            <ul class="recent">
+                                @for (result of recent(); track result.id) {
+                                    <li class="recent-item" [class.recent-lost]="!result.win">
+                                        <img
+                                            [appMaterialIcon]="result.icon_name ?? result.character_name"
+                                            [appAssetFolder]="'character.icon'"
+                                            [alt]="result.character_name"
+                                            loading="lazy"
+                                        />
+                                        <span class="recent-outcome">
+                                            {{ (result.win ? 'profile.legend.won' : 'profile.legend.lost') | translate }}
+                                        </span>
+                                        <span class="recent-character">{{ result.character_name }}</span>
+                                        <span class="recent-quiz">{{ quizTitle(result.quiz) | translate }}</span>
+                                        <span class="recent-difficulty">{{ difficultyLabel(result.difficulty) | translate }}</span>
+                                        <span class="recent-attempts">{{ 'profile.recent.attempts' | translate: { count: result.attempts } }}</span>
+                                        <span class="recent-when">{{ result.created_at | slovakDate: 'datetime' }}</span>
+                                    </li>
+                                }
+                            </ul>
+                        } @else {
+                            <p class="section-empty">{{ 'profile.recent.none' | translate }}</p>
+                        }
+                    </section>
+                }
+            } @else {
+                <!-- Signed out. The statistics are a property of an account -
+                     there is nothing to show and nothing to fetch. -->
+                <div class="profile-gate">
+                    <h1>{{ 'profile.title' | translate }}</h1>
+                    <p>{{ 'profile.signedOut.text' | translate }}</p>
+                    <app-button [text]="'common.signIn' | translate" (buttonClick)="login()"></app-button>
+                </div>
+            }
+        </div>
+    }
+</div>

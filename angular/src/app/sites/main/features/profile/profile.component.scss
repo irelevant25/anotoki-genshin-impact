@@ -1,0 +1,365 @@
+// The profile page.
+//
+// Five sections that all answer the same question at different resolutions -
+// everything, per quiz, per difficulty, per day, per character - so they share
+// one visual language: a veiled panel, a heading, and where there is a rate to
+// show, the same two-tone bar. Green is what was won and red is what was lost,
+// in every one of them.
+
+.profile img {
+  object-fit: contain;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding-bottom: var(--spacing-2xl);
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+
+.profile-header {
+  text-align: center;
+
+  h1 {
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+.profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.role-badge {
+  padding: var(--spacing-xxs) var(--spacing-sm);
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-light-text);
+  border: 1px solid var(--color-primary-light-border);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.profile-warning {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-warning-light-border);
+  border-radius: var(--border-radius);
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  text-align: center;
+}
+
+// ─── Panels ──────────────────────────────────────────────────────────────────
+
+.profile-section,
+.profile-gate,
+.profile-empty {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-veil);
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+.profile-gate,
+.profile-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  text-align: center;
+}
+
+.section-empty,
+.section-note {
+  color: var(--text-muted);
+  margin: 0 0 var(--spacing-sm);
+}
+
+// ─── The headline figures ────────────────────────────────────────────────────
+
+.figures {
+  display: grid;
+  // Six of them on a wide screen, folding to three and then two rather than to
+  // one tall column on a phone.
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xxs);
+}
+
+.figure-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.figure-label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+// ─── The two-tone bar, shared by the quiz and difficulty rows ────────────────
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.row {
+  display: grid;
+  // Name, bar, count, rate. The bar takes whatever the four leave over.
+  grid-template-columns: minmax(90px, 1fr) 3fr auto auto;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.row-untouched {
+  opacity: 0.55;
+}
+
+.row-figure {
+  min-width: 3ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.row-rate {
+  color: var(--text-secondary);
+  min-width: 5ch;
+}
+
+.bar-track {
+  display: block;
+  width: 100%;
+  height: 14px;
+  border-radius: var(--border-radius-pill);
+  background-color: var(--bg-hover);
+  overflow: hidden;
+}
+
+// The fill's width is how much was played; the green inside it is how much of
+// that was won, so what is left showing red is what was lost.
+.bar-fill,
+.bar-won {
+  display: block;
+  height: 100%;
+}
+
+.rows-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-md) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--border-radius-pill);
+}
+
+.swatch-lost {
+  margin-left: var(--spacing-md);
+}
+
+.bar-won,
+.swatch-won {
+  background-color: var(--color-success);
+}
+
+.bar-fill,
+.swatch-lost {
+  background-color: var(--color-danger);
+}
+
+// ─── Characters ──────────────────────────────────────────────────────────────
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.highlight {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0 var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-veil-soft);
+
+  img {
+    grid-row: 1 / 4;
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.highlight-best {
+  border-color: var(--color-success);
+}
+
+.highlight-toughest {
+  border-color: var(--color-danger);
+}
+
+.highlight-label {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+.highlight-value {
+  color: var(--text-secondary);
+}
+
+.characters {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    text-align: left;
+    padding: var(--spacing-xs);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .numeric {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sortable {
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
+  .sort-mark {
+    margin-left: var(--spacing-xxs);
+  }
+
+  tbody tr:hover {
+    background-color: var(--bg-hover);
+  }
+}
+
+.character-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: inherit;
+  text-decoration: none;
+
+  img {
+    width: 36px;
+    height: 36px;
+  }
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+// ─── The last twenty ─────────────────────────────────────────────────────────
+
+.recent {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.recent-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-left: 3px solid var(--color-success);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-veil-soft);
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.recent-lost {
+  border-left-color: var(--color-danger);
+}
+
+.recent-outcome {
+  min-width: 4rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-success);
+
+  .recent-lost & {
+    color: var(--color-danger);
+  }
+}
+
+.highlight-name,
+.recent-character {
+  font-weight: var(--font-weight-bold);
+}
+
+.recent-quiz,
+.recent-difficulty,
+.recent-attempts {
+  color: var(--text-secondary);
+}
+
+// Pushed to the far end, and first to wrap away on a narrow screen.
+.recent-when {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr auto auto;
+
+    .row-bar {
+      grid-column: 1 / -1;
+      order: 3;
+    }
+  }
+}
