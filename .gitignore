@@ -1,6 +1,6 @@
 /local
 **/.claude/**
-**/assets/**
+/assets/**
 
 # Uploaded media is served from disk, never committed.
 php/public/uploads/
