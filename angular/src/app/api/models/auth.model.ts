@@ -60,6 +60,19 @@ export interface AuthPending {
 }
 
 /**
+ * Which ways in this deployment offers, asked before anybody has signed in.
+ *
+ * The client id is public by design - it travels in the page and identifies
+ * the site to Google - so there is nothing here that the rendered button would
+ * not give away anyway. Null, and `google_enabled` false, while no client id
+ * is configured, which is how the site ships.
+ */
+export interface AuthProviders {
+  google_enabled: boolean;
+  google_client_id: string | null;
+}
+
+/**
  * What a successful register or login hands back.
  */
 export interface AuthSession {
@@ -84,6 +97,13 @@ export interface AuthUser {
   email_confirmed: boolean;
   version: string | null;
   created_at: string;
+  /** Whether there is a password on the account at all. */
+  has_password: boolean;
+  /** Whether it is still accepted. Distinct from having one: an account can keep its password and ask for it not to be a way in. */
+  password_login_enabled: boolean;
+  google_connected: boolean;
+  /** The Google address that is connected, for the account page to show. */
+  google_email: string | null;
 }
 
 /**

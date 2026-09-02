@@ -18,6 +18,17 @@
   color: var(--text-secondary);
 }
 
+// Google's own button, under a rule that is only drawn once there is one.
+.register-google {
+  display: flex;
+  justify-content: center;
+}
+
+.register-google-shown {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-md);
+}
+
 // Both the local refusals and whatever the server said, which is prose meant
 // to be read rather than a code to be matched on.
 .register-problem {

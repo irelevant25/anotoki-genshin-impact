@@ -771,7 +771,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 130
+                "line": 163
             },
             "expanded": [],
             "payload": null,
@@ -795,12 +795,96 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 152
+                "line": 185
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": false,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/google",
+            "args": [],
+            "file": "auth.php",
+            "tables": [
+                "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                201,
+                400,
+                422
+            ],
+            "responds": {
+                "shape": "AuthSession",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 483
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/auth/google/link",
+            "args": [],
+            "file": "auth.php",
+            "tables": [
+                "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                409
+            ],
+            "responds": {
+                "shape": "AuthUser",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 580
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/google/link",
+            "args": [],
+            "file": "auth.php",
+            "tables": [
+                "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                400,
+                409
+            ],
+            "responds": {
+                "shape": "AuthUser",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 552
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
             "roles": []
         },
         {
@@ -822,7 +906,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 299
+                "line": 347
             },
             "expanded": [],
             "payload": null,
@@ -849,7 +933,56 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 182
+                "line": 230
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/login/code",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "AuthMailRequested",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 608
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/login/code/verify",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                400
+            ],
+            "responds": {
+                "shape": "AuthSession",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 636
             },
             "expanded": [],
             "payload": null,
@@ -873,7 +1006,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 307
+                "line": 355
             },
             "expanded": [],
             "payload": null,
@@ -897,7 +1030,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 249
+                "line": 297
             },
             "expanded": [],
             "payload": null,
@@ -924,7 +1057,34 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 336
+                "line": 384
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "PUT",
+            "path": "/api/auth/password/enabled",
+            "args": [],
+            "file": "auth.php",
+            "tables": [
+                "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                409
+            ],
+            "responds": {
+                "shape": "AuthUser",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 694
             },
             "expanded": [],
             "payload": null,
@@ -948,7 +1108,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 206
+                "line": 254
             },
             "expanded": [],
             "payload": null,
@@ -976,7 +1136,59 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 242
+                "line": 290
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/password/set",
+            "args": [],
+            "file": "auth.php",
+            "tables": [
+                "users"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                409,
+                422
+            ],
+            "responds": {
+                "shape": "AuthUser",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 664
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": []
+        },
+        {
+            "method": "GET",
+            "path": "/api/auth/providers",
+            "args": [],
+            "file": "auth.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "AuthProviders",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
+                "line": 416
             },
             "expanded": [],
             "payload": null,
@@ -1004,7 +1216,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 105
+                "line": 138
             },
             "expanded": [],
             "payload": null,
@@ -1029,7 +1241,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 276
+                "line": 324
             },
             "expanded": [],
             "payload": null,
@@ -15432,6 +15644,34 @@
             ]
         },
         {
+            "name": "AuthProviders",
+            "file": "auth.php",
+            "merges": null,
+            "description": "Which ways in this deployment offers, asked before anybody has signed in.\n\nThe client id is public by design - it travels in the page and identifies\nthe site to Google - so there is nothing here that the rendered button would\nnot give away anyway. Null, and `google_enabled` false, while no client id\nis configured, which is how the site ships.",
+            "fields": [
+                {
+                    "name": "google_enabled",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "google_client_id",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "AuthSession",
             "file": "auth.php",
             "merges": null,
@@ -15564,6 +15804,46 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "has_password",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether there is a password on the account at all."
+                },
+                {
+                    "name": "password_login_enabled",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether it is still accepted. Distinct from having one: an account\ncan keep its password and ask for it not to be a way in."
+                },
+                {
+                    "name": "google_connected",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "google_email",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The Google address that is connected, for the account page to show."
                 }
             ]
         },

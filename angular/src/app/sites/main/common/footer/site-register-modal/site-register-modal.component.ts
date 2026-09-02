@@ -5,6 +5,7 @@ import { TextComponent } from '../../../../../shared/local-lib/components/text/t
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { PasswordComponent } from '../../../../../shared/local-lib/components/password/password.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
+import { GoogleButtonComponent } from '../../../../../shared/local-lib/components/google-button/google-button.component';
 import { FieldsComponent } from '../../../../../shared/local-lib/abstract-fields.class';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
@@ -36,7 +37,7 @@ const PASSWORD_MIN = 8;
   selector: 'app-site-register-modal',
   templateUrl: './site-register-modal.component.html',
   styleUrls: ['./site-register-modal.component.scss'],
-  imports: [ModalComponent, TextComponent, PasswordComponent, ButtonComponent, LoaderComponent, TranslatePipe],
+  imports: [ModalComponent, TextComponent, PasswordComponent, ButtonComponent, LoaderComponent, GoogleButtonComponent, TranslatePipe],
 })
 export class SiteRegisterModalComponent extends FieldsComponent<IRegister> {
   private readonly _security = inject(SecurityService);
@@ -109,6 +110,29 @@ export class SiteRegisterModalComponent extends FieldsComponent<IRegister> {
         // The API answers a taken username or address with prose meant to be
         // read, so it is shown rather than replaced with something vaguer.
         this.refusal.set(error?.error?.error ?? 'account.register.failed');
+      },
+    });
+  }
+
+  /**
+   * Signing up with Google instead, which skips all of the above.
+   *
+   * There is no address to confirm - Google has just confirmed it - so this
+   * ends in a session rather than in a note about going to read your mail.
+   */
+  signUpWithGoogle(credential: string): void {
+    this.refusal.set(null);
+    this.loading.set(true);
+
+    this._security.signInWithGoogle(credential).subscribe({
+      next: () => {
+        this.loading.set(false);
+        this.notificationService.showSuccess(this._i18n.t('login.success'));
+        this.closeModal(true);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.refusal.set('login.googleFailed');
       },
     });
   }

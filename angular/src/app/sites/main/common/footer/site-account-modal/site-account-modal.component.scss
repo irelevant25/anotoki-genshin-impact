@@ -24,3 +24,37 @@
   gap: var(--spacing-xs);
   margin-left: auto;
 }
+
+// The ways into the account, listed the same way the details above are.
+.methods {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+.methods-title {
+  margin: 0;
+}
+
+.method {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  min-height: 40px;
+}
+
+.method-body {
+  display: flex;
+  flex-direction: column;
+  // Pushes whatever action the row offers to the far end, whether that is a
+  // button of ours or Google's own.
+  margin-right: auto;
+}
+
+.method-problem {
+  margin: 0;
+  color: var(--color-danger);
+}

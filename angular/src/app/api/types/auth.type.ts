@@ -45,6 +45,33 @@ export interface PasswordResetRequest {
   password: string;
 }
 
+/**
+ * The id token Google Identity Services hands the browser.
+ *
+ * Called `credential` because that is the field GIS puts it in, and keeping
+ * the name means the callback's payload can be passed straight through.
+ */
+export interface GoogleCredentialRequest {
+  credential: string;
+}
+
+/** An address and the six digits that were emailed to it. */
+export interface LoginCodeRequest {
+  email: string;
+  code: string;
+}
+
+/**
+ * A first password, for an account that has none.
+ *
+ * No current password, because there is not one - being signed in is the
+ * proof, and getting signed in already took Google or a code from the
+ * account's own mailbox. Changing an existing one is ChangePasswordRequest.
+ */
+export interface SetOwnPasswordRequest {
+  password: string;
+}
+
 /** Which area's theme is being set: the site, or the admin panel. */
 export type ThemeArea = 'main' | 'admin';
 

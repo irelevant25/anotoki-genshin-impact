@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { LocalStorageService } from './local-storage.service';
 import { NotificationService } from '../components/notification/notification.service';
 import { jwtDecode } from '../jwt-decode';
@@ -22,6 +22,15 @@ export interface UserInfo {
   version?: string;
   token?: string;
   created_at?: string;
+  /**
+   * The ways into this account, which the account page reads to decide what to
+   * offer. `has_password` and `password_login_enabled` are different questions:
+   * one is whether there is a password, the other whether it is still accepted.
+   */
+  has_password?: boolean;
+  password_login_enabled?: boolean;
+  google_connected?: boolean;
+  google_email?: string;
 }
 
 const ROLE_MAP: Record<string, Roles> = {
@@ -158,6 +167,50 @@ export class SecurityService {
     return this._authApi.requestPasswordReset({ email });
   }
 
+  /**
+   * Signs in with a Google id token, making the account if there is not one.
+   *
+   * The token means nothing until the server has checked it - that it is
+   * Google's, and that it was minted for this site - so all this does is carry
+   * it across.
+   */
+  signInWithGoogle(credential: string): Observable<void> {
+    return this._authApi.signInWithGoogle({ credential }).pipe(map((session) => this.adoptSession(session)));
+  }
+
+  /** Asks for a sign-in code by email, and signs in with one. */
+  requestLoginCode(email: string): Observable<AuthMailRequested> {
+    return this._authApi.requestLoginCode({ email });
+  }
+
+  signInWithCode(email: string, code: string): Observable<void> {
+    return this._authApi.signInWithCode({ email, code }).pipe(map((session) => this.adoptSession(session)));
+  }
+
+  /**
+   * The four that change how the account can be reached.
+   *
+   * Each answers with the account as it now stands, which is applied to the
+   * session on the spot - the account page reads its state from there, so
+   * connecting Google has to be visible before the next request rather than
+   * after the next reload.
+   */
+  connectGoogle(credential: string): Observable<AuthUser> {
+    return this._authApi.connectGoogle({ credential }).pipe(tap((user) => this._refreshUser(user)));
+  }
+
+  disconnectGoogle(): Observable<AuthUser> {
+    return this._authApi.disconnectGoogle().pipe(tap((user) => this._refreshUser(user)));
+  }
+
+  setOwnPassword(password: string): Observable<AuthUser> {
+    return this._authApi.setOwnPassword({ password }).pipe(tap((user) => this._refreshUser(user)));
+  }
+
+  setPasswordLoginEnabled(enabled: boolean): Observable<AuthUser> {
+    return this._authApi.setPasswordLoginEnabled({ enabled }).pipe(tap((user) => this._refreshUser(user)));
+  }
+
   /** Takes up a session handed back by any endpoint that issues one. */
   adoptSession(session: AuthSession): void {
     this._storageService.write(this.TOKEN_KEY, session.token);
@@ -194,6 +247,20 @@ export class SecurityService {
     }
   }
 
+  /**
+   * Puts a fresh copy of the account into the session, keeping the token.
+   *
+   * The endpoints that change how an account can be reached answer with the
+   * account rather than a session, because the token they were called with is
+   * still good - none of them changes who you are.
+   */
+  private _refreshUser(user: AuthUser): void {
+    const token = this._currentUserData.value?.token;
+    if (token) {
+      this._applySession(user, token);
+    }
+  }
+
   private _applySession(user: AuthUser, token: string): void {
     this._currentUserData.next({
       username: user.username,
@@ -208,6 +275,10 @@ export class SecurityService {
       email_confirmed: user.email_confirmed,
       version: user.version ?? undefined,
       created_at: user.created_at,
+      has_password: user.has_password,
+      password_login_enabled: user.password_login_enabled,
+      google_connected: user.google_connected,
+      google_email: user.google_email ?? undefined,
       token,
     });
     this._isLoggedIn.next(true);

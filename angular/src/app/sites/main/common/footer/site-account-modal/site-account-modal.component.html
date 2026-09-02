@@ -1,6 +1,6 @@
 <app-modal [title]="'account.title' | translate" (closeModal)="closeModal()">
     <div modal-body>
-        @if (userData) {
+        @if (userData(); as userData) {
             <div class="d-flex align-items-center gap-4 pb-4">
                 <div
                     class="d-flex align-items-center justify-content-center"
@@ -39,6 +39,92 @@
                     <span class="text-muted small" style="min-width: 5rem">{{ 'account.memberSince' | translate }}</span>
                     <span class="fw-500 fs-14">{{ userData.created_at?.substring(0, 10) }}</span>
                 </div>
+            </div>
+            <!-- The ways into this account. Each action is offered only when
+                 it would leave at least one behind, which is the same rule the
+                 server applies - this is so the button is not there to press,
+                 not the only thing preventing a lockout. -->
+            <div class="methods">
+                <h4 class="methods-title">{{ 'account.methods.title' | translate }}</h4>
+
+                <div class="method">
+                    <span class="icon icon-key icon-size-4"></span>
+                    <div class="method-body">
+                        <span class="fw-500 fs-14">{{ 'account.methods.password' | translate }}</span>
+                        <span class="text-muted small">
+                            @if (!userData.has_password) {
+                                {{ 'account.methods.noPassword' | translate }}
+                            } @else if (userData.password_login_enabled) {
+                                {{ 'account.methods.passwordOn' | translate }}
+                            } @else {
+                                {{ 'account.methods.passwordOff' | translate }}
+                            }
+                        </span>
+                    </div>
+
+                    @if (!userData.has_password) {
+                        <app-button
+                            [text]="'account.methods.setPassword' | translate"
+                            variant="secondary"
+                            size="very-small"
+                            (buttonClick)="setPassword()"
+                        ></app-button>
+                    } @else if (userData.password_login_enabled) {
+                        @if (canDisablePassword()) {
+                            <app-button
+                                [text]="'account.methods.disable' | translate"
+                                variant="secondary"
+                                size="very-small"
+                                [outline]="true"
+                                (buttonClick)="setPasswordLoginEnabled(false)"
+                            ></app-button>
+                        }
+                    } @else {
+                        <app-button
+                            [text]="'account.methods.enable' | translate"
+                            variant="secondary"
+                            size="very-small"
+                            (buttonClick)="setPasswordLoginEnabled(true)"
+                        ></app-button>
+                    }
+                </div>
+
+                <div class="method">
+                    <span class="icon icon-user icon-size-4"></span>
+                    <div class="method-body">
+                        <span class="fw-500 fs-14">{{ 'account.methods.google' | translate }}</span>
+                        <span class="text-muted small">
+                            @if (userData.google_connected) {
+                                {{ userData.google_email || ('account.methods.googleOn' | translate) }}
+                            } @else {
+                                {{ 'account.methods.googleOff' | translate }}
+                            }
+                        </span>
+                    </div>
+
+                    @if (userData.google_connected) {
+                        @if (canDisconnectGoogle()) {
+                            <app-button
+                                [text]="'account.methods.disconnect' | translate"
+                                variant="secondary"
+                                size="very-small"
+                                [outline]="true"
+                                (buttonClick)="disconnectGoogle()"
+                            ></app-button>
+                        }
+                    } @else {
+                        <!-- Draws nothing unless Google is configured here. -->
+                        <app-google-button (credential)="connectGoogle($event)"></app-google-button>
+                    }
+                </div>
+
+                @if (refusal(); as refusal) {
+                    <p class="method-problem">{{ refusal }}</p>
+                }
+
+                @if (!userData.has_password || !userData.google_connected) {
+                    <p class="text-muted small">{{ 'account.methods.keepOne' | translate }}</p>
+                }
             </div>
         } @else {
             <p class="signed-out-note">{{ 'account.signedOutNote' | translate }}</p>
@@ -80,7 +166,7 @@
         }
     </div>
     <div modal-footer class="d-flex gap-3 justify-content-end">
-        @if (userData) {
+        @if (userData(); as userData) {
             <app-button [text]="'account.adminPanel' | translate" variant="primary" (buttonClick)="toAdmin()"> </app-button>
             <app-button [text]="'common.logout' | translate" variant="danger" (buttonClick)="logout()"> </app-button>
         } @else {

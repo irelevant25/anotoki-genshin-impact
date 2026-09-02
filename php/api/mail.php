@@ -32,6 +32,15 @@ const MAIL_CONFIRM_HOURS = 48;
 /** How long a password reset is good for. Short: it is a live key to an account. */
 const MAIL_RESET_MINUTES = 60;
 
+/**
+ * How long an emailed sign-in code lasts.
+ *
+ * Shorter than either link, because it is six digits rather than 256 bits and
+ * because it is typed straight away or not at all - nobody comes back to a
+ * sign-in code an hour later.
+ */
+const MAIL_LOGIN_CODE_MINUTES = 10;
+
 function mailConfig(): array
 {
     static $config = null;
@@ -188,6 +197,38 @@ function sendPasswordResetMail(array $user, string $token): bool
                 . "$link\n\n"
                 . 'Odkaz platí ' . MAIL_RESET_MINUTES . " minút a dá sa použiť len raz.\n\n"
                 . "Ak si to nebol ty, nič sa nezmenilo a nemusíš nič robiť. Tvoje súčasné heslo stále platí.\n",
+        ],
+    ], $user['language'] ?? 'en');
+
+    return sendMail($user['email'], $text['subject'], $text['body']);
+}
+
+/**
+ * "Here is your code" - the message sent when somebody asks to sign in by
+ * email rather than with a password.
+ *
+ * The code is in the subject line as well as the body. It is six digits typed
+ * into a form on another screen, and having it in the notification saves
+ * opening the message at all.
+ */
+function sendLoginCodeMail(array $user, string $code): bool
+{
+    $text = mailText([
+        'en' => [
+            'subject' => "Your Anotoki sign-in code: $code",
+            'body' => "Hello {$user['username']},\n\n"
+                . "Your sign-in code is:\n\n"
+                . "    $code\n\n"
+                . 'It is good for ' . MAIL_LOGIN_CODE_MINUTES . " minutes and can only be used once.\n\n"
+                . "If you did not ask to sign in, you can ignore this message. Nobody can get in with this code unless they can also read this mailbox.\n",
+        ],
+        'sk' => [
+            'subject' => "Tvoj prihlasovací kód na Anotoki: $code",
+            'body' => "Ahoj {$user['username']},\n\n"
+                . "Tvoj prihlasovací kód je:\n\n"
+                . "    $code\n\n"
+                . 'Platí ' . MAIL_LOGIN_CODE_MINUTES . " minút a dá sa použiť len raz.\n\n"
+                . "Ak si o prihlásenie nežiadal, túto správu môžeš ignorovať. S týmto kódom sa nikto nedostane dnu, pokiaľ nevie čítať aj túto schránku.\n",
         ],
     ], $user['language'] ?? 'en');
 

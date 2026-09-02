@@ -57,6 +57,12 @@
                         }
                     </p>
                 }
+
+                <!-- Draws nothing unless this deployment has Google configured.
+                     Signing up this way needs no confirmation step at all. -->
+                <div class="register-google" [class.register-google-shown]="google.ready()">
+                    <app-google-button #google (credential)="signUpWithGoogle($event)"></app-google-button>
+                </div>
             </form>
         }
     </div>

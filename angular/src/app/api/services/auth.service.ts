@@ -9,6 +9,7 @@ import {
   ApiMessage,
   AuthMailRequested,
   AuthPending,
+  AuthProviders,
   AuthSession,
   AuthUser,
   LanguageChanged,
@@ -18,10 +19,14 @@ import {
   ChangePasswordRequest,
   ConfirmEmailRequest,
   EmailRequest,
+  EnabledRequest,
+  GoogleCredentialRequest,
   LanguageRequest,
+  LoginCodeRequest,
   LoginRequest,
   PasswordResetRequest,
   RegisterRequest,
+  SetOwnPasswordRequest,
   ThemeRequest,
 } from '../types';
 
@@ -37,6 +42,31 @@ export class AuthApiService {
    */
   confirmEmail(body: ConfirmEmailRequest): Observable<AuthSession> {
     return this._http.post<AuthSession>('/api/auth/confirm', body);
+  }
+
+  /**
+   * `POST /api/auth/google/link`
+   *
+   * Requires a signed-in user.
+   */
+  connectGoogle(body: GoogleCredentialRequest): Observable<AuthUser> {
+    return this._http.post<AuthUser>('/api/auth/google/link', body);
+  }
+
+  /**
+   * `DELETE /api/auth/google/link`
+   *
+   * Requires a signed-in user.
+   */
+  disconnectGoogle(): Observable<AuthUser> {
+    return this._http.delete<AuthUser>('/api/auth/google/link');
+  }
+
+  /**
+   * `GET /api/auth/providers`
+   */
+  getAuthProviders(): Observable<AuthProviders> {
+    return this._http.get<AuthProviders>('/api/auth/providers');
   }
 
   /**
@@ -79,6 +109,13 @@ export class AuthApiService {
   }
 
   /**
+   * `POST /api/auth/login/code`
+   */
+  requestLoginCode(body: EmailRequest): Observable<AuthMailRequested> {
+    return this._http.post<AuthMailRequested>('/api/auth/login/code', body);
+  }
+
+  /**
    * `POST /api/auth/password/forgot`
    */
   requestPasswordReset(body: EmailRequest): Observable<AuthMailRequested> {
@@ -109,11 +146,43 @@ export class AuthApiService {
   }
 
   /**
+   * `POST /api/auth/password/set`
+   *
+   * Requires a signed-in user.
+   */
+  setOwnPassword(body: SetOwnPasswordRequest): Observable<AuthUser> {
+    return this._http.post<AuthUser>('/api/auth/password/set', body);
+  }
+
+  /**
+   * `PUT /api/auth/password/enabled`
+   *
+   * Requires a signed-in user.
+   */
+  setPasswordLoginEnabled(body: EnabledRequest): Observable<AuthUser> {
+    return this._http.put<AuthUser>('/api/auth/password/enabled', body);
+  }
+
+  /**
    * `PUT /api/auth/theme`
    *
    * Requires a signed-in user.
    */
   setTheme(body: ThemeRequest): Observable<ThemeChanged> {
     return this._http.put<ThemeChanged>('/api/auth/theme', body);
+  }
+
+  /**
+   * `POST /api/auth/login/code/verify`
+   */
+  signInWithCode(body: LoginCodeRequest): Observable<AuthSession> {
+    return this._http.post<AuthSession>('/api/auth/login/code/verify', body);
+  }
+
+  /**
+   * `POST /api/auth/google`
+   */
+  signInWithGoogle(body: GoogleCredentialRequest): Observable<AuthSession> {
+    return this._http.post<AuthSession>('/api/auth/google', body);
   }
 }

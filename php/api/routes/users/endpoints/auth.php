@@ -19,9 +19,17 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 // finish. The address is already the caller's own by then anyway.
 // ---------------------------------------------------------------------------
 
-/** The account as every session-issuing endpoint describes it. */
+/**
+ * The account as every session-issuing endpoint describes it.
+ *
+ * The last four fields are what the account page needs to draw the ways in:
+ * whether there is a password at all, whether it is still accepted, and which
+ * Google account is attached. `password` itself is not here and never is.
+ */
 function authUserPayload(array $user): array
 {
+    $identity = identityFor(usersDb(), (int) $user['id'], IDENTITY_GOOGLE);
+
     return [
         'username'        => $user['username'],
         'email'           => $user['email'],
@@ -33,7 +41,32 @@ function authUserPayload(array $user): array
         'email_confirmed' => (bool) $user['email_confirmed'],
         'version'         => $user['version'],
         'created_at'      => $user['created_at'],
+        'has_password'    => $user['password'] !== null,
+        // Distinct from the above: there is a password, and it is not to be
+        // accepted. See migration 019.
+        'password_login_enabled' => (bool) ($user['password_login_enabled'] ?? true),
+        'google_connected' => $identity !== null,
+        'google_email'     => $identity['email'] ?? null,
     ];
+}
+
+/**
+ * Whether email and password is a way into this account.
+ *
+ * Both halves matter. An account made through Google has no password to check,
+ * and one that has turned password sign-in off has a password that is not to
+ * be accepted - and the difference between them shows on the account page,
+ * where one offers to set a password and the other to switch it back on.
+ */
+function authPasswordLoginAvailable(array $user): bool
+{
+    return $user['password'] !== null && ($user['password_login_enabled'] ?? true);
+}
+
+/** Every way into an account, so nothing closes the last one. */
+function authWaysIn(PDO $pdo, array $user): int
+{
+    return (int) authPasswordLoginAvailable($user) + (int) (identityFor($pdo, (int) $user['id'], IDENTITY_GOOGLE) !== null);
 }
 
 /** A signed-in session: the bearer token, and who it belongs to. */
@@ -163,11 +196,26 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
 
     $user = authFindByEmail(usersDb(), (string) $body['email']);
 
-    // A null password is an account that signs in some other way rather than
-    // one with an empty password, so it is refused here before password_verify
-    // is asked to make sense of it. Same answer as a wrong password: which of
-    // the two it was is not the caller's business.
-    if (!$user || $user['password'] === null || !password_verify((string) $body['password'], $user['password'])) {
+    if (!$user) {
+        return respondJson($response, ['error' => 'Invalid credentials'], 401);
+    }
+
+    // The account is real but this is not the way into it: either it was made
+    // through Google and has no password, or it has one and has asked for it
+    // not to be accepted. Saying so does admit that the address has an account
+    // here, which the answers above are careful not to - a deliberate trade,
+    // because the alternative is telling somebody their password is wrong when
+    // the truth is that they do not have one, and leaving them with nothing to
+    // try. Nothing is sent from here: the code has to be asked for, through an
+    // endpoint that answers the same for every address.
+    if (!authPasswordLoginAvailable($user)) {
+        return respondJson($response, [
+            'error' => 'This account signs in another way',
+            'code'  => 'password_login_unavailable',
+        ], 403);
+    }
+
+    if (!password_verify((string) $body['password'], $user['password'])) {
         return respondJson($response, ['error' => 'Invalid credentials'], 401);
     }
 
@@ -334,3 +382,313 @@ $app->put('/api/auth/password', function (Request $request, Response $response) 
 
     return respondJson($response, ['message' => 'Password changed successfully']);
 })->add(responds(ApiMessage::class))->add(requireAuth());
+
+// ---------------------------------------------------------------------------
+// Signing in with Google, and the doors an account can open and close
+//
+// An account may be reachable by password, by Google, or by both. The rules
+// below are all one rule seen from different sides: an account must always
+// keep at least one way in. Disconnecting Google from an account with no
+// password is refused, turning password sign-in off without Google attached is
+// refused, and the account page reads those same conditions to decide what to
+// offer.
+//
+// The emailed sign-in code is the way in for somebody who has neither to hand
+// - registered with Google and now sitting at a machine where they would
+// rather not, or handing the account over to somebody else. It proves the same
+// thing the confirmation link proves, which is why it is allowed to do the
+// same job.
+// ---------------------------------------------------------------------------
+
+/**
+ * GET /api/auth/providers - which ways in this deployment offers.
+ *
+ * Open, and asked before anybody has signed in: the login form needs to know
+ * whether to draw the Google button at all. The client id is public by design
+ * - it travels in the page and identifies the site to Google - so serving it
+ * here gives nothing away that the rendered button would not.
+ */
+$app->get('/api/auth/providers', function (Request $request, Response $response) {
+    return respondJson($response, [
+        'google_enabled'   => googleClientId() !== null,
+        'google_client_id' => googleClientId(),
+    ]);
+})->add(responds(AuthProviders::class));
+
+/**
+ * POST /api/auth/google - sign in, or make an account, with a Google token.
+ *
+ * Three ways this can land, and the order matters.
+ *
+ * The identity is already attached to an account: that is the account, and
+ * nothing about the address enters into it. Somebody who changed their Google
+ * address is still the same person.
+ *
+ * Otherwise, if Google says this address is theirs and verified, and an
+ * account here already has it, the identity is attached to that account. This
+ * is the "I registered with a password and now I am pressing the Google
+ * button" case, and it has to work - the alternative is telling somebody their
+ * own address is taken. `email_verified` is what makes it safe: without that
+ * claim the address is a string Google has not vouched for, and attaching on
+ * it would be a way in to somebody else's account.
+ *
+ * Otherwise it is a new account, confirmed on arrival, with no password.
+ */
+$app->post('/api/auth/google', function (Request $request, Response $response) {
+    $body = $request->getParsedBody() ?? [];
+    $claims = googleVerifyIdToken((string) ($body['credential'] ?? ''));
+
+    if ($claims === null) {
+        return respondJson($response, ['error' => 'That Google sign-in could not be verified', 'code' => 'invalid_token'], 400);
+    }
+
+    $pdo = usersDb();
+    $subject = (string) $claims['sub'];
+    $email = strtolower(trim((string) ($claims['email'] ?? '')));
+    $verified = !empty($claims['email_verified']);
+
+    if ($user = identityOwner($pdo, IDENTITY_GOOGLE, $subject)) {
+        return respondJson($response, authSession($user));
+    }
+
+    if ($verified && $email !== '' && ($user = authFindByEmail($pdo, $email))) {
+        attachIdentity($pdo, (int) $user['id'], IDENTITY_GOOGLE, $subject, $email);
+
+        // Google has just vouched for the address, which is the same thing the
+        // confirmation link is for. An account that never got round to
+        // confirming is confirmed by arriving here.
+        $pdo->prepare('UPDATE users SET email_confirmed = TRUE WHERE id = ?')->execute([$user['id']]);
+        $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']]);
+
+        return respondJson($response, authSession($user));
+    }
+
+    if (!$verified || $email === '') {
+        return respondJson($response, ['error' => 'Google did not confirm an email address for that account'], 422);
+    }
+
+    $username = authAvailableUsername($pdo, (string) ($claims['name'] ?? ''), $email);
+
+    // No password, and email_confirmed straight away: there is nothing to
+    // confirm that Google has not just confirmed.
+    $pdo->prepare('INSERT INTO users (username, email, password, role, email_confirmed) VALUES (?, ?, NULL, ?, TRUE)')
+        ->execute([$username, $email, 'USER']);
+
+    $userId = (int) $pdo->lastInsertId();
+    attachIdentity($pdo, $userId, IDENTITY_GOOGLE, $subject, $email);
+
+    $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$userId]);
+
+    return respondJson($response, authSession($user), 201);
+})->add(responds(AuthSession::class));
+
+/**
+ * A username nobody else has, derived from what Google offered.
+ *
+ * `username` is unique and required, and Google's display name is neither
+ * unique nor guaranteed to be there. So the name is cleaned up, falls back to
+ * the local part of the address, and finally gains a number - and whoever ends
+ * up as "peter2" can change it afterwards, which is a smaller annoyance than
+ * being asked to invent one before being let in.
+ */
+function authAvailableUsername(PDO $pdo, string $preferred, string $email): string
+{
+    $base = trim(preg_replace('/\s+/', ' ', $preferred));
+
+    if ($base === '') {
+        $base = (string) strstr($email, '@', true);
+    }
+
+    $base = substr(trim($base), 0, 90);
+    if ($base === '') {
+        $base = 'player';
+    }
+
+    $candidate = $base;
+    for ($suffix = 2; DbQuery::from($pdo, 'users')->find(['username' => $candidate]); $suffix++) {
+        $candidate = $base . $suffix;
+    }
+
+    return $candidate;
+}
+
+/**
+ * POST /api/auth/google/link - attach Google to the account already signed in.
+ *
+ * Being signed in is the proof that this is your account; the token is the
+ * proof that the Google side is yours. Refused if that Google user already
+ * belongs to another account here, because one person at a provider is one
+ * account - see migration 019.
+ */
+$app->post('/api/auth/google/link', function (Request $request, Response $response) {
+    $body = $request->getParsedBody() ?? [];
+    $user = $request->getAttribute('user');
+    $claims = googleVerifyIdToken((string) ($body['credential'] ?? ''));
+
+    if ($claims === null) {
+        return respondJson($response, ['error' => 'That Google sign-in could not be verified', 'code' => 'invalid_token'], 400);
+    }
+
+    $pdo = usersDb();
+    $subject = (string) $claims['sub'];
+
+    if ($owner = identityOwner($pdo, IDENTITY_GOOGLE, $subject)) {
+        // Already this account's: nothing to do, and saying so is friendlier
+        // than an error about a conflict with yourself.
+        if ((int) $owner['id'] === (int) $user['id']) {
+            return respondJson($response, authUserPayload($owner));
+        }
+
+        return respondJson($response, ['error' => 'That Google account is already connected to another account here'], 409);
+    }
+
+    if (identityFor($pdo, (int) $user['id'], IDENTITY_GOOGLE)) {
+        return respondJson($response, ['error' => 'This account already has Google connected'], 409);
+    }
+
+    attachIdentity($pdo, (int) $user['id'], IDENTITY_GOOGLE, $subject, strtolower(trim((string) ($claims['email'] ?? ''))) ?: null);
+
+    return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));
+})->add(responds(AuthUser::class))->add(requireAuth());
+
+/**
+ * DELETE /api/auth/google/link - detach it again.
+ *
+ * Refused when it would leave the account with no way in at all. Somebody
+ * handing an account over sets a password first, and the account page only
+ * offers the button once there is one.
+ */
+$app->delete('/api/auth/google/link', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+    $pdo = usersDb();
+
+    if (!identityFor($pdo, (int) $user['id'], IDENTITY_GOOGLE)) {
+        return respondJson($response, ['error' => 'This account does not have Google connected'], 409);
+    }
+
+    if (!authPasswordLoginAvailable($user)) {
+        return respondJson($response, [
+            'error' => 'Set a password first, or you would not be able to sign in again',
+            'code'  => 'would_lock_account',
+        ], 409);
+    }
+
+    $pdo->prepare('DELETE FROM user_identities WHERE user_id = ? AND provider = ?')
+        ->execute([$user['id'], IDENTITY_GOOGLE]);
+
+    return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));
+})->add(responds(AuthUser::class))->add(requireAuth());
+
+/**
+ * POST /api/auth/login/code - ask for a sign-in code by email.
+ *
+ * As incurious as the other two that take an address: the same answer for an
+ * address with an account, one without, and one that is not confirmed. This is
+ * the endpoint the login form points at when it is told the password is not
+ * the way in, and it is also simply a way to sign in for anybody who would
+ * rather not type a password.
+ */
+$app->post('/api/auth/login/code', function (Request $request, Response $response) {
+    $pdo = usersDb();
+    $body = $request->getParsedBody() ?? [];
+
+    $user = authFindByEmail($pdo, trim((string) ($body['email'] ?? '')));
+
+    // Not for accounts that have never confirmed. The code would confirm the
+    // address as a side effect, and the confirmation link is the way that is
+    // meant to happen.
+    if ($user && $user['email_confirmed']) {
+        $code = issueLoginCode($pdo, (int) $user['id'], MAIL_LOGIN_CODE_MINUTES * 60);
+        if ($code !== null) {
+            sendLoginCodeMail($user, $code);
+        }
+    }
+
+    return respondJson($response, ['requested' => true]);
+})->add(responds(AuthMailRequested::class));
+
+/**
+ * POST /api/auth/login/code/verify - hand the code back, and be signed in.
+ *
+ * The address is needed as well as the code, because a code only means
+ * anything against the account it was issued for - six digits are not unique
+ * on their own. Wrong guesses are counted against every live code the account
+ * holds, and five of them put all of them out.
+ */
+$app->post('/api/auth/login/code/verify', function (Request $request, Response $response) {
+    $pdo = usersDb();
+    $body = $request->getParsedBody() ?? [];
+
+    $user = authFindByEmail($pdo, trim((string) ($body['email'] ?? '')));
+    $code = preg_replace('/\D/', '', (string) ($body['code'] ?? ''));
+
+    if (!$user || $code === '') {
+        return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
+    }
+
+    $token = findLoginCode($pdo, (int) $user['id'], $code);
+
+    if (!$token || !consumeOneTimeToken($pdo, (int) $token['id'])) {
+        return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
+    }
+
+    return respondJson($response, authSession($user));
+})->add(responds(AuthSession::class));
+
+/**
+ * POST /api/auth/password/set - put a first password on an account with none.
+ *
+ * Being signed in is the whole proof, which is enough because getting signed
+ * in already took either Google or a code from the account's own mailbox.
+ * Refused when there is already a password: changing one is a different
+ * operation and asks for the old one.
+ */
+$app->post('/api/auth/password/set', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+    $body = $request->getParsedBody() ?? [];
+    $password = (string) ($body['password'] ?? '');
+
+    if ($user['password'] !== null) {
+        return respondJson($response, ['error' => 'This account already has a password', 'code' => 'password_already_set'], 409);
+    }
+
+    if (strlen($password) < USER_PASSWORD_MIN) {
+        return respondJson($response, ['error' => 'The password needs at least ' . USER_PASSWORD_MIN . ' characters'], 422);
+    }
+
+    $pdo = usersDb();
+    $pdo->prepare('UPDATE users SET password = ?, password_login_enabled = TRUE WHERE id = ?')
+        ->execute([password_hash($password, PASSWORD_DEFAULT), $user['id']]);
+
+    return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));
+})->add(responds(AuthUser::class))->add(requireAuth());
+
+/**
+ * PUT /api/auth/password/enabled - stop accepting the password, or start again.
+ *
+ * Turning it off leaves the password where it is rather than deleting it, so
+ * turning it back on is a switch rather than a reset. Refused when it would
+ * leave nothing to sign in with, which is the same rule the unlink endpoint
+ * applies from the other side.
+ */
+$app->put('/api/auth/password/enabled', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+    $body = $request->getParsedBody() ?? [];
+    $enabled = !empty($body['enabled']);
+    $pdo = usersDb();
+
+    if ($enabled && $user['password'] === null) {
+        return respondJson($response, ['error' => 'There is no password on this account to enable', 'code' => 'no_password'], 409);
+    }
+
+    if (!$enabled && !identityFor($pdo, (int) $user['id'], IDENTITY_GOOGLE)) {
+        return respondJson($response, [
+            'error' => 'Connect Google first, or you would not be able to sign in again',
+            'code'  => 'would_lock_account',
+        ], 409);
+    }
+
+    $pdo->prepare('UPDATE users SET password_login_enabled = ? WHERE id = ?')->execute([(int) $enabled, $user['id']]);
+
+    return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));
+})->add(responds(AuthUser::class))->add(requireAuth());

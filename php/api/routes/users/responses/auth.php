@@ -23,6 +23,16 @@ class AuthUser extends ResponseShape
         public readonly bool $email_confirmed,
         public readonly ?string $version,
         public readonly string $created_at,
+        /** Whether there is a password on the account at all. */
+        public readonly bool $has_password,
+        /**
+         * Whether it is still accepted. Distinct from having one: an account
+         * can keep its password and ask for it not to be a way in.
+         */
+        public readonly bool $password_login_enabled,
+        public readonly bool $google_connected,
+        /** The Google address that is connected, for the account page to show. */
+        public readonly ?string $google_email,
     ) {
     }
 }
@@ -87,5 +97,22 @@ class AuthMailRequested extends ResponseShape
 {
     public function __construct(public readonly bool $requested)
     {
+    }
+}
+
+/**
+ * Which ways in this deployment offers, asked before anybody has signed in.
+ *
+ * The client id is public by design - it travels in the page and identifies
+ * the site to Google - so there is nothing here that the rendered button would
+ * not give away anyway. Null, and `google_enabled` false, while no client id
+ * is configured, which is how the site ships.
+ */
+class AuthProviders extends ResponseShape
+{
+    public function __construct(
+        public readonly bool $google_enabled,
+        public readonly ?string $google_client_id,
+    ) {
     }
 }

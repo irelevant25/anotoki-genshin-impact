@@ -1348,6 +1348,166 @@
         "security": []
       }
     },
+    "/api/auth/google": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "signInWithGoogle",
+        "summary": "Sign in with google",
+        "description": "Public. Reads `users`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleCredentialRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The body was understood but will not do.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/google/link": {
+      "delete": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "disconnectGoogle",
+        "summary": "Disconnect google",
+        "description": "Requires a signed-in user. Reads `users`.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUser"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "connectGoogle",
+        "summary": "Connect google",
+        "description": "Requires a signed-in user. Reads `users`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleCredentialRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUser"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/auth/language": {
       "put": {
         "tags": [
@@ -1452,6 +1612,88 @@
           },
           "422": {
             "description": "The body was understood but will not do.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/login/code": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "requestLoginCode",
+        "summary": "Request login code",
+        "description": "Public.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMailRequested"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/login/code/verify": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "signInWithCode",
+        "summary": "Sign in with code",
+        "description": "Public.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1600,6 +1842,59 @@
         ]
       }
     },
+    "/api/auth/password/enabled": {
+      "put": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "setPasswordLoginEnabled",
+        "summary": "Set password login enabled",
+        "description": "Requires a signed-in user. Reads `users`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnabledRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUser"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/auth/password/forgot": {
       "post": {
         "tags": [
@@ -1681,6 +1976,95 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/password/set": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "setOwnPassword",
+        "summary": "Set own password",
+        "description": "Requires a signed-in user. Reads `users`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetOwnPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUser"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The body was understood but will not do.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/providers": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "getAuthProviders",
+        "summary": "Get auth providers",
+        "description": "Public.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthProviders"
                 }
               }
             }
@@ -22183,6 +22567,31 @@
         ],
         "additionalProperties": false
       },
+      "AuthProviders": {
+        "title": "AuthProviders",
+        "description": "Which ways in this deployment offers, asked before anybody has signed in. The client id is public by design - it travels in the page and identifies the site to Google - so there is nothing here that the rendered button would not give away anyway. Null, and `google_enabled` false, while no client id is configured, which is how the site ships.",
+        "type": "object",
+        "properties": {
+          "google_enabled": {
+            "type": "boolean"
+          },
+          "google_client_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "google_enabled",
+          "google_client_id"
+        ],
+        "additionalProperties": false
+      },
       "AuthSession": {
         "title": "AuthSession",
         "description": "What a successful register or login hands back.",
@@ -22252,6 +22661,28 @@
           },
           "created_at": {
             "type": "string"
+          },
+          "has_password": {
+            "description": "Whether there is a password on the account at all.",
+            "type": "boolean"
+          },
+          "password_login_enabled": {
+            "description": "Whether it is still accepted. Distinct from having one: an account can keep its password and ask for it not to be a way in.",
+            "type": "boolean"
+          },
+          "google_connected": {
+            "type": "boolean"
+          },
+          "google_email": {
+            "description": "The Google address that is connected, for the account page to show.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         },
         "required": [
@@ -22264,7 +22695,11 @@
           "language",
           "email_confirmed",
           "version",
-          "created_at"
+          "created_at",
+          "has_password",
+          "password_login_enabled",
+          "google_connected",
+          "google_email"
         ],
         "additionalProperties": false
       },
@@ -29454,6 +29889,20 @@
         },
         "required": [
           "name"
+        ],
+        "additionalProperties": false
+      },
+      "GoogleCredentialRequest": {
+        "title": "GoogleCredentialRequest",
+        "description": "The id token Google Identity Services hands the browser. Called `credential` because that is the field GIS puts it in, and keeping the name means the callback's payload can be passed straight through.",
+        "type": "object",
+        "properties": {
+          "credential": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "credential"
         ],
         "additionalProperties": false
       },
@@ -38010,6 +38459,24 @@
         ],
         "additionalProperties": false
       },
+      "LoginCodeRequest": {
+        "title": "LoginCodeRequest",
+        "description": "An address and the six digits that were emailed to it.",
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "code"
+        ],
+        "additionalProperties": false
+      },
       "LoginRequest": {
         "title": "LoginRequest",
         "description": "Signing in, and the account settings that hang off it. Hand-written: /api/auth answers with a hand-built object rather than a row, and deliberately so - `password` never leaves the server, for anybody.",
@@ -40414,6 +40881,20 @@
         },
         "required": [
           "name"
+        ],
+        "additionalProperties": false
+      },
+      "SetOwnPasswordRequest": {
+        "title": "SetOwnPasswordRequest",
+        "description": "A first password, for an account that has none. No current password, because there is not one - being signed in is the proof, and getting signed in already took Google or a code from the account's own mailbox. Changing an existing one is ChangePasswordRequest.",
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "password"
         ],
         "additionalProperties": false
       },

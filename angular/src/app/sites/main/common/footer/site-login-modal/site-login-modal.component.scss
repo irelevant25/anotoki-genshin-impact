@@ -28,3 +28,22 @@
     cursor: pointer;
   }
 }
+
+.login-note {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+// Google's own button, centred, with a rule above it saying it is an
+// alternative to the form rather than part of it. The rule is drawn only once
+// Google has actually put a button there - :empty would not do, since the
+// element is always present and simply renders nothing.
+.login-google {
+  display: flex;
+  justify-content: center;
+}
+
+.login-google-shown {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-md);
+}

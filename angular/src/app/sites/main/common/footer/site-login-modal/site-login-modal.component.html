@@ -8,17 +8,34 @@
                 [required]="true"
                 autocomplete="email"
             ></app-text>
-            <app-password
-                [label]="'login.password' | translate"
-                [placeholder]="'login.passwordPlaceholder' | translate"
-                [(value)]="form().password"
-                [required]="true"
-                autocomplete="current-password"
-            ></app-password>
 
-            <!-- Right credentials, unconfirmed address. Not a failure to report
-                 and forget: there is something to do about it, here. -->
-            @if (needsConfirmation()) {
+            @if (step() === 'code') {
+                <!-- Reached deliberately, or after being told the password is
+                     not the way into this account. Either way the next thing to
+                     do is the same. -->
+                @if (codeSent()) {
+                    <p class="login-note">{{ 'login.codeSent' | translate }}</p>
+                    <app-text
+                        [label]="'login.code' | translate"
+                        [placeholder]="'login.codePlaceholder' | translate"
+                        [(value)]="form().code"
+                        [required]="true"
+                        autocomplete="one-time-code"
+                    ></app-text>
+                } @else {
+                    <p class="login-note">{{ 'login.codeLead' | translate }}</p>
+                }
+            } @else {
+                <app-password
+                    [label]="'login.password' | translate"
+                    [placeholder]="'login.passwordPlaceholder' | translate"
+                    [(value)]="form().password"
+                    [required]="true"
+                    autocomplete="current-password"
+                ></app-password>
+            }
+
+            @if (step() === 'unconfirmed') {
                 <div class="login-unconfirmed">
                     <p class="login-problem">{{ 'login.unconfirmed' | translate }}</p>
                     <app-button
@@ -33,15 +50,39 @@
             }
 
             <div class="login-links">
-                <button type="button" class="link" (click)="forgotPassword()">{{ 'login.forgotPassword' | translate }}</button>
+                @if (step() === 'code') {
+                    <button type="button" class="link" (click)="backToPassword()">{{ 'login.usePassword' | translate }}</button>
+                } @else {
+                    <button type="button" class="link" (click)="forgotPassword()">{{ 'login.forgotPassword' | translate }}</button>
+                    <button type="button" class="link" (click)="useCode()">{{ 'login.useCode' | translate }}</button>
+                }
+            </div>
+
+            <!-- Draws nothing at all unless this deployment has Google
+                 configured and the script loaded. -->
+            <div class="login-google" [class.login-google-shown]="google.ready()">
+                <app-google-button #google (credential)="signInWithGoogle($event)"></app-google-button>
+            </div>
+
+            <div class="login-links">
                 <button type="button" class="link" (click)="register()">{{ 'login.noAccount' | translate }}</button>
             </div>
         </form>
     </div>
+
     <div modal-footer class="d-flex gap-3 justify-content-end">
-        <app-button [text]="'common.cancel' | translate" variant="secondary" (buttonClick)="cancel()"> </app-button>
-        <app-button [text]="'common.login' | translate" variant="primary" (buttonClick)="login()"> </app-button>
+        <app-button [text]="'common.cancel' | translate" variant="secondary" (buttonClick)="cancel()"></app-button>
+
+        @if (step() === 'code') {
+            @if (codeSent()) {
+                <app-button [text]="'login.codeAction' | translate" variant="primary" (buttonClick)="submitCode()"></app-button>
+            } @else {
+                <app-button [text]="'login.sendCode' | translate" variant="primary" (buttonClick)="sendCode()"></app-button>
+            }
+        } @else {
+            <app-button [text]="'common.login' | translate" variant="primary" (buttonClick)="login()"></app-button>
+        }
     </div>
 </app-modal>
 
-<app-loader [loading]="loading()" [text]="'login.loggingIn' | translate"> </app-loader>
+<app-loader [loading]="loading()" [text]="'login.loggingIn' | translate"></app-loader>
