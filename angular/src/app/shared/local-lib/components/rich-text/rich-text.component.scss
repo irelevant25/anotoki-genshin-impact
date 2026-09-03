@@ -1,0 +1,144 @@
+// How markup out of the database is laid out.
+//
+// Written flat, under one class, because the content is inserted through
+// innerHTML and so never carries the component's scoping attribute. That is
+// also why nothing here is a bare element selector: `.rich-text p` may only
+// ever mean a paragraph inside this content.
+//
+// It is styled generously on purpose. The person writing a guide should be
+// able to type a heading and a list and have it look right, without reaching
+// for the colour picker to make it presentable.
+
+.rich-text {
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-base);
+
+  // Both ends flush: the modal already provides the padding, and a leading
+  // margin on the first heading reads as a gap nobody asked for.
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: var(--spacing-lg) 0 var(--spacing-sm);
+    color: var(--text-primary);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  h3,
+  h4 {
+    font-size: var(--font-size-lg);
+  }
+
+  h5,
+  h6 {
+    font-size: var(--font-size-base);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+  }
+
+  p {
+    margin: 0 0 var(--spacing-sm);
+  }
+
+  ul,
+  ol {
+    margin: 0 0 var(--spacing-sm);
+    padding-left: var(--spacing-lg);
+  }
+
+  li {
+    margin-bottom: var(--spacing-xxs);
+
+    // A list of steps that each start with a labelled term reads better with
+    // the label on its own line, which is what the guides do.
+    > .tag:first-child {
+      margin-right: var(--spacing-xs);
+    }
+  }
+
+  strong,
+  b {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  code {
+    padding: 0 var(--spacing-xxs);
+    border-radius: var(--border-radius);
+    background: var(--bg-veil-soft, rgb(0 0 0 / 6%));
+    font-size: var(--font-size-base);
+  }
+
+  blockquote {
+    margin: var(--spacing-sm) 0;
+    padding-left: var(--spacing-md);
+    border-left: 3px solid var(--color-primary-light-border);
+    color: var(--text-secondary);
+  }
+
+  hr {
+    margin: var(--spacing-lg) 0;
+    border: 0;
+    border-top: 1px solid var(--border-color-subtle);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-medium);
+  }
+
+  table {
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--border-color-subtle);
+    text-align: left;
+  }
+
+  // The one class the guides rely on, standing in for the badges the old site
+  // borrowed from Bootstrap. Named for what it is rather than for a colour, so
+  // a theme can move underneath it.
+  .tag {
+    display: inline-block;
+    padding: 0 var(--spacing-xs);
+    border: 1px solid var(--color-primary-light-border);
+    border-radius: var(--border-radius-pill);
+    background: var(--color-primary-light);
+    color: var(--color-primary-light-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
+}

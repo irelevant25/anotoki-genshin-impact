@@ -1,16 +1,17 @@
-import { Component, ElementRef, model, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, computed, model, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AbstractInputComponent } from '../../abstract-input.class';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { DropdownOption } from '../../services/options-helper.service';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
+import { RichTextComponent } from '../rich-text/rich-text.component';
 import { normalizeHtml } from '../../helper.class';
 
 type Type = string;
 
 @Component({
   selector: 'app-html-editor',
-  imports: [DropdownComponent, ColorPickerComponent, FormsModule],
+  imports: [DropdownComponent, ColorPickerComponent, FormsModule, RichTextComponent],
   templateUrl: './html-editor.component.html',
   styleUrls: ['./html-editor.component.scss'],
   providers: [
@@ -38,6 +39,29 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
 
   showSource = signal<boolean>(false);
   sourceValue = signal<string>('');
+
+  /**
+   * Whether this editor offers a preview beside it.
+   *
+   * Off by default, because most fields edited here are a line of markup in a
+   * form and a second pane would only take the width. It is turned on where
+   * the markup is a page in its own right - a guide - and where the difference
+   * between what the editor shows and what the site shows actually matters.
+   */
+  preview = model<boolean>(false);
+
+  /** Open whenever the preview is offered, and collapsible from the toolbar. */
+  showPreview = signal<boolean>(true);
+
+  /**
+   * What the page will make of it.
+   *
+   * Deliberately the same function the site renders through, not a
+   * near-enough copy: a preview that shows something the page would strip is
+   * worse than none, because it is confidently wrong. Anything the allowlist
+   * refuses is missing here too, which is how you find out.
+   */
+  readonly previewHtml = computed(() => (this.value() as string | null | undefined) ?? '');
 
   isFocusedEditor = signal<boolean>(false);
   fontSizeValue = signal<string>('3');
@@ -392,6 +416,11 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
       this.sourceValue.set(this.value() ?? '');
       this.showSource.set(true);
     }
+  }
+
+  togglePreview(event: Event): void {
+    event.preventDefault();
+    this.showPreview.set(!this.showPreview());
   }
 
   onSourceInput(event: Event): void {

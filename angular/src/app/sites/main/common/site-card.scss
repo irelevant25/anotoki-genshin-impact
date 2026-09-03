@@ -29,9 +29,22 @@
   }
 }
 
+// The question mark that opens the card's guide.
+//
+// Always visible, though quietly. The global rule hides one until its own card
+// is hovered, which on a phone means never - and a guide nobody can reach is
+// the same as no guide.
 .help-icon {
   position: absolute;
   top: var(--spacing-sm);
   right: var(--spacing-sm);
   color: var(--text-muted);
+  opacity: 0.55;
+}
+
+.card:hover .help-icon,
+.help-icon:hover,
+.help-icon:focus-within {
+  opacity: 1;
+  color: var(--color-primary);
 }

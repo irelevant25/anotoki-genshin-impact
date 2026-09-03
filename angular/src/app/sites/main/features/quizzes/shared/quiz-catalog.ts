@@ -8,7 +8,6 @@ export interface QuizCard {
   readonly path: string;
   readonly title: string;
   readonly info: string;
-  readonly about: string;
   readonly image: string;
 }
 
@@ -26,7 +25,6 @@ export const QUIZ_CATALOG: readonly QuizCard[] = [
     path: ROUTE_MAP.map['quizzes'].banners.path,
     title: 'quiz.banners.title',
     info: 'quiz.banners.info',
-    about: 'quiz.banners.about',
     image: 'assets/character/wish_icon/Venti.avif',
   },
   {
@@ -34,7 +32,6 @@ export const QUIZ_CATALOG: readonly QuizCard[] = [
     path: ROUTE_MAP.map['quizzes'].pixelate.path,
     title: 'quiz.pixelate.title',
     info: 'quiz.pixelate.info',
-    about: 'quiz.pixelate.about',
     image: 'assets/character/wish_icon/Kinich.avif',
   },
   {
@@ -42,7 +39,6 @@ export const QUIZ_CATALOG: readonly QuizCard[] = [
     path: ROUTE_MAP.map['quizzes'].mismatch.path,
     title: 'quiz.mismatch.title',
     info: 'quiz.mismatch.info',
-    about: 'quiz.mismatch.about',
     image: 'assets/character/wish_icon/Arlecchino.avif',
   },
   {
@@ -50,7 +46,6 @@ export const QUIZ_CATALOG: readonly QuizCard[] = [
     path: ROUTE_MAP.map['quizzes'].music.path,
     title: 'quiz.music.title',
     info: 'quiz.music.info',
-    about: 'quiz.music.about',
     image: 'assets/character/wish_icon/Xinyan.avif',
   },
   {
@@ -58,7 +53,6 @@ export const QUIZ_CATALOG: readonly QuizCard[] = [
     path: ROUTE_MAP.map['quizzes'].dish.path,
     title: 'quiz.dish.title',
     info: 'quiz.dish.info',
-    about: 'quiz.dish.about',
     image: 'assets/character/wish_icon/Xiangling.avif',
   },
   {
@@ -66,7 +60,6 @@ export const QUIZ_CATALOG: readonly QuizCard[] = [
     path: ROUTE_MAP.map['quizzes'].voice.path,
     title: 'quiz.voice.title',
     info: 'quiz.voice.info',
-    about: 'quiz.voice.about',
     image: 'assets/character/wish_icon/Yun Jin.avif',
   },
 ];

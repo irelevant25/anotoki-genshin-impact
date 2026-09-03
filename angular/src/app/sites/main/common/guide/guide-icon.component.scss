@@ -1,0 +1,23 @@
+// Positioned by whatever it sits in - a card corner, a menu item - so nothing
+// here places it. All this does is make a button look like the icon it holds.
+.guide-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+    transition: transform var(--transition-base);
+
+    &:hover,
+    &:focus-visible {
+        transform: scale(1.15);
+    }
+
+    i {
+        font-size: 18px;
+    }
+}

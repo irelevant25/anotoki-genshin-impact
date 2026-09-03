@@ -158,3 +158,59 @@
 .html-editor-content[hidden] {
   display: none;
 }
+
+// ── The editor and its preview, side by side ─────────────────────────────────
+//
+// One column until asked for two, so an editor without a preview is exactly
+// what it was. The split stacks below 900px, where two columns would leave
+// neither wide enough to read.
+.html-editor-panes {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  &.with-preview {
+    flex-direction: row;
+    align-items: stretch;
+
+    > * {
+      flex: 1 1 50%;
+      min-width: 0;
+    }
+
+    .html-editor-preview {
+      border-left: 1px solid var(--border-color-subtle);
+    }
+  }
+}
+
+.html-editor-preview {
+  position: relative;
+  overflow: auto;
+  padding: var(--spacing-md);
+  background: var(--bg-subtle, transparent);
+
+  // Marked, because an unlabelled second pane looks like a second editor and
+  // the first thing anyone does is try to type in it.
+  &-label {
+    position: absolute;
+    top: var(--spacing-xxs);
+    right: var(--spacing-xs);
+    color: var(--text-muted);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .html-editor-panes.with-preview {
+    flex-direction: column;
+
+    .html-editor-preview {
+      border-left: 0;
+      border-top: 1px solid var(--border-color-subtle);
+    }
+  }
+}

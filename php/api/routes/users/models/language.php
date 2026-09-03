@@ -32,5 +32,13 @@ class TranslationKey extends \DbModel
         public readonly ?string $description = null,
         /** Which site owns it, or 'common' when every site shares it. */
         public readonly ?string $site = null,
+        /**
+         * Whether the string is markup rather than a sentence.
+         *
+         * A fact about the key, not about one language of it - if the English
+         * is a list of steps, so is every translation. It decides which editor
+         * the admin panel opens; what renders it is the page's own choice.
+         */
+        public readonly ?bool $is_html = null,
     ) {}
 }

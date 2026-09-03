@@ -18,7 +18,7 @@
                 <!-- Same card as on the Quizzes page, under /daily so the quiz
                      knows it is playing today's question rather than a fresh one. -->
                 <a class="card px-5 pb-5" [class]="'status-' + entry.status" [routerLink]="['/', 'daily', entry.card.path]">
-                    <i class="icon icon-info help-icon" [title]="entry.card.about | translate"></i>
+                    <app-guide-icon class="help-icon" [guide]="entry.card.id"></app-guide-icon>
 
                     @if (entry.status !== 'new') {
                         <span class="status-badge">{{ 'daily.status.' + entry.status | translate }}</span>

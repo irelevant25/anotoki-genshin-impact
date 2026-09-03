@@ -18083,6 +18083,21 @@
                         "type": "string"
                       }
                     ]
+                  },
+                  "is_html": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean",
+                        "const": false
+                      },
+                      {
+                        "type": "boolean",
+                        "const": true
+                      }
+                    ]
                   }
                 },
                 "additionalProperties": false
@@ -41988,6 +42003,10 @@
             "description": "`common` when every site loads it, otherwise the site that owns it.",
             "type": "string"
           },
+          "is_html": {
+            "description": "Markup rather than a sentence - edited in the HTML editor.",
+            "type": "boolean"
+          },
           "values": {
             "type": "object",
             "additionalProperties": {
@@ -41999,6 +42018,7 @@
           "name",
           "description",
           "site",
+          "is_html",
           "values"
         ],
         "additionalProperties": false
@@ -42145,6 +42165,21 @@
               },
               {
                 "type": "string"
+              }
+            ]
+          },
+          "is_html": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean",
+                "const": false
+              },
+              {
+                "type": "boolean",
+                "const": true
               }
             ]
           }

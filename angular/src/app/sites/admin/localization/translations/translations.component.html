@@ -135,19 +135,42 @@
 
                         @for (language of languages(); track language.code) {
                             <td>
-                                <textarea
-                                    class="cell-input value-input"
-                                    rows="1"
-                                    [class.is-edited]="isEdited(row.name, language.code)"
-                                    [class.is-missing]="!valueOf(row, language.code)"
-                                    [placeholder]="language.code === fallback ? 'Required — nothing to fall back to' : 'Falls back to English'"
-                                    [value]="valueOf(row, language.code)"
-                                    (input)="setValue(row, language.code, $any($event.target).value)"
-                                ></textarea>
+                                @if (row.is_html) {
+                                    <!-- A guide is a page. Shown as the words it
+                                         says, since a preview of its markup would
+                                         be a row of tags. -->
+                                    <button
+                                        type="button"
+                                        class="cell-input html-cell"
+                                        [class.is-edited]="isEdited(row.name, language.code)"
+                                        [class.is-missing]="!valueOf(row, language.code)"
+                                        (click)="openHtml(row)">
+                                        {{ summarize(row, language.code) || (language.code === fallback ? 'Required — nothing to fall back to' : 'Falls back to English') }}
+                                    </button>
+                                } @else {
+                                    <textarea
+                                        class="cell-input value-input"
+                                        rows="1"
+                                        [class.is-edited]="isEdited(row.name, language.code)"
+                                        [class.is-missing]="!valueOf(row, language.code)"
+                                        [placeholder]="language.code === fallback ? 'Required — nothing to fall back to' : 'Falls back to English'"
+                                        [value]="valueOf(row, language.code)"
+                                        (input)="setValue(row, language.code, $any($event.target).value)"
+                                    ></textarea>
+                                }
                             </td>
                         }
 
                         <td class="col-actions">
+                            <app-button
+                                [icon]="'icon-code icon-size-3'"
+                                [variant]="row.is_html ? 'primary' : 'secondary'"
+                                [outline]="!row.is_html"
+                                size="very-small"
+                                [tooltipText]="row.is_html ? 'Markup — edited in the HTML editor. Click to treat as plain text again.' : 'Plain text. Click to edit this key as markup.'"
+                                (buttonClick)="toggleHtml(row)"
+                            ></app-button>
+
                             @if (deleteConfirm() === row.name) {
                                 <span class="confirm-row">
                                     <span class="confirm-text">Delete?</span>

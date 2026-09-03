@@ -114,11 +114,12 @@ $app->get('/api/admin/translations', function (Request $request, Response $respo
     }
 
     $keys = [];
-    foreach ($pdo->query('SELECT name, description, site FROM translation_keys ORDER BY site ASC, name ASC') as $row) {
+    foreach ($pdo->query('SELECT name, description, site, is_html FROM translation_keys ORDER BY site ASC, name ASC') as $row) {
         $keys[] = [
             'name'        => $row['name'],
             'description' => $row['description'],
             'site'        => $row['site'],
+            'is_html'     => (bool) $row['is_html'],
             'values'      => (object) ($values[$row['name']] ?? []),
         ];
     }
@@ -301,10 +302,10 @@ $app->post('/api/translation-keys', function (Request $request, Response $respon
         return respondJson($response, ['error' => "Unknown site '$site'"], 422);
     }
 
-    $pdo->prepare('INSERT INTO translation_keys (name, description, site) VALUES (?, ?, ?)')
-        ->execute([$name, $body['description'] ?? null, $site]);
+    $pdo->prepare('INSERT INTO translation_keys (name, description, site, is_html) VALUES (?, ?, ?, ?)')
+        ->execute([$name, $body['description'] ?? null, $site, (int) (bool) ($body['is_html'] ?? false)]);
 
-    $stmt = $pdo->prepare('SELECT name, description, site FROM translation_keys WHERE name = ?');
+    $stmt = $pdo->prepare('SELECT name, description, site, is_html FROM translation_keys WHERE name = ?');
     $stmt->execute([$name]);
     return respondJson($response, $stmt->fetch(), 201);
 })->add(responds('translation_keys'))->add(validateRequest(User\TranslationKey::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
@@ -333,7 +334,15 @@ $app->put('/api/translation-keys/{name}', function (Request $request, Response $
             ->execute([$body['description'], $args['name']]);
     }
 
-    $stmt = $pdo->prepare('SELECT name, description, site FROM translation_keys WHERE name = ?');
+    // Turning this off leaves the markup in place rather than flattening it:
+    // the flag chooses an editor, and losing a page of text to a mis-click on
+    // a checkbox would be a poor trade for tidiness.
+    if (array_key_exists('is_html', $body)) {
+        $pdo->prepare('UPDATE translation_keys SET is_html = ? WHERE name = ?')
+            ->execute([(int) (bool) $body['is_html'], $args['name']]);
+    }
+
+    $stmt = $pdo->prepare('SELECT name, description, site, is_html FROM translation_keys WHERE name = ?');
     $stmt->execute([$args['name']]);
     return respondJson($response, $stmt->fetch());
 })->add(responds('translation_keys'))->add(validateRequest(User\TranslationKey::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

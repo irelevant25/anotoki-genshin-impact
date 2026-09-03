@@ -1,0 +1,10 @@
+// The body sets its own rhythm - see rich-text.component.scss - so all this
+// has to do is stop a long guide running edge to edge on a wide screen.
+:host {
+    display: block;
+}
+
+app-rich-text {
+    display: block;
+    max-width: 68ch;
+}

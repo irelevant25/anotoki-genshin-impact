@@ -36,10 +36,9 @@ nav ul li a {
   opacity: 1;
 }
 
-nav ul li:hover {
-  div.help-icon {
-    opacity: 1;
-  }
+nav ul li:hover .help-icon,
+nav ul li .help-icon:focus-within {
+  opacity: 1;
 }
 
 nav ul li a:hover {

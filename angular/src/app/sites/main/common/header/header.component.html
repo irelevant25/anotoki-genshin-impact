@@ -2,15 +2,13 @@
     <ul>
         @for (menuItem of menuItems; track menuItem.id) {
             <li>
-                @if (menuItem.badgeIcon) {
+                @if (menuItem.badge) {
                     <div class="help-icon visible left">
                         <div class="badge-daily rounded-pill bg-danger visible" style="width: 20px; height: 20px">?</div>
                     </div>
                 }
-                @if (menuItem.helpIcon) {
-                    <div class="help-icon right">
-                        <i class="bi bi-question-circle-fill"></i>
-                    </div>
+                @if (menuItem.guide) {
+                    <app-guide-icon class="help-icon right" [guide]="menuItem.guide"></app-guide-icon>
                 }
                 <a [routerLink]="menuItem.id">{{ menuItem.title | translate }}</a>
             </li>

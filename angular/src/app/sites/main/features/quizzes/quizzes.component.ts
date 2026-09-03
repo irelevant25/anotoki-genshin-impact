@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
 import { QUIZ_CATALOG } from './shared/quiz-catalog';
+import { GuideIconComponent } from '../../common/guide/guide-icon.component';
 
 @Component({
   selector: 'app-quizzes',
   templateUrl: './quizzes.component.html',
   styleUrls: ['./quizzes.component.scss'],
-  imports: [RouterModule, TranslatePipe],
+  imports: [RouterModule, TranslatePipe, GuideIconComponent],
   providers: []
 })
 export class QuizzesComponent {

@@ -109,9 +109,21 @@
                     <button type="button" class="toolbar-btn" [class.active]="showSource()" [title]="showSource() ? 'Zobraziť vizuálne' : 'Zobraziť zdrojový HTML'" (mousedown)="toggleSource($event)">
                         <i class="icon icon-code"></i>
                     </button>
+
+                    @if (preview()) {
+                        <button
+                            type="button"
+                            class="toolbar-btn"
+                            [class.active]="showPreview()"
+                            [title]="showPreview() ? 'Skryť náhľad' : 'Zobraziť náhľad'"
+                            (mousedown)="togglePreview($event)">
+                            <i class="icon icon-eye"></i>
+                        </button>
+                    }
                 </div>
             }
 
+            <div class="html-editor-panes" [class.with-preview]="preview() && showPreview()">
             <div
                 #editorElement
                 [id]="inputId"
@@ -130,6 +142,17 @@
             @if (showSource()) {
                 <textarea class="html-editor-source" [style.min-height]="minHeight()" [value]="sourceValue()" (input)="onSourceInput($event)" spellcheck="false"></textarea>
             }
+
+            <!-- Rendered by the component the site itself renders through, so
+                 what is shown here is what a reader will get - including the
+                 parts the allowlist refuses. -->
+            @if (preview() && showPreview()) {
+                <div class="html-editor-preview" [style.min-height]="minHeight()">
+                    <span class="html-editor-preview-label">Náhľad</span>
+                    <app-rich-text [html]="previewHtml()"></app-rich-text>
+                </div>
+            }
+            </div>
         </div>
 
         @if (displayError() && hasError()) {

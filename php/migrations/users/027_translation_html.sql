@@ -1,0 +1,22 @@
+-----------------------------------------------------------
+-- SOME STRINGS ARE MARKUP
+--
+-- Almost every string the site says is a sentence. A few are not: the guide
+-- modals behind the question marks are a page each - headings, lists, emphasis
+-- - and flattening one into a single line of prose would lose the shape that
+-- makes it readable.
+--
+-- So the markup is stored as the translation, and the key says so. The flag
+-- lives on the key rather than on the translation because it is a fact about
+-- the string itself, not about one language of it: if the English is a list of
+-- steps, so is the Slovak, or they are not translations of each other.
+--
+-- What the flag actually decides is how the string is *edited*. A one-line
+-- textarea is the wrong tool for a page of markup, so the admin panel opens
+-- these in the HTML editor instead. Rendering is decided by the page: a
+-- component that means to render markup asks for it, and everywhere else the
+-- translate pipe still writes text, so a mis-flagged key can never turn an
+-- ordinary label into live markup.
+-----------------------------------------------------------
+
+ALTER TABLE translation_keys ADD COLUMN IF NOT EXISTS is_html BOOLEAN NOT NULL DEFAULT FALSE;

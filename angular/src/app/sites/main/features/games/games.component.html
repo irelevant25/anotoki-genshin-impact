@@ -1,7 +1,7 @@
 <div class="container d-flex flex-wrap justify-content-center gap-5 text-align-center">
     @for (item of GAMES; track item.id) {
         <a class="card px-5 pb-5" [routerLink]="item.path">
-            <i class="icon icon-info help-icon" [title]="item.about | translate"></i>
+            <app-guide-icon class="help-icon" [guide]="item.id"></app-guide-icon>
 
             <img [src]="item.image" [alt]="item.title | translate" loading="lazy" />
 

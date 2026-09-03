@@ -1,0 +1,43 @@
+<app-modal [title]="keyName()" [subtitle]="description() ?? undefined" class="html-translation-modal" (closeModal)="cancel()">
+    <div modal-body>
+        <!-- One tab per language, marked with whether it has anything and
+             whether this session has changed it. Bringing one language level
+             with another is the usual reason to be here, and that is a job of
+             looking back and forth. -->
+        <div class="language-tabs">
+            @for (language of languages(); track language.code) {
+                <button
+                    type="button"
+                    class="language-tab"
+                    [class.is-active]="active() === language.code"
+                    [class.is-edited]="isEdited(language.code)"
+                    [class.is-missing]="!hasValue(language.code)"
+                    (click)="select(language.code)">
+                    <code>{{ language.code }}</code>
+                    {{ language.native_name }}
+                    @if (isEdited(language.code)) {
+                        <span class="tab-dot" title="Changed but not saved"></span>
+                    }
+                </button>
+            }
+        </div>
+
+        <app-html-editor
+            [(value)]="draft"
+            [preview]="true"
+            [minHeight]="'420px'"
+            [displayError]="false"
+            [placeholder]="'Nothing here yet'"
+            (inputChange)="commit()"
+        ></app-html-editor>
+    </div>
+
+    <div modal-footer class="footer-row">
+        <span class="footer-note">
+            Saved with the rest of the grid — this only collects the change.
+        </span>
+        <app-button text="Revert this language" variant="secondary" [outline]="true" size="small" (buttonClick)="revert()"></app-button>
+        <app-button text="Cancel" variant="secondary" [outline]="true" size="small" (buttonClick)="cancel()"></app-button>
+        <app-button text="Done" icon="icon-check" size="small" [disabled]="!dirty()" (buttonClick)="save()"></app-button>
+    </div>
+</app-modal>

@@ -45,6 +45,8 @@ class TranslationGridKey extends ResponseShape
         public readonly ?string $description,
         /** `common` when every site loads it, otherwise the site that owns it. */
         public readonly string $site,
+        /** Markup rather than a sentence - edited in the HTML editor. */
+        public readonly bool $is_html,
         /** @var array<string, string> */
         public readonly array $values,
     ) {

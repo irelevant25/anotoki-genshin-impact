@@ -1,11 +1,11 @@
 <div class="container d-flex flex-wrap justify-content-center gap-5 text-align-center">
     @for (item of QUIZZES; track item.path) {
         <a class="card px-5 pb-5" [routerLink]="item.path">
-            <!-- The old markup opened a Bootstrap modal here, from a
-                 data-bs-target pointing at #site-banners-modal on every card.
-                 There is no Bootstrap and no such modal, so it opened nothing.
-                 The longer description it would have shown is on the icon. -->
-            <i class="icon icon-info help-icon" [title]="item.about | translate"></i>
+            <!-- The old markup pointed a Bootstrap data-bs-target at a modal
+                 that did not exist, so it opened nothing. This is the guide it
+                 meant to open, and it is a translation now rather than a
+                 template literal in a data file. -->
+            <app-guide-icon class="help-icon" [guide]="item.id"></app-guide-icon>
 
             <img [src]="item.image" [alt]="item.title | translate" loading="lazy" />
 

@@ -23,7 +23,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 136
+                "line": 137
             },
             "expanded": [],
             "payload": null,
@@ -55,7 +55,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 209
+                "line": 210
             },
             "expanded": [],
             "payload": null,
@@ -10458,7 +10458,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 310
+                "line": 311
             },
             "expanded": [],
             "payload": "User\\TranslationKey",
@@ -10493,7 +10493,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 362
+                "line": 371
             },
             "expanded": [],
             "payload": null,
@@ -10530,7 +10530,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 339
+                "line": 348
             },
             "expanded": [],
             "payload": "User\\TranslationKey",
@@ -10627,7 +10627,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 279
+                "line": 280
             },
             "expanded": [],
             "payload": null,
@@ -14811,6 +14811,14 @@
                     ],
                     "nullable": true,
                     "optional": true
+                },
+                {
+                    "name": "is_html",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": true,
+                    "optional": true
                 }
             ],
             "jsonFields": []
@@ -18972,6 +18980,16 @@
                     "optional": false,
                     "of": null,
                     "description": "`common` when every site loads it, otherwise the site that owns it."
+                },
+                {
+                    "name": "is_html",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Markup rather than a sentence - edited in the HTML editor."
                 },
                 {
                     "name": "values",

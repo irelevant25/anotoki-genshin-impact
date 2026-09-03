@@ -4,6 +4,8 @@ import { TranslationApiService, Language, TranslationAdminView, TranslationSite 
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { ModalService } from '../../../../shared/local-lib/components/modal/modal.service';
+import { HtmlTranslationEdit, HtmlTranslationModalComponent } from './html-translation-modal/html-translation-modal.component';
 
 const FALLBACK_LANGUAGE = 'en';
 
@@ -11,6 +13,8 @@ interface GridRow {
   name: string;
   description: string | null;
   site: string;
+  /** Markup rather than a sentence, so the grid's one-line box is the wrong tool. */
+  is_html: boolean;
   values: Record<string, string>;
 }
 
@@ -30,6 +34,7 @@ interface GridRow {
 export class TranslationsComponent implements OnInit {
   private readonly _translationApi = inject(TranslationApiService);
   private readonly _notify = inject(NotificationService);
+  private readonly _modals = inject(ModalService);
 
   readonly loading = signal(false);
   readonly saving = signal(false);
@@ -173,6 +178,68 @@ export class TranslationsComponent implements OnInit {
 
   discard(): void {
     this._edits.set({});
+  }
+
+  // ── Markup ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Opens a key whose value is a page rather than a line.
+   *
+   * What comes back is collected into the same pending edits as any typed
+   * change, so a guide and a label are saved by the same button. Editing
+   * markup should not be a second, separate way to write to the database.
+   */
+  openHtml(row: GridRow): void {
+    const modal = this._modals.open<HtmlTranslationModalComponent, HtmlTranslationEdit[] | null>(
+      HtmlTranslationModalComponent,
+      { size: '6', scrollable: true },
+    );
+
+    const values: Record<string, string> = {};
+    for (const language of this.languages()) {
+      values[language.code] = this.valueOf(row, language.code);
+    }
+
+    modal.componentInstance.keyName.set(row.name);
+    modal.componentInstance.description.set(row.description);
+    modal.componentInstance.languages.set(this.languages());
+    modal.componentInstance.initial.set(values);
+    modal.componentInstance.start();
+
+    modal.closed.subscribe((edits) => {
+      if (!edits?.length) {
+        return;
+      }
+      for (const edit of edits) {
+        this.setValue(row, edit.code, edit.value);
+      }
+      this._notify.showSuccess(`${edits.length} language(s) changed — still to save.`);
+    });
+  }
+
+  /**
+   * Marks a key as markup, or stops doing so.
+   *
+   * Only the editor changes. The stored text is left exactly as it is, because
+   * a mis-click on a checkbox should not be able to flatten a page of markup -
+   * and because whether a page renders it as markup is that page's decision,
+   * not this flag's.
+   */
+  toggleHtml(row: GridRow): void {
+    this._translationApi.updateTranslationKey(row.name, { is_html: !row.is_html }).subscribe({
+      next: () => this.load(),
+      error: (e) => this._notify.showError(e?.error?.error ?? 'Failed to change the key'),
+    });
+  }
+
+  /** A one-line box would show the first few tags of a guide and nothing else. */
+  summarize(row: GridRow, code: string): string {
+    const value = this.valueOf(row, code);
+    if (!value) {
+      return '';
+    }
+    const text = value.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+    return text.length > 90 ? `${text.slice(0, 87)}...` : text;
   }
 
   save(): void {

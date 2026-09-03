@@ -282,6 +282,29 @@
   line-height: 1.4;
 }
 
+// A key holding markup. Shows the words rather than the tags, and opens the
+// editor instead of pretending a page fits in a one-line box.
+.html-cell {
+  display: block;
+  width: 100%;
+  min-width: 14rem;
+  min-height: 2.1rem;
+  text-align: left;
+  cursor: pointer;
+  line-height: 1.4;
+  color: var(--text-secondary);
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--text-primary);
+  }
+
+  &.is-missing {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+}
+
 // An unsaved change is worth seeing at a glance before hitting Save.
 .is-edited {
   background: var(--color-warning-light);
@@ -340,7 +363,8 @@
 // the shared table, but visibly not part of what this site serves.
 .is-foreign {
   .col-key code,
-  .value-input {
+  .value-input,
+  .html-cell {
     opacity: 0.75;
   }
 }

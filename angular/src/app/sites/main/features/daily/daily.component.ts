@@ -5,6 +5,7 @@ import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe'
 import { DailyStatus, dailyQuizzes, dailyStatus, todayString } from '../quizzes/shared/daily';
 import { QuizProgressService } from '../quizzes/shared/quiz-progress.service';
 import { QuizCard, quizCard } from '../quizzes/shared/quiz-catalog';
+import { GuideIconComponent } from '../../common/guide/guide-icon.component';
 
 interface DailyEntry {
   card: QuizCard;
@@ -22,7 +23,7 @@ interface DailyEntry {
   selector: 'app-daily',
   templateUrl: './daily.component.html',
   styleUrls: ['./daily.component.scss'],
-  imports: [RouterModule, TranslatePipe, LoaderComponent],
+  imports: [RouterModule, TranslatePipe, LoaderComponent, GuideIconComponent],
 })
 export class DailyComponent {
   private readonly _progress = inject(QuizProgressService);

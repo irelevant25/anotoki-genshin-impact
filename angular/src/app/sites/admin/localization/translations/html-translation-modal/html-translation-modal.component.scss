@@ -1,0 +1,65 @@
+.language-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.language-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xxs) var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-pill);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+
+    code {
+        color: var(--text-muted);
+        text-transform: uppercase;
+    }
+
+    &:hover {
+        border-color: var(--border-color-dark);
+    }
+
+    &.is-active {
+        border-color: var(--color-primary);
+        background: var(--color-primary-light);
+        color: var(--color-primary-light-text);
+
+        code {
+            color: inherit;
+        }
+    }
+
+    // A language with nothing in it falls back to English on the site, which is
+    // worth seeing at a glance rather than by opening each tab.
+    &.is-missing code::after {
+        content: " ·";
+        color: var(--color-warning, var(--text-muted));
+    }
+}
+
+.tab-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+
+.footer-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+.footer-note {
+    flex: 1;
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+}

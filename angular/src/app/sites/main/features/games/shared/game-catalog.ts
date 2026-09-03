@@ -8,7 +8,6 @@ export interface GameCard {
   readonly path: string;
   readonly title: string;
   readonly info: string;
-  readonly about: string;
   readonly image: string;
 }
 
@@ -26,7 +25,6 @@ export const GAME_CATALOG: readonly GameCard[] = [
     path: ROUTE_MAP.map['games'].tournament.path,
     title: 'game.tournament.title',
     info: 'game.tournament.info',
-    about: 'game.tournament.about',
     image: 'assets/character/wish_icon/Klee.avif',
   },
   {
@@ -34,7 +32,6 @@ export const GAME_CATALOG: readonly GameCard[] = [
     path: ROUTE_MAP.map['games'].minesweeper.path,
     title: 'game.minesweeper.title',
     info: 'game.minesweeper.info',
-    about: 'game.minesweeper.about',
     image: 'assets/character/wish_icon/Citlali.avif',
   },
 ];

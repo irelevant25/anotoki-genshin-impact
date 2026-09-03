@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
 import { GAME_CATALOG } from './shared/game-catalog';
+import { GuideIconComponent } from '../../common/guide/guide-icon.component';
 
 /**
  * The two games, on the same cards the Quizzes page uses.
@@ -13,7 +14,7 @@ import { GAME_CATALOG } from './shared/game-catalog';
   selector: 'app-games',
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.scss'],
-  imports: [RouterModule, TranslatePipe],
+  imports: [RouterModule, TranslatePipe, GuideIconComponent],
 })
 export class GamesComponent {
   readonly GAMES = GAME_CATALOG;

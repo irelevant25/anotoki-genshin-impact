@@ -37,6 +37,7 @@ export interface TranslationKeyPayload {
   name: string;
   description?: string | null;
   site?: string | null;
+  is_html?: boolean | null;
 }
 
 /**
@@ -76,6 +77,8 @@ export interface TranslationGridKey {
   description: string | null;
   /** `common` when every site loads it, otherwise the site that owns it. */
   site: string;
+  /** Markup rather than a sentence - edited in the HTML editor. */
+  is_html: boolean;
   values: Record<string, string>;
 }
 
