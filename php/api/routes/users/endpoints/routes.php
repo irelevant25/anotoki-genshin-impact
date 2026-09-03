@@ -43,6 +43,91 @@ $app->get('/api/routes', function (Request $request, Response $response) {
     ]);
 })->add(responds(SiteRouteList::class))->add(requireRole('ADMIN'))->add(requireAuth());
 
+// ── POST /api/routes ─────────────────────────────────────────────────────────
+//
+// A page the migration did not seed. The seeded rows are every route the
+// router declares today, so this is for the one written since - or for a page
+// somebody wants governed before its route exists, which is the useful order
+// when the point is that it should not be reachable yet.
+//
+// Nothing checks the path against the router, on purpose. The API has no idea
+// what the front end declares, and a check it could only guess at would refuse
+// pages that exist and admit pages that do not.
+
+$app->post('/api/routes', function (Request $request, Response $response) {
+    $body = $request->getParsedBody() ?? [];
+    $path = rtrim(trim((string) ($body['path'] ?? '')), '/');
+
+    // rtrim takes the root down to nothing, and the root is a real page.
+    if ($path === '') {
+        $path = '/';
+    }
+
+    if ($refusal = routePathRefusal($path)) {
+        return respondJson($response, ['error' => $refusal], 422);
+    }
+
+    foreach (siteRoutesAll() as $existing) {
+        if ($existing['path'] === $path) {
+            return respondJson($response, ['error' => "'$path' is already in the table"], 409);
+        }
+    }
+
+    $visibility = (string) ($body['visibility'] ?? 'ADMIN');
+
+    if (!in_array($visibility, ROUTE_VISIBILITY, true)) {
+        return respondJson($response, ['error' => "'$visibility' is not one of: " . implode(', ', ROUTE_VISIBILITY)], 422);
+    }
+
+    $pdo = usersDb();
+    $user = $request->getAttribute('user');
+
+    // At the end, because there is nowhere else it obviously belongs: the
+    // seeded rows are in route order and a new page has no place in it.
+    $order = (int) $pdo->query('SELECT COALESCE(MAX(sort_order), 0) + 10 FROM site_routes')->fetchColumn();
+
+    $statement = $pdo->prepare(
+        'INSERT INTO site_routes (site, path, visibility, blocked, sort_order, updated_at, updated_by)
+         VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?)'
+    );
+    $statement->execute([currentSite(), $path, $visibility, userBool((bool) ($body['blocked'] ?? false)), $order, (int) $user['id']]);
+
+    siteRoutesForget();
+
+    return respondJson($response, [
+        'routes' => adminRouteRows(),
+        'levels' => ROUTE_VISIBILITY,
+    ], 201);
+})->add(responds(SiteRouteList::class))->add(requireRole('ADMIN'))->add(requireAuth());
+
+// ── DELETE /api/routes/{id} ──────────────────────────────────────────────────
+//
+// Ungoverns a page rather than removing it from the site: a page with no row
+// is public and always drawn, which is the state everything was in before this
+// table existed. So this is the undo for the button above, and the way to stop
+// governing a seeded page without setting it back to public by hand.
+//
+// The endpoints go with it, by the foreign key.
+
+$app->delete('/api/routes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
+    $pdo = usersDb();
+    $id = (int) $args['id'];
+
+    $statement = $pdo->prepare('DELETE FROM site_routes WHERE id = ? AND site = ?');
+    $statement->execute([$id, currentSite()]);
+
+    if ($statement->rowCount() === 0) {
+        return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    siteRoutesForget();
+
+    return respondJson($response, [
+        'routes' => adminRouteRows(),
+        'levels' => ROUTE_VISIBILITY,
+    ]);
+})->add(responds(SiteRouteList::class))->add(requireRole('ADMIN'))->add(requireAuth());
+
 // ── PUT /api/routes ──────────────────────────────────────────────────────────
 //
 // Takes the rows that changed. A path that has no row is refused rather than

@@ -130,6 +130,7 @@ export const BODIES = {
   'PUT /api/users/{id}/enabled': 'EnabledRequest',
   'PUT /api/settings': 'SiteSettingsSaveRequest',
   'PUT /api/routes': 'SiteRoutesSaveRequest',
+  'POST /api/routes': 'SiteRouteCreateRequest',
   'PUT /api/admin/translations': 'TranslationSaveRequest',
   'PUT /api/translations/{code}/import': 'TranslationImportRequest',
   'PUT /api/feedback/{id}/status': 'FeedbackStatusRequest',
@@ -231,6 +232,8 @@ export const NAMES = {
   'PUT /api/settings': 'saveSettings',
   'GET /api/routes': 'getRoutes',
   'PUT /api/routes': 'saveRoutes',
+  'POST /api/routes': 'addRoute',
+  'DELETE /api/routes/{id}': 'deleteRoute',
   'GET /api/audit-logs': 'getAuditLogPage',
   'GET /api/audit-logs/filters': 'getAuditLogFilters',
 

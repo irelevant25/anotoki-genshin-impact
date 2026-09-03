@@ -10239,6 +10239,36 @@
             ]
         },
         {
+            "method": "POST",
+            "path": "/api/routes",
+            "args": [],
+            "file": "routes.php",
+            "tables": [
+                "site_routes"
+            ],
+            "success": 201,
+            "statuses": [
+                201,
+                409,
+                422
+            ],
+            "responds": {
+                "shape": "SiteRouteList",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\routes.php",
+                "line": 101
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
             "method": "PUT",
             "path": "/api/routes",
             "args": [],
@@ -10257,7 +10287,41 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\routes.php",
-                "line": 172
+                "line": 257
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/routes/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "routes.php",
+            "tables": [
+                "site_routes"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
+            "responds": {
+                "shape": "SiteRouteList",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\routes.php",
+                "line": 129
             },
             "expanded": [],
             "payload": null,
@@ -10345,7 +10409,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\settings.php",
-                "line": 118
+                "line": 121
             },
             "expanded": [],
             "payload": null,
@@ -10372,7 +10436,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\settings.php",
-                "line": 193
+                "line": 196
             },
             "expanded": [],
             "payload": null,
@@ -10398,7 +10462,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\settings.php",
-                "line": 112
+                "line": 115
             },
             "expanded": [],
             "payload": null,

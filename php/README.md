@@ -169,9 +169,20 @@ Two rules worth knowing:
   gate so nobody can lock themselves out, but those are the paths where locking
   out everybody else is worst.
 
-`/confirm-email`, `/reset-password` and `/staff` have no row at all, and a page
-with no row is ungoverned. Governing them would break links already sitting in
-people's inboxes, or lock the door with the key inside.
+**Add a page** takes a path the migration did not seed — one written since, or
+one somebody wants governed before its route exists, which is the useful order
+when the point is that it should not be reachable yet. Nothing checks the path
+against the router: the API has no idea what the front end declares, and a
+check it could only guess at would refuse pages that exist and admit pages that
+do not. New rows are `ADMIN` until changed.
+
+The **×** on a row stops governing that page rather than removing it from the
+site — a page with no row is public and always drawn, which is what everything
+was before this table existed.
+
+`/confirm-email`, `/reset-password` and `/staff` have no row and cannot be
+given one. Governing them would break links already sitting in people's
+inboxes, or lock the door with the key inside.
 
 Everything above is enforced twice on purpose: the site draws the closed sign
 and hides the menu item, and the API means it. A closed sign drawn in a browser

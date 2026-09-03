@@ -1,4 +1,4 @@
-<app-modal title="Parts of the site" subtitle="Which pages exist, and who they exist for" (closeModal)="closeModal()">
+<app-modal title="Parts of the site" subtitle="Which pages exist, and who they exist for" (closeModal)="dismiss()">
     <div modal-body>
         <p class="routes-note">
             <strong>Visible to</strong> is who the page is drawn for — it leaves the menu and stops matching in the router for everybody else.
@@ -14,6 +14,7 @@
                         <th scope="col" class="col-visibility">Visible to</th>
                         <th scope="col" class="col-off">Off</th>
                         <th scope="col" class="col-api">Also locks</th>
+                        <th scope="col" class="col-remove"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +48,21 @@
                                     }
                                 </button>
                             </td>
+
+                            <!-- Stops governing the page rather than removing
+                                 it from the site: a page with no row is public
+                                 and always drawn, which is what everything was
+                                 before this table existed. -->
+                            <td class="col-remove">
+                                @if (removeConfirm() === route.id) {
+                                    <span class="confirm-row">
+                                        <app-button text="Remove" variant="danger" size="very-small" (buttonClick)="remove(route)"></app-button>
+                                        <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelRemove()"></app-button>
+                                    </span>
+                                } @else {
+                                    <button type="button" class="route-remove" title="Stop governing this page" (click)="askToRemove(route.id)">&times;</button>
+                                }
+                            </td>
                         </tr>
 
                         <!-- Folded away rather than nested in a second modal: a
@@ -54,7 +70,7 @@
                              worse answer than a row that opens. -->
                         @if (expanded() === route.id) {
                             <tr class="endpoint-row">
-                                <td colspan="4">
+                                <td colspan="5">
                                     <p class="endpoint-help">
                                         API paths that go dark with this page. Matched from the start, so <code>/api/quiz</code> covers
                                         <code>/api/quizzes</code> and <code>/api/quiz/stats</code> alike. Leave it empty and only the page is affected —
@@ -90,6 +106,36 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- The seeded rows are every route the router declared at the time,
+             so this is for one written since - or for a page somebody wants
+             governed before its route exists, which is the useful order when
+             the point is that it should not be reachable yet. -->
+        <div class="add-row">
+            @if (adding()) {
+                <input
+                    class="admin-input add-path"
+                    type="text"
+                    placeholder="/quizzes/something-new"
+                    [value]="newPath()"
+                    (input)="newPath.set($any($event.target).value)"
+                    (keydown.enter)="add()"
+                />
+
+                <select class="admin-select add-visibility" (change)="newVisibility.set($any($event.target).value)">
+                    @for (level of levels(); track level) {
+                        <option [value]="level" [selected]="level === newVisibility()">{{ label(level) }}</option>
+                    }
+                </select>
+
+                <app-button text="Add" icon="icon-plus" size="small" [loading]="saving()" [disabled]="!newPath().trim()" (buttonClick)="add()"></app-button>
+                <app-button text="Cancel" variant="secondary" size="small" [outline]="true" (buttonClick)="cancelAdding()"></app-button>
+
+                <span class="add-note">Admins only by default — the safe answer for a page nobody has thought about yet.</span>
+            } @else {
+                <app-button text="Add a page" icon="icon-plus" variant="secondary" size="small" (buttonClick)="startAdding()"></app-button>
+            }
+        </div>
     </div>
 
     <div modal-footer class="d-flex gap-3 justify-content-end align-items-center">
@@ -102,7 +148,7 @@
         </span>
 
         <app-button text="Discard" variant="secondary" [outline]="true" [disabled]="!changed().length || saving()" (buttonClick)="reset()"></app-button>
-        <app-button text="Cancel" variant="secondary" (buttonClick)="closeModal()"></app-button>
+        <app-button text="Cancel" variant="secondary" (buttonClick)="dismiss()"></app-button>
         <app-button text="Save" icon="icon-check" [loading]="saving()" [disabled]="!changed().length" (buttonClick)="save()"></app-button>
     </div>
 </app-modal>

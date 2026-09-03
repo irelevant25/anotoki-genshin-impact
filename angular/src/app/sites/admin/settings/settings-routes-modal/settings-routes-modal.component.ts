@@ -48,6 +48,23 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
   /** What is being typed into the open page's "add an endpoint" box. */
   readonly newEndpoint = signal('');
 
+  /** The page being added, and whether the row for it is open. */
+  readonly adding = signal(false);
+  readonly newPath = signal('');
+  readonly newVisibility = signal('ADMIN');
+
+  /** Which page the "remove this row" button is waiting for confirmation on. */
+  readonly removeConfirm = signal<number | null>(null);
+
+  /**
+   * Whether anything has actually been written.
+   *
+   * Adding and removing a page write immediately, so closing with Cancel after
+   * one of those still has to tell the page behind to re-read - otherwise its
+   * card would sit there counting a table that has changed underneath it.
+   */
+  private _wrote = false;
+
   /** Who a page is drawn for, in words. A level with no wording shows as itself. */
   label(level: string): string {
     return VISIBILITY_LABELS[level] ?? level;
@@ -100,6 +117,11 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
     this._write(route, { endpoints: this.of(route).endpoints.filter((entry) => entry !== prefix) });
   }
 
+  /** Closes, telling the page behind whether it has anything to re-read. */
+  dismiss(): void {
+    this.closeModal(this._wrote);
+  }
+
   save(): void {
     const changes: SiteRouteChange[] = this.changed().map((route) => ({
       id: route.id,
@@ -109,7 +131,7 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
     }));
 
     if (!changes.length) {
-      this.closeModal();
+      this.dismiss();
       return;
     }
 
@@ -133,6 +155,106 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
 
   reset(): void {
     this.start();
+    this.expanded.set(null);
+  }
+
+  // ── Adding and removing a page ─────────────────────────────────────────────
+  //
+  // Both write straight away rather than joining the draft the rest of the
+  // form holds. Changing a page and adding one are different acts: Save is for
+  // "these four rows now read like this", and folding a creation into it would
+  // mean Discard could take a page away that had been sitting in the table for
+  // a minute looking exactly like the others.
+
+  startAdding(): void {
+    this.newPath.set('');
+    this.newVisibility.set('ADMIN');
+    this.adding.set(true);
+  }
+
+  cancelAdding(): void {
+    this.adding.set(false);
+  }
+
+  add(): void {
+    const path = this.newPath().trim();
+
+    if (!path || this.saving()) {
+      return;
+    }
+
+    this.saving.set(true);
+
+    this._api.addRoute({ path, visibility: this.newVisibility(), blocked: false }).subscribe({
+      next: (list) => {
+        this._wrote = true;
+        this._adopt(list);
+        this.saving.set(false);
+        this.adding.set(false);
+        this.notificationService.showSuccess('Page added.');
+      },
+      error: (error) => {
+        this.saving.set(false);
+        // The API refuses a path that is not one the router could declare, one
+        // that is already here, and the three that are how somebody gets into
+        // their account. Each says which and why, so that sentence is shown.
+        this.notificationService.showError(error?.error?.error ?? 'That could not be added.');
+      },
+    });
+  }
+
+  askToRemove(id: number): void {
+    this.removeConfirm.set(id);
+  }
+
+  cancelRemove(): void {
+    this.removeConfirm.set(null);
+  }
+
+  /**
+   * Stops governing a page rather than removing it from the site.
+   *
+   * A page with no row is public and always drawn, which is what everything
+   * was before this table existed - so this is the undo for the button above,
+   * and the way to let a seeded page go back to being nobody's business.
+   */
+  remove(route: AdminSiteRoute): void {
+    this.saving.set(true);
+    this.removeConfirm.set(null);
+
+    this._api.deleteRoute(route.id).subscribe({
+      next: (list) => {
+        this._wrote = true;
+        this._adopt(list);
+        this.saving.set(false);
+        this.notificationService.showSuccess('That page is no longer governed.');
+      },
+      error: (error) => {
+        this.saving.set(false);
+        this.notificationService.showError(error?.error?.error ?? 'That could not be removed.');
+      },
+    });
+  }
+
+  /**
+   * Takes the table the API just answered with.
+   *
+   * Unsaved edits to the other rows are kept: adding a page is not a reason to
+   * throw away the two dropdowns somebody had already changed. Only rows that
+   * are new to the draft get their saved values.
+   */
+  private _adopt(list: { routes: AdminSiteRoute[] }): void {
+    const kept = this.draft();
+
+    this.routes.set(list.routes);
+    this.draft.set(
+      Object.fromEntries(
+        list.routes.map((route) => [
+          route.id,
+          kept[route.id] ?? { visibility: route.visibility, blocked: route.blocked, endpoints: [...route.endpoints] },
+        ]),
+      ),
+    );
     this.expanded.set(null);
   }
 

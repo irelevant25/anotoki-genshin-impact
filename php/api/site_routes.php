@@ -209,6 +209,43 @@ function routeEndpointRefusal(string $path, ?array $user): ?array
     return ['error' => 'That part of the site is not available', 'code' => 'route_locked'];
 }
 
+/**
+ * Pages this table is not allowed to govern.
+ *
+ * The first two are where emailed links land: governing them would break
+ * messages sent before anybody touched the switch, and the person holding one
+ * has no account yet to be the right kind of reader. The third is the way back
+ * in when the site is closed, and a blocked /staff is a locked door with the
+ * key inside.
+ */
+const ROUTE_PATH_RESERVED = ['/confirm-email', '/reset-password', '/staff'];
+
+/** Why this page may not be added, or null when it may. */
+function routePathRefusal(string $path): ?string
+{
+    if (!str_starts_with($path, '/')) {
+        return "'$path' is not a page - they all begin with /";
+    }
+
+    if (strlen($path) > 255) {
+        return 'That path is too long';
+    }
+
+    // Letters, digits, dashes and underscores per segment, plus a leading ':'
+    // for the placeholder segments the router writes. No empty segments, so
+    // '/database//weapons' and a trailing slash are both out.
+    if ($path !== '/' && !preg_match('#^(/:?[A-Za-z0-9][A-Za-z0-9._-]*)+$#', $path)) {
+        return "'$path' is not a path the router could declare";
+    }
+
+    if (in_array($path, ROUTE_PATH_RESERVED, true)) {
+        return "'$path' is how somebody gets into their account, and is not governable - "
+             . 'switching it off would break links already sitting in inboxes';
+    }
+
+    return null;
+}
+
 /** Why this prefix may not be saved, or null when it may. */
 function routeEndpointRefusalToSave(string $prefix): ?string
 {

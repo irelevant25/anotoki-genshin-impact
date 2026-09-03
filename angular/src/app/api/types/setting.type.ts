@@ -43,3 +43,21 @@ export interface SiteRouteChange {
 export interface SiteRoutesSaveRequest {
   routes: SiteRouteChange[];
 }
+
+/**
+ * A page the migration did not seed.
+ *
+ * The seeded rows are every route the router declared at the time, so this is
+ * for one written since - or for a page somebody wants governed before its
+ * route exists, which is the useful order when the point is that it should not
+ * be reachable yet. Nothing checks the path against the router: the API has no
+ * idea what the front end declares.
+ *
+ * `visibility` defaults to ADMIN, because the safe default for a page nobody
+ * has thought about is that nobody sees it.
+ */
+export interface SiteRouteCreateRequest {
+  path: string;
+  visibility?: string;
+  blocked?: boolean;
+}

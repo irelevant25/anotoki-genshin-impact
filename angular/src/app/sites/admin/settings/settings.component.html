@@ -1,10 +1,11 @@
-<div class="page-header">
+<div class="page-header justify-content-start">
     <h1 class="page-title">Site settings</h1>
+    <app-button text="Reload" variant="secondary" [outline]="true" icon="icon-history" (buttonClick)="load()"></app-button>
 </div>
 
 <p class="page-note">
-    Switches that take effect the moment they are saved, for everybody reading the site. The site enforces none of them on its own — the API refuses the same
-    things, so a closed site is closed to anything that talks to it directly too.
+    Switches that take effect the moment they are saved, for everybody reading the site. The site enforces none of them on its own — the API refuses the same things, so a closed site is closed to
+    anything that talks to it directly too.
 </p>
 
 <app-loader #loader [loading]="busy()"></app-loader>
@@ -58,9 +59,5 @@
                 }
             </span>
         </button>
-    </div>
-
-    <div class="settings-actions">
-        <app-button text="Reload" variant="secondary" [outline]="true" icon="icon-history" (buttonClick)="load()"></app-button>
     </div>
 }

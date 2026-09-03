@@ -6,7 +6,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SiteRouteList } from '../models';
-import { SiteRoutesSaveRequest } from '../types';
+import { SiteRouteCreateRequest, SiteRoutesSaveRequest } from '../types';
 
 /**
  * Which pages of the site exist, who they are drawn for, and which API paths go dark with them.
@@ -14,6 +14,24 @@ import { SiteRoutesSaveRequest } from '../types';
 @Injectable({ providedIn: 'root' })
 export class RouteApiService {
   private readonly _http = inject(HttpClient);
+
+  /**
+   * `POST /api/routes`
+   *
+   * Requires the `ADMIN` role.
+   */
+  addRoute(body: SiteRouteCreateRequest): Observable<SiteRouteList> {
+    return this._http.post<SiteRouteList>('/api/routes', body);
+  }
+
+  /**
+   * `DELETE /api/routes/{id}`
+   *
+   * Requires the `ADMIN` role.
+   */
+  deleteRoute(id: number): Observable<SiteRouteList> {
+    return this._http.delete<SiteRouteList>(`/api/routes/${id}`);
+  }
 
   /**
    * `GET /api/routes`
