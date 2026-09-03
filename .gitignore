@@ -17,4 +17,5 @@ php/storage/
 # leave it behind in a commit.
 angular/.openapi-probe.ts
 
-./php/config/google.php
+php/config/google.php
+php/config/database.local.php
