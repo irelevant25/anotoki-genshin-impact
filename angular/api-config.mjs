@@ -54,6 +54,7 @@ export const GROUPS = [
   ['migration', ['/api/migrations']],
   ['session', ['/api/sessions']],
   ['setting', ['/api/settings']],
+  ['route', ['/api/routes']],
   ['dashboard', ['/api/dashboard']],
   ['lookup', ['/api/']],
 ];
@@ -81,6 +82,7 @@ export const GROUP_DOCS = {
   migration: 'Which migrations have run against which database.',
   session: 'Every session anybody has had here: who signed in, from where, and which are still live.',
   setting: 'The switches an admin can throw without a deploy - maintenance, sign-in, the announcement bar.',
+  route: 'Which pages of the site exist, who they are drawn for, and which API paths go dark with them.',
   dashboard: 'The counts on the admin landing page.',
   lookup: 'The name-keyed lookup tables. Every one is a list of `{ name }`, read to fill a dropdown.',
 };
@@ -127,6 +129,7 @@ export const BODIES = {
   'PUT /api/users/{id}/password': 'SetPasswordRequest',
   'PUT /api/users/{id}/enabled': 'EnabledRequest',
   'PUT /api/settings': 'SiteSettingsSaveRequest',
+  'PUT /api/routes': 'SiteRoutesSaveRequest',
   'PUT /api/admin/translations': 'TranslationSaveRequest',
   'PUT /api/translations/{code}/import': 'TranslationImportRequest',
   'PUT /api/feedback/{id}/status': 'FeedbackStatusRequest',
@@ -226,6 +229,8 @@ export const NAMES = {
   'GET /api/settings/public': 'getPublicSettings',
   'GET /api/settings': 'getSettings',
   'PUT /api/settings': 'saveSettings',
+  'GET /api/routes': 'getRoutes',
+  'PUT /api/routes': 'saveRoutes',
   'GET /api/audit-logs': 'getAuditLogPage',
   'GET /api/audit-logs/filters': 'getAuditLogFilters',
 

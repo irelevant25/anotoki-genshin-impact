@@ -113,15 +113,13 @@ being written down anywhere else.
 
 ### Site settings
 
-Admin panel → System → Site Settings. Four switches an admin can throw without
-a deploy, plus a line of text across the top of every page:
+Admin panel → System → Site Settings. A card per group; each opens a modal.
 
 | Switch | What it does |
 | --- | --- |
 | Maintenance mode | The site draws a closed sign instead of itself, and the API answers 503 to everything but signing in, the languages and the strings on the sign. Admins are exempt. |
 | Signing in | Closes every way in — password, emailed code, Google, confirmation links and password resets — for everybody but admins, and takes the sign-in and register buttons off the site. |
 | Google sign-in | Hides the Google button and refuses Google tokens, admins included. |
-| Switched-off sections | A top-level section of the site disappears from the menu and its pages answer as not found. |
 | Announcement | A dismissable bar above the header, one message per language, at one of three levels. |
 
 **Getting back in after switching the site off**: `/staff`. It is the ordinary
@@ -131,16 +129,53 @@ back from both maintenance mode and the sign-in switch.
 
 The switches live in `site_settings`, one row each, scoped by site. Adding
 another is a row in a migration — `name`, a `type` out of
-`boolean | text | i18n | choice | routes`, and a default — plus an entry in
-`WORDS` in `sites/admin/settings/settings.component.ts` if it deserves a
-sentence. The admin form draws whatever it finds, so a new switch is editable
-before anybody writes about it.
+`boolean | text | i18n | choice`, and a default — plus an entry in
+`SETTING_WORDS` in `sites/admin/settings/settings-words.ts` if it deserves a
+sentence. The form draws whatever it finds, so a new switch is editable before
+anybody writes about it.
 
-Everything is enforced twice on purpose: the site draws the closed sign, and
-`api/meddleware/maintenance.php` and `refuseSignIn()` mean it. A closed sign
-drawn in a browser stops the people who were going to read the page and nobody
-else. The one exception is the switched-off sections, which are presentation —
-the API behind those pages is unchanged.
+### Parts of the site
+
+The third card. A row per page in `site_routes`, seeded from the router by a
+migration, carrying two separate decisions:
+
+- **Visible to** — `PUBLIC`, `USER`, `EDITOR` or `ADMIN`. The lowest kind of
+  reader the page is drawn for. Everything is seeded `PUBLIC`; `ADMIN` is the
+  default for a row added by hand, because the safe default for a page nobody
+  has thought about is that nobody sees it.
+- **Off** — takes it away from everybody who is not an admin, whatever the
+  first says. "Members only" and "off this week" are different things.
+
+Either one takes the page out of the menu and stops it matching in the router,
+so its address answers as not found — at the address that was typed. Admins
+keep every page, with a badge in the menu and a bar on the page saying which of
+the two it is; without that, an admin switching something off would see no
+change at all.
+
+A page's **API paths** are optional and empty by default, so switching a page
+off leaves its data being served — right for "that page is not finished", wrong
+for "nobody may have this". Naming a path is what turns the sign into a lock:
+`api/meddleware/route_gate.php` then answers 423 to anybody the page is not
+drawn for. Paths are matched from the start, so `/api/quiz` covers
+`/api/quizzes` and `/api/quiz/stats` alike.
+
+Two rules worth knowing:
+
+- Where two pages claim the same path, **the more open one wins**. `/daily` and
+  `/quizzes` both run on `/api/quiz`, and switching one off should not quietly
+  take the endpoint away from the other.
+- A path covering `/api/auth`, `/api/settings`, `/api/routes`, `/api/languages`
+  or `/api/translations` is **refused on save**. Admins are exempt from the
+  gate so nobody can lock themselves out, but those are the paths where locking
+  out everybody else is worst.
+
+`/confirm-email`, `/reset-password` and `/staff` have no row at all, and a page
+with no row is ungoverned. Governing them would break links already sitting in
+people's inboxes, or lock the door with the key inside.
+
+Everything above is enforced twice on purpose: the site draws the closed sign
+and hides the menu item, and the API means it. A closed sign drawn in a browser
+stops the people who were going to read the page and nobody else.
 
 ### Filling the profile page with something to look at (optional)
 

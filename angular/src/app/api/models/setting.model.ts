@@ -26,6 +26,22 @@ export interface AdminSiteSetting {
 }
 
 /**
+ * One page, as the site itself needs to know about it.
+ *
+ * No endpoints: those are the gate's business, the front end has no use for
+ * them, and a list of which API paths are locked is a map nobody browsing the
+ * site needs. Everything here is already in the router in the bundle.
+ */
+export interface PublicSiteRoute {
+  /** As the router declares it. A ':id' segment matches any one segment. */
+  path: string;
+  /** PUBLIC, USER, EDITOR or ADMIN - the lowest reader it is drawn for. */
+  visibility: string;
+  /** Off for everybody who is not an admin. */
+  blocked: boolean;
+}
+
+/**
  * The shape of the site, before anybody has signed in.
  *
  * Open on purpose. A page cannot ask whether it should draw a maintenance
@@ -44,8 +60,8 @@ export interface PublicSiteSettings {
   google_login_enabled: boolean;
   /** Null when there is nothing to announce. */
   announcement: SiteAnnouncement | null;
-  /** Sections of the site that are switched off - see the admin form. */
-  disabled_routes: string[];
+  /** Which pages exist, and who they are drawn for. */
+  routes: PublicSiteRoute[];
 }
 
 /**

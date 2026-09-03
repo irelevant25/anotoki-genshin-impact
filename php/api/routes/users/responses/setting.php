@@ -43,8 +43,56 @@ class PublicSiteSettings extends ResponseShape
         public readonly bool $google_login_enabled,
         /** @var SiteAnnouncement|null Null when there is nothing to announce. */
         public readonly ?object $announcement,
-        /** @var string[] Sections of the site that are switched off - see the admin form. */
-        public readonly array $disabled_routes,
+        /** @var PublicSiteRoute[] Which pages exist, and who they are drawn for. */
+        public readonly array $routes,
+    ) {
+    }
+}
+
+/**
+ * One page, as the site itself needs to know about it.
+ *
+ * No endpoints: those are the gate's business, the front end has no use for
+ * them, and a list of which API paths are locked is a map nobody browsing the
+ * site needs. Everything here is already in the router in the bundle.
+ */
+class PublicSiteRoute extends ResponseShape
+{
+    public function __construct(
+        /** As the router declares it. A ':id' segment matches any one segment. */
+        public readonly string $path,
+        /** PUBLIC, USER, EDITOR or ADMIN - the lowest reader it is drawn for. */
+        public readonly string $visibility,
+        /** Off for everybody who is not an admin. */
+        public readonly bool $blocked,
+    ) {
+    }
+}
+
+/** One page, as the admin form sees it - the row plus what it claims. */
+class AdminSiteRoute extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $path,
+        public readonly string $visibility,
+        public readonly bool $blocked,
+        /** @var string[] API paths this page claims. Empty means its data is not locked. */
+        public readonly array $endpoints,
+        public readonly ?string $updated_at,
+        public readonly ?string $updated_by,
+    ) {
+    }
+}
+
+/** Every page, in the order the form draws them. */
+class SiteRouteList extends ResponseShape
+{
+    public function __construct(
+        /** @var AdminSiteRoute[] */
+        public readonly array $routes,
+        /** @var string[] The visibility levels, most open first. */
+        public readonly array $levels,
     ) {
     }
 }

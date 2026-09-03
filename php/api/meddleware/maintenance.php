@@ -36,41 +36,51 @@ const MAINTENANCE_OPEN_PREFIXES = [
 ];
 
 /**
- * Whether the request carries a live session belonging to an admin.
+ * Whoever is making this request, or null when that is nobody.
  *
  * The same three checks requireAuth() makes, made early - a global middleware
  * runs before any route's own, so there is no `user` attribute to read yet.
- * Only reached while maintenance is on, so the duplicated reads cost nothing
- * on a working day, and it never refuses: a token this cannot make sense of is
- * simply not an admin's, and the gate below says so in its own words.
+ * Memoised, because both gates below ask and neither should cost a second
+ * round trip to the users table.
+ *
+ * It never refuses. A token this cannot make sense of belongs to nobody, and
+ * the gates say what that means in their own words.
  */
-function maintenanceCallerIsAdmin(Request $request): bool
+function gateCaller(Request $request): ?array
 {
+    static $user = false;
+
+    if ($user !== false) {
+        return $user;
+    }
+
+    $user = null;
     $header = $request->getHeaderLine('Authorization');
 
     if (!str_starts_with($header, 'Bearer ')) {
-        return false;
+        return null;
     }
 
     $decoded = jwtVerify(substr($header, 7));
 
     if (!$decoded || empty($decoded['sid'])) {
-        return false;
+        return null;
     }
 
     try {
         $pdo = usersDb();
 
         if (!findSession($pdo, (string) $decoded['sid'])) {
-            return false;
+            return null;
         }
 
-        $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$decoded['sub']]);
+        $found = DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$decoded['sub']]);
+        $user = $found ?: null;
     } catch (\Throwable) {
-        return false;
+        $user = null;
     }
 
-    return isAdminUser($user ?: null);
+    return $user;
 }
 
 function maintenanceGate(): callable
@@ -95,7 +105,7 @@ function maintenanceGate(): callable
             }
         }
 
-        if (maintenanceCallerIsAdmin($request)) {
+        if (isAdminUser(gateCaller($request))) {
             return $handler->handle($request);
         }
 

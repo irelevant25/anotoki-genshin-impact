@@ -1,174 +1,124 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AdminSiteSetting, Language, LanguageApiService, SettingApiService, SiteSettingChange } from '../../../api';
-import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
+import { AdminSiteRoute, AdminSiteSetting, Language, LanguageApiService, RouteApiService, SettingApiService } from '../../../api';
+import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
-import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
-import { SWITCHABLE_SECTIONS } from '../../../shared/routing-definition';
+import { SettingsGroupModalComponent } from './settings-group-modal/settings-group-modal.component';
+import { SettingsRoutesModalComponent } from './settings-routes-modal/settings-routes-modal.component';
+import { SETTING_GROUPS, optionLabel, settingWords } from './settings-words';
 
-/** A group of switches, under one heading. */
-interface SettingGroup {
+/** A card on the page: what it covers, and what it currently says. */
+interface SettingCard {
   readonly key: string;
   readonly title: string;
   readonly note: string;
+  readonly icon: string;
+  /** A line per switch, so the card answers "what is it doing" without opening. */
+  readonly summary: readonly { label: string; state: string; on: boolean }[];
   readonly settings: AdminSiteSetting[];
 }
-
-/** The words for one switch. */
-interface SettingWords {
-  readonly label: string;
-  readonly help: string;
-}
-
-/**
- * What each switch is called, and what it does.
- *
- * In the template's own language rather than in the translation table, like
- * every other page in this panel: the admin site is English only, and thirty
- * keys nothing would ever read in a second language are thirty keys somebody
- * has to skip past in the translation editor.
- *
- * A setting with no entry here still appears and is still editable, under its
- * own name. That is the point of the form being generic - a switch added in a
- * migration is usable before anybody writes a sentence about it.
- */
-const WORDS: Record<string, SettingWords> = {
-  maintenance_mode: {
-    label: 'Maintenance mode',
-    help: 'Shows the maintenance page instead of the site, and the API refuses everything but signing in. Admins see the site as usual — and can always sign in at /staff, which is how you get back in after switching this on.',
-  },
-  maintenance_message: {
-    label: 'What the maintenance page says',
-    help: 'One message per language. A language left empty falls back to English, and English left empty falls back to the built-in sentence — the page is never blank.',
-  },
-  login_enabled: {
-    label: 'Signing in',
-    help: 'Off closes every way in — password, emailed code, Google, confirmation links and password resets — for everybody but admins, and takes the sign-in and register buttons off the site. /staff still has them.',
-  },
-  google_login_enabled: {
-    label: 'Google sign-in',
-    help: 'Off hides the Google button and refuses Google tokens, admins included. An account with no password and only Google attached cannot get in while this is off.',
-  },
-  announcement_enabled: {
-    label: 'Show the announcement',
-    help: 'Puts the message below across the top of every page. A reader can dismiss it, and it stays dismissed for them until the wording changes.',
-  },
-  announcement_level: {
-    label: 'Kind',
-    help: 'Decides how the bar is coloured.',
-  },
-  announcement_message: {
-    label: 'Message',
-    help: 'One per language. A language left empty falls back to English; with English empty too, nothing is drawn whatever the switch above says.',
-  },
-  disabled_routes: {
-    label: 'Switched-off sections',
-    help: 'A section that is off disappears from the menu and its pages answer as if they had never been written. This is the site, not the API: it is for a part of the site that is not ready, not for locking anything down.',
-  },
-};
-
-/** The heading and the one-liner above each group. */
-const GROUPS: Record<string, { title: string; note: string }> = {
-  access: {
-    title: 'Getting in',
-    note: 'Who can reach the site, and how they sign in to it.',
-  },
-  notice: {
-    title: 'Announcement',
-    note: 'A line across the top of every page, for when one thing has to reach everybody at once.',
-  },
-  routes: {
-    title: 'Parts of the site',
-    note: 'Which sections exist this week.',
-  },
-};
-
-/** What the sections are called on the site, for the checkboxes. */
-const SECTION_LABELS: Record<string, string> = {
-  daily: 'Daily',
-  quizzes: 'Quizzes',
-  games: 'Games',
-  database: 'Database',
-  profile: 'Profile',
-};
 
 /**
  * The switches an admin can throw without a deploy.
  *
- * The form is drawn from what the API returns rather than written out control
- * by control: each row carries a declared type, and there is one control per
- * type. Adding a setting is a row in a migration and, if it deserves a
- * sentence, an entry in WORDS above.
+ * A row of cards rather than one long form. The form was not big - four
+ * switches, two text boxes and a table - but it was taller than a screen, and
+ * a page you have to scroll to see all of is a page where you cannot tell at a
+ * glance what the site is currently doing. Each card says that much on its
+ * face and opens the rest.
  *
- * Everything is saved in one request. Maintenance mode and the words on the
- * maintenance page are one decision, and saving them separately would leave a
- * window — however short — where the site is closed and the sign is blank.
+ * Which switches exist comes from the API rather than from this file: each row
+ * carries a declared type, and there is one control per type. Adding a setting
+ * is a row in a migration and, if it deserves a sentence, an entry in
+ * settings-words.ts.
  */
 @Component({
   selector: 'app-admin-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
-  imports: [FormsModule, ButtonComponent, LoaderComponent, AppDatePipe],
+  imports: [ButtonComponent, LoaderComponent],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent extends AbstractModalComponent implements OnInit {
   private readonly _settingApi = inject(SettingApiService);
+  private readonly _routeApi = inject(RouteApiService);
   private readonly _languageApi = inject(LanguageApiService);
-  private readonly _notify = inject(NotificationService);
 
   readonly settings = signal<AdminSiteSetting[]>([]);
+  readonly routes = signal<AdminSiteRoute[]>([]);
+  readonly levels = signal<string[]>([]);
   readonly languages = signal<Language[]>([]);
-  readonly loading = signal(false);
-  readonly saving = signal(false);
   readonly failed = signal(false);
 
-  /**
-   * The form, as the values that would be sent.
-   *
-   * Every setting's value is text in the table, so the draft is text too and
-   * the controls parse in and out of it. One shape in, one shape out, and
-   * nothing to keep in step.
-   */
-  readonly draft = signal<Record<string, string>>({});
+  private readonly _loadingSettings = signal(false);
+  private readonly _loadingRoutes = signal(false);
 
-  readonly sections = SWITCHABLE_SECTIONS;
+  readonly busy = computed(() => this._loadingSettings() || this._loadingRoutes());
 
-  readonly groups = computed<SettingGroup[]>(() => {
-    const groups: SettingGroup[] = [];
+  readonly cards = computed<SettingCard[]>(() => {
+    const cards: SettingCard[] = [];
 
     for (const setting of this.settings()) {
-      let group = groups.find((candidate) => candidate.key === setting.group_name);
+      let card = cards.find((candidate) => candidate.key === setting.group_name);
 
-      if (!group) {
-        const words = GROUPS[setting.group_name] ?? { title: setting.group_name, note: '' };
-        group = { key: setting.group_name, title: words.title, note: words.note, settings: [] };
-        groups.push(group);
+      if (!card) {
+        const words = SETTING_GROUPS[setting.group_name] ?? { title: setting.group_name, note: '', icon: 'icon-gear' };
+        card = { key: setting.group_name, ...words, summary: [], settings: [] };
+        cards.push(card);
       }
 
-      group.settings.push(setting);
+      card.settings.push(setting);
+      (card.summary as { label: string; state: string; on: boolean }[]).push({
+        label: settingWords(setting.name).label,
+        state: this._state(setting),
+        on: setting.type === 'boolean' && setting.value === 'true',
+      });
     }
 
-    return groups;
+    return cards;
   });
 
-  /** Which settings the form would send, which is also whether Save does anything. */
-  readonly changed = computed(() => this.settings().filter((setting) => this.draft()[setting.name] !== (setting.value ?? '')));
+  /** What the pages card says on its face. */
+  readonly routesSummary = computed(() => {
+    const off = this.routes().filter((route) => route.blocked).length;
+    const restricted = this.routes().filter((route) => !route.blocked && route.visibility !== 'PUBLIC').length;
+    const locked = this.routes().filter((route) => route.endpoints.length).length;
+
+    return [
+      { label: 'Pages', state: String(this.routes().length), on: false },
+      { label: 'Switched off', state: off ? String(off) : 'none', on: off > 0 },
+      { label: 'Limited', state: restricted ? String(restricted) : 'none', on: restricted > 0 },
+      { label: 'Also locking their API', state: locked ? String(locked) : 'none', on: locked > 0 },
+    ];
+  });
 
   ngOnInit(): void {
     this.load();
   }
 
   load(): void {
-    this.loading.set(true);
+    this._loadingSettings.set(true);
+    this._loadingRoutes.set(true);
     this.failed.set(false);
 
     this._settingApi.getSettings().subscribe({
       next: (list) => {
-        this._adopt(list.settings);
-        this.loading.set(false);
+        this.settings.set(list.settings);
+        this._loadingSettings.set(false);
       },
       error: () => {
-        this.loading.set(false);
+        this._loadingSettings.set(false);
+        this.failed.set(true);
+      },
+    });
+
+    this._routeApi.getRoutes().subscribe({
+      next: (list) => {
+        this.routes.set(list.routes);
+        this.levels.set(list.levels);
+        this._loadingRoutes.set(false);
+      },
+      error: () => {
+        this._loadingRoutes.set(false);
         this.failed.set(true);
       },
     });
@@ -181,133 +131,51 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  save(): void {
-    const changes: SiteSettingChange[] = this.changed().map((setting) => ({
-      name: setting.name,
-      value: this.draft()[setting.name] ?? '',
-    }));
+  openCard(card: SettingCard): void {
+    const modal = this.openModal<SettingsGroupModalComponent>(SettingsGroupModalComponent, { size: '5' }, () => this.load());
 
-    if (!changes.length) {
-      return;
+    modal.componentInstance.title.set(card.title);
+    modal.componentInstance.note.set(card.note);
+    modal.componentInstance.settings.set(card.settings);
+    modal.componentInstance.languages.set(this.languages());
+    modal.componentInstance.start();
+  }
+
+  openRoutes(): void {
+    const modal = this.openModal<SettingsRoutesModalComponent>(SettingsRoutesModalComponent, { size: '6' }, () => this.load());
+
+    modal.componentInstance.routes.set(this.routes());
+    modal.componentInstance.levels.set(this.levels());
+    modal.componentInstance.start();
+  }
+
+  /** One switch, in the fewest words that say what it is doing. */
+  private _state(setting: AdminSiteSetting): string {
+    switch (setting.type) {
+      case 'boolean':
+        return setting.value === 'true' ? 'On' : 'Off';
+
+      case 'choice':
+        return optionLabel(setting.value ?? '');
+
+      case 'i18n': {
+        const written = Object.values(this._map(setting)).filter((text) => text.trim()).length;
+
+        return written ? `${written} ${written === 1 ? 'language' : 'languages'}` : 'not written';
+      }
+
+      default:
+        return setting.value?.trim() ? setting.value : 'empty';
     }
-
-    this.saving.set(true);
-
-    this._settingApi.saveSettings({ settings: changes }).subscribe({
-      next: (list) => {
-        // Adopted from the answer rather than assumed: the API is what decides
-        // what is now in force, and it sends back what it wrote.
-        this._adopt(list.settings);
-        this.saving.set(false);
-        this._notify.showSuccess('Saved.');
-      },
-      error: (error) => {
-        this.saving.set(false);
-        this._notify.showError(error?.error?.error ?? 'Those could not be saved.');
-      },
-    });
   }
 
-  /** Throws away every unsaved change. */
-  reset(): void {
-    this._adopt(this.settings());
-  }
-
-  words(setting: AdminSiteSetting): SettingWords {
-    return WORDS[setting.name] ?? { label: setting.name, help: '' };
-  }
-
-  isChanged(setting: AdminSiteSetting): boolean {
-    return this.draft()[setting.name] !== (setting.value ?? '');
-  }
-
-  sectionLabel(section: string): string {
-    return SECTION_LABELS[section] ?? section;
-  }
-
-  /** info, warning, danger — as words rather than as the value stored. */
-  optionLabel(option: string): string {
-    return { info: 'Information', warning: 'Warning', danger: 'Something is wrong' }[option] ?? option;
-  }
-
-  // ── The controls ───────────────────────────────────────────────────────────
-
-  boolean(setting: AdminSiteSetting): boolean {
-    return this.draft()[setting.name] === 'true';
-  }
-
-  setBoolean(setting: AdminSiteSetting, value: boolean): void {
-    this._write(setting.name, value ? 'true' : 'false');
-  }
-
-  text(setting: AdminSiteSetting): string {
-    return this.draft()[setting.name] ?? '';
-  }
-
-  setText(setting: AdminSiteSetting, value: string): void {
-    this._write(setting.name, value);
-  }
-
-  message(setting: AdminSiteSetting, language: string): string {
-    const map = this._json<Record<string, string>>(setting, {});
-
-    return typeof map[language] === 'string' ? map[language] : '';
-  }
-
-  setMessage(setting: AdminSiteSetting, language: string, value: string): void {
-    const map = this._json<Record<string, string>>(setting, {});
-
-    // An emptied field drops the language rather than storing "", so the
-    // fallback to English is a missing translation rather than a blank one.
-    if (value.trim() === '') {
-      delete map[language];
-    } else {
-      map[language] = value;
-    }
-
-    this._write(setting.name, JSON.stringify(map));
-  }
-
-  sectionOff(setting: AdminSiteSetting, section: string): boolean {
-    return this._json<string[]>(setting, []).includes(section);
-  }
-
-  toggleSection(setting: AdminSiteSetting, section: string, off: boolean): void {
-    const list = this._json<string[]>(setting, []).filter((entry) => entry !== section);
-
-    if (off) {
-      list.push(section);
-    }
-
-    this._write(setting.name, JSON.stringify(list));
-  }
-
-  // ── Behind the controls ────────────────────────────────────────────────────
-
-  private _adopt(settings: AdminSiteSetting[]): void {
-    this.settings.set(settings);
-    this.draft.set(Object.fromEntries(settings.map((setting) => [setting.name, setting.value ?? ''])));
-  }
-
-  private _write(name: string, value: string): void {
-    this.draft.update((draft) => ({ ...draft, [name]: value }));
-  }
-
-  /**
-   * The draft value of a JSON setting, or the fallback.
-   *
-   * Never throws. A value that will not parse is one somebody has edited by
-   * hand into something the form cannot draw, and the form showing an empty
-   * control they can fill in is a better answer than a page that will not
-   * render at all.
-   */
-  private _json<T>(setting: AdminSiteSetting, fallback: T): T {
+  private _map(setting: AdminSiteSetting): Record<string, string> {
     try {
-      const parsed = JSON.parse(this.draft()[setting.name] || 'null');
+      const parsed = JSON.parse(setting.value || 'null');
 
-      return parsed === null || typeof parsed !== 'object' ? fallback : (parsed as T);
+      return parsed && typeof parsed === 'object' ? parsed : {};
     } catch {
-      return fallback;
+      return {};
     }
   }
 }

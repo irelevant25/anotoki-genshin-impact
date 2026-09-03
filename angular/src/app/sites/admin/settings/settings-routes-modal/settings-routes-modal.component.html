@@ -1,0 +1,108 @@
+<app-modal title="Parts of the site" subtitle="Which pages exist, and who they exist for" (closeModal)="closeModal()">
+    <div modal-body>
+        <p class="routes-note">
+            <strong>Visible to</strong> is who the page is drawn for — it leaves the menu and stops matching in the router for everybody else.
+            <strong>Off</strong> takes it away from everybody who is not an admin, whatever the first column says. Admins keep every page either way, with a
+            mark on it, or there would be no way to look at what you had just switched off.
+        </p>
+
+        <div class="routes-wrap">
+            <table class="routes-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Page</th>
+                        <th scope="col" class="col-visibility">Visible to</th>
+                        <th scope="col" class="col-off">Off</th>
+                        <th scope="col" class="col-api">Also locks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (route of routes(); track route.id) {
+                        <tr [class.route-changed]="isChanged(route)" [class.route-off]="of(route).blocked">
+                            <td class="route-path">
+                                <code>{{ route.path }}</code>
+                                @if (isChanged(route)) {
+                                    <span class="route-flag">changed</span>
+                                }
+                            </td>
+
+                            <td class="col-visibility">
+                                <select class="admin-select" (change)="setVisibility(route, $any($event.target).value)">
+                                    @for (level of levels(); track level) {
+                                        <option [value]="level" [selected]="level === of(route).visibility">{{ label(level) }}</option>
+                                    }
+                                </select>
+                            </td>
+
+                            <td class="col-off">
+                                <input type="checkbox" [checked]="of(route).blocked" (change)="setBlocked(route, $any($event.target).checked)" />
+                            </td>
+
+                            <td class="col-api">
+                                <button type="button" class="link endpoint-toggle" (click)="toggleEndpoints(route)">
+                                    @if (of(route).endpoints.length) {
+                                        {{ of(route).endpoints.length }} API {{ of(route).endpoints.length === 1 ? 'path' : 'paths' }}
+                                    } @else {
+                                        nothing
+                                    }
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Folded away rather than nested in a second modal: a
+                             modal on top of a modal to edit two strings is a
+                             worse answer than a row that opens. -->
+                        @if (expanded() === route.id) {
+                            <tr class="endpoint-row">
+                                <td colspan="4">
+                                    <p class="endpoint-help">
+                                        API paths that go dark with this page. Matched from the start, so <code>/api/quiz</code> covers
+                                        <code>/api/quizzes</code> and <code>/api/quiz/stats</code> alike. Leave it empty and only the page is affected —
+                                        its data carries on being served, which is what you want for a page that is simply not finished.
+                                    </p>
+
+                                    @if (of(route).endpoints.length) {
+                                        <ul class="endpoint-list">
+                                            @for (prefix of of(route).endpoints; track prefix) {
+                                                <li>
+                                                    <code>{{ prefix }}</code>
+                                                    <button type="button" class="endpoint-remove" title="Remove" (click)="removeEndpoint(route, prefix)">&times;</button>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+
+                                    <div class="endpoint-add">
+                                        <input
+                                            class="admin-input"
+                                            type="text"
+                                            placeholder="/api/quiz"
+                                            [value]="newEndpoint()"
+                                            (input)="newEndpoint.set($any($event.target).value)"
+                                            (keydown.enter)="addEndpoint(route)"
+                                        />
+                                        <app-button text="Add" size="small" [disabled]="!newEndpoint().trim()" (buttonClick)="addEndpoint(route)"></app-button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div modal-footer class="d-flex gap-3 justify-content-end align-items-center">
+        <span class="routes-count">
+            @if (changed().length) {
+                {{ changed().length }} unsaved
+            } @else {
+                Nothing changed
+            }
+        </span>
+
+        <app-button text="Discard" variant="secondary" [outline]="true" [disabled]="!changed().length || saving()" (buttonClick)="reset()"></app-button>
+        <app-button text="Cancel" variant="secondary" (buttonClick)="closeModal()"></app-button>
+        <app-button text="Save" icon="icon-check" [loading]="saving()" [disabled]="!changed().length" (buttonClick)="save()"></app-button>
+    </div>
+</app-modal>

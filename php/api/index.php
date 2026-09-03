@@ -18,6 +18,7 @@ require_once __DIR__ . '/totp.php';
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/trusted_device.php';
 require_once __DIR__ . '/site_settings.php';
+require_once __DIR__ . '/site_routes.php';
 
 use Slim\Factory\AppFactory;
 
@@ -28,6 +29,7 @@ $app->addBodyParsingMiddleware();
 require_once __DIR__ . '/meddleware/validation.php';
 require_once __DIR__ . '/meddleware/auth.php';
 require_once __DIR__ . '/meddleware/maintenance.php';
+require_once __DIR__ . '/meddleware/route_gate.php';
 
 ///////////////////
 // USERS
@@ -51,6 +53,7 @@ require_once __DIR__ . '/routes/users/endpoints/auth.php';
 require_once __DIR__ . '/routes/users/endpoints/users.php';
 require_once __DIR__ . '/routes/users/endpoints/sessions.php';
 require_once __DIR__ . '/routes/users/endpoints/settings.php';
+require_once __DIR__ . '/routes/users/endpoints/routes.php';
 require_once __DIR__ . '/routes/users/endpoints/languages.php';
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
 require_once __DIR__ . '/routes/users/endpoints/backups.php';
@@ -198,6 +201,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_recom
 // Added before the error and CORS middleware, which means it runs inside both:
 // a 503 from here is still a CORS-headed JSON response, and anything it throws
 // is still handled. See meddleware/maintenance.php for what stays open.
+$app->add(routeGate());
 $app->add(maintenanceGate());
 
 $errorMiddleware = $app->addErrorMiddleware(false, true, true);

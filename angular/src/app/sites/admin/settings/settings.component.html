@@ -7,109 +7,60 @@
     things, so a closed site is closed to anything that talks to it directly too.
 </p>
 
-<app-loader #loader [loading]="loading()"></app-loader>
+<app-loader #loader [loading]="busy()"></app-loader>
 
 @if (failed()) {
     <p class="settings-problem">The settings could not be read.</p>
 }
 
 @if (!loader.loadingCtrl.loading() && !failed()) {
-    @for (group of groups(); track group.key) {
-        <section class="form-section">
-            <h2 class="section-title">{{ group.title }}</h2>
-            @if (group.note) {
-                <p class="group-note">{{ group.note }}</p>
-            }
+    <!-- A card per group, saying what it is doing without being opened. The
+         whole form on one page was taller than a screen, which is exactly the
+         length at which you can no longer tell at a glance what the site is
+         currently up to. -->
+    <div class="cards">
+        @for (card of cards(); track card.key) {
+            <button type="button" class="card" (click)="openCard(card)">
+                <span class="card-head">
+                    <span class="icon card-icon" [class]="'icon ' + card.icon" aria-hidden="true"></span>
+                    <span class="card-title">{{ card.title }}</span>
+                </span>
 
-            @for (setting of group.settings; track setting.name) {
-                <div class="setting" [class.setting-changed]="isChanged(setting)">
-                    <div class="setting-head">
-                        <span class="setting-label">{{ words(setting).label }}</span>
-                        @if (isChanged(setting)) {
-                            <span class="setting-flag">changed</span>
-                        }
-                        @if (setting.updated_at) {
-                            <span class="setting-history">
-                                last changed {{ setting.updated_at | appDate: 'datetime' }}@if (setting.updated_by) { by {{ setting.updated_by }} }
-                            </span>
-                        }
-                    </div>
+                <span class="card-note">{{ card.note }}</span>
 
-                    @if (words(setting).help) {
-                        <p class="setting-help">{{ words(setting).help }}</p>
+                <span class="card-summary">
+                    @for (line of card.summary; track line.label) {
+                        <span class="card-line">
+                            <span class="card-line-label">{{ line.label }}</span>
+                            <span class="card-line-state" [class.card-line-on]="line.on">{{ line.state }}</span>
+                        </span>
                     }
+                </span>
+            </button>
+        }
 
-                    <!-- One control per declared type. A setting the form does
-                         not recognise falls through to the plain text box,
-                         which is what the column holds anyway. -->
-                    @switch (setting.type) {
-                        @case ('boolean') {
-                            <label class="checkbox-label">
-                                <input type="checkbox" [checked]="boolean(setting)" (change)="setBoolean(setting, $any($event.target).checked)" />
-                                <span>{{ boolean(setting) ? 'On' : 'Off' }}</span>
-                            </label>
-                        }
+        <!-- Its own card rather than a group of settings, because it is a table
+             of twenty-seven rows rather than a switch. -->
+        <button type="button" class="card" (click)="openRoutes()">
+            <span class="card-head">
+                <span class="icon icon-layers card-icon" aria-hidden="true"></span>
+                <span class="card-title">Parts of the site</span>
+            </span>
 
-                        @case ('choice') {
-                            <select class="admin-select setting-choice" [value]="text(setting)" (change)="setText(setting, $any($event.target).value)">
-                                @for (option of setting.options; track option) {
-                                    <option [value]="option" [selected]="option === text(setting)">{{ optionLabel(option) }}</option>
-                                }
-                            </select>
-                        }
+            <span class="card-note">Which pages exist, who they exist for, and which API paths go dark with them.</span>
 
-                        @case ('i18n') {
-                            <div class="setting-languages">
-                                @for (language of languages(); track language.code) {
-                                    <div class="form-field">
-                                        <label [attr.for]="setting.name + '-' + language.code">{{ language.name }}</label>
-                                        <textarea
-                                            class="admin-textarea"
-                                            [id]="setting.name + '-' + language.code"
-                                            rows="3"
-                                            [value]="message(setting, language.code)"
-                                            (input)="setMessage(setting, language.code, $any($event.target).value)"
-                                        ></textarea>
-                                    </div>
-                                }
-                                @if (!languages().length) {
-                                    <p class="setting-help">No languages are enabled, so there is nowhere to write this.</p>
-                                }
-                            </div>
-                        }
+            <span class="card-summary">
+                @for (line of routesSummary(); track line.label) {
+                    <span class="card-line">
+                        <span class="card-line-label">{{ line.label }}</span>
+                        <span class="card-line-state" [class.card-line-on]="line.on">{{ line.state }}</span>
+                    </span>
+                }
+            </span>
+        </button>
+    </div>
 
-                        @case ('routes') {
-                            <div class="setting-sections">
-                                @for (section of sections; track section) {
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" [checked]="sectionOff(setting, section)" (change)="toggleSection(setting, section, $any($event.target).checked)" />
-                                        <span>{{ sectionLabel(section) }}</span>
-                                    </label>
-                                }
-                            </div>
-                        }
-
-                        @default {
-                            <input class="admin-input" type="text" [value]="text(setting)" (input)="setText(setting, $any($event.target).value)" />
-                        }
-                    }
-                </div>
-            }
-        </section>
-    }
-
-    <!-- Sticky, because the form is longer than a screen and the thing that
-         makes any of it real is at the bottom of it. -->
     <div class="settings-actions">
-        <span class="settings-count">
-            @if (changed().length) {
-                {{ changed().length }} unsaved
-            } @else {
-                Nothing changed
-            }
-        </span>
-
-        <app-button text="Discard" variant="secondary" [outline]="true" [disabled]="!changed().length || saving()" (buttonClick)="reset()"></app-button>
-        <app-button text="Save settings" icon="icon-check" [loading]="saving()" [disabled]="!changed().length" (buttonClick)="save()"></app-button>
+        <app-button text="Reload" variant="secondary" [outline]="true" icon="icon-history" (buttonClick)="load()"></app-button>
     </div>
 }

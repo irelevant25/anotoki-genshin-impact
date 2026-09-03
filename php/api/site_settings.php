@@ -179,9 +179,10 @@ function publicSiteSettings(): array
             'level' => (string) siteSettingValue('announcement_level', 'info'),
             'message' => $announcement,
         ] : null,
-        'disabled_routes' => array_values(array_filter(
-            siteSettingArray('disabled_routes'),
-            static fn($section): bool => is_string($section),
-        )),
+        // Which pages exist and who they are drawn for. Here rather than in a
+        // read of its own because the menu needs it at the same moment as
+        // everything else above, and two requests to draw one page is one
+        // request too many. See site_routes.php.
+        'routes' => publicSiteRoutes(),
     ];
 }

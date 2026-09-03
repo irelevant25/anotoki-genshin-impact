@@ -15,6 +15,11 @@ interface TopMenuItem {
   readonly guide?: GuideId;
 }
 
+/** A menu item, plus whether an admin is the only one seeing it. */
+interface DrawnMenuItem extends TopMenuItem {
+  readonly hidden: boolean;
+}
+
 /**
  * The top menu.
  *
@@ -44,12 +49,20 @@ export class HeaderComponent {
   ];
 
   /**
-   * The menu, minus whatever an admin has switched off.
+   * The menu as this reader gets it.
    *
-   * A link that leads to a not-found page is worse than no link: it says the
-   * section is there and then contradicts itself. The router refuses the same
-   * sections - see sectionEnabledGuard - so a bookmark to one behaves the same
-   * way this does.
+   * A page switched off or set to a kind of reader this one is not simply is
+   * not here: a link that leads to a not-found page is worse than no link,
+   * because it says the page is there and then contradicts itself. The router
+   * refuses the same pages, so a bookmark behaves the way the menu does.
+   *
+   * An admin keeps every item and gets a mark on the ones nobody else can see.
+   * They are exempt from the switches, which means the menu would otherwise
+   * look exactly the same to them whatever they had just switched off.
    */
-  readonly menuItems = computed(() => this._allItems.filter((item) => !this._settings.routeDisabled(item.id)));
+  readonly menuItems = computed<DrawnMenuItem[]>(() =>
+    this._allItems
+      .filter((item) => this._settings.mayNavigate('/' + item.id))
+      .map((item) => ({ ...item, hidden: this._settings.noticeFor('/' + item.id) !== null })),
+  );
 }

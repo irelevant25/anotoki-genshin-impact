@@ -26,21 +26,20 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { ConfirmEmailComponent } from './features/account/confirm-email/confirm-email.component';
 import { ResetPasswordComponent } from './features/account/reset-password/reset-password.component';
 import { StaffSignInPageComponent } from './features/account/staff/staff.component';
-import { sectionEnabledGuard } from './section-enabled.guard';
+import { routeAccessGuard } from './route-access.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: AppComponent,
     children: [
-      { path: '', component: HomeComponent },
+      { path: '', component: HomeComponent, canMatch: [routeAccessGuard] },
       // The daily run is the same six quizzes, told through the route data that
       // they are today's question rather than a fresh one. That flag is what
       // sends their saved game to the daily slot and stamps it with the date.
       {
         path: ROUTE_MAP.map['daily'].path,
-        data: { section: 'daily' },
-        canMatch: [sectionEnabledGuard],
+        canMatch: [routeAccessGuard],
         children: [
           { path: '', component: DailyComponent },
           { path: ROUTE_MAP.map['daily'].banners.path, component: QuizzesBannersComponent, data: { daily: true } },
@@ -53,8 +52,7 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['quizzes'].path,
-        data: { section: 'quizzes' },
-        canMatch: [sectionEnabledGuard],
+        canMatch: [routeAccessGuard],
         children: [
           { path: '', component: QuizzesComponent },
           {
@@ -85,8 +83,7 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['games'].path,
-        data: { section: 'games' },
-        canMatch: [sectionEnabledGuard],
+        canMatch: [routeAccessGuard],
         children: [
           { path: '', component: GamesComponent },
           { path: ROUTE_MAP.map['games'].tournament.path, component: GamesTournamentComponent },
@@ -95,8 +92,7 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['database'].path,
-        data: { section: 'database' },
-        canMatch: [sectionEnabledGuard],
+        canMatch: [routeAccessGuard],
         children: [
           { path: '', component: DatabaseComponent },
           {
@@ -128,13 +124,13 @@ export const routes: Routes = [
       },
       // No auth guard: the page is reachable from the header whether or not
       // anybody is signed in, and it says so itself rather than bouncing a
-      // visitor to a login they may not want. The guard below is the section
-      // switch, which is a different question.
+      // visitor to a login they may not want. The guard below is the route
+      // table, which is a different question - and which is where somebody
+      // would set this page to "anybody with an account" if they wanted that.
       {
         path: ROUTE_MAP.map['profile'].path,
         component: ProfileComponent,
-        data: { section: 'profile' },
-        canMatch: [sectionEnabledGuard],
+        canMatch: [routeAccessGuard],
       },
 
       // Arrived at from a mail client, token in the query string. Both read it

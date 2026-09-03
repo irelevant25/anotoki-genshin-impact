@@ -15,7 +15,13 @@
                 @if (menuItem.guide) {
                     <app-guide-icon class="help-icon right" [guide]="menuItem.guide"></app-guide-icon>
                 }
-                <a [routerLink]="menuItem.id">{{ menuItem.title | translate }}</a>
+                <!-- Only an admin ever sees this, because only an admin ever
+                     gets an item nobody else would. Without it the menu looks
+                     identical whatever they have just switched off. -->
+                @if (menuItem.hidden) {
+                    <span class="hidden-badge">{{ 'route.hiddenBadge' | translate }}</span>
+                }
+                <a [routerLink]="menuItem.id" [class.nav-hidden]="menuItem.hidden">{{ menuItem.title | translate }}</a>
             </li>
         }
     </ul>

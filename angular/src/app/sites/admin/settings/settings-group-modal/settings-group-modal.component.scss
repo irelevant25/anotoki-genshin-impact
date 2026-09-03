@@ -1,0 +1,130 @@
+// The few form pieces this modal uses, written out rather than pulled in from
+// shared/admin-form.scss - that sheet is the full-resource form layout, and
+// importing all of it for a checkbox and a text box is what the style budget
+// is there to catch. The list pages here do the same.
+
+.settings-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+// One switch: what it is called, what it does, and the control.
+.setting {
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid transparent;
+  border-radius: var(--border-radius);
+  background-color: var(--bg-card);
+}
+
+// Marked while it differs from what is saved, so a modal that has been
+// scrolled still says which parts of it are waiting on the button.
+.setting-changed {
+  border-left-color: var(--color-warning);
+}
+
+.setting-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xxs);
+}
+
+.setting-label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.setting-flag {
+  padding: 0 var(--spacing-xs);
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.setting-history {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.setting-help {
+  margin: 0 0 var(--spacing-sm);
+  max-width: 80ch;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.setting-choice {
+  max-width: 260px;
+}
+
+.setting-languages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.settings-count {
+  margin-right: auto;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+
+  label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.admin-input,
+.admin-select,
+.admin-textarea {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+}
+
+.admin-input,
+.admin-select {
+  height: var(--input-height);
+  padding: 0 var(--spacing-sm);
+}
+
+.admin-textarea {
+  padding: var(--spacing-sm);
+  min-height: 76px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+}

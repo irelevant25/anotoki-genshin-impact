@@ -1,0 +1,15 @@
+@if (notice(); as notice) {
+    <div class="route-notice" [class.route-notice-blocked]="notice.kind === 'blocked'" role="status">
+        <span class="icon icon-lock route-notice-mark" aria-hidden="true"></span>
+
+        <span class="route-notice-words">
+            @if (notice.kind === 'blocked') {
+                <strong>{{ 'route.blockedTitle' | translate }}</strong>
+                <span>{{ 'route.blockedText' | translate }}</span>
+            } @else {
+                <strong>{{ 'route.restrictedTitle' | translate }}</strong>
+                <span>{{ 'route.restrictedText' | translate: { audience: audience() } }}</span>
+            }
+        </span>
+    </div>
+}

@@ -5,6 +5,7 @@ import { NotificationComponent } from '../../shared/local-lib/components/notific
 import { FooterComponent } from './common/footer/footer.component';
 import { AnnouncementComponent } from './common/announcement/announcement.component';
 import { MaintenanceComponent } from './common/maintenance/maintenance.component';
+import { RouteNoticeComponent } from './common/route-notice/route-notice.component';
 import { ForcedPasswordChangeService } from './common/footer/forced-password-change.service';
 import { SecurityService } from '../../shared/local-lib/services/security.service';
 import { SiteSettingsService } from '../../shared/local-lib/services/site-settings.service';
@@ -13,7 +14,7 @@ import { SiteSettingsService } from '../../shared/local-lib/services/site-settin
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, HeaderComponent, NotificationComponent, FooterComponent, AnnouncementComponent, MaintenanceComponent],
+  imports: [RouterOutlet, HeaderComponent, NotificationComponent, FooterComponent, AnnouncementComponent, MaintenanceComponent, RouteNoticeComponent],
   providers: [],
 })
 export class AppComponent {

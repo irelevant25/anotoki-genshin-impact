@@ -10214,6 +10214,61 @@
         },
         {
             "method": "GET",
+            "path": "/api/routes",
+            "args": [],
+            "file": "routes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "SiteRouteList",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\routes.php",
+                "line": 44
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "PUT",
+            "path": "/api/routes",
+            "args": [],
+            "file": "routes.php",
+            "tables": [
+                "site_route_endpoints"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                422
+            ],
+            "responds": {
+                "shape": "SiteRouteList",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\routes.php",
+                "line": 172
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "GET",
             "path": "/api/sessions",
             "args": [],
             "file": "sessions.php",
@@ -15551,6 +15606,84 @@
             ]
         },
         {
+            "name": "AdminSiteRoute",
+            "file": "setting.php",
+            "merges": null,
+            "description": "One page, as the admin form sees it - the row plus what it claims.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "visibility",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "blocked",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "endpoints",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "API paths this page claims. Empty means its data is not locked."
+                },
+                {
+                    "name": "updated_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "updated_by",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "AdminSiteSetting",
             "file": "setting.php",
             "merges": null,
@@ -18731,6 +18864,44 @@
             ]
         },
         {
+            "name": "PublicSiteRoute",
+            "file": "setting.php",
+            "merges": null,
+            "description": "One page, as the site itself needs to know about it.\n\nNo endpoints: those are the gate's business, the front end has no use for\nthem, and a list of which API paths are locked is a map nobody browsing the\nsite needs. Everything here is already in the router in the bundle.",
+            "fields": [
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "As the router declares it. A ':id' segment matches any one segment."
+                },
+                {
+                    "name": "visibility",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "PUBLIC, USER, EDITOR or ADMIN - the lowest reader it is drawn for."
+                },
+                {
+                    "name": "blocked",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Off for everybody who is not an admin."
+                }
+            ]
+        },
+        {
             "name": "PublicSiteSettings",
             "file": "setting.php",
             "merges": null,
@@ -18787,14 +18958,14 @@
                     "description": "Null when there is nothing to announce."
                 },
                 {
-                    "name": "disabled_routes",
+                    "name": "routes",
                     "types": [
                         "array"
                     ],
                     "nullable": false,
                     "optional": false,
-                    "of": "string[]",
-                    "description": "Sections of the site that are switched off - see the admin form."
+                    "of": "PublicSiteRoute[]",
+                    "description": "Which pages exist, and who they are drawn for."
                 }
             ]
         },
@@ -19703,6 +19874,34 @@
                     "optional": false,
                     "of": "array<string, string>",
                     "description": "One message per language code."
+                }
+            ]
+        },
+        {
+            "name": "SiteRouteList",
+            "file": "setting.php",
+            "merges": null,
+            "description": "Every page, in the order the form draws them.",
+            "fields": [
+                {
+                    "name": "routes",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AdminSiteRoute[]",
+                    "description": null
+                },
+                {
+                    "name": "levels",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "The visibility levels, most open first."
                 }
             ]
         },
@@ -23799,6 +23998,91 @@
                     "name": "name",
                     "sqlType": "VARCHAR(50)",
                     "nullable": false,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "site_route_endpoints",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "route_id",
+                    "sqlType": "INTEGER",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "prefix",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": false,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "site_routes",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "site",
+                    "sqlType": "VARCHAR(50)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "path",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "visibility",
+                    "sqlType": "VARCHAR(10)",
+                    "nullable": false,
+                    "enum": [
+                        "PUBLIC",
+                        "USER",
+                        "EDITOR",
+                        "ADMIN"
+                    ]
+                },
+                {
+                    "name": "blocked",
+                    "sqlType": "BOOLEAN",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "sort_order",
+                    "sqlType": "SMALLINT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "updated_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "updated_by",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
                     "enum": null
                 }
             ]

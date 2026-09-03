@@ -1,0 +1,170 @@
+.routes-note {
+  margin: 0 0 var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.routes-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.routes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+
+  th,
+  td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+  }
+
+  thead th {
+    background: var(--bg-table-header);
+    color: var(--bg-table-header-text);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+.route-path {
+  white-space: nowrap;
+
+  code {
+    font-size: var(--font-size-sm);
+  }
+}
+
+// Marked while it differs from what is saved, so a table of twenty-seven rows
+// still says which four of them are waiting on the button.
+.route-changed {
+  box-shadow: inset 3px 0 0 var(--color-warning);
+}
+
+// A page that is off is dimmed, so the state is readable down the column
+// rather than only in the checkbox.
+.route-off {
+  color: var(--text-muted);
+}
+
+.route-flag {
+  margin-left: var(--spacing-xs);
+  padding: 0 var(--spacing-xs);
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.col-visibility {
+  width: 200px;
+}
+
+.col-off,
+.col-api {
+  width: 120px;
+  text-align: center;
+}
+
+.col-api {
+  text-align: left;
+}
+
+.endpoint-toggle {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--color-link);
+  font-size: inherit;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.endpoint-row td {
+  background: var(--bg-hover);
+}
+
+.endpoint-help {
+  margin: 0 0 var(--spacing-sm);
+  max-width: 90ch;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.endpoint-list {
+  list-style: none;
+  margin: 0 0 var(--spacing-sm);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xxs);
+    padding: 2px var(--spacing-xs);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-pill);
+    background: var(--bg-card);
+  }
+}
+
+.endpoint-remove {
+  border: 0;
+  background: none;
+  padding: 0 2px;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-danger);
+  }
+}
+
+.endpoint-add {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  max-width: 420px;
+}
+
+.routes-count {
+  margin-right: auto;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.admin-input,
+.admin-select {
+  width: 100%;
+  height: var(--button-height);
+  padding: 0 var(--spacing-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  outline: none;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+}

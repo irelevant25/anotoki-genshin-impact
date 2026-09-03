@@ -20,3 +20,26 @@ export interface SiteSettingChange {
 export interface SiteSettingsSaveRequest {
   settings: SiteSettingChange[];
 }
+
+/**
+ * What the pages form sends back.
+ *
+ * One row per page that changed, addressed by id rather than by path: the path
+ * is what the router declares and this form cannot invent one, so sending it
+ * back would only be a second name for the same row and a second thing to get
+ * wrong.
+ *
+ * `endpoints` is the whole list for that page, not a diff. There are never
+ * more than a handful, they have no identity of their own worth keeping, and
+ * the API replaces them wholesale.
+ */
+export interface SiteRouteChange {
+  id: number;
+  visibility: string;
+  blocked: boolean;
+  endpoints: string[];
+}
+
+export interface SiteRoutesSaveRequest {
+  routes: SiteRouteChange[];
+}

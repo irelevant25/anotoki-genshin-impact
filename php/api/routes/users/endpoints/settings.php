@@ -73,7 +73,10 @@ function settingValueRefusal(array $setting, string $value): ?string
 
         case 'i18n':
             $decoded = json_decode($value, true);
-            if (!is_array($decoded) || array_is_list($decoded)) {
+            // `{}` and `[]` decode to the same empty PHP array, and array_is_list()
+            // calls that a list - so an empty one has to be allowed through by
+            // name, or a message cleared in every language could never be saved.
+            if (!is_array($decoded) || ($decoded !== [] && array_is_list($decoded))) {
                 return "{$setting['name']} is one message per language - expected an object keyed by language code";
             }
             foreach ($decoded as $text) {
