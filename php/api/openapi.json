@@ -1591,6 +1591,60 @@
         "security": []
       }
     },
+    "/api/auth/formats": {
+      "put": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "updateUsersFormats",
+        "summary": "Update users formats",
+        "description": "Requires a signed-in user. Reads `users`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUser"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/auth/google": {
       "post": {
         "tags": [
@@ -22988,11 +23042,23 @@
           },
           "user": {
             "$ref": "#/components/schemas/AuthUser"
+          },
+          "device_token": {
+            "description": "A secret for the browser to keep, when it asked to be remembered.  Present only where there was something to remember: an account with two-factor on, signing in with `remember_device`. Sent back on later sign-ins to skip the six digits - and nothing else, since the password still has to be right. Null every other time.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         },
         "required": [
           "token",
-          "user"
+          "user",
+          "device_token"
         ],
         "additionalProperties": false
       },
@@ -23030,6 +23096,28 @@
           },
           "language": {
             "type": "string"
+          },
+          "date_format": {
+            "description": "How this reader wants dates written, or null for \"as this device does\". One of dmy_dot, dmy_slash, mdy_slash, ymd_dash.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "time_format": {
+            "description": "'24', '12', or null for whatever the device says.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "email_confirmed": {
             "type": "boolean"
@@ -23076,6 +23164,10 @@
           "recovery_codes_remaining": {
             "description": "Unused recovery codes left. Zero when two-factor is off.",
             "type": "number"
+          },
+          "trusted_devices": {
+            "description": "Browsers that will not be asked for a code again.",
+            "type": "number"
           }
         },
         "required": [
@@ -23086,6 +23178,8 @@
           "theme_main",
           "theme_admin",
           "language",
+          "date_format",
+          "time_format",
           "email_confirmed",
           "version",
           "created_at",
@@ -23094,7 +23188,8 @@
           "google_connected",
           "google_email",
           "totp_enabled",
-          "recovery_codes_remaining"
+          "recovery_codes_remaining",
+          "trusted_devices"
         ],
         "additionalProperties": false
       },

@@ -22,6 +22,7 @@ import {
 import {
   ChangePasswordRequest,
   ConfirmEmailRequest,
+  DateFormatsRequest,
   EmailRequest,
   EnabledRequest,
   GoogleCredentialRequest,
@@ -101,6 +102,15 @@ export class AuthApiService {
    */
   endSession(id: number): Observable<ApiMessage> {
     return this._http.delete<ApiMessage>(`/api/auth/sessions/${id}`);
+  }
+
+  /**
+   * `DELETE /api/auth/devices`
+   *
+   * Requires a signed-in user.
+   */
+  forgetTrustedDevices(): Observable<SessionsEnded> {
+    return this._http.delete<SessionsEnded>('/api/auth/devices');
   }
 
   /**
@@ -193,6 +203,15 @@ export class AuthApiService {
    */
   resetPassword(body: PasswordResetRequest): Observable<AuthSession> {
     return this._http.post<AuthSession>('/api/auth/password/reset', body);
+  }
+
+  /**
+   * `PUT /api/auth/formats`
+   *
+   * Requires a signed-in user.
+   */
+  setDateFormats(body: DateFormatsRequest): Observable<AuthUser> {
+    return this._http.put<AuthUser>('/api/auth/formats', body);
   }
 
   /**

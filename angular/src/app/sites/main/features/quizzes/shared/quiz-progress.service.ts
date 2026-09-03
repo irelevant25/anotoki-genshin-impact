@@ -28,6 +28,16 @@ export class QuizProgressService {
   private readonly _remote = new Map<string, QuizState>();
   private _loaded = false;
 
+  /**
+   * Bumped whenever a saved game changes.
+   *
+   * The games live in a Map and in local storage, neither of which a zoneless
+   * app can watch. Anything that shows how far along a quiz is - the daily
+   * cards, the count on the menu - reads this so it recomputes when a question
+   * is answered rather than only when the page is next drawn.
+   */
+  readonly version = signal(0);
+
   constructor() {
     this._securityService.isLoggedIn$.subscribe((isLoggedIn) => {
       this._isLoggedIn.set(isLoggedIn);
@@ -37,6 +47,7 @@ export class QuizProgressService {
         this._remote.clear();
         this._loaded = false;
       }
+      this.version.update((n) => n + 1);
     });
   }
 
@@ -62,6 +73,7 @@ export class QuizProgressService {
           this._remote.set(this._key(game.quiz as QuizId, game.is_daily), game.state as unknown as QuizState),
         );
         this._loaded = true;
+        this.version.update((n) => n + 1);
       }),
       map(() => undefined),
       // A quiz that cannot reach its saved game should start a new one, not
@@ -76,6 +88,7 @@ export class QuizProgressService {
 
   save(quizId: QuizId, state: QuizState, daily: boolean): void {
     this._stateService.saveQuizState(quizId, state, daily);
+    this.version.update((n) => n + 1);
 
     if (!this._isLoggedIn()) {
       return;

@@ -36,6 +36,13 @@ export class GuideIconComponent extends AbstractModalComponent {
     event.preventDefault();
     event.stopPropagation();
 
+    // A clicked button keeps the focus, and these are only visible because
+    // something near them has it - so without this the question mark stays lit
+    // after its modal closes, until you click somewhere else. Keyboard focus is
+    // a different matter and is left alone: `:focus-visible` in the stylesheet
+    // is what keeps a tabbed-to icon visible.
+    (event.currentTarget as HTMLElement | null)?.blur();
+
     const modal = this.openModal(GuideModalComponent, { size: '3', scrollable: true, centered: true });
     modal.componentInstance.guide.set(this.guide());
   }

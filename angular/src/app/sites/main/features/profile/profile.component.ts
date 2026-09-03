@@ -7,7 +7,7 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { ModalService } from '../../../../shared/local-lib/components/modal/modal.service';
 import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
-import { SlovakDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 import { SecurityService, UserInfo } from '../../../../shared/local-lib/services/security.service';
 import { MaterialIconDirective } from '../../../admin/shared/material-icon.directive';
 import { SiteLoginModalComponent } from '../../common/footer/site-login-modal/site-login-modal.component';
@@ -57,7 +57,7 @@ const ACTIVITY_WEEKS = 13;
     DecimalPipe,
     LoaderComponent,
     TranslatePipe,
-    SlovakDatePipe,
+    AppDatePipe,
     MaterialIconDirective,
     ButtonComponent,
     ActivityGridComponent,

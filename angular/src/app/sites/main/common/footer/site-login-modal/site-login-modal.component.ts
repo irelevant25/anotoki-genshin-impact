@@ -8,6 +8,7 @@ import { SecurityService } from '../../../../../shared/local-lib/services/securi
 import { PasswordComponent } from '../../../../../shared/local-lib/components/password/password.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { GoogleButtonComponent } from '../../../../../shared/local-lib/components/google-button/google-button.component';
+import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 import { SiteRegisterModalComponent } from '../site-register-modal/site-register-modal.component';
@@ -35,7 +36,7 @@ type LoginStep = 'password' | 'code' | 'unconfirmed' | 'totp';
   selector: 'app-site-login-modal',
   templateUrl: './site-login-modal.component.html',
   styleUrls: ['./site-login-modal.component.scss'],
-  imports: [ModalComponent, TextComponent, ButtonComponent, PasswordComponent, LoaderComponent, GoogleButtonComponent, TranslatePipe],
+  imports: [ModalComponent, TextComponent, ButtonComponent, PasswordComponent, LoaderComponent, GoogleButtonComponent, CheckboxComponent, TranslatePipe],
   providers: [],
 })
 export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
@@ -68,6 +69,18 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
   readonly refusal = signal<string | null>(null);
 
   /**
+   * Whether this browser should be spared the code next time.
+   *
+   * Offered only once a code has actually been asked for, because until then
+   * there is nothing to skip - and an account without two-factor would be
+   * ticking a box that does nothing.
+   *
+   * It skips the six digits and nothing else: the password still has to be
+   * right, so this is a convenience rather than a way in.
+   */
+  readonly rememberDevice = signal(false);
+
+  /**
    * Signs in, or explains why not.
    *
    * The request is made here rather than through the base class's submit()
@@ -86,7 +99,7 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
 
     this._pending = 'password';
 
-    this._security.login(this.form().email.trim(), this.form().password, this._totp()).subscribe({
+    this._security.login(this.form().email.trim(), this.form().password, this._totp(), this.rememberDevice()).subscribe({
       next: () => this._signedIn(),
       error: (error: HttpErrorResponse) => this._refused(error, 'login.failed'),
     });
@@ -99,7 +112,7 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
     this._pending = 'google';
     this._googleCredential = credential;
 
-    this._security.signInWithGoogle(credential, this._totp()).subscribe({
+    this._security.signInWithGoogle(credential, this._totp(), this.rememberDevice()).subscribe({
       next: () => this._signedIn(),
       error: (error: HttpErrorResponse) => this._refused(error, 'login.googleFailed'),
     });
@@ -179,7 +192,7 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
 
     this._pending = 'code';
 
-    this._security.signInWithCode(this.form().email.trim(), code, this._totp()).subscribe({
+    this._security.signInWithCode(this.form().email.trim(), code, this._totp(), this.rememberDevice()).subscribe({
       next: () => this._signedIn(),
       error: (error: HttpErrorResponse) => this._refused(error, 'login.badCode'),
     });

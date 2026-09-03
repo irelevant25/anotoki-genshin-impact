@@ -58,10 +58,12 @@
                     <!-- Not a formality: these are the only way back in, they
                          cannot be shown again, and the button below stays
                          unavailable until this is ticked. -->
-                    <label class="two-factor-confirm">
-                        <input type="checkbox" [checked]="codesSaved()" (change)="codesSaved.set(!codesSaved())" />
-                        <span>{{ 'account.twoFactor.codesSaved' | translate }}</span>
-                    </label>
+                    <app-checkbox
+                        class="two-factor-confirm"
+                        [label]="'account.twoFactor.codesSaved' | translate"
+                        labelPosition="right"
+                        [(value)]="codesSaved"
+                    ></app-checkbox>
                 </div>
             }
 

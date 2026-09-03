@@ -97,6 +97,20 @@ export class FooterComponent extends AbstractModalComponent {
     super();
     this.loadVersion();
     this.initializeBackground();
+    this.watchAccount();
+  }
+
+  /**
+   * The account button says who is signed in.
+   *
+   * `titleLiteral` rather than a translation, because a username is a proper
+   * noun - running it through the pipe would only report it as a missing
+   * string. Signed out it goes back to the translated word.
+   */
+  private watchAccount(): void {
+    this._securityService.currentUserData$.subscribe((user) => {
+      this.menuItems['account'].update((item) => ({ ...item, titleLiteral: user?.username || undefined }));
+    });
   }
 
   async loadVersion(): Promise<void> {

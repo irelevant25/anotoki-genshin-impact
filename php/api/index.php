@@ -16,6 +16,7 @@ require_once __DIR__ . '/one_time_token.php';
 require_once __DIR__ . '/google_identity.php';
 require_once __DIR__ . '/totp.php';
 require_once __DIR__ . '/session.php';
+require_once __DIR__ . '/trusted_device.php';
 
 use Slim\Factory\AppFactory;
 

@@ -17,6 +17,17 @@ export interface LoginRequest {
    * too, and is spent by being used.
    */
   totp?: string;
+  /**
+   * What this browser was given last time it answered a code here.
+   *
+   * Skips the six digits and nothing else - the password still has to be
+   * right - so it is a convenience rather than a way in. Sent on every
+   * attempt, because the browser cannot know whether the account still wants
+   * it.
+   */
+  device_token?: string | null;
+  /** Ask for a device token back, so the code is not needed next time. */
+  remember_device?: boolean;
 }
 
 export interface RegisterRequest {
@@ -64,6 +75,8 @@ export interface GoogleCredentialRequest {
   credential: string;
   /** See LoginRequest - two-factor applies to every way in, not just this one. */
   totp?: string;
+  device_token?: string | null;
+  remember_device?: boolean;
 }
 
 /**
@@ -83,6 +96,8 @@ export interface LoginCodeRequest {
   code: string;
   /** See LoginRequest - two-factor applies to every way in, not just this one. */
   totp?: string;
+  device_token?: string | null;
+  remember_device?: boolean;
 }
 
 /**
@@ -111,4 +126,15 @@ export interface LanguageRequest {
 export interface ChangePasswordRequest {
   current_password: string;
   new_password: string;
+}
+
+/**
+ * How this reader wants dates and times written.
+ *
+ * Either field absent leaves that setting alone; null clears it back to
+ * whatever the device says, which is what an account starts with.
+ */
+export interface DateFormatsRequest {
+  date_format?: string | null;
+  time_format?: string | null;
 }

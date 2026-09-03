@@ -2,10 +2,15 @@
     <ul>
         @for (menuItem of menuItems; track menuItem.id) {
             <li>
-                @if (menuItem.badge) {
-                    <div class="help-icon visible left">
-                        <div class="badge-daily rounded-pill bg-danger visible" style="width: 20px; height: 20px">?</div>
-                    </div>
+                <!-- How much of today's daily is left, and green once it is
+                     none. A count says what a question mark could not: whether
+                     it is worth going in. -->
+                @if (menuItem.daily) {
+                    <span
+                        class="daily-badge"
+                        [class.daily-badge-done]="daily.allDone()"
+                        [title]="(daily.allDone() ? 'nav.dailyDone' : 'nav.dailyRemaining') | translate: { count: daily.remaining() }"
+                    >{{ daily.remaining() }}</span>
                 }
                 @if (menuItem.guide) {
                     <app-guide-icon class="help-icon right" [guide]="menuItem.guide"></app-guide-icon>

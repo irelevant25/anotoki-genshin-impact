@@ -59,10 +59,19 @@ php init.php
 ### Start local PHP server (is single threaded)
 
 ```bash
-php -S localhost:8000
+php -S localhost:8000 router.php
 ```
 
-Your API is now running at `http://localhost:8000/api/characters.php`
+Your API is now running at `http://localhost:8000/api/...`
+
+The router script matters. Without it `php -S` decides whether a request is
+for a file by looking for a dot in the last path segment, so any URL that ends
+in one - `PUT /api/translation-keys/guide.banners.content`, and every other
+translation key - is answered 404 without the API being reached. In a browser
+that shows up as a CORS error, because the preflight is 404'd too. Apache has
+no such rule, so this only ever bites in development. `router.php` also serves
+`/uploads/...` from `public/`, which one document root cannot cover alongside
+the API.
 
 ---
 

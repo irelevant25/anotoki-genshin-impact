@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { SessionEntry } from '../../../../../api';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { SlovakDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { NotificationService } from '../../../../../shared/local-lib/components/notification/notification.service';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
@@ -23,7 +23,7 @@ import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pi
   selector: 'app-profile-sessions',
   templateUrl: './sessions.component.html',
   styleUrls: ['./sessions.component.scss'],
-  imports: [ButtonComponent, SlovakDatePipe, TranslatePipe],
+  imports: [ButtonComponent, AppDatePipe, TranslatePipe],
 })
 export class ProfileSessionsComponent {
   private readonly _security = inject(SecurityService);

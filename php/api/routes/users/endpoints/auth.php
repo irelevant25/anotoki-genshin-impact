@@ -38,6 +38,9 @@ function authUserPayload(array $user): array
         'theme_main'      => $user['theme_main'],
         'theme_admin'     => $user['theme_admin'],
         'language'        => $user['language'],
+        // Null means "however this device writes them" - see migration 029.
+        'date_format'     => $user['date_format'] ?? null,
+        'time_format'     => $user['time_format'] ?? null,
         'email_confirmed' => (bool) $user['email_confirmed'],
         'version'         => $user['version'],
         'created_at'      => $user['created_at'],
@@ -50,6 +53,9 @@ function authUserPayload(array $user): array
         'totp_enabled'     => (bool) ($user['totp_enabled'] ?? false),
         // So the account page can say "3 left" and mean it.
         'recovery_codes_remaining' => empty($user['totp_enabled']) ? 0 : recoveryCodesRemaining(usersDb(), (int) $user['id']),
+        // Browsers that will not be asked for a code again, so the account page
+        // can offer to forget them.
+        'trusted_devices' => empty($user['totp_enabled']) ? 0 : trustedDeviceCount(usersDb(), (int) $user['id']),
     ];
 }
 
@@ -61,9 +67,17 @@ function authUserPayload(array $user): array
  * `totp_invalid` are told apart because the front end does different things
  * with them: one asks for a code, the other says the code was wrong.
  */
-function authTotpRefusal(Response $response, PDO $pdo, array $user, ?string $code): ?Response
+function authTotpRefusal(Response $response, PDO $pdo, array $user, ?string $code, ?string $deviceToken = null): ?Response
 {
     if (empty($user['totp_enabled'])) {
+        return null;
+    }
+
+    // A browser that answered a code before, within the last thirty days. It
+    // skips the six digits and nothing else: the password still had to be
+    // right to get this far, so a stolen device token is not a way in on its
+    // own. See trusted_device.php.
+    if (trustedDeviceAccepted($pdo, (int) $user['id'], $deviceToken)) {
         return null;
     }
 
@@ -106,14 +120,22 @@ function authWaysIn(PDO $pdo, array $user): int
  * timestamp. The successful attempt is recorded alongside, so the count of
  * failures since the last good sign-in has something to count from.
  */
-function authSession(PDO $pdo, Request $request, array $user, string $method): array
+function authSession(PDO $pdo, Request $request, array $user, string $method, bool $rememberDevice = false): array
 {
     $tokenId = openSession($pdo, (int) $user['id'], $method, $request);
     recordLoginAttempt($pdo, $request, (string) $user['email'], (int) $user['id'], $method, 'ok');
 
+    // Only worth issuing where there is something to skip. An account without
+    // two-factor has nothing to remember a device for, and handing one out
+    // anyway would leave a bearer secret in a browser for no reason at all.
+    $deviceToken = $rememberDevice && !empty($user['totp_enabled'])
+        ? issueTrustedDevice($pdo, (int) $user['id'], $request)
+        : null;
+
     return [
         'token' => jwtIssue((int) $user['id'], $user['username'], $user['email'], $user['role'], $tokenId),
         'user'  => authUserPayload($user),
+        'device_token' => $deviceToken,
     ];
 }
 
@@ -275,7 +297,7 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
         return respondJson($response, ['error' => 'Invalid credentials'], 401);
     }
 
-    if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null)) {
+    if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null, $body['device_token'] ?? null)) {
         // The password was right, so this is worth telling apart from a wrong
         // one: it is either the owner reaching for their phone or somebody who
         // has the password and not the phone.
@@ -292,7 +314,7 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
         ], 403);
     }
 
-    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_PASSWORD));
+    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_PASSWORD, !empty($body['remember_device'])));
 })->add(responds(AuthSession::class));
 
 // ---------------------------------------------------------------------------
@@ -349,6 +371,7 @@ $app->post('/api/auth/password/reset', function (Request $request, Response $res
     // takes an account back, and it should take it back completely.
     revokeOneTimeTokens($pdo, (int) $token['user_id'], TOKEN_PASSWORD_RESET);
     revokeSessionsFor($pdo, (int) $token['user_id'], SESSION_REVOKED_PASSWORD);
+    revokeTrustedDevices($pdo, (int) $token['user_id']);
 
     $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$token['user_id']]);
     if (!$user) {
@@ -391,6 +414,57 @@ $app->put('/api/auth/theme', function (Request $request, Response $response) {
 
     return respondJson($response, ['area' => $area, 'theme' => $theme]);
 })->add(responds(ThemeChanged::class))->add(requireAuth());
+
+// ---------------------------------------------------------------------------
+// PUT /api/auth/formats  — how this reader wants dates and times written
+//
+// 1.3.2026 and 03/01/2026 are the same day written by two people who would
+// each misread the other, so there is no single right answer to bake in. The
+// device's own setting is the default and null is how that is stored: an
+// account with nothing here follows whatever machine it is read on, which is
+// the answer that is right without anyone being asked.
+//
+// These columns are for the reader whose device disagrees with them - someone
+// in Slovakia on a laptop bought in the States, or anyone who simply wants a
+// 24-hour clock wherever they are.
+// ---------------------------------------------------------------------------
+$app->put('/api/auth/formats', function (Request $request, Response $response) {
+    $body = $request->getParsedBody() ?? [];
+    $user = $request->getAttribute('user');
+    $pdo  = usersDb();
+
+    // A short list rather than a format string. A free-typed pattern is a way
+    // to produce a date nobody can read, and these are the orders in use.
+    $dates = ['dmy_dot', 'dmy_slash', 'mdy_slash', 'ymd_dash'];
+    $times = ['24', '12'];
+
+    // Absent leaves the setting alone; null clears it back to the device.
+    if (array_key_exists('date_format', $body)) {
+        $date = $body['date_format'];
+        $date = ($date === null || $date === '' || $date === 'auto') ? null : (string) $date;
+
+        if ($date !== null && !in_array($date, $dates, true)) {
+            return respondJson($response, ['error' => "Unknown date format '$date'"], 400);
+        }
+
+        $pdo->prepare('UPDATE users SET date_format = ? WHERE id = ?')->execute([$date, $user['id']]);
+    }
+
+    if (array_key_exists('time_format', $body)) {
+        $time = $body['time_format'];
+        $time = ($time === null || $time === '' || $time === 'auto') ? null : (string) $time;
+
+        if ($time !== null && !in_array($time, $times, true)) {
+            return respondJson($response, ['error' => "Unknown time format '$time'"], 400);
+        }
+
+        $pdo->prepare('UPDATE users SET time_format = ? WHERE id = ?')->execute([$time, $user['id']]);
+    }
+
+    $fresh = DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']]);
+
+    return respondJson($response, authUserPayload($fresh));
+})->add(responds(AuthUser::class))->add(requireAuth());
 
 // ---------------------------------------------------------------------------
 // PUT /api/auth/language  — saves the caller's own reading language
@@ -472,6 +546,7 @@ $app->put('/api/auth/password', function (Request $request, Response $response) 
     // running would make the change ceremonial.
     $session = $request->getAttribute('session');
     revokeSessionsFor($pdo, (int) $user['id'], SESSION_REVOKED_PASSWORD, $session ? (int) $session['id'] : null);
+    revokeTrustedDevices($pdo, (int) $user['id']);
 
     return respondJson($response, ['message' => 'Password changed successfully']);
 })->add(responds(ApiMessage::class))->add(requireAuth());
@@ -541,17 +616,17 @@ $app->post('/api/auth/google', function (Request $request, Response $response) {
     $verified = !empty($claims['email_verified']);
 
     if ($user = identityOwner($pdo, IDENTITY_GOOGLE, $subject)) {
-        if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null)) {
+        if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null, $body['device_token'] ?? null)) {
             return $refusal;
         }
 
-        return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE));
+        return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE, !empty($body['remember_device'])));
     }
 
     if ($verified && $email !== '' && ($user = authFindByEmail($pdo, $email))) {
         // Checked before anything is attached: an account with 2FA on must not
         // gain a new way in on the strength of a Google token alone.
-        if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null)) {
+        if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null, $body['device_token'] ?? null)) {
             return $refusal;
         }
 
@@ -563,7 +638,7 @@ $app->post('/api/auth/google', function (Request $request, Response $response) {
         $pdo->prepare('UPDATE users SET email_confirmed = TRUE WHERE id = ?')->execute([$user['id']]);
         $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']]);
 
-        return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE));
+        return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE, !empty($body['remember_device'])));
     }
 
     if (!$verified || $email === '') {
@@ -729,7 +804,7 @@ $app->post('/api/auth/login/code/verify', function (Request $request, Response $
         return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
     }
 
-    if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null)) {
+    if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null, $body['device_token'] ?? null)) {
         return $refusal;
     }
 
@@ -739,7 +814,7 @@ $app->post('/api/auth/login/code/verify', function (Request $request, Response $
         return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
     }
 
-    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_LOGIN_CODE));
+    return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_LOGIN_CODE, !empty($body['remember_device'])));
 })->add(responds(AuthSession::class));
 
 /**
@@ -871,6 +946,7 @@ $app->post('/api/auth/2fa/enable', function (Request $request, Response $respons
     // was just decided to be insufficient.
     $session = $request->getAttribute('session');
     revokeSessionsFor($pdo, (int) $user['id'], SESSION_REVOKED_SECURITY, $session ? (int) $session['id'] : null);
+    revokeTrustedDevices($pdo, (int) $user['id']);
 
     return respondJson($response, ['recovery_codes' => $codes]);
 })->add(responds(TotpRecoveryCodes::class))->add(requireAuth());
@@ -901,6 +977,7 @@ $app->post('/api/auth/2fa/disable', function (Request $request, Response $respon
 
     $session = $request->getAttribute('session');
     revokeSessionsFor($pdo, (int) $user['id'], SESSION_REVOKED_SECURITY, $session ? (int) $session['id'] : null);
+    revokeTrustedDevices($pdo, (int) $user['id']);
 
     return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));
 })->add(responds(AuthUser::class))->add(requireAuth());
@@ -1020,4 +1097,18 @@ $app->delete('/api/auth/sessions', function (Request $request, Response $respons
     $ended = revokeSessionsFor($pdo, (int) $user['id'], SESSION_REVOKED_ELSEWHERE, $current ? (int) $current['id'] : null);
 
     return respondJson($response, ['ended' => $ended]);
+})->add(responds(SessionsEnded::class))->add(requireAuth());
+
+/**
+ * DELETE /api/auth/devices - ask for a code again from every browser.
+ *
+ * Remembering a device is a convenience, and this is how somebody takes it
+ * back: a laptop lent out, a machine sold, or simply not being sure any more.
+ * It ends nothing else - the sessions those browsers hold are a separate
+ * question, with a separate button.
+ */
+$app->delete('/api/auth/devices', function (Request $request, Response $response) {
+    $user = $request->getAttribute('user');
+
+    return respondJson($response, ['ended' => revokeTrustedDevices(usersDb(), (int) $user['id'])]);
 })->add(responds(SessionsEnded::class))->add(requireAuth());

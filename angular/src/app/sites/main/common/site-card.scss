@@ -44,7 +44,7 @@
 
 .card:hover .help-icon,
 .help-icon:hover,
-.help-icon:focus-within {
+.help-icon:has(:focus-visible) {
   opacity: 1;
   color: var(--color-primary);
 }

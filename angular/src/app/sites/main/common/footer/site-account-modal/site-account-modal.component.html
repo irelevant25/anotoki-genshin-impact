@@ -37,7 +37,7 @@
                 <div class="d-flex align-items-center gap-3">
                     <span class="icon icon-calendar icon-size-4"></span>
                     <span class="text-muted small" style="min-width: 5rem">{{ 'account.memberSince' | translate }}</span>
-                    <span class="fw-500 fs-14">{{ userData.created_at?.substring(0, 10) }}</span>
+                    <span class="fw-500 fs-14">{{ userData.created_at | appDate }}</span>
                 </div>
             </div>
             <!-- The ways into this account. Each action is offered only when
@@ -140,6 +140,29 @@
                     ></app-button>
                 </div>
 
+                <!-- Browsers that answered a code once and are not asked
+                     again. Only shown when there are some: an account with
+                     none has nothing here to decide about. -->
+                @if (userData.totp_enabled && (userData.trusted_devices ?? 0) > 0) {
+                    <div class="method">
+                        <span class="icon icon-computer icon-size-4"></span>
+                        <div class="method-body">
+                            <span class="fw-500 fs-14">{{ 'account.devices.title' | translate }}</span>
+                            <span class="text-muted small">
+                                {{ 'account.devices.count' | translate: { count: userData.trusted_devices ?? 0 } }}
+                            </span>
+                        </div>
+
+                        <app-button
+                            [text]="'account.devices.forget' | translate"
+                            variant="secondary"
+                            size="very-small"
+                            [outline]="true"
+                            (buttonClick)="forgetDevices()"
+                        ></app-button>
+                    </div>
+                }
+
                 @if (refusal(); as refusal) {
                     <p class="method-problem">{{ refusal }}</p>
                 }
@@ -168,6 +191,45 @@
             </div>
         </div>
 
+        <!-- Signed in, because there is somewhere to keep the answer. Signed
+             out the device's own settings are used and there is nothing to
+             choose - see DateFormatService. -->
+        @if (userData()) {
+            <div class="theme-row">
+                <span class="icon icon-calendar icon-size-4"></span>
+                <span class="text-muted small theme-row-label">{{ 'account.dateFormat' | translate }}</span>
+                <div class="theme-choices">
+                    @for (option of dateOptions; track option.value) {
+                        <app-button
+                            [text]="formats.example(option.value)"
+                            [variant]="formats.dateChoice() === option.value ? 'primary' : 'secondary'"
+                            [outline]="formats.dateChoice() !== option.value"
+                            size="very-small"
+                            [tooltipText]="option.label | translate"
+                            (buttonClick)="setDateFormat(option.value)"
+                        ></app-button>
+                    }
+                </div>
+            </div>
+
+            <div class="theme-row">
+                <span class="icon icon-clock icon-size-4"></span>
+                <span class="text-muted small theme-row-label">{{ 'account.timeFormat' | translate }}</span>
+                <div class="theme-choices">
+                    @for (option of timeOptions; track option.value) {
+                        <app-button
+                            [text]="formats.exampleTime(option.value)"
+                            [variant]="formats.timeChoice() === option.value ? 'primary' : 'secondary'"
+                            [outline]="formats.timeChoice() !== option.value"
+                            size="very-small"
+                            [tooltipText]="option.label | translate"
+                            (buttonClick)="setTimeFormat(option.value)"
+                        ></app-button>
+                    }
+                </div>
+            </div>
+        }
+
         <!-- Languages come from the database, so this list grows without a deploy. -->
         @if (i18n.languages().length > 1) {
             <div class="theme-row">
@@ -193,6 +255,7 @@
             <app-button [text]="'common.logout' | translate" variant="danger" (buttonClick)="logout()"> </app-button>
         } @else {
             <app-button [text]="'common.close' | translate" variant="secondary" [outline]="true" (buttonClick)="closeModal()"> </app-button>
+            <app-button [text]="'common.signUp' | translate" variant="secondary" (buttonClick)="register()"> </app-button>
             <app-button [text]="'common.signIn' | translate" variant="primary" (buttonClick)="login()"> </app-button>
         }
     </div>

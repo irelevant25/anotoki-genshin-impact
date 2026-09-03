@@ -20,6 +20,13 @@ class AuthUser extends ResponseShape
         /** The admin panel's, remembered separately. */
         public readonly string $theme_admin,
         public readonly string $language,
+        /**
+         * How this reader wants dates written, or null for "as this device
+         * does". One of dmy_dot, dmy_slash, mdy_slash, ymd_dash.
+         */
+        public readonly ?string $date_format,
+        /** '24', '12', or null for whatever the device says. */
+        public readonly ?string $time_format,
         public readonly bool $email_confirmed,
         public readonly ?string $version,
         public readonly string $created_at,
@@ -37,6 +44,8 @@ class AuthUser extends ResponseShape
         public readonly bool $totp_enabled,
         /** Unused recovery codes left. Zero when two-factor is off. */
         public readonly int $recovery_codes_remaining,
+        /** Browsers that will not be asked for a code again. */
+        public readonly int $trusted_devices,
     ) {
     }
 }
@@ -49,6 +58,15 @@ class AuthSession extends ResponseShape
         public readonly string $token,
         /** @var AuthUser */
         public readonly object $user,
+        /**
+         * A secret for the browser to keep, when it asked to be remembered.
+         *
+         * Present only where there was something to remember: an account with
+         * two-factor on, signing in with `remember_device`. Sent back on later
+         * sign-ins to skip the six digits - and nothing else, since the
+         * password still has to be right. Null every other time.
+         */
+        public readonly ?string $device_token,
     ) {
     }
 }

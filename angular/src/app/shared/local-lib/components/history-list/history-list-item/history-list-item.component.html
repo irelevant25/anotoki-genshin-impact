@@ -19,7 +19,7 @@
                 <span style="font-weight: 500">{{ item()?.author }}</span>
             }
             @if (item()?.timestamp) {
-                <span class="timestamp">{{ item()?.timestamp | slovakDate: "datetimeWithSeconds" }}</span>
+                <span class="timestamp">{{ item()?.timestamp | appDate: "datetimeWithSeconds" }}</span>
             }
         </div>
         <div class="mt-1" [innerHTML]="item()?.message"></div>

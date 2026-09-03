@@ -9,7 +9,7 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { copyObject, getValueByKey } from '../../helper.class';
 import { ButtonComponent } from '../button/button.component';
 import { AbstractRolesComponent } from '../../abstract-roles.class';
-import { SlovakDatePipe } from '../../pipes/date.pipe';
+import { AppDatePipe } from '../../pipes/date.pipe';
 import { TranslationService } from '../../i18n/translation.service';
 
 export interface SortEvent {
@@ -46,7 +46,7 @@ export const EMPTY_TABLE = { result: [], total: 0, poradie: [] };
 @Component({
   selector: 'app-table',
   imports: [CommonModule, PaginationComponent, LoaderComponent, CheckboxComponent, ButtonComponent],
-  providers: [SlovakDatePipe],
+  providers: [AppDatePipe],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
@@ -104,7 +104,7 @@ export class TableComponent<T> extends AbstractRolesComponent {
   private _lastPage: number = NaN;
   private _lastPageSize: number = NaN;
 
-  constructor(private readonly _slovakDatePipe: SlovakDatePipe) {
+  constructor(private readonly _appDatePipe: AppDatePipe) {
     super();
     effect(() => {
       this.data();
@@ -393,19 +393,19 @@ export class TableComponent<T> extends AbstractRolesComponent {
         return value ? 'Áno' : 'Nie';
       case 'date':
         try {
-          return this._slovakDatePipe.transform(value as string, 'date') ?? '';
+          return this._appDatePipe.transform(value as string, 'date') ?? '';
         } catch {
           return value;
         }
       case 'datetime':
         try {
-          return this._slovakDatePipe.transform(value as string, 'datetime') ?? '';
+          return this._appDatePipe.transform(value as string, 'datetime') ?? '';
         } catch {
           return value;
         }
       case 'datetimeWithSeconds':
         try {
-          return this._slovakDatePipe.transform(value as string, 'datetimeWithSeconds') ?? '';
+          return this._appDatePipe.transform(value as string, 'datetimeWithSeconds') ?? '';
         } catch {
           return value;
         }

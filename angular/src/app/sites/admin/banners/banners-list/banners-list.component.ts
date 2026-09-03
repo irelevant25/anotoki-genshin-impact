@@ -8,12 +8,14 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, contains, includedIn } from '../../shared/admin-list.class';
 import { MaterialIconDirective } from '../../shared/material-icon.directive';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 @Component({
   selector: 'app-banners-list',
   templateUrl: './banners-list.component.html',
   styleUrls: ['./banners-list.component.scss'],
   imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, MultiselectComponent, MaterialIconDirective],
+  providers: [AppDatePipe],
 })
 export class BannersListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'banners';
@@ -56,9 +58,11 @@ export class BannersListComponent extends AdminListComponent<any> implements OnI
     return `${banner.version} - ${banner.name}`;
   }
 
+  private readonly _dates = inject(AppDatePipe);
+
   /** Dates come back as timestamps; the day is all that matters here. */
   day(value: string | null | undefined): string {
-    return value ? String(value).substring(0, 10) : '—';
+    return value ? this._dates.transform(value) : '—';
   }
 
   resetFilters(): void {

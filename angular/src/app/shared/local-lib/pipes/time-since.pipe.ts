@@ -13,7 +13,7 @@ export class TimeSincePipe implements PipeTransform {
     const date = new Date(value);
 
     if (isNaN(date.getTime())) {
-      console.warn(`SlovakDatePipe: invalid date "${value}"`);
+      console.warn(`AppDatePipe: invalid date "${value}"`);
       return value.toString();
     }
 

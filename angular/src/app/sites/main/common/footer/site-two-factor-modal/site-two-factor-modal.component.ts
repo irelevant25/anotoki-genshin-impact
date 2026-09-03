@@ -5,6 +5,7 @@ import { ButtonComponent } from '../../../../../shared/local-lib/components/butt
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { QrCodeComponent } from '../../../../../shared/local-lib/components/qr-code/qr-code.component';
+import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { FieldsComponent } from '../../../../../shared/local-lib/abstract-fields.class';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
@@ -33,7 +34,7 @@ type TwoFactorStep = 'setup' | 'codes' | 'disable';
   selector: 'app-site-two-factor-modal',
   templateUrl: './site-two-factor-modal.component.html',
   styleUrls: ['./site-two-factor-modal.component.scss'],
-  imports: [ModalComponent, ButtonComponent, TextComponent, LoaderComponent, QrCodeComponent, TranslatePipe],
+  imports: [ModalComponent, ButtonComponent, TextComponent, LoaderComponent, QrCodeComponent, CheckboxComponent, TranslatePipe],
 })
 export class SiteTwoFactorModalComponent extends FieldsComponent<ITwoFactor> {
   private readonly _security = inject(SecurityService);

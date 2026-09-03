@@ -30,9 +30,9 @@
                 </div>
 
                 <div class="session-when">
-                    <span>{{ 'profile.sessions.started' | translate }} {{ session.created_at | slovakDate: 'datetime' }}</span>
+                    <span>{{ 'profile.sessions.started' | translate }} {{ session.created_at | appDate: 'datetime' }}</span>
                     @if (session.active && session.last_seen_at) {
-                        <span class="session-seen">{{ 'profile.sessions.lastSeen' | translate }} {{ session.last_seen_at | slovakDate: 'datetime' }}</span>
+                        <span class="session-seen">{{ 'profile.sessions.lastSeen' | translate }} {{ session.last_seen_at | appDate: 'datetime' }}</span>
                     }
                 </div>
 

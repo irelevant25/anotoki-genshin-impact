@@ -11,16 +11,19 @@ import { GoogleButtonComponent } from '../../../../../shared/local-lib/component
 import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme-toggle/theme-toggle.service';
 import { ModalService } from '../../../../../shared/local-lib/components/modal/modal.service';
 import { SiteLoginModalComponent } from '../site-login-modal/site-login-modal.component';
+import { SiteRegisterModalComponent } from '../site-register-modal/site-register-modal.component';
 import { SiteSetPasswordModalComponent } from '../site-set-password-modal/site-set-password-modal.component';
 import { SiteTwoFactorModalComponent } from '../site-two-factor-modal/site-two-factor-modal.component';
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../../../shared/local-lib/i18n/date-format.service';
 
 @Component({
   selector: 'app-site-account-modal',
   templateUrl: './site-account-modal.component.html',
   styleUrls: ['./site-account-modal.component.scss'],
-  imports: [ModalComponent, ReactiveFormsModule, ButtonComponent, LoaderComponent, GoogleButtonComponent, TranslatePipe],
+  imports: [ModalComponent, ReactiveFormsModule, ButtonComponent, LoaderComponent, GoogleButtonComponent, TranslatePipe, AppDatePipe],
   providers: [],
 })
 export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
@@ -49,6 +52,30 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
 
   /** The language the site is read in; the admin panel stays English. */
   readonly i18n = inject(TranslationService);
+
+  /** How dates and times are written for this reader. */
+  readonly formats = inject(DateFormatService);
+
+  /**
+   * The orders on offer, labelled by an example rather than by a pattern.
+   *
+   * "1.3.2026" tells you what you are choosing; "d.M.yyyy" tells you only if
+   * you already know. The label behind the tooltip says which is which for
+   * anybody who wants the name.
+   */
+  readonly dateOptions: { value: DateFormatChoice; label: string }[] = [
+    { value: 'auto', label: 'account.formats.auto' },
+    { value: 'dmy_dot', label: 'account.formats.dmyDot' },
+    { value: 'dmy_slash', label: 'account.formats.dmySlash' },
+    { value: 'mdy_slash', label: 'account.formats.mdySlash' },
+    { value: 'ymd_dash', label: 'account.formats.ymdDash' },
+  ];
+
+  readonly timeOptions: { value: TimeFormatChoice; label: string }[] = [
+    { value: 'auto', label: 'account.formats.auto' },
+    { value: '24', label: 'account.formats.clock24' },
+    { value: '12', label: 'account.formats.clock12' },
+  ];
 
   constructor(private readonly _securityService: SecurityService) {
     super();
@@ -145,8 +172,38 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
     this._modals.open(SiteLoginModalComponent, { size: '1' });
   }
 
+  /**
+   * And so does making an account.
+   *
+   * A button of its own rather than only the link under the sign-in form:
+   * somebody who has never been here before is not looking for a form they
+   * cannot fill in.
+   */
+  register(): void {
+    this.closeModal();
+    this._modals.open(SiteRegisterModalComponent, { size: '1' });
+  }
+
   setLanguage(code: string): void {
     void this.i18n.setLanguage(code);
+  }
+
+  setDateFormat(choice: DateFormatChoice): void {
+    // Shown before the server answers. The setting is a preference, not a
+    // fact about the account, and a chooser that lags a round trip behind
+    // feels broken - the reload behind it puts it right if the save fails.
+    this.formats.dateChoice.set(choice);
+    this._run(this._securityService.setDateFormats({ date_format: choice === 'auto' ? null : choice }), 'account.formats.saved');
+  }
+
+  setTimeFormat(choice: TimeFormatChoice): void {
+    this.formats.timeChoice.set(choice);
+    this._run(this._securityService.setDateFormats({ time_format: choice === 'auto' ? null : choice }), 'account.formats.saved');
+  }
+
+  /** Ask for a code again from every browser this account has remembered. */
+  forgetDevices(): void {
+    this._run(this._securityService.forgetTrustedDevices(), 'account.devices.forgotten');
   }
 
   setTheme(theme: Theme): void {

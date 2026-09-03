@@ -16,6 +16,19 @@
                     <p class="login-problem">{{ refusal }}</p>
                 }
 
+                <!-- Only here, where there is actually a code to skip. It
+                     spares the six digits and nothing else - the password
+                     still has to be right - so it is a convenience rather
+                     than a way in. -->
+                <app-checkbox
+                    class="login-remember"
+                    [label]="'login.rememberDevice' | translate"
+                    labelPosition="right"
+                    [(value)]="rememberDevice"
+                ></app-checkbox>
+
+                <p class="text-muted small">{{ 'login.rememberDeviceNote' | translate }}</p>
+
                 <p class="text-muted small">{{ 'login.totpRecovery' | translate }}</p>
             } @else {
             <app-text

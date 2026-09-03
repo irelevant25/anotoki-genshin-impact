@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { BadgeComponent } from "../../../../../shared/local-lib/components/badge/badge.component";
 import { StorageKeys } from '../../../../../shared/state-manager.service';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 
 export interface ChangelogEntry {
   version: string;
@@ -21,7 +22,7 @@ export interface ChangelogEntry {
   templateUrl: './site-version-modal.component.html',
   styleUrls: ['./site-version-modal.component.scss'],
   imports: [ModalComponent, BadgeComponent, TranslatePipe],
-  providers: [],
+  providers: [AppDatePipe],
 })
 export class SiteVersionModalComponent extends AbstractModalComponent {
   @Input() data: ChangelogEntry[] = []; // CHANGELOG
@@ -38,12 +39,10 @@ export class SiteVersionModalComponent extends AbstractModalComponent {
     }
   }
 
+  private readonly _dates = inject(AppDatePipe);
+
+  /** The reader's own date order, like every other date on the site. */
   formatDate(dateString: string): string {
-    const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    return this._dates.transform(dateString);
   }
 }

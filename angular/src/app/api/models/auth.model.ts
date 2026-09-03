@@ -79,6 +79,8 @@ export interface AuthSession {
   /** The bearer token. Every later request carries it. */
   token: string;
   user: AuthUser;
+  /** A secret for the browser to keep, when it asked to be remembered.  Present only where there was something to remember: an account with two-factor on, signing in with `remember_device`. Sent back on later sign-ins to skip the six digits - and nothing else, since the password still has to be right. Null every other time. */
+  device_token: string | null;
 }
 
 /**
@@ -94,6 +96,10 @@ export interface AuthUser {
   /** The admin panel's, remembered separately. */
   theme_admin: string;
   language: string;
+  /** How this reader wants dates written, or null for "as this device does". One of dmy_dot, dmy_slash, mdy_slash, ymd_dash. */
+  date_format: string | null;
+  /** '24', '12', or null for whatever the device says. */
+  time_format: string | null;
   email_confirmed: boolean;
   version: string | null;
   created_at: string;
@@ -108,6 +114,8 @@ export interface AuthUser {
   totp_enabled: boolean;
   /** Unused recovery codes left. Zero when two-factor is off. */
   recovery_codes_remaining: number;
+  /** Browsers that will not be asked for a code again. */
+  trusted_devices: number;
 }
 
 /**

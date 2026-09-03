@@ -12,6 +12,7 @@ import {
   AuthPending,
   AuthSession,
   AuthUser,
+  DateFormatsRequest,
   SessionList,
   SessionsEnded,
   TotpRecoveryCodes,
@@ -45,6 +46,14 @@ export interface UserInfo {
   totp_enabled?: boolean;
   /** Unused recovery codes left, so the account page can warn when they run low. */
   recovery_codes_remaining?: number;
+  /** Browsers that will not be asked for a code again - see trusted devices. */
+  trusted_devices?: number;
+  /**
+   * How this reader wants dates and times written, or absent for "as this
+   * device does" - see DateFormatService.
+   */
+  date_format?: string;
+  time_format?: string;
 }
 
 const ROLE_MAP: Record<string, Roles> = {
@@ -62,6 +71,16 @@ export function initializeAuthenticationFactory(secSvc: SecurityService): () => 
 })
 export class SecurityService {
   private readonly TOKEN_KEY = 'jwt';
+
+  /**
+   * What this browser was given after it last answered an authenticator code.
+   *
+   * Kept per browser rather than per account, because that is what it is about:
+   * "this machine has already proved a code". Sent on every sign-in attempt,
+   * since the browser cannot know whether the account still wants it, and
+   * quietly ignored by the server when it does not.
+   */
+  private readonly DEVICE_KEY = 'trusted-device';
 
   private readonly _isLoggedIn = new BehaviorSubject<boolean>(false);
   isLoggedIn$: Observable<boolean> = this._isLoggedIn.asObservable();
@@ -148,8 +167,10 @@ export class SecurityService {
    * Authenticates with email + password.
    * Returns an Observable so the caller can react to success or failure.
    */
-  login(email: string, password: string, totp?: string): Observable<void> {
-    return this._authApi.login({ email, password, totp }).pipe(map((session) => this.adoptSession(session)));
+  login(email: string, password: string, totp?: string, remember?: boolean): Observable<void> {
+    return this._authApi
+      .login({ email, password, totp, device_token: this._deviceToken(), remember_device: remember })
+      .pipe(map((session) => this.adoptSession(session)));
   }
 
   /**
@@ -199,8 +220,10 @@ export class SecurityService {
    * Google's, and that it was minted for this site - so all this does is carry
    * it across.
    */
-  signInWithGoogle(credential: string, totp?: string): Observable<void> {
-    return this._authApi.signInWithGoogle({ credential, totp }).pipe(map((session) => this.adoptSession(session)));
+  signInWithGoogle(credential: string, totp?: string, remember?: boolean): Observable<void> {
+    return this._authApi
+      .signInWithGoogle({ credential, totp, device_token: this._deviceToken(), remember_device: remember })
+      .pipe(map((session) => this.adoptSession(session)));
   }
 
   /** Asks for a sign-in code by email, and signs in with one. */
@@ -208,8 +231,10 @@ export class SecurityService {
     return this._authApi.requestLoginCode({ email });
   }
 
-  signInWithCode(email: string, code: string, totp?: string): Observable<void> {
-    return this._authApi.signInWithCode({ email, code, totp }).pipe(map((session) => this.adoptSession(session)));
+  signInWithCode(email: string, code: string, totp?: string, remember?: boolean): Observable<void> {
+    return this._authApi
+      .signInWithCode({ email, code, totp, device_token: this._deviceToken(), remember_device: remember })
+      .pipe(map((session) => this.adoptSession(session)));
   }
 
   /**
@@ -283,7 +308,62 @@ export class SecurityService {
   /** Takes up a session handed back by any endpoint that issues one. */
   adoptSession(session: AuthSession): void {
     this._storageService.write(this.TOKEN_KEY, session.token);
+
+    // Only present when this browser asked to be remembered and there was
+    // something to remember. Kept alongside the token rather than with the
+    // account, because it outlives the session it arrived on - that is the
+    // whole point of it.
+    if (session.device_token) {
+      this._storageService.write(this.DEVICE_KEY, session.device_token);
+    }
+
     this._applySession(session.user, session.token);
+  }
+
+  /**
+   * How dates and times are written for this reader.
+   *
+   * A field left out is left alone; a field sent as null is cleared back to
+   * whatever the device says, which is what an account starts with. The
+   * difference matters - sending both every time would mean changing the date
+   * order silently reset the clock. See DateFormatService.
+   */
+  setDateFormats(formats: DateFormatsRequest): Observable<AuthUser> {
+    return this._authApi.setDateFormats(formats).pipe(tap((user) => this._refreshUser(user)));
+  }
+
+  /**
+   * Asks for an authenticator code again from every browser this account has
+   * remembered - a laptop lent out, a machine sold, or simply not being sure.
+   *
+   * The copy in this browser goes too. The server is the record, but leaving a
+   * dead secret behind would only be confusing.
+   */
+  forgetTrustedDevices(): Observable<SessionsEnded> {
+    return this._authApi.forgetTrustedDevices().pipe(
+      tap(() => {
+        this.forgetThisDevice();
+        this.refreshCurrentUser();
+      }),
+    );
+  }
+
+  /** The remembered-device secret, if this browser has one. */
+  private _deviceToken(): string | null {
+    try {
+      return this._storageService.read(this.DEVICE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  /** Forgets it here. The server is told separately, and is the record. */
+  forgetThisDevice(): void {
+    try {
+      this._storageService.remove(this.DEVICE_KEY);
+    } catch {
+      // Blocked storage. Nothing here is worth interrupting a sign-out over.
+    }
   }
 
   /**
@@ -386,6 +466,9 @@ export class SecurityService {
       google_email: user.google_email ?? undefined,
       totp_enabled: user.totp_enabled,
       recovery_codes_remaining: user.recovery_codes_remaining,
+      trusted_devices: user.trusted_devices,
+      date_format: user.date_format ?? undefined,
+      time_format: user.time_format ?? undefined,
       token,
     });
     this._isLoggedIn.next(true);

@@ -37,7 +37,7 @@ nav ul li a {
 }
 
 nav ul li:hover .help-icon,
-nav ul li .help-icon:focus-within {
+nav ul li .help-icon:has(:focus-visible) {
   opacity: 1;
 }
 
@@ -56,10 +56,34 @@ nav ul li.active {
   background: var(--bg-veil-soft);
 }
 
-.badge-daily {
-  border-radius: 1rem;
+// How many dailies are still to do, in the corner of the Daily item.
+//
+// Red while there is something left and green when there is not, which is the
+// whole point of it: a colour answers "is there anything for me today?" from
+// across the page, and the number answers "how much?".
+//
+// Always shown, even at zero. A marker that disappears when it is satisfied
+// leaves you unable to tell "done" from "not loaded yet".
+.daily-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: var(--border-radius-pill);
+  background: var(--color-danger);
+  color: var(--color-danger-text);
   font-size: 0.75rem;
   font-weight: 600;
-  color: white;
-  position: absolute;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.daily-badge-done {
+  background: var(--color-success);
+  color: var(--color-success-text);
 }

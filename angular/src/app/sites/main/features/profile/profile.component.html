@@ -9,7 +9,7 @@
                     <p class="profile-meta">
                         <span class="role-badge">{{ user.roles }}</span>
                         @if (user.created_at) {
-                            <span>{{ 'profile.memberSince' | translate }} {{ user.created_at | slovakDate }}</span>
+                            <span>{{ 'profile.memberSince' | translate }} {{ user.created_at | appDate }}</span>
                         }
                     </p>
                 </header>
@@ -276,7 +276,7 @@
                                         <span class="recent-quiz">{{ quizTitle(result.quiz) | translate }}</span>
                                         <span class="recent-difficulty">{{ difficultyLabel(result.difficulty) | translate }}</span>
                                         <span class="recent-attempts">{{ 'profile.recent.attempts' | translate: { count: result.attempts } }}</span>
-                                        <span class="recent-when">{{ result.created_at | slovakDate: 'datetime' }}</span>
+                                        <span class="recent-when">{{ result.created_at | appDate: 'datetime' }}</span>
                                     </li>
                                 }
                             </ul>
