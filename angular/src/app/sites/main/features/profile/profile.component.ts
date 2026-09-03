@@ -177,7 +177,7 @@ export class ProfileComponent {
   }
 
   login(): void {
-    this._modals.open(SiteLoginModalComponent, { size: '1' });
+    this._modals.open(SiteLoginModalComponent, { size: '2' });
   }
 
   /** The route a quiz's own page is at, or null for a name the site cannot place. */

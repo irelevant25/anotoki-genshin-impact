@@ -8,21 +8,27 @@ import { DropdownComponent } from '../../../../../shared/local-lib/components/dr
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
-import { buildVersionOptions, isChosen, matchesTerm } from '../shared/database-helpers';
+import { buildVersionOptions, compareVersionsDesc, isChosen, matchesTerm } from '../shared/database-helpers';
 import { asOption, asText, bindFiltersToUrl } from '../shared/filter-url';
-import { BannerApiService, CharacterApiService, WeaponApiService } from '../../../../../api';
+import { Banner, BannerApiService, Character, CharacterApiService, Expanded, Weapon, WeaponApiService } from '../../../../../api';
+import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+
+type IBannerFull = Banner & {
+  characters: Expanded<Character, 'created_by' | 'updated_by'>[];
+  weapons: Expanded<Weapon, 'created_by' | 'updated_by'>[];
+}
 
 @Component({
   selector: 'app-database-banners',
   templateUrl: './banners.component.html',
   styleUrls: ['./banners.component.scss'],
-  imports: [RouterModule, ButtonComponent, TranslatePipe, DropdownComponent, TextComponent, LoaderComponent, MaterialIconDirective],
+  imports: [AppDatePipe, RouterModule, ButtonComponent, TranslatePipe, DropdownComponent, TextComponent, LoaderComponent, MaterialIconDirective],
   providers: [],
 })
 export class DatabaseBannersComponent {
-  banners = signal<any[]>([]);
-  characters = signal<any[]>([]);
-  weapons = signal<any[]>([]);
+  banners = signal<IBannerFull[]>([]);
+  characters = signal<Expanded<Character, 'created_by' | 'updated_by'>[]>([]);
+  weapons = signal<Expanded<Weapon, 'created_by' | 'updated_by'>[]>([]);
   loading = signal(true);
 
   filterVersions = signal<string | number | boolean | null | undefined>(undefined);
@@ -53,6 +59,30 @@ export class DatabaseBannersComponent {
         return false;
       }
       return true;
+    }).sort((a, b) => {
+      // 1. Version descending
+      const versionDiff = compareVersionsDesc(a.version, b.version);
+
+      if (versionDiff !== 0) {
+        return versionDiff;
+      }
+
+      // 2. duration_from ascending
+      const durationDiff = a.duration_from.localeCompare(b.duration_from);
+
+      if (durationDiff !== 0) {
+        return durationDiff;
+      }
+
+      // 3. Objects with weapons go to the end
+      const aHasWeapons = a.weapons?.length > 0;
+      const bHasWeapons = b.weapons?.length > 0;
+
+      if (aHasWeapons !== bHasWeapons) {
+        return aHasWeapons ? 1 : -1;
+      }
+
+      return 0;
     });
   });
 
@@ -84,16 +114,30 @@ export class DatabaseBannersComponent {
         const charactersById = new Map(characters.map((character) => [character.id, character]));
         const weaponsById = new Map(weapons.map((weapon) => [weapon.id, weapon]));
 
-        banners.forEach((banner) => {
-          banner.characters.forEach((character: any) => {
-            Object.assign(character, charactersById.get(character.character_id) ?? {});
+        const localBanners: IBannerFull[] = [];
+        banners.forEach((banner, index) => {
+          const { characters, weapons, ...copy } = banner;
+          localBanners.push(copy as IBannerFull);
+
+          localBanners[index].characters = [];
+          banner.characters.forEach((character) => {
+            const characterById = charactersById.get(character.character_id ?? -1);
+            if (characterById) {
+              localBanners[index].characters.push(characterById);
+            }
           });
-          banner.weapons.forEach((weapon: any) => {
-            Object.assign(weapon, weaponsById.get(weapon.weapon_id) ?? {});
+
+          localBanners[index].weapons = [];
+          banner.weapons.forEach((weapon) => {
+            const weaponById = weaponsById.get(weapon.weapon_id ?? -1);
+            if (weaponById) {
+              localBanners[index].weapons.push(weaponById);
+            }
           });
+          banner
         });
 
-        this.banners.set(banners);
+        this.banners.set(localBanners);
         this.loading.set(false);
       },
       error: () => this.loading.set(false),

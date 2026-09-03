@@ -15,5 +15,5 @@ angular/.openapi-probe.ts
 # database.local.php was committed before this rule and stays tracked on
 # purpose - it holds local development values only, and production is
 # configured separately.
-# php/config/google.php
-# php/config/database.local.php
+php/config/google.php
+php/config/database.local.php

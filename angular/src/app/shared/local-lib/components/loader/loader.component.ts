@@ -104,7 +104,7 @@ export class LoaderComponent {
    * comes back in 80ms would otherwise show as a flicker, which reads as a
    * fault rather than as a page that loaded.
    */
-  minDuration = model<number>(1250);
+  minDuration = model<number>(500);
 
   loadingCtrl = new Loading(this.loading, this.minDuration, this._injector);
   spinner = model<boolean>(true);

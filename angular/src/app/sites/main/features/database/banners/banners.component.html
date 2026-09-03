@@ -23,40 +23,54 @@
                     @for (banner of filteredBanners(); track banner.id) {
                         <div class="wish-card-container-wrapper gap-2 flex-column w-100">
                             <div class="wish-card-container gap-1 flex-row flex-column-mobile">
-                                <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 25px; min-width: 25px">{{ banner.version }}</div>
-                                <div class="align-content-center m-auto-mobile w-auto-mobile" style="width: 150px; min-width: 150px">{{ banner.duration_from }} - {{ banner.duration_to }}</div>
-                                <img [appMaterialIcon]="banner.icon_name" [appAssetFolder]="'banners'" [alt]="banner.name" class="my-auto mx-auto-mobile" style="width: 355px; min-width: 355px" />
+                                <div id="version-duration" class="d-flex flex-col justify-content-center" style="width: 80px; min-width: 80px">
+                                    <div class="align-content-center m-auto-mobile w-auto-mobile">{{ banner.version }}</div>
+                                    <div class="align-content-center m-auto-mobile w-auto-mobile">
+                                        {{ banner.duration_from | appDate }}
+                                    </div>
+                                    <div class="align-content-center m-auto-mobile w-auto-mobile">
+                                        {{ banner.duration_to | appDate }}
+                                    </div>
+                                </div>
+                                <img
+                                    id="banner-image"
+                                    [appMaterialIcon]="banner.icon_name"
+                                    [appAssetFolder]="'banners'"
+                                    [alt]="banner.name"
+                                    class="my-auto mx-auto-mobile"
+                                    style="width: 620px; min-width: 620px"
+                                />
                                 <div class="d-flex flex-row flex-wrap gap-2 m-auto-mobile">
                                     @for (character of banner.characters; track character.id) {
                                         <div class="card-container">
                                             <!-- `character_id` rather than `id`: the row this came from is a
                                                  banners_characters join row with an id of its own, and the merge
                                                  in the component only overwrites it when the character was found. -->
-                                            <a class="d-flex flex-column item-card hover" [routerLink]="['../', 'characters', character.character_id]" [title]="character.name">
+                                            <a class="d-flex flex-column item-card hover" [routerLink]="['../', 'characters', character.id]" [title]="character.name">
                                                 <img
                                                     [appMaterialIcon]="character.icon_name"
                                                     [appAssetFolder]="'character.icon'"
                                                     [alt]="character.name"
                                                     class="top-border"
                                                     loading="lazy"
-                                                    [class]="'quality-' + (character.rarity ?? '0')"
+                                                    [class]="'quality-' + character.rarity"
                                                 />
-                                                <div class="name text-center bottom-border py-1">{{ character.name }}</div>
+                                                <div class="name text-center bottom-border py-1 text-center">{{ character.name }}</div>
                                             </a>
                                         </div>
                                     }
                                     @for (weapon of banner.weapons; track weapon.id) {
                                         <div class="card-container">
-                                            <a class="d-flex flex-column item-card hover" [routerLink]="['../', 'weapons', weapon.weapon_id]" [title]="weapon.name">
+                                            <a class="d-flex flex-column item-card hover" [routerLink]="['../', 'weapons', weapon.id]" [title]="weapon.name">
                                                 <img
                                                     [appMaterialIcon]="weapon.icon_name"
                                                     [appAssetFolder]="'weapons'"
                                                     [alt]="weapon.name"
                                                     class="top-border"
                                                     loading="lazy"
-                                                    [class]="'quality-' + (weapon.rarity ?? '0')"
+                                                    [class]="'quality-' + weapon.rarity"
                                                 />
-                                                <div class="name text-center bottom-border py-1">{{ weapon.name }}</div>
+                                                <div class="name text-center bottom-border py-1 text-center">{{ weapon.name }}</div>
                                             </a>
                                         </div>
                                     }

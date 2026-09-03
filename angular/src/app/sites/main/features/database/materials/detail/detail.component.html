@@ -18,11 +18,11 @@
 
                         <div class="d-flex flex-column gap-2 info">
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.filters.version' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.filters.version' | translate }}:</span>
                                 <span class="d-flex text-start">{{ versionLabel(material.version) || '-' }}</span>
                             </div>
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.filters.rarity' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.filters.rarity' | translate }}:</span>
                                 @if (material.rarity) {
                                     <span class="d-flex text-start rarity-stars">{{ rarityStars() }}</span>
                                 } @else {
@@ -30,15 +30,15 @@
                                 }
                             </div>
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.filters.category' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.filters.category' | translate }}:</span>
                                 <span class="d-flex text-start">{{ material.type ?? '-' }}</span>
                             </div>
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.detail.group' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.detail.group' | translate }}:</span>
                                 <span class="d-flex text-start">{{ groupNames().join(', ') || '-' }}</span>
                             </div>
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.filters.region' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.filters.region' | translate }}:</span>
                                 <span class="d-flex text-start">{{ material.region ?? 'N/A' }}</span>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                         @for (section of sections; track section.key) {
                             @if (itemsFor(section.key).length) {
                                 <div class="d-flex flex-row flex-wrap gap-3">
-                                    <span class="fw-bold w-100">{{ section.label | translate: { count: itemsFor(section.key).length } }}:</span>
+                                    <span class="fw-700 w-100">{{ section.label | translate: { count: itemsFor(section.key).length } }}:</span>
 
                                     @for (item of visibleFor(section.key); track item.id) {
                                         <a class="d-flex flex-column card-container hover" [routerLink]="['../../', section.target, item.id]" [title]="item.name">

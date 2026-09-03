@@ -250,7 +250,7 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
   /** Signing in happens in its own modal; this one is the way to it. */
   login(): void {
     this.closeModal();
-    this._modals.open(SiteLoginModalComponent, { size: '1' });
+    this._modals.open(SiteLoginModalComponent, { size: '2' });
   }
 
   /**
@@ -262,7 +262,7 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
    */
   register(): void {
     this.closeModal();
-    this._modals.open(SiteRegisterModalComponent, { size: '1' });
+    this._modals.open(SiteRegisterModalComponent, { size: '2' });
   }
 
   setLanguage(code: string): void {

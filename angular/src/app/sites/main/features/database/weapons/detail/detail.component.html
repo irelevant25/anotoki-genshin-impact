@@ -18,24 +18,24 @@
 
                         <div class="d-flex flex-column gap-2 info">
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.filters.weaponType' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.filters.weaponType' | translate }}:</span>
                                 <span class="d-flex text-start">{{ weapon.type ?? '-' }}</span>
                             </div>
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.detail.releaseDate' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.detail.releaseDate' | translate }}:</span>
                                 <span class="d-flex text-start">{{ weapon.release_date ?? '-' }}</span>
                             </div>
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.detail.secondaryStat' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.detail.secondaryStat' | translate }}:</span>
                                 <span class="d-flex text-start">{{ weapon.secondary_stat ?? '-' }}</span>
                             </div>
                             <div>
-                                <span class="d-flex fw-bold">{{ 'database.detail.released' | translate }}:</span>
+                                <span class="d-flex fw-700">{{ 'database.detail.released' | translate }}:</span>
                                 <span class="d-flex text-start">{{ versionLabel(weapon.version) || '-' }}</span>
                             </div>
                             @if (effects().length) {
                                 <div>
-                                    <span class="d-flex fw-bold">{{ 'database.detail.effects' | translate }}:</span>
+                                    <span class="d-flex fw-700">{{ 'database.detail.effects' | translate }}:</span>
                                     @for (effect of effects(); track effect) {
                                         <span class="d-flex text-start">{{ effect }}</span>
                                     }

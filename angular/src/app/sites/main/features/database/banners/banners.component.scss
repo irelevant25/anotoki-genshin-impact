@@ -22,7 +22,7 @@ img {
 }
 
 .card-container {
-  width: 60px;
+  width: 80px;
   font-size: var(--font-size-base);
   margin-block-start: auto;
   margin-block-end: auto;
@@ -30,7 +30,19 @@ img {
   .item-card {
     img,
     .name {
-      width: 60px;
+      width: 80px;
     }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  #version-duration {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #banner-image {
+    width: unset !important;
+    min-width: unset !important;
+    height: unset !important;
   }
 }
