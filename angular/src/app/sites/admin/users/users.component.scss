@@ -35,6 +35,20 @@
   width: 110px;
 }
 
+.col-lang {
+  width: 56px;
+  text-transform: uppercase;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+// Narrow on purpose: the header word is wider than any of the answers, and
+// eleven columns fit across a laptop only if the yes/no ones stay small.
+.col-flag {
+  width: 84px;
+  white-space: nowrap;
+}
+
 .col-when {
   width: 120px;
   white-space: nowrap;
@@ -84,6 +98,29 @@
   opacity: 0.65;
 }
 
+// The one flag that is a problem rather than a state, so it is said in the
+// name column where the eye already is rather than in a column of its own.
+.chip-must-change {
+  margin-left: var(--spacing-xs);
+  padding: 0 6px;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-xs);
+  background: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+  border: 1px solid var(--color-warning-light-border);
+  white-space: nowrap;
+}
+
+.flag {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.flag-yes {
+  color: var(--color-success);
+  font-weight: var(--font-weight-semibold);
+}
+
 .chip-self,
 .chip-unconfirmed {
   margin-left: var(--spacing-xs);
@@ -101,4 +138,12 @@
 
 .no-actions {
   color: var(--text-muted);
+}
+
+.col-actions {
+  width: 300px;
+}
+
+.action-btns {
+  flex-wrap: wrap;
 }

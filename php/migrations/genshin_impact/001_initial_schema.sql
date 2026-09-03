@@ -241,8 +241,18 @@ INSERT INTO regions (name) VALUES
 ON CONFLICT DO NOTHING;
 
 -----------------------------------------------------------
--- CHARACTER_ROLES
--- name: CharacterRole
+-- ROLES
+-- name: Role
+--
+-- Left over from when this table was called character_roles, the banner and
+-- the marker both said CharacterRole - which is the name of a different table,
+-- characters_roles, the join between a character and the roles they fill. The
+-- schema file this folder replaced had the correction and the migration never
+-- did, so the generated client called /api/roles' answer a CharacterRole.
+--
+-- Both lines are comments. Correcting them changes no database - a migration
+-- already recorded as applied is never run again, and a comment would do
+-- nothing if it were - and only the name the API client generates from it.
 -----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS roles (
     name VARCHAR(50) PRIMARY KEY

@@ -13,7 +13,8 @@ import { MaterialIconDirective } from '../../../admin/shared/material-icon.direc
 import { SiteLoginModalComponent } from '../../common/footer/site-login-modal/site-login-modal.component';
 import { difficultyName } from '../quizzes/shared/quiz.types';
 import { ActivityGridComponent } from './activity-grid/activity-grid.component';
-import { ProfileSessionsComponent } from './sessions/sessions.component';
+import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
+import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
 import {
   ActivityCell,
   CharacterBreakdown,
@@ -61,7 +62,8 @@ const ACTIVITY_WEEKS = 13;
     MaterialIconDirective,
     ButtonComponent,
     ActivityGridComponent,
-    ProfileSessionsComponent,
+    TabsComponent,
+    TabComponent,
   ],
 })
 export class ProfileComponent {
@@ -103,6 +105,15 @@ export class ProfileComponent {
 
   /** Nothing has been played at all - a different page from one with a gap in it. */
   readonly empty = computed(() => this.totals().played === 0);
+
+  /**
+   * When the last question was finished, or null for somebody who never has.
+   *
+   * Taken from the recent list, which the server already orders newest first,
+   * rather than from the activity days - those are dates with no time on them,
+   * and "yesterday" is a worse answer than "yesterday at nine".
+   */
+  readonly lastPlayed = computed<string | null>(() => this.recent()[0]?.created_at ?? null);
 
   // ── The character table ────────────────────────────────────────────────────
 

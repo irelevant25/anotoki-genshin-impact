@@ -5,7 +5,9 @@
                 {{ title() }}
             </h2>
         }
-        <app-button class="p-0 ms-5" icon="icon-close" variant="secondary" [outline]="true" tooltipText="Zatvoriť" (buttonClick)="closeDialog()"></app-button>
+        @if (dismissable()) {
+            <app-button class="p-0 ms-5" icon="icon-close" variant="secondary" [outline]="true" tooltipText="Zatvoriť" (buttonClick)="closeDialog()"></app-button>
+        }
     </div>
     @if (subtitle()) {
         <p class="modal-subtitle text-muted mb-3">

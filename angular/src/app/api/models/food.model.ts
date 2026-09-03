@@ -16,11 +16,8 @@ export interface Food {
   effect: string | null;
   type: string | null;
   icon_normal: string | null;
-  icon_normal_name: string | null;
   icon_delicious: string | null;
-  icon_delicious_name: string | null;
   icon_suspicious: string | null;
-  icon_suspicious_name: string | null;
   rarity: number | null;
   proficiency: number | null;
   base_dish_id: number | null;
@@ -40,6 +37,9 @@ export interface Food {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_normal_name: string | null;
+  icon_delicious_name: string | null;
+  icon_suspicious_name: string | null;
 }
 
 /**

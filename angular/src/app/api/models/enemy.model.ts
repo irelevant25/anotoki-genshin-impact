@@ -11,7 +11,6 @@ export interface Enemy {
   id: number;
   name: string;
   icon: string;
-  icon_name: string | null;
   description: string | null;
   version: string | null;
   interactive_map_link: string | null;
@@ -20,6 +19,7 @@ export interface Enemy {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_name: string | null;
 }
 
 /**
@@ -70,9 +70,7 @@ export interface EnemyPhase {
   title: string;
   secondary_title: string | null;
   icon: string;
-  icon_name: string | null;
   art: string | null;
-  art_name: string | null;
   has_weakpoint: boolean | null;
   living_being_type: string | null;
   living_being_family: string | null;
@@ -82,6 +80,8 @@ export interface EnemyPhase {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_name: string | null;
+  art_name: string | null;
 }
 
 /**

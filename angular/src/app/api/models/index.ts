@@ -19,6 +19,7 @@ export * from './lookup.model';
 export * from './material.model';
 export * from './migration.model';
 export * from './quiz.model';
+export * from './session.model';
 export * from './stat.model';
 export * from './translation.model';
 export * from './user.model';

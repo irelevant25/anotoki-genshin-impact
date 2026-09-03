@@ -4,7 +4,7 @@
             <div class="summary">
                 <span class="pill status-{{ entry.status }}">{{ entry.status }}</span>
                 <span class="summary-spacer"></span>
-                <span class="summary-date">{{ entry.created_at | date: 'd MMM yyyy, HH:mm' }}</span>
+                <span class="summary-date">{{ entry.created_at | appDate: 'datetime' }}</span>
             </div>
 
             @if (entry.description) {

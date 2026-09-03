@@ -1,5 +1,5 @@
 import { Component, OnDestroy, computed, inject, signal } from '@angular/core';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
@@ -7,6 +7,7 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { PasswordComponent } from '../../../../shared/local-lib/components/password/password.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { BackupApiService, BackupEntry, BackupPreview } from '../../../../api';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 /** How long the button stays out of reach, in seconds. */
 const RESTORE_COOLDOWN = 30;
@@ -28,7 +29,7 @@ const RESTORE_COOLDOWN = 30;
   selector: 'app-restore-confirm',
   templateUrl: './restore-confirm.component.html',
   styleUrls: ['./restore-confirm.component.scss'],
-  imports: [DatePipe, DecimalPipe, ModalComponent, ButtonComponent, TextComponent, PasswordComponent, LoaderComponent],
+  imports: [AppDatePipe, DecimalPipe, ModalComponent, ButtonComponent, TextComponent, PasswordComponent, LoaderComponent],
 })
 export class RestoreConfirmComponent extends AbstractModalComponent implements OnDestroy {
   private readonly _backupApi = inject(BackupApiService);

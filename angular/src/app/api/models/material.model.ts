@@ -10,8 +10,6 @@ import type { Saved } from '../types/common.type';
 export interface Material {
   id: number;
   name: string;
-  icon: string | null;
-  icon_name: string | null;
   type: string | null;
   group: string | null;
   region: string | null;
@@ -25,6 +23,8 @@ export interface Material {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon: string | null;
+  icon_name: string | null;
 }
 
 /**

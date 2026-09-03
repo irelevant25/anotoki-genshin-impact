@@ -19,11 +19,107 @@ export interface AdminUser {
   language: string;
   theme_main: string;
   theme_admin: string;
+  /** How this person has their dates written, or null for "as their device does". */
+  date_format: string | null;
+  /** '24', '12', or null for the same reason. */
+  time_format: string | null;
+  /** Whether signing in demands a code from an authenticator app. */
+  totp_enabled: boolean;
+  /** Whether the password on the account is still one an admin chose. */
+  force_password_change: boolean;
+  /** Whether a Google account is attached. Derived rather than stored - it lives in user_identities. See USER_DERIVED. */
+  google_connected: boolean;
+  /** The address Google gave, which is what there is to recognise. */
+  google_email: string | null;
   /** Disabling an account sets this; nothing is destroyed. */
   deleted: boolean;
   version: string | null;
   created_at: string;
   updated_at: string | null;
+}
+
+/**
+ * Everything about one account that is spread across five tables.
+ *
+ * What it deliberately does not carry is as much the point as what it does:
+ * no password hash, no TOTP secret, no recovery codes, and no device tokens or
+ * their hashes. That two-factor is on is administration; the secret behind it
+ * is not, and an endpoint that hands it over turns every admin session into a
+ * way of taking somebody's account.
+ */
+export interface AdminUserDetail {
+  account: AdminUser;
+  identities: AdminUserIdentity[];
+  /** Newest first, capped - see sessionsFor(). */
+  sessions: SessionEntry[];
+  /** Newest first, the last fifty. */
+  login_attempts: LoginAttemptEntry[];
+  active_sessions: number;
+  trusted_devices: number;
+  /** Zero when two-factor is off, rather than a count of nothing. */
+  recovery_codes_remaining: number;
+  failed_since_last_login: number;
+}
+
+/**
+ * One provider account attached to a site account.
+ *
+ * The provider's own permanent id for the person - `subject` - is deliberately
+ * not here. It identifies them to Google and is what the sign-in path matches
+ * on; an admin looking at who is connected has no use for it.
+ */
+export interface AdminUserIdentity {
+  id: number;
+  /** 'google' today. */
+  provider: string;
+  /** The address the provider gave, which is what there is to recognise. */
+  email: string | null;
+  created_at: string;
+}
+
+/**
+ * One try at signing in, successful or not.
+ *
+ * `email` is the address that was typed, which is not always the address on
+ * the account: somebody mistyping their own is exactly the kind of thing this
+ * table exists to make visible.
+ */
+export interface LoginAttemptEntry {
+  id: number;
+  email: string;
+  ip: string | null;
+  /** password, login_code, google, or email_link. */
+  method: string;
+  /** 'ok', or why not: bad_password, unconfirmed, totp_required, ... */
+  outcome: string;
+  created_at: string;
+}
+
+/**
+ * One session: where the account was signed in, how, and whether it still is.
+ *
+ * `ip` and `user_agent` are what the request carried, unexamined. They are
+ * shown so a person can recognise their own devices, not relied on for
+ * anything - a user agent is a string the caller chooses.
+ */
+export interface SessionEntry {
+  id: number;
+  /** password, login_code, google, or email_link. */
+  method: string;
+  ip: string | null;
+  /** The caller's hardware address, and null nearly always.  Only knowable when the caller shares a network with the server, and so is still in its neighbour table - a MAC address does not survive a router. See requestMac(). */
+  mac: string | null;
+  user_agent: string | null;
+  created_at: string;
+  last_seen_at: string | null;
+  expires_at: string;
+  revoked_at: string | null;
+  /** Why it ended, where anything but its own expiry ended it. */
+  revoked_reason: string | null;
+  /** Neither revoked nor expired - worked out here, against our own clock. */
+  active: boolean;
+  /** The session asking. The page will not offer to end this one by surprise. */
+  current: boolean;
 }
 
 /**
@@ -37,4 +133,6 @@ export interface UserFilters {
   /** How many admins are left, so the UI can explain a refused change. */
   admins: number;
   passwordMinLength: number;
+  /** The language codes somebody actually has.  Not every language the site knows: a filter offering choices that match nothing wastes a click to say so. */
+  languages: string[];
 }

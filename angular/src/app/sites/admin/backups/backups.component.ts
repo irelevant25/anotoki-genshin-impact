@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
@@ -9,6 +9,7 @@ import { RoleService } from '../../../shared/local-lib/services/role.service';
 import { Roles } from '../../../shared/local-lib/services/options-helper.service';
 import { BackupViewerComponent } from './backup-viewer/backup-viewer.component';
 import { BackupConfirmComponent } from './backup-confirm/backup-confirm.component';
+import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
 
 /**
  * Whole-database backups.
@@ -20,7 +21,7 @@ import { BackupConfirmComponent } from './backup-confirm/backup-confirm.componen
   selector: 'app-admin-backups',
   templateUrl: './backups.component.html',
   styleUrls: ['./backups.component.scss'],
-  imports: [DatePipe, DecimalPipe, ButtonComponent, LoaderComponent],
+  imports: [AppDatePipe, DecimalPipe, ButtonComponent, LoaderComponent],
 })
 export class BackupsComponent extends AbstractModalComponent implements OnInit, OnDestroy {
   private readonly _backupApi = inject(BackupApiService);

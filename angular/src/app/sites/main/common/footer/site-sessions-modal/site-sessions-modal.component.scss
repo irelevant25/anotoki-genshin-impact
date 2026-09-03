@@ -1,0 +1,120 @@
+.sessions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.sessions-warning {
+  margin: 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-warning-light-border);
+  border-radius: var(--border-radius);
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+}
+
+// Seven columns will not fit a phone at any font size worth reading, so the
+// table scrolls inside itself rather than pushing the modal sideways.
+.session-table-wrap {
+  overflow-x: auto;
+}
+
+.session-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+
+  th {
+    text-align: start;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color-soft, var(--border-color));
+    vertical-align: top;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+// The one reading the page, marked so its missing End button reads as
+// deliberate rather than as an omission.
+.session-current td {
+  background-color: var(--bg-veil-soft);
+}
+
+.session-current td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-success);
+}
+
+.session-ended td {
+  opacity: 0.6;
+}
+
+.session-device {
+  font-weight: var(--font-weight-semibold);
+  min-width: 10rem;
+}
+
+.chip-this {
+  display: inline-block;
+  margin-inline-start: var(--spacing-xs);
+  padding: 0 6px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  white-space: nowrap;
+}
+
+.session-where {
+  color: var(--text-secondary);
+}
+
+.session-mac {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.session-when {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.session-status {
+  color: var(--text-secondary);
+}
+
+.session-status-live {
+  color: var(--color-success);
+  font-weight: var(--font-weight-semibold);
+}
+
+.session-action {
+  text-align: end;
+  white-space: nowrap;
+}
+
+.session-none-action,
+.session-empty {
+  color: var(--text-muted);
+}
+
+.session-empty {
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+.confirm-row {
+  display: inline-flex;
+  gap: var(--spacing-xs);
+}

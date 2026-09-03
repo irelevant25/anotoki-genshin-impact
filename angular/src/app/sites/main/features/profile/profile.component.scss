@@ -36,17 +36,6 @@
   color: var(--text-secondary);
 }
 
-.role-badge {
-  padding: var(--spacing-xxs) var(--spacing-sm);
-  border-radius: var(--border-radius-pill);
-  background-color: var(--color-primary-light);
-  color: var(--color-primary-light-text);
-  border: 1px solid var(--color-primary-light-border);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
 
 .profile-warning {
   padding: var(--spacing-sm) var(--spacing-md);
@@ -361,5 +350,15 @@
       grid-column: 1 / -1;
       order: 3;
     }
+  }
+}
+
+// The two long breakdowns share one section now - see the template. The tab
+// component brings its own padding, so the section only supplies the panel.
+.profile-tabs {
+  padding-inline: 0;
+
+  ::ng-deep .nav-tabs {
+    margin-bottom: var(--spacing-md);
   }
 }

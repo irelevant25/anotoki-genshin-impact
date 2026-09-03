@@ -52,6 +52,7 @@ export const GROUPS = [
   ['file', ['/api/files', '/api/upload']],
   ['audit-log', ['/api/audit-logs']],
   ['migration', ['/api/migrations']],
+  ['session', ['/api/sessions']],
   ['dashboard', ['/api/dashboard']],
   ['lookup', ['/api/']],
 ];
@@ -77,6 +78,7 @@ export const GROUP_DOCS = {
   file: 'The asset tree on disk: browsing it, adding to it, and undoing a deletion.',
   'audit-log': 'Who changed which row, and to what.',
   migration: 'Which migrations have run against which database.',
+  session: 'Every session anybody has had here: who signed in, from where, and which are still live.',
   dashboard: 'The counts on the admin landing page.',
   lookup: 'The name-keyed lookup tables. Every one is a list of `{ name }`, read to fill a dropdown.',
 };
@@ -151,6 +153,7 @@ for (const entity of ['weapons', 'artifacts', 'materials', 'foods', 'enemies', '
  */
 export const QUERIES = {
   'GET /api/users': 'UserQuery?',
+  'GET /api/sessions': 'SessionHistoryQuery?',
   'GET /api/languages': 'LanguageQuery?',
   'GET /api/feedback': 'FeedbackQuery?',
   'GET /api/audit-logs': 'AuditLogQuery',
@@ -213,6 +216,10 @@ export const NAMES = {
   'PUT /api/users/{id}/enabled': 'setUserEnabled',
   'GET /api/users/filters': 'getUserFilters',
   'GET /api/users': 'getUsers',
+  'GET /api/users/{id}/detail': 'getUserDetail',
+  // `endSession` is the account's own; this one is any session, anybody's.
+  'GET /api/sessions': 'getSessionHistory',
+  'DELETE /api/sessions/{id}': 'endUserSession',
   'GET /api/audit-logs': 'getAuditLogPage',
   'GET /api/audit-logs/filters': 'getAuditLogFilters',
 

@@ -46,6 +46,7 @@ require_once __DIR__ . '/routes/users/responses/translation.php';
 // endpoints
 require_once __DIR__ . '/routes/users/endpoints/auth.php';
 require_once __DIR__ . '/routes/users/endpoints/users.php';
+require_once __DIR__ . '/routes/users/endpoints/sessions.php';
 require_once __DIR__ . '/routes/users/endpoints/languages.php';
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
 require_once __DIR__ . '/routes/users/endpoints/backups.php';

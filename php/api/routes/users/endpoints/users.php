@@ -21,11 +21,60 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * `password` never leaves here, in any response, for anybody.
  */
 
-/** Everything about an account except the one thing nobody may read. */
-const USER_COLUMNS = 'id, role, username, email, email_confirmed, background, language, '
-    . 'theme_main, theme_admin, deleted, version, created_at, updated_at';
+/**
+ * Everything about an account except the one thing nobody may read.
+ *
+ * Aliased to `u` because the two derived columns below need a table to hang a
+ * correlated subquery off.
+ */
+const USER_COLUMNS = 'u.id, u.role, u.username, u.email, u.email_confirmed, u.background, u.language, '
+    . 'u.theme_main, u.theme_admin, u.date_format, u.time_format, u.totp_enabled, u.force_password_change, '
+    . 'u.deleted, u.version, u.created_at, u.updated_at';
+
+/**
+ * The two facts about an account that are not columns on it.
+ *
+ * Whether a Google account is attached lives in user_identities, one row per
+ * provider per account. It is asked for here rather than left to the detail
+ * view because "which of these people can get in without a password" is a
+ * question about the whole list, and answering it a row at a time would be a
+ * query per account.
+ */
+const USER_DERIVED = "EXISTS (SELECT 1 FROM user_identities i WHERE i.user_id = u.id AND i.provider = 'google') AS google_connected, "
+    . "(SELECT i.email FROM user_identities i WHERE i.user_id = u.id AND i.provider = 'google' ORDER BY i.id LIMIT 1) AS google_email";
+
+const USER_SELECT = 'SELECT ' . USER_COLUMNS . ', ' . USER_DERIVED . ' FROM users u';
 
 const USER_ROLES = ['ADMIN', 'EDITOR', 'USER'];
+
+/**
+ * A boolean in the one form the driver and PostgreSQL both accept.
+ *
+ * PDO binds a PHP `true` as '1', which Postgres reads as true - and a PHP
+ * `false` as the empty string, which it refuses outright with "invalid input
+ * syntax for type boolean". So a false never reaches a bound parameter here as
+ * itself, and the failure is at the moment of writing rather than anywhere it
+ * could be mistaken for a rule.
+ */
+function userBool(bool $value): string
+{
+    return $value ? 'true' : 'false';
+}
+
+/**
+ * One account, as every response here describes it.
+ *
+ * Read back rather than RETURNING-ed after a write: the derived columns above
+ * are not part of the row being written, and one definition of what an
+ * AdminUser is is worth the extra statement on a path nobody runs in a loop.
+ */
+function userRow(PDO $pdo, int $id): ?array
+{
+    $statement = $pdo->prepare(USER_SELECT . ' WHERE u.id = ?');
+    $statement->execute([$id]);
+
+    return $statement->fetch() ?: null;
+}
 
 /** Long enough to be worth having, short enough that nobody argues. */
 const USER_PASSWORD_MIN = 8;
@@ -102,23 +151,46 @@ $app->get('/api/users', function (Request $request, Response $response) {
     $params = [];
 
     if ($search !== '') {
-        $where[] = '(username ILIKE ? OR email ILIKE ?)';
+        $where[] = '(u.username ILIKE ? OR u.email ILIKE ?)';
         $params[] = '%' . $search . '%';
         $params[] = '%' . $search . '%';
     }
 
     if (in_array($role, USER_ROLES, true)) {
-        $where[] = 'upper(role) = ?';
+        $where[] = 'upper(u.role) = ?';
         $params[] = $role;
     }
 
     if ($status === 'enabled' || $status === 'disabled') {
-        $where[] = 'deleted = ?';
-        $params[] = $status === 'disabled' ? 'true' : 'false';
+        $where[] = 'u.deleted = ?';
+        $params[] = userBool($status === 'disabled');
+    }
+
+    // The rest are yes/no questions about an account, and each takes the same
+    // three answers: yes, no, and the empty string for "do not ask". Written
+    // as a table because five near-identical if-blocks is five places for a
+    // typo to hide.
+    $flags = [
+        'confirmed' => 'u.email_confirmed',
+        'twoFactor' => 'u.totp_enabled',
+        'google'    => "EXISTS (SELECT 1 FROM user_identities i WHERE i.user_id = u.id AND i.provider = 'google')",
+        'mustChange' => 'u.force_password_change',
+    ];
+
+    foreach ($flags as $parameter => $expression) {
+        $value = (string) ($query[$parameter] ?? '');
+        if ($value === 'yes' || $value === 'no') {
+            $where[] = $expression . ($value === 'yes' ? ' = TRUE' : ' = FALSE');
+        }
+    }
+
+    if ($language = trim((string) ($query['language'] ?? ''))) {
+        $where[] = 'u.language = ?';
+        $params[] = $language;
     }
 
     $statement = usersDb()->prepare(
-        'SELECT ' . USER_COLUMNS . ' FROM users WHERE ' . implode(' AND ', $where) . ' ORDER BY created_at DESC, id DESC'
+        USER_SELECT . ' WHERE ' . implode(' AND ', $where) . ' ORDER BY u.created_at DESC, u.id DESC'
     );
     $statement->execute($params);
 
@@ -135,6 +207,13 @@ $app->get('/api/users/filters', function (Request $request, Response $response) 
         $byRole[strtoupper($row['role'])] = (int) $row['total'];
     }
 
+    // Only the languages somebody actually has, rather than every language the
+    // site knows: a filter offering choices that match nothing is a filter
+    // that wastes a click to tell you so.
+    $languages = $pdo
+        ->query("SELECT DISTINCT language FROM users WHERE language IS NOT NULL AND language <> '' ORDER BY language")
+        ->fetchAll(PDO::FETCH_COLUMN);
+
     return respondJson($response, [
         'roles' => USER_ROLES,
         'byRole' => $byRole,
@@ -142,20 +221,81 @@ $app->get('/api/users/filters', function (Request $request, Response $response) 
         'total' => (int) $pdo->query('SELECT count(*) FROM users WHERE deleted = false')->fetchColumn(),
         'admins' => userAdminCount($pdo),
         'passwordMinLength' => USER_PASSWORD_MIN,
+        'languages' => $languages,
     ]);
 })->add(responds(UserFilters::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── GET /api/users/{id} ──────────────────────────────────────────────────────
 
 $app->get('/api/users/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
-    $statement = usersDb()->prepare('SELECT ' . USER_COLUMNS . ' FROM users WHERE id = ?');
-    $statement->execute([$args['id']]);
-    $user = $statement->fetch();
+    $user = userRow(usersDb(), (int) $args['id']);
 
     return $user
         ? respondJson($response, $user)
         : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds(AdminUser::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+
+// ── GET /api/users/{id}/detail ───────────────────────────────────────────────
+//
+// Everything about one account that is spread across five tables, gathered so
+// the admin panel can show a person rather than a row: how they have their
+// site set up, which ways in they have, where they have signed in from, and
+// what has been tried against them and failed.
+//
+// Read-only, and it is worth saying what it deliberately does not carry. No
+// password hash, no TOTP secret, no recovery codes, no device tokens - not
+// even their hashes. Knowing somebody has two-factor on is administration;
+// being able to read the secret behind it is not.
+
+$app->get('/api/users/{id:[0-9]+}/detail', function (Request $request, Response $response, array $args) {
+    $pdo = usersDb();
+    $id = (int) $args['id'];
+
+    $account = userRow($pdo, $id);
+
+    if (!$account) {
+        return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    $identities = $pdo->prepare('SELECT id, provider, email, created_at FROM user_identities WHERE user_id = ? ORDER BY id');
+    $identities->execute([$id]);
+
+    $sessions = array_map(static fn(array $session): array => [
+        'id' => (int) $session['id'],
+        'method' => $session['method'],
+        'ip' => $session['ip'],
+        'mac' => $session['mac'],
+        'user_agent' => $session['user_agent'],
+        'created_at' => $session['created_at'],
+        'last_seen_at' => $session['last_seen_at'],
+        'expires_at' => $session['expires_at'],
+        'revoked_at' => $session['revoked_at'],
+        'revoked_reason' => $session['revoked_reason'],
+        'active' => $session['revoked_at'] === null && strtotime((string) $session['expires_at']) > time(),
+        // Never this one: an admin reading somebody else's account is not
+        // sitting in any of these sessions.
+        'current' => false,
+    ], sessionsFor($pdo, $id));
+
+    // Attempts against this account, successes included - the failures alone
+    // would not show that somebody eventually got in.
+    $attempts = $pdo->prepare(
+        'SELECT id, email, ip, method, outcome, created_at FROM user_login_attempts
+          WHERE user_id = ? ORDER BY created_at DESC, id DESC LIMIT 50'
+    );
+    $attempts->execute([$id]);
+
+    return respondJson($response, [
+        'account' => $account,
+        'identities' => $identities->fetchAll(),
+        'sessions' => $sessions,
+        'login_attempts' => $attempts->fetchAll(),
+        'active_sessions' => count(array_filter($sessions, static fn(array $s): bool => $s['active'])),
+        'trusted_devices' => trustedDeviceCount($pdo, $id),
+        'recovery_codes_remaining' => empty($account['totp_enabled']) ? 0 : recoveryCodesRemaining($pdo, $id),
+        'failed_since_last_login' => failedAttemptsSinceLastLogin($pdo, $id),
+    ]);
+})->add(responds(AdminUserDetail::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── POST /api/users ──────────────────────────────────────────────────────────
 // Creating an account by hand, for the people who should not have to register
@@ -196,8 +336,8 @@ $app->post('/api/users', function (Request $request, Response $response) {
     }
 
     $insert = $pdo->prepare(
-        'INSERT INTO users (username, email, password, role, email_confirmed, language)
-         VALUES (?, ?, ?, ?, ?, ?) RETURNING ' . USER_COLUMNS
+        'INSERT INTO users (username, email, password, role, email_confirmed, language, force_password_change)
+         VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id'
     );
     $insert->execute([
         $username,
@@ -206,11 +346,16 @@ $app->post('/api/users', function (Request $request, Response $response) {
         $role,
         // Made by an admin who typed the address in, so there is nobody to
         // confirm it to.
-        true,
+        userBool(true),
         trim((string) ($body['language'] ?? 'en')) ?: 'en',
+        // Off unless asked for. The same form makes an account for somebody
+        // sitting in the room, who can type their own password into it there
+        // and then, and one for somebody who will be sent this password by
+        // whatever means - and only the second needs replacing on arrival.
+        userBool(!empty($body['force_password_change'])),
     ]);
 
-    return respondJson($response, $insert->fetch(), 201);
+    return respondJson($response, userRow($pdo, (int) $insert->fetchColumn()), 201);
 })->add(responds(AdminUser::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── PUT /api/users/{id} ──────────────────────────────────────────────────────
@@ -268,7 +413,14 @@ $app->put('/api/users/{id:[0-9]+}', function (Request $request, Response $respon
     }
 
     if (array_key_exists('email_confirmed', $body)) {
-        $changes['email_confirmed'] = !empty($body['email_confirmed']);
+        $changes['email_confirmed'] = userBool(!empty($body['email_confirmed']));
+    }
+
+    // Settable both ways: an admin can require a change on an existing account
+    // - a password that has been read out over the phone, say - and can take
+    // the requirement back off one that was flagged by mistake.
+    if (array_key_exists('force_password_change', $body)) {
+        $changes['force_password_change'] = userBool(!empty($body['force_password_change']));
     }
 
     if (!$changes) {
@@ -283,12 +435,10 @@ $app->put('/api/users/{id:[0-9]+}', function (Request $request, Response $respon
     }
 
     $sets = implode(', ', array_map(fn($column) => $column . ' = ?', array_keys($changes)));
-    $update = $pdo->prepare(
-        'UPDATE users SET ' . $sets . ', updated_at = CURRENT_TIMESTAMP WHERE id = ? RETURNING ' . USER_COLUMNS
-    );
-    $update->execute([...array_values($changes), $id]);
+    $pdo->prepare('UPDATE users SET ' . $sets . ', updated_at = CURRENT_TIMESTAMP WHERE id = ?')
+        ->execute([...array_values($changes), $id]);
 
-    return respondJson($response, $update->fetch());
+    return respondJson($response, userRow($pdo, $id));
 })->add(responds(AdminUser::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── PUT /api/users/{id}/password ─────────────────────────────────────────────
@@ -308,6 +458,14 @@ $app->put('/api/users/{id:[0-9]+}/password', function (Request $request, Respons
     $exists->execute([$args['id']]);
     if (!$exists->fetch()) {
         return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    // Absent leaves the flag as it is. The admin panel always sends it, and
+    // sends it checked by default here: a password an admin has just typed is
+    // one its owner did not choose, which is the whole of what the flag means.
+    if (array_key_exists('force_password_change', $body)) {
+        $pdo->prepare('UPDATE users SET force_password_change = ? WHERE id = ?')
+            ->execute([userBool(!empty($body['force_password_change'])), $args['id']]);
     }
 
     $pdo->prepare('UPDATE users SET password = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
@@ -353,12 +511,10 @@ $app->put('/api/users/{id:[0-9]+}/enabled', function (Request $request, Response
         return respondJson($response, ['error' => 'This is the only admin account left'], 422);
     }
 
-    $update = $pdo->prepare(
-        'UPDATE users SET deleted = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? RETURNING ' . USER_COLUMNS
-    );
-    $update->execute([$enabled ? 'false' : 'true', $id]);
+    $pdo->prepare('UPDATE users SET deleted = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
+        ->execute([userBool(!$enabled), $id]);
 
-    return respondJson($response, $update->fetch());
+    return respondJson($response, userRow($pdo, $id));
 })->add(responds(AdminUser::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 
 // ── DELETE /api/users/{id} ───────────────────────────────────────────────────

@@ -1,5 +1,4 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { takeUntil } from 'rxjs';
 import { FeedbackApiService, Feedback, FeedbackFilters } from '../../../api';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
@@ -10,6 +9,7 @@ import { DropdownComponent } from '../../../shared/local-lib/components/dropdown
 import { RoleService } from '../../../shared/local-lib/services/role.service';
 import { Roles } from '../../../shared/local-lib/services/options-helper.service';
 import { FeedbackViewerComponent } from './feedback-viewer/feedback-viewer.component';
+import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
 
 /**
  * What people have sent through the contact form on the site.
@@ -22,7 +22,7 @@ import { FeedbackViewerComponent } from './feedback-viewer/feedback-viewer.compo
   selector: 'app-admin-feedback',
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss'],
-  imports: [DatePipe, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent],
+  imports: [AppDatePipe, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent],
 })
 export class FeedbackComponent extends AbstractModalComponent implements OnInit {
   private readonly _feedbackApi = inject(FeedbackApiService);

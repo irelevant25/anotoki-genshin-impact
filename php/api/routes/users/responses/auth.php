@@ -46,6 +46,14 @@ class AuthUser extends ResponseShape
         public readonly int $recovery_codes_remaining,
         /** Browsers that will not be asked for a code again. */
         public readonly int $trusted_devices,
+        /**
+         * Whether the password on this account was chosen by somebody else.
+         *
+         * Set when an admin makes the account by hand and asks for it. The
+         * site stops and asks for a new password before it will be used, and
+         * changing the password is what clears it.
+         */
+        public readonly bool $force_password_change,
     ) {
     }
 }

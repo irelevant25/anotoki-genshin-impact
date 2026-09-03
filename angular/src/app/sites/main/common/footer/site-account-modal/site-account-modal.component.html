@@ -54,6 +54,8 @@
                         <span class="text-muted small">
                             @if (!userData.has_password) {
                                 {{ 'account.methods.noPassword' | translate }}
+                            } @else if (userData.force_password_change) {
+                                {{ 'account.methods.mustChange' | translate }}
                             } @else if (userData.password_login_enabled) {
                                 {{ 'account.methods.passwordOn' | translate }}
                             } @else {
@@ -69,23 +71,37 @@
                             size="very-small"
                             (buttonClick)="setPassword()"
                         ></app-button>
-                    } @else if (userData.password_login_enabled) {
-                        @if (canDisablePassword()) {
-                            <app-button
-                                [text]="'account.methods.disable' | translate"
-                                variant="secondary"
-                                size="very-small"
-                                [outline]="true"
-                                (buttonClick)="setPasswordLoginEnabled(false)"
-                            ></app-button>
-                        }
                     } @else {
+                        <!-- Always offered while there is a password to change.
+                             Turning password sign-in off does not delete it,
+                             and somebody who has turned it off is still
+                             entitled to change what they would be turning back
+                             on. -->
                         <app-button
-                            [text]="'account.methods.enable' | translate"
+                            [text]="'account.methods.changePassword' | translate"
                             variant="secondary"
                             size="very-small"
-                            (buttonClick)="setPasswordLoginEnabled(true)"
+                            (buttonClick)="changePassword()"
                         ></app-button>
+
+                        @if (userData.password_login_enabled) {
+                            @if (canDisablePassword()) {
+                                <app-button
+                                    [text]="'account.methods.disable' | translate"
+                                    variant="secondary"
+                                    size="very-small"
+                                    [outline]="true"
+                                    (buttonClick)="setPasswordLoginEnabled(false)"
+                                ></app-button>
+                            }
+                        } @else {
+                            <app-button
+                                [text]="'account.methods.enable' | translate"
+                                variant="secondary"
+                                size="very-small"
+                                (buttonClick)="setPasswordLoginEnabled(true)"
+                            ></app-button>
+                        }
                     }
                 </div>
 
@@ -159,6 +175,32 @@
                             size="very-small"
                             [outline]="true"
                             (buttonClick)="forgetDevices()"
+                        ></app-button>
+                    </div>
+                }
+
+                <!-- The one session this panel is being read from. The rest
+                     are behind the button: a panel is not the place for a
+                     table of thirty rows, and the question here is "is this
+                     me, and how many others are there". -->
+                @if (currentSession(); as session) {
+                    <div class="method">
+                        <span class="icon icon-key icon-size-4"></span>
+                        <div class="method-body">
+                            <span class="fw-500 fs-14">{{ 'account.sessions.thisOne' | translate }}</span>
+                            <span class="text-muted small">
+                                {{ browser(session) }} · {{ 'account.sessions.method.' + session.method | translate }} ·
+                                {{ session.created_at | appDate: 'datetime' }}
+                            </span>
+                            <span class="text-muted small">{{ 'account.sessions.liveCount' | translate: { count: liveSessions() } }}</span>
+                        </div>
+
+                        <app-button
+                            [text]="'account.sessions.viewAll' | translate"
+                            variant="secondary"
+                            size="very-small"
+                            [outline]="true"
+                            (buttonClick)="sessions()"
                         ></app-button>
                     </div>
                 }

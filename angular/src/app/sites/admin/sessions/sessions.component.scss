@@ -1,0 +1,111 @@
+@use "../shared/admin-list" as *;
+
+.page-header {
+  gap: var(--spacing-md);
+  justify-content: flex-start;
+}
+
+.summary {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.page-hint {
+  margin: 0 0 var(--spacing-md);
+  max-width: 90ch;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.truncated-note {
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-warning);
+}
+
+.col-who {
+  width: 200px;
+}
+
+.col-method {
+  width: 100px;
+}
+
+.col-when {
+  width: 150px;
+  white-space: nowrap;
+}
+
+.col-state {
+  width: 130px;
+}
+
+.col-actions {
+  width: 200px;
+}
+
+// Name over address, so the column stays narrow and the eye still finds the
+// person rather than reading a line of "name — very.long@address".
+.who-name {
+  display: block;
+  font-weight: var(--font-weight-semibold);
+}
+
+.who-email {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.col-from {
+  max-width: 260px;
+}
+
+// The user agent is the whole reason a row is recognisable as "my laptop", and
+// also the longest string in the table. One clipped line, with the full text
+// in the title attribute.
+.agent {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 260px;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.pill {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border: 1px solid transparent;
+}
+
+.state-live {
+  background: var(--color-success-light);
+  color: var(--color-success-light-text);
+  border-color: var(--color-success-light-border);
+}
+
+.state-ended {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+// An ended session is still listed and should not read as a live one.
+.is-ended td {
+  opacity: 0.65;
+}
+
+.no-actions {
+  color: var(--text-muted);
+}

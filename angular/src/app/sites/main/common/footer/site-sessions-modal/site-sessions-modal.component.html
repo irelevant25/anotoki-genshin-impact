@@ -1,0 +1,112 @@
+<app-modal
+    [title]="'account.sessions.title' | translate"
+    [subtitle]="'account.sessions.liveCount' | translate: { count: liveCount() }"
+    (closeModal)="closeModal()"
+>
+    <div modal-body class="sessions">
+        <!-- Somebody has been trying since the last time this account got in.
+             The first thing worth saying, so it goes above the table. -->
+        @if (failedAttempts() > 0) {
+            <p class="sessions-warning">{{ 'account.sessions.failedAttempts' | translate: { count: failedAttempts() } }}</p>
+        }
+
+        @if (failed()) {
+            <p class="sessions-warning">{{ 'account.sessions.failed' | translate }}</p>
+        }
+
+        <!-- Only until there is something to look at. A refresh after ending
+             a session leaves the table where it is. -->
+        <app-loader [loading]="busy() && !everLoaded()"></app-loader>
+
+        @if (everLoaded()) {
+            <div class="session-table-wrap">
+                <table class="session-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">{{ 'account.sessions.column.device' | translate }}</th>
+                            <th scope="col">{{ 'account.sessions.column.how' | translate }}</th>
+                            <th scope="col">{{ 'account.sessions.column.where' | translate }}</th>
+                            <th scope="col">{{ 'account.sessions.column.started' | translate }}</th>
+                            <th scope="col">{{ 'account.sessions.column.lastSeen' | translate }}</th>
+                            <th scope="col">{{ 'account.sessions.column.state' | translate }}</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (session of sessions(); track session.id) {
+                            <tr [class.session-current]="session.current" [class.session-ended]="!session.active">
+                                <td class="session-device">
+                                    {{ browser(session) }}
+                                    @if (session.current) {
+                                        <span class="chip-this">{{ 'account.sessions.thisDevice' | translate }}</span>
+                                    }
+                                </td>
+                                <td>{{ 'account.sessions.method.' + session.method | translate }}</td>
+                                <td class="session-where">
+                                    {{ session.ip || '—' }}
+                                    <!-- Only ever filled in for a sign-in from
+                                         this network: a hardware address does
+                                         not survive a router. -->
+                                    @if (session.mac) {
+                                        <span class="session-mac">{{ session.mac }}</span>
+                                    }
+                                </td>
+                                <td class="session-when">{{ session.created_at | appDate: 'datetime' }}</td>
+                                <td class="session-when">
+                                    @if (session.last_seen_at) {
+                                        {{ session.last_seen_at | appDate: 'datetime' }}
+                                    } @else {
+                                        &mdash;
+                                    }
+                                </td>
+                                <td>
+                                    <span class="session-status" [class.session-status-live]="session.active">{{ statusKey(session) | translate }}</span>
+                                </td>
+                                <td class="session-action">
+                                    <!-- Only for a live session that is not the
+                                         one reading this. Ending your own from
+                                         here would drop somebody on a login
+                                         form with no explanation; the sign-out
+                                         button does that. -->
+                                    @if (!session.active || session.current) {
+                                        <span class="session-none-action">&mdash;</span>
+                                    } @else if (endConfirm() === session.id) {
+                                        <span class="confirm-row">
+                                            <app-button [text]="'common.yes' | translate" variant="danger" size="very-small" (buttonClick)="endSession(session)"></app-button>
+                                            <app-button [text]="'common.no' | translate" variant="secondary" size="very-small" (buttonClick)="cancelEnd()"></app-button>
+                                        </span>
+                                    } @else {
+                                        <app-button
+                                            [text]="'account.sessions.end' | translate"
+                                            variant="secondary"
+                                            size="very-small"
+                                            [outline]="true"
+                                            (buttonClick)="askToEnd(session.id)"
+                                        ></app-button>
+                                    }
+                                </td>
+                            </tr>
+                        } @empty {
+                            <tr>
+                                <td colspan="7" class="session-empty">{{ 'account.sessions.none' | translate }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    <div modal-footer class="d-flex gap-3 justify-content-end">
+        @if (hasOthers()) {
+            <app-button
+                [text]="'account.sessions.endOthers' | translate"
+                variant="danger"
+                [outline]="true"
+                [loading]="busy()"
+                (buttonClick)="endOthers()"
+            ></app-button>
+        }
+        <app-button [text]="'common.close' | translate" variant="secondary" (buttonClick)="closeModal()"></app-button>
+    </div>
+</app-modal>

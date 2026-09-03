@@ -1,9 +1,9 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DashboardApiService, DashboardStats } from '../../../api';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
+import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
 
 /**
  * What needs attention, and what is still missing.
@@ -17,7 +17,7 @@ import { LoaderComponent } from '../../../shared/local-lib/components/loader/loa
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [DatePipe, RouterLink, LoaderComponent],
+  imports: [AppDatePipe, RouterLink, LoaderComponent],
 })
 export class DashboardComponent implements OnInit {
   private readonly _dashboardApi = inject(DashboardApiService);

@@ -49,8 +49,8 @@ export interface QuizHistory {
   quiz_id: number;
   win: boolean;
   attempts: number;
-  difficulty: number | null;
   created_at: string | null;
+  difficulty: number | null;
 }
 
 /**

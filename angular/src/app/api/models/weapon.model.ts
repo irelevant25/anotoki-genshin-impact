@@ -17,7 +17,6 @@ export interface Weapon {
   icon_2_name: string | null;
   icon_2: string | null;
   icon_ascension: string | null;
-  icon_ascension_name: string | null;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
   how_to_obtain: string | null;
   release_date: string | null;
@@ -32,6 +31,7 @@ export interface Weapon {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_ascension_name: string | null;
 }
 
 /**

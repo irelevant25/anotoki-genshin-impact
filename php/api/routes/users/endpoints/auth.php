@@ -56,6 +56,10 @@ function authUserPayload(array $user): array
         // Browsers that will not be asked for a code again, so the account page
         // can offer to forget them.
         'trusted_devices' => empty($user['totp_enabled']) ? 0 : trustedDeviceCount(usersDb(), (int) $user['id']),
+        // Set on an account whose password was chosen by somebody else. The
+        // site stops and asks for a new one before it will be used. See
+        // migration 031.
+        'force_password_change' => (bool) ($user['force_password_change'] ?? false),
     ];
 }
 
@@ -527,10 +531,17 @@ $app->put('/api/auth/password', function (Request $request, Response $response) 
     }
 
     // An account with no password has none to confirm. Setting a first one is
-    // a different operation with a different proof behind it, and it arrives
-    // with the next stage.
+    // a different operation with a different proof behind it - see
+    // /api/auth/password/set.
+    //
+    // 422 rather than 401, and the difference matters. 401 means the caller is
+    // not authenticated; here they are - the middleware let them through - and
+    // what is wrong is a value in the body. The front end signs itself out on
+    // any 401, which is right when a session has expired underneath somebody
+    // and is exactly wrong here: mistyping your own password would throw you
+    // off the site.
     if ($user['password'] === null || !password_verify($body['current_password'], $user['password'])) {
-        return respondJson($response, ['error' => 'Current password is incorrect'], 401);
+        return respondJson($response, ['error' => 'Current password is incorrect'], 422);
     }
 
     if (strlen($body['new_password']) < USER_PASSWORD_MIN) {
@@ -538,7 +549,9 @@ $app->put('/api/auth/password', function (Request $request, Response $response) 
     }
 
     $pdo = usersDb();
-    $pdo->prepare('UPDATE users SET password = ? WHERE id = ?')
+    // The flag clears here and nowhere else that matters: this is the one
+    // endpoint where the person signing in chose the password themselves.
+    $pdo->prepare('UPDATE users SET password = ?, force_password_change = FALSE WHERE id = ?')
         ->execute([password_hash($body['new_password'], PASSWORD_DEFAULT), $user['id']]);
 
     // Everywhere else is signed out. Changing a password is what somebody does
@@ -839,7 +852,10 @@ $app->post('/api/auth/password/set', function (Request $request, Response $respo
     }
 
     $pdo = usersDb();
-    $pdo->prepare('UPDATE users SET password = ?, password_login_enabled = TRUE WHERE id = ?')
+    // Clears the forced-change flag as well. An account with no password can
+    // still be carrying it - an admin can set it on a Google account - and
+    // this endpoint is then the only way that person has of satisfying it.
+    $pdo->prepare('UPDATE users SET password = ?, password_login_enabled = TRUE, force_password_change = FALSE WHERE id = ?')
         ->execute([password_hash($password, PASSWORD_DEFAULT), $user['id']]);
 
     return respondJson($response, authUserPayload(DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']])));

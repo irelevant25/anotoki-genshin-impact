@@ -7,6 +7,7 @@ import { jwtDecode } from '../jwt-decode';
 import { RoleService } from './role.service';
 import { Roles } from './options-helper.service';
 import {
+  ApiMessage,
   AuthApiService,
   AuthMailRequested,
   AuthPending,
@@ -54,6 +55,14 @@ export interface UserInfo {
    */
   date_format?: string;
   time_format?: string;
+  /**
+   * Whether the password on this account was chosen by somebody else.
+   *
+   * Set when an admin makes the account by hand and asks for it. The site
+   * stops and asks for a new password before it will be used; changing the
+   * password is what clears it.
+   */
+  force_password_change?: boolean;
 }
 
 const ROLE_MAP: Record<string, Roles> = {
@@ -255,6 +264,23 @@ export class SecurityService {
 
   setOwnPassword(password: string): Observable<AuthUser> {
     return this._authApi.setOwnPassword({ password }).pipe(tap((user) => this._refreshUser(user)));
+  }
+
+  /**
+   * Changing a password that already exists, which needs the old one.
+   *
+   * The answer is a message rather than an account, and the account did change
+   * - `force_password_change` clears here, if it was set - so the session is
+   * re-read afterwards rather than left saying what was true a moment ago.
+   *
+   * Every other session is signed out by this, the server's doing: changing a
+   * password is what somebody does when they think another person has it. This
+   * one survives, so the page it was pressed on keeps working.
+   */
+  changePassword(currentPassword: string, newPassword: string): Observable<ApiMessage> {
+    return this._authApi
+      .changePassword({ current_password: currentPassword, new_password: newPassword })
+      .pipe(tap(() => this.refreshCurrentUser()));
   }
 
   setPasswordLoginEnabled(enabled: boolean): Observable<AuthUser> {
@@ -469,6 +495,7 @@ export class SecurityService {
       trusted_devices: user.trusted_devices,
       date_format: user.date_format ?? undefined,
       time_format: user.time_format ?? undefined,
+      force_password_change: user.force_password_change,
       token,
     });
     this._isLoggedIn.next(true);

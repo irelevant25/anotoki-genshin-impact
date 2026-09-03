@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { SessionEntry } from './user.model';
+
 /**
  * A row of `users` as the API reads it back.
  */
@@ -11,17 +13,21 @@ export interface User {
   username: string;
   email: string;
   email_confirmed: boolean;
-  password: string;
+  password: string | null;
   background: string | null;
   language: string;
   deleted: boolean;
-  theme_main: string;
-  theme_admin: string;
   version: string | null;
-  token: string | null;
-  token_expires_at: string | null;
   created_at: string | null;
   updated_at: string | null;
+  theme_main: string;
+  theme_admin: string;
+  password_login_enabled: boolean;
+  totp_secret: string | null;
+  totp_enabled: boolean;
+  date_format: 'dmy_dot' | 'dmy_slash' | 'mdy_slash' | 'ymd_dash' | null;
+  time_format: '24' | '12' | null;
+  force_password_change: boolean;
 }
 
 /**
@@ -116,6 +122,8 @@ export interface AuthUser {
   recovery_codes_remaining: number;
   /** Browsers that will not be asked for a code again. */
   trusted_devices: number;
+  /** Whether the password on this account was chosen by somebody else.  Set when an admin makes the account by hand and asks for it. The site stops and asks for a new password before it will be used, and changing the password is what clears it. */
+  force_password_change: boolean;
 }
 
 /**
@@ -123,33 +131,6 @@ export interface AuthUser {
  */
 export interface LanguageChanged {
   language: string;
-}
-
-/**
- * One session: where the account was signed in, how, and whether it still is.
- *
- * `ip` and `user_agent` are what the request carried, unexamined. They are
- * shown so a person can recognise their own devices, not relied on for
- * anything - a user agent is a string the caller chooses.
- */
-export interface SessionEntry {
-  id: number;
-  /** password, login_code, google, or email_link. */
-  method: string;
-  ip: string | null;
-  /** The caller's hardware address, and null nearly always.  Only knowable when the caller shares a network with the server, and so is still in its neighbour table - a MAC address does not survive a router. See requestMac(). */
-  mac: string | null;
-  user_agent: string | null;
-  created_at: string;
-  last_seen_at: string | null;
-  expires_at: string;
-  revoked_at: string | null;
-  /** Why it ended, where anything but its own expiry ended it. */
-  revoked_reason: string | null;
-  /** Neither revoked nor expired - worked out here, against our own clock. */
-  active: boolean;
-  /** The session asking. The page will not offer to end this one by surprise. */
-  current: boolean;
 }
 
 /**

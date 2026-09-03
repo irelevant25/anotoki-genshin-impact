@@ -8,7 +8,7 @@
                     <span class="chip">{{ message.section }}</span>
                 }
                 <span class="summary-spacer"></span>
-                <span class="summary-date">{{ message.created_at | date: 'd MMM yyyy, HH:mm' }}</span>
+                <span class="summary-date">{{ message.created_at | appDate: 'datetime' }}</span>
             </div>
 
             <div class="from">

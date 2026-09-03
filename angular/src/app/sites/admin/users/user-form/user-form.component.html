@@ -25,6 +25,13 @@
                     (buttonClick)="regenerate()"
                 ></app-button>
             </div>
+
+            <app-checkbox [label]="'Make them choose their own on first sign-in'" [(value)]="forceChange" [disabled]="saving()"></app-checkbox>
+            <p class="note">
+                The password above has to reach them somehow — a message, a chat window, out loud across a desk. Each of those is a place it now lives. With this
+                ticked, the site asks them for one of their own before it will let them do anything, and forgets this one. Untick it if they are sitting here and
+                typed it in themselves.
+            </p>
         }
 
         <app-dropdown [label]="'Role'" [options]="roles()" [(value)]="role" [disabled]="saving() || isSelf()"></app-dropdown>
@@ -35,6 +42,7 @@
 
         @if (!isNew()) {
             <app-checkbox [label]="'Email confirmed'" [(value)]="confirmed" [disabled]="saving()"></app-checkbox>
+            <app-checkbox [label]="'Must choose a new password before using the site'" [(value)]="forceChange" [disabled]="saving()"></app-checkbox>
             <p class="note">The password is not changed here. Use <strong>Password</strong> in the list to set a new one.</p>
         }
     </div>

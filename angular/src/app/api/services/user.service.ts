@@ -5,7 +5,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AdminUser, ApiMessage, User, UserFilters } from '../models';
+import { AdminUser, AdminUserDetail, ApiMessage, User, UserFilters } from '../models';
 import { EnabledRequest, SetPasswordRequest, UserCreateRequest, UserQuery, UserUpdateRequest } from '../types';
 import { toHttpParams } from '../http-params';
 
@@ -41,6 +41,15 @@ export class UserApiService {
    */
   getUser(id: number): Observable<AdminUser> {
     return this._http.get<AdminUser>(`/api/users/${id}`);
+  }
+
+  /**
+   * `GET /api/users/{id}/detail`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  getUserDetail(id: number): Observable<AdminUserDetail> {
+    return this._http.get<AdminUserDetail>(`/api/users/${id}/detail`);
   }
 
   /**

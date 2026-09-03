@@ -92,7 +92,7 @@
                 @for (backup of backups(); track backup.id) {
                     <tr [class.is-troubled]="backup.status !== 'complete'">
                         <td class="col-when">
-                            {{ backup.created_at | date: 'yyyy-MM-dd HH:mm' }}
+                            {{ backup.created_at | appDate: 'datetime' }}
                             <span class="row-id">{{ backup.id }}</span>
                         </td>
                         <td class="col-description">{{ backup.description || '—' }}</td>

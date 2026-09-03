@@ -70,7 +70,7 @@
                             <span class="pill" [class]="'action-' + entry.action.toLowerCase()">{{ entry.action }}</span>
                             <span class="feed-title">{{ entry.table_name }} #{{ entry.record_id }}</span>
                             <span class="feed-meta">
-                                {{ entry.changed_by_username || 'system' }} · {{ entry.changed_at | date: 'd MMM HH:mm' }}
+                                {{ entry.changed_by_username || 'system' }} · {{ entry.changed_at | appDate: 'datetime' }}
                             </span>
                         </li>
                     }

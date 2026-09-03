@@ -772,7 +772,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 983
+                "line": 999
             },
             "expanded": [],
             "payload": null,
@@ -798,7 +798,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 952
+                "line": 968
             },
             "expanded": [],
             "payload": null,
@@ -824,7 +824,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1008
+                "line": 1024
             },
             "expanded": [],
             "payload": null,
@@ -849,7 +849,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 916
+                "line": 932
             },
             "expanded": [],
             "payload": null,
@@ -876,7 +876,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 224
+                "line": 228
             },
             "expanded": [],
             "payload": null,
@@ -900,7 +900,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 246
+                "line": 250
             },
             "expanded": [],
             "payload": null,
@@ -924,7 +924,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1114
+                "line": 1130
             },
             "expanded": [],
             "payload": null,
@@ -951,7 +951,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 467
+                "line": 471
             },
             "expanded": [],
             "payload": null,
@@ -980,7 +980,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 661
+                "line": 674
             },
             "expanded": [],
             "payload": null,
@@ -1007,7 +1007,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 758
+                "line": 771
             },
             "expanded": [],
             "payload": null,
@@ -1035,7 +1035,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 730
+                "line": 743
             },
             "expanded": [],
             "payload": null,
@@ -1062,7 +1062,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 490
+                "line": 494
             },
             "expanded": [],
             "payload": null,
@@ -1090,7 +1090,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 318
+                "line": 322
             },
             "expanded": [],
             "payload": null,
@@ -1114,7 +1114,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 786
+                "line": 799
             },
             "expanded": [],
             "payload": null,
@@ -1139,7 +1139,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 818
+                "line": 831
             },
             "expanded": [],
             "payload": null,
@@ -1163,7 +1163,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 516
+                "line": 520
             },
             "expanded": [],
             "payload": null,
@@ -1187,7 +1187,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 389
+                "line": 393
             },
             "expanded": [],
             "payload": null,
@@ -1205,7 +1205,6 @@
             "statuses": [
                 200,
                 400,
-                401,
                 422
             ],
             "responds": {
@@ -1214,7 +1213,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 552
+                "line": 565
             },
             "expanded": [],
             "payload": null,
@@ -1241,7 +1240,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 876
+                "line": 892
             },
             "expanded": [],
             "payload": null,
@@ -1265,7 +1264,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 342
+                "line": 346
             },
             "expanded": [],
             "payload": null,
@@ -1293,7 +1292,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 382
+                "line": 386
             },
             "expanded": [],
             "payload": null,
@@ -1321,7 +1320,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 846
+                "line": 862
             },
             "expanded": [],
             "payload": null,
@@ -1345,7 +1344,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 584
+                "line": 597
             },
             "expanded": [],
             "payload": null,
@@ -1373,7 +1372,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 199
+                "line": 203
             },
             "expanded": [],
             "payload": null,
@@ -1397,7 +1396,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1100
+                "line": 1116
             },
             "expanded": [],
             "payload": null,
@@ -1421,7 +1420,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1058
+                "line": 1074
             },
             "expanded": [],
             "payload": null,
@@ -1439,7 +1438,9 @@
                 }
             ],
             "file": "auth.php",
-            "tables": [],
+            "tables": [
+                "user_sessions"
+            ],
             "success": 200,
             "statuses": [
                 200,
@@ -1451,7 +1452,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1082
+                "line": 1098
             },
             "expanded": [],
             "payload": null,
@@ -1476,7 +1477,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 416
+                "line": 420
             },
             "expanded": [],
             "payload": null,
@@ -10211,6 +10212,68 @@
         },
         {
             "method": "GET",
+            "path": "/api/sessions",
+            "args": [],
+            "file": "sessions.php",
+            "tables": [
+                "user_sessions"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "AdminSessionList",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\sessions.php",
+                "line": 113
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/sessions/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "sessions.php",
+            "tables": [
+                "user_sessions"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
+            "responds": {
+                "shape": "ApiMessage",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\sessions.php",
+                "line": 138
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "GET",
             "path": "/api/stats",
             "args": [],
             "file": "stats.php",
@@ -10931,7 +10994,7 @@
             "args": [],
             "file": "users.php",
             "tables": [
-                "users"
+                "user_identities"
             ],
             "success": 200,
             "statuses": [
@@ -10943,7 +11006,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 126
+                "line": 198
             },
             "expanded": [],
             "payload": null,
@@ -10974,7 +11037,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 214
+                "line": 359
             },
             "expanded": [],
             "payload": null,
@@ -11002,7 +11065,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 146
+                "line": 226
             },
             "expanded": [],
             "payload": null,
@@ -11038,7 +11101,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 392
+                "line": 548
             },
             "expanded": [],
             "payload": null,
@@ -11058,9 +11121,7 @@
                 }
             ],
             "file": "users.php",
-            "tables": [
-                "users"
-            ],
+            "tables": [],
             "success": 200,
             "statuses": [
                 200,
@@ -11072,7 +11133,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 158
+                "line": 236
             },
             "expanded": [],
             "payload": null,
@@ -11109,7 +11170,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 292
+                "line": 442
             },
             "expanded": [],
             "payload": null,
@@ -11117,6 +11178,42 @@
             "auth": true,
             "roles": [
                 "ADMIN"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/users/{id}/detail",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "users.php",
+            "tables": [
+                "user_identities",
+                "user_login_attempts"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
+            "responds": {
+                "shape": "AdminUserDetail",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
+                "line": 298
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
             ]
         },
         {
@@ -11144,7 +11241,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 362
+                "line": 518
             },
             "expanded": [],
             "payload": null,
@@ -11179,7 +11276,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 322
+                "line": 480
             },
             "expanded": [],
             "payload": null,
@@ -15179,6 +15276,202 @@
     ],
     "shapes": [
         {
+            "name": "AdminSessionEntry",
+            "file": "user.php",
+            "merges": null,
+            "description": "A session in the system-wide history, which is a session plus whose it is.\n\nSeparate from SessionEntry rather than an extension of it because the two\nanswer different questions. A person reading their own list wants to know\nwhich row is the browser they are sitting at; an admin reading every row\never wants to know whose it is, and `current` would be false on all of them.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "user_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "username",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "email",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "method",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "password, login_code, google, or email_link."
+                },
+                {
+                    "name": "ip",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "mac",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "Almost always null - see requestMac()."
+                },
+                {
+                    "name": "user_agent",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "created_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "last_seen_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "expires_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "revoked_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "revoked_reason",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "active",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Neither revoked nor expired, worked out against the server's clock."
+                }
+            ]
+        },
+        {
+            "name": "AdminSessionList",
+            "file": "user.php",
+            "merges": null,
+            "description": "The session history, and what a page of it was drawn from.",
+            "fields": [
+                {
+                    "name": "sessions",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AdminSessionEntry[]",
+                    "description": null
+                },
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Rows matching the filter, which is more than the page returns."
+                },
+                {
+                    "name": "active",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Live sessions across the whole installation, filter or no filter."
+                },
+                {
+                    "name": "methods",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "The methods present in the table, for the filter."
+                }
+            ]
+        },
+        {
             "name": "AdminUser",
             "file": "user.php",
             "merges": null,
@@ -15275,6 +15568,66 @@
                     "description": null
                 },
                 {
+                    "name": "date_format",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "How this person has their dates written, or null for \"as their device does\"."
+                },
+                {
+                    "name": "time_format",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "'24', '12', or null for the same reason."
+                },
+                {
+                    "name": "totp_enabled",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether signing in demands a code from an authenticator app."
+                },
+                {
+                    "name": "force_password_change",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether the password on the account is still one an admin chose."
+                },
+                {
+                    "name": "google_connected",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether a Google account is attached. Derived rather than stored -\nit lives in user_identities. See USER_DERIVED."
+                },
+                {
+                    "name": "google_email",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The address Google gave, which is what there is to recognise."
+                },
+                {
                     "name": "deleted",
                     "types": [
                         "bool"
@@ -15310,6 +15663,142 @@
                         "string"
                     ],
                     "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AdminUserDetail",
+            "file": "user.php",
+            "merges": null,
+            "description": "Everything about one account that is spread across five tables.\n\nWhat it deliberately does not carry is as much the point as what it does:\nno password hash, no TOTP secret, no recovery codes, and no device tokens or\ntheir hashes. That two-factor is on is administration; the secret behind it\nis not, and an endpoint that hands it over turns every admin session into a\nway of taking somebody's account.",
+            "fields": [
+                {
+                    "name": "account",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AdminUser",
+                    "description": null
+                },
+                {
+                    "name": "identities",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AdminUserIdentity[]",
+                    "description": null
+                },
+                {
+                    "name": "sessions",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "SessionEntry[]",
+                    "description": "Newest first, capped - see sessionsFor()."
+                },
+                {
+                    "name": "login_attempts",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "LoginAttemptEntry[]",
+                    "description": "Newest first, the last fifty."
+                },
+                {
+                    "name": "active_sessions",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "trusted_devices",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "recovery_codes_remaining",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Zero when two-factor is off, rather than a count of nothing."
+                },
+                {
+                    "name": "failed_since_last_login",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AdminUserIdentity",
+            "file": "user.php",
+            "merges": null,
+            "description": "One provider account attached to a site account.\n\nThe provider's own permanent id for the person - `subject` - is deliberately\nnot here. It identifies them to Google and is what the sign-in path matches\non; an admin looking at who is connected has no use for it.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "provider",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "'google' today."
+                },
+                {
+                    "name": "email",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The address the provider gave, which is what there is to recognise."
+                },
+                {
+                    "name": "created_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
                     "optional": false,
                     "of": null,
                     "description": null
@@ -16147,6 +16636,16 @@
                     "optional": false,
                     "of": null,
                     "description": "Browsers that will not be asked for a code again."
+                },
+                {
+                    "name": "force_password_change",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether the password on this account was chosen by somebody else.\n\nSet when an admin makes the account by hand and asks for it. The\nsite stops and asks for a new password before it will be used, and\nchanging the password is what clears it."
                 }
             ]
         },
@@ -17652,6 +18151,74 @@
                     "name": "users_moved",
                     "types": [
                         "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "LoginAttemptEntry",
+            "file": "user.php",
+            "merges": null,
+            "description": "One try at signing in, successful or not.\n\n`email` is the address that was typed, which is not always the address on\nthe account: somebody mistyping their own is exactly the kind of thing this\ntable exists to make visible.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "email",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "ip",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "method",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "password, login_code, google, or email_link."
+                },
+                {
+                    "name": "outcome",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "'ok', or why not: bad_password, unconfirmed, totp_required, ..."
+                },
+                {
+                    "name": "created_at",
+                    "types": [
+                        "string"
                     ],
                     "nullable": false,
                     "optional": false,
@@ -19367,6 +19934,16 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "languages",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "The language codes somebody actually has.\n\nNot every language the site knows: a filter offering choices that\nmatch nothing wastes a click to say so."
                 }
             ]
         },
@@ -19493,12 +20070,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "how_to_obtain_quality_1",
                     "sqlType": "JSONB",
                     "nullable": true,
@@ -19611,6 +20182,12 @@
                     "sqlType": "INT",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
                 }
             ]
         },
@@ -19635,12 +20212,6 @@
                     "name": "icon",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
                     "enum": null
                 },
                 {
@@ -19682,6 +20253,12 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }
@@ -19758,30 +20335,6 @@
                     "enum": null
                 },
                 {
-                    "name": "image",
-                    "sqlType": "VARCHAR(200)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "image_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "preview",
-                    "sqlType": "VARCHAR(200)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "preview_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "deleted",
                     "sqlType": "BOOLEAN",
                     "nullable": false,
@@ -19810,6 +20363,30 @@
                     "sqlType": "INT",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "image",
+                    "sqlType": "VARCHAR(200)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "image_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "preview",
+                    "sqlType": "VARCHAR(200)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "preview_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
                 }
             ]
         },
@@ -19834,18 +20411,6 @@
                     "name": "name",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(200)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
                     "enum": null
                 },
                 {
@@ -19887,6 +20452,18 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "VARCHAR(200)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }
@@ -20148,21 +20725,9 @@
                     "enum": null
                 },
                 {
-                    "name": "namecard_icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "namecard_background",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "namecard_background_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
                     "enum": null
                 },
                 {
@@ -20172,21 +20737,9 @@
                     "enum": null
                 },
                 {
-                    "name": "namecard_banner_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "card_icon",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "card_icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
                     "enum": null
                 },
                 {
@@ -20196,21 +20749,9 @@
                     "enum": null
                 },
                 {
-                    "name": "card_icon_2_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "wish_icon",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "wish_icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
                     "enum": null
                 },
                 {
@@ -20241,12 +20782,6 @@
                     "name": "icon",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
                     "enum": null
                 },
                 {
@@ -20324,6 +20859,48 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "card_icon_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "card_icon_2_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "wish_icon_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_icon_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_background_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_banner_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }
@@ -20486,12 +21063,6 @@
                     "enum": null
                 },
                 {
-                    "name": "order",
-                    "sqlType": "SMALLINT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "material_id",
                     "sqlType": "INT",
                     "nullable": false,
@@ -20531,6 +21102,12 @@
                     "name": "updated_by",
                     "sqlType": "INT",
                     "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "order",
+                    "sqlType": "SMALLINT",
+                    "nullable": false,
                     "enum": null
                 }
             ]
@@ -21156,12 +21733,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "name",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
@@ -21206,6 +21777,12 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }
@@ -21369,12 +21946,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "name",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
@@ -21421,6 +21992,12 @@
                     "sqlType": "INT",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
                 }
             ]
         },
@@ -21438,12 +22015,6 @@
                 {
                     "name": "character_id",
                     "sqlType": "INT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "order",
-                    "sqlType": "SMALLINT",
                     "nullable": false,
                     "enum": null
                 },
@@ -21493,6 +22064,12 @@
                     "name": "updated_by",
                     "sqlType": "INT",
                     "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "order",
+                    "sqlType": "SMALLINT",
+                    "nullable": false,
                     "enum": null
                 }
             ]
@@ -21746,12 +22323,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "description",
                     "sqlType": "TEXT",
                     "nullable": true,
@@ -21796,6 +22367,12 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }
@@ -22013,20 +22590,8 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "art",
                     "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "art_name",
-                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 },
@@ -22081,6 +22646,18 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "art_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }
@@ -22340,32 +22917,14 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_normal_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "icon_delicious",
                     "sqlType": "VARCHAR(100)",
                     "nullable": true,
                     "enum": null
                 },
                 {
-                    "name": "icon_delicious_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "icon_suspicious",
                     "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon_suspicious_name",
-                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 },
@@ -22462,6 +23021,24 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_normal_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_delicious_name",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_suspicious_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }
@@ -22609,18 +23186,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(200)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "type",
                     "sqlType": "VARCHAR(50)",
                     "nullable": true,
@@ -22689,6 +23254,18 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "VARCHAR(200)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }
@@ -23037,12 +23614,6 @@
                     "enum": null
                 },
                 {
-                    "name": "site",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "created_at",
                     "sqlType": "TIMESTAMP",
                     "nullable": true,
@@ -23052,6 +23623,18 @@
                     "name": "updated_at",
                     "sqlType": "TIMESTAMP",
                     "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "site",
+                    "sqlType": "VARCHAR(50)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "is_html",
+                    "sqlType": "BOOLEAN",
+                    "nullable": false,
                     "enum": null
                 }
             ]
@@ -23087,6 +23670,98 @@
                 },
                 {
                     "name": "updated_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "user_identities",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "user_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "provider",
+                    "sqlType": "VARCHAR(32)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "subject",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "email",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "user_login_attempts",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "email",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "user_id",
+                    "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ip",
+                    "sqlType": "VARCHAR(45)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "method",
+                    "sqlType": "VARCHAR(16)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "outcome",
+                    "sqlType": "VARCHAR(24)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "created_at",
                     "sqlType": "TIMESTAMP",
                     "nullable": true,
                     "enum": null
@@ -23135,13 +23810,245 @@
                     "enum": null
                 },
                 {
+                    "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "difficulty",
                     "sqlType": "SMALLINT",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "user_recovery_codes",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "user_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "code_hash",
+                    "sqlType": "CHAR(64)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "used_at",
+                    "sqlType": "TIMESTAMP",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "user_sessions",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "user_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "token_id",
+                    "sqlType": "CHAR(32)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "method",
+                    "sqlType": "VARCHAR(16)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "ip",
+                    "sqlType": "VARCHAR(45)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "user_agent",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "last_seen_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "expires_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "revoked_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "revoked_reason",
+                    "sqlType": "VARCHAR(32)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "mac",
+                    "sqlType": "VARCHAR(17)",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "user_tokens",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "user_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "purpose",
+                    "sqlType": "VARCHAR(32)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "token_hash",
+                    "sqlType": "CHAR(64)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "expires_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "consumed_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "attempts",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "user_trusted_devices",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "user_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "token_hash",
+                    "sqlType": "CHAR(64)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "user_agent",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ip",
+                    "sqlType": "VARCHAR(45)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "last_used_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "expires_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "revoked_at",
                     "sqlType": "TIMESTAMP",
                     "nullable": true,
                     "enum": null
@@ -23186,7 +24093,7 @@
                 {
                     "name": "password",
                     "sqlType": "VARCHAR(255)",
-                    "nullable": false,
+                    "nullable": true,
                     "enum": null
                 },
                 {
@@ -23208,32 +24115,8 @@
                     "enum": null
                 },
                 {
-                    "name": "theme_main",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "theme_admin",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "version",
                     "sqlType": "VARCHAR(10)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "token",
-                    "sqlType": "VARCHAR(64)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "token_expires_at",
-                    "sqlType": "TIMESTAMP",
                     "nullable": true,
                     "enum": null
                 },
@@ -23247,6 +24130,62 @@
                     "name": "updated_at",
                     "sqlType": "TIMESTAMP",
                     "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "theme_main",
+                    "sqlType": "VARCHAR(50)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "theme_admin",
+                    "sqlType": "VARCHAR(50)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "password_login_enabled",
+                    "sqlType": "BOOLEAN",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "totp_secret",
+                    "sqlType": "VARCHAR(64)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "totp_enabled",
+                    "sqlType": "BOOLEAN",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "date_format",
+                    "sqlType": "VARCHAR(16)",
+                    "nullable": true,
+                    "enum": [
+                        "dmy_dot",
+                        "dmy_slash",
+                        "mdy_slash",
+                        "ymd_dash"
+                    ]
+                },
+                {
+                    "name": "time_format",
+                    "sqlType": "VARCHAR(8)",
+                    "nullable": true,
+                    "enum": [
+                        "24",
+                        "12"
+                    ]
+                },
+                {
+                    "name": "force_password_change",
+                    "sqlType": "BOOLEAN",
+                    "nullable": false,
                     "enum": null
                 }
             ]
@@ -23337,12 +24276,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_ascension_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "how_to_obtain",
                     "sqlType": "JSONB",
                     "nullable": true,
@@ -23411,6 +24344,12 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_ascension_name",
+                    "sqlType": "VARCHAR(150)",
                     "nullable": true,
                     "enum": null
                 }

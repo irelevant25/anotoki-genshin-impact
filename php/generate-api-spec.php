@@ -468,9 +468,167 @@ ksort($shapes);
  * above the table, which the schema already carries. A table with no such line
  * is still read; it just has no name of its own to be generated under.
  */
-function parseSchema(string $path, string $database): array
+/**
+ * Every table a database has, worked out by replaying its migrations.
+ *
+ * This used to read a schema file - one big CREATE TABLE listing per database,
+ * kept beside the migrations folder that described the same thing as a series
+ * of changes. Two descriptions of one database, and they drifted: the language
+ * table had four columns in one and one column in the other, and a column on
+ * both cost tables existed only in the schema file.
+ *
+ * So the migrations are the description now, and this replays them the way the
+ * database does - in order, each one applied to what the ones before it left.
+ * A CREATE TABLE starts a table, an ALTER changes it, and what is left at the
+ * end is what a database built from this folder actually looks like.
+ *
+ * It handles the statements the migrations use, and no more: adding, dropping,
+ * renaming and retyping a column, and the CHECK constraints that make a column
+ * an enum in everything but name. Anything else is a change to a database that
+ * this file does not describe, which is why parseMigrations() is checked
+ * against a live database rather than trusted.
+ */
+function parseMigrations(string $directory, string $database): array
 {
-    $sql = file_get_contents($path);
+    $files = glob($directory . '/*.sql') ?: [];
+    natsort($files);
+
+    $tables = [];
+
+    foreach ($files as $file) {
+        $sql = (string) file_get_contents($file);
+
+        foreach (parseSchema($sql, $database) as $name => $table) {
+            // IF NOT EXISTS, so a re-creation is not a redefinition.
+            $tables[$name] ??= $table;
+        }
+
+        applyAlters($sql, $tables);
+    }
+
+    return $tables;
+}
+
+/**
+ * Folds every ALTER TABLE in one migration into the tables built so far.
+ *
+ * Whitespace is flattened first: several of these are written across two or
+ * three lines, and a pattern that has to allow for that everywhere is a
+ * pattern nobody can read.
+ */
+function applyAlters(string $sql, array &$tables): void
+{
+    // Comments can contain the word ALTER, and several of them do.
+    $sql = preg_replace('/--[^\n]*/', '', $sql);
+
+    if (!preg_match_all('/ALTER\s+TABLE\s+"?(\w+)"?\s+(.*?);/is', $sql, $matches, PREG_SET_ORDER)) {
+        return;
+    }
+
+    foreach ($matches as [, $table, $action]) {
+        if (!isset($tables[$table])) {
+            continue;
+        }
+
+        $action = trim(preg_replace('/\s+/', ' ', $action));
+
+        // One ALTER TABLE can carry several clauses - most of the image-name
+        // migration is a single statement adding six columns at once - and
+        // splitting on top-level commas is what tells them apart without also
+        // splitting the inside of a CHECK.
+        foreach (splitTopLevel($action) as $clause) {
+            applyAlterClause(trim($clause), $tables[$table]['columns']);
+        }
+    }
+}
+
+/** One clause of one ALTER TABLE, applied to the columns it is about. */
+function applyAlterClause(string $clause, array &$columns): void
+{
+    if (preg_match('/^ADD COLUMN (?:IF NOT EXISTS )?"?(\w+)"? (.+)$/i', $clause, $m)) {
+        $rest = $m[2];
+
+        $column = [
+            'name' => $m[1],
+            'sqlType' => trim(preg_split('/\s+(?=NOT NULL|NULL|DEFAULT|PRIMARY|UNIQUE|REFERENCES|CHECK|GENERATED)/i', $rest)[0]),
+            'nullable' => !preg_match('/\bNOT NULL\b/i', $rest),
+            'enum' => parseCheckEnum($m[1], $rest),
+        ];
+
+        $existing = columnIndex($columns, $m[1]);
+
+        if ($existing === null) {
+            $columns[] = $column;
+        } else {
+            $columns[$existing] = $column;
+        }
+
+        return;
+    }
+
+    if (preg_match('/^DROP COLUMN (?:IF EXISTS )?"?(\w+)"?/i', $clause, $m)) {
+        $columns = array_values(array_filter($columns, fn($c) => $c['name'] !== $m[1]));
+        return;
+    }
+
+    if (preg_match('/^RENAME COLUMN "?(\w+)"? TO "?(\w+)"?/i', $clause, $m)) {
+        $index = columnIndex($columns, $m[1]);
+        if ($index !== null) {
+            $columns[$index]['name'] = $m[2];
+        }
+        return;
+    }
+
+    if (preg_match('/^ALTER COLUMN "?(\w+)"? (.+)$/i', $clause, $m)) {
+        $index = columnIndex($columns, $m[1]);
+        if ($index === null) {
+            return;
+        }
+
+        $change = $m[2];
+
+        if (preg_match('/^TYPE (.+)$/i', $change, $type)) {
+            $columns[$index]['sqlType'] = trim($type[1]);
+        } elseif (preg_match('/^SET NOT NULL/i', $change)) {
+            $columns[$index]['nullable'] = false;
+        } elseif (preg_match('/^DROP NOT NULL/i', $change)) {
+            $columns[$index]['nullable'] = true;
+        }
+
+        // SET DEFAULT and DROP DEFAULT change nothing a caller can see.
+        return;
+    }
+
+    // A CHECK added afterwards is the same enum as one written inline, and is
+    // read more loosely: an inline one is `CHECK (col IN (...))` and nothing
+    // else, while one added by ALTER is a whole condition - the format columns
+    // are `CHECK (col IS NULL OR col IN (...))`, since NULL is a real answer
+    // there. Being inside a CHECK is already established by getting here, so
+    // the `col IN (...)` is looked for wherever in the condition it sits.
+    if (preg_match('/^ADD CONSTRAINT \w+ CHECK /i', $clause)) {
+        foreach ($columns as $index => $column) {
+            if ($values = parseInEnum($column['name'], $clause)) {
+                $columns[$index]['enum'] = $values;
+            }
+        }
+    }
+}
+
+/** Where a column sits in a table's list, or null when it is not in it. */
+function columnIndex(array $columns, string $name): ?int
+{
+    foreach ($columns as $index => $column) {
+        if ($column['name'] === $name) {
+            return $index;
+        }
+    }
+
+    return null;
+}
+
+/** The CREATE TABLE statements in one piece of SQL. */
+function parseSchema(string $sql, string $database): array
+{
     $tables = [];
 
     if (!preg_match_all('/^CREATE TABLE(?: IF NOT EXISTS)? (\w+)\s*\((.*?)^\);/ms', $sql, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
@@ -572,13 +730,35 @@ function parseCheckEnum(string $column, string $body): ?array
         return null;
     }
 
-    preg_match_all("/'((?:[^']|'')*)'/", $m[1], $values);
+    return enumValues($m[1]);
+}
+
+/**
+ * The same, for a condition already known to be inside a CHECK.
+ *
+ * `col IN (...)` wherever it appears rather than immediately after the opening
+ * bracket, because a constraint added by ALTER is a whole condition and the
+ * ones here read `col IS NULL OR col IN (...)` - NULL being a real answer for
+ * a setting that means "however this device does it".
+ */
+function parseInEnum(string $column, string $condition): ?array
+{
+    $pattern = '/"?' . preg_quote($column, '/') . '"?\s+IN\s*\(([^)]*)\)/i';
+
+    return preg_match($pattern, $condition, $m) ? enumValues($m[1]) : null;
+}
+
+/** The quoted strings in an IN list, with SQL's doubled quote undone. */
+function enumValues(string $list): ?array
+{
+    preg_match_all("/'((?:[^']|'')*)'/", $list, $values);
+
     return array_map(fn($v) => str_replace("''", "'", $v), $values[1]) ?: null;
 }
 
 $tables = [
-    ...parseSchema(__DIR__ . '/schema_pgsql_users.sql', 'users'),
-    ...parseSchema(__DIR__ . '/schema_pgsql_genshin_impact.sql', 'genshin_impact'),
+    ...parseMigrations(__DIR__ . '/migrations/users', 'users'),
+    ...parseMigrations(__DIR__ . '/migrations/genshin_impact', 'genshin_impact'),
 ];
 ksort($tables);
 

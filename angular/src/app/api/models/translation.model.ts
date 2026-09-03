@@ -21,9 +21,10 @@ export interface Language {
 export interface TranslationKey {
   name: string;
   description: string | null;
-  site: string;
   created_at: string | null;
   updated_at: string | null;
+  site: string;
+  is_html: boolean;
 }
 
 /**

@@ -4,12 +4,18 @@
     @if (!loader.loadingCtrl.loading()) {
         <div class="profile">
             @if (user(); as user) {
+                <!-- No role badge. This page is about how somebody plays,
+                     and whether they can also edit the database is not part of
+                     that - it belongs where it means something, which is the
+                     account panel. -->
                 <header class="profile-header">
                     <h1>{{ user.username }}</h1>
                     <p class="profile-meta">
-                        <span class="role-badge">{{ user.roles }}</span>
                         @if (user.created_at) {
                             <span>{{ 'profile.memberSince' | translate }} {{ user.created_at | appDate }}</span>
+                        }
+                        @if (lastPlayed(); as when) {
+                            <span>{{ 'profile.lastPlayed' | translate }} {{ when | appDate: 'datetime' }}</span>
                         }
                     </p>
                 </header>
@@ -19,15 +25,6 @@
                 @if (failed()) {
                     <p class="profile-warning">{{ 'profile.failed' | translate }}</p>
                 }
-
-                <!-- Before the quiz sections, and outside them. Whether
-                     anybody has played has no bearing on where their account
-                     is signed in, and this is the part with a security
-                     consequence. -->
-                <section class="profile-section">
-                    <h2>{{ 'profile.sessions.title' | translate }}</h2>
-                    <app-profile-sessions></app-profile-sessions>
-                </section>
 
                 @if (empty()) {
                     <div class="profile-empty">
@@ -147,9 +144,16 @@
                         <app-activity-grid [cells]="activityCells()"></app-activity-grid>
                     </section>
 
-                    <!-- ── Per character ─────────────────────────────────── -->
-                    <section class="profile-section">
-                        <h2>{{ 'profile.characters.title' | translate }}</h2>
+                    <!-- ── By character, and the last twenty ─────────────── -->
+                    <!-- Two tabs rather than two sections stacked. The
+                         character table is one row per character met, which
+                         for anybody who has played for a while is a hundred
+                         rows of scrolling before the recent list is reached at
+                         all. Neither is the answer to the other's question, so
+                         only one needs to be on screen. -->
+                    <section class="profile-section profile-tabs">
+                        <app-tabs>
+                            <app-tab [title]="'profile.characters.title' | translate" [icon]="'icon-user-group'">
 
                         @if (highlights(); as picks) {
                             <div class="highlights">
@@ -253,11 +257,9 @@
                                 }
                             </tbody>
                         </table>
-                    </section>
+                            </app-tab>
 
-                    <!-- ── The last twenty ───────────────────────────────── -->
-                    <section class="profile-section">
-                        <h2>{{ 'profile.recent.title' | translate }}</h2>
+                            <app-tab [title]="'profile.recent.title' | translate" [icon]="'icon-history'">
 
                         @if (recent().length) {
                             <ul class="recent">
@@ -283,6 +285,8 @@
                         } @else {
                             <p class="section-empty">{{ 'profile.recent.none' | translate }}</p>
                         }
+                            </app-tab>
+                        </app-tabs>
                     </section>
                 }
             } @else {

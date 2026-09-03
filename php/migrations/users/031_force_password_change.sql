@@ -1,0 +1,25 @@
+-----------------------------------------------------------
+-- A PASSWORD SOMEBODY ELSE CHOSE
+--
+-- An account made by hand in the admin panel arrives with a password its owner
+-- did not pick, read out of a form by whoever made it and passed along in a
+-- message, a chat window, or out loud across a desk. Every one of those is a
+-- place it now lives, and none of them is under the owner's control.
+--
+-- This flag says the account is in that state. The site refuses to be used
+-- until a password the owner chose has replaced it, and clears the flag the
+-- moment one does.
+--
+-- Optional at creation rather than automatic, because the same form is used to
+-- make an account for somebody sitting in the room - who can type their own
+-- password there and then - and for somebody who will be sent it. It defaults
+-- to off so nothing that exists today changes.
+--
+-- A column rather than a derived condition. "Has never changed the password an
+-- admin set" cannot be worked out from the users table afterwards: a password
+-- hash says nothing about who chose it. Storing the answer is also what makes
+-- it reusable - anything later that needs a person to stop and re-authenticate
+-- has somewhere to say so.
+-----------------------------------------------------------
+
+ALTER TABLE users ADD COLUMN IF NOT EXISTS force_password_change BOOLEAN NOT NULL DEFAULT FALSE;

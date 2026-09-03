@@ -1,0 +1,122 @@
+@use "../../shared/admin-list" as *;
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.panel {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  background: var(--bg-surface, transparent);
+}
+
+.panel-title {
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+
+// Two columns, label and answer, rather than a table: none of this is a list
+// of like things, and a table would promise a sortable column that is not one.
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--spacing-xs) var(--spacing-md);
+  margin: 0;
+  font-size: var(--font-size-sm);
+
+  dt {
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  dd {
+    margin: 0;
+    word-break: break-word;
+  }
+}
+
+// Under 640px the label column and the answer would each get half a phone.
+@media (max-width: 640px) {
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 0 0;
+
+    dt {
+      margin-top: var(--spacing-sm);
+    }
+  }
+}
+
+.flag {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.flag-yes {
+  color: var(--color-success);
+  font-weight: var(--font-weight-semibold);
+}
+
+.flag-warn {
+  color: var(--color-warning);
+  font-weight: var(--font-weight-semibold);
+}
+
+.warn-text {
+  color: var(--color-warning);
+  font-weight: var(--font-weight-semibold);
+}
+
+.warn {
+  color: var(--color-danger);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.small {
+  font-size: var(--font-size-xs);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+// The user agent is the title attribute; the cell itself must not stretch the
+// table to the width of a Chrome version string.
+.agent {
+  max-width: 22ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.compact {
+  font-size: var(--font-size-xs);
+
+  th,
+  td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.footer {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.footer-spacer {
+  flex: 1;
+}

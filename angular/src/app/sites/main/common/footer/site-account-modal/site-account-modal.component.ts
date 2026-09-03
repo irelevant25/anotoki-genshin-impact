@@ -13,11 +13,14 @@ import { ModalService } from '../../../../../shared/local-lib/components/modal/m
 import { SiteLoginModalComponent } from '../site-login-modal/site-login-modal.component';
 import { SiteRegisterModalComponent } from '../site-register-modal/site-register-modal.component';
 import { SiteSetPasswordModalComponent } from '../site-set-password-modal/site-set-password-modal.component';
+import { SiteChangePasswordModalComponent } from '../site-change-password-modal/site-change-password-modal.component';
+import { SiteSessionsModalComponent } from '../site-sessions-modal/site-sessions-modal.component';
 import { SiteTwoFactorModalComponent } from '../site-two-factor-modal/site-two-factor-modal.component';
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../../../shared/local-lib/i18n/date-format.service';
+import { SessionEntry } from '../../../../../api';
 
 @Component({
   selector: 'app-site-account-modal',
@@ -39,6 +42,18 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
 
   /** What went wrong with the last thing pressed in the sign-in methods list. */
   readonly refusal = signal<string | null>(null);
+
+  /**
+   * The session this panel is being read from, and how many are live.
+   *
+   * The whole list used to be a section on the profile page, among the quiz
+   * statistics. It belongs here: whether somebody has played has no bearing on
+   * where their account is signed in. What is shown here is the one session
+   * they are sitting in - the rest is a click away, because a panel is not a
+   * place for a table of thirty rows.
+   */
+  readonly currentSession = signal<SessionEntry | null>(null);
+  readonly liveSessions = signal(0);
 
   /** The site's own appearance; the admin panel keeps a separate one. */
   readonly theme = inject(ThemeToggleService);
@@ -80,7 +95,60 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
   constructor(private readonly _securityService: SecurityService) {
     super();
     // Null when signed out, which is a state this modal now renders.
-    this._securityService.currentUserData$.subscribe((data) => this.userData.set(data));
+    this._securityService.currentUserData$.subscribe((data) => {
+      this.userData.set(data);
+      data ? this._loadSessions() : this.currentSession.set(null);
+    });
+  }
+
+  /**
+   * Reads the session list for the one row this panel shows.
+   *
+   * Quietly on failure: the sessions row simply does not appear. Nothing else
+   * in the panel depends on it, and an error banner about a summary line would
+   * be louder than the line itself.
+   */
+  private _loadSessions(): void {
+    this._securityService.getSessions().subscribe({
+      next: (list) => {
+        this.currentSession.set(list.sessions.find((session) => session.current) ?? null);
+        this.liveSessions.set(list.sessions.filter((session) => session.active).length);
+      },
+      error: () => this.currentSession.set(null),
+    });
+  }
+
+  /**
+   * The browser this session is in, roughly.
+   *
+   * Same reading as the sessions modal does, and for the same reason: a user
+   * agent is a long string designed to be lied to, and every one of them claims
+   * to be Mozilla. It labels a row and nothing depends on it.
+   */
+  browser(session: SessionEntry): string {
+    const agent = session.user_agent ?? '';
+
+    if (!agent) {
+      return this.i18n.t('account.sessions.unknownBrowser');
+    }
+
+    const name = ['Edg', 'OPR', 'Firefox', 'Chrome', 'Safari'].find((candidate) => agent.includes(candidate));
+    const platform = ['Android', 'iPhone', 'iPad', 'Windows', 'Macintosh', 'Linux'].find((candidate) => agent.includes(candidate));
+
+    const label = { Edg: 'Edge', OPR: 'Opera' }[name ?? ''] ?? name;
+
+    if (!label && !platform) {
+      return agent.length > 40 ? `${agent.slice(0, 37)}...` : agent;
+    }
+
+    return [label, platform].filter(Boolean).join(' · ');
+  }
+
+  /** Every session this account has, in a modal big enough to hold them. */
+  sessions(): void {
+    const modal = this._modals.open(SiteSessionsModalComponent, { size: '4', scrollable: true });
+    // Ending one from in there changes the count out here.
+    modal.closed.subscribe(() => this._loadSessions());
   }
 
   protected override loadData$(): Observable<any> {
@@ -124,6 +192,19 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
   /** Setting a first password is a form, so it gets a modal of its own. */
   setPassword(): void {
     this._modals.open(SiteSetPasswordModalComponent, { size: '1' });
+  }
+
+  /**
+   * And so is changing one that exists, which asks for the old one first.
+   *
+   * A different modal rather than the same one with a hidden field: the two
+   * prove different things. Setting a first password is proved by being signed
+   * in at all, since that took Google or a code from the account's own mailbox;
+   * changing one is not, because a session left open on a shared machine is
+   * exactly where somebody else would like to change a password.
+   */
+  changePassword(): void {
+    this._modals.open(SiteChangePasswordModalComponent, { size: '1' });
   }
 
   /**

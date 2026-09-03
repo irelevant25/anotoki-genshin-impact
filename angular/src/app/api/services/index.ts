@@ -19,6 +19,7 @@ export * from './lookup.service';
 export * from './material.service';
 export * from './migration.service';
 export * from './quiz.service';
+export * from './session.service';
 export * from './stat.service';
 export * from './translation.service';
 export * from './user.service';

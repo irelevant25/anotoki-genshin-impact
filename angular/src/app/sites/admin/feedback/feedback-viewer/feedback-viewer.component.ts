@@ -1,9 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { FeedbackApiService, Feedback } from '../../../../api';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 /** The long-text fields, in reading order, with what to call each one. */
 const DETAIL_FIELDS: { field: keyof Feedback; label: string }[] = [
@@ -27,7 +27,7 @@ const DETAIL_FIELDS: { field: keyof Feedback; label: string }[] = [
   selector: 'app-feedback-viewer',
   templateUrl: './feedback-viewer.component.html',
   styleUrls: ['./feedback-viewer.component.scss'],
-  imports: [DatePipe, ModalComponent, ButtonComponent],
+  imports: [AppDatePipe, ModalComponent, ButtonComponent],
 })
 export class FeedbackViewerComponent extends AbstractModalComponent {
   private readonly _feedbackApi = inject(FeedbackApiService);

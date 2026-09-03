@@ -8,15 +8,15 @@
 export interface Background {
   id: number;
   name: string;
-  image: string | null;
-  image_name: string | null;
-  preview: string | null;
-  preview_name: string | null;
   deleted: boolean;
   created_at: string | null;
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  image: string | null;
+  image_name: string | null;
+  preview: string | null;
+  preview_name: string | null;
 }
 
 /**

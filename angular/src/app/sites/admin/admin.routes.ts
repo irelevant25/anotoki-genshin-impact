@@ -23,6 +23,7 @@ import { AuditLogsComponent } from './audit-logs/audit-logs.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { BackupsComponent } from './backups/backups.component';
 import { UsersComponent } from './users/users.component';
+import { AdminSessionsComponent } from './sessions/sessions.component';
 import { LanguagesComponent } from './localization/languages/languages.component';
 import { TranslationsComponent } from './localization/translations/translations.component';
 import {
@@ -106,6 +107,7 @@ export const routes: Routes = [
       { path: 'migrations',           component: MigrationsListComponent },
       { path: 'backups',              component: BackupsComponent },
       { path: 'accounts',             component: UsersComponent },
+      { path: 'sessions',             component: AdminSessionsComponent },
 
       // Writable lookup tables
       { path: 'relationship-types',   component: RelationshipTypesPage },

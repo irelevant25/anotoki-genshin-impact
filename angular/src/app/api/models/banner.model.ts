@@ -11,8 +11,6 @@ export interface Banner {
   id: number;
   version: string;
   name: string;
-  icon: string | null;
-  icon_name: string | null;
   duration_from: string;
   duration_to: string | null;
   deleted: boolean;
@@ -20,6 +18,8 @@ export interface Banner {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon: string | null;
+  icon_name: string | null;
 }
 
 /**

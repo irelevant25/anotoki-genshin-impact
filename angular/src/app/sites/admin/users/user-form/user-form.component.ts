@@ -40,6 +40,17 @@ export class UserFormComponent extends AbstractModalComponent {
   readonly saving = signal(false);
 
   /**
+   * Whether the owner has to replace this password before using the site.
+   *
+   * Off for a new account, deliberately. The common case is an admin making an
+   * account for somebody standing next to them, who types their own password
+   * into the box; the flag is for the other case, and asking for it is a tick
+   * rather than the default so that nothing changes for anybody who has been
+   * doing the first one all along.
+   */
+  readonly forceChange = signal(false);
+
+  /**
    * Shown rather than dotted out. A password nobody chose is a password
    * somebody has to read off the screen to pass on, and hiding it helps no
    * one - there is nothing here they did not just generate.
@@ -69,6 +80,7 @@ export class UserFormComponent extends AbstractModalComponent {
       this.email.set(account.email);
       this.role.set(account.role);
       this.confirmed.set(account.email_confirmed);
+      this.forceChange.set(account.force_password_change);
       return;
     }
 
@@ -96,12 +108,14 @@ export class UserFormComponent extends AbstractModalComponent {
           email: String(this.email() ?? '').trim(),
           role: String(this.role() ?? 'USER'),
           email_confirmed: this.confirmed(),
+          force_password_change: this.forceChange(),
         })
       : this._userApi.createUser({
           username: String(this.username() ?? '').trim(),
           email: String(this.email() ?? '').trim(),
           password: String(this.password() ?? ''),
           role: String(this.role() ?? 'USER'),
+          force_password_change: this.forceChange(),
         });
 
     request.subscribe({

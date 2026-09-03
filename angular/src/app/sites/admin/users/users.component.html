@@ -37,6 +37,46 @@
         [emptyOptionText]="'— any —'"
         (inputChange)="applyFilters()"
     ></app-dropdown>
+    <app-dropdown
+        [label]="'Email confirmed'"
+        [options]="flagOptions"
+        [(value)]="filterConfirmed"
+        [emptyOption]="true"
+        [emptyOptionText]="'— any —'"
+        (inputChange)="applyFilters()"
+    ></app-dropdown>
+    <app-dropdown
+        [label]="'Two-factor'"
+        [options]="flagOptions"
+        [(value)]="filterTwoFactor"
+        [emptyOption]="true"
+        [emptyOptionText]="'— any —'"
+        (inputChange)="applyFilters()"
+    ></app-dropdown>
+    <app-dropdown
+        [label]="'Google'"
+        [options]="flagOptions"
+        [(value)]="filterGoogle"
+        [emptyOption]="true"
+        [emptyOptionText]="'— any —'"
+        (inputChange)="applyFilters()"
+    ></app-dropdown>
+    <app-dropdown
+        [label]="'Must change password'"
+        [options]="flagOptions"
+        [(value)]="filterMustChange"
+        [emptyOption]="true"
+        [emptyOptionText]="'— any —'"
+        (inputChange)="applyFilters()"
+    ></app-dropdown>
+    <app-dropdown
+        [label]="'Language'"
+        [options]="languageOptions()"
+        [(value)]="filterLanguage"
+        [emptyOption]="true"
+        [emptyOptionText]="'— any —'"
+        (inputChange)="applyFilters()"
+    ></app-dropdown>
     <div class="filter-summary">
         <span class="filter-count">{{ accounts().length }} shown</span>
         @if (hasActiveFilter()) {
@@ -56,6 +96,10 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th class="col-role">Role</th>
+                    <th class="col-lang">Lang</th>
+                    <th class="col-flag">Confirmed</th>
+                    <th class="col-flag">2FA</th>
+                    <th class="col-flag">Google</th>
                     <th class="col-state">Status</th>
                     <th class="col-when">Joined</th>
                     <th class="col-actions"></th>
@@ -64,7 +108,7 @@
             <tbody>
                 @if (!accounts().length) {
                     <tr>
-                        <td colspan="7" class="empty-cell">No accounts match the filter</td>
+                        <td colspan="11" class="empty-cell">No accounts match the filter</td>
                     </tr>
                 }
                 @for (row of accounts(); track row.id) {
@@ -75,29 +119,47 @@
                             @if (isSelf(row)) {
                                 <span class="chip-self">you</span>
                             }
-                        </td>
-                        <td class="col-email">
-                            {{ row.email }}
-                            @if (!row.email_confirmed) {
-                                <span class="chip-unconfirmed" title="This address was never confirmed">unconfirmed</span>
+                            @if (row.force_password_change) {
+                                <span class="chip-must-change" title="Still using a password an admin set. They will be asked to change it before the site can be used.">
+                                    must change
+                                </span>
                             }
                         </td>
+                        <td class="col-email">{{ row.email }}</td>
                         <td class="col-role"><span class="pill role-{{ row.role.toLowerCase() }}">{{ row.role }}</span></td>
+                        <td class="col-lang">{{ row.language }}</td>
+                        <td class="col-flag">
+                            <!-- A word rather than a tick: a column of ticks and
+                                 blanks reads as "done / not done", which is the
+                                 wrong question for any of these. -->
+                            <span class="flag" [class.flag-yes]="row.email_confirmed" [class.flag-no]="!row.email_confirmed">
+                                {{ row.email_confirmed ? 'yes' : 'no' }}
+                            </span>
+                        </td>
+                        <td class="col-flag">
+                            <span class="flag" [class.flag-yes]="row.totp_enabled">{{ row.totp_enabled ? 'on' : 'off' }}</span>
+                        </td>
+                        <td class="col-flag">
+                            <span class="flag" [class.flag-yes]="row.google_connected" [title]="row.google_email ?? ''">
+                                {{ row.google_connected ? 'linked' : '—' }}
+                            </span>
+                        </td>
                         <td class="col-state">
                             <span class="pill state-{{ row.deleted ? 'disabled' : 'enabled' }}">{{ row.deleted ? 'disabled' : 'enabled' }}</span>
                         </td>
-                        <td class="col-when">{{ row.created_at | date: 'yyyy-MM-dd' }}</td>
+                        <td class="col-when">{{ row.created_at | appDate }}</td>
                         <td class="col-actions">
-                            @if (!canManage) {
-                                <span class="no-actions">—</span>
-                            } @else if (disableConfirm() === row.id) {
-                                <span class="confirm-row">
-                                    <span class="confirm-text">Disable {{ row.username }}?</span>
-                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="setEnabled(row, false)"></app-button>
-                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDisable()"></app-button>
-                                </span>
-                            } @else {
-                                <div class="action-btns">
+                            <div class="action-btns">
+                                <app-button text="Details" variant="secondary" [outline]="true" size="very-small" (buttonClick)="details(row)"></app-button>
+                                @if (!canManage) {
+                                    <span class="no-actions">—</span>
+                                } @else if (disableConfirm() === row.id) {
+                                    <span class="confirm-row">
+                                        <span class="confirm-text">Disable {{ row.username }}?</span>
+                                        <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="setEnabled(row, false)"></app-button>
+                                        <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDisable()"></app-button>
+                                    </span>
+                                } @else {
                                     <app-button text="Edit" variant="secondary" [outline]="true" size="very-small" (buttonClick)="edit(row)"></app-button>
                                     <app-button
                                         text="Password"
@@ -112,8 +174,8 @@
                                     } @else if (!isSelf(row)) {
                                         <app-button text="Disable" variant="danger" [outline]="true" size="very-small" (buttonClick)="askToDisable(row.id)"></app-button>
                                     }
-                                </div>
-                            }
+                                }
+                            </div>
                         </td>
                     </tr>
                 }

@@ -1,0 +1,203 @@
+<app-modal [title]="title()" [subtitle]="'Everything on file about this account'" (closeModal)="close()">
+    <div modal-body class="detail">
+        <app-loader #loader [loading]="busy()"></app-loader>
+
+        @if (failed()) {
+            <p class="warn">That account could not be read.</p>
+        } @else if (!loader.loadingCtrl.loading() && detail(); as detail) {
+            <section class="panel">
+                <h3 class="panel-title">Account</h3>
+                <dl class="facts">
+                    <dt>Username</dt>
+                    <dd>{{ detail.account.username }}</dd>
+
+                    <dt>Email</dt>
+                    <dd>
+                        {{ detail.account.email }}
+                        <span class="flag" [class.flag-yes]="detail.account.email_confirmed">
+                            {{ detail.account.email_confirmed ? 'confirmed' : 'never confirmed' }}
+                        </span>
+                    </dd>
+
+                    <dt>Role</dt>
+                    <dd>{{ detail.account.role }}</dd>
+
+                    <dt>Status</dt>
+                    <dd>{{ detail.account.deleted ? 'disabled' : 'enabled' }}</dd>
+
+                    <dt>Joined</dt>
+                    <dd>{{ detail.account.created_at | appDate: 'datetime' }}</dd>
+
+                    @if (detail.account.updated_at) {
+                        <dt>Last changed</dt>
+                        <dd>{{ detail.account.updated_at | appDate: 'datetime' }}</dd>
+                    }
+                </dl>
+            </section>
+
+            <section class="panel">
+                <h3 class="panel-title">How they have it set up</h3>
+                <dl class="facts">
+                    <dt>Language</dt>
+                    <dd>{{ detail.account.language }}</dd>
+
+                    <dt>Site theme</dt>
+                    <dd>{{ detail.account.theme_main }}</dd>
+
+                    <dt>Admin theme</dt>
+                    <dd>{{ detail.account.theme_admin }}</dd>
+
+                    <dt>Dates</dt>
+                    <dd>{{ dateFormat() }}</dd>
+
+                    <dt>Clock</dt>
+                    <dd>{{ timeFormat() }}</dd>
+
+                    <dt>Background</dt>
+                    <dd>{{ detail.account.background || '—' }}</dd>
+                </dl>
+            </section>
+
+            <section class="panel">
+                <h3 class="panel-title">Ways in</h3>
+                <dl class="facts">
+                    <dt>Two-factor</dt>
+                    <dd>
+                        <span class="flag" [class.flag-yes]="detail.account.totp_enabled">{{ detail.account.totp_enabled ? 'on' : 'off' }}</span>
+                        @if (detail.account.totp_enabled) {
+                            <span class="muted">· {{ detail.recovery_codes_remaining }} recovery codes left · {{ detail.trusted_devices }} remembered devices</span>
+                        }
+                    </dd>
+
+                    <dt>Google</dt>
+                    <dd>
+                        @if (detail.identities.length) {
+                            @for (identity of detail.identities; track identity.id) {
+                                <div>{{ identity.email || identity.provider }} <span class="muted">· since {{ identity.created_at | appDate }}</span></div>
+                            }
+                        } @else {
+                            <span class="muted">not connected</span>
+                        }
+                    </dd>
+
+                    <dt>Password</dt>
+                    <dd>
+                        @if (detail.account.force_password_change) {
+                            <span class="flag flag-warn">still the one an admin set</span>
+                            <p class="muted small">They will be asked to choose their own before the site will let them do anything.</p>
+                        } @else {
+                            <span class="muted">chosen by them</span>
+                        }
+                    </dd>
+
+                    <dt>Failed since last sign-in</dt>
+                    <dd [class.warn-text]="detail.failed_since_last_login > 0">{{ detail.failed_since_last_login }}</dd>
+                </dl>
+            </section>
+
+            <section class="panel">
+                <h3 class="panel-title">
+                    Sessions
+                    <span class="muted">· {{ detail.active_sessions }} live of {{ detail.sessions.length }} shown</span>
+                </h3>
+
+                @if (!detail.sessions.length) {
+                    <p class="muted">This account has never signed in.</p>
+                } @else {
+                    <div class="table-wrap">
+                        <table class="admin-table compact">
+                            <thead>
+                                <tr>
+                                    <th>Started</th>
+                                    <th>How</th>
+                                    <th>Address</th>
+                                    <th>Last seen</th>
+                                    <th>State</th>
+                                    @if (canManage()) {
+                                        <th></th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (session of detail.sessions; track session.id) {
+                                    <tr>
+                                        <td class="nowrap">{{ session.created_at | appDate: 'datetime' }}</td>
+                                        <td>{{ session.method }}</td>
+                                        <td class="agent" [title]="session.user_agent ?? ''">
+                                            {{ session.ip || '—' }}
+                                            @if (session.mac) {
+                                                <span class="muted">· {{ session.mac }}</span>
+                                            }
+                                        </td>
+                                        <td class="nowrap">{{ session.last_seen_at ? (session.last_seen_at | appDate: 'datetime') : '—' }}</td>
+                                        <td>
+                                            @if (session.active) {
+                                                <span class="flag flag-yes">live</span>
+                                            } @else {
+                                                <span class="muted">{{ session.revoked_reason || 'expired' }}</span>
+                                            }
+                                        </td>
+                                        @if (canManage()) {
+                                            <td class="nowrap">
+                                                @if (!session.active) {
+                                                    <span class="muted">—</span>
+                                                } @else if (endConfirm() === session.id) {
+                                                    <app-button text="End it" variant="danger" size="very-small" (buttonClick)="endSession(session.id)"></app-button>
+                                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelEnd()"></app-button>
+                                                } @else {
+                                                    <app-button text="End" variant="danger" [outline]="true" size="very-small" (buttonClick)="askToEnd(session.id)"></app-button>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </section>
+
+            <section class="panel">
+                <h3 class="panel-title">Sign-in attempts <span class="muted">· the last {{ detail.login_attempts.length }}</span></h3>
+
+                @if (!detail.login_attempts.length) {
+                    <p class="muted">Nothing has been tried against this account.</p>
+                } @else {
+                    <div class="table-wrap">
+                        <table class="admin-table compact">
+                            <thead>
+                                <tr>
+                                    <th>When</th>
+                                    <th>Address typed</th>
+                                    <th>From</th>
+                                    <th>How</th>
+                                    <th>Outcome</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (attempt of detail.login_attempts; track attempt.id) {
+                                    <tr>
+                                        <td class="nowrap">{{ attempt.created_at | appDate: 'datetime' }}</td>
+                                        <td>{{ attempt.email }}</td>
+                                        <td>{{ attempt.ip || '—' }}</td>
+                                        <td>{{ attempt.method }}</td>
+                                        <td>
+                                            <span class="flag" [class.flag-yes]="attempt.outcome === 'ok'" [class.flag-warn]="attempt.outcome !== 'ok'">
+                                                {{ attempt.outcome }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </section>
+        }
+    </div>
+
+    <div modal-footer class="footer">
+        <span class="footer-spacer"></span>
+        <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="close()"></app-button>
+    </div>
+</app-modal>

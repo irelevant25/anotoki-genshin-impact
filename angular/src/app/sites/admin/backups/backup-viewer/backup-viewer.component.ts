@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
@@ -8,6 +8,7 @@ import { BackupApiService, BackupDatabase, BackupEntry } from '../../../../api';
 import { RoleService } from '../../../../shared/local-lib/services/role.service';
 import { Roles } from '../../../../shared/local-lib/services/options-helper.service';
 import { RestoreConfirmComponent } from '../restore-confirm/restore-confirm.component';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 /**
  * One backup in full: what went into each database's dump, and how to get the
@@ -20,7 +21,7 @@ import { RestoreConfirmComponent } from '../restore-confirm/restore-confirm.comp
   selector: 'app-backup-viewer',
   templateUrl: './backup-viewer.component.html',
   styleUrls: ['./backup-viewer.component.scss'],
-  imports: [DatePipe, DecimalPipe, ModalComponent, ButtonComponent],
+  imports: [AppDatePipe, DecimalPipe, ModalComponent, ButtonComponent],
 })
 export class BackupViewerComponent extends AbstractModalComponent {
   private readonly _backupApi = inject(BackupApiService);

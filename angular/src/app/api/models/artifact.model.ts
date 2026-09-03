@@ -11,7 +11,6 @@ export interface Artifact {
   id: number;
   name: string;
   icon: string;
-  icon_name: string | null;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
   how_to_obtain_quality_1: string | null;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
@@ -37,6 +36,7 @@ export interface Artifact {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_name: string | null;
 }
 
 /**
@@ -46,7 +46,6 @@ export interface ArtifactPiece {
   id: number;
   artifact_id: number;
   icon: string;
-  icon_name: string | null;
   type: string;
   name: string;
   deleted: boolean;
@@ -54,6 +53,7 @@ export interface ArtifactPiece {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_name: string | null;
 }
 
 /**

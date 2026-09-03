@@ -47,7 +47,7 @@
                 @for (entry of items(); track entry.id) {
                     <tr [class.is-new]="entry.status === 'new'">
                         <td class="col-id">{{ entry.id }}</td>
-                        <td class="col-when">{{ entry.created_at | date: 'yyyy-MM-dd HH:mm' }}</td>
+                        <td class="col-when">{{ entry.created_at | appDate: 'datetime' }}</td>
                         <td class="col-type"><span class="pill type-{{ entry.type.toLowerCase() }}">{{ entry.type }}</span></td>
                         <td class="col-status"><span class="pill status-{{ entry.status }}">{{ entry.status }}</span></td>
                         <td class="col-section">{{ entry.section || '—' }}</td>

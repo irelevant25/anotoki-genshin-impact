@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
+import { CheckboxComponent } from '../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { PasswordComponent } from '../../../../shared/local-lib/components/password/password.component';
 import { UserApiService, AdminUser } from '../../../../api';
@@ -17,7 +18,7 @@ import { GENERATED_PASSWORD_LENGTH, randomPassword } from '../random-password';
   selector: 'app-user-password',
   templateUrl: './user-password.component.html',
   styleUrls: ['./user-password.component.scss'],
-  imports: [ModalComponent, ButtonComponent, PasswordComponent],
+  imports: [ModalComponent, ButtonComponent, PasswordComponent, CheckboxComponent],
 })
 export class UserPasswordComponent extends AbstractModalComponent {
   private readonly _userApi = inject(UserApiService);
@@ -31,6 +32,16 @@ export class UserPasswordComponent extends AbstractModalComponent {
   readonly saving = signal(false);
 
   readonly passwordVisible = signal(false);
+
+  /**
+   * Whether the owner has to replace this before the site will let them in.
+   *
+   * On by default, because it describes exactly what is happening here: this
+   * password was chosen by somebody who is not its owner, and it has to travel
+   * to them somehow. It can be turned off for the case where they are sitting
+   * in the room and typed it themselves.
+   */
+  readonly forceChange = signal(true);
 
   /** True once a generated password is in the boxes, so the second one can go. */
   readonly generated = signal(false);
@@ -87,16 +98,18 @@ export class UserPasswordComponent extends AbstractModalComponent {
     }
 
     this.saving.set(true);
-    this._userApi.setUserPassword(account.id, { password: String(this.password() ?? '') }).subscribe({
-      next: (result) => {
-        this.saving.set(false);
-        this.notificationService.showSuccess(`New password set for ${account.username}. ${result.note}`);
-        this.closeModal(true);
-      },
-      error: (e) => {
-        this.saving.set(false);
-        this.notificationService.showError(e?.error?.error ?? 'Could not set that password');
-      },
-    });
+    this._userApi
+      .setUserPassword(account.id, { password: String(this.password() ?? ''), force_password_change: this.forceChange() })
+      .subscribe({
+        next: (result) => {
+          this.saving.set(false);
+          this.notificationService.showSuccess(`New password set for ${account.username}. ${result.note}`);
+          this.closeModal(true);
+        },
+        error: (e) => {
+          this.saving.set(false);
+          this.notificationService.showError(e?.error?.error ?? 'Could not set that password');
+        },
+      });
   }
 }

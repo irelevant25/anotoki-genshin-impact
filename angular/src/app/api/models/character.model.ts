@@ -28,23 +28,16 @@ export interface Character {
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
   namecard_sources: string | null;
   namecard_icon: string;
-  namecard_icon_name: string | null;
   namecard_background: string;
-  namecard_background_name: string | null;
   namecard_banner: string;
-  namecard_banner_name: string | null;
   card_icon: string;
-  card_icon_name: string | null;
   card_icon_2: string | null;
-  card_icon_2_name: string | null;
   wish_icon: string;
-  wish_icon_name: string | null;
   ingame_icon_name: string | null;
   ingame_icon: string;
   ingame_icon_2_name: string | null;
   ingame_icon_2: string | null;
   icon: string;
-  icon_name: string | null;
   release_date: string | null;
   version: string;
   introduced: string | null;
@@ -58,6 +51,13 @@ export interface Character {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_name: string | null;
+  card_icon_name: string | null;
+  card_icon_2_name: string | null;
+  wish_icon_name: string | null;
+  namecard_icon_name: string | null;
+  namecard_background_name: string | null;
+  namecard_banner_name: string | null;
 }
 
 /**
@@ -94,7 +94,6 @@ export interface CharacterAscension {
 export interface CharacterAscensionCost {
   id: number;
   character_ascension_id: number;
-  order: number;
   material_id: number;
   quantity: number;
   deleted: boolean;
@@ -102,6 +101,7 @@ export interface CharacterAscensionCost {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  order: number;
 }
 
 /**
@@ -254,7 +254,6 @@ export interface CharacterConstellation {
   id: number;
   character_id: number;
   icon: string;
-  icon_name: string | null;
   name: string;
   level: number;
   description: string | null;
@@ -263,6 +262,7 @@ export interface CharacterConstellation {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_name: string | null;
 }
 
 /**
@@ -304,7 +304,6 @@ export interface CharacterTalent {
   order: number;
   character_id: number;
   icon: string;
-  icon_name: string | null;
   name: string;
   type: string;
   description: string | null;
@@ -313,6 +312,7 @@ export interface CharacterTalent {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_name: string | null;
 }
 
 /**
@@ -321,7 +321,6 @@ export interface CharacterTalent {
 export interface CharacterTalentCost {
   id: number;
   character_id: number;
-  order: number;
   level: number;
   material_id: number;
   quantity: number;
@@ -330,6 +329,7 @@ export interface CharacterTalentCost {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  order: number;
 }
 
 /**
