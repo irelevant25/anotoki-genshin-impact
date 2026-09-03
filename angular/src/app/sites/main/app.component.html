@@ -1,7 +1,18 @@
-<app-header></app-header>
+<!-- Instead of the site rather than over it: a closed sign with a working menu
+     behind it invites somebody to go round it, and every link would answer 503
+     anyway. -->
+@if (closed()) {
+    <app-maintenance></app-maintenance>
+} @else {
+    <app-announcement></app-announcement>
 
-<router-outlet></router-outlet>
+    <app-header></app-header>
 
-<app-footer></app-footer>
+    <router-outlet></router-outlet>
 
+    <app-footer></app-footer>
+}
+
+<!-- Outside both, because a notification is about what just happened rather
+     than about which page it happened on. -->
 <app-notification></app-notification>

@@ -297,8 +297,14 @@
             <app-button [text]="'common.logout' | translate" variant="danger" (buttonClick)="logout()"> </app-button>
         } @else {
             <app-button [text]="'common.close' | translate" variant="secondary" [outline]="true" (buttonClick)="closeModal()"> </app-button>
-            <app-button [text]="'common.signUp' | translate" variant="secondary" (buttonClick)="register()"> </app-button>
-            <app-button [text]="'common.signIn' | translate" variant="primary" (buttonClick)="login()"> </app-button>
+            <!-- Both go while signing in is switched off. A button that opens
+                 a form the API will refuse is worse than no button: it makes
+                 the site look broken rather than closed. An admin still has
+                 /staff, which is what that path is for. -->
+            @if (signInOffered()) {
+                <app-button [text]="'common.signUp' | translate" variant="secondary" (buttonClick)="register()"> </app-button>
+                <app-button [text]="'common.signIn' | translate" variant="primary" (buttonClick)="login()"> </app-button>
+            }
         }
     </div>
 </app-modal>

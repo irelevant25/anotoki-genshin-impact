@@ -24,6 +24,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { BackupsComponent } from './backups/backups.component';
 import { UsersComponent } from './users/users.component';
 import { AdminSessionsComponent } from './sessions/sessions.component';
+import { SettingsComponent } from './settings/settings.component';
 import { LanguagesComponent } from './localization/languages/languages.component';
 import { TranslationsComponent } from './localization/translations/translations.component';
 import {
@@ -108,6 +109,7 @@ export const routes: Routes = [
       { path: 'backups',              component: BackupsComponent },
       { path: 'accounts',             component: UsersComponent },
       { path: 'sessions',             component: AdminSessionsComponent },
+      { path: 'settings',             component: SettingsComponent },
 
       // Writable lookup tables
       { path: 'relationship-types',   component: RelationshipTypesPage },

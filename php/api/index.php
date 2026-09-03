@@ -17,6 +17,7 @@ require_once __DIR__ . '/google_identity.php';
 require_once __DIR__ . '/totp.php';
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/trusted_device.php';
+require_once __DIR__ . '/site_settings.php';
 
 use Slim\Factory\AppFactory;
 
@@ -26,6 +27,7 @@ $app->addBodyParsingMiddleware();
 // meddleware
 require_once __DIR__ . '/meddleware/validation.php';
 require_once __DIR__ . '/meddleware/auth.php';
+require_once __DIR__ . '/meddleware/maintenance.php';
 
 ///////////////////
 // USERS
@@ -42,11 +44,13 @@ require_once __DIR__ . '/routes/users/responses/auth.php';
 require_once __DIR__ . '/routes/users/responses/user.php';
 require_once __DIR__ . '/routes/users/responses/backup.php';
 require_once __DIR__ . '/routes/users/responses/translation.php';
+require_once __DIR__ . '/routes/users/responses/setting.php';
 
 // endpoints
 require_once __DIR__ . '/routes/users/endpoints/auth.php';
 require_once __DIR__ . '/routes/users/endpoints/users.php';
 require_once __DIR__ . '/routes/users/endpoints/sessions.php';
+require_once __DIR__ . '/routes/users/endpoints/settings.php';
 require_once __DIR__ . '/routes/users/endpoints/languages.php';
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
 require_once __DIR__ . '/routes/users/endpoints/backups.php';
@@ -190,6 +194,11 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_sub_s
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_teams.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_teams_characters.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_recommended_stats.php';
+
+// Added before the error and CORS middleware, which means it runs inside both:
+// a 503 from here is still a CORS-headed JSON response, and anything it throws
+// is still handled. See meddleware/maintenance.php for what stays open.
+$app->add(maintenanceGate());
 
 $errorMiddleware = $app->addErrorMiddleware(false, true, true);
 $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerRequestInterface $request, \Throwable $exception, bool $displayErrorDetails) use ($app) {

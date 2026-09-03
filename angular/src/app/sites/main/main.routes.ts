@@ -25,6 +25,8 @@ import { DatabaseWeaponDetailComponent } from './features/database/weapons/detai
 import { ProfileComponent } from './features/profile/profile.component';
 import { ConfirmEmailComponent } from './features/account/confirm-email/confirm-email.component';
 import { ResetPasswordComponent } from './features/account/reset-password/reset-password.component';
+import { StaffSignInPageComponent } from './features/account/staff/staff.component';
+import { sectionEnabledGuard } from './section-enabled.guard';
 
 export const routes: Routes = [
   {
@@ -37,6 +39,8 @@ export const routes: Routes = [
       // sends their saved game to the daily slot and stamps it with the date.
       {
         path: ROUTE_MAP.map['daily'].path,
+        data: { section: 'daily' },
+        canMatch: [sectionEnabledGuard],
         children: [
           { path: '', component: DailyComponent },
           { path: ROUTE_MAP.map['daily'].banners.path, component: QuizzesBannersComponent, data: { daily: true } },
@@ -49,6 +53,8 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['quizzes'].path,
+        data: { section: 'quizzes' },
+        canMatch: [sectionEnabledGuard],
         children: [
           { path: '', component: QuizzesComponent },
           {
@@ -79,6 +85,8 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['games'].path,
+        data: { section: 'games' },
+        canMatch: [sectionEnabledGuard],
         children: [
           { path: '', component: GamesComponent },
           { path: ROUTE_MAP.map['games'].tournament.path, component: GamesTournamentComponent },
@@ -87,6 +95,8 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['database'].path,
+        data: { section: 'database' },
+        canMatch: [sectionEnabledGuard],
         children: [
           { path: '', component: DatabaseComponent },
           {
@@ -116,15 +126,25 @@ export const routes: Routes = [
           },
         ],
       },
-      // No guard: the page is reachable from the header whether or not anybody
-      // is signed in, and it says so itself rather than bouncing a visitor to
-      // a login they may not want.
-      { path: ROUTE_MAP.map['profile'].path, component: ProfileComponent },
+      // No auth guard: the page is reachable from the header whether or not
+      // anybody is signed in, and it says so itself rather than bouncing a
+      // visitor to a login they may not want. The guard below is the section
+      // switch, which is a different question.
+      {
+        path: ROUTE_MAP.map['profile'].path,
+        component: ProfileComponent,
+        data: { section: 'profile' },
+        canMatch: [sectionEnabledGuard],
+      },
 
       // Arrived at from a mail client, token in the query string. Both read it
       // once and drop it out of the address bar.
       { path: ROUTE_MAP.map['confirmEmail'].path, component: ConfirmEmailComponent },
       { path: ROUTE_MAP.map['resetPassword'].path, component: ResetPasswordComponent },
+
+      // Never switchable: it is where the sign-in button goes when there is
+      // no sign-in button.
+      { path: ROUTE_MAP.map['staff'].path, component: StaffSignInPageComponent },
       { path: '**', component: NotFoundComponent },
     ],
   },

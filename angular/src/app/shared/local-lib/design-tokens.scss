@@ -160,6 +160,25 @@
   --color-version-text: #ffffff;
   --color-version-light: #8b7cf0;
 
+  // Charts. Deliberately not --color-success and --color-danger: those are the
+  // colours of a decision - a delete button, a failed save - and they are
+  // saturated because they have to be noticed. A bar chart is neither an alarm
+  // nor a confirmation, and a page of full-strength red and green reads as one.
+  // These are the same two ideas at chart strength: a sea green and a soft
+  // terracotta, close in weight so neither shouts over the other.
+  --chart-won: #3f9d6d;
+  --chart-won-light: #57b183;
+  --chart-won-dark: #33855c;
+  --chart-lost: #d3736b;
+  --chart-lost-light: #e08c84;
+  --chart-lost-dark: #bf6058;
+  // The groove a bar sits in.
+  --chart-track: rgb(23 28 35 / 7%);
+  --chart-track-shadow: inset 0 1px 2px rgb(23 28 35 / 10%);
+  // The sheen along the top of a bar, and the line where two colours meet.
+  --chart-sheen: rgb(255 255 255 / 26%);
+  --chart-divider: rgb(255 255 255 / 40%);
+
   // Shadows and translucent overlays
   --color-shadow: rgb(23 28 35 / 8%);
   --color-alpha: rgb(23 28 35 / 22%);
@@ -313,6 +332,19 @@
   --color-version-text: #17102e;
   --color-version-light: #b6abf8;
 
+  // The same two chart colours, lifted: on the dark page the light versions
+  // are the readable ones, and the groove is a hole rather than a shadow.
+  --chart-won: #4fb98a;
+  --chart-won-light: #68c99c;
+  --chart-won-dark: #3d9d73;
+  --chart-lost: #e08d84;
+  --chart-lost-light: #eba39b;
+  --chart-lost-dark: #c9756c;
+  --chart-track: rgb(255 255 255 / 8%);
+  --chart-track-shadow: inset 0 1px 2px rgb(0 0 0 / 35%);
+  --chart-sheen: rgb(255 255 255 / 18%);
+  --chart-divider: rgb(18 22 28 / 35%);
+
   --color-shadow: rgb(0 0 0 / 40%);
   --color-alpha: rgb(0 0 0 / 45%);
   --shadow-small: 0 1px 2px rgb(0 0 0 / 40%);
@@ -452,6 +484,14 @@
   --three-star: #708aaa;
   --two-star: #638879;
   --one-star: #7a7b7f;
+
+  /* A bar in a chart: its own colour, lighter along the top and deeper along
+     the bottom, so it is lit from above like everything else on the page
+     rather than being a flat rectangle of ink. Defined once here rather than
+     per theme - every stop is a var(), so each resolves against whichever
+     palette is in force when it is used. */
+  --chart-won-bar: linear-gradient(180deg, var(--chart-won-light) 0%, var(--chart-won) 52%, var(--chart-won-dark) 100%);
+  --chart-lost-bar: linear-gradient(180deg, var(--chart-lost-light) 0%, var(--chart-lost) 52%, var(--chart-lost-dark) 100%);
 
   @include palette-light;
 }

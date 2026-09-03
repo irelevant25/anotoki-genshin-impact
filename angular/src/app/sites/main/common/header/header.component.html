@@ -1,6 +1,6 @@
 <nav>
     <ul>
-        @for (menuItem of menuItems; track menuItem.id) {
+        @for (menuItem of menuItems(); track menuItem.id) {
             <li>
                 <!-- How much of today's daily is left, and green once it is
                      none. A count says what a question mark could not: whether

@@ -156,7 +156,39 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
     title: 'Reset password',
     path: 'reset-password',
     notInMenu: true,
+  },
+
+  // The way in while the usual way in is shut. Not in the menu and not linked
+  // from anywhere: while maintenance mode or the sign-in switch is on, the
+  // ordinary sign-in button is off the page, and this is where it still is.
+  // Nothing is granted by knowing the path - the API refuses everybody but an
+  // admin - so it is a place to put the button rather than a secret.
+  staff: {
+    title: 'Staff sign-in',
+    path: 'staff',
+    notInMenu: true,
   }
 };
 
 export const ROUTE_MAP = new AlfRoutingMap(ROUTE_MAP_DATA);
+
+/**
+ * The staff path on its own, for the two things that compare against a URL
+ * rather than navigate to it.
+ */
+export const STAFF_PATH: string = ROUTE_MAP_DATA['staff'].path;
+
+/**
+ * The sections of the site an admin can switch off.
+ *
+ * The top-level entries that appear in the menu, which is exactly the set that
+ * makes sense to remove: switching off `confirm-email` would break the links
+ * already sitting in people's inboxes, and switching off a single quiz is a
+ * question for the quiz table rather than for this.
+ *
+ * Kept here rather than in the admin form so that the list an admin is offered
+ * and the list the router honours are the same list.
+ */
+export const SWITCHABLE_SECTIONS: readonly string[] = Object.entries(ROUTE_MAP_DATA)
+  .filter(([, node]) => node && typeof node === 'object' && 'path' in node && !(node as AlfRoutingNode).notInMenu)
+  .map(([key]) => key);

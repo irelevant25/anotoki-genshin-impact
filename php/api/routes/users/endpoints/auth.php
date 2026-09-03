@@ -143,6 +143,30 @@ function authSession(PDO $pdo, Request $request, array $user, string $method, bo
     ];
 }
 
+/**
+ * A ready refusal when this account may not sign in, or null when it may.
+ *
+ * Placed in front of every call to authSession() rather than inside it. There
+ * are six ways into this API - a password, an emailed code, a Google token, a
+ * confirmation link, a password reset, and a brand new Google account - and a
+ * switch that only closed the first would be a lock on one of six doors.
+ *
+ * 503 for maintenance and 403 for the login switch: the first is a state the
+ * site is in and is meant to end, the second is a decision that is in force.
+ * Neither is 401, which the front end reads as "your session has expired" and
+ * answers by signing you out of a session you have not got yet.
+ */
+function refuseSignIn(Response $response, ?array $user): ?Response
+{
+    $refusal = signInRefusal($user);
+
+    if ($refusal === null) {
+        return null;
+    }
+
+    return respondJson($response, $refusal, $refusal['code'] === 'maintenance' ? 503 : 403);
+}
+
 /** Reads one account by address, deleted ones excluded. */
 function authFindByEmail(PDO $pdo, string $email): ?array
 {
@@ -155,6 +179,13 @@ function authFindByEmail(PDO $pdo, string $email): ?array
 // POST /api/auth/register
 // ---------------------------------------------------------------------------
 $app->post('/api/auth/register', function (Request $request, Response $response) {
+    // Refused at the door rather than at the confirmation link. An account
+    // made now would sit unusable in the table until somebody turned signing
+    // in back on, and its owner would have been told nothing about why.
+    if ($stop = refuseSignIn($response, null)) {
+        return $stop;
+    }
+
     $body = $request->getParsedBody() ?? [];
 
     $username = trim((string) ($body['username'] ?? ''));
@@ -220,6 +251,10 @@ $app->post('/api/auth/confirm', function (Request $request, Response $response) 
     $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$token['user_id']]);
     if (!$user) {
         return respondJson($response, ['error' => 'That link is no longer valid', 'code' => 'invalid_token'], 400);
+    }
+
+    if ($stop = refuseSignIn($response, $user)) {
+        return $stop;
     }
 
     // Signed in on the spot. Holding the link is proof of the mailbox, which is
@@ -318,6 +353,10 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
         ], 403);
     }
 
+    if ($stop = refuseSignIn($response, $user)) {
+        return $stop;
+    }
+
     return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_PASSWORD, !empty($body['remember_device'])));
 })->add(responds(AuthSession::class));
 
@@ -380,6 +419,12 @@ $app->post('/api/auth/password/reset', function (Request $request, Response $res
     $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ? AND _t.deleted = false', [$token['user_id']]);
     if (!$user) {
         return respondJson($response, ['error' => 'That link is no longer valid', 'code' => 'invalid_token'], 400);
+    }
+
+    // After the reset rather than before it. The new password is theirs either
+    // way; what the switch decides is whether they may come in with it now.
+    if ($stop = refuseSignIn($response, $user)) {
+        return $stop;
     }
 
     return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_EMAIL_LINK));
@@ -590,9 +635,15 @@ $app->put('/api/auth/password', function (Request $request, Response $response) 
  * here gives nothing away that the rendered button would not.
  */
 $app->get('/api/auth/providers', function (Request $request, Response $response) {
+    // Two different reasons for the button not to be there: nobody configured
+    // Google for this deployment, and somebody switched it off this morning.
+    // The page has no use for the difference - either way there is no button -
+    // so it is one answer, and the client id goes with it.
+    $enabled = googleClientId() !== null && googleLoginEnabled();
+
     return respondJson($response, [
-        'google_enabled'   => googleClientId() !== null,
-        'google_client_id' => googleClientId(),
+        'google_enabled'   => $enabled,
+        'google_client_id' => $enabled ? googleClientId() : null,
     ]);
 })->add(responds(AuthProviders::class));
 
@@ -616,6 +667,13 @@ $app->get('/api/auth/providers', function (Request $request, Response $response)
  * Otherwise it is a new account, confirmed on arrival, with no password.
  */
 $app->post('/api/auth/google', function (Request $request, Response $response) {
+    // Before the token is even looked at. The switch applies to admins too, so
+    // there is nobody to identify first - a site with Google switched off does
+    // not accept Google tokens from anyone, which is what the switch says.
+    if (!googleLoginEnabled()) {
+        return respondJson($response, ['error' => 'Google sign-in is switched off', 'code' => 'google_disabled'], 403);
+    }
+
     $body = $request->getParsedBody() ?? [];
     $claims = googleVerifyIdToken((string) ($body['credential'] ?? ''));
 
@@ -631,6 +689,10 @@ $app->post('/api/auth/google', function (Request $request, Response $response) {
     if ($user = identityOwner($pdo, IDENTITY_GOOGLE, $subject)) {
         if ($refusal = authTotpRefusal($response, $pdo, $user, $body['totp'] ?? null, $body['device_token'] ?? null)) {
             return $refusal;
+        }
+
+        if ($stop = refuseSignIn($response, $user)) {
+            return $stop;
         }
 
         return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE, !empty($body['remember_device'])));
@@ -651,11 +713,22 @@ $app->post('/api/auth/google', function (Request $request, Response $response) {
         $pdo->prepare('UPDATE users SET email_confirmed = TRUE WHERE id = ?')->execute([$user['id']]);
         $user = DbQuery::from($pdo, 'users')->fetch('_t.id = ?', [$user['id']]);
 
+        if ($stop = refuseSignIn($response, $user)) {
+            return $stop;
+        }
+
         return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_GOOGLE, !empty($body['remember_device'])));
     }
 
     if (!$verified || $email === '') {
         return respondJson($response, ['error' => 'Google did not confirm an email address for that account'], 422);
+    }
+
+    // Checked before the account is made, not after it. A brand new account is
+    // never an admin, so if the site is closed or signing in is off there is
+    // nothing for this to create that anybody could use.
+    if ($stop = refuseSignIn($response, null)) {
+        return $stop;
     }
 
     $username = authAvailableUsername($pdo, (string) ($claims['name'] ?? ''), $email);
@@ -712,6 +785,13 @@ function authAvailableUsername(PDO $pdo, string $preferred, string $email): stri
  * account - see migration 019.
  */
 $app->post('/api/auth/google/link', function (Request $request, Response $response) {
+    // Attaching Google to an account is only worth doing if Google can then be
+    // used to get in. Detaching stays open below, so nobody is stuck with an
+    // identity they cannot remove while the switch is off.
+    if (!googleLoginEnabled()) {
+        return respondJson($response, ['error' => 'Google sign-in is switched off', 'code' => 'google_disabled'], 403);
+    }
+
     $body = $request->getParsedBody() ?? [];
     $user = $request->getAttribute('user');
     $claims = googleVerifyIdToken((string) ($body['credential'] ?? ''));
@@ -825,6 +905,10 @@ $app->post('/api/auth/login/code/verify', function (Request $request, Response $
 
     if (!$token || !consumeOneTimeToken($pdo, (int) $token['id'])) {
         return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
+    }
+
+    if ($stop = refuseSignIn($response, $user)) {
+        return $stop;
     }
 
     return respondJson($response, authSession($pdo, $request, $user, SESSION_METHOD_LOGIN_CODE, !empty($body['remember_device'])));

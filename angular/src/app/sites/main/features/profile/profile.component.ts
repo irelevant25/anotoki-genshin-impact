@@ -34,8 +34,15 @@ import {
 /** How the character table can be ordered. */
 type CharacterSort = 'played' | 'winRate' | 'name';
 
-/** Weeks in the activity grid. A quarter, which fits without scrolling. */
-const ACTIVITY_WEEKS = 13;
+/**
+ * Weeks in the activity grid.
+ *
+ * A year, which is what /api/quiz/activity returns and what the grid is now
+ * wide enough to draw: at a quarter it was thirteen columns of fixed-width
+ * squares stranded in the left fifth of a full-width page. Fifty-two rather
+ * than fifty-three so the oldest column is inside the year the read covers.
+ */
+const ACTIVITY_WEEKS = 52;
 
 /**
  * What a player has to show for the quizzes they have played.

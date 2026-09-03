@@ -1,0 +1,115 @@
+<div class="page-header">
+    <h1 class="page-title">Site settings</h1>
+</div>
+
+<p class="page-note">
+    Switches that take effect the moment they are saved, for everybody reading the site. The site enforces none of them on its own — the API refuses the same
+    things, so a closed site is closed to anything that talks to it directly too.
+</p>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (failed()) {
+    <p class="settings-problem">The settings could not be read.</p>
+}
+
+@if (!loader.loadingCtrl.loading() && !failed()) {
+    @for (group of groups(); track group.key) {
+        <section class="form-section">
+            <h2 class="section-title">{{ group.title }}</h2>
+            @if (group.note) {
+                <p class="group-note">{{ group.note }}</p>
+            }
+
+            @for (setting of group.settings; track setting.name) {
+                <div class="setting" [class.setting-changed]="isChanged(setting)">
+                    <div class="setting-head">
+                        <span class="setting-label">{{ words(setting).label }}</span>
+                        @if (isChanged(setting)) {
+                            <span class="setting-flag">changed</span>
+                        }
+                        @if (setting.updated_at) {
+                            <span class="setting-history">
+                                last changed {{ setting.updated_at | appDate: 'datetime' }}@if (setting.updated_by) { by {{ setting.updated_by }} }
+                            </span>
+                        }
+                    </div>
+
+                    @if (words(setting).help) {
+                        <p class="setting-help">{{ words(setting).help }}</p>
+                    }
+
+                    <!-- One control per declared type. A setting the form does
+                         not recognise falls through to the plain text box,
+                         which is what the column holds anyway. -->
+                    @switch (setting.type) {
+                        @case ('boolean') {
+                            <label class="checkbox-label">
+                                <input type="checkbox" [checked]="boolean(setting)" (change)="setBoolean(setting, $any($event.target).checked)" />
+                                <span>{{ boolean(setting) ? 'On' : 'Off' }}</span>
+                            </label>
+                        }
+
+                        @case ('choice') {
+                            <select class="admin-select setting-choice" [value]="text(setting)" (change)="setText(setting, $any($event.target).value)">
+                                @for (option of setting.options; track option) {
+                                    <option [value]="option" [selected]="option === text(setting)">{{ optionLabel(option) }}</option>
+                                }
+                            </select>
+                        }
+
+                        @case ('i18n') {
+                            <div class="setting-languages">
+                                @for (language of languages(); track language.code) {
+                                    <div class="form-field">
+                                        <label [attr.for]="setting.name + '-' + language.code">{{ language.name }}</label>
+                                        <textarea
+                                            class="admin-textarea"
+                                            [id]="setting.name + '-' + language.code"
+                                            rows="3"
+                                            [value]="message(setting, language.code)"
+                                            (input)="setMessage(setting, language.code, $any($event.target).value)"
+                                        ></textarea>
+                                    </div>
+                                }
+                                @if (!languages().length) {
+                                    <p class="setting-help">No languages are enabled, so there is nowhere to write this.</p>
+                                }
+                            </div>
+                        }
+
+                        @case ('routes') {
+                            <div class="setting-sections">
+                                @for (section of sections; track section) {
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" [checked]="sectionOff(setting, section)" (change)="toggleSection(setting, section, $any($event.target).checked)" />
+                                        <span>{{ sectionLabel(section) }}</span>
+                                    </label>
+                                }
+                            </div>
+                        }
+
+                        @default {
+                            <input class="admin-input" type="text" [value]="text(setting)" (input)="setText(setting, $any($event.target).value)" />
+                        }
+                    }
+                </div>
+            }
+        </section>
+    }
+
+    <!-- Sticky, because the form is longer than a screen and the thing that
+         makes any of it real is at the bottom of it. -->
+    <div class="settings-actions">
+        <span class="settings-count">
+            @if (changed().length) {
+                {{ changed().length }} unsaved
+            } @else {
+                Nothing changed
+            }
+        </span>
+
+        <app-button text="Discard" variant="secondary" [outline]="true" [disabled]="!changed().length || saving()" (buttonClick)="reset()"></app-button>
+        <app-button text="Save settings" icon="icon-check" [loading]="saving()" [disabled]="!changed().length" (buttonClick)="save()"></app-button>
+    </div>
+}

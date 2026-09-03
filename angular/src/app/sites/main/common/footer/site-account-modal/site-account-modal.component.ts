@@ -1,4 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { SiteSettingsService } from '../../../../../shared/local-lib/services/site-settings.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
@@ -58,6 +59,18 @@ export class SiteAccountModalComponent extends AbstractDetailComponent<any> {
   /** The site's own appearance; the admin panel keeps a separate one. */
   readonly theme = inject(ThemeToggleService);
   private readonly _modals = inject(ModalService);
+
+  private readonly _settings = inject(SiteSettingsService);
+
+  /**
+   * Whether to draw the sign-in and register buttons at all.
+   *
+   * Off while signing in is switched off, and while the site is closed - in
+   * both cases the API would refuse whoever pressed them, and a form that
+   * refuses everybody reads as a fault rather than as a decision. An admin
+   * still has /staff.
+   */
+  readonly signInOffered = computed(() => this._settings.loginEnabled() && !this._settings.maintenance());
   /** Labels are keys - the chooser is translated like everything else. */
   readonly themeOptions: { value: Theme; label: string }[] = [
     { value: 'light', label: 'theme.light' },

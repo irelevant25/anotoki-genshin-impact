@@ -1,18 +1,28 @@
-<div class="activity-grid">
-    @for (cell of cells(); track cell.day) {
-        <span
-            class="activity-cell"
-            [class.activity-future]="cell.future"
-            [class]="'activity-level-' + cell.level"
-            [title]="cell.day + ': ' + ('profile.activity.cell' | translate: { played: cell.played, wins: cell.wins })"
-        ></span>
-    }
+<div class="activity-scroll">
+    <!-- Same track sizing and the same gap as the grid below, so a label sits
+         over the columns it names. -->
+    <div class="activity-months" aria-hidden="true">
+        @for (month of months(); track $index) {
+            <span class="activity-month" [style.grid-column]="'span ' + month.span">{{ month.label }}</span>
+        }
+    </div>
+
+    <div class="activity-grid">
+        @for (cell of cells(); track cell.day) {
+            <span
+                class="activity-cell"
+                [class.activity-future]="cell.future"
+                [class]="'activity-level-' + cell.level"
+                [title]="cell.day + ': ' + ('profile.activity.cell' | translate: { played: cell.played, wins: cell.wins })"
+            ></span>
+        }
+    </div>
 </div>
 
 <p class="activity-legend">
     <span>{{ 'profile.activity.less' | translate }}</span>
     @for (level of levels; track level) {
-        <span class="activity-cell" [class]="'activity-level-' + level"></span>
+        <span class="activity-swatch" [class]="'activity-level-' + level"></span>
     }
     <span>{{ 'profile.activity.more' | translate }}</span>
 </p>

@@ -1,16 +1,55 @@
+// The grid fills the width it is given. Its columns are a year of weeks, and
+// a year of weeks at a fixed 13px is a narrow strip stranded in a wide page -
+// so the tracks stretch, down to a floor of 7px, below which the whole thing
+// scrolls sideways instead of becoming unreadable.
+.activity-scroll {
+  overflow-x: auto;
+  padding-bottom: var(--spacing-xxs);
+}
+
+// Shared by the two grids so the labels stay over their own columns. Changing
+// either number here changes both, which is the point of it being one place.
+@mixin activity-columns {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(7px, 1fr);
+  column-gap: 3px;
+}
+
+.activity-months {
+  @include activity-columns;
+  margin-bottom: var(--spacing-xxs);
+}
+
+.activity-month {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 // Seven rows, filled column by column, so each column is one Monday-to-Sunday
 // week - which is the order activityGrid() hands the cells over in.
 .activity-grid {
-  display: grid;
+  @include activity-columns;
   grid-template-rows: repeat(7, 1fr);
-  grid-auto-flow: column;
-  gap: 3px;
-  width: fit-content;
-  max-width: 100%;
-  overflow-x: auto;
+  row-gap: 3px;
 }
 
 .activity-cell {
+  // Square whatever width the column ends up, rather than a fixed 13px.
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 2px;
+  background-color: var(--bg-hover);
+  // Enough to lift a cell off the page without turning a year of them into
+  // texture.
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 4%);
+}
+
+.activity-swatch {
   width: 13px;
   height: 13px;
   border-radius: 2px;

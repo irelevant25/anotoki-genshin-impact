@@ -772,7 +772,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 999
+                "line": 1083
             },
             "expanded": [],
             "payload": null,
@@ -798,7 +798,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 968
+                "line": 1052
             },
             "expanded": [],
             "payload": null,
@@ -824,7 +824,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1024
+                "line": 1108
             },
             "expanded": [],
             "payload": null,
@@ -849,7 +849,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 932
+                "line": 1016
             },
             "expanded": [],
             "payload": null,
@@ -876,7 +876,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 228
+                "line": 263
             },
             "expanded": [],
             "payload": null,
@@ -900,7 +900,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 250
+                "line": 285
             },
             "expanded": [],
             "payload": null,
@@ -924,7 +924,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1130
+                "line": 1214
             },
             "expanded": [],
             "payload": null,
@@ -951,7 +951,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 471
+                "line": 516
             },
             "expanded": [],
             "payload": null,
@@ -972,6 +972,7 @@
                 200,
                 201,
                 400,
+                403,
                 422
             ],
             "responds": {
@@ -980,7 +981,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 674
+                "line": 747
             },
             "expanded": [],
             "payload": null,
@@ -1007,7 +1008,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 771
+                "line": 851
             },
             "expanded": [],
             "payload": null,
@@ -1027,6 +1028,7 @@
             "statuses": [
                 200,
                 400,
+                403,
                 409
             ],
             "responds": {
@@ -1035,7 +1037,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 743
+                "line": 823
             },
             "expanded": [],
             "payload": null,
@@ -1062,7 +1064,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 494
+                "line": 539
             },
             "expanded": [],
             "payload": null,
@@ -1090,7 +1092,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 322
+                "line": 361
             },
             "expanded": [],
             "payload": null,
@@ -1114,7 +1116,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 799
+                "line": 879
             },
             "expanded": [],
             "payload": null,
@@ -1139,7 +1141,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 831
+                "line": 915
             },
             "expanded": [],
             "payload": null,
@@ -1163,7 +1165,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 520
+                "line": 565
             },
             "expanded": [],
             "payload": null,
@@ -1187,7 +1189,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 393
+                "line": 438
             },
             "expanded": [],
             "payload": null,
@@ -1213,7 +1215,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 565
+                "line": 610
             },
             "expanded": [],
             "payload": null,
@@ -1240,7 +1242,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 892
+                "line": 976
             },
             "expanded": [],
             "payload": null,
@@ -1264,7 +1266,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 346
+                "line": 385
             },
             "expanded": [],
             "payload": null,
@@ -1292,7 +1294,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 386
+                "line": 431
             },
             "expanded": [],
             "payload": null,
@@ -1320,7 +1322,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 862
+                "line": 946
             },
             "expanded": [],
             "payload": null,
@@ -1344,7 +1346,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 597
+                "line": 648
             },
             "expanded": [],
             "payload": null,
@@ -1372,7 +1374,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 203
+                "line": 234
             },
             "expanded": [],
             "payload": null,
@@ -1396,7 +1398,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1116
+                "line": 1200
             },
             "expanded": [],
             "payload": null,
@@ -1420,7 +1422,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1074
+                "line": 1158
             },
             "expanded": [],
             "payload": null,
@@ -1452,7 +1454,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1098
+                "line": 1182
             },
             "expanded": [],
             "payload": null,
@@ -1477,7 +1479,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 420
+                "line": 465
             },
             "expanded": [],
             "payload": null,
@@ -10274,6 +10276,83 @@
         },
         {
             "method": "GET",
+            "path": "/api/settings",
+            "args": [],
+            "file": "settings.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "SiteSettingList",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\settings.php",
+                "line": 118
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "PUT",
+            "path": "/api/settings",
+            "args": [],
+            "file": "settings.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                422
+            ],
+            "responds": {
+                "shape": "SiteSettingList",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\settings.php",
+                "line": 193
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/settings/public",
+            "args": [],
+            "file": "settings.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "PublicSiteSettings",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\settings.php",
+                "line": 112
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
+        },
+        {
+            "method": "GET",
             "path": "/api/stats",
             "args": [],
             "file": "stats.php",
@@ -15472,6 +15551,84 @@
             ]
         },
         {
+            "name": "AdminSiteSetting",
+            "file": "setting.php",
+            "merges": null,
+            "description": "One switch, as the admin form sees it.\n\n`type` is what makes the form generic: a new setting is a row in a migration\nand two translation keys, not a new field on this class and a new control in\nthat template. `value` is text whatever the type says, because that is how\nthe column stores it - the form parses on the way in and the API validates\non the way back.",
+            "fields": [
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "group_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Which panel of the form it belongs under."
+                },
+                {
+                    "name": "type",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "boolean, text, i18n, choice or routes."
+                },
+                {
+                    "name": "options",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "For a 'choice', the values it may take. Empty otherwise."
+                },
+                {
+                    "name": "value",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "updated_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "updated_by",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "Who threw the switch last, or null if nobody has since it was seeded."
+                }
+            ]
+        },
+        {
             "name": "AdminUser",
             "file": "user.php",
             "merges": null,
@@ -18574,6 +18731,74 @@
             ]
         },
         {
+            "name": "PublicSiteSettings",
+            "file": "setting.php",
+            "merges": null,
+            "description": "The shape of the site, before anybody has signed in.\n\nOpen on purpose. A page cannot ask whether it should draw a maintenance\nnotice instead of itself after it has drawn itself, and it cannot ask who is\nreading it before it knows whether reading is allowed. Nothing here is a\nsecret: it is what any visitor is about to see anyway.",
+            "fields": [
+                {
+                    "name": "maintenance",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether everything but the closed sign is switched off."
+                },
+                {
+                    "name": "maintenance_message",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "array<string, string>",
+                    "description": "The closed sign, one message per language."
+                },
+                {
+                    "name": "login_enabled",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether anybody who is not an admin may start a session."
+                },
+                {
+                    "name": "google_login_enabled",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether the Google button is drawn and its tokens accepted."
+                },
+                {
+                    "name": "announcement",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": "SiteAnnouncement|null",
+                    "description": "Null when there is nothing to announce."
+                },
+                {
+                    "name": "disabled_routes",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "Sections of the site that are switched off - see the admin form."
+                }
+            ]
+        },
+        {
             "name": "QuizActivityDay",
             "file": "quiz.php",
             "merges": null,
@@ -19449,6 +19674,52 @@
                     "nullable": false,
                     "optional": false,
                     "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "SiteAnnouncement",
+            "file": "setting.php",
+            "merges": null,
+            "description": "A message across the top of every page, and how loudly it is saying it.",
+            "fields": [
+                {
+                    "name": "level",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "info, warning or danger - which decides the colour of the bar."
+                },
+                {
+                    "name": "message",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "array<string, string>",
+                    "description": "One message per language code."
+                }
+            ]
+        },
+        {
+            "name": "SiteSettingList",
+            "file": "setting.php",
+            "merges": null,
+            "description": "Every switch, in the order the form draws them.",
+            "fields": [
+                {
+                    "name": "settings",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AdminSiteSetting[]",
                     "description": null
                 }
             ]
@@ -23528,6 +23799,79 @@
                     "name": "name",
                     "sqlType": "VARCHAR(50)",
                     "nullable": false,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "site_settings",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "site",
+                    "sqlType": "VARCHAR(50)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "group_name",
+                    "sqlType": "VARCHAR(50)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "name",
+                    "sqlType": "VARCHAR(100)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "type",
+                    "sqlType": "VARCHAR(20)",
+                    "nullable": false,
+                    "enum": [
+                        "boolean",
+                        "text",
+                        "i18n",
+                        "choice",
+                        "routes"
+                    ]
+                },
+                {
+                    "name": "options",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "value",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "sort_order",
+                    "sqlType": "SMALLINT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "updated_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "updated_by",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
                     "enum": null
                 }
             ]

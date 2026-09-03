@@ -8,6 +8,7 @@ import { routes } from "./app.routes";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { ConfigService } from "./shared/local-lib/services/config.service";
 import { SecurityService } from "./shared/local-lib/services/security.service";
+import { SiteSettingsService } from "./shared/local-lib/services/site-settings.service";
 import { httpInterceptor } from "./shared/local-lib/services/http.interceptor";
 import { ThemeToggleService } from "./shared/local-lib/theme-toggle/theme-toggle.service";
 import { TranslationService } from "./shared/local-lib/i18n/translation.service";
@@ -30,6 +31,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideAppInitializer(() => {
       const configService = inject(ConfigService);
+      const siteSettings = inject(SiteSettingsService);
       const securityService = inject(SecurityService);
       // Nothing else asks for the theme until a page happens to need it, and a
       // root service is only built when something injects it - so ask here, or
@@ -39,6 +41,10 @@ export const appConfig: ApplicationConfig = {
 
       return (async (): Promise<void> => {
         await configService.init();
+        // Before the session and before the strings: whether the site is open
+        // at all is the first thing anything needs to know, and it is the one
+        // answer that decides whether the rest is worth having.
+        await siteSettings.init();
         await securityService.init();
         // Last, because it needs to know where the API is and who is signed
         // in. It never rejects, so a language server that is down delays the

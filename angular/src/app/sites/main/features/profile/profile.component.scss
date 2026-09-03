@@ -3,8 +3,10 @@
 // Five sections that all answer the same question at different resolutions -
 // everything, per quiz, per difficulty, per day, per character - so they share
 // one visual language: a veiled panel, a heading, and where there is a rate to
-// show, the same two-tone bar. Green is what was won and red is what was lost,
-// in every one of them.
+// show, the same two-tone bar. Green is what was won and terracotta is what was
+// lost, in every one of them - the chart pair from the palette rather than the
+// success and danger colours, which are tuned to be noticed and were being
+// noticed a dozen times down one page.
 
 .profile img {
   object-fit: contain;
@@ -139,21 +141,44 @@
   min-width: 5ch;
 }
 
+// A groove rather than a block of --bg-hover: the shadow is what makes the bar
+// sit in the row instead of on top of it, and it is what keeps a row that was
+// barely played from reading as an empty gap.
 .bar-track {
   display: block;
   width: 100%;
-  height: 14px;
+  height: 16px;
   border-radius: var(--border-radius-pill);
-  background-color: var(--bg-hover);
+  background-color: var(--chart-track);
+  box-shadow: var(--chart-track-shadow);
   overflow: hidden;
 }
 
 // The fill's width is how much was played; the green inside it is how much of
-// that was won, so what is left showing red is what was lost.
+// that was won, so what is left showing is what was lost.
+//
+// Each is a three-stop gradient of its own colour - lighter along the top,
+// deeper along the bottom - so a bar is lit from above like everything else on
+// the page rather than being a flat rectangle of ink. The sheen is one inset
+// line, not a second gradient: at 16px tall there is no room for both.
 .bar-fill,
 .bar-won {
   display: block;
   height: 100%;
+}
+
+.bar-fill {
+  background-image: var(--chart-lost-bar);
+  box-shadow: inset 0 1px 0 var(--chart-sheen);
+}
+
+// The divider is the right edge of the won part, so it only appears where the
+// two colours actually meet - a bar that was all wins has nothing to separate.
+.bar-won {
+  background-image: var(--chart-won-bar);
+  box-shadow:
+    inset 0 1px 0 var(--chart-sheen),
+    1px 0 0 var(--chart-divider);
 }
 
 .rows-legend {
@@ -170,20 +195,16 @@
   width: 12px;
   height: 12px;
   border-radius: var(--border-radius-pill);
+  box-shadow: inset 0 1px 0 var(--chart-sheen);
+}
+
+.swatch-won {
+  background-image: var(--chart-won-bar);
 }
 
 .swatch-lost {
   margin-left: var(--spacing-md);
-}
-
-.bar-won,
-.swatch-won {
-  background-color: var(--color-success);
-}
-
-.bar-fill,
-.swatch-lost {
-  background-color: var(--color-danger);
+  background-image: var(--chart-lost-bar);
 }
 
 // ─── Characters ──────────────────────────────────────────────────────────────
@@ -213,11 +234,11 @@
 }
 
 .highlight-best {
-  border-color: var(--color-success);
+  border-color: var(--chart-won);
 }
 
 .highlight-toughest {
-  border-color: var(--color-danger);
+  border-color: var(--chart-lost);
 }
 
 .highlight-label {
@@ -300,7 +321,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-xs) var(--spacing-sm);
-  border-left: 3px solid var(--color-success);
+  border-left: 3px solid var(--chart-won);
   border-radius: var(--border-radius);
   background-color: var(--bg-veil-soft);
 
@@ -311,7 +332,7 @@
 }
 
 .recent-lost {
-  border-left-color: var(--color-danger);
+  border-left-color: var(--chart-lost);
 }
 
 .recent-outcome {

@@ -264,6 +264,18 @@ export class SiteLoginModalComponent extends FieldsComponent<ILogin> {
         this.refusal.set(this._i18n.t('login.badTotp'));
         return;
 
+      // Not about this account or this password: the site is closed, or
+      // signing in has been switched off. Said in those words rather than as
+      // "that did not work", which would send somebody to reset a password
+      // that was never the problem.
+      case 'maintenance':
+        this.refusal.set(this._i18n.t('login.maintenanceRefusal'));
+        return;
+
+      case 'login_disabled':
+        this.refusal.set(this._i18n.t('login.disabledRefusal'));
+        return;
+
       default:
         this.refusal.set(this._i18n.t(fallbackKey));
     }

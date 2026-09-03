@@ -1,0 +1,13 @@
+@if (visible()) {
+    <div class="announcement" [class]="'announcement-' + level()" role="status">
+        <span class="announcement-text">{{ text() }}</span>
+
+        <button
+            type="button"
+            class="announcement-dismiss"
+            [title]="'site.announcement.hide' | translate"
+            [attr.aria-label]="'site.announcement.hide' | translate"
+            (click)="dismiss()"
+        >&times;</button>
+    </div>
+}

@@ -1,0 +1,20 @@
+<div class="container w-100">
+    <div class="maintenance">
+        <span class="maintenance-mark icon icon-gear" aria-hidden="true"></span>
+
+        <h1>{{ 'site.maintenance.title' | translate }}</h1>
+
+        <!-- The admin's own wording where there is any, and the built-in
+             sentence where there is not. A blank closed sign would be the one
+             thing worse than no closed sign. -->
+        @if (message()) {
+            <p class="maintenance-text">{{ message() }}</p>
+        } @else {
+            <p class="maintenance-text">{{ 'site.maintenance.text' | translate }}</p>
+        }
+
+        @if (onStaffPath()) {
+            <app-staff-sign-in></app-staff-sign-in>
+        }
+    </div>
+</div>

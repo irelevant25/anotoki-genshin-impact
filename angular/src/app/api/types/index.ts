@@ -17,5 +17,6 @@ export * from './common.type';
 export * from './feedback.type';
 export * from './file.type';
 export * from './quiz.type';
+export * from './setting.type';
 export * from './translation.type';
 export * from './user.type';

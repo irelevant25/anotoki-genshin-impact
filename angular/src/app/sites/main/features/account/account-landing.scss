@@ -36,3 +36,13 @@
 .account-problem {
   color: var(--color-danger);
 }
+
+// The address to send a new confirmation to, and the button that sends it.
+// One column, because the field carries a label above it and a button beside
+// a labelled field sits half a line too high.
+.account-resend {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}

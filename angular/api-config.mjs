@@ -53,6 +53,7 @@ export const GROUPS = [
   ['audit-log', ['/api/audit-logs']],
   ['migration', ['/api/migrations']],
   ['session', ['/api/sessions']],
+  ['setting', ['/api/settings']],
   ['dashboard', ['/api/dashboard']],
   ['lookup', ['/api/']],
 ];
@@ -79,6 +80,7 @@ export const GROUP_DOCS = {
   'audit-log': 'Who changed which row, and to what.',
   migration: 'Which migrations have run against which database.',
   session: 'Every session anybody has had here: who signed in, from where, and which are still live.',
+  setting: 'The switches an admin can throw without a deploy - maintenance, sign-in, the announcement bar.',
   dashboard: 'The counts on the admin landing page.',
   lookup: 'The name-keyed lookup tables. Every one is a list of `{ name }`, read to fill a dropdown.',
 };
@@ -124,6 +126,7 @@ export const BODIES = {
   'PUT /api/users/{id}': 'UserUpdateRequest',
   'PUT /api/users/{id}/password': 'SetPasswordRequest',
   'PUT /api/users/{id}/enabled': 'EnabledRequest',
+  'PUT /api/settings': 'SiteSettingsSaveRequest',
   'PUT /api/admin/translations': 'TranslationSaveRequest',
   'PUT /api/translations/{code}/import': 'TranslationImportRequest',
   'PUT /api/feedback/{id}/status': 'FeedbackStatusRequest',
@@ -220,6 +223,9 @@ export const NAMES = {
   // `endSession` is the account's own; this one is any session, anybody's.
   'GET /api/sessions': 'getSessionHistory',
   'DELETE /api/sessions/{id}': 'endUserSession',
+  'GET /api/settings/public': 'getPublicSettings',
+  'GET /api/settings': 'getSettings',
+  'PUT /api/settings': 'saveSettings',
   'GET /api/audit-logs': 'getAuditLogPage',
   'GET /api/audit-logs/filters': 'getAuditLogFilters',
 

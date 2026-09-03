@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
 import { GuideIconComponent } from '../guide/guide-icon.component';
 import { GuideId } from '../guide/guide-catalog';
 import { DailyProgressService } from '../../features/quizzes/shared/daily-progress.service';
+import { SiteSettingsService } from '../../../../shared/local-lib/services/site-settings.service';
 
 interface TopMenuItem {
   readonly id: string;
@@ -32,11 +33,23 @@ export class HeaderComponent {
   /** Read by the count on the Daily item; see DailyProgressService. */
   readonly daily = inject(DailyProgressService);
 
-  readonly menuItems: readonly TopMenuItem[] = [
+  private readonly _settings = inject(SiteSettingsService);
+
+  private readonly _allItems: readonly TopMenuItem[] = [
     { id: 'daily', title: 'nav.daily', daily: true, guide: 'daily' },
     { id: 'quizzes', title: 'nav.quizzes', guide: 'quizzes' },
     { id: 'games', title: 'nav.games', guide: 'games' },
     { id: 'database', title: 'nav.database' },
     { id: 'profile', title: 'nav.profile' },
   ];
+
+  /**
+   * The menu, minus whatever an admin has switched off.
+   *
+   * A link that leads to a not-found page is worse than no link: it says the
+   * section is there and then contradicts itself. The router refuses the same
+   * sections - see sectionEnabledGuard - so a bookmark to one behaves the same
+   * way this does.
+   */
+  readonly menuItems = computed(() => this._allItems.filter((item) => !this._settings.routeDisabled(item.id)));
 }

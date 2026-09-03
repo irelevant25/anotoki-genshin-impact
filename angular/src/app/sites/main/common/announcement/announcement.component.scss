@@ -1,0 +1,52 @@
+// Full width, above everything, and coloured by what kind of notice it is.
+// The three levels borrow the palette's own light pairs rather than inventing
+// a fourth set of colours: an announcement is the same three tones the rest of
+// the site already uses for "know this", "watch out" and "something is wrong".
+.announcement {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid transparent;
+  font-size: var(--font-size-base);
+}
+
+.announcement-text {
+  flex: 1;
+  // A long notice wraps rather than pushing the close button off the edge.
+  white-space: pre-wrap;
+}
+
+.announcement-dismiss {
+  flex: none;
+  padding: 0 var(--spacing-xs);
+  border: 0;
+  background: none;
+  color: inherit;
+  opacity: 0.65;
+  font-size: var(--font-size-xl);
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.announcement-info {
+  border-bottom-color: var(--color-info-light-border);
+  background-color: var(--color-info-light);
+  color: var(--color-info-light-text);
+}
+
+.announcement-warning {
+  border-bottom-color: var(--color-warning-light-border);
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+}
+
+.announcement-danger {
+  border-bottom-color: var(--color-danger-light-border);
+  background-color: var(--color-danger-light);
+  color: var(--color-danger-light-text);
+}

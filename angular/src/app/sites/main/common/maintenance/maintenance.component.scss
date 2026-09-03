@@ -1,0 +1,31 @@
+// The whole page, near enough. Centred in the viewport rather than at the top,
+// because there is nothing above or below it to sit between.
+.maintenance {
+  max-width: 560px;
+  min-height: 70vh;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  text-align: center;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.maintenance-mark {
+  font-size: 48px;
+  color: var(--text-muted);
+}
+
+.maintenance-text {
+  margin: 0;
+  color: var(--text-secondary);
+  // The admin typed it into a text box; their line breaks are theirs.
+  white-space: pre-wrap;
+}

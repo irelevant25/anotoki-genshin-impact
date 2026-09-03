@@ -14,15 +14,48 @@
             @case ('failed') {
                 <h1>{{ 'account.confirm.failedTitle' | translate }}</h1>
                 <p>{{ 'account.confirm.failedText' | translate }}</p>
-                <p class="account-note">{{ 'account.confirm.failedNote' | translate }}</p>
-                <app-button [text]="'account.confirm.doneAction' | translate" variant="secondary" routerLink="/"></app-button>
+                <ng-container *ngTemplateOutlet="resendForm"></ng-container>
             }
 
             @case ('missing') {
                 <h1>{{ 'account.confirm.missingTitle' | translate }}</h1>
                 <p>{{ 'account.confirm.missingText' | translate }}</p>
-                <app-button [text]="'account.confirm.doneAction' | translate" variant="secondary" routerLink="/"></app-button>
+                <ng-container *ngTemplateOutlet="resendForm"></ng-container>
             }
         }
     </div>
 </div>
+
+<!-- The same offer either way. A dead link and no link at all leave somebody
+     in exactly the same position: holding an unusable account and needing a
+     new message. -->
+<ng-template #resendForm>
+    @if (sent()) {
+        <p class="account-note">{{ 'account.confirm.resent' | translate }}</p>
+    } @else {
+        <p class="account-note">{{ 'account.confirm.resendLead' | translate }}</p>
+
+        <!-- The button submits the form rather than calling resend() itself,
+             so pressing Enter in the field and pressing the button are the
+             same one path in. -->
+        <form class="account-resend" (ngSubmit)="resend()">
+            <app-text
+                [label]="'login.email' | translate"
+                [placeholder]="'login.emailPlaceholder' | translate"
+                [(value)]="email"
+                [required]="true"
+                autocomplete="email"
+            ></app-text>
+
+            <app-button
+                [text]="'account.confirm.resendAction' | translate"
+                variant="primary"
+                type="submit"
+                [loading]="sending()"
+                [disabled]="!email().trim()"
+            ></app-button>
+        </form>
+    }
+
+    <app-button [text]="'account.confirm.doneAction' | translate" variant="secondary" routerLink="/"></app-button>
+</ng-template>
