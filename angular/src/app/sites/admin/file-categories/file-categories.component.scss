@@ -1,0 +1,148 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.page-title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-left: auto;
+}
+
+.page-note {
+  margin: 0 0 var(--spacing-lg);
+  max-width: 90ch;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.add-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+// The folder a code would mean, while it is being typed. The convention is the
+// whole reason the code is dotted, so it is worth showing rather than knowing.
+.add-preview {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.admin-input {
+  height: var(--button-height);
+  min-width: 200px;
+  padding: 0 var(--spacing-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  outline: none;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-base);
+
+  th {
+    background: var(--bg-table-header);
+    color: var(--text-secondary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+  }
+
+  tfoot td {
+    border-bottom: 0;
+    border-top: 2px solid var(--border-color);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-secondary);
+  }
+}
+
+// Retired, not gone: still listed so it can be brought back, and dimmed so it
+// does not read as one of the working ones.
+.is-retired {
+  color: var(--text-muted);
+
+  code {
+    text-decoration: line-through;
+  }
+}
+
+// The one nothing may change, marked rather than hidden - a category that is
+// missing from the list is a category somebody goes looking for.
+.is-system code {
+  color: var(--color-primary);
+}
+
+.col-num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.col-path code {
+  color: var(--text-secondary);
+}
+
+.col-actions {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+
+  app-button + app-button {
+    margin-left: var(--spacing-xs);
+  }
+}
+
+.confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.confirm-note {
+  color: var(--color-warning);
+  font-size: var(--font-size-sm);
+}
+
+.system-note {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}

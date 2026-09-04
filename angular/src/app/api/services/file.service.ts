@@ -17,6 +17,7 @@ import {
   AssetTrashResult,
   AssetUploadResult,
   EntityUploadResult,
+  FileCategoryMove,
   RecordUploadResult,
   TrashedFile,
   UploadResult,
@@ -28,6 +29,7 @@ import {
   AssetFileQuery,
   AssetFileRef,
   AssetStatsQuery,
+  FileCategoryMoveRequest,
 } from '../types';
 import { toHttpParams } from '../http-params';
 
@@ -126,6 +128,15 @@ export class FileApiService {
    */
   getTrashedFiles(): Observable<TrashedFile[]> {
     return this._http.get<TrashedFile[]>('/api/files/trash');
+  }
+
+  /**
+   * `PUT /api/files/{id}/category`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  moveFileToCategory(id: number, body: FileCategoryMoveRequest): Observable<FileCategoryMove> {
+    return this._http.put<FileCategoryMove>(`/api/files/${id}/category`, body);
   }
 
   /**

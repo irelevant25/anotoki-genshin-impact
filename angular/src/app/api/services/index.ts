@@ -13,6 +13,7 @@ export * from './dashboard.service';
 export * from './enemy.service';
 export * from './feedback.service';
 export * from './file.service';
+export * from './fileCategory.service';
 export * from './food.service';
 export * from './language.service';
 export * from './lookup.service';

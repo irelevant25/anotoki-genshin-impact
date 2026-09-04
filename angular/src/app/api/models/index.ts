@@ -13,6 +13,7 @@ export * from './dashboard.model';
 export * from './enemy.model';
 export * from './feedback.model';
 export * from './file.model';
+export * from './fileCategory.model';
 export * from './food.model';
 export * from './language.model';
 export * from './lookup.model';

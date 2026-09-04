@@ -65,3 +65,33 @@ export interface AssetCleanupRequest {
   keep?: string[];
   limit?: number;
 }
+
+/**
+ * A new kind of asset.
+ *
+ * `path` follows from the code unless one is given: `character.icon` means
+ * `character/icon`, which is the whole convention and the reason a code is
+ * dotted rather than free text.
+ */
+export interface FileCategoryCreateRequest {
+  code: string;
+  label?: string;
+  path?: string;
+}
+
+/**
+ * Renaming a category, or moving where it points.
+ *
+ * Changing `path` moves every file in it, because a category's path is where
+ * its files are - a rename that left them behind would leave the table
+ * describing a tree that is not there.
+ */
+export interface FileCategorySaveRequest {
+  label?: string;
+  path?: string;
+}
+
+/** Where one file should live. Null means unfiled, which is why it exists. */
+export interface FileCategoryMoveRequest {
+  category_id: number | null;
+}

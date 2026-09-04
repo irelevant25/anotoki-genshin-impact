@@ -36,6 +36,7 @@ export class AppComponent {
         { label: 'Banners', path: 'banners', icon: 'icon icon-scroll' },
         { label: 'Backgrounds', path: 'backgrounds', icon: 'icon icon-image' },
         { label: 'Files', path: 'files', icon: 'icon icon-folder' },
+        { label: 'File Categories', path: 'file-categories', icon: 'icon icon-layers' },
       ],
     },
     {

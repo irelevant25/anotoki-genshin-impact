@@ -25,6 +25,7 @@ import { BackupsComponent } from './backups/backups.component';
 import { UsersComponent } from './users/users.component';
 import { AdminSessionsComponent } from './sessions/sessions.component';
 import { SettingsComponent } from './settings/settings.component';
+import { FileCategoriesComponent } from './file-categories/file-categories.component';
 import { LanguagesComponent } from './localization/languages/languages.component';
 import { TranslationsComponent } from './localization/translations/translations.component';
 import {
@@ -86,11 +87,11 @@ export const routes: Routes = [
       { path: 'foods/:id/edit', component: FoodFormComponent },
 
       // Read-only lookup tables
-      { path: 'elements',             component: ElementsPage },
-      { path: 'weapon-types',         component: WeaponTypesPage },
-      { path: 'voice-over-types',     component: VoiceOverTypesPage },
-      { path: 'character-states',     component: CharacterStatesPage },
-      { path: 'rarities',             component: RaritiesPage },
+      { path: 'elements', component: ElementsPage },
+      { path: 'weapon-types', component: WeaponTypesPage },
+      { path: 'voice-over-types', component: VoiceOverTypesPage },
+      { path: 'character-states', component: CharacterStatesPage },
+      { path: 'rarities', component: RaritiesPage },
       { path: 'artifact-piece-types', component: ArtifactPieceTypesPage },
       // Banners
       { path: 'banners', component: BannersListComponent },
@@ -98,32 +99,33 @@ export const routes: Routes = [
       { path: 'banners/:id/edit', component: BannerFormComponent },
 
       // Localization - the site's own text, not game content
-      { path: 'languages',            component: LanguagesComponent },
-      { path: 'translations',         component: TranslationsComponent },
+      { path: 'languages', component: LanguagesComponent },
+      { path: 'translations', component: TranslationsComponent },
 
-      { path: 'backgrounds',          component: BackgroundsListComponent },
-      { path: 'feedback',             component: FeedbackComponent },
-      { path: 'audit-logs',           component: AuditLogsComponent },
-      { path: 'files',                component: FilesManagerComponent },
-      { path: 'migrations',           component: MigrationsListComponent },
-      { path: 'backups',              component: BackupsComponent },
-      { path: 'accounts',             component: UsersComponent },
-      { path: 'sessions',             component: AdminSessionsComponent },
-      { path: 'settings',             component: SettingsComponent },
+      { path: 'backgrounds', component: BackgroundsListComponent },
+      { path: 'feedback', component: FeedbackComponent },
+      { path: 'audit-logs', component: AuditLogsComponent },
+      { path: 'files', component: FilesManagerComponent },
+      { path: 'file-categories', component: FileCategoriesComponent },
+      { path: 'migrations', component: MigrationsListComponent },
+      { path: 'backups', component: BackupsComponent },
+      { path: 'accounts', component: UsersComponent },
+      { path: 'sessions', component: AdminSessionsComponent },
+      { path: 'settings', component: SettingsComponent },
 
       // Writable lookup tables
-      { path: 'relationship-types',   component: RelationshipTypesPage },
-      { path: 'talent-types',         component: TalentTypesPage },
-      { path: 'food-types',           component: FoodTypesPage },
-      { path: 'material-types',       component: MaterialTypesPage },
-      { path: 'material-groups',      component: MaterialGroupsPage },
-      { path: 'regions',              component: RegionsPage },
-      { path: 'roles',                component: RolesPage },
-      { path: 'enemy-types',          component: EnemyTypesPage },
-      { path: 'domain-levels',        component: DomainLevelsPage },
-      { path: 'enemy-families',       component: EnemyFamiliesPage },
-      { path: 'enemy-groups',         component: EnemyGroupsPage },
-      { path: 'stats',                component: StatsPage },
+      { path: 'relationship-types', component: RelationshipTypesPage },
+      { path: 'talent-types', component: TalentTypesPage },
+      { path: 'food-types', component: FoodTypesPage },
+      { path: 'material-types', component: MaterialTypesPage },
+      { path: 'material-groups', component: MaterialGroupsPage },
+      { path: 'regions', component: RegionsPage },
+      { path: 'roles', component: RolesPage },
+      { path: 'enemy-types', component: EnemyTypesPage },
+      { path: 'domain-levels', component: DomainLevelsPage },
+      { path: 'enemy-families', component: EnemyFamiliesPage },
+      { path: 'enemy-groups', component: EnemyGroupsPage },
+      { path: 'stats', component: StatsPage },
 
       { path: '**', component: NotFoundComponent },
     ],

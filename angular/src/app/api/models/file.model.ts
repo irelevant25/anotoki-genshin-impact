@@ -220,6 +220,15 @@ export interface EntityUploadResult {
 }
 
 /**
+ * Where a file ended up after being moved between categories.
+ */
+export interface FileCategoryMove {
+  id: number;
+  category: string;
+  path: string;
+}
+
+/**
  * `POST /api/uploads/{entity}/{id}/{field}` - the same, and the resulting path
  * written back onto the row.
  */

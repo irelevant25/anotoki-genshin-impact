@@ -1,0 +1,117 @@
+<div class="page-header">
+    <h1 class="page-title">File categories</h1>
+    <div class="header-actions">
+        @if (retiredCount()) {
+            <app-button
+                [text]="showRetired() ? 'Hide retired' : 'Show retired (' + retiredCount() + ')'"
+                variant="secondary"
+                [outline]="true"
+                size="small"
+                (buttonClick)="showRetired.set(!showRetired())"></app-button>
+        }
+        <app-button text="Add a category" icon="icon-plus" size="small" (buttonClick)="startAdding()"></app-button>
+    </div>
+</div>
+
+<p class="page-note">
+    A category is a kind of asset and the folder that kind lives in. It is not a label: every file's path is built from it, so changing a folder moves what is in it, and retiring a category empties it
+    into
+    <code>unfiled</code>
+    first. The code is dotted the way the site already names asset folders —
+    <code>character.icon</code>
+    means
+    <code>character/icon</code>
+    .
+</p>
+
+@if (adding()) {
+    <div class="add-row">
+        <input class="admin-input" type="text" placeholder="character.icon" [value]="newCode()" (input)="newCode.set($any($event.target).value)" (keydown.enter)="add()" />
+        <input class="admin-input" type="text" placeholder="Name (optional)" [value]="newLabel()" (input)="newLabel.set($any($event.target).value)" (keydown.enter)="add()" />
+        @if (newPathPreview()) {
+            <span class="add-preview">
+                →
+                <code>assets/{{ newPathPreview() }}/</code>
+            </span>
+        }
+        <app-button text="Add" icon="icon-plus" size="small" [loading]="saving()" [disabled]="!newCode().trim()" (buttonClick)="add()"></app-button>
+        <app-button text="Cancel" variant="secondary" [outline]="true" size="small" (buttonClick)="cancelAdding()"></app-button>
+    </div>
+}
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Folder</th>
+                    <th scope="col" class="col-num">Files</th>
+                    <th scope="col" class="col-num">Size</th>
+                    <th scope="col" class="col-actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (category of visible(); track category.id) {
+                    <tr [class.is-retired]="category.deleted" [class.is-system]="category.is_system">
+                        <td>
+                            <code>{{ category.code }}</code>
+                        </td>
+
+                        @if (editing() === category.id) {
+                            <td>
+                                <input class="admin-input" type="text" [value]="editLabel()" (input)="editLabel.set($any($event.target).value)" />
+                            </td>
+                            <td>
+                                <input class="admin-input" type="text" [value]="editPath()" (input)="editPath.set($any($event.target).value)" />
+                            </td>
+                        } @else {
+                            <td>{{ category.label }}</td>
+                            <td class="col-path">
+                                <code>{{ category.path }}/</code>
+                            </td>
+                        }
+
+                        <td class="col-num">{{ category.files | number }}</td>
+                        <td class="col-num">{{ category.bytes ? (category.bytes | fileSize) : "—" }}</td>
+
+                        <td class="col-actions">
+                            @if (category.is_system) {
+                                <!-- Everything with no category has to be somewhere,
+                                     and that somewhere cannot be editable. -->
+                                <span class="system-note">where unfiled files go</span>
+                            } @else if (category.deleted) {
+                                <app-button text="Bring back" variant="secondary" [outline]="true" size="very-small" (buttonClick)="revive(category)"></app-button>
+                            } @else if (editing() === category.id) {
+                                <app-button text="Save" size="very-small" [loading]="saving()" (buttonClick)="save(category)"></app-button>
+                                <app-button text="Cancel" variant="secondary" [outline]="true" size="very-small" (buttonClick)="cancelEditing()"></app-button>
+                            } @else if (retireConfirm() === category.id) {
+                                <span class="confirm">
+                                    @if (category.files) {
+                                        <span class="confirm-note">{{ category.files | number }} files → unfiled.</span>
+                                    }
+                                    <app-button text="Retire" variant="danger" size="very-small" (buttonClick)="retire(category)"></app-button>
+                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelRetire()"></app-button>
+                                </span>
+                            } @else {
+                                <app-button text="Edit" variant="secondary" [outline]="true" size="very-small" (buttonClick)="startEditing(category)"></app-button>
+                                <app-button text="Retire" variant="secondary" [outline]="true" size="very-small" (buttonClick)="askToRetire(category.id)"></app-button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">{{ visible().length | number }} categories</td>
+                    <td class="col-num">{{ totals().files | number }}</td>
+                    <td class="col-num">{{ totals().bytes | fileSize }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}

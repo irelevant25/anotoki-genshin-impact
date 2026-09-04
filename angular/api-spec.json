@@ -7373,6 +7373,139 @@
             ]
         },
         {
+            "method": "GET",
+            "path": "/api/file-categories",
+            "args": [],
+            "file": "file_categories.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "FileCategory",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
+                "line": 160
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/api/file-categories",
+            "args": [],
+            "file": "file_categories.php",
+            "tables": [
+                "file_categories"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                201,
+                409,
+                422
+            ],
+            "responds": {
+                "shape": "FileCategory",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
+                "line": 209
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/file-categories/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "file_categories.php",
+            "tables": [
+                "file_categories"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                422,
+                500
+            ],
+            "responds": {
+                "shape": "FileCategory",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
+                "line": 305
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "PUT",
+            "path": "/api/file-categories/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "file_categories.php",
+            "tables": [
+                "file_categories"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                409,
+                422
+            ],
+            "responds": {
+                "shape": "FileCategory",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
+                "line": 267
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
             "method": "DELETE",
             "path": "/api/files",
             "args": [],
@@ -7729,6 +7862,44 @@
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
                 "line": 292
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "PUT",
+            "path": "/api/files/{id}/category",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "file_categories.php",
+            "tables": [
+                "files"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                409,
+                422,
+                500
+            ],
+            "responds": {
+                "shape": "FileCategoryMove",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
+                "line": 364
             },
             "expanded": [],
             "payload": null,
@@ -19325,6 +19496,142 @@
                 },
                 {
                     "name": "status",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "FileCategory",
+            "file": "file.php",
+            "merges": null,
+            "description": "A kind of asset, and where that kind lives.\n\n`path` is the folder under `assets/`, and it is what a file's own path is\nbuilt from - so changing it moves files. `is_system` marks the one category\nnothing may rename or remove, because every file with no category needs\nsomewhere to be.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "code",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Dotted, the way the front end names asset folders: `character.icon`."
+                },
+                {
+                    "name": "label",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "deleted",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Retired rather than removed, so it can come back with its history."
+                },
+                {
+                    "name": "is_system",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "sort_order",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "files",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "bytes",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "FileCategoryMove",
+            "file": "file.php",
+            "merges": null,
+            "description": "Where a file ended up after being moved between categories.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "category",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "path",
                     "types": [
                         "string"
                     ],

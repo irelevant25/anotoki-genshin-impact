@@ -308,3 +308,40 @@ class AssetReconcileResult extends ResponseShape
     ) {
     }
 }
+
+/**
+ * A kind of asset, and where that kind lives.
+ *
+ * `path` is the folder under `assets/`, and it is what a file's own path is
+ * built from - so changing it moves files. `is_system` marks the one category
+ * nothing may rename or remove, because every file with no category needs
+ * somewhere to be.
+ */
+class FileCategory extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        /** Dotted, the way the front end names asset folders: `character.icon`. */
+        public readonly string $code,
+        public readonly string $label,
+        public readonly string $path,
+        /** Retired rather than removed, so it can come back with its history. */
+        public readonly bool $deleted,
+        public readonly bool $is_system,
+        public readonly int $sort_order,
+        public readonly int $files,
+        public readonly int $bytes,
+    ) {
+    }
+}
+
+/** Where a file ended up after being moved between categories. */
+class FileCategoryMove extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $category,
+        public readonly string $path,
+    ) {
+    }
+}
