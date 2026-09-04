@@ -1,3 +1,6 @@
+// only for local purposes
+// server has no nodejs
+
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');

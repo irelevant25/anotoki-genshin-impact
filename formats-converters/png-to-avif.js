@@ -1,3 +1,6 @@
+// only for local purposes
+// server has no nodejs
+
 const helper = require('./0helper.js');
 const sharp = require('sharp');
 

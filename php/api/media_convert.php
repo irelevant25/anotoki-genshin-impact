@@ -28,21 +28,26 @@ const MEDIA_FFMPEG_CANDIDATES = [
 ];
 
 /**
- * The binary `ffmpeg-static` unpacks, if the converter scripts were installed.
+ * Copies of ffmpeg that live inside the repository rather than on the system.
  *
- * /formats-converters already depends on it, so a checkout that has run `npm i`
- * there has a working ffmpeg sitting in the repository - and until this looked
- * for it, the answer to "why is audio not converting" was to install ffmpeg
- * again, globally, next to the copy already on disk.
+ * /formats-converters is where an ffmpeg ends up either way: dropped in by hand
+ * beside the scripts that need it, or unpacked into node_modules by the
+ * ffmpeg-static dependency those scripts already declare. Both are looked for,
+ * because otherwise the answer to "why is audio not converting" is to install
+ * ffmpeg again, globally, next to the copy already sitting on disk.
  *
  * A function rather than a const because a const expression cannot call
- * dirname(), and the path is relative to wherever the repository is.
+ * dirname(), and these are relative to wherever the repository is.
  */
-function mediaBundledFfmpeg(): string
+function mediaRepoFfmpegCandidates(): array
 {
-    $root = dirname(__DIR__, 2) . '/formats-converters/node_modules/ffmpeg-static/ffmpeg';
+    $converters = dirname(__DIR__, 2) . '/formats-converters';
+    $suffix = DIRECTORY_SEPARATOR === '\\' ? '.exe' : '';
 
-    return DIRECTORY_SEPARATOR === '\\' ? $root . '.exe' : $root;
+    return [
+        $converters . '/ffmpeg' . $suffix,
+        $converters . '/node_modules/ffmpeg-static/ffmpeg' . $suffix,
+    ];
 }
 
 /**
@@ -145,7 +150,10 @@ function mediaFfmpegBinary(): ?string
         return null;
     }
 
-    foreach ([...MEDIA_FFMPEG_CANDIDATES, mediaBundledFfmpeg()] as $candidate) {
+    // The repository's own copies first: a checkout that carries one is saying
+    // which ffmpeg it means, and that should beat whatever the system happens
+    // to have on PATH.
+    foreach ([...mediaRepoFfmpegCandidates(), ...MEDIA_FFMPEG_CANDIDATES] as $candidate) {
         $exitCode = -1;
         $output = [];
         @exec(escapeshellarg($candidate) . ' -version 2>&1', $output, $exitCode);
@@ -157,8 +165,8 @@ function mediaFfmpegBinary(): ?string
 
     _mediaLogOnce(
         'ffmpeg',
-        'ffmpeg not found on PATH, in the usual places, or in formats-converters/node_modules '
-            . '- audio uploads keep their original format. Either install ffmpeg or run `npm i` in /formats-converters.'
+        'ffmpeg not found on PATH, in the usual places, or in /formats-converters - audio uploads keep '
+            . 'their original format. Put an ffmpeg binary in /formats-converters, or run `npm i` there.'
     );
     return null;
 }

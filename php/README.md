@@ -223,22 +223,31 @@ lives in `storage/cache/asset-convert-queue.json`, so stopping is a pause and a
 closed tab leaves the rest waiting rather than lost.
 
 Only what this server can encode is queued. AVIF needs the `imagick` or `gd`
-extension. Opus needs `ffmpeg`, looked for on `PATH`, in the usual install
-directories, and in `formats-converters/node_modules/ffmpeg-static/` - so the
-shortest way to switch audio conversion on is:
+extension. Opus needs `ffmpeg`, and there are two ways to give it one:
 
 ```bash
+# Either: drop an ffmpeg build in beside the converter scripts
+#   formats-converters/ffmpeg.exe          (or ./ffmpeg on Linux)
+
+# Or: let the scripts' own dependency unpack one
 cd formats-converters && npm install
 ```
 
-That folder already depends on `ffmpeg-static`, which unpacks a binary the API
-then finds by itself. What cannot be encoded is counted and said so on the page,
-rather than queued to fail one file at a time.
+Both live in `/formats-converters` and both are found automatically, ahead of
+anything on `PATH` - a checkout carrying its own ffmpeg is saying which one it
+means. They are gitignored: an ffmpeg build is a couple of hundred megabytes a
+binary and belongs on disk rather than in history.
 
-A note on speed: GD writes AVIF at roughly a third of a second per icon, so a
-few thousand images is minutes rather than seconds. Imagick with an AVIF
-delegate, or the sharp-based script in `/formats-converters`, is considerably
-faster if you have a large backlog.
+Failing that, `PATH` and the usual install directories are tried. What cannot be
+encoded is counted and said so on the page, rather than queued to fail one file
+at a time.
+
+A note on speed. GD writes AVIF at roughly a third of a second for an icon and
+several seconds for a full-size banner, so a few thousand images is half an hour
+rather than seconds; Imagick with an AVIF delegate, or the sharp-based script in
+`/formats-converters`, is considerably faster on a large backlog. ffmpeg is
+quicker per file - a tenth of a second for a voice line - but there are far more
+of them, so the audio backlog is the one measured in hours.
 
 ### Filling the profile page with something to look at (optional)
 

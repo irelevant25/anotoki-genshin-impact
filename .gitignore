@@ -11,6 +11,10 @@ php/storage/
 # which is why the folder exists at all - but none of it belongs in a commit.
 formats-converters/node_modules/
 
+# An ffmpeg build dropped in by hand, which is the other way to switch audio
+# conversion on. Six hundred megabytes of it: found at runtime, never committed.
+formats-converters/*.exe
+
 # Written by generate-openapi.mjs while it asks the compiler about the API
 # types, and removed again on the way out. Ignored so a crashed run cannot
 # leave it behind in a commit.
