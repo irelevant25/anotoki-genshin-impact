@@ -11,6 +11,7 @@ import {
   AssetConvertProgress,
   AssetFilePage,
   AssetFolder,
+  AssetReconcileResult,
   AssetRestoreResult,
   AssetStats,
   AssetTrashResult,
@@ -125,6 +126,15 @@ export class FileApiService {
    */
   getTrashedFiles(): Observable<TrashedFile[]> {
     return this._http.get<TrashedFile[]>('/api/files/trash');
+  }
+
+  /**
+   * `POST /api/files/reconcile`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  reconcileCatalogue(body: Record<string, unknown>): Observable<AssetReconcileResult> {
+    return this._http.post<AssetReconcileResult>('/api/files/reconcile', body);
   }
 
   /**

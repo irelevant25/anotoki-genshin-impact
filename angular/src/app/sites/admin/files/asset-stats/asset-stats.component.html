@@ -54,6 +54,28 @@
                 </table>
             </div>
 
+            <!-- What the table knows ────────────────────────────────────── -->
+            @if (data.catalogue; as catalogue) {
+                <div class="catalogue" [class.is-drifted]="drifted()">
+                    <div class="catalogue-figures">
+                        <span class="catalogue-figure" [class.is-gap]="catalogue.uncatalogued > 0">
+                            <span class="figure-value">{{ catalogue.uncatalogued | number }}</span>
+                            <span class="figure-label">not in the database</span>
+                        </span>
+                        <span class="catalogue-figure" [class.is-gap]="catalogue.missing > 0">
+                            <span class="figure-value">{{ catalogue.missing | number }}</span>
+                            <span class="figure-label">recorded but gone</span>
+                        </span>
+                        <span class="catalogue-figure is-quiet">
+                            <span class="figure-value">{{ catalogue.catalogued | number }}</span>
+                            <span class="figure-label">accounted for</span>
+                        </span>
+                    </div>
+
+                    <app-button text="Check for strays" icon="icon-history" variant="secondary" [outline]="true" size="small" [loading]="checking()" (buttonClick)="check()"></app-button>
+                </div>
+            }
+
             <!-- What is missing ─────────────────────────────────────────── -->
             <div class="stats-panel">
                 <h3 class="panel-heading">Converted formats</h3>

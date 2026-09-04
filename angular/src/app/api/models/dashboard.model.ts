@@ -2,7 +2,7 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
-import type { AssetConversionCount, AssetFormatCount } from './file.model';
+import type { AssetCatalogueCounts, AssetConversionCount, AssetFormatCount } from './file.model';
 
 /**
  * A row of `feedback` as the API reads it back.
@@ -56,6 +56,8 @@ export interface DashboardAssets {
   formats: AssetFormatCount[];
   images: AssetConversionCount;
   audio: AssetConversionCount;
+  /** Files on disk the database has never heard of. */
+  catalogue: AssetCatalogueCounts;
   generated_at: string;
   age: number;
 }

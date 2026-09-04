@@ -109,6 +109,18 @@
                     <span class="asset-meta">no original beside them</span>
                 </div>
 
+                <!-- Files that turned up without going through the API, which
+                     is what happens when somebody uses FTP. -->
+                <a
+                    class="asset-card"
+                    routerLink="/admin/files"
+                    [class.is-quiet]="!assets.catalogue.uncatalogued && !assets.catalogue.missing"
+                    [class.is-gap]="assets.catalogue.uncatalogued > 0 || assets.catalogue.missing > 0">
+                    <span class="asset-value">{{ assets.catalogue.uncatalogued | number }}</span>
+                    <span class="asset-label">not in the database</span>
+                    <span class="asset-meta">{{ assets.catalogue.missing | number }} recorded but gone</span>
+                </a>
+
                 @for (format of assetFormats(); track format.extension) {
                     <div class="asset-card is-quiet">
                         <span class="asset-value">{{ format.files | number }}</span>

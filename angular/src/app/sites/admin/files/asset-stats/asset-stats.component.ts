@@ -167,6 +167,45 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
     return options;
   });
 
+  readonly checking = signal(false);
+
+  /**
+   * Whether the table and the disk have drifted apart.
+   *
+   * Only worth drawing when they have. A row saying "0 files unaccounted for"
+   * on every visit is a row nobody reads, and the number is only interesting
+   * the moment it is not zero.
+   */
+  readonly drifted = computed(() => {
+    const catalogue = this.stats()?.catalogue;
+    return !!catalogue && (catalogue.uncatalogued > 0 || catalogue.missing > 0);
+  });
+
+  /**
+   * Looks for files that turned up without going through the API.
+   *
+   * Which is what FTP is: the tree changes and nothing tells the table. The
+   * sweep adopts what it finds, moves anything in no category into `unfiled`,
+   * and reports rows whose file has gone rather than deleting them.
+   */
+  check(): void {
+    this.checking.set(true);
+
+    this._fileApi.reconcileCatalogue({}).subscribe({
+      next: (result) => {
+        this.checking.set(false);
+        this._notify.showSuccess(
+          result.adopted || result.moved_to_unfiled ? `${result.adopted.toLocaleString()} adopted, ${result.moved_to_unfiled.toLocaleString()} moved to unfiled.` : 'Nothing had changed.',
+        );
+        this.load(true);
+      },
+      error: (error) => {
+        this.checking.set(false);
+        this._notify.showError(error?.error?.error ?? 'The check could not run.');
+      },
+    });
+  }
+
   /** What the queue could not take, because nothing here can encode it. */
   blockedTotal(job: AssetConvertProgress): number {
     return job.blocked.images + job.blocked.audio;

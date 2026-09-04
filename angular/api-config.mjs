@@ -190,6 +190,7 @@ export const NAMES = {
     "GET /api/files/convert": "getConversionProgress",
     "GET /api/files/cleanup": "getCleanupCandidates",
     "POST /api/files/cleanup": "cleanUpOriginals",
+    "POST /api/files/reconcile": "reconcileCatalogue",
     "GET /api/files/cleanup/progress": "getCleanupProgress",
     "POST /api/files": "uploadAssetFile",
     "DELETE /api/files": "deleteAssetFile",

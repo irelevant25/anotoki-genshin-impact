@@ -11,6 +11,23 @@ export interface AssetBlockedCount {
 }
 
 /**
+ * How far the `files` table has drifted from the disk.
+ *
+ * `uncatalogued` is the number worth watching: files that turned up without
+ * going through the API, which is what happens when somebody uses FTP.
+ */
+export interface AssetCatalogueCounts {
+  on_disk: number;
+  catalogued: number;
+  /** On disk with no row. The check button adopts these. */
+  uncatalogued: number;
+  /** Of those, the ones in a folder no category claims. */
+  unfiled: number;
+  /** Rows whose file has gone. Reported, never deleted automatically. */
+  missing: number;
+}
+
+/**
  * One file that could go, and what it would give back.
  */
 export interface AssetCleanupFile {
@@ -137,6 +154,17 @@ export interface AssetFormatCount {
 }
 
 /**
+ * What one sweep did.
+ */
+export interface AssetReconcileResult {
+  adopted: number;
+  moved_to_unfiled: number;
+  resized: number;
+  missing: number;
+  on_disk: number;
+}
+
+/**
  * The shape of a `AssetRestoreResult` response.
  */
 export interface AssetRestoreResult {
@@ -156,6 +184,8 @@ export interface AssetStats {
   formats: AssetFormatCount[];
   images: AssetConversionCount;
   audio: AssetConversionCount;
+  /** How far the `files` table has drifted from the disk. */
+  catalogue: AssetCatalogueCounts;
 }
 
 /**

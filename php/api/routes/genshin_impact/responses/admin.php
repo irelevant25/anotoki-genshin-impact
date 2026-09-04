@@ -233,6 +233,8 @@ class DashboardAssets extends ResponseShape
         public readonly object $images,
         /** @var AssetConversionCount */
         public readonly object $audio,
+        /** @var AssetCatalogueCounts Files on disk the database has never heard of. */
+        public readonly object $catalogue,
         public readonly string $generated_at,
         public readonly int $age,
     ) {

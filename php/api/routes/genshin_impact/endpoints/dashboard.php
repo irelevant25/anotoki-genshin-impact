@@ -192,6 +192,7 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
         'formats' => [],
         'images' => ['sources' => 0, 'missing' => 0, 'converted_only' => 0, 'can_convert' => false],
         'audio' => ['sources' => 0, 'missing' => 0, 'converted_only' => 0, 'can_convert' => false],
+        'catalogue' => ['on_disk' => 0, 'catalogued' => 0, 'uncatalogued' => 0, 'unfiled' => 0, 'missing' => 0],
         'generated_at' => '',
         'age' => 0,
     ];
@@ -206,6 +207,7 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
             'formats' => $stats['formats'],
             'images' => $stats['images'] + ['can_convert' => mediaCanWriteAvif()],
             'audio' => $stats['audio'] + ['can_convert' => mediaCanWriteOpus()],
+            'catalogue' => catalogueCounts($pdo),
             'generated_at' => $stats['generated_at'],
             'age' => assetStatsAge() ?? 0,
         ];

@@ -177,6 +177,8 @@ class AssetStats extends ResponseShape
         public readonly object $images,
         /** @var AssetConversionCount */
         public readonly object $audio,
+        /** @var AssetCatalogueCounts How far the `files` table has drifted from the disk. */
+        public readonly object $catalogue,
     ) {
     }
 }
@@ -267,6 +269,42 @@ class AssetCleanupProgress extends ResponseShape
         public readonly bool $finished,
         /** @var string[] The first few that would not move. */
         public readonly array $failures,
+    ) {
+    }
+}
+
+// ── The catalogue ────────────────────────────────────────────────────────────
+
+/**
+ * How far the `files` table has drifted from the disk.
+ *
+ * `uncatalogued` is the number worth watching: files that turned up without
+ * going through the API, which is what happens when somebody uses FTP.
+ */
+class AssetCatalogueCounts extends ResponseShape
+{
+    public function __construct(
+        public readonly int $on_disk,
+        public readonly int $catalogued,
+        /** On disk with no row. The check button adopts these. */
+        public readonly int $uncatalogued,
+        /** Of those, the ones in a folder no category claims. */
+        public readonly int $unfiled,
+        /** Rows whose file has gone. Reported, never deleted automatically. */
+        public readonly int $missing,
+    ) {
+    }
+}
+
+/** What one sweep did. */
+class AssetReconcileResult extends ResponseShape
+{
+    public function __construct(
+        public readonly int $adopted,
+        public readonly int $moved_to_unfiled,
+        public readonly int $resized,
+        public readonly int $missing,
+        public readonly int $on_disk,
     ) {
     }
 }

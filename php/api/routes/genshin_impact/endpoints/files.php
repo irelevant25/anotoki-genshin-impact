@@ -347,8 +347,33 @@ $app->get('/api/files/stats', function (Request $request, Response $response) {
         // in the cache file rather than travelling to a page that shows counts.
         'images' => $stats['images'] + ['can_convert' => mediaCanWriteAvif()],
         'audio' => $stats['audio'] + ['can_convert' => mediaCanWriteOpus()],
+        // Its own walk rather than part of the cached survey: this is the one
+        // number that is only useful when it is current, since the whole point
+        // of it is noticing that something turned up outside the API.
+        'catalogue' => catalogueCounts(genshinDb()),
     ]);
 })->add(responds(AssetStats::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+/**
+ * Looks for files the catalogue has not heard of, and adopts them.
+ *
+ * The same sweep `php assets.php --reconcile --apply` runs. Files arrive over
+ * FTP and get deleted by hand, so the table drifts on its own and this is what
+ * puts it back - adopting strays, moving anything in no category into
+ * `unfiled`, and reporting rather than deleting rows whose file has gone.
+ */
+$app->post('/api/files/reconcile', function (Request $request, Response $response) {
+    $result = catalogueReconcile(genshinDb());
+
+    if (isset($result['error'])) {
+        return respondJson($response, ['error' => $result['error']], 500);
+    }
+
+    assetStatsForget();
+    _assetFolderCacheClear();
+
+    return respondJson($response, $result);
+})->add(responds(AssetReconcileResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 /**
  * Converts a batch of what is missing, and says where the job has got to.
