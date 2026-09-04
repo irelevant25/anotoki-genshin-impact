@@ -218,7 +218,9 @@ $app->post('/api/files', function (Request $request, Response $response) {
         ? pathinfo($requested, PATHINFO_FILENAME)
         : pathinfo((string) $file->getClientFilename(), PATHINFO_FILENAME);
 
-    $path = _saveAssetUpload($file, $folder, $stem);
+    // null: this page browses the whole tree, voice overs included, so it
+    // takes anything on the allowlist rather than images alone.
+    $path = _saveAssetUpload($file, $folder, $stem, null);
     if (!$path) {
         return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
     }

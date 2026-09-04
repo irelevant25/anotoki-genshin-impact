@@ -413,20 +413,36 @@ function _defaultUploadName(PDO $pdo, array $spec, array $fieldSpec, array $row)
 /**
  * Writes into the served asset tree rather than public/uploads, so the file is
  * reachable at the same path the rest of the data already uses. Reuses the
- * allowlist and AVIF conversion from full_resource.php.
+ * allowlist and the conversion from full_resource.php.
+ *
+ * `$audio` says what the caller will accept, not what the file is. An entity
+ * field knows which of the two it holds - a character's demo music is never a
+ * picture - so it passes true or false and anything else is refused. The Files
+ * page has no such opinion: it browses the whole tree, voice overs included,
+ * and passing null lets it add anything the allowlist permits. Which of the two
+ * a file actually *is* comes from its extension either way.
  */
-function _saveAssetUpload($file, string $folder, string $baseName, bool $audio = false): ?string
+function _saveAssetUpload($file, string $folder, string $baseName, ?bool $audio = false): ?string
 {
     if (!$file || $file->getError() !== UPLOAD_ERR_OK) {
         return null;
     }
 
     $ext = strtolower(pathinfo($file->getClientFilename() ?? '', PATHINFO_EXTENSION));
-    $allowed = $audio ? array_diff(UPLOAD_ALLOWED_EXTENSIONS, UPLOAD_IMAGE_EXTENSIONS) : UPLOAD_IMAGE_EXTENSIONS;
+    $audioExtensions = array_values(array_diff(UPLOAD_ALLOWED_EXTENSIONS, UPLOAD_IMAGE_EXTENSIONS));
+
+    $allowed = match ($audio) {
+        true => $audioExtensions,
+        false => UPLOAD_IMAGE_EXTENSIONS,
+        null => UPLOAD_ALLOWED_EXTENSIONS,
+    };
     if (!in_array($ext, $allowed, true)) {
         return null;
     }
-    if (!$audio && $ext !== 'avif') {
+
+    $isAudio = in_array($ext, $audioExtensions, true);
+
+    if (!$isAudio && $ext !== 'avif') {
         $stream = $file->getStream();
         $stream->rewind();
         if (@getimagesizefromstring($stream->getContents()) === false) {
@@ -464,12 +480,12 @@ function _saveAssetUpload($file, string $folder, string $baseName, bool $audio =
     _assetFolderCacheClear();
 
     // Voice over rows store a bare `assets/...` path; images use `../assets/...`.
-    $prefix = $audio ? 'assets/' : '../assets/';
+    $prefix = $isAudio ? 'assets/' : '../assets/';
 
     // The site serves AVIF and Opus, so an upload is re-encoded and the
     // converted path is what gets stored. The original stays beside it, and
     // when nothing here can encode, the original is what is stored instead.
-    $converted = _convertAssetUpload($stored, $dir . '/' . $safeName, $ext, $audio);
+    $converted = _convertAssetUpload($stored, $dir . '/' . $safeName, $ext, $isAudio);
 
     return $prefix . $folder . '/' . $safeName . '.' . ($converted ?? $ext);
 }
