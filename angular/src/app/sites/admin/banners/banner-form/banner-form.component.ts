@@ -135,7 +135,8 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
         field: 'icon',
         picked,
         name: this.artName(),
-        apply: (path: string, name: string) => this.banner.update((banner) => ({ ...banner, icon: path, icon_name: name })),
+        apply: (path: string, name: string, fileId: number | null) =>
+          this.banner.update((banner) => ({ ...banner, icon: path, icon_name: name, icon_file_id: fileId })),
       },
     ];
   }

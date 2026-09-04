@@ -32,11 +32,20 @@
  * Then `--repoint` rewrites the references themselves, but only where the
  * converted file is really there under the name being written. Anything else
  * is left pointing at a file that exists.
+ *
+ * Both have since done their work, and the columns they rewrote are gone: an
+ * entity names its file by a foreign key into the catalogue now, so there is no
+ * path left in those tables to align or repoint. What they still scan is every
+ * other string column - settings, translated copy - which is where a path can
+ * turn up without a catalogue row behind it. `--status` reads both, since a
+ * file being referenced is the thing that has to be right before `--reconcile`
+ * or the cleanup screen offers to remove anything.
  */
 
 require __DIR__ . '/config/db.php';
 require __DIR__ . '/api/audit_file.php';
 require __DIR__ . '/api/asset_catalogue.php';
+require __DIR__ . '/api/asset_columns.php';
 
 const ASSETS_ROOT = __DIR__ . '/../assets';
 
@@ -160,7 +169,7 @@ function status(PDO $pdo): void
     $byFolder = assetsByFolder();
     $files = array_sum(array_map('count', $byFolder));
 
-    $referenced = [];
+    $referenced = assetFkReferences($pdo);
     foreach (assetPathColumns($pdo) as [$table, $column]) {
         foreach ($pdo->query("SELECT DISTINCT \"$column\" AS v FROM \"$table\" WHERE \"$column\" LIKE '%assets/%'") as $row) {
             $referenced[assetRelative((string) $row['v'])][] = "$table.$column";

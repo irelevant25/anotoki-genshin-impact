@@ -125,9 +125,10 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
         field: 'icon',
         picked: enemy.pending.icon,
         name: toAssetBaseName(enemy.data.name),
-        apply: (path, name) => {
+        apply: (path, name, fileId) => {
           enemy.data.icon = path;
           enemy.data.icon_name = name;
+          enemy.data.icon_file_id = fileId;
         },
       });
     }
@@ -143,9 +144,10 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
           field,
           picked,
           name: phaseImageName(enemy.data.name, field, index),
-          apply: (path, name) => {
+          apply: (path, name, fileId) => {
             phase.data[field] = path;
             phase.data[`${field}_name`] = name;
+            phase.data[`${field}_file_id`] = fileId;
           },
         });
       }

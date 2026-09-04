@@ -10,7 +10,6 @@ import type { Saved } from '../types/common.type';
 export interface Artifact {
   id: number;
   name: string;
-  icon: string;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
   how_to_obtain_quality_1: string | null;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
@@ -36,6 +35,8 @@ export interface Artifact {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
+  icon: string | null;
   icon_name: string | null;
 }
 
@@ -45,7 +46,6 @@ export interface Artifact {
 export interface ArtifactPiece {
   id: number;
   artifact_id: number;
-  icon: string;
   type: string;
   name: string;
   deleted: boolean;
@@ -53,6 +53,8 @@ export interface ArtifactPiece {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
+  icon: string | null;
   icon_name: string | null;
 }
 
@@ -65,7 +67,9 @@ export interface ArtifactPiece {
  */
 export interface ArtifactPayload {
   name: string;
-  icon: string;
+  icon_file_id?: number | null;
+  icon?: string | null;
+  icon_name?: string | null;
   /** JSON: send the value; it reads back as a JSON string. See parseJsonColumn. */
   how_to_obtain_quality_1?: string[] | string | null;
   /** JSON: send the value; it reads back as a JSON string. See parseJsonColumn. */
@@ -86,7 +90,6 @@ export interface ArtifactPayload {
   has_rarity_3?: boolean;
   has_rarity_4?: boolean;
   has_rarity_5?: boolean;
-  icon_name?: string | null;
 }
 
 /**
@@ -98,9 +101,10 @@ export interface ArtifactPayload {
  */
 export interface ArtifactPiecePayload {
   artifact_id: number;
-  icon: string;
   type: string;
   name: string;
+  icon_file_id?: number | null;
+  icon?: string | null;
   icon_name?: string | null;
 }
 

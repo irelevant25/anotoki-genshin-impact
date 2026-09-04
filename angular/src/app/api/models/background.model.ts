@@ -13,8 +13,10 @@ export interface Background {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  image_file_id: number | null;
   image: string | null;
   image_name: string | null;
+  preview_file_id: number | null;
   preview: string | null;
   preview_name: string | null;
 }
@@ -28,8 +30,10 @@ export interface Background {
  */
 export interface BackgroundPayload {
   name: string;
+  image_file_id?: number | null;
   image?: string | null;
   image_name?: string | null;
+  preview_file_id?: number | null;
   preview?: string | null;
   preview_name?: string | null;
 }

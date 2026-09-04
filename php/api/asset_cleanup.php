@@ -59,7 +59,14 @@ function cleanupReferencedPaths(PDO $pdo): array
         return $paths;
     }
 
+    // The entity tables answer through their foreign keys; every other string
+    // column in the database is still searched for a path, since settings and
+    // translated copy embed them too.
     $paths = [];
+    foreach (array_keys(assetFkReferences($pdo)) as $relative) {
+        $paths[$relative] = true;
+    }
+
     $columns = $pdo->query("
         SELECT table_name, column_name FROM information_schema.columns
         WHERE table_schema = 'public' AND data_type IN ('character varying', 'text')")->fetchAll(PDO::FETCH_ASSOC);

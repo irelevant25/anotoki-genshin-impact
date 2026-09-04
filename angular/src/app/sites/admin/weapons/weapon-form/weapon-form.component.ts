@@ -126,10 +126,11 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
       field,
       picked: weapon.pending[field]!,
       name: weaponImageName(weapon.data.name, field),
-      apply: (path: string, name: string) => {
+      apply: (path: string, name: string, fileId: number | null) => {
         const data = weapon.data as unknown as Record<string, unknown>;
         data[field] = path;
         data[`${field}_name`] = name;
+        data[`${field}_file_id`] = fileId;
       },
     }));
   }

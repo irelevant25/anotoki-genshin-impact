@@ -23,6 +23,7 @@ export interface Material {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
   icon: string | null;
   icon_name: string | null;
 }
@@ -58,6 +59,7 @@ export interface MaterialPayload {
   how_to_obtain?: string[] | string | null;
   version?: string | null;
   rarity?: number | null;
+  icon_file_id?: number | null;
   icon?: string | null;
   icon_name?: string | null;
 }

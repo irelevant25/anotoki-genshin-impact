@@ -250,7 +250,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
       pending.map((entry) =>
         this._fileApi.uploadEntityFile(entry.entity, entry.field, toFormData({ file: entry.picked.file, name: entry.name })).pipe(
           switchMap((result) => {
-            entry.apply(result.path, result.name);
+            entry.apply(result.path, result.name, result.fileId);
             return of(result);
           })
         )
@@ -359,9 +359,11 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
         field,
         picked,
         name: characterImageName(character.data.name, field),
-        apply: (path: string, name: string) => {
-          character.data[field] = path;
-          (character.data as unknown as Record<string, unknown>)[`${field}_name`] = name;
+        apply: (path: string, name: string, fileId: number | null) => {
+          const data = character.data as unknown as Record<string, unknown>;
+          data[field] = path;
+          data[`${field}_name`] = name;
+          data[`${field}_file_id`] = fileId;
         },
       });
     }
@@ -373,9 +375,10 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
           field: 'icon',
           picked: constellation.pending,
           name: toAssetBaseName(constellation.data.name),
-          apply: (path: string, name: string) => {
+          apply: (path: string, name: string, fileId: number | null) => {
             constellation.data.icon = path;
             constellation.data.icon_name = name;
+            constellation.data.icon_file_id = fileId;
           },
         });
       }
@@ -388,9 +391,10 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
           field: 'icon',
           picked: talent.pending,
           name: toAssetBaseName(talent.data.name),
-          apply: (path: string, name: string) => {
+          apply: (path: string, name: string, fileId: number | null) => {
             talent.data.icon = path;
             talent.data.icon_name = name;
+            talent.data.icon_file_id = fileId;
           },
         });
       }

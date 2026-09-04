@@ -28,8 +28,10 @@ $app->get('/api/banners/{id:[0-9]+}', function (Request $request, Response $resp
 $app->post('/api/banners', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'banners', $body, $user['id']);
     $id = DbQuery::insert($pdo, 'banners', [
-        ...Banner::fromBody($request->getParsedBody())->toDbArray(),
+        ...Banner::fromBody($body)->toDbArray(),
         'created_by' => $user['id'],
     ]);
     $result = DbQuery::from($pdo, 'banners')
@@ -45,8 +47,10 @@ $app->put('/api/banners/{id:[0-9]+}', function (Request $request, Response $resp
     if (!DbQuery::from($pdo, 'banners')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'banners', $body, $user['id']);
     DbQuery::update($pdo, 'banners', [
-        ...Banner::partialToDbArray($request->getParsedBody()),
+        ...Banner::partialToDbArray($body),
         'updated_by' => $user['id'],
     ], $args['id']);
     $result = DbQuery::from($pdo, 'banners')

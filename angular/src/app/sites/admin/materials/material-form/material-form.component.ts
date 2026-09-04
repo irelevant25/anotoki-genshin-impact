@@ -140,7 +140,8 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
         name: this.iconName(),
         // Written through the signal: editing a field replaces the object, so a
         // reference taken here would not be the one that gets sent.
-        apply: (path: string, name: string) => this.material.update((material) => ({ ...material, icon: path, icon_name: name })),
+        apply: (path: string, name: string, fileId: number | null) =>
+          this.material.update((material) => ({ ...material, icon: path, icon_name: name, icon_file_id: fileId })),
       },
     ];
   }

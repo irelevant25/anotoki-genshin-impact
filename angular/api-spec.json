@@ -282,7 +282,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\artifacts.php",
-                "line": 39
+                "line": 41
             },
             "expanded": [
                 "created_by"
@@ -342,7 +342,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\artifact_pieces.php",
-                "line": 39
+                "line": 41
             },
             "expanded": [
                 "created_by"
@@ -379,7 +379,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\artifact_pieces.php",
-                "line": 67
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -449,7 +449,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\artifact_pieces.php",
-                "line": 57
+                "line": 61
             },
             "expanded": [
                 "created_by",
@@ -479,7 +479,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 278
+                "line": 288
             },
             "expanded": [
                 "created_by",
@@ -507,7 +507,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 304
+                "line": 316
             },
             "expanded": [],
             "payload": null,
@@ -542,7 +542,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\artifacts.php",
-                "line": 67
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -612,7 +612,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\artifacts.php",
-                "line": 57
+                "line": 61
             },
             "expanded": [
                 "created_by",
@@ -648,7 +648,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 258
+                "line": 268
             },
             "expanded": [
                 "created_by",
@@ -681,7 +681,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 336
+                "line": 349
             },
             "expanded": [],
             "payload": null,
@@ -1505,7 +1505,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\backgrounds.php",
-                "line": 10
+                "line": 26
             },
             "expanded": [],
             "payload": null,
@@ -1531,7 +1531,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\backgrounds.php",
-                "line": 35
+                "line": 49
             },
             "expanded": [],
             "payload": "Background",
@@ -1566,7 +1566,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\backgrounds.php",
-                "line": 70
+                "line": 84
             },
             "expanded": [],
             "payload": null,
@@ -1587,9 +1587,7 @@
                 }
             ],
             "file": "backgrounds.php",
-            "tables": [
-                "backgrounds"
-            ],
+            "tables": [],
             "success": 200,
             "statuses": [
                 200,
@@ -1601,7 +1599,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\backgrounds.php",
-                "line": 21
+                "line": 35
             },
             "expanded": [],
             "payload": null,
@@ -1633,7 +1631,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\backgrounds.php",
-                "line": 56
+                "line": 70
             },
             "expanded": [],
             "payload": "Background",
@@ -1949,7 +1947,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\banners.php",
-                "line": 39
+                "line": 41
             },
             "expanded": [
                 "created_by"
@@ -2314,7 +2312,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 278
+                "line": 288
             },
             "expanded": [
                 "created_by",
@@ -2342,7 +2340,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 304
+                "line": 316
             },
             "expanded": [],
             "payload": null,
@@ -2377,7 +2375,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\banners.php",
-                "line": 67
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -2447,7 +2445,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\banners.php",
-                "line": 57
+                "line": 61
             },
             "expanded": [
                 "created_by",
@@ -2483,7 +2481,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 258
+                "line": 268
             },
             "expanded": [
                 "created_by",
@@ -2516,7 +2514,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 336
+                "line": 349
             },
             "expanded": [],
             "payload": null,
@@ -2653,7 +2651,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters.php",
-                "line": 69
+                "line": 71
             },
             "expanded": [
                 "created_by"
@@ -4671,7 +4669,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_constellations.php",
-                "line": 38
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -4708,7 +4706,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_constellations.php",
-                "line": 66
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -4778,7 +4776,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_constellations.php",
-                "line": 56
+                "line": 60
             },
             "expanded": [
                 "created_by",
@@ -5137,7 +5135,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_talents.php",
-                "line": 39
+                "line": 41
             },
             "expanded": [
                 "created_by"
@@ -5342,7 +5340,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_talents.php",
-                "line": 67
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -5412,7 +5410,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_talents.php",
-                "line": 57
+                "line": 61
             },
             "expanded": [
                 "created_by",
@@ -5473,7 +5471,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_voice_overs.php",
-                "line": 38
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -5510,7 +5508,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_voice_overs.php",
-                "line": 66
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -5580,7 +5578,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_voice_overs.php",
-                "line": 56
+                "line": 60
             },
             "expanded": [
                 "created_by",
@@ -5620,7 +5618,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 204
+                "line": 212
             },
             "expanded": [
                 "created_by"
@@ -5683,7 +5681,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters.php",
-                "line": 103
+                "line": 107
             },
             "expanded": [],
             "payload": null,
@@ -5753,7 +5751,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters.php",
-                "line": 91
+                "line": 95
             },
             "expanded": [
                 "created_by",
@@ -5791,7 +5789,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 375
+                "line": 395
             },
             "expanded": [
                 "created_by",
@@ -5830,7 +5828,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 325
+                "line": 341
             },
             "expanded": [
                 "created_by",
@@ -6072,7 +6070,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies.php",
-                "line": 39
+                "line": 41
             },
             "expanded": [
                 "created_by"
@@ -6468,7 +6466,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies_phases.php",
-                "line": 39
+                "line": 41
             },
             "expanded": [
                 "created_by"
@@ -6505,7 +6503,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies_phases.php",
-                "line": 67
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -6575,7 +6573,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies_phases.php",
-                "line": 57
+                "line": 61
             },
             "expanded": [
                 "created_by",
@@ -6605,7 +6603,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 278
+                "line": 288
             },
             "expanded": [
                 "created_by",
@@ -6633,7 +6631,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 304
+                "line": 316
             },
             "expanded": [],
             "payload": null,
@@ -6668,7 +6666,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies.php",
-                "line": 67
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -6738,7 +6736,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies.php",
-                "line": 57
+                "line": 61
             },
             "expanded": [
                 "created_by",
@@ -6774,7 +6772,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 258
+                "line": 268
             },
             "expanded": [
                 "created_by",
@@ -6807,7 +6805,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 336
+                "line": 349
             },
             "expanded": [],
             "payload": null,
@@ -8079,7 +8077,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\foods.php",
-                "line": 39
+                "line": 41
             },
             "expanded": [
                 "created_by"
@@ -8276,7 +8274,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 278
+                "line": 288
             },
             "expanded": [
                 "created_by",
@@ -8304,7 +8302,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 304
+                "line": 316
             },
             "expanded": [],
             "payload": null,
@@ -8339,7 +8337,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\foods.php",
-                "line": 67
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -8409,7 +8407,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\foods.php",
-                "line": 57
+                "line": 61
             },
             "expanded": [
                 "created_by",
@@ -8445,7 +8443,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 258
+                "line": 268
             },
             "expanded": [
                 "created_by",
@@ -8478,7 +8476,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 336
+                "line": 349
             },
             "expanded": [],
             "payload": null,
@@ -8909,7 +8907,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\materials.php",
-                "line": 48
+                "line": 50
             },
             "expanded": [
                 "created_by"
@@ -9138,7 +9136,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 278
+                "line": 288
             },
             "expanded": [
                 "created_by",
@@ -9166,7 +9164,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 304
+                "line": 316
             },
             "expanded": [],
             "payload": null,
@@ -9201,7 +9199,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\materials.php",
-                "line": 76
+                "line": 80
             },
             "expanded": [],
             "payload": null,
@@ -9271,7 +9269,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\materials.php",
-                "line": 66
+                "line": 70
             },
             "expanded": [
                 "created_by",
@@ -9307,7 +9305,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 258
+                "line": 268
             },
             "expanded": [
                 "created_by",
@@ -9340,7 +9338,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 336
+                "line": 349
             },
             "expanded": [],
             "payload": null,
@@ -9375,7 +9373,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\materials_usage.php",
-                "line": 79
+                "line": 84
             },
             "expanded": [],
             "payload": null,
@@ -9800,7 +9798,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_progress.php",
-                "line": 244
+                "line": 247
             },
             "expanded": [],
             "payload": null,
@@ -9943,7 +9941,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_progress.php",
-                "line": 266
+                "line": 272
             },
             "expanded": [],
             "payload": null,
@@ -9969,7 +9967,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_progress.php",
-                "line": 187
+                "line": 190
             },
             "expanded": [],
             "payload": null,
@@ -9995,7 +9993,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_progress.php",
-                "line": 221
+                "line": 224
             },
             "expanded": [],
             "payload": null,
@@ -10022,7 +10020,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\quiz_voice_over.php",
-                "line": 62
+                "line": 69
             },
             "expanded": [],
             "payload": null,
@@ -11373,7 +11371,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\uploads.php",
-                "line": 367
+                "line": 389
             },
             "expanded": [],
             "payload": null,
@@ -11419,7 +11417,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\uploads.php",
-                "line": 322
+                "line": 330
             },
             "expanded": [],
             "payload": null,
@@ -11950,7 +11948,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\weapons.php",
-                "line": 39
+                "line": 41
             },
             "expanded": [
                 "created_by"
@@ -12483,7 +12481,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 278
+                "line": 288
             },
             "expanded": [
                 "created_by",
@@ -12511,7 +12509,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 304
+                "line": 316
             },
             "expanded": [],
             "payload": null,
@@ -12546,7 +12544,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\weapons.php",
-                "line": 67
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -12616,7 +12614,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\weapons.php",
-                "line": 57
+                "line": 61
             },
             "expanded": [
                 "created_by",
@@ -12652,7 +12650,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 258
+                "line": 268
             },
             "expanded": [
                 "created_by",
@@ -12685,7 +12683,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 336
+                "line": 349
             },
             "expanded": [],
             "payload": null,
@@ -12711,12 +12709,28 @@
                     "optional": false
                 },
                 {
+                    "name": "icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "icon",
                     "types": [
                         "string"
                     ],
-                    "nullable": false,
-                    "optional": false
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
                 },
                 {
                     "name": "how_to_obtain_quality_1",
@@ -12829,14 +12843,6 @@
                     ],
                     "nullable": false,
                     "optional": true
-                },
-                {
-                    "name": "icon_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
                 }
             ],
             "jsonFields": [
@@ -12861,14 +12867,6 @@
                     "optional": false
                 },
                 {
-                    "name": "icon",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
                     "name": "type",
                     "types": [
                         "string"
@@ -12883,6 +12881,22 @@
                     ],
                     "nullable": false,
                     "optional": false
+                },
+                {
+                    "name": "icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
                 },
                 {
                     "name": "icon_name",
@@ -12908,6 +12922,14 @@
                     "optional": false
                 },
                 {
+                    "name": "image_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "image",
                     "types": [
                         "string"
@@ -12919,6 +12941,14 @@
                     "name": "image_name",
                     "types": [
                         "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "preview_file_id",
+                    "types": [
+                        "int"
                     ],
                     "nullable": true,
                     "optional": true
@@ -12974,6 +13004,14 @@
                     "name": "duration_to",
                     "types": [
                         "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_file_id",
+                    "types": [
+                        "int"
                     ],
                     "nullable": true,
                     "optional": true
@@ -13112,62 +13150,6 @@
                     "optional": false
                 },
                 {
-                    "name": "namecard_icon",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "namecard_background",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "namecard_banner",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "card_icon",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "wish_icon",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "ingame_icon",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "icon",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
                     "name": "version",
                     "types": [
                         "string"
@@ -13233,7 +13215,135 @@
                     "optional": true
                 },
                 {
-                    "name": "card_icon_2",
+                    "name": "namecard_icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_icon",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_background_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_background",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_background_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_banner_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_banner",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_banner_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "card_icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "card_icon",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "card_icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "wish_icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "wish_icon",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "wish_icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "ingame_icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "ingame_icon",
                     "types": [
                         "string"
                     ],
@@ -13249,7 +13359,15 @@
                     "optional": true
                 },
                 {
-                    "name": "ingame_icon_2_name",
+                    "name": "icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon",
                     "types": [
                         "string"
                     ],
@@ -13257,7 +13375,55 @@
                     "optional": true
                 },
                 {
+                    "name": "icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "card_icon_2_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "card_icon_2",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "card_icon_2_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "ingame_icon_2_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "ingame_icon_2",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "ingame_icon_2_name",
                     "types": [
                         "string"
                     ],
@@ -13330,62 +13496,6 @@
                 },
                 {
                     "name": "demo_music",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "icon_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "card_icon_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "card_icon_2_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "wish_icon_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "namecard_icon_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "namecard_background_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "namecard_banner_name",
                     "types": [
                         "string"
                     ],
@@ -13945,15 +14055,15 @@
                     "optional": false
                 },
                 {
-                    "name": "icon",
+                    "name": "icon_file_id",
                     "types": [
-                        "string"
+                        "int"
                     ],
-                    "nullable": false,
-                    "optional": false
+                    "nullable": true,
+                    "optional": true
                 },
                 {
-                    "name": "description",
+                    "name": "icon",
                     "types": [
                         "string"
                     ],
@@ -13962,6 +14072,14 @@
                 },
                 {
                     "name": "icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "description",
                     "types": [
                         "string"
                     ],
@@ -14093,15 +14211,15 @@
                     "optional": false
                 },
                 {
-                    "name": "icon",
+                    "name": "icon_file_id",
                     "types": [
-                        "string"
+                        "int"
                     ],
-                    "nullable": false,
-                    "optional": false
+                    "nullable": true,
+                    "optional": true
                 },
                 {
-                    "name": "description",
+                    "name": "icon",
                     "types": [
                         "string"
                     ],
@@ -14110,6 +14228,14 @@
                 },
                 {
                     "name": "icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "description",
                     "types": [
                         "string"
                     ],
@@ -14347,9 +14473,25 @@
                     "optional": true
                 },
                 {
+                    "name": "audio_english_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "audio_english",
                     "types": [
                         "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "audio_japanese_file_id",
+                    "types": [
+                        "int"
                     ],
                     "nullable": true,
                     "optional": true
@@ -14363,9 +14505,25 @@
                     "optional": true
                 },
                 {
+                    "name": "audio_chinese_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "audio_chinese",
                     "types": [
                         "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "audio_korean_file_id",
+                    "types": [
+                        "int"
                     ],
                     "nullable": true,
                     "optional": true
@@ -14409,12 +14567,28 @@
                     "optional": false
                 },
                 {
+                    "name": "icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "icon",
                     "types": [
                         "string"
                     ],
-                    "nullable": false,
-                    "optional": false
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
                 },
                 {
                     "name": "version",
@@ -14434,14 +14608,6 @@
                 },
                 {
                     "name": "interactive_map_link",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "icon_name",
                     "types": [
                         "string"
                     ],
@@ -14636,12 +14802,28 @@
                     "optional": false
                 },
                 {
+                    "name": "icon_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "icon",
                     "types": [
                         "string"
                     ],
-                    "nullable": false,
-                    "optional": false
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
                 },
                 {
                     "name": "living_being_type",
@@ -14676,23 +14858,15 @@
                     "optional": true
                 },
                 {
+                    "name": "art_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "art",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "has_weakpoint",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "icon_name",
                     "types": [
                         "string"
                     ],
@@ -14703,6 +14877,14 @@
                     "name": "art_name",
                     "types": [
                         "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "has_weakpoint",
+                    "types": [
+                        "bool"
                     ],
                     "nullable": true,
                     "optional": true
@@ -14738,9 +14920,33 @@
                     "optional": false
                 },
                 {
+                    "name": "icon_normal_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "icon_normal",
                     "types": [
                         "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_normal_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_delicious_file_id",
+                    "types": [
+                        "int"
                     ],
                     "nullable": true,
                     "optional": true
@@ -14754,7 +14960,31 @@
                     "optional": true
                 },
                 {
+                    "name": "icon_delicious_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_suspicious_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "icon_suspicious",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_suspicious_name",
                     "types": [
                         "string"
                     ],
@@ -14883,30 +15113,6 @@
                 },
                 {
                     "name": "version",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "icon_normal_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "icon_delicious_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "icon_suspicious_name",
                     "types": [
                         "string"
                     ],
@@ -15043,6 +15249,14 @@
                 },
                 {
                     "name": "rarity",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_file_id",
                     "types": [
                         "int"
                     ],
@@ -15565,28 +15779,36 @@
                     "optional": false
                 },
                 {
-                    "name": "icon_name",
+                    "name": "icon_file_id",
                     "types": [
-                        "string"
+                        "int"
                     ],
                     "nullable": true,
-                    "optional": false
+                    "optional": true
                 },
                 {
                     "name": "icon",
                     "types": [
                         "string"
                     ],
-                    "nullable": false,
-                    "optional": false
+                    "nullable": true,
+                    "optional": true
                 },
                 {
-                    "name": "icon_2_name",
+                    "name": "icon_name",
                     "types": [
                         "string"
                     ],
                     "nullable": true,
-                    "optional": false
+                    "optional": true
+                },
+                {
+                    "name": "icon_2_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
                 },
                 {
                     "name": "icon_2",
@@ -15594,7 +15816,23 @@
                         "string"
                     ],
                     "nullable": true,
-                    "optional": false
+                    "optional": true
+                },
+                {
+                    "name": "icon_2_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "icon_ascension_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
                 },
                 {
                     "name": "icon_ascension",
@@ -15602,7 +15840,15 @@
                         "string"
                     ],
                     "nullable": true,
-                    "optional": false
+                    "optional": true
+                },
+                {
+                    "name": "icon_ascension_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
                 },
                 {
                     "name": "primary_stat",
@@ -15654,14 +15900,6 @@
                 },
                 {
                     "name": "description",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "icon_ascension_name",
                     "types": [
                         "string"
                     ],
@@ -19389,6 +19627,16 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "fileId",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The catalogue row the file was filed as, or null if it could not be."
                 }
             ]
         },
@@ -20841,6 +21089,16 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "fileId",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The catalogue row the file was filed as, or null if it could not be."
                 }
             ]
         },
@@ -21849,12 +22107,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "how_to_obtain_quality_1",
                     "sqlType": "JSONB",
                     "nullable": true,
@@ -21969,8 +22221,20 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -21990,12 +22254,6 @@
                 {
                     "name": "artifact_id",
                     "sqlType": "INT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(100)",
                     "nullable": false,
                     "enum": null
                 },
@@ -22042,8 +22300,20 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -22152,26 +22422,38 @@
                     "enum": null
                 },
                 {
+                    "name": "image_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "image",
-                    "sqlType": "VARCHAR(200)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "image_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "preview_file_id",
+                    "sqlType": "INTEGER",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "preview",
-                    "sqlType": "VARCHAR(200)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "preview_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -22243,14 +22525,20 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon",
-                    "sqlType": "VARCHAR(200)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -22506,72 +22794,6 @@
                     "enum": null
                 },
                 {
-                    "name": "namecard_icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "namecard_background",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "namecard_banner",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "card_icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "card_icon_2",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "wish_icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "ingame_icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "ingame_icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "ingame_icon_2_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "ingame_icon_2",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "release_date",
                     "sqlType": "DATE",
                     "nullable": true,
@@ -22650,44 +22872,164 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "card_icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "card_icon",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "card_icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "card_icon_2_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "card_icon_2",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "card_icon_2_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "wish_icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "wish_icon",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "wish_icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ingame_icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ingame_icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ingame_icon_name",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ingame_icon_2_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ingame_icon_2",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ingame_icon_2_name",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_icon",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "namecard_icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_background_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_background",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "namecard_background_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_banner_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_banner",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "namecard_banner_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -23514,12 +23856,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "name",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
@@ -23568,8 +23904,20 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -23727,12 +24075,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "name",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
@@ -23781,8 +24123,20 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -24005,30 +24359,6 @@
                     "enum": null
                 },
                 {
-                    "name": "audio_english",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "audio_japanese",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "audio_chinese",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "audio_korean",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "deleted",
                     "sqlType": "BOOLEAN",
                     "nullable": false,
@@ -24055,6 +24385,54 @@
                 {
                     "name": "updated_by",
                     "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "audio_english_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "audio_english",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "audio_japanese_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "audio_japanese",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "audio_chinese_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "audio_chinese",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "audio_korean_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "audio_korean",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -24099,12 +24477,6 @@
                 },
                 {
                     "name": "name",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "icon",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
                     "enum": null
@@ -24158,8 +24530,20 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -24371,18 +24755,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "art",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "has_weakpoint",
                     "sqlType": "BOOLEAN",
                     "nullable": true,
@@ -24437,14 +24809,38 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "art_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "art",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "art_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -24820,24 +25216,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_normal",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon_delicious",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon_suspicious",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "rarity",
                     "sqlType": "SMALLINT",
                     "nullable": true,
@@ -24934,20 +25312,56 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_normal_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_normal",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_normal_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_delicious_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_delicious",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "icon_delicious_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_suspicious_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_suspicious",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "icon_suspicious_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -25167,14 +25581,20 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon",
-                    "sqlType": "VARCHAR(200)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 },
                 {
                     "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }
@@ -26313,36 +26733,6 @@
                     "enum": null
                 },
                 {
-                    "name": "icon_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "icon_2_name",
-                    "sqlType": "VARCHAR(150)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon_2",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "icon_ascension",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "how_to_obtain",
                     "sqlType": "JSONB",
                     "nullable": true,
@@ -26415,8 +26805,56 @@
                     "enum": null
                 },
                 {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_2_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_2",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_2_name",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_ascension_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_ascension",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
                     "name": "icon_ascension_name",
-                    "sqlType": "VARCHAR(150)",
+                    "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
                 }

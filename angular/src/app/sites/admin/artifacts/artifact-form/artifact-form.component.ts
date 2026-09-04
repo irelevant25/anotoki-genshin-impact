@@ -96,9 +96,10 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
         field: 'icon',
         picked: artifact.pending,
         name: toAssetBaseName(artifact.data.name),
-        apply: (path, name) => {
+        apply: (path, name, fileId) => {
           artifact.data.icon = path;
           artifact.data.icon_name = name;
+          artifact.data.icon_file_id = fileId;
         },
       });
     }
@@ -110,9 +111,10 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
           field: 'icon',
           picked: piece.pending,
           name: toAssetBaseName(piece.data.name),
-          apply: (path, name) => {
+          apply: (path, name, fileId) => {
             piece.data.icon = path;
             piece.data.icon_name = name;
+            piece.data.icon_file_id = fileId;
           },
         });
       }

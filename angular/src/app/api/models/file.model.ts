@@ -221,6 +221,8 @@ export interface EntityUploadResult {
   /** The base name it was stored under: no folder, no extension. */
   name: string;
   path: string;
+  /** The catalogue row the file was filed as, or null if it could not be. */
+  fileId: number | null;
 }
 
 /**
@@ -244,6 +246,8 @@ export interface RecordUploadResult {
   /** The column the base name went into, or null where there is none. */
   nameColumn: string | null;
   path: string;
+  /** The catalogue row the file was filed as, or null if it could not be. */
+  fileId: number | null;
 }
 
 /**

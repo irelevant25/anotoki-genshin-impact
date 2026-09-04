@@ -4,9 +4,9 @@ class Food extends DbModel
 {
     public function __construct(
         public readonly string $name,
-        public readonly ?string $icon_normal = null,
-        public readonly ?string $icon_delicious = null,
-        public readonly ?string $icon_suspicious = null,
+        public readonly ?int $icon_normal_file_id = null,
+        public readonly ?int $icon_delicious_file_id = null,
+        public readonly ?int $icon_suspicious_file_id = null,
         public readonly ?int $rarity = null,
         public readonly ?int $proficiency = null,
         public readonly ?string $description_normal = null,
@@ -23,9 +23,6 @@ class Food extends DbModel
         public readonly ?array $how_to_obtain = null,
         public readonly ?array $effects = null,
         public readonly ?string $version = null,
-        public readonly ?string $icon_normal_name = null,
-        public readonly ?string $icon_delicious_name = null,
-        public readonly ?string $icon_suspicious_name = null,
     ) {
     }
 

@@ -6,11 +6,9 @@ class Weapon extends DbModel
         public readonly string $name,
         public readonly string $type,
         public readonly int $rarity,
-        public readonly ?string $icon_name,
-        public readonly string $icon,
-        public readonly ?string $icon_2_name,
-        public readonly ?string $icon_2,
-        public readonly ?string $icon_ascension,
+        public readonly ?int $icon_file_id = null,
+        public readonly ?int $icon_2_file_id = null,
+        public readonly ?int $icon_ascension_file_id = null,
         public readonly ?string $primary_stat = null,
         public readonly ?string $secondary_stat = null,
         public readonly ?array $how_to_obtain = null,
@@ -18,7 +16,6 @@ class Weapon extends DbModel
         public readonly ?string $release_date = null,
         public readonly ?string $version = null,
         public readonly ?string $description = null,
-        public readonly ?string $icon_ascension_name = null,
     ) {
     }
 

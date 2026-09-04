@@ -173,7 +173,7 @@ $app->get('/api/quiz/stats', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
 
     $statement = genshinDb()->prepare(
-        'SELECT q.name AS quiz, c.name AS character_name, c.id AS character_id, c.icon_name,
+        'SELECT q.name AS quiz, c.name AS character_name, c.id AS character_id, c.icon_file_id,
                 s.wins, s.losses, s.attempts
            FROM quiz_stats_history s
            JOIN quizzes q ON q.id = s.quiz_id
@@ -183,7 +183,10 @@ $app->get('/api/quiz/stats', function (Request $request, Response $response) {
     );
     $statement->execute([$user['id']]);
 
-    return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
+    $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+    resolveAssetRows(genshinDb(), 'characters', $rows);
+
+    return respondJson($response, $rows);
 })->add(responds(QuizStatsRow::class, list: true))->add(requireAuth());
 
 // ── The reads behind the profile page ────────────────────────────────────────
@@ -252,7 +255,7 @@ $app->get('/api/quiz/results', function (Request $request, Response $response) {
 
     $statement = genshinDb()->prepare(
         'SELECT h.id, q.name AS quiz, c.id AS character_id, c.name AS character_name,
-                c.icon_name, h.win, h.attempts, h.difficulty, h.created_at
+                c.icon_file_id, h.win, h.attempts, h.difficulty, h.created_at
            FROM user_quiz_history h
            JOIN quizzes q ON q.id = h.quiz_id
            JOIN characters c ON c.id = h.character_id
@@ -262,5 +265,8 @@ $app->get('/api/quiz/results', function (Request $request, Response $response) {
     );
     $statement->execute([$user['id']]);
 
-    return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
+    $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+    resolveAssetRows(genshinDb(), 'characters', $rows);
+
+    return respondJson($response, $rows);
 })->add(responds(QuizRecentResult::class, list: true))->add(requireAuth());

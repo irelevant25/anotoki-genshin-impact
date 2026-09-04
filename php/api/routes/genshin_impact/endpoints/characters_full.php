@@ -122,6 +122,8 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
     // Apply uploaded files (icon naming + audio naming)
     _applyUploads($body, $request->getUploadedFiles());
 
+    resolveAssetBody($pdo, 'characters', $body['character'], $user['id']);
+
     $pdo->beginTransaction();
     try {
         // 1. Character
@@ -132,16 +134,20 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
 
         // 2. Voice overs
         foreach ($body['voice_overs'] ?? [] as $vo) {
+            $vo = [...$vo, 'character_id' => $charId];
+            resolveAssetBody($pdo, 'characters_voice_overs', $vo, $user['id']);
             DbQuery::insert($pdo, 'characters_voice_overs', [
-                ...CharacterVoiceOver::fromBody([...$vo, 'character_id' => $charId])->toDbArray(),
+                ...CharacterVoiceOver::fromBody($vo)->toDbArray(),
                 'created_by' => $user['id'],
             ]);
         }
 
         // 3. Constellations
         foreach ($body['constellations'] ?? [] as $c) {
+            $c = [...$c, 'character_id' => $charId];
+            resolveAssetBody($pdo, 'characters_constellations', $c, $user['id']);
             DbQuery::insert($pdo, 'characters_constellations', [
-                ...CharacterConstellation::fromBody([...$c, 'character_id' => $charId])->toDbArray(),
+                ...CharacterConstellation::fromBody($c)->toDbArray(),
                 'created_by' => $user['id'],
             ]);
         }
@@ -162,8 +168,10 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
 
         // 5. Talents
         foreach ($body['talents'] ?? [] as $t) {
+            $t = [...$t, 'character_id' => $charId];
+            resolveAssetBody($pdo, 'characters_talents', $t, $user['id']);
             DbQuery::insert($pdo, 'characters_talents', [
-                ...CharacterTalent::fromBody([...$t, 'character_id' => $charId])->toDbArray(),
+                ...CharacterTalent::fromBody($t)->toDbArray(),
                 'created_by' => $user['id'],
             ]);
         }
@@ -219,6 +227,10 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     // Apply uploaded files
     _applyUploads($body, $request->getUploadedFiles());
 
+    if (!empty($body['character'])) {
+        resolveAssetBody($pdo, 'characters', $body['character'], $user['id']);
+    }
+
     $pdo->beginTransaction();
     try {
         // 1. Update character base data
@@ -234,8 +246,10 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
             $pdo->prepare("UPDATE $table SET deleted = TRUE WHERE $fkCol = ? AND deleted = FALSE")
                 ->execute([$id]);
             foreach ($items as $item) {
+                $item = [...$item, $fkCol => $id];
+                resolveAssetBody($pdo, $table, $item, $user['id']);
                 DbQuery::insert($pdo, $table, [
-                    ...$modelClass::fromBody([...$item, $fkCol => $id])->toDbArray(),
+                    ...$modelClass::fromBody($item)->toDbArray(),
                     'created_by' => $user['id'],
                 ]);
             }
@@ -282,8 +296,10 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
             $pdo->prepare('UPDATE characters_talents SET deleted = TRUE WHERE character_id = ? AND deleted = FALSE')
                 ->execute([$id]);
             foreach ($body['talents'] as $t) {
+                $t = [...$t, 'character_id' => $id];
+                resolveAssetBody($pdo, 'characters_talents', $t, $user['id']);
                 DbQuery::insert($pdo, 'characters_talents', [
-                    ...CharacterTalent::fromBody([...$t, 'character_id' => $id])->toDbArray(),
+                    ...CharacterTalent::fromBody($t)->toDbArray(),
                     'created_by' => $user['id'],
                 ]);
             }
@@ -346,7 +362,11 @@ $app->get('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
         $ph = implode(',', array_fill(0, count($ids), '?'));
         $stmt = $pdo->prepare("SELECT * FROM $table WHERE $fkCol IN ($ph) AND deleted = FALSE ORDER BY id ASC");
         $stmt->execute($ids);
-        return $stmt->fetchAll();
+        $rows = $stmt->fetchAll();
+        // Raw SQL, so DbQuery's own resolve step never runs on it - a no-op
+        // for talent_cost, ascension_cost and the rest with nothing configured.
+        resolveAssetRows($pdo, $table, $rows);
+        return $rows;
     };
 
     $voice_overs = $fetch('characters_voice_overs', 'character_id', [$id]);

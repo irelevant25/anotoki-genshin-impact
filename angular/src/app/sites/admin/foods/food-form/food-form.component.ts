@@ -124,9 +124,10 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
       field: `icon_${quality}`,
       picked: food.pending[`icon_${quality}`]!,
       name: foodImageName(food.data.name, quality),
-      apply: (path: string, name: string) => {
+      apply: (path: string, name: string, fileId: number | null) => {
         food.data[`icon_${quality}`] = path;
         food.data[`icon_${quality}_name`] = name;
+        food.data[`icon_${quality}_file_id`] = fileId;
       },
     }));
   }

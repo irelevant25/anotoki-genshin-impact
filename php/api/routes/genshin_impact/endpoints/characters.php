@@ -56,8 +56,10 @@ $app->post('/api/characters', function (Request $request, Response $response) us
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
 
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'characters', $body, $user['id']);
     $id = DbQuery::insert($pdo, 'characters', [
-        ...Character::fromBody($request->getParsedBody())->toDbArray(),
+        ...Character::fromBody($body)->toDbArray(),
         'created_by' => $user['id'],
     ]);
 
@@ -77,8 +79,10 @@ $app->put('/api/characters/{id:[0-9]+}', function (Request $request, Response $r
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'characters', $body, $user['id']);
     DbQuery::update($pdo, 'characters', [
-        ...Character::partialToDbArray($request->getParsedBody()),
+        ...Character::partialToDbArray($body),
         'updated_by' => $user['id'],
     ], $args['id']);
 

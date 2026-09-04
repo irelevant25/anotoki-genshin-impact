@@ -45,7 +45,7 @@ export class DropsTabComponent {
     return parts.join(' · ');
   }
 
-  private readonly _artifactIcons = computed(() => new Map(this.artifacts().map((artifact) => [artifact.id, artifact.icon])));
+  private readonly _artifactIcons = computed(() => new Map(this.artifacts().map((artifact) => [artifact.id, artifact.icon ?? undefined])));
 
   // ── Groups ──────────────────────────────────────────────────────────────────
 

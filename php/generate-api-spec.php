@@ -270,7 +270,10 @@ function fullResourceResponds(string $method, string $pattern): ?array
 
     $one = str_contains($pattern, '{id}');
 
-    // A create or an update re-reads the parent alone before replying.
+    // A create or an update re-reads the parent alone before replying, as
+    // whatever registerFullResource() was told that comes back as - the table
+    // by default, or a resource's own Row shape where a plain table
+    // introspection would miss a column this file resolves on the way out.
     if ($method === 'POST' || $method === 'PUT') {
         return ['shape' => $declared['table'], 'list' => false];
     }
@@ -347,6 +350,14 @@ foreach (array_diff(get_declared_classes(), $modelsBefore) as $class) {
             // is optional in an update body, which is sent partial.
             'optional' => $param->isDefaultValueAvailable(),
         ];
+
+        // `icon_file_id` is the column, but a reader is sent `icon` and
+        // `icon_name` beside it and a form sends the whole row back, so the
+        // model's shape carries all three. Only the id is ever written -
+        // validateBody() lets the other two through and fromBody() drops them.
+        foreach (assetAliasesFor($param->getName()) as $alias) {
+            $fields[] = ['name' => $alias, 'types' => ['string'], 'nullable' => true, 'optional' => true];
+        }
     }
 
     // jsonFields() is protected - it says which columns are JSON-encoded on the
@@ -506,7 +517,46 @@ function parseMigrations(string $directory, string $database): array
         applyAlters($sql, $tables);
     }
 
+    addResolvedAssetColumns($tables);
+
     return $tables;
+}
+
+/**
+ * Puts the asset columns back that the database no longer has.
+ *
+ * `characters.icon` and `characters.icon_name` are one `icon_file_id` in the
+ * schema now, but a reader is still sent all three: resolveAssetRows() fills
+ * the path and the name in from the catalogue on the way out, and the site
+ * still resolves most of its art from that name. Replaying the migrations
+ * cannot see any of that, so it is added here - against the same manifest the
+ * runtime resolves against, so a column can never appear in one and not the
+ * other.
+ *
+ * Read-only, and only on the way out: a write carries the id, which is the one
+ * of the three that is a real column.
+ */
+function addResolvedAssetColumns(array &$tables): void
+{
+    foreach (assetColumnMap() as $table => $columns) {
+        if (!isset($tables[$table])) {
+            continue;
+        }
+
+        foreach ($columns as $field => $spec) {
+            $resolved = [['name' => $field, 'sqlType' => 'TEXT', 'nullable' => true, 'enum' => null]];
+            if ($spec['name']) {
+                $resolved[] = ['name' => $field . '_name', 'sqlType' => 'TEXT', 'nullable' => true, 'enum' => null];
+            }
+
+            $at = columnIndex($tables[$table]['columns'], $field . '_file_id');
+            if ($at === null) {
+                continue;
+            }
+
+            array_splice($tables[$table]['columns'], $at + 1, 0, $resolved);
+        }
+    }
 }
 
 /**

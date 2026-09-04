@@ -11,8 +11,7 @@ class Material extends DbModel
         public readonly ?array $how_to_obtain = null,
         public readonly ?string $version = null,
         public readonly ?int $rarity = null,
-        public readonly ?string $icon = null,
-        public readonly ?string $icon_name = null,
+        public readonly ?int $icon_file_id = null,
     ) {
     }
 

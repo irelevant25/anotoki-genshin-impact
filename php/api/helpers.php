@@ -38,6 +38,14 @@ function validateBody(string $class, array $body, bool $partial = false): array
     $params = (new ReflectionClass($class))->getConstructor()->getParameters();
 
     $knownKeys = array_map(fn($p) => $p->getName(), $params);
+
+    // A row goes out with `icon` and `icon_name` beside `icon_file_id`, and a
+    // form sends back what it was given. They are not fields on the model and
+    // nothing writes them, but they are not unknown either.
+    foreach (array_values($knownKeys) as $key) {
+        array_push($knownKeys, ...assetAliasesFor($key));
+    }
+
     foreach (array_keys($body) as $key) {
         if (!in_array($key, $knownKeys, true)) {
             $errors[$key] = 'unknown field';

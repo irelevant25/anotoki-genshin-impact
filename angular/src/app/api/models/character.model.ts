@@ -27,17 +27,6 @@ export interface Character {
   namecard_description: string;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
   namecard_sources: string | null;
-  namecard_icon: string;
-  namecard_background: string;
-  namecard_banner: string;
-  card_icon: string;
-  card_icon_2: string | null;
-  wish_icon: string;
-  ingame_icon_name: string | null;
-  ingame_icon: string;
-  ingame_icon_2_name: string | null;
-  ingame_icon_2: string | null;
-  icon: string;
   release_date: string | null;
   version: string;
   introduced: string | null;
@@ -51,12 +40,32 @@ export interface Character {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
+  icon: string | null;
   icon_name: string | null;
+  card_icon_file_id: number | null;
+  card_icon: string | null;
   card_icon_name: string | null;
+  card_icon_2_file_id: number | null;
+  card_icon_2: string | null;
   card_icon_2_name: string | null;
+  wish_icon_file_id: number | null;
+  wish_icon: string | null;
   wish_icon_name: string | null;
+  ingame_icon_file_id: number | null;
+  ingame_icon: string | null;
+  ingame_icon_name: string | null;
+  ingame_icon_2_file_id: number | null;
+  ingame_icon_2: string | null;
+  ingame_icon_2_name: string | null;
+  namecard_icon_file_id: number | null;
+  namecard_icon: string | null;
   namecard_icon_name: string | null;
+  namecard_background_file_id: number | null;
+  namecard_background: string | null;
   namecard_background_name: string | null;
+  namecard_banner_file_id: number | null;
+  namecard_banner: string | null;
   namecard_banner_name: string | null;
 }
 
@@ -253,7 +262,6 @@ export interface CharacterBuildWeapon {
 export interface CharacterConstellation {
   id: number;
   character_id: number;
-  icon: string;
   name: string;
   level: number;
   description: string | null;
@@ -262,6 +270,8 @@ export interface CharacterConstellation {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
+  icon: string | null;
   icon_name: string | null;
 }
 
@@ -303,7 +313,6 @@ export interface CharacterTalent {
   id: number;
   order: number;
   character_id: number;
-  icon: string;
   name: string;
   type: string;
   description: string | null;
@@ -312,6 +321,8 @@ export interface CharacterTalent {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
+  icon: string | null;
   icon_name: string | null;
 }
 
@@ -359,15 +370,19 @@ export interface CharacterVoiceOver {
   text_japanese_reading: string | null;
   text_chinese_reading: string | null;
   text_korean_reading: string | null;
-  audio_english: string | null;
-  audio_japanese: string | null;
-  audio_chinese: string | null;
-  audio_korean: string | null;
   deleted: boolean;
   created_at: string | null;
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  audio_english_file_id: number | null;
+  audio_english: string | null;
+  audio_japanese_file_id: number | null;
+  audio_japanese: string | null;
+  audio_chinese_file_id: number | null;
+  audio_chinese: string | null;
+  audio_korean_file_id: number | null;
+  audio_korean: string | null;
 }
 
 /**
@@ -384,13 +399,6 @@ export interface CharacterPayload {
   rarity: number;
   model: string;
   namecard_description: string;
-  namecard_icon: string;
-  namecard_background: string;
-  namecard_banner: string;
-  card_icon: string;
-  wish_icon: string;
-  ingame_icon: string;
-  icon: string;
   version: string;
   voice_actor_english: string;
   voice_actor_japanese: string;
@@ -401,10 +409,33 @@ export interface CharacterPayload {
   how_to_obtain?: string[] | string | null;
   /** JSON: send the value; it reads back as a JSON string. See parseJsonColumn. */
   affiliations?: string[] | string | null;
-  card_icon_2?: string | null;
+  namecard_icon_file_id?: number | null;
+  namecard_icon?: string | null;
+  namecard_icon_name?: string | null;
+  namecard_background_file_id?: number | null;
+  namecard_background?: string | null;
+  namecard_background_name?: string | null;
+  namecard_banner_file_id?: number | null;
+  namecard_banner?: string | null;
+  namecard_banner_name?: string | null;
+  card_icon_file_id?: number | null;
+  card_icon?: string | null;
+  card_icon_name?: string | null;
+  wish_icon_file_id?: number | null;
+  wish_icon?: string | null;
+  wish_icon_name?: string | null;
+  ingame_icon_file_id?: number | null;
+  ingame_icon?: string | null;
   ingame_icon_name?: string | null;
-  ingame_icon_2_name?: string | null;
+  icon_file_id?: number | null;
+  icon?: string | null;
+  icon_name?: string | null;
+  card_icon_2_file_id?: number | null;
+  card_icon_2?: string | null;
+  card_icon_2_name?: string | null;
+  ingame_icon_2_file_id?: number | null;
   ingame_icon_2?: string | null;
+  ingame_icon_2_name?: string | null;
   title?: string | null;
   secondary_title?: string | null;
   region?: string | null;
@@ -415,13 +446,6 @@ export interface CharacterPayload {
   release_date?: string | null;
   introduced?: string | null;
   demo_music?: string | null;
-  icon_name?: string | null;
-  card_icon_name?: string | null;
-  card_icon_2_name?: string | null;
-  wish_icon_name?: string | null;
-  namecard_icon_name?: string | null;
-  namecard_background_name?: string | null;
-  namecard_banner_name?: string | null;
 }
 
 /**
@@ -600,9 +624,10 @@ export interface CharacterConstellationPayload {
   character_id: number;
   name: string;
   level: number;
-  icon: string;
-  description?: string | null;
+  icon_file_id?: number | null;
+  icon?: string | null;
   icon_name?: string | null;
+  description?: string | null;
 }
 
 /**
@@ -644,9 +669,10 @@ export interface CharacterTalentPayload {
   order: number;
   name: string;
   type: string;
-  icon: string;
-  description?: string | null;
+  icon_file_id?: number | null;
+  icon?: string | null;
   icon_name?: string | null;
+  description?: string | null;
 }
 
 /**
@@ -694,9 +720,13 @@ export interface CharacterVoiceOverPayload {
   text_japanese_reading?: string | null;
   text_chinese_reading?: string | null;
   text_korean_reading?: string | null;
+  audio_english_file_id?: number | null;
   audio_english?: string | null;
+  audio_japanese_file_id?: number | null;
   audio_japanese?: string | null;
+  audio_chinese_file_id?: number | null;
   audio_chinese?: string | null;
+  audio_korean_file_id?: number | null;
   audio_korean?: string | null;
 }
 

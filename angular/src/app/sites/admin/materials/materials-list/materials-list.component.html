@@ -56,7 +56,7 @@
                     <tr>
                         <td class="col-id">{{ material.id }}</td>
                         <td class="col-icon">
-                            <img [appMaterialIcon]="material.name" [alt]="material.name" class="row-icon" />
+                            <img [appMaterialIcon]="material.icon_name ?? material.name" [alt]="material.name" class="row-icon" />
                         </td>
                         <td>{{ material.name }}</td>
                         <td>{{ material.type ?? '—' }}</td>

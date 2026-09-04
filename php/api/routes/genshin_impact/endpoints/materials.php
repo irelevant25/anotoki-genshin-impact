@@ -37,8 +37,10 @@ $app->get('/api/materials/{id:[0-9]+}', function (Request $request, Response $re
 $app->post('/api/materials', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'materials', $body, $user['id']);
     $id = DbQuery::insert($pdo, 'materials', [
-        ...Material::fromBody($request->getParsedBody())->toDbArray(),
+        ...Material::fromBody($body)->toDbArray(),
         'created_by' => $user['id'],
     ]);
     $result = DbQuery::from($pdo, 'materials')
@@ -54,8 +56,10 @@ $app->put('/api/materials/{id:[0-9]+}', function (Request $request, Response $re
     if (!DbQuery::from($pdo, 'materials')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'materials', $body, $user['id']);
     DbQuery::update($pdo, 'materials', [
-        ...Material::partialToDbArray($request->getParsedBody()),
+        ...Material::partialToDbArray($body),
         'updated_by' => $user['id'],
     ], $args['id']);
     $result = DbQuery::from($pdo, 'materials')

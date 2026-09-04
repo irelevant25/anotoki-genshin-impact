@@ -150,6 +150,10 @@ function _fullFetchChildren(PDO $pdo, array $specs, int $parentId): array
         $stmt = $pdo->prepare("SELECT * FROM {$spec['table']} WHERE {$spec['fk']} = ? AND deleted = FALSE ORDER BY id ASC");
         $stmt->execute([$parentId]);
         $rows = $stmt->fetchAll();
+        // A raw SELECT * never goes through DbQuery, so it never runs into the
+        // resolve step DbQuery bakes in - done here instead, a no-op for any
+        // table asset_columns.php has nothing configured for.
+        resolveAssetRows($pdo, $spec['table'], $rows);
 
         if (!empty($spec['children'])) {
             foreach ($rows as &$row) {
@@ -172,9 +176,15 @@ function _fullInsertChildren(PDO $pdo, array $specs, array $body, int $parentId,
             if (!is_array($item)) {
                 continue;
             }
+            $item = [...$item, $spec['fk'] => $parentId];
+            // A path string arriving in the body (an enemy phase's icon, an
+            // artifact piece's) becomes the id the model's own field expects -
+            // a no-op wherever this child's table has nothing configured.
+            resolveAssetBody($pdo, $spec['table'], $item, $userId);
+
             $model = $spec['model'];
             $childId = (int) DbQuery::insert($pdo, $spec['table'], [
-                ...$model::fromBody([...$item, $spec['fk'] => $parentId])->toDbArray(),
+                ...$model::fromBody($item)->toDbArray(),
                 'created_by' => $userId,
             ]);
             if (!empty($spec['children'])) {
@@ -287,6 +297,8 @@ function registerFullResource($app, string $path, string $table, string $modelCl
         }
         fullResourceApplyUploads($body, $request->getUploadedFiles(), $bodyKey, $uploads);
 
+        resolveAssetBody($pdo, $table, $body[$bodyKey], $user['id']);
+
         $pdo->beginTransaction();
         try {
             $id = (int) DbQuery::insert($pdo, $table, [
@@ -317,6 +329,7 @@ function registerFullResource($app, string $path, string $table, string $modelCl
         $pdo->beginTransaction();
         try {
             if (!empty($body[$bodyKey])) {
+                resolveAssetBody($pdo, $table, $body[$bodyKey], $user['id']);
                 DbQuery::update($pdo, $table, [
                     ...$modelClass::partialToDbArray($body[$bodyKey]),
                     'updated_by' => $user['id'],

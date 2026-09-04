@@ -302,14 +302,21 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
         return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
     }
 
-    // Store the path and, where the table has one, the chosen name beside it.
+    // Through the same path-parsing every other write uses, rather than
+    // assuming the catalogue name is just $baseName - a voice over's name is
+    // the title *plus* the character, type and language folders above it, and
+    // only the parser that already handles every other path gets that right.
     $user = $request->getAttribute('user');
-    $update = [$field => $path, 'updated_by' => $user['id']];
+    $toResolve = [$field => $path];
+    resolveAssetBody($pdo, $spec['table'], $toResolve, (int) $user['id']);
+    $fileId = $toResolve["{$field}_file_id"] ?? null;
+
+    DbQuery::update($pdo, $spec['table'], [
+        "{$field}_file_id" => $fileId,
+        'updated_by' => $user['id'],
+    ], $id);
+
     $nameColumn = array_key_exists('name_column', $fieldSpec) ? $fieldSpec['name_column'] : $field . '_name';
-    if ($nameColumn !== null) {
-        $update[$nameColumn] = $baseName;
-    }
-    DbQuery::update($pdo, $spec['table'], $update, $id);
 
     return respondJson($response, [
         'entity' => $entity,
@@ -318,6 +325,7 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
         'name' => $baseName,
         'nameColumn' => $nameColumn,
         'path' => $path,
+        'fileId' => $fileId,
     ]);
 })->add(responds(RecordUploadResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
@@ -363,7 +371,21 @@ $app->post('/api/uploads/{entity}/{field}', function (Request $request, Response
         return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
     }
 
-    return respondJson($response, ['entity' => $entity, 'field' => $field, 'name' => $baseName, 'path' => $path]);
+    // Catalogued here rather than when the form finally saves, so the id comes
+    // back with the path and the row that stores it has something to point at.
+    // Saving with the path alone still works - resolveAssetBody() finds this
+    // same row rather than making a second one - but the id is the direct way.
+    $user = $request->getAttribute('user');
+    $toResolve = [$field => $path];
+    resolveAssetBody(genshinDb(), $targets[$entity]['table'], $toResolve, (int) $user['id']);
+
+    return respondJson($response, [
+        'entity' => $entity,
+        'field' => $field,
+        'name' => $baseName,
+        'path' => $path,
+        'fileId' => $toResolve["{$field}_file_id"] ?? null,
+    ]);
 })->add(responds(EntityUploadResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 /**

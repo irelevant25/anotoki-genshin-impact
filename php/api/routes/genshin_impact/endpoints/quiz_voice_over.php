@@ -35,11 +35,11 @@ $app->get('/api/quiz/voice-over/random', function (Request $request, Response $r
                 vo.type,
                 vo.title_english,
                 vo.text_english,
-                vo.audio_english,
+                vo.audio_english_file_id,
                 c.id   AS character_id,
                 c.name AS character_name,
-                c.icon_name,
-                c.wish_icon_name,
+                c.icon_file_id,
+                c.wish_icon_file_id,
                 c.rarity,
                 c.element
            FROM characters_voice_overs vo
@@ -48,15 +48,22 @@ $app->get('/api/quiz/voice-over/random', function (Request $request, Response $r
             AND c.deleted = FALSE
             AND c.is_traveler = FALSE
             AND vo.character_id_2 IS NULL
-            AND vo.audio_english IS NOT NULL AND vo.audio_english <> ''
+            AND vo.audio_english_file_id IS NOT NULL
             AND vo.text_english  IS NOT NULL AND vo.text_english  <> ''
           ORDER BY random()
           LIMIT 1"
     );
 
     $row = $statement->fetch(PDO::FETCH_ASSOC);
+    if (!$row) {
+        return respondJson($response, ['error' => 'No voice over available'], 404);
+    }
 
-    return $row
-        ? respondJson($response, $row)
-        : respondJson($response, ['error' => 'No voice over available'], 404);
+    // Two tables' worth of columns share this one flat row - resolved in turn,
+    // since each call only ever touches the keys it was configured for.
+    $rows = [$row];
+    resolveAssetRows($pdo, 'characters_voice_overs', $rows);
+    resolveAssetRows($pdo, 'characters', $rows);
+
+    return respondJson($response, $rows[0]);
 })->add(responds(QuizVoiceOverRound::class));

@@ -25,10 +25,10 @@ class CharacterVoiceOver extends DbModel
         public readonly ?string $text_japanese_reading = null,
         public readonly ?string $text_chinese_reading = null,
         public readonly ?string $text_korean_reading = null,
-        public readonly ?string $audio_english = null,
-        public readonly ?string $audio_japanese = null,
-        public readonly ?string $audio_chinese = null,
-        public readonly ?string $audio_korean = null,
+        public readonly ?int $audio_english_file_id = null,
+        public readonly ?int $audio_japanese_file_id = null,
+        public readonly ?int $audio_chinese_file_id = null,
+        public readonly ?int $audio_korean_file_id = null,
     ) {
     }
 }

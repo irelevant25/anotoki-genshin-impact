@@ -12,11 +12,6 @@ export interface Weapon {
   name: string;
   type: string;
   rarity: number;
-  icon_name: string | null;
-  icon: string;
-  icon_2_name: string | null;
-  icon_2: string | null;
-  icon_ascension: string | null;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
   how_to_obtain: string | null;
   release_date: string | null;
@@ -31,6 +26,14 @@ export interface Weapon {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
+  icon: string | null;
+  icon_name: string | null;
+  icon_2_file_id: number | null;
+  icon_2: string | null;
+  icon_2_name: string | null;
+  icon_ascension_file_id: number | null;
+  icon_ascension: string | null;
   icon_ascension_name: string | null;
 }
 
@@ -96,11 +99,15 @@ export interface WeaponPayload {
   name: string;
   type: string;
   rarity: number;
+  icon_file_id?: number | null;
+  icon?: string | null;
   icon_name?: string | null;
-  icon: string;
-  icon_2_name?: string | null;
+  icon_2_file_id?: number | null;
   icon_2?: string | null;
+  icon_2_name?: string | null;
+  icon_ascension_file_id?: number | null;
   icon_ascension?: string | null;
+  icon_ascension_name?: string | null;
   primary_stat?: string | null;
   secondary_stat?: string | null;
   /** JSON: send the value; it reads back as a JSON string. See parseJsonColumn. */
@@ -110,7 +117,6 @@ export interface WeaponPayload {
   release_date?: string | null;
   version?: string | null;
   description?: string | null;
-  icon_ascension_name?: string | null;
 }
 
 /**

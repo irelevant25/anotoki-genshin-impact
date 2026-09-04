@@ -19,8 +19,12 @@ export interface PendingImage {
    * renaming the entity first still lands the file under the new name.
    */
   name: string;
-  /** Writes the stored path and name back onto the form's model. */
-  apply: (path: string, name: string) => void;
+  /**
+    * Writes what the upload answered back onto the form's model. The id is what
+    * the row actually stores; the path and name are what the form shows until
+    * it is saved and reloaded.
+    */
+  apply: (path: string, name: string, fileId: number | null) => void;
 }
 
 /**
@@ -153,7 +157,7 @@ export abstract class AdminFormComponent<TFull> {
           .uploadEntityFile(entry.entity, entry.field, toFormData({ file: entry.picked.file, name: entry.name }))
           .pipe(
             switchMap((result) => {
-              entry.apply(result.path, result.name);
+              entry.apply(result.path, result.name, result.fileId);
               return of(result);
             })
           )

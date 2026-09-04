@@ -28,8 +28,10 @@ $app->get('/api/characters-talents/{id:[0-9]+}', function (Request $request, Res
 $app->post('/api/characters-talents', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'characters_talents', $body, $user['id']);
     $id = DbQuery::insert($pdo, 'characters_talents', [
-        ...CharacterTalent::fromBody($request->getParsedBody())->toDbArray(),
+        ...CharacterTalent::fromBody($body)->toDbArray(),
         'created_by' => $user['id'],
     ]);
     $result = DbQuery::from($pdo, 'characters_talents')
@@ -45,8 +47,10 @@ $app->put('/api/characters-talents/{id:[0-9]+}', function (Request $request, Res
     if (!DbQuery::from($pdo, 'characters_talents')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'characters_talents', $body, $user['id']);
     DbQuery::update($pdo, 'characters_talents', [
-        ...CharacterTalent::partialToDbArray($request->getParsedBody()),
+        ...CharacterTalent::partialToDbArray($body),
         'updated_by' => $user['id'],
     ], $args['id']);
     $result = DbQuery::from($pdo, 'characters_talents')

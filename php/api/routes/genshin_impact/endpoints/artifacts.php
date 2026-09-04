@@ -28,8 +28,10 @@ $app->get('/api/artifacts/{id:[0-9]+}', function (Request $request, Response $re
 $app->post('/api/artifacts', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'artifacts', $body, $user['id']);
     $id = DbQuery::insert($pdo, 'artifacts', [
-        ...Artifact::fromBody($request->getParsedBody())->toDbArray(),
+        ...Artifact::fromBody($body)->toDbArray(),
         'created_by' => $user['id'],
     ]);
     $result = DbQuery::from($pdo, 'artifacts')
@@ -45,8 +47,10 @@ $app->put('/api/artifacts/{id:[0-9]+}', function (Request $request, Response $re
     if (!DbQuery::from($pdo, 'artifacts')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'artifacts', $body, $user['id']);
     DbQuery::update($pdo, 'artifacts', [
-        ...Artifact::partialToDbArray($request->getParsedBody()),
+        ...Artifact::partialToDbArray($body),
         'updated_by' => $user['id'],
     ], $args['id']);
     $result = DbQuery::from($pdo, 'artifacts')

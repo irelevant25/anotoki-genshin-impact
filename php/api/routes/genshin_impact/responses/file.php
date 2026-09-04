@@ -112,6 +112,8 @@ class EntityUploadResult extends ResponseShape
         /** The base name it was stored under: no folder, no extension. */
         public readonly string $name,
         public readonly string $path,
+        /** The catalogue row the file was filed as, or null if it could not be. */
+        public readonly ?int $fileId,
     ) {
     }
 }
@@ -130,6 +132,8 @@ class RecordUploadResult extends ResponseShape
         /** The column the base name went into, or null where there is none. */
         public readonly ?string $nameColumn,
         public readonly string $path,
+        /** The catalogue row the file was filed as, or null if it could not be. */
+        public readonly ?int $fileId,
     ) {
     }
 }

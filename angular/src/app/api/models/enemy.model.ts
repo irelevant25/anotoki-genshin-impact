@@ -10,7 +10,6 @@ import type { Saved } from '../types/common.type';
 export interface Enemy {
   id: number;
   name: string;
-  icon: string;
   description: string | null;
   version: string | null;
   interactive_map_link: string | null;
@@ -19,6 +18,8 @@ export interface Enemy {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
+  icon: string | null;
   icon_name: string | null;
 }
 
@@ -69,8 +70,6 @@ export interface EnemyPhase {
   enemy_id: number;
   title: string;
   secondary_title: string | null;
-  icon: string;
-  art: string | null;
   has_weakpoint: boolean | null;
   living_being_type: string | null;
   living_being_family: string | null;
@@ -80,7 +79,11 @@ export interface EnemyPhase {
   created_by: number;
   updated_at: string | null;
   updated_by: number | null;
+  icon_file_id: number | null;
+  icon: string | null;
   icon_name: string | null;
+  art_file_id: number | null;
+  art: string | null;
   art_name: string | null;
 }
 
@@ -93,11 +96,12 @@ export interface EnemyPhase {
  */
 export interface EnemyPayload {
   name: string;
-  icon: string;
+  icon_file_id?: number | null;
+  icon?: string | null;
+  icon_name?: string | null;
   version?: string | null;
   description?: string | null;
   interactive_map_link?: string | null;
-  icon_name?: string | null;
 }
 
 /**
@@ -145,15 +149,17 @@ export interface EnemyDropPayload {
 export interface EnemyPhasePayload {
   enemy_id: number;
   title: string;
-  icon: string;
+  icon_file_id?: number | null;
+  icon?: string | null;
+  icon_name?: string | null;
   living_being_type?: string | null;
   living_being_family?: string | null;
   living_being_group?: string | null;
   secondary_title?: string | null;
+  art_file_id?: number | null;
   art?: string | null;
-  has_weakpoint?: boolean | null;
-  icon_name?: string | null;
   art_name?: string | null;
+  has_weakpoint?: boolean | null;
 }
 
 /**

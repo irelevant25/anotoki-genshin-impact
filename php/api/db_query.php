@@ -188,7 +188,9 @@ class DbQuery
         $stmt = $this->pdo->prepare($this->buildSql($condition, $this->orderCols));
         $stmt->execute($params);
         $rows = array_map(fn($row) => $this->applyColFilters($this->nest($row)), $stmt->fetchAll());
-        return $this->resolveExternalIncludes($rows);
+        $rows = $this->resolveExternalIncludes($rows);
+        resolveAssetRows($this->pdo, $this->table, $rows);
+        return $rows;
     }
 
     public function fetch(string $condition, array $params): ?array
@@ -198,6 +200,7 @@ class DbQuery
         $row = $stmt->fetch();
         if (!$row) return null;
         $rows = $this->resolveExternalIncludes([$this->applyColFilters($this->nest($row))]);
+        resolveAssetRows($this->pdo, $this->table, $rows);
         return $rows[0];
     }
 

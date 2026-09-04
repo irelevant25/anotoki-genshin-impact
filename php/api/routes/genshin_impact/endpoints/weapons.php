@@ -28,8 +28,10 @@ $app->get('/api/weapons/{id:[0-9]+}', function (Request $request, Response $resp
 $app->post('/api/weapons', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'weapons', $body, $user['id']);
     $id = DbQuery::insert($pdo, 'weapons', [
-        ...Weapon::fromBody($request->getParsedBody())->toDbArray(),
+        ...Weapon::fromBody($body)->toDbArray(),
         'created_by' => $user['id'],
     ]);
     $result = DbQuery::from($pdo, 'weapons')
@@ -45,8 +47,10 @@ $app->put('/api/weapons/{id:[0-9]+}', function (Request $request, Response $resp
     if (!DbQuery::from($pdo, 'weapons')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
+    $body = $request->getParsedBody() ?? [];
+    resolveAssetBody($pdo, 'weapons', $body, $user['id']);
     DbQuery::update($pdo, 'weapons', [
-        ...Weapon::partialToDbArray($request->getParsedBody()),
+        ...Weapon::partialToDbArray($body),
         'updated_by' => $user['id'],
     ], $args['id']);
     $result = DbQuery::from($pdo, 'weapons')
