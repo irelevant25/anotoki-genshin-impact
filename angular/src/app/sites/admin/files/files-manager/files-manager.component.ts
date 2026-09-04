@@ -5,7 +5,7 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { AssetFile, AssetFolder, FileApiService, toFormData, TrashedFile } from '../../../../api';
+import { AssetFile, AssetFolder, FileApiService, FileCategory, FileCategoryApiService, toFormData, TrashedFile } from '../../../../api';
 import { FilePreviewComponent, isPreviewableFile, PLAYABLE_AUDIO, PREVIEWABLE_IMAGES } from '../file-preview/file-preview.component';
 import { AssetStatsComponent } from '../asset-stats/asset-stats.component';
 
@@ -53,10 +53,46 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   });
 
   private readonly _fileApi = inject(FileApiService);
+  private readonly _categoryApi = inject(FileCategoryApiService);
   private readonly _notify = inject(NotificationService);
+
+  /** The categories a file can be moved into, for the selector on each card. */
+  categories = signal<FileCategory[]>([]);
 
   ngOnInit(): void {
     this.loadFolders();
+    this._categoryApi.getFileCategories().subscribe({
+      next: (categories) => this.categories.set(categories.filter((category) => !category.deleted)),
+      error: () => undefined,
+    });
+  }
+
+  /**
+   * Moves one file into another category, which moves it on disk.
+   *
+   * The listing is reloaded rather than patched: the file is not in this folder
+   * any more, so leaving it on screen would be showing something that is not
+   * there.
+   */
+  moveTo(file: AssetFile, categoryId: string): void {
+    if (!file.file_id || !categoryId) {
+      return;
+    }
+
+    this.busy.set(file.name);
+    this._fileApi.moveFileToCategory(file.file_id, { category_id: Number(categoryId) }).subscribe({
+      next: (result) => {
+        this.busy.set(undefined);
+        this._notify.showSuccess(`Moved to ${result.path}/.`);
+        this.loadFiles();
+        this.loadFolders();
+      },
+      error: (error) => {
+        this.busy.set(undefined);
+        this._notify.showError(error?.error?.error ?? 'That could not be moved.');
+        this.loadFiles();
+      },
+    });
   }
 
   loadFolders(): void {

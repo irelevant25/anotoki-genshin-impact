@@ -219,3 +219,34 @@
   margin-top: auto;
   padding-top: var(--spacing-xs);
 }
+
+// The category a file is filed under, and the way to change it. Changing it
+// moves the file, so it sits with the card rather than in a menu somewhere.
+.file-category {
+  width: 100%;
+  margin-top: var(--spacing-xxs);
+  padding: 2px var(--spacing-xxs);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  font-family: inherit;
+  outline: none;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+// A file the catalogue has not heard of yet. The check on the panel above is
+// what closes that, so this says so rather than offering a move that would fail.
+.file-uncatalogued {
+  margin-top: var(--spacing-xxs);
+  color: var(--color-warning);
+  font-size: var(--font-size-xs);
+}

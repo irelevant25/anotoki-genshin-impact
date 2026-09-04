@@ -127,6 +127,18 @@
                             <span class="file-name" [title]="file.name">{{ file.name }}</span>
                             <span class="file-size">{{ formatSize(file.size) }}</span>
 
+                            <!-- Changing this moves the file: a category's path
+                                 is where its files are, not a label on them. -->
+                            @if (file.file_id) {
+                                <select class="file-category" [title]="'Move to another category'" [disabled]="busy() === file.name" (change)="moveTo(file, $any($event.target).value)">
+                                    @for (category of categories(); track category.id) {
+                                        <option [value]="category.id" [selected]="category.code === file.category">{{ category.label }}</option>
+                                    }
+                                </select>
+                            } @else {
+                                <span class="file-uncatalogued" title="Not in the catalogue yet - use Check for strays above">not catalogued</span>
+                            }
+
                             @if (deleteConfirm() === file.name) {
                                 <div class="file-actions">
                                     <app-button text="Delete" variant="danger" size="very-small" [loading]="busy() === file.name" (buttonClick)="deleteFile(file)"></app-button>

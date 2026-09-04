@@ -176,8 +176,15 @@ $app->get('/api/files', function (Request $request, Response $response) {
     $total = count($items);
     $slice = array_slice($items, ($page - 1) * FILES_PAGE_SIZE, FILES_PAGE_SIZE);
 
-    $files = array_map(function (string $name) use ($dir, $folder) {
+    // The catalogue row for each file on this page, so the listing can offer to
+    // move it. Only for the page being shown - joining the whole folder would
+    // be 76,000 rows for the voice overs.
+    $catalogue = _assetCatalogueFor(genshinDb(), $folder, $slice);
+
+    $files = array_map(function (string $name) use ($dir, $folder, $catalogue) {
         $path = $dir . '/' . $name;
+        $row = $catalogue[$name] ?? null;
+
         return [
             'name' => $name,
             'extension' => strtolower(pathinfo($name, PATHINFO_EXTENSION)),
@@ -185,6 +192,10 @@ $app->get('/api/files', function (Request $request, Response $response) {
             'modified' => date('Y-m-d H:i:s', filemtime($path)),
             // What the site would load it by.
             'url' => 'assets/' . $folder . '/' . $name,
+            // Null where the catalogue has not caught up - the check button on
+            // the panel above is what closes that.
+            'file_id' => $row ? (int) $row['id'] : null,
+            'category' => $row['code'] ?? null,
         ];
     }, $slice);
 
@@ -196,6 +207,39 @@ $app->get('/api/files', function (Request $request, Response $response) {
         'files' => $files,
     ]);
 })->add(responds(AssetFilePage::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+/**
+ * The catalogue rows for named files in one folder, keyed by file name.
+ *
+ * The folder a file is browsed in is not always its category's folder - a voice
+ * over is browsed at `character/voice_overs/Aino/combat/en` and catalogued
+ * under `character/voice_overs` with the rest of that path in its name - so the
+ * lookup is by full relative path rather than by folder and base name.
+ */
+function _assetCatalogueFor(PDO $pdo, string $folder, array $names): array
+{
+    if (!$names) {
+        return [];
+    }
+
+    $paths = array_map(fn(string $name) => $folder . '/' . $name, $names);
+    $placeholders = implode(',', array_fill(0, count($paths), '?'));
+
+    $statement = $pdo->prepare("
+        SELECT f.id, c.code, c.path || '/' || f.name ||
+               CASE WHEN f.extension = '' THEN '' ELSE '.' || f.extension END AS relative
+        FROM files f JOIN file_categories c ON c.id = f.category_id
+        WHERE c.path || '/' || f.name ||
+              CASE WHEN f.extension = '' THEN '' ELSE '.' || f.extension END IN ($placeholders)");
+    $statement->execute($paths);
+
+    $found = [];
+    foreach ($statement as $row) {
+        $found[basename($row['relative'])] = $row;
+    }
+
+    return $found;
+}
 
 // ── Upload: creates a new file, or replaces one of the same name ──────────────
 

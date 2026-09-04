@@ -25,6 +25,10 @@ class AssetFile extends ResponseShape
         public readonly string $modified,
         /** The path the site loads it by, e.g. `assets/materials/Foo.avif`. */
         public readonly string $url,
+        /** Its row in the catalogue, or null while the catalogue has not caught up. */
+        public readonly ?int $file_id,
+        /** The category it is filed under, by code. */
+        public readonly ?string $category,
     ) {
     }
 }

@@ -119,6 +119,10 @@ export interface AssetFile {
   modified: string;
   /** The path the site loads it by, e.g. `assets/materials/Foo.avif`. */
   url: string;
+  /** Its row in the catalogue, or null while the catalogue has not caught up. */
+  file_id: number | null;
+  /** The category it is filed under, by code. */
+  category: string | null;
 }
 
 /**
