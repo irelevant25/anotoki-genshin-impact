@@ -31,7 +31,9 @@
   border-radius: var(--border-radius-large);
   color: inherit;
   text-decoration: none;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 
   // Nothing waiting is the normal state and should not shout.
   &.is-quiet {
@@ -269,7 +271,9 @@
   border-radius: var(--border-radius-large);
   color: inherit;
   text-decoration: none;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 
   &:hover {
     background: var(--bg-hover);
@@ -292,6 +296,70 @@
 }
 
 .content-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+// ── Files on disk ────────────────────────────────────────────────────────────
+//
+// The same card as the attention row above, in its own panel: these are one
+// subject rather than four unrelated figures, and the two that are counts of a
+// job read wrong sitting next to "unread feedback".
+
+.panel-assets {
+  display: block;
+  margin-bottom: var(--spacing-lg);
+}
+
+.asset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.asset-card {
+  flex: 1 1 150px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  color: inherit;
+  text-decoration: none;
+
+  // Only the number that is a job gets a colour. Everything else here is a
+  // fact about the disk, and a wall of amber says nothing.
+  &.is-gap {
+    border-left-color: var(--color-warning);
+
+    .asset-value {
+      color: var(--color-warning);
+    }
+  }
+
+  &:is(a):hover {
+    background: var(--bg-hover);
+  }
+}
+
+.asset-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.asset-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.asset-meta {
   font-size: var(--font-size-xs);
   color: var(--text-muted);
 }

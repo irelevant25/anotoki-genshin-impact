@@ -209,6 +209,32 @@ class DashboardStats extends ResponseShape
         public readonly object $activity,
         /** @var DashboardTranslations */
         public readonly object $translations,
+        /** @var DashboardAssets */
+        public readonly object $assets,
+    ) {
+    }
+}
+
+/**
+ * The asset tree in three numbers and a short list.
+ *
+ * The same survey the Files page draws in full, cut down to what a card holds:
+ * how much there is, and how much of it has no converted twin. Cached for a
+ * day, so `age` is how old the answer is rather than how long it took.
+ */
+class DashboardAssets extends ResponseShape
+{
+    public function __construct(
+        public readonly int $total_files,
+        public readonly int $total_bytes,
+        /** @var AssetFormatCount[] The three biggest by size. */
+        public readonly array $formats,
+        /** @var AssetConversionCount */
+        public readonly object $images,
+        /** @var AssetConversionCount */
+        public readonly object $audio,
+        public readonly string $generated_at,
+        public readonly int $age,
     ) {
     }
 }

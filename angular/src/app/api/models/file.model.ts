@@ -3,6 +3,51 @@
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
 /**
+ * The shape of a `AssetBlockedCount` response.
+ */
+export interface AssetBlockedCount {
+  images: number;
+  audio: number;
+}
+
+/**
+ * One medium's conversion health.
+ *
+ * `missing` is work an encoder can do. `converted_only` is not: a PNG decoded
+ * back out of an AVIF is a bigger copy of the lossy one, not the original, so
+ * those are reported and left alone.
+ */
+export interface AssetConversionCount {
+  /** Groups holding a source this medium can be converted from. */
+  sources: number;
+  missing: number;
+  converted_only: number;
+  /** False when nothing on this box can write the target format. */
+  can_convert: boolean;
+}
+
+/**
+ * How far the conversion has got.
+ *
+ * The work is a queue on disk worked through a batch per request, so this is
+ * both the answer to "convert some more" and to "where are we".
+ */
+export interface AssetConvertProgress {
+  started_at: string;
+  total: number;
+  converted: number;
+  failed: number;
+  /** Already there, or gone, by the time its turn came. */
+  skipped: number;
+  remaining: number;
+  finished: boolean;
+  /** Left out of the queue because this box cannot write that format. */
+  blocked: AssetBlockedCount;
+  /** The first few that would not convert, to see a pattern by. */
+  failures: string[];
+}
+
+/**
  * The shape of a `AssetFile` response.
  */
 export interface AssetFile {
@@ -37,11 +82,35 @@ export interface AssetFolder {
 }
 
 /**
+ * The shape of a `AssetFormatCount` response.
+ */
+export interface AssetFormatCount {
+  /** Lower case, with no dot. `(none)` for a file with no extension. */
+  extension: string;
+  files: number;
+  bytes: number;
+}
+
+/**
  * The shape of a `AssetRestoreResult` response.
  */
 export interface AssetRestoreResult {
   folder: string;
   name: string;
+}
+
+/**
+ * The shape of a `AssetStats` response.
+ */
+export interface AssetStats {
+  generated_at: string;
+  /** Seconds since the survey was walked, so the page can say how stale it is. */
+  age: number;
+  total_files: number;
+  total_bytes: number;
+  formats: AssetFormatCount[];
+  images: AssetConversionCount;
+  audio: AssetConversionCount;
 }
 
 /**

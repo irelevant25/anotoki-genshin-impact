@@ -1,0 +1,281 @@
+.asset-stats {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  background: var(--bg-card);
+}
+
+.stats-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.stats-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.stats-meta {
+  margin: var(--spacing-xxs) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+// Two columns where there is room and one where there is not: the format table
+// and the conversion figures are read for different reasons, and stacking them
+// on a wide screen leaves half of it empty.
+.stats-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+
+.panel-heading {
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.panel-note {
+  margin: 0 0 var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+// ── By format ────────────────────────────────────────────────────────────────
+
+.format-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+
+  th,
+  td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  thead th {
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+  }
+
+  tfoot td {
+    border-bottom: 0;
+    border-top: 2px solid var(--border-color);
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+.col-number {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.format-percent {
+  color: var(--text-secondary);
+}
+
+// The bar sits behind the name rather than in a column of its own: what it is
+// for is reading the table at a glance, not being measured against.
+.format-name {
+  position: relative;
+
+  code {
+    position: relative;
+  }
+}
+
+.format-bar {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  background: var(--color-primary);
+  opacity: 0.14;
+}
+
+// ── Converted formats ────────────────────────────────────────────────────────
+
+.health-row {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--color-warning);
+  border-radius: var(--border-radius);
+
+  &.is-clean {
+    border-left-color: var(--color-success);
+  }
+}
+
+.health-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+}
+
+.health-label {
+  font-weight: var(--font-weight-semibold);
+}
+
+.health-from {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.health-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xs);
+}
+
+.health-figure {
+  display: flex;
+  flex-direction: column;
+
+  &.is-quiet {
+    color: var(--text-muted);
+  }
+}
+
+.figure-value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+// The one number on this panel that is a job rather than a fact.
+.is-gap .figure-value {
+  color: var(--color-warning);
+}
+
+.figure-label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.health-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-sm) 0 0;
+  color: var(--color-warning);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+// ── The fix ──────────────────────────────────────────────────────────────────
+
+.convert {
+  margin-top: var(--spacing-md);
+}
+
+.convert-note {
+  margin: var(--spacing-xs) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.convert-bar {
+  height: 10px;
+  border-radius: var(--border-radius-pill);
+  background: var(--bg-active);
+  overflow: hidden;
+}
+
+.convert-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-primary), var(--genshin-purple));
+  transition: width var(--transition-base);
+
+  // Half a per cent of a bar is two pixels, which is indistinguishable from an
+  // empty trough. There is a job running whenever this is drawn at all, so it
+  // is always worth at least a stub.
+  min-width: 5px;
+}
+
+// Before the first batch answers there is no percentage to draw, so the bar
+// says "something is happening" instead of claiming a number it does not have.
+.convert-fill.is-starting {
+  width: 35%;
+  animation: convert-sweep 1.2s ease-in-out infinite;
+}
+
+@keyframes convert-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(285%);
+  }
+}
+
+.convert-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-xs) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.convert-percent {
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.convert-failed {
+  color: var(--color-danger);
+}
+
+.convert-blocked {
+  margin: var(--spacing-xxs) 0 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.convert-failures {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+
+  summary {
+    cursor: pointer;
+    color: var(--color-danger);
+  }
+
+  ul {
+    margin: var(--spacing-xs) 0 0;
+    padding-left: var(--spacing-lg);
+    max-height: 180px;
+    overflow-y: auto;
+    color: var(--text-secondary);
+  }
+}
+
+.convert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}

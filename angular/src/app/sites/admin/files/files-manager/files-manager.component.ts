@@ -7,12 +7,13 @@ import { NotificationService } from '../../../../shared/local-lib/components/not
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { AssetFile, AssetFolder, FileApiService, toFormData, TrashedFile } from '../../../../api';
 import { FilePreviewComponent, isPreviewableFile, PLAYABLE_AUDIO, PREVIEWABLE_IMAGES } from '../file-preview/file-preview.component';
+import { AssetStatsComponent } from '../asset-stats/asset-stats.component';
 
 @Component({
   selector: 'app-files-manager',
   templateUrl: './files-manager.component.html',
   styleUrls: ['./files-manager.component.scss'],
-  imports: [ButtonComponent, LoaderComponent, TextComponent, FileComponent],
+  imports: [ButtonComponent, LoaderComponent, TextComponent, FileComponent, AssetStatsComponent],
 })
 export class FilesManagerComponent extends AbstractModalComponent implements OnInit {
   folders = signal<AssetFolder[]>([]);
@@ -35,7 +36,9 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
 
   /** 900+ folders, so the sidebar is filtered rather than scrolled. */
   visibleFolders = computed(() => {
-    const needle = String(this.folderFilter() ?? '').trim().toLowerCase();
+    const needle = String(this.folderFilter() ?? '')
+      .trim()
+      .toLowerCase();
     const list = this.folders();
     return needle ? list.filter((entry) => entry.folder.toLowerCase().includes(needle)) : list;
   });

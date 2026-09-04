@@ -321,3 +321,80 @@ $app->post('/api/files/restore', function (Request $request, Response $response)
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $safeFolder, 'name' => $name]);
 })->add(responds(AssetRestoreResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+// ── What is in the tree, and converting what is missing ───────────────────────
+//
+// The survey walks ~65,000 files, so it is cached for a day. ?refresh=1 rebuilds
+// it, for when assets were changed on disk and waiting out the cache is the
+// wrong answer - the same escape hatch the folder listing has.
+
+$app->get('/api/files/stats', function (Request $request, Response $response) {
+    // Both spellings: the generated client sends a boolean as "true",
+    // and a hand-typed URL says 1.
+    $refresh = in_array((string) ($request->getQueryParams()['refresh'] ?? ''), ['1', 'true'], true);
+    $stats = assetStats($refresh);
+
+    return respondJson($response, [
+        'generated_at' => $stats['generated_at'],
+        'age' => assetStatsAge() ?? 0,
+        'total_files' => $stats['total_files'],
+        'total_bytes' => $stats['total_bytes'],
+        'formats' => $stats['formats'],
+        // `pending` is the list of paths behind the counts. It is what the
+        // queue is built from and it runs to thousands of entries, so it stays
+        // in the cache file rather than travelling to a page that shows counts.
+        'images' => $stats['images'] + ['can_convert' => mediaCanWriteAvif()],
+        'audio' => $stats['audio'] + ['can_convert' => mediaCanWriteOpus()],
+    ]);
+})->add(responds(AssetStats::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+/**
+ * Converts a batch of what is missing, and says where the job has got to.
+ *
+ * `restart` builds the work list; without it the next batch is taken off the
+ * list already there. Splitting it this way is what lets a page of seven
+ * thousand files draw a progress bar instead of hanging on one request.
+ */
+$app->post('/api/files/convert', function (Request $request, Response $response) {
+    $body = $request->getParsedBody() ?? [];
+
+    if (!empty($body['restart'])) {
+        assetConvertStart();
+    }
+
+    $limit = (int) ($body['limit'] ?? ASSET_CONVERT_BATCH);
+    $progress = assetConvertStep($limit);
+
+    if ($progress === null) {
+        return respondJson($response, ['error' => 'Nothing is being converted - send restart to begin'], 409);
+    }
+
+    return respondJson($response, _assetProgressBody($progress));
+})->add(responds(AssetConvertProgress::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+/** Where a conversion started elsewhere has got to, without converting more. */
+$app->get('/api/files/convert', function (Request $request, Response $response) {
+    $progress = assetConvertProgress();
+
+    if ($progress === null) {
+        return respondJson($response, ['error' => 'Nothing is being converted'], 404);
+    }
+
+    return respondJson($response, _assetProgressBody($progress));
+})->add(responds(AssetConvertProgress::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+/** The queue minus its work list, which is thousands of paths nobody reads. */
+function _assetProgressBody(array $queue): array
+{
+    return [
+        'started_at' => $queue['started_at'],
+        'total' => $queue['total'],
+        'converted' => $queue['converted'],
+        'failed' => $queue['failed'],
+        'skipped' => $queue['skipped'],
+        'remaining' => $queue['remaining'] ?? count($queue['pending']),
+        'finished' => $queue['finished'] ?? false,
+        'blocked' => $queue['blocked'],
+        'failures' => $queue['failures'],
+    ];
+}

@@ -10,6 +10,7 @@ require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
 require_once __DIR__ . '/response.php';
 require_once __DIR__ . '/media_convert.php';
+require_once __DIR__ . '/asset_stats.php';
 require_once __DIR__ . '/full_resource.php';
 require_once __DIR__ . '/mail.php';
 require_once __DIR__ . '/one_time_token.php';

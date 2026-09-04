@@ -188,6 +188,58 @@ Everything above is enforced twice on purpose: the site draws the closed sign
 and hides the menu item, and the API means it. A closed sign drawn in a browser
 stops the people who were going to read the page and nobody else.
 
+### The asset library
+
+Admin panel → Files, and a card on the Dashboard. Both read one survey: a walk
+over every file under `assets/`, cached for a day because there are 65,000 of
+them and the walk takes a couple of seconds. **Re-scan** does it again, for when
+something changed on disk and waiting out the cache is the wrong answer.
+
+It answers two different questions:
+
+- **By format** — how many files of each extension and how much room they take.
+  The interesting number is not the count, it is where the ten gigabytes went.
+- **Converted formats** — the site serves AVIF and Opus. Uploads are re-encoded
+  on the way in, so this is about what arrived before that was true or was put
+  on disk by the scripts in `/formats-converters`.
+
+`missing` is a job: a source with no converted file beside it, and **Convert**
+works through them. `converted only` is not a job: those are files whose source
+was deleted (the opus script has a `DELETE_ORIGINAL` switch), and a PNG decoded
+back out of an AVIF is a bigger copy of the lossy one rather than the original.
+It is reported and left alone.
+
+**Pairing is by normalised name, not by exact stem.** The tree holds both the
+display name and an upper-snake spelling of the same picture -
+`Adventurer's Bandana.avif` sits beside `ADVENTURERS_BANDANA.png` - because the
+front end resolves art by trying both in turn. Pairing on the raw stem reports
+about 5,500 images as unconverted rather than 1,800, and then converts three
+and a half thousand of them a second time under the other name.
+
+**Converting runs in batches**, a request each, and the page draws the progress.
+That is not decoration: seven thousand files is minutes of work, and any single
+request long enough to do it is long enough to be killed by something. The queue
+lives in `storage/cache/asset-convert-queue.json`, so stopping is a pause and a
+closed tab leaves the rest waiting rather than lost.
+
+Only what this server can encode is queued. AVIF needs the `imagick` or `gd`
+extension. Opus needs `ffmpeg`, looked for on `PATH`, in the usual install
+directories, and in `formats-converters/node_modules/ffmpeg-static/` - so the
+shortest way to switch audio conversion on is:
+
+```bash
+cd formats-converters && npm install
+```
+
+That folder already depends on `ffmpeg-static`, which unpacks a binary the API
+then finds by itself. What cannot be encoded is counted and said so on the page,
+rather than queued to fail one file at a time.
+
+A note on speed: GD writes AVIF at roughly a third of a second per icon, so a
+few thousand images is minutes rather than seconds. Imagick with an AVIF
+delegate, or the sharp-based script in `/formats-converters`, is considerably
+faster if you have a large backlog.
+
 ### Filling the profile page with something to look at (optional)
 
 ```bash

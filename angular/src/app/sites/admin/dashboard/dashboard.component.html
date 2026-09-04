@@ -44,7 +44,10 @@
                         <li class="gap">
                             <a class="gap-row" [routerLink]="['/admin', gap.route]">
                                 <span class="gap-label">{{ gap.label }}</span>
-                                <span class="gap-count">{{ gap.missing }}<span class="gap-total">/{{ gap.total }}</span></span>
+                                <span class="gap-count">
+                                    {{ gap.missing }}
+                                    <span class="gap-total">/{{ gap.total }}</span>
+                                </span>
                             </a>
                             <div class="gap-bar">
                                 <div class="gap-fill" [class.is-severe]="gap.severe" [style.width.%]="gap.percent"></div>
@@ -69,15 +72,53 @@
                         <li class="feed-item">
                             <span class="pill" [class]="'action-' + entry.action.toLowerCase()">{{ entry.action }}</span>
                             <span class="feed-title">{{ entry.table_name }} #{{ entry.record_id }}</span>
-                            <span class="feed-meta">
-                                {{ entry.changed_by_username || 'system' }} · {{ entry.changed_at | appDate: 'datetime' }}
-                            </span>
+                            <span class="feed-meta">{{ entry.changed_by_username || "system" }} · {{ entry.changed_at | appDate: "datetime" }}</span>
                         </li>
                     }
                 </ul>
             }
         </section>
     </div>
+
+    <!-- The asset tree. A day-old survey, because walking sixty thousand files
+         is not something a landing page should do on every visit; the Files
+         page is where it is re-scanned and where the gap is closed. -->
+    @if (data.assets; as assets) {
+        <section class="panel panel-assets">
+            <header class="panel-head">
+                <h2 class="panel-title">Files on disk</h2>
+                <a class="panel-link" routerLink="/admin/files">Files</a>
+            </header>
+
+            <div class="asset-row">
+                <a class="asset-card" routerLink="/admin/files">
+                    <span class="asset-value">{{ assets.total_files | number }}</span>
+                    <span class="asset-label">files</span>
+                    <span class="asset-meta">{{ assets.total_bytes | fileSize }} in total</span>
+                </a>
+
+                <a class="asset-card" routerLink="/admin/files" [class.is-quiet]="!assetsMissing()" [class.is-gap]="assetsMissing() > 0">
+                    <span class="asset-value">{{ assetsMissing() | number }}</span>
+                    <span class="asset-label">not converted</span>
+                    <span class="asset-meta">{{ assets.images.missing | number }} images · {{ assets.audio.missing | number }} audio</span>
+                </a>
+
+                <div class="asset-card is-quiet">
+                    <span class="asset-value">{{ assetsOrphaned() | number }}</span>
+                    <span class="asset-label">converted only</span>
+                    <span class="asset-meta">no original beside them</span>
+                </div>
+
+                @for (format of assets.formats; track format.extension) {
+                    <div class="asset-card is-quiet">
+                        <span class="asset-value">{{ format.files | number }}</span>
+                        <span class="asset-label">{{ format.extension }}</span>
+                        <span class="asset-meta">{{ format.bytes | fileSize }}</span>
+                    </div>
+                }
+            </div>
+        </section>
+    }
 
     <section class="panel panel-content">
         <header class="panel-head">

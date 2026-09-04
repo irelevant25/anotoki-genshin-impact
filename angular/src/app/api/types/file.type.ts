@@ -16,3 +16,31 @@ export interface AssetFileRef {
   folder: string;
   name: string;
 }
+
+/**
+ * A batch of the conversion the Files page drives.
+ *
+ * `restart` builds the work list, which is the walk over the whole tree;
+ * without it the next batch is taken off the list already there. That split is
+ * what lets seven thousand files be converted behind a progress bar rather
+ * than behind one request nobody can wait for.
+ *
+ * `limit` is a ceiling, not a promise: a batch also stops on a clock, so a
+ * queue of voice lines does not run for a minute because a queue of icons
+ * would have finished in fifty milliseconds.
+ */
+export interface AssetConvertRequest {
+  restart?: boolean;
+  limit?: number;
+}
+
+/**
+ * Whether to walk the tree again rather than answer from the day-old cache.
+ *
+ * Its own flag rather than a separate endpoint, because "what is out there" and
+ * "what is out there, now, really" are the same question asked with different
+ * patience.
+ */
+export interface AssetStatsQuery {
+  refresh?: boolean;
+}

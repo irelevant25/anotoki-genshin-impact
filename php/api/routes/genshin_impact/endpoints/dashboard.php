@@ -181,11 +181,44 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
         // if they have not been run here yet.
     }
 
+    // ── Assets ───────────────────────────────────────────────────────────────
+    // Cached for a day, because it is a walk over sixty-odd thousand files.
+    // Read here rather than recomputed: the dashboard is the page somebody
+    // opens first, and it should not be the page that pays for the walk any
+    // more often than the Files page does.
+    $assets = [
+        'total_files' => 0,
+        'total_bytes' => 0,
+        'formats' => [],
+        'images' => ['sources' => 0, 'missing' => 0, 'converted_only' => 0, 'can_convert' => false],
+        'audio' => ['sources' => 0, 'missing' => 0, 'converted_only' => 0, 'can_convert' => false],
+        'generated_at' => '',
+        'age' => 0,
+    ];
+    try {
+        $stats = assetStats();
+        $assets = [
+            'total_files' => $stats['total_files'],
+            'total_bytes' => $stats['total_bytes'],
+            // The three biggest, which is all a dashboard card has room for.
+            'formats' => array_slice($stats['formats'], 0, 3),
+            'images' => $stats['images'] + ['can_convert' => mediaCanWriteAvif()],
+            'audio' => $stats['audio'] + ['can_convert' => mediaCanWriteOpus()],
+            'generated_at' => $stats['generated_at'],
+            'age' => assetStatsAge() ?? 0,
+        ];
+    } catch (\Throwable $e) {
+        // An unreadable assets folder is a reason for one empty card, not for
+        // a dashboard that will not load.
+        error_log('[dashboard] asset stats unavailable: ' . $e->getMessage());
+    }
+
     return respondJson($response, [
         'content'      => $content,
         'gaps'         => $gaps,
         'feedback'     => $feedback,
         'activity'     => $activity,
         'translations' => $translations,
+        'assets'       => $assets,
     ]);
 })->add(responds(DashboardStats::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());

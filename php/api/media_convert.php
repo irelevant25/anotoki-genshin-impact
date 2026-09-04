@@ -28,6 +28,24 @@ const MEDIA_FFMPEG_CANDIDATES = [
 ];
 
 /**
+ * The binary `ffmpeg-static` unpacks, if the converter scripts were installed.
+ *
+ * /formats-converters already depends on it, so a checkout that has run `npm i`
+ * there has a working ffmpeg sitting in the repository - and until this looked
+ * for it, the answer to "why is audio not converting" was to install ffmpeg
+ * again, globally, next to the copy already on disk.
+ *
+ * A function rather than a const because a const expression cannot call
+ * dirname(), and the path is relative to wherever the repository is.
+ */
+function mediaBundledFfmpeg(): string
+{
+    $root = dirname(__DIR__, 2) . '/formats-converters/node_modules/ffmpeg-static/ffmpeg';
+
+    return DIRECTORY_SEPARATOR === '\\' ? $root . '.exe' : $root;
+}
+
+/**
  * Logs a message once per process. Conversion is unavailable for the whole life
  * of a request, not per file, so repeating it on every upload only adds noise.
  */
@@ -127,7 +145,7 @@ function mediaFfmpegBinary(): ?string
         return null;
     }
 
-    foreach (MEDIA_FFMPEG_CANDIDATES as $candidate) {
+    foreach ([...MEDIA_FFMPEG_CANDIDATES, mediaBundledFfmpeg()] as $candidate) {
         $exitCode = -1;
         $output = [];
         @exec(escapeshellarg($candidate) . ' -version 2>&1', $output, $exitCode);
@@ -137,7 +155,11 @@ function mediaFfmpegBinary(): ?string
         }
     }
 
-    _mediaLogOnce('ffmpeg', 'ffmpeg not found on PATH or in the usual places - audio uploads keep their original format.');
+    _mediaLogOnce(
+        'ffmpeg',
+        'ffmpeg not found on PATH, in the usual places, or in formats-converters/node_modules '
+            . '- audio uploads keep their original format. Either install ffmpeg or run `npm i` in /formats-converters.'
+    );
     return null;
 }
 

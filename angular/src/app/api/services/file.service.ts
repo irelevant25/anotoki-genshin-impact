@@ -6,9 +6,11 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
+  AssetConvertProgress,
   AssetFilePage,
   AssetFolder,
   AssetRestoreResult,
+  AssetStats,
   AssetTrashResult,
   AssetUploadResult,
   EntityUploadResult,
@@ -16,7 +18,7 @@ import {
   TrashedFile,
   UploadResult,
 } from '../models';
-import { AssetFileQuery, AssetFileRef } from '../types';
+import { AssetConvertRequest, AssetFileQuery, AssetFileRef, AssetStatsQuery } from '../types';
 import { toHttpParams } from '../http-params';
 
 /**
@@ -25,6 +27,15 @@ import { toHttpParams } from '../http-params';
 @Injectable({ providedIn: 'root' })
 export class FileApiService {
   private readonly _http = inject(HttpClient);
+
+  /**
+   * `POST /api/files/convert`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  convertAssets(body: AssetConvertRequest): Observable<AssetConvertProgress> {
+    return this._http.post<AssetConvertProgress>('/api/files/convert', body);
+  }
 
   /**
    * `DELETE /api/files`
@@ -51,6 +62,24 @@ export class FileApiService {
    */
   getAssetFolders(): Observable<AssetFolder[]> {
     return this._http.get<AssetFolder[]>('/api/files/folders');
+  }
+
+  /**
+   * `GET /api/files/stats`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  getAssetStats(params?: AssetStatsQuery): Observable<AssetStats> {
+    return this._http.get<AssetStats>('/api/files/stats', { params: toHttpParams(params) });
+  }
+
+  /**
+   * `GET /api/files/convert`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  getConversionProgress(): Observable<AssetConvertProgress> {
+    return this._http.get<AssetConvertProgress>('/api/files/convert');
   }
 
   /**

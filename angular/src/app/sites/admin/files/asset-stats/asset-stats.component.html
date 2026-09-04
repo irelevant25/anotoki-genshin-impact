@@ -1,0 +1,167 @@
+<section class="asset-stats">
+    <header class="stats-head">
+        <div>
+            <h2 class="stats-title">Asset library</h2>
+            @if (stats(); as data) {
+                <p class="stats-meta">{{ data.total_files | number }} files · {{ data.total_bytes | fileSize }} · surveyed {{ surveyedAgo() }}</p>
+            }
+        </div>
+
+        <!-- Cached for a day, because it is a walk over every file on disk.
+             The button is for when something changed outside the API and
+             waiting out the cache is the wrong answer. -->
+        <app-button text="Re-scan" icon="icon-history" variant="secondary" [outline]="true" size="small" [loading]="loading()" (buttonClick)="refresh()"></app-button>
+    </header>
+
+    <app-loader [loading]="loading() && !stats()"></app-loader>
+
+    @if (stats(); as data) {
+        <div class="stats-columns">
+            <!-- What is out there ───────────────────────────────────────── -->
+            <div class="stats-panel">
+                <h3 class="panel-heading">By format</h3>
+
+                <table class="format-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Format</th>
+                            <th scope="col" class="col-number">Files</th>
+                            <th scope="col" class="col-number">Size</th>
+                            <th scope="col" class="col-number">Share</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (format of formats(); track format.extension) {
+                            <tr>
+                                <td class="format-name">
+                                    <span class="format-bar" [style.width.%]="format.share" aria-hidden="true"></span>
+                                    <code>{{ format.extension }}</code>
+                                </td>
+                                <td class="col-number">{{ format.files | number }}</td>
+                                <td class="col-number">{{ format.bytes | fileSize }}</td>
+                                <td class="col-number format-percent">{{ format.percent }}%</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total</td>
+                            <td class="col-number">{{ data.total_files | number }}</td>
+                            <td class="col-number">{{ data.total_bytes | fileSize }}</td>
+                            <td class="col-number"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- What is missing ─────────────────────────────────────────── -->
+            <div class="stats-panel">
+                <h3 class="panel-heading">Converted formats</h3>
+
+                <p class="panel-note">The site serves AVIF and Opus. Anything uploaded is re-encoded on the way in; these are the files that arrived before that, or were put on disk by hand.</p>
+
+                @for (row of health(); track row.label) {
+                    <div class="health-row" [class.is-clean]="!row.counts.missing">
+                        <div class="health-head">
+                            <span class="health-label">{{ row.label }}</span>
+                            <span class="health-from">{{ row.from }}</span>
+                        </div>
+
+                        <div class="health-numbers">
+                            <span class="health-figure" [class.is-gap]="row.counts.missing > 0">
+                                <span class="figure-value">{{ row.counts.missing | number }}</span>
+                                <span class="figure-label">not converted</span>
+                            </span>
+
+                            <!-- Not a job: a PNG decoded back out of an AVIF is
+                                 a bigger copy of the lossy one, not the original. -->
+                            <span class="health-figure">
+                                <span class="figure-value">{{ row.counts.converted_only | number }}</span>
+                                <span class="figure-label">converted only</span>
+                            </span>
+
+                            <span class="health-figure is-quiet">
+                                <span class="figure-value">{{ row.counts.sources | number }}</span>
+                                <span class="figure-label">in total</span>
+                            </span>
+                        </div>
+
+                        @if (!row.counts.can_convert) {
+                            <p class="health-warning">
+                                <i class="icon icon-info" aria-hidden="true"></i>
+                                Nothing on this server can write {{ row.target }}. {{ row.hint }}
+                            </p>
+                        }
+                    </div>
+                }
+
+                <!-- The fix ──────────────────────────────────────────────── -->
+                <div class="convert">
+                    @if (progress(); as job) {
+                        <div class="convert-bar" role="progressbar" [attr.aria-valuenow]="percent()" aria-valuemin="0" aria-valuemax="100">
+                            <div class="convert-fill" [style.width.%]="percent()"></div>
+                        </div>
+
+                        <p class="convert-line">
+                            <span class="convert-percent">{{ percent() }}%</span>
+                            <span>{{ job.converted | number }} converted</span>
+                            @if (job.skipped) {
+                                <span>{{ job.skipped | number }} already there</span>
+                            }
+                            @if (job.failed) {
+                                <span class="convert-failed">{{ job.failed | number }} failed</span>
+                            }
+                            <span>{{ job.remaining | number }} to go</span>
+                        </p>
+
+                        @if (blockedTotal(job)) {
+                            <p class="convert-blocked">{{ blockedTotal(job) | number }} left out — this server has no encoder for them.</p>
+                        }
+
+                        @if (job.failures.length) {
+                            <details class="convert-failures">
+                                <summary>{{ job.failed | number }} would not convert</summary>
+                                <ul>
+                                    @for (failure of job.failures; track failure) {
+                                        <li>
+                                            <code>{{ failure }}</code>
+                                        </li>
+                                    }
+                                </ul>
+                            </details>
+                        }
+
+                        <div class="convert-actions">
+                            @if (converting()) {
+                                <app-button text="Stop" variant="secondary" [outline]="true" size="small" (buttonClick)="stop()"></app-button>
+                            } @else if (!job.finished) {
+                                <app-button text="Resume" icon="icon-play" size="small" (buttonClick)="resume()"></app-button>
+                                <app-button text="Start over" variant="secondary" [outline]="true" size="small" (buttonClick)="start()"></app-button>
+                            } @else {
+                                <app-button text="Done" variant="secondary" [outline]="true" size="small" (buttonClick)="dismiss()"></app-button>
+                            }
+                        </div>
+                    } @else if (converting()) {
+                        <!-- Between the click and the first answer. The first
+                             batch also walks the tree to build the work list,
+                             so this is a few seconds of nothing otherwise. -->
+                        <div class="convert-bar" aria-hidden="true">
+                            <div class="convert-fill is-starting"></div>
+                        </div>
+                        <p class="convert-note">Working out what needs converting…</p>
+                    } @else if (convertible()) {
+                        <app-button
+                            [text]="'Convert ' + convertible().toLocaleString() + ' missing ' + (convertible() === 1 ? 'file' : 'files')"
+                            icon="icon-check"
+                            (buttonClick)="start()"></app-button>
+                        <p class="convert-note">Runs in batches so it can be watched, stopped, and picked up again.</p>
+                    } @else if (missingTotal()) {
+                        <p class="convert-note">{{ missingTotal() | number }} files have no converted copy, and this server cannot encode them.</p>
+                    } @else {
+                        <p class="convert-note">Every file has its converted copy.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</section>

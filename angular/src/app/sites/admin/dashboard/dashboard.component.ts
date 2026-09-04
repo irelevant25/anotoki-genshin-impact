@@ -1,9 +1,11 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DashboardApiService, DashboardStats } from '../../../api';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
 import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
+import { FileSizePipe } from '../../../shared/local-lib/pipes/file-size.pipe';
 
 /**
  * What needs attention, and what is still missing.
@@ -17,7 +19,7 @@ import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [AppDatePipe, RouterLink, LoaderComponent],
+  imports: [AppDatePipe, DecimalPipe, FileSizePipe, RouterLink, LoaderComponent],
 })
 export class DashboardComponent implements OnInit {
   private readonly _dashboardApi = inject(DashboardApiService);
@@ -47,6 +49,25 @@ export class DashboardComponent implements OnInit {
       percent: Math.round((100 * language.translated) / translations.keys),
       total: translations.keys,
     }));
+  });
+
+  /**
+   * Files with no converted copy, of either kind, in one number.
+   *
+   * The two media are separate jobs on the Files page, where you can do
+   * something about them. Here they are one figure: what the dashboard is for
+   * is noticing there is a job at all.
+   */
+  readonly assetsMissing = computed(() => {
+    const assets = this.stats()?.assets;
+    return assets ? assets.images.missing + assets.audio.missing : 0;
+  });
+
+  /** Converted files whose source is gone. A fact, not a job - nothing can
+   *  rebuild an original out of a lossy copy. */
+  readonly assetsOrphaned = computed(() => {
+    const assets = this.stats()?.assets;
+    return assets ? assets.images.converted_only + assets.audio.converted_only : 0;
   });
 
   ngOnInit(): void {

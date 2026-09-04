@@ -5866,7 +5866,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\dashboard.php",
-                "line": 191
+                "line": 224
             },
             "expanded": [],
             "payload": null,
@@ -7461,6 +7461,62 @@
         },
         {
             "method": "GET",
+            "path": "/api/files/convert",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
+            "responds": {
+                "shape": "AssetConvertProgress",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 384
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/api/files/convert",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                409
+            ],
+            "responds": {
+                "shape": "AssetConvertProgress",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 373
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
             "path": "/api/files/folders",
             "args": [],
             "file": "files.php",
@@ -7506,6 +7562,33 @@
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
                 "line": 323
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/files/stats",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "AssetStats",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 349
             },
             "expanded": [],
             "payload": null,
@@ -16234,6 +16317,180 @@
             ]
         },
         {
+            "name": "AssetBlockedCount",
+            "file": "file.php",
+            "merges": null,
+            "description": null,
+            "fields": [
+                {
+                    "name": "images",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "audio",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AssetConversionCount",
+            "file": "file.php",
+            "merges": null,
+            "description": "One medium's conversion health.\n\n`missing` is work an encoder can do. `converted_only` is not: a PNG decoded\nback out of an AVIF is a bigger copy of the lossy one, not the original, so\nthose are reported and left alone.",
+            "fields": [
+                {
+                    "name": "sources",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Groups holding a source this medium can be converted from."
+                },
+                {
+                    "name": "missing",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "converted_only",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "can_convert",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "False when nothing on this box can write the target format."
+                }
+            ]
+        },
+        {
+            "name": "AssetConvertProgress",
+            "file": "file.php",
+            "merges": null,
+            "description": "How far the conversion has got.\n\nThe work is a queue on disk worked through a batch per request, so this is\nboth the answer to \"convert some more\" and to \"where are we\".",
+            "fields": [
+                {
+                    "name": "started_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "converted",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "failed",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "skipped",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Already there, or gone, by the time its turn came."
+                },
+                {
+                    "name": "remaining",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "finished",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "blocked",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetBlockedCount",
+                    "description": "Left out of the queue because this box cannot write that format."
+                },
+                {
+                    "name": "failures",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "The first few that would not convert, to see a pattern by."
+                }
+            ]
+        },
+        {
             "name": "AssetFile",
             "file": "file.php",
             "merges": null,
@@ -16378,6 +16635,44 @@
             ]
         },
         {
+            "name": "AssetFormatCount",
+            "file": "file.php",
+            "merges": null,
+            "description": null,
+            "fields": [
+                {
+                    "name": "extension",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Lower case, with no dot. `(none)` for a file with no extension."
+                },
+                {
+                    "name": "files",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "bytes",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "AssetRestoreResult",
             "file": "file.php",
             "merges": null,
@@ -16401,6 +16696,84 @@
                     "nullable": false,
                     "optional": false,
                     "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AssetStats",
+            "file": "file.php",
+            "merges": null,
+            "description": null,
+            "fields": [
+                {
+                    "name": "generated_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "age",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Seconds since the survey was walked, so the page can say how stale it is."
+                },
+                {
+                    "name": "total_files",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "total_bytes",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "formats",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetFormatCount[]",
+                    "description": null
+                },
+                {
+                    "name": "images",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetConversionCount",
+                    "description": null
+                },
+                {
+                    "name": "audio",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetConversionCount",
                     "description": null
                 }
             ]
@@ -17742,6 +18115,84 @@
             ]
         },
         {
+            "name": "DashboardAssets",
+            "file": "admin.php",
+            "merges": null,
+            "description": "The asset tree in three numbers and a short list.\n\nThe same survey the Files page draws in full, cut down to what a card holds:\nhow much there is, and how much of it has no converted twin. Cached for a\nday, so `age` is how old the answer is rather than how long it took.",
+            "fields": [
+                {
+                    "name": "total_files",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "total_bytes",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "formats",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetFormatCount[]",
+                    "description": "The three biggest by size."
+                },
+                {
+                    "name": "images",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetConversionCount",
+                    "description": null
+                },
+                {
+                    "name": "audio",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetConversionCount",
+                    "description": null
+                },
+                {
+                    "name": "generated_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "age",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "DashboardChange",
             "file": "admin.php",
             "merges": null,
@@ -18113,6 +18564,16 @@
                     "nullable": false,
                     "optional": false,
                     "of": "DashboardTranslations",
+                    "description": null
+                },
+                {
+                    "name": "assets",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "DashboardAssets",
                     "description": null
                 }
             ]

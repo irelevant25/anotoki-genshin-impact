@@ -2,6 +2,8 @@
 // Source: php/generate-api-spec.php
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
+import type { AssetConversionCount, AssetFormatCount } from './file.model';
+
 /**
  * A row of `feedback` as the API reads it back.
  */
@@ -38,6 +40,24 @@ export interface DashboardActivity {
   last7: number;
   last30: number;
   recent: DashboardChange[];
+}
+
+/**
+ * The asset tree in three numbers and a short list.
+ *
+ * The same survey the Files page draws in full, cut down to what a card holds:
+ * how much there is, and how much of it has no converted twin. Cached for a
+ * day, so `age` is how old the answer is rather than how long it took.
+ */
+export interface DashboardAssets {
+  total_files: number;
+  total_bytes: number;
+  /** The three biggest by size. */
+  formats: AssetFormatCount[];
+  images: AssetConversionCount;
+  audio: AssetConversionCount;
+  generated_at: string;
+  age: number;
 }
 
 /**
@@ -113,6 +133,7 @@ export interface DashboardStats {
   feedback: DashboardFeedback;
   activity: DashboardActivity;
   translations: DashboardTranslations;
+  assets: DashboardAssets;
 }
 
 /**

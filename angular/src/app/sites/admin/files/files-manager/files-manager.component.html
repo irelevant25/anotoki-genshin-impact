@@ -7,12 +7,17 @@
             variant="secondary"
             [outline]="true"
             size="small"
-            (buttonClick)="toggleTrash()"
-        ></app-button>
+            (buttonClick)="toggleTrash()"></app-button>
     </div>
 </div>
 
-<p class="page-hint">Files live under <code>assets/</code>. Deleting moves a file to a trash folder outside the site, so it can be restored.</p>
+<p class="page-hint">
+    Files live under
+    <code>assets/</code>
+    . Deleting moves a file to a trash folder outside the site, so it can be restored.
+</p>
+
+<app-asset-stats></app-asset-stats>
 
 <div class="files-layout">
     <aside class="folder-pane">
@@ -60,8 +65,7 @@
                                             [outline]="true"
                                             size="very-small"
                                             [loading]="busy() === entry.trashed"
-                                            (buttonClick)="restore(entry)"
-                                        ></app-button>
+                                            (buttonClick)="restore(entry)"></app-button>
                                     </td>
                                 </tr>
                             } @empty {
@@ -75,17 +79,10 @@
             }
         } @else {
             <div class="file-toolbar">
-                <h2 class="pane-title">{{ selectedFolder() || 'Pick a folder' }}</h2>
+                <h2 class="pane-title">{{ selectedFolder() || "Pick a folder" }}</h2>
                 <div class="toolbar-right">
                     <app-text [placeholder]="'Search files…'" [value]="search()" (inputChange)="onSearchChange($event)"></app-text>
-                    <app-file
-                        [buttonText]="'Upload'"
-                        [buttonOutline]="true"
-                        [multiple]="true"
-                        [showFileNames]="false"
-                        [disabled]="!selectedFolder()"
-                        (inputChange)="onUpload($event)"
-                    ></app-file>
+                    <app-file [buttonText]="'Upload'" [buttonOutline]="true" [multiple]="true" [showFileNames]="false" [disabled]="!selectedFolder()" (inputChange)="onUpload($event)"></app-file>
                 </div>
             </div>
 
@@ -98,7 +95,13 @@
                         <span class="pager">
                             <app-button icon="icon-chevron-left" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === 1" (buttonClick)="goToPage(page() - 1)"></app-button>
                             <span class="pager-label">{{ page() }} / {{ totalPages() }}</span>
-                            <app-button icon="icon-chevron-right" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === totalPages()" (buttonClick)="goToPage(page() + 1)"></app-button>
+                            <app-button
+                                icon="icon-chevron-right"
+                                variant="secondary"
+                                [outline]="true"
+                                size="very-small"
+                                [disabled]="page() === totalPages()"
+                                (buttonClick)="goToPage(page() + 1)"></app-button>
                         </span>
                     }
                 </div>
@@ -112,14 +115,13 @@
                                 [class.clickable]="canPreview(file)"
                                 [disabled]="!canPreview(file)"
                                 [title]="canPreview(file) ? 'Open ' + file.name : file.name"
-                                (click)="openPreview(file)"
-                            >
+                                (click)="openPreview(file)">
                                 @if (isImage(file)) {
                                     <img [src]="file.url" [alt]="file.name" loading="lazy" />
                                 } @else if (isAudio(file)) {
                                     <span class="icon icon-music icon-size-8"></span>
                                 } @else {
-                                    <span class="file-ext">{{ file.extension || 'file' }}</span>
+                                    <span class="file-ext">{{ file.extension || "file" }}</span>
                                 }
                             </button>
                             <span class="file-name" [title]="file.name">{{ file.name }}</span>
@@ -132,13 +134,7 @@
                                 </div>
                             } @else {
                                 <div class="file-actions">
-                                    <app-file
-                                        [buttonText]="'Replace'"
-                                        [buttonOutline]="true"
-                                        [buttonVariant]="'secondary'"
-                                        [showFileNames]="false"
-                                        (inputChange)="onReplace(file, $event)"
-                                    ></app-file>
+                                    <app-file [buttonText]="'Replace'" [buttonOutline]="true" [buttonVariant]="'secondary'" [showFileNames]="false" (inputChange)="onReplace(file, $event)"></app-file>
                                     <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Delete" (buttonClick)="confirmDelete(file)"></app-button>
                                 </div>
                             }

@@ -6,6 +6,11 @@
 php/public/uploads/
 php/storage/
 
+# The converter scripts declare ffmpeg-static and sharp, so installing them
+# unpacks an ffmpeg binary into the repository. The API looks for it there,
+# which is why the folder exists at all - but none of it belongs in a commit.
+formats-converters/node_modules/
+
 # Written by generate-openapi.mjs while it asks the compiler about the API
 # types, and removed again on the way out. Ignored so a crashed run cannot
 # leave it behind in a commit.
