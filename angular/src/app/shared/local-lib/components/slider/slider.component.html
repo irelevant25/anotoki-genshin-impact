@@ -1,0 +1,62 @@
+@if (!hidden()) {
+    <div class="form-field" [class]="class()">
+        @if (label()) {
+            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
+                @if (tooltipText()) {
+                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
+                }
+                {{ label() }}
+                @if (required()) {
+                    <span class="required-indicator">*</span>
+                }
+                @if (showValue()) {
+                    <span class="slider-value">{{ valueLabel() ?? current() }}</span>
+                }
+            </label>
+        }
+
+        <!-- The rail is drawn behind the input rather than by it: a range
+             input's own track cannot be split into a filled part and an empty
+             one in a way both engines agree on. -->
+        <div class="slider-control" [class.is-disabled]="disabled()">
+            <div class="slider-rail" aria-hidden="true">
+                <div class="slider-fill" [style.width]="fill()"></div>
+            </div>
+
+            <input
+                #inputElement
+                [id]="inputId"
+                type="range"
+                class="slider-input"
+                [class]="inputClass()"
+                [min]="min()"
+                [max]="max()"
+                [step]="step()"
+                [value]="current()"
+                [disabled]="disabled()"
+                [attr.aria-label]="label() || null"
+                [attr.aria-valuetext]="valueLabel() || null"
+                (input)="onInput($event)"
+                (blur)="onBlur()"
+                (focus)="onFocus()" />
+        </div>
+
+        @if (ticks().length) {
+            <div class="slider-ticks" aria-hidden="true">
+                @for (tick of ticks(); track $index) {
+                    <span class="slider-tick" [class.is-current]="$index === stepIndex()" [style.left]="tickOffset($index)">{{ tick }}</span>
+                }
+            </div>
+        }
+
+        @if (description()) {
+            <span class="form-description">{{ description() }}</span>
+        }
+
+        @if (displayError() && hasError()) {
+            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
+                {{ errorMessage() }}
+            </div>
+        }
+    </div>
+}

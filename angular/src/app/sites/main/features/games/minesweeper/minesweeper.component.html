@@ -1,51 +1,112 @@
 <div class="container game-container">
-    <!-- The one reaction that kills this round. Everything on the board is read
-         against it, so it stays in view rather than sitting in a help modal. -->
-    <div class="reaction">
-        <span class="reaction-name">{{ reaction().name }}</span>
-        <span class="reaction-elements">
-            @for (element of reaction().elements; track element; let last = $last) {
-                <span [class]="element">{{ element }}</span>
-                @if (!last) {
-                    <span class="reaction-plus">+</span>
+    @if (inSetup()) {
+        <div class="setup">
+            <app-slider
+                [label]="'game.minesweeper.difficultyLabel' | translate"
+                [min]="0"
+                [max]="2"
+                [step]="1"
+                [ticks]="difficultyTicks()"
+                [showValue]="false"
+                [(value)]="difficultyIndex"
+            ></app-slider>
+
+            <p class="setup-hint">{{ difficultyHint() | translate }}</p>
+
+            <app-slider [label]="'game.minesweeper.sizeLabel' | translate" [min]="minSize" [max]="maxSize" [step]="1" [ticks]="sizeTicks" [valueLabel]="chosenSizeName()" [(value)]="size"></app-slider>
+
+            <!-- A ceiling rather than a target, and said so: it is what the
+                 board would pay if it were cleared the instant it opened, and
+                 nobody clears a board in no time at all. -->
+            <div class="max-score">
+                <span class="max-score-label">{{ 'game.minesweeper.maxScore' | translate }}</span>
+                <span class="max-score-value">{{ maxScore() }}</span>
+                <span class="max-score-note">{{ 'game.minesweeper.maxScoreNote' | translate }}</span>
+            </div>
+
+            <app-button class="ms-auto me-auto" [text]="'game.minesweeper.start' | translate" variant="primary" size="large" (buttonClick)="start()"></app-button>
+        </div>
+    } @else {
+        <!-- The one reaction that kills this round. Everything on the board is
+             read against it, so it stays in view rather than sitting in a help
+             modal - and on Hard it is the thing that keeps changing. -->
+        <div class="reaction">
+            <span class="reaction-name">{{ reaction().name }}</span>
+            <span class="reaction-elements">
+                @for (element of reaction().elements; track element; let last = $last) {
+                    <span [class]="element">{{ element }}</span>
+                    @if (!last) {
+                        <span class="reaction-plus">+</span>
+                    }
                 }
-            }
-        </span>
-    </div>
-
-    @if (outcome() !== 'playing') {
-        <p class="game-over" [class]="outcome()">
-            {{ (outcome() === 'win' ? 'game.minesweeper.win' : 'game.minesweeper.lose') | translate }}
-        </p>
-    }
-
-    <div class="grid" [class.awaiting-first-click]="!started()">
-        @for (cell of cells(); track cell.row + ',' + cell.col) {
-            <button
-                type="button"
-                class="cell"
-                [class]="cell.revealed && cell.element ? 'element-' + cell.element : ''"
-                [class.revealed]="cell.revealed"
-                [class.bomb]="cell.revealed && cell.isBomb"
-                [class.clickable]="isClickable(cell)"
-                [disabled]="!isClickable(cell)"
-                (click)="click(cell)"
-            >
-                {{ cellContent(cell) }}
-            </button>
-        }
-    </div>
-
-    <p class="game-stats">{{ 'game.minesweeper.revealed' | translate: { revealed: revealedCount(), total: total } }}</p>
-
-    <button type="button" class="new-game" (click)="newGame()">{{ 'game.minesweeper.newGame' | translate }}</button>
-
-    <div class="legend">
-        @for (element of elements; track element) {
-            <span class="legend-item">
-                <span class="legend-colour" [class]="'element-' + element"></span>
-                {{ element }}
             </span>
+        </div>
+
+        <div class="status">
+            <span class="status-item">{{ 'game.minesweeper.revealed' | translate: { revealed: revealedCount(), total: total() } }}</span>
+
+            @if (difficulty() === 'medium') {
+                <span class="status-item is-clock" [class.is-urgent]="timeLeft() <= 10 && outcome() === 'playing'">
+                    {{ 'game.minesweeper.timeLeft' | translate: { seconds: timeLeft() } }}
+                </span>
+            } @else {
+                <span class="status-item is-clock">{{ 'game.minesweeper.time' | translate: { seconds: elapsed() } }}</span>
+            }
+
+            @if (difficulty() === 'hard' && started() && outcome() === 'playing') {
+                <span class="status-item is-rotation">{{ 'game.minesweeper.rotation' | translate: { seconds: rotationLeft() } }}</span>
+            }
+        </div>
+
+        <!-- Fluid rather than a fixed cell size: fifteen columns of forty
+             pixels is wider than a phone, and the board is square whatever it
+             ends up being given. -->
+        <div class="grid" [class.awaiting-first-click]="!started()" [style.grid-template-columns]="'repeat(' + boardSize() + ', 1fr)'" [style.max-width.px]="boardSize() * 44">
+            @for (cell of cells(); track cell.row + ',' + cell.col) {
+                <button
+                    type="button"
+                    class="cell"
+                    [class]="cell.revealed && cell.element ? 'element-' + cell.element : ''"
+                    [class.revealed]="cell.revealed"
+                    [class.bomb]="cell.revealed && cell.isBomb"
+                    [class.clickable]="isClickable(cell)"
+                    [disabled]="!isClickable(cell)"
+                    (click)="click(cell)"
+                >
+                    {{ cellContent(cell) }}
+                </button>
+            }
+        </div>
+
+        @if (outcome() !== 'playing') {
+            <div class="result" [class]="outcome()">
+                <p class="result-text">{{ resultMessage() | translate }}</p>
+
+                <p class="result-score">
+                    <span class="result-score-value">{{ score() }}</span>
+                    <span class="result-score-label">{{ 'game.minesweeper.score' | translate }}</span>
+                </p>
+
+                <p class="result-detail">{{ 'game.minesweeper.resultDetail' | translate: { seconds: finishedIn(), max: gameMaxScore() } }}</p>
+
+                @if (outcome() === 'win') {
+                    <p class="result-bonus">{{ 'game.minesweeper.bonus' | translate: { percent: bonusPercent } }}</p>
+                }
+            </div>
         }
-    </div>
+
+        <div class="board-actions">
+            <app-button [text]="'game.minesweeper.newGame' | translate" variant="primary" (buttonClick)="newGame()"></app-button>
+            <app-button [text]="'game.minesweeper.backToSetup' | translate" variant="secondary" [outline]="true" (buttonClick)="backToSetup()"></app-button>
+        </div>
+
+        <div class="legend">
+            @for (element of elements; track element) {
+                <span class="legend-item">
+                    <span class="legend-colour" [class]="'element-' + element"></span>
+                    {{ element }}
+                </span>
+            }
+        </div>
+    }
 </div>
