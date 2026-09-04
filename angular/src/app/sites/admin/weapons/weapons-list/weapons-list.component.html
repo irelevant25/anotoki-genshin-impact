@@ -39,13 +39,15 @@
                     <th>Type</th>
                     <th>Rarity</th>
                     <th>Version</th>
+                    <th class="col-stamp">Created</th>
+                    <th class="col-stamp">Updated</th>
                     <th class="col-actions"></th>
                 </tr>
             </thead>
             <tbody>
                 @if (!filtered().length) {
                     <tr>
-                        <td colspan="7" class="empty-cell">No weapons match the filter</td>
+                        <td colspan="9" class="empty-cell">No weapons match the filter</td>
                     </tr>
                 }
                 @for (weapon of filtered(); track weapon.id) {
@@ -62,6 +64,22 @@
                             <span class="rarity rarity-{{ weapon.rarity }}">{{ getRarityStars(weapon.rarity) }}</span>
                         </td>
                         <td>{{ weapon.version ?? '—' }}</td>
+                        <td class="col-stamp">
+                            @if (weapon.created_at) {
+                                {{ weapon.created_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ weapon.created_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
+                        <td class="col-stamp">
+                            @if (weapon.updated_at) {
+                                {{ weapon.updated_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ weapon.updated_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
                         <td class="col-actions">
                             @if (deleteConfirm() === weapon.id) {
                                 <span class="confirm-row">

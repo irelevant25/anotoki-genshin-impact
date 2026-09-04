@@ -8,12 +8,13 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { AssetFile, AssetFolder, FileApiService, FileCategory, FileCategoryApiService, toFormData, TrashedFile } from '../../../../api';
 import { FilePreviewComponent, isPreviewableFile, PLAYABLE_AUDIO, PREVIEWABLE_IMAGES } from '../file-preview/file-preview.component';
 import { AssetStatsComponent } from '../asset-stats/asset-stats.component';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 @Component({
   selector: 'app-files-manager',
   templateUrl: './files-manager.component.html',
   styleUrls: ['./files-manager.component.scss'],
-  imports: [ButtonComponent, LoaderComponent, TextComponent, FileComponent, AssetStatsComponent],
+  imports: [AppDatePipe, ButtonComponent, LoaderComponent, TextComponent, FileComponent, AssetStatsComponent],
 })
 export class FilesManagerComponent extends AbstractModalComponent implements OnInit {
   folders = signal<AssetFolder[]>([]);

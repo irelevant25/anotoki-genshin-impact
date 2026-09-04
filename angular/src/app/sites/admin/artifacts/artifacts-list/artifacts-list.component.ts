@@ -8,12 +8,13 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
 import { toBoolean } from '../../shared/admin-full-resource.model';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 @Component({
   selector: 'app-artifacts-list',
   templateUrl: './artifacts-list.component.html',
   styleUrls: ['./artifacts-list.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, MultiselectComponent],
+  imports: [AppDatePipe, RouterLink, ButtonComponent, LoaderComponent, TextComponent, MultiselectComponent],
 })
 export class ArtifactsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'artifacts';

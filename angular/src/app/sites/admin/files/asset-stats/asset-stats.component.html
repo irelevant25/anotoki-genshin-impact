@@ -18,7 +18,7 @@
     @if (stats(); as data) {
         <div class="stats-columns">
             <!-- What is out there ───────────────────────────────────────── -->
-            <div class="stats-panel">
+            <div class="stats-panel stats-panel-formats">
                 <h3 class="panel-heading">By format</h3>
 
                 <table class="format-table">
@@ -77,7 +77,7 @@
             }
 
             <!-- What is missing ─────────────────────────────────────────── -->
-            <div class="stats-panel">
+            <div class="stats-panel stats-panel-conversion">
                 <h3 class="panel-heading">Converted formats</h3>
 
                 <p class="panel-note">The site serves AVIF and Opus. Anything uploaded is re-encoded on the way in; these are the files that arrived before that, or were put on disk by hand.</p>

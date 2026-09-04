@@ -36,13 +36,15 @@
                     <th>Rarity</th>
                     <th>Region</th>
                     <th>Version</th>
+                    <th class="col-stamp">Created</th>
+                    <th class="col-stamp">Updated</th>
                     <th class="col-actions"></th>
                 </tr>
             </thead>
             <tbody>
                 @if (!filteredCharacters().length) {
                     <tr>
-                        <td colspan="9" class="empty-cell">No characters match the filter</td>
+                        <td colspan="11" class="empty-cell">No characters match the filter</td>
                     </tr>
                 }
                 @for (char of filteredCharacters(); track char.id) {
@@ -70,6 +72,22 @@
                         </td>
                         <td>{{ char.region ?? '—' }}</td>
                         <td>{{ char.version }}</td>
+                        <td class="col-stamp">
+                            @if (char.created_at) {
+                                {{ char.created_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ char.created_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
+                        <td class="col-stamp">
+                            @if (char.updated_at) {
+                                {{ char.updated_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ char.updated_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
                         <td class="col-actions">
                             @if (deleteConfirm() === char.id) {
                                 <span class="confirm-row">

@@ -8,6 +8,7 @@ import { CalendarComponent } from '../../../shared/local-lib/components/calendar
 import { DropdownOption } from '../../../shared/local-lib/services/options-helper.service';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
 import { AuditLogApiService, AuditLogEntry } from '../../../api';
+import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
 
 interface ChangeRow {
   column: string;
@@ -20,7 +21,7 @@ interface ChangeRow {
   selector: 'app-audit-logs',
   templateUrl: './audit-logs.component.html',
   styleUrls: ['./audit-logs.component.scss'],
-  imports: [LowerCasePipe, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, CalendarComponent],
+  imports: [LowerCasePipe, AppDatePipe, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, CalendarComponent],
 })
 export class AuditLogsComponent implements OnInit {
   items = signal<AuditLogEntry[]>([]);

@@ -5,12 +5,13 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { MigrationApiService, MigrationEntry } from '../../../../api';
 import { MigrationViewerComponent } from '../migration-viewer/migration-viewer.component';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 @Component({
   selector: 'app-migrations-list',
   templateUrl: './migrations-list.component.html',
   styleUrls: ['./migrations-list.component.scss'],
-  imports: [ButtonComponent, LoaderComponent],
+  imports: [ButtonComponent, LoaderComponent, AppDatePipe],
 })
 export class MigrationsListComponent extends AbstractModalComponent implements OnInit {
   migrations = signal<MigrationEntry[]>([]);

@@ -25,6 +25,8 @@ export interface TranslationKey {
   updated_at: string | null;
   site: string;
   is_html: boolean;
+  created_by: number | null;
+  updated_by: number | null;
 }
 
 /**
@@ -81,6 +83,14 @@ export interface TranslationGridKey {
   /** Markup rather than a sentence - edited in the HTML editor. */
   is_html: boolean;
   values: Record<string, string>;
+  /** When the key was added. Null on the ones that predate the columns. */
+  created_at: string | null;
+  created_by: number | null;
+  created_by_username: string | null;
+  /** When any of the key's languages was last saved, and by whom - saving a value stamps the key it belongs to as well as the value itself. */
+  updated_at: string | null;
+  updated_by: number | null;
+  updated_by_username: string | null;
 }
 
 /**

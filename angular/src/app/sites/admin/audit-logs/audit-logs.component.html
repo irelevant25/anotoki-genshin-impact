@@ -43,7 +43,7 @@
                 }
                 @for (entry of items(); track entry.id) {
                     <tr class="log-row" [class.expanded]="expanded() === entry.id" (click)="toggle(entry)">
-                        <td class="log-when">{{ entry.changed_at }}</td>
+                        <td class="log-when">{{ entry.changed_at | appDate: 'datetime' }}</td>
                         <td>{{ entry.table_name }}</td>
                         <td class="col-id">{{ entry.record_id }}</td>
                         <td><span class="action action-{{ entry.action | lowercase }}">{{ entry.action }}</span></td>

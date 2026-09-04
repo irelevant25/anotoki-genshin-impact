@@ -96,13 +96,15 @@
                             }
                         </th>
                     }
+                    <th class="col-stamp">Created</th>
+                    <th class="col-stamp">Updated</th>
                     <th class="col-actions"></th>
                 </tr>
             </thead>
             <tbody>
                 @if (!rows().length) {
                     <tr>
-                        <td [attr.colspan]="languages().length + 3" class="empty-cell">Nothing matches</td>
+                        <td [attr.colspan]="languages().length + 5" class="empty-cell">Nothing matches</td>
                     </tr>
                 }
                 @for (row of rows(); track row.name) {
@@ -160,6 +162,24 @@
                                 }
                             </td>
                         }
+
+                        <td class="col-stamp">
+                            @if (row.created_at) {
+                                {{ row.created_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ row.created_by_username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
+
+                        <td class="col-stamp">
+                            @if (row.updated_at) {
+                                {{ row.updated_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ row.updated_by_username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
 
                         <td class="col-actions">
                             <app-button

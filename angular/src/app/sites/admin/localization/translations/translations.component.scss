@@ -377,3 +377,16 @@
   color: var(--text-muted);
   font-style: italic;
 }
+
+/* The stamps, matching the entity lists - this page keeps its own table styles. */
+.col-stamp {
+  width: 140px;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.stamp-who {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}

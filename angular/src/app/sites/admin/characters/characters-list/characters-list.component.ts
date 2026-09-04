@@ -7,6 +7,7 @@ import { LoaderComponent } from '../../../../shared/local-lib/components/loader/
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 /** Sorts version strings numerically ("1.10" after "1.9"), newest first. */
 function compareVersionsDesc(a: string, b: string): number {
@@ -25,7 +26,7 @@ function compareVersionsDesc(a: string, b: string): number {
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
   styleUrls: ['./characters-list.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent],
+  imports: [AppDatePipe, RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent],
 })
 export class CharactersListComponent implements OnInit {
   characters = signal<any[]>([]);

@@ -113,14 +113,31 @@ $app->get('/api/admin/translations', function (Request $request, Response $respo
         $values[$row['key_name']][$row['language_code']] = $row['value'];
     }
 
+    // The stamps are the key's own: saving any of its languages touches it, so
+    // the row the editor is looking at can say when it last changed without
+    // gathering all the languages up to work it out.
     $keys = [];
-    foreach ($pdo->query('SELECT name, description, site, is_html FROM translation_keys ORDER BY site ASC, name ASC') as $row) {
+    $keyRows = $pdo->query(
+        "SELECT k.name, k.description, k.site, k.is_html, k.created_at, k.created_by, k.updated_at, k.updated_by,
+                creator.username AS created_by_username, editor.username AS updated_by_username
+           FROM translation_keys k
+           LEFT JOIN users creator ON creator.id = k.created_by
+           LEFT JOIN users editor ON editor.id = k.updated_by
+          ORDER BY k.site ASC, k.name ASC"
+    );
+    foreach ($keyRows as $row) {
         $keys[] = [
-            'name'        => $row['name'],
-            'description' => $row['description'],
-            'site'        => $row['site'],
-            'is_html'     => (bool) $row['is_html'],
-            'values'      => (object) ($values[$row['name']] ?? []),
+            'name'                => $row['name'],
+            'description'         => $row['description'],
+            'site'                => $row['site'],
+            'is_html'             => (bool) $row['is_html'],
+            'created_at'          => $row['created_at'],
+            'created_by'          => $row['created_by'] === null ? null : (int) $row['created_by'],
+            'created_by_username' => $row['created_by_username'],
+            'updated_at'          => $row['updated_at'],
+            'updated_by'          => $row['updated_by'] === null ? null : (int) $row['updated_by'],
+            'updated_by_username' => $row['updated_by_username'],
+            'values'              => (object) ($values[$row['name']] ?? []),
         ];
     }
 
@@ -147,6 +164,7 @@ $app->get('/api/admin/translations', function (Request $request, Response $respo
 // ---------------------------------------------------------------------------
 $app->put('/api/admin/translations', function (Request $request, Response $response) {
     $pdo   = usersDb();
+    $user  = $request->getAttribute('user');
     $body  = $request->getParsedBody() ?? [];
     $input = $body['values'] ?? null;
 
@@ -179,25 +197,34 @@ $app->put('/api/admin/translations', function (Request $request, Response $respo
         return respondJson($response, ['errors' => $errors], 422);
     }
 
+    // updated_at is a trigger on both tables, so only the name has to be said.
     $upsert = $pdo->prepare(
-        'INSERT INTO translations (key_name, language_code, value) VALUES (?, ?, ?)
-         ON CONFLICT (key_name, language_code) DO UPDATE SET value = EXCLUDED.value'
+        'INSERT INTO translations (key_name, language_code, value, created_by, updated_by) VALUES (?, ?, ?, ?, ?)
+         ON CONFLICT (key_name, language_code) DO UPDATE SET value = EXCLUDED.value, updated_by = EXCLUDED.updated_by'
     );
     $delete = $pdo->prepare('DELETE FROM translations WHERE key_name = ? AND language_code = ?');
+    $touch  = $pdo->prepare('UPDATE translation_keys SET updated_by = ? WHERE name = ?');
 
     $written = 0;
     $cleared = 0;
     $pdo->beginTransaction();
     try {
         foreach ($input as $key => $byLanguage) {
+            $changed = false;
             foreach ($byLanguage as $code => $value) {
                 if ($value === null || trim((string) $value) === '') {
                     $delete->execute([$key, $code]);
-                    $cleared += $delete->rowCount();
+                    $removed = $delete->rowCount();
+                    $cleared += $removed;
+                    $changed = $changed || $removed > 0;
                     continue;
                 }
-                $upsert->execute([$key, $code, (string) $value]);
+                $upsert->execute([$key, $code, (string) $value, $user['id'], $user['id']]);
                 $written++;
+                $changed = true;
+            }
+            if ($changed) {
+                $touch->execute([$user['id'], $key]);
             }
         }
         $pdo->commit();
@@ -220,6 +247,7 @@ $app->put('/api/admin/translations', function (Request $request, Response $respo
 // ---------------------------------------------------------------------------
 $app->put('/api/translations/{code}/import', function (Request $request, Response $response, array $args) {
     $pdo  = usersDb();
+    $user = $request->getAttribute('user');
     $code = strtolower($args['code']);
     $body = $request->getParsedBody() ?? [];
 
@@ -243,19 +271,20 @@ $app->put('/api/translations/{code}/import', function (Request $request, Respons
         ], 422);
     }
 
-    $addKey = $pdo->prepare('INSERT INTO translation_keys (name) VALUES (?) ON CONFLICT (name) DO NOTHING');
+    $addKey = $pdo->prepare('INSERT INTO translation_keys (name, created_by, updated_by) VALUES (?, ?, ?) ON CONFLICT (name) DO NOTHING');
     $upsert = $pdo->prepare(
-        'INSERT INTO translations (key_name, language_code, value) VALUES (?, ?, ?)
-         ON CONFLICT (key_name, language_code) DO UPDATE SET value = EXCLUDED.value'
+        'INSERT INTO translations (key_name, language_code, value, created_by, updated_by) VALUES (?, ?, ?, ?, ?)
+         ON CONFLICT (key_name, language_code) DO UPDATE SET value = EXCLUDED.value, updated_by = EXCLUDED.updated_by'
     );
     $delete = $pdo->prepare('DELETE FROM translations WHERE key_name = ? AND language_code = ?');
+    $touch  = $pdo->prepare('UPDATE translation_keys SET updated_by = ? WHERE name = ?');
 
     $written = 0;
     $cleared = 0;
     $pdo->beginTransaction();
     try {
         foreach ($unknown as $key) {
-            $addKey->execute([$key]);
+            $addKey->execute([$key, $user['id'], $user['id']]);
         }
         foreach ($values as $key => $value) {
             if ($value === null || trim((string) $value) === '') {
@@ -263,8 +292,9 @@ $app->put('/api/translations/{code}/import', function (Request $request, Respons
                 $cleared += $delete->rowCount();
                 continue;
             }
-            $upsert->execute([$key, $code, (string) $value]);
+            $upsert->execute([$key, $code, (string) $value, $user['id'], $user['id']]);
             $written++;
+            $touch->execute([$user['id'], $key]);
         }
         $pdo->commit();
     } catch (\Throwable $e) {
@@ -284,6 +314,7 @@ $app->put('/api/translations/{code}/import', function (Request $request, Respons
 // ---------------------------------------------------------------------------
 $app->post('/api/translation-keys', function (Request $request, Response $response) {
     $pdo  = usersDb();
+    $user = $request->getAttribute('user');
     $body = $request->getParsedBody();
     $name = trim((string) $body['name']);
 
@@ -302,8 +333,8 @@ $app->post('/api/translation-keys', function (Request $request, Response $respon
         return respondJson($response, ['error' => "Unknown site '$site'"], 422);
     }
 
-    $pdo->prepare('INSERT INTO translation_keys (name, description, site, is_html) VALUES (?, ?, ?, ?)')
-        ->execute([$name, $body['description'] ?? null, $site, (int) (bool) ($body['is_html'] ?? false)]);
+    $pdo->prepare('INSERT INTO translation_keys (name, description, site, is_html, created_by, updated_by) VALUES (?, ?, ?, ?, ?, ?)')
+        ->execute([$name, $body['description'] ?? null, $site, (int) (bool) ($body['is_html'] ?? false), $user['id'], $user['id']]);
 
     $stmt = $pdo->prepare('SELECT name, description, site, is_html FROM translation_keys WHERE name = ?');
     $stmt->execute([$name]);

@@ -49,6 +49,17 @@ class TranslationGridKey extends ResponseShape
         public readonly bool $is_html,
         /** @var array<string, string> */
         public readonly array $values,
+        /** When the key was added. Null on the ones that predate the columns. */
+        public readonly ?string $created_at,
+        public readonly ?int $created_by,
+        public readonly ?string $created_by_username,
+        /**
+         * When any of the key's languages was last saved, and by whom - saving
+         * a value stamps the key it belongs to as well as the value itself.
+         */
+        public readonly ?string $updated_at,
+        public readonly ?int $updated_by,
+        public readonly ?string $updated_by_username,
     ) {
     }
 }

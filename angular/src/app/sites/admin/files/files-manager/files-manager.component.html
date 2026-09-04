@@ -56,7 +56,7 @@
                                 <tr>
                                     <td>{{ entry.name }}</td>
                                     <td>{{ entry.folder }}</td>
-                                    <td>{{ entry.deleted_at }}</td>
+                                    <td>{{ entry.deleted_at | appDate: 'datetime' }}</td>
                                     <td>{{ formatSize(entry.size) }}</td>
                                     <td class="col-actions">
                                         <app-button

@@ -69,6 +69,24 @@
   text-align: right;
 }
 
+/**
+ * When a row was created or last changed, and by whom.
+ *
+ * Two facts in one column rather than four columns: the tables are already
+ * wide, and the name only ever means something next to the date it belongs to.
+ */
+.col-stamp {
+  width: 140px;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.stamp-who {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
 .action-btns {
   display: flex;
   gap: var(--spacing-xs);

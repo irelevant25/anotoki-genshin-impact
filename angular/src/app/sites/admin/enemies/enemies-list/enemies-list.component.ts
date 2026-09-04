@@ -7,12 +7,13 @@ import { LoaderComponent } from '../../../../shared/local-lib/components/loader/
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 @Component({
   selector: 'app-enemies-list',
   templateUrl: './enemies-list.component.html',
   styleUrls: ['./enemies-list.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, MultiselectComponent],
+  imports: [AppDatePipe, RouterLink, ButtonComponent, LoaderComponent, TextComponent, MultiselectComponent],
 })
 export class EnemiesListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'enemies';

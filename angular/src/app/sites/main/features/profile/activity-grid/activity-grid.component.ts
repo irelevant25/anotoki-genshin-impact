@@ -2,6 +2,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
 import { ActivityCell } from '../profile-stats';
+import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 
 /** A month's name, and how many of the grid's columns it covers. */
 export interface ActivityMonth {
@@ -26,7 +27,7 @@ export interface ActivityMonth {
   selector: 'app-activity-grid',
   templateUrl: './activity-grid.component.html',
   styleUrls: ['./activity-grid.component.scss'],
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, AppDatePipe],
 })
 export class ActivityGridComponent {
   private readonly _i18n = inject(TranslationService);

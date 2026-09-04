@@ -218,7 +218,58 @@ function _resolveVoiceOverTarget(PDO $pdo, array $row, string $field): ?array
         return null;
     }
 
-    return ['folder' => 'character/voice_overs/' . $characterSegment . '/' . $typeSegment . '/' . $code, 'base' => $title, 'audio' => true];
+    $folder = 'character/voice_overs/' . $characterSegment . '/' . $typeSegment . '/' . $code;
+
+    // Replacing the clip this row already has keeps its name, so a re-upload
+    // overwrites the file instead of leaving the old one orphaned beside it.
+    $current = $row[$field] ?? null;
+    if (is_string($current) && $current !== '') {
+        return ['folder' => $folder, 'base' => pathinfo($current, PATHINFO_FILENAME), 'audio' => true];
+    }
+
+    return ['folder' => $folder, 'base' => _freeVoiceOverName($folder, $title), 'audio' => true];
+}
+
+/**
+ * A name for a new clip that is not already taken.
+ *
+ * A character has nine lines called "Elemental Skill", so the title on its own
+ * is not a filename - saving the second one under it would quietly write over
+ * the first. Everything already on disk is numbered (`Elemental Skill 01`), and
+ * this carries that on by taking the first number nothing is using.
+ *
+ * The numbering the asset dump came with does not follow from anything in the
+ * database - it is the order the clips were scraped in - so this does not try
+ * to reproduce it, only to avoid colliding with it.
+ */
+function _freeVoiceOverName(string $folder, string $title): string
+{
+    $safeFolder = _assetFolder($folder);
+    if ($safeFolder === null) {
+        return $title;
+    }
+
+    $directory = _assetsRoot() . '/' . $safeFolder;
+    $taken = fn(string $base) => (bool) glob($directory . '/' . _globEscape($base) . '.*');
+
+    if (!is_dir($directory) || (!$taken($title) && !$taken($title . ' 01'))) {
+        return $title;
+    }
+
+    for ($n = 1; $n <= 99; $n++) {
+        $candidate = $title . ' ' . str_pad((string) $n, 2, '0', STR_PAD_LEFT);
+        if (!$taken($candidate)) {
+            return $candidate;
+        }
+    }
+
+    return $title . ' ' . substr(bin2hex(random_bytes(3)), 0, 6);
+}
+
+/** glob() treats these as patterns, and voice over titles contain all of them. */
+function _globEscape(string $value): string
+{
+    return str_replace(['[', ']', '*', '?'], ['[[]', '[]]', '[*]', '[?]'], $value);
 }
 
 /**

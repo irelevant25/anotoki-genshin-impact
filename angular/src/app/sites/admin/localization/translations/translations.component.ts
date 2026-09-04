@@ -1,22 +1,21 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslationApiService, Language, TranslationAdminView, TranslationSite } from '../../../../api';
+import { TranslationApiService, Language, TranslationAdminView, TranslationGridKey, TranslationSite } from '../../../../api';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { ModalService } from '../../../../shared/local-lib/components/modal/modal.service';
 import { HtmlTranslationEdit, HtmlTranslationModalComponent } from './html-translation-modal/html-translation-modal.component';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 const FALLBACK_LANGUAGE = 'en';
 
-interface GridRow {
-  name: string;
-  description: string | null;
-  site: string;
-  /** Markup rather than a sentence, so the grid's one-line box is the wrong tool. */
-  is_html: boolean;
-  values: Record<string, string>;
-}
+/**
+ * A row of the grid, which is a key with every translation of it hanging off
+ * it - the shape the endpoint sends, rather than a copy of it that has to be
+ * kept in step by hand.
+ */
+type GridRow = TranslationGridKey;
 
 /**
  * Every string the site says, in every language it says it in.
@@ -29,7 +28,7 @@ interface GridRow {
   selector: 'app-admin-translations',
   templateUrl: './translations.component.html',
   styleUrls: ['./translations.component.scss'],
-  imports: [FormsModule, ButtonComponent, LoaderComponent],
+  imports: [FormsModule, AppDatePipe, ButtonComponent, LoaderComponent],
 })
 export class TranslationsComponent implements OnInit {
   private readonly _translationApi = inject(TranslationApiService);

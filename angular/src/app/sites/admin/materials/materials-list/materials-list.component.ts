@@ -9,12 +9,13 @@ import { DropdownComponent } from '../../../../shared/local-lib/components/dropd
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
 import { MaterialIconDirective } from '../../shared/material-icon.directive';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 @Component({
   selector: 'app-materials-list',
   templateUrl: './materials-list.component.html',
   styleUrls: ['./materials-list.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent, MaterialIconDirective],
+  imports: [AppDatePipe, RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent, MaterialIconDirective],
 })
 export class MaterialsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'materials';

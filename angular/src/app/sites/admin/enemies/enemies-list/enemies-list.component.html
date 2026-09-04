@@ -28,13 +28,15 @@
                     <th>Icon</th>
                     <th>Name</th>
                     <th>Version</th>
+                    <th class="col-stamp">Created</th>
+                    <th class="col-stamp">Updated</th>
                     <th class="col-actions"></th>
                 </tr>
             </thead>
             <tbody>
                 @if (!filtered().length) {
                     <tr>
-                        <td colspan="5" class="empty-cell">No enemies match the filter</td>
+                        <td colspan="7" class="empty-cell">No enemies match the filter</td>
                     </tr>
                 }
                 @for (enemy of filtered(); track enemy.id) {
@@ -47,6 +49,22 @@
                         </td>
                         <td>{{ enemy.name }}</td>
                         <td>{{ enemy.version ?? '—' }}</td>
+                        <td class="col-stamp">
+                            @if (enemy.created_at) {
+                                {{ enemy.created_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ enemy.created_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
+                        <td class="col-stamp">
+                            @if (enemy.updated_at) {
+                                {{ enemy.updated_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ enemy.updated_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
                         <td class="col-actions">
                             @if (deleteConfirm() === enemy.id) {
                                 <span class="confirm-row">

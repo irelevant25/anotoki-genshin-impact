@@ -39,7 +39,7 @@
                                 <td>
                                     <span class="status status-{{ migration.status === 'applied' ? 'applied' : 'pending' }}">{{ migration.status }}</span>
                                 </td>
-                                <td>{{ migration.applied_at ?? '—' }}</td>
+                                <td>{{ migration.applied_at ? (migration.applied_at | appDate: 'datetime') : '—' }}</td>
                                 <td>{{ formatSize(migration.size) }}</td>
                                 <td class="col-actions">
                                     <app-button

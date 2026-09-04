@@ -30,13 +30,15 @@
                     <th>Name</th>
                     <th>Rarities</th>
                     <th>Version</th>
+                    <th class="col-stamp">Created</th>
+                    <th class="col-stamp">Updated</th>
                     <th class="col-actions"></th>
                 </tr>
             </thead>
             <tbody>
                 @if (!filtered().length) {
                     <tr>
-                        <td colspan="6" class="empty-cell">No artifacts match the filter</td>
+                        <td colspan="8" class="empty-cell">No artifacts match the filter</td>
                     </tr>
                 }
                 @for (artifact of filtered(); track artifact.id) {
@@ -50,6 +52,22 @@
                         <td>{{ artifact.name }}</td>
                         <td>{{ raritiesOf(artifact) }}</td>
                         <td>{{ artifact.version ?? '—' }}</td>
+                        <td class="col-stamp">
+                            @if (artifact.created_at) {
+                                {{ artifact.created_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ artifact.created_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
+                        <td class="col-stamp">
+                            @if (artifact.updated_at) {
+                                {{ artifact.updated_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ artifact.updated_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
                         <td class="col-actions">
                             @if (deleteConfirm() === artifact.id) {
                                 <span class="confirm-row">

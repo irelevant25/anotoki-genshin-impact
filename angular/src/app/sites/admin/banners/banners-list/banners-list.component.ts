@@ -14,7 +14,7 @@ import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
   selector: 'app-banners-list',
   templateUrl: './banners-list.component.html',
   styleUrls: ['./banners-list.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, MultiselectComponent, MaterialIconDirective],
+  imports: [RouterLink, AppDatePipe, ButtonComponent, LoaderComponent, TextComponent, MultiselectComponent, MaterialIconDirective],
   providers: [AppDatePipe],
 })
 export class BannersListComponent extends AdminListComponent<any> implements OnInit {

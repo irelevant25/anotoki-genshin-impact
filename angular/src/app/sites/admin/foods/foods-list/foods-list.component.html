@@ -41,13 +41,15 @@
                     <th>Region</th>
                     <th>Rarity</th>
                     <th>Version</th>
+                    <th class="col-stamp">Created</th>
+                    <th class="col-stamp">Updated</th>
                     <th class="col-actions"></th>
                 </tr>
             </thead>
             <tbody>
                 @if (!filtered().length) {
                     <tr>
-                        <td colspan="8" class="empty-cell">No foods match the filter</td>
+                        <td colspan="10" class="empty-cell">No foods match the filter</td>
                     </tr>
                 }
                 @for (food of filtered(); track food.id) {
@@ -65,6 +67,22 @@
                             <span class="rarity rarity-{{ food.rarity }}">{{ getRarityStars(food.rarity) }}</span>
                         </td>
                         <td>{{ food.version ?? '—' }}</td>
+                        <td class="col-stamp">
+                            @if (food.created_at) {
+                                {{ food.created_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ food.created_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
+                        <td class="col-stamp">
+                            @if (food.updated_at) {
+                                {{ food.updated_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ food.updated_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
                         <td class="col-actions">
                             @if (deleteConfirm() === food.id) {
                                 <span class="confirm-row">

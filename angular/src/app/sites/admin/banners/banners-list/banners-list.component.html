@@ -30,13 +30,15 @@
                     <th>Version</th>
                     <th>From</th>
                     <th>To</th>
+                    <th class="col-stamp">Created</th>
+                    <th class="col-stamp">Updated</th>
                     <th class="col-actions"></th>
                 </tr>
             </thead>
             <tbody>
                 @if (!filtered().length) {
                     <tr>
-                        <td colspan="7" class="empty-cell">No banners match the filter</td>
+                        <td colspan="9" class="empty-cell">No banners match the filter</td>
                     </tr>
                 }
                 @for (banner of filtered(); track banner.id) {
@@ -49,6 +51,22 @@
                         <td>{{ banner.version }}</td>
                         <td>{{ day(banner.duration_from) }}</td>
                         <td>{{ day(banner.duration_to) }}</td>
+                        <td class="col-stamp">
+                            @if (banner.created_at) {
+                                {{ banner.created_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ banner.created_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
+                        <td class="col-stamp">
+                            @if (banner.updated_at) {
+                                {{ banner.updated_at | appDate: 'datetime' }}
+                                <span class="stamp-who">{{ banner.updated_by?.username ?? 'system' }}</span>
+                            } @else {
+                                —
+                            }
+                        </td>
                         <td class="col-actions">
                             @if (deleteConfirm() === banner.id) {
                                 <span class="confirm-row">

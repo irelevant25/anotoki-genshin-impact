@@ -23,7 +23,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 137
+                "line": 154
             },
             "expanded": [],
             "payload": null,
@@ -55,7 +55,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 210
+                "line": 237
             },
             "expanded": [],
             "payload": null,
@@ -11135,7 +11135,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 311
+                "line": 342
             },
             "expanded": [],
             "payload": "User\\TranslationKey",
@@ -11170,7 +11170,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 371
+                "line": 402
             },
             "expanded": [],
             "payload": null,
@@ -11207,7 +11207,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 348
+                "line": 379
             },
             "expanded": [],
             "payload": "User\\TranslationKey",
@@ -11304,7 +11304,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\translations.php",
-                "line": 280
+                "line": 310
             },
             "expanded": [],
             "payload": null,
@@ -11371,7 +11371,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\uploads.php",
-                "line": 389
+                "line": 440
             },
             "expanded": [],
             "payload": null,
@@ -11417,7 +11417,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\uploads.php",
-                "line": 330
+                "line": 381
             },
             "expanded": [],
             "payload": null,
@@ -21701,6 +21701,66 @@
                     "optional": false,
                     "of": "array<string, string>",
                     "description": null
+                },
+                {
+                    "name": "created_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "When the key was added. Null on the ones that predate the columns."
+                },
+                {
+                    "name": "created_by",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "created_by_username",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "updated_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "When any of the key's languages was last saved, and by whom - saving\na value stamps the key it belongs to as well as the value itself."
+                },
+                {
+                    "name": "updated_by",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "updated_by_username",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
                 }
             ]
         },
@@ -26123,6 +26183,18 @@
                     "sqlType": "BOOLEAN",
                     "nullable": false,
                     "enum": null
+                },
+                {
+                    "name": "created_by",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "updated_by",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
                 }
             ]
         },
@@ -26158,6 +26230,18 @@
                 {
                     "name": "updated_at",
                     "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "created_by",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "updated_by",
+                    "sqlType": "INTEGER",
                     "nullable": true,
                     "enum": null
                 }

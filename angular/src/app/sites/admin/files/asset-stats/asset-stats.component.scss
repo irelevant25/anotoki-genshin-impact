@@ -28,11 +28,43 @@
 // Two columns where there is room and one where there is not: the format table
 // and the conversion figures are read for different reasons, and stacking them
 // on a wide screen leaves half of it empty.
+/**
+ * Two columns that do not reflow into each other.
+ *
+ * What is on disk and what the catalogue makes of it belong together on the
+ * left - the second is a footnote to the first. Conversion is a separate
+ * question with its own progress bar, so it gets the right on its own and the
+ * full height to grow into.
+ */
 .stats-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: var(--spacing-lg);
   margin-top: var(--spacing-md);
+}
+
+.stats-panel-formats {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.stats-panel-conversion {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+@media (max-width: 900px) {
+  .stats-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-panel-formats,
+  .stats-panel-conversion,
+  .catalogue {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 
 .panel-heading {
@@ -321,7 +353,8 @@
 // row reading "0 unaccounted for" on every visit is a row nobody reads.
 
 .catalogue {
-  grid-column: 1 / -1;
+  grid-column: 1;
+  grid-row: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

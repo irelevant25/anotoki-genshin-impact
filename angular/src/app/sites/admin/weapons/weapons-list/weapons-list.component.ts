@@ -8,12 +8,13 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
+import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 @Component({
   selector: 'app-weapons-list',
   templateUrl: './weapons-list.component.html',
   styleUrls: ['./weapons-list.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent],
+  imports: [AppDatePipe, RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent],
 })
 export class WeaponsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'weapons';
