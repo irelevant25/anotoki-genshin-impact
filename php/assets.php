@@ -6,6 +6,7 @@
  *   php assets.php --status                 what is out there, and what disagrees
  *   php assets.php --align [--apply]        name converted files the way the database asks
  *   php assets.php --repoint [--apply]      point the database at the converted files
+ *   php assets.php --reconcile [--apply]    put every file on disk into the catalogue
  *   php assets.php --revert=<log.json>      put an --align or --repoint back
  *
  * Both actions are dry runs unless --apply is given, and both write a log that
@@ -144,6 +145,8 @@ if ($revert !== null) {
     align($pdo, $apply);
 } elseif (in_array('--repoint', $argv, true)) {
     repoint($pdo, $apply);
+} elseif (in_array('--reconcile', $argv, true)) {
+    reconcile($pdo, $apply);
 } else {
     status($pdo);
 }
@@ -370,6 +373,206 @@ function repoint(PDO $pdo, bool $apply): void
     $log = writeLog('repoint', ['changes' => $changes]);
     echo 'rows written: ', number_format($written), "\n";
     echo "log: $log\n";
+}
+
+// ── Reconcile ────────────────────────────────────────────────────────────────
+
+/**
+ * Every category, longest path first.
+ *
+ * Longest first is what makes `character/voice_overs` win over a category for
+ * `character` if one is ever added: a file belongs to the most specific folder
+ * that claims it, not the first one that happens to match.
+ */
+function assetCategories(PDO $pdo): array
+{
+    $categories = $pdo->query('SELECT id, code, path, is_system FROM file_categories WHERE deleted = FALSE')
+        ->fetchAll(PDO::FETCH_ASSOC);
+
+    usort($categories, fn(array $a, array $b) => strlen($b['path']) <=> strlen($a['path']));
+
+    return $categories;
+}
+
+/** The category a folder belongs to, or null when nothing claims it. */
+function assetCategoryFor(array $categories, string $folder): ?array
+{
+    foreach ($categories as $category) {
+        if ($folder === $category['path'] || str_starts_with($folder . '/', $category['path'] . '/')) {
+            return $category;
+        }
+    }
+
+    return null;
+}
+
+/**
+ * Notes an operation against a file.
+ *
+ * `changed_by` is null for anything the reconcile did, and that is the point:
+ * files also arrive over FTP and leave the same way, and the honest answer to
+ * "who added this" is that nobody here did - it was found.
+ */
+function auditFile(PDO $pdo, int $fileId, string $action, array $changes, ?int $by = null): void
+{
+    $statement = $pdo->prepare(
+        'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changed_at, changes)
+         VALUES (:t, :r, :a, :b, CURRENT_TIMESTAMP, :c)'
+    );
+    $statement->execute([
+        't' => 'files',
+        'r' => (string) $fileId,
+        'a' => $action,
+        'b' => $by,
+        'c' => json_encode($changes, JSON_UNESCAPED_UNICODE),
+    ]);
+}
+
+/**
+ * Brings the catalogue in line with the disk.
+ *
+ * Three things can be out of step. A file on disk with no row is adopted. A row
+ * whose file has gone is reported rather than removed - a file that vanished is
+ * news, and quietly dropping the row would take its category and its history
+ * with it. And a file in a folder no category claims is moved into `unfiled`,
+ * because the catalogue's whole shape is "path = category path + name" and a
+ * row that does not satisfy that is a row that lies.
+ */
+function reconcile(PDO $pdo, bool $apply): void
+{
+    $categories = assetCategories($pdo);
+    $unfiled = null;
+    foreach ($categories as $category) {
+        if ($category['code'] === 'unfiled') {
+            $unfiled = $category;
+        }
+    }
+    if ($unfiled === null) {
+        echo "no 'unfiled' category - has migration 008 run?\n";
+        exit(1);
+    }
+
+    // What the catalogue already holds, keyed the way a path is built.
+    $known = [];
+    foreach ($pdo->query('SELECT f.id, f.name, f.extension, f.size, c.path
+                          FROM files f JOIN file_categories c ON c.id = f.category_id') as $row) {
+        $known[$row['path'] . '/' . $row['name'] . '.' . $row['extension']] = $row;
+    }
+
+    $root = realpath(ASSETS_ROOT);
+    $seen = [];
+    $adopt = [];
+    $strays = [];
+    $resized = [];
+
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    foreach ($iterator as $path => $info) {
+        if ($info->isDir()) {
+            continue;
+        }
+        $relative = substr(str_replace('\\', '/', $path), strlen(str_replace('\\', '/', $root)) + 1);
+        if (str_contains('/' . $relative, '/.')) {
+            continue;
+        }
+
+        $seen[$relative] = true;
+
+        if (isset($known[$relative])) {
+            if ((int) $known[$relative]['size'] !== $info->getSize()) {
+                $resized[] = [(int) $known[$relative]['id'], $info->getSize(), $info->getMTime()];
+            }
+            continue;
+        }
+
+        $folder = dirname($relative);
+        $category = assetCategoryFor($categories, $folder);
+
+        if ($category === null) {
+            $strays[] = $relative;
+            continue;
+        }
+
+        $extension = strtolower(pathinfo($relative, PATHINFO_EXTENSION));
+        $name = substr($relative, strlen($category['path']) + 1);
+        $name = $extension === '' ? $name : substr($name, 0, -(strlen($extension) + 1));
+
+        $adopt[] = [
+            'category_id' => (int) $category['id'],
+            'name' => $name,
+            'extension' => $extension,
+            'size' => $info->getSize(),
+            'modified_at' => date('Y-m-d H:i:s', $info->getMTime()),
+        ];
+    }
+
+    $vanished = [];
+    foreach ($known as $relative => $row) {
+        if (!isset($seen[$relative])) {
+            $vanished[] = $relative;
+        }
+    }
+
+    echo 'files on disk        : ', number_format(count($seen)), "\n";
+    echo 'already catalogued   : ', number_format(count($known) - count($vanished)), "\n";
+    echo 'to adopt             : ', number_format(count($adopt)), "\n";
+    echo 'size changed         : ', number_format(count($resized)), "\n";
+    echo 'in no category       : ', number_format(count($strays)), "   (would move to ", $unfiled['path'], "/)\n";
+    echo 'catalogued but gone  : ', number_format(count($vanished)), "\n";
+    foreach (array_slice($vanished, 0, 5) as $gone) {
+        echo "    $gone\n";
+    }
+
+    if (!$apply) {
+        echo "dry run - add --apply\n";
+        return;
+    }
+
+    $pdo->beginTransaction();
+
+    $insert = $pdo->prepare(
+        'INSERT INTO files (category_id, name, extension, size, modified_at)
+         VALUES (:category_id, :name, :extension, :size, :modified_at)
+         ON CONFLICT (category_id, name, extension) DO NOTHING
+         RETURNING id'
+    );
+
+    $adopted = 0;
+    foreach ($adopt as $file) {
+        $insert->execute($file);
+        $id = $insert->fetchColumn();
+        // RETURNING leaves the statement holding a result set, and re-executing
+        // one that still has rows in it is an error on pgsql.
+        $insert->closeCursor();
+        if ($id !== false) {
+            // One line per adoption would be eighty thousand rows the first
+            // time this runs, so the audit gets the run, not the file.
+            $adopted++;
+        }
+    }
+
+    $touch = $pdo->prepare('UPDATE files SET size = :size, modified_at = :modified_at, updated_at = CURRENT_TIMESTAMP WHERE id = :id');
+    foreach ($resized as [$id, $size, $modified]) {
+        $touch->execute(['id' => $id, 'size' => $size, 'modified_at' => date('Y-m-d H:i:s', $modified)]);
+    }
+
+    // The run itself, against the catalogue rather than a file, so there is one
+    // legible entry saying what a reconcile did instead of thousands saying
+    // that a file exists.
+    auditFile($pdo, 0, 'RECONCILE', [
+        'adopted' => $adopted,
+        'resized' => count($resized),
+        'vanished' => count($vanished),
+        'strays' => count($strays),
+    ]);
+
+    $pdo->commit();
+
+    echo 'adopted : ', number_format($adopted), "\n";
+    echo 'resized : ', number_format(count($resized)), "\n";
 }
 
 // ── Logs ─────────────────────────────────────────────────────────────────────
