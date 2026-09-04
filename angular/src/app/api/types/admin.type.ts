@@ -16,6 +16,13 @@ export interface AuditLogQuery {
   action?: string;
   user?: string;
   recordId?: string;
+  /**
+   * The entity a change belongs to rather than the row it touched: a
+   * character's talents and voice overs are logged under their own tables, and
+   * these two gather them back into one history.
+   */
+  entityTable?: string;
+  entityId?: string;
   from?: string;
   to?: string;
   page: number;

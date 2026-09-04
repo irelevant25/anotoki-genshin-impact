@@ -30,6 +30,8 @@ export interface Feedback {
   submitter_hash: string | null;
   created_at: string | null;
   updated_at: string | null;
+  ip: string | null;
+  mac: string | null;
 }
 
 /**

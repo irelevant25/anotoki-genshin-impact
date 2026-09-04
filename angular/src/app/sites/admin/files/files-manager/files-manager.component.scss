@@ -19,10 +19,20 @@
 
 // Folder list beside the grid; collapses to stacked on narrow screens.
 .files-layout {
+  // The loader inside is an absolutely positioned overlay: without this it
+  // finds no containing block and covers the page instead of the browser.
+  position: relative;
   display: grid;
   grid-template-columns: 300px minmax(0, 1fr);
   gap: var(--spacing-lg);
   align-items: start;
+
+  // Lifted out of the grid as well, or it would take the first column and push
+  // the folder pane into the second.
+  > app-loader {
+    position: absolute;
+    inset: 0;
+  }
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;

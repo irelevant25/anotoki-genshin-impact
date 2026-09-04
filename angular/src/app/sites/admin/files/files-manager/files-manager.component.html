@@ -20,9 +20,10 @@
 <app-asset-stats></app-asset-stats>
 
 <div class="files-layout">
+    <app-loader #loader [loading]="loadingFolders() || loadingFiles()"></app-loader>
+
     <aside class="folder-pane">
         <app-text [placeholder]="'Filter folders…'" [(value)]="folderFilter"></app-text>
-        <app-loader [loading]="loadingFolders()"></app-loader>
         <div class="folder-list">
             @for (entry of visibleFolders(); track entry.folder) {
                 <button type="button" class="folder-item" [class.active]="entry.folder === selectedFolder() && !showTrash()" (click)="selectFolder(entry.folder)">
@@ -38,8 +39,7 @@
     <section class="file-pane">
         @if (showTrash()) {
             <h2 class="pane-title">Trash</h2>
-            <app-loader [loading]="loadingFiles()"></app-loader>
-            @if (!loadingFiles()) {
+            @if (!loader.loadingCtrl.loading()) {
                 <div class="table-wrap">
                     <table class="admin-table">
                         <thead>
@@ -86,9 +86,7 @@
                 </div>
             </div>
 
-            <app-loader [loading]="loadingFiles()"></app-loader>
-
-            @if (!loadingFiles()) {
+            @if (!loader.loadingCtrl.loading()) {
                 <div class="file-meta">
                     <span>{{ rangeLabel() }}</span>
                     @if (totalPages() > 1) {

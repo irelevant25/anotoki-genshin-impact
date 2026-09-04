@@ -113,6 +113,12 @@ $app->post('/api/feedback', function (Request $request, Response $response) {
         'email' => $email ?? ($user['email'] ?? null),
         'page_url' => feedbackTrim($body['page_url'] ?? null, 500),
         'user_agent' => feedbackTrim($request->getHeaderLine('User-Agent'), 500),
+        // Read from the request rather than sent with it: a sender choosing
+        // its own address is not evidence of anything. The MAC is null for
+        // anybody who reached this over a router, which is nearly everybody -
+        // see requestMac().
+        'ip' => requestIp($request),
+        'mac' => requestMac($request),
         'language' => feedbackTrim($body['language'] ?? null, 10),
         'submitter_hash' => $hash,
     ];

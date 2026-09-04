@@ -18,7 +18,7 @@ export class DatabaseComponent {
       badgeIcon: false,
       helpIcon: true,
       modalTitle: 'database.characters.about',
-      cardImage: 'assets/character/wish_icon/Nahida.avif',
+      cardImage: 'assets/character/wish_icon/NAHIDA.avif',
       cardInfo: 'database.characters.info',
     },
     {
@@ -27,7 +27,7 @@ export class DatabaseComponent {
       badgeIcon: false,
       helpIcon: true,
       modalTitle: 'database.materials.about',
-      cardImage: 'assets/character/wish_icon/Zhongli.avif',
+      cardImage: 'assets/character/wish_icon/ZHONGLI.avif',
       cardInfo: 'database.materials.info',
     },
     {
@@ -36,7 +36,7 @@ export class DatabaseComponent {
       badgeIcon: false,
       helpIcon: true,
       modalTitle: 'database.weapons.about',
-      cardImage: 'assets/character/wish_icon/Noelle.avif',
+      cardImage: 'assets/character/wish_icon/NOELLE.avif',
       cardInfo: 'database.weapons.info',
     },
     {
@@ -45,7 +45,7 @@ export class DatabaseComponent {
       badgeIcon: false,
       helpIcon: true,
       modalTitle: 'database.banners.about',
-      cardImage: 'assets/character/wish_icon/Qiqi.avif',
+      cardImage: 'assets/character/wish_icon/QIQI.avif',
       cardInfo: 'database.banners.info',
     },
   ];

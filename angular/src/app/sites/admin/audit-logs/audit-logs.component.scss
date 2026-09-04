@@ -113,3 +113,32 @@
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
 }
+
+/* What a change belongs to, and the pill saying the list is narrowed to one. */
+.log-entity {
+  white-space: nowrap;
+}
+
+.entity-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary);
+  font: inherit;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.entity-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-right: var(--spacing-sm);
+  padding: 2px var(--spacing-xs) 2px var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+}

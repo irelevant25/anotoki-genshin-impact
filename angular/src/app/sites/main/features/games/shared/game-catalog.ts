@@ -25,13 +25,13 @@ export const GAME_CATALOG: readonly GameCard[] = [
     path: ROUTE_MAP.map['games'].tournament.path,
     title: 'game.tournament.title',
     info: 'game.tournament.info',
-    image: 'assets/character/wish_icon/Klee.avif',
+    image: 'assets/character/wish_icon/KLEE.avif',
   },
   {
     id: 'minesweeper',
     path: ROUTE_MAP.map['games'].minesweeper.path,
     title: 'game.minesweeper.title',
     info: 'game.minesweeper.info',
-    image: 'assets/character/wish_icon/Citlali.avif',
+    image: 'assets/character/wish_icon/CITLALI.avif',
   },
 ];

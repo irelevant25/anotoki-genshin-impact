@@ -305,7 +305,9 @@ function registerFullResource($app, string $path, string $table, string $modelCl
                 ...$modelClass::fromBody($body[$bodyKey])->toDbArray(),
                 'created_by' => $user['id'],
             ]);
-            _fullInsertChildren($pdo, $children, $body, $id, $user['id']);
+            // The children are logged against the thing being created rather
+            // than each against itself - only known once the parent has an id.
+            withAuditScope($table, (string) $id, fn() => _fullInsertChildren($pdo, $children, $body, $id, $user['id']));
             $pdo->commit();
         } catch (\Throwable $e) {
             $pdo->rollBack();
@@ -328,17 +330,20 @@ function registerFullResource($app, string $path, string $table, string $modelCl
 
         $pdo->beginTransaction();
         try {
-            if (!empty($body[$bodyKey])) {
-                resolveAssetBody($pdo, $table, $body[$bodyKey], $user['id']);
-                DbQuery::update($pdo, $table, [
-                    ...$modelClass::partialToDbArray($body[$bodyKey]),
-                    'updated_by' => $user['id'],
-                ], $id);
-            }
-            // Only touch the collections the client actually sent.
-            $present = array_values(array_filter($children, fn($spec) => isset($body[$spec['key']])));
-            _fullDeleteChildren($pdo, $present, $id);
-            _fullInsertChildren($pdo, $present, $body, $id, $user['id']);
+            // Everything this save writes belongs to the entity being saved.
+            withAuditScope($table, (string) $id, function () use ($pdo, $table, $modelClass, $bodyKey, $body, $children, $id, $user) {
+                if (!empty($body[$bodyKey])) {
+                    resolveAssetBody($pdo, $table, $body[$bodyKey], $user['id']);
+                    DbQuery::update($pdo, $table, [
+                        ...$modelClass::partialToDbArray($body[$bodyKey]),
+                        'updated_by' => $user['id'],
+                    ], $id);
+                }
+                // Only touch the collections the client actually sent.
+                $present = array_values(array_filter($children, fn($spec) => isset($body[$spec['key']])));
+                _fullDeleteChildren($pdo, $present, $id);
+                _fullInsertChildren($pdo, $present, $body, $id, $user['id']);
+            });
             $pdo->commit();
         } catch (\Throwable $e) {
             $pdo->rollBack();

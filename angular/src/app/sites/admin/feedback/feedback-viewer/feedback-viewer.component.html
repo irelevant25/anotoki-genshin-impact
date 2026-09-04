@@ -34,6 +34,12 @@
                 @if (message.language) {
                     <span><strong>Language</strong> {{ message.language }}</span>
                 }
+                @if (message.ip) {
+                    <span><strong>From</strong> {{ message.ip }}</span>
+                }
+                @if (message.mac) {
+                    <span><strong>MAC</strong> {{ message.mac }}</span>
+                }
                 @if (message.user_agent) {
                     <span class="context-agent"><strong>User agent</strong> {{ message.user_agent }}</span>
                 }

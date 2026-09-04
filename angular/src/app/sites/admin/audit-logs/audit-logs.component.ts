@@ -38,6 +38,15 @@ export class AuditLogsComponent implements OnInit {
   filterAction = signal<string | number | boolean | null | undefined>(undefined);
   filterUser = signal<string | number | boolean | null | undefined>(undefined);
   filterRecordId = signal<string | number | null | undefined>('');
+  /**
+   * The thing a change belongs to, rather than the row it touched.
+   *
+   * Set by clicking an entry's entity: a character's talents and voice overs
+   * are logged under their own tables and ids, and this is what gathers them
+   * back up into one history.
+   */
+  filterEntityTable = signal<string | undefined>(undefined);
+  filterEntityId = signal<string | undefined>(undefined);
   filterFrom = signal<string | undefined>(undefined);
   filterTo = signal<string | undefined>(undefined);
 
@@ -59,6 +68,7 @@ export class AuditLogsComponent implements OnInit {
       !!this.filterAction() ||
       !!this.filterUser() ||
       !!String(this.filterRecordId() ?? '').trim() ||
+      !!this.filterEntityId() ||
       !!this.filterFrom() ||
       !!this.filterTo()
   );
@@ -91,6 +101,8 @@ export class AuditLogsComponent implements OnInit {
         action: this._asString(this.filterAction()),
         user: this._asString(this.filterUser()),
         recordId: String(this.filterRecordId() ?? '').trim() || undefined,
+        entityTable: this.filterEntityTable(),
+        entityId: this.filterEntityId(),
         from: this.filterFrom(),
         to: this.filterTo(),
         page: this.page(),
@@ -114,11 +126,33 @@ export class AuditLogsComponent implements OnInit {
     this.load();
   }
 
+  /** Narrows to everything ever done to one entity, children included. */
+  showEntity(entry: AuditLogEntry, event: MouseEvent): void {
+    // The row itself expands on click; this is a different question.
+    event.stopPropagation();
+    if (!entry.entity_table || !entry.entity_id) {
+      return;
+    }
+    this.filterTable.set(undefined);
+    this.filterRecordId.set('');
+    this.filterEntityTable.set(entry.entity_table);
+    this.filterEntityId.set(entry.entity_id);
+    this.applyFilters();
+  }
+
+  clearEntity(): void {
+    this.filterEntityTable.set(undefined);
+    this.filterEntityId.set(undefined);
+    this.applyFilters();
+  }
+
   resetFilters(): void {
     this.filterTable.set(undefined);
     this.filterAction.set(undefined);
     this.filterUser.set(undefined);
     this.filterRecordId.set('');
+    this.filterEntityTable.set(undefined);
+    this.filterEntityId.set(undefined);
     this.filterFrom.set(undefined);
     this.filterTo.set(undefined);
     this.applyFilters();

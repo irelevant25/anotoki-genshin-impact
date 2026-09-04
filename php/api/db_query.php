@@ -291,13 +291,31 @@ class DbQuery
         return $diff;
     }
 
-    /** Write a row to audit_logs. Silently skips if the table doesn't exist yet. */
+    /**
+     * Write a row to audit_logs. Silently skips if the table doesn't exist yet.
+     *
+     * `record_id` is the row that changed. `entity_id` is what it belongs to,
+     * which is the same thing until a /full save says otherwise - it sets the
+     * entity once and every child it re-inserts is filed under that rather than
+     * under itself. See api/audit_scope.php.
+     */
     private static function writeAuditLog(PDO $pdo, string $table, string $recordId, string $action, int $userId, array $changes): void
     {
+        $scope = function_exists('auditScope') ? auditScope() : null;
+
         try {
             $pdo->prepare(
-                'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changes) VALUES (?, ?, ?, ?, ?)'
-            )->execute([$table, $recordId, $action, $userId, json_encode($changes)]);
+                'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changes, entity_table, entity_id)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $table,
+                $recordId,
+                $action,
+                $userId,
+                json_encode($changes),
+                $scope['table'] ?? $table,
+                $scope['id'] ?? $recordId,
+            ]);
         } catch (\PDOException) {
             // silently skip if audit_logs table not yet created
         }

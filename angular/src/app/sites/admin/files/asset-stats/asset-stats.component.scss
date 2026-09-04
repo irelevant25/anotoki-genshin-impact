@@ -1,4 +1,6 @@
 .asset-stats {
+  // Same as the browser below: the survey's loader belongs to this card.
+  position: relative;
   margin-bottom: var(--spacing-lg);
   padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
   border: 1px solid var(--border-color);

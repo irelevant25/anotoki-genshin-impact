@@ -56,6 +56,17 @@ $app->get('/api/audit-logs', function (Request $request, Response $response) {
         $where[] = 'record_id = ?';
         $params[] = (string) $query['recordId'];
     }
+    // The whole history of one thing, children included: a character's talents
+    // and voice overs are logged under their own tables and ids, and this is
+    // the column that says which character they belonged to.
+    if (!empty($query['entityTable'])) {
+        $where[] = 'entity_table = ?';
+        $params[] = (string) $query['entityTable'];
+    }
+    if (!empty($query['entityId'])) {
+        $where[] = 'entity_id = ?';
+        $params[] = (string) $query['entityId'];
+    }
     if (!empty($query['from'])) {
         $where[] = 'changed_at >= ?';
         $params[] = $query['from'];

@@ -6,6 +6,7 @@ require_once __DIR__ . '/../config/jwt.php';
 require_once __DIR__ . '/../config/site.php';
 require_once __DIR__ . '/../config/backup.php';
 require_once __DIR__ . '/helpers.php';
+require_once __DIR__ . '/audit_scope.php';
 require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
 require_once __DIR__ . '/response.php';

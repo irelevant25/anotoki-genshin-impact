@@ -507,7 +507,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 316
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -681,7 +681,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 349
+                "line": 354
             },
             "expanded": [],
             "payload": null,
@@ -711,7 +711,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\audit_logs.php",
-                "line": 105
+                "line": 116
             },
             "expanded": [],
             "payload": null,
@@ -2340,7 +2340,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 316
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -2514,7 +2514,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 349
+                "line": 354
             },
             "expanded": [],
             "payload": null,
@@ -5618,7 +5618,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 212
+                "line": 218
             },
             "expanded": [
                 "created_by"
@@ -5789,7 +5789,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 395
+                "line": 404
             },
             "expanded": [
                 "created_by",
@@ -5828,7 +5828,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 341
+                "line": 350
             },
             "expanded": [
                 "created_by",
@@ -6631,7 +6631,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 316
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -6805,7 +6805,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 349
+                "line": 354
             },
             "expanded": [],
             "payload": null,
@@ -7200,7 +7200,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 220
+                "line": 226
             },
             "expanded": [],
             "payload": null,
@@ -7231,7 +7231,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 130
+                "line": 136
             },
             "expanded": [],
             "payload": null,
@@ -7257,7 +7257,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 159
+                "line": 165
             },
             "expanded": [],
             "payload": null,
@@ -7292,7 +7292,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 275
+                "line": 281
             },
             "expanded": [],
             "payload": null,
@@ -7326,7 +7326,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 236
+                "line": 242
             },
             "expanded": [],
             "payload": null,
@@ -7360,7 +7360,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 259
+                "line": 265
             },
             "expanded": [],
             "payload": null,
@@ -8302,7 +8302,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 316
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -8476,7 +8476,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 349
+                "line": 354
             },
             "expanded": [],
             "payload": null,
@@ -9164,7 +9164,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 316
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -9338,7 +9338,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 349
+                "line": 354
             },
             "expanded": [],
             "payload": null,
@@ -12509,7 +12509,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 316
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -12683,7 +12683,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 349
+                "line": 354
             },
             "expanded": [],
             "payload": null,
@@ -17773,6 +17773,26 @@
                     "description": null
                 },
                 {
+                    "name": "entity_table",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "What the changed row belongs to, which is the row itself unless it is\na child - a talent's cost says `characters` and the character's id, so\none filter gives the whole history of one thing. Null on entries\nwritten before the columns existed whose row has since been replaced."
+                },
+                {
+                    "name": "entity_id",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
                     "name": "action",
                     "types": [
                         "string"
@@ -22431,6 +22451,18 @@
                     "sqlType": "JSONB",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "entity_table",
+                    "sqlType": "VARCHAR(100)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "entity_id",
+                    "sqlType": "VARCHAR(100)",
+                    "nullable": true,
+                    "enum": null
                 }
             ]
         },
@@ -25088,6 +25120,18 @@
                 {
                     "name": "updated_at",
                     "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "ip",
+                    "sqlType": "VARCHAR(45)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "mac",
+                    "sqlType": "VARCHAR(17)",
                     "nullable": true,
                     "enum": null
                 }

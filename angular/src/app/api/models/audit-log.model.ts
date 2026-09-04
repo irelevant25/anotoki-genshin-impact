@@ -14,6 +14,8 @@ export interface AuditLog {
   changed_at: string;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */
   changes: string | null;
+  entity_table: string | null;
+  entity_id: string | null;
 }
 
 /**
@@ -26,6 +28,9 @@ export interface AuditLogEntry {
   id: number;
   table_name: string;
   record_id: string;
+  /** What the changed row belongs to, which is the row itself unless it is a child - a talent's cost says `characters` and the character's id, so one filter gives the whole history of one thing. Null on entries written before the columns existed whose row has since been replaced. */
+  entity_table: string | null;
+  entity_id: string | null;
   /** INSERT | UPDATE | DELETE */
   action: string;
   changed_by: number | null;

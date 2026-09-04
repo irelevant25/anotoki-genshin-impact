@@ -132,6 +132,10 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
             'created_by' => $user['id'],
         ]);
 
+        // Everything below is logged against the character rather than against
+        // whichever child table it lands in - see api/audit_scope.php.
+        auditScope('characters', (string) $charId);
+
         // 2. Voice overs
         foreach ($body['voice_overs'] ?? [] as $vo) {
             $vo = [...$vo, 'character_id' => $charId];
@@ -202,6 +206,8 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
     } catch (\Throwable $e) {
         $pdo->rollBack();
         throw $e;
+    } finally {
+        auditScope(clear: true);
     }
 
     $character = DbQuery::from($pdo, 'characters')
@@ -232,6 +238,7 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     }
 
     $pdo->beginTransaction();
+    auditScope('characters', (string) $id);
     try {
         // 1. Update character base data
         if (!empty($body['character'])) {
@@ -330,6 +337,8 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     } catch (\Throwable $e) {
         $pdo->rollBack();
         throw $e;
+    } finally {
+        auditScope(clear: true);
     }
 
     $character = DbQuery::from($pdo, 'characters')

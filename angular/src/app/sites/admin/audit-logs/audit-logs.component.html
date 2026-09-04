@@ -13,6 +13,13 @@
     <app-calendar [label]="'From'" [(value)]="filterFrom" (inputChange)="applyFilters()"></app-calendar>
     <app-calendar [label]="'To'" [(value)]="filterTo" (inputChange)="applyFilters()"></app-calendar>
     <div class="filter-summary">
+        @if (filterEntityId()) {
+            <span class="entity-filter">
+                Everything on
+                <strong>{{ filterEntityTable() }} {{ filterEntityId() }}</strong>
+                <app-button icon="icon-close icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Show all entries again" (buttonClick)="clearEntity()"></app-button>
+            </span>
+        }
         <span class="filter-count">{{ rangeLabel() }}</span>
         @if (hasActiveFilter()) {
             <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
@@ -30,6 +37,7 @@
                     <th>When</th>
                     <th>Table</th>
                     <th>Record</th>
+                    <th>Belongs to</th>
                     <th>Action</th>
                     <th>By</th>
                     <th>Changes</th>
@@ -38,7 +46,7 @@
             <tbody>
                 @if (!items().length) {
                     <tr>
-                        <td colspan="6" class="empty-cell">No entries match the filter</td>
+                        <td colspan="7" class="empty-cell">No entries match the filter</td>
                     </tr>
                 }
                 @for (entry of items(); track entry.id) {
@@ -46,13 +54,22 @@
                         <td class="log-when">{{ entry.changed_at | appDate: 'datetime' }}</td>
                         <td>{{ entry.table_name }}</td>
                         <td class="col-id">{{ entry.record_id }}</td>
+                        <td class="log-entity">
+                            @if (entry.entity_table && entry.entity_id) {
+                                <button type="button" class="entity-link" [title]="'Show everything done to this ' + entry.entity_table" (click)="showEntity(entry, $event)">
+                                    {{ entry.entity_table }} {{ entry.entity_id }}
+                                </button>
+                            } @else {
+                                —
+                            }
+                        </td>
                         <td><span class="action action-{{ entry.action | lowercase }}">{{ entry.action }}</span></td>
                         <td>{{ entry.changed_by_username ?? entry.changed_by ?? '—' }}</td>
                         <td class="log-count">{{ changeCount(entry) }} field{{ changeCount(entry) === 1 ? '' : 's' }}</td>
                     </tr>
                     @if (expanded() === entry.id) {
                         <tr class="detail-row">
-                            <td colspan="6">
+                            <td colspan="7">
                                 @if (!changeRows(entry).length) {
                                     <p class="detail-empty">No field details were recorded.</p>
                                 } @else {

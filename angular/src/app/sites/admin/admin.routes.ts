@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
 import { CharactersListComponent } from './characters/characters-list/characters-list.component';
 import { CharacterFormComponent } from './characters/character-form/character-form.component';
@@ -54,7 +55,8 @@ export const routes: Routes = [
     path: '',
     component: AppComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      { path: '', component: HomeComponent },
+      { path: 'dashboard', component: DashboardComponent },
 
       // Characters
       { path: 'characters', component: CharactersListComponent },

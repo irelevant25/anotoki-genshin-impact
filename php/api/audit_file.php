@@ -18,9 +18,11 @@
 /** One entry against the `files` table. Pass 0 for something that is about the whole catalogue. */
 function auditFile(PDO $pdo, int $fileId, string $action, array $changes, ?int $by = null): void
 {
+    // A file is its own entity - nothing hangs off it - so what changed and
+    // what it belongs to are the same row.
     $statement = $pdo->prepare(
-        'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changed_at, changes)
-         VALUES (:table_name, :record_id, :action, :changed_by, CURRENT_TIMESTAMP, :changes)'
+        'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changed_at, changes, entity_table, entity_id)
+         VALUES (:table_name, :record_id, :action, :changed_by, CURRENT_TIMESTAMP, :changes, :table_name_2, :record_id_2)'
     );
 
     $statement->execute([
@@ -29,5 +31,7 @@ function auditFile(PDO $pdo, int $fileId, string $action, array $changes, ?int $
         'action' => $action,
         'changed_by' => $by,
         'changes' => json_encode($changes, JSON_UNESCAPED_UNICODE),
+        'table_name_2' => 'files',
+        'record_id_2' => (string) $fileId,
     ]);
 }

@@ -22,6 +22,14 @@ class AuditLogEntry extends ResponseShape
         public readonly int $id,
         public readonly string $table_name,
         public readonly string $record_id,
+        /**
+         * What the changed row belongs to, which is the row itself unless it is
+         * a child - a talent's cost says `characters` and the character's id, so
+         * one filter gives the whole history of one thing. Null on entries
+         * written before the columns existed whose row has since been replaced.
+         */
+        public readonly ?string $entity_table,
+        public readonly ?string $entity_id,
         /** INSERT | UPDATE | DELETE */
         public readonly string $action,
         public readonly ?int $changed_by,
