@@ -5866,7 +5866,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\dashboard.php",
-                "line": 224
+                "line": 226
             },
             "expanded": [],
             "payload": null,
@@ -18148,7 +18148,7 @@
                     "nullable": false,
                     "optional": false,
                     "of": "AssetFormatCount[]",
-                    "description": "The three biggest by size."
+                    "description": "Every extension in the tree, biggest first."
                 },
                 {
                     "name": "images",

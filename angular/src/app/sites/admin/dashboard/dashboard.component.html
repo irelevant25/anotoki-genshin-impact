@@ -109,7 +109,7 @@
                     <span class="asset-meta">no original beside them</span>
                 </div>
 
-                @for (format of assets.formats; track format.extension) {
+                @for (format of assetFormats(); track format.extension) {
                     <div class="asset-card is-quiet">
                         <span class="asset-value">{{ format.files | number }}</span>
                         <span class="asset-label">{{ format.extension }}</span>

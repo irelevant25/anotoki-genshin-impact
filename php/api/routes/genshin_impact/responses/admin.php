@@ -227,7 +227,7 @@ class DashboardAssets extends ResponseShape
     public function __construct(
         public readonly int $total_files,
         public readonly int $total_bytes,
-        /** @var AssetFormatCount[] The three biggest by size. */
+        /** @var AssetFormatCount[] Every extension in the tree, biggest first. */
         public readonly array $formats,
         /** @var AssetConversionCount */
         public readonly object $images,

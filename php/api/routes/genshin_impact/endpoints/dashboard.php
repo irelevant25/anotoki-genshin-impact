@@ -200,8 +200,10 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
         $assets = [
             'total_files' => $stats['total_files'],
             'total_bytes' => $stats['total_bytes'],
-            // The three biggest, which is all a dashboard card has room for.
-            'formats' => array_slice($stats['formats'], 0, 3),
+            // All of them. There are five extensions in the whole tree, and
+            // sending three meant AVIF - the format the site actually serves -
+            // was the one the dashboard never mentioned.
+            'formats' => $stats['formats'],
             'images' => $stats['images'] + ['can_convert' => mediaCanWriteAvif()],
             'audio' => $stats['audio'] + ['can_convert' => mediaCanWriteOpus()],
             'generated_at' => $stats['generated_at'],

@@ -52,7 +52,7 @@ export interface DashboardActivity {
 export interface DashboardAssets {
   total_files: number;
   total_bytes: number;
-  /** The three biggest by size. */
+  /** Every extension in the tree, biggest first. */
   formats: AssetFormatCount[];
   images: AssetConversionCount;
   audio: AssetConversionCount;
