@@ -161,6 +161,22 @@
                         <p class="convert-note">Every file has its converted copy.</p>
                     }
                 </div>
+
+                <!-- Only once there is nothing left to convert for that medium.
+                     Offering to delete the originals while their converted
+                     copies are still being made is how a picture gets lost. -->
+                @if (reclaimable().length) {
+                    <div class="reclaim">
+                        <h4 class="reclaim-heading">Reclaim space</h4>
+                        <p class="reclaim-note">The originals are no longer read by anything. Removing them moves them to the trash, and you pick which ones go.</p>
+
+                        <div class="reclaim-actions">
+                            @for (option of reclaimable(); track option.kind) {
+                                <app-button [text]="option.label" variant="secondary" icon="icon-trash" size="small" [outline]="true" (buttonClick)="cleanUp(option.kind)"></app-button>
+                            }
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     }

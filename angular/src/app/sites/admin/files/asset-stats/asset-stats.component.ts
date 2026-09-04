@@ -1,6 +1,8 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { AssetConversionCount, AssetConvertProgress, AssetStats, FileApiService } from '../../../../api';
+import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
+import { CleanupModalComponent } from '../cleanup-modal/cleanup-modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
@@ -34,12 +36,11 @@ const CONVERT_BATCH = 40;
   styleUrls: ['./asset-stats.component.scss'],
   imports: [ButtonComponent, LoaderComponent, DecimalPipe, FileSizePipe],
 })
-export class AssetStatsComponent implements OnInit, OnDestroy {
+export class AssetStatsComponent extends AbstractModalComponent implements OnInit, OnDestroy {
   private readonly _fileApi = inject(FileApiService);
   private readonly _notify = inject(NotificationService);
 
   readonly stats = signal<AssetStats | null>(null);
-  readonly loading = signal(false);
 
   readonly progress = signal<AssetConvertProgress | null>(null);
   readonly converting = signal(false);
@@ -141,9 +142,49 @@ export class AssetStatsComponent implements OnInit, OnDestroy {
     return hours === 1 ? 'an hour ago' : `${hours} hours ago`;
   });
 
+  /**
+   * Which media have originals worth offering to remove.
+   *
+   * Only where nothing is left to convert. The count is deliberately not shown
+   * on the button: it would have to be guessed from the catalogue without the
+   * "nothing points at it" check the modal applies, and a button promising
+   * 5,052 that opens on 5,049 is worse than a button that promises nothing.
+   */
+  readonly reclaimable = computed(() => {
+    const stats = this.stats();
+    if (!stats) {
+      return [] as { kind: 'image' | 'audio'; label: string }[];
+    }
+
+    const options: { kind: 'image' | 'audio'; label: string }[] = [];
+    if (!stats.images.missing && stats.images.sources) {
+      options.push({ kind: 'image', label: 'Delete original images' });
+    }
+    if (!stats.audio.missing && stats.audio.sources) {
+      options.push({ kind: 'audio', label: 'Delete original audio' });
+    }
+
+    return options;
+  });
+
   /** What the queue could not take, because nothing here can encode it. */
   blockedTotal(job: AssetConvertProgress): number {
     return job.blocked.images + job.blocked.audio;
+  }
+
+  /**
+   * Offers to take the originals away.
+   *
+   * Its own modal rather than a confirm, because "delete forty thousand files"
+   * is not a question anybody should answer without seeing which ones. The
+   * button only appears once there is nothing left to convert - taking the
+   * originals away while their converted copies are still being made is how
+   * you lose a picture.
+   */
+  cleanUp(kind: 'image' | 'audio'): void {
+    const modal = this.openModal(CleanupModalComponent, { size: '5', scrollable: true }, () => this.load(true));
+    modal.componentInstance.kind.set(kind);
+    modal.componentInstance.start();
   }
 
   ngOnInit(): void {
@@ -162,7 +203,8 @@ export class AssetStatsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
     this._abandoned = true;
   }
 

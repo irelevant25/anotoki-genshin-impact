@@ -279,3 +279,37 @@
   gap: var(--spacing-sm);
   margin-top: var(--spacing-sm);
 }
+
+// ── Reclaiming ───────────────────────────────────────────────────────────────
+//
+// Below the conversion, and only when that has nothing left to do. The order on
+// the page is the order of the decisions: make the converted copies, point the
+// site at them, then - separately, and by hand - take the originals away.
+
+.reclaim {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+.reclaim-heading {
+  margin: 0 0 var(--spacing-xxs);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.reclaim-note {
+  margin: 0 0 var(--spacing-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.reclaim-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}

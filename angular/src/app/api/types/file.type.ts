@@ -44,3 +44,24 @@ export interface AssetConvertRequest {
 export interface AssetStatsQuery {
   refresh?: boolean;
 }
+
+/** Which originals to list: the images or the audio. */
+export interface AssetCleanupQuery {
+  kind: 'image' | 'audio';
+  page?: number;
+}
+
+/**
+ * A batch of the cleanup the Files page drives.
+ *
+ * `keep` is what was deselected, not what to delete. The candidate list runs to
+ * tens of thousands and the handful somebody took out of it is the part worth
+ * sending; the server works out the rest against the catalogue as it is now
+ * rather than as the modal saw it a minute ago.
+ */
+export interface AssetCleanupRequest {
+  restart?: boolean;
+  kind?: 'image' | 'audio';
+  keep?: string[];
+  limit?: number;
+}

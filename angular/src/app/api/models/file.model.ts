@@ -11,6 +11,51 @@ export interface AssetBlockedCount {
 }
 
 /**
+ * One file that could go, and what it would give back.
+ */
+export interface AssetCleanupFile {
+  id: number;
+  /** Relative to `assets/`, e.g. `character/icon/BAIZHU.png`. */
+  path: string;
+  size: number;
+}
+
+/**
+ * A page of what a cleanup would remove.
+ *
+ * Paged because there are forty thousand of them and the point of showing the
+ * list at all is that somebody can take things out of it before agreeing.
+ */
+export interface AssetCleanupPage {
+  /** `image` or `audio`. */
+  kind: string;
+  total: number;
+  /** What the whole set would give back, not just this page. */
+  bytes: number;
+  page: number;
+  pageSize: number;
+  files: AssetCleanupFile[];
+}
+
+/**
+ * How far a cleanup has got. Batched, like the conversion, for the same reason.
+ */
+export interface AssetCleanupProgress {
+  kind: string;
+  started_at: string;
+  total: number;
+  bytes: number;
+  trashed: number;
+  failed: number;
+  /** Deselected in the modal, and therefore never queued. */
+  kept: number;
+  remaining: number;
+  finished: boolean;
+  /** The first few that would not move. */
+  failures: string[];
+}
+
+/**
  * One medium's conversion health.
  *
  * `missing` is work an encoder can do. `converted_only` is not: a PNG decoded

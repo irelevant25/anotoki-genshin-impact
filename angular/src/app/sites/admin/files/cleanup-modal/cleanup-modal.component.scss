@@ -1,0 +1,186 @@
+.cleanup-note {
+  margin: 0 0 var(--spacing-md);
+  max-width: 90ch;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.cleanup-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-veil);
+}
+
+.summary-figure {
+  display: flex;
+  flex-direction: column;
+
+  &.is-quiet {
+    color: var(--text-muted);
+  }
+}
+
+.figure-value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.figure-label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.cleanup-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.cleanup-wrap {
+  max-height: 46vh;
+  overflow: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.cleanup-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+
+  th,
+  td {
+    padding: var(--spacing-xxs) var(--spacing-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--bg-table-header);
+    color: var(--bg-table-header-text);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+// A row that is being kept is dimmed and struck through, so scanning the page
+// for what survives does not mean reading every checkbox.
+.is-kept {
+  color: var(--text-muted);
+
+  code {
+    text-decoration: line-through;
+  }
+}
+
+.col-tick {
+  width: 70px;
+  text-align: center;
+}
+
+.col-size {
+  width: 110px;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.cleanup-path {
+  word-break: break-all;
+}
+
+.cleanup-paging {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.paging-label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+// ── While it runs ────────────────────────────────────────────────────────────
+
+.run-bar {
+  height: 10px;
+  border-radius: var(--border-radius-pill);
+  background: var(--bg-active);
+  overflow: hidden;
+}
+
+.run-fill {
+  height: 100%;
+  min-width: 5px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-primary), var(--genshin-purple));
+  transition: width var(--transition-base);
+}
+
+.run-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-xs) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.run-percent {
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.run-failed {
+  color: var(--color-danger);
+}
+
+.run-note {
+  margin: var(--spacing-xxs) 0 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.run-done {
+  margin: var(--spacing-md) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.run-failures {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+
+  summary {
+    cursor: pointer;
+    color: var(--color-danger);
+  }
+
+  ul {
+    margin: var(--spacing-xs) 0 0;
+    padding-left: var(--spacing-lg);
+    max-height: 200px;
+    overflow-y: auto;
+    color: var(--text-secondary);
+  }
+}

@@ -6,6 +6,8 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
+  AssetCleanupPage,
+  AssetCleanupProgress,
   AssetConvertProgress,
   AssetFilePage,
   AssetFolder,
@@ -18,7 +20,14 @@ import {
   TrashedFile,
   UploadResult,
 } from '../models';
-import { AssetConvertRequest, AssetFileQuery, AssetFileRef, AssetStatsQuery } from '../types';
+import {
+  AssetCleanupQuery,
+  AssetCleanupRequest,
+  AssetConvertRequest,
+  AssetFileQuery,
+  AssetFileRef,
+  AssetStatsQuery,
+} from '../types';
 import { toHttpParams } from '../http-params';
 
 /**
@@ -27,6 +36,15 @@ import { toHttpParams } from '../http-params';
 @Injectable({ providedIn: 'root' })
 export class FileApiService {
   private readonly _http = inject(HttpClient);
+
+  /**
+   * `POST /api/files/cleanup`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  cleanUpOriginals(body: AssetCleanupRequest): Observable<AssetCleanupProgress> {
+    return this._http.post<AssetCleanupProgress>('/api/files/cleanup', body);
+  }
 
   /**
    * `POST /api/files/convert`
@@ -71,6 +89,24 @@ export class FileApiService {
    */
   getAssetStats(params?: AssetStatsQuery): Observable<AssetStats> {
     return this._http.get<AssetStats>('/api/files/stats', { params: toHttpParams(params) });
+  }
+
+  /**
+   * `GET /api/files/cleanup`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  getCleanupCandidates(params: AssetCleanupQuery): Observable<AssetCleanupPage> {
+    return this._http.get<AssetCleanupPage>('/api/files/cleanup', { params: toHttpParams(params) });
+  }
+
+  /**
+   * `GET /api/files/cleanup/progress`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  getCleanupProgress(): Observable<AssetCleanupProgress> {
+    return this._http.get<AssetCleanupProgress>('/api/files/cleanup/progress');
   }
 
   /**

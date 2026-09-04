@@ -400,3 +400,73 @@ function _assetProgressBody(array $queue): array
         'failures' => $queue['failures'],
     ];
 }
+
+// ── Taking the originals away ────────────────────────────────────────────────
+//
+// Never automatic, and never without the two guards in asset_cleanup.php: a
+// converted twin has to exist, and nothing in the database may still name the
+// file. The modal pages through what would go so a person can take things out
+// of it before pressing anything.
+
+$app->get('/api/files/cleanup', function (Request $request, Response $response) {
+    $query = $request->getQueryParams();
+    $kind = (string) ($query['kind'] ?? 'image');
+
+    if (!isset(CLEANUP_KINDS[$kind])) {
+        return respondJson($response, ['error' => 'Unknown kind'], 422);
+    }
+
+    return respondJson($response, cleanupPage(genshinDb(), $kind, (int) ($query['page'] ?? 1)));
+})->add(responds(AssetCleanupPage::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+$app->post('/api/files/cleanup', function (Request $request, Response $response) {
+    $body = $request->getParsedBody() ?? [];
+    $pdo = genshinDb();
+
+    if (!empty($body['restart'])) {
+        $kind = (string) ($body['kind'] ?? '');
+        if (!isset(CLEANUP_KINDS[$kind])) {
+            return respondJson($response, ['error' => 'Unknown kind'], 422);
+        }
+        // What to keep, not what to delete: the list runs to forty thousand and
+        // the deselected handful is what somebody actually chose.
+        cleanupStart($pdo, $kind, array_map('strval', (array) ($body['keep'] ?? [])));
+    }
+
+    // Named, unlike a reconcile: somebody chose this one.
+    $user = $request->getAttribute('user');
+    $progress = cleanupStep($pdo, (int) ($body['limit'] ?? CLEANUP_BATCH), isset($user['id']) ? (int) $user['id'] : null);
+
+    if ($progress === null) {
+        return respondJson($response, ['error' => 'Nothing to clean up - send restart to begin'], 409);
+    }
+
+    return respondJson($response, _cleanupBody($progress));
+})->add(responds(AssetCleanupProgress::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+$app->get('/api/files/cleanup/progress', function (Request $request, Response $response) {
+    $progress = cleanupProgress();
+
+    if ($progress === null) {
+        return respondJson($response, ['error' => 'Nothing is being cleaned up'], 404);
+    }
+
+    return respondJson($response, _cleanupBody($progress));
+})->add(responds(AssetCleanupProgress::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+/** The queue minus its work list, which is tens of thousands of paths. */
+function _cleanupBody(array $queue): array
+{
+    return [
+        'kind' => $queue['kind'],
+        'started_at' => $queue['started_at'],
+        'total' => $queue['total'],
+        'bytes' => $queue['bytes'],
+        'trashed' => $queue['trashed'],
+        'failed' => $queue['failed'],
+        'kept' => $queue['kept'],
+        'remaining' => $queue['remaining'] ?? count($queue['pending']),
+        'finished' => $queue['finished'] ?? false,
+        'failures' => $queue['failures'],
+    ];
+}

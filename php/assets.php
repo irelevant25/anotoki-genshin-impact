@@ -35,6 +35,7 @@
  */
 
 require __DIR__ . '/config/db.php';
+require __DIR__ . '/api/audit_file.php';
 
 const ASSETS_ROOT = __DIR__ . '/../assets';
 
@@ -404,28 +405,6 @@ function assetCategoryFor(array $categories, string $folder): ?array
     }
 
     return null;
-}
-
-/**
- * Notes an operation against a file.
- *
- * `changed_by` is null for anything the reconcile did, and that is the point:
- * files also arrive over FTP and leave the same way, and the honest answer to
- * "who added this" is that nobody here did - it was found.
- */
-function auditFile(PDO $pdo, int $fileId, string $action, array $changes, ?int $by = null): void
-{
-    $statement = $pdo->prepare(
-        'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changed_at, changes)
-         VALUES (:t, :r, :a, :b, CURRENT_TIMESTAMP, :c)'
-    );
-    $statement->execute([
-        't' => 'files',
-        'r' => (string) $fileId,
-        'a' => $action,
-        'b' => $by,
-        'c' => json_encode($changes, JSON_UNESCAPED_UNICODE),
-    ]);
 }
 
 /**

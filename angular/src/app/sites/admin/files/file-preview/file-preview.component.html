@@ -19,26 +19,31 @@
             }
 
             <dl class="preview-meta">
-                <div><dt>Path</dt><dd class="preview-path">{{ asset.url }}</dd></div>
-                <div><dt>Size</dt><dd>{{ sizeLabel() }}</dd></div>
+                <div>
+                    <dt>Path</dt>
+                    <dd class="preview-path">{{ asset.url }}</dd>
+                </div>
+                <div>
+                    <dt>Size</dt>
+                    <dd>{{ sizeLabel() }}</dd>
+                </div>
                 @if (dimensionsLabel()) {
-                    <div><dt>Dimensions</dt><dd>{{ dimensionsLabel() }}</dd></div>
+                    <div>
+                        <dt>Dimensions</dt>
+                        <dd>{{ dimensionsLabel() }}</dd>
+                    </div>
                 }
-                <div><dt>Modified</dt><dd>{{ asset.modified }}</dd></div>
+                <div>
+                    <dt>Modified</dt>
+                    <dd>{{ asset.modified }}</dd>
+                </div>
             </dl>
         }
     </div>
 
     <div modal-footer class="preview-footer">
         @if (isImage() && !failed() && canToggleSize()) {
-            <app-button
-                [text]="fitToWindow() ? 'Actual size' : 'Fit to window'"
-                icon="icon-expand"
-                variant="secondary"
-                [outline]="true"
-                size="small"
-                (buttonClick)="toggleSize()"
-            ></app-button>
+            <app-button [text]="fitToWindow() ? 'Actual size' : 'Fit to window'" icon="icon-expand" variant="secondary" [outline]="true" size="small" (buttonClick)="toggleSize()"></app-button>
         }
         <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="close()"></app-button>
     </div>

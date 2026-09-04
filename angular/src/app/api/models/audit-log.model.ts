@@ -9,7 +9,7 @@ export interface AuditLog {
   id: number;
   table_name: string;
   record_id: string;
-  action: 'INSERT' | 'UPDATE' | 'DELETE';
+  action: 'INSERT' | 'UPDATE' | 'DELETE' | 'RECONCILE' | 'MOVE';
   changed_by: number | null;
   changed_at: string;
   /** Raw JSON - PDO hands `JSONB` back as a string, undecoded. */

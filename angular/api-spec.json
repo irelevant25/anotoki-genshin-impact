@@ -7461,6 +7461,91 @@
         },
         {
             "method": "GET",
+            "path": "/api/files/cleanup",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                422
+            ],
+            "responds": {
+                "shape": "AssetCleanupPage",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 420
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/api/files/cleanup",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                409,
+                422
+            ],
+            "responds": {
+                "shape": "AssetCleanupProgress",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 445
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/files/cleanup/progress",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
+            "responds": {
+                "shape": "AssetCleanupProgress",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 455
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
             "path": "/api/files/convert",
             "args": [],
             "file": "files.php",
@@ -16345,6 +16430,220 @@
             ]
         },
         {
+            "name": "AssetCleanupFile",
+            "file": "file.php",
+            "merges": null,
+            "description": "One file that could go, and what it would give back.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Relative to `assets/`, e.g. `character/icon/BAIZHU.png`."
+                },
+                {
+                    "name": "size",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AssetCleanupPage",
+            "file": "file.php",
+            "merges": null,
+            "description": "A page of what a cleanup would remove.\n\nPaged because there are forty thousand of them and the point of showing the\nlist at all is that somebody can take things out of it before agreeing.",
+            "fields": [
+                {
+                    "name": "kind",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "`image` or `audio`."
+                },
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "bytes",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "What the whole set would give back, not just this page."
+                },
+                {
+                    "name": "page",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "pageSize",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "files",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetCleanupFile[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AssetCleanupProgress",
+            "file": "file.php",
+            "merges": null,
+            "description": "How far a cleanup has got. Batched, like the conversion, for the same reason.",
+            "fields": [
+                {
+                    "name": "kind",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "started_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "bytes",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "trashed",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "failed",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "kept",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Deselected in the modal, and therefore never queued."
+                },
+                {
+                    "name": "remaining",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "finished",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "failures",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "The first few that would not move."
+                }
+            ]
+        },
+        {
             "name": "AssetConversionCount",
             "file": "file.php",
             "merges": null,
@@ -21289,7 +21588,9 @@
                     "enum": [
                         "INSERT",
                         "UPDATE",
-                        "DELETE"
+                        "DELETE",
+                        "RECONCILE",
+                        "MOVE"
                     ]
                 },
                 {
@@ -23828,6 +24129,128 @@
                 {
                     "name": "submitter_hash",
                     "sqlType": "VARCHAR(64)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "updated_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "file_categories",
+            "database": "genshin_impact",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "code",
+                    "sqlType": "VARCHAR(100)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "label",
+                    "sqlType": "VARCHAR(150)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "path",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "deleted",
+                    "sqlType": "BOOLEAN",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "is_system",
+                    "sqlType": "BOOLEAN",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "sort_order",
+                    "sqlType": "SMALLINT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "updated_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "files",
+            "database": "genshin_impact",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "category_id",
+                    "sqlType": "INTEGER",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "name",
+                    "sqlType": "VARCHAR(500)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "extension",
+                    "sqlType": "VARCHAR(20)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "size",
+                    "sqlType": "BIGINT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "modified_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "created_by",
+                    "sqlType": "INTEGER",
                     "nullable": true,
                     "enum": null
                 },

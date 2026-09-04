@@ -1,0 +1,126 @@
+<app-modal [title]="title()" subtitle="Everything here has a converted copy, and nothing in the database points at it" (closeModal)="dismiss()">
+    <div modal-body>
+        @if (progress(); as job) {
+            <!-- Once it is running the list is beside the point: what matters
+                 is how far it has got and whether anything refused to move. -->
+            <div class="run">
+                <div class="run-bar" role="progressbar" [attr.aria-valuenow]="percent()" aria-valuemin="0" aria-valuemax="100">
+                    <div class="run-fill" [style.width.%]="percent()"></div>
+                </div>
+
+                <p class="run-line">
+                    <span class="run-percent">{{ percent() }}%</span>
+                    <span>{{ job.trashed | number }} moved to the trash</span>
+                    @if (job.failed) {
+                        <span class="run-failed">{{ job.failed | number }} would not move</span>
+                    }
+                    <span>{{ job.remaining | number }} to go</span>
+                </p>
+
+                @if (job.kept) {
+                    <p class="run-note">{{ job.kept | number }} left alone.</p>
+                }
+
+                @if (job.failures.length) {
+                    <details class="run-failures">
+                        <summary>{{ job.failed | number }} would not move</summary>
+                        <ul>
+                            @for (failure of job.failures; track failure) {
+                                <li>
+                                    <code>{{ failure }}</code>
+                                </li>
+                            }
+                        </ul>
+                    </details>
+                }
+
+                @if (job.finished) {
+                    <p class="run-done">
+                        Done. They are in
+                        <code>php/storage/trash</code>
+                        and can be put back from the Trash page, so the space comes back when that is emptied rather than now.
+                    </p>
+                }
+            </div>
+        } @else {
+            <p class="cleanup-note">
+                {{ sourceFormats() }} files that already have {{ convertedFormat() }} beside them. They move to the trash rather than being unlinked, so this is undoable. Untick anything you want to
+                keep — the rest goes.
+            </p>
+
+            <div class="cleanup-summary">
+                <span class="summary-figure">
+                    <span class="figure-value">{{ willDelete() | number }}</span>
+                    <span class="figure-label">will be deleted</span>
+                </span>
+                <span class="summary-figure">
+                    <span class="figure-value">{{ bytes() | fileSize }}</span>
+                    <span class="figure-label">at stake in total</span>
+                </span>
+                <span class="summary-figure is-quiet">
+                    <span class="figure-value">{{ kept().size | number }}</span>
+                    <span class="figure-label">kept</span>
+                </span>
+            </div>
+
+            <app-loader [loading]="loading()"></app-loader>
+
+            @if (!loading()) {
+                <div class="cleanup-actions">
+                    <app-button text="Keep this page" variant="secondary" [outline]="true" size="very-small" (buttonClick)="togglePage(true)"></app-button>
+                    <app-button text="Delete this page" variant="secondary" [outline]="true" size="very-small" (buttonClick)="togglePage(false)"></app-button>
+                </div>
+
+                <div class="cleanup-wrap">
+                    <table class="cleanup-table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col-tick">Delete</th>
+                                <th scope="col">File</th>
+                                <th scope="col" class="col-size">Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (file of files(); track file.id) {
+                                <tr [class.is-kept]="isKept(file)">
+                                    <td class="col-tick">
+                                        <input type="checkbox" [checked]="!isKept(file)" (change)="toggle(file)" [attr.aria-label]="file.path" />
+                                    </td>
+                                    <td class="cleanup-path">
+                                        <code>{{ file.path }}</code>
+                                    </td>
+                                    <td class="col-size">{{ file.size | fileSize }}</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cleanup-paging">
+                    <app-button text="Previous" variant="secondary" [outline]="true" size="small" [disabled]="page() === 1" (buttonClick)="previous()"></app-button>
+                    <span class="paging-label">Page {{ page() | number }} of {{ totalPages() | number }}</span>
+                    <app-button text="Next" variant="secondary" [outline]="true" size="small" [disabled]="page() === totalPages()" (buttonClick)="next()"></app-button>
+                </div>
+            }
+        }
+    </div>
+
+    <div modal-footer class="d-flex gap-3 justify-content-end align-items-center">
+        @if (progress()?.finished) {
+            <app-button text="Close" (buttonClick)="dismiss()"></app-button>
+        } @else if (running()) {
+            <app-button text="Stop" variant="secondary" [outline]="true" (buttonClick)="stop()"></app-button>
+        } @else if (progress()) {
+            <app-button text="Carry on" (buttonClick)="run()"></app-button>
+            <app-button text="Close" variant="secondary" (buttonClick)="dismiss()"></app-button>
+        } @else {
+            <app-button text="Cancel" variant="secondary" (buttonClick)="dismiss()"></app-button>
+            <app-button
+                [text]="'Delete ' + willDelete().toLocaleString() + ' ' + (willDelete() === 1 ? 'file' : 'files')"
+                variant="danger"
+                icon="icon-trash"
+                [disabled]="!willDelete() || loading()"
+                (buttonClick)="run()"></app-button>
+        }
+    </div>
+</app-modal>

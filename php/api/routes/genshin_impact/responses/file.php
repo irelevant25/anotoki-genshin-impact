@@ -214,3 +214,59 @@ class AssetBlockedCount extends ResponseShape
     ) {
     }
 }
+
+// ── Taking the originals away ────────────────────────────────────────────────
+
+/** One file that could go, and what it would give back. */
+class AssetCleanupFile extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        /** Relative to `assets/`, e.g. `character/icon/BAIZHU.png`. */
+        public readonly string $path,
+        public readonly int $size,
+    ) {
+    }
+}
+
+/**
+ * A page of what a cleanup would remove.
+ *
+ * Paged because there are forty thousand of them and the point of showing the
+ * list at all is that somebody can take things out of it before agreeing.
+ */
+class AssetCleanupPage extends ResponseShape
+{
+    public function __construct(
+        /** `image` or `audio`. */
+        public readonly string $kind,
+        public readonly int $total,
+        /** What the whole set would give back, not just this page. */
+        public readonly int $bytes,
+        public readonly int $page,
+        public readonly int $pageSize,
+        /** @var AssetCleanupFile[] */
+        public readonly array $files,
+    ) {
+    }
+}
+
+/** How far a cleanup has got. Batched, like the conversion, for the same reason. */
+class AssetCleanupProgress extends ResponseShape
+{
+    public function __construct(
+        public readonly string $kind,
+        public readonly string $started_at,
+        public readonly int $total,
+        public readonly int $bytes,
+        public readonly int $trashed,
+        public readonly int $failed,
+        /** Deselected in the modal, and therefore never queued. */
+        public readonly int $kept,
+        public readonly int $remaining,
+        public readonly bool $finished,
+        /** @var string[] The first few that would not move. */
+        public readonly array $failures,
+    ) {
+    }
+}
