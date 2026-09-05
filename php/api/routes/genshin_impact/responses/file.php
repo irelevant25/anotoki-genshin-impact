@@ -138,6 +138,20 @@ class RecordUploadResult extends ResponseShape
     }
 }
 
+/**
+ * The bytes of one file, not JSON.
+ *
+ * Declared so the route is described like every other one; the generated client
+ * does not use it, because an `<img src>` is what asks for this.
+ */
+class RawFile extends ResponseShape
+{
+    public function __construct(
+        public readonly string $content_type,
+    ) {
+    }
+}
+
 /** What a rename settled on, which may not be exactly what was typed. */
 class FileRenamed extends ResponseShape
 {
@@ -409,6 +423,9 @@ class FileCategoryMove extends ResponseShape
         public readonly int $id,
         public readonly string $category,
         public readonly string $path,
+        /** What it is called now - a collision in the new folder adds a suffix. */
+        public readonly string $name,
+        public readonly bool $renamed,
     ) {
     }
 }

@@ -356,7 +356,11 @@ $app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $r
     $source = $root . '/' . $file['category_path'] . '/' . $file['name'] . $suffix;
     $destination = $root . '/' . $file['category_path'] . '/' . $name . $suffix;
 
-    if (file_exists($destination)) {
+    // "Already there" has to mean something *else* is there. Windows and macOS
+    // match filenames without regard to case, so renaming SNEZHNAYA to
+    // Snezhnaya finds the file being renamed and refuses to rename it.
+    $sameFile = is_file($source) && is_file($destination) && realpath($source) === realpath($destination);
+    if (file_exists($destination) && !$sameFile) {
         return respondJson($response, ['error' => 'Something is already called that here'], 409);
     }
 
@@ -446,7 +450,20 @@ $app->put('/api/files/{id:[0-9]+}/category', function (Request $request, Respons
     assetStatsForget();
     _assetFolderCacheClear();
 
-    return respondJson($response, ['id' => (int) $file['id'], 'category' => $wanted['code'], 'path' => $wanted['path']]);
+    // The move may have had to rename it: a category already holding a file of
+    // that name gets a suffix rather than being written over. Saying so is the
+    // difference between a name that looks corrupt and one that was explained.
+    $landed = $pdo->prepare('SELECT name FROM files WHERE id = ?');
+    $landed->execute([$file['id']]);
+    $name = (string) $landed->fetchColumn();
+
+    return respondJson($response, [
+        'id' => (int) $file['id'],
+        'category' => $wanted['code'],
+        'path' => $wanted['path'],
+        'name' => $name,
+        'renamed' => $name !== $file['name'],
+    ]);
 })->add(responds(FileCategoryMove::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 /** Whoever pressed the button, for the entries that are somebody's doing. */

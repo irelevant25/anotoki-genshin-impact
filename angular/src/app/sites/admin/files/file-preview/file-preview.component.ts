@@ -1,9 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { AudioPlayerComponent } from '../../../../shared/local-lib/components/audio-player/audio-player.component';
 import { AssetFile } from '../../../../api';
+import { ConfigService } from '../../../../shared/local-lib/services/config.service';
 
 export const PREVIEWABLE_IMAGES = ['avif', 'png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'];
 export const PLAYABLE_AUDIO = ['ogg', 'mp3', 'wav', 'opus', 'm4a', 'aac', 'flac'];
@@ -20,6 +21,17 @@ export function isPreviewableFile(extension: string): boolean {
   imports: [ModalComponent, ButtonComponent, AudioPlayerComponent],
 })
 export class FilePreviewComponent extends AbstractModalComponent {
+  /** The API path the listing hands back, with the backend in front of it. */
+  private readonly _config = inject(ConfigService);
+
+  readonly src = computed(() => {
+    const file = this.file();
+    if (!file) {
+      return '';
+    }
+    return (this._config.backendUrl ?? '').replace(/\/$/, '') + file.url;
+  });
+
   /** Set by the opener before the modal renders. */
   file = signal<AssetFile | undefined>(undefined);
 

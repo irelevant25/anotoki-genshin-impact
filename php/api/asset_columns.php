@@ -91,6 +91,13 @@ function assetColumnMap(): array
             'image' => $image('backgrounds'),
             'preview' => $image('backgrounds'),
         ],
+        // The lookup tables that have a picture per row. They are keyed by name
+        // rather than by an id, which changes nothing here: the column holds a
+        // file id like every other one. `roles` and `food_types` have folders
+        // too, but almost none of their rows have a file - see migration 015.
+        'elements' => ['icon' => $image('elements')],
+        'regions' => ['icon' => $image('regions')],
+        'weapon_types' => ['icon' => $image('weapon_types')],
     ];
 }
 

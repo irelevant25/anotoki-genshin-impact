@@ -21,6 +21,7 @@ import {
   FileRenamed,
   MissingFile,
   MissingForgotten,
+  RawFile,
   RecordUploadResult,
   TrashEmptied,
   TrashedFile,
@@ -152,6 +153,13 @@ export class FileApiService {
    */
   getFilesMissing(): Observable<MissingFile[]> {
     return this._http.get<MissingFile[]>('/api/files/missing');
+  }
+
+  /**
+   * `GET /api/files/raw`
+   */
+  getFilesRaw(): Observable<RawFile> {
+    return this._http.get<RawFile>('/api/files/raw');
   }
 
   /**

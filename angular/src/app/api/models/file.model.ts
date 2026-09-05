@@ -232,6 +232,9 @@ export interface FileCategoryMove {
   id: number;
   category: string;
   path: string;
+  /** What it is called now - a collision in the new folder adds a suffix. */
+  name: string;
+  renamed: boolean;
 }
 
 /**
@@ -272,6 +275,16 @@ export interface MissingForgotten {
   forgotten: number;
   /** Entity columns set back to null because the row they named is gone. */
   unlinked: number;
+}
+
+/**
+ * The bytes of one file, not JSON.
+ *
+ * Declared so the route is described like every other one; the generated client
+ * does not use it, because an `<img src>` is what asks for this.
+ */
+export interface RawFile {
+  content_type: string;
 }
 
 /**

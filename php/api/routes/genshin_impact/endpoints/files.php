@@ -191,7 +191,10 @@ $app->get('/api/files', function (Request $request, Response $response) {
             'size' => filesize($path),
             'modified' => date('Y-m-d H:i:s', filemtime($path)),
             // What the site would load it by.
-            'url' => 'assets/' . $folder . '/' . $name,
+            // Read back through the API rather than from the served asset
+            // path, so a file uploaded a moment ago is visible now - see
+            // /api/files/raw.
+            'url' => '/api/files/raw?folder=' . rawurlencode($folder) . '&name=' . rawurlencode($name),
             // Null where the catalogue has not caught up - the check button on
             // the panel above is what closes that.
             'file_id' => $row ? (int) $row['id'] : null,
@@ -412,6 +415,57 @@ $app->get('/api/files/stats', function (Request $request, Response $response) {
  * puts it back - adopting strays, moving anything in no category into
  * `unfiled`, and reporting rather than deleting rows whose file has gone.
  */
+// ── Serving one file back ─────────────────────────────────────────────────────
+//
+// The Files page used to point its previews at `assets/...` and let whatever
+// serves the site hand them over. In production that is the web server and it
+// works. In development it is `ng serve`, which resolves its asset glob once at
+// startup and never looks again - so a file uploaded a minute ago is a 404
+// until the dev server is restarted, and the page that exists to show you what
+// is on disk could not show you what you had just put there.
+//
+// Reading it here instead means the preview comes from the same place the
+// listing does. No auth: these bytes are already served publicly at their
+// asset path, so requiring a token would protect nothing and `<img src>`
+// cannot send one anyway.
+
+const FILE_MIME = [
+    'avif' => 'image/avif', 'png' => 'image/png', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg',
+    'webp' => 'image/webp', 'gif' => 'image/gif', 'svg' => 'image/svg+xml',
+    'opus' => 'audio/ogg', 'ogg' => 'audio/ogg', 'mp3' => 'audio/mpeg', 'wav' => 'audio/wav', 'm4a' => 'audio/mp4',
+];
+
+$app->get('/api/files/raw', function (Request $request, Response $response) {
+    $query = $request->getQueryParams();
+    $dir = _resolveAssetDir((string) ($query['folder'] ?? ''));
+    $name = _assetPathSegment((string) ($query['name'] ?? ''));
+
+    if ($dir === null || $name === null) {
+        return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    // Resolved rather than joined: the segment is already sanitised, and this
+    // is the check that it still lands inside the folder it claims to.
+    $path = realpath($dir . '/' . $name);
+    if ($path === false || !is_file($path) || !str_starts_with($path, $dir)) {
+        return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+    $stream = fopen($path, 'rb');
+    if ($stream === false) {
+        return respondJson($response, ['error' => 'Not readable'], 500);
+    }
+
+    return $response
+        ->withHeader('Content-Type', FILE_MIME[$extension] ?? 'application/octet-stream')
+        ->withHeader('Content-Length', (string) filesize($path))
+        // The name is the version: a replaced file keeps its name, so this is
+        // deliberately short rather than immutable.
+        ->withHeader('Cache-Control', 'private, max-age=30')
+        ->withBody(new \Slim\Psr7\Stream($stream));
+})->add(responds(RawFile::class));
+
 // ── Recorded but gone ─────────────────────────────────────────────────────────
 //
 // The catalogue says there is a file and the disk disagrees. Listing them is

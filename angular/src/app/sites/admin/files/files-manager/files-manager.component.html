@@ -68,7 +68,7 @@
                             [title]="canPreview(file) ? 'Open ' + file.name : file.name"
                             (click)="openPreview(file)">
                             @if (isImage(file)) {
-                                <img [src]="file.url" [alt]="file.name" loading="lazy" />
+                                <img [src]="fileUrl(file)" [alt]="file.name" loading="lazy" />
                             } @else if (isAudio(file)) {
                                 <span class="icon icon-music icon-size-8"></span>
                             } @else {

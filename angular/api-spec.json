@@ -7521,7 +7521,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 307
+                "line": 310
             },
             "expanded": [],
             "payload": null,
@@ -7549,7 +7549,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 209
+                "line": 212
             },
             "expanded": [],
             "payload": null,
@@ -7579,7 +7579,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 280
+                "line": 283
             },
             "expanded": [],
             "payload": null,
@@ -7607,7 +7607,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 651
+                "line": 705
             },
             "expanded": [],
             "payload": null,
@@ -7636,7 +7636,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 676
+                "line": 730
             },
             "expanded": [],
             "payload": null,
@@ -7664,7 +7664,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 686
+                "line": 740
             },
             "expanded": [],
             "payload": null,
@@ -7692,7 +7692,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 617
+                "line": 671
             },
             "expanded": [],
             "payload": null,
@@ -7720,7 +7720,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 606
+                "line": 660
             },
             "expanded": [],
             "payload": null,
@@ -7776,7 +7776,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 527
+                "line": 581
             },
             "expanded": [],
             "payload": null,
@@ -7805,7 +7805,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 468
+                "line": 522
             },
             "expanded": [],
             "payload": null,
@@ -7815,6 +7815,31 @@
                 "ADMIN",
                 "EDITOR"
             ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/files/raw",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                404,
+                500
+            ],
+            "responds": {
+                "shape": "RawFile",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 467
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": []
         },
         {
             "method": "POST",
@@ -7833,7 +7858,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 582
+                "line": 636
             },
             "expanded": [],
             "payload": null,
@@ -7863,7 +7888,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 375
+                "line": 378
             },
             "expanded": [],
             "payload": null,
@@ -7890,7 +7915,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 405
+                "line": 408
             },
             "expanded": [],
             "payload": null,
@@ -7917,7 +7942,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 569
+                "line": 623
             },
             "expanded": [],
             "payload": null,
@@ -7944,7 +7969,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 342
+                "line": 345
             },
             "expanded": [],
             "payload": null,
@@ -7982,7 +8007,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
-                "line": 450
+                "line": 467
             },
             "expanded": [],
             "payload": null,
@@ -8020,7 +8045,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
-                "line": 393
+                "line": 397
             },
             "expanded": [],
             "payload": null,
@@ -20050,6 +20075,26 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "What it is called now - a collision in the new folder adds a suffix."
+                },
+                {
+                    "name": "renamed",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
                 }
             ]
         },
@@ -21311,6 +21356,24 @@
                 },
                 {
                     "name": "element",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "RawFile",
+            "file": "file.php",
+            "merges": null,
+            "description": "The bytes of one file, not JSON.\n\nDeclared so the route is described like every other one; the generated client\ndoes not use it, because an `<img src>` is what asks for this.",
+            "fields": [
+                {
+                    "name": "content_type",
                     "types": [
                         "string"
                     ],
@@ -24864,6 +24927,24 @@
                     "sqlType": "VARCHAR(50)",
                     "nullable": false,
                     "enum": null
+                },
+                {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
                 }
             ]
         },
@@ -26241,6 +26322,24 @@
                     "sqlType": "VARCHAR(50)",
                     "nullable": false,
                     "enum": null
+                },
+                {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
                 }
             ]
         },
@@ -27126,6 +27225,24 @@
                     "name": "name",
                     "sqlType": "VARCHAR(50)",
                     "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "icon_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "icon_name",
+                    "sqlType": "TEXT",
+                    "nullable": true,
                     "enum": null
                 }
             ]

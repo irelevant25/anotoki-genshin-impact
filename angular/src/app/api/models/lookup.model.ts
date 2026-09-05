@@ -37,6 +37,9 @@ export interface DomainLevel {
  */
 export interface Element {
   name: string;
+  icon_file_id: number | null;
+  icon: string | null;
+  icon_name: string | null;
 }
 
 /**
@@ -93,6 +96,9 @@ export interface Rarity {
  */
 export interface Region {
   name: string;
+  icon_file_id: number | null;
+  icon: string | null;
+  icon_name: string | null;
 }
 
 /**
@@ -128,6 +134,9 @@ export interface VoiceOverType {
  */
 export interface WeaponType {
   name: string;
+  icon_file_id: number | null;
+  icon: string | null;
+  icon_name: string | null;
 }
 
 /**

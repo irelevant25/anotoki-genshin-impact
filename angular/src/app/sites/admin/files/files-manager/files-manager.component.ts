@@ -9,6 +9,7 @@ import { AssetFile, AssetFolder, FileApiService, FileCategory, FileCategoryApiSe
 import { TrashModalComponent } from '../trash-modal/trash-modal.component';
 import { FilePreviewComponent, isPreviewableFile, PLAYABLE_AUDIO, PREVIEWABLE_IMAGES } from '../file-preview/file-preview.component';
 import { AssetStatsComponent } from '../asset-stats/asset-stats.component';
+import { ConfigService } from '../../../../shared/local-lib/services/config.service';
 
 @Component({
   selector: 'app-files-manager',
@@ -52,6 +53,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   });
 
   private readonly _fileApi = inject(FileApiService);
+  private readonly _config = inject(ConfigService);
   private readonly _categoryApi = inject(FileCategoryApiService);
   private readonly _notify = inject(NotificationService);
 
@@ -76,6 +78,20 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   /** Which file's name is being edited, and what has been typed so far. */
   readonly renaming = signal<string | undefined>(undefined);
   readonly draftName = signal('');
+
+  /**
+   * Where to actually fetch a file's bytes from.
+   *
+   * The listing hands back an API path, and an `<img src>` never goes through
+   * the interceptor that would put the backend in front of it - so it is put
+   * there here. Reading through the API rather than the served asset path is
+   * what makes a file uploaded a moment ago visible without restarting the dev
+   * server, which resolves its asset glob once and never looks again.
+   */
+  fileUrl(file: AssetFile): string {
+    const base = this._config.backendUrl ?? '';
+    return base.replace(/\/$/, '') + file.url;
+  }
 
   startRename(file: AssetFile): void {
     if (!file.file_id) {
@@ -121,7 +137,11 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     this._fileApi.moveFileToCategory(file.file_id, { category_id: Number(categoryId) }).subscribe({
       next: (result) => {
         this.busy.set(undefined);
-        this._notify.showSuccess(`Moved to ${result.path}/.`);
+        this._notify.showSuccess(
+          result.renamed
+            ? `Moved to ${result.path}/ as ${result.name} — that folder already had a file of the same name.`
+            : `Moved to ${result.path}/.`
+        );
         this.loadFiles();
         this.loadFolders();
       },

@@ -6,13 +6,13 @@
                     <p class="preview-error">This image could not be loaded.</p>
                 } @else {
                     <div class="preview-stage" [class.fit]="fitToWindow()">
-                        <img [src]="asset.url" [alt]="asset.name" (load)="onImageLoad($event)" (error)="failed.set(true)" />
+                        <img [src]="src()" [alt]="asset.name" (load)="onImageLoad($event)" (error)="failed.set(true)" />
                     </div>
                 }
             } @else if (isAudio()) {
                 <div class="preview-audio">
                     <span class="preview-audio-icon icon icon-music icon-size-8"></span>
-                    <app-audio-player [src]="asset.url" [label]="asset.name" />
+                    <app-audio-player [src]="src()" [label]="asset.name" />
                 </div>
             } @else {
                 <p class="preview-error">No preview available for .{{ asset.extension }} files.</p>
