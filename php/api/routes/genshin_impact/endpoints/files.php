@@ -463,6 +463,19 @@ $app->get('/api/files/raw', function (Request $request, Response $response) {
         // The name is the version: a replaced file keeps its name, so this is
         // deliberately short rather than immutable.
         ->withHeader('Cache-Control', 'private, max-age=30')
+        // An SVG is a document, not a picture, and one served as image/svg+xml
+        // runs any script inside it against this origin the moment somebody
+        // opens the URL directly. Nothing can upload one - svg is not on the
+        // allowlist - but files also arrive over FTP and get adopted by the
+        // reconcile sweep, and this route needs no sign-in.
+        //
+        // The sandbox is what makes that inert: a document served with it runs
+        // no script. An <img> is unaffected, because an image never executes
+        // one anyway, so the previews this route exists for still work. Not
+        // Content-Disposition: attachment, which would fix it by breaking them.
+        ->withHeader('Content-Security-Policy', "sandbox; default-src 'none'")
+        // And do not let a mislabelled file be sniffed into something else.
+        ->withHeader('X-Content-Type-Options', 'nosniff')
         ->withBody(new \Slim\Psr7\Stream($stream));
 })->add(responds(RawFile::class));
 
