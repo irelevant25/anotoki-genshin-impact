@@ -5,16 +5,16 @@ import { TextComponent } from '../../../../shared/local-lib/components/text/text
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { AssetFile, AssetFolder, FileApiService, FileCategory, FileCategoryApiService, toFormData, TrashedFile } from '../../../../api';
+import { AssetFile, AssetFolder, FileApiService, FileCategory, FileCategoryApiService, toFormData } from '../../../../api';
+import { TrashModalComponent } from '../trash-modal/trash-modal.component';
 import { FilePreviewComponent, isPreviewableFile, PLAYABLE_AUDIO, PREVIEWABLE_IMAGES } from '../file-preview/file-preview.component';
 import { AssetStatsComponent } from '../asset-stats/asset-stats.component';
-import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
 @Component({
   selector: 'app-files-manager',
   templateUrl: './files-manager.component.html',
   styleUrls: ['./files-manager.component.scss'],
-  imports: [AppDatePipe, ButtonComponent, LoaderComponent, TextComponent, FileComponent, AssetStatsComponent],
+  imports: [ButtonComponent, LoaderComponent, TextComponent, FileComponent, AssetStatsComponent],
 })
 export class FilesManagerComponent extends AbstractModalComponent implements OnInit {
   folders = signal<AssetFolder[]>([]);
@@ -32,8 +32,6 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   busy = signal<string | undefined>(undefined);
   deleteConfirm = signal<string | undefined>(undefined);
 
-  showTrash = signal(false);
-  trash = signal<TrashedFile[]>([]);
 
   /** 900+ folders, so the sidebar is filtered rather than scrolled. */
   visibleFolders = computed(() => {
@@ -116,7 +114,6 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   selectFolder(folder: string): void {
     this.selectedFolder.set(folder);
     this.page.set(1);
-    this.showTrash.set(false);
     this.loadFiles();
   }
 
@@ -255,39 +252,16 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
 
   // ── Trash ───────────────────────────────────────────────────────────────────
 
-  toggleTrash(): void {
-    this.showTrash.update((shown) => !shown);
-    if (this.showTrash()) {
-      this.loadTrash();
-    }
-  }
-
-  loadTrash(): void {
-    this.loadingFiles.set(true);
-    this._fileApi.getTrashedFiles().subscribe({
-      next: (data) => {
-        this.trash.set(data ?? []);
-        this.loadingFiles.set(false);
-      },
-      error: () => {
-        this.loadingFiles.set(false);
-        this._notify.showError('Failed to load the trash');
-      },
+  /**
+   * The trash is a modal now rather than a second mode of this page: it used to
+   * replace the browser, which read as a filter and left no way back.
+   */
+  openTrash(): void {
+    this.openModal(TrashModalComponent, { size: '4', scrollable: true }, () => {
+      this.loadFiles();
+      this.loadFolders();
     });
   }
 
-  restore(entry: TrashedFile): void {
-    this.busy.set(entry.trashed);
-    this._fileApi.restoreAssetFile(toFormData({ folder: entry.folder, trashed: entry.trashed })).subscribe({
-      next: () => {
-        this.busy.set(undefined);
-        this._notify.showSuccess(`${entry.name} restored`);
-        this.loadTrash();
-      },
-      error: (error) => {
-        this.busy.set(undefined);
-        this._notify.showError(error?.error?.error ?? 'Could not restore the file');
-      },
-    });
-  }
+
 }

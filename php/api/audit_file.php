@@ -21,8 +21,8 @@ function auditFile(PDO $pdo, int $fileId, string $action, array $changes, ?int $
     // A file is its own entity - nothing hangs off it - so what changed and
     // what it belongs to are the same row.
     $statement = $pdo->prepare(
-        'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changed_at, changes, entity_table, entity_id)
-         VALUES (:table_name, :record_id, :action, :changed_by, CURRENT_TIMESTAMP, :changes, :table_name_2, :record_id_2)'
+        'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changed_at, changes, entity_table, entity_id, session_id)
+         VALUES (:table_name, :record_id, :action, :changed_by, CURRENT_TIMESTAMP, :changes, :table_name_2, :record_id_2, :session_id)'
     );
 
     $statement->execute([
@@ -33,5 +33,6 @@ function auditFile(PDO $pdo, int $fileId, string $action, array $changes, ?int $
         'changes' => json_encode($changes, JSON_UNESCAPED_UNICODE),
         'table_name_2' => 'files',
         'record_id_2' => (string) $fileId,
+        'session_id' => auditSession(),
     ]);
 }

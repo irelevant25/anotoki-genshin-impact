@@ -1,0 +1,74 @@
+<app-modal title="Trash" subtitle="Deleted files, still recoverable until they are removed for good" (closeModal)="dismiss()">
+    <div modal-body>
+        <app-loader #loader [loading]="loading()"></app-loader>
+
+        @if (!loader.loadingCtrl.loading()) {
+            @if (failed(); as message) {
+                <p class="trash-error">{{ message }}</p>
+            }
+
+            @if (!total()) {
+                <p class="trash-empty">The trash is empty.</p>
+            } @else {
+                <p class="trash-summary">
+                    <strong>{{ total() | number }}</strong>
+                    file{{ total() === 1 ? "" : "s" }} taking
+                    <strong>{{ bytes() | fileSize }}</strong>
+                    . Removing them for good is the only way that space comes back.
+                </p>
+
+                <table class="trash-table">
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Folder</th>
+                            <th>Deleted</th>
+                            <th class="col-number">Size</th>
+                            <th class="col-actions"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (file of files(); track file.trashed) {
+                            <tr>
+                                <td>{{ file.name }}</td>
+                                <td><code>{{ file.folder }}</code></td>
+                                <td>{{ file.deleted_at | appDate: "datetime" }}</td>
+                                <td class="col-number">{{ file.size | fileSize }}</td>
+                                <td class="col-actions">
+                                    <app-button
+                                        text="Restore"
+                                        variant="secondary"
+                                        [outline]="true"
+                                        size="very-small"
+                                        [loading]="busy() === file.trashed"
+                                        (buttonClick)="restore(file)"></app-button>
+                                    <app-button
+                                        icon="icon-trash icon-size-3"
+                                        variant="danger"
+                                        [outline]="true"
+                                        size="very-small"
+                                        tooltipText="Remove for good"
+                                        [disabled]="busy() === file.trashed"
+                                        (buttonClick)="remove(file)"></app-button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+    </div>
+
+    <div modal-footer class="trash-footer">
+        @if (total()) {
+            @if (confirming()) {
+                <span class="confirm-note">Remove all {{ total() | number }} for good? This cannot be undone.</span>
+                <app-button text="Empty the trash" variant="danger" [loading]="busy() === 'all'" (buttonClick)="emptyAll()"></app-button>
+                <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="confirming.set(false)"></app-button>
+            } @else {
+                <app-button text="Empty the trash" icon="icon-trash" variant="danger" [outline]="true" (buttonClick)="confirming.set(true)"></app-button>
+            }
+        }
+        <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="dismiss()"></app-button>
+    </div>
+</app-modal>

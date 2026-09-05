@@ -62,10 +62,17 @@
                             <span class="figure-value">{{ catalogue.uncatalogued | number }}</span>
                             <span class="figure-label">not in the database</span>
                         </span>
-                        <span class="catalogue-figure" [class.is-gap]="catalogue.missing > 0">
+                        <!-- A count nobody could act on until it opened. -->
+                        <button
+                            type="button"
+                            class="catalogue-figure catalogue-figure-button"
+                            [class.is-gap]="catalogue.missing > 0"
+                            [disabled]="!catalogue.missing"
+                            [title]="catalogue.missing ? 'Show the rows that name a file which is gone' : 'Nothing is missing'"
+                            (click)="showMissing()">
                             <span class="figure-value">{{ catalogue.missing | number }}</span>
                             <span class="figure-label">recorded but gone</span>
-                        </span>
+                        </button>
                         <span class="catalogue-figure is-quiet">
                             <span class="figure-value">{{ catalogue.catalogued | number }}</span>
                             <span class="figure-label">accounted for</span>

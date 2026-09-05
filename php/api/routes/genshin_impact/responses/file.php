@@ -138,6 +138,52 @@ class RecordUploadResult extends ResponseShape
     }
 }
 
+/**
+ * A catalogue row whose file is not on disk any more.
+ *
+ * The Files page counts these as "recorded but gone". Something removed the
+ * file without telling the catalogue - a cleanup, an FTP client, a hand - and
+ * the row is now a promise of a picture that cannot be shown.
+ */
+class MissingFile extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        /** Where it would be, if it were there: `materials/Dandelion Seed.avif`. */
+        public readonly string $path,
+        public readonly string $name,
+        public readonly string $extension,
+        public readonly string $category,
+        public readonly ?int $size,
+        public readonly ?string $modified_at,
+        /** How many entity rows still point at it - deleting the row clears those. */
+        public readonly int $used_by,
+    ) {
+    }
+}
+
+/** What forgetting them did. */
+class MissingForgotten extends ResponseShape
+{
+    public function __construct(
+        public readonly int $forgotten,
+        /** Entity columns set back to null because the row they named is gone. */
+        public readonly int $unlinked,
+    ) {
+    }
+}
+
+/** What emptying the trash did. */
+class TrashEmptied extends ResponseShape
+{
+    public function __construct(
+        public readonly int $deleted,
+        public readonly int $bytes,
+        public readonly int $failed,
+    ) {
+    }
+}
+
 // ── What is in the tree, and what is missing from it ──────────────────────────
 
 class AssetFormatCount extends ResponseShape

@@ -13,6 +13,7 @@ require_once __DIR__ . '/response.php';
 require_once __DIR__ . '/media_convert.php';
 require_once __DIR__ . '/audit_file.php';
 require_once __DIR__ . '/asset_columns.php';
+require_once __DIR__ . '/asset_naming.php';
 require_once __DIR__ . '/asset_catalogue.php';
 require_once __DIR__ . '/asset_stats.php';
 require_once __DIR__ . '/asset_cleanup.php';

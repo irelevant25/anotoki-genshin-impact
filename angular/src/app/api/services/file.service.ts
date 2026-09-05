@@ -18,7 +18,10 @@ import {
   AssetUploadResult,
   EntityUploadResult,
   FileCategoryMove,
+  MissingFile,
+  MissingForgotten,
   RecordUploadResult,
+  TrashEmptied,
   TrashedFile,
   UploadResult,
 } from '../models';
@@ -30,6 +33,8 @@ import {
   AssetFileRef,
   AssetStatsQuery,
   FileCategoryMoveRequest,
+  MissingFileRef,
+  TrashedFileRef,
 } from '../types';
 import { toHttpParams } from '../http-params';
 
@@ -65,6 +70,24 @@ export class FileApiService {
    */
   deleteAssetFile(params: AssetFileRef): Observable<AssetTrashResult> {
     return this._http.delete<AssetTrashResult>('/api/files', { params: toHttpParams(params) });
+  }
+
+  /**
+   * `DELETE /api/files/missing`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  deleteFilesMissing(params?: MissingFileRef): Observable<MissingForgotten> {
+    return this._http.delete<MissingForgotten>('/api/files/missing', { params: toHttpParams(params) });
+  }
+
+  /**
+   * `DELETE /api/files/trash`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  deleteFilesTrash(params?: TrashedFileRef): Observable<TrashEmptied> {
+    return this._http.delete<TrashEmptied>('/api/files/trash', { params: toHttpParams(params) });
   }
 
   /**
@@ -119,6 +142,15 @@ export class FileApiService {
    */
   getConversionProgress(): Observable<AssetConvertProgress> {
     return this._http.get<AssetConvertProgress>('/api/files/convert');
+  }
+
+  /**
+   * `GET /api/files/missing`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  getFilesMissing(): Observable<MissingFile[]> {
+    return this._http.get<MissingFile[]>('/api/files/missing');
   }
 
   /**

@@ -305,8 +305,8 @@ class DbQuery
 
         try {
             $pdo->prepare(
-                'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changes, entity_table, entity_id)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)'
+                'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changes, entity_table, entity_id, session_id)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
             )->execute([
                 $table,
                 $recordId,
@@ -315,6 +315,7 @@ class DbQuery
                 json_encode($changes),
                 $scope['table'] ?? $table,
                 $scope['id'] ?? $recordId,
+                function_exists('auditSession') ? auditSession() : null,
             ]);
         } catch (\PDOException) {
             // silently skip if audit_logs table not yet created

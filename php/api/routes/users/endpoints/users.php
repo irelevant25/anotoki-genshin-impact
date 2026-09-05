@@ -264,7 +264,6 @@ $app->get('/api/users/{id:[0-9]+}/detail', function (Request $request, Response 
         'id' => (int) $session['id'],
         'method' => $session['method'],
         'ip' => $session['ip'],
-        'mac' => $session['mac'],
         'user_agent' => $session['user_agent'],
         'created_at' => $session['created_at'],
         'last_seen_at' => $session['last_seen_at'],

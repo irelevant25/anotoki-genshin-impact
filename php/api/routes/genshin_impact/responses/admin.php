@@ -34,6 +34,12 @@ class AuditLogEntry extends ResponseShape
         public readonly string $action,
         public readonly ?int $changed_by,
         public readonly ?string $changed_by_username,
+        /**
+         * The sign-in it was made from, which is what knows the address and the
+         * browser and can be revoked. Null for anything with no session behind
+         * it - a migration, a sweep, a file found on disk.
+         */
+        public readonly ?int $session_id,
         public readonly string $changed_at,
         /**
          * Column to { old, new }. Absent on an insert, which logs the whole row.

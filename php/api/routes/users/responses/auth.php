@@ -195,14 +195,6 @@ class SessionEntry extends ResponseShape
         /** password, login_code, google, or email_link. */
         public readonly string $method,
         public readonly ?string $ip,
-        /**
-         * The caller's hardware address, and null nearly always.
-         *
-         * Only knowable when the caller shares a network with the server, and
-         * so is still in its neighbour table - a MAC address does not survive
-         * a router. See requestMac().
-         */
-        public readonly ?string $mac,
         public readonly ?string $user_agent,
         public readonly string $created_at,
         public readonly ?string $last_seen_at,

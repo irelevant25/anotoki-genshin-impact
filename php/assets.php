@@ -46,6 +46,7 @@ require __DIR__ . '/config/db.php';
 require __DIR__ . '/api/audit_file.php';
 require __DIR__ . '/api/asset_catalogue.php';
 require __DIR__ . '/api/asset_columns.php';
+require __DIR__ . '/api/asset_naming.php';
 
 const ASSETS_ROOT = __DIR__ . '/../assets';
 

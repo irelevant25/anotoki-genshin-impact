@@ -1,0 +1,88 @@
+<app-modal title="Recorded but gone" subtitle="Catalogue rows for files that are not on disk any more" (closeModal)="dismiss()">
+    <div modal-body>
+        <app-loader #loader [loading]="loading()"></app-loader>
+
+        @if (!loader.loadingCtrl.loading()) {
+            @if (failed(); as message) {
+                <p class="missing-error">{{ message }}</p>
+            }
+
+            @if (!total()) {
+                <p class="missing-empty">Nothing is missing. Every row in the catalogue names a file that is there.</p>
+            } @else {
+                <p class="missing-summary">
+                    <strong>{{ total() | number }}</strong>
+                    row{{ total() === 1 ? '' : 's' }} name a file that is gone, together holding
+                    <strong>{{ bytes() | fileSize }}</strong>
+                    of recorded size.
+                </p>
+
+                @if (stillUsed().length) {
+                    <!-- The only part worth reading twice: these are rows a
+                         character or a weapon still points at. -->
+                    <p class="missing-warning">
+                        <i class="icon icon-info" aria-hidden="true"></i>
+                        {{ stillUsed().length | number }} of them {{ stillUsed().length === 1 ? "is" : "are" }} still named by an entity. Forgetting {{ stillUsed().length === 1 ? "it" : "them" }} takes the picture off
+                        {{ stillUsed().length === 1 ? "that row" : "those rows" }} too — the file is gone either way.
+                    </p>
+                }
+
+                <div class="missing-groups">
+                    @for (group of byCategory(); track group.category) {
+                        <details class="missing-group">
+                            <summary>
+                                <code>{{ group.category }}</code>
+                                <span class="group-count">{{ group.files.length | number }}</span>
+                            </summary>
+
+                            <table class="missing-table">
+                                <thead>
+                                    <tr>
+                                        <th>File</th>
+                                        <th class="col-number">Size</th>
+                                        <th>Last seen</th>
+                                        <th class="col-number">Used by</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (file of group.files; track file.id) {
+                                        <tr [class.is-used]="file.used_by > 0">
+                                            <td><code>{{ file.path }}</code></td>
+                                            <td class="col-number">{{ file.size ? (file.size | fileSize) : "—" }}</td>
+                                            <td>{{ file.modified_at ? (file.modified_at | appDate: "datetime") : "—" }}</td>
+                                            <td class="col-number">{{ file.used_by || "—" }}</td>
+                                            <td class="col-actions">
+                                                <app-button
+                                                    icon="icon-trash icon-size-3"
+                                                    variant="danger"
+                                                    [outline]="true"
+                                                    size="very-small"
+                                                    tooltipText="Forget this row"
+                                                    [disabled]="working()"
+                                                    (buttonClick)="forget(file)"></app-button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </details>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    <div modal-footer class="missing-footer">
+        @if (total()) {
+            @if (confirming()) {
+                <span class="confirm-note">Forget all {{ total() | number }}?</span>
+                <app-button text="Forget them" variant="danger" [loading]="working()" (buttonClick)="forgetAll()"></app-button>
+                <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="confirming.set(false)"></app-button>
+            } @else {
+                <app-button text="Forget them all" icon="icon-trash" variant="danger" [outline]="true" (buttonClick)="confirming.set(true)"></app-button>
+            }
+        }
+        <app-button text="Close" variant="secondary" [outline]="true" (buttonClick)="dismiss()"></app-button>
+    </div>
+</app-modal>

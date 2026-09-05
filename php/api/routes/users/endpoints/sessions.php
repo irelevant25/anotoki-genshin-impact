@@ -26,7 +26,7 @@ const ADMIN_SESSION_PAGE = 200;
 
 /** Every column of a session, plus whose it is. */
 const ADMIN_SESSION_SELECT =
-    'SELECT s.id, s.user_id, u.username, u.email, s.method, s.ip, s.mac, s.user_agent,
+    'SELECT s.id, s.user_id, u.username, u.email, s.method, s.ip, s.user_agent,
             s.created_at, s.last_seen_at, s.expires_at, s.revoked_at, s.revoked_reason
        FROM user_sessions s
        JOIN users u ON u.id = s.user_id';
@@ -85,7 +85,6 @@ $app->get('/api/sessions', function (Request $request, Response $response) {
         'email' => $row['email'],
         'method' => $row['method'],
         'ip' => $row['ip'],
-        'mac' => $row['mac'],
         'user_agent' => $row['user_agent'],
         'created_at' => $row['created_at'],
         'last_seen_at' => $row['last_seen_at'],

@@ -72,9 +72,6 @@
                         <td class="col-method">{{ row.method }}</td>
                         <td class="col-from" [title]="row.user_agent ?? ''">
                             {{ row.ip || '—' }}
-                            @if (row.mac) {
-                                <span class="muted">· {{ row.mac }}</span>
-                            }
                             @if (row.user_agent) {
                                 <span class="agent">{{ row.user_agent }}</span>
                             }

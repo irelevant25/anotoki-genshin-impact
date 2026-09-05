@@ -235,6 +235,35 @@ export interface FileCategoryMove {
 }
 
 /**
+ * A catalogue row whose file is not on disk any more.
+ *
+ * The Files page counts these as "recorded but gone". Something removed the
+ * file without telling the catalogue - a cleanup, an FTP client, a hand - and
+ * the row is now a promise of a picture that cannot be shown.
+ */
+export interface MissingFile {
+  id: number;
+  /** Where it would be, if it were there: `materials/Dandelion Seed.avif`. */
+  path: string;
+  name: string;
+  extension: string;
+  category: string;
+  size: number | null;
+  modified_at: string | null;
+  /** How many entity rows still point at it - deleting the row clears those. */
+  used_by: number;
+}
+
+/**
+ * What forgetting them did.
+ */
+export interface MissingForgotten {
+  forgotten: number;
+  /** Entity columns set back to null because the row they named is gone. */
+  unlinked: number;
+}
+
+/**
  * `POST /api/uploads/{entity}/{id}/{field}` - the same, and the resulting path
  * written back onto the row.
  */
@@ -248,6 +277,15 @@ export interface RecordUploadResult {
   path: string;
   /** The catalogue row the file was filed as, or null if it could not be. */
   fileId: number | null;
+}
+
+/**
+ * What emptying the trash did.
+ */
+export interface TrashEmptied {
+  deleted: number;
+  bytes: number;
+  failed: number;
 }
 
 /**

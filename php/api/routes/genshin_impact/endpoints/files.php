@@ -269,6 +269,12 @@ $app->post('/api/files', function (Request $request, Response $response) {
         return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
     }
 
+    // Without this the file is on disk and nowhere else, so the listing shows
+    // it as uncatalogued and offers no category to move it to - which is what
+    // uploading or replacing anything through this page used to do.
+    $user = $request->getAttribute('user');
+    catalogueUploadedStem(genshinDb(), $folder, $stem, isset($user['id']) ? (int) $user['id'] : null);
+
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'path' => $path, 'url' => ltrim(str_replace('../', '', $path), '/')]);
 })->add(responds(AssetUploadResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
@@ -406,6 +412,162 @@ $app->get('/api/files/stats', function (Request $request, Response $response) {
  * puts it back - adopting strays, moving anything in no category into
  * `unfiled`, and reporting rather than deleting rows whose file has gone.
  */
+// ── Recorded but gone ─────────────────────────────────────────────────────────
+//
+// The catalogue says there is a file and the disk disagrees. Listing them is
+// the only way to find out which, and forgetting them is the only way to make
+// the count go down - reconcile deliberately does not, because a file that has
+// vanished is news rather than tidying.
+
+$app->get('/api/files/missing', function (Request $request, Response $response) {
+    $pdo = genshinDb();
+    $compare = catalogueCompare($pdo);
+
+    if (!$compare['vanished']) {
+        return respondJson($response, []);
+    }
+
+    // Which entity columns still name each one, so the modal can say what
+    // forgetting it would clear.
+    $used = [];
+    foreach (assetColumnMap() as $table => $columns) {
+        foreach (array_keys($columns) as $field) {
+            foreach ($pdo->query("SELECT \"{$field}_file_id\" AS id FROM \"$table\" WHERE \"{$field}_file_id\" IS NOT NULL") as $row) {
+                $used[(int) $row['id']] = ($used[(int) $row['id']] ?? 0) + 1;
+            }
+        }
+    }
+
+    $rows = $pdo->query(
+        "SELECT f.id, f.name, f.extension, f.size, f.modified_at, c.code AS category, c.path
+           FROM files f JOIN file_categories c ON c.id = f.category_id
+          ORDER BY c.path, f.name"
+    )->fetchAll(PDO::FETCH_ASSOC);
+
+    $gone = array_flip($compare['vanished']);
+    $items = [];
+    foreach ($rows as $row) {
+        $suffix = $row['extension'] === '' ? '' : '.' . $row['extension'];
+        $relative = $row['path'] . '/' . $row['name'] . $suffix;
+        if (!isset($gone[$relative])) {
+            continue;
+        }
+        $items[] = [
+            'id' => (int) $row['id'],
+            'path' => $relative,
+            'name' => $row['name'],
+            'extension' => $row['extension'],
+            'category' => $row['category'],
+            'size' => $row['size'] === null ? null : (int) $row['size'],
+            'modified_at' => $row['modified_at'],
+            'used_by' => $used[(int) $row['id']] ?? 0,
+        ];
+    }
+
+    return respondJson($response, $items);
+})->add(responds(MissingFile::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+// DELETE /api/files/missing            forget every row whose file is gone
+// DELETE /api/files/missing?id=12,13   forget only these
+$app->delete('/api/files/missing', function (Request $request, Response $response) {
+    $pdo = genshinDb();
+    $user = $request->getAttribute('user');
+    $wanted = trim((string) ($request->getQueryParams()['id'] ?? ''));
+
+    $compare = catalogueCompare($pdo);
+    if (!$compare['vanished']) {
+        return respondJson($response, ['forgotten' => 0, 'unlinked' => 0]);
+    }
+
+    $gone = array_flip($compare['vanished']);
+    $ids = [];
+    $rows = $pdo->query(
+        "SELECT f.id, f.name, f.extension, c.path
+           FROM files f JOIN file_categories c ON c.id = f.category_id"
+    );
+    foreach ($rows as $row) {
+        $suffix = $row['extension'] === '' ? '' : '.' . $row['extension'];
+        if (isset($gone[$row['path'] . '/' . $row['name'] . $suffix])) {
+            $ids[] = (int) $row['id'];
+        }
+    }
+
+    if ($wanted !== '') {
+        $only = array_map('intval', array_filter(explode(',', $wanted), 'strlen'));
+        $ids = array_values(array_intersect($ids, $only));
+    }
+
+    if (!$ids) {
+        return respondJson($response, ['forgotten' => 0, 'unlinked' => 0]);
+    }
+
+    $pdo->beginTransaction();
+
+    // Clear the entity columns first: the foreign key is ON DELETE SET NULL, so
+    // this is only to be able to say how many rows lost a picture.
+    $unlinked = 0;
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    foreach (assetColumnMap() as $table => $columns) {
+        foreach (array_keys($columns) as $field) {
+            $statement = $pdo->prepare("UPDATE \"$table\" SET \"{$field}_file_id\" = NULL WHERE \"{$field}_file_id\" IN ($placeholders)");
+            $statement->execute($ids);
+            $unlinked += $statement->rowCount();
+        }
+    }
+
+    foreach ($ids as $id) {
+        $pdo->prepare('DELETE FROM files WHERE id = ?')->execute([$id]);
+    }
+
+    auditFile($pdo, 0, 'DELETE', ['forgotten' => count($ids), 'unlinked' => $unlinked], isset($user['id']) ? (int) $user['id'] : null);
+    $pdo->commit();
+
+    assetStatsForget();
+    return respondJson($response, ['forgotten' => count($ids), 'unlinked' => $unlinked]);
+})->add(responds(MissingForgotten::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
+// ── Emptying the trash ────────────────────────────────────────────────────────
+//
+// The one destructive thing this file does. Everything else moves files about.
+
+$app->delete('/api/files/trash', function (Request $request, Response $response) {
+    $root = _trashRoot();
+    if (!is_dir($root)) {
+        return respondJson($response, ['deleted' => 0, 'bytes' => 0, 'failed' => 0]);
+    }
+
+    $wanted = trim((string) ($request->getQueryParams()['trashed'] ?? ''));
+    $deleted = 0;
+    $bytes = 0;
+    $failed = 0;
+
+    foreach (_listTrash($root) as $entry) {
+        if ($wanted !== '' && $entry['trashed'] !== $wanted) {
+            continue;
+        }
+        $safeFolder = _assetFolder($entry['folder']);
+        $safeName = _assetPathSegment($entry['trashed']);
+        if ($safeFolder === null || $safeName === null) {
+            $failed++;
+            continue;
+        }
+        $path = $root . '/' . $safeFolder . '/' . $safeName;
+        if (!is_file($path)) {
+            $failed++;
+            continue;
+        }
+        $size = (int) filesize($path);
+        if (@unlink($path)) {
+            $deleted++;
+            $bytes += $size;
+        } else {
+            $failed++;
+        }
+    }
+
+    return respondJson($response, ['deleted' => $deleted, 'bytes' => $bytes, 'failed' => $failed]);
+})->add(responds(TrashEmptied::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
 $app->post('/api/files/reconcile', function (Request $request, Response $response) {
     $result = catalogueReconcile(genshinDb());
 

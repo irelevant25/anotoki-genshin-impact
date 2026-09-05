@@ -125,9 +125,6 @@
                                         <td>{{ session.method }}</td>
                                         <td class="agent" [title]="session.user_agent ?? ''">
                                             {{ session.ip || '—' }}
-                                            @if (session.mac) {
-                                                <span class="muted">· {{ session.mac }}</span>
-                                            }
                                         </td>
                                         <td class="nowrap">{{ session.last_seen_at ? (session.last_seen_at | appDate: 'datetime') : '—' }}</td>
                                         <td>

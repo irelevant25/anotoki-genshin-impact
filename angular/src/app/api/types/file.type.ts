@@ -17,6 +17,17 @@ export interface AssetFileRef {
   name: string;
 }
 
+/** Which recorded-but-gone rows to forget. Omitted means all of them. */
+export interface MissingFileRef {
+  /** Comma separated catalogue ids. */
+  id?: string;
+}
+
+/** Which trashed file to remove for good. Omitted means the whole trash. */
+export interface TrashedFileRef {
+  trashed?: string;
+}
+
 /**
  * A batch of the conversion the Files page drives.
  *

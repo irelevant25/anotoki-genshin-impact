@@ -31,7 +31,6 @@ export interface Feedback {
   created_at: string | null;
   updated_at: string | null;
   ip: string | null;
-  mac: string | null;
 }
 
 /**

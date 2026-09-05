@@ -176,6 +176,8 @@ export const QUERIES = {
     "GET /api/files/cleanup": "AssetCleanupQuery",
     "GET /api/migrations/file": "MigrationFileQuery",
     "DELETE /api/files": "AssetFileRef",
+    "DELETE /api/files/missing": "MissingFileRef?",
+    "DELETE /api/files/trash": "TrashedFileRef?",
 };
 
 /** Method names the mechanical rules get wrong, or that would collide. */

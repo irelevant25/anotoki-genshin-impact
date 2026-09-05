@@ -54,10 +54,6 @@ export class BannersListComponent extends AdminListComponent<any> implements OnI
   }
 
   /** Banner art has no column; it is named "{version} - {name}". */
-  artName(banner: { version: string; name: string }): string {
-    return `${banner.version} - ${banner.name}`;
-  }
-
   private readonly _dates = inject(AppDatePipe);
 
   /** Dates come back as timestamps; the day is all that matters here. */

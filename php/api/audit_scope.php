@@ -81,6 +81,33 @@ function auditScope(?string $table = null, ?string $id = null, bool $clear = fal
     return $scope;
 }
 
+/**
+ * The sign-in this request came from, for as long as it lasts.
+ *
+ * `changed_by` says who made a change; this says which session they made it
+ * from, which is the thing that also knows the address and the browser and can
+ * be revoked. Set once by the auth middleware and read by whatever writes an
+ * audit row, rather than threaded through every call that might want it.
+ *
+ * Null for anything with no session behind it - a migration, a sweep, a file
+ * found on disk.
+ */
+function auditSession(?int $id = null, bool $clear = false): ?int
+{
+    static $session = null;
+
+    if ($clear) {
+        $session = null;
+        return null;
+    }
+
+    if ($id !== null) {
+        $session = $id;
+    }
+
+    return $session;
+}
+
 /** Runs a save with everything it writes filed under one entity. */
 function withAuditScope(string $table, ?string $id, callable $work): mixed
 {

@@ -156,8 +156,6 @@ class AdminSessionEntry extends ResponseShape
         /** password, login_code, google, or email_link. */
         public readonly string $method,
         public readonly ?string $ip,
-        /** Almost always null - see requestMac(). */
-        public readonly ?string $mac,
         public readonly ?string $user_agent,
         public readonly string $created_at,
         public readonly ?string $last_seen_at,

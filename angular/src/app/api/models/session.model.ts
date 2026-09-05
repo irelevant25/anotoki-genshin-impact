@@ -20,8 +20,6 @@ export interface AdminSessionEntry {
   /** password, login_code, google, or email_link. */
   method: string;
   ip: string | null;
-  /** Almost always null - see requestMac(). */
-  mac: string | null;
   user_agent: string | null;
   created_at: string;
   last_seen_at: string | null;

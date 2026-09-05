@@ -924,7 +924,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1214
+                "line": 1213
             },
             "expanded": [],
             "payload": null,
@@ -1398,7 +1398,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1200
+                "line": 1199
             },
             "expanded": [],
             "payload": null,
@@ -1422,7 +1422,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1158
+                "line": 1157
             },
             "expanded": [],
             "payload": null,
@@ -1454,7 +1454,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1182
+                "line": 1181
             },
             "expanded": [],
             "payload": null,
@@ -7200,7 +7200,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 226
+                "line": 223
             },
             "expanded": [],
             "payload": null,
@@ -7231,7 +7231,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 136
+                "line": 133
             },
             "expanded": [],
             "payload": null,
@@ -7257,7 +7257,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 165
+                "line": 162
             },
             "expanded": [],
             "payload": null,
@@ -7292,7 +7292,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 281
+                "line": 278
             },
             "expanded": [],
             "payload": null,
@@ -7326,7 +7326,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 242
+                "line": 239
             },
             "expanded": [],
             "payload": null,
@@ -7360,7 +7360,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\feedback.php",
-                "line": 265
+                "line": 262
             },
             "expanded": [],
             "payload": null,
@@ -7521,7 +7521,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 301
+                "line": 307
             },
             "expanded": [],
             "payload": null,
@@ -7579,7 +7579,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 274
+                "line": 280
             },
             "expanded": [],
             "payload": null,
@@ -7607,7 +7607,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 489
+                "line": 651
             },
             "expanded": [],
             "payload": null,
@@ -7636,7 +7636,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 514
+                "line": 676
             },
             "expanded": [],
             "payload": null,
@@ -7664,7 +7664,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 524
+                "line": 686
             },
             "expanded": [],
             "payload": null,
@@ -7692,7 +7692,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 455
+                "line": 617
             },
             "expanded": [],
             "payload": null,
@@ -7720,7 +7720,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 444
+                "line": 606
             },
             "expanded": [],
             "payload": null,
@@ -7759,6 +7759,64 @@
             ]
         },
         {
+            "method": "DELETE",
+            "path": "/api/files/missing",
+            "args": [],
+            "file": "files.php",
+            "tables": [
+                "files"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "MissingForgotten",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 527
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/files/missing",
+            "args": [],
+            "file": "files.php",
+            "tables": [
+                "files"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "MissingFile",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 468
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
             "method": "POST",
             "path": "/api/files/reconcile",
             "args": [],
@@ -7775,7 +7833,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 420
+                "line": 582
             },
             "expanded": [],
             "payload": null,
@@ -7805,7 +7863,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 369
+                "line": 375
             },
             "expanded": [],
             "payload": null,
@@ -7832,7 +7890,34 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 399
+                "line": 405
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/files/trash",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "TrashEmptied",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
+                "line": 569
             },
             "expanded": [],
             "payload": null,
@@ -7859,7 +7944,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 336
+                "line": 342
             },
             "expanded": [],
             "payload": null,
@@ -10714,7 +10799,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\sessions.php",
-                "line": 113
+                "line": 112
             },
             "expanded": [],
             "payload": null,
@@ -10748,7 +10833,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\sessions.php",
-                "line": 138
+                "line": 137
             },
             "expanded": [],
             "payload": null,
@@ -11371,7 +11456,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\uploads.php",
-                "line": 440
+                "line": 163
             },
             "expanded": [],
             "payload": null,
@@ -11417,7 +11502,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\uploads.php",
-                "line": 381
+                "line": 104
             },
             "expanded": [],
             "payload": null,
@@ -11600,7 +11685,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 359
+                "line": 358
             },
             "expanded": [],
             "payload": null,
@@ -11664,7 +11749,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 548
+                "line": 547
             },
             "expanded": [],
             "payload": null,
@@ -11733,7 +11818,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 442
+                "line": 441
             },
             "expanded": [],
             "payload": null,
@@ -11768,7 +11853,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 298
+                "line": 297
             },
             "expanded": [],
             "payload": null,
@@ -11804,7 +11889,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 518
+                "line": 517
             },
             "expanded": [],
             "payload": null,
@@ -11839,7 +11924,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\users.php",
-                "line": 480
+                "line": 479
             },
             "expanded": [],
             "payload": null,
@@ -16145,16 +16230,6 @@
                     "description": null
                 },
                 {
-                    "name": "mac",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "Almost always null - see requestMac()."
-                },
-                {
                     "name": "user_agent",
                     "types": [
                         "string"
@@ -17821,6 +17896,16 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "session_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The sign-in it was made from, which is what knows the address and the\nbrowser and can be revoked. Null for anything with no session behind\nit - a migration, a sweep, a file found on disk."
                 },
                 {
                     "name": "changed_at",
@@ -20447,6 +20532,122 @@
             ]
         },
         {
+            "name": "MissingFile",
+            "file": "file.php",
+            "merges": null,
+            "description": "A catalogue row whose file is not on disk any more.\n\nThe Files page counts these as \"recorded but gone\". Something removed the\nfile without telling the catalogue - a cleanup, an FTP client, a hand - and\nthe row is now a promise of a picture that cannot be shown.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Where it would be, if it were there: `materials/Dandelion Seed.avif`."
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "extension",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "category",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "size",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "modified_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "used_by",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "How many entity rows still point at it - deleting the row clears those."
+                }
+            ]
+        },
+        {
+            "name": "MissingForgotten",
+            "file": "file.php",
+            "merges": null,
+            "description": "What forgetting them did.",
+            "fields": [
+                {
+                    "name": "forgotten",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "unlinked",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Entity columns set back to null because the row they named is gone."
+                }
+            ]
+        },
+        {
             "name": "PublicSiteRoute",
             "file": "setting.php",
             "merges": null,
@@ -21305,16 +21506,6 @@
                     "description": null
                 },
                 {
-                    "name": "mac",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "The caller's hardware address, and null nearly always.\n\nOnly knowable when the caller shares a network with the server, and\nso is still in its neighbour table - a MAC address does not survive\na router. See requestMac()."
-                },
-                {
                     "name": "user_agent",
                     "types": [
                         "string"
@@ -21907,6 +22098,44 @@
             ]
         },
         {
+            "name": "TrashEmptied",
+            "file": "file.php",
+            "merges": null,
+            "description": "What emptying the trash did.",
+            "fields": [
+                {
+                    "name": "deleted",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "bytes",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "failed",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "TrashedFile",
             "file": "file.php",
             "merges": null,
@@ -22461,6 +22690,12 @@
                 {
                     "name": "entity_id",
                     "sqlType": "VARCHAR(100)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "session_id",
+                    "sqlType": "INTEGER",
                     "nullable": true,
                     "enum": null
                 }
@@ -25128,12 +25363,6 @@
                     "sqlType": "VARCHAR(45)",
                     "nullable": true,
                     "enum": null
-                },
-                {
-                    "name": "mac",
-                    "sqlType": "VARCHAR(17)",
-                    "nullable": true,
-                    "enum": null
                 }
             ]
         },
@@ -26543,12 +26772,6 @@
                 {
                     "name": "revoked_reason",
                     "sqlType": "VARCHAR(32)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "mac",
-                    "sqlType": "VARCHAR(17)",
                     "nullable": true,
                     "enum": null
                 }

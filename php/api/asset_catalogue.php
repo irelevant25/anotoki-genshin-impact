@@ -178,6 +178,127 @@ function catalogueCounts(PDO $pdo): array
  * not the person who put the files there, and recording them as such would be a
  * guess written down as a fact.
  */
+/**
+ * Puts what an upload just wrote into the catalogue.
+ *
+ * An upload leaves two files behind, not one: what arrived, and the AVIF or
+ * Opus it was re-encoded into. The endpoints only ever catalogued the converted
+ * one - and the Files page, which lists what is on disk, then showed the
+ * original as a file it knew nothing about, with no category to move it to.
+ *
+ * Both are the same upload under two extensions, so both are taken by folder
+ * and stem rather than by a path the caller has to take apart.
+ */
+function catalogueUploadedStem(PDO $pdo, string $folder, string $stem, ?int $by = null): int
+{
+    $categories = catalogueCategories($pdo);
+    $category = catalogueCategoryFor($categories, $folder) ?? catalogueUnfiled($categories);
+    if ($category === null) {
+        return 0;
+    }
+
+    // The name a file is catalogued under is its path below the category, so a
+    // voice over keeps the character and language folders it sits in.
+    $within = trim(substr($folder, strlen($category['path'])), '/');
+    $prefix = $within === '' ? '' : $within . '/';
+
+    $directory = catalogueRoot() . '/' . $folder;
+    $catalogued = 0;
+
+    foreach (glob($directory . '/' . _globEscape($stem) . '.*') ?: [] as $found) {
+        $extension = strtolower(pathinfo($found, PATHINFO_EXTENSION));
+        if (upsertCatalogueFile($pdo, $category['code'], $prefix . $stem, $extension, $by) !== null) {
+            $catalogued++;
+        }
+    }
+
+    return $catalogued;
+}
+
+/**
+ * Points rows at the pictures that are already there for them.
+ *
+ * Adopting a stray puts it in the catalogue; it does not tell the banner it
+ * belongs to that it exists. A row imported by anything other than the admin
+ * form - a data load, a script - arrives with no file id, and then the site
+ * shows a gap where a picture plainly sits on disk.
+ *
+ * The name is worked out by the same code an upload would have used, so a match
+ * means the file is named exactly the way this row's file is supposed to be. A
+ * row whose picture is genuinely missing is left alone: this fills gaps, it
+ * does not guess.
+ */
+function catalogueRelink(PDO $pdo, ?int $by = null): array
+{
+    $categories = catalogueCategories($pdo);
+    $linked = 0;
+    $byField = [];
+
+    $lookup = $pdo->prepare(
+        "SELECT id, extension FROM files
+          WHERE category_id = :category AND name = :name
+          ORDER BY CASE extension WHEN 'avif' THEN 0 WHEN 'opus' THEN 1 ELSE 2 END, id
+          LIMIT 1"
+    );
+
+    foreach (_uploadTargets() as $entity => $spec) {
+        $table = $spec['table'];
+        $hasDeleted = (int) $pdo->query(
+            "SELECT count(*) FROM information_schema.columns
+              WHERE table_name = " . $pdo->quote($table) . " AND column_name = 'deleted'"
+        )->fetchColumn();
+
+        foreach ($spec['fields'] as $field => $fieldSpec) {
+            $column = $field . '_file_id';
+            $live = $hasDeleted ? ' AND deleted = FALSE' : '';
+            $rows = $pdo->query("SELECT * FROM \"$table\" WHERE \"$column\" IS NULL$live")->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($rows as $row) {
+                // Voice overs and banners work their own folder and name out
+                // from the row; everything else has a fixed folder and the
+                // conventional name.
+                $folder = $fieldSpec['folder'] ?? null;
+                $name = null;
+                if (isset($spec['resolver'])) {
+                    $resolved = ($spec['resolver'])($pdo, $row, $field);
+                    if (!$resolved) {
+                        continue;
+                    }
+                    $folder = $resolved['folder'];
+                    $name = $resolved['base'];
+                }
+                $name ??= _defaultUploadName($pdo, $spec, $fieldSpec, $row);
+
+                if ($folder === null || $name === null || $name === '') {
+                    continue;
+                }
+
+                $category = catalogueCategoryFor($categories, $folder);
+                if ($category === null) {
+                    continue;
+                }
+
+                $lookup->execute(['category' => $category['id'], 'name' => $name]);
+                $file = $lookup->fetch(PDO::FETCH_ASSOC);
+                if (!$file) {
+                    continue;
+                }
+
+                $pdo->prepare("UPDATE \"$table\" SET \"$column\" = ? WHERE id = ?")
+                    ->execute([$file['id'], $row['id']]);
+                $linked++;
+                $byField["$table.$field"] = ($byField["$table.$field"] ?? 0) + 1;
+            }
+        }
+    }
+
+    if ($linked > 0) {
+        auditFile($pdo, 0, 'RECONCILE', ['relinked' => $linked, 'by_field' => $byField], $by);
+    }
+
+    return ['linked' => $linked, 'by_field' => $byField];
+}
+
 function catalogueReconcile(PDO $pdo, ?int $by = null): array
 {
     $compare = catalogueCompare($pdo);
@@ -250,12 +371,17 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
         ]);
     }
 
+    // Now that everything on disk is in the catalogue, hand the rows that have
+    // no picture the one that was sitting there for them all along.
+    $relinked = catalogueRelink($pdo, $by);
+
     $result = [
         'adopted' => $adopted,
         'moved_to_unfiled' => $moved,
         'resized' => count($compare['resized']),
         'missing' => count($compare['vanished']),
         'on_disk' => $compare['on_disk'],
+        'relinked' => $relinked['linked'],
     ];
 
     // One entry for the run. The first sweep adopts eighty-eight thousand

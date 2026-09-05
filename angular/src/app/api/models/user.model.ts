@@ -107,8 +107,6 @@ export interface SessionEntry {
   /** password, login_code, google, or email_link. */
   method: string;
   ip: string | null;
-  /** The caller's hardware address, and null nearly always.  Only knowable when the caller shares a network with the server, and so is still in its neighbour table - a MAC address does not survive a router. See requestMac(). */
-  mac: string | null;
   user_agent: string | null;
   created_at: string;
   last_seen_at: string | null;

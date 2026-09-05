@@ -45,7 +45,12 @@
                     <tr>
                         <td class="col-id">{{ banner.id }}</td>
                         <td class="col-banner-art">
-                            <img [appMaterialIcon]="artName(banner)" [appAssetFolder]="'banners'" [alt]="banner.name" class="banner-art" />
+                            <!-- The file the row points at, not a guess at what
+                                 it might be called: a banner with no picture
+                                 should look like it has none. -->
+                            @if (banner.icon_name) {
+                                <img [appMaterialIcon]="banner.icon_name" [appAssetFolder]="'banners'" [alt]="banner.name" class="banner-art" />
+                            }
                         </td>
                         <td>{{ banner.name }}</td>
                         <td>{{ banner.version }}</td>

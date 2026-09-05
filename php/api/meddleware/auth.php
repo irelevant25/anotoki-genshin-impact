@@ -58,6 +58,10 @@ function requireAuth(): callable
 
         touchSession($pdo, $session);
 
+        // Anything writing an audit row below can say which sign-in it was,
+        // without being handed the request to find out.
+        auditSession(isset($session['id']) ? (int) $session['id'] : null);
+
         $response = $handler->handle(
             $request->withAttribute('user', $user)->withAttribute('session', $session),
         );

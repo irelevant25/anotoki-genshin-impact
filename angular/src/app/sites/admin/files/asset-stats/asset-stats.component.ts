@@ -3,6 +3,7 @@ import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular
 import { AssetConversionCount, AssetConvertProgress, AssetStats, FileApiService } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { CleanupModalComponent } from '../cleanup-modal/cleanup-modal.component';
+import { MissingModalComponent } from '../missing-modal/missing-modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
@@ -224,6 +225,11 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
     const modal = this.openModal(CleanupModalComponent, { size: '5', scrollable: true }, () => this.load(true));
     modal.componentInstance.kind.set(kind);
     modal.componentInstance.start();
+  }
+
+  /** The rows naming files that are not there, and the chance to forget them. */
+  showMissing(): void {
+    this.openModal(MissingModalComponent, { size: '5', scrollable: true }, () => this.load(true));
   }
 
   ngOnInit(): void {

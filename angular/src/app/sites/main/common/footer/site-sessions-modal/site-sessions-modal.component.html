@@ -47,9 +47,6 @@
                                     <!-- Only ever filled in for a sign-in from
                                          this network: a hardware address does
                                          not survive a router. -->
-                                    @if (session.mac) {
-                                        <span class="session-mac">{{ session.mac }}</span>
-                                    }
                                 </td>
                                 <td class="session-when">{{ session.created_at | appDate: 'datetime' }}</td>
                                 <td class="session-when">

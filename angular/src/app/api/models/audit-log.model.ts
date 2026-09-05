@@ -16,6 +16,7 @@ export interface AuditLog {
   changes: string | null;
   entity_table: string | null;
   entity_id: string | null;
+  session_id: number | null;
 }
 
 /**
@@ -35,6 +36,8 @@ export interface AuditLogEntry {
   action: string;
   changed_by: number | null;
   changed_by_username: string | null;
+  /** The sign-in it was made from, which is what knows the address and the browser and can be revoked. Null for anything with no session behind it - a migration, a sweep, a file found on disk. */
+  session_id: number | null;
   changed_at: string;
   /** Column to { old, new }. Absent on an insert, which logs the whole row. */
   changes: Record<string, unknown> | null;
