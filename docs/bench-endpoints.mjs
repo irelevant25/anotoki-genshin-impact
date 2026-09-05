@@ -7,7 +7,7 @@
 // the API is behind a role. Reads only - timing writes would mean creating and
 // destroying an entity per sample, which measures the fixture rather than the
 // endpoint.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const [email, password, apiArg] = process.argv.slice(2);
 if (!email || !password) {
@@ -16,8 +16,14 @@ if (!email || !password) {
 }
 
 const API = apiArg ?? 'http://localhost:8000';
-const SPEC = new URL('../angular/api-spec.json', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
-const OUT = new URL('./api-latency-timings.json', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+const local = (relative) => new URL(relative, import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+const SPEC = local('../angular/api-spec.json');
+
+// Every run is kept, named by when it happened. A report is only worth reading
+// next to the one before it, and that needs the one before it to still be there
+// - so nothing here overwrites anything.
+const RUNS = local('./runs/');
+const OUT = RUNS + new Date().toISOString().slice(0, 16).replace(/[-:]/g, '') + 'Z.json';
 
 const WARMUP = 2;
 const SAMPLES = 7;
@@ -156,6 +162,7 @@ for (const route of gets) {
 }
 
 const measured = results.filter((r) => !r.skipped);
+mkdirSync(RUNS, { recursive: true });
 writeFileSync(
   OUT,
   JSON.stringify(
@@ -180,6 +187,7 @@ writeFileSync(
 );
 
 console.log(`\nmeasured ${measured.length} of ${gets.length} GET endpoints`);
+console.log(`written to ${OUT}`);
 console.log('failing:', measured.filter((r) => r.status >= 400).map((r) => `${r.status} ${r.path}`).join(', ') || 'none');
 const slow = measured.filter((r) => !r.heavy).sort((a, b) => b.median - a.median).slice(0, 8);
 for (const r of slow) console.log(`  ${r.median.toFixed(0).padStart(6)}ms  ${(r.bytes / 1048576).toFixed(2).padStart(6)} MB  ${r.path}`);
