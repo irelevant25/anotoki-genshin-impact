@@ -1,0 +1,3246 @@
+{
+ "generated_at": "2026-09-05T09:41:30.462Z",
+ "warmup": 2,
+ "samples": 7,
+ "floor": 126.10940000000005,
+ "floor_samples": [
+  121.53060000000005,
+  122.41909999999984,
+  123.03099999999995,
+  123.24569999999994,
+  123.58619999999996,
+  124.01740000000018,
+  125.0652,
+  126.10940000000005,
+  128.9312,
+  133.08089999999993,
+  134.9360999999999,
+  140.1199999999999,
+  141.4918,
+  231.1159,
+  357.4743000000003
+ ],
+ "totals": {
+  "routes": 406,
+  "get_routes": 176,
+  "measured": 163,
+  "skipped": 13,
+  "by_method": {
+   "GET": 176,
+   "PUT": 66,
+   "POST": 94,
+   "DELETE": 70
+  }
+ },
+ "results": [
+  {
+   "path": "/api/admin/translations",
+   "called": "/api/admin/translations",
+   "method": "GET",
+   "file": "translations.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "languages",
+    "translations",
+    "translation_keys",
+    "sites"
+   ],
+   "status": 200,
+   "bytes": 194777,
+   "heavy": false,
+   "samples": 7,
+   "min": 97.84379999999965,
+   "median": 98.7853,
+   "p95": 102.4033000000004,
+   "max": 102.4033000000004
+  },
+  {
+   "path": "/api/affiliations",
+   "called": "/api/affiliations",
+   "method": "GET",
+   "file": "affiliations.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 500,
+   "bytes": 33,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.2460000000001,
+   "median": 122.08979999999974,
+   "p95": 132.42550000000028,
+   "max": 132.42550000000028
+  },
+  {
+   "path": "/api/affiliations/{id}",
+   "method": "GET",
+   "file": "affiliations.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/artifact-piece-types",
+   "called": "/api/artifact-piece-types",
+   "method": "GET",
+   "file": "artifact_piece_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "artifact_piece_types"
+   ],
+   "status": 200,
+   "bytes": 135,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.73739999999998,
+   "median": 125.61069999999927,
+   "p95": 149.0045,
+   "max": 149.0045
+  },
+  {
+   "path": "/api/artifacts",
+   "called": "/api/artifacts",
+   "method": "GET",
+   "file": "artifacts.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "artifacts"
+   ],
+   "status": 200,
+   "bytes": 70880,
+   "heavy": false,
+   "samples": 7,
+   "min": 130.78760000000057,
+   "median": 134.29809999999998,
+   "p95": 244.45730000000003,
+   "max": 244.45730000000003
+  },
+  {
+   "path": "/api/artifacts-pieces",
+   "called": "/api/artifacts-pieces",
+   "method": "GET",
+   "file": "artifact_pieces.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "artifacts_pieces"
+   ],
+   "status": 200,
+   "bytes": 107547,
+   "heavy": false,
+   "samples": 7,
+   "min": 131.0532000000003,
+   "median": 135.20859999999993,
+   "p95": 249.5042999999987,
+   "max": 249.5042999999987
+  },
+  {
+   "path": "/api/artifacts-pieces/{id}",
+   "called": "/api/artifacts-pieces/1",
+   "method": "GET",
+   "file": "artifact_pieces.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "artifacts_pieces"
+   ],
+   "status": 200,
+   "bytes": 342,
+   "heavy": false,
+   "samples": 7,
+   "min": 126.04060000000027,
+   "median": 133.70499999999993,
+   "p95": 234.8791999999994,
+   "max": 234.8791999999994
+  },
+  {
+   "path": "/api/artifacts/full",
+   "called": "/api/artifacts/full",
+   "method": "GET",
+   "file": "artifacts_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 171304,
+   "heavy": false,
+   "samples": 7,
+   "min": 170.15140000000065,
+   "median": 173.39569999999912,
+   "p95": 198.0697999999993,
+   "max": 198.0697999999993
+  },
+  {
+   "path": "/api/artifacts/{id}",
+   "called": "/api/artifacts/58",
+   "method": "GET",
+   "file": "artifacts.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "artifacts"
+   ],
+   "status": 200,
+   "bytes": 1198,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.67029999999977,
+   "median": 231.46160000000054,
+   "p95": 249.95290000000023,
+   "max": 249.95290000000023
+  },
+  {
+   "path": "/api/artifacts/{id}/full",
+   "called": "/api/artifacts/58/full",
+   "method": "GET",
+   "file": "artifacts_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 2959,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.95510000000104,
+   "median": 125.17029999999977,
+   "p95": 135.8029000000006,
+   "max": 135.8029000000006
+  },
+  {
+   "path": "/api/audit-logs",
+   "called": "/api/audit-logs",
+   "method": "GET",
+   "file": "audit_logs.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "audit_logs",
+    "users"
+   ],
+   "status": 200,
+   "bytes": 16228,
+   "heavy": false,
+   "samples": 7,
+   "min": 161.51180000000022,
+   "median": 163.88670000000275,
+   "p95": 286.22839999999997,
+   "max": 286.22839999999997
+  },
+  {
+   "path": "/api/audit-logs/filters",
+   "called": "/api/audit-logs/filters",
+   "method": "GET",
+   "file": "audit_logs.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "audit_logs",
+    "users"
+   ],
+   "status": 200,
+   "bytes": 635,
+   "heavy": false,
+   "samples": 7,
+   "min": 257.47810000000027,
+   "median": 345.95560000000114,
+   "p95": 365.685300000001,
+   "max": 365.685300000001
+  },
+  {
+   "path": "/api/auth/me",
+   "called": "/api/auth/me",
+   "method": "GET",
+   "file": "auth.php",
+   "auth": true,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 450,
+   "heavy": false,
+   "samples": 7,
+   "min": 83.42309999999998,
+   "median": 84.61119999999937,
+   "p95": 194.78169999999955,
+   "max": 194.78169999999955
+  },
+  {
+   "path": "/api/auth/providers",
+   "called": "/api/auth/providers",
+   "method": "GET",
+   "file": "auth.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 118,
+   "heavy": false,
+   "samples": 7,
+   "min": 83.45759999999791,
+   "median": 84.13910000000033,
+   "p95": 88.130799999999,
+   "max": 88.130799999999
+  },
+  {
+   "path": "/api/auth/sessions",
+   "called": "/api/auth/sessions",
+   "method": "GET",
+   "file": "auth.php",
+   "auth": true,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 301,
+   "heavy": false,
+   "samples": 7,
+   "min": 85.38999999999942,
+   "median": 86.80159999999887,
+   "p95": 89.40009999999893,
+   "max": 89.40009999999893
+  },
+  {
+   "path": "/api/backgrounds",
+   "called": "/api/backgrounds",
+   "method": "GET",
+   "file": "backgrounds.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "backgrounds"
+   ],
+   "status": 200,
+   "bytes": 4541,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.38030000000072,
+   "median": 123.18419999999969,
+   "p95": 126.05509999999776,
+   "max": 126.05509999999776
+  },
+  {
+   "path": "/api/backgrounds/{id}",
+   "called": "/api/backgrounds/1",
+   "method": "GET",
+   "file": "backgrounds.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 385,
+   "heavy": false,
+   "samples": 7,
+   "min": 141.69540000000052,
+   "median": 149.96299999999974,
+   "p95": 241.79669999999896,
+   "max": 241.79669999999896
+  },
+  {
+   "path": "/api/backups",
+   "called": "/api/backups",
+   "method": "GET",
+   "file": "backups.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 14715,
+   "heavy": true,
+   "samples": 1,
+   "min": 94.10229999999865,
+   "median": 94.10229999999865,
+   "p95": 94.10229999999865,
+   "max": 94.10229999999865
+  },
+  {
+   "path": "/api/backups/status",
+   "called": "/api/backups/status",
+   "method": "GET",
+   "file": "backups.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 616,
+   "heavy": true,
+   "samples": 1,
+   "min": 737.9403999999995,
+   "median": 737.9403999999995,
+   "p95": 737.9403999999995,
+   "max": 737.9403999999995
+  },
+  {
+   "path": "/api/backups/{id}",
+   "called": "/api/backups/pre-repoint-20260904-103856",
+   "method": "GET",
+   "file": "backups.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 404,
+   "bytes": 21,
+   "heavy": true,
+   "samples": 1,
+   "min": 87.29780000000028,
+   "median": 87.29780000000028,
+   "p95": 87.29780000000028,
+   "max": 87.29780000000028
+  },
+  {
+   "path": "/api/backups/{id}/download/{alias}",
+   "called": "/api/backups/pre-repoint-20260904-103856/download/genshin_impact",
+   "method": "GET",
+   "file": "backups.php",
+   "auth": true,
+   "roles": [
+    "ADMIN"
+   ],
+   "tables": [],
+   "status": 404,
+   "bytes": 21,
+   "heavy": true,
+   "samples": 1,
+   "min": 93.08169999999882,
+   "median": 93.08169999999882,
+   "p95": 93.08169999999882,
+   "max": 93.08169999999882
+  },
+  {
+   "path": "/api/backups/{id}/preview/{alias}",
+   "called": "/api/backups/pre-repoint-20260904-103856/preview/genshin_impact",
+   "method": "GET",
+   "file": "backups.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 404,
+   "bytes": 21,
+   "heavy": true,
+   "samples": 1,
+   "min": 102.5589,
+   "median": 102.5589,
+   "p95": 102.5589,
+   "max": 102.5589
+  },
+  {
+   "path": "/api/banners",
+   "called": "/api/banners",
+   "method": "GET",
+   "file": "banners.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "banners"
+   ],
+   "status": 200,
+   "bytes": 139674,
+   "heavy": false,
+   "samples": 7,
+   "min": 142.950499999999,
+   "median": 149.873599999999,
+   "p95": 256.64020000000164,
+   "max": 256.64020000000164
+  },
+  {
+   "path": "/api/banners-characters",
+   "called": "/api/banners-characters",
+   "method": "GET",
+   "file": "banners_characters.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "banners_characters"
+   ],
+   "status": 200,
+   "bytes": 147507,
+   "heavy": false,
+   "samples": 7,
+   "min": 134.64510000000155,
+   "median": 146.90090000000055,
+   "p95": 248.54330000000118,
+   "max": 248.54330000000118
+  },
+  {
+   "path": "/api/banners-characters/{id}",
+   "called": "/api/banners-characters/1",
+   "method": "GET",
+   "file": "banners_characters.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "banners_characters"
+   ],
+   "status": 200,
+   "bytes": 186,
+   "heavy": false,
+   "samples": 7,
+   "min": 128.05149999999776,
+   "median": 132.17979999999807,
+   "p95": 152.54579999999987,
+   "max": 152.54579999999987
+  },
+  {
+   "path": "/api/banners-weapons",
+   "called": "/api/banners-weapons",
+   "method": "GET",
+   "file": "banners_weapons.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "banners_weapons"
+   ],
+   "status": 200,
+   "bytes": 146078,
+   "heavy": false,
+   "samples": 7,
+   "min": 127.51949999999852,
+   "median": 137.64730000000054,
+   "p95": 241.65940000000046,
+   "max": 241.65940000000046
+  },
+  {
+   "path": "/api/banners-weapons/{id}",
+   "called": "/api/banners-weapons/1",
+   "method": "GET",
+   "file": "banners_weapons.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "banners_weapons"
+   ],
+   "status": 200,
+   "bytes": 181,
+   "heavy": false,
+   "samples": 7,
+   "min": 124.84169999999722,
+   "median": 129.1617000000042,
+   "p95": 231.04369999999835,
+   "max": 231.04369999999835
+  },
+  {
+   "path": "/api/banners/full",
+   "called": "/api/banners/full",
+   "method": "GET",
+   "file": "banners_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 400982,
+   "heavy": false,
+   "samples": 7,
+   "min": 281.87539999999717,
+   "median": 389.90030000000115,
+   "p95": 903.8671000000031,
+   "max": 903.8671000000031
+  },
+  {
+   "path": "/api/banners/{id}",
+   "called": "/api/banners/9",
+   "method": "GET",
+   "file": "banners.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "banners"
+   ],
+   "status": 200,
+   "bytes": 467,
+   "heavy": false,
+   "samples": 7,
+   "min": 127.05869999999413,
+   "median": 131.23909999999887,
+   "p95": 151.38680000000022,
+   "max": 151.38680000000022
+  },
+  {
+   "path": "/api/banners/{id}/full",
+   "called": "/api/banners/9/full",
+   "method": "GET",
+   "file": "banners_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 1149,
+   "heavy": false,
+   "samples": 7,
+   "min": 129.04329999999754,
+   "median": 139.73019999999815,
+   "p95": 256.1676000000007,
+   "max": 256.1676000000007
+  },
+  {
+   "path": "/api/character-models",
+   "called": "/api/character-models",
+   "method": "GET",
+   "file": "characters_models.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "character_models"
+   ],
+   "status": 200,
+   "bytes": 139,
+   "heavy": false,
+   "samples": 7,
+   "min": 126.68000000000029,
+   "median": 132.34889999999723,
+   "p95": 139.8335999999981,
+   "max": 139.8335999999981
+  },
+  {
+   "path": "/api/character-states",
+   "called": "/api/character-states",
+   "method": "GET",
+   "file": "characters_states.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "character_states"
+   ],
+   "status": 200,
+   "bytes": 57,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.55099999999948,
+   "median": 139.41579999999522,
+   "p95": 146.35710000000108,
+   "max": 146.35710000000108
+  },
+  {
+   "path": "/api/character/random",
+   "called": "/api/character/random",
+   "method": "GET",
+   "file": "characters.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters"
+   ],
+   "status": 200,
+   "bytes": 1893,
+   "heavy": false,
+   "samples": 7,
+   "min": 132.59700000000157,
+   "median": 137.7554999999993,
+   "p95": 150.4340000000011,
+   "max": 150.4340000000011
+  },
+  {
+   "path": "/api/characters",
+   "called": "/api/characters",
+   "method": "GET",
+   "file": "characters.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters"
+   ],
+   "status": 200,
+   "bytes": 271815,
+   "heavy": false,
+   "samples": 7,
+   "min": 139.90739999999641,
+   "median": 150.66930000000139,
+   "p95": 155.80430000000342,
+   "max": 155.80430000000342
+  },
+  {
+   "path": "/api/characters-affiliations",
+   "called": "/api/characters-affiliations",
+   "method": "GET",
+   "file": "characters_affiliations.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 500,
+   "bytes": 33,
+   "heavy": false,
+   "samples": 7,
+   "min": 125.00649999999587,
+   "median": 136.77380000000267,
+   "p95": 159.77040000000125,
+   "max": 159.77040000000125
+  },
+  {
+   "path": "/api/characters-affiliations/{id}",
+   "method": "GET",
+   "file": "characters_affiliations.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-ascensions",
+   "called": "/api/characters-ascensions",
+   "method": "GET",
+   "file": "characters_ascensions.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_ascensions"
+   ],
+   "status": 200,
+   "bytes": 427135,
+   "heavy": false,
+   "samples": 7,
+   "min": 131.03459999999905,
+   "median": 145.21959999999672,
+   "p95": 545.7989000000016,
+   "max": 545.7989000000016
+  },
+  {
+   "path": "/api/characters-ascensions-cost",
+   "called": "/api/characters-ascensions-cost",
+   "method": "GET",
+   "file": "characters_ascensions_cost.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_ascensions_cost"
+   ],
+   "status": 200,
+   "bytes": 749372,
+   "heavy": false,
+   "samples": 7,
+   "min": 137.72929999999906,
+   "median": 146.93410000000586,
+   "p95": 442.6848999999929,
+   "max": 442.6848999999929
+  },
+  {
+   "path": "/api/characters-ascensions-cost/{id}",
+   "called": "/api/characters-ascensions-cost/6565",
+   "method": "GET",
+   "file": "characters_ascensions_cost.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_ascensions_cost"
+   ],
+   "status": 200,
+   "bytes": 221,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.18670000000566,
+   "median": 127.55389999999898,
+   "p95": 232.24909999999363,
+   "max": 232.24909999999363
+  },
+  {
+   "path": "/api/characters-ascensions/{id}",
+   "called": "/api/characters-ascensions/3109",
+   "method": "GET",
+   "file": "characters_ascensions.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_ascensions"
+   ],
+   "status": 200,
+   "bytes": 516,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.33929999999964,
+   "median": 130.99419999999373,
+   "p95": 141.53659999999945,
+   "max": 141.53659999999945
+  },
+  {
+   "path": "/api/characters-builds",
+   "called": "/api/characters-builds",
+   "method": "GET",
+   "file": "characters_builds.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 124.95439999999508,
+   "median": 133.52970000000641,
+   "p95": 143.08400000000256,
+   "max": 143.08400000000256
+  },
+  {
+   "path": "/api/characters-builds-artifacts",
+   "called": "/api/characters-builds-artifacts",
+   "method": "GET",
+   "file": "characters_builds_artifacts.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds_artifacts"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.50720000000001,
+   "median": 131.532100000004,
+   "p95": 135.57949999999983,
+   "max": 135.57949999999983
+  },
+  {
+   "path": "/api/characters-builds-artifacts/{id}",
+   "method": "GET",
+   "file": "characters_builds_artifacts.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-builds-main-stats",
+   "called": "/api/characters-builds-main-stats",
+   "method": "GET",
+   "file": "characters_builds_main_stats.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds_main_stats"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 130.107600000003,
+   "median": 136.2655999999988,
+   "p95": 145.3272999999972,
+   "max": 145.3272999999972
+  },
+  {
+   "path": "/api/characters-builds-main-stats/{id}",
+   "method": "GET",
+   "file": "characters_builds_main_stats.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-builds-recommended-stats",
+   "called": "/api/characters-builds-recommended-stats",
+   "method": "GET",
+   "file": "characters_builds_recommended_stats.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds_recommended_stats"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 126.62920000000304,
+   "median": 128.95170000000508,
+   "p95": 242.68820000000414,
+   "max": 242.68820000000414
+  },
+  {
+   "path": "/api/characters-builds-recommended-stats/{id}",
+   "method": "GET",
+   "file": "characters_builds_recommended_stats.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-builds-sub-stats",
+   "called": "/api/characters-builds-sub-stats",
+   "method": "GET",
+   "file": "characters_builds_sub_stats.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds_sub_stats"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.93960000000516,
+   "median": 125.28749999999854,
+   "p95": 245.47959999999875,
+   "max": 245.47959999999875
+  },
+  {
+   "path": "/api/characters-builds-sub-stats/{id}",
+   "method": "GET",
+   "file": "characters_builds_sub_stats.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-builds-talents",
+   "called": "/api/characters-builds-talents",
+   "method": "GET",
+   "file": "characters_builds_talents.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds_talents"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.45559999999386,
+   "median": 124.03020000000106,
+   "p95": 238.3935000000056,
+   "max": 238.3935000000056
+  },
+  {
+   "path": "/api/characters-builds-talents/{id}",
+   "method": "GET",
+   "file": "characters_builds_talents.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-builds-teams",
+   "called": "/api/characters-builds-teams",
+   "method": "GET",
+   "file": "characters_builds_teams.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds_teams"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 129.63110000000597,
+   "median": 137.21210000000428,
+   "p95": 235.98450000000594,
+   "max": 235.98450000000594
+  },
+  {
+   "path": "/api/characters-builds-teams-characters",
+   "called": "/api/characters-builds-teams-characters",
+   "method": "GET",
+   "file": "characters_builds_teams_characters.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds_teams_characters"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 127.53139999999985,
+   "median": 129.57850000000326,
+   "p95": 237.14340000000084,
+   "max": 237.14340000000084
+  },
+  {
+   "path": "/api/characters-builds-teams-characters/{id}",
+   "method": "GET",
+   "file": "characters_builds_teams_characters.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-builds-teams/{id}",
+   "method": "GET",
+   "file": "characters_builds_teams.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-builds-weapons",
+   "called": "/api/characters-builds-weapons",
+   "method": "GET",
+   "file": "characters_builds_weapons.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_builds_weapons"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 125.63850000000093,
+   "median": 130.25499999999738,
+   "p95": 135.8678,
+   "max": 135.8678
+  },
+  {
+   "path": "/api/characters-builds-weapons/{id}",
+   "method": "GET",
+   "file": "characters_builds_weapons.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-builds/{id}",
+   "method": "GET",
+   "file": "characters_builds.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/characters-constellations",
+   "called": "/api/characters-constellations",
+   "method": "GET",
+   "file": "characters_constellations.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_constellations"
+   ],
+   "status": 200,
+   "bytes": 481317,
+   "heavy": false,
+   "samples": 7,
+   "min": 139.1883999999991,
+   "median": 148.8417000000045,
+   "p95": 446.5942000000068,
+   "max": 446.5942000000068
+  },
+  {
+   "path": "/api/characters-constellations/{id}",
+   "called": "/api/characters-constellations/676",
+   "method": "GET",
+   "file": "characters_constellations.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_constellations"
+   ],
+   "status": 200,
+   "bytes": 1814,
+   "heavy": false,
+   "samples": 7,
+   "min": 127.36169999999402,
+   "median": 134.48010000000068,
+   "p95": 137.709400000007,
+   "max": 137.709400000007
+  },
+  {
+   "path": "/api/characters-relationships",
+   "called": "/api/characters-relationships",
+   "method": "GET",
+   "file": "characters_relationships.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_relationships"
+   ],
+   "status": 200,
+   "bytes": 108556,
+   "heavy": false,
+   "samples": 7,
+   "min": 125.49049999999988,
+   "median": 126.77969999999914,
+   "p95": 233.8847999999998,
+   "max": 233.8847999999998
+  },
+  {
+   "path": "/api/characters-relationships/{id}",
+   "called": "/api/characters-relationships/1",
+   "method": "GET",
+   "file": "characters_relationships.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_relationships"
+   ],
+   "status": 200,
+   "bytes": 263,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.65450000000419,
+   "median": 126.27469999999448,
+   "p95": 127.97750000000815,
+   "max": 127.97750000000815
+  },
+  {
+   "path": "/api/characters-roles",
+   "called": "/api/characters-roles",
+   "method": "GET",
+   "file": "characters_roles.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_roles"
+   ],
+   "status": 200,
+   "bytes": 22324,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.95639999999548,
+   "median": 123.34810000000289,
+   "p95": 132.8338000000076,
+   "max": 132.8338000000076
+  },
+  {
+   "path": "/api/characters-roles/{id}",
+   "called": "/api/characters-roles/2",
+   "method": "GET",
+   "file": "characters_roles.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_roles"
+   ],
+   "status": 200,
+   "bytes": 188,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.40730000000622,
+   "median": 129.6545000000042,
+   "p95": 222.99409999999625,
+   "max": 222.99409999999625
+  },
+  {
+   "path": "/api/characters-talents",
+   "called": "/api/characters-talents",
+   "method": "GET",
+   "file": "characters_talents.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_talents"
+   ],
+   "status": 200,
+   "bytes": 715077,
+   "heavy": false,
+   "samples": 7,
+   "min": 137.38349999999627,
+   "median": 140.70709999999963,
+   "p95": 448.21140000000014,
+   "max": 448.21140000000014
+  },
+  {
+   "path": "/api/characters-talents-cost",
+   "called": "/api/characters-talents-cost",
+   "method": "GET",
+   "file": "characters_talents_cost.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_talents_cost"
+   ],
+   "status": 200,
+   "bytes": 827685,
+   "heavy": false,
+   "samples": 7,
+   "min": 137.75799999998708,
+   "median": 139.9774000000034,
+   "p95": 149.05229999999574,
+   "max": 149.05229999999574
+  },
+  {
+   "path": "/api/characters-talents-cost/{id}",
+   "called": "/api/characters-talents-cost/14209",
+   "method": "GET",
+   "file": "characters_talents_cost.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_talents_cost"
+   ],
+   "status": 200,
+   "bytes": 219,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.8290999999881,
+   "median": 124.18030000000726,
+   "p95": 228.64379999999073,
+   "max": 228.64379999999073
+  },
+  {
+   "path": "/api/characters-talents/{id}",
+   "called": "/api/characters-talents/3685",
+   "method": "GET",
+   "file": "characters_talents.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_talents"
+   ],
+   "status": 200,
+   "bytes": 478,
+   "heavy": false,
+   "samples": 7,
+   "min": 128.70049999999173,
+   "median": 129.4137000000046,
+   "p95": 129.83790000001318,
+   "max": 129.83790000001318
+  },
+  {
+   "path": "/api/characters-voice-overs",
+   "called": "/api/characters-voice-overs",
+   "method": "GET",
+   "file": "characters_voice_overs.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_voice_overs"
+   ],
+   "status": 200,
+   "bytes": 49802856,
+   "heavy": false,
+   "samples": 7,
+   "min": 949.8761999999988,
+   "median": 1067.970199999996,
+   "p95": 1418.8319999999949,
+   "max": 1418.8319999999949
+  },
+  {
+   "path": "/api/characters-voice-overs/{id}",
+   "called": "/api/characters-voice-overs/30147",
+   "method": "GET",
+   "file": "characters_voice_overs.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_voice_overs"
+   ],
+   "status": 200,
+   "bytes": 4592,
+   "heavy": false,
+   "samples": 7,
+   "min": 131.9788000000117,
+   "median": 135.45709999999963,
+   "p95": 139.96600000000035,
+   "max": 139.96600000000035
+  },
+  {
+   "path": "/api/characters/minimal",
+   "called": "/api/characters/minimal",
+   "method": "GET",
+   "file": "characters.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters"
+   ],
+   "status": 200,
+   "bytes": 250533,
+   "heavy": false,
+   "samples": 7,
+   "min": 137.43249999999534,
+   "median": 143.92459999999846,
+   "p95": 253.77999999999884,
+   "max": 253.77999999999884
+  },
+  {
+   "path": "/api/characters/{id}",
+   "called": "/api/characters/115",
+   "method": "GET",
+   "file": "characters.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters"
+   ],
+   "status": 200,
+   "bytes": 1533,
+   "heavy": false,
+   "samples": 7,
+   "min": 127.21719999999914,
+   "median": 135.0499000000127,
+   "p95": 238.74439999999595,
+   "max": 238.74439999999595
+  },
+  {
+   "path": "/api/characters/{id}/full",
+   "called": "/api/characters/115/full",
+   "method": "GET",
+   "file": "characters_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters"
+   ],
+   "status": 200,
+   "bytes": 1680,
+   "heavy": false,
+   "samples": 7,
+   "min": 158.45590000000084,
+   "median": 163.67220000000088,
+   "p95": 272.37049999999,
+   "max": 272.37049999999
+  },
+  {
+   "path": "/api/dashboard/stats",
+   "called": "/api/dashboard/stats",
+   "method": "GET",
+   "file": "dashboard.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "feedback",
+    "audit_logs",
+    "users",
+    "translation_keys",
+    "languages"
+   ],
+   "status": 200,
+   "bytes": 4599,
+   "heavy": false,
+   "samples": 7,
+   "min": 1934.3352000000014,
+   "median": 1966.6537000000098,
+   "p95": 2035.3034000000043,
+   "max": 2035.3034000000043
+  },
+  {
+   "path": "/api/domain-levels",
+   "called": "/api/domain-levels",
+   "method": "GET",
+   "file": "domain_levels.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "domain_levels"
+   ],
+   "status": 200,
+   "bytes": 84,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.48180000000866,
+   "median": 125.32940000000235,
+   "p95": 227.3027000000002,
+   "max": 227.3027000000002
+  },
+  {
+   "path": "/api/domain-levels/{name}",
+   "called": "/api/domain-levels/I",
+   "method": "GET",
+   "file": "domain_levels.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "domain_levels"
+   ],
+   "status": 200,
+   "bytes": 12,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.16419999999925,
+   "median": 127.81919999999809,
+   "p95": 243.85000000000582,
+   "max": 243.85000000000582
+  },
+  {
+   "path": "/api/elements",
+   "called": "/api/elements",
+   "method": "GET",
+   "file": "elements.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "elements"
+   ],
+   "status": 200,
+   "bytes": 273,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.9430999999895,
+   "median": 130.1716000000015,
+   "p95": 239.63310000000638,
+   "max": 239.63310000000638
+  },
+  {
+   "path": "/api/enemies",
+   "called": "/api/enemies",
+   "method": "GET",
+   "file": "enemies.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemies"
+   ],
+   "status": 200,
+   "bytes": 323744,
+   "heavy": false,
+   "samples": 7,
+   "min": 133.74749999999767,
+   "median": 139.28599999999278,
+   "p95": 249.24030000000494,
+   "max": 249.24030000000494
+  },
+  {
+   "path": "/api/enemies-damage-types-elements",
+   "called": "/api/enemies-damage-types-elements",
+   "method": "GET",
+   "file": "enemies_damage_types_elements.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemies_damage_types_elements"
+   ],
+   "status": 200,
+   "bytes": 102008,
+   "heavy": false,
+   "samples": 7,
+   "min": 128.22750000000815,
+   "median": 134.35540000000037,
+   "p95": 139.79789999999048,
+   "max": 139.79789999999048
+  },
+  {
+   "path": "/api/enemies-damage-types-elements/{id}",
+   "called": "/api/enemies-damage-types-elements/6",
+   "method": "GET",
+   "file": "enemies_damage_types_elements.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemies_damage_types_elements"
+   ],
+   "status": 200,
+   "bytes": 201,
+   "heavy": false,
+   "samples": 7,
+   "min": 125.56979999999749,
+   "median": 127.71949999999197,
+   "p95": 129.50260000000708,
+   "max": 129.50260000000708
+  },
+  {
+   "path": "/api/enemies-drops",
+   "called": "/api/enemies-drops",
+   "method": "GET",
+   "file": "enemies_drops.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemies_drops"
+   ],
+   "status": 200,
+   "bytes": 19477101,
+   "heavy": false,
+   "samples": 7,
+   "min": 480.9033000000054,
+   "median": 502.58430000000226,
+   "p95": 1101.3364000000001,
+   "max": 1101.3364000000001
+  },
+  {
+   "path": "/api/enemies-drops/{id}",
+   "called": "/api/enemies-drops/1",
+   "method": "GET",
+   "file": "enemies_drops.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemies_drops"
+   ],
+   "status": 200,
+   "bytes": 368,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.55770000000484,
+   "median": 124.20120000001043,
+   "p95": 134.59679999999935,
+   "max": 134.59679999999935
+  },
+  {
+   "path": "/api/enemies-phases",
+   "called": "/api/enemies-phases",
+   "method": "GET",
+   "file": "enemies_phases.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemies_phases"
+   ],
+   "status": 200,
+   "bytes": 231224,
+   "heavy": false,
+   "samples": 7,
+   "min": 130.90729999999166,
+   "median": 132.80869999999413,
+   "p95": 134.71450000000186,
+   "max": 134.71450000000186
+  },
+  {
+   "path": "/api/enemies-phases/{id}",
+   "called": "/api/enemies-phases/3",
+   "method": "GET",
+   "file": "enemies_phases.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemies_phases"
+   ],
+   "status": 200,
+   "bytes": 528,
+   "heavy": false,
+   "samples": 7,
+   "min": 128.61189999998896,
+   "median": 138.11019999999553,
+   "p95": 144.54310000000987,
+   "max": 144.54310000000987
+  },
+  {
+   "path": "/api/enemies/full",
+   "called": "/api/enemies/full",
+   "method": "GET",
+   "file": "enemies_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 10114769,
+   "heavy": false,
+   "samples": 7,
+   "min": 1879.2884000000195,
+   "median": 2141.5771999999997,
+   "p95": 2655.559200000018,
+   "max": 2655.559200000018
+  },
+  {
+   "path": "/api/enemies/{id}",
+   "called": "/api/enemies/284",
+   "method": "GET",
+   "file": "enemies.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemies"
+   ],
+   "status": 200,
+   "bytes": 1792,
+   "heavy": false,
+   "samples": 7,
+   "min": 129.2848000000231,
+   "median": 135.49650000000838,
+   "p95": 228.45330000002286,
+   "max": 228.45330000002286
+  },
+  {
+   "path": "/api/enemies/{id}/full",
+   "called": "/api/enemies/284/full",
+   "method": "GET",
+   "file": "enemies_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 72445,
+   "heavy": false,
+   "samples": 7,
+   "min": 136.16359999999986,
+   "median": 138.06260000000475,
+   "p95": 138.86619999998948,
+   "max": 138.86619999998948
+  },
+  {
+   "path": "/api/enemy-families",
+   "called": "/api/enemy-families",
+   "method": "GET",
+   "file": "enemy_families.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemy_families"
+   ],
+   "status": 200,
+   "bytes": 217,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.89259999999194,
+   "median": 125.19529999999213,
+   "p95": 135.75010000000475,
+   "max": 135.75010000000475
+  },
+  {
+   "path": "/api/enemy-families/{name}",
+   "called": "/api/enemy-families/Automatons",
+   "method": "GET",
+   "file": "enemy_families.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemy_families"
+   ],
+   "status": 200,
+   "bytes": 21,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.11290000000736,
+   "median": 124.88330000001588,
+   "p95": 232.72040000002016,
+   "max": 232.72040000002016
+  },
+  {
+   "path": "/api/enemy-groups",
+   "called": "/api/enemy-groups",
+   "method": "GET",
+   "file": "enemy_groups.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemy_groups"
+   ],
+   "status": 200,
+   "bytes": 1752,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.76840000000084,
+   "median": 123.86149999999907,
+   "p95": 126.82180000000517,
+   "max": 126.82180000000517
+  },
+  {
+   "path": "/api/enemy-groups/{name}",
+   "called": "/api/enemy-groups/Aberrant%20Chimeric%20Monster",
+   "method": "GET",
+   "file": "enemy_groups.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemy_groups"
+   ],
+   "status": 200,
+   "bytes": 36,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.65729999999166,
+   "median": 123.20510000002105,
+   "p95": 237.85039999999572,
+   "max": 237.85039999999572
+  },
+  {
+   "path": "/api/enemy-types",
+   "called": "/api/enemy-types",
+   "method": "GET",
+   "file": "enemy_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemy_types"
+   ],
+   "status": 200,
+   "bytes": 129,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.69160000002012,
+   "median": 124.789300000004,
+   "p95": 136.33269999999902,
+   "max": 136.33269999999902
+  },
+  {
+   "path": "/api/enemy-types/{name}",
+   "called": "/api/enemy-types/Common%20Enemies",
+   "method": "GET",
+   "file": "enemy_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "enemy_types"
+   ],
+   "status": 200,
+   "bytes": 25,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.1015999999945,
+   "median": 126.87050000001909,
+   "p95": 230.9094000000041,
+   "max": 230.9094000000041
+  },
+  {
+   "path": "/api/feedback",
+   "called": "/api/feedback",
+   "method": "GET",
+   "file": "feedback.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "feedback"
+   ],
+   "status": 200,
+   "bytes": 6913,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.64009999998962,
+   "median": 125.21160000000964,
+   "p95": 132.0792000000074,
+   "max": 132.0792000000074
+  },
+  {
+   "path": "/api/feedback/filters",
+   "called": "/api/feedback/filters",
+   "method": "GET",
+   "file": "feedback.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "feedback"
+   ],
+   "status": 200,
+   "bytes": 259,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.90860000002431,
+   "median": 126.77230000001146,
+   "p95": 128.9446000000171,
+   "max": 128.9446000000171
+  },
+  {
+   "path": "/api/feedback/{id}",
+   "called": "/api/feedback/6",
+   "method": "GET",
+   "file": "feedback.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "feedback"
+   ],
+   "status": 200,
+   "bytes": 948,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.2662999999884,
+   "median": 129.24379999999655,
+   "p95": 132.28050000002258,
+   "max": 132.28050000002258
+  },
+  {
+   "path": "/api/file-categories",
+   "called": "/api/file-categories",
+   "method": "GET",
+   "file": "file_categories.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 4093,
+   "heavy": false,
+   "samples": 7,
+   "min": 144.3127000000095,
+   "median": 146.4476999999897,
+   "p95": 163.49829999997746,
+   "max": 163.49829999997746
+  },
+  {
+   "path": "/api/files",
+   "called": "/api/files",
+   "method": "GET",
+   "file": "files.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 404,
+   "bytes": 26,
+   "heavy": false,
+   "samples": 7,
+   "min": 86.10060000000522,
+   "median": 88.52369999999064,
+   "p95": 191.73589999999967,
+   "max": 191.73589999999967
+  },
+  {
+   "path": "/api/files/cleanup",
+   "called": "/api/files/cleanup",
+   "method": "GET",
+   "file": "files.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 71,
+   "heavy": true,
+   "samples": 1,
+   "min": 757.5333999999857,
+   "median": 757.5333999999857,
+   "p95": 757.5333999999857,
+   "max": 757.5333999999857
+  },
+  {
+   "path": "/api/files/cleanup/progress",
+   "called": "/api/files/cleanup/progress",
+   "method": "GET",
+   "file": "files.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 158,
+   "heavy": true,
+   "samples": 1,
+   "min": 94.69409999999334,
+   "median": 94.69409999999334,
+   "p95": 94.69409999999334,
+   "max": 94.69409999999334
+  },
+  {
+   "path": "/api/files/convert",
+   "called": "/api/files/convert",
+   "method": "GET",
+   "file": "files.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 160,
+   "heavy": false,
+   "samples": 7,
+   "min": 86.5510999999824,
+   "median": 87.47879999998258,
+   "p95": 89.80629999999655,
+   "max": 89.80629999999655
+  },
+  {
+   "path": "/api/files/folders",
+   "called": "/api/files/folders",
+   "method": "GET",
+   "file": "files.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 64623,
+   "heavy": true,
+   "samples": 1,
+   "min": 1737.0678999999946,
+   "median": 1737.0678999999946,
+   "p95": 1737.0678999999946,
+   "max": 1737.0678999999946
+  },
+  {
+   "path": "/api/files/missing",
+   "called": "/api/files/missing",
+   "method": "GET",
+   "file": "files.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "files"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": true,
+   "samples": 1,
+   "min": 1842.263100000011,
+   "median": 1842.263100000011,
+   "p95": 1842.263100000011,
+   "max": 1842.263100000011
+  },
+  {
+   "path": "/api/files/raw",
+   "called": "/api/files/raw",
+   "method": "GET",
+   "file": "files.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 404,
+   "bytes": 21,
+   "heavy": false,
+   "samples": 7,
+   "min": 85.80300000001444,
+   "median": 86.68799999999464,
+   "p95": 184.84910000002128,
+   "max": 184.84910000002128
+  },
+  {
+   "path": "/api/files/stats",
+   "called": "/api/files/stats",
+   "method": "GET",
+   "file": "files.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 543,
+   "heavy": true,
+   "samples": 1,
+   "min": 1880.4026000000013,
+   "median": 1880.4026000000013,
+   "p95": 1880.4026000000013,
+   "max": 1880.4026000000013
+  },
+  {
+   "path": "/api/files/trash",
+   "called": "/api/files/trash",
+   "method": "GET",
+   "file": "files.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 89.64649999997346,
+   "median": 91.69980000000214,
+   "p95": 103.3698999999906,
+   "max": 103.3698999999906
+  },
+  {
+   "path": "/api/food-types",
+   "called": "/api/food-types",
+   "method": "GET",
+   "file": "food_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "food_types"
+   ],
+   "status": 200,
+   "bytes": 1401,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.94630000001052,
+   "median": 124.16199999998207,
+   "p95": 130.7502000000095,
+   "max": 130.7502000000095
+  },
+  {
+   "path": "/api/food-types/{name}",
+   "called": "/api/food-types/Adventure%20Restore%20Dishes",
+   "method": "GET",
+   "file": "food_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "food_types"
+   ],
+   "status": 200,
+   "bytes": 35,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.56010000000242,
+   "median": 126.09529999998631,
+   "p95": 129.5163000000175,
+   "max": 129.5163000000175
+  },
+  {
+   "path": "/api/foods",
+   "called": "/api/foods",
+   "method": "GET",
+   "file": "foods.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "foods"
+   ],
+   "status": 200,
+   "bytes": 792654,
+   "heavy": false,
+   "samples": 7,
+   "min": 141.47099999999045,
+   "median": 149.81480000002193,
+   "p95": 245.91379999998026,
+   "max": 245.91379999998026
+  },
+  {
+   "path": "/api/foods-recipe",
+   "called": "/api/foods-recipe",
+   "method": "GET",
+   "file": "foods_recipe.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "foods_recipe"
+   ],
+   "status": 200,
+   "bytes": 266429,
+   "heavy": false,
+   "samples": 7,
+   "min": 126.23460000002524,
+   "median": 135.9483000000182,
+   "p95": 145.38229999999749,
+   "max": 145.38229999999749
+  },
+  {
+   "path": "/api/foods-recipe/{id}",
+   "called": "/api/foods-recipe/1",
+   "method": "GET",
+   "file": "foods_recipe.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "foods_recipe"
+   ],
+   "status": 200,
+   "bytes": 186,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.94220000001951,
+   "median": 125.39420000000973,
+   "p95": 128.4985999999917,
+   "max": 128.4985999999917
+  },
+  {
+   "path": "/api/foods/full",
+   "called": "/api/foods/full",
+   "method": "GET",
+   "file": "foods_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 1028013,
+   "heavy": false,
+   "samples": 7,
+   "min": 269.9868000000133,
+   "median": 281.20430000001215,
+   "p95": 381.91829999999027,
+   "max": 381.91829999999027
+  },
+  {
+   "path": "/api/foods/{id}",
+   "called": "/api/foods/288",
+   "method": "GET",
+   "file": "foods.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "foods"
+   ],
+   "status": 200,
+   "bytes": 1287,
+   "heavy": false,
+   "samples": 7,
+   "min": 128.29679999998189,
+   "median": 134.53900000001886,
+   "p95": 231.97389999998268,
+   "max": 231.97389999998268
+  },
+  {
+   "path": "/api/foods/{id}/full",
+   "called": "/api/foods/288/full",
+   "method": "GET",
+   "file": "foods_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 1637,
+   "heavy": false,
+   "samples": 7,
+   "min": 129.12650000001304,
+   "median": 150.30379999999423,
+   "p95": 255.0274999999965,
+   "max": 255.0274999999965
+  },
+  {
+   "path": "/api/languages",
+   "called": "/api/languages",
+   "method": "GET",
+   "file": "languages.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "languages"
+   ],
+   "status": 200,
+   "bytes": 178,
+   "heavy": false,
+   "samples": 7,
+   "min": 86.51829999999609,
+   "median": 89.06339999998454,
+   "p95": 94.36460000000079,
+   "max": 94.36460000000079
+  },
+  {
+   "path": "/api/material-groups",
+   "called": "/api/material-groups",
+   "method": "GET",
+   "file": "material_groups.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "material_groups"
+   ],
+   "status": 200,
+   "bytes": 7560,
+   "heavy": false,
+   "samples": 7,
+   "min": 124.77250000002095,
+   "median": 126.15189999999711,
+   "p95": 238.5439999999944,
+   "max": 238.5439999999944
+  },
+  {
+   "path": "/api/material-groups/{name}",
+   "called": "/api/material-groups/Aberrant%20Chimeric%20Monsters%20Material",
+   "method": "GET",
+   "file": "material_groups.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "material_groups"
+   ],
+   "status": 200,
+   "bytes": 46,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.01519999999437,
+   "median": 126.1649000000034,
+   "p95": 134.00440000000526,
+   "max": 134.00440000000526
+  },
+  {
+   "path": "/api/material-types",
+   "called": "/api/material-types",
+   "method": "GET",
+   "file": "material_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "material_types"
+   ],
+   "status": 200,
+   "bytes": 841,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.80250000001979,
+   "median": 124.58480000001146,
+   "p95": 226.42290000000503,
+   "max": 226.42290000000503
+  },
+  {
+   "path": "/api/material-types/{name}",
+   "called": "/api/material-types/Artifact",
+   "method": "GET",
+   "file": "material_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "material_types"
+   ],
+   "status": 200,
+   "bytes": 19,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.2785000000149,
+   "median": 124.85430000000633,
+   "p95": 226.17660000000615,
+   "max": 226.17660000000615
+  },
+  {
+   "path": "/api/materials",
+   "called": "/api/materials",
+   "method": "GET",
+   "file": "materials.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "materials"
+   ],
+   "status": 200,
+   "bytes": 678530,
+   "heavy": false,
+   "samples": 7,
+   "min": 141.76519999999437,
+   "median": 142.42900000000373,
+   "p95": 462.85229999999865,
+   "max": 462.85229999999865
+  },
+  {
+   "path": "/api/materials-groups-join",
+   "called": "/api/materials-groups-join",
+   "method": "GET",
+   "file": "materials_groups_join.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "materials_groups_join"
+   ],
+   "status": 200,
+   "bytes": 201763,
+   "heavy": false,
+   "samples": 7,
+   "min": 125.70099999997183,
+   "median": 134.43339999997988,
+   "p95": 240.266500000027,
+   "max": 240.266500000027
+  },
+  {
+   "path": "/api/materials-groups-join/{id}",
+   "called": "/api/materials-groups-join/18",
+   "method": "GET",
+   "file": "materials_groups_join.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "materials_groups_join"
+   ],
+   "status": 200,
+   "bytes": 186,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.98120000000927,
+   "median": 124.57159999999567,
+   "p95": 133.93799999999464,
+   "max": 133.93799999999464
+  },
+  {
+   "path": "/api/materials/by-name/{name}",
+   "method": "GET",
+   "file": "materials.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/materials/full",
+   "called": "/api/materials/full",
+   "method": "GET",
+   "file": "materials_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 854887,
+   "heavy": false,
+   "samples": 7,
+   "min": 338.8640000000014,
+   "median": 343.01660000000265,
+   "p95": 362.558400000009,
+   "max": 362.558400000009
+  },
+  {
+   "path": "/api/materials/{id}",
+   "called": "/api/materials/724",
+   "method": "GET",
+   "file": "materials.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "materials"
+   ],
+   "status": 200,
+   "bytes": 734,
+   "heavy": false,
+   "samples": 7,
+   "min": 127.2554999999993,
+   "median": 131.7374000000127,
+   "p95": 252.3072000000102,
+   "max": 252.3072000000102
+  },
+  {
+   "path": "/api/materials/{id}/full",
+   "called": "/api/materials/724/full",
+   "method": "GET",
+   "file": "materials_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 759,
+   "heavy": false,
+   "samples": 7,
+   "min": 130.12219999998342,
+   "median": 132.4187999999849,
+   "p95": 240.90909999998985,
+   "max": 240.90909999998985
+  },
+  {
+   "path": "/api/materials/{id}/usage",
+   "called": "/api/materials/724/usage",
+   "method": "GET",
+   "file": "materials_usage.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "materials"
+   ],
+   "status": 200,
+   "bytes": 97,
+   "heavy": false,
+   "samples": 7,
+   "min": 141.19190000000526,
+   "median": 143.79309999998077,
+   "p95": 251.5266999999876,
+   "max": 251.5266999999876
+  },
+  {
+   "path": "/api/migrations",
+   "called": "/api/migrations",
+   "method": "GET",
+   "file": "migrations.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "migrations"
+   ],
+   "status": 200,
+   "bytes": 9439,
+   "heavy": false,
+   "samples": 7,
+   "min": 164.15910000001895,
+   "median": 171.78289999999106,
+   "p95": 279.63569999998435,
+   "max": 279.63569999998435
+  },
+  {
+   "path": "/api/migrations/file",
+   "called": "/api/migrations/file",
+   "method": "GET",
+   "file": "migrations.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 404,
+   "bytes": 21,
+   "heavy": false,
+   "samples": 7,
+   "min": 87.73869999998715,
+   "median": 90.15160000001197,
+   "p95": 92.81319999997504,
+   "max": 92.81319999997504
+  },
+  {
+   "path": "/api/quiz-states",
+   "called": "/api/quiz-states",
+   "method": "GET",
+   "file": "quiz_states.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "quizzes_states"
+   ],
+   "status": 200,
+   "bytes": 1466,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.26569999998901,
+   "median": 126.19709999999031,
+   "p95": 137.0807999999961,
+   "max": 137.0807999999961
+  },
+  {
+   "path": "/api/quiz-states/{user_id}/{quiz_id}",
+   "called": "/api/quiz-states/1/1",
+   "method": "GET",
+   "file": "quiz_states.php",
+   "auth": true,
+   "roles": [],
+   "tables": [
+    "quizzes_states"
+   ],
+   "status": 200,
+   "bytes": 293,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.12220000001253,
+   "median": 127.64969999997993,
+   "p95": 225.77110000001267,
+   "max": 225.77110000001267
+  },
+  {
+   "path": "/api/quiz-stats-history",
+   "called": "/api/quiz-stats-history",
+   "method": "GET",
+   "file": "quiz_stats_history.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "quiz_stats_history"
+   ],
+   "status": 200,
+   "bytes": 66942,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.88430000000517,
+   "median": 124.16439999997965,
+   "p95": 131.9955000000191,
+   "max": 131.9955000000191
+  },
+  {
+   "path": "/api/quiz-stats-history/{user_id}/{character_id}/{quiz_id}",
+   "called": "/api/quiz-stats-history/1/115/1",
+   "method": "GET",
+   "file": "quiz_stats_history.php",
+   "auth": true,
+   "roles": [],
+   "tables": [
+    "quiz_stats_history"
+   ],
+   "status": 200,
+   "bytes": 130,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.43479999998817,
+   "median": 126.73490000001038,
+   "p95": 136.36389999999665,
+   "max": 136.36389999999665
+  },
+  {
+   "path": "/api/quiz/activity",
+   "called": "/api/quiz/activity",
+   "method": "GET",
+   "file": "quiz_progress.php",
+   "auth": true,
+   "roles": [],
+   "tables": [
+    "user_quiz_history"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 125.12820000000647,
+   "median": 127.89899999997579,
+   "p95": 135.23670000000857,
+   "max": 135.23670000000857
+  },
+  {
+   "path": "/api/quiz/progress",
+   "called": "/api/quiz/progress",
+   "method": "GET",
+   "file": "quiz_progress.php",
+   "auth": true,
+   "roles": [],
+   "tables": [
+    "quizzes_states"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 126.23029999999562,
+   "median": 133.7663000000175,
+   "p95": 230.45100000000093,
+   "max": 230.45100000000093
+  },
+  {
+   "path": "/api/quiz/results",
+   "called": "/api/quiz/results",
+   "method": "GET",
+   "file": "quiz_progress.php",
+   "auth": true,
+   "roles": [],
+   "tables": [
+    "user_quiz_history"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 124.44740000000456,
+   "median": 125.85209999998915,
+   "p95": 129.85919999997714,
+   "max": 129.85919999997714
+  },
+  {
+   "path": "/api/quiz/stats",
+   "called": "/api/quiz/stats",
+   "method": "GET",
+   "file": "quiz_progress.php",
+   "auth": true,
+   "roles": [],
+   "tables": [
+    "quiz_stats_history"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.66169999999693,
+   "median": 125.1923999999999,
+   "p95": 348.4858999999997,
+   "max": 348.4858999999997
+  },
+  {
+   "path": "/api/quiz/stats/difficulty",
+   "called": "/api/quiz/stats/difficulty",
+   "method": "GET",
+   "file": "quiz_progress.php",
+   "auth": true,
+   "roles": [],
+   "tables": [
+    "user_quiz_history"
+   ],
+   "status": 200,
+   "bytes": 2,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.48089999999502,
+   "median": 127.83499999999185,
+   "p95": 235.45349999997416,
+   "max": 235.45349999997416
+  },
+  {
+   "path": "/api/quiz/voice-over/random",
+   "called": "/api/quiz/voice-over/random",
+   "method": "GET",
+   "file": "quiz_voice_over.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "characters_voice_overs"
+   ],
+   "status": 200,
+   "bytes": 775,
+   "heavy": false,
+   "samples": 7,
+   "min": 148.89770000000135,
+   "median": 153.51779999997234,
+   "p95": 155.75330000001122,
+   "max": 155.75330000001122
+  },
+  {
+   "path": "/api/quizzes",
+   "called": "/api/quizzes",
+   "method": "GET",
+   "file": "quizzes.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "quizzes"
+   ],
+   "status": 200,
+   "bytes": 500,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.45799999998417,
+   "median": 125.4603000000061,
+   "p95": 144.53110000002198,
+   "max": 144.53110000002198
+  },
+  {
+   "path": "/api/quizzes/{id}",
+   "called": "/api/quizzes/1",
+   "method": "GET",
+   "file": "quizzes.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "quizzes"
+   ],
+   "status": 200,
+   "bytes": 83,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.68040000001201,
+   "median": 126.71430000002147,
+   "p95": 235.1198999999906,
+   "max": 235.1198999999906
+  },
+  {
+   "path": "/api/rarities",
+   "called": "/api/rarities",
+   "method": "GET",
+   "file": "rarities.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "rarities"
+   ],
+   "status": 200,
+   "bytes": 56,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.27120000001742,
+   "median": 124.56429999999818,
+   "p95": 134.62959999998566,
+   "max": 134.62959999998566
+  },
+  {
+   "path": "/api/regions",
+   "called": "/api/regions",
+   "method": "GET",
+   "file": "regions.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "regions"
+   ],
+   "status": 200,
+   "bytes": 331,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.60140000001411,
+   "median": 123.99929999999586,
+   "p95": 127.92390000002342,
+   "max": 127.92390000002342
+  },
+  {
+   "path": "/api/regions/{name}",
+   "called": "/api/regions/Fontaine",
+   "method": "GET",
+   "file": "regions.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "regions"
+   ],
+   "status": 200,
+   "bytes": 41,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.53800000000047,
+   "median": 125.34880000000703,
+   "p95": 227.24660000001313,
+   "max": 227.24660000001313
+  },
+  {
+   "path": "/api/relationship-types",
+   "called": "/api/relationship-types",
+   "method": "GET",
+   "file": "relationship_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "relationship_types"
+   ],
+   "status": 200,
+   "bytes": 730,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.7097000000067,
+   "median": 125.12450000000536,
+   "p95": 134.36669999998412,
+   "max": 134.36669999998412
+  },
+  {
+   "path": "/api/relationship-types/{name}",
+   "called": "/api/relationship-types/Adoptive%20child",
+   "method": "GET",
+   "file": "relationship_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "relationship_types"
+   ],
+   "status": 200,
+   "bytes": 25,
+   "heavy": false,
+   "samples": 7,
+   "min": 123.25599999999395,
+   "median": 126.37890000001062,
+   "p95": 234.1176999999734,
+   "max": 234.1176999999734
+  },
+  {
+   "path": "/api/roles",
+   "called": "/api/roles",
+   "method": "GET",
+   "file": "roles.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "roles"
+   ],
+   "status": 200,
+   "bytes": 541,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.67389999999432,
+   "median": 123.22580000001471,
+   "p95": 126.50880000001052,
+   "max": 126.50880000001052
+  },
+  {
+   "path": "/api/roles/{name}",
+   "called": "/api/roles/Anemo%20enabler",
+   "method": "GET",
+   "file": "roles.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "roles"
+   ],
+   "status": 200,
+   "bytes": 24,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.26559999998426,
+   "median": 124.0454000000027,
+   "p95": 128.6999000000069,
+   "max": 128.6999000000069
+  },
+  {
+   "path": "/api/routes",
+   "called": "/api/routes",
+   "method": "GET",
+   "file": "routes.php",
+   "auth": true,
+   "roles": [
+    "ADMIN"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 3425,
+   "heavy": false,
+   "samples": 7,
+   "min": 90.84169999998994,
+   "median": 92.68410000001313,
+   "p95": 197.20749999998952,
+   "max": 197.20749999998952
+  },
+  {
+   "path": "/api/sessions",
+   "called": "/api/sessions",
+   "method": "GET",
+   "file": "sessions.php",
+   "auth": true,
+   "roles": [
+    "ADMIN"
+   ],
+   "tables": [
+    "user_sessions"
+   ],
+   "status": 200,
+   "bytes": 9653,
+   "heavy": false,
+   "samples": 7,
+   "min": 90.00210000001243,
+   "median": 93.7331000000122,
+   "p95": 103.13629999998375,
+   "max": 103.13629999998375
+  },
+  {
+   "path": "/api/settings",
+   "called": "/api/settings",
+   "method": "GET",
+   "file": "settings.php",
+   "auth": true,
+   "roles": [
+    "ADMIN"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 1181,
+   "heavy": false,
+   "samples": 7,
+   "min": 88.21160000000964,
+   "median": 90.16579999998794,
+   "p95": 93.7155999999959,
+   "max": 93.7155999999959
+  },
+  {
+   "path": "/api/settings/public",
+   "called": "/api/settings/public",
+   "method": "GET",
+   "file": "settings.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 2123,
+   "heavy": false,
+   "samples": 7,
+   "min": 91.08440000002156,
+   "median": 91.54879999998957,
+   "p95": 93.94190000000526,
+   "max": 93.94190000000526
+  },
+  {
+   "path": "/api/stats",
+   "called": "/api/stats",
+   "method": "GET",
+   "file": "stats.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "stats"
+   ],
+   "status": 200,
+   "bytes": 761,
+   "heavy": false,
+   "samples": 7,
+   "min": 122.69659999999567,
+   "median": 124.71779999998398,
+   "p95": 140.29349999999977,
+   "max": 140.29349999999977
+  },
+  {
+   "path": "/api/stats/{id}",
+   "method": "GET",
+   "file": "stats.php",
+   "skipped": "nothing to put in the path"
+  },
+  {
+   "path": "/api/talent-types",
+   "called": "/api/talent-types",
+   "method": "GET",
+   "file": "talent_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "talent_types"
+   ],
+   "status": 200,
+   "bytes": 546,
+   "heavy": false,
+   "samples": 7,
+   "min": 126.19210000001476,
+   "median": 129.89029999999912,
+   "p95": 140.6545000000042,
+   "max": 140.6545000000042
+  },
+  {
+   "path": "/api/talent-types/{name}",
+   "called": "/api/talent-types/1st%20Ascension%20Passive",
+   "method": "GET",
+   "file": "talent_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "talent_types"
+   ],
+   "status": 200,
+   "bytes": 32,
+   "heavy": false,
+   "samples": 7,
+   "min": 127.95709999999963,
+   "median": 131.21890000000712,
+   "p95": 143.22550000000047,
+   "max": 143.22550000000047
+  },
+  {
+   "path": "/api/translations/{code}",
+   "called": "/api/translations/en",
+   "method": "GET",
+   "file": "translations.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "languages"
+   ],
+   "status": 200,
+   "bytes": 32801,
+   "heavy": false,
+   "samples": 7,
+   "min": 95.95709999999963,
+   "median": 101.41520000001765,
+   "p95": 206.18129999999655,
+   "max": 206.18129999999655
+  },
+  {
+   "path": "/api/translations/{code}/export",
+   "called": "/api/translations/en/export",
+   "method": "GET",
+   "file": "translations.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "languages"
+   ],
+   "status": 200,
+   "bytes": 32774,
+   "heavy": false,
+   "samples": 7,
+   "min": 95.38689999998314,
+   "median": 96.71949999997742,
+   "p95": 99.028100000025,
+   "max": 99.028100000025
+  },
+  {
+   "path": "/api/user-quiz-history",
+   "called": "/api/user-quiz-history",
+   "method": "GET",
+   "file": "user_quiz_history.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "user_quiz_history"
+   ],
+   "status": 200,
+   "bytes": 230734,
+   "heavy": false,
+   "samples": 7,
+   "min": 131.21059999999125,
+   "median": 136.3801000000094,
+   "p95": 454.3873999999778,
+   "max": 454.3873999999778
+  },
+  {
+   "path": "/api/user-quiz-history/{id}",
+   "called": "/api/user-quiz-history/5215",
+   "method": "GET",
+   "file": "user_quiz_history.php",
+   "auth": true,
+   "roles": [],
+   "tables": [
+    "user_quiz_history"
+   ],
+   "status": 200,
+   "bytes": 135,
+   "heavy": false,
+   "samples": 7,
+   "min": 129.6816000000108,
+   "median": 131.61089999999967,
+   "p95": 336.31689999997616,
+   "max": 336.31689999997616
+  },
+  {
+   "path": "/api/users",
+   "called": "/api/users",
+   "method": "GET",
+   "file": "users.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "user_identities"
+   ],
+   "status": 200,
+   "bytes": 854,
+   "heavy": false,
+   "samples": 7,
+   "min": 93.86629999999423,
+   "median": 96.48410000000149,
+   "p95": 108.52170000001206,
+   "max": 108.52170000001206
+  },
+  {
+   "path": "/api/users/filters",
+   "called": "/api/users/filters",
+   "method": "GET",
+   "file": "users.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "users"
+   ],
+   "status": 200,
+   "bytes": 131,
+   "heavy": false,
+   "samples": 7,
+   "min": 90.33049999998184,
+   "median": 93.72880000001169,
+   "p95": 95.5969000000041,
+   "max": 95.5969000000041
+  },
+  {
+   "path": "/api/users/{id}",
+   "called": "/api/users/204",
+   "method": "GET",
+   "file": "users.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [],
+   "status": 200,
+   "bytes": 394,
+   "heavy": false,
+   "samples": 7,
+   "min": 92.84519999998156,
+   "median": 93.36259999999311,
+   "p95": 96.49370000002091,
+   "max": 96.49370000002091
+  },
+  {
+   "path": "/api/users/{id}/detail",
+   "called": "/api/users/204/detail",
+   "method": "GET",
+   "file": "users.php",
+   "auth": true,
+   "roles": [
+    "ADMIN",
+    "EDITOR"
+   ],
+   "tables": [
+    "user_identities",
+    "user_login_attempts"
+   ],
+   "status": 200,
+   "bytes": 936,
+   "heavy": false,
+   "samples": 7,
+   "min": 97.23939999999129,
+   "median": 99.29949999999371,
+   "p95": 101.20249999998487,
+   "max": 101.20249999998487
+  },
+  {
+   "path": "/api/voice-over-types",
+   "called": "/api/voice-over-types",
+   "method": "GET",
+   "file": "voice_over_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "voice_over_types"
+   ],
+   "status": 200,
+   "bytes": 36,
+   "heavy": false,
+   "samples": 7,
+   "min": 126.39830000000075,
+   "median": 131.03489999999874,
+   "p95": 134.7503999999899,
+   "max": 134.7503999999899
+  },
+  {
+   "path": "/api/weapon-types",
+   "called": "/api/weapon-types",
+   "method": "GET",
+   "file": "weapon_types.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapon_types"
+   ],
+   "status": 200,
+   "bytes": 202,
+   "heavy": false,
+   "samples": 7,
+   "min": 125.5573999999906,
+   "median": 134.17399999999907,
+   "p95": 144.27470000000903,
+   "max": 144.27470000000903
+  },
+  {
+   "path": "/api/weapons",
+   "called": "/api/weapons",
+   "method": "GET",
+   "file": "weapons.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapons"
+   ],
+   "status": 200,
+   "bytes": 240308,
+   "heavy": false,
+   "samples": 7,
+   "min": 132.92780000000494,
+   "median": 141.1706000000122,
+   "p95": 153.125400000019,
+   "max": 153.125400000019
+  },
+  {
+   "path": "/api/weapons-ascensions",
+   "called": "/api/weapons-ascensions",
+   "method": "GET",
+   "file": "weapons_ascensions.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapons_ascensions"
+   ],
+   "status": 200,
+   "bytes": 535398,
+   "heavy": false,
+   "samples": 7,
+   "min": 139.65789999999106,
+   "median": 145.74100000000908,
+   "p95": 460.1296999999904,
+   "max": 460.1296999999904
+  },
+  {
+   "path": "/api/weapons-ascensions-cost",
+   "called": "/api/weapons-ascensions-cost",
+   "method": "GET",
+   "file": "weapons_ascensions_cost.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapons_ascensions_cost"
+   ],
+   "status": 200,
+   "bytes": 1225515,
+   "heavy": false,
+   "samples": 7,
+   "min": 147.67069999998785,
+   "median": 157.1467999999877,
+   "p95": 451.17819999999483,
+   "max": 451.17819999999483
+  },
+  {
+   "path": "/api/weapons-ascensions-cost/{id}",
+   "called": "/api/weapons-ascensions-cost/6",
+   "method": "GET",
+   "file": "weapons_ascensions_cost.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapons_ascensions_cost"
+   ],
+   "status": 200,
+   "bytes": 199,
+   "heavy": false,
+   "samples": 7,
+   "min": 121.8404000000155,
+   "median": 127.40699999997742,
+   "p95": 138.56549999999697,
+   "max": 138.56549999999697
+  },
+  {
+   "path": "/api/weapons-ascensions/{id}",
+   "called": "/api/weapons-ascensions/3",
+   "method": "GET",
+   "file": "weapons_ascensions.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapons_ascensions"
+   ],
+   "status": 200,
+   "bytes": 301,
+   "heavy": false,
+   "samples": 7,
+   "min": 127.76490000000922,
+   "median": 135.2766999999876,
+   "p95": 248.79919999997946,
+   "max": 248.79919999997946
+  },
+  {
+   "path": "/api/weapons-refinements",
+   "called": "/api/weapons-refinements",
+   "method": "GET",
+   "file": "weapons_refinements.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapons_refinements"
+   ],
+   "status": 200,
+   "bytes": 548362,
+   "heavy": false,
+   "samples": 7,
+   "min": 125.75279999995837,
+   "median": 127.95100000000093,
+   "p95": 240.17780000000494,
+   "max": 240.17780000000494
+  },
+  {
+   "path": "/api/weapons-refinements/{id}",
+   "called": "/api/weapons-refinements/1",
+   "method": "GET",
+   "file": "weapons_refinements.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapons_refinements"
+   ],
+   "status": 200,
+   "bytes": 823,
+   "heavy": false,
+   "samples": 7,
+   "min": 120.25439999997616,
+   "median": 121.52640000003157,
+   "p95": 134.7037999999593,
+   "max": 134.7037999999593
+  },
+  {
+   "path": "/api/weapons/full",
+   "called": "/api/weapons/full",
+   "method": "GET",
+   "file": "weapons_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 2289627,
+   "heavy": false,
+   "samples": 7,
+   "min": 708.8916999999783,
+   "median": 826.6848999999929,
+   "p95": 1098.9375,
+   "max": 1098.9375
+  },
+  {
+   "path": "/api/weapons/{id}",
+   "called": "/api/weapons/67",
+   "method": "GET",
+   "file": "weapons.php",
+   "auth": false,
+   "roles": [],
+   "tables": [
+    "weapons"
+   ],
+   "status": 200,
+   "bytes": 842,
+   "heavy": false,
+   "samples": 7,
+   "min": 133.4199999999837,
+   "median": 144.65769999998156,
+   "p95": 159.88910000002943,
+   "max": 159.88910000002943
+  },
+  {
+   "path": "/api/weapons/{id}/full",
+   "called": "/api/weapons/67/full",
+   "method": "GET",
+   "file": "weapons_full.php",
+   "auth": false,
+   "roles": [],
+   "tables": [],
+   "status": 200,
+   "bytes": 8515,
+   "heavy": false,
+   "samples": 7,
+   "min": 133.15870000002906,
+   "median": 141.4183999999659,
+   "p95": 148.5060999999987,
+   "max": 148.5060999999987
+  }
+ ]
+}

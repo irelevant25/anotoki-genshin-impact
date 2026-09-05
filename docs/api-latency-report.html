@@ -1,0 +1,1130 @@
+<title>API Latency Readout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  /* ── Tokens ───────────────────────────────────────────────────────────────
+     Light is the base. Dark is redefined twice: once for the OS preference in
+     the un-stamped state, once for an explicit toggle. Nothing below declares a
+     colour outside these blocks. */
+  :root {
+    --ground: #f4f6f8;
+    --surface: #ffffff;
+    --surface-sunk: #eef1f5;
+    --line: #d8dee6;
+    --line-soft: #e6eaf0;
+    --ink: #131a22;
+    --ink-soft: #3d4854;
+    --muted: #667283;
+    --accent: #0d6f7d;
+    --accent-soft: #d3e9ec;
+    --good: #2b7a55;
+    --warn: #9a6708;
+    --warn-soft: #f6e6c4;
+    --crit: #a63428;
+    --crit-soft: #f6dcd8;
+    --shadow: 0 1px 2px rgba(19, 26, 34, 0.06), 0 8px 24px rgba(19, 26, 34, 0.05);
+
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0e1319;
+      --surface: #161c24;
+      --surface-sunk: #11161d;
+      --line: #2a333f;
+      --line-soft: #212a34;
+      --ink: #e4eaf2;
+      --ink-soft: #bcc6d3;
+      --muted: #8794a5;
+      --accent: #46b6c4;
+      --accent-soft: #123840;
+      --good: #55b487;
+      --warn: #d9a441;
+      --warn-soft: #3a2f16;
+      --crit: #e0796c;
+      --crit-soft: #3d1f1b;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.28);
+
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0e1319;
+    --surface: #161c24;
+    --surface-sunk: #11161d;
+    --line: #2a333f;
+    --line-soft: #212a34;
+    --ink: #e4eaf2;
+    --ink-soft: #bcc6d3;
+    --muted: #8794a5;
+    --accent: #46b6c4;
+    --accent-soft: #123840;
+    --good: #55b487;
+    --warn: #d9a441;
+    --warn-soft: #3a2f16;
+    --crit: #e0796c;
+    --crit-soft: #3d1f1b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.28);
+
+    color-scheme: dark;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ── Masthead ─────────────────────────────────────────────────────────── */
+  header.masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 56px 0 32px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h1 {
+    margin: 0;
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 46px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    max-width: 64ch;
+    margin: 4px 0 0;
+    color: var(--ink-soft);
+    font-size: 17px;
+  }
+
+  .runline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 10px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── Sections ─────────────────────────────────────────────────────────── */
+  section {
+    padding-top: 56px;
+  }
+
+  h2 {
+    margin: 0 0 6px;
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .lede {
+    max-width: 68ch;
+    margin: 0 0 24px;
+    color: var(--ink-soft);
+  }
+
+  p {
+    max-width: 68ch;
+  }
+
+  /* ── The verdict figures ──────────────────────────────────────────────── */
+  .verdict {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1px;
+    margin-top: 40px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .figure {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 22px 24px;
+    background: var(--surface);
+  }
+
+  .figure-value {
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .figure-value .unit {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+
+  .figure-label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── The floor breakdown ──────────────────────────────────────────────── */
+  .floorbar {
+    display: flex;
+    width: 100%;
+    height: 46px;
+    margin: 8px 0 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+
+  .floorbar > span {
+    display: grid;
+    place-items: center;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--surface);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .seg-db {
+    background: var(--crit);
+  }
+
+  .seg-db2 {
+    background: color-mix(in srgb, var(--crit) 72%, var(--surface));
+  }
+
+  .seg-rest {
+    background: var(--muted);
+  }
+
+  .seg-work {
+    background: var(--good);
+  }
+
+  .floorkey {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .floorkey span::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 7px;
+    border-radius: 2px;
+    background: currentColor;
+    vertical-align: baseline;
+  }
+
+  .k-db {
+    color: var(--crit);
+  }
+
+  .k-rest {
+    color: var(--muted);
+  }
+
+  .k-work {
+    color: var(--good);
+  }
+
+  /* ── Panels, histogram, ranked bars ───────────────────────────────────── */
+  .panel {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+  }
+
+  .hist {
+    display: grid;
+    grid-template-columns: 128px 1fr 56px;
+    align-items: center;
+    gap: 6px 12px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+  }
+
+  .hist-label {
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .hist-track {
+    height: 20px;
+    background: var(--surface-sunk);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .hist-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+
+  .hist-fill.is-warn {
+    background: var(--warn);
+  }
+
+  .hist-fill.is-crit {
+    background: var(--crit);
+  }
+
+  .hist-count {
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ranked {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .rank {
+    display: grid;
+    grid-template-columns: 1fr 78px;
+    align-items: center;
+    gap: 4px 14px;
+  }
+
+  .rank-path {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+
+  .rank-ms {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: var(--ink-soft);
+  }
+
+  .rank-track {
+    grid-column: 1 / -1;
+    height: 8px;
+    background: var(--surface-sunk);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .rank-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .rank-fill.is-floor {
+    background: var(--muted);
+  }
+
+  .rank-note {
+    grid-column: 1 / -1;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  /* ── Scatter ──────────────────────────────────────────────────────────── */
+  .chartbox {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 8;
+    min-height: 260px;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── Table ────────────────────────────────────────────────────────────── */
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  input[type="search"] {
+    flex: 1 1 240px;
+    min-width: 0;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: 14px;
+  }
+
+  input[type="search"]::placeholder {
+    color: var(--muted);
+  }
+
+  .chip {
+    padding: 7px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink-soft);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .chip[aria-pressed="true"] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  th,
+  td {
+    padding: 9px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line-soft);
+    white-space: nowrap;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--surface-sunk);
+    color: var(--muted);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover td {
+    background: var(--surface-sunk);
+  }
+
+  td.path {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  td.num {
+    text-align: right;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  .pill-good {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .pill-warn {
+    background: var(--warn-soft);
+    color: var(--warn);
+  }
+
+  .pill-crit {
+    background: var(--crit-soft);
+    color: var(--crit);
+  }
+
+  .empty {
+    padding: 28px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ── Findings ─────────────────────────────────────────────────────────── */
+  .findings {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .finding {
+    display: grid;
+    grid-template-columns: 4px 1fr;
+    gap: 0 18px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .finding-stripe {
+    background: var(--muted);
+  }
+
+  .finding.is-crit .finding-stripe {
+    background: var(--crit);
+  }
+
+  .finding.is-warn .finding-stripe {
+    background: var(--warn);
+  }
+
+  .finding.is-good .finding-stripe {
+    background: var(--good);
+  }
+
+  .finding-body {
+    padding: 18px 22px 20px 4px;
+  }
+
+  .finding h3 {
+    margin: 0 0 6px;
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .finding p {
+    margin: 0 0 8px;
+    color: var(--ink-soft);
+  }
+
+  .finding p:last-child {
+    margin-bottom: 0;
+  }
+
+  .finding code,
+  .inline-code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.9em;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: var(--surface-sunk);
+  }
+
+  .method {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13.5px;
+  }
+
+  .method h2 {
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+
+  .method ul {
+    max-width: 72ch;
+    padding-left: 18px;
+  }
+
+  .method li {
+    margin-bottom: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">anotoki · genshin_impact api</div>
+    <h1>The cheapest thing this API can do takes 86&nbsp;ms</h1>
+    <p class="standfirst">
+      Every GET route timed against the running API. A handful are slow enough to fix on their own, but the number underneath
+      them all is the one worth knowing: nothing here answers in under 86&nbsp;ms, and most of that is spent opening database
+      connections the request then throws away. The median endpoint is 134&nbsp;ms — the gap between the cheapest response and
+      the typical one is smaller than what either spends before running a query.
+    </p>
+    <div class="runline">
+      <span id="run-when">measured —</span>
+      <span id="run-count">—</span>
+      <span id="run-samples">—</span>
+    </div>
+  </header>
+
+  <div class="verdict">
+    <div class="figure">
+      <div class="figure-value"><span id="fig-floor">—</span><span class="unit"> ms</span></div>
+      <div class="figure-label">The cheapest endpoint in the API</div>
+    </div>
+    <div class="figure">
+      <div class="figure-value"><span id="fig-median">—</span><span class="unit"> ms</span></div>
+      <div class="figure-label">The median one, across <span id="fig-n">—</span> ordinary reads</div>
+    </div>
+    <div class="figure">
+      <div class="figure-value"><span id="fig-share">—</span><span class="unit"> %</span></div>
+      <div class="figure-label">Land within twice the cheapest — the spread is the framework</div>
+    </div>
+    <div class="figure">
+      <div class="figure-value"><span id="fig-slow">—</span></div>
+      <div class="figure-label">Take more than twice the cheapest, and are worth a look</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>What an empty request costs</h2>
+    <p class="lede">
+      Timed directly rather than inferred. A PostgreSQL connection costs 34&nbsp;ms on this machine, and most endpoints open
+      two — one for the content database, one for the accounts database that turns <span class="inline-code">created_by</span>
+      into a name. Against an 86&nbsp;ms cheapest response, that is most of the bill before a query has run.
+    </p>
+
+    <div class="panel">
+      <div class="floorbar" role="img" aria-label="Against an 86 millisecond cheapest response: 34 ms to connect to the content database, 34 ms to connect to the accounts database, 2 ms of autoloading, and 1.8 ms to run a seven-row query.">
+        <span class="seg-db" style="flex: 34.3">34.3 ms</span>
+        <span class="seg-db2" style="flex: 34.3">34.3 ms</span>
+        <span class="seg-rest" style="flex: 2.1">2 ms</span>
+        <span class="seg-work" style="flex: 1.8" title="1.8 ms"></span>
+      </div>
+      <div class="floorkey">
+        <span class="k-db">Connecting to genshin_impact — 34.3 ms</span>
+        <span class="k-db" style="opacity: 0.72">Connecting to users — 34.3 ms</span>
+        <span class="k-rest">Composer autoload — 2 ms</span>
+        <span class="k-work">A seven-row query — 1.8 ms</span>
+      </div>
+      <p style="margin: 0 0 12px; color: var(--ink-soft)">
+        Opening the same connection with <span class="inline-code">PDO::ATTR_PERSISTENT</span> measured at 0.0&nbsp;ms after
+        the first. That is around 69&nbsp;ms available on nearly every authenticated request, for a configuration change. It
+        is not free of consequences: a pooled connection carries its session state between requests, so anything that sets a
+        session variable or leaves a transaction open becomes everyone's problem. This codebase does neither, which is what
+        makes it worth trying.
+      </p>
+      <p style="margin: 0; color: var(--muted); font-size: 13.5px">
+        The remainder — PHP starting, requiring the endpoint files, registering 406 routes, routing, encoding the answer —
+        is not broken out here because it cannot be timed cleanly from inside the request it belongs to. It is what is left
+        of the 86&nbsp;ms once the four measured pieces above are taken out.
+      </p>
+    </div>
+  <section>
+    <h2>What the spread actually looks like</h2>
+    <p class="lede">
+      Median response time per endpoint, excluding the ones that survey the filesystem. The shape is the argument: almost
+      everything piles up in a band 50&nbsp;ms wide, and a thin tail does real work.
+    </p>
+    <div class="panel">
+      <div class="hist" id="hist"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The ones that are actually slow</h2>
+    <p class="lede">
+      Grey is the 86&nbsp;ms every one of them pays before starting. Colour is what the endpoint itself adds — the part
+      worth looking at.
+    </p>
+    <div class="panel ranked" id="ranked"></div>
+  </section>
+
+  <section>
+    <h2>Slowness is not payload</h2>
+    <p class="lede">
+      Response size against response time. If big answers were the problem the points would form a line. They do not: the
+      slowest endpoint in the API returns almost nothing, and the largest response is three times faster than it.
+    </p>
+    <div class="panel">
+      <div class="chartbox"><canvas id="scatter"></canvas></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What is broken</h2>
+    <p class="lede">Found by the measurement rather than looked for: routes that cannot succeed, and one that cannot be called.</p>
+    <div class="findings">
+      <div class="finding is-crit">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3>Eight routes point at two tables that do not exist</h3>
+          <p>
+            <code>/api/affiliations</code> and <code>/api/characters-affiliations</code> return 500 on every call, in all four
+            methods. Neither table was ever created — a character's affiliations live in a JSON column on
+            <code>characters</code> instead. The routes have been registered and failing since.
+          </p>
+          <p>Either drop the endpoints or create the tables; both are cheap, and leaving a route that only ever 500s is not.</p>
+        </div>
+      </div>
+      <div class="finding is-crit">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3><code>GET /api/stats/{id}</code> cannot ever match a row</h3>
+          <p>
+            It runs <code>SELECT * FROM stats WHERE id = ?</code>, and <code>stats</code> has exactly one column:
+            <code>name</code>. The route pattern also requires digits, so even the right value could not reach it. Its sibling
+            <code>/api/stats</code> works and is what the site uses.
+          </p>
+        </div>
+      </div>
+      <div class="finding is-warn">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3><code>/api/characters-voice-overs</code> returns 47.5&nbsp;MB in one response</h3>
+          <p>
+            Every voice line for every character, unpaginated, including the full translated text in five languages. It is not
+            slow for its size — 930&nbsp;ms for 47&nbsp;MB is respectable — but nothing should ever need all of it at once, and
+            a browser asked for it twice will feel it.
+          </p>
+        </div>
+      </div>
+      <div class="finding is-warn">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3><code>/api/dashboard/stats</code> is 2 seconds of counting</h3>
+          <p>
+            Seventeen queries, several of them full counts over the largest tables — counting the 111,000 audit rows alone is
+            43&nbsp;ms. It returns almost no data for the time it takes, which is the signature of a page built from many small
+            questions rather than one.
+          </p>
+          <p>It no longer loads on opening the admin panel, which took the sting out of it, but it is still the slowest thing here.</p>
+        </div>
+      </div>
+      <div class="finding is-warn">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3>Three routes answer 404 to a well-formed request</h3>
+          <p>
+            <code>/api/files</code>, <code>/api/files/raw</code> and <code>/api/migrations/file</code> need query parameters
+            this measurement does not know how to supply, so they were called bare and refused. They are not broken — they are
+            the routes a path-shaped harness cannot reach, and they are listed here so the failures in the table are not read
+            as defects.
+          </p>
+        </div>
+      </div>
+      <div class="finding is-good">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3>Nothing else is slow</h3>
+          <p>
+            Once the cheapest cost and the handful above are set aside, the rest span 86&nbsp;ms to 188&nbsp;ms — a range
+            narrow enough that it is measuring the framework, not the queries. There is no scattered problem to hunt.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Every endpoint measured</h2>
+    <p class="lede">
+      Sorted slowest first. <strong>Own cost</strong> is the median with the 86&nbsp;ms subtracted — what the endpoint adds
+      on top of what every request pays.
+    </p>
+    <div class="tools">
+      <input type="search" id="filter" placeholder="Filter by path or file…" aria-label="Filter endpoints">
+      <button type="button" class="chip" id="chip-slow" aria-pressed="false">Above the cheapest</button>
+      <button type="button" class="chip" id="chip-fail" aria-pressed="false">Not 200</button>
+      <button type="button" class="chip" id="chip-heavy" aria-pressed="false">Filesystem work</button>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-sort="p">Path</th>
+            <th data-sort="m" class="num">Median</th>
+            <th data-sort="own" class="num">Own cost</th>
+            <th data-sort="hi" class="num">p95</th>
+            <th data-sort="b" class="num">Payload</th>
+            <th data-sort="s">Status</th>
+            <th data-sort="f">Source</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p id="rowcount" style="margin-top: 10px; color: var(--muted); font-size: 13px"></p>
+  </section>
+
+  <section>
+    <h2>What I would change, in order</h2>
+    <div class="findings">
+      <div class="finding is-good">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3>Try persistent connections</h3>
+          <p>
+            One option on the PDO constructor, worth about 69&nbsp;ms on every authenticated request. Measure again
+            afterwards — the win is only real if the connection is genuinely reused, which depends on how PHP is served in
+            production rather than on the code.
+          </p>
+        </div>
+      </div>
+      <div class="finding is-good">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3>Only open the accounts database when a response needs it</h3>
+          <p>
+            Half the connection cost is <code>usersDb()</code>, opened so that <code>created_by</code> can be shown as a name.
+            Public read endpoints that never expand those columns are paying 34&nbsp;ms for nothing.
+          </p>
+        </div>
+      </div>
+      <div class="finding is-warn">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3>Page the four largest collections</h3>
+          <p>
+            <code>characters-voice-overs</code>, <code>enemies-drops</code>, <code>enemies/full</code> and
+            <code>weapons/full</code> account for 78&nbsp;MB between them. Everything else in the API is under a megabyte.
+          </p>
+        </div>
+      </div>
+      <div class="finding is-crit">
+        <div class="finding-stripe"></div>
+        <div class="finding-body">
+          <h3>Delete the routes that cannot work</h3>
+          <p>Nine of them. They are not a performance problem; they are a correctness one that this measurement happened to find.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="method">
+    <h2>How this was measured</h2>
+    <ul>
+      <li>Every GET route in the generated API spec, called against the running PHP development server on this machine, signed in as an administrator.</li>
+      <li>Two warm-up calls, then seven timed calls per endpoint; the median is reported, with the fastest and the 95th percentile beside it.</li>
+      <li>Path parameters were filled from each resource's own collection, so <code>/api/artifacts/{id}</code> was called with a real artifact rather than a shared id that would have returned 404.</li>
+      <li>Endpoints that walk the asset tree or the backup folder were called once rather than sampled, and are excluded from the distribution — averaging a filesystem survey with a lookup table would flatter both.</li>
+      <li>The floor is the median of the cheapest endpoint measured, not a separate synthetic request: it is the fastest the API was actually observed to answer anything.</li>
+      <li id="method-skipped">Thirteen routes could not be called at all, because nothing exists to put in their path.</li>
+      <li>Reads only. Timing writes would mean creating and destroying an entity per sample, which measures the fixture rather than the endpoint.</li>
+      <li>A development server on a workstation, not production. The shape of these numbers travels; the absolute values do not.</li>
+    </ul>
+  </div>
+</div>
+
+<script id="data" type="application/json">{"generated":"2026-09-05T09:33:25.966Z","floor":85.9,"samples":7,"totals":{"routes":406,"get_routes":176,"measured":163,"skipped":13,"by_method":{"GET":176,"PUT":66,"POST":94,"DELETE":70}},"endpoints":[{"p":"/api/admin/translations","f":"translations.php","m":119.2,"lo":107.4,"hi":233.1,"b":194777,"s":200,"h":false,"a":true},{"p":"/api/affiliations","f":"affiliations.php","m":180.6,"lo":147.5,"hi":277.4,"b":33,"s":500,"h":false,"a":false},{"p":"/api/artifact-piece-types","f":"artifact_piece_types.php","m":137.5,"lo":129.0,"hi":146.1,"b":135,"s":200,"h":false,"a":false},{"p":"/api/artifacts","f":"artifacts.php","m":146.9,"lo":146.0,"hi":254.2,"b":70880,"s":200,"h":false,"a":false},{"p":"/api/artifacts-pieces","f":"artifact_pieces.php","m":153.7,"lo":149.3,"hi":162.5,"b":107547,"s":200,"h":false,"a":false},{"p":"/api/artifacts-pieces/{id}","f":"artifact_pieces.php","m":151.5,"lo":144.7,"hi":252.9,"b":342,"s":200,"h":false,"a":false},{"p":"/api/artifacts/full","f":"artifacts_full.php","m":192.6,"lo":183.1,"hi":297.3,"b":171304,"s":200,"h":false,"a":false},{"p":"/api/artifacts/{id}","f":"artifacts.php","m":141.9,"lo":133.8,"hi":254.6,"b":1198,"s":200,"h":false,"a":false},{"p":"/api/artifacts/{id}/full","f":"artifacts_full.php","m":144.7,"lo":133.7,"hi":147.3,"b":2959,"s":200,"h":false,"a":false},{"p":"/api/audit-logs","f":"audit_logs.php","m":187.9,"lo":174.0,"hi":311.5,"b":16228,"s":200,"h":false,"a":true},{"p":"/api/audit-logs/filters","f":"audit_logs.php","m":317.5,"lo":308.2,"hi":425.6,"b":635,"s":200,"h":false,"a":true},{"p":"/api/auth/me","f":"auth.php","m":106.9,"lo":103.3,"hi":109.9,"b":450,"s":200,"h":false,"a":true},{"p":"/api/auth/providers","f":"auth.php","m":102.6,"lo":96.5,"hi":103.8,"b":118,"s":200,"h":false,"a":false},{"p":"/api/auth/sessions","f":"auth.php","m":106.7,"lo":100.3,"hi":209.6,"b":301,"s":200,"h":false,"a":true},{"p":"/api/backgrounds","f":"backgrounds.php","m":145.6,"lo":135.7,"hi":148.7,"b":4541,"s":200,"h":false,"a":false},{"p":"/api/backgrounds/{id}","f":"backgrounds.php","m":147.0,"lo":139.0,"hi":250.0,"b":385,"s":200,"h":false,"a":false},{"p":"/api/backups","f":"backups.php","m":107.9,"lo":107.9,"hi":107.9,"b":14715,"s":200,"h":true,"a":true},{"p":"/api/backups/status","f":"backups.php","m":781.9,"lo":781.9,"hi":781.9,"b":616,"s":200,"h":true,"a":true},{"p":"/api/backups/{id}","f":"backups.php","m":99.8,"lo":99.8,"hi":99.8,"b":21,"s":404,"h":true,"a":true},{"p":"/api/backups/{id}/download/{alias}","f":"backups.php","m":102.4,"lo":102.4,"hi":102.4,"b":21,"s":404,"h":true,"a":true},{"p":"/api/backups/{id}/preview/{alias}","f":"backups.php","m":114.0,"lo":114.0,"hi":114.0,"b":21,"s":404,"h":true,"a":true},{"p":"/api/banners","f":"banners.php","m":145.2,"lo":136.7,"hi":151.4,"b":139674,"s":200,"h":false,"a":false},{"p":"/api/banners-characters","f":"banners_characters.php","m":142.6,"lo":134.0,"hi":258.7,"b":147507,"s":200,"h":false,"a":false},{"p":"/api/banners-characters/{id}","f":"banners_characters.php","m":142.2,"lo":136.9,"hi":226.9,"b":186,"s":200,"h":false,"a":false},{"p":"/api/banners-weapons","f":"banners_weapons.php","m":140.9,"lo":133.3,"hi":143.9,"b":146078,"s":200,"h":false,"a":false},{"p":"/api/banners-weapons/{id}","f":"banners_weapons.php","m":140.2,"lo":130.2,"hi":148.5,"b":181,"s":200,"h":false,"a":false},{"p":"/api/banners/full","f":"banners_full.php","m":344.0,"lo":320.7,"hi":644.1,"b":400982,"s":200,"h":false,"a":false},{"p":"/api/banners/{id}","f":"banners.php","m":143.4,"lo":132.0,"hi":249.3,"b":467,"s":200,"h":false,"a":false},{"p":"/api/banners/{id}/full","f":"banners_full.php","m":146.0,"lo":135.1,"hi":148.9,"b":1149,"s":200,"h":false,"a":false},{"p":"/api/character-models","f":"characters_models.php","m":140.3,"lo":128.9,"hi":247.5,"b":139,"s":200,"h":false,"a":false},{"p":"/api/character-states","f":"characters_states.php","m":141.3,"lo":138.0,"hi":251.2,"b":57,"s":200,"h":false,"a":false},{"p":"/api/character/random","f":"characters.php","m":143.7,"lo":137.2,"hi":148.2,"b":1821,"s":200,"h":false,"a":false},{"p":"/api/characters","f":"characters.php","m":158.5,"lo":153.5,"hi":454.9,"b":271815,"s":200,"h":false,"a":false},{"p":"/api/characters-affiliations","f":"characters_affiliations.php","m":140.8,"lo":134.8,"hi":157.2,"b":33,"s":500,"h":false,"a":false},{"p":"/api/characters-ascensions","f":"characters_ascensions.php","m":163.3,"lo":150.4,"hi":452.4,"b":427135,"s":200,"h":false,"a":false},{"p":"/api/characters-ascensions-cost","f":"characters_ascensions_cost.php","m":156.2,"lo":154.3,"hi":450.8,"b":749372,"s":200,"h":false,"a":false},{"p":"/api/characters-ascensions-cost/{id}","f":"characters_ascensions_cost.php","m":141.2,"lo":137.2,"hi":250.4,"b":221,"s":200,"h":false,"a":false},{"p":"/api/characters-ascensions/{id}","f":"characters_ascensions.php","m":139.7,"lo":132.9,"hi":239.1,"b":516,"s":200,"h":false,"a":false},{"p":"/api/characters-builds","f":"characters_builds.php","m":134.2,"lo":126.6,"hi":150.1,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-builds-artifacts","f":"characters_builds_artifacts.php","m":137.5,"lo":127.8,"hi":232.4,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-builds-main-stats","f":"characters_builds_main_stats.php","m":139.7,"lo":129.4,"hi":232.0,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-builds-recommended-stats","f":"characters_builds_recommended_stats.php","m":138.5,"lo":128.7,"hi":146.9,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-builds-sub-stats","f":"characters_builds_sub_stats.php","m":135.1,"lo":128.6,"hi":150.0,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-builds-talents","f":"characters_builds_talents.php","m":138.5,"lo":129.2,"hi":143.5,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-builds-teams","f":"characters_builds_teams.php","m":139.6,"lo":136.1,"hi":146.3,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-builds-teams-characters","f":"characters_builds_teams_characters.php","m":139.1,"lo":134.2,"hi":247.5,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-builds-weapons","f":"characters_builds_weapons.php","m":142.8,"lo":136.6,"hi":247.2,"b":2,"s":200,"h":false,"a":false},{"p":"/api/characters-constellations","f":"characters_constellations.php","m":152.6,"lo":145.8,"hi":456.6,"b":481317,"s":200,"h":false,"a":false},{"p":"/api/characters-constellations/{id}","f":"characters_constellations.php","m":144.7,"lo":141.0,"hi":244.0,"b":1814,"s":200,"h":false,"a":false},{"p":"/api/characters-relationships","f":"characters_relationships.php","m":138.7,"lo":129.1,"hi":141.6,"b":108556,"s":200,"h":false,"a":false},{"p":"/api/characters-relationships/{id}","f":"characters_relationships.php","m":141.1,"lo":128.2,"hi":248.9,"b":263,"s":200,"h":false,"a":false},{"p":"/api/characters-roles","f":"characters_roles.php","m":139.0,"lo":130.3,"hi":250.8,"b":22324,"s":200,"h":false,"a":false},{"p":"/api/characters-roles/{id}","f":"characters_roles.php","m":141.0,"lo":131.3,"hi":163.1,"b":188,"s":200,"h":false,"a":false},{"p":"/api/characters-talents","f":"characters_talents.php","m":166.5,"lo":146.1,"hi":479.6,"b":715077,"s":200,"h":false,"a":false},{"p":"/api/characters-talents-cost","f":"characters_talents_cost.php","m":133.5,"lo":130.7,"hi":496.4,"b":827685,"s":200,"h":false,"a":false},{"p":"/api/characters-talents-cost/{id}","f":"characters_talents_cost.php","m":122.3,"lo":119.5,"hi":240.3,"b":219,"s":200,"h":false,"a":false},{"p":"/api/characters-talents/{id}","f":"characters_talents.php","m":126.8,"lo":123.8,"hi":228.8,"b":478,"s":200,"h":false,"a":false},{"p":"/api/characters-voice-overs","f":"characters_voice_overs.php","m":1011.1,"lo":850.0,"hi":1209.0,"b":49802856,"s":200,"h":false,"a":false},{"p":"/api/characters-voice-overs/{id}","f":"characters_voice_overs.php","m":133.7,"lo":130.6,"hi":151.2,"b":4592,"s":200,"h":false,"a":false},{"p":"/api/characters/minimal","f":"characters.php","m":151.8,"lo":138.1,"hi":256.7,"b":250533,"s":200,"h":false,"a":false},{"p":"/api/characters/{id}","f":"characters.php","m":144.3,"lo":130.9,"hi":248.1,"b":1533,"s":200,"h":false,"a":false},{"p":"/api/characters/{id}/full","f":"characters_full.php","m":166.6,"lo":162.5,"hi":273.9,"b":1680,"s":200,"h":false,"a":false},{"p":"/api/dashboard/stats","f":"dashboard.php","m":2016.6,"lo":1960.0,"hi":2042.9,"b":4598,"s":200,"h":false,"a":true},{"p":"/api/domain-levels","f":"domain_levels.php","m":131.0,"lo":129.2,"hi":148.8,"b":84,"s":200,"h":false,"a":false},{"p":"/api/domain-levels/{name}","f":"domain_levels.php","m":135.9,"lo":129.8,"hi":234.3,"b":12,"s":200,"h":false,"a":false},{"p":"/api/elements","f":"elements.php","m":131.5,"lo":128.6,"hi":141.8,"b":273,"s":200,"h":false,"a":false},{"p":"/api/enemies","f":"enemies.php","m":154.2,"lo":134.4,"hi":454.2,"b":323744,"s":200,"h":false,"a":false},{"p":"/api/enemies-damage-types-elements","f":"enemies_damage_types_elements.php","m":127.5,"lo":123.8,"hi":136.2,"b":102008,"s":200,"h":false,"a":false},{"p":"/api/enemies-damage-types-elements/{id}","f":"enemies_damage_types_elements.php","m":128.4,"lo":126.5,"hi":136.8,"b":201,"s":200,"h":false,"a":false},{"p":"/api/enemies-drops","f":"enemies_drops.php","m":500.0,"lo":475.1,"hi":812.3,"b":19477101,"s":200,"h":false,"a":false},{"p":"/api/enemies-drops/{id}","f":"enemies_drops.php","m":127.8,"lo":125.3,"hi":236.1,"b":368,"s":200,"h":false,"a":false},{"p":"/api/enemies-phases","f":"enemies_phases.php","m":134.9,"lo":130.5,"hi":443.8,"b":231224,"s":200,"h":false,"a":false},{"p":"/api/enemies-phases/{id}","f":"enemies_phases.php","m":130.5,"lo":128.2,"hi":141.7,"b":528,"s":200,"h":false,"a":false},{"p":"/api/enemies/full","f":"enemies_full.php","m":1905.2,"lo":1850.9,"hi":2208.3,"b":10114769,"s":200,"h":false,"a":false},{"p":"/api/enemies/{id}","f":"enemies.php","m":130.6,"lo":128.9,"hi":239.3,"b":1792,"s":200,"h":false,"a":false},{"p":"/api/enemies/{id}/full","f":"enemies_full.php","m":145.9,"lo":140.7,"hi":248.6,"b":72445,"s":200,"h":false,"a":false},{"p":"/api/enemy-families","f":"enemy_families.php","m":126.4,"lo":122.0,"hi":245.8,"b":217,"s":200,"h":false,"a":false},{"p":"/api/enemy-families/{name}","f":"enemy_families.php","m":126.6,"lo":122.8,"hi":133.9,"b":21,"s":200,"h":false,"a":false},{"p":"/api/enemy-groups","f":"enemy_groups.php","m":124.2,"lo":123.0,"hi":133.7,"b":1752,"s":200,"h":false,"a":false},{"p":"/api/enemy-groups/{name}","f":"enemy_groups.php","m":126.5,"lo":124.3,"hi":138.6,"b":36,"s":200,"h":false,"a":false},{"p":"/api/enemy-types","f":"enemy_types.php","m":129.6,"lo":120.5,"hi":226.4,"b":129,"s":200,"h":false,"a":false},{"p":"/api/enemy-types/{name}","f":"enemy_types.php","m":133.2,"lo":122.4,"hi":238.3,"b":25,"s":200,"h":false,"a":false},{"p":"/api/feedback","f":"feedback.php","m":143.3,"lo":127.0,"hi":245.4,"b":6913,"s":200,"h":false,"a":true},{"p":"/api/feedback/filters","f":"feedback.php","m":133.6,"lo":125.8,"hi":145.6,"b":259,"s":200,"h":false,"a":true},{"p":"/api/feedback/{id}","f":"feedback.php","m":145.8,"lo":134.8,"hi":155.4,"b":948,"s":200,"h":false,"a":true},{"p":"/api/file-categories","f":"file_categories.php","m":168.2,"lo":160.4,"hi":273.4,"b":4093,"s":200,"h":false,"a":true},{"p":"/api/files","f":"files.php","m":94.6,"lo":87.4,"hi":202.4,"b":26,"s":404,"h":false,"a":true},{"p":"/api/files/cleanup","f":"files.php","m":911.2,"lo":911.2,"hi":911.2,"b":71,"s":200,"h":true,"a":true},{"p":"/api/files/cleanup/progress","f":"files.php","m":91.0,"lo":91.0,"hi":91.0,"b":158,"s":200,"h":true,"a":true},{"p":"/api/files/convert","f":"files.php","m":93.7,"lo":88.9,"hi":100.1,"b":160,"s":200,"h":false,"a":true},{"p":"/api/files/folders","f":"files.php","m":1728.0,"lo":1728.0,"hi":1728.0,"b":64623,"s":200,"h":true,"a":true},{"p":"/api/files/missing","f":"files.php","m":1964.7,"lo":1964.7,"hi":1964.7,"b":2,"s":200,"h":true,"a":true},{"p":"/api/files/raw","f":"files.php","m":102.2,"lo":93.1,"hi":198.3,"b":21,"s":404,"h":false,"a":false},{"p":"/api/files/stats","f":"files.php","m":2009.4,"lo":2009.4,"hi":2009.4,"b":542,"s":200,"h":true,"a":true},{"p":"/api/files/trash","f":"files.php","m":100.8,"lo":89.3,"hi":201.4,"b":2,"s":200,"h":false,"a":true},{"p":"/api/food-types","f":"food_types.php","m":138.5,"lo":126.8,"hi":144.2,"b":1401,"s":200,"h":false,"a":false},{"p":"/api/food-types/{name}","f":"food_types.php","m":127.5,"lo":122.0,"hi":140.2,"b":35,"s":200,"h":false,"a":false},{"p":"/api/foods","f":"foods.php","m":168.2,"lo":141.8,"hi":262.3,"b":792654,"s":200,"h":false,"a":false},{"p":"/api/foods-recipe","f":"foods_recipe.php","m":142.9,"lo":126.5,"hi":237.2,"b":266429,"s":200,"h":false,"a":false},{"p":"/api/foods-recipe/{id}","f":"foods_recipe.php","m":124.6,"lo":120.9,"hi":134.6,"b":186,"s":200,"h":false,"a":false},{"p":"/api/foods/full","f":"foods_full.php","m":286.0,"lo":280.8,"hi":602.9,"b":1028013,"s":200,"h":false,"a":false},{"p":"/api/foods/{id}","f":"foods.php","m":128.2,"lo":123.4,"hi":157.6,"b":1287,"s":200,"h":false,"a":false},{"p":"/api/foods/{id}/full","f":"foods_full.php","m":129.1,"lo":126.9,"hi":143.6,"b":1637,"s":200,"h":false,"a":false},{"p":"/api/languages","f":"languages.php","m":90.5,"lo":86.2,"hi":116.6,"b":178,"s":200,"h":false,"a":false},{"p":"/api/material-groups","f":"material_groups.php","m":137.6,"lo":133.8,"hi":154.0,"b":7560,"s":200,"h":false,"a":false},{"p":"/api/material-groups/{name}","f":"material_groups.php","m":147.6,"lo":132.2,"hi":242.4,"b":46,"s":200,"h":false,"a":false},{"p":"/api/material-types","f":"material_types.php","m":118.6,"lo":116.6,"hi":232.7,"b":841,"s":200,"h":false,"a":false},{"p":"/api/material-types/{name}","f":"material_types.php","m":117.8,"lo":115.6,"hi":130.5,"b":19,"s":200,"h":false,"a":false},{"p":"/api/materials","f":"materials.php","m":139.8,"lo":134.8,"hi":257.4,"b":678530,"s":200,"h":false,"a":false},{"p":"/api/materials-groups-join","f":"materials_groups_join.php","m":123.0,"lo":119.8,"hi":135.7,"b":201763,"s":200,"h":false,"a":false},{"p":"/api/materials-groups-join/{id}","f":"materials_groups_join.php","m":117.2,"lo":115.8,"hi":234.1,"b":186,"s":200,"h":false,"a":false},{"p":"/api/materials/full","f":"materials_full.php","m":330.1,"lo":322.5,"hi":346.6,"b":854887,"s":200,"h":false,"a":false},{"p":"/api/materials/{id}","f":"materials.php","m":129.7,"lo":123.0,"hi":225.2,"b":734,"s":200,"h":false,"a":false},{"p":"/api/materials/{id}/full","f":"materials_full.php","m":126.3,"lo":122.8,"hi":351.6,"b":759,"s":200,"h":false,"a":false},{"p":"/api/materials/{id}/usage","f":"materials_usage.php","m":136.8,"lo":134.8,"hi":149.0,"b":97,"s":200,"h":false,"a":false},{"p":"/api/migrations","f":"migrations.php","m":169.9,"lo":158.5,"hi":174.3,"b":9439,"s":200,"h":false,"a":true},{"p":"/api/migrations/file","f":"migrations.php","m":85.9,"lo":84.8,"hi":96.8,"b":21,"s":404,"h":false,"a":true},{"p":"/api/quiz-states","f":"quiz_states.php","m":122.2,"lo":116.9,"hi":133.0,"b":1466,"s":200,"h":false,"a":true},{"p":"/api/quiz-states/{user_id}/{quiz_id}","f":"quiz_states.php","m":117.2,"lo":116.0,"hi":129.2,"b":293,"s":200,"h":false,"a":true},{"p":"/api/quiz-stats-history","f":"quiz_stats_history.php","m":121.0,"lo":118.8,"hi":230.1,"b":66942,"s":200,"h":false,"a":true},{"p":"/api/quiz-stats-history/{user_id}/{character_id}/{quiz_id}","f":"quiz_stats_history.php","m":117.6,"lo":116.6,"hi":133.0,"b":130,"s":200,"h":false,"a":true},{"p":"/api/quiz/activity","f":"quiz_progress.php","m":122.8,"lo":119.0,"hi":126.9,"b":2,"s":200,"h":false,"a":true},{"p":"/api/quiz/progress","f":"quiz_progress.php","m":127.3,"lo":117.6,"hi":232.9,"b":2,"s":200,"h":false,"a":true},{"p":"/api/quiz/results","f":"quiz_progress.php","m":123.7,"lo":121.1,"hi":226.1,"b":2,"s":200,"h":false,"a":true},{"p":"/api/quiz/stats","f":"quiz_progress.php","m":122.6,"lo":118.4,"hi":133.4,"b":2,"s":200,"h":false,"a":true},{"p":"/api/quiz/stats/difficulty","f":"quiz_progress.php","m":125.1,"lo":120.5,"hi":136.6,"b":2,"s":200,"h":false,"a":true},{"p":"/api/quiz/voice-over/random","f":"quiz_voice_over.php","m":152.6,"lo":146.5,"hi":256.0,"b":488,"s":200,"h":false,"a":false},{"p":"/api/quizzes","f":"quizzes.php","m":139.7,"lo":125.5,"hi":158.7,"b":500,"s":200,"h":false,"a":false},{"p":"/api/quizzes/{id}","f":"quizzes.php","m":132.3,"lo":124.6,"hi":239.8,"b":83,"s":200,"h":false,"a":false},{"p":"/api/rarities","f":"rarities.php","m":136.7,"lo":126.0,"hi":178.5,"b":56,"s":200,"h":false,"a":false},{"p":"/api/regions","f":"regions.php","m":127.2,"lo":116.2,"hi":231.1,"b":331,"s":200,"h":false,"a":false},{"p":"/api/regions/{name}","f":"regions.php","m":126.4,"lo":116.8,"hi":226.6,"b":41,"s":200,"h":false,"a":false},{"p":"/api/relationship-types","f":"relationship_types.php","m":125.3,"lo":120.4,"hi":228.1,"b":730,"s":200,"h":false,"a":false},{"p":"/api/relationship-types/{name}","f":"relationship_types.php","m":127.6,"lo":115.6,"hi":218.7,"b":25,"s":200,"h":false,"a":false},{"p":"/api/roles","f":"roles.php","m":126.0,"lo":116.6,"hi":239.2,"b":541,"s":200,"h":false,"a":false},{"p":"/api/roles/{name}","f":"roles.php","m":136.5,"lo":125.0,"hi":347.0,"b":24,"s":200,"h":false,"a":false},{"p":"/api/routes","f":"routes.php","m":104.1,"lo":92.0,"hi":213.7,"b":3425,"s":200,"h":false,"a":true},{"p":"/api/sessions","f":"sessions.php","m":101.7,"lo":90.5,"hi":110.9,"b":9653,"s":200,"h":false,"a":true},{"p":"/api/settings","f":"settings.php","m":91.9,"lo":85.6,"hi":101.6,"b":1181,"s":200,"h":false,"a":true},{"p":"/api/settings/public","f":"settings.php","m":105.3,"lo":91.5,"hi":206.7,"b":2123,"s":200,"h":false,"a":false},{"p":"/api/stats","f":"stats.php","m":131.3,"lo":129.0,"hi":136.5,"b":761,"s":200,"h":false,"a":false},{"p":"/api/talent-types","f":"talent_types.php","m":130.1,"lo":127.0,"hi":134.0,"b":546,"s":200,"h":false,"a":false},{"p":"/api/talent-types/{name}","f":"talent_types.php","m":120.7,"lo":117.8,"hi":226.0,"b":32,"s":200,"h":false,"a":false},{"p":"/api/translations/{code}","f":"translations.php","m":90.9,"lo":89.4,"hi":107.3,"b":32801,"s":200,"h":false,"a":false},{"p":"/api/translations/{code}/export","f":"translations.php","m":103.7,"lo":98.7,"hi":107.3,"b":32774,"s":200,"h":false,"a":true},{"p":"/api/user-quiz-history","f":"user_quiz_history.php","m":148.9,"lo":123.7,"hi":237.8,"b":230734,"s":200,"h":false,"a":true},{"p":"/api/user-quiz-history/{id}","f":"user_quiz_history.php","m":126.3,"lo":124.1,"hi":135.3,"b":135,"s":200,"h":false,"a":true},{"p":"/api/users","f":"users.php","m":102.8,"lo":90.4,"hi":199.2,"b":854,"s":200,"h":false,"a":true},{"p":"/api/users/filters","f":"users.php","m":91.9,"lo":85.7,"hi":105.9,"b":131,"s":200,"h":false,"a":true},{"p":"/api/users/{id}","f":"users.php","m":86.7,"lo":85.2,"hi":89.6,"b":394,"s":200,"h":false,"a":true},{"p":"/api/users/{id}/detail","f":"users.php","m":103.9,"lo":93.3,"hi":220.2,"b":937,"s":200,"h":false,"a":true},{"p":"/api/voice-over-types","f":"voice_over_types.php","m":128.8,"lo":119.7,"hi":251.2,"b":36,"s":200,"h":false,"a":false},{"p":"/api/weapon-types","f":"weapon_types.php","m":123.6,"lo":120.1,"hi":228.4,"b":202,"s":200,"h":false,"a":false},{"p":"/api/weapons","f":"weapons.php","m":133.2,"lo":129.1,"hi":248.7,"b":240308,"s":200,"h":false,"a":false},{"p":"/api/weapons-ascensions","f":"weapons_ascensions.php","m":133.3,"lo":126.7,"hi":235.9,"b":535398,"s":200,"h":false,"a":false},{"p":"/api/weapons-ascensions-cost","f":"weapons_ascensions_cost.php","m":140.3,"lo":137.1,"hi":147.3,"b":1225515,"s":200,"h":false,"a":false},{"p":"/api/weapons-ascensions-cost/{id}","f":"weapons_ascensions_cost.php","m":124.2,"lo":120.8,"hi":126.1,"b":199,"s":200,"h":false,"a":false},{"p":"/api/weapons-ascensions/{id}","f":"weapons_ascensions.php","m":129.5,"lo":122.2,"hi":140.9,"b":301,"s":200,"h":false,"a":false},{"p":"/api/weapons-refinements","f":"weapons_refinements.php","m":133.4,"lo":127.3,"hi":442.8,"b":548362,"s":200,"h":false,"a":false},{"p":"/api/weapons-refinements/{id}","f":"weapons_refinements.php","m":121.5,"lo":120.0,"hi":130.2,"b":823,"s":200,"h":false,"a":false},{"p":"/api/weapons/full","f":"weapons_full.php","m":765.0,"lo":695.3,"hi":1123.0,"b":2289627,"s":200,"h":false,"a":false},{"p":"/api/weapons/{id}","f":"weapons.php","m":129.3,"lo":124.7,"hi":147.4,"b":842,"s":200,"h":false,"a":false},{"p":"/api/weapons/{id}/full","f":"weapons_full.php","m":130.4,"lo":128.5,"hi":140.3,"b":8515,"s":200,"h":false,"a":false}],"skipped":[{"p":"/api/affiliations/{id}","f":"affiliations.php","why":"nothing to put in the path"},{"p":"/api/characters-affiliations/{id}","f":"characters_affiliations.php","why":"nothing to put in the path"},{"p":"/api/characters-builds-artifacts/{id}","f":"characters_builds_artifacts.php","why":"nothing to put in the path"},{"p":"/api/characters-builds-main-stats/{id}","f":"characters_builds_main_stats.php","why":"nothing to put in the path"},{"p":"/api/characters-builds-recommended-stats/{id}","f":"characters_builds_recommended_stats.php","why":"nothing to put in the path"},{"p":"/api/characters-builds-sub-stats/{id}","f":"characters_builds_sub_stats.php","why":"nothing to put in the path"},{"p":"/api/characters-builds-talents/{id}","f":"characters_builds_talents.php","why":"nothing to put in the path"},{"p":"/api/characters-builds-teams-characters/{id}","f":"characters_builds_teams_characters.php","why":"nothing to put in the path"},{"p":"/api/characters-builds-teams/{id}","f":"characters_builds_teams.php","why":"nothing to put in the path"},{"p":"/api/characters-builds-weapons/{id}","f":"characters_builds_weapons.php","why":"nothing to put in the path"},{"p":"/api/characters-builds/{id}","f":"characters_builds.php","why":"nothing to put in the path"},{"p":"/api/materials/by-name/{name}","f":"materials.php","why":"nothing to put in the path"},{"p":"/api/stats/{id}","f":"stats.php","why":"nothing to put in the path"}],"connection_ms":34.3}</script>
+
+<script>
+  (() => {
+    const data = JSON.parse(document.getElementById('data').textContent);
+    const floor = data.floor;
+    const all = data.endpoints;
+    const ordinary = all.filter((e) => !e.h);
+
+    const ms = (n) => (n >= 1000 ? (n / 1000).toFixed(2) + ' s' : Math.round(n) + ' ms');
+    const size = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB' : b >= 1024 ? Math.round(b / 1024) + ' KB' : b + ' B');
+
+    // ── Masthead figures ────────────────────────────────────────────────
+    const medians = ordinary.map((e) => e.m).sort((a, b) => a - b);
+    const median = medians[Math.floor(medians.length / 2)];
+    const nearFloor = ordinary.filter((e) => e.m < floor * 2).length;
+
+    document.getElementById('fig-floor').textContent = Math.round(floor);
+    document.getElementById('fig-median').textContent = Math.round(median);
+    document.getElementById('fig-share').textContent = Math.round((100 * nearFloor) / ordinary.length);
+    document.getElementById('fig-slow').textContent = ordinary.filter((e) => e.m >= floor * 2).length;
+    document.getElementById('fig-n').textContent = ordinary.length;
+
+    document.getElementById('run-when').textContent = 'measured ' + new Date(data.generated).toLocaleString();
+    document.getElementById('run-count').textContent = data.totals.measured + ' of ' + data.totals.get_routes + ' GET routes';
+    document.getElementById('run-samples').textContent = data.samples + ' samples each';
+    document.getElementById('method-skipped').textContent =
+      data.skipped.length + ' routes could not be called at all, because nothing exists to put in their path.';
+
+    // ── Histogram ───────────────────────────────────────────────────────
+    const buckets = [
+      [0, 100, 'under 100 ms', ''],
+      [100, 125, '100 – 125 ms', ''],
+      [125, 150, '125 – 150 ms', ''],
+      [150, 200, '150 – 200 ms', ''],
+      [200, 400, '200 – 400 ms', 'is-warn'],
+      [400, 1000, '400 ms – 1 s', 'is-warn'],
+      [1000, Infinity, 'over 1 s', 'is-crit'],
+    ];
+    const counts = buckets.map(([lo, hi]) => ordinary.filter((e) => e.m >= lo && e.m < hi).length);
+    const peak = Math.max(...counts);
+    document.getElementById('hist').innerHTML = buckets
+      .map(
+        ([, , label, cls], i) => `
+        <div class="hist-label">${label}</div>
+        <div class="hist-track"><div class="hist-fill ${cls}" style="width:${(100 * counts[i]) / peak}%"></div></div>
+        <div class="hist-count">${counts[i]}</div>`
+      )
+      .join('');
+
+    // ── Ranked bars ─────────────────────────────────────────────────────
+    const top = [...ordinary].sort((a, b) => b.m - a.m).slice(0, 10);
+    const worst = top[0].m;
+    document.getElementById('ranked').innerHTML = top
+      .map((e) => {
+        const own = Math.max(0, e.m - floor);
+        return `
+        <div class="rank">
+          <div class="rank-path">${e.p}</div>
+          <div class="rank-ms">${ms(e.m)}</div>
+          <div class="rank-track">
+            <div style="display:flex;height:100%">
+              <div class="rank-fill is-floor" style="width:${(100 * Math.min(floor, e.m)) / worst}%"></div>
+              <div class="rank-fill" style="width:${(100 * own) / worst}%"></div>
+            </div>
+          </div>
+          <div class="rank-note">${ms(own)} of its own${e.b > 65536 ? ' · ' + size(e.b) + ' returned' : ''}</div>
+        </div>`;
+      })
+      .join('');
+
+    // ── Scatter ─────────────────────────────────────────────────────────
+    const canvas = document.getElementById('scatter');
+    const points = ordinary.filter((e) => e.b > 0);
+
+    function draw() {
+      const styles = getComputedStyle(document.documentElement);
+      const ink = styles.getPropertyValue('--ink-soft').trim();
+      const muted = styles.getPropertyValue('--muted').trim();
+      const line = styles.getPropertyValue('--line').trim();
+      const accent = styles.getPropertyValue('--accent').trim();
+      const crit = styles.getPropertyValue('--crit').trim();
+
+      const ratio = window.devicePixelRatio || 1;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      canvas.width = w * ratio;
+      canvas.height = h * ratio;
+      const c = canvas.getContext('2d');
+      c.setTransform(ratio, 0, 0, ratio, 0, 0);
+      c.clearRect(0, 0, w, h);
+
+      const pad = { l: 54, r: 14, t: 14, b: 38 };
+      const plotW = w - pad.l - pad.r;
+      const plotH = h - pad.t - pad.b;
+
+      // Log scales: both axes span four orders of magnitude.
+      const xMin = Math.log10(256);
+      const xMax = Math.log10(64 * 1048576);
+      const yMin = Math.log10(60);
+      const yMax = Math.log10(2500);
+      const X = (bytes) => pad.l + (plotW * (Math.log10(Math.max(256, bytes)) - xMin)) / (xMax - xMin);
+      const Y = (t) => pad.t + plotH - (plotH * (Math.log10(Math.max(60, t)) - yMin)) / (yMax - yMin);
+
+      c.font = '11px "IBM Plex Mono", monospace';
+      c.strokeStyle = line;
+      c.fillStyle = muted;
+      c.lineWidth = 1;
+
+      for (const bytes of [1024, 32768, 1048576, 33554432]) {
+        const x = X(bytes);
+        c.globalAlpha = 0.5;
+        c.beginPath();
+        c.moveTo(x, pad.t);
+        c.lineTo(x, pad.t + plotH);
+        c.stroke();
+        c.globalAlpha = 1;
+        c.textAlign = 'center';
+        c.fillText(size(bytes), x, h - 14);
+      }
+      for (const t of [100, 250, 1000, 2000]) {
+        const y = Y(t);
+        c.globalAlpha = 0.5;
+        c.beginPath();
+        c.moveTo(pad.l, y);
+        c.lineTo(pad.l + plotW, y);
+        c.stroke();
+        c.globalAlpha = 1;
+        c.textAlign = 'right';
+        c.fillText(ms(t), pad.l - 8, y + 4);
+      }
+
+      // The floor, which most points sit on.
+      c.strokeStyle = muted;
+      c.setLineDash([4, 4]);
+      c.beginPath();
+      c.moveTo(pad.l, Y(floor));
+      c.lineTo(pad.l + plotW, Y(floor));
+      c.stroke();
+      c.setLineDash([]);
+      c.fillStyle = muted;
+      c.textAlign = 'left';
+      c.fillText('the floor', pad.l + 6, Y(floor) - 6);
+
+      for (const e of points) {
+        const slow = e.m > floor * 1.5;
+        c.beginPath();
+        c.arc(X(e.b), Y(e.m), slow ? 5 : 3.2, 0, Math.PI * 2);
+        c.fillStyle = slow ? crit : accent;
+        c.globalAlpha = slow ? 0.9 : 0.42;
+        c.fill();
+      }
+      c.globalAlpha = 1;
+
+      // Name the two that make the point.
+      c.fillStyle = ink;
+      c.font = '11px "IBM Plex Sans", sans-serif';
+      const label = (path, dx, dy, align) => {
+        const e = points.find((p) => p.p === path);
+        if (!e) return;
+        c.textAlign = align;
+        c.fillText(path, X(e.b) + dx, Y(e.m) + dy);
+      };
+      label('/api/enemies/full', -10, -10, 'right');
+      label('/api/characters-voice-overs', -10, 14, 'right');
+    }
+
+    draw();
+    window.addEventListener('resize', draw);
+    if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    // ── Table ───────────────────────────────────────────────────────────
+    const body = document.getElementById('rows');
+    const rowcount = document.getElementById('rowcount');
+    const filter = document.getElementById('filter');
+    const chips = {
+      slow: document.getElementById('chip-slow'),
+      fail: document.getElementById('chip-fail'),
+      heavy: document.getElementById('chip-heavy'),
+    };
+    let sortKey = 'm';
+    let sortDir = -1;
+
+    const statusPill = (s) =>
+      s === 200 ? '' : `<span class="pill ${s >= 500 ? 'pill-crit' : 'pill-warn'}">${s}</span>`;
+
+    function render() {
+      const needle = filter.value.trim().toLowerCase();
+      let rows = all.filter((e) => {
+        if (needle && !(e.p + ' ' + e.f).toLowerCase().includes(needle)) return false;
+        if (chips.slow.getAttribute('aria-pressed') === 'true' && e.m <= floor * 1.5) return false;
+        if (chips.fail.getAttribute('aria-pressed') === 'true' && e.s === 200) return false;
+        if (chips.heavy.getAttribute('aria-pressed') === 'true' && !e.h) return false;
+        return true;
+      });
+
+      rows.sort((a, b) => {
+        const get = (e) => (sortKey === 'own' ? e.m - floor : e[sortKey]);
+        const x = get(a);
+        const y = get(b);
+        if (typeof x === 'string') return sortDir * x.localeCompare(y);
+        return sortDir * (x - y);
+      });
+
+      body.innerHTML =
+        rows
+          .map((e) => {
+            const own = Math.max(0, e.m - floor);
+            const cls = e.m > floor * 3 ? 'pill-crit' : e.m > floor * 1.5 ? 'pill-warn' : 'pill-good';
+            return `<tr>
+            <td class="path">${e.p}${e.h ? ' <span class="pill pill-warn">fs</span>' : ''}</td>
+            <td class="num">${ms(e.m)}</td>
+            <td class="num"><span class="pill ${cls}">${own < 1 ? '—' : '+' + ms(own)}</span></td>
+            <td class="num">${ms(e.hi)}</td>
+            <td class="num">${e.b ? size(e.b) : '—'}</td>
+            <td>${statusPill(e.s) || '200'}</td>
+            <td>${e.f}</td>
+          </tr>`;
+          })
+          .join('') || '<tr><td colspan="7" class="empty">Nothing matches that.</td></tr>';
+
+      rowcount.textContent = `${rows.length} of ${all.length} measured endpoints shown · ${data.skipped.length} could not be called`;
+    }
+
+    filter.addEventListener('input', render);
+    for (const chip of Object.values(chips)) {
+      chip.addEventListener('click', () => {
+        chip.setAttribute('aria-pressed', chip.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        render();
+      });
+    }
+    document.querySelectorAll('th[data-sort]').forEach((th) => {
+      th.addEventListener('click', () => {
+        const key = th.dataset.sort;
+        sortDir = sortKey === key ? -sortDir : key === 'p' || key === 'f' ? 1 : -1;
+        sortKey = key;
+        render();
+      });
+    });
+
+    render();
+  })();
+</script>
