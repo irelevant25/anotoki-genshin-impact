@@ -24,19 +24,19 @@ export class StatApiService {
   }
 
   /**
-   * `DELETE /api/stats/{id}`
+   * `DELETE /api/stats/{name}`
    *
    * Requires the `ADMIN` or `EDITOR` role.
    */
-  deleteStat(id: number): Observable<Stat> {
-    return this._http.delete<Stat>(`/api/stats/${id}`);
+  deleteStat(name: string): Observable<Stat> {
+    return this._http.delete<Stat>(`/api/stats/${encodeURIComponent(name)}`);
   }
 
   /**
-   * `GET /api/stats/{id}`
+   * `GET /api/stats/{name}`
    */
-  getStat(id: number): Observable<Stat> {
-    return this._http.get<Stat>(`/api/stats/${id}`);
+  getStat(name: string): Observable<Stat> {
+    return this._http.get<Stat>(`/api/stats/${encodeURIComponent(name)}`);
   }
 
   /**
@@ -44,14 +44,5 @@ export class StatApiService {
    */
   getStats(): Observable<Stat[]> {
     return this._http.get<Stat[]>('/api/stats');
-  }
-
-  /**
-   * `PUT /api/stats/{id}`
-   *
-   * Requires the `ADMIN` or `EDITOR` role.
-   */
-  updateStat(id: number, body: Partial<StatPayload>): Observable<Stat> {
-    return this._http.put<Stat>(`/api/stats/${id}`, body);
   }
 }

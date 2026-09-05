@@ -10,6 +10,7 @@ import {
   EnemyDamageTypeElement,
   EnemyDamageTypeElementPayload,
   EnemyDrop,
+  EnemyDropPage,
   EnemyDropPayload,
   EnemyFull,
   EnemyFullRow,
@@ -152,8 +153,8 @@ export class EnemyApiService {
   /**
    * `GET /api/enemies-drops`
    */
-  getEnemyDrops(): Observable<Expanded<EnemyDrop, 'created_by' | 'updated_by'>[]> {
-    return this._http.get<Expanded<EnemyDrop, 'created_by' | 'updated_by'>[]>('/api/enemies-drops');
+  getEnemyDrops(): Observable<EnemyDropPage> {
+    return this._http.get<EnemyDropPage>('/api/enemies-drops');
   }
 
   /**

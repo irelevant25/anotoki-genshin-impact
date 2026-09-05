@@ -96,7 +96,9 @@ export class LookupTableComponent implements OnInit {
       'domain-levels': (n) => this._lookupApi.deleteDomainLevel(n),
       'enemy-families': (n) => this._lookupApi.deleteEnemyFamily(n),
       'enemy-groups': (n) => this._lookupApi.deleteEnemyGroup(n),
-      stats: (id) => this._statApi.deleteStat(Number(id)),
+      // Keyed by name like every other lookup here; it used to be keyed by an
+      // id column the table does not have.
+      stats: (n) => this._statApi.deleteStat(n),
     };
     return map[key] ?? null;
   }

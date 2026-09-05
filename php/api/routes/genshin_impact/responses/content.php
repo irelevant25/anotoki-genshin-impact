@@ -319,3 +319,35 @@ class MaterialUsage extends ResponseShape
     ) {
     }
 }
+
+/**
+ * A page of voice over rows.
+ *
+ * There are eight and a half thousand of them carrying five translations each,
+ * which unpaged came to forty-seven megabytes in a single response.
+ */
+class CharacterVoiceOverPage extends ResponseShape
+{
+    public function __construct(
+        public readonly int $total,
+        public readonly int $page,
+        /** Rows asked for. Zero means the caller asked for all of them. */
+        public readonly int $pageSize,
+        /** @var characters_voice_overs[] */
+        public readonly array $items,
+    ) {
+    }
+}
+
+/** A page of what enemies drop. */
+class EnemyDropPage extends ResponseShape
+{
+    public function __construct(
+        public readonly int $total,
+        public readonly int $page,
+        public readonly int $pageSize,
+        /** @var enemies_drops[] */
+        public readonly array $items,
+    ) {
+    }
+}

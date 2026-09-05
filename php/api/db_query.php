@@ -9,6 +9,7 @@ class DbQuery
     private ?array $includeColsList = null;
     private ?array $excludeColsList = null;
     private ?int $limitVal = null;
+    private ?int $offsetVal = null;
     private string $driver;
 
     private function __construct(
@@ -81,7 +82,8 @@ class DbQuery
             . ($joins ? ' ' . implode(' ', $joins) : '')
             . ($condition ? " WHERE {$condition}" : '')
             . ($orderBy ? ' ORDER BY ' . implode(', ', $orderBy) : '')
-            . ($this->limitVal ? " LIMIT {$this->limitVal}" : '');
+            . ($this->limitVal ? " LIMIT {$this->limitVal}" : '')
+            . ($this->offsetVal ? " OFFSET {$this->offsetVal}" : '');
 
         return $sql;
     }
@@ -129,6 +131,23 @@ class DbQuery
     {
         $this->limitVal = $n;
         return $this;
+    }
+
+    /** Only meaningful with limit() and an orderBy(), or the page is arbitrary. */
+    public function offset(int $n): self
+    {
+        $this->offsetVal = max(0, $n);
+        return $this;
+    }
+
+    /** How many rows the current filters match, ignoring limit and offset. */
+    public function count(?string $condition = null, array $params = []): int
+    {
+        $sql = "SELECT count(*) FROM {$this->table}" . ($condition ? " WHERE $condition" : '');
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute($params);
+
+        return (int) $statement->fetchColumn();
     }
 
     private function applyColFilters(array $row): array

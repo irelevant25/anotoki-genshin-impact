@@ -3,16 +3,24 @@
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-// GET all stats
+/**
+ * The stat names a build or an artifact can talk about: CRIT Rate, ATK%, and so
+ * on. One column, `name`, which is the key - the same shape as regions and
+ * every other lookup here.
+ *
+ * These used to select on `id`. There is no `id`, so four of the five routes
+ * answered 500 to anything and the admin page's add and delete buttons were
+ * dead. They key on the name now, which is what the table has.
+ */
+
 $app->get('/api/stats', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM stats ORDER BY name ASC');
     return respondJson($response, $stmt->fetchAll());
 })->add(responds('stats', list: true));
 
-// GET single stat
-$app->get('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
-    $stmt = genshinDb()->prepare('SELECT * FROM stats WHERE id = ?');
-    $stmt->execute([$args['id']]);
+$app->get('/api/stats/{name}', function (Request $request, Response $response, array $args) {
+    $stmt = genshinDb()->prepare('SELECT * FROM stats WHERE name = ?');
+    $stmt->execute([$args['name']]);
     $item = $stmt->fetch();
 
     return $item
@@ -20,43 +28,32 @@ $app->get('/api/stats/{id:[0-9]+}', function (Request $request, Response $respon
         : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('stats'));
 
-// POST create stat
 $app->post('/api/stats', function (Request $request, Response $response) {
     $pdo = genshinDb();
-    $id = DbQuery::insert($pdo, 'stats', Stat::fromBody($request->getParsedBody())->toDbArray());
+    $body = $request->getParsedBody();
 
-    $stmt = $pdo->prepare('SELECT * FROM stats WHERE id = ?');
-    $stmt->execute([$id]);
+    $existing = $pdo->prepare('SELECT name FROM stats WHERE name = ?');
+    $existing->execute([$body['name']]);
+    if ($existing->fetch()) {
+        return respondJson($response, ['error' => 'There is already a stat called that'], 409);
+    }
+
+    $pdo->prepare('INSERT INTO stats (name) VALUES (?)')->execute([$body['name']]);
+
+    $stmt = $pdo->prepare('SELECT * FROM stats WHERE name = ?');
+    $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
 })->add(responds('stats'))->add(validateRequest(Stat::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
-// PUT update stat
-$app->put('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/stats/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
 
-    $stmt = $pdo->prepare('SELECT id FROM stats WHERE id = ?');
-    $stmt->execute([$args['id']]);
+    $stmt = $pdo->prepare('SELECT name FROM stats WHERE name = ?');
+    $stmt->execute([$args['name']]);
     if (!$stmt->fetch()) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
-    DbQuery::update($pdo, 'stats', Stat::partialToDbArray($request->getParsedBody()), $args['id']);
-
-    $stmt = $pdo->prepare('SELECT * FROM stats WHERE id = ?');
-    $stmt->execute([$args['id']]);
-    return respondJson($response, $stmt->fetch());
-})->add(responds('stats'))->add(validateRequest(Stat::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
-
-// DELETE stat
-$app->delete('/api/stats/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
-    $pdo = genshinDb();
-
-    $stmt = $pdo->prepare('SELECT id FROM stats WHERE id = ?');
-    $stmt->execute([$args['id']]);
-    if (!$stmt->fetch()) {
-        return respondJson($response, ['error' => 'Not found'], 404);
-    }
-
-    $pdo->prepare('DELETE FROM stats WHERE id = ?')->execute([$args['id']]);
+    $pdo->prepare('DELETE FROM stats WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
 })->add(responds('stats'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

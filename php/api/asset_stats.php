@@ -266,11 +266,35 @@ function assetStats(bool $refresh = false): array
 }
 
 /** Called by anything that adds or removes an asset. */
+/**
+ * The survey if one has been done, and null rather than doing it.
+ *
+ * For callers that want the numbers but must not be the one that pays for the
+ * walk - the dashboard, which is a page somebody opens to see everything at
+ * once and should not take five seconds once a day because it was first.
+ */
+function assetStatsCached(): ?array
+{
+    $file = _assetStatsFile();
+    if (!is_file($file) || (time() - (int) filemtime($file)) >= ASSET_STATS_TTL) {
+        return null;
+    }
+
+    $cached = json_decode((string) file_get_contents($file), true);
+    return is_array($cached) && isset($cached['total_files']) ? $cached : null;
+}
+
 function assetStatsForget(): void
 {
     $file = _assetStatsFile();
     if (is_file($file)) {
         @unlink($file);
+    }
+
+    // The catalogue comparison is the same question asked from the database's
+    // side, and everything that invalidates one invalidates the other.
+    if (function_exists('catalogueCountsForget')) {
+        catalogueCountsForget();
     }
 }
 

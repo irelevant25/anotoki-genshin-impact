@@ -152,7 +152,6 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/upload.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/uploads.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/files.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/file_categories.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/affiliations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_refinements.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_ascensions.php';
@@ -188,7 +187,6 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/banners_characters.php'
 require_once __DIR__ . '/routes/genshin_impact/endpoints/banners_weapons.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/banners_full.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_roles.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_affiliations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_constellations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_voice_overs.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_relationships.php';

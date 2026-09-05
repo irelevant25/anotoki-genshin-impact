@@ -30,6 +30,10 @@
  *                 apart.
  */
 
+/** Rows a list endpoint answers with unless asked otherwise, and the ceiling. */
+const LIST_PAGE_SIZE = 200;
+const LIST_PAGE_SIZE_MAX = 2000;
+
 /**
  * table => [ dbColumn => ['category' => code, 'name' => bool, 'audio' => bool] ]
  *

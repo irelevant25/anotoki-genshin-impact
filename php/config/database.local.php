@@ -15,5 +15,9 @@ return [
     ],
     'username' => 'postgres',
     'password' => 'antk',
+    // Hand connections back from the pool instead of opening one per request.
+    // Only a win where PHP holds processes open; harmless where it does not.
+    'persistent' => true,
+
     'charset' => 'utf8',
 ];

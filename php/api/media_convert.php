@@ -222,7 +222,7 @@ function mediaFfmpegBinary(): ?string
     _mediaLogOnce(
         'ffmpeg',
         'ffmpeg not found on PATH, in the usual places, or in /formats-converters - audio uploads keep '
-            . 'their original format. Put an ffmpeg binary in /formats-converters, or run `npm i` there.'
+        . 'their original format. Put an ffmpeg binary in /formats-converters, or run `npm i` there.'
     );
     return null;
 }

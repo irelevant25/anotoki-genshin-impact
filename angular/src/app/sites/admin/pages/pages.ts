@@ -32,4 +32,4 @@ export const EnemyTypesPage        = makePage({ title: 'Enemy Types',         ap
 export const DomainLevelsPage      = makePage({ title: 'Domain Levels',       apiKey: 'domain-levels' });
 export const EnemyFamiliesPage     = makePage({ title: 'Enemy Families',      apiKey: 'enemy-families' });
 export const EnemyGroupsPage       = makePage({ title: 'Enemy Groups',        apiKey: 'enemy-groups' });
-export const StatsPage             = makePage({ title: 'Stats',               apiKey: 'stats', pkField: 'id' });
+export const StatsPage             = makePage({ title: 'Stats',               apiKey: 'stats', pkField: 'name' });

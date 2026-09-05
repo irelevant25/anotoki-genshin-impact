@@ -268,13 +268,28 @@ function registerFullResource($app, string $path, string $table, string $modelCl
     });
 
     // GET ALL full resources
+    //
+    // Every parent with every child hung off it, which for enemies is nine and
+    // a half megabytes. `?page=` takes a slice of that; without it the answer
+    // is the whole list as before, because callers already read it as an array
+    // and a shape that changed underneath them would be a worse bargain than
+    // the size.
     $app->get("/api/$path/full", function ($request, $response) use ($table, $children) {
         $pdo = genshinDb();
 
-        $parents = DbQuery::from($pdo, $table)
+        $query = $request->getQueryParams();
+        $page = isset($query['page']) ? max(1, (int) $query['page']) : null;
+        $pageSize = max(1, min(LIST_PAGE_SIZE_MAX, (int) ($query['pageSize'] ?? LIST_PAGE_SIZE)));
+
+        $rows = DbQuery::from($pdo, $table)
             ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
-            ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
-            ->fetchAll();
+            ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username']);
+
+        if ($page !== null) {
+            $rows->orderBy('id')->limit($pageSize)->offset(($page - 1) * $pageSize);
+        }
+
+        $parents = $rows->fetchAll();
 
         foreach ($parents as &$parent) {
             $parent = [

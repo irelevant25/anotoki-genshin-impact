@@ -42,6 +42,7 @@ import {
   CharacterTalentCostPayload,
   CharacterTalentPayload,
   CharacterVoiceOver,
+  CharacterVoiceOverPage,
   CharacterVoiceOverPayload,
 } from '../models';
 import { Expanded } from '../types';
@@ -648,8 +649,8 @@ export class CharacterApiService {
   /**
    * `GET /api/characters-voice-overs`
    */
-  getCharacterVoiceOvers(): Observable<Expanded<CharacterVoiceOver, 'created_by' | 'updated_by'>[]> {
-    return this._http.get<Expanded<CharacterVoiceOver, 'created_by' | 'updated_by'>[]>('/api/characters-voice-overs');
+  getCharacterVoiceOvers(): Observable<CharacterVoiceOverPage> {
+    return this._http.get<CharacterVoiceOverPage>('/api/characters-voice-overs');
   }
 
   /**

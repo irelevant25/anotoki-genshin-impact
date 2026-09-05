@@ -750,3 +750,17 @@ export interface CharacterFull {
   relationships: Saved<CharacterRelationshipPayload>[];
   roles: string[];
 }
+
+/**
+ * A page of voice over rows.
+ *
+ * There are eight and a half thousand of them carrying five translations each,
+ * which unpaged came to forty-seven megabytes in a single response.
+ */
+export interface CharacterVoiceOverPage {
+  total: number;
+  page: number;
+  /** Rows asked for. Zero means the caller asked for all of them. */
+  pageSize: number;
+  items: CharacterVoiceOver[];
+}

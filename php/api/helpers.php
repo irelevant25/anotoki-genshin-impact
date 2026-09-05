@@ -6,7 +6,7 @@ function setCorsHeaders(): void
 {
     $allowedOrigins = [
         'http://localhost:4200',
-        'https://yoursite.com',         // change this to your production domain
+        'https://anotoki.eu',
     ];
 
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
@@ -16,13 +16,14 @@ function setCorsHeaders(): void
     }
 
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Refresh-Token'); // 🔥 Add X-Refresh-Token
     header('Access-Control-Expose-Headers: X-Refresh-Token');
 }
 
 function handlePreflight(): void
 {
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        setCorsHeaders();
         http_response_code(200);
         exit();
     }
@@ -91,8 +92,10 @@ function validateBody(string $class, array $body, bool $partial = false): array
 
 function respondJson(Response $response, mixed $data, int $status = 200): Response
 {
-    $response->getBody()->write(json_encode($data));
-    return $response
-        ->withHeader('Content-Type', 'application/json')
-        ->withStatus($status);
+    $json = json_encode($data);
+    $response = $response
+        ->withStatus($status)
+        ->withHeader('Content-Type', 'application/json');
+    $response->getBody()->write($json);
+    return $response;
 }

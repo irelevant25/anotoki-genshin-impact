@@ -163,6 +163,16 @@ export interface EnemyPhasePayload {
 }
 
 /**
+ * A page of what enemies drop.
+ */
+export interface EnemyDropPage {
+  total: number;
+  page: number;
+  pageSize: number;
+  items: EnemyDrop[];
+}
+
+/**
  * The shape of a `EnemyFull` response.
  */
 export interface EnemyFull {

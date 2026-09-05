@@ -61,13 +61,30 @@ function getDb(string $alias = ''): PDO
         $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$dbname};charset={$config['charset']}";
     }
 
-    $pdo = new PDO($dsn, $config['username'], $config['password']);
+    // Opening a connection costs more than most requests spend on their own
+    // query - about 34ms here, against a cheapest response of 86ms, and most
+    // requests open two. A persistent one is handed back from the pool instead,
+    // which measured at nothing.
+    //
+    // The catch is that a pooled connection keeps whatever the last request
+    // left on it, so it is opt-in per environment: it is only a win where PHP
+    // is served by something that holds processes open, and only safe where
+    // nothing leaves session state behind.
+    $persistent = !empty($config['persistent']);
+
+    $pdo = new PDO($dsn, $config['username'], $config['password'], $persistent ? [PDO::ATTR_PERSISTENT => true] : []);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
     // Set charset for PostgreSQL
     if ($config['driver'] === 'pgsql') {
-        $pdo->exec("SET NAMES '{$config['charset']}'");
+        // A reused connection could be carrying a transaction that its last
+        // request died inside, and inheriting one is far worse than the round
+        // trip this costs. Postgres warns rather than errors when there is
+        // nothing to roll back, and both statements travel together.
+        $pdo->exec($persistent
+            ? "ROLLBACK; SET NAMES '{$config['charset']}'"
+            : "SET NAMES '{$config['charset']}'");
     }
 
     $connections[$dbname] = $pdo;

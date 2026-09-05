@@ -157,17 +157,67 @@ function catalogueCompare(PDO $pdo): array
 }
 
 /** Just the counts, for a page that only wants to say whether anything drifted. */
-function catalogueCounts(PDO $pdo): array
+function catalogueCounts(PDO $pdo, bool $refresh = false): array
 {
-    $compare = catalogueCompare($pdo);
+    // Five numbers that cost a walk over fifty thousand files and a diff
+    // against every catalogue row - about two seconds. The dashboard asked for
+    // them on every load and got the whole two seconds every time, which was
+    // the slowest thing in the API by a factor of nine.
+    //
+    // Cached beside the survey, on the same clock and dropped by the same
+    // assetStatsForget(), because they answer the same question from the two
+    // ends: what is on disk, and what the database says about it.
+    $file = _catalogueCountsFile();
 
-    return [
+    if (!$refresh && is_file($file) && (time() - (int) filemtime($file)) < ASSET_STATS_TTL) {
+        $cached = json_decode((string) file_get_contents($file), true);
+        if (is_array($cached) && isset($cached['on_disk'])) {
+            return $cached;
+        }
+    }
+
+    $compare = catalogueCompare($pdo);
+    $counts = [
         'on_disk' => $compare['on_disk'],
         'catalogued' => $compare['catalogued'],
         'uncatalogued' => count($compare['adopt']) + count($compare['strays']),
         'unfiled' => count($compare['strays']),
         'missing' => count($compare['vanished']),
     ];
+
+    if (!is_dir(dirname($file))) {
+        @mkdir(dirname($file), 0775, true);
+    }
+    // A cache that cannot be written is not worth failing the request over.
+    @file_put_contents($file, json_encode($counts));
+
+    return $counts;
+}
+
+/** The counts if they have been worked out, and null rather than working them out. */
+function catalogueCountsCached(): ?array
+{
+    $file = _catalogueCountsFile();
+    if (!is_file($file) || (time() - (int) filemtime($file)) >= ASSET_STATS_TTL) {
+        return null;
+    }
+
+    $cached = json_decode((string) file_get_contents($file), true);
+    return is_array($cached) && isset($cached['on_disk']) ? $cached : null;
+}
+
+function _catalogueCountsFile(): string
+{
+    return dirname(__DIR__) . '/storage/cache/catalogue-counts.json';
+}
+
+/** Dropped whenever the tree changes - see assetStatsForget(). */
+function catalogueCountsForget(): void
+{
+    $file = _catalogueCountsFile();
+    if (is_file($file)) {
+        @unlink($file);
+    }
 }
 
 /**

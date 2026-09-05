@@ -197,7 +197,16 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
         'age' => 0,
     ];
     try {
-        $stats = assetStats();
+        // Only what has already been worked out. Building it here would make
+        // whoever opens the dashboard first after a day wait five seconds for
+        // a walk over fifty thousand files; the Files page does that walk, and
+        // an upload or a sweep refreshes it. Until then the card says it has
+        // not been surveyed rather than making the page pay.
+        $stats = assetStatsCached();
+        $counts = catalogueCountsCached();
+        if ($stats === null) {
+            throw new RuntimeException('no survey yet');
+        }
         $assets = [
             'total_files' => $stats['total_files'],
             'total_bytes' => $stats['total_bytes'],
@@ -207,13 +216,13 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
             'formats' => $stats['formats'],
             'images' => $stats['images'] + ['can_convert' => mediaCanWriteAvif()],
             'audio' => $stats['audio'] + ['can_convert' => mediaCanWriteOpus()],
-            'catalogue' => catalogueCounts($pdo),
+            'catalogue' => $counts ?? $assets['catalogue'],
             'generated_at' => $stats['generated_at'],
             'age' => assetStatsAge() ?? 0,
         ];
     } catch (\Throwable $e) {
-        // An unreadable assets folder is a reason for one empty card, not for
-        // a dashboard that will not load.
+        // Nothing surveyed yet, or an unreadable assets folder: one empty card,
+        // not a dashboard that will not load.
         error_log('[dashboard] asset stats unavailable: ' . $e->getMessage());
     }
 

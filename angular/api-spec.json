@@ -68,149 +68,6 @@
         },
         {
             "method": "GET",
-            "path": "/api/affiliations",
-            "args": [],
-            "file": "affiliations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\affiliations.php",
-                "line": 14
-            },
-            "expanded": [
-                "created_by",
-                "updated_by"
-            ],
-            "payload": null,
-            "partial": false,
-            "auth": false,
-            "roles": []
-        },
-        {
-            "method": "POST",
-            "path": "/api/affiliations",
-            "args": [],
-            "file": "affiliations.php",
-            "tables": [],
-            "success": 201,
-            "statuses": [
-                201
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\affiliations.php",
-                "line": 39
-            },
-            "expanded": [
-                "created_by"
-            ],
-            "payload": "Affiliation",
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ]
-        },
-        {
-            "method": "DELETE",
-            "path": "/api/affiliations/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "affiliations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\affiliations.php",
-                "line": 67
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ]
-        },
-        {
-            "method": "GET",
-            "path": "/api/affiliations/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "affiliations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\affiliations.php",
-                "line": 25
-            },
-            "expanded": [
-                "created_by",
-                "updated_by"
-            ],
-            "payload": null,
-            "partial": false,
-            "auth": false,
-            "roles": []
-        },
-        {
-            "method": "PUT",
-            "path": "/api/affiliations/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "affiliations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\affiliations.php",
-                "line": 57
-            },
-            "expanded": [
-                "created_by",
-                "updated_by"
-            ],
-            "payload": "Affiliation",
-            "partial": true,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ]
-        },
-        {
-            "method": "GET",
             "path": "/api/artifact-piece-types",
             "args": [],
             "file": "artifact_piece_types.php",
@@ -479,7 +336,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 288
+                "line": 303
             },
             "expanded": [
                 "created_by",
@@ -507,7 +364,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 318
+                "line": 333
             },
             "expanded": [],
             "payload": null,
@@ -681,7 +538,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 354
+                "line": 369
             },
             "expanded": [],
             "payload": null,
@@ -2312,7 +2169,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 288
+                "line": 303
             },
             "expanded": [
                 "created_by",
@@ -2340,7 +2197,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 318
+                "line": 333
             },
             "expanded": [],
             "payload": null,
@@ -2514,7 +2371,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 354
+                "line": 369
             },
             "expanded": [],
             "payload": null,
@@ -2663,116 +2520,6 @@
                 "ADMIN",
                 "EDITOR"
             ]
-        },
-        {
-            "method": "GET",
-            "path": "/api/characters-affiliations",
-            "args": [],
-            "file": "characters_affiliations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_affiliations.php",
-                "line": 13
-            },
-            "expanded": [
-                "created_by",
-                "updated_by"
-            ],
-            "payload": null,
-            "partial": false,
-            "auth": false,
-            "roles": []
-        },
-        {
-            "method": "POST",
-            "path": "/api/characters-affiliations",
-            "args": [],
-            "file": "characters_affiliations.php",
-            "tables": [],
-            "success": 201,
-            "statuses": [
-                201
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_affiliations.php",
-                "line": 38
-            },
-            "expanded": [
-                "created_by"
-            ],
-            "payload": "CharacterAffiliation",
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ]
-        },
-        {
-            "method": "DELETE",
-            "path": "/api/characters-affiliations/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "characters_affiliations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_affiliations.php",
-                "line": 48
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ]
-        },
-        {
-            "method": "GET",
-            "path": "/api/characters-affiliations/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "characters_affiliations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": null,
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_affiliations.php",
-                "line": 24
-            },
-            "expanded": [
-                "created_by",
-                "updated_by"
-            ],
-            "payload": null,
-            "partial": false,
-            "auth": false,
-            "roles": []
         },
         {
             "method": "GET",
@@ -5437,12 +5184,12 @@
                 200
             ],
             "responds": {
-                "shape": "characters_voice_overs",
-                "list": true
+                "shape": "CharacterVoiceOverPage",
+                "list": false
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_voice_overs.php",
-                "line": 13
+                "line": 34
             },
             "expanded": [
                 "created_by",
@@ -5471,7 +5218,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_voice_overs.php",
-                "line": 40
+                "line": 61
             },
             "expanded": [
                 "created_by"
@@ -5508,7 +5255,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_voice_overs.php",
-                "line": 70
+                "line": 91
             },
             "expanded": [],
             "payload": null,
@@ -5543,7 +5290,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_voice_overs.php",
-                "line": 24
+                "line": 45
             },
             "expanded": [
                 "created_by",
@@ -5578,7 +5325,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_voice_overs.php",
-                "line": 60
+                "line": 81
             },
             "expanded": [
                 "created_by",
@@ -5864,7 +5611,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\dashboard.php",
-                "line": 228
+                "line": 237
             },
             "expanded": [],
             "payload": null,
@@ -6264,12 +6011,12 @@
                 200
             ],
             "responds": {
-                "shape": "enemies_drops",
-                "list": true
+                "shape": "EnemyDropPage",
+                "list": false
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies_drops.php",
-                "line": 14
+                "line": 34
             },
             "expanded": [
                 "created_by",
@@ -6298,7 +6045,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies_drops.php",
-                "line": 39
+                "line": 59
             },
             "expanded": [
                 "created_by"
@@ -6335,7 +6082,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies_drops.php",
-                "line": 67
+                "line": 87
             },
             "expanded": [],
             "payload": null,
@@ -6370,7 +6117,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies_drops.php",
-                "line": 25
+                "line": 45
             },
             "expanded": [
                 "created_by",
@@ -6405,7 +6152,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\enemies_drops.php",
-                "line": 57
+                "line": 77
             },
             "expanded": [
                 "created_by",
@@ -6603,7 +6350,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 288
+                "line": 303
             },
             "expanded": [
                 "created_by",
@@ -6631,7 +6378,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 318
+                "line": 333
             },
             "expanded": [],
             "payload": null,
@@ -6805,7 +6552,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 354
+                "line": 369
             },
             "expanded": [],
             "payload": null,
@@ -7607,7 +7354,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 705
+                "line": 718
             },
             "expanded": [],
             "payload": null,
@@ -7636,7 +7383,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 730
+                "line": 743
             },
             "expanded": [],
             "payload": null,
@@ -7664,7 +7411,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 740
+                "line": 753
             },
             "expanded": [],
             "payload": null,
@@ -7692,7 +7439,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 671
+                "line": 684
             },
             "expanded": [],
             "payload": null,
@@ -7720,7 +7467,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 660
+                "line": 673
             },
             "expanded": [],
             "payload": null,
@@ -7776,7 +7523,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 581
+                "line": 594
             },
             "expanded": [],
             "payload": null,
@@ -7805,7 +7552,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 522
+                "line": 535
             },
             "expanded": [],
             "payload": null,
@@ -7833,7 +7580,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 467
+                "line": 480
             },
             "expanded": [],
             "payload": null,
@@ -7858,7 +7605,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 636
+                "line": 649
             },
             "expanded": [],
             "payload": null,
@@ -7942,7 +7689,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 623
+                "line": 636
             },
             "expanded": [],
             "payload": null,
@@ -8422,7 +8169,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 288
+                "line": 303
             },
             "expanded": [
                 "created_by",
@@ -8450,7 +8197,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 318
+                "line": 333
             },
             "expanded": [],
             "payload": null,
@@ -8624,7 +8371,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 354
+                "line": 369
             },
             "expanded": [],
             "payload": null,
@@ -9284,7 +9031,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 288
+                "line": 303
             },
             "expanded": [
                 "created_by",
@@ -9312,7 +9059,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 318
+                "line": 333
             },
             "expanded": [],
             "payload": null,
@@ -9486,7 +9233,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 354
+                "line": 369
             },
             "expanded": [],
             "payload": null,
@@ -11001,7 +10748,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\stats.php",
-                "line": 10
+                "line": 19
             },
             "expanded": [],
             "payload": null,
@@ -11019,7 +10766,8 @@
             ],
             "success": 201,
             "statuses": [
-                201
+                201,
+                409
             ],
             "responds": {
                 "shape": "stats",
@@ -11027,7 +10775,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\stats.php",
-                "line": 31
+                "line": 46
             },
             "expanded": [],
             "payload": "Stat",
@@ -11040,11 +10788,11 @@
         },
         {
             "method": "DELETE",
-            "path": "/api/stats/{id}",
+            "path": "/api/stats/{name}",
             "args": [
                 {
-                    "name": "id",
-                    "constraint": "[0-9]+"
+                    "name": "name",
+                    "constraint": null
                 }
             ],
             "file": "stats.php",
@@ -11062,7 +10810,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\stats.php",
-                "line": 62
+                "line": 59
             },
             "expanded": [],
             "payload": null,
@@ -11075,11 +10823,11 @@
         },
         {
             "method": "GET",
-            "path": "/api/stats/{id}",
+            "path": "/api/stats/{name}",
             "args": [
                 {
-                    "name": "id",
-                    "constraint": "[0-9]+"
+                    "name": "name",
+                    "constraint": null
                 }
             ],
             "file": "stats.php",
@@ -11097,48 +10845,13 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\stats.php",
-                "line": 21
+                "line": 29
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": false,
             "roles": []
-        },
-        {
-            "method": "PUT",
-            "path": "/api/stats/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "stats.php",
-            "tables": [
-                "stats"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "stats",
-                "list": false
-            },
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\stats.php",
-                "line": 48
-            },
-            "expanded": [],
-            "payload": "Stat",
-            "partial": true,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ]
         },
         {
             "method": "GET",
@@ -12629,7 +12342,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 288
+                "line": 303
             },
             "expanded": [
                 "created_by",
@@ -12657,7 +12370,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 318
+                "line": 333
             },
             "expanded": [],
             "payload": null,
@@ -12831,7 +12544,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\full_resource.php",
-                "line": 354
+                "line": 369
             },
             "expanded": [],
             "payload": null,
@@ -19117,6 +18830,54 @@
             ]
         },
         {
+            "name": "CharacterVoiceOverPage",
+            "file": "content.php",
+            "merges": null,
+            "description": "A page of voice over rows.\n\nThere are eight and a half thousand of them carrying five translations each,\nwhich unpaged came to forty-seven megabytes in a single response.",
+            "fields": [
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "page",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "pageSize",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Rows asked for. Zero means the caller asked for all of them."
+                },
+                {
+                    "name": "items",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "characters_voice_overs[]",
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "DashboardActivity",
             "file": "admin.php",
             "merges": null,
@@ -19662,6 +19423,54 @@
                     "nullable": false,
                     "optional": false,
                     "of": "DashboardLanguage[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "EnemyDropPage",
+            "file": "content.php",
+            "merges": null,
+            "description": "A page of what enemies drop.",
+            "fields": [
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "page",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "pageSize",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "items",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "enemies_drops[]",
                     "description": null
                 }
             ]

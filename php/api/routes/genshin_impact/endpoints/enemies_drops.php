@@ -5,13 +5,33 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 // GET all
 $app->get('/api/enemies-drops', function (Request $request, Response $response) {
-    $items = DbQuery::from(genshinDb(), 'enemies_drops')
+    // Paged, because unpaged this was tens of megabytes in one answer - every
+    // row of the largest table in the database, with every translation of its
+    // text. Nothing asks for all of it, and nothing should be able to by
+    // accident. Ask for a page; `pageSize=0` still returns everything, for the
+    // caller that genuinely wants it.
+    $query = $request->getQueryParams();
+    $page = max(1, (int) ($query['page'] ?? 1));
+    $pageSize = array_key_exists('pageSize', $query) ? (int) $query['pageSize'] : LIST_PAGE_SIZE;
+    $pageSize = $pageSize === 0 ? 0 : max(1, min(LIST_PAGE_SIZE_MAX, $pageSize));
+
+    $rows = DbQuery::from(genshinDb(), 'enemies_drops')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
-        ->orderBy('id')
-        ->fetchAll();
-    return respondJson($response, $items);
-})->add(responds('enemies_drops', list: true));
+        ->orderBy('id');
+
+    $total = DbQuery::from(genshinDb(), 'enemies_drops')->count();
+    if ($pageSize > 0) {
+        $rows->limit($pageSize)->offset(($page - 1) * $pageSize);
+    }
+
+    return respondJson($response, [
+        'total' => $total,
+        'page' => $pageSize > 0 ? $page : 1,
+        'pageSize' => $pageSize,
+        'items' => $rows->fetchAll(),
+    ]);
+})->add(responds(EnemyDropPage::class));
 
 // GET single
 $app->get('/api/enemies-drops/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
