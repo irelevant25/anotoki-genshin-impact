@@ -1,0 +1,23 @@
+{
+    "advisories": {
+        "slim/slim": [
+            {
+                "advisoryId": "PKSA-ftt4-t9sz-mwn5",
+                "packageName": "slim/slim",
+                "affectedVersions": ">=4.4.0,<=4.15.1",
+                "title": "Slim has Reflected XSS in the HtmlErrorRenderer",
+                "cve": "CVE-2026-48157",
+                "link": "https://github.com/advisories/GHSA-53h4-8rc4-f539",
+                "reportedAt": "2026-06-23T21:54:06+00:00",
+                "sources": [
+                    {
+                        "name": "GitHub",
+                        "remoteId": "GHSA-53h4-8rc4-f539"
+                    }
+                ],
+                "severity": "medium"
+            }
+        ]
+    },
+    "abandoned": []
+}

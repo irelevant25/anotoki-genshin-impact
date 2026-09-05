@@ -1,0 +1,162 @@
+{
+  "target": "anotoki · genshin_impact API (PHP 8.2 / Slim 4) and Angular frontend",
+  "reviewed_at": "2026-09-05",
+  "scope": "Every HTTP endpoint the API exposes (399 routes), the shared query/model/auth machinery behind them, and the Angular app that calls them. Automated scanning with Semgrep and Psalm, plus a manual read of the parts static analysis is weakest on: authentication, authorization, and anything that turns a request into a filesystem path or a SQL identifier.",
+  "tools": [
+    {
+      "name": "Semgrep",
+      "version": "1.176.1",
+      "what": "Pattern and dataflow scanner. Backend scanned with p/php, p/security-audit, p/secrets, p/owasp-top-ten; frontend with p/javascript, p/typescript, p/security-audit, p/owasp-top-ten.",
+      "backend": "269 files scanned, 0 findings (4 files partially parsed — see note)",
+      "frontend": "679 files scanned, 1 finding",
+      "note": "A positive-control file with deliberate SQL injection, command injection and XSS was scanned first and Semgrep flagged all six — so the zero on the backend is a real result, not a broken scan. The 4 parse warnings are files using PHP named arguments (`list: true`) that Semgrep's PHP frontend does not yet accept; those specific lines were reviewed by hand instead."
+    },
+    {
+      "name": "Psalm",
+      "version": "5.26.1",
+      "what": "Taint analysis: follows a request value to any dangerous sink (query, filesystem, shell, HTML).",
+      "backend": "0 taint findings",
+      "note": "Psalm inferred types for 71.5% of this codebase. It is procedural PHP built on global functions and untyped arrays, which is exactly where taint tracking loses the trail — so the zero is corroborating evidence, not proof. The manual review below is what actually clears the dynamic-SQL and path-handling code."
+    },
+    {
+      "name": "composer audit",
+      "version": "Composer 2.9.5",
+      "what": "Checks installed PHP dependencies against the security advisory database.",
+      "backend": "1 advisory (slim/slim) — see finding SEC-05"
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEC-01",
+      "severity": "high",
+      "title": "The JWT signing key is the committed fallback, and this deployment is using it",
+      "category": "Authentication · secrets",
+      "source": "manual",
+      "cwe": "CWE-321 Use of Hard-coded Cryptographic Key",
+      "location": "php/config/jwt.php:26 — getJwtSecret()",
+      "evidence": "No php/config/jwt.local.php exists, so getJwtSecret() returns the string committed in the source: \"changeme-create-config-jwt-local-php-with-strong-secret\". Confirmed at runtime against the local server — the key in use is the committed fallback.",
+      "what": "Every session token the API issues is an HS256 JWT signed with this one key. The key is the root of trust for authentication: anyone who knows it can forge a validly-signed token. Because the key is printed in the repository and used as a silent default, it is known to anyone who can read the source, and it is the same on every deployment that never set jwt.local.php.",
+      "why": "A signature only proves a token came from someone holding the key. If the key is a public constant, the signature proves nothing. The blast radius here is smaller than usual because of two deliberate mitigations, and it is worth being precise about them: (1) the auth middleware looks the token's session up in the database and rejects it unless a live, non-revoked session row exists, so a forged token needs a real session id to name — an attacker with no account cannot mint a working token at all; (2) the user's role is re-read from the database on every request rather than trusted from the token, so a low-privilege user cannot forge themselves an ADMIN token. What remains is still serious: anyone who learns an admin's session id (from a shared machine, a proxy log, a backup, any separate leak) can mint an admin token that the signature check will happily accept, and any account holder can forge tokens for their own session with arbitrary expiry. And the fallback is silent — a production deploy that forgets the file gets a working, insecure system with no warning.",
+      "fix": "Fail closed instead of falling back. getJwtSecret() should throw if no configured secret is present (no jwt.local.php and no environment variable), so the API refuses to start rather than run on a public key. Generate a real 32+ byte random secret for each environment (`php -r \"echo bin2hex(random_bytes(32));\"`) and set it via config/jwt.local.php or an environment variable. Add php/config/jwt.local.php to .gitignore — it is not currently listed, so a secret created there could be committed by accident. Rotating the secret invalidates all existing tokens, which signs everyone out once; that is the correct one-time cost.",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-02",
+      "severity": "medium",
+      "title": "/api/upload stores an attacker-chosen file extension after only a spoofable type check",
+      "category": "File upload",
+      "source": "manual",
+      "cwe": "CWE-434 Unrestricted Upload of File with Dangerous Type",
+      "location": "php/api/routes/genshin_impact/endpoints/upload.php:32-46",
+      "evidence": "The type check is `in_array($file->getClientMediaType(), $allowedMimeTypes)` — the Content-Type is supplied by the client and is not verified against the bytes. The stored name is `bin2hex(random_bytes(16)) . '.' . strtolower($ext)` where $ext comes straight from the client filename with no allowlist, and the file lands in public/uploads/, which is Apache's document root in production.",
+      "what": "An authenticated editor or admin can upload a file whose real content and extension are anything they choose — the MIME allowlist is trivially satisfied by setting the multipart Content-Type header to image/png while the body and extension are something else. The saved file keeps the client's extension and is reachable at /uploads/<folder>/<name>.",
+      "why": "Two consequences. If the file is a .php, execution is currently blocked only by public/uploads/.htaccess (`php_flag engine off` + RemoveHandler/RemoveType). That works on Apache with mod_php and AllowOverride enabled — but it is the single point of failure, it does nothing under nginx or PHP-FPM, and it fails open silently if the server config changes. Second, even with execution blocked, the router serves uploads with a sniffed Content-Type and no X-Content-Type-Options, so an uploaded .html or .svg is served as a document on the API's origin — stored XSS against anyone who opens the link. The bar is an editor account, so this is a privilege-boundary and account-compromise concern rather than an anonymous one; the sibling endpoint /api/uploads/{entity}/{id}/{field} already does this correctly and is the model to copy.",
+      "fix": "Validate the extension against a server-side allowlist (avif, png, jpg, webp, gif, opus, mpeg, ogg, wav) and derive the stored extension from a verified type, not from the client filename — reject anything else with 415. Confirm the real content with finfo/getimagesize rather than trusting getClientMediaType(). Serve /uploads with `X-Content-Type-Options: nosniff` and, for anything not an image, `Content-Disposition: attachment`. Keep the .htaccess as defense in depth, do not rely on it as the control. Consider retiring /api/upload in favour of the stricter /api/uploads/... path the rest of the app uses.",
+      "effort": "medium"
+    },
+    {
+      "id": "SEC-03",
+      "severity": "medium",
+      "title": "No HTTP security headers on API responses",
+      "category": "Hardening · headers",
+      "source": "manual",
+      "cwe": "CWE-693 Protection Mechanism Failure",
+      "location": "php/api/index.php (CORS/response middleware), php/api/response.php",
+      "evidence": "No response sets Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options / Content-Security-Policy frame-ancestors, or Referrer-Policy. The only place these appear is the single hardened /api/files/raw route.",
+      "what": "The API and the admin panel it backs send no baseline security headers. There is no HSTS to pin HTTPS, no nosniff to stop content-type guessing, no frame-ancestors/X-Frame-Options to stop the admin UI being framed, and no Referrer-Policy.",
+      "why": "None of these is a vulnerability on its own, but together they are the cheap defense-in-depth layer that turns a small mistake elsewhere into a non-event: nosniff neutralises a mislabelled response, frame-ancestors blocks clickjacking of the admin panel, HSTS closes the downgrade window. Their absence is why a header scanner grades this site low, and it is a one-file fix.",
+      "fix": "Add a small middleware that sets, on every response: `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Frame-Options: DENY` (or a CSP `frame-ancestors 'none'`), and, once HTTPS is confirmed everywhere, `Strict-Transport-Security: max-age=31536000; includeSubDomains`. A JSON API can carry a strict `Content-Security-Policy: default-src 'none'` cheaply; the SPA needs its own policy tuned to what it loads.",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-04",
+      "severity": "low",
+      "title": "Registration allows account enumeration and is not rate limited",
+      "category": "Authentication · enumeration",
+      "source": "manual",
+      "cwe": "CWE-307 Improper Restriction of Excessive Authentication Attempts",
+      "location": "php/api/routes/users/endpoints/auth.php (POST /api/auth/register)",
+      "evidence": "The handler answers 409 \"That email address is already taken\" and 409 \"That username is already taken\", and unlike /api/auth/login it does not call loginAttemptsExceeded() or any throttle.",
+      "what": "Anyone can probe which email addresses and usernames already have accounts by watching for the 409, and can do so as fast as they like. Each new registration also sends a confirmation email, so the same unthrottled endpoint can be used to send mail to arbitrary addresses.",
+      "why": "The password-reset endpoint right next to this one is deliberately silent — it gives the same answer whether or not the address exists — which shows the enumeration-resistant pattern was understood. Registration necessarily has to tell a real user their address is taken, so the fix is not silence but a rate limit. Left unthrottled it is both an enumeration oracle and an email-relay for spamming confirmation mails.",
+      "fix": "Apply the same IP-plus-target throttle the login endpoint already uses (loginAttemptsExceeded / recordLoginAttempt) to registration, and to the confirmation-resend and forgot-password endpoints. Keep the clear 'already taken' message for humans but cap the rate so it cannot be scripted.",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-05",
+      "severity": "low",
+      "title": "slim/slim advisory CVE-2026-48157 (reflected XSS in HtmlErrorRenderer) — present but not in the request path",
+      "category": "Dependency",
+      "source": "composer audit",
+      "cwe": "CWE-79 Cross-site Scripting",
+      "location": "php/composer.lock — slim/slim, affected >=4.4.0,<=4.15.1",
+      "evidence": "composer audit reports PKSA-ftt4-t9sz-mwn5 / CVE-2026-48157 against the installed slim/slim. The XSS is in Slim's HtmlErrorRenderer.",
+      "what": "The installed Slim version carries a known reflected-XSS advisory in the HTML error renderer, which can echo request content into an error page.",
+      "why": "The app configures the error middleware with displayErrorDetails = false and installs its own JSON default error handler (which the new error-log work confirmed), so the vulnerable HTML renderer is not the one that runs on a failed request. That is a real mitigation, which is why this is Low rather than Medium — but it depends on that configuration staying false, and a dependency with a known advisory should be updated regardless.",
+      "fix": "Run `composer update slim/slim` to pick up the patched release (>=4.15.2 when available). Keep displayErrorDetails = false in every environment. Re-run `composer audit` in CI so a new advisory surfaces on the next build rather than in the next review.",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-06",
+      "severity": "low",
+      "title": "CORS is handled twice: a correct allowlist that is unused, and a hardcoded localhost origin that is",
+      "category": "CORS · configuration",
+      "source": "manual",
+      "cwe": "CWE-942 Permissive Cross-domain Policy (here: mis-scoped, not over-permissive)",
+      "location": "php/api/index.php:322-332 (active) vs php/api/helpers.php:5-21 (setCorsHeaders, unused)",
+      "evidence": "The live middleware emits `Access-Control-Allow-Origin: http://localhost:4200` unconditionally. helpers.php contains a correct allowlist (localhost:4200 + https://anotoki.eu) reflecting only matching origins, but nothing calls it in the request path.",
+      "what": "Two CORS implementations exist. The one that runs hardcodes the development origin; the one that would work in production is dead code.",
+      "why": "This is not an exploitable hole — the active header is over-restrictive, not over-permissive, and it does not set Allow-Credentials or reflect arbitrary origins, so there is no cross-origin data exposure. But it means the production frontend at anotoki.eu is only reachable if the API is same-origin behind a reverse proxy; if it is ever split onto its own host, CORS breaks, and whoever fixes it in a hurry may reach for a wildcard. The muddle is the risk.",
+      "fix": "Delete the unused setCorsHeaders()/handlePreflight() in helpers.php, or wire it in and delete the hardcoded block — one CORS path, reading its allowlist from config. Never combine a reflected Origin with Access-Control-Allow-Credentials: true unless the origin was allowlist-checked first.",
+      "effort": "low"
+    },
+    {
+      "id": "SEC-07",
+      "severity": "info",
+      "title": "Interpolated href in the site footer",
+      "category": "Frontend · XSS surface",
+      "source": "semgrep",
+      "cwe": "CWE-79 Cross-site Scripting",
+      "location": "angular/src/app/sites/main/common/footer/footer.component.html:6",
+      "evidence": "Semgrep (var-in-href) flagged `<a href=\"{{ menuItem.url }}\">`. The values are site-menu links configured by an admin through the settings area, not free user input.",
+      "what": "A menu link URL is interpolated into an anchor href. In principle a `javascript:` URL there would run on click.",
+      "why": "Two things hold it down: the URLs are admin-configured content, not attacker input, and Angular's built-in sanitizer rewrites a `javascript:` URL in an href binding to the inert `unsafe:` form. So this is informational — worth tidying, not a live hole. It is listed because it is the one thing the frontend scan surfaced and it is the right habit to close.",
+      "fix": "Validate menu URLs to an http/https allowlist when they are saved, and/or bind through a small pipe that rejects non-http(s) schemes, so the intent is explicit rather than resting on the framework's default sanitiser.",
+      "effort": "low"
+    }
+  ],
+  "cleared": [
+    {
+      "area": "SQL injection",
+      "detail": "Every query is parameterised. Table and column identifiers in the DbQuery builder are either hardcoded string literals at the call sites or whitelisted through the DTO reflection layer (fromBody / partialToDbArray only accept declared constructor fields, so an attacker cannot introduce a column). The dynamic WHERE builders (audit logs, users, sessions) bind every value with a placeholder and use only literal column names. INSERT/UPDATE column lists come from whitelisted keys, values are bound. Confirmed by hand across the builder and its callers, and by Semgrep and Psalm."
+    },
+    {
+      "area": "Broken object-level authorization (IDOR)",
+      "detail": "Every per-user route enforces ownership: path-parameter routes use requireSelfOrAdmin('user_id'), body routes use refuseForeignUserId(), and the quiz convenience endpoints derive the user id from the token rather than accepting one. Checked across quiz-states, quiz-stats-history, user-quiz-history, quiz progress, and the self-service auth routes; the session-revoke route scopes its query to the caller's own user id."
+    },
+    {
+      "area": "Path traversal",
+      "detail": "Asset paths are sanitised per segment (separators and control chars stripped, '.'/'..'/dotfiles rejected) and then re-checked with realpath() against the assets root. Backup download/preview constrain the id to a strict timestamp regex and whitelist the database alias; the migrations-file endpoint whitelists the alias and requires basename($f) === $f with a .sql suffix. All admin-gated."
+    },
+    {
+      "area": "Authentication cryptography",
+      "detail": "Passwords hashed with password_hash (bcrypt) and checked with password_verify. Reset/confirm/session/device tokens come from random_bytes (CSPRNG) and are stored as SHA-256 hashes, so a database leak exposes no usable token. TOTP codes are compared with hash_equals (timing-safe). JWT verification recomputes HS256 over the header/payload and ignores the token's own alg header, so there is no alg-confusion or 'none' bypass. Sessions are server-side and revocable."
+    },
+    {
+      "area": "Brute force / login",
+      "detail": "The login endpoint rate-limits before it even looks the account up (so the limiter does not itself reveal which addresses exist), keyed on more than the address alone, and returns a generic 'Invalid credentials' for both unknown-email and bad-password. Registration is the exception — see SEC-04."
+    },
+    {
+      "area": "Privilege escalation via registration / mass assignment",
+      "detail": "Self-registration hardcodes role = 'USER'; the role cannot be set from the request body. Entity writes flow through DTOs that only accept declared fields, and created_by / updated_by are set from the authenticated token after the body is spread, so authorship cannot be forged."
+    },
+    {
+      "area": "Email link integrity",
+      "detail": "Confirmation and password-reset links are built from a server-configured base_url, not from the request Host header, so there is no host-header injection into the links delivered to users."
+    },
+    {
+      "area": "Secret and error handling",
+      "detail": "php/storage (including the new error logs, which record IP addresses) is gitignored. The database password is never returned in a response. The error handler runs with displayErrorDetails = false and returns generic messages to clients while writing detail to the server-side log — no stack traces or DSNs reach the client."
+    }
+  ]
+}

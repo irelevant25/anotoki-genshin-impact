@@ -1,7 +1,7 @@
 // Times every GET endpoint the API exposes, several times each, and writes the
 // numbers out as JSON for docs/api-latency-report.html to draw.
 //
-//   node docs/bench-endpoints.mjs <email> <password> [apiUrl]
+//   node docs/performance/bench-endpoints.mjs <email> <password> [apiUrl]
 //
 // Sign in as an account that can read the admin endpoints; roughly a third of
 // the API is behind a role. Reads only - timing writes would mean creating and
@@ -11,13 +11,13 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const [email, password, apiArg] = process.argv.slice(2);
 if (!email || !password) {
-  console.error('usage: node docs/bench-endpoints.mjs <email> <password> [apiUrl]');
+  console.error('usage: node docs/performance/bench-endpoints.mjs <email> <password> [apiUrl]');
   process.exit(1);
 }
 
 const API = apiArg ?? 'http://localhost:8000';
 const local = (relative) => new URL(relative, import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
-const SPEC = local('../angular/api-spec.json');
+const SPEC = local('../../angular/api-spec.json');
 
 // Every run is kept, named by when it happened. A report is only worth reading
 // next to the one before it, and that needs the one before it to still be there

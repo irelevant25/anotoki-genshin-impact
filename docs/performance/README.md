@@ -12,18 +12,18 @@ measurements — open it in a browser, it needs nothing running.
 
 ```
 php -S localhost:8000 router.php          # from php/, if it is not already up
-node docs/bench-endpoints.mjs <email> <password>
-node docs/build-report.mjs
+node docs/performance/bench-endpoints.mjs <email> <password>
+node docs/performance/build-report.mjs
 ```
 
 Sign in as an account that can read the admin endpoints — roughly a third of the
 API is behind a role, and those routes are reported as 401s otherwise.
 
 The first command times every GET route and writes the numbers to
-`docs/runs/<timestamp>.json`. Nothing is overwritten: every run is kept, because
+`docs/performance/runs/<timestamp>.json`. Nothing is overwritten: every run is kept, because
 a report is only worth reading next to the one before it.
 
-The second turns the two newest runs into `docs/api-latency-<date>.html` — the
+The second turns the two newest runs into `docs/performance/api-latency-<date>.html` — the
 newest is the report, the one before it is what the report compares against.
 That comparison is not optional and not something to remember to do: it is how
 the generator works, so every report from here on has one.

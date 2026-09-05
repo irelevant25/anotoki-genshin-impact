@@ -1,6 +1,6 @@
 // Turns the two most recent benchmark runs into a report you can open.
 //
-//   node docs/build-report.mjs [--out <file>]
+//   node docs/performance/build-report.mjs [--out <file>]
 //
 // The runs come from docs/runs/, written by bench-endpoints.mjs. The newest is
 // the report; the one before it is what the report compares against. That is

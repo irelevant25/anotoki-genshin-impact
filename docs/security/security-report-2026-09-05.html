@@ -1,0 +1,654 @@
+<title>Security Review — 2026-09-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+/* ── Tokens ───────────────────────────────────────────────────────────────
+   Shared with the latency report so the two reports read as one set. Light is
+   the base; dark is redefined twice — once for the OS preference in the
+   un-stamped state, once for an explicit toggle. No colour is declared outside
+   these blocks. */
+:root {
+  --ground: #f4f6f8;
+  --surface: #ffffff;
+  --surface-sunk: #eef1f5;
+  --line: #d8dee6;
+  --line-soft: #e6eaf0;
+  --ink: #131a22;
+  --ink-soft: #3d4854;
+  --muted: #667283;
+  --accent: #0d6f7d;
+  --accent-soft: #d3e9ec;
+
+  /* Severity. Distinct hues, not a red-to-green ramp: a reader should tell
+     High from Medium at a glance, not by brightness. */
+  --crit: #b3261e;
+  --crit-soft: #f6dcd8;
+  --high: #c0491b;
+  --high-soft: #f7e0d2;
+  --med: #9a6708;
+  --med-soft: #f6e6c4;
+  --low: #2f6f8f;
+  --low-soft: #d7e8f0;
+  --info: #667283;
+  --info-soft: #e6eaf0;
+  --good: #2b7a55;
+  --good-soft: #d6ece0;
+
+  --shadow: 0 1px 2px rgba(19, 26, 34, 0.06), 0 8px 24px rgba(19, 26, 34, 0.05);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0e1319;
+    --surface: #161c24;
+    --surface-sunk: #11161d;
+    --line: #2a333f;
+    --line-soft: #212a34;
+    --ink: #e4eaf2;
+    --ink-soft: #bcc6d3;
+    --muted: #8794a5;
+    --accent: #46b6c4;
+    --accent-soft: #123840;
+    --crit: #e0796c;
+    --crit-soft: #3d1f1b;
+    --high: #e8926a;
+    --high-soft: #3a271b;
+    --med: #d9a441;
+    --med-soft: #3a2f16;
+    --low: #6fb6d6;
+    --low-soft: #163037;
+    --info: #8794a5;
+    --info-soft: #222a34;
+    --good: #55b487;
+    --good-soft: #16301f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.28);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #0e1319;
+  --surface: #161c24;
+  --surface-sunk: #11161d;
+  --line: #2a333f;
+  --line-soft: #212a34;
+  --ink: #e4eaf2;
+  --ink-soft: #bcc6d3;
+  --muted: #8794a5;
+  --accent: #46b6c4;
+  --accent-soft: #123840;
+  --crit: #e0796c;
+  --crit-soft: #3d1f1b;
+  --high: #e8926a;
+  --high-soft: #3a271b;
+  --med: #d9a441;
+  --med-soft: #3a2f16;
+  --low: #6fb6d6;
+  --low-soft: #163037;
+  --info: #8794a5;
+  --info-soft: #222a34;
+  --good: #55b487;
+  --good-soft: #16301f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.28);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+code, .mono { font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+.wrap { max-width: 940px; margin: 0 auto; padding: 0 24px 96px; }
+
+/* ── Masthead ─────────────────────────────────────────────────────────── */
+header.masthead {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 56px 0 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.masthead h1 {
+  margin: 0;
+  font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(28px, 4.5vw, 44px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.standfirst { margin: 0; max-width: 68ch; font-size: 16px; color: var(--ink-soft); }
+
+/* ── Severity summary ───────────────────────────────────────────────────── */
+.verdict {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin: 28px 0 8px;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.sev-fig {
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  border-top: 3px solid var(--line);
+  transition: transform 0.08s ease, border-color 0.15s ease;
+}
+.sev-fig:hover { transform: translateY(-1px); }
+.sev-fig.is-zero { opacity: 0.5; }
+.sev-fig[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft), var(--shadow); }
+
+.figure-value {
+  font-family: "Archivo", sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.figure-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+.sev-fig.sev-critical { border-top-color: var(--crit); }
+.sev-fig.sev-critical .figure-value { color: var(--crit); }
+.sev-fig.sev-high { border-top-color: var(--high); }
+.sev-fig.sev-high .figure-value { color: var(--high); }
+.sev-fig.sev-medium { border-top-color: var(--med); }
+.sev-fig.sev-medium .figure-value { color: var(--med); }
+.sev-fig.sev-low { border-top-color: var(--low); }
+.sev-fig.sev-low .figure-value { color: var(--low); }
+.sev-fig.sev-info { border-top-color: var(--info); }
+.sev-fig.sev-info .figure-value { color: var(--info); }
+
+/* ── Sections ───────────────────────────────────────────────────────────── */
+section { margin-top: 48px; }
+section > h2 {
+  margin: 0 0 6px;
+  font-family: "Archivo", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.lede { margin: 0 0 20px; max-width: 72ch; color: var(--ink-soft); }
+.ledenote { margin: 18px 0 0; max-width: 76ch; font-size: 13.5px; color: var(--muted); }
+
+.panel {
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+/* ── Tools ──────────────────────────────────────────────────────────────── */
+.tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.tool {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.tool-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.tool-name { font-family: "Archivo", sans-serif; font-weight: 600; font-size: 16px; }
+.tool-ver { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+.tool-what { margin: 8px 0 12px; font-size: 13.5px; color: var(--ink-soft); }
+.tool-nums { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.tool-nums div { display: grid; grid-template-columns: 78px 1fr; gap: 8px; font-size: 13px; }
+.tool-nums dt { color: var(--muted); }
+.tool-nums dd { margin: 0; font-variant-numeric: tabular-nums; }
+.tool-note { margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--line-soft); font-size: 12.5px; color: var(--muted); }
+
+/* ── Findings ───────────────────────────────────────────────────────────── */
+.findings-list { display: flex; flex-direction: column; gap: 18px; }
+
+.finding {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.finding.sev-critical { border-left-color: var(--crit); }
+.finding.sev-high { border-left-color: var(--high); }
+.finding.sev-medium { border-left-color: var(--med); }
+.finding.sev-low { border-left-color: var(--low); }
+.finding.sev-info { border-left-color: var(--info); }
+.finding.is-hidden { display: none; }
+
+.finding-top { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px 0; }
+
+.sev-badge {
+  flex: none;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sev-badge.sev-critical { background: var(--crit-soft); color: var(--crit); }
+.sev-badge.sev-high { background: var(--high-soft); color: var(--high); }
+.sev-badge.sev-medium { background: var(--med-soft); color: var(--med); }
+.sev-badge.sev-low { background: var(--low-soft); color: var(--low); }
+.sev-badge.sev-info { background: var(--info-soft); color: var(--info); }
+
+.finding-title h3 {
+  margin: 0 0 6px;
+  font-family: "Archivo", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.finding-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 12.5px; color: var(--muted); }
+.finding-meta .dot { opacity: 0.5; }
+.fid { font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--ink-soft); }
+.src-manual { color: var(--accent); font-weight: 500; }
+.cwe { font-family: "IBM Plex Mono", monospace; }
+
+.finding-body { padding: 14px 20px 20px; }
+.location { margin: 4px 0 14px; font-size: 13px; }
+.loc-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+.location code { padding: 2px 6px; border-radius: 5px; background: var(--surface-sunk); font-size: 12.5px; word-break: break-all; }
+
+.block { margin: 0 0 14px; }
+.block:last-child { margin-bottom: 0; }
+.block h4 {
+  margin: 0 0 4px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.block p { margin: 0; color: var(--ink-soft); max-width: 78ch; }
+.block.fix { padding: 14px 16px; border-radius: 10px; background: var(--accent-soft); }
+.block.fix h4 { color: var(--accent); }
+.block.fix p { color: var(--ink); }
+.evidence { font-size: 13.5px; }
+
+/* ── Cleared ────────────────────────────────────────────────────────────── */
+.cleared-list { display: flex; flex-direction: column; gap: 2px; }
+.cleared {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.cleared:last-child { border-bottom: 0; }
+.cleared-check {
+  width: 24px; height: 24px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--good-soft);
+  color: var(--good);
+  font-weight: 700;
+  font-size: 13px;
+}
+.cleared h3 { margin: 0 0 3px; font-size: 15px; font-family: "Archivo", sans-serif; font-weight: 600; }
+.cleared p { margin: 0; font-size: 13.5px; color: var(--ink-soft); max-width: 80ch; }
+
+/* ── Method ─────────────────────────────────────────────────────────────── */
+.method p { margin: 0 0 12px; max-width: 80ch; }
+.method p:last-child { margin-bottom: 0; }
+.muted { color: var(--muted); font-size: 13.5px; }
+.method code, .ledenote code, .muted code { padding: 1px 5px; border-radius: 4px; background: var(--surface-sunk); font-size: 12.5px; }
+
+@media (max-width: 640px) {
+  .verdict { grid-template-columns: repeat(3, 1fr); }
+  .finding-top { flex-direction: column; gap: 10px; }
+}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">anotoki · genshin_impact · security review · 2026-09-05</div>
+    <h1>1 high-severity issue, led by the JWT signing key</h1>
+    <p class="standfirst">Every HTTP endpoint the API exposes (399 routes), the shared query/model/auth machinery behind them, and the Angular app that calls them. Automated scanning with Semgrep and Psalm, plus a manual read of the parts static analysis is weakest on: authentication, authorization, and anything that turns a request into a filesystem path or a SQL identifier.</p>
+  </header>
+
+  <div class="verdict" role="group" aria-label="Findings by severity">
+    <button class="figure sev-fig sev-critical is-zero" data-filter="critical" aria-pressed="false">
+          <div class="figure-value">0</div>
+          <div class="figure-label">Critical</div>
+        </button><button class="figure sev-fig sev-high" data-filter="high" aria-pressed="false">
+          <div class="figure-value">1</div>
+          <div class="figure-label">High</div>
+        </button><button class="figure sev-fig sev-medium" data-filter="medium" aria-pressed="false">
+          <div class="figure-value">2</div>
+          <div class="figure-label">Medium</div>
+        </button><button class="figure sev-fig sev-low" data-filter="low" aria-pressed="false">
+          <div class="figure-value">3</div>
+          <div class="figure-label">Low</div>
+        </button><button class="figure sev-fig sev-info" data-filter="info" aria-pressed="false">
+          <div class="figure-value">1</div>
+          <div class="figure-label">Info</div>
+        </button>
+  </div>
+
+  <section>
+    <h2>What ran, and how far it reached</h2>
+    <p class="lede">
+      Two scanners and a dependency audit, then a manual read of the code they cover least well. The counts below are the
+      automated coverage on its own terms; the findings that follow are labelled with where each came from.
+    </p>
+    <div class="tools">
+      <div class="tool">
+     <div class="tool-head"><span class="tool-name">Semgrep</span><span class="tool-ver">1.176.1</span></div>
+     <p class="tool-what">Pattern and dataflow scanner. Backend scanned with p/php, p/security-audit, p/secrets, p/owasp-top-ten; frontend with p/javascript, p/typescript, p/security-audit, p/owasp-top-ten.</p>
+     <dl class="tool-nums">
+       <div><dt>Backend</dt><dd>269 files scanned, 0 findings (4 files partially parsed — see note)</dd></div>
+       <div><dt>Frontend</dt><dd>679 files scanned, 1 finding</dd></div>
+     </dl>
+     <p class="tool-note">A positive-control file with deliberate SQL injection, command injection and XSS was scanned first and Semgrep flagged all six — so the zero on the backend is a real result, not a broken scan. The 4 parse warnings are files using PHP named arguments (`list: true`) that Semgrep's PHP frontend does not yet accept; those specific lines were reviewed by hand instead.</p>
+   </div><div class="tool">
+     <div class="tool-head"><span class="tool-name">Psalm</span><span class="tool-ver">5.26.1</span></div>
+     <p class="tool-what">Taint analysis: follows a request value to any dangerous sink (query, filesystem, shell, HTML).</p>
+     <dl class="tool-nums">
+       <div><dt>Backend</dt><dd>0 taint findings</dd></div>
+       
+     </dl>
+     <p class="tool-note">Psalm inferred types for 71.5% of this codebase. It is procedural PHP built on global functions and untyped arrays, which is exactly where taint tracking loses the trail — so the zero is corroborating evidence, not proof. The manual review below is what actually clears the dynamic-SQL and path-handling code.</p>
+   </div><div class="tool">
+     <div class="tool-head"><span class="tool-name">composer audit</span><span class="tool-ver">Composer 2.9.5</span></div>
+     <p class="tool-what">Checks installed PHP dependencies against the security advisory database.</p>
+     <dl class="tool-nums">
+       <div><dt>Backend</dt><dd>1 advisory (slim/slim) — see finding SEC-05</dd></div>
+       
+     </dl>
+     
+   </div>
+    </div>
+    <p class="ledenote">
+      The honest summary: the automated tools surfaced almost nothing on the backend
+      (Semgrep read 269 files and reported 0),
+      which is a good sign but not a clean bill of health — the data-access and auth code is procedural, and that is where both
+      Semgrep's patterns and Psalm's taint tracking lose the trail. Everything ranked below Info in the list came from reading
+      that code by hand.
+    </p>
+  </section>
+
+  <section>
+    <h2>Findings</h2>
+    <p class="lede">Most severe first. Tap a severity above to filter. Each finding says what it is, why it matters, and how to fix it.</p>
+    <div class="findings-list" id="findings">
+      
+  <article class="finding sev-high" data-sev="high" id="SEC-01">
+    <header class="finding-top">
+      <span class="sev-badge sev-high">High</span>
+      <div class="finding-title">
+        <h3>The JWT signing key is the committed fallback, and this deployment is using it</h3>
+        <div class="finding-meta">
+          <span class="fid">SEC-01</span>
+          <span class="dot">·</span><span>Authentication · secrets</span>
+          <span class="dot">·</span><span class="src src-manual">manual review</span>
+          <span class="dot">·</span><span class="cwe">CWE-321 Use of Hard-coded Cryptographic Key</span>
+          <span class="dot">·</span><span class="effort">fix effort: low</span>
+        </div>
+      </div>
+    </header>
+    <div class="finding-body">
+      <p class="location"><span class="loc-label">Where</span> <code>php/config/jwt.php:26 — getJwtSecret()</code></p>
+      <div class="block"><h4>What</h4><p>Every session token the API issues is an HS256 JWT signed with this one key. The key is the root of trust for authentication: anyone who knows it can forge a validly-signed token. Because the key is printed in the repository and used as a silent default, it is known to anyone who can read the source, and it is the same on every deployment that never set jwt.local.php.</p></div>
+      <div class="block"><h4>Why it matters</h4><p>A signature only proves a token came from someone holding the key. If the key is a public constant, the signature proves nothing. The blast radius here is smaller than usual because of two deliberate mitigations, and it is worth being precise about them: (1) the auth middleware looks the token's session up in the database and rejects it unless a live, non-revoked session row exists, so a forged token needs a real session id to name — an attacker with no account cannot mint a working token at all; (2) the user's role is re-read from the database on every request rather than trusted from the token, so a low-privilege user cannot forge themselves an ADMIN token. What remains is still serious: anyone who learns an admin's session id (from a shared machine, a proxy log, a backup, any separate leak) can mint an admin token that the signature check will happily accept, and any account holder can forge tokens for their own session with arbitrary expiry. And the fallback is silent — a production deploy that forgets the file gets a working, insecure system with no warning.</p></div>
+      <div class="block"><h4>Evidence</h4><p class="evidence">No php/config/jwt.local.php exists, so getJwtSecret() returns the string committed in the source: &quot;changeme-create-config-jwt-local-php-with-strong-secret&quot;. Confirmed at runtime against the local server — the key in use is the committed fallback.</p></div>
+      <div class="block fix"><h4>Recommended fix</h4><p>Fail closed instead of falling back. getJwtSecret() should throw if no configured secret is present (no jwt.local.php and no environment variable), so the API refuses to start rather than run on a public key. Generate a real 32+ byte random secret for each environment (`php -r &quot;echo bin2hex(random_bytes(32));&quot;`) and set it via config/jwt.local.php or an environment variable. Add php/config/jwt.local.php to .gitignore — it is not currently listed, so a secret created there could be committed by accident. Rotating the secret invalidates all existing tokens, which signs everyone out once; that is the correct one-time cost.</p></div>
+    </div>
+  </article>
+  <article class="finding sev-medium" data-sev="medium" id="SEC-02">
+    <header class="finding-top">
+      <span class="sev-badge sev-medium">Medium</span>
+      <div class="finding-title">
+        <h3>/api/upload stores an attacker-chosen file extension after only a spoofable type check</h3>
+        <div class="finding-meta">
+          <span class="fid">SEC-02</span>
+          <span class="dot">·</span><span>File upload</span>
+          <span class="dot">·</span><span class="src src-manual">manual review</span>
+          <span class="dot">·</span><span class="cwe">CWE-434 Unrestricted Upload of File with Dangerous Type</span>
+          <span class="dot">·</span><span class="effort">fix effort: medium</span>
+        </div>
+      </div>
+    </header>
+    <div class="finding-body">
+      <p class="location"><span class="loc-label">Where</span> <code>php/api/routes/genshin_impact/endpoints/upload.php:32-46</code></p>
+      <div class="block"><h4>What</h4><p>An authenticated editor or admin can upload a file whose real content and extension are anything they choose — the MIME allowlist is trivially satisfied by setting the multipart Content-Type header to image/png while the body and extension are something else. The saved file keeps the client's extension and is reachable at /uploads/&lt;folder&gt;/&lt;name&gt;.</p></div>
+      <div class="block"><h4>Why it matters</h4><p>Two consequences. If the file is a .php, execution is currently blocked only by public/uploads/.htaccess (`php_flag engine off` + RemoveHandler/RemoveType). That works on Apache with mod_php and AllowOverride enabled — but it is the single point of failure, it does nothing under nginx or PHP-FPM, and it fails open silently if the server config changes. Second, even with execution blocked, the router serves uploads with a sniffed Content-Type and no X-Content-Type-Options, so an uploaded .html or .svg is served as a document on the API's origin — stored XSS against anyone who opens the link. The bar is an editor account, so this is a privilege-boundary and account-compromise concern rather than an anonymous one; the sibling endpoint /api/uploads/{entity}/{id}/{field} already does this correctly and is the model to copy.</p></div>
+      <div class="block"><h4>Evidence</h4><p class="evidence">The type check is `in_array($file-&gt;getClientMediaType(), $allowedMimeTypes)` — the Content-Type is supplied by the client and is not verified against the bytes. The stored name is `bin2hex(random_bytes(16)) . '.' . strtolower($ext)` where $ext comes straight from the client filename with no allowlist, and the file lands in public/uploads/, which is Apache's document root in production.</p></div>
+      <div class="block fix"><h4>Recommended fix</h4><p>Validate the extension against a server-side allowlist (avif, png, jpg, webp, gif, opus, mpeg, ogg, wav) and derive the stored extension from a verified type, not from the client filename — reject anything else with 415. Confirm the real content with finfo/getimagesize rather than trusting getClientMediaType(). Serve /uploads with `X-Content-Type-Options: nosniff` and, for anything not an image, `Content-Disposition: attachment`. Keep the .htaccess as defense in depth, do not rely on it as the control. Consider retiring /api/upload in favour of the stricter /api/uploads/... path the rest of the app uses.</p></div>
+    </div>
+  </article>
+  <article class="finding sev-medium" data-sev="medium" id="SEC-03">
+    <header class="finding-top">
+      <span class="sev-badge sev-medium">Medium</span>
+      <div class="finding-title">
+        <h3>No HTTP security headers on API responses</h3>
+        <div class="finding-meta">
+          <span class="fid">SEC-03</span>
+          <span class="dot">·</span><span>Hardening · headers</span>
+          <span class="dot">·</span><span class="src src-manual">manual review</span>
+          <span class="dot">·</span><span class="cwe">CWE-693 Protection Mechanism Failure</span>
+          <span class="dot">·</span><span class="effort">fix effort: low</span>
+        </div>
+      </div>
+    </header>
+    <div class="finding-body">
+      <p class="location"><span class="loc-label">Where</span> <code>php/api/index.php (CORS/response middleware), php/api/response.php</code></p>
+      <div class="block"><h4>What</h4><p>The API and the admin panel it backs send no baseline security headers. There is no HSTS to pin HTTPS, no nosniff to stop content-type guessing, no frame-ancestors/X-Frame-Options to stop the admin UI being framed, and no Referrer-Policy.</p></div>
+      <div class="block"><h4>Why it matters</h4><p>None of these is a vulnerability on its own, but together they are the cheap defense-in-depth layer that turns a small mistake elsewhere into a non-event: nosniff neutralises a mislabelled response, frame-ancestors blocks clickjacking of the admin panel, HSTS closes the downgrade window. Their absence is why a header scanner grades this site low, and it is a one-file fix.</p></div>
+      <div class="block"><h4>Evidence</h4><p class="evidence">No response sets Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options / Content-Security-Policy frame-ancestors, or Referrer-Policy. The only place these appear is the single hardened /api/files/raw route.</p></div>
+      <div class="block fix"><h4>Recommended fix</h4><p>Add a small middleware that sets, on every response: `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Frame-Options: DENY` (or a CSP `frame-ancestors 'none'`), and, once HTTPS is confirmed everywhere, `Strict-Transport-Security: max-age=31536000; includeSubDomains`. A JSON API can carry a strict `Content-Security-Policy: default-src 'none'` cheaply; the SPA needs its own policy tuned to what it loads.</p></div>
+    </div>
+  </article>
+  <article class="finding sev-low" data-sev="low" id="SEC-04">
+    <header class="finding-top">
+      <span class="sev-badge sev-low">Low</span>
+      <div class="finding-title">
+        <h3>Registration allows account enumeration and is not rate limited</h3>
+        <div class="finding-meta">
+          <span class="fid">SEC-04</span>
+          <span class="dot">·</span><span>Authentication · enumeration</span>
+          <span class="dot">·</span><span class="src src-manual">manual review</span>
+          <span class="dot">·</span><span class="cwe">CWE-307 Improper Restriction of Excessive Authentication Attempts</span>
+          <span class="dot">·</span><span class="effort">fix effort: low</span>
+        </div>
+      </div>
+    </header>
+    <div class="finding-body">
+      <p class="location"><span class="loc-label">Where</span> <code>php/api/routes/users/endpoints/auth.php (POST /api/auth/register)</code></p>
+      <div class="block"><h4>What</h4><p>Anyone can probe which email addresses and usernames already have accounts by watching for the 409, and can do so as fast as they like. Each new registration also sends a confirmation email, so the same unthrottled endpoint can be used to send mail to arbitrary addresses.</p></div>
+      <div class="block"><h4>Why it matters</h4><p>The password-reset endpoint right next to this one is deliberately silent — it gives the same answer whether or not the address exists — which shows the enumeration-resistant pattern was understood. Registration necessarily has to tell a real user their address is taken, so the fix is not silence but a rate limit. Left unthrottled it is both an enumeration oracle and an email-relay for spamming confirmation mails.</p></div>
+      <div class="block"><h4>Evidence</h4><p class="evidence">The handler answers 409 &quot;That email address is already taken&quot; and 409 &quot;That username is already taken&quot;, and unlike /api/auth/login it does not call loginAttemptsExceeded() or any throttle.</p></div>
+      <div class="block fix"><h4>Recommended fix</h4><p>Apply the same IP-plus-target throttle the login endpoint already uses (loginAttemptsExceeded / recordLoginAttempt) to registration, and to the confirmation-resend and forgot-password endpoints. Keep the clear 'already taken' message for humans but cap the rate so it cannot be scripted.</p></div>
+    </div>
+  </article>
+  <article class="finding sev-low" data-sev="low" id="SEC-05">
+    <header class="finding-top">
+      <span class="sev-badge sev-low">Low</span>
+      <div class="finding-title">
+        <h3>slim/slim advisory CVE-2026-48157 (reflected XSS in HtmlErrorRenderer) — present but not in the request path</h3>
+        <div class="finding-meta">
+          <span class="fid">SEC-05</span>
+          <span class="dot">·</span><span>Dependency</span>
+          <span class="dot">·</span><span class="src src-composer audit">composer audit</span>
+          <span class="dot">·</span><span class="cwe">CWE-79 Cross-site Scripting</span>
+          <span class="dot">·</span><span class="effort">fix effort: low</span>
+        </div>
+      </div>
+    </header>
+    <div class="finding-body">
+      <p class="location"><span class="loc-label">Where</span> <code>php/composer.lock — slim/slim, affected &gt;=4.4.0,&lt;=4.15.1</code></p>
+      <div class="block"><h4>What</h4><p>The installed Slim version carries a known reflected-XSS advisory in the HTML error renderer, which can echo request content into an error page.</p></div>
+      <div class="block"><h4>Why it matters</h4><p>The app configures the error middleware with displayErrorDetails = false and installs its own JSON default error handler (which the new error-log work confirmed), so the vulnerable HTML renderer is not the one that runs on a failed request. That is a real mitigation, which is why this is Low rather than Medium — but it depends on that configuration staying false, and a dependency with a known advisory should be updated regardless.</p></div>
+      <div class="block"><h4>Evidence</h4><p class="evidence">composer audit reports PKSA-ftt4-t9sz-mwn5 / CVE-2026-48157 against the installed slim/slim. The XSS is in Slim's HtmlErrorRenderer.</p></div>
+      <div class="block fix"><h4>Recommended fix</h4><p>Run `composer update slim/slim` to pick up the patched release (&gt;=4.15.2 when available). Keep displayErrorDetails = false in every environment. Re-run `composer audit` in CI so a new advisory surfaces on the next build rather than in the next review.</p></div>
+    </div>
+  </article>
+  <article class="finding sev-low" data-sev="low" id="SEC-06">
+    <header class="finding-top">
+      <span class="sev-badge sev-low">Low</span>
+      <div class="finding-title">
+        <h3>CORS is handled twice: a correct allowlist that is unused, and a hardcoded localhost origin that is</h3>
+        <div class="finding-meta">
+          <span class="fid">SEC-06</span>
+          <span class="dot">·</span><span>CORS · configuration</span>
+          <span class="dot">·</span><span class="src src-manual">manual review</span>
+          <span class="dot">·</span><span class="cwe">CWE-942 Permissive Cross-domain Policy (here: mis-scoped, not over-permissive)</span>
+          <span class="dot">·</span><span class="effort">fix effort: low</span>
+        </div>
+      </div>
+    </header>
+    <div class="finding-body">
+      <p class="location"><span class="loc-label">Where</span> <code>php/api/index.php:322-332 (active) vs php/api/helpers.php:5-21 (setCorsHeaders, unused)</code></p>
+      <div class="block"><h4>What</h4><p>Two CORS implementations exist. The one that runs hardcodes the development origin; the one that would work in production is dead code.</p></div>
+      <div class="block"><h4>Why it matters</h4><p>This is not an exploitable hole — the active header is over-restrictive, not over-permissive, and it does not set Allow-Credentials or reflect arbitrary origins, so there is no cross-origin data exposure. But it means the production frontend at anotoki.eu is only reachable if the API is same-origin behind a reverse proxy; if it is ever split onto its own host, CORS breaks, and whoever fixes it in a hurry may reach for a wildcard. The muddle is the risk.</p></div>
+      <div class="block"><h4>Evidence</h4><p class="evidence">The live middleware emits `Access-Control-Allow-Origin: http://localhost:4200` unconditionally. helpers.php contains a correct allowlist (localhost:4200 + https://anotoki.eu) reflecting only matching origins, but nothing calls it in the request path.</p></div>
+      <div class="block fix"><h4>Recommended fix</h4><p>Delete the unused setCorsHeaders()/handlePreflight() in helpers.php, or wire it in and delete the hardcoded block — one CORS path, reading its allowlist from config. Never combine a reflected Origin with Access-Control-Allow-Credentials: true unless the origin was allowlist-checked first.</p></div>
+    </div>
+  </article>
+  <article class="finding sev-info" data-sev="info" id="SEC-07">
+    <header class="finding-top">
+      <span class="sev-badge sev-info">Info</span>
+      <div class="finding-title">
+        <h3>Interpolated href in the site footer</h3>
+        <div class="finding-meta">
+          <span class="fid">SEC-07</span>
+          <span class="dot">·</span><span>Frontend · XSS surface</span>
+          <span class="dot">·</span><span class="src src-semgrep">semgrep</span>
+          <span class="dot">·</span><span class="cwe">CWE-79 Cross-site Scripting</span>
+          <span class="dot">·</span><span class="effort">fix effort: low</span>
+        </div>
+      </div>
+    </header>
+    <div class="finding-body">
+      <p class="location"><span class="loc-label">Where</span> <code>angular/src/app/sites/main/common/footer/footer.component.html:6</code></p>
+      <div class="block"><h4>What</h4><p>A menu link URL is interpolated into an anchor href. In principle a `javascript:` URL there would run on click.</p></div>
+      <div class="block"><h4>Why it matters</h4><p>Two things hold it down: the URLs are admin-configured content, not attacker input, and Angular's built-in sanitizer rewrites a `javascript:` URL in an href binding to the inert `unsafe:` form. So this is informational — worth tidying, not a live hole. It is listed because it is the one thing the frontend scan surfaced and it is the right habit to close.</p></div>
+      <div class="block"><h4>Evidence</h4><p class="evidence">Semgrep (var-in-href) flagged `&lt;a href=&quot;{{ menuItem.url }}&quot;&gt;`. The values are site-menu links configured by an admin through the settings area, not free user input.</p></div>
+      <div class="block fix"><h4>Recommended fix</h4><p>Validate menu URLs to an http/https allowlist when they are saved, and/or bind through a small pipe that rejects non-http(s) schemes, so the intent is explicit rather than resting on the framework's default sanitiser.</p></div>
+    </div>
+  </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Checked, and holding up</h2>
+    <p class="lede">
+      A security report that is only a list of problems hides its most useful result: the things that were attacked on paper
+      and did not give. These were reviewed specifically and are sound.
+    </p>
+    <div class="cleared-list">
+      <div class="cleared">
+            <div class="cleared-check" aria-hidden="true">✓</div>
+            <div><h3>SQL injection</h3><p>Every query is parameterised. Table and column identifiers in the DbQuery builder are either hardcoded string literals at the call sites or whitelisted through the DTO reflection layer (fromBody / partialToDbArray only accept declared constructor fields, so an attacker cannot introduce a column). The dynamic WHERE builders (audit logs, users, sessions) bind every value with a placeholder and use only literal column names. INSERT/UPDATE column lists come from whitelisted keys, values are bound. Confirmed by hand across the builder and its callers, and by Semgrep and Psalm.</p></div>
+          </div><div class="cleared">
+            <div class="cleared-check" aria-hidden="true">✓</div>
+            <div><h3>Broken object-level authorization (IDOR)</h3><p>Every per-user route enforces ownership: path-parameter routes use requireSelfOrAdmin('user_id'), body routes use refuseForeignUserId(), and the quiz convenience endpoints derive the user id from the token rather than accepting one. Checked across quiz-states, quiz-stats-history, user-quiz-history, quiz progress, and the self-service auth routes; the session-revoke route scopes its query to the caller's own user id.</p></div>
+          </div><div class="cleared">
+            <div class="cleared-check" aria-hidden="true">✓</div>
+            <div><h3>Path traversal</h3><p>Asset paths are sanitised per segment (separators and control chars stripped, '.'/'..'/dotfiles rejected) and then re-checked with realpath() against the assets root. Backup download/preview constrain the id to a strict timestamp regex and whitelist the database alias; the migrations-file endpoint whitelists the alias and requires basename($f) === $f with a .sql suffix. All admin-gated.</p></div>
+          </div><div class="cleared">
+            <div class="cleared-check" aria-hidden="true">✓</div>
+            <div><h3>Authentication cryptography</h3><p>Passwords hashed with password_hash (bcrypt) and checked with password_verify. Reset/confirm/session/device tokens come from random_bytes (CSPRNG) and are stored as SHA-256 hashes, so a database leak exposes no usable token. TOTP codes are compared with hash_equals (timing-safe). JWT verification recomputes HS256 over the header/payload and ignores the token's own alg header, so there is no alg-confusion or 'none' bypass. Sessions are server-side and revocable.</p></div>
+          </div><div class="cleared">
+            <div class="cleared-check" aria-hidden="true">✓</div>
+            <div><h3>Brute force / login</h3><p>The login endpoint rate-limits before it even looks the account up (so the limiter does not itself reveal which addresses exist), keyed on more than the address alone, and returns a generic 'Invalid credentials' for both unknown-email and bad-password. Registration is the exception — see SEC-04.</p></div>
+          </div><div class="cleared">
+            <div class="cleared-check" aria-hidden="true">✓</div>
+            <div><h3>Privilege escalation via registration / mass assignment</h3><p>Self-registration hardcodes role = 'USER'; the role cannot be set from the request body. Entity writes flow through DTOs that only accept declared fields, and created_by / updated_by are set from the authenticated token after the body is spread, so authorship cannot be forged.</p></div>
+          </div><div class="cleared">
+            <div class="cleared-check" aria-hidden="true">✓</div>
+            <div><h3>Email link integrity</h3><p>Confirmation and password-reset links are built from a server-configured base_url, not from the request Host header, so there is no host-header injection into the links delivered to users.</p></div>
+          </div><div class="cleared">
+            <div class="cleared-check" aria-hidden="true">✓</div>
+            <div><h3>Secret and error handling</h3><p>php/storage (including the new error logs, which record IP addresses) is gitignored. The database password is never returned in a response. The error handler runs with displayErrorDetails = false and returns generic messages to clients while writing detail to the server-side log — no stack traces or DSNs reach the client.</p></div>
+          </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How to read this</h2>
+    <div class="panel method">
+      <p>
+        Severity weighs how much access an attacker needs against what they gain. <strong>High</strong> here means a weakness
+        in the authentication foundation; <strong>Medium</strong> means real but bounded, usually needing an authenticated
+        account or a specific server configuration; <strong>Low</strong> and <strong>Info</strong> are hardening and hygiene.
+        None of these is a remotely-exploitable anonymous compromise — the review looked for one specifically and did not find it.
+      </p>
+      <p class="muted">
+        Reviewed 2026-09-05 against the working tree. Static analysis cannot prove the absence of a bug, and a scanner that
+        finds nothing has told you where it looked, not that there is nothing to find — which is why the manual review carries
+        the weight here. Re-run the tools and revisit the findings after any change to the auth, upload, or query code. The raw
+        tool output is saved beside this report under <code>tools/</code>.
+      </p>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  // Filter the list by severity. Clicking a count toggles it; clicking it again,
+  // or clicking another, changes the filter; the pressed one can be turned off
+  // to show everything. Pure view state — nothing here changes the findings.
+  const figures = [...document.querySelectorAll('.sev-fig')];
+  const cards = [...document.querySelectorAll('.finding')];
+  let active = null;
+
+  const apply = () => {
+    for (const card of cards) {
+      card.classList.toggle('is-hidden', active !== null && card.dataset.sev !== active);
+    }
+    for (const fig of figures) {
+      fig.setAttribute('aria-pressed', String(fig.dataset.filter === active));
+    }
+  };
+
+  for (const fig of figures) {
+    fig.addEventListener('click', () => {
+      // A zero-count severity has nothing to show, so its button does nothing.
+      if (fig.classList.contains('is-zero')) {
+        return;
+      }
+      active = active === fig.dataset.filter ? null : fig.dataset.filter;
+      apply();
+    });
+  }
+})();
+</script>
