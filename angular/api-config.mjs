@@ -175,6 +175,8 @@ export const QUERIES = {
     "GET /api/files/stats": "AssetStatsQuery?",
     "GET /api/files/cleanup": "AssetCleanupQuery",
     "GET /api/migrations/file": "MigrationFileQuery",
+    "GET /api/errors": "ErrorLogQuery?",
+    "GET /api/errors/{fingerprint}": "ErrorLogQuery?",
     "DELETE /api/files": "AssetFileRef",
     "DELETE /api/files/missing": "MissingFileRef?",
     "DELETE /api/files/trash": "TrashedFileRef?",
@@ -378,6 +380,10 @@ export function phpToTs(field, isJsonField) {
         else if (type === "bool") parts.add("boolean");
         else if (type === "string") parts.add("string");
         else if (type === "array") parts.add("string[]");
+        // PHP's own types are all lowercase, so a capitalised one names a
+        // declared shape or model - a property holding another response object
+        // rather than a scalar. It carries through under its own name.
+        else if (/^[A-Z]/.test(type)) parts.add(type);
         else parts.add("unknown");
     }
 

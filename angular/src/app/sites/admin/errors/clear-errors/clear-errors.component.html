@@ -1,0 +1,15 @@
+<app-modal [title]="'Clear the error log'" (closeModal)="closeModal()">
+    <div modal-body>
+        <p class="lead">Every log file under <code>php/storage/logs</code> is deleted. There is no undo.</p>
+        <p class="note">
+            Nothing else is touched — the audit trail, the assets and the databases are all elsewhere. The log starts filling again with the
+            next request that fails.
+        </p>
+    </div>
+
+    <div modal-footer class="footer">
+        <span class="footer-spacer"></span>
+        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="closeModal()"></app-button>
+        <app-button text="Clear log" icon="icon-trash" variant="danger" [loading]="running()" (buttonClick)="clear()"></app-button>
+    </div>
+</app-modal>

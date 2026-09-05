@@ -254,3 +254,98 @@ class DashboardAssets extends ResponseShape
     ) {
     }
 }
+
+/**
+ * One thing that went wrong.
+ *
+ * Read back from the JSON lines under php/storage/logs rather than a table, so
+ * that an outage of the database is a thing this can report rather than a thing
+ * that stops it reporting.
+ */
+class ErrorLogEntry extends ResponseShape
+{
+    public function __construct(
+        public readonly string $at,
+        /** error | warning */
+        public readonly string $level,
+        public readonly int $status,
+        /** The exception class, or `Response` when a handler answered 5xx without throwing. */
+        public readonly string $type,
+        public readonly string $message,
+        public readonly string $file,
+        public readonly int $line,
+        public readonly string $method,
+        public readonly string $path,
+        public readonly ?int $user_id,
+        public readonly ?int $session_id,
+        public readonly ?string $ip,
+        /** Identity of the failure, shared by every repeat of it. */
+        public readonly string $fingerprint,
+        public readonly ?string $trace,
+    ) {
+    }
+}
+
+/** Every occurrence of one failure, collapsed into a row with a count beside it. */
+class ErrorLogGroup extends ResponseShape
+{
+    public function __construct(
+        public readonly string $fingerprint,
+        public readonly string $level,
+        public readonly int $status,
+        public readonly string $type,
+        public readonly string $message,
+        public readonly string $file,
+        public readonly int $line,
+        public readonly int $count,
+        public readonly string $first_at,
+        public readonly string $last_at,
+        /** The paths this failure was reached through, most-hit first. */
+        public readonly array $paths,
+        /** The most recent occurrence, in full. */
+        public readonly ErrorLogEntry $latest,
+    ) {
+    }
+}
+
+/** How many of something. Used for the counts by status and by day. */
+class ErrorLogTally extends ResponseShape
+{
+    public function __construct(
+        public readonly string $key,
+        public readonly int $errors,
+        public readonly int $warnings,
+    ) {
+    }
+}
+
+/** What the error log has to say, ready to draw. */
+class ErrorLogReport extends ResponseShape
+{
+    public function __construct(
+        /** Matching the filter, before the limit. */
+        public readonly int $total,
+        public readonly int $errors,
+        public readonly int $warnings,
+        /** Distinct failures, which is usually far fewer than `total`. */
+        public readonly int $distinct,
+        /** Every day a log file exists for, newest first. */
+        public readonly array $days,
+        /** @var ErrorLogTally[] one per day in range, oldest first, for the chart */
+        public readonly array $daily,
+        /** @var ErrorLogTally[] one per status code seen */
+        public readonly array $statuses,
+        /** @var ErrorLogGroup[] */
+        public readonly array $groups,
+    ) {
+    }
+}
+
+/** How many log files were removed. */
+class ErrorLogCleared extends ResponseShape
+{
+    public function __construct(
+        public readonly int $deleted,
+    ) {
+    }
+}

@@ -77,6 +77,7 @@ export class AppComponent {
         { label: 'Site Settings', path: 'settings', icon: 'icon icon-settings' },
         { label: 'Feedback', path: 'feedback', icon: 'icon icon-mail' },
         { label: 'Audit Logs', path: 'audit-logs', icon: 'icon icon-history', readOnly: true },
+        { label: 'Error Log', path: 'errors', icon: 'icon icon-triangle-alert', readOnly: true },
         { label: 'Migrations', path: 'migrations', icon: 'icon icon-database', readOnly: true },
         { label: 'Backups', path: 'backups', icon: 'icon icon-download' },
       ],

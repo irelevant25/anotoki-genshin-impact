@@ -39,5 +39,19 @@ export interface MigrationFileQuery {
   filename: string;
 }
 
+// ── Error log ─────────────────────────────────────────────────────────────────
+
+/** What slice of the log to read. Everything is optional; the default is a week. */
+export interface ErrorLogQuery {
+  /** How far back to look, capped at the thirty days the log keeps. */
+  days?: number;
+  /** `error` for 5xx, `warning` for 4xx. */
+  level?: string;
+  /** One status code. */
+  status?: number;
+  /** Matched against the whole entry, so a path or a message both work. */
+  search?: string;
+}
+
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 

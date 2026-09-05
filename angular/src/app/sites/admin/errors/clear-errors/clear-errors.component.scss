@@ -1,0 +1,25 @@
+.lead {
+  margin: 0 0 var(--spacing-sm);
+
+  code {
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--bg-hover);
+    font-size: 0.95em;
+  }
+}
+
+.note {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.footer {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.footer-spacer {
+  flex: 1;
+}

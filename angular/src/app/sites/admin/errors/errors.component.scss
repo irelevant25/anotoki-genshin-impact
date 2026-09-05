@@ -1,0 +1,394 @@
+@use "../shared/admin-list" as *;
+
+.page-hint {
+  margin: 0 0 var(--spacing-md);
+  max-width: 90ch;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+
+  code {
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--bg-hover);
+    font-size: 0.95em;
+  }
+}
+
+// ── Nothing to report ─────────────────────────────────────────────────────────
+
+.all-quiet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: calc(var(--spacing-lg) * 2) var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  text-align: center;
+
+  i {
+    color: var(--color-success, var(--color-primary));
+  }
+
+  h2 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    color: var(--text-primary);
+  }
+
+  p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+  }
+}
+
+// ── The four figures ──────────────────────────────────────────────────────────
+
+.summary-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-card);
+
+  &.is-error {
+    border-left-color: var(--color-danger);
+  }
+
+  &.is-warning {
+    border-left-color: var(--color-warning);
+  }
+}
+
+.summary-value {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.summary-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+// ── By day ────────────────────────────────────────────────────────────────────
+
+.panel {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-card);
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+
+  h2 {
+    margin: 0;
+    font-size: var(--font-size-md);
+  }
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.legend-key {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+
+  &.is-error {
+    background: var(--color-danger);
+  }
+
+  &.is-warning {
+    background: var(--color-warning);
+  }
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 140px;
+  overflow-x: auto;
+}
+
+.chart-col {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 28px;
+}
+
+// The stack grows upward, so the two segments sit at the bottom of a fixed box.
+//
+// The empty track is nearly invisible on purpose: at full strength a week of
+// quiet days reads as seven full-height bars, which is the opposite of true.
+.chart-stack {
+  display: flex;
+  position: relative;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    background: var(--border-color);
+  }
+}
+
+.chart-bar {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 0;
+  border-radius: 2px 2px 0 0;
+  transition: height var(--transition-fast, 0.15s) ease;
+
+  &.is-error {
+    background: var(--color-danger);
+  }
+
+  &.is-warning {
+    background: var(--color-warning);
+  }
+}
+
+.chart-count {
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  line-height: 1;
+}
+
+.chart-label {
+  font-size: var(--font-size-xs, 11px);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+// ── Status chips ──────────────────────────────────────────────────────────────
+
+.status-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--spacing-md);
+}
+
+.chips-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--bg-hover);
+  }
+
+  &.is-error {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+  }
+
+  &.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--text-on-primary, #fff);
+  }
+}
+
+.chip-count {
+  opacity: 0.7;
+}
+
+// ── The table ─────────────────────────────────────────────────────────────────
+
+.error-row {
+  cursor: pointer;
+
+  &:hover,
+  &.expanded {
+    background: var(--bg-hover);
+  }
+}
+
+.col-count {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.count-pill {
+  display: inline-block;
+  min-width: 30px;
+  padding: 1px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+
+  &.is-error {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+  }
+}
+
+.status {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+
+  &.status-error {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+  }
+
+  &.status-warning {
+    color: var(--color-warning);
+    border-color: var(--color-warning);
+  }
+}
+
+.col-what {
+  max-width: 52ch;
+}
+
+.what-type {
+  display: block;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.what-message {
+  display: block;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.col-where code {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.where-more {
+  margin-left: 6px;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.col-when {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+// ── The opened row ────────────────────────────────────────────────────────────
+
+.detail-row > td {
+  padding: 0 var(--spacing-md) var(--spacing-md) !important;
+  background: var(--bg-card);
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.detail-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-sm);
+  margin: 0;
+
+  dt {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+  }
+
+  dd {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    word-break: break-all;
+  }
+}
+
+.detail-block h3 {
+  margin: 0 0 var(--spacing-xs, 4px);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.path-list {
+  margin: 0;
+  padding-left: var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+.trace {
+  max-height: 260px;
+  margin: 0;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-hover);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

@@ -1,0 +1,216 @@
+<div class="page-header">
+    <h1 class="page-title">Error Log</h1>
+    @if (canClear) {
+        <app-button text="Clear log" icon="icon-trash" variant="danger" [outline]="true" size="small" (buttonClick)="clearLog()"></app-button>
+    }
+</div>
+
+<p class="page-hint">
+    Every request the API could not answer — a crash, a database fault, a refused token, a route that is not there. Written to files under
+    <code>php/storage/logs</code> rather than to the database, so an outage is something this can report rather than something that stops it
+    reporting. Repeats are grouped: one row, one count.
+</p>
+
+<div class="filter-bar">
+    <app-dropdown [label]="'Range'" [options]="dayOptions" [(value)]="filterDays" (inputChange)="applyFilters()"></app-dropdown>
+    <app-dropdown [label]="'Level'" [options]="levelOptions" [(value)]="filterLevel" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <app-text [label]="'Search'" [placeholder]="'message, path, type'" [(value)]="filterSearch" (blurChange)="applyFilters()"></app-text>
+    <div class="filter-summary">
+        @if (hasActiveFilter()) {
+            <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+        }
+        <app-button icon="icon-refresh" variant="secondary" [outline]="true" size="very-small" tooltipText="Read the log again" (buttonClick)="load()"></app-button>
+    </div>
+</div>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading() && report(); as data) {
+    @if (isEmpty()) {
+        <div class="all-quiet">
+            <i class="icon icon-check icon-size-6"></i>
+            <h2>Nothing has gone wrong</h2>
+            <p>No request has failed in the last {{ filterDays() }} days.</p>
+        </div>
+    } @else {
+        <div class="summary-row">
+            <div class="summary-card">
+                <span class="summary-value">{{ data.total }}</span>
+                <span class="summary-label">Failures recorded</span>
+            </div>
+            <div class="summary-card is-error">
+                <span class="summary-value">{{ data.errors }}</span>
+                <span class="summary-label">Errors · 5xx</span>
+            </div>
+            <div class="summary-card is-warning">
+                <span class="summary-value">{{ data.warnings }}</span>
+                <span class="summary-label">Warnings · 4xx</span>
+            </div>
+            <div class="summary-card">
+                <span class="summary-value">{{ data.distinct }}</span>
+                <span class="summary-label">Distinct causes</span>
+            </div>
+        </div>
+
+        <section class="panel">
+            <header class="panel-head">
+                <h2>By day</h2>
+                <div class="legend">
+                    <span class="legend-key is-error"></span> errors
+                    <span class="legend-key is-warning"></span> warnings
+                </div>
+            </header>
+
+            <div class="chart">
+                @for (bar of bars(); track bar.day) {
+                    <div class="chart-col" [title]="bar.day + ' — ' + bar.errors + ' errors, ' + bar.warnings + ' warnings'">
+                        <div class="chart-stack">
+                            <div class="chart-bar is-error" [style.height.%]="bar.errorHeight"></div>
+                            <div class="chart-bar is-warning" [style.height.%]="bar.warningHeight"></div>
+                        </div>
+                        <span class="chart-count">{{ bar.total || '' }}</span>
+                        <span class="chart-label">{{ bar.label }}</span>
+                    </div>
+                }
+            </div>
+        </section>
+
+        @if (data.statuses.length) {
+            <div class="status-chips">
+                <span class="chips-label">Status</span>
+                @for (status of data.statuses; track status.key) {
+                    <button
+                        type="button"
+                        class="chip"
+                        [class.is-active]="filterStatus() === status.key"
+                        [class.is-error]="status.errors > 0"
+                        (click)="toggleStatus(status.key)"
+                    >
+                        {{ status.key }}
+                        <span class="chip-count">{{ status.errors + status.warnings }}</span>
+                    </button>
+                }
+            </div>
+        }
+
+        <div class="table-wrap">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th class="col-count">Seen</th>
+                        <th>Status</th>
+                        <th>What happened</th>
+                        <th>Where</th>
+                        <th>Last seen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!groups().length) {
+                        <tr>
+                            <td colspan="5" class="empty-cell">Nothing matches the filter</td>
+                        </tr>
+                    }
+                    @for (group of groups(); track group.fingerprint) {
+                        <tr class="error-row" [class.expanded]="expanded() === group.fingerprint" (click)="toggle(group)">
+                            <td class="col-count">
+                                <span class="count-pill" [class.is-error]="group.level === 'error'">{{ group.count }}</span>
+                            </td>
+                            <td>
+                                <span class="status status-{{ group.level }}">{{ group.status }}</span>
+                            </td>
+                            <td class="col-what">
+                                <span class="what-type">{{ shortType(group.type) }}</span>
+                                <span class="what-message">{{ group.message }}</span>
+                            </td>
+                            <td class="col-where">
+                                @if (shortFile(group.file); as where) {
+                                    <code>{{ where }}:{{ group.line }}</code>
+                                } @else {
+                                    <code>{{ group.paths[0] }}</code>
+                                    @if (group.paths.length > 1) {
+                                        <span class="where-more">+{{ group.paths.length - 1 }} more</span>
+                                    }
+                                }
+                            </td>
+                            <td class="col-when">{{ group.last_at | appDate: 'datetime' }}</td>
+                        </tr>
+
+                        @if (expanded() === group.fingerprint) {
+                            <tr class="detail-row">
+                                <td colspan="5">
+                                    <div class="detail">
+                                        <dl class="detail-facts">
+                                            <div><dt>First seen</dt><dd>{{ group.first_at | appDate: 'datetime' }}</dd></div>
+                                            <div><dt>Last seen</dt><dd>{{ group.last_at | appDate: 'datetime' }}</dd></div>
+                                            <div><dt>Request</dt><dd><code>{{ group.latest.method }} {{ group.latest.path }}</code></dd></div>
+                                            @if (shortFile(group.file); as where) {
+                                                <div><dt>Thrown at</dt><dd><code>{{ where }}:{{ group.line }}</code></dd></div>
+                                            }
+                                            <div><dt>Signed in as</dt><dd>{{ group.latest.user_id ? 'user ' + group.latest.user_id : 'nobody' }}</dd></div>
+                                            <div><dt>Session</dt><dd>{{ group.latest.session_id ?? '—' }}</dd></div>
+                                            <div><dt>From</dt><dd>{{ group.latest.ip ?? '—' }}</dd></div>
+                                            <div><dt>Fingerprint</dt><dd><code>{{ group.fingerprint }}</code></dd></div>
+                                        </dl>
+
+                                        @if (group.paths.length > 1) {
+                                            <div class="detail-block">
+                                                <h3>Reached through</h3>
+                                                <ul class="path-list">
+                                                    @for (path of group.paths; track path) {
+                                                        <li><code>{{ path }}</code></li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+
+                                        @if (group.latest.trace) {
+                                            <div class="detail-block">
+                                                <h3>Stack</h3>
+                                                <pre class="trace">{{ group.latest.trace }}</pre>
+                                            </div>
+                                        }
+
+                                        <div class="detail-block">
+                                            @if (!occurrences().length) {
+                                                <app-button
+                                                    [text]="'Show all ' + group.count + (group.count === 1 ? ' occurrence' : ' occurrences')"
+                                                    variant="secondary"
+                                                    [outline]="true"
+                                                    size="small"
+                                                    [loading]="loadingOccurrences()"
+                                                    (buttonClick)="showOccurrences(group)"
+                                                ></app-button>
+                                            } @else {
+                                                <h3>Every occurrence</h3>
+                                                <table class="detail-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>When</th>
+                                                            <th>Request</th>
+                                                            <th>User</th>
+                                                            <th>From</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (entry of occurrences(); track $index) {
+                                                            <tr>
+                                                                <td class="col-when">{{ entry.at | appDate: 'datetime' }}</td>
+                                                                <td><code>{{ entry.method }} {{ entry.path }}</code></td>
+                                                                <td>{{ entry.user_id ?? '—' }}</td>
+                                                                <td>{{ entry.ip ?? '—' }}</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}

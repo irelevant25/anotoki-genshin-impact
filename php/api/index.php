@@ -6,6 +6,7 @@ require_once __DIR__ . '/../config/jwt.php';
 require_once __DIR__ . '/../config/site.php';
 require_once __DIR__ . '/../config/backup.php';
 require_once __DIR__ . '/helpers.php';
+require_once __DIR__ . '/error_log.php';
 require_once __DIR__ . '/audit_scope.php';
 require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
@@ -146,6 +147,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_groups.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/stats.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/migrations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/audit_logs.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/errors.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/feedback.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/dashboard.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/upload.php';
@@ -241,9 +243,76 @@ $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerReque
 
     error_log('[' . get_class($exception) . '] ' . $exception->getMessage() . ' in ' . $exception->getFile() . ':' . $exception->getLine());
 
+    // And somewhere the admin panel can read it. A 404 for an unknown route is
+    // a warning rather than an error: worth seeing when a client is calling
+    // something that does not exist, not worth waking anybody for.
+    if (str_starts_with((string) $request->getUri()->getPath(), '/api/errors')) {
+        return $response;
+    }
+
+    errorLogHandled(true);
+    $user = $request->getAttribute('user');
+    $session = $request->getAttribute('session');
+    logApiError([
+        'level' => $statusCode >= 500 ? 'error' : 'warning',
+        'status' => $statusCode,
+        'type' => get_class($exception),
+        'message' => $exception->getMessage(),
+        'file' => $exception->getFile(),
+        'line' => $exception->getLine(),
+        'method' => $request->getMethod(),
+        'path' => (string) $request->getUri()->getPath(),
+        'user_id' => isset($user['id']) ? (int) $user['id'] : null,
+        'session_id' => isset($session['id']) ? (int) $session['id'] : null,
+        'ip' => function_exists('requestIp') ? requestIp($request) : null,
+        'trace' => $exception->getTraceAsString(),
+    ]);
+
     $response = $app->getResponseFactory()->createResponse($statusCode);
     $response->getBody()->write(json_encode(['error' => $message]));
     return $response->withHeader('Content-Type', 'application/json');
+});
+
+// Most failures never reach the handler above, because a route answers 4xx by
+// returning it rather than throwing - a refused token, a denied role, a row
+// that is not there. Those are exactly the ones worth seeing, so they are read
+// off the response instead.
+//
+// Volume is not an argument for leaving them out: five hundred expired-token
+// refusals share a fingerprint and read as one line saying five hundred.
+$app->add(function ($request, $handler) {
+    errorLogHandled(false);
+
+    $response = $handler->handle($request);
+    $status = $response->getStatusCode();
+    $path = (string) $request->getUri()->getPath();
+
+    // Nothing to say, already said by the error handler with a trace attached,
+    // or a request to read the log - which is not itself an event in the log.
+    if ($status < 400 || errorLogHandled() || str_starts_with($path, '/api/errors')) {
+        return $response;
+    }
+
+    $body = (string) $response->getBody();
+    $response->getBody()->rewind();
+    $user = $request->getAttribute('user');
+    $session = $request->getAttribute('session');
+
+    logApiError([
+        'level' => $status >= 500 ? 'error' : 'warning',
+        'status' => $status,
+        'type' => 'Response',
+        'message' => substr($body, 0, 500),
+        'file' => '',
+        'line' => 0,
+        'method' => $request->getMethod(),
+        'path' => $path,
+        'user_id' => isset($user['id']) ? (int) $user['id'] : null,
+        'session_id' => isset($session['id']) ? (int) $session['id'] : null,
+        'ip' => function_exists('requestIp') ? requestIp($request) : null,
+    ]);
+
+    return $response;
 });
 
 $app->add(function ($request, $handler) {

@@ -6930,6 +6930,92 @@
             "roles": []
         },
         {
+            "method": "DELETE",
+            "path": "/api/errors",
+            "args": [],
+            "file": "errors.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "ErrorLogCleared",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\errors.php",
+                "line": 186
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/errors",
+            "args": [],
+            "file": "errors.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "ErrorLogReport",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\errors.php",
+                "line": 160
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/errors/{fingerprint}",
+            "args": [
+                {
+                    "name": "fingerprint",
+                    "constraint": null
+                }
+            ],
+            "file": "errors.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
+            "responds": {
+                "shape": "ErrorLogEntry",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\errors.php",
+                "line": 180
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
             "method": "GET",
             "path": "/api/feedback",
             "args": [],
@@ -19614,6 +19700,426 @@
                     "optional": false,
                     "of": null,
                     "description": "The catalogue row the file was filed as, or null if it could not be."
+                }
+            ]
+        },
+        {
+            "name": "ErrorLogCleared",
+            "file": "admin.php",
+            "merges": null,
+            "description": "How many log files were removed.",
+            "fields": [
+                {
+                    "name": "deleted",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "ErrorLogEntry",
+            "file": "admin.php",
+            "merges": null,
+            "description": "One thing that went wrong.\n\nRead back from the JSON lines under php/storage/logs rather than a table, so\nthat an outage of the database is a thing this can report rather than a thing\nthat stops it reporting.",
+            "fields": [
+                {
+                    "name": "at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "level",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "error | warning"
+                },
+                {
+                    "name": "status",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "type",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "The exception class, or `Response` when a handler answered 5xx without throwing."
+                },
+                {
+                    "name": "message",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "file",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "line",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "method",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "user_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "session_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "ip",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "fingerprint",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Identity of the failure, shared by every repeat of it."
+                },
+                {
+                    "name": "trace",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "ErrorLogGroup",
+            "file": "admin.php",
+            "merges": null,
+            "description": "Every occurrence of one failure, collapsed into a row with a count beside it.",
+            "fields": [
+                {
+                    "name": "fingerprint",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "level",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "status",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "type",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "message",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "file",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "line",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "count",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "first_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "last_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "paths",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "The paths this failure was reached through, most-hit first."
+                },
+                {
+                    "name": "latest",
+                    "types": [
+                        "ErrorLogEntry"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "The most recent occurrence, in full."
+                }
+            ]
+        },
+        {
+            "name": "ErrorLogReport",
+            "file": "admin.php",
+            "merges": null,
+            "description": "What the error log has to say, ready to draw.",
+            "fields": [
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Matching the filter, before the limit."
+                },
+                {
+                    "name": "errors",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "warnings",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "distinct",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Distinct failures, which is usually far fewer than `total`."
+                },
+                {
+                    "name": "days",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Every day a log file exists for, newest first."
+                },
+                {
+                    "name": "daily",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "ErrorLogTally[]",
+                    "description": "one per day in range, oldest first, for the chart"
+                },
+                {
+                    "name": "statuses",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "ErrorLogTally[]",
+                    "description": "one per status code seen"
+                },
+                {
+                    "name": "groups",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "ErrorLogGroup[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "ErrorLogTally",
+            "file": "admin.php",
+            "merges": null,
+            "description": "How many of something. Used for the counts by status and by day.",
+            "fields": [
+                {
+                    "name": "key",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "errors",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "warnings",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
                 }
             ]
         },

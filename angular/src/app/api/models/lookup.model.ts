@@ -259,3 +259,85 @@ export interface TalentTypePayload {
 export interface RolePayload {
   name: string;
 }
+
+/**
+ * How many log files were removed.
+ */
+export interface ErrorLogCleared {
+  deleted: number;
+}
+
+/**
+ * One thing that went wrong.
+ *
+ * Read back from the JSON lines under php/storage/logs rather than a table, so
+ * that an outage of the database is a thing this can report rather than a thing
+ * that stops it reporting.
+ */
+export interface ErrorLogEntry {
+  at: string;
+  /** error | warning */
+  level: string;
+  status: number;
+  /** The exception class, or `Response` when a handler answered 5xx without throwing. */
+  type: string;
+  message: string;
+  file: string;
+  line: number;
+  method: string;
+  path: string;
+  user_id: number | null;
+  session_id: number | null;
+  ip: string | null;
+  /** Identity of the failure, shared by every repeat of it. */
+  fingerprint: string;
+  trace: string | null;
+}
+
+/**
+ * Every occurrence of one failure, collapsed into a row with a count beside it.
+ */
+export interface ErrorLogGroup {
+  fingerprint: string;
+  level: string;
+  status: number;
+  type: string;
+  message: string;
+  file: string;
+  line: number;
+  count: number;
+  first_at: string;
+  last_at: string;
+  /** The paths this failure was reached through, most-hit first. */
+  paths: string[];
+  /** The most recent occurrence, in full. */
+  latest: ErrorLogEntry;
+}
+
+/**
+ * What the error log has to say, ready to draw.
+ */
+export interface ErrorLogReport {
+  /** Matching the filter, before the limit. */
+  total: number;
+  errors: number;
+  warnings: number;
+  /** Distinct failures, which is usually far fewer than `total`. */
+  distinct: number;
+  /** Every day a log file exists for, newest first. */
+  days: string[];
+  /** one per day in range, oldest first, for the chart */
+  daily: ErrorLogTally[];
+  /** one per status code seen */
+  statuses: ErrorLogTally[];
+  groups: ErrorLogGroup[];
+}
+
+/**
+ * How many of something. Used for the counts by status and by day.
+ */
+export interface ErrorLogTally {
+  key: string;
+  errors: number;
+  warnings: number;
+}

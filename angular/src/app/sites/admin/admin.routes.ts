@@ -21,6 +21,7 @@ import { BannersListComponent } from './banners/banners-list/banners-list.compon
 import { BannerFormComponent } from './banners/banner-form/banner-form.component';
 import { BackgroundsListComponent } from './backgrounds/backgrounds-list/backgrounds-list.component';
 import { AuditLogsComponent } from './audit-logs/audit-logs.component';
+import { ErrorsComponent } from './errors/errors.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { BackupsComponent } from './backups/backups.component';
 import { UsersComponent } from './users/users.component';
@@ -107,6 +108,7 @@ export const routes: Routes = [
       { path: 'backgrounds', component: BackgroundsListComponent },
       { path: 'feedback', component: FeedbackComponent },
       { path: 'audit-logs', component: AuditLogsComponent },
+      { path: 'errors', component: ErrorsComponent },
       { path: 'files', component: FilesManagerComponent },
       { path: 'file-categories', component: FileCategoriesComponent },
       { path: 'migrations', component: MigrationsListComponent },

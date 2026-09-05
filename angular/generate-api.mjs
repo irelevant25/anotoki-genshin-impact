@@ -225,7 +225,12 @@ for (let settled = false; !settled; ) {
     const group = groupOfShape.get(shape.name);
     if (!group) continue;
 
-    for (const referenced of [shape.merges, ...shape.fields.map((field) => field.of)]) {
+    // `of` is the element type of an array property; `types` covers a property
+    // that holds one shape directly. Both have to travel with the shape that
+    // names them, or the emitted file references a type it never imported.
+    const referencedTypes = shape.fields.flatMap((field) => [field.of, ...field.types]);
+
+    for (const referenced of [shape.merges, ...referencedTypes]) {
       const base = referenced?.replace(/\|null$/, '').replace(/\[\]$/, '');
       if (base && shapeByName.has(base) && !groupOfShape.has(base)) {
         groupOfShape.set(base, group);
