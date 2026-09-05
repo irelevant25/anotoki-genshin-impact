@@ -292,11 +292,81 @@ function catalogueRelink(PDO $pdo, ?int $by = null): array
         }
     }
 
-    if ($linked > 0) {
-        auditFile($pdo, 0, 'RECONCILE', ['relinked' => $linked, 'by_field' => $byField], $by);
+    $repointed = _catalogueRepointGone($pdo, $byField);
+
+    if ($linked > 0 || $repointed > 0) {
+        auditFile($pdo, 0, 'RECONCILE', ['relinked' => $linked, 'repointed' => $repointed, 'by_field' => $byField], $by);
     }
 
-    return ['linked' => $linked, 'by_field' => $byField];
+    return ['linked' => $linked, 'repointed' => $repointed, 'by_field' => $byField];
+}
+
+/**
+ * Moves a reference off a file that is gone and onto the one that replaced it.
+ *
+ * Converting leaves two files and the row keeps naming the one it was given.
+ * Take the originals away afterwards - which is the whole point of converting -
+ * and every row still naming an `.ogg` is naming nothing, while the `.opus`
+ * beside it goes unread. That is not a broken link the site can recover from:
+ * it plays silence.
+ *
+ * Only where the current file is really absent and the converted one is really
+ * there, so this cannot quietly move a row off a file that still works. A row
+ * whose file is gone with nothing to replace it is left alone and shows up
+ * under "recorded but gone", which is the honest place for it.
+ */
+function _catalogueRepointGone(PDO $pdo, array &$byField): int
+{
+    $root = catalogueRoot();
+    $twin = $pdo->prepare(
+        "SELECT id, extension FROM files
+          WHERE category_id = :category AND name = :name AND extension IN ('avif', 'opus')
+          ORDER BY CASE extension WHEN 'avif' THEN 0 ELSE 1 END
+          LIMIT 1"
+    );
+
+    $repointed = 0;
+
+    foreach (assetColumnMap() as $table => $columns) {
+        $hasDeleted = (int) $pdo->query(
+            "SELECT count(*) FROM information_schema.columns
+              WHERE table_name = " . $pdo->quote($table) . " AND column_name = 'deleted'"
+        )->fetchColumn();
+
+        foreach (array_keys($columns) as $field) {
+            $column = $field . '_file_id';
+            $live = $hasDeleted ? ' WHERE t.deleted = FALSE' : '';
+            $rows = $pdo->query(
+                "SELECT DISTINCT f.id, f.name, f.extension, f.category_id, c.path
+                   FROM \"$table\" t
+                   JOIN files f ON f.id = t.\"$column\"
+                   JOIN file_categories c ON c.id = f.category_id$live"
+            )->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($rows as $row) {
+                $suffix = $row['extension'] === '' ? '' : '.' . $row['extension'];
+                if (is_file($root . '/' . $row['path'] . '/' . $row['name'] . $suffix)) {
+                    continue;
+                }
+
+                $twin->execute(['category' => $row['category_id'], 'name' => $row['name']]);
+                $found = $twin->fetch(PDO::FETCH_ASSOC);
+                if (!$found || !is_file($root . '/' . $row['path'] . '/' . $row['name'] . '.' . $found['extension'])) {
+                    continue;
+                }
+
+                $update = $pdo->prepare("UPDATE \"$table\" SET \"$column\" = ? WHERE \"$column\" = ?");
+                $update->execute([$found['id'], $row['id']]);
+                $moved = $update->rowCount();
+                if ($moved > 0) {
+                    $repointed += $moved;
+                    $byField["$table.$field"] = ($byField["$table.$field"] ?? 0) + $moved;
+                }
+            }
+        }
+    }
+
+    return $repointed;
 }
 
 function catalogueReconcile(PDO $pdo, ?int $by = null): array
@@ -381,7 +451,7 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
         'resized' => count($compare['resized']),
         'missing' => count($compare['vanished']),
         'on_disk' => $compare['on_disk'],
-        'relinked' => $relinked['linked'],
+        'relinked' => $relinked['linked'] + $relinked['repointed'],
     ];
 
     // One entry for the run. The first sweep adopts eighty-eight thousand
