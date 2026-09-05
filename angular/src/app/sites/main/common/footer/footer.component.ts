@@ -115,7 +115,42 @@ export class FooterComponent extends AbstractModalComponent {
 
   async loadVersion(): Promise<void> {
     this.changelog = await firstValueFrom(this._http.get<ChangelogEntry[]>('./changelog.json'));
-    this.menuItems['versions'].update(item => ({ ...item, titleLiteral: `v${this.changelog[0].version}` }));
+    if (!this.changelog.length) {
+      return;
+    }
+    const current = this.changelog[0].version;
+    this.menuItems['versions'].update(item => ({ ...item, titleLiteral: `v${current}` }));
+    this.showChangelogIfNew(current);
+  }
+
+  /**
+   * Pops the changelog the first time somebody sees a new version.
+   *
+   * The last version a visitor saw is kept in this browser's localStorage. On a
+   * new version — or a first visit, where nothing is stored — the modal opens
+   * on just what has changed since, and opening it records the new version so
+   * it does not show again. Kept per browser rather than per account on
+   * purpose: a signed-in visitor on a second device is signed out there with an
+   * empty localStorage, so an account could not tell us they had already seen
+   * it — the browser is the thing that actually knows.
+   */
+  private showChangelogIfNew(current: string): void {
+    const lastSeen = this._storageService.read(StorageKeys.VERSION);
+    if (lastSeen === current) {
+      return;
+    }
+
+    const seenIndex = this.changelog.findIndex((entry) => entry.version === lastSeen);
+    // Everything newer than the version last seen. For a first visit — nothing
+    // stored, so not found — just the latest, so a newcomer is shown what is
+    // new rather than the entire history.
+    const whatsNew = seenIndex === -1 ? this.changelog.slice(0, 1) : this.changelog.slice(0, seenIndex);
+
+    // The modal records `current` in localStorage as it opens, so this fires
+    // once per new version. Same component the footer's version button opens;
+    // the only difference is that this is handed just the new entries.
+    const modal = this.openModal<SiteVersionModalComponent>(SiteVersionModalComponent, { size: '3' });
+    modal.componentInstance.data = whatsNew;
   }
 
   initializeBackground(): void {

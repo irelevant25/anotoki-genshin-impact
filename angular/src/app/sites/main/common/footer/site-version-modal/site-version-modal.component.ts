@@ -32,6 +32,13 @@ export class SiteVersionModalComponent extends AbstractModalComponent {
   }
 
   ngOnInit() {
+    // Opening the changelog is what marks it read: the newest version shown is
+    // recorded in this browser, so the new-version popup does not fire again.
+    // Guarded because the modal can be opened programmatically the moment a new
+    // version is noticed, before any entries are attached.
+    if (!this.data?.length) {
+      return;
+    }
     const lastVersion = this._storageService.read(StorageKeys.VERSION);
     const currentVersion = this.data[0].version;
     if (lastVersion !== currentVersion) {

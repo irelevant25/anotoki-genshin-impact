@@ -1,5 +1,28 @@
 [
   {
+    "version": "0.9",
+    "date": "2026-09-05",
+    "changes": {
+      "added": [
+        "Accounts — sign up with an email or your Google account, with optional two-step verification for extra security",
+        "Your quiz progress and stats now save to your account and follow you across devices when you're signed in",
+        "A Profile page with your stats and a day-by-day activity view",
+        "A new Games section, with a Tournament mode alongside Minesweeper",
+        "Pick the site's language from the account menu",
+        "Dismissible announcements, so we can let you know what's new or planned",
+        "A light and dark theme you can switch between"
+      ],
+      "fixed": [
+        "Tooltips now flip to stay on screen instead of running off the edge",
+        "The date picker and calendar are readable in dark mode"
+      ],
+      "updated": [
+        "The whole site has been rebuilt from the ground up — it's faster and steadier, especially on phones and slower connections",
+        "Smaller, quicker-loading images and audio throughout"
+      ]
+    }
+  },
+  {
     "version": "0.8",
     "date": "2025-05-30",
     "changes": {
