@@ -24,19 +24,38 @@ $app->post('/api/upload', function (Request $request, Response $response) {
         return respondJson($response, ['error' => 'Upload error: ' . $file->getError()], 400);
     }
 
-    $allowedMimeTypes = [
-        'image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/gif',
-        'audio/mpeg', 'audio/ogg', 'audio/wav', 'audio/webm',
+    // The extension the file is stored under is decided here, from an
+    // allowlist - never taken from the client filename. The client's declared
+    // Content-Type is not trusted either: it is set by the caller and says
+    // nothing about the bytes. Both are only the first gate; the real one is
+    // that nothing outside this list is ever written with an executable or
+    // markup extension, so a .php or .html cannot be uploaded whatever it
+    // claims to be.
+    $allowedExtensions = [
+        'jpg' => 'image', 'jpeg' => 'image', 'png' => 'image', 'webp' => 'image',
+        'avif' => 'image', 'gif' => 'image',
+        'mp3' => 'audio', 'ogg' => 'audio', 'wav' => 'audio', 'webm' => 'audio',
     ];
 
-    $mime = $file->getClientMediaType();
-    if (!in_array($mime, $allowedMimeTypes, true)) {
-        return respondJson($response, ['error' => 'Invalid file type: ' . $mime], 400);
+    $ext = strtolower(pathinfo($file->getClientFilename() ?? '', PATHINFO_EXTENSION));
+    if (!isset($allowedExtensions[$ext])) {
+        return respondJson($response, ['error' => 'Unsupported file type: .' . $ext], 415);
+    }
+
+    // For an image, confirm the bytes actually are one. getimagesize reads the
+    // header and returns false for anything that is not a real image, so a
+    // script renamed to .png does not get through even if the extension passes.
+    $stream = $file->getStream();
+    if ($allowedExtensions[$ext] === 'image') {
+        $peek = (string) $stream->read(65536);
+        $stream->rewind();
+        if (@getimagesizefromstring($peek) === false) {
+            return respondJson($response, ['error' => 'That file is not a valid image'], 415);
+        }
     }
 
     $folder = preg_replace('/[^a-z0-9_\-]/', '', strtolower($body['folder'] ?? 'uploads'));
-    $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-    $filename = bin2hex(random_bytes(16)) . '.' . strtolower($ext);
+    $filename = bin2hex(random_bytes(16)) . '.' . $ext;
 
     $uploadDir = __DIR__ . '/../../../../public/uploads/' . $folder . '/';
     if (!is_dir($uploadDir)) {

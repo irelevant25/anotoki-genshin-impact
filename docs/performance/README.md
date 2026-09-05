@@ -6,7 +6,7 @@ measurements — open it in a browser, it needs nothing running.
 | Report | Covers |
 | --- | --- |
 | `api-latency-report.html` | The first survey. Written by hand; the state of things before any of it was fixed. |
-| `api-latency-<date>.html` | Generated. The newest run, and what changed since the run before it. |
+| `api-latency-<date>-<time>.html` | Generated. The newest run, and what changed since the run before it. |
 
 ## Making a new one
 
@@ -23,7 +23,7 @@ The first command times every GET route and writes the numbers to
 `docs/performance/runs/<timestamp>.json`. Nothing is overwritten: every run is kept, because
 a report is only worth reading next to the one before it.
 
-The second turns the two newest runs into `docs/performance/api-latency-<date>.html` — the
+The second turns the two newest runs into `docs/performance/api-latency-<date>-<time>.html` — the
 newest is the report, the one before it is what the report compares against.
 That comparison is not optional and not something to remember to do: it is how
 the generator works, so every report from here on has one.

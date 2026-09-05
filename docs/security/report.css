@@ -188,6 +188,29 @@ header.masthead {
 .sev-fig.sev-info { border-top-color: var(--info); }
 .sev-fig.sev-info .figure-value { color: var(--info); }
 
+/* ── Resolved banner ────────────────────────────────────────────────────── */
+.resolved-banner {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 24px 0 4px;
+  padding: 16px 20px;
+  border: 1px solid var(--good);
+  border-radius: 12px;
+  background: var(--good-soft);
+  color: var(--ink);
+}
+.resolved-banner strong { color: var(--good); }
+.resolved-check {
+  flex: none;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--good);
+  color: var(--surface);
+  font-weight: 700;
+}
+
 /* ── Sections ───────────────────────────────────────────────────────────── */
 section { margin-top: 48px; }
 section > h2 {
@@ -244,6 +267,31 @@ section > h2 {
 .finding.sev-low { border-left-color: var(--low); }
 .finding.sev-info { border-left-color: var(--info); }
 .finding.is-hidden { display: none; }
+
+/* A fixed finding is muted, not hidden - it is history worth keeping, but it
+   should not shout for attention the way an open one does. */
+.finding.is-fixed { border-left-color: var(--good); }
+.finding.is-fixed .finding-top h3 { color: var(--ink-soft); }
+
+.fixed-badge {
+  flex: none;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--good-soft);
+  color: var(--good);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.block.resolution { padding: 14px 16px; border-radius: 10px; background: var(--good-soft); }
+.block.resolution h4 { color: var(--good); }
+.block.resolution p { color: var(--ink); }
+/* Once fixed, the old recommendation is context, not a call to action. */
+.finding.is-fixed .block.fix { background: var(--surface-sunk); }
+.finding.is-fixed .block.fix h4 { color: var(--muted); }
+.finding.is-fixed .block.fix p { color: var(--ink-soft); }
 
 .finding-top { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px 0; }
 

@@ -315,21 +315,62 @@ $app->add(function ($request, $handler) {
     return $response;
 });
 
+// CORS, from one allowlist (see corsAllowedOrigins() in helpers.php). The
+// caller's Origin is echoed back only when it is on the list, so the allow
+// header is never a blanket "*" and never a reflected stranger; a caller not on
+// the list simply gets no CORS header and the browser blocks it. X-Refresh-Token
+// is exposed because the auto-renew feature depends on the client reading it.
 $app->add(function ($request, $handler) {
+    $allowOrigin = corsAllowOrigin($request->getHeaderLine('Origin') ?: null);
+
+    $withCors = function ($response) use ($allowOrigin) {
+        if ($allowOrigin !== null) {
+            $response = $response
+                ->withHeader('Access-Control-Allow-Origin', $allowOrigin)
+                ->withHeader('Vary', 'Origin')
+                ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Refresh-Token')
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+                ->withHeader('Access-Control-Expose-Headers', 'X-Refresh-Token');
+        }
+        return $response;
+    };
+
     if ($request->getMethod() === 'OPTIONS') {
-        $response = new \Slim\Psr7\Response();
-        return $response
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
-            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
-            ->withStatus(200);
+        return $withCors((new \Slim\Psr7\Response())->withStatus(204));
     }
 
+    return $withCors($handler->handle($request));
+});
+
+// Baseline security headers on every response. None of these is load-bearing on
+// its own; together they are the cheap layer that turns a small mistake into a
+// non-event - nosniff stops content-type guessing, the frame headers stop the
+// admin panel being framed, HSTS pins HTTPS once the connection is already on it.
+$app->add(function ($request, $handler) {
     $response = $handler->handle($request);
-    return $response
-        ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
-        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+
+    // A route that already set one of these knows its own needs better - the
+    // raw-file route, for instance, sets a sandbox CSP that this must not
+    // clobber - so each header is only filled in where it is missing.
+    $ensure = function ($response, $name, $value) {
+        return $response->hasHeader($name) ? $response : $response->withHeader($name, $value);
+    };
+
+    $response = $ensure($response, 'X-Content-Type-Options', 'nosniff');
+    $response = $ensure($response, 'X-Frame-Options', 'DENY');
+    $response = $ensure($response, 'Referrer-Policy', 'strict-origin-when-cross-origin');
+    // A JSON API loads nothing, so it can afford the strictest policy; this
+    // does not govern the Angular app, which is served separately.
+    $response = $ensure($response, 'Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'");
+
+    // Only meaningful over HTTPS, and setting it over plain HTTP is pointless
+    // rather than harmful - so it is sent only when the request already arrived
+    // securely.
+    if ($request->getUri()->getScheme() === 'https') {
+        $response = $ensure($response, 'Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    }
+
+    return $response;
 });
 
 // The API-client generator loads this file purely to read the route table, and

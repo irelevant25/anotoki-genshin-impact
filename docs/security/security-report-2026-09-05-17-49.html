@@ -194,6 +194,29 @@ header.masthead {
 .sev-fig.sev-info { border-top-color: var(--info); }
 .sev-fig.sev-info .figure-value { color: var(--info); }
 
+/* ── Resolved banner ────────────────────────────────────────────────────── */
+.resolved-banner {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 24px 0 4px;
+  padding: 16px 20px;
+  border: 1px solid var(--good);
+  border-radius: 12px;
+  background: var(--good-soft);
+  color: var(--ink);
+}
+.resolved-banner strong { color: var(--good); }
+.resolved-check {
+  flex: none;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--good);
+  color: var(--surface);
+  font-weight: 700;
+}
+
 /* ── Sections ───────────────────────────────────────────────────────────── */
 section { margin-top: 48px; }
 section > h2 {
@@ -250,6 +273,31 @@ section > h2 {
 .finding.sev-low { border-left-color: var(--low); }
 .finding.sev-info { border-left-color: var(--info); }
 .finding.is-hidden { display: none; }
+
+/* A fixed finding is muted, not hidden - it is history worth keeping, but it
+   should not shout for attention the way an open one does. */
+.finding.is-fixed { border-left-color: var(--good); }
+.finding.is-fixed .finding-top h3 { color: var(--ink-soft); }
+
+.fixed-badge {
+  flex: none;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--good-soft);
+  color: var(--good);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.block.resolution { padding: 14px 16px; border-radius: 10px; background: var(--good-soft); }
+.block.resolution h4 { color: var(--good); }
+.block.resolution p { color: var(--ink); }
+/* Once fixed, the old recommendation is context, not a call to action. */
+.finding.is-fixed .block.fix { background: var(--surface-sunk); }
+.finding.is-fixed .block.fix h4 { color: var(--muted); }
+.finding.is-fixed .block.fix p { color: var(--ink-soft); }
 
 .finding-top { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px 0; }
 
@@ -341,26 +389,35 @@ section > h2 {
 <div class="wrap">
   <header class="masthead">
     <div class="eyebrow">anotoki · genshin_impact · security review · 2026-09-05</div>
-    <h1>1 high-severity issue, led by the JWT signing key</h1>
+    <h1>All 7 findings fixed</h1>
     <p class="standfirst">Every HTTP endpoint the API exposes (399 routes), the shared query/model/auth machinery behind them, and the Angular app that calls them. Automated scanning with Semgrep and Psalm, plus a manual read of the parts static analysis is weakest on: authentication, authorization, and anything that turns a request into a filesystem path or a SQL identifier.</p>
   </header>
+
+  <div class="resolved-banner" role="status">
+           <span class="resolved-check" aria-hidden="true">✓</span>
+           <div>
+             <strong>All 7 findings from this review have been fixed (2026-09-05).</strong>
+             Each is kept below with what it was and what was done about it. The severities are shown as found — this is the record
+             of the audit, not an outstanding list.
+           </div>
+         </div>
 
   <div class="verdict" role="group" aria-label="Findings by severity">
     <button class="figure sev-fig sev-critical is-zero" data-filter="critical" aria-pressed="false">
           <div class="figure-value">0</div>
-          <div class="figure-label">Critical</div>
+          <div class="figure-label">Critical · found</div>
         </button><button class="figure sev-fig sev-high" data-filter="high" aria-pressed="false">
           <div class="figure-value">1</div>
-          <div class="figure-label">High</div>
+          <div class="figure-label">High · found</div>
         </button><button class="figure sev-fig sev-medium" data-filter="medium" aria-pressed="false">
           <div class="figure-value">2</div>
-          <div class="figure-label">Medium</div>
+          <div class="figure-label">Medium · found</div>
         </button><button class="figure sev-fig sev-low" data-filter="low" aria-pressed="false">
           <div class="figure-value">3</div>
-          <div class="figure-label">Low</div>
+          <div class="figure-label">Low · found</div>
         </button><button class="figure sev-fig sev-info" data-filter="info" aria-pressed="false">
           <div class="figure-value">1</div>
-          <div class="figure-label">Info</div>
+          <div class="figure-label">Info · found</div>
         </button>
   </div>
 
@@ -408,12 +465,13 @@ section > h2 {
 
   <section>
     <h2>Findings</h2>
-    <p class="lede">Most severe first. Tap a severity above to filter. Each finding says what it is, why it matters, and how to fix it.</p>
+    <p class="lede">Most severe first. Tap a severity above to filter. Each finding says what it was, why it mattered, and — where it has been resolved — what was done about it.</p>
     <div class="findings-list" id="findings">
       
-  <article class="finding sev-high" data-sev="high" id="SEC-01">
+  <article class="finding sev-high is-fixed" data-sev="high" data-status="fixed" id="SEC-01">
     <header class="finding-top">
       <span class="sev-badge sev-high">High</span>
+      <span class="fixed-badge">✓ Fixed</span>
       <div class="finding-title">
         <h3>The JWT signing key is the committed fallback, and this deployment is using it</h3>
         <div class="finding-meta">
@@ -430,12 +488,14 @@ section > h2 {
       <div class="block"><h4>What</h4><p>Every session token the API issues is an HS256 JWT signed with this one key. The key is the root of trust for authentication: anyone who knows it can forge a validly-signed token. Because the key is printed in the repository and used as a silent default, it is known to anyone who can read the source, and it is the same on every deployment that never set jwt.local.php.</p></div>
       <div class="block"><h4>Why it matters</h4><p>A signature only proves a token came from someone holding the key. If the key is a public constant, the signature proves nothing. The blast radius here is smaller than usual because of two deliberate mitigations, and it is worth being precise about them: (1) the auth middleware looks the token's session up in the database and rejects it unless a live, non-revoked session row exists, so a forged token needs a real session id to name — an attacker with no account cannot mint a working token at all; (2) the user's role is re-read from the database on every request rather than trusted from the token, so a low-privilege user cannot forge themselves an ADMIN token. What remains is still serious: anyone who learns an admin's session id (from a shared machine, a proxy log, a backup, any separate leak) can mint an admin token that the signature check will happily accept, and any account holder can forge tokens for their own session with arbitrary expiry. And the fallback is silent — a production deploy that forgets the file gets a working, insecure system with no warning.</p></div>
       <div class="block"><h4>Evidence</h4><p class="evidence">No php/config/jwt.local.php exists, so getJwtSecret() returns the string committed in the source: &quot;changeme-create-config-jwt-local-php-with-strong-secret&quot;. Confirmed at runtime against the local server — the key in use is the committed fallback.</p></div>
-      <div class="block fix"><h4>Recommended fix</h4><p>Fail closed instead of falling back. getJwtSecret() should throw if no configured secret is present (no jwt.local.php and no environment variable), so the API refuses to start rather than run on a public key. Generate a real 32+ byte random secret for each environment (`php -r &quot;echo bin2hex(random_bytes(32));&quot;`) and set it via config/jwt.local.php or an environment variable. Add php/config/jwt.local.php to .gitignore — it is not currently listed, so a secret created there could be committed by accident. Rotating the secret invalidates all existing tokens, which signs everyone out once; that is the correct one-time cost.</p></div>
+      <div class="block fix"><h4>Recommended fix (was)</h4><p>Fail closed instead of falling back. getJwtSecret() should throw if no configured secret is present (no jwt.local.php and no environment variable), so the API refuses to start rather than run on a public key. Generate a real 32+ byte random secret for each environment (`php -r &quot;echo bin2hex(random_bytes(32));&quot;`) and set it via config/jwt.local.php or an environment variable. Add php/config/jwt.local.php to .gitignore — it is not currently listed, so a secret created there could be committed by accident. Rotating the secret invalidates all existing tokens, which signs everyone out once; that is the correct one-time cost.</p></div>
+      <div class="block resolution"><h4>What was done</h4><p>Fixed. getJwtSecret() now fails closed — it reads the JWT_SECRET environment variable, then config/jwt.local.php (requiring at least 32 characters), and throws rather than returning a fallback if neither is set, so the API cannot start on a public key. config/jwt.local.php is now in .gitignore, and this environment was given a freshly generated 64-character secret. Rotating the secret signed existing sessions out once, as expected.</p></div>
     </div>
   </article>
-  <article class="finding sev-medium" data-sev="medium" id="SEC-02">
+  <article class="finding sev-medium is-fixed" data-sev="medium" data-status="fixed" id="SEC-02">
     <header class="finding-top">
       <span class="sev-badge sev-medium">Medium</span>
+      <span class="fixed-badge">✓ Fixed</span>
       <div class="finding-title">
         <h3>/api/upload stores an attacker-chosen file extension after only a spoofable type check</h3>
         <div class="finding-meta">
@@ -452,12 +512,14 @@ section > h2 {
       <div class="block"><h4>What</h4><p>An authenticated editor or admin can upload a file whose real content and extension are anything they choose — the MIME allowlist is trivially satisfied by setting the multipart Content-Type header to image/png while the body and extension are something else. The saved file keeps the client's extension and is reachable at /uploads/&lt;folder&gt;/&lt;name&gt;.</p></div>
       <div class="block"><h4>Why it matters</h4><p>Two consequences. If the file is a .php, execution is currently blocked only by public/uploads/.htaccess (`php_flag engine off` + RemoveHandler/RemoveType). That works on Apache with mod_php and AllowOverride enabled — but it is the single point of failure, it does nothing under nginx or PHP-FPM, and it fails open silently if the server config changes. Second, even with execution blocked, the router serves uploads with a sniffed Content-Type and no X-Content-Type-Options, so an uploaded .html or .svg is served as a document on the API's origin — stored XSS against anyone who opens the link. The bar is an editor account, so this is a privilege-boundary and account-compromise concern rather than an anonymous one; the sibling endpoint /api/uploads/{entity}/{id}/{field} already does this correctly and is the model to copy.</p></div>
       <div class="block"><h4>Evidence</h4><p class="evidence">The type check is `in_array($file-&gt;getClientMediaType(), $allowedMimeTypes)` — the Content-Type is supplied by the client and is not verified against the bytes. The stored name is `bin2hex(random_bytes(16)) . '.' . strtolower($ext)` where $ext comes straight from the client filename with no allowlist, and the file lands in public/uploads/, which is Apache's document root in production.</p></div>
-      <div class="block fix"><h4>Recommended fix</h4><p>Validate the extension against a server-side allowlist (avif, png, jpg, webp, gif, opus, mpeg, ogg, wav) and derive the stored extension from a verified type, not from the client filename — reject anything else with 415. Confirm the real content with finfo/getimagesize rather than trusting getClientMediaType(). Serve /uploads with `X-Content-Type-Options: nosniff` and, for anything not an image, `Content-Disposition: attachment`. Keep the .htaccess as defense in depth, do not rely on it as the control. Consider retiring /api/upload in favour of the stricter /api/uploads/... path the rest of the app uses.</p></div>
+      <div class="block fix"><h4>Recommended fix (was)</h4><p>Validate the extension against a server-side allowlist (avif, png, jpg, webp, gif, opus, mpeg, ogg, wav) and derive the stored extension from a verified type, not from the client filename — reject anything else with 415. Confirm the real content with finfo/getimagesize rather than trusting getClientMediaType(). Serve /uploads with `X-Content-Type-Options: nosniff` and, for anything not an image, `Content-Disposition: attachment`. Keep the .htaccess as defense in depth, do not rely on it as the control. Consider retiring /api/upload in favour of the stricter /api/uploads/... path the rest of the app uses.</p></div>
+      <div class="block resolution"><h4>What was done</h4><p>Fixed. /api/upload now decides the stored extension from a server-side allowlist (jpg/jpeg/png/webp/avif/gif/mp3/ogg/wav/webm) instead of the client filename, rejecting anything else with 415, and confirms image bytes with getimagesizefromstring so a script renamed to .png does not pass. The client Content-Type is no longer trusted. The dev router and public/uploads/.htaccess now send X-Content-Type-Options: nosniff, and anything that is not an image is served Content-Disposition: attachment, so a stored file cannot render as markup on the API origin. Verified: .php, .html, .svg, an extension-less file, and a fake .png with script bytes are all refused; a real .png is accepted under a randomised name.</p></div>
     </div>
   </article>
-  <article class="finding sev-medium" data-sev="medium" id="SEC-03">
+  <article class="finding sev-medium is-fixed" data-sev="medium" data-status="fixed" id="SEC-03">
     <header class="finding-top">
       <span class="sev-badge sev-medium">Medium</span>
+      <span class="fixed-badge">✓ Fixed</span>
       <div class="finding-title">
         <h3>No HTTP security headers on API responses</h3>
         <div class="finding-meta">
@@ -474,12 +536,14 @@ section > h2 {
       <div class="block"><h4>What</h4><p>The API and the admin panel it backs send no baseline security headers. There is no HSTS to pin HTTPS, no nosniff to stop content-type guessing, no frame-ancestors/X-Frame-Options to stop the admin UI being framed, and no Referrer-Policy.</p></div>
       <div class="block"><h4>Why it matters</h4><p>None of these is a vulnerability on its own, but together they are the cheap defense-in-depth layer that turns a small mistake elsewhere into a non-event: nosniff neutralises a mislabelled response, frame-ancestors blocks clickjacking of the admin panel, HSTS closes the downgrade window. Their absence is why a header scanner grades this site low, and it is a one-file fix.</p></div>
       <div class="block"><h4>Evidence</h4><p class="evidence">No response sets Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options / Content-Security-Policy frame-ancestors, or Referrer-Policy. The only place these appear is the single hardened /api/files/raw route.</p></div>
-      <div class="block fix"><h4>Recommended fix</h4><p>Add a small middleware that sets, on every response: `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Frame-Options: DENY` (or a CSP `frame-ancestors 'none'`), and, once HTTPS is confirmed everywhere, `Strict-Transport-Security: max-age=31536000; includeSubDomains`. A JSON API can carry a strict `Content-Security-Policy: default-src 'none'` cheaply; the SPA needs its own policy tuned to what it loads.</p></div>
+      <div class="block fix"><h4>Recommended fix (was)</h4><p>Add a small middleware that sets, on every response: `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Frame-Options: DENY` (or a CSP `frame-ancestors 'none'`), and, once HTTPS is confirmed everywhere, `Strict-Transport-Security: max-age=31536000; includeSubDomains`. A JSON API can carry a strict `Content-Security-Policy: default-src 'none'` cheaply; the SPA needs its own policy tuned to what it loads.</p></div>
+      <div class="block resolution"><h4>What was done</h4><p>Fixed. A middleware now sets X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: strict-origin-when-cross-origin and Content-Security-Policy: default-src 'none'; frame-ancestors 'none' on every response, and Strict-Transport-Security when the request arrived over HTTPS. It fills in only headers a route did not already set, so the raw-file route keeps its stricter sandbox CSP. Verified against the running server.</p></div>
     </div>
   </article>
-  <article class="finding sev-low" data-sev="low" id="SEC-04">
+  <article class="finding sev-low is-fixed" data-sev="low" data-status="fixed" id="SEC-04">
     <header class="finding-top">
       <span class="sev-badge sev-low">Low</span>
+      <span class="fixed-badge">✓ Fixed</span>
       <div class="finding-title">
         <h3>Registration allows account enumeration and is not rate limited</h3>
         <div class="finding-meta">
@@ -496,12 +560,14 @@ section > h2 {
       <div class="block"><h4>What</h4><p>Anyone can probe which email addresses and usernames already have accounts by watching for the 409, and can do so as fast as they like. Each new registration also sends a confirmation email, so the same unthrottled endpoint can be used to send mail to arbitrary addresses.</p></div>
       <div class="block"><h4>Why it matters</h4><p>The password-reset endpoint right next to this one is deliberately silent — it gives the same answer whether or not the address exists — which shows the enumeration-resistant pattern was understood. Registration necessarily has to tell a real user their address is taken, so the fix is not silence but a rate limit. Left unthrottled it is both an enumeration oracle and an email-relay for spamming confirmation mails.</p></div>
       <div class="block"><h4>Evidence</h4><p class="evidence">The handler answers 409 &quot;That email address is already taken&quot; and 409 &quot;That username is already taken&quot;, and unlike /api/auth/login it does not call loginAttemptsExceeded() or any throttle.</p></div>
-      <div class="block fix"><h4>Recommended fix</h4><p>Apply the same IP-plus-target throttle the login endpoint already uses (loginAttemptsExceeded / recordLoginAttempt) to registration, and to the confirmation-resend and forgot-password endpoints. Keep the clear 'already taken' message for humans but cap the rate so it cannot be scripted.</p></div>
+      <div class="block fix"><h4>Recommended fix (was)</h4><p>Apply the same IP-plus-target throttle the login endpoint already uses (loginAttemptsExceeded / recordLoginAttempt) to registration, and to the confirmation-resend and forgot-password endpoints. Keep the clear 'already taken' message for humans but cap the rate so it cannot be scripted.</p></div>
+      <div class="block resolution"><h4>What was done</h4><p>Fixed. Registration now runs the same IP-plus-email throttle the login endpoint uses and records each 'already taken' probe as a non-ok attempt, so a run of enumeration probes trips a 429 while a genuine first signup is untouched. The confirmation-resend and forgot-password endpoints are throttled the same way against mail-spraying, and still answer identically for every address. Verified: repeated register probes and repeated forgot requests for one address both reach 429 after the first handful.</p></div>
     </div>
   </article>
-  <article class="finding sev-low" data-sev="low" id="SEC-05">
+  <article class="finding sev-low is-fixed" data-sev="low" data-status="fixed" id="SEC-05">
     <header class="finding-top">
       <span class="sev-badge sev-low">Low</span>
+      <span class="fixed-badge">✓ Fixed</span>
       <div class="finding-title">
         <h3>slim/slim advisory CVE-2026-48157 (reflected XSS in HtmlErrorRenderer) — present but not in the request path</h3>
         <div class="finding-meta">
@@ -518,12 +584,14 @@ section > h2 {
       <div class="block"><h4>What</h4><p>The installed Slim version carries a known reflected-XSS advisory in the HTML error renderer, which can echo request content into an error page.</p></div>
       <div class="block"><h4>Why it matters</h4><p>The app configures the error middleware with displayErrorDetails = false and installs its own JSON default error handler (which the new error-log work confirmed), so the vulnerable HTML renderer is not the one that runs on a failed request. That is a real mitigation, which is why this is Low rather than Medium — but it depends on that configuration staying false, and a dependency with a known advisory should be updated regardless.</p></div>
       <div class="block"><h4>Evidence</h4><p class="evidence">composer audit reports PKSA-ftt4-t9sz-mwn5 / CVE-2026-48157 against the installed slim/slim. The XSS is in Slim's HtmlErrorRenderer.</p></div>
-      <div class="block fix"><h4>Recommended fix</h4><p>Run `composer update slim/slim` to pick up the patched release (&gt;=4.15.2 when available). Keep displayErrorDetails = false in every environment. Re-run `composer audit` in CI so a new advisory surfaces on the next build rather than in the next review.</p></div>
+      <div class="block fix"><h4>Recommended fix (was)</h4><p>Run `composer update slim/slim` to pick up the patched release (&gt;=4.15.2 when available). Keep displayErrorDetails = false in every environment. Re-run `composer audit` in CI so a new advisory surfaces on the next build rather than in the next review.</p></div>
+      <div class="block resolution"><h4>What was done</h4><p>Fixed. slim/slim updated 4.15.1 -&gt; 4.15.3; composer audit now reports no advisories. displayErrorDetails stays false, so the HTML error renderer was never in the request path regardless.</p></div>
     </div>
   </article>
-  <article class="finding sev-low" data-sev="low" id="SEC-06">
+  <article class="finding sev-low is-fixed" data-sev="low" data-status="fixed" id="SEC-06">
     <header class="finding-top">
       <span class="sev-badge sev-low">Low</span>
+      <span class="fixed-badge">✓ Fixed</span>
       <div class="finding-title">
         <h3>CORS is handled twice: a correct allowlist that is unused, and a hardcoded localhost origin that is</h3>
         <div class="finding-meta">
@@ -540,12 +608,14 @@ section > h2 {
       <div class="block"><h4>What</h4><p>Two CORS implementations exist. The one that runs hardcodes the development origin; the one that would work in production is dead code.</p></div>
       <div class="block"><h4>Why it matters</h4><p>This is not an exploitable hole — the active header is over-restrictive, not over-permissive, and it does not set Allow-Credentials or reflect arbitrary origins, so there is no cross-origin data exposure. But it means the production frontend at anotoki.eu is only reachable if the API is same-origin behind a reverse proxy; if it is ever split onto its own host, CORS breaks, and whoever fixes it in a hurry may reach for a wildcard. The muddle is the risk.</p></div>
       <div class="block"><h4>Evidence</h4><p class="evidence">The live middleware emits `Access-Control-Allow-Origin: http://localhost:4200` unconditionally. helpers.php contains a correct allowlist (localhost:4200 + https://anotoki.eu) reflecting only matching origins, but nothing calls it in the request path.</p></div>
-      <div class="block fix"><h4>Recommended fix</h4><p>Delete the unused setCorsHeaders()/handlePreflight() in helpers.php, or wire it in and delete the hardcoded block — one CORS path, reading its allowlist from config. Never combine a reflected Origin with Access-Control-Allow-Credentials: true unless the origin was allowlist-checked first.</p></div>
+      <div class="block fix"><h4>Recommended fix (was)</h4><p>Delete the unused setCorsHeaders()/handlePreflight() in helpers.php, or wire it in and delete the hardcoded block — one CORS path, reading its allowlist from config. Never combine a reflected Origin with Access-Control-Allow-Credentials: true unless the origin was allowlist-checked first.</p></div>
+      <div class="block resolution"><h4>What was done</h4><p>Fixed. There is now one CORS path: a middleware that echoes the request Origin only when it is on the allowlist from corsAllowedOrigins() (localhost:4200 and anotoki.eu, overridable via config/cors.local.php), sets Vary: Origin, and exposes X-Refresh-Token so the token auto-renew works cross-origin. The unused setCorsHeaders()/handlePreflight() helpers were removed. Verified: an allowed Origin is echoed, a stranger Origin gets no CORS header.</p></div>
     </div>
   </article>
-  <article class="finding sev-info" data-sev="info" id="SEC-07">
+  <article class="finding sev-info is-fixed" data-sev="info" data-status="fixed" id="SEC-07">
     <header class="finding-top">
       <span class="sev-badge sev-info">Info</span>
+      <span class="fixed-badge">✓ Fixed</span>
       <div class="finding-title">
         <h3>Interpolated href in the site footer</h3>
         <div class="finding-meta">
@@ -562,7 +632,8 @@ section > h2 {
       <div class="block"><h4>What</h4><p>A menu link URL is interpolated into an anchor href. In principle a `javascript:` URL there would run on click.</p></div>
       <div class="block"><h4>Why it matters</h4><p>Two things hold it down: the URLs are admin-configured content, not attacker input, and Angular's built-in sanitizer rewrites a `javascript:` URL in an href binding to the inert `unsafe:` form. So this is informational — worth tidying, not a live hole. It is listed because it is the one thing the frontend scan surfaced and it is the right habit to close.</p></div>
       <div class="block"><h4>Evidence</h4><p class="evidence">Semgrep (var-in-href) flagged `&lt;a href=&quot;{{ menuItem.url }}&quot;&gt;`. The values are site-menu links configured by an admin through the settings area, not free user input.</p></div>
-      <div class="block fix"><h4>Recommended fix</h4><p>Validate menu URLs to an http/https allowlist when they are saved, and/or bind through a small pipe that rejects non-http(s) schemes, so the intent is explicit rather than resting on the framework's default sanitiser.</p></div>
+      <div class="block fix"><h4>Recommended fix (was)</h4><p>Validate menu URLs to an http/https allowlist when they are saved, and/or bind through a small pipe that rejects non-http(s) schemes, so the intent is explicit rather than resting on the framework's default sanitiser.</p></div>
+      <div class="block resolution"><h4>What was done</h4><p>Fixed. The footer now renders a menu link only when isSafeUrl() confirms an http(s) URL, binds it with [href] (so Angular's sanitiser applies) rather than interpolation, and adds rel=&quot;noopener noreferrer&quot; to the target=&quot;_blank&quot; link.</p></div>
     </div>
   </article>
     </div>

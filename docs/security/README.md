@@ -14,11 +14,20 @@ data-access and auth code is procedural PHP, exactly where pattern-matching and
 taint tracking lose the trail. The substance of the report is the manual review,
 and every finding is labelled with where it came from.
 
-The headline result of the first review (2026-09-05): nothing critical, nothing
-remotely-exploitable by an anonymous user. One high-severity issue (the JWT
-signing key is the committed fallback), two medium (an upload endpoint that
-trusts the client's file extension, and missing security headers), and a handful
-of low/informational items. Eight areas were attacked on paper and held.
+The first review (2026-09-05) found nothing critical and nothing
+remotely-exploitable by an anonymous user: one high-severity issue (the JWT
+signing key was the committed fallback), two medium (an upload endpoint that
+trusted the client's file extension, and missing security headers), and a
+handful of low/informational items. Eight areas were attacked on paper and held.
+
+**All seven findings have since been fixed** — the report shows each with what
+it was and what was done. `findings.json` carries a `status` and `resolution`
+per finding, and the generator renders a resolved finding muted, with its
+original detail kept as the record.
+
+Report file names carry the date and the minute they were generated
+(`security-report-YYYY-MM-DD-HH-MM.html`), so re-running after another round of
+work leaves a new file beside the old one rather than overwriting the history.
 
 ## Files
 

@@ -209,13 +209,29 @@ $app->post('/api/auth/register', function (Request $request, Response $response)
 
     $pdo = usersDb();
 
+    // Registration has to tell a real person their address is already taken,
+    // which makes it an enumeration oracle - and each new account sends a
+    // confirmation mail, which makes it a way to spam one. The same throttle
+    // the login endpoint uses caps both: the clear message stays, but it
+    // cannot be scripted. Shared with login by IP, so working a list through
+    // either door counts against the same ceiling.
+    if (loginAttemptsExceeded($pdo, $request, $email)) {
+        return respondJson($response, [
+            'error' => 'Too many attempts. Wait a few minutes and try again.',
+            'code'  => 'too_many_attempts',
+        ], 429);
+    }
+
     // Checked rather than left to the unique index, so the answer says which
-    // field is the problem instead of surfacing a constraint name.
+    // field is the problem instead of surfacing a constraint name. Recorded as
+    // a non-'ok' attempt so a run of probes trips the limiter above.
     if (DbQuery::from($pdo, 'users')->find(['email' => $email])) {
+        recordLoginAttempt($pdo, $request, $email, null, 'register', 'taken');
         return respondJson($response, ['error' => 'That email address is already taken'], 409);
     }
 
     if (DbQuery::from($pdo, 'users')->find(['username' => $username])) {
+        recordLoginAttempt($pdo, $request, $email, null, 'register', 'taken');
         return respondJson($response, ['error' => 'That username is already taken'], 409);
     }
 
@@ -271,8 +287,17 @@ $app->post('/api/auth/confirm', function (Request $request, Response $response) 
 $app->post('/api/auth/confirm/resend', function (Request $request, Response $response) {
     $body = $request->getParsedBody() ?? [];
     $pdo = usersDb();
+    $email = trim((string) ($body['email'] ?? ''));
 
-    $user = authFindByEmail($pdo, trim((string) ($body['email'] ?? '')));
+    // Throttled so this cannot be used to spray confirmation mail at an
+    // address. The 429 says the same thing for every address, so it still
+    // gives nothing away about which ones exist.
+    if (loginAttemptsExceeded($pdo, $request, $email)) {
+        return respondJson($response, ['error' => 'Too many attempts. Wait a few minutes and try again.', 'code' => 'too_many_attempts'], 429);
+    }
+    recordLoginAttempt($pdo, $request, $email, null, 'resend', 'sent');
+
+    $user = authFindByEmail($pdo, $email);
 
     if ($user && !$user['email_confirmed']) {
         $token = issueOneTimeToken($pdo, (int) $user['id'], TOKEN_EMAIL_CONFIRM, MAIL_CONFIRM_HOURS * 3600);
@@ -369,8 +394,17 @@ $app->post('/api/auth/login', function (Request $request, Response $response) {
 $app->post('/api/auth/password/forgot', function (Request $request, Response $response) {
     $body = $request->getParsedBody() ?? [];
     $pdo = usersDb();
+    $email = trim((string) ($body['email'] ?? ''));
 
-    $user = authFindByEmail($pdo, trim((string) ($body['email'] ?? '')));
+    // Throttled so this cannot be used to spray reset mail at an address. The
+    // 429 is the same for every address, so it stays as incurious as the rest
+    // of this endpoint.
+    if (loginAttemptsExceeded($pdo, $request, $email)) {
+        return respondJson($response, ['error' => 'Too many attempts. Wait a few minutes and try again.', 'code' => 'too_many_attempts'], 429);
+    }
+    recordLoginAttempt($pdo, $request, $email, null, 'forgot', 'sent');
+
+    $user = authFindByEmail($pdo, $email);
 
     // Only for accounts that have a password to reset. One that signs in
     // another way has nothing here to set, and saying so would say which.

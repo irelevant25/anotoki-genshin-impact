@@ -99,6 +99,10 @@ const standfirst = floorMoved
 
 const date = new Date(data.generated);
 const stamp = date.toISOString().slice(0, 10);
+// The file name carries the minute as well as the day, so two reports from the
+// same day sit side by side instead of overwriting. Taken from the run's own
+// timestamp, so regenerating from the same run reproduces the same name.
+const fileStamp = date.toISOString().slice(0, 16).replace('T', '-').replace(':', '-');
 
 // ── The page ─────────────────────────────────────────────────────────────────
 const css = readFileSync(local('./report/report.css'), 'utf8');
@@ -263,7 +267,7 @@ ${comparison}
 ${js}</script>
 `;
 
-const out = outArg !== -1 ? process.argv[outArg + 1] : local(`./api-latency-${stamp}.html`);
+const out = outArg !== -1 ? process.argv[outArg + 1] : local(`./api-latency-${fileStamp}.html`);
 mkdirSync(local('./'), { recursive: true });
 writeFileSync(out, page);
 

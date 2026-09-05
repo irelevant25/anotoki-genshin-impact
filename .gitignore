@@ -26,3 +26,8 @@ angular/.openapi-probe.ts
 # configured separately.
 php/config/google.php
 php/config/database.local.php
+
+# The JWT signing key. There is no committed fallback any more - the API
+# refuses to start without one - so this file must exist per deployment and
+# must never be committed.
+php/config/jwt.local.php

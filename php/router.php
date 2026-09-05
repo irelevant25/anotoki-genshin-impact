@@ -36,6 +36,15 @@ if (str_starts_with($path, '/uploads/')) {
         $type = @mime_content_type($file);
         header('Content-Type: ' . ($type ?: 'application/octet-stream'));
         header('Content-Length: ' . filesize($file));
+        // Never let a stored file be sniffed into something executable, and
+        // hand anything that is not an image to the browser as a download
+        // rather than a page - so an uploaded .html or .svg cannot run as a
+        // document on this origin. Mirrors the Apache rules in
+        // public/uploads/.htaccess for the production server.
+        header('X-Content-Type-Options: nosniff');
+        if (!str_starts_with((string) $type, 'image/')) {
+            header('Content-Disposition: attachment');
+        }
         readfile($file);
         return true;
     }

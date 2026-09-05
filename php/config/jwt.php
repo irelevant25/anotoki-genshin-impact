@@ -18,14 +18,46 @@ function _jwtBase64UrlDecode(string $data): string
     return base64_decode(strtr($data, '-_', '+/'));
 }
 
+/**
+ * The key every session token is signed with.
+ *
+ * There is no fallback, and that is the point. A default secret committed to
+ * the source is a public key: anyone who can read the repository can forge a
+ * token, and a deployment that forgets to set its own would run on it silently.
+ * So this fails closed - the API refuses to start without a real secret rather
+ * than start insecure.
+ *
+ * Set it one of two ways, checked in this order:
+ *   - the JWT_SECRET environment variable, or
+ *   - config/jwt.local.php returning the string (gitignored).
+ * Generate one with: php -r "echo bin2hex(random_bytes(32));"
+ */
 function getJwtSecret(): string
 {
+    static $secret = null;
+    if ($secret !== null) {
+        return $secret;
+    }
+
+    $fromEnv = getenv('JWT_SECRET');
+    if (is_string($fromEnv) && $fromEnv !== '') {
+        return $secret = $fromEnv;
+    }
+
     $localFile = __DIR__ . '/jwt.local.php';
     if (file_exists($localFile)) {
-        return require $localFile;
+        $value = require $localFile;
+        if (is_string($value) && strlen($value) >= 32) {
+            return $secret = $value;
+        }
     }
-    // Fallback — override this in production via config/jwt.local.php
-    return 'changeme-create-config-jwt-local-php-with-strong-secret';
+
+    throw new RuntimeException(
+        'No JWT signing secret is configured. Set the JWT_SECRET environment '
+        . 'variable or create config/jwt.local.php returning a random string of '
+        . 'at least 32 characters (php -r "echo bin2hex(random_bytes(32));"). '
+        . 'The API will not sign or verify tokens without one.'
+    );
 }
 
 /**

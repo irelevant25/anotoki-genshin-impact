@@ -48,12 +48,25 @@ const findings = [...data.findings].sort((a, b) => SEV[a.severity].rank - SEV[b.
 const counts = Object.fromEntries(Object.keys(SEV).map((k) => [k, findings.filter((f) => f.severity === k).length]));
 const worst = findings.length ? findings[0].severity : 'info';
 
-const stamp = data.reviewed_at;
+// A finding that has been fixed still belongs in the report - it is the record
+// of what was found and what was done - but it no longer counts as open. When
+// every finding is fixed the report reads as a resolved audit rather than a
+// to-do list.
+const openFindings = findings.filter((f) => f.status !== 'fixed');
+const fixedCount = findings.length - openFindings.length;
+const allFixed = findings.length > 0 && openFindings.length === 0;
 
-// The headline states the most severe thing found, so the reader knows the
-// verdict before the detail. "Nothing above Low" is a real and good headline.
-const headline =
-  counts.critical
+const stamp = data.reviewed_at;
+// The file name carries the minute the report was generated, so regenerating
+// after a round of fixes produces a new file beside the old one rather than
+// overwriting the record of what things looked like before.
+const fileStamp = new Date().toISOString().slice(0, 16).replace('T', '-').replace(':', '-');
+
+// The headline states the verdict before the detail. Once everything is fixed
+// that verdict is the fix, not the original severity.
+const headline = allFixed
+  ? `All ${findings.length} findings fixed`
+  : counts.critical
     ? `${counts.critical} critical issue${counts.critical > 1 ? 's' : ''} to fix before anything else`
     : counts.high
       ? `${counts.high} high-severity issue${counts.high > 1 ? 's' : ''}, led by the JWT signing key`
@@ -72,10 +85,13 @@ const toolLine = (t) =>
      ${t.note ? `<p class="tool-note">${esc(t.note)}</p>` : ''}
    </div>`;
 
-const findingCard = (f) => `
-  <article class="finding sev-${f.severity}" data-sev="${f.severity}" id="${esc(f.id)}">
+const findingCard = (f) => {
+  const fixed = f.status === 'fixed';
+  return `
+  <article class="finding sev-${f.severity}${fixed ? ' is-fixed' : ''}" data-sev="${f.severity}" data-status="${fixed ? 'fixed' : 'open'}" id="${esc(f.id)}">
     <header class="finding-top">
       <span class="sev-badge sev-${f.severity}">${SEV[f.severity].label}</span>
+      ${fixed ? '<span class="fixed-badge">✓ Fixed</span>' : ''}
       <div class="finding-title">
         <h3>${esc(f.title)}</h3>
         <div class="finding-meta">
@@ -92,9 +108,11 @@ const findingCard = (f) => `
       <div class="block"><h4>What</h4><p>${esc(f.what)}</p></div>
       <div class="block"><h4>Why it matters</h4><p>${esc(f.why)}</p></div>
       ${f.evidence ? `<div class="block"><h4>Evidence</h4><p class="evidence">${esc(f.evidence)}</p></div>` : ''}
-      <div class="block fix"><h4>Recommended fix</h4><p>${esc(f.fix)}</p></div>
+      <div class="block fix"><h4>${fixed ? 'Recommended fix (was)' : 'Recommended fix'}</h4><p>${esc(f.fix)}</p></div>
+      ${fixed ? `<div class="block resolution"><h4>What was done</h4><p>${esc(f.resolution)}</p></div>` : ''}
     </div>
   </article>`;
+};
 
 const css = readFileSync(local('./report.css'), 'utf8');
 
@@ -113,12 +131,25 @@ ${css}</style>
     <p class="standfirst">${esc(data.scope)}</p>
   </header>
 
+  ${
+    allFixed
+      ? `<div class="resolved-banner" role="status">
+           <span class="resolved-check" aria-hidden="true">✓</span>
+           <div>
+             <strong>All ${findings.length} findings from this review have been fixed${data.fixed_at ? ` (${esc(data.fixed_at)})` : ''}.</strong>
+             Each is kept below with what it was and what was done about it. The severities are shown as found — this is the record
+             of the audit, not an outstanding list.
+           </div>
+         </div>`
+      : ''
+  }
+
   <div class="verdict" role="group" aria-label="Findings by severity">
     ${['critical', 'high', 'medium', 'low', 'info']
       .map(
         (k) => `<button class="figure sev-fig sev-${k}${counts[k] ? '' : ' is-zero'}" data-filter="${k}" aria-pressed="false">
           <div class="figure-value">${counts[k]}</div>
-          <div class="figure-label">${SEV[k].label}</div>
+          <div class="figure-label">${SEV[k].label}${fixedCount ? ' · found' : ''}</div>
         </button>`
       )
       .join('')}
@@ -144,7 +175,7 @@ ${css}</style>
 
   <section>
     <h2>Findings</h2>
-    <p class="lede">Most severe first. Tap a severity above to filter. Each finding says what it is, why it matters, and how to fix it.</p>
+    <p class="lede">Most severe first. Tap a severity above to filter. Each finding says what it was, why it mattered, and — where it has been resolved — what was done about it.</p>
     <div class="findings-list" id="findings">
       ${findings.map(findingCard).join('')}
     </div>
@@ -192,7 +223,7 @@ ${readFileSync(local('./report.js'), 'utf8')}</script>
 `;
 
 mkdirSync(local('./'), { recursive: true });
-const out = local(`./security-report-${stamp}.html`);
+const out = local(`./security-report-${fileStamp}.html`);
 writeFileSync(out, page);
 
 console.log(`report written to ${out}`);

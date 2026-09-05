@@ -126,6 +126,18 @@ export class FooterComponent extends AbstractModalComponent {
 
   preserveOrder = () => 0;
 
+  /**
+   * Whether a menu link is safe to render as an anchor.
+   *
+   * The URLs are configured by an admin, not typed by a visitor, and Angular's
+   * own sanitiser already neutralises a `javascript:` href — but a link is only
+   * ever meant to be an ordinary web address, so anything that is not http(s)
+   * is dropped rather than trusted to the framework's default.
+   */
+  isSafeUrl(url: string | undefined): boolean {
+    return !!url && /^https?:\/\//i.test(url.trim());
+  }
+
   onMenuItemClick(menuItem: ButtomMenuItem) {
     if (!menuItem.modal) {
       return;

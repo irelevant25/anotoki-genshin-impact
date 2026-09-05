@@ -2,31 +2,39 @@
 
 use Psr\Http\Message\ResponseInterface as Response;
 
-function setCorsHeaders(): void
+/**
+ * The origins allowed to call this API from a browser.
+ *
+ * The one source of truth for CORS — the middleware in index.php reads it, and
+ * a request's Origin is echoed back only if it is on this list, so the allow
+ * header is never a blanket "*" and never a reflected stranger. Override per
+ * deployment with config/cors.local.php returning a list of origins.
+ */
+function corsAllowedOrigins(): array
 {
-    $allowedOrigins = [
+    static $origins = null;
+    if ($origins !== null) {
+        return $origins;
+    }
+
+    $localFile = dirname(__DIR__) . '/config/cors.local.php';
+    if (file_exists($localFile)) {
+        $value = require $localFile;
+        if (is_array($value)) {
+            return $origins = $value;
+        }
+    }
+
+    return $origins = [
         'http://localhost:4200',
         'https://anotoki.eu',
     ];
-
-    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-
-    if (in_array($origin, $allowedOrigins)) {
-        header("Access-Control-Allow-Origin: $origin");
-    }
-
-    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Refresh-Token'); // 🔥 Add X-Refresh-Token
-    header('Access-Control-Expose-Headers: X-Refresh-Token');
 }
 
-function handlePreflight(): void
+/** The Origin to echo back, or null when the caller's is not allowed. */
+function corsAllowOrigin(?string $origin): ?string
 {
-    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        setCorsHeaders();
-        http_response_code(200);
-        exit();
-    }
+    return $origin !== null && in_array($origin, corsAllowedOrigins(), true) ? $origin : null;
 }
 
 /**

@@ -1,0 +1,14 @@
+# Uploads are data, never code. Two independent guards, because the store holds
+# whatever an editor sends and the type check on the way in is not the last word.
+
+# 1. Never execute anything here as a script, whatever its extension.
+php_flag engine off
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .phps
+RemoveType .php .phtml .php3 .php4 .php5 .php7 .phps
+
+# 2. Never let the browser sniff a stored file into markup, and hand anything
+#    that is not an image over as a download rather than rendering it on this
+#    origin. The API's own router applies the same rules for the dev server.
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>

@@ -2,8 +2,8 @@
     @for (menuItemSignal of menuItems | keyvalue: preserveOrder; track menuItemSignal.value().id) {
         @let menuItem = menuItemSignal.value();
         <div class="item" (click)="onMenuItemClick(menuItem)" [class.hidden]="menuItem.hidden">
-            @if (menuItem.url) {
-                <a href="{{ menuItem.url }}" target="_blank">
+            @if (isSafeUrl(menuItem.url)) {
+                <a [href]="menuItem.url" target="_blank" rel="noopener noreferrer">
                     <ng-container *ngTemplateOutlet="menuContent; context: { $implicit: menuItem }" />
                 </a>
             } @else {
