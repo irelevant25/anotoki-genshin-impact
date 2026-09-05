@@ -130,6 +130,24 @@ export class CleanupModalComponent extends AbstractModalComponent {
     }
 
     this.running.set(true);
+
+    // The bar is drawn from this, so it has to exist before the first request
+    // rather than after it. That request builds the whole delete list on the
+    // server, which is the slowest one of the run - and until this was here it
+    // was spent looking at the table, wondering whether the button had worked.
+    this.progress.set({
+      kind: this.kind(),
+      started_at: new Date().toISOString(),
+      total: this.willDelete(),
+      bytes: this.bytes(),
+      trashed: 0,
+      failed: 0,
+      kept: this.kept().size,
+      remaining: this.willDelete(),
+      finished: false,
+      failures: [],
+    });
+
     this._step(true);
   }
 

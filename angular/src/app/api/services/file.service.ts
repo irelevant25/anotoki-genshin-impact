@@ -18,6 +18,7 @@ import {
   AssetUploadResult,
   EntityUploadResult,
   FileCategoryMove,
+  FileRenamed,
   MissingFile,
   MissingForgotten,
   RecordUploadResult,
@@ -187,6 +188,15 @@ export class FileApiService {
    */
   restoreAssetFile(body: FormData): Observable<AssetRestoreResult> {
     return this._http.post<AssetRestoreResult>('/api/files/restore', body);
+  }
+
+  /**
+   * `PUT /api/files/{id}/name`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  updateFileName(id: number, body: Record<string, unknown>): Observable<FileRenamed> {
+    return this._http.put<FileRenamed>(`/api/files/${id}/name`, body);
   }
 
   /**

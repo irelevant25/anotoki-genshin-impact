@@ -75,7 +75,44 @@
                                 <span class="file-ext">{{ file.extension || "file" }}</span>
                             }
                         </button>
-                        <span class="file-name" [title]="file.name">{{ file.name }}</span>
+                        @if (renaming() === file.name) {
+                            <span class="file-rename">
+                                <input
+                                    class="file-rename-input"
+                                    type="text"
+                                    [value]="draftName()"
+                                    [disabled]="busy() === file.name"
+                                    (input)="draftName.set($any($event.target).value)"
+                                    (keydown.enter)="saveRename(file)"
+                                    (keydown.escape)="cancelRename()" />
+                                <app-button
+                                    icon="icon-check icon-size-3"
+                                    variant="primary"
+                                    size="very-small"
+                                    tooltipText="Save the name"
+                                    [loading]="busy() === file.name"
+                                    (buttonClick)="saveRename(file)"></app-button>
+                                <app-button
+                                    icon="icon-close icon-size-3"
+                                    variant="secondary"
+                                    [outline]="true"
+                                    size="very-small"
+                                    tooltipText="Leave it as it is"
+                                    (buttonClick)="cancelRename()"></app-button>
+                            </span>
+                        } @else {
+                            <!-- The catalogue row is what gets renamed, so a file
+                                 it does not know about cannot be. -->
+                            <button
+                                type="button"
+                                class="file-name"
+                                [class.can-rename]="!!file.file_id"
+                                [disabled]="!file.file_id"
+                                [title]="file.file_id ? 'Rename ' + file.name : file.name"
+                                (click)="startRename(file)">
+                                {{ file.name }}
+                            </button>
+                        }
                         <span class="file-size">{{ formatSize(file.size) }}</span>
 
                         <!-- Changing this moves the file: a category's path

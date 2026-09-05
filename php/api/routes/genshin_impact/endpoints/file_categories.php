@@ -306,6 +306,92 @@ $app->delete('/api/file-categories/{id:[0-9]+}', function (Request $request, Res
 
 // ── One file at a time ───────────────────────────────────────────────────────
 
+// ── PUT /api/files/{id}/name ──────────────────────────────────────────────────
+//
+// Renaming is moving without changing category: the file's name *is* where it
+// is, so the row and the file have to change together or the catalogue starts
+// describing a tree that is not there.
+//
+// The extension is not part of it. It says what the file is, and letting it be
+// edited would be offering to turn an AVIF into an OGG by typing.
+
+$app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $response, array $args) {
+    $pdo = genshinDb();
+    $body = $request->getParsedBody() ?? [];
+
+    $statement = $pdo->prepare(
+        'SELECT f.*, c.id AS cat_id, c.path AS category_path, c.code AS category_code
+           FROM files f JOIN file_categories c ON c.id = f.category_id WHERE f.id = :id'
+    );
+    $statement->execute(['id' => (int) $args['id']]);
+    $file = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if (!$file) {
+        return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    $wanted = trim((string) ($body['name'] ?? ''));
+    if ($wanted === '') {
+        return respondJson($response, ['error' => 'A file needs a name'], 422);
+    }
+    if (strlen($wanted) > 255) {
+        return respondJson($response, ['error' => 'That name is too long'], 422);
+    }
+
+    // A voice over's name carries the folders it sits in below its category, so
+    // the separators stay and only the last part is being renamed.
+    $within = strpos($file['name'], '/') === false ? '' : substr($file['name'], 0, strrpos($file['name'], '/') + 1);
+    $leaf = _assetPathSegment($wanted);
+    if ($leaf === null) {
+        return respondJson($response, ['error' => "'$wanted' cannot be a file name"], 422);
+    }
+
+    $name = $within . $leaf;
+    if ($name === $file['name']) {
+        return respondJson($response, ['error' => 'It is already called that'], 409);
+    }
+
+    $suffix = $file['extension'] === '' ? '' : '.' . $file['extension'];
+    $root = realpath(catalogueRoot());
+    $source = $root . '/' . $file['category_path'] . '/' . $file['name'] . $suffix;
+    $destination = $root . '/' . $file['category_path'] . '/' . $name . $suffix;
+
+    if (file_exists($destination)) {
+        return respondJson($response, ['error' => 'Something is already called that here'], 409);
+    }
+
+    $taken = $pdo->prepare('SELECT id FROM files WHERE category_id = ? AND name = ? AND extension = ?');
+    $taken->execute([$file['cat_id'], $name, $file['extension']]);
+    if ($taken->fetchColumn()) {
+        return respondJson($response, ['error' => 'The catalogue already has that name here'], 409);
+    }
+
+    // A row whose file has already gone still renames, the same way moving one
+    // does: the catalogue should say where the file would be.
+    if (is_file($source) && !@rename($source, $destination)) {
+        return respondJson($response, ['error' => 'The file could not be renamed'], 500);
+    }
+
+    $pdo->beginTransaction();
+    $pdo->prepare('UPDATE files SET name = :name, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
+        ->execute(['name' => $name, 'id' => $file['id']]);
+
+    auditFile($pdo, (int) $file['id'], 'UPDATE', [
+        'renamed' => ['old' => $file['name'], 'new' => $name],
+        'category' => $file['category_code'],
+    ], _categoryActor($request));
+    $pdo->commit();
+
+    _assetFolderCacheClear();
+    assetStatsForget();
+
+    return respondJson($response, [
+        'id' => (int) $file['id'],
+        'name' => $name,
+        'path' => $file['category_path'] . '/' . $name . $suffix,
+    ]);
+})->add(responds(FileRenamed::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+
 $app->put('/api/files/{id:[0-9]+}/category', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
     $body = $request->getParsedBody() ?? [];

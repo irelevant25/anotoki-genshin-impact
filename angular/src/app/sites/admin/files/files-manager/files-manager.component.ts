@@ -73,6 +73,45 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
    * any more, so leaving it on screen would be showing something that is not
    * there.
    */
+  /** Which file's name is being edited, and what has been typed so far. */
+  readonly renaming = signal<string | undefined>(undefined);
+  readonly draftName = signal('');
+
+  startRename(file: AssetFile): void {
+    if (!file.file_id) {
+      return;
+    }
+    // The extension is not part of the name: it says what the file is.
+    this.renaming.set(file.name);
+    this.draftName.set(file.name.replace(/\.[^.]+$/, ''));
+  }
+
+  cancelRename(): void {
+    this.renaming.set(undefined);
+    this.draftName.set('');
+  }
+
+  saveRename(file: AssetFile): void {
+    const name = this.draftName().trim();
+    if (!file.file_id || !name) {
+      return;
+    }
+
+    this.busy.set(file.name);
+    this._fileApi.updateFileName(file.file_id, { name }).subscribe({
+      next: (result) => {
+        this.busy.set(undefined);
+        this.cancelRename();
+        this._notify.showSuccess(`Renamed to ${result.name}.`);
+        this.loadFiles();
+      },
+      error: (error) => {
+        this.busy.set(undefined);
+        this._notify.showError(error?.error?.error ?? 'That could not be renamed.');
+      },
+    });
+  }
+
   moveTo(file: AssetFile, categoryId: string): void {
     if (!file.file_id || !categoryId) {
       return;

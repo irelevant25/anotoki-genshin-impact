@@ -235,6 +235,17 @@ export interface FileCategoryMove {
 }
 
 /**
+ * What a rename settled on, which may not be exactly what was typed.
+ */
+export interface FileRenamed {
+  id: number;
+  /** Including the folders below the category, for a voice over. */
+  name: string;
+  /** Where it is now, from the assets root. */
+  path: string;
+}
+
+/**
  * A catalogue row whose file is not on disk any more.
  *
  * The Files page counts these as "recorded but gone". Something removed the

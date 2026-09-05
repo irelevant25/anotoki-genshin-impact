@@ -138,6 +138,19 @@ class RecordUploadResult extends ResponseShape
     }
 }
 
+/** What a rename settled on, which may not be exactly what was typed. */
+class FileRenamed extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        /** Including the folders below the category, for a voice over. */
+        public readonly string $name,
+        /** Where it is now, from the assets root. */
+        public readonly string $path,
+    ) {
+    }
+}
+
 /**
  * A catalogue row whose file is not on disk any more.
  *

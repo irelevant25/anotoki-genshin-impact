@@ -299,6 +299,24 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
 
   private _run(restart: boolean): void {
     this.converting.set(true);
+
+    // Drawn from this, so it has to exist before the first request rather than
+    // after it. Starting a run surveys the whole tree to build the queue, and
+    // until this was here that wait was spent with no bar to show for it.
+    if (restart) {
+      this.progress.set({
+        started_at: new Date().toISOString(),
+        total: this.convertible(),
+        converted: 0,
+        failed: 0,
+        skipped: 0,
+        remaining: this.convertible(),
+        finished: false,
+        blocked: { images: 0, audio: 0 },
+        failures: [],
+      });
+    }
+
     this._step(restart);
   }
 

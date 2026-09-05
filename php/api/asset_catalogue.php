@@ -292,7 +292,7 @@ function catalogueRelink(PDO $pdo, ?int $by = null): array
         }
     }
 
-    $repointed = _catalogueRepointGone($pdo, $byField);
+    $repointed = _catalogueRepointToConverted($pdo, $byField);
 
     if ($linked > 0 || $repointed > 0) {
         auditFile($pdo, 0, 'RECONCILE', ['relinked' => $linked, 'repointed' => $repointed, 'by_field' => $byField], $by);
@@ -302,22 +302,30 @@ function catalogueRelink(PDO $pdo, ?int $by = null): array
 }
 
 /**
- * Moves a reference off a file that is gone and onto the one that replaced it.
+ * Moves a reference onto the file the site actually serves.
  *
  * Converting leaves two files and the row keeps naming the one it was given.
- * Take the originals away afterwards - which is the whole point of converting -
- * and every row still naming an `.ogg` is naming nothing, while the `.opus`
- * beside it goes unread. That is not a broken link the site can recover from:
- * it plays silence.
+ * That matters in two ways, and both end with a row naming the wrong file.
  *
- * Only where the current file is really absent and the converted one is really
- * there, so this cannot quietly move a row off a file that still works. A row
- * whose file is gone with nothing to replace it is left alone and shows up
- * under "recorded but gone", which is the honest place for it.
+ * The loud one: take the originals away afterwards - which is the point of
+ * converting - and every row still naming an `.ogg` is naming nothing, while
+ * the `.opus` beside it goes unread. For a voice line that is not a broken
+ * link the page recovers from, it plays silence.
+ *
+ * The quiet one: a row naming an original that is *still there* keeps that
+ * original alive, because nothing deletes a file something points at. So the
+ * four `.ogg` files nobody could get rid of were four rows pointing at them,
+ * and the button offering to remove the originals never went away.
+ *
+ * Both are the same fix - point at the converted file - and it is safe in both
+ * cases, because the converted file is checked to be on disk before anything
+ * moves. A row whose file is gone with nothing to replace it is left alone and
+ * shows up under "recorded but gone", which is the honest place for it.
  */
-function _catalogueRepointGone(PDO $pdo, array &$byField): int
+function _catalogueRepointToConverted(PDO $pdo, array &$byField): int
 {
     $root = catalogueRoot();
+    $sources = array_merge(ASSET_TO_AVIF, ASSET_TO_OPUS);
     $twin = $pdo->prepare(
         "SELECT id, extension FROM files
           WHERE category_id = :category AND name = :name AND extension IN ('avif', 'opus')
@@ -345,7 +353,12 @@ function _catalogueRepointGone(PDO $pdo, array &$byField): int
 
             foreach ($rows as $row) {
                 $suffix = $row['extension'] === '' ? '' : '.' . $row['extension'];
-                if (is_file($root . '/' . $row['path'] . '/' . $row['name'] . $suffix)) {
+                $here = is_file($root . '/' . $row['path'] . '/' . $row['name'] . $suffix);
+                $isSource = in_array(strtolower($row['extension']), $sources, true);
+
+                // Either the file is not there, or it is an original with a
+                // converted copy that should be read instead.
+                if ($here && !$isSource) {
                     continue;
                 }
 

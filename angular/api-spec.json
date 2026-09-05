@@ -7982,7 +7982,45 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
-                "line": 364
+                "line": 450
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "PUT",
+            "path": "/api/files/{id}/name",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "file_categories.php",
+            "tables": [
+                "files"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404,
+                409,
+                422,
+                500
+            ],
+            "responds": {
+                "shape": "FileRenamed",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\file_categories.php",
+                "line": 393
             },
             "expanded": [],
             "payload": null,
@@ -20012,6 +20050,44 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                }
+            ]
+        },
+        {
+            "name": "FileRenamed",
+            "file": "file.php",
+            "merges": null,
+            "description": "What a rename settled on, which may not be exactly what was typed.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Including the folders below the category, for a voice over."
+                },
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Where it is now, from the assets root."
                 }
             ]
         },
