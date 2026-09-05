@@ -240,6 +240,12 @@ class AssetConversionCount extends ResponseShape
         public readonly int $converted_only,
         /** False when nothing on this box can write the target format. */
         public readonly bool $can_convert,
+        /**
+         * Originals that could actually be removed now: a source with a
+         * converted twin that nothing in the database still names. The exact
+         * count the cleanup modal lists, and what the delete button is gated on.
+         */
+        public readonly int $reclaimable,
     ) {
     }
 }

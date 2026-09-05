@@ -144,25 +144,27 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
   });
 
   /**
-   * Which media have originals worth offering to remove.
+   * Which media have originals worth offering to remove, and how many.
    *
-   * Only where nothing is left to convert. The count is deliberately not shown
-   * on the button: it would have to be guessed from the catalogue without the
-   * "nothing points at it" check the modal applies, and a button promising
-   * 5,052 that opens on 5,049 is worse than a button that promises nothing.
+   * Gated on `reclaimable`, which the API computes with the exact query the
+   * modal uses — a source with a converted twin that nothing in the database
+   * still names. So the button appears only when the modal has something to
+   * show, and the count on it is that same number. It used to key off the raw
+   * count of source files on disk, which is why a button could offer to delete
+   * originals and then open on an empty list.
    */
   readonly reclaimable = computed(() => {
     const stats = this.stats();
     if (!stats) {
-      return [] as { kind: 'image' | 'audio'; label: string }[];
+      return [] as { kind: 'image' | 'audio'; label: string; count: number }[];
     }
 
-    const options: { kind: 'image' | 'audio'; label: string }[] = [];
-    if (!stats.images.missing && stats.images.sources) {
-      options.push({ kind: 'image', label: 'Delete original images' });
+    const options: { kind: 'image' | 'audio'; label: string; count: number }[] = [];
+    if (stats.images.reclaimable > 0) {
+      options.push({ kind: 'image', label: 'Delete original images', count: stats.images.reclaimable });
     }
-    if (!stats.audio.missing && stats.audio.sources) {
-      options.push({ kind: 'audio', label: 'Delete original audio' });
+    if (stats.audio.reclaimable > 0) {
+      options.push({ kind: 'audio', label: 'Delete original audio', count: stats.audio.reclaimable });
     }
 
     return options;

@@ -201,7 +201,7 @@
 
                         <div class="reclaim-actions">
                             @for (option of reclaimable(); track option.kind) {
-                                <app-button [text]="option.label" variant="secondary" icon="icon-trash" size="small" [outline]="true" (buttonClick)="cleanUp(option.kind)"></app-button>
+                                <app-button [text]="option.label + ' (' + option.count + ')'" variant="secondary" icon="icon-trash" size="small" [outline]="true" (buttonClick)="cleanUp(option.kind)"></app-button>
                             }
                         </div>
                     </div>

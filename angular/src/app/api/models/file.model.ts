@@ -86,6 +86,8 @@ export interface AssetConversionCount {
   converted_only: number;
   /** False when nothing on this box can write the target format. */
   can_convert: boolean;
+  /** Originals that could actually be removed now: a source with a converted twin that nothing in the database still names. The exact count the cleanup modal lists, and what the delete button is gated on. */
+  reclaimable: number;
 }
 
 /**

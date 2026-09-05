@@ -398,8 +398,18 @@ $app->get('/api/files/stats', function (Request $request, Response $response) {
         // `pending` is the list of paths behind the counts. It is what the
         // queue is built from and it runs to thousands of entries, so it stays
         // in the cache file rather than travelling to a page that shows counts.
-        'images' => $stats['images'] + ['can_convert' => mediaCanWriteAvif()],
-        'audio' => $stats['audio'] + ['can_convert' => mediaCanWriteOpus()],
+        // `reclaimable` is the exact number the cleanup modal would list -
+        // originals with a converted twin that nothing in the database still
+        // names. The delete button is gated on this, not on `sources`, so it
+        // never offers to delete originals and then opens on an empty list.
+        'images' => $stats['images'] + [
+            'can_convert' => mediaCanWriteAvif(),
+            'reclaimable' => cleanupCandidateCount(genshinDb(), 'image'),
+        ],
+        'audio' => $stats['audio'] + [
+            'can_convert' => mediaCanWriteOpus(),
+            'reclaimable' => cleanupCandidateCount(genshinDb(), 'audio'),
+        ],
         // Its own walk rather than part of the cached survey: this is the one
         // number that is only useful when it is current, since the whole point
         // of it is noticing that something turned up outside the API.

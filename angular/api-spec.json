@@ -629,7 +629,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1083
+                "line": 1117
             },
             "expanded": [],
             "payload": null,
@@ -655,7 +655,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1052
+                "line": 1086
             },
             "expanded": [],
             "payload": null,
@@ -681,7 +681,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1108
+                "line": 1142
             },
             "expanded": [],
             "payload": null,
@@ -706,7 +706,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1016
+                "line": 1050
             },
             "expanded": [],
             "payload": null,
@@ -733,7 +733,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 263
+                "line": 279
             },
             "expanded": [],
             "payload": null,
@@ -749,7 +749,8 @@
             "tables": [],
             "success": 200,
             "statuses": [
-                200
+                200,
+                429
             ],
             "responds": {
                 "shape": "AuthMailRequested",
@@ -757,7 +758,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 285
+                "line": 310
             },
             "expanded": [],
             "payload": null,
@@ -781,7 +782,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1213
+                "line": 1247
             },
             "expanded": [],
             "payload": null,
@@ -808,7 +809,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 516
+                "line": 550
             },
             "expanded": [],
             "payload": null,
@@ -838,7 +839,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 747
+                "line": 781
             },
             "expanded": [],
             "payload": null,
@@ -865,7 +866,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 851
+                "line": 885
             },
             "expanded": [],
             "payload": null,
@@ -894,7 +895,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 823
+                "line": 857
             },
             "expanded": [],
             "payload": null,
@@ -921,7 +922,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 539
+                "line": 573
             },
             "expanded": [],
             "payload": null,
@@ -949,7 +950,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 361
+                "line": 386
             },
             "expanded": [],
             "payload": null,
@@ -973,7 +974,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 879
+                "line": 913
             },
             "expanded": [],
             "payload": null,
@@ -998,7 +999,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 915
+                "line": 949
             },
             "expanded": [],
             "payload": null,
@@ -1022,7 +1023,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 565
+                "line": 599
             },
             "expanded": [],
             "payload": null,
@@ -1046,7 +1047,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 438
+                "line": 472
             },
             "expanded": [],
             "payload": null,
@@ -1072,7 +1073,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 610
+                "line": 644
             },
             "expanded": [],
             "payload": null,
@@ -1099,7 +1100,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 976
+                "line": 1010
             },
             "expanded": [],
             "payload": null,
@@ -1115,7 +1116,8 @@
             "tables": [],
             "success": 200,
             "statuses": [
-                200
+                200,
+                429
             ],
             "responds": {
                 "shape": "AuthMailRequested",
@@ -1123,7 +1125,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 385
+                "line": 419
             },
             "expanded": [],
             "payload": null,
@@ -1151,7 +1153,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 431
+                "line": 465
             },
             "expanded": [],
             "payload": null,
@@ -1179,7 +1181,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 946
+                "line": 980
             },
             "expanded": [],
             "payload": null,
@@ -1203,7 +1205,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 648
+                "line": 682
             },
             "expanded": [],
             "payload": null,
@@ -1223,7 +1225,8 @@
             "statuses": [
                 201,
                 409,
-                422
+                422,
+                429
             ],
             "responds": {
                 "shape": "AuthPending",
@@ -1231,7 +1234,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 234
+                "line": 250
             },
             "expanded": [],
             "payload": null,
@@ -1255,7 +1258,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1199
+                "line": 1233
             },
             "expanded": [],
             "payload": null,
@@ -1279,7 +1282,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1157
+                "line": 1191
             },
             "expanded": [],
             "payload": null,
@@ -1311,7 +1314,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 1181
+                "line": 1215
             },
             "expanded": [],
             "payload": null,
@@ -1336,7 +1339,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\auth.php",
-                "line": 465
+                "line": 499
             },
             "expanded": [],
             "payload": null,
@@ -7440,7 +7443,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 718
+                "line": 728
             },
             "expanded": [],
             "payload": null,
@@ -7469,7 +7472,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 743
+                "line": 753
             },
             "expanded": [],
             "payload": null,
@@ -7497,7 +7500,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 753
+                "line": 763
             },
             "expanded": [],
             "payload": null,
@@ -7525,7 +7528,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 684
+                "line": 694
             },
             "expanded": [],
             "payload": null,
@@ -7553,7 +7556,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 673
+                "line": 683
             },
             "expanded": [],
             "payload": null,
@@ -7609,7 +7612,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 594
+                "line": 604
             },
             "expanded": [],
             "payload": null,
@@ -7638,7 +7641,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 535
+                "line": 545
             },
             "expanded": [],
             "payload": null,
@@ -7666,7 +7669,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 480
+                "line": 490
             },
             "expanded": [],
             "payload": null,
@@ -7691,7 +7694,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 649
+                "line": 659
             },
             "expanded": [],
             "payload": null,
@@ -7748,7 +7751,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 408
+                "line": 418
             },
             "expanded": [],
             "payload": null,
@@ -7775,7 +7778,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 636
+                "line": 646
             },
             "expanded": [],
             "payload": null,
@@ -11271,7 +11274,8 @@
             "success": 201,
             "statuses": [
                 201,
-                400
+                400,
+                415
             ],
             "responds": {
                 "shape": "UploadResult",
@@ -11279,7 +11283,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\upload.php",
-                "line": 52
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -17120,6 +17124,16 @@
                     "optional": false,
                     "of": null,
                     "description": "False when nothing on this box can write the target format."
+                },
+                {
+                    "name": "reclaimable",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Originals that could actually be removed now: a source with a\nconverted twin that nothing in the database still names. The exact\ncount the cleanup modal lists, and what the delete button is gated on."
                 }
             ]
         },

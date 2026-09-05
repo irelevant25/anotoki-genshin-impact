@@ -136,6 +136,20 @@ function cleanupCandidates(PDO $pdo, string $kind): array
     return $candidates;
 }
 
+/**
+ * How many originals of one kind could actually be removed.
+ *
+ * The exact number the modal would list - it runs the same candidate query,
+ * twin check and "nothing in the database names it" guard. The Files page gates
+ * its delete button on this rather than on the raw count of source files on
+ * disk, so the button and the modal can never disagree: a button that offered
+ * to delete originals and then opened on an empty list was the whole bug.
+ */
+function cleanupCandidateCount(PDO $pdo, string $kind): int
+{
+    return count(cleanupCandidates($pdo, $kind));
+}
+
 /** One page of them, plus the totals the button needs. */
 function cleanupPage(PDO $pdo, string $kind, int $page, int $pageSize = CLEANUP_PAGE_SIZE): array
 {
