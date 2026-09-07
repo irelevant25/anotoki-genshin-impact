@@ -113,3 +113,47 @@ $app->get('/api/migrations/file', function (Request $request, Response $response
         'content' => $content,
     ]);
 })->add(responds(MigrationFile::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+
+// ── POST /api/migrations/apply ────────────────────────────────────────────────
+// Applies every pending migration across every database, in order, stopping a
+// database at its first failure. This is the FTP deployment's way to run a
+// schema change with no shell: upload the new .sql file, then apply it here.
+//
+// ADMIN only. The migrations themselves are trusted code from the deployment,
+// not request input - this endpoint chooses which to run, never what they say.
+
+$app->post('/api/migrations/apply', function (Request $request, Response $response) {
+    $databases = [];
+    $totalApplied = 0;
+    $ok = true;
+
+    foreach (_migrationDatabases() as $alias) {
+        // An alias the config names but has written no migrations for yet
+        // (star_rail) - nothing to build, and its database need not even exist,
+        // so do not connect to it and do not count it as a failure.
+        if (!migrationFiles($alias)) {
+            continue;
+        }
+
+        try {
+            $result = applyPendingMigrations(getDb($alias), $alias);
+        } catch (\Throwable $e) {
+            $databases[] = ['database' => $alias, 'applied' => [], 'failed' => null, 'error' => 'cannot reach database: ' . $e->getMessage()];
+            $ok = false;
+            continue;
+        }
+
+        $totalApplied += count($result['applied']);
+        if ($result['failed'] !== null) {
+            $ok = false;
+        }
+        $databases[] = [
+            'database' => $alias,
+            'applied' => $result['applied'],
+            'failed' => $result['failed'],
+            'error' => $result['error'],
+        ];
+    }
+
+    return respondJson($response, ['applied' => $totalApplied, 'ok' => $ok, 'databases' => $databases]);
+})->add(responds(MigrationApplyResult::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());

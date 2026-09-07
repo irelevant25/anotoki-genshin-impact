@@ -56,9 +56,12 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
   }
 
   open(): void {
-    const modal = this._modals.open<ImageUploadComponent, PickedImage | undefined>(ImageUploadComponent, { size: '3' });
+    const modal = this._modals.open<ImageUploadComponent, PickedImage | undefined>(ImageUploadComponent, { size: '5' });
     modal.componentInstance.label.set(this.label());
     modal.componentInstance.name.set(this.displayName());
+    // Open the "choose existing" browser on this slot's own folder, worked out
+    // from where the current picture lives, so the likely files are shown first.
+    modal.componentInstance.folderHint.set(this._folderFromPath(this.path()));
 
     modal.closed.subscribe((result) => {
       this.markAsTouched();
@@ -66,6 +69,16 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
         this.picked.emit(result);
       }
     });
+  }
+
+  /** `assets/character/icon/HU_TAO.avif` → `character/icon`; empty if unknown. */
+  private _folderFromPath(path: string | null | undefined): string {
+    if (!path) {
+      return '';
+    }
+    const relative = path.replace(/^(\.\.\/)?assets\//, '');
+    const slash = relative.lastIndexOf('/');
+    return slash === -1 ? '' : relative.slice(0, slash);
   }
 
   clear(): void {

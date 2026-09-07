@@ -199,8 +199,11 @@ function _resolveVoiceOverTarget(PDO $pdo, array $row, string $field): ?array
     }
     [$code, $titleColumn] = $languages[$field];
 
-    $stmt = $pdo->prepare('SELECT name FROM characters WHERE id = ?');
-    $stmt->execute([$row['character_id']]);
+    // The line belongs to a voice-over set; the folder is named after a
+    // character that points at that set. A shared set (the Traveler) lands under
+    // whichever of its characters sorts first, which is a fine single home.
+    $stmt = $pdo->prepare('SELECT name FROM characters WHERE voice_over_set_id = ? AND deleted = FALSE ORDER BY id ASC LIMIT 1');
+    $stmt->execute([$row['voice_over_set_id'] ?? null]);
     $character = (string) $stmt->fetchColumn();
 
     $title = trim((string) ($row[$titleColumn] ?? ''));

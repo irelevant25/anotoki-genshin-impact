@@ -12,6 +12,28 @@ export interface Migration {
 }
 
 /**
+ * One database's share of an apply run.
+ */
+export interface MigrationApplied {
+  database: string;
+  /** The files applied just now, in the order they ran. */
+  applied: string[];
+  /** The file that failed, if one did - everything after it was left. */
+  failed: string | null;
+  error: string | null;
+}
+
+/**
+ * What `POST /api/migrations/apply` did across every database.
+ */
+export interface MigrationApplyResult {
+  applied: number;
+  /** False if any database hit a failure or could not be reached. */
+  ok: boolean;
+  databases: MigrationApplied[];
+}
+
+/**
  * The shape of a `MigrationEntry` response.
  */
 export interface MigrationEntry {

@@ -47,17 +47,16 @@
  * A file already recorded in `migrations` is never run again, so editing one
  * that has been applied changes nothing on a database that has it and
  * everything on a database that has not. Write another file instead.
+ *
+ * The engine itself - reading, splitting, and applying the SQL - lives in
+ * api/migration_runner.php, so the admin apply endpoint and the installer build
+ * a database exactly the way this does. This file is that engine with a command
+ * line and some colour around it.
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/db.php';
-
-const MIGRATIONS_ROOT = __DIR__ . '/migrations';
-
-/** Made for the `users` database when it has nobody in it at all. */
-const DEFAULT_ADMIN_USERNAME = 'admin';
-const DEFAULT_ADMIN_EMAIL = 'admin@localhost';
-const DEFAULT_ADMIN_PASSWORD = 'Admin1234!';
+require_once __DIR__ . '/api/migration_runner.php';
 
 // ─── Output ──────────────────────────────────────────────────────────────────
 
@@ -73,247 +72,18 @@ function say(string $colour, string $text): void
     echo colour($colour, $text) . "\n";
 }
 
-// ─── Reading SQL ─────────────────────────────────────────────────────────────
-
-/**
- * Splits a SQL file into statements.
- *
- * A semicolon only ends a statement outside everything that can contain one:
- * a quoted string, a dollar-quoted block - which is how every trigger function
- * in the initial schema is written - and a comment. Getting any of those wrong
- * means half a function body arriving as a statement of its own.
- */
-function splitSqlStatements(string $sql): array
+/** The runner makes the first admin; this is the CLI saying it happened. */
+function announceDefaultAdmin(PDO $pdo): void
 {
-    $statements = [];
-    $current = '';
-    $length = strlen($sql);
-    $i = 0;
-
-    while ($i < $length) {
-        $character = $sql[$i];
-
-        // Block comment.
-        if ($character === '/' && ($sql[$i + 1] ?? '') === '*') {
-            $end = strpos($sql, '*/', $i + 2);
-            $i = $end === false ? $length : $end + 2;
-            continue;
-        }
-
-        // Line comment.
-        if ($character === '-' && ($sql[$i + 1] ?? '') === '-') {
-            $end = strpos($sql, "\n", $i + 2);
-            $i = $end === false ? $length : $end + 1;
-            continue;
-        }
-
-        // Dollar-quoted block: $$ ... $$, or $tag$ ... $tag$.
-        if ($character === '$') {
-            $j = $i + 1;
-            while ($j < $length && $sql[$j] !== '$' && (ctype_alnum($sql[$j]) || $sql[$j] === '_')) {
-                $j++;
-            }
-
-            if (($sql[$j] ?? '') === '$') {
-                $tag = substr($sql, $i, $j - $i + 1);
-                $end = strpos($sql, $tag, $j + 1);
-
-                if ($end !== false) {
-                    $current .= substr($sql, $i, $end - $i + strlen($tag));
-                    $i = $end + strlen($tag);
-                    continue;
-                }
-            }
-        }
-
-        // Single-quoted string, in which '' is an escaped quote.
-        if ($character === "'") {
-            $current .= $character;
-            $i++;
-
-            while ($i < $length) {
-                $current .= $sql[$i];
-
-                if ($sql[$i] === "'") {
-                    if (($sql[$i + 1] ?? '') === "'") {
-                        $current .= $sql[++$i];
-                    } else {
-                        $i++;
-                        break;
-                    }
-                }
-
-                $i++;
-            }
-
-            continue;
-        }
-
-        if ($character === ';') {
-            if (trim($current) !== '') {
-                $statements[] = trim($current);
-            }
-            $current = '';
-            $i++;
-            continue;
-        }
-
-        $current .= $character;
-        $i++;
-    }
-
-    if (trim($current) !== '') {
-        $statements[] = trim($current);
-    }
-
-    return $statements;
-}
-
-/** The migration files for one database, in the order they must be applied. */
-function migrationFiles(string $alias): array
-{
-    $directory = MIGRATIONS_ROOT . '/' . $alias;
-
-    if (!is_dir($directory)) {
-        return [];
-    }
-
-    $files = array_map('basename', glob($directory . '/*.sql') ?: []);
-
-    // By name, which is why they are numbered. Natural order rather than plain
-    // string order, so a hundredth migration does not sort between the ninth
-    // and the tenth.
-    natsort($files);
-
-    return array_values($files);
-}
-
-// ─── Creating the database ───────────────────────────────────────────────────
-
-/**
- * Makes the database if it is not there, and answers whether it had to.
- *
- * CREATE DATABASE cannot run inside a transaction and cannot run against the
- * database it is creating, so this connects to the server rather than through
- * getDb().
- */
-function ensureDatabase(array $config, string $name): bool
-{
-    $driver = $config['driver'];
-
-    if ($driver === 'pgsql') {
-        $server = new PDO(
-            "pgsql:host={$config['host']};port={$config['port']};dbname=postgres",
-            $config['username'],
-            $config['password'],
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-        );
-
-        $exists = (int) $server
-            ->query('SELECT count(*) FROM pg_catalog.pg_database WHERE datname = ' . $server->quote($name))
-            ->fetchColumn();
-
-        if ($exists > 0) {
-            return false;
-        }
-
-        // The name comes from the deployment's own config file rather than
-        // from anything a request could reach, and CREATE DATABASE takes no
-        // parameters - so it is quoted as an identifier and that is the whole
-        // of what can be done about it.
-        $server->exec('CREATE DATABASE "' . str_replace('"', '""', $name) . '"');
-
-        return true;
-    }
-
-    throw new RuntimeException(
-        "Unsupported driver '{$driver}'. This installation is PostgreSQL: the migrations use "
-        . "ADD COLUMN IF NOT EXISTS, FILTER, and dollar-quoted trigger functions, none of which MySQL has."
-    );
-}
-
-/**
- * The table that records what has run.
- *
- * Created here as well as by every 001, because it is read before the first
- * migration is applied - on a database where nothing exists yet, including
- * this.
- */
-function ensureMigrationsTable(PDO $pdo): void
-{
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS migrations (
-            id         SERIAL          PRIMARY KEY,
-            filename   VARCHAR(255)    NOT NULL UNIQUE,
-            applied_at TIMESTAMP       DEFAULT CURRENT_TIMESTAMP
-        )'
-    );
-}
-
-function appliedMigrations(PDO $pdo): array
-{
-    return $pdo->query('SELECT filename FROM migrations')->fetchAll(PDO::FETCH_COLUMN);
-}
-
-/**
- * Applies one file, all of it or none of it.
- *
- * PostgreSQL takes DDL inside a transaction, so a migration that fails halfway
- * leaves nothing behind - and the row saying it ran is written inside the same
- * transaction, so there is no window where the change happened and the record
- * of it did not.
- */
-function applyMigration(PDO $pdo, string $alias, string $filename): void
-{
-    $path = MIGRATIONS_ROOT . '/' . $alias . '/' . $filename;
-    $statements = splitSqlStatements((string) file_get_contents($path));
-
-    $pdo->beginTransaction();
-
-    try {
-        foreach ($statements as $index => $statement) {
-            try {
-                $pdo->exec($statement);
-            } catch (PDOException $e) {
-                throw new RuntimeException(
-                    "statement " . ($index + 1) . " of " . count($statements) . ": " . $e->getMessage()
-                    . "\n\n  " . implode("\n  ", array_slice(explode("\n", $statement), 0, 6))
-                );
-            }
-        }
-
-        $pdo->prepare('INSERT INTO migrations (filename) VALUES (?) ON CONFLICT DO NOTHING')->execute([$filename]);
-        $pdo->commit();
-    } catch (\Throwable $e) {
-        $pdo->rollBack();
-        throw $e;
-    }
-}
-
-/**
- * The account somebody has to sign in with to make any others.
- *
- * Only when the table is empty, so it is a way to start rather than a way in:
- * on a database with users on it this does nothing at all.
- */
-function ensureDefaultAdmin(PDO $pdo): void
-{
-    if ((int) $pdo->query('SELECT count(*) FROM users')->fetchColumn() > 0) {
+    $created = createDefaultAdmin($pdo);
+    if ($created === null) {
         return;
     }
 
-    $pdo->prepare('INSERT INTO users (username, email, password, role, force_password_change) VALUES (?, ?, ?, ?, TRUE)')
-        ->execute([
-            DEFAULT_ADMIN_USERNAME,
-            DEFAULT_ADMIN_EMAIL,
-            password_hash(DEFAULT_ADMIN_PASSWORD, PASSWORD_DEFAULT),
-            'ADMIN',
-        ]);
-
     say('green', "\n  Default admin created.");
-    echo '    username : ' . DEFAULT_ADMIN_USERNAME . "\n";
-    echo '    email    : ' . DEFAULT_ADMIN_EMAIL . "\n";
-    echo '    password : ' . DEFAULT_ADMIN_PASSWORD . "\n";
+    echo '    username : ' . $created['username'] . "\n";
+    echo '    email    : ' . $created['email'] . "\n";
+    echo '    password : ' . $created['password'] . "\n";
     // The flag is set on the row, so the site asks for a new one on the way in
     // rather than trusting anybody to come back and do it later.
     say('yellow', '    The site will ask for a new password at the first sign-in.');
@@ -435,7 +205,7 @@ foreach ($databases as $alias => $name) {
 
     if (!$dryRun && $alias === 'users') {
         try {
-            ensureDefaultAdmin($pdo);
+            announceDefaultAdmin($pdo);
         } catch (\Throwable $e) {
             say('red', '  Could not create the default admin: ' . $e->getMessage());
             $exitCode = 1;

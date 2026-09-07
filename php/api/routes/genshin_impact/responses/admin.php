@@ -114,6 +114,33 @@ class MigrationFile extends ResponseShape
     }
 }
 
+/** One database's share of an apply run. */
+class MigrationApplied extends ResponseShape
+{
+    public function __construct(
+        public readonly string $database,
+        /** @var string[] The files applied just now, in the order they ran. */
+        public readonly array $applied,
+        /** The file that failed, if one did - everything after it was left. */
+        public readonly ?string $failed,
+        public readonly ?string $error,
+    ) {
+    }
+}
+
+/** What `POST /api/migrations/apply` did across every database. */
+class MigrationApplyResult extends ResponseShape
+{
+    public function __construct(
+        public readonly int $applied,
+        /** False if any database hit a failure or could not be reached. */
+        public readonly bool $ok,
+        /** @var MigrationApplied[] */
+        public readonly array $databases,
+    ) {
+    }
+}
+
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 
 /** One row of the content counts, and where to go to edit it. */

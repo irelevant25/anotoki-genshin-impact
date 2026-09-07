@@ -79,7 +79,16 @@
                         </span>
                     </div>
 
-                    <app-button text="Check for strays" icon="icon-history" variant="secondary" [outline]="true" size="small" [loading]="checking()" (buttonClick)="check()"></app-button>
+                    <app-button
+                        text="Add strays to database"
+                        icon="icon-database"
+                        variant="secondary"
+                        [outline]="true"
+                        size="small"
+                        [loading]="checking()"
+                        tooltipText="Scans the asset folder for files that are on disk but not yet in the database, adds them so they appear here, and files anything with no category under 'unfiled'."
+                        (buttonClick)="check()"
+                    ></app-button>
                 </div>
             }
 

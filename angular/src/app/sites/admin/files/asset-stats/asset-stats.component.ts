@@ -198,7 +198,9 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
       next: (result) => {
         this.checking.set(false);
         this._notify.showSuccess(
-          result.adopted || result.moved_to_unfiled ? `${result.adopted.toLocaleString()} adopted, ${result.moved_to_unfiled.toLocaleString()} moved to unfiled.` : 'Nothing had changed.',
+          result.adopted || result.moved_to_unfiled
+            ? `${result.adopted.toLocaleString()} added to the database, ${result.moved_to_unfiled.toLocaleString()} moved to unfiled.`
+            : 'Nothing on disk was missing from the database.',
         );
         this.load(true);
       },

@@ -31,9 +31,19 @@
 // path to it, so no trailing slash.
 // ---------------------------------------------------------------------------
 
+// Two senders. A message chooses one by key (see MAIL_SENDER_* in api/mail.php):
+// `noreply` for automated, do-not-reply mail (password reset, sign-in code) and
+// `support` for mail a person may reply to (the confirmation / welcome). `from`
+// and `from_name` below are the default, used when a key is missing so an older
+// config with only those still works.
+
 return [
     'driver'    => 'file',
+    'base_url'  => 'http://localhost:4200',
     'from'      => 'noreply@localhost',
     'from_name' => 'Anotoki',
-    'base_url'  => 'http://localhost:4200',
+    'senders'   => [
+        'noreply' => ['from' => 'noreply@localhost', 'from_name' => 'Anotoki'],
+        'support' => ['from' => 'support@localhost', 'from_name' => 'Anotoki Support'],
+    ],
 ];

@@ -67,6 +67,7 @@ export interface Character {
   namecard_banner_file_id: number | null;
   namecard_banner: string | null;
   namecard_banner_name: string | null;
+  voice_over_set_id: number | null;
 }
 
 /**
@@ -348,13 +349,6 @@ export interface CharacterTalentCost {
  */
 export interface CharacterVoiceOver {
   id: number;
-  character_id: number;
-  character_id_2: number | null;
-  character_id_3: number | null;
-  character_id_4: number | null;
-  character_id_5: number | null;
-  character_id_6: number | null;
-  character_id_7: number | null;
   order: number;
   type: string;
   title_english: string;
@@ -383,6 +377,7 @@ export interface CharacterVoiceOver {
   audio_chinese: string | null;
   audio_korean_file_id: number | null;
   audio_korean: string | null;
+  voice_over_set_id: number;
 }
 
 /**
@@ -405,6 +400,7 @@ export interface CharacterPayload {
   voice_actor_korean: string;
   voice_actor_chinese: string;
   is_traveler?: boolean;
+  voice_over_set_id?: number | null;
   /** JSON: send the value; it reads back as a JSON string. See parseJsonColumn. */
   how_to_obtain?: string[] | string | null;
   /** JSON: send the value; it reads back as a JSON string. See parseJsonColumn. */
@@ -698,7 +694,7 @@ export interface CharacterTalentCostPayload {
  * field is optional on an update, which is sent partial.
  */
 export interface CharacterVoiceOverPayload {
-  character_id: number;
+  voice_over_set_id: number;
   order: number;
   type: string;
   title_english: string;
@@ -711,12 +707,6 @@ export interface CharacterVoiceOverPayload {
   text_chinese?: string | null;
   text_chinese_traditional?: string | null;
   text_korean?: string | null;
-  character_id_2?: number | null;
-  character_id_3?: number | null;
-  character_id_4?: number | null;
-  character_id_5?: number | null;
-  character_id_6?: number | null;
-  character_id_7?: number | null;
   text_japanese_reading?: string | null;
   text_chinese_reading?: string | null;
   text_korean_reading?: string | null;

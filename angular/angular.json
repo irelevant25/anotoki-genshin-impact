@@ -83,7 +83,13 @@
               "optimization": true,
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true
+              "aot": true,
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "public"
+                }
+              ]
             },
             "development": {
               "optimization": false,

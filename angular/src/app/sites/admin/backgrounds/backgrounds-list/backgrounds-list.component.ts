@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
@@ -147,19 +148,26 @@ export class BackgroundsListComponent implements OnInit {
     this.picked.update((current) => ({ ...current, [key]: picked }));
 
     this.busy.set(entry.id);
-    this._fileApi
-      .uploadRecordFile('background', entry.id, field, toFormData({ file: picked.file, name: this.imageName(entry, field) }))
-      .subscribe({
+
+    // A background saves as soon as a picture is chosen. An existing-catalogue
+    // pick is linked by id through a plain update; only a fresh file is uploaded.
+    const existing = picked.existing;
+    const request$: Observable<unknown> = existing
+      ? this._backgroundApi.updateBackground(entry.id, { [`${field}_file_id`]: existing.fileId })
+      : this._fileApi.uploadRecordFile('background', entry.id, field, toFormData({ file: picked.file!, name: this.imageName(entry, field) }));
+
+    request$.subscribe({
       next: (result) => {
         this.busy.set(undefined);
-        entry[field] = result.path;
-        entry[`${field}_name`] = result.name;
+        // An upload answers with {path, name}; an update answers with the row.
+        entry[field] = existing ? existing.path : (result as { path: string }).path;
+        entry[`${field}_name`] = existing ? existing.name : (result as { name: string }).name;
         this._notify.showSuccess(`${entry.name} ${field} updated`);
       },
       error: (error) => {
         this.busy.set(undefined);
         this._clearPicked(key);
-        this._notify.showError(error?.error?.error ?? `Could not upload the ${field}`);
+        this._notify.showError(error?.error?.error ?? `Could not set the ${field}`);
       },
     });
   }

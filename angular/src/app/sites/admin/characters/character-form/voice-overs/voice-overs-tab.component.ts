@@ -1,4 +1,4 @@
-import { Component, computed, input, model, QueryList, signal, ViewChildren } from '@angular/core';
+import { Component, computed, inject, input, model, output, QueryList, signal, ViewChildren } from '@angular/core';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
@@ -7,9 +7,11 @@ import { AccordionItemComponent } from '../../../../../shared/local-lib/componen
 import { TabsComponent } from '../../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { takeUntil } from 'rxjs';
-import { emptyVoiceOver, reorder, resequence, VoiceOverWrapper } from '../character-form.model';
+import { createUid, emptyVoiceOver, reorder, resequence, VoiceOverWrapper } from '../character-form.model';
 import { VoiceOversTabItemComponent } from './tab/tab.component';
 import { VoiceOverImportResult, VoiceOversImportComponent } from './import/voice-overs-import.component';
+import { VoiceOverSetSelectorComponent } from './set-selector/set-selector.component';
+import { VoiceOverSetApiService } from '../../../../../api';
 
 interface VoiceOverGroup {
   type: string;
@@ -28,6 +30,12 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
   voiceOvers = model<VoiceOverWrapper[]>([]);
   voiceOverTypes = input<string[]>([]);
   characterName = input<string>('');
+  /** The character's current voice-over set, marked in the picker. */
+  voiceOverSetId = input<number | null | undefined>(undefined);
+  /** Emitted with the chosen set id, so the form points the character at it. */
+  voiceOverSetChosen = output<number>();
+
+  private readonly _voiceOverSetApi = inject(VoiceOverSetApiService);
 
   /** Shared across every item so only one clip plays at a time. */
   audio = model<HTMLAudioElement | null>(null);
@@ -109,6 +117,38 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
    * Builds a whole set of voice overs from a JSON dump plus the character's
    * audio folder, matching each file to its line by title.
    */
+  /**
+   * Points this character at another voice-over set. Picks a set, loads its
+   * lines into the tab so you can see what the character will show, and tells
+   * the form to save the new set on the character. Editing the lines here after
+   * this would edit that shared set (see the backend), so it is left as a
+   * separate, deliberate step.
+   */
+  chooseSet(): void {
+    this.stopAudio();
+    this.deleteAllArmed.set(false);
+
+    const modal = this.modalService.open<VoiceOverSetSelectorComponent, number | undefined>(VoiceOverSetSelectorComponent, {
+      size: '4',
+      scrollable: true,
+    });
+    modal.componentInstance.currentSetId.set(this.voiceOverSetId() ?? null);
+
+    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((setId) => {
+      if (typeof setId !== 'number') {
+        return;
+      }
+      this._voiceOverSetApi.getVoiceOverSet(setId).subscribe({
+        next: (voiceOvers) => {
+          this.voiceOvers.set((voiceOvers ?? []).map((data) => ({ uid: createUid(), data, audio: {} })));
+          this.voiceOverSetChosen.emit(setId);
+          this.notificationService.showSuccess(`Now using set #${setId} (${voiceOvers?.length ?? 0} lines).`);
+        },
+        error: () => this.notificationService.showError('Could not load that set’s voice-overs.'),
+      });
+    });
+  }
+
   openImport(): void {
     this.stopAudio();
     this.deleteAllArmed.set(false);

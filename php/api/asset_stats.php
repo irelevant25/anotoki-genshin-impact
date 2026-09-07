@@ -241,6 +241,68 @@ function _assetFirstOf(array $extensions, array $wanted): ?string
     return null;
 }
 
+/**
+ * The Files-page numbers, read from the catalogue instead of walked off disk.
+ *
+ * The admin Files page is a view of the `files` table now, so its counts come
+ * from there - a group-by, not a directory walk, and so nothing to cache and
+ * nothing to go stale. (The disk survey below still exists for the convert
+ * queue, which has to look at the real files it is about to re-encode.)
+ */
+function assetStatsFromDb(PDO $pdo): array
+{
+    $totals = $pdo->query('SELECT count(*) AS files, COALESCE(SUM(size), 0) AS bytes FROM files')->fetch(PDO::FETCH_ASSOC);
+
+    $formats = [];
+    foreach ($pdo->query('SELECT extension, count(*) AS files, COALESCE(SUM(size), 0) AS bytes FROM files GROUP BY extension ORDER BY SUM(size) DESC') as $row) {
+        $formats[] = [
+            'extension' => $row['extension'] === '' ? '(none)' : $row['extension'],
+            'files' => (int) $row['files'],
+            'bytes' => (int) $row['bytes'],
+        ];
+    }
+
+    return [
+        'total_files' => (int) $totals['files'],
+        'total_bytes' => (int) $totals['bytes'],
+        'formats' => $formats,
+        'images' => _dbConversionCounts($pdo, ASSET_TO_AVIF, 'avif'),
+        'audio' => _dbConversionCounts($pdo, ASSET_TO_OPUS, 'opus'),
+    ];
+}
+
+/**
+ * How far one kind of conversion has got, counted from the catalogue.
+ *
+ * Each (category, name) is one logical asset; the query asks which extensions
+ * it holds. A source with no converted twin is work still to do; a converted
+ * file with no source is already done and has nothing to reclaim.
+ */
+function _dbConversionCounts(PDO $pdo, array $sourceExts, string $target): array
+{
+    $placeholders = implode(',', array_fill(0, count($sourceExts), '?'));
+    $stmt = $pdo->prepare("
+        SELECT
+            count(*) FILTER (WHERE has_source)                        AS sources,
+            count(*) FILTER (WHERE has_source AND NOT has_target)     AS missing,
+            count(*) FILTER (WHERE has_target AND NOT has_source)     AS converted_only
+        FROM (
+            SELECT category_id, name,
+                bool_or(extension IN ($placeholders)) AS has_source,
+                bool_or(extension = ?)                AS has_target
+            FROM files
+            GROUP BY category_id, name
+        ) g");
+    $stmt->execute([...$sourceExts, $target]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return [
+        'sources' => (int) $row['sources'],
+        'missing' => (int) $row['missing'],
+        'converted_only' => (int) $row['converted_only'],
+    ];
+}
+
 /** The survey, from cache while it is still fresh. */
 function assetStats(bool $refresh = false): array
 {

@@ -1,6 +1,7 @@
 <div class="vo-toolbar">
     <span class="vo-total">{{ voiceOvers().length }} voice overs</span>
     <div class="vo-toolbar-actions">
+        <app-button text="Choose set" icon="icon-layers" variant="secondary" [outline]="true" tooltipText="Use another character's voice-over set (for the Traveler's variants)" (buttonClick)="chooseSet()"></app-button>
         <app-button text="Import from files" icon="icon-upload" variant="primary" [outline]="true" (buttonClick)="openImport()"></app-button>
         @if (deleteAllArmed()) {
             <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancelDeleteAll()"></app-button>

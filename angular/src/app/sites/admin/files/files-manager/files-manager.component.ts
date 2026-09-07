@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, viewChild } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
@@ -51,6 +51,10 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     const from = (this.page() - 1) * this.pageSize() + 1;
     return `${from}–${Math.min(this.page() * this.pageSize(), this.total())} of ${this.total()}`;
   });
+
+  /** The main upload control, cleared after each selection so it does not
+   * accumulate files across folders. */
+  private readonly _uploader = viewChild('uploader', { read: FileComponent });
 
   private readonly _fileApi = inject(FileApiService);
   private readonly _config = inject(ConfigService);
@@ -240,6 +244,11 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   /** No `name`, so each file keeps the name it was uploaded with. */
   onUpload(items: FileItemType[] | undefined | null): void {
     const files = (items ?? []).map((item) => item.file).filter((file): file is File => !!file);
+    // The picker keeps every file it was ever handed (it is a multi-select), so
+    // clear it now that these are captured. Without this, the next upload in
+    // another folder re-sends all the earlier files too - which is where the
+    // errors that pile up folder by folder came from.
+    this._uploader()?.clearFiles();
     if (!files.length) {
       return;
     }

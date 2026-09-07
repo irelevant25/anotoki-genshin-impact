@@ -1,0 +1,66 @@
+<div class="page-header">
+    <h1 class="page-title">Email Log</h1>
+    <span class="badge-readonly">Read-only</span>
+</div>
+
+<p class="page-hint">
+    Every message the API has sent, newest first. Metadata only — no message bodies are stored, and the sign-in-code subject is deliberately not kept.
+</p>
+
+<div class="filter-bar">
+    <app-dropdown [label]="'Kind'" [options]="kindOptions()" [(value)]="filterKind" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <app-dropdown [label]="'Status'" [options]="statuses()" [(value)]="filterStatus" [emptyOption]="true" [emptyOptionText]="'— any —'" (inputChange)="applyFilters()"></app-dropdown>
+    <app-text [label]="'Recipient'" [placeholder]="'contains…'" [(value)]="filterRecipient" (blurChange)="applyFilters()"></app-text>
+    <app-calendar [label]="'From'" [(value)]="filterFrom" (inputChange)="applyFilters()"></app-calendar>
+    <app-calendar [label]="'To'" [(value)]="filterTo" (inputChange)="applyFilters()"></app-calendar>
+    <div class="filter-summary">
+        <span class="filter-count">{{ rangeLabel() }}</span>
+        @if (hasActiveFilter()) {
+            <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+        }
+    </div>
+</div>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>When</th>
+                    <th>Kind</th>
+                    <th>Recipient</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!items().length) {
+                    <tr>
+                        <td colspan="6" class="empty-cell">No emails match the filter</td>
+                    </tr>
+                }
+                @for (entry of items(); track entry.id) {
+                    <tr>
+                        <td class="log-when">{{ entry.created_at | appDate: 'datetime' }}</td>
+                        <td>{{ kindLabel(entry.kind) }}</td>
+                        <td class="col-recipient">{{ entry.recipient }}</td>
+                        <td class="col-subject">{{ entry.subject ?? "—" }}</td>
+                        <td><span class="status status-{{ entry.status }}">{{ entry.status }}</span></td>
+                        <td>{{ entry.username ?? "—" }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (totalPages() > 1) {
+        <div class="pager">
+            <app-button icon="icon-chevron-left" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === 1" (buttonClick)="goToPage(page() - 1)"></app-button>
+            <span class="pager-label">{{ page() }} / {{ totalPages() }}</span>
+            <app-button icon="icon-chevron-right" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === totalPages()" (buttonClick)="goToPage(page() + 1)"></app-button>
+        </div>
+    }
+}

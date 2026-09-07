@@ -20,9 +20,14 @@ export function buildFullFormData(payload: unknown): FormData {
 
 // ── Picked images ─────────────────────────────────────────────────────────────
 
-/** Releases a pick's object URL; call before replacing or discarding it. */
+/**
+ * Releases a pick's object URL; call before replacing or discarding it.
+ *
+ * Only an uploaded file's preview is an object URL worth revoking — an existing
+ * pick's preview is an ordinary asset URL, so it is left alone.
+ */
 export function revokePicked(picked: PickedImage | undefined): void {
-  if (picked?.preview) {
+  if (picked?.preview && picked.preview.startsWith('blob:')) {
     URL.revokeObjectURL(picked.preview);
   }
 }

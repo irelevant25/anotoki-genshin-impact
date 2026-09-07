@@ -108,6 +108,12 @@ function _parseBody(Request $request): array
     return is_array($parsed) ? $parsed : [];
 }
 
+/** A fresh, empty voice-over set. The wrapper is just an id. */
+function _newVoiceOverSet(PDO $pdo): int
+{
+    return (int) $pdo->query('INSERT INTO voice_over_sets DEFAULT VALUES RETURNING id')->fetchColumn();
+}
+
 // ── POST /api/characters/full ─────────────────────────────────────────────────
 
 $app->post('/api/characters/full', function (Request $request, Response $response) {
@@ -126,6 +132,13 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
 
     $pdo->beginTransaction();
     try {
+        // A character with voice-overs needs a set to hold them, unless the body
+        // already names one to share. The character carries the reference, so the
+        // set is made before the character row.
+        if (!empty($body['voice_overs']) && empty($body['character']['voice_over_set_id'])) {
+            $body['character']['voice_over_set_id'] = _newVoiceOverSet($pdo);
+        }
+
         // 1. Character
         $charId = DbQuery::insert($pdo, 'characters', [
             ...Character::fromBody($body['character'])->toDbArray(),
@@ -136,9 +149,10 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
         // whichever child table it lands in - see api/audit_scope.php.
         auditScope('characters', (string) $charId);
 
-        // 2. Voice overs
+        // 2. Voice overs - into the character's set, not the character itself.
+        $voiceSetId = $body['character']['voice_over_set_id'] ?? null;
         foreach ($body['voice_overs'] ?? [] as $vo) {
-            $vo = [...$vo, 'character_id' => $charId];
+            $vo = [...$vo, 'voice_over_set_id' => $voiceSetId];
             resolveAssetBody($pdo, 'characters_voice_overs', $vo, $user['id']);
             DbQuery::insert($pdo, 'characters_voice_overs', [
                 ...CharacterVoiceOver::fromBody($vo)->toDbArray(),
@@ -226,9 +240,13 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     $id = (int) $args['id'];
     $body = _parseBody($request);
 
-    if (!DbQuery::from($pdo, 'characters')->find(['id' => $id])) {
+    $existing = DbQuery::from($pdo, 'characters')->find(['id' => $id]);
+    if (!$existing) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
+    // The set the character was on before this save, to tell "repointed to a
+    // shared set" (leave its lines) from "editing its own lines" (replace them).
+    $originalVoiceSet = (int) ($existing['voice_over_set_id'] ?? 0);
 
     // Apply uploaded files
     _applyUploads($body, $request->getUploadedFiles());
@@ -263,7 +281,37 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
         };
 
         if (isset($body['voice_overs'])) {
-            $syncSubResource('characters_voice_overs', 'character_id', $body['voice_overs'], CharacterVoiceOver::class);
+            // Voice-overs hang off the character's set, not the character. Give
+            // it a set if it has none yet, then replace that set's lines. This is
+            // shared editing: any other character pointing at the set sees it too.
+            $stmt = $pdo->prepare('SELECT voice_over_set_id FROM characters WHERE id = ?');
+            $stmt->execute([$id]);
+            $voiceSetId = (int) ($stmt->fetchColumn() ?: 0);
+
+            // Moved onto a different, existing set (the "use another set" picker)?
+            // Then leave that set's lines as they are - it is shared, and
+            // replacing them would churn every character that points at it. Only
+            // fill/replace when the set is the character's own (unchanged, or
+            // just created for it).
+            $repointed = $voiceSetId !== 0 && $voiceSetId !== $originalVoiceSet;
+
+            if (!$voiceSetId && $body['voice_overs']) {
+                $voiceSetId = _newVoiceOverSet($pdo);
+                $pdo->prepare('UPDATE characters SET voice_over_set_id = ? WHERE id = ?')->execute([$voiceSetId, $id]);
+                $repointed = false;
+            }
+            if ($voiceSetId && !$repointed) {
+                $pdo->prepare('UPDATE characters_voice_overs SET deleted = TRUE WHERE voice_over_set_id = ? AND deleted = FALSE')
+                    ->execute([$voiceSetId]);
+                foreach ($body['voice_overs'] as $vo) {
+                    $vo = [...$vo, 'voice_over_set_id' => $voiceSetId];
+                    resolveAssetBody($pdo, 'characters_voice_overs', $vo, $user['id']);
+                    DbQuery::insert($pdo, 'characters_voice_overs', [
+                        ...CharacterVoiceOver::fromBody($vo)->toDbArray(),
+                        'created_by' => $user['id'],
+                    ]);
+                }
+            }
         }
         if (isset($body['constellations'])) {
             $syncSubResource('characters_constellations', 'character_id', $body['constellations'], CharacterConstellation::class);
@@ -378,7 +426,10 @@ $app->get('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
         return $rows;
     };
 
-    $voice_overs = $fetch('characters_voice_overs', 'character_id', [$id]);
+    // Voice-overs come through the character's set, so several characters can
+    // share one set of lines (the Traveler's variants).
+    $voiceSetId = $character['voice_over_set_id'] ?? null;
+    $voice_overs = $voiceSetId ? $fetch('characters_voice_overs', 'voice_over_set_id', [$voiceSetId]) : [];
     $constellations = $fetch('characters_constellations', 'character_id', [$id]);
     $relationships = $fetch('characters_relationships', 'character_id', [$id]);
     $talents = $fetch('characters_talents', 'character_id', [$id]);

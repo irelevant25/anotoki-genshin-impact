@@ -239,6 +239,35 @@ function catalogueCountsForget(): void
  * Both are the same upload under two extensions, so both are taken by folder
  * and stem rather than by a path the caller has to take apart.
  */
+/**
+ * Removes a file from the catalogue - the counterpart to cataloguing an upload.
+ *
+ * The Files page lists the catalogue, so trashing a file has to drop its row
+ * too, or the listing keeps showing something that has moved to trash. Matched
+ * the same way an upload is catalogued: the category for the folder, and the
+ * file's path below it as the name.
+ */
+function catalogueForgetFile(PDO $pdo, string $folder, string $filename): int
+{
+    $categories = catalogueCategories($pdo);
+    $category = catalogueCategoryFor($categories, $folder);
+    if ($category === null) {
+        return 0;
+    }
+
+    $within = trim(substr($folder, strlen($category['path'])), '/');
+    $prefix = $within === '' ? '' : $within . '/';
+    $stem = pathinfo($filename, PATHINFO_FILENAME);
+    $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+    $stmt = $pdo->prepare('DELETE FROM files WHERE id IN (
+        SELECT f.id FROM files f JOIN file_categories c ON c.id = f.category_id
+        WHERE c.code = ? AND f.name = ? AND f.extension = ?)');
+    $stmt->execute([$category['code'], $prefix . $stem, $extension]);
+
+    return $stmt->rowCount();
+}
+
 function catalogueUploadedStem(PDO $pdo, string $folder, string $stem, ?int $by = null): int
 {
     $categories = catalogueCategories($pdo);

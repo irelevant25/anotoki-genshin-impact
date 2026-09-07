@@ -339,6 +339,28 @@ class CharacterVoiceOverPage extends ResponseShape
     }
 }
 
+/** A character on a voice-over set, reduced to what the picker shows. */
+class VoiceOverSetMember extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $name,
+    ) {
+    }
+}
+
+/** One voice-over set for the character-form picker: who shares it, and how big. */
+class VoiceOverSet extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly int $voice_over_count,
+        /** @var VoiceOverSetMember[] The characters currently pointing at this set. */
+        public readonly array $characters,
+    ) {
+    }
+}
+
 /** A page of what enemies drop. */
 class EnemyDropPage extends ResponseShape
 {

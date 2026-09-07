@@ -41,6 +41,27 @@ const MAIL_RESET_MINUTES = 60;
  */
 const MAIL_LOGIN_CODE_MINUTES = 10;
 
+/** Why a message was sent - stored in email_log, and how the log is filtered. */
+const MAIL_KIND_CONFIRMATION = 'confirmation';
+const MAIL_KIND_PASSWORD_RESET = 'password_reset';
+const MAIL_KIND_LOGIN_CODE = 'login_code';
+
+/**
+ * The kinds whose subject carries nothing secret and is safe to keep in the log.
+ * Default-deny: a kind not listed here is logged with no subject, so a sign-in
+ * code - which lives in that message's subject - is never persisted, and a new
+ * kind has to be judged safe on purpose before its subject is stored.
+ */
+const MAIL_SUBJECT_SAFE_KINDS = [MAIL_KIND_CONFIRMATION, MAIL_KIND_PASSWORD_RESET];
+
+/**
+ * Which address a message goes out as - the keys of `senders` in config/mail.php.
+ * `noreply` is the automated, do-not-reply address; `support` is the one a person
+ * may reply to. A message with no sender set uses `noreply`.
+ */
+const MAIL_SENDER_NOREPLY = 'noreply';
+const MAIL_SENDER_SUPPORT = 'support';
+
 function mailConfig(): array
 {
     static $config = null;
@@ -57,6 +78,25 @@ function mailConfig(): array
 function mailBaseUrl(): string
 {
     return rtrim((string) (mailConfig()['base_url'] ?? ''), '/');
+}
+
+/**
+ * The `from` address and display name for a sender key, from config/mail.php's
+ * `senders`. Falls back to the single top-level `from`/`from_name` when the key
+ * is not configured, so a config written before there were two still sends.
+ *
+ * @return array{from: string, from_name: string}
+ */
+function mailSender(string $sender): array
+{
+    $config = mailConfig();
+    $defaultFrom = (string) ($config['from'] ?? 'noreply@localhost');
+    $defaultName = (string) ($config['from_name'] ?? '');
+    $entry = $config['senders'][$sender] ?? null;
+
+    return is_array($entry)
+        ? ['from' => (string) ($entry['from'] ?? $defaultFrom), 'from_name' => (string) ($entry['from_name'] ?? $defaultName)]
+        : ['from' => $defaultFrom, 'from_name' => $defaultName];
 }
 
 /**
@@ -80,11 +120,12 @@ function mailEncodeSubject(string $subject): string
  * Plain text on purpose: these are four short messages with a link in them,
  * and an HTML part would be two bodies to keep in step for no gain.
  */
-function sendMail(string $to, string $subject, string $body): bool
+function sendMail(string $to, string $subject, string $body, string $kind = 'other', ?int $userId = null, string $sender = MAIL_SENDER_NOREPLY): bool
 {
     $config = mailConfig();
-    $from = (string) ($config['from'] ?? 'noreply@localhost');
-    $fromName = (string) ($config['from_name'] ?? '');
+    $resolved = mailSender($sender);
+    $from = $resolved['from'];
+    $fromName = $resolved['from_name'];
 
     // A display name goes through the same encoding as the subject, and the
     // address itself stays outside the quotes where the encoding cannot reach.
@@ -101,10 +142,34 @@ function sendMail(string $to, string $subject, string $body): bool
     if (($config['driver'] ?? 'file') === 'mail') {
         // A bare \n is what the RFC asks for and what most sendmail binaries
         // want; PHP's own docs warn that \r\n breaks some of them.
-        return @mail($to, mailEncodeSubject($subject), $body, implode("\n", $headers));
+        $ok = @mail($to, mailEncodeSubject($subject), $body, implode("\n", $headers));
+    } else {
+        $ok = mailToFile($to, $subject, $body, $headers);
     }
 
-    return mailToFile($to, $subject, $body, $headers);
+    logEmail($to, $kind, $subject, $ok, $userId);
+
+    return $ok;
+}
+
+/**
+ * Records one send in email_log, for the admin Email Log page.
+ *
+ * Never throws: a message that went out (or a driver that refused it) must not
+ * be undone by the log failing to write. The subject is kept only for
+ * subject-safe kinds - everything else is logged with none, so a live sign-in
+ * code cannot end up in the table.
+ */
+function logEmail(string $to, string $kind, string $subject, bool $ok, ?int $userId): void
+{
+    try {
+        $safeSubject = in_array($kind, MAIL_SUBJECT_SAFE_KINDS, true) ? $subject : null;
+        usersDb()
+            ->prepare('INSERT INTO email_log (recipient, kind, subject, status, user_id) VALUES (?, ?, ?, ?, ?)')
+            ->execute([$to, $kind, $safeSubject, $ok ? 'sent' : 'failed', $userId]);
+    } catch (\Throwable $e) {
+        error_log('[email_log] could not record a send: ' . $e->getMessage());
+    }
 }
 
 /**
@@ -173,7 +238,8 @@ function sendConfirmationMail(array $user, string $token): bool
         ],
     ], $user['language'] ?? 'en');
 
-    return sendMail($user['email'], $text['subject'], $text['body']);
+    // From support@ - a welcome is the one account mail a person might reply to.
+    return sendMail($user['email'], $text['subject'], $text['body'], MAIL_KIND_CONFIRMATION, $user['id'] ?? null, MAIL_SENDER_SUPPORT);
 }
 
 /** "Set a new password" - the message the forgotten-password form sends. */
@@ -200,7 +266,7 @@ function sendPasswordResetMail(array $user, string $token): bool
         ],
     ], $user['language'] ?? 'en');
 
-    return sendMail($user['email'], $text['subject'], $text['body']);
+    return sendMail($user['email'], $text['subject'], $text['body'], MAIL_KIND_PASSWORD_RESET, $user['id'] ?? null);
 }
 
 /**
@@ -232,5 +298,5 @@ function sendLoginCodeMail(array $user, string $code): bool
         ],
     ], $user['language'] ?? 'en');
 
-    return sendMail($user['email'], $text['subject'], $text['body']);
+    return sendMail($user['email'], $text['subject'], $text['body'], MAIL_KIND_LOGIN_CODE, $user['id'] ?? null);
 }

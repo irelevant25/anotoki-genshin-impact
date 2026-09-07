@@ -50,7 +50,7 @@ function auditParentMap(): array
         // Straight to the character, not through the talent, unlike the
         // ascension costs beside it.
         'characters_talents_cost' => ['characters', 'character_id'],
-        'characters_voice_overs' => ['characters', 'character_id'],
+        'characters_voice_overs' => ['voice_over_sets', 'voice_over_set_id'],
         'weapons_ascensions' => ['weapons', 'weapon_id'],
         'weapons_ascensions_cost' => ['weapons_ascensions', 'weapon_ascension_id'],
         'weapons_refinements' => ['weapons', 'weapon_id'],

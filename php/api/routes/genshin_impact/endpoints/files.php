@@ -144,63 +144,68 @@ function _assetFolders(bool $refresh = false): array
 }
 
 $app->get('/api/files/folders', function (Request $request, Response $response) {
-    // ?refresh=1 rebuilds regardless, for when assets were changed on disk and
-    // the wait for the cache to expire is the wrong answer.
-    $refresh = ($request->getQueryParams()['refresh'] ?? '') === '1';
-    return respondJson($response, _assetFolders($refresh));
+    // From the catalogue, not the disk: a "folder" here is a file category, and
+    // its count is a group-by on the files table. The real directory tree is
+    // the Files Explorer's job.
+    $rows = genshinDb()->query('
+        SELECT c.path AS folder, count(f.id) AS files
+        FROM file_categories c
+        LEFT JOIN files f ON f.category_id = c.id
+        WHERE c.deleted = FALSE
+        GROUP BY c.path
+        ORDER BY c.path')->fetchAll(PDO::FETCH_ASSOC);
+
+    return respondJson($response, array_map(
+        fn($r) => ['folder' => $r['folder'], 'files' => (int) $r['files']],
+        $rows
+    ));
 })->add(responds(AssetFolder::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
 $app->get('/api/files', function (Request $request, Response $response) {
+    // One page of a category, read from the files table. Only catalogued files
+    // appear here now - anything on disk the catalogue has not adopted shows up
+    // in the Files Explorer, and "Add strays to the database" is what pulls it in.
+    $pdo = genshinDb();
     $query = $request->getQueryParams();
     $folder = (string) ($query['folder'] ?? '');
-    $dir = _resolveAssetDir($folder);
-    if (!$dir) {
-        return respondJson($response, ['error' => 'Unknown folder'], 404);
-    }
-
     $search = trim((string) ($query['search'] ?? ''));
     $page = max(1, (int) ($query['page'] ?? 1));
 
-    $items = [];
-    foreach (scandir($dir) ?: [] as $entry) {
-        if ($entry === '.' || $entry === '..' || !is_file($dir . '/' . $entry)) {
-            continue;
-        }
-        if ($search !== '' && stripos($entry, $search) === false) {
-            continue;
-        }
-        $items[] = $entry;
+    $cat = $pdo->prepare('SELECT id, code FROM file_categories WHERE path = ? AND deleted = FALSE');
+    $cat->execute([$folder]);
+    $category = $cat->fetch(PDO::FETCH_ASSOC);
+    if (!$category) {
+        return respondJson($response, ['error' => 'Unknown folder'], 404);
     }
-    sort($items, SORT_NATURAL | SORT_FLAG_CASE);
 
-    $total = count($items);
-    $slice = array_slice($items, ($page - 1) * FILES_PAGE_SIZE, FILES_PAGE_SIZE);
+    $where = 'category_id = ?';
+    $params = [$category['id']];
+    if ($search !== '') {
+        $where .= ' AND name ILIKE ?';
+        $params[] = '%' . $search . '%';
+    }
 
-    // The catalogue row for each file on this page, so the listing can offer to
-    // move it. Only for the page being shown - joining the whole folder would
-    // be 76,000 rows for the voice overs.
-    $catalogue = _assetCatalogueFor(genshinDb(), $folder, $slice);
+    $countStmt = $pdo->prepare("SELECT count(*) FROM files WHERE $where");
+    $countStmt->execute($params);
+    $total = (int) $countStmt->fetchColumn();
 
-    $files = array_map(function (string $name) use ($dir, $folder, $catalogue) {
-        $path = $dir . '/' . $name;
-        $row = $catalogue[$name] ?? null;
+    $offset = ($page - 1) * FILES_PAGE_SIZE;
+    $stmt = $pdo->prepare("SELECT id, name, extension, size, modified_at FROM files WHERE $where ORDER BY name LIMIT " . FILES_PAGE_SIZE . " OFFSET $offset");
+    $stmt->execute($params);
 
+    $files = array_map(function (array $row) use ($folder, $category) {
+        $filename = $row['name'] . '.' . $row['extension'];
         return [
-            'name' => $name,
-            'extension' => strtolower(pathinfo($name, PATHINFO_EXTENSION)),
-            'size' => filesize($path),
-            'modified' => date('Y-m-d H:i:s', filemtime($path)),
-            // What the site would load it by.
-            // Read back through the API rather than from the served asset
-            // path, so a file uploaded a moment ago is visible now - see
-            // /api/files/raw.
-            'url' => '/api/files/raw?folder=' . rawurlencode($folder) . '&name=' . rawurlencode($name),
-            // Null where the catalogue has not caught up - the check button on
-            // the panel above is what closes that.
-            'file_id' => $row ? (int) $row['id'] : null,
-            'category' => $row['code'] ?? null,
+            'name' => $filename,
+            'extension' => (string) $row['extension'],
+            'size' => (int) $row['size'],
+            'modified' => (string) ($row['modified_at'] ?? ''),
+            // Served back through the API - see /api/files/raw.
+            'url' => '/api/files/raw?folder=' . rawurlencode($folder) . '&name=' . rawurlencode($filename),
+            'file_id' => (int) $row['id'],
+            'category' => $category['code'],
         ];
-    }, $slice);
+    }, $stmt->fetchAll(PDO::FETCH_ASSOC));
 
     return respondJson($response, [
         'folder' => $folder,
@@ -305,6 +310,10 @@ $app->delete('/api/files', function (Request $request, Response $response) {
         return respondJson($response, ['error' => 'Could not move the file to trash'], 500);
     }
 
+    // The Files page lists the catalogue, so drop the row too - or the file
+    // stays on the page, pointing at something now in the trash.
+    catalogueForgetFile(genshinDb(), $folder, $name);
+
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'name' => $name, 'trashed' => $stamped]);
 })->add(responds(AssetTrashResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
@@ -373,6 +382,11 @@ $app->post('/api/files/restore', function (Request $request, Response $response)
         return respondJson($response, ['error' => 'Could not restore the file'], 500);
     }
 
+    // Put it back in the catalogue too, so it returns to the listing it was
+    // deleted from rather than sitting on disk unnoticed until a re-scan.
+    $user = $request->getAttribute('user');
+    catalogueUploadedStem(genshinDb(), $safeFolder, pathinfo($name, PATHINFO_FILENAME), isset($user['id']) ? (int) $user['id'] : null);
+
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $safeFolder, 'name' => $name]);
 })->add(responds(AssetRestoreResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
@@ -384,14 +398,19 @@ $app->post('/api/files/restore', function (Request $request, Response $response)
 // wrong answer - the same escape hatch the folder listing has.
 
 $app->get('/api/files/stats', function (Request $request, Response $response) {
-    // Both spellings: the generated client sends a boolean as "true",
-    // and a hand-typed URL says 1.
+    // The counts come from the catalogue - a query, always current, never
+    // cached, which is why the format sizes no longer lag until a re-scan. The
+    // one figure that still costs a disk walk is the drift below; that is served
+    // from the shared disk snapshot the Files Explorer keeps, and refreshed only
+    // when asked (Re-scan), so the page stays fast without going stale on the
+    // numbers that matter.
     $refresh = in_array((string) ($request->getQueryParams()['refresh'] ?? ''), ['1', 'true'], true);
-    $stats = assetStats($refresh);
+    $pdo = genshinDb();
+    $stats = assetStatsFromDb($pdo);
 
     return respondJson($response, [
-        'generated_at' => $stats['generated_at'],
-        'age' => assetStatsAge() ?? 0,
+        'generated_at' => date('Y-m-d H:i:s'),
+        'age' => 0,
         'total_files' => $stats['total_files'],
         'total_bytes' => $stats['total_bytes'],
         'formats' => $stats['formats'],
@@ -404,16 +423,16 @@ $app->get('/api/files/stats', function (Request $request, Response $response) {
         // never offers to delete originals and then opens on an empty list.
         'images' => $stats['images'] + [
             'can_convert' => mediaCanWriteAvif(),
-            'reclaimable' => cleanupCandidateCount(genshinDb(), 'image'),
+            'reclaimable' => cleanupCandidateCount($pdo, 'image'),
         ],
         'audio' => $stats['audio'] + [
             'can_convert' => mediaCanWriteOpus(),
-            'reclaimable' => cleanupCandidateCount(genshinDb(), 'audio'),
+            'reclaimable' => cleanupCandidateCount($pdo, 'audio'),
         ],
-        // Its own walk rather than part of the cached survey: this is the one
-        // number that is only useful when it is current, since the whole point
-        // of it is noticing that something turned up outside the API.
-        'catalogue' => catalogueCounts(genshinDb()),
+        // Disk measured against the table. From the shared snapshot cache, so
+        // the page load is a query; Re-scan (refresh=1) rebuilds the snapshot,
+        // which is the same one the Files Explorer reads.
+        'catalogue' => catalogueDriftFromSnapshot($pdo, $refresh),
     ]);
 })->add(responds(AssetStats::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
@@ -448,28 +467,37 @@ const FILE_MIME = [
 $app->get('/api/files/raw', function (Request $request, Response $response) {
     $query = $request->getQueryParams();
     $dir = _resolveAssetDir((string) ($query['folder'] ?? ''));
-    $name = _assetPathSegment((string) ($query['name'] ?? ''));
+    // The name may carry sub-folders: a voice over is catalogued as
+    // `Aino/combat/en/Ally at Low HP 02` under character/voice_overs, and that
+    // whole path arrives here as the name. So it is sanitised per segment, the
+    // way a folder is, rather than as one segment - which used to strip the
+    // slashes and turn a voice over into a file that was not there.
+    $name = _assetFolder((string) ($query['name'] ?? ''));
 
     if ($dir === null || $name === null) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
-    // Resolved rather than joined: the segment is already sanitised, and this
-    // is the check that it still lands inside the folder it claims to.
+    // Resolved rather than joined: the name is already sanitised, and this is
+    // the check that it still lands inside the folder it claims to.
     $path = realpath($dir . '/' . $name);
     if ($path === false || !is_file($path) || !str_starts_with($path, $dir)) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
     $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+    $size = (int) filesize($path);
     $stream = fopen($path, 'rb');
     if ($stream === false) {
         return respondJson($response, ['error' => 'Not readable'], 500);
     }
 
-    return $response
+    $response = $response
         ->withHeader('Content-Type', FILE_MIME[$extension] ?? 'application/octet-stream')
-        ->withHeader('Content-Length', (string) filesize($path))
+        // Advertised so an <audio>/<video> will offer a scrubber and report a
+        // duration - without it the browser plays start-to-end but cannot seek,
+        // which is exactly how a voice over behaved before.
+        ->withHeader('Accept-Ranges', 'bytes')
         // The name is the version: a replaced file keeps its name, so this is
         // deliberately short rather than immutable.
         ->withHeader('Cache-Control', 'private, max-age=30')
@@ -485,7 +513,48 @@ $app->get('/api/files/raw', function (Request $request, Response $response) {
         // Content-Disposition: attachment, which would fix it by breaking them.
         ->withHeader('Content-Security-Policy', "sandbox; default-src 'none'")
         // And do not let a mislabelled file be sniffed into something else.
-        ->withHeader('X-Content-Type-Options', 'nosniff')
+        ->withHeader('X-Content-Type-Options', 'nosniff');
+
+    // A byte range, if one was asked for. Media seeking sends `bytes=start-`;
+    // the closed (`start-end`) and suffix (`-count`) forms are handled too, and
+    // anything unsatisfiable gets a 416 that names the size.
+    $range = $request->getHeaderLine('Range');
+    if ($range !== '' && preg_match('/^bytes=(\d*)-(\d*)$/', $range, $m) && ($m[1] !== '' || $m[2] !== '')) {
+        if ($m[1] === '') {
+            $length = min((int) $m[2], $size);
+            $start = $size - $length;
+            $end = $size - 1;
+        } else {
+            $start = (int) $m[1];
+            $end = $m[2] === '' ? $size - 1 : min((int) $m[2], $size - 1);
+        }
+
+        if ($start > $end || $start >= $size) {
+            fclose($stream);
+            return $response->withStatus(416)->withHeader('Content-Range', 'bytes */' . $size)->withHeader('Content-Length', '0');
+        }
+
+        $length = $end - $start + 1;
+
+        // The exact slice, copied into a fresh buffer so the body is that range
+        // from position zero however the response emitter chooses to read it.
+        $slice = fopen('php://temp', 'r+b');
+        if ($start > 0) {
+            fseek($stream, $start);
+        }
+        stream_copy_to_stream($stream, $slice, $length);
+        fclose($stream);
+        rewind($slice);
+
+        return $response
+            ->withStatus(206)
+            ->withHeader('Content-Range', 'bytes ' . $start . '-' . $end . '/' . $size)
+            ->withHeader('Content-Length', (string) $length)
+            ->withBody(new \Slim\Psr7\Stream($slice));
+    }
+
+    return $response
+        ->withHeader('Content-Length', (string) $size)
         ->withBody(new \Slim\Psr7\Stream($stream));
 })->add(responds(RawFile::class));
 

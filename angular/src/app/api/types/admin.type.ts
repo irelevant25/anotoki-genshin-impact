@@ -28,6 +28,17 @@ export interface AuditLogQuery {
   page: number;
 }
 
+/** Filters for the Email Log page. All optional. */
+export interface EmailLogQuery {
+  kind?: string;
+  status?: string;
+  /** Substring match on the recipient address. */
+  recipient?: string;
+  from?: string;
+  to?: string;
+  page?: number;
+}
+
 // ── Migrations ────────────────────────────────────────────────────────────────
 
 /**

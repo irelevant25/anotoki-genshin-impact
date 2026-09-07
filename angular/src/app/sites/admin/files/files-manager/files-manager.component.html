@@ -35,7 +35,7 @@
             <h2 class="pane-title">{{ selectedFolder() || "Pick a folder" }}</h2>
             <div class="toolbar-right">
                 <app-text [placeholder]="'Search files…'" [value]="search()" (inputChange)="onSearchChange($event)"></app-text>
-                <app-file [buttonText]="'Upload'" [buttonOutline]="true" [multiple]="true" [showFileNames]="false" [disabled]="!selectedFolder()" (inputChange)="onUpload($event)"></app-file>
+                <app-file #uploader [buttonText]="'Upload'" [buttonOutline]="true" [multiple]="true" [showFileNames]="false" [disabled]="!selectedFolder()" (inputChange)="onUpload($event)"></app-file>
             </div>
         </div>
 

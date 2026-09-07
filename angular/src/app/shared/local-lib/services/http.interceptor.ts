@@ -43,6 +43,18 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   //
+  // METHOD OVERRIDE (multipart PUT/PATCH)
+  //
+  // PHP does not populate $_POST/$_FILES for multipart PUT or PATCH — only for
+  // POST — so a multipart update sent as a real PUT arrives with an empty body
+  // and the server silently updates nothing. Send it as POST with an override
+  // header; the backend's MethodOverrideMiddleware routes it back to the real
+  // method, and PHP parses the body because the request is a POST.
+  if ((req.method === 'PUT' || req.method === 'PATCH') && typeof FormData !== 'undefined' && req.body instanceof FormData) {
+    req = req.clone({ method: 'POST', setHeaders: { 'X-Http-Method-Override': req.method } });
+  }
+
+  //
   // AUTH
   //
   const token = authService.accessToken;

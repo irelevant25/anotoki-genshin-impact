@@ -17,6 +17,7 @@ require_once __DIR__ . '/asset_columns.php';
 require_once __DIR__ . '/asset_naming.php';
 require_once __DIR__ . '/asset_catalogue.php';
 require_once __DIR__ . '/asset_stats.php';
+require_once __DIR__ . '/explorer.php';
 require_once __DIR__ . '/asset_cleanup.php';
 require_once __DIR__ . '/full_resource.php';
 require_once __DIR__ . '/mail.php';
@@ -27,6 +28,7 @@ require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/trusted_device.php';
 require_once __DIR__ . '/site_settings.php';
 require_once __DIR__ . '/site_routes.php';
+require_once __DIR__ . '/migration_runner.php';
 
 use Slim\Factory\AppFactory;
 
@@ -55,6 +57,7 @@ require_once __DIR__ . '/routes/users/responses/user.php';
 require_once __DIR__ . '/routes/users/responses/backup.php';
 require_once __DIR__ . '/routes/users/responses/translation.php';
 require_once __DIR__ . '/routes/users/responses/setting.php';
+require_once __DIR__ . '/routes/users/responses/email.php';
 
 // endpoints
 require_once __DIR__ . '/routes/users/endpoints/auth.php';
@@ -65,6 +68,7 @@ require_once __DIR__ . '/routes/users/endpoints/routes.php';
 require_once __DIR__ . '/routes/users/endpoints/languages.php';
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
 require_once __DIR__ . '/routes/users/endpoints/backups.php';
+require_once __DIR__ . '/routes/users/endpoints/emails.php';
 
 ///////////////////
 // GENSHIN IMPACT
@@ -153,6 +157,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/dashboard.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/upload.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/uploads.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/files.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/explorer.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/file_categories.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_refinements.php';
@@ -191,6 +196,7 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/banners_full.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_roles.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_constellations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_voice_overs.php';
+require_once __DIR__ . '/routes/genshin_impact/endpoints/voice_over_sets.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_relationships.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_talents.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_talents_cost.php';
@@ -328,7 +334,7 @@ $app->add(function ($request, $handler) {
             $response = $response
                 ->withHeader('Access-Control-Allow-Origin', $allowOrigin)
                 ->withHeader('Vary', 'Origin')
-                ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Refresh-Token')
+                ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Refresh-Token, X-Http-Method-Override')
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
                 ->withHeader('Access-Control-Expose-Headers', 'X-Refresh-Token');
         }
@@ -372,6 +378,13 @@ $app->add(function ($request, $handler) {
 
     return $response;
 });
+
+// Let a POST stand in for a PUT/PATCH when the client asks (X-Http-Method-Override).
+// PHP only populates $_POST/$_FILES for POST multipart, not for PUT or PATCH, so
+// a multipart update sent as a real PUT arrives with an empty body and silently
+// does nothing. The front end sends those updates as POST with this header; added
+// last so it runs first and the true method is set before anything routes on it.
+$app->add(new \Slim\Middleware\MethodOverrideMiddleware());
 
 // The API-client generator loads this file purely to read the route table, and
 // must not serve a request while doing it.

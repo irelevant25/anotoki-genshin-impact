@@ -22,9 +22,9 @@ interface ImageFieldConfig {
 }
 
 const NAMECARD_IMAGES: ImageFieldConfig[] = [
-  { field: 'namecard_icon', label: 'Namecard Icon', required: true },
-  { field: 'namecard_background', label: 'Namecard Background', required: true },
-  { field: 'namecard_banner', label: 'Namecard Banner', required: true },
+  { field: 'namecard_icon', label: 'Namecard Icon', required: false },
+  { field: 'namecard_background', label: 'Namecard Background', required: false },
+  { field: 'namecard_banner', label: 'Namecard Banner', required: false },
 ];
 
 const CHARACTER_IMAGES: ImageFieldConfig[] = [

@@ -152,16 +152,23 @@ export abstract class AdminFormComponent<TFull> {
       return of(null);
     }
     return forkJoin(
-      pending.map((entry) =>
-        this._fileApi
-          .uploadEntityFile(entry.entity, entry.field, toFormData({ file: entry.picked.file, name: entry.name }))
+      pending.map((entry) => {
+        // An existing-catalogue pick has nothing to upload — it already has an
+        // id. Link it straight away; only a fresh file goes over the wire.
+        const existing = entry.picked.existing;
+        if (existing) {
+          entry.apply(existing.path, existing.name, existing.fileId);
+          return of(null);
+        }
+        return this._fileApi
+          .uploadEntityFile(entry.entity, entry.field, toFormData({ file: entry.picked.file!, name: entry.name }))
           .pipe(
             switchMap((result) => {
               entry.apply(result.path, result.name, result.fileId);
               return of(result);
             })
-          )
-      )
+          );
+      })
     );
   }
 

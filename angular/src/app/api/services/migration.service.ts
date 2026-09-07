@@ -5,7 +5,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MigrationEntry, MigrationFile } from '../models';
+import { MigrationApplyResult, MigrationEntry, MigrationFile } from '../models';
 import { MigrationFileQuery } from '../types';
 import { toHttpParams } from '../http-params';
 
@@ -15,6 +15,15 @@ import { toHttpParams } from '../http-params';
 @Injectable({ providedIn: 'root' })
 export class MigrationApiService {
   private readonly _http = inject(HttpClient);
+
+  /**
+   * `POST /api/migrations/apply`
+   *
+   * Requires the `ADMIN` role.
+   */
+  applyMigrations(body: Record<string, unknown>): Observable<MigrationApplyResult> {
+    return this._http.post<MigrationApplyResult>('/api/migrations/apply', body);
+  }
 
   /**
    * `GET /api/migrations/file`

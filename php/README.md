@@ -263,23 +263,106 @@ totals from the whole log, so the two tables agree afterwards.
 
 ## Deploying to Hosting
 
+The site is served from one web root (`public_html/`): the built Angular app at
+the root, the API under `api/`, and the images under `assets/`. The frontend
+talks to its own origin, so `/api/...` is a relative call - no CORS, no second
+domain.
+
+Two builds assemble what to upload; neither invents anything the running site
+would not have.
+
 ```bash
-# 1. Build Angular app
-cd ../your-angular-app
-ng build --configuration production
+# 1. Frontend  ->  angular/dist/angular/browser/
+cd angular
+npm run build:deploy
+#   ng build (production) + a step that writes, into the build only:
+#     config.json  { "url": "", "configuration": "prod" }  (same-origin API)
+#     .htaccess    SPA fallback, with /api and /uploads passed through
+#   The 2.7 GB assets/ tree is NOT bundled (see step 3).
 
-# 2. Upload via SFTP:
-#    dist/your-app/*     → public_html/
-#    api/*               → public_html/api/
-#    config/*            → public_html/config/   (NOT database.local.php!)
-#    vendor/             → public_html/vendor/
-#    swagger.json        → public_html/swagger.json  (optional)
-
-# 3. Set your production DB credentials directly on the server
-#    via hosting control panel or by uploading config/database.local.php manually
+# 2. Backend   ->  php/dist/
+cd ../php
+php build-dist.php
+#   The runtime-only slice: api/ (minus the generators and API reference),
+#   config/ (minus secrets), vendor/, composer.*, migrations/, and hardened
+#   public/uploads/ + storage/. Dev tooling and secrets are left behind.
 ```
 
-> ⚠️ Never upload `config/database.local.php` via git or automated scripts.
-> Upload it manually once and leave it on the server.
+Upload, all into `public_html/`:
+
+```
+angular/dist/angular/browser/*   →  public_html/            (index.html, JS/CSS, config.json, .htaccess)
+php/dist/*                        →  public_html/            (api/, config/, vendor/, migrations/, public/, storage/, composer.*)
+assets/*                          →  public_html/assets/     (separately - it is large and changes rarely)
+```
+
+The real config lives in `*.local.php` files, which the build leaves out on
+purpose. `setup.php` (below) writes all of them for you on the first install -
+`config/database.local.php`, `config/jwt.local.php`, `config/mail.local.php`, and
+`config/google.local.php` if you enter a Google client ID (blank skips Google
+sign-in). Nothing needs placing by hand.
+
+> ⚠️ Never commit or ship a `*.local.php` file or `config/google.php`. The
+> `.local.php` suffix means "this deployment's real values", as opposed to the
+> committed `database.php`/`jwt.php` templates; `getDb()` and the JWT loader
+> prefer the `.local` file and fall back to the template.
+
+### First install (empty database)
+
+The admin's "apply migrations" button needs an admin to sign in, which needs the
+database the migrations build - so the very first time, use the installer. It
+asks for everything and writes every config file itself; nothing is pre-made.
+
+1. Create the databases in your hosting panel (PostgreSQL) - the app's user
+   usually cannot - and note their names.
+2. Upload `php/setup.php` to the web root, beside the build. (It is not part of
+   `build-dist.php`; upload it by hand, just this once.)
+3. Open `https://your-site/setup.php`. On first view it writes a random token to
+   `config/setup.local.php`; **open that file over SFTP and copy the token** -
+   only someone with server access can, which is how it knows it is you.
+4. Fill the form: the token, the admin account, the database connection (host,
+   port, username, password, the two database names), email — the two sender
+   mailboxes (`noreply@` for automated mail, `support@` for the welcome, both
+   real mailboxes on your domain) and the site URL for links — and, optionally, a
+   Google sign-in client ID (blank to skip). It runs every migration, creates the
+   admin, and writes `config/database.local.php`, `config/jwt.local.php`,
+   `config/mail.local.php`, and `config/google.local.php` if you gave an ID.
+5. It writes `storage/installed.lock` (which makes it refuse to run again even
+   if the next part fails), then deletes `config/setup.local.php` and itself.
+   If the host would not let it self-delete, remove `setup.php` by hand.
+
+### Later schema changes
+
+Once there is an admin, no shell is needed: FTP the new `migrations/{alias}/*.sql`
+files up, then open the admin **Migrations** page and press **Apply pending** -
+`POST /api/migrations/apply` runs them in order (ADMIN only). The same engine
+(`api/migration_runner.php`) backs that button, `setup.php`, and
+`php migration.php`, so a database built any of the three ways is the same
+database.
+
+### Copying local data up to production
+
+The database migration runs from your machine against the remote server, so the
+lack of a shell on the host does not matter - only that you can reach its
+PostgreSQL host and port.
+
+```bash
+cd php
+php reset-password.php <admin-email>   # so prod inherits a password you know
+php db-push.php                         # one command: dumps local, replaces the target DBs
+```
+
+`db-push.php` asks for the target connection, then for each database dumps local,
+wipes the target's schema and restores into it - so it works whether or not the
+target has already been built by `setup.php`, and it never needs `pg_restore`
+syntax or a `PGPASSWORD` set by hand. It **erases** the target databases (it asks
+you to type the host to confirm), so it is for seeding a fresh server. The dumps
+carry schema, data and the migrations table, so no migration run is needed after;
+`setup.php` (or hand-uploaded `*.local.php`) supplies only the config, and
+`assets/` still goes up separately.
+
+To dump to files instead and run the restore yourself, use `php db-dump.php` - it
+prints the `pg_restore` commands. Either way needs the PostgreSQL client tools
+locally; if they are not on PATH, point `config/backup.local.php` at them.
 
 ---

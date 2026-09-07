@@ -15,8 +15,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 // What counts as usable is decided here rather than by the caller, because every
 // condition is about the data being answerable:
 //
-//   one character   a line credited to several characters has no single right
-//                   answer, so lines with a second character are left out
+//   one character   a line lives in a voice-over set; a set shared by several
+//                   characters has no single right answer, but the only shared
+//                   sets are the Traveler's, already excluded on the next line
 //   english audio   the quiz plays the English recording and shows the English
 //                   text, so a line missing either cannot be asked
 //   no traveller    Aether and Lumine are excluded from the quiz everywhere, as
@@ -43,11 +44,10 @@ $app->get('/api/quiz/voice-over/random', function (Request $request, Response $r
                 c.rarity,
                 c.element
            FROM characters_voice_overs vo
-           JOIN characters c ON c.id = vo.character_id
+           JOIN characters c ON c.voice_over_set_id = vo.voice_over_set_id
           WHERE vo.deleted = FALSE
             AND c.deleted = FALSE
             AND c.is_traveler = FALSE
-            AND vo.character_id_2 IS NULL
             AND vo.audio_english_file_id IS NOT NULL
             AND vo.text_english  IS NOT NULL AND vo.text_english  <> ''
           ORDER BY random()

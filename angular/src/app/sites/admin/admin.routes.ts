@@ -17,10 +17,12 @@ import { FoodsListComponent } from './foods/foods-list/foods-list.component';
 import { FoodFormComponent } from './foods/food-form/food-form.component';
 import { MigrationsListComponent } from './migrations/migrations-list/migrations-list.component';
 import { FilesManagerComponent } from './files/files-manager/files-manager.component';
+import { FilesExplorerComponent } from './files-explorer/files-explorer.component';
 import { BannersListComponent } from './banners/banners-list/banners-list.component';
 import { BannerFormComponent } from './banners/banner-form/banner-form.component';
 import { BackgroundsListComponent } from './backgrounds/backgrounds-list/backgrounds-list.component';
 import { AuditLogsComponent } from './audit-logs/audit-logs.component';
+import { EmailsComponent } from './emails/emails.component';
 import { ErrorsComponent } from './errors/errors.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { BackupsComponent } from './backups/backups.component';
@@ -108,8 +110,10 @@ export const routes: Routes = [
       { path: 'backgrounds', component: BackgroundsListComponent },
       { path: 'feedback', component: FeedbackComponent },
       { path: 'audit-logs', component: AuditLogsComponent },
+      { path: 'emails', component: EmailsComponent },
       { path: 'errors', component: ErrorsComponent },
       { path: 'files', component: FilesManagerComponent },
+      { path: 'files-explorer', component: FilesExplorerComponent },
       { path: 'file-categories', component: FileCategoriesComponent },
       { path: 'migrations', component: MigrationsListComponent },
       { path: 'backups', component: BackupsComponent },

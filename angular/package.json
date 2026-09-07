@@ -16,6 +16,7 @@
     "ng": "ng",
     "start": "node start.js && ng serve",
     "build": "ng build",
+    "build:deploy": "ng build --configuration production && node scripts/prepare-deploy.mjs",
     "watch": "ng build --watch --configuration development",
     "lint": "npx eslint . --ext .ts",
     "lint-no-warn": "npx eslint . --ext .ts --quiet",

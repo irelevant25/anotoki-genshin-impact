@@ -5368,7 +5368,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 218
+                "line": 232
             },
             "expanded": [
                 "created_by"
@@ -5539,7 +5539,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 404
+                "line": 455
             },
             "expanded": [
                 "created_by",
@@ -5562,6 +5562,7 @@
             "file": "characters_full.php",
             "tables": [
                 "characters",
+                "characters_voice_overs",
                 "characters_ascensions",
                 "characters_ascensions_cost",
                 "characters_talents",
@@ -5578,7 +5579,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 350
+                "line": 398
             },
             "expanded": [
                 "created_by",
@@ -5772,6 +5773,64 @@
             "partial": false,
             "auth": false,
             "roles": []
+        },
+        {
+            "method": "GET",
+            "path": "/api/emails",
+            "args": [],
+            "file": "emails.php",
+            "tables": [
+                "email_log"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "EmailLogPage",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\emails.php",
+                "line": 84
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/emails/filters",
+            "args": [],
+            "file": "emails.php",
+            "tables": [
+                "email_log"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "EmailLogFilters",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\users\\endpoints\\emails.php",
+                "line": 25
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
         },
         {
             "method": "GET",
@@ -7020,6 +7079,114 @@
         },
         {
             "method": "GET",
+            "path": "/api/explorer",
+            "args": [],
+            "file": "explorer.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "ExplorerListing",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\explorer.php",
+                "line": 30
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/explorer/new",
+            "args": [],
+            "file": "explorer.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "ExplorerListing",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\explorer.php",
+                "line": 42
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/api/explorer/rescan",
+            "args": [],
+            "file": "explorer.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "ExplorerStatus",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\explorer.php",
+                "line": 60
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/explorer/status",
+            "args": [],
+            "file": "explorer.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "ExplorerStatus",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\explorer.php",
+                "line": 52
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
             "path": "/api/feedback",
             "args": [],
             "file": "feedback.php",
@@ -7357,7 +7524,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 310
+                "line": 319
             },
             "expanded": [],
             "payload": null,
@@ -7373,7 +7540,10 @@
             "path": "/api/files",
             "args": [],
             "file": "files.php",
-            "tables": [],
+            "tables": [
+                "file_categories",
+                "files"
+            ],
             "success": 200,
             "statuses": [
                 200,
@@ -7385,7 +7555,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 212
+                "line": 217
             },
             "expanded": [],
             "payload": null,
@@ -7415,7 +7585,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 283
+                "line": 288
             },
             "expanded": [],
             "payload": null,
@@ -7443,7 +7613,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 728
+                "line": 797
             },
             "expanded": [],
             "payload": null,
@@ -7472,7 +7642,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 753
+                "line": 822
             },
             "expanded": [],
             "payload": null,
@@ -7500,7 +7670,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 763
+                "line": 832
             },
             "expanded": [],
             "payload": null,
@@ -7528,7 +7698,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 694
+                "line": 763
             },
             "expanded": [],
             "payload": null,
@@ -7556,7 +7726,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 683
+                "line": 752
             },
             "expanded": [],
             "payload": null,
@@ -7572,7 +7742,9 @@
             "path": "/api/files/folders",
             "args": [],
             "file": "files.php",
-            "tables": [],
+            "tables": [
+                "file_categories"
+            ],
             "success": 200,
             "statuses": [
                 200
@@ -7583,7 +7755,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 151
+                "line": 162
             },
             "expanded": [],
             "payload": null,
@@ -7612,7 +7784,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 604
+                "line": 673
             },
             "expanded": [],
             "payload": null,
@@ -7641,7 +7813,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 545
+                "line": 614
             },
             "expanded": [],
             "payload": null,
@@ -7669,7 +7841,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 490
+                "line": 559
             },
             "expanded": [],
             "payload": null,
@@ -7694,7 +7866,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 659
+                "line": 728
             },
             "expanded": [],
             "payload": null,
@@ -7724,7 +7896,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 378
+                "line": 392
             },
             "expanded": [],
             "payload": null,
@@ -7751,7 +7923,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 418
+                "line": 437
             },
             "expanded": [],
             "payload": null,
@@ -7778,7 +7950,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 646
+                "line": 715
             },
             "expanded": [],
             "payload": null,
@@ -7805,7 +7977,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\files.php",
-                "line": 345
+                "line": 354
             },
             "expanded": [],
             "payload": null,
@@ -9392,6 +9564,32 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/api/migrations/apply",
+            "args": [],
+            "file": "migrations.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "MigrationApplyResult",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\migrations.php",
+                "line": 159
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
             ]
         },
         {
@@ -11802,6 +12000,70 @@
         },
         {
             "method": "GET",
+            "path": "/api/voice-over-sets",
+            "args": [],
+            "file": "voice_over_sets.php",
+            "tables": [
+                "voice_over_sets",
+                "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "VoiceOverSet",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\voice_over_sets.php",
+                "line": 41
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/voice-over-sets/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "voice_over_sets.php",
+            "tables": [
+                "characters_voice_overs"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "characters_voice_overs",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\voice_over_sets.php",
+                "line": 52
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
             "path": "/api/voice-over-types",
             "args": [],
             "file": "voice_over_types.php",
@@ -13149,6 +13411,14 @@
                     "optional": true
                 },
                 {
+                    "name": "voice_over_set_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "how_to_obtain",
                     "types": [
                         "array",
@@ -14248,7 +14518,7 @@
             "file": "character_voice_over.php",
             "fields": [
                 {
-                    "name": "character_id",
+                    "name": "voice_over_set_id",
                     "types": [
                         "int"
                     ],
@@ -14347,54 +14617,6 @@
                     "name": "text_korean",
                     "types": [
                         "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_2",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_3",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_4",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_5",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_6",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_7",
-                    "types": [
-                        "int"
                     ],
                     "nullable": true,
                     "optional": true
@@ -19528,6 +19750,180 @@
             ]
         },
         {
+            "name": "EmailLogEntry",
+            "file": "email.php",
+            "merges": null,
+            "description": "What the admin Email Log answers with - a record of messages the API sent.\n\nMetadata only, on purpose (see the 039_email_log migration): no bodies, and a\nsubject only for the kinds whose subject is not sensitive.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "recipient",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "kind",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "confirmation | password_reset | login_code (and any future kind)."
+                },
+                {
+                    "name": "subject",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "Null for kinds whose subject carries something secret (the sign-in code)."
+                },
+                {
+                    "name": "status",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "sent | failed"
+                },
+                {
+                    "name": "error",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "user_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "username",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "Resolved for display; null if the account is gone or it was to a non-user."
+                },
+                {
+                    "name": "created_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "EmailLogFilters",
+            "file": "email.php",
+            "merges": null,
+            "description": "The distinct values the log holds, for the page's filter dropdowns.",
+            "fields": [
+                {
+                    "name": "kinds",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": null
+                },
+                {
+                    "name": "statuses",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "EmailLogPage",
+            "file": "email.php",
+            "merges": null,
+            "description": null,
+            "fields": [
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "page",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "pageSize",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "items",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "EmailLogEntry[]",
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "EnemyDropPage",
             "file": "content.php",
             "merges": null,
@@ -20134,6 +20530,258 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                }
+            ]
+        },
+        {
+            "name": "ExplorerFile",
+            "file": "file.php",
+            "merges": null,
+            "description": "One file on disk, as the Explorer draws it.",
+            "fields": [
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Path relative to assets/."
+                },
+                {
+                    "name": "folder",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "extension",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "size",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "modified",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "url",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Served back through /api/files/raw."
+                }
+            ]
+        },
+        {
+            "name": "ExplorerFolder",
+            "file": "file.php",
+            "merges": null,
+            "description": "One sub-folder in the disk tree, with how many files sit under it.",
+            "fields": [
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "files",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "ExplorerListing",
+            "file": "file.php",
+            "merges": null,
+            "description": "One folder's worth of the disk tree: its sub-folders, its files, and a page.",
+            "fields": [
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "search",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "folders",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "ExplorerFolder[]",
+                    "description": "Empty while searching (results are flat)."
+                },
+                {
+                    "name": "files",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "ExplorerFile[]",
+                    "description": null
+                },
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "page",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "pageSize",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "status",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "ExplorerStatus",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "ExplorerStatus",
+            "file": "file.php",
+            "merges": null,
+            "description": "When the disk snapshot was taken, and how much of it is new.",
+            "fields": [
+                {
+                    "name": "scanned_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "Null until the disk has been scanned at least once."
+                },
+                {
+                    "name": "previous_scanned_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The scan before this one, which `new` is counted against."
+                },
+                {
+                    "name": "total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "new_count",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Files present now that were absent at the previous scan."
                 }
             ]
         },
@@ -20861,6 +21509,92 @@
                     "nullable": false,
                     "optional": false,
                     "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "MigrationApplied",
+            "file": "admin.php",
+            "merges": null,
+            "description": "One database's share of an apply run.",
+            "fields": [
+                {
+                    "name": "database",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "applied",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "string[]",
+                    "description": "The files applied just now, in the order they ran."
+                },
+                {
+                    "name": "failed",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The file that failed, if one did - everything after it was left."
+                },
+                {
+                    "name": "error",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "MigrationApplyResult",
+            "file": "admin.php",
+            "merges": null,
+            "description": "What `POST /api/migrations/apply` did across every database.",
+            "fields": [
+                {
+                    "name": "applied",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "ok",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "False if any database hit a failure or could not be reached."
+                },
+                {
+                    "name": "databases",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "MigrationApplied[]",
                     "description": null
                 }
             ]
@@ -22768,6 +23502,72 @@
             ]
         },
         {
+            "name": "VoiceOverSet",
+            "file": "content.php",
+            "merges": null,
+            "description": "One voice-over set for the character-form picker: who shares it, and how big.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "voice_over_count",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "characters",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "VoiceOverSetMember[]",
+                    "description": "The characters currently pointing at this set."
+                }
+            ]
+        },
+        {
+            "name": "VoiceOverSetMember",
+            "file": "content.php",
+            "merges": null,
+            "description": "A character on a voice-over set, reduced to what the picker shows.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "WeaponAscensionFull",
             "file": "content.php",
             "merges": "WeaponAscension",
@@ -23825,6 +24625,12 @@
                 {
                     "name": "namecard_banner_name",
                     "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "voice_over_set_id",
+                    "sqlType": "INT",
                     "nullable": true,
                     "enum": null
                 }
@@ -25022,48 +25828,6 @@
                     "enum": null
                 },
                 {
-                    "name": "character_id",
-                    "sqlType": "INT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_2",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_3",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_4",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_5",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_6",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_7",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "order",
                     "sqlType": "SMALLINT",
                     "nullable": false,
@@ -25230,6 +25994,12 @@
                     "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "voice_over_set_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
                 }
             ]
         },
@@ -25273,6 +26043,61 @@
                     "name": "icon_name",
                     "sqlType": "TEXT",
                     "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "email_log",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "recipient",
+                    "sqlType": "VARCHAR(320)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "kind",
+                    "sqlType": "VARCHAR(64)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "subject",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "status",
+                    "sqlType": "VARCHAR(16)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "error",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "user_id",
+                    "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "created_at",
+                    "sqlType": "TIMESTAMP",
+                    "nullable": false,
                     "enum": null
                 }
             ]
@@ -27527,6 +28352,19 @@
                 {
                     "name": "force_password_change",
                     "sqlType": "BOOLEAN",
+                    "nullable": false,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "voice_over_sets",
+            "database": "genshin_impact",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
                     "nullable": false,
                     "enum": null
                 }

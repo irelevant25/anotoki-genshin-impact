@@ -17,6 +17,17 @@ export interface AssetFileRef {
   name: string;
 }
 
+/**
+ * Where the Files Explorer is looking. All optional: no `path` is the root, no
+ * `search` browses that folder, and `search` set turns the same call into a
+ * recursive find. `/api/explorer/new` reads the same shape and ignores `path`.
+ */
+export interface ExplorerQuery {
+  path?: string;
+  search?: string;
+  page?: number;
+}
+
 /** Which recorded-but-gone rows to forget. Omitted means all of them. */
 export interface MissingFileRef {
   /** Comma separated catalogue ids. */
