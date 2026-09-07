@@ -16,7 +16,10 @@
 /** Made for the `users` database when it has nobody in it at all. */
 const DEFAULT_ADMIN_USERNAME = 'admin';
 const DEFAULT_ADMIN_EMAIL = 'admin@localhost';
-const DEFAULT_ADMIN_PASSWORD = 'Admin1234!';
+// No default password: when the caller passes none, createDefaultAdmin() mints a
+// random one and hands it back to be printed. A fixed default would put a working
+// admin credential in the source - and in the built dist that ships to hosting -
+// so there is deliberately no constant for it.
 
 /** php/migrations, whichever context loaded this (api/ is one level down). */
 function migrationsRoot(): string
@@ -292,7 +295,9 @@ function createDefaultAdmin(PDO $pdo, ?string $email = null, ?string $password =
     }
 
     $email = $email ?: DEFAULT_ADMIN_EMAIL;
-    $password = $password ?: DEFAULT_ADMIN_PASSWORD;
+    // A random password when none was supplied - the caller (the CLI) prints it,
+    // so it is seen once and then changed at first sign-in. Never a fixed default.
+    $password = $password ?: bin2hex(random_bytes(12));
     $username = DEFAULT_ADMIN_USERNAME;
 
     $pdo->prepare('INSERT INTO users (username, email, password, role, force_password_change) VALUES (?, ?, ?, ?, TRUE)')

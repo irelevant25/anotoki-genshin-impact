@@ -4,20 +4,55 @@
 // the one piece of art worth showing at size.
 .character-card {
   width: 140px;
+  position: relative; // anchors the corner icons
 
-  // The element reads off a coloured rail down the card rather than another
-  // badge - the icons are already in the filter bar directly above.
-  // border-left: 3px solid transparent;
-  // border-radius: var(--border-radius-large);
+  // Background gradient by rarity, behind the (transparent) portrait.
+  &.rarity-5 {
+    --rarity-color: var(--five-star);
+  }
+  &.rarity-4 {
+    --rarity-color: var(--four-star);
+  }
+  &.rarity-3 {
+    --rarity-color: var(--three-star);
+  }
+  &.rarity-2 {
+    --rarity-color: var(--two-star);
+  }
+  &.rarity-1,
+  &.rarity-0 {
+    --rarity-color: var(--one-star);
+  }
 
-  // @each $element in (anemo, cryo, dendro, electro, geo, hydro, pyro) {
-  //   &.element-#{$element} {
-  //     border-left-color: var(--#{$element}-primary-white);
-  //   }
-  // }
-
-  img {
+  // The portrait itself; its background is the rarity gradient.
+  > img:not(.corner-icon) {
     height: 140px;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--rarity-color, var(--one-star)) 70%, white) 0%,
+      var(--rarity-color, var(--one-star)) 100%
+    );
+  }
+
+  // Element top-left, weapon top-right - small dark discs that read over the
+  // gradient (both glyphs are drawn light).
+  .corner-icon {
+    position: absolute;
+    top: 5px;
+    z-index: 1;
+    width: 25px;
+    height: 25px;
+    padding: 3px;
+    border-radius: var(--border-radius-pill);
+    background: var(--bg-tooltip);
+    object-fit: contain;
+
+    &.element {
+      left: 5px;
+    }
+    &.weapon {
+      right: 5px;
+    }
   }
 }
 

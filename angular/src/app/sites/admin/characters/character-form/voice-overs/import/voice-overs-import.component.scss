@@ -130,11 +130,16 @@
 
 .unmatched-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 1fr) 150px minmax(0, 1.2fr) auto;
   align-items: end;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm);
   border-top: 1px solid var(--border-color);
+
+  // The per-row remove button sits in the trailing auto column, kept compact.
+  app-button {
+    justify-self: end;
+  }
 
   &.resolved {
     background: var(--bg-hover);

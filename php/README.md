@@ -61,8 +61,9 @@ applies every file in `migrations/<alias>/` that has not run yet, in order.
 Run it on a fresh checkout and on an existing one; it is the same command
 either way, and on an up-to-date database it does nothing.
 
-A fresh `users` database also gets an admin account — `admin@localhost`,
-password `Admin1234!`, flagged so the site asks for a new password at the first
+A fresh `users` database also gets an admin account — `admin@localhost`, with a
+randomly generated password that the command prints once. Copy it from the
+terminal; the account is flagged so the site asks for a new password at the first
 sign-in.
 
 ```bash

@@ -64,6 +64,15 @@ export class DatabaseCharactersComponent {
         return false;
       }
       return !name || matchesTerm(character.name, name);
+    }).sort((a, b) => {
+      const releasedA = a.release_date ?? '';
+      const releasedB = b.release_date ?? '';
+      if (releasedA !== releasedB) {
+        if (!releasedA) return 1;
+        if (!releasedB) return -1;
+        return releasedB.localeCompare(releasedA);
+      }
+      return String(a.name).localeCompare(String(b.name));
     });
   });
 
@@ -81,7 +90,7 @@ export class DatabaseCharactersComponent {
 
     this._characterApi.getCharacters().subscribe({
       next: (characters) => {
-        this.characters.set(characters.sort((a, b) => String(a.name).localeCompare(String(b.name))));
+        this.characters.set(characters);
         this.loading.set(false);
       },
       error: () => {

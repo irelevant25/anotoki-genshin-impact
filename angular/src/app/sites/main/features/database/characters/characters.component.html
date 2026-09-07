@@ -84,14 +84,33 @@
 
                 <div class="card-grid">
                     @for (character of filteredCharacters(); track character.id) {
-                        <a class="entity-card character-card" [class]="'element-' + (character.element ?? '').toLowerCase()" [routerLink]="[character.id]">
+                        <a class="entity-card character-card" [class]="'rarity-' + (character.rarity ?? 0)" [routerLink]="[character.id]">
+                            @if (character.element) {
+                                <img
+                                    class="corner-icon element"
+                                    [appMaterialIcon]="character.element"
+                                    [appAssetFolder]="'elements'"
+                                    [alt]="character.element"
+                                    [title]="character.element"
+                                    loading="lazy"
+                                />
+                            }
+                            @if (character.weapon_type) {
+                                <img
+                                    class="corner-icon weapon"
+                                    [appMaterialIcon]="character.weapon_type"
+                                    [appAssetFolder]="'weapon_types'"
+                                    [alt]="character.weapon_type"
+                                    [title]="character.weapon_type"
+                                    loading="lazy"
+                                />
+                            }
                             <img
                                 [appMaterialIcon]="character.icon_name ?? character.name"
                                 [appAssetFolder]="'character.icon'"
                                 [alt]="character.name"
                                 [title]="character.name"
                                 loading="lazy"
-                                [class]="'quality-' + (character.rarity ?? '0')"
                             />
                             <div class="name">{{ character.name }}</div>
                         </a>

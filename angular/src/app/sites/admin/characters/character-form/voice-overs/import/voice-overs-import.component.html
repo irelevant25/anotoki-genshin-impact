@@ -117,6 +117,14 @@
                                     [emptyOptionText]="'— skip this file —'"
                                     (inputChange)="assignTarget(match, $event)"
                                 ></app-dropdown>
+                                <app-button
+                                    icon="icon-trash"
+                                    variant="danger"
+                                    size="very-small"
+                                    [outline]="true"
+                                    tooltipText="Remove this file from the list"
+                                    (buttonClick)="removeUnmatched(match)"
+                                ></app-button>
                             </div>
                         }
                     </div>

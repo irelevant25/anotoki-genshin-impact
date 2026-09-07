@@ -199,6 +199,19 @@ export class VoiceOversImportComponent extends AbstractModalComponent {
     this.result.update((result) => (result ? { ...result } : result));
   }
 
+  /** Drops a stray file from the list - for audio that has no line to belong to. */
+  removeUnmatched(match: AudioMatch): void {
+    this.result.update((result) =>
+      result
+        ? {
+            ...result,
+            matches: result.matches.filter((entry) => entry !== match),
+            unmatched: result.unmatched.filter((entry) => entry !== match),
+          }
+        : result
+    );
+  }
+
   // ── Commit ──────────────────────────────────────────────────────────────────
 
   confirmImport(): void {
