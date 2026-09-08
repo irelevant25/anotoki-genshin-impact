@@ -361,6 +361,93 @@ class VoiceOverSet extends ResponseShape
     }
 }
 
+class AscensionSetMember extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $name,
+    ) {
+    }
+}
+
+/** One ascension set for the character-form picker: who shares it, and how big. */
+class AscensionSet extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly int $ascension_count,
+        /** @var AscensionSetMember[] The characters currently pointing at this set. */
+        public readonly array $characters,
+    ) {
+    }
+}
+
+/** One ascension set's rows and their costs, for previewing a set in the picker. */
+class AscensionSetDetail extends ResponseShape
+{
+    public function __construct(
+        /** @var characters_ascensions[] */
+        public readonly array $ascensions,
+        /** @var characters_ascensions_cost[] */
+        public readonly array $ascension_cost,
+    ) {
+    }
+}
+
+class TalentSetMember extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $name,
+    ) {
+    }
+}
+
+/** One talent set for the character-form picker: who shares it, and how big. */
+class TalentSet extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly int $talent_count,
+        /** @var TalentSetMember[] The characters currently pointing at this set. */
+        public readonly array $characters,
+    ) {
+    }
+}
+
+/** One talent set's talents and their costs, for previewing a set in the picker. */
+class TalentSetDetail extends ResponseShape
+{
+    public function __construct(
+        /** @var characters_talents[] */
+        public readonly array $talents,
+        /** @var characters_talents_cost[] */
+        public readonly array $talent_cost,
+    ) {
+    }
+}
+
+class ConstellationSetMember extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $name,
+    ) {
+    }
+}
+
+/** One constellation set for the character-form picker: who shares it, and how big. */
+class ConstellationSet extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly int $constellation_count,
+        /** @var ConstellationSetMember[] The characters currently pointing at this set. */
+        public readonly array $characters,
+    ) {
+    }
+}
+
 /** A page of what enemies drop. */
 class EnemyDropPage extends ResponseShape
 {

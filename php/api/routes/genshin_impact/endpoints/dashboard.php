@@ -27,10 +27,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  */
 const DASHBOARD_GAPS = [
     ['label' => 'Characters with no build',       'table' => 'characters', 'related' => 'characters_builds',         'column' => 'character_id', 'route' => 'characters'],
-    ['label' => 'Characters with no talents',     'table' => 'characters', 'related' => 'characters_talents',        'column' => 'character_id', 'route' => 'characters'],
-    ['label' => 'Characters with no constellations', 'table' => 'characters', 'related' => 'characters_constellations', 'column' => 'character_id', 'route' => 'characters'],
-    ['label' => 'Characters with no ascension',   'table' => 'characters', 'related' => 'characters_ascensions',     'column' => 'character_id', 'route' => 'characters'],
-    ['label' => 'Characters with no voice overs', 'table' => 'characters', 'related' => 'characters_voice_overs',    'column' => 'character_id', 'route' => 'characters'],
+    ['label' => 'Characters with no talents',     'table' => 'characters', 'related' => 'characters_talents',        'column' => 'talent_set_id',        'localColumn' => 'talent_set_id',        'route' => 'characters'],
+    ['label' => 'Characters with no constellations', 'table' => 'characters', 'related' => 'characters_constellations', 'column' => 'constellation_set_id', 'localColumn' => 'constellation_set_id', 'route' => 'characters'],
+    ['label' => 'Characters with no ascension',   'table' => 'characters', 'related' => 'characters_ascensions',     'column' => 'ascension_set_id',  'localColumn' => 'ascension_set_id',  'route' => 'characters'],
+    ['label' => 'Characters with no voice overs', 'table' => 'characters', 'related' => 'characters_voice_overs',    'column' => 'voice_over_set_id', 'localColumn' => 'voice_over_set_id', 'route' => 'characters'],
     ['label' => 'Weapons with no refinements',    'table' => 'weapons',    'related' => 'weapons_refinements',       'column' => 'weapon_id',    'route' => 'weapons'],
     ['label' => 'Weapons with no ascension',      'table' => 'weapons',    'related' => 'weapons_ascensions',        'column' => 'weapon_id',    'route' => 'weapons'],
     ['label' => 'Artifacts with no pieces',       'table' => 'artifacts',  'related' => 'artifacts_pieces',          'column' => 'artifact_id',  'route' => 'artifacts'],
@@ -72,14 +72,17 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
     $gaps = [];
     foreach (DASHBOARD_GAPS as $gap) {
         $total = (int) $pdo->query("SELECT count(*) FROM {$gap['table']} WHERE deleted = false")->fetchColumn();
+        // Most gaps join the child to the parent's id; the set-backed ones
+        // (voice-overs, ascensions) join on the parent's *_set_id instead.
+        $local = $gap['localColumn'] ?? 'id';
         $second = isset($gap['related2'])
-            ? " AND NOT EXISTS (SELECT 1 FROM {$gap['related2']} r2 WHERE r2.{$gap['column']} = t.id AND r2.deleted = false)"
+            ? " AND NOT EXISTS (SELECT 1 FROM {$gap['related2']} r2 WHERE r2.{$gap['column']} = t.{$local} AND r2.deleted = false)"
             : '';
 
         $missing = (int) $pdo->query(
             "SELECT count(*) FROM {$gap['table']} t
              WHERE t.deleted = false
-               AND NOT EXISTS (SELECT 1 FROM {$gap['related']} r WHERE r.{$gap['column']} = t.id AND r.deleted = false)"
+               AND NOT EXISTS (SELECT 1 FROM {$gap['related']} r WHERE r.{$gap['column']} = t.{$local} AND r.deleted = false)"
             . $second
         )->fetchColumn();
 

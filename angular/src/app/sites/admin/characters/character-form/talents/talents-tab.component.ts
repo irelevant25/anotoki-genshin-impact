@@ -1,4 +1,6 @@
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, inject, input, model, output, signal } from '@angular/core';
+import { takeUntil } from 'rxjs';
+import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
@@ -9,9 +11,10 @@ import { TabComponent } from '../../../../../shared/local-lib/components/tabs/ta
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { TalentCostFormData } from '../../../../../sites/admin/shared/admin-form.model';
-import { Audited, Material } from '../../../../../api';
+import { Audited, Material, TalentSetApiService } from '../../../../../api';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
-import { emptyTalent, reorder, revokePicked, resequence, TalentWrapper } from '../character-form.model';
+import { TalentSetSelectorComponent } from './set-selector/set-selector.component';
+import { createUid, emptyTalent, reorder, revokePicked, resequence, TalentWrapper } from '../character-form.model';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { toAssetBaseName } from '../../../shared/asset-name';
@@ -42,14 +45,48 @@ const MAX_COST_LEVEL = 10;
     MaterialIconDirective,
   ],
 })
-export class TalentsTabComponent {
+export class TalentsTabComponent extends AbstractModalComponent {
   talents = model<TalentWrapper[]>([]);
   talentCost = model<TalentCostFormData[]>([]);
   talentTypes = input<string[]>([]);
   materials = input<Audited<Material>[]>([]);
+  /** The character's current talent set, marked in the picker. */
+  talentSetId = input<number | null | undefined>();
+  /** Emitted with the chosen set id, so the form points the character at it. */
+  talentSetChosen = output<number>();
+
+  private readonly _talentSetApi = inject(TalentSetApiService);
 
   readonly minCostLevel = MIN_COST_LEVEL;
   readonly maxCostLevel = MAX_COST_LEVEL;
+
+  /**
+   * Points this character at another talent set. Picks a set, loads its talents
+   * and costs into the tab, and tells the form to save the new set on the
+   * character. Mirrors the ascension "Choose set".
+   */
+  chooseSet(): void {
+    const modal = this.modalService.open<TalentSetSelectorComponent, number | undefined>(TalentSetSelectorComponent, {
+      size: '4',
+      scrollable: true,
+    });
+    modal.componentInstance.currentSetId.set(this.talentSetId() ?? null);
+
+    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((setId) => {
+      if (typeof setId !== 'number') {
+        return;
+      }
+      this._talentSetApi.getTalentSet(setId).subscribe({
+        next: (detail) => {
+          this.talents.set((detail?.talents ?? []).map((data) => ({ uid: createUid(), data: data as unknown as TalentWrapper['data'] })));
+          this.talentCost.set((detail?.talent_cost ?? []) as unknown as TalentCostFormData[]);
+          this.talentSetChosen.emit(setId);
+          this.notificationService.showSuccess(`Now using set #${setId} (${detail?.talents?.length ?? 0} talents).`);
+        },
+        error: () => this.notificationService.showError('Could not load that set’s talents.'),
+      });
+    });
+  }
 
   sortedTalents = computed(() => [...this.talents()].sort((a, b) => a.data.order - b.data.order));
   materialOptions = computed<DropdownOption[]>(() => this.materials().map((material) => ({ key: material.id ?? -1, value: material.name, data: material })));
@@ -71,6 +108,25 @@ export class TalentsTabComponent {
   });
 
   canAddCostLevel = computed(() => this.costGroups().length < MAX_COST_LEVEL - MIN_COST_LEVEL + 1);
+
+  /** Two-step clear of the whole set (talents and their costs), matching the voice-over tab. */
+  deleteAllArmed = signal(false);
+
+  deleteAll(): void {
+    if (!this.deleteAllArmed()) {
+      this.deleteAllArmed.set(true);
+      return;
+    }
+    const count = this.talents().length;
+    this.talents.set([]);
+    this.talentCost.set([]);
+    this.deleteAllArmed.set(false);
+    this.notificationService.showSuccess(`${count} talents removed. They are deleted when you save.`);
+  }
+
+  cancelDeleteAll(): void {
+    this.deleteAllArmed.set(false);
+  }
 
   // ── Talents ─────────────────────────────────────────────────────────────────
 

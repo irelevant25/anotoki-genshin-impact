@@ -3,7 +3,8 @@
 class CharacterTalent extends DbModel
 {
     public function __construct(
-        public readonly int $character_id,
+        /** The set this talent belongs to; characters reach their talents through it. */
+        public readonly int $talent_set_id,
         public readonly int $order,
         public readonly string $name,
         public readonly string $type,

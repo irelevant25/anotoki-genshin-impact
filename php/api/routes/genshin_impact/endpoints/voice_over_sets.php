@@ -18,7 +18,7 @@ $app->get('/api/voice-over-sets', function (Request $request, Response $response
 
     $sets = $pdo->query(
         'SELECT s.id, count(vo.id) FILTER (WHERE vo.deleted = FALSE) AS voice_over_count
-           FROM voice_over_sets s
+           FROM characters_voice_overs_sets s
            LEFT JOIN characters_voice_overs vo ON vo.voice_over_set_id = s.id
           GROUP BY s.id
           ORDER BY s.id'

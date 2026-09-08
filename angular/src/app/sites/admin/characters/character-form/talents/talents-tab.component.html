@@ -1,3 +1,20 @@
+<div class="set-toolbar">
+    <app-button
+        text="Choose set"
+        icon="icon-layers"
+        variant="secondary"
+        [outline]="true"
+        tooltipText="Use another character's talent set (for the Traveler's variants)"
+        (buttonClick)="chooseSet()"
+    ></app-button>
+    @if (deleteAllArmed()) {
+        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancelDeleteAll()"></app-button>
+        <app-button [text]="'Delete all ' + talents().length + '?'" variant="danger" (buttonClick)="deleteAll()"></app-button>
+    } @else {
+        <app-button text="Delete all" variant="danger" [outline]="true" [disabled]="!talents().length" (buttonClick)="deleteAll()"></app-button>
+    }
+</div>
+
 <app-tabs>
     <app-tab [title]="'Talents'" [icon]="'icon-book'">
         <div class="sub-list">

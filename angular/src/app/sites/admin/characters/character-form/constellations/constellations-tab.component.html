@@ -1,3 +1,20 @@
+<div class="set-toolbar">
+    <app-button
+        text="Choose set"
+        icon="icon-layers"
+        variant="secondary"
+        [outline]="true"
+        tooltipText="Use another character's constellation set (for the Traveler's variants)"
+        (buttonClick)="chooseSet()"
+    ></app-button>
+    @if (deleteAllArmed()) {
+        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancelDeleteAll()"></app-button>
+        <app-button [text]="'Delete all ' + constellations().length + '?'" variant="danger" (buttonClick)="deleteAll()"></app-button>
+    } @else {
+        <app-button text="Delete all" variant="danger" [outline]="true" [disabled]="!constellations().length" (buttonClick)="deleteAll()"></app-button>
+    }
+</div>
+
 <div class="sub-list">
     @for (item of sorted(); track item.uid) {
         <div class="sub-card">

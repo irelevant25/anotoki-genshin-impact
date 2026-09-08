@@ -41,6 +41,18 @@
       "description": "The voice-over sets characters share their lines through, for the character-form picker."
     },
     {
+      "name": "ascensionSet",
+      "description": "The ascension sets characters share their ascension stats through, for the character-form picker."
+    },
+    {
+      "name": "talentSet",
+      "description": "The talent sets characters share their talents (and costs) through, for the character-form picker."
+    },
+    {
+      "name": "constellationSet",
+      "description": "The constellation sets characters share their constellations through, for the character-form picker."
+    },
+    {
       "name": "weapon",
       "description": "Weapons, their refinements and their ascension costs."
     },
@@ -1186,6 +1198,91 @@
                 }
               }
             }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ascension-sets": {
+      "get": {
+        "tags": [
+          "ascensionSet"
+        ],
+        "operationId": "getAscensionSets",
+        "summary": "Get ascension sets",
+        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `characters_ascensions_sets`.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AscensionSet"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ascension-sets/{id}": {
+      "get": {
+        "tags": [
+          "ascensionSet"
+        ],
+        "operationId": "getAscensionSet",
+        "summary": "Get ascension set",
+        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `characters_ascensions`.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AscensionSetDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           },
           "default": {
             "$ref": "#/components/responses/Error"
@@ -5221,7 +5318,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "character_id": {
+                  "ascension_set_id": {
                     "type": "number"
                   },
                   "phase": {
@@ -5250,66 +5347,6 @@
                   },
                   "end_level_def": {
                     "type": "number"
-                  },
-                  "character_id_2": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "character_id_3": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "character_id_4": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "character_id_5": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "character_id_6": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "character_id_7": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
                   }
                 },
                 "additionalProperties": false
@@ -7952,7 +7989,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "character_id": {
+                  "constellation_set_id": {
                     "type": "number"
                   },
                   "name": {
@@ -8769,7 +8806,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "character_id": {
+                  "talent_set_id": {
                     "type": "number"
                   },
                   "order": {
@@ -8954,7 +8991,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "character_id": {
+                  "talent_set_id": {
                     "type": "number"
                   },
                   "order": {
@@ -9773,6 +9810,36 @@
                       }
                     ]
                   },
+                  "ascension_set_id": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "talent_set_id": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "constellation_set_id": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
                   "how_to_obtain": {
                     "description": "JSON: send the value; it reads back as a JSON string. See parseJsonColumn.",
                     "anyOf": [
@@ -10321,6 +10388,94 @@
                 }
               }
             }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/constellation-sets": {
+      "get": {
+        "tags": [
+          "constellationSet"
+        ],
+        "operationId": "getConstellationSets",
+        "summary": "Get constellation sets",
+        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `characters_constellations_sets`.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstellationSet"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/constellation-sets/{id}": {
+      "get": {
+        "tags": [
+          "constellationSet"
+        ],
+        "operationId": "getConstellationSet",
+        "summary": "Get constellation set",
+        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `characters_constellations`.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CharacterConstellation"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           },
           "default": {
             "$ref": "#/components/responses/Error"
@@ -20238,6 +20393,91 @@
         "security": []
       }
     },
+    "/api/talent-sets": {
+      "get": {
+        "tags": [
+          "talentSet"
+        ],
+        "operationId": "getTalentSets",
+        "summary": "Get talent sets",
+        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `characters_talents_sets`.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TalentSet"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/talent-sets/{id}": {
+      "get": {
+        "tags": [
+          "talentSet"
+        ],
+        "operationId": "getTalentSet",
+        "summary": "Get talent set",
+        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `characters_talents`.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TalentSetDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/talent-types": {
       "get": {
         "tags": [
@@ -21953,7 +22193,7 @@
         ],
         "operationId": "getVoiceOverSets",
         "summary": "Get voice over sets",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `voice_over_sets`.",
+        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `characters`.",
         "responses": {
           "200": {
             "description": "The request succeeded.",
@@ -25976,6 +26216,74 @@
         ],
         "additionalProperties": false
       },
+      "AscensionSet": {
+        "title": "AscensionSet",
+        "description": "One ascension set for the character-form picker: who shares it, and how big.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "ascension_count": {
+            "type": "number"
+          },
+          "characters": {
+            "description": "The characters currently pointing at this set.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AscensionSetMember"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "ascension_count",
+          "characters"
+        ],
+        "additionalProperties": false
+      },
+      "AscensionSetDetail": {
+        "title": "AscensionSetDetail",
+        "description": "One ascension set's rows and their costs, for previewing a set in the picker.",
+        "type": "object",
+        "properties": {
+          "ascensions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacterAscension"
+            }
+          },
+          "ascension_cost": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacterAscensionCost"
+            }
+          }
+        },
+        "required": [
+          "ascensions",
+          "ascension_cost"
+        ],
+        "additionalProperties": false
+      },
+      "AscensionSetMember": {
+        "title": "AscensionSetMember",
+        "description": "The shape of a `AscensionSetMember` response.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      },
       "AssetBlockedCount": {
         "title": "AssetBlockedCount",
         "description": "The shape of a `AssetBlockedCount` response.",
@@ -27891,10 +28199,10 @@
                 "order": {
                   "type": "number"
                 },
-                "banner_id": {
+                "character_id": {
                   "type": "number"
                 },
-                "character_id": {
+                "banner_id": {
                   "type": "number"
                 },
                 "id": {
@@ -28040,10 +28348,10 @@
                 "order": {
                   "type": "number"
                 },
-                "banner_id": {
+                "character_id": {
                   "type": "number"
                 },
-                "character_id": {
+                "banner_id": {
                   "type": "number"
                 },
                 "id": {
@@ -28181,13 +28489,13 @@
               }
             ]
           },
-          "banner_id": {
+          "order": {
             "type": "number"
           },
           "character_id": {
             "type": "number"
           },
-          "order": {
+          "banner_id": {
             "type": "number"
           },
           "id": {
@@ -28229,9 +28537,9 @@
         },
         "required": [
           "updated_by",
-          "banner_id",
-          "character_id",
           "order",
+          "character_id",
+          "banner_id",
           "id",
           "deleted",
           "created_at",
@@ -28266,13 +28574,13 @@
         "title": "BannerCharacterRead",
         "type": "object",
         "properties": {
-          "banner_id": {
+          "order": {
             "type": "number"
           },
           "character_id": {
             "type": "number"
           },
-          "order": {
+          "banner_id": {
             "type": "number"
           },
           "id": {
@@ -28323,9 +28631,9 @@
           }
         },
         "required": [
-          "banner_id",
-          "character_id",
           "order",
+          "character_id",
+          "banner_id",
           "id",
           "deleted",
           "created_at",
@@ -28595,10 +28903,10 @@
               }
             ]
           },
-          "banner_id": {
+          "order": {
             "type": "number"
           },
-          "order": {
+          "banner_id": {
             "type": "number"
           },
           "weapon_id": {
@@ -28643,8 +28951,8 @@
         },
         "required": [
           "updated_by",
-          "banner_id",
           "order",
+          "banner_id",
           "weapon_id",
           "id",
           "deleted",
@@ -28680,10 +28988,10 @@
         "title": "BannerWeaponRead",
         "type": "object",
         "properties": {
-          "banner_id": {
+          "order": {
             "type": "number"
           },
-          "order": {
+          "banner_id": {
             "type": "number"
           },
           "weapon_id": {
@@ -28737,8 +29045,8 @@
           }
         },
         "required": [
-          "banner_id",
           "order",
+          "banner_id",
           "weapon_id",
           "id",
           "deleted",
@@ -28760,6 +29068,50 @@
         },
         "required": [
           "token"
+        ],
+        "additionalProperties": false
+      },
+      "ConstellationSet": {
+        "title": "ConstellationSet",
+        "description": "One constellation set for the character-form picker: who shares it, and how big.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "constellation_count": {
+            "type": "number"
+          },
+          "characters": {
+            "description": "The characters currently pointing at this set.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConstellationSetMember"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "constellation_count",
+          "characters"
+        ],
+        "additionalProperties": false
+      },
+      "ConstellationSetMember": {
+        "title": "ConstellationSetMember",
+        "description": "The shape of a `ConstellationSetMember` response.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
         ],
         "additionalProperties": false
       },
@@ -36081,6 +36433,36 @@
                 "type": "number"
               }
             ]
+          },
+          "ascension_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "talent_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         },
         "required": [
@@ -36140,7 +36522,10 @@
           "namecard_banner_file_id",
           "namecard_banner",
           "namecard_banner_name",
-          "voice_over_set_id"
+          "voice_over_set_id",
+          "ascension_set_id",
+          "talent_set_id",
+          "constellation_set_id"
         ],
         "additionalProperties": false
       },
@@ -36151,69 +36536,6 @@
         "properties": {
           "id": {
             "type": "number"
-          },
-          "character_id": {
-            "type": "number"
-          },
-          "character_id_2": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_3": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_4": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_5": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_6": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_7": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
           },
           "phase": {
             "type": "number"
@@ -36277,17 +36599,13 @@
                 "type": "number"
               }
             ]
+          },
+          "ascension_set_id": {
+            "type": "number"
           }
         },
         "required": [
           "id",
-          "character_id",
-          "character_id_2",
-          "character_id_3",
-          "character_id_4",
-          "character_id_5",
-          "character_id_6",
-          "character_id_7",
           "phase",
           "primary_stat",
           "primary_stat_value",
@@ -36301,7 +36619,8 @@
           "created_at",
           "created_by",
           "updated_at",
-          "updated_by"
+          "updated_by",
+          "ascension_set_id"
         ],
         "additionalProperties": false
       },
@@ -36570,7 +36889,7 @@
               }
             ]
           },
-          "character_id": {
+          "ascension_set_id": {
             "type": "number"
           },
           "phase": {
@@ -36599,66 +36918,6 @@
           },
           "end_level_def": {
             "type": "number"
-          },
-          "character_id_2": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_3": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_4": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_5": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_6": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_7": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
           },
           "id": {
             "type": "number"
@@ -36699,7 +36958,7 @@
         },
         "required": [
           "updated_by",
-          "character_id",
+          "ascension_set_id",
           "phase",
           "primary_stat",
           "primary_stat_value",
@@ -36709,12 +36968,6 @@
           "end_level_hp",
           "end_level_atk",
           "end_level_def",
-          "character_id_2",
-          "character_id_3",
-          "character_id_4",
-          "character_id_5",
-          "character_id_6",
-          "character_id_7",
           "id",
           "deleted",
           "created_at",
@@ -36728,7 +36981,7 @@
         "description": "A body `CharacterAscension` accepts, as validateBody() checks it. Optional here means what validateBody() means by it: a field is required only when the model neither allows null nor supplies a default. Every field is optional on an update, which is sent partial.",
         "type": "object",
         "properties": {
-          "character_id": {
+          "ascension_set_id": {
             "type": "number"
           },
           "phase": {
@@ -36757,70 +37010,10 @@
           },
           "end_level_def": {
             "type": "number"
-          },
-          "character_id_2": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_3": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_4": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_5": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_6": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_7": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
           }
         },
         "required": [
-          "character_id",
+          "ascension_set_id",
           "phase",
           "primary_stat",
           "primary_stat_value",
@@ -36837,7 +37030,7 @@
         "title": "CharacterAscensionRead",
         "type": "object",
         "properties": {
-          "character_id": {
+          "ascension_set_id": {
             "type": "number"
           },
           "phase": {
@@ -36866,66 +37059,6 @@
           },
           "end_level_def": {
             "type": "number"
-          },
-          "character_id_2": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_3": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_4": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_5": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_6": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "character_id_7": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
           },
           "id": {
             "type": "number"
@@ -36975,7 +37108,7 @@
           }
         },
         "required": [
-          "character_id",
+          "ascension_set_id",
           "phase",
           "primary_stat",
           "primary_stat_value",
@@ -36985,12 +37118,6 @@
           "end_level_hp",
           "end_level_atk",
           "end_level_def",
-          "character_id_2",
-          "character_id_3",
-          "character_id_4",
-          "character_id_5",
-          "character_id_6",
-          "character_id_7",
           "id",
           "deleted",
           "created_at",
@@ -37378,9 +37505,6 @@
           "version": {
             "type": "string"
           },
-          "character_id": {
-            "type": "number"
-          },
           "description": {
             "anyOf": [
               {
@@ -37390,6 +37514,9 @@
                 "type": "string"
               }
             ]
+          },
+          "character_id": {
+            "type": "number"
           },
           "id": {
             "type": "number"
@@ -37434,8 +37561,8 @@
         "required": [
           "updated_by",
           "version",
-          "character_id",
           "description",
+          "character_id",
           "id",
           "deleted",
           "created_at",
@@ -37719,9 +37846,6 @@
           "version": {
             "type": "string"
           },
-          "character_id": {
-            "type": "number"
-          },
           "description": {
             "anyOf": [
               {
@@ -37731,6 +37855,9 @@
                 "type": "string"
               }
             ]
+          },
+          "character_id": {
+            "type": "number"
           },
           "id": {
             "type": "number"
@@ -37784,8 +37911,8 @@
         },
         "required": [
           "version",
-          "character_id",
           "description",
+          "character_id",
           "id",
           "deleted",
           "created_at",
@@ -38887,19 +39014,6 @@
               }
             ]
           },
-          "character_id": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "order": {
-            "type": "number"
-          },
           "element": {
             "anyOf": [
               {
@@ -38907,6 +39021,19 @@
               },
               {
                 "type": "string"
+              }
+            ]
+          },
+          "order": {
+            "type": "number"
+          },
+          "character_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
               }
             ]
           },
@@ -38955,9 +39082,9 @@
         },
         "required": [
           "updated_by",
-          "character_id",
-          "order",
           "element",
+          "order",
+          "character_id",
           "id",
           "deleted",
           "created_at",
@@ -39022,19 +39149,6 @@
         "title": "CharacterBuildTeamCharacterRead",
         "type": "object",
         "properties": {
-          "character_id": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "order": {
-            "type": "number"
-          },
           "element": {
             "anyOf": [
               {
@@ -39042,6 +39156,19 @@
               },
               {
                 "type": "string"
+              }
+            ]
+          },
+          "order": {
+            "type": "number"
+          },
+          "character_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
               }
             ]
           },
@@ -39099,9 +39226,9 @@
           }
         },
         "required": [
-          "character_id",
-          "order",
           "element",
+          "order",
+          "character_id",
           "id",
           "deleted",
           "created_at",
@@ -39464,9 +39591,6 @@
           "id": {
             "type": "number"
           },
-          "character_id": {
-            "type": "number"
-          },
           "name": {
             "type": "string"
           },
@@ -39548,11 +39672,13 @@
                 "type": "string"
               }
             ]
+          },
+          "constellation_set_id": {
+            "type": "number"
           }
         },
         "required": [
           "id",
-          "character_id",
           "name",
           "level",
           "description",
@@ -39563,7 +39689,8 @@
           "updated_by",
           "icon_file_id",
           "icon",
-          "icon_name"
+          "icon_name",
+          "constellation_set_id"
         ],
         "additionalProperties": false
       },
@@ -39614,7 +39741,7 @@
               }
             ]
           },
-          "character_id": {
+          "constellation_set_id": {
             "type": "number"
           },
           "level": {
@@ -39673,7 +39800,7 @@
           "icon_file_id",
           "icon",
           "icon_name",
-          "character_id",
+          "constellation_set_id",
           "level",
           "description",
           "id",
@@ -39689,7 +39816,7 @@
         "description": "A body `CharacterConstellation` accepts, as validateBody() checks it. Optional here means what validateBody() means by it: a field is required only when the model neither allows null nor supplies a default. Every field is optional on an update, which is sent partial.",
         "type": "object",
         "properties": {
-          "character_id": {
+          "constellation_set_id": {
             "type": "number"
           },
           "name": {
@@ -39740,7 +39867,7 @@
           }
         },
         "required": [
-          "character_id",
+          "constellation_set_id",
           "name",
           "level"
         ],
@@ -39783,7 +39910,7 @@
               }
             ]
           },
-          "character_id": {
+          "constellation_set_id": {
             "type": "number"
           },
           "level": {
@@ -39851,7 +39978,7 @@
           "icon_file_id",
           "icon",
           "icon_name",
-          "character_id",
+          "constellation_set_id",
           "level",
           "description",
           "id",
@@ -39944,6 +40071,36 @@
             "type": "boolean"
           },
           "voice_over_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "ascension_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "talent_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation_set_id": {
             "anyOf": [
               {
                 "type": "null"
@@ -40361,6 +40518,9 @@
           "voice_actor_chinese",
           "is_traveler",
           "voice_over_set_id",
+          "ascension_set_id",
+          "talent_set_id",
+          "constellation_set_id",
           "how_to_obtain",
           "affiliations",
           "namecard_icon_file_id",
@@ -40788,6 +40948,36 @@
                   }
                 ]
               },
+              "ascension_set_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "talent_set_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "constellation_set_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
               "namecard_icon_file_id": {
                 "anyOf": [
                   {
@@ -41167,7 +41357,7 @@
                     }
                   ]
                 },
-                "character_id": {
+                "constellation_set_id": {
                   "type": "number"
                 },
                 "id": {
@@ -41213,67 +41403,7 @@
                 "end_level_def": {
                   "type": "number"
                 },
-                "character_id_2": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "character_id_3": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "character_id_4": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "character_id_5": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "character_id_6": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "character_id_7": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "character_id": {
+                "ascension_set_id": {
                   "type": "number"
                 },
                 "id": {
@@ -41376,7 +41506,7 @@
                     }
                   ]
                 },
-                "character_id": {
+                "talent_set_id": {
                   "type": "number"
                 },
                 "id": {
@@ -41405,7 +41535,7 @@
                 "quantity": {
                   "type": "number"
                 },
-                "character_id": {
+                "talent_set_id": {
                   "type": "number"
                 },
                 "material_id": {
@@ -41549,6 +41679,36 @@
             ]
           },
           "voice_over_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "ascension_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "talent_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation_set_id": {
             "anyOf": [
               {
                 "type": "null"
@@ -42055,6 +42215,36 @@
               }
             ]
           },
+          "ascension_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "talent_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "how_to_obtain": {
             "description": "Raw JSON - PDO hands `JSONB` back as a string, undecoded.",
             "anyOf": [
@@ -42472,6 +42662,9 @@
           "voice_actor_chinese",
           "is_traveler",
           "voice_over_set_id",
+          "ascension_set_id",
+          "talent_set_id",
+          "constellation_set_id",
           "how_to_obtain",
           "affiliations",
           "namecard_icon_file_id",
@@ -43056,9 +43249,6 @@
           "order": {
             "type": "number"
           },
-          "character_id": {
-            "type": "number"
-          },
           "name": {
             "type": "string"
           },
@@ -43140,12 +43330,14 @@
                 "type": "string"
               }
             ]
+          },
+          "talent_set_id": {
+            "type": "number"
           }
         },
         "required": [
           "id",
           "order",
-          "character_id",
           "name",
           "type",
           "description",
@@ -43156,7 +43348,8 @@
           "updated_by",
           "icon_file_id",
           "icon",
-          "icon_name"
+          "icon_name",
+          "talent_set_id"
         ],
         "additionalProperties": false
       },
@@ -43166,9 +43359,6 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
-          },
-          "character_id": {
             "type": "number"
           },
           "level": {
@@ -43218,11 +43408,13 @@
           },
           "order": {
             "type": "number"
+          },
+          "talent_set_id": {
+            "type": "number"
           }
         },
         "required": [
           "id",
-          "character_id",
           "level",
           "material_id",
           "quantity",
@@ -43231,7 +43423,8 @@
           "created_by",
           "updated_at",
           "updated_by",
-          "order"
+          "order",
+          "talent_set_id"
         ],
         "additionalProperties": false
       },
@@ -43249,7 +43442,7 @@
               }
             ]
           },
-          "character_id": {
+          "talent_set_id": {
             "type": "number"
           },
           "order": {
@@ -43303,7 +43496,7 @@
         },
         "required": [
           "updated_by",
-          "character_id",
+          "talent_set_id",
           "order",
           "level",
           "material_id",
@@ -43321,7 +43514,7 @@
         "description": "A body `CharacterTalentCost` accepts, as validateBody() checks it. Optional here means what validateBody() means by it: a field is required only when the model neither allows null nor supplies a default. Every field is optional on an update, which is sent partial.",
         "type": "object",
         "properties": {
-          "character_id": {
+          "talent_set_id": {
             "type": "number"
           },
           "order": {
@@ -43338,7 +43531,7 @@
           }
         },
         "required": [
-          "character_id",
+          "talent_set_id",
           "order",
           "level",
           "material_id",
@@ -43350,7 +43543,7 @@
         "title": "CharacterTalentCostRead",
         "type": "object",
         "properties": {
-          "character_id": {
+          "talent_set_id": {
             "type": "number"
           },
           "order": {
@@ -43413,7 +43606,7 @@
           }
         },
         "required": [
-          "character_id",
+          "talent_set_id",
           "order",
           "level",
           "material_id",
@@ -43477,7 +43670,7 @@
           "type": {
             "type": "string"
           },
-          "character_id": {
+          "talent_set_id": {
             "type": "number"
           },
           "order": {
@@ -43537,7 +43730,7 @@
           "icon",
           "icon_name",
           "type",
-          "character_id",
+          "talent_set_id",
           "order",
           "description",
           "id",
@@ -43553,7 +43746,7 @@
         "description": "A body `CharacterTalent` accepts, as validateBody() checks it. Optional here means what validateBody() means by it: a field is required only when the model neither allows null nor supplies a default. Every field is optional on an update, which is sent partial.",
         "type": "object",
         "properties": {
-          "character_id": {
+          "talent_set_id": {
             "type": "number"
           },
           "order": {
@@ -43607,7 +43800,7 @@
           }
         },
         "required": [
-          "character_id",
+          "talent_set_id",
           "order",
           "name",
           "type"
@@ -43654,7 +43847,7 @@
           "type": {
             "type": "string"
           },
-          "character_id": {
+          "talent_set_id": {
             "type": "number"
           },
           "order": {
@@ -43723,7 +43916,7 @@
           "icon",
           "icon_name",
           "type",
-          "character_id",
+          "talent_set_id",
           "order",
           "description",
           "id",
@@ -44043,10 +44236,10 @@
           "type": {
             "type": "string"
           },
-          "order": {
+          "voice_over_set_id": {
             "type": "number"
           },
-          "voice_over_set_id": {
+          "order": {
             "type": "number"
           },
           "title_english": {
@@ -44292,8 +44485,8 @@
         "required": [
           "updated_by",
           "type",
-          "order",
           "voice_over_set_id",
+          "order",
           "title_english",
           "text_english",
           "title_japanese",
@@ -44586,10 +44779,10 @@
           "type": {
             "type": "string"
           },
-          "order": {
+          "voice_over_set_id": {
             "type": "number"
           },
-          "voice_over_set_id": {
+          "order": {
             "type": "number"
           },
           "title_english": {
@@ -44844,8 +45037,8 @@
         },
         "required": [
           "type",
-          "order",
           "voice_over_set_id",
+          "order",
           "title_english",
           "text_english",
           "title_japanese",
@@ -48242,6 +48435,74 @@
         ],
         "additionalProperties": false
       },
+      "TalentSet": {
+        "title": "TalentSet",
+        "description": "One talent set for the character-form picker: who shares it, and how big.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "talent_count": {
+            "type": "number"
+          },
+          "characters": {
+            "description": "The characters currently pointing at this set.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TalentSetMember"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "talent_count",
+          "characters"
+        ],
+        "additionalProperties": false
+      },
+      "TalentSetDetail": {
+        "title": "TalentSetDetail",
+        "description": "One talent set's talents and their costs, for previewing a set in the picker.",
+        "type": "object",
+        "properties": {
+          "talents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacterTalent"
+            }
+          },
+          "talent_cost": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacterTalentCost"
+            }
+          }
+        },
+        "required": [
+          "talents",
+          "talent_cost"
+        ],
+        "additionalProperties": false
+      },
+      "TalentSetMember": {
+        "title": "TalentSetMember",
+        "description": "The shape of a `TalentSetMember` response.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      },
       "TalentType": {
         "title": "TalentType",
         "description": "A row of `talent_types` as the API reads it back.",
@@ -50175,13 +50436,13 @@
               }
             ]
           },
-          "weapon_id": {
-            "type": "number"
-          },
           "phase": {
             "type": "number"
           },
           "primary_stat_value": {
+            "type": "number"
+          },
+          "weapon_id": {
             "type": "number"
           },
           "secondary_stat_value": {
@@ -50266,9 +50527,9 @@
         },
         "required": [
           "updated_by",
-          "weapon_id",
           "phase",
           "primary_stat_value",
+          "weapon_id",
           "secondary_stat_value",
           "start_level_from",
           "start_level_to",
@@ -50445,13 +50706,13 @@
         "title": "WeaponAscensionRead",
         "type": "object",
         "properties": {
-          "weapon_id": {
-            "type": "number"
-          },
           "phase": {
             "type": "number"
           },
           "primary_stat_value": {
+            "type": "number"
+          },
+          "weapon_id": {
             "type": "number"
           },
           "secondary_stat_value": {
@@ -50545,9 +50806,9 @@
           }
         },
         "required": [
-          "weapon_id",
           "phase",
           "primary_stat_value",
+          "weapon_id",
           "secondary_stat_value",
           "start_level_from",
           "start_level_to",
@@ -51026,10 +51287,10 @@
                 "quantity": {
                   "type": "number"
                 },
-                "weapon_id": {
+                "material_id": {
                   "type": "number"
                 },
-                "material_id": {
+                "weapon_id": {
                   "type": "number"
                 },
                 "id": {
@@ -51283,10 +51544,10 @@
                 "quantity": {
                   "type": "number"
                 },
-                "weapon_id": {
+                "material_id": {
                   "type": "number"
                 },
-                "material_id": {
+                "weapon_id": {
                   "type": "number"
                 },
                 "id": {
@@ -51877,9 +52138,6 @@
               }
             ]
           },
-          "weapon_id": {
-            "type": "number"
-          },
           "description": {
             "anyOf": [
               {
@@ -51894,6 +52152,9 @@
             "type": "number"
           },
           "quantity": {
+            "type": "number"
+          },
+          "weapon_id": {
             "type": "number"
           },
           "id": {
@@ -51935,10 +52196,10 @@
         },
         "required": [
           "updated_by",
-          "weapon_id",
           "description",
           "material_id",
           "quantity",
+          "weapon_id",
           "id",
           "deleted",
           "created_at",
@@ -51977,9 +52238,6 @@
         "title": "WeaponRefinementRead",
         "type": "object",
         "properties": {
-          "weapon_id": {
-            "type": "number"
-          },
           "description": {
             "anyOf": [
               {
@@ -51994,6 +52252,9 @@
             "type": "number"
           },
           "quantity": {
+            "type": "number"
+          },
+          "weapon_id": {
             "type": "number"
           },
           "id": {
@@ -52044,10 +52305,10 @@
           }
         },
         "required": [
-          "weapon_id",
           "description",
           "material_id",
           "quantity",
+          "weapon_id",
           "id",
           "deleted",
           "created_at",

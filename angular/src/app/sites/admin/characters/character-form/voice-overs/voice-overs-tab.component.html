@@ -15,40 +15,46 @@
 <div class="d-flex flex-column gap-5">
     @for (group of groups(); track group.type) {
         <app-accordion [onlyOneOpen]="false">
-            <app-accordion-item [lazy]="true" [title]="group.type + ' (' + group.entries.length + ')'" [gap]="false">
-                <app-accordion [onlyOneOpen]="false">
-                    @for (entry of group.entries; track entry.wrapper.uid) {
-                        <app-accordion-item [lazy]="true" [title]="entry.title" class="secondary">
-                            <div class="sub-card">
-                                <div class="sub-card-header">
-                                    <app-number
-                                        [label]="'Order'"
-                                        [value]="entry.wrapper.data.order"
-                                        [required]="true"
-                                        [min]="1"
-                                        [max]="group.entries.length"
-                                        (inputChange)="onOrderChange(entry.wrapper, $event)"
-                                    ></app-number>
-                                    <app-button variant="danger" [outline]="true" (buttonClick)="removeVoiceOver(entry.wrapper)">Delete</app-button>
-                                </div>
-                                <app-tabs (activeTabChange)="stopAudio()">
-                                    <app-tab [title]="'English'">
-                                        <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'english'" [(audio)]="audio" [(playingKey)]="playingKey" />
-                                    </app-tab>
-                                    <app-tab [title]="'Japanese'">
-                                        <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'japanese'" [(audio)]="audio" [(playingKey)]="playingKey" />
-                                    </app-tab>
-                                    <app-tab [title]="'Chinese'">
-                                        <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'chinese'" [(audio)]="audio" [(playingKey)]="playingKey" />
-                                    </app-tab>
-                                    <app-tab [title]="'Korean'">
-                                        <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'korean'" [(audio)]="audio" [(playingKey)]="playingKey" />
-                                    </app-tab>
-                                </app-tabs>
-                            </div>
-                        </app-accordion-item>
-                    }
-                </app-accordion>
+            <app-accordion-item #groupItem [lazy]="true" [title]="group.type + ' (' + group.entries.length + ')'" [gap]="false">
+                <!-- Only build a group's lines once it is opened; a set can hold hundreds. -->
+                @if (groupItem.expanded()) {
+                    <app-accordion [onlyOneOpen]="false">
+                        @for (entry of group.entries; track entry.wrapper.uid) {
+                            <app-accordion-item #lineItem [lazy]="true" [title]="entry.title" class="secondary">
+                                <!-- And a line's four language editors only once that line is opened. -->
+                                @if (lineItem.expanded()) {
+                                    <div class="sub-card">
+                                        <div class="sub-card-header">
+                                            <app-number
+                                                [label]="'Order'"
+                                                [value]="entry.wrapper.data.order"
+                                                [required]="true"
+                                                [min]="1"
+                                                [max]="group.entries.length"
+                                                (inputChange)="onOrderChange(entry.wrapper, $event)"
+                                            ></app-number>
+                                            <app-button variant="danger" [outline]="true" (buttonClick)="removeVoiceOver(entry.wrapper)">Delete</app-button>
+                                        </div>
+                                        <app-tabs (activeTabChange)="stopAudio()">
+                                            <app-tab [title]="'English'">
+                                                <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'english'" [(audio)]="audio" [(playingKey)]="playingKey" />
+                                            </app-tab>
+                                            <app-tab [title]="'Japanese'">
+                                                <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'japanese'" [(audio)]="audio" [(playingKey)]="playingKey" />
+                                            </app-tab>
+                                            <app-tab [title]="'Chinese'">
+                                                <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'chinese'" [(audio)]="audio" [(playingKey)]="playingKey" />
+                                            </app-tab>
+                                            <app-tab [title]="'Korean'">
+                                                <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'korean'" [(audio)]="audio" [(playingKey)]="playingKey" />
+                                            </app-tab>
+                                        </app-tabs>
+                                    </div>
+                                }
+                            </app-accordion-item>
+                        }
+                    </app-accordion>
+                }
             </app-accordion-item>
             <div class="mt-2">
                 <app-button variant="primary" [outline]="true" (buttonClick)="addVoiceOver(group.type)">Add {{ group.type }}</app-button>

@@ -3,6 +3,7 @@
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
 import type { Saved } from '../types/common.type';
+import type { CharacterAscension } from './ascensionSet.model';
 
 /**
  * A row of `characters` as the API reads it back.
@@ -68,34 +69,9 @@ export interface Character {
   namecard_banner: string | null;
   namecard_banner_name: string | null;
   voice_over_set_id: number | null;
-}
-
-/**
- * A row of `characters_ascensions` as the API reads it back.
- */
-export interface CharacterAscension {
-  id: number;
-  character_id: number;
-  character_id_2: number | null;
-  character_id_3: number | null;
-  character_id_4: number | null;
-  character_id_5: number | null;
-  character_id_6: number | null;
-  character_id_7: number | null;
-  phase: number;
-  primary_stat: string;
-  primary_stat_value: number;
-  start_level_hp: number;
-  start_level_atk: number;
-  start_level_def: number;
-  end_level_hp: number;
-  end_level_atk: number;
-  end_level_def: number;
-  deleted: boolean;
-  created_at: string | null;
-  created_by: number;
-  updated_at: string | null;
-  updated_by: number | null;
+  ascension_set_id: number | null;
+  talent_set_id: number | null;
+  constellation_set_id: number | null;
 }
 
 /**
@@ -262,7 +238,6 @@ export interface CharacterBuildWeapon {
  */
 export interface CharacterConstellation {
   id: number;
-  character_id: number;
   name: string;
   level: number;
   description: string | null;
@@ -274,6 +249,7 @@ export interface CharacterConstellation {
   icon_file_id: number | null;
   icon: string | null;
   icon_name: string | null;
+  constellation_set_id: number;
 }
 
 /**
@@ -313,7 +289,6 @@ export interface CharacterRole {
 export interface CharacterTalent {
   id: number;
   order: number;
-  character_id: number;
   name: string;
   type: string;
   description: string | null;
@@ -325,6 +300,7 @@ export interface CharacterTalent {
   icon_file_id: number | null;
   icon: string | null;
   icon_name: string | null;
+  talent_set_id: number;
 }
 
 /**
@@ -332,7 +308,6 @@ export interface CharacterTalent {
  */
 export interface CharacterTalentCost {
   id: number;
-  character_id: number;
   level: number;
   material_id: number;
   quantity: number;
@@ -342,6 +317,7 @@ export interface CharacterTalentCost {
   updated_at: string | null;
   updated_by: number | null;
   order: number;
+  talent_set_id: number;
 }
 
 /**
@@ -401,6 +377,9 @@ export interface CharacterPayload {
   voice_actor_chinese: string;
   is_traveler?: boolean;
   voice_over_set_id?: number | null;
+  ascension_set_id?: number | null;
+  talent_set_id?: number | null;
+  constellation_set_id?: number | null;
   /** JSON: send the value; it reads back as a JSON string. See parseJsonColumn. */
   how_to_obtain?: string[] | string | null;
   /** JSON: send the value; it reads back as a JSON string. See parseJsonColumn. */
@@ -452,7 +431,7 @@ export interface CharacterPayload {
  * field is optional on an update, which is sent partial.
  */
 export interface CharacterAscensionPayload {
-  character_id: number;
+  ascension_set_id: number;
   phase: number;
   primary_stat: string;
   primary_stat_value: number;
@@ -462,12 +441,6 @@ export interface CharacterAscensionPayload {
   end_level_hp: number;
   end_level_atk: number;
   end_level_def: number;
-  character_id_2?: number | null;
-  character_id_3?: number | null;
-  character_id_4?: number | null;
-  character_id_5?: number | null;
-  character_id_6?: number | null;
-  character_id_7?: number | null;
 }
 
 /**
@@ -617,7 +590,7 @@ export interface CharacterBuildWeaponPayload {
  * field is optional on an update, which is sent partial.
  */
 export interface CharacterConstellationPayload {
-  character_id: number;
+  constellation_set_id: number;
   name: string;
   level: number;
   icon_file_id?: number | null;
@@ -661,7 +634,7 @@ export interface CharacterRolePayload {
  * field is optional on an update, which is sent partial.
  */
 export interface CharacterTalentPayload {
-  character_id: number;
+  talent_set_id: number;
   order: number;
   name: string;
   type: string;
@@ -679,7 +652,7 @@ export interface CharacterTalentPayload {
  * field is optional on an update, which is sent partial.
  */
 export interface CharacterTalentCostPayload {
-  character_id: number;
+  talent_set_id: number;
   order: number;
   level: number;
   material_id: number;

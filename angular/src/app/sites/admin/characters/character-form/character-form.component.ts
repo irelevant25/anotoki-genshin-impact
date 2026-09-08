@@ -414,6 +414,21 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     this.character.update((wrapper) => ({ ...wrapper, data: { ...wrapper.data, voice_over_set_id: setId } }));
   }
 
+  /** The ascension set picker chose a set; point the character at it (saved with the character). */
+  onAscensionSetChosen(setId: number): void {
+    this.character.update((wrapper) => ({ ...wrapper, data: { ...wrapper.data, ascension_set_id: setId } }));
+  }
+
+  /** The talent set picker chose a set; point the character at it (saved with the character). */
+  onTalentSetChosen(setId: number): void {
+    this.character.update((wrapper) => ({ ...wrapper, data: { ...wrapper.data, talent_set_id: setId } }));
+  }
+
+  /** The constellation set picker chose a set; point the character at it (saved with the character). */
+  onConstellationSetChosen(setId: number): void {
+    this.character.update((wrapper) => ({ ...wrapper, data: { ...wrapper.data, constellation_set_id: setId } }));
+  }
+
   private _buildPayload(): CharacterFullPayload {
     const character = this.character().data;
 

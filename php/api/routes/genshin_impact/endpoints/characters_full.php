@@ -111,7 +111,25 @@ function _parseBody(Request $request): array
 /** A fresh, empty voice-over set. The wrapper is just an id. */
 function _newVoiceOverSet(PDO $pdo): int
 {
-    return (int) $pdo->query('INSERT INTO voice_over_sets DEFAULT VALUES RETURNING id')->fetchColumn();
+    return (int) $pdo->query('INSERT INTO characters_voice_overs_sets DEFAULT VALUES RETURNING id')->fetchColumn();
+}
+
+/** A fresh, empty ascension set. The wrapper is just an id. */
+function _newAscensionSet(PDO $pdo): int
+{
+    return (int) $pdo->query('INSERT INTO characters_ascensions_sets DEFAULT VALUES RETURNING id')->fetchColumn();
+}
+
+/** A fresh, empty talent set. The wrapper is just an id. */
+function _newTalentSet(PDO $pdo): int
+{
+    return (int) $pdo->query('INSERT INTO characters_talents_sets DEFAULT VALUES RETURNING id')->fetchColumn();
+}
+
+/** A fresh, empty constellation set. The wrapper is just an id. */
+function _newConstellationSet(PDO $pdo): int
+{
+    return (int) $pdo->query('INSERT INTO characters_constellations_sets DEFAULT VALUES RETURNING id')->fetchColumn();
 }
 
 // ── POST /api/characters/full ─────────────────────────────────────────────────
@@ -138,6 +156,17 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
         if (!empty($body['voice_overs']) && empty($body['character']['voice_over_set_id'])) {
             $body['character']['voice_over_set_id'] = _newVoiceOverSet($pdo);
         }
+        // Same for ascensions - a set holds them, so the Traveler's variants can share.
+        if (!empty($body['ascensions']) && empty($body['character']['ascension_set_id'])) {
+            $body['character']['ascension_set_id'] = _newAscensionSet($pdo);
+        }
+        // Talents (and their costs) share one set; constellations their own.
+        if ((!empty($body['talents']) || !empty($body['talent_costs'])) && empty($body['character']['talent_set_id'])) {
+            $body['character']['talent_set_id'] = _newTalentSet($pdo);
+        }
+        if (!empty($body['constellations']) && empty($body['character']['constellation_set_id'])) {
+            $body['character']['constellation_set_id'] = _newConstellationSet($pdo);
+        }
 
         // 1. Character
         $charId = DbQuery::insert($pdo, 'characters', [
@@ -160,9 +189,10 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
             ]);
         }
 
-        // 3. Constellations
+        // 3. Constellations - into the character's set.
+        $conSetId = $body['character']['constellation_set_id'] ?? null;
         foreach ($body['constellations'] ?? [] as $c) {
-            $c = [...$c, 'character_id' => $charId];
+            $c = [...$c, 'constellation_set_id' => $conSetId];
             resolveAssetBody($pdo, 'characters_constellations', $c, $user['id']);
             DbQuery::insert($pdo, 'characters_constellations', [
                 ...CharacterConstellation::fromBody($c)->toDbArray(),
@@ -170,10 +200,11 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
             ]);
         }
 
-        // 4. Ascensions (with costs)
+        // 4. Ascensions (with costs) - into the character's set, not the character.
+        $ascSetId = $body['character']['ascension_set_id'] ?? null;
         foreach ($body['ascensions'] ?? [] as $a) {
             $ascId = DbQuery::insert($pdo, 'characters_ascensions', [
-                ...CharacterAscension::fromBody([...$a, 'character_id' => $charId])->toDbArray(),
+                ...CharacterAscension::fromBody([...$a, 'ascension_set_id' => $ascSetId])->toDbArray(),
                 'created_by' => $user['id'],
             ]);
             foreach ($a['costs'] ?? [] as $cost) {
@@ -184,9 +215,10 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
             }
         }
 
-        // 5. Talents
+        // 5. Talents and 6. their costs - into the character's talent set.
+        $talentSetId = $body['character']['talent_set_id'] ?? null;
         foreach ($body['talents'] ?? [] as $t) {
-            $t = [...$t, 'character_id' => $charId];
+            $t = [...$t, 'talent_set_id' => $talentSetId];
             resolveAssetBody($pdo, 'characters_talents', $t, $user['id']);
             DbQuery::insert($pdo, 'characters_talents', [
                 ...CharacterTalent::fromBody($t)->toDbArray(),
@@ -194,10 +226,9 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
             ]);
         }
 
-        // 6. Talent costs
         foreach ($body['talent_costs'] ?? [] as $cost) {
             DbQuery::insert($pdo, 'characters_talents_cost', [
-                ...CharacterTalentCost::fromBody([...$cost, 'character_id' => $charId])->toDbArray(),
+                ...CharacterTalentCost::fromBody([...$cost, 'talent_set_id' => $talentSetId])->toDbArray(),
                 'created_by' => $user['id'],
             ]);
         }
@@ -244,9 +275,12 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     if (!$existing) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
-    // The set the character was on before this save, to tell "repointed to a
-    // shared set" (leave its lines) from "editing its own lines" (replace them).
+    // The sets the character was on before this save, to tell "repointed to a
+    // shared set" (leave its rows) from "editing its own rows" (replace them).
     $originalVoiceSet = (int) ($existing['voice_over_set_id'] ?? 0);
+    $originalAscensionSet = (int) ($existing['ascension_set_id'] ?? 0);
+    $originalTalentSet = (int) ($existing['talent_set_id'] ?? 0);
+    $originalConstellationSet = (int) ($existing['constellation_set_id'] ?? 0);
 
     // Apply uploaded files
     _applyUploads($body, $request->getUploadedFiles());
@@ -313,62 +347,113 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
                 }
             }
         }
+        // Constellations hang off the character's set (mirrors ascensions): give
+        // it a set if it has none, then replace that set's rows - unless the
+        // character was just repointed at a different, shared set.
         if (isset($body['constellations'])) {
-            $syncSubResource('characters_constellations', 'character_id', $body['constellations'], CharacterConstellation::class);
-        }
-        if (isset($body['relationships'])) {
-            $syncSubResource('characters_relationships', 'character_id', $body['relationships'], CharacterRelationship::class);
-        }
-
-        // Ascensions: sync with nested costs
-        if (isset($body['ascensions'])) {
-            $stmt = $pdo->prepare('SELECT id FROM characters_ascensions WHERE character_id = ? AND deleted = FALSE');
+            $stmt = $pdo->prepare('SELECT constellation_set_id FROM characters WHERE id = ?');
             $stmt->execute([$id]);
-            $existingAscIds = array_column($stmt->fetchAll(), 'id');
-            if (!empty($existingAscIds)) {
-                $ph = implode(',', array_fill(0, count($existingAscIds), '?'));
-                $pdo->prepare("UPDATE characters_ascensions_cost SET deleted = TRUE WHERE character_ascension_id IN ($ph) AND deleted = FALSE")
-                    ->execute($existingAscIds);
+            $conSetId = (int) ($stmt->fetchColumn() ?: 0);
+            $repointed = $conSetId !== 0 && $conSetId !== $originalConstellationSet;
+
+            if (!$conSetId && $body['constellations']) {
+                $conSetId = _newConstellationSet($pdo);
+                $pdo->prepare('UPDATE characters SET constellation_set_id = ? WHERE id = ?')->execute([$conSetId, $id]);
+                $repointed = false;
             }
-            $pdo->prepare('UPDATE characters_ascensions SET deleted = TRUE WHERE character_id = ? AND deleted = FALSE')
-                ->execute([$id]);
-            foreach ($body['ascensions'] as $a) {
-                $ascId = DbQuery::insert($pdo, 'characters_ascensions', [
-                    ...CharacterAscension::fromBody([...$a, 'character_id' => $id])->toDbArray(),
-                    'created_by' => $user['id'],
-                ]);
-                foreach ($a['costs'] ?? [] as $cost) {
-                    DbQuery::insert($pdo, 'characters_ascensions_cost', [
-                        ...CharacterAscensionCost::fromBody([...$cost, 'character_ascension_id' => $ascId])->toDbArray(),
+            if ($conSetId && !$repointed) {
+                $pdo->prepare('UPDATE characters_constellations SET deleted = TRUE WHERE constellation_set_id = ? AND deleted = FALSE')->execute([$conSetId]);
+                foreach ($body['constellations'] as $c) {
+                    $c = [...$c, 'constellation_set_id' => $conSetId];
+                    resolveAssetBody($pdo, 'characters_constellations', $c, $user['id']);
+                    DbQuery::insert($pdo, 'characters_constellations', [
+                        ...CharacterConstellation::fromBody($c)->toDbArray(),
                         'created_by' => $user['id'],
                     ]);
                 }
             }
         }
+        if (isset($body['relationships'])) {
+            $syncSubResource('characters_relationships', 'character_id', $body['relationships'], CharacterRelationship::class);
+        }
 
-        // Talents: soft-delete and re-insert
-        if (isset($body['talents'])) {
-            $pdo->prepare('UPDATE characters_talents SET deleted = TRUE WHERE character_id = ? AND deleted = FALSE')
-                ->execute([$id]);
-            foreach ($body['talents'] as $t) {
-                $t = [...$t, 'character_id' => $id];
-                resolveAssetBody($pdo, 'characters_talents', $t, $user['id']);
-                DbQuery::insert($pdo, 'characters_talents', [
-                    ...CharacterTalent::fromBody($t)->toDbArray(),
-                    'created_by' => $user['id'],
-                ]);
+        // Ascensions hang off the character's set (with nested costs), the same
+        // way voice-overs do. Give it a set if it has none, then replace that
+        // set's ascensions - unless the character was just repointed at a
+        // different, shared set, in which case its rows are left as they are.
+        if (isset($body['ascensions'])) {
+            $stmt = $pdo->prepare('SELECT ascension_set_id FROM characters WHERE id = ?');
+            $stmt->execute([$id]);
+            $ascSetId = (int) ($stmt->fetchColumn() ?: 0);
+            $repointed = $ascSetId !== 0 && $ascSetId !== $originalAscensionSet;
+
+            if (!$ascSetId && $body['ascensions']) {
+                $ascSetId = _newAscensionSet($pdo);
+                $pdo->prepare('UPDATE characters SET ascension_set_id = ? WHERE id = ?')->execute([$ascSetId, $id]);
+                $repointed = false;
+            }
+            if ($ascSetId && !$repointed) {
+                // Soft-delete the set's ascension costs first, then its ascensions.
+                $stmt = $pdo->prepare('SELECT id FROM characters_ascensions WHERE ascension_set_id = ? AND deleted = FALSE');
+                $stmt->execute([$ascSetId]);
+                $existingAscIds = array_column($stmt->fetchAll(), 'id');
+                if (!empty($existingAscIds)) {
+                    $ph = implode(',', array_fill(0, count($existingAscIds), '?'));
+                    $pdo->prepare("UPDATE characters_ascensions_cost SET deleted = TRUE WHERE character_ascension_id IN ($ph) AND deleted = FALSE")
+                        ->execute($existingAscIds);
+                }
+                $pdo->prepare('UPDATE characters_ascensions SET deleted = TRUE WHERE ascension_set_id = ? AND deleted = FALSE')
+                    ->execute([$ascSetId]);
+                foreach ($body['ascensions'] as $a) {
+                    $ascId = DbQuery::insert($pdo, 'characters_ascensions', [
+                        ...CharacterAscension::fromBody([...$a, 'ascension_set_id' => $ascSetId])->toDbArray(),
+                        'created_by' => $user['id'],
+                    ]);
+                    foreach ($a['costs'] ?? [] as $cost) {
+                        DbQuery::insert($pdo, 'characters_ascensions_cost', [
+                            ...CharacterAscensionCost::fromBody([...$cost, 'character_ascension_id' => $ascId])->toDbArray(),
+                            'created_by' => $user['id'],
+                        ]);
+                    }
+                }
             }
         }
 
-        // Talent costs: soft-delete and re-insert
-        if (isset($body['talent_costs'])) {
-            $pdo->prepare('UPDATE characters_talents_cost SET deleted = TRUE WHERE character_id = ? AND deleted = FALSE')
-                ->execute([$id]);
-            foreach ($body['talent_costs'] as $cost) {
-                DbQuery::insert($pdo, 'characters_talents_cost', [
-                    ...CharacterTalentCost::fromBody([...$cost, 'character_id' => $id])->toDbArray(),
-                    'created_by' => $user['id'],
-                ]);
+        // Talents and their costs share one set; resolve it once, then replace
+        // whichever of the two the body carries - unless the character was just
+        // repointed at a different, shared talent set (then leave its rows alone).
+        if (isset($body['talents']) || isset($body['talent_costs'])) {
+            $stmt = $pdo->prepare('SELECT talent_set_id FROM characters WHERE id = ?');
+            $stmt->execute([$id]);
+            $talentSetId = (int) ($stmt->fetchColumn() ?: 0);
+            $repointed = $talentSetId !== 0 && $talentSetId !== $originalTalentSet;
+
+            if (!$talentSetId && (!empty($body['talents']) || !empty($body['talent_costs']))) {
+                $talentSetId = _newTalentSet($pdo);
+                $pdo->prepare('UPDATE characters SET talent_set_id = ? WHERE id = ?')->execute([$talentSetId, $id]);
+                $repointed = false;
+            }
+            if ($talentSetId && !$repointed) {
+                if (isset($body['talents'])) {
+                    $pdo->prepare('UPDATE characters_talents SET deleted = TRUE WHERE talent_set_id = ? AND deleted = FALSE')->execute([$talentSetId]);
+                    foreach ($body['talents'] as $t) {
+                        $t = [...$t, 'talent_set_id' => $talentSetId];
+                        resolveAssetBody($pdo, 'characters_talents', $t, $user['id']);
+                        DbQuery::insert($pdo, 'characters_talents', [
+                            ...CharacterTalent::fromBody($t)->toDbArray(),
+                            'created_by' => $user['id'],
+                        ]);
+                    }
+                }
+                if (isset($body['talent_costs'])) {
+                    $pdo->prepare('UPDATE characters_talents_cost SET deleted = TRUE WHERE talent_set_id = ? AND deleted = FALSE')->execute([$talentSetId]);
+                    foreach ($body['talent_costs'] as $cost) {
+                        DbQuery::insert($pdo, 'characters_talents_cost', [
+                            ...CharacterTalentCost::fromBody([...$cost, 'talent_set_id' => $talentSetId])->toDbArray(),
+                            'created_by' => $user['id'],
+                        ]);
+                    }
+                }
             }
         }
 
@@ -430,11 +515,17 @@ $app->get('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     // share one set of lines (the Traveler's variants).
     $voiceSetId = $character['voice_over_set_id'] ?? null;
     $voice_overs = $voiceSetId ? $fetch('characters_voice_overs', 'voice_over_set_id', [$voiceSetId]) : [];
-    $constellations = $fetch('characters_constellations', 'character_id', [$id]);
+    // Constellations and talents (with their costs) come through their sets too.
+    $conSetId = $character['constellation_set_id'] ?? null;
+    $constellations = $conSetId ? $fetch('characters_constellations', 'constellation_set_id', [$conSetId]) : [];
     $relationships = $fetch('characters_relationships', 'character_id', [$id]);
-    $talents = $fetch('characters_talents', 'character_id', [$id]);
-    $talentCost = $fetch('characters_talents_cost', 'character_id', [$id]);
-    $ascensions = $fetch('characters_ascensions', 'character_id', [$id]);
+    $talentSetId = $character['talent_set_id'] ?? null;
+    $talents = $talentSetId ? $fetch('characters_talents', 'talent_set_id', [$talentSetId]) : [];
+    $talentCost = $talentSetId ? $fetch('characters_talents_cost', 'talent_set_id', [$talentSetId]) : [];
+    // Ascensions come through the character's set too, so the Traveler's variants
+    // can share one set of ascension stats.
+    $ascSetId = $character['ascension_set_id'] ?? null;
+    $ascensions = $ascSetId ? $fetch('characters_ascensions', 'ascension_set_id', [$ascSetId]) : [];
     $ascensionCost = $fetch('characters_ascensions_cost', 'character_ascension_id', array_column($ascensions, 'id'));
 
     $rolesStmt = $pdo->prepare('SELECT role_name FROM characters_roles WHERE character_id = ?');

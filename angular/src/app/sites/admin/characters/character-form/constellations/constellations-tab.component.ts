@@ -1,10 +1,14 @@
-import { Component, computed, model } from '@angular/core';
+import { Component, computed, inject, input, model, output, signal } from '@angular/core';
+import { takeUntil } from 'rxjs';
+import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
+import { ConstellationSetApiService } from '../../../../../api';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { ConstellationWrapper, emptyConstellation, reorder, revokePicked, resequence } from '../character-form.model';
+import { ConstellationWrapper, createUid, emptyConstellation, reorder, revokePicked, resequence } from '../character-form.model';
+import { ConstellationSetSelectorComponent } from './set-selector/set-selector.component';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { toAssetBaseName } from '../../../shared/asset-name';
@@ -17,13 +21,64 @@ const MAX_CONSTELLATIONS = 6;
   styleUrls: ['./constellations-tab.component.scss'],
   imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, EntityImageComponent, FieldContainerComponent],
 })
-export class ConstellationsTabComponent {
+export class ConstellationsTabComponent extends AbstractModalComponent {
   constellations = model<ConstellationWrapper[]>([]);
+  /** The character's current constellation set, marked in the picker. */
+  constellationSetId = input<number | null | undefined>();
+  /** Emitted with the chosen set id, so the form points the character at it. */
+  constellationSetChosen = output<number>();
+
+  private readonly _constellationSetApi = inject(ConstellationSetApiService);
 
   readonly maxConstellations = MAX_CONSTELLATIONS;
 
+  /**
+   * Points this character at another constellation set. Picks a set, loads its
+   * constellations into the tab, and tells the form to save the new set on the
+   * character. Mirrors the ascension "Choose set".
+   */
+  chooseSet(): void {
+    const modal = this.modalService.open<ConstellationSetSelectorComponent, number | undefined>(ConstellationSetSelectorComponent, {
+      size: '4',
+      scrollable: true,
+    });
+    modal.componentInstance.currentSetId.set(this.constellationSetId() ?? null);
+
+    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((setId) => {
+      if (typeof setId !== 'number') {
+        return;
+      }
+      this._constellationSetApi.getConstellationSet(setId).subscribe({
+        next: (rows) => {
+          this.constellations.set((rows ?? []).map((data) => ({ uid: createUid(), data: data as unknown as ConstellationWrapper['data'] })));
+          this.constellationSetChosen.emit(setId);
+          this.notificationService.showSuccess(`Now using set #${setId} (${rows?.length ?? 0} constellations).`);
+        },
+        error: () => this.notificationService.showError('Could not load that set’s constellations.'),
+      });
+    });
+  }
+
   sorted = computed(() => [...this.constellations()].sort((a, b) => a.data.level - b.data.level));
   canAdd = computed(() => this.constellations().length < MAX_CONSTELLATIONS);
+
+  /** Two-step clear of the whole set, matching the voice-over tab. */
+  deleteAllArmed = signal(false);
+
+  deleteAll(): void {
+    if (!this.deleteAllArmed()) {
+      this.deleteAllArmed.set(true);
+      return;
+    }
+    const count = this.constellations().length;
+    this.constellations.set([]);
+    this.deleteAllArmed.set(false);
+    this.notificationService.showSuccess(`${count} constellations removed. They are deleted when you save.`);
+  }
+
+  cancelDeleteAll(): void {
+    this.deleteAllArmed.set(false);
+  }
 
   addConstellation(): void {
     this.constellations.update((constellations) => [...constellations, emptyConstellation(constellations.length + 1)]);

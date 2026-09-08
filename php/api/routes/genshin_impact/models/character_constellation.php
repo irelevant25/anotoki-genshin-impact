@@ -3,7 +3,8 @@
 class CharacterConstellation extends DbModel
 {
     public function __construct(
-        public readonly int $character_id,
+        /** The set this constellation belongs to; characters reach theirs through it. */
+        public readonly int $constellation_set_id,
         public readonly string $name,
         public readonly int $level,
         public readonly ?int $icon_file_id = null,

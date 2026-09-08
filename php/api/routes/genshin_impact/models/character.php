@@ -17,6 +17,12 @@ class Character extends DbModel
         public readonly bool $is_traveler = false,
         /** The voice-over set this character's lines come from; shared by the Traveler's variants. */
         public readonly ?int $voice_over_set_id = null,
+        /** The ascension set this character's ascensions come from; shared by the Traveler's variants. */
+        public readonly ?int $ascension_set_id = null,
+        /** The talent set this character's talents (and their costs) come from; shared by the Traveler's variants. */
+        public readonly ?int $talent_set_id = null,
+        /** The constellation set this character's constellations come from; shared by the Traveler's variants. */
+        public readonly ?int $constellation_set_id = null,
         public readonly array|string|null $how_to_obtain = null,
         public readonly ?array $affiliations = null,
         public readonly ?int $namecard_icon_file_id = null,

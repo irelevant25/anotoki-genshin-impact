@@ -41,16 +41,16 @@ function auditParentMap(): array
         'enemies_damage_types_elements' => ['enemies_phases', 'enemy_phase_id'],
         'foods_recipe' => ['foods', 'food_id'],
         'materials_groups_join' => ['materials', 'material_id'],
-        'characters_ascensions' => ['characters', 'character_id'],
+        'characters_ascensions' => ['characters_ascensions_sets', 'ascension_set_id'],
         'characters_ascensions_cost' => ['characters_ascensions', 'character_ascension_id'],
-        'characters_constellations' => ['characters', 'character_id'],
+        'characters_constellations' => ['characters_constellations_sets', 'constellation_set_id'],
         'characters_relationships' => ['characters', 'character_id'],
         'characters_roles' => ['characters', 'character_id'],
-        'characters_talents' => ['characters', 'character_id'],
-        // Straight to the character, not through the talent, unlike the
-        // ascension costs beside it.
-        'characters_talents_cost' => ['characters', 'character_id'],
-        'characters_voice_overs' => ['voice_over_sets', 'voice_over_set_id'],
+        'characters_talents' => ['characters_talents_sets', 'talent_set_id'],
+        // Straight to the talent set, not through a talent - talent costs are a
+        // flat per-set list, unlike the ascension costs that hang off a row.
+        'characters_talents_cost' => ['characters_talents_sets', 'talent_set_id'],
+        'characters_voice_overs' => ['characters_voice_overs_sets', 'voice_over_set_id'],
         'weapons_ascensions' => ['weapons', 'weapon_id'],
         'weapons_ascensions_cost' => ['weapons_ascensions', 'weapon_ascension_id'],
         'weapons_refinements' => ['weapons', 'weapon_id'],

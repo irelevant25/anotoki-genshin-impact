@@ -3,12 +3,14 @@
 // Regenerate: php ../php/generate-api-spec.php && node generate-api.mjs
 
 export * from './artifact.service';
+export * from './ascensionSet.service';
 export * from './audit-log.service';
 export * from './auth.service';
 export * from './background.service';
 export * from './backup.service';
 export * from './banner.service';
 export * from './character.service';
+export * from './constellationSet.service';
 export * from './dashboard.service';
 export * from './email.service';
 export * from './enemy.service';
@@ -26,6 +28,7 @@ export * from './route.service';
 export * from './session.service';
 export * from './setting.service';
 export * from './stat.service';
+export * from './talentSet.service';
 export * from './translation.service';
 export * from './user.service';
 export * from './voiceOverSet.service';

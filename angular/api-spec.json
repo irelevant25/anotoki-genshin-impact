@@ -551,6 +551,71 @@
         },
         {
             "method": "GET",
+            "path": "/api/ascension-sets",
+            "args": [],
+            "file": "characters_ascensions_sets.php",
+            "tables": [
+                "characters_ascensions_sets",
+                "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "AscensionSet",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_ascensions_sets.php",
+                "line": 41
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/ascension-sets/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "characters_ascensions_sets.php",
+            "tables": [
+                "characters_ascensions",
+                "characters_ascensions_cost"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "AscensionSetDetail",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_ascensions_sets.php",
+                "line": 63
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
             "path": "/api/audit-logs",
             "args": [],
             "file": "audit_logs.php",
@@ -5368,7 +5433,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 232
+                "line": 263
             },
             "expanded": [
                 "created_by"
@@ -5539,7 +5604,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 455
+                "line": 546
             },
             "expanded": [
                 "created_by",
@@ -5563,6 +5628,7 @@
             "tables": [
                 "characters",
                 "characters_voice_overs",
+                "characters_constellations",
                 "characters_ascensions",
                 "characters_ascensions_cost",
                 "characters_talents",
@@ -5579,12 +5645,76 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_full.php",
-                "line": 398
+                "line": 483
             },
             "expanded": [
                 "created_by",
                 "updated_by"
             ],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/constellation-sets",
+            "args": [],
+            "file": "characters_constellations_sets.php",
+            "tables": [
+                "characters_constellations_sets",
+                "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "ConstellationSet",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_constellations_sets.php",
+                "line": 38
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/constellation-sets/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "characters_constellations_sets.php",
+            "tables": [
+                "characters_constellations"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "characters_constellations",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_constellations_sets.php",
+                "line": 49
+            },
+            "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
@@ -5615,7 +5745,7 @@
             },
             "source": {
                 "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\dashboard.php",
-                "line": 237
+                "line": 240
             },
             "expanded": [],
             "payload": null,
@@ -11142,6 +11272,71 @@
         },
         {
             "method": "GET",
+            "path": "/api/talent-sets",
+            "args": [],
+            "file": "characters_talents_sets.php",
+            "tables": [
+                "characters_talents_sets",
+                "characters"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "TalentSet",
+                "list": true
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_talents_sets.php",
+                "line": 39
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/talent-sets/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "characters_talents_sets.php",
+            "tables": [
+                "characters_talents",
+                "characters_talents_cost"
+            ],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "TalentSetDetail",
+                "list": false
+            },
+            "source": {
+                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\characters_talents_sets.php",
+                "line": 57
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ]
+        },
+        {
+            "method": "GET",
             "path": "/api/talent-types",
             "args": [],
             "file": "talent_types.php",
@@ -12004,7 +12199,6 @@
             "args": [],
             "file": "voice_over_sets.php",
             "tables": [
-                "voice_over_sets",
                 "characters"
             ],
             "success": 200,
@@ -13419,6 +13613,30 @@
                     "optional": true
                 },
                 {
+                    "name": "ascension_set_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "talent_set_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "constellation_set_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "how_to_obtain",
                     "types": [
                         "array",
@@ -13735,7 +13953,7 @@
             "file": "character_ascension.php",
             "fields": [
                 {
-                    "name": "character_id",
+                    "name": "ascension_set_id",
                     "types": [
                         "int"
                     ],
@@ -13813,54 +14031,6 @@
                     ],
                     "nullable": false,
                     "optional": false
-                },
-                {
-                    "name": "character_id_2",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_3",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_4",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_5",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_6",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "character_id_7",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
                 }
             ],
             "jsonFields": []
@@ -14252,7 +14422,7 @@
             "file": "character_constellation.php",
             "fields": [
                 {
-                    "name": "character_id",
+                    "name": "constellation_set_id",
                     "types": [
                         "int"
                     ],
@@ -14400,7 +14570,7 @@
             "file": "character_talent.php",
             "fields": [
                 {
-                    "name": "character_id",
+                    "name": "talent_set_id",
                     "types": [
                         "int"
                     ],
@@ -14471,7 +14641,7 @@
             "file": "character_talent_cost.php",
             "fields": [
                 {
-                    "name": "character_id",
+                    "name": "talent_set_id",
                     "types": [
                         "int"
                     ],
@@ -17002,6 +17172,100 @@
             ]
         },
         {
+            "name": "AscensionSet",
+            "file": "content.php",
+            "merges": null,
+            "description": "One ascension set for the character-form picker: who shares it, and how big.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "ascension_count",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "characters",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AscensionSetMember[]",
+                    "description": "The characters currently pointing at this set."
+                }
+            ]
+        },
+        {
+            "name": "AscensionSetDetail",
+            "file": "content.php",
+            "merges": null,
+            "description": "One ascension set's rows and their costs, for previewing a set in the picker.",
+            "fields": [
+                {
+                    "name": "ascensions",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "characters_ascensions[]",
+                    "description": null
+                },
+                {
+                    "name": "ascension_cost",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "characters_ascensions_cost[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AscensionSetMember",
+            "file": "content.php",
+            "merges": null,
+            "description": null,
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "AssetBlockedCount",
             "file": "file.php",
             "merges": null,
@@ -19195,6 +19459,72 @@
                     "nullable": false,
                     "optional": false,
                     "of": "characters_voice_overs[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "ConstellationSet",
+            "file": "content.php",
+            "merges": null,
+            "description": "One constellation set for the character-form picker: who shares it, and how big.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "constellation_count",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "characters",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "ConstellationSetMember[]",
+                    "description": "The characters currently pointing at this set."
+                }
+            ]
+        },
+        {
+            "name": "ConstellationSetMember",
+            "file": "content.php",
+            "merges": null,
+            "description": null,
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
                     "description": null
                 }
             ]
@@ -22910,6 +23240,100 @@
             ]
         },
         {
+            "name": "TalentSet",
+            "file": "content.php",
+            "merges": null,
+            "description": "One talent set for the character-form picker: who shares it, and how big.",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "talent_count",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "characters",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "TalentSetMember[]",
+                    "description": "The characters currently pointing at this set."
+                }
+            ]
+        },
+        {
+            "name": "TalentSetDetail",
+            "file": "content.php",
+            "merges": null,
+            "description": "One talent set's talents and their costs, for previewing a set in the picker.",
+            "fields": [
+                {
+                    "name": "talents",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "characters_talents[]",
+                    "description": null
+                },
+                {
+                    "name": "talent_cost",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "characters_talents_cost[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "TalentSetMember",
+            "file": "content.php",
+            "merges": null,
+            "description": null,
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "ThemeChanged",
             "file": "auth.php",
             "merges": null,
@@ -24633,6 +25057,24 @@
                     "sqlType": "INT",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "ascension_set_id",
+                    "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "talent_set_id",
+                    "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "constellation_set_id",
+                    "sqlType": "INT",
+                    "nullable": true,
+                    "enum": null
                 }
             ]
         },
@@ -24645,48 +25087,6 @@
                     "name": "id",
                     "sqlType": "SERIAL",
                     "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "character_id",
-                    "sqlType": "INT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_2",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_3",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_4",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_5",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_6",
-                    "sqlType": "INT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "character_id_7",
-                    "sqlType": "INT",
-                    "nullable": true,
                     "enum": null
                 },
                 {
@@ -24772,6 +25172,12 @@
                     "sqlType": "INT",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "ascension_set_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
                 }
             ]
         },
@@ -24837,6 +25243,19 @@
                 {
                     "name": "order",
                     "sqlType": "SMALLINT",
+                    "nullable": false,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "characters_ascensions_sets",
+            "database": "genshin_impact",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
                     "nullable": false,
                     "enum": null
                 }
@@ -25451,12 +25870,6 @@
                     "enum": null
                 },
                 {
-                    "name": "character_id",
-                    "sqlType": "INT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "name",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
@@ -25520,6 +25933,25 @@
                     "name": "icon_name",
                     "sqlType": "TEXT",
                     "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "constellation_set_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "characters_constellations_sets",
+            "database": "genshin_impact",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
+                    "nullable": false,
                     "enum": null
                 }
             ]
@@ -25670,12 +26102,6 @@
                     "enum": null
                 },
                 {
-                    "name": "character_id",
-                    "sqlType": "INT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "name",
                     "sqlType": "VARCHAR(100)",
                     "nullable": false,
@@ -25740,6 +26166,12 @@
                     "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "talent_set_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
                 }
             ]
         },
@@ -25751,12 +26183,6 @@
                 {
                     "name": "id",
                     "sqlType": "SERIAL",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "character_id",
-                    "sqlType": "INT",
                     "nullable": false,
                     "enum": null
                 },
@@ -25811,6 +26237,25 @@
                 {
                     "name": "order",
                     "sqlType": "SMALLINT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "talent_set_id",
+                    "sqlType": "INT",
+                    "nullable": false,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "characters_talents_sets",
+            "database": "genshin_impact",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SERIAL",
                     "nullable": false,
                     "enum": null
                 }
