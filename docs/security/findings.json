@@ -1,28 +1,28 @@
 {
   "target": "anotoki · genshin_impact API (PHP 8.2 / Slim 4) and Angular frontend",
-  "reviewed_at": "2026-09-05",
-  "scope": "Every HTTP endpoint the API exposes (399 routes), the shared query/model/auth machinery behind them, and the Angular app that calls them. Automated scanning with Semgrep and Psalm, plus a manual read of the parts static analysis is weakest on: authentication, authorization, and anything that turns a request into a filesystem path or a SQL identifier.",
+  "reviewed_at": "2026-09-05, revisited 2026-09-19",
+  "scope": "Every HTTP endpoint the API exposes (399 routes), the shared query/model/auth machinery behind them, and the Angular app that calls them. Automated scanning with Semgrep and Psalm, plus a manual read of the parts static analysis is weakest on: authentication, authorization, and anything that turns a request into a filesystem path or a SQL identifier. Revisited on 2026-09-19, after the deploy tooling, the HTTP migrations endpoint, email, the files explorer and the shared set wrappers were added (414 routes): Semgrep and composer audit were run again, and the code added since was read by hand. Psalm was not run again - it is installed on demand into a vendor/ folder that is committed, which is not something to do in passing. SEC-08 onwards come from that revisit.",
   "tools": [
     {
       "name": "Semgrep",
       "version": "1.176.1",
       "what": "Pattern and dataflow scanner. Backend scanned with p/php, p/security-audit, p/secrets, p/owasp-top-ten; frontend with p/javascript, p/typescript, p/security-audit, p/owasp-top-ten.",
-      "backend": "269 files scanned, 0 findings (4 files partially parsed — see note)",
-      "frontend": "679 files scanned, 1 finding",
+      "backend": "269 files scanned, 0 findings (4 files partially parsed — see note); the same on 2026-09-19",
+      "frontend": "709 files scanned, 0 findings (2026-09-19; the one finding of the first run was SEC-07, since fixed)",
       "note": "A positive-control file with deliberate SQL injection, command injection and XSS was scanned first and Semgrep flagged all six — so the zero on the backend is a real result, not a broken scan. The 4 parse warnings are files using PHP named arguments (`list: true`) that Semgrep's PHP frontend does not yet accept; those specific lines were reviewed by hand instead."
     },
     {
       "name": "Psalm",
       "version": "5.26.1",
       "what": "Taint analysis: follows a request value to any dangerous sink (query, filesystem, shell, HTML).",
-      "backend": "0 taint findings",
+      "backend": "0 taint findings (2026-09-05; not run again for the revisit)",
       "note": "Psalm inferred types for 71.5% of this codebase. It is procedural PHP built on global functions and untyped arrays, which is exactly where taint tracking loses the trail — so the zero is corroborating evidence, not proof. The manual review below is what actually clears the dynamic-SQL and path-handling code."
     },
     {
       "name": "composer audit",
       "version": "Composer 2.9.5",
       "what": "Checks installed PHP dependencies against the security advisory database.",
-      "backend": "1 advisory (slim/slim) — see finding SEC-05"
+      "backend": "0 advisories on 2026-09-19 (the first run found 1, slim/slim — SEC-05, since fixed)"
     }
   ],
   "findings": [
@@ -56,7 +56,7 @@
       "fix": "Validate the extension against a server-side allowlist (avif, png, jpg, webp, gif, opus, mpeg, ogg, wav) and derive the stored extension from a verified type, not from the client filename — reject anything else with 415. Confirm the real content with finfo/getimagesize rather than trusting getClientMediaType(). Serve /uploads with `X-Content-Type-Options: nosniff` and, for anything not an image, `Content-Disposition: attachment`. Keep the .htaccess as defense in depth, do not rely on it as the control. Consider retiring /api/upload in favour of the stricter /api/uploads/... path the rest of the app uses.",
       "effort": "medium",
       "status": "fixed",
-      "resolution": "Fixed. /api/upload now decides the stored extension from a server-side allowlist (jpg/jpeg/png/webp/avif/gif/mp3/ogg/wav/webm) instead of the client filename, rejecting anything else with 415, and confirms image bytes with getimagesizefromstring so a script renamed to .png does not pass. The client Content-Type is no longer trusted. The dev router and public/uploads/.htaccess now send X-Content-Type-Options: nosniff, and anything that is not an image is served Content-Disposition: attachment, so a stored file cannot render as markup on the API origin. Verified: .php, .html, .svg, an extension-less file, and a fake .png with script bytes are all refused; a real .png is accepted under a randomised name."
+      "resolution": "Fixed. /api/upload now decides the stored extension from a server-side allowlist (jpg/jpeg/png/webp/avif/gif/mp3/ogg/wav/webm) instead of the client filename, rejecting anything else with 415, and confirms image bytes with getimagesizefromstring so a script renamed to .png does not pass. The client Content-Type is no longer trusted. The dev router and public/uploads/.htaccess now send X-Content-Type-Options: nosniff, and anything that is not an image is served Content-Disposition: attachment, so a stored file cannot render as markup on the API origin. Verified: .php, .html, .svg, an extension-less file, and a fake .png with script bytes are all refused; a real .png is accepted under a randomised name. Correction, 2026-09-19: the Content-Disposition half of that was only ever in the dev router - public/uploads/.htaccess set nosniff alone. See SEC-11, which adds it."
     },
     {
       "id": "SEC-03",
@@ -88,7 +88,7 @@
       "fix": "Apply the same IP-plus-target throttle the login endpoint already uses (loginAttemptsExceeded / recordLoginAttempt) to registration, and to the confirmation-resend and forgot-password endpoints. Keep the clear 'already taken' message for humans but cap the rate so it cannot be scripted.",
       "effort": "low",
       "status": "fixed",
-      "resolution": "Fixed. Registration now runs the same IP-plus-email throttle the login endpoint uses and records each 'already taken' probe as a non-ok attempt, so a run of enumeration probes trips a 429 while a genuine first signup is untouched. The confirmation-resend and forgot-password endpoints are throttled the same way against mail-spraying, and still answer identically for every address. Verified: repeated register probes and repeated forgot requests for one address both reach 429 after the first handful."
+      "resolution": "Fixed. Registration now runs the same IP-plus-email throttle the login endpoint uses and records each 'already taken' probe as a non-ok attempt, so a run of enumeration probes trips a 429 while a genuine first signup is untouched. The confirmation-resend and forgot-password endpoints are throttled the same way against mail-spraying, and still answer identically for every address. Verified: repeated register probes and repeated forgot requests for one address both reach 429 after the first handful. Note, 2026-09-19: the two sign-in code endpoints were outside this fix - see SEC-09."
     },
     {
       "id": "SEC-05",
@@ -137,6 +137,99 @@
       "effort": "low",
       "status": "fixed",
       "resolution": "Fixed. The footer now renders a menu link only when isSafeUrl() confirms an http(s) URL, binds it with [href] (so Angular's sanitiser applies) rather than interpolation, and adds rel=\"noopener noreferrer\" to the target=\"_blank\" link."
+    },
+    {
+      "id": "SEC-08",
+      "severity": "medium",
+      "title": "The HTML editor writes stored markup into a live element without sanitising it",
+      "category": "Frontend · stored XSS",
+      "source": "manual",
+      "cwe": "CWE-79 Cross-site Scripting",
+      "location": "angular/src/app/shared/local-lib/components/html-editor/html-editor.component.ts:400-404 (afterValueChange), and normalizeHtml() in shared/local-lib/helper.class.ts",
+      "evidence": "afterValueChange() does `el.innerHTML = value ?? ''` on the contenteditable element, with the value as it came from the database. sanitizeRichHtml is not imported by the component at all - only the preview pane, which renders through app-rich-text, is sanitised. normalizeHtml() likewise assigns the raw string to a detached div's innerHTML, and an `<img onerror>` fires on a detached element too.",
+      "what": "Rich text that an editor saves is put back into the page as markup the next time anybody opens the same editor. The public site is not affected: everything it renders goes through app-rich-text, whose allowlist held up when it was attacked. The hole is inside the admin panel, between two people who both have accounts - what an EDITOR stores runs in the session of the ADMIN who later opens that record.",
+      "why": "The two callers both hand the editor database values: the translation HTML modal, and - in the working tree at the time of this revisit - the voice-over text field, which was a plain textarea until it moved to this editor. That move is what widens this from one screen to every character's voice lines. Editors are trusted staff, which is why this is Medium rather than High, but the role split exists so that an editor account cannot act as an admin, and this is a way across it: an `<img src=x onerror=...>` typed into the editor's source view runs with the admin's token when the admin opens the form.",
+      "fix": "Sanitise on the way in: `el.innerHTML = sanitizeRichHtml(value ?? '')` in afterValueChange(), the same in the source-view input handler, and have normalizeHtml() parse with DOMParser rather than assigning to a live element's innerHTML. Take care with the comparison that guards the assignment - it compares the element's innerHTML with the incoming value to avoid resetting the caret while typing, so compare against the sanitised string, or typing anything the sanitiser rewrites will reset the caret on every keystroke. That interaction is why this was recorded rather than patched blind: it needs trying in the editor itself.",
+      "effort": "low",
+      "status": "open"
+    },
+    {
+      "id": "SEC-09",
+      "severity": "low",
+      "title": "The sign-in code endpoints were not rate limited, and left no trace",
+      "category": "Authentication · brute force",
+      "source": "manual",
+      "cwe": "CWE-307 Improper Restriction of Excessive Authentication Attempts",
+      "location": "php/api/routes/users/endpoints/auth.php - POST /api/auth/login/code and POST /api/auth/login/code/verify",
+      "evidence": "Neither handler called loginAttemptsExceeded() or recordLoginAttempt(), while /password/forgot and /confirm/resend beside them call both. SEC-04's fix covered registration, resend and forgot-password; these two were added to the file's family without it.",
+      "what": "Anyone could ask for sign-in codes for an address, and guess at them, as fast as they liked. issueLoginCode() caps an account at five live codes, but five wrong guesses at /verify burn all five, so asking and guessing in turn sent an address a fresh code for as long as somebody kept going.",
+      "why": "It is a mail-spraying endpoint and a guessing endpoint with no ceiling, and because nothing was recorded, none of it appeared in the attempts log - the account's owner and the admin user page both showed nothing. Six digits against five guesses per batch is long odds, which is why this is Low; the unbounded mail is the more practical nuisance.",
+      "fix": "The same two calls, in the same positions, as the endpoints beside them.",
+      "effort": "low",
+      "status": "fixed",
+      "resolution": "Fixed. Both endpoints now check the limiter before looking the account up - so the 429 says nothing about which addresses exist - and record what happened: `sent` for a request, `bad_code` for a wrong or unknown code. Verified against the running server with a made-up address: the eleventh request for a code, and the eleventh wrong guess, each answer 429."
+    },
+    {
+      "id": "SEC-10",
+      "severity": "low",
+      "title": "An admin resetting somebody's password left that account's sessions signed in",
+      "category": "Session management",
+      "source": "manual",
+      "cwe": "CWE-613 Insufficient Session Expiration",
+      "location": "php/api/routes/users/endpoints/users.php - PUT /api/users/{id}/password",
+      "evidence": "The handler updated the hash and returned a note saying 'Any session they already have stays signed in until its token expires', under a comment that tokens 'are signed, not looked up'. That stopped being true when the auth middleware began validating a session row on every request. Changing your own password (auth.php) already calls revokeSessionsFor() and revokeTrustedDevices(); this path called neither.",
+      "what": "The reset an admin reaches for when an account is in the wrong hands did not remove the wrong hands. Whoever was signed in stayed signed in for up to the session lifetime, and any device they had marked as trusted went on skipping the second factor.",
+      "why": "Low because it needs an account to be compromised already and an admin to be responding to it - but that is precisely the moment this endpoint exists for, and it behaved differently from the self-service change in the one way that matters then.",
+      "fix": "Revoke the account's sessions and trusted devices as the self-service change does, and correct the note.",
+      "effort": "low",
+      "status": "fixed",
+      "resolution": "Fixed. The reset now ends every session the account has and forgets its trusted devices, with the same two calls the self-service change makes. An admin resetting their own password keeps the session they are doing it from. The note reports how many sessions were ended. Not exercised end to end: it needs an admin sign-in, which this revisit did not have - checked by reading and by php -l, and the calls match the ones already in use."
+    },
+    {
+      "id": "SEC-11",
+      "severity": "low",
+      "title": "In production, a stored file that is not an image was served inline",
+      "category": "File upload · content handling",
+      "source": "manual",
+      "cwe": "CWE-79 Cross-site Scripting",
+      "location": "php/public/uploads/.htaccess",
+      "evidence": "The file's comment said it would 'hand anything that is not an image over as a download', and SEC-02's resolution records that it does. It set X-Content-Type-Options and nothing else; the Content-Disposition rule existed only in router.php, which serves uploads for the development server.",
+      "what": "The development server was stricter than production. On Apache a stored non-image was served as whatever type it claimed, inline, on the site's own origin.",
+      "why": "Defence in depth rather than a live hole: the upload allowlist (SEC-02) refuses .html and .svg on the way in, and nosniff stops a mislabelled file being guessed into markup. This is the layer behind those, and it was described as present when it was not - which matters more than the gap itself, because the next person reads the comment and the old report and believes it.",
+      "fix": "Send Content-Disposition: attachment for everything in uploads/ that is not one of the raster formats an upload may be.",
+      "effort": "low",
+      "status": "fixed",
+      "resolution": "Fixed. A FilesMatch inside the existing mod_headers guard sends Content-Disposition: attachment for every file that is not avif, png, jpg/jpeg, webp or gif; SVG is left out of that list on purpose. Apache's own syntax check accepts the block, and the pattern was run against sixteen file names, including trick.png.html. Not tried on the production host."
+    },
+    {
+      "id": "SEC-12",
+      "severity": "low",
+      "title": "Deleted content is still served by the public API",
+      "category": "Data exposure",
+      "source": "manual",
+      "cwe": "CWE-212 Improper Removal of Sensitive Information Before Storage or Transfer",
+      "location": "php/api/routes/genshin_impact/endpoints/*.php - the list and single GETs; php/api/full_resource.php",
+      "evidence": "Confirmed against the running API on 2026-09-19: GET /api/artifacts returned a row with deleted = true (a test artifact), to an anonymous caller. DELETE sets the flag, and the GET handlers fetch without filtering on it. backgrounds.php is the one endpoint file that filters, so the convention exists.",
+      "what": "Deleting something in the admin panel marks it deleted and nothing else. The public list and detail endpoints go on returning it, and nothing on the public site filters it out again.",
+      "why": "This is game reference data, not personal data, so the exposure is low - but an editor who deletes a mistaken or unreleased entry reasonably believes it is gone, and it is not. /api/character/random can also hand a deleted character to a quiz.",
+      "fix": "Filter deleted = FALSE in the list and single GETs and in registerFullResource(), or make DbQuery exclude deleted rows unless asked. It touches some thirty endpoint files and changes what the admin lists show as well, so it wants deciding once rather than patching file by file - which is why it is recorded here and not changed.",
+      "effort": "medium",
+      "status": "open"
+    },
+    {
+      "id": "SEC-13",
+      "severity": "info",
+      "title": "The admin site has no route guard",
+      "category": "Frontend · access control",
+      "source": "manual",
+      "cwe": "CWE-602 Client-Side Enforcement of Server-Side Security (here: the absence of the client-side half)",
+      "location": "angular/src/app/app.routes.ts, angular/src/app/sites/admin/admin.routes.ts; shared/local-lib/role.guard.ts",
+      "evidence": "Neither file carries a canActivate or canMatch, while the main site guards its routes with routeAccessGuard. A RoleGuard exists in local-lib and is referenced nowhere.",
+      "what": "An anonymous visitor to /admin gets the admin shell and its menu drawn, and is signed out by the first 401 a page's request comes back with. An editor is shown pages - Sessions, for one - whose API only answers an admin.",
+      "why": "Not a leak: every endpoint behind those pages enforces its own role, and the review's authorization checks held. It is informational because the server is the control and it holds. What is missing is the client-side half - the panel should not draw itself for someone it is about to turn away.",
+      "fix": "A canMatch on the admin tree that requires a signed-in ADMIN or EDITOR, and per-page roles for the admin-only children. Delete the unused RoleGuard or wire it in; as it stands it navigates to a route that does not exist.",
+      "effort": "low",
+      "status": "open"
     }
   ],
   "cleared": [
@@ -173,5 +266,6 @@
       "detail": "php/storage (including the new error logs, which record IP addresses) is gitignored. The database password is never returned in a response. The error handler runs with displayErrorDetails = false and returns generic messages to clients while writing detail to the server-side log — no stack traces or DSNs reach the client."
     }
   ],
-  "fixed_at": "2026-09-05"
+  "fixed_at": "2026-09-05",
+  "revisited_at": "2026-09-19"
 }

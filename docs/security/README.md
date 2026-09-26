@@ -1,7 +1,7 @@
 # docs/security
 
 A point-in-time security review of the API and frontend. Open
-`security-report-<date>.html` in a browser — it carries its own data, so it
+`security-report-<date>-<time>.html` in a browser — it carries its own data, so it
 needs nothing running.
 
 ## What this is
@@ -31,7 +31,7 @@ work leaves a new file beside the old one rather than overwriting the history.
 
 ## Files
 
-- `security-report-<date>.html` — the report. Self-contained; open it directly.
+- `security-report-<date>-<time>.html` — the report. Self-contained; open it directly.
 - `findings.json` — the findings themselves: severity, location, what, why, fix.
   This is the source of truth; the HTML is a view of it.
 - `report.css`, `report.js` — the report's design and its severity filter,
@@ -48,8 +48,9 @@ The tools install through PHP's and Python's own package managers, as suggested:
 # Semgrep (Python)
 python -m pip install semgrep
 
-# Psalm (Composer dev dependency; already in composer.json)
-cd php && composer install
+# Psalm - installed on demand and removed afterwards; it is not kept in
+# composer.json, because vendor/ is committed and shipped
+cd php && composer require --dev vimeo/psalm:^5.26
 ```
 
 Then, from the repository root:
@@ -84,6 +85,12 @@ tools and a fresh read turn up — and rebuild:
 ```
 node docs/security/build-report.mjs
 ```
+
+The counts on the tool cards are written by hand in `findings.json`, beside the
+caveats that explain them. The build compares them with `tools/*.json` and prints
+a `check:` line when they disagree, so a re-run scan cannot quietly leave the old
+numbers on the page. The headline counts what is still open, not what was found.
+`--out <file>` writes somewhere else.
 
 ## Reading the severities
 

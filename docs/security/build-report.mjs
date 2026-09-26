@@ -1,6 +1,6 @@
 // Turns findings.json and the raw tool output into one HTML report you can open.
 //
-//   node docs/security/build-report.mjs
+//   node docs/security/build-report.mjs [--out <file>]
 //
 // The report is self-contained: the findings, the tool summaries, the styles
 // and the interactions are all inlined, so it opens from disk with nothing
@@ -15,9 +15,13 @@
 // apart: every finding is labelled with where it came from, and the tool runs
 // are reported with their own counts and caveats so the automated coverage is
 // legible on its own terms.
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const local = (relative) => new URL(relative, import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+// fileURLToPath rather than URL.pathname: pathname is percent-encoded, so a
+// checkout under a folder with a space in its name resolved to a path that
+// does not exist.
+const local = (relative) => fileURLToPath(new URL(relative, import.meta.url));
 
 const data = JSON.parse(readFileSync(local('./findings.json'), 'utf8'));
 
@@ -33,6 +37,26 @@ const readTool = (name) => {
 const semgrepPhp = readTool('semgrep-php.json');
 const semgrepFe = readTool('semgrep-fe.json');
 
+// The counts on the tool cards are written by hand in findings.json, next to
+// the caveats that explain them. That is the right place for the prose and the
+// wrong place for a number: re-running a scanner changes tools/*.json and
+// nothing reminds anybody to change the sentence. So the build says when the
+// two disagree, and leaves deciding which is right to whoever is reading.
+const drift = [];
+const checkTool = (label, raw, claimed) => {
+  if (!raw || !claimed) return;
+  const scanned = raw.paths?.scanned?.length;
+  const found = raw.results?.length;
+  const said = [...claimed.matchAll(/(\d[\d,]*)\s+(files? scanned|findings?)/g)].map((m) => [m[2].startsWith('file') ? 'scanned' : 'found', Number(m[1].replace(/,/g, ''))]);
+  for (const [what, n] of said) {
+    const actual = what === 'scanned' ? scanned : found;
+    if (actual !== undefined && actual !== n) drift.push(`${label}: findings.json says ${n} ${what}, tools/ output says ${actual}`);
+  }
+};
+const semgrepCard = data.tools.find((t) => /semgrep/i.test(t.name));
+checkTool('Semgrep backend', semgrepPhp, semgrepCard?.backend);
+checkTool('Semgrep frontend', semgrepFe, semgrepCard?.frontend);
+
 const SEV = {
   critical: { label: 'Critical', rank: 0 },
   high: { label: 'High', rank: 1 },
@@ -44,9 +68,17 @@ const SEV = {
 const esc = (s) =>
   String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
+// A severity that is not one of the five would otherwise surface as "cannot
+// read properties of undefined" from inside the sort, naming nothing.
+for (const finding of data.findings) {
+  if (!SEV[finding.severity]) {
+    console.error(`findings.json: ${finding.id ?? '(no id)'} has severity "${finding.severity}" - expected one of ${Object.keys(SEV).join(', ')}`);
+    process.exit(1);
+  }
+}
+
 const findings = [...data.findings].sort((a, b) => SEV[a.severity].rank - SEV[b.severity].rank);
 const counts = Object.fromEntries(Object.keys(SEV).map((k) => [k, findings.filter((f) => f.severity === k).length]));
-const worst = findings.length ? findings[0].severity : 'info';
 
 // A finding that has been fixed still belongs in the report - it is the record
 // of what was found and what was done - but it no longer counts as open. When
@@ -64,15 +96,25 @@ const fileStamp = new Date().toISOString().slice(0, 16).replace('T', '-').replac
 
 // The headline states the verdict before the detail. Once everything is fixed
 // that verdict is the fix, not the original severity.
+//
+// It counts what is still open. It used to count everything found, so a review
+// with its one high finding fixed and a low one outstanding still led with "1
+// high-severity issue" - and named the JWT signing key whatever the finding
+// was, because the first review's headline had been written into the generator.
+const open = Object.fromEntries(Object.keys(SEV).map((k) => [k, openFindings.filter((f) => f.severity === k).length]));
+const plural = (n, word) => `${n} ${word}${n > 1 ? 's' : ''}`;
+const ledBy = openFindings.length ? ` — first: ${openFindings[0].title}` : '';
 const headline = allFixed
   ? `All ${findings.length} findings fixed`
-  : counts.critical
-    ? `${counts.critical} critical issue${counts.critical > 1 ? 's' : ''} to fix before anything else`
-    : counts.high
-      ? `${counts.high} high-severity issue${counts.high > 1 ? 's' : ''}, led by the JWT signing key`
-      : counts.medium
-        ? `Nothing critical — ${counts.medium} medium issue${counts.medium > 1 ? 's' : ''} worth scheduling`
-        : 'Nothing above low severity';
+  : open.critical
+    ? `${plural(open.critical, 'critical issue')} to fix before anything else`
+    : open.high
+      ? `${plural(open.high, 'high-severity issue')} open${ledBy}`
+      : open.medium
+        ? `Nothing critical — ${plural(open.medium, 'medium issue')} worth scheduling`
+        : openFindings.length
+          ? 'Nothing open above low severity'
+          : 'Nothing found';
 
 const toolLine = (t) =>
   `<div class="tool">
@@ -116,13 +158,23 @@ const findingCard = (f) => {
 
 const css = readFileSync(local('./report.css'), 'utf8');
 
-const page = `<title>Security Review — ${esc(stamp)}</title>
+// A whole document, not a fragment. Without the doctype a browser lays the
+// page out in quirks mode, and without the charset one opening it from disk has
+// to guess the encoding - which is how an em dash becomes three characters.
+const page = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security Review — ${esc(stamp)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 
 <style>
 ${css}</style>
+</head>
+<body>
 
 <div class="wrap">
   <header class="masthead">
@@ -220,12 +272,20 @@ ${css}</style>
 
 <script>
 ${readFileSync(local('./report.js'), 'utf8')}</script>
+</body>
+</html>
 `;
 
-mkdirSync(local('./'), { recursive: true });
-const out = local(`./security-report-${fileStamp}.html`);
+const outArg = process.argv.indexOf('--out');
+if (outArg !== -1 && !process.argv[outArg + 1]) {
+  console.error('--out needs a file name');
+  process.exit(1);
+}
+const out = outArg !== -1 ? process.argv[outArg + 1] : local(`./security-report-${fileStamp}.html`);
 writeFileSync(out, page);
 
 console.log(`report written to ${out}`);
 console.log(`  findings: ${findings.length}  (` + Object.entries(counts).filter(([, n]) => n).map(([k, n]) => `${n} ${k}`).join(', ') + ')');
+console.log(`  open:     ${openFindings.length}   fixed: ${fixedCount}`);
 console.log(`  cleared:  ${data.cleared.length} areas`);
+for (const line of drift) console.warn(`  check:    ${line}`);

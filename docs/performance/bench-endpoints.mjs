@@ -1,5 +1,5 @@
 // Times every GET endpoint the API exposes, several times each, and writes the
-// numbers out as JSON for docs/api-latency-report.html to draw.
+// numbers out as JSON for build-report.mjs to turn into a page.
 //
 //   node docs/performance/bench-endpoints.mjs <email> <password> [apiUrl]
 //
@@ -8,6 +8,8 @@
 // destroying an entity per sample, which measures the fixture rather than the
 // endpoint.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const [email, password, apiArg] = process.argv.slice(2);
 if (!email || !password) {
@@ -15,81 +17,139 @@ if (!email || !password) {
   process.exit(1);
 }
 
-const API = apiArg ?? 'http://localhost:8000';
-const local = (relative) => new URL(relative, import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+const API = (apiArg ?? 'http://localhost:8000').replace(/\/+$/, '');
+// fileURLToPath rather than URL.pathname: pathname is percent-encoded, so a
+// checkout under a folder with a space in its name resolved to a path that
+// does not exist.
+const local = (relative) => fileURLToPath(new URL(relative, import.meta.url));
 const SPEC = local('../../angular/api-spec.json');
 
 // Every run is kept, named by when it happened. A report is only worth reading
 // next to the one before it, and that needs the one before it to still be there
 // - so nothing here overwrites anything.
 const RUNS = local('./runs/');
-const OUT = RUNS + new Date().toISOString().slice(0, 16).replace(/[-:]/g, '') + 'Z.json';
+const OUT = join(RUNS, new Date().toISOString().slice(0, 16).replace(/[-:]/g, '') + 'Z.json');
 
 const WARMUP = 2;
 const SAMPLES = 7;
+const FLOOR_PATH = '/api/elements';
 
 // Slow on purpose, or doing work rather than answering a question. Timed once
 // rather than sampled, and marked, so a survey of the asset tree does not sit
 // in the same distribution as reading a lookup table.
 const HEAVY = [/\/api\/files\/(stats|folders|missing|cleanup)/, /\/api\/backups/];
 
-const login = await (
-  await fetch(API + '/api/auth/login', {
+const fail = (message) => {
+  console.error(message);
+  process.exit(1);
+};
+
+// A server that is not up and a password that is wrong are the two ways this
+// usually goes, and neither deserves a stack trace.
+let login;
+try {
+  const response = await fetch(API + '/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
-  })
-).json();
-const token = login.token;
-if (!token) throw new Error('could not sign in: ' + JSON.stringify(login).slice(0, 200));
+  });
+  login = await response.json().catch(() => ({}));
+  if (!response.ok || !login.token) {
+    fail(`could not sign in (${response.status}): ${JSON.stringify(login).slice(0, 200)}`);
+  }
+} catch (error) {
+  fail(
+    `could not reach the API at ${API} - start it from php/ with: php -S localhost:8000 router.php\n  (${error.cause?.code ?? error.message})`
+  );
+}
 
-const auth = { Authorization: `Bearer ${token}` };
+const auth = { Authorization: `Bearer ${login.token}` };
 const spec = JSON.parse(readFileSync(SPEC, 'utf8'));
 const gets = spec.routes.filter((r) => r.method === 'GET');
 
-// An id that belongs to the resource being asked about, rather than one id used
-// everywhere - otherwise half the sample is a 404 being timed.
-const collectionCache = new Map();
-const firstOf = async (collection, key) => {
-  const cacheKey = collection + '|' + key;
-  if (collectionCache.has(cacheKey)) return collectionCache.get(cacheKey);
-  let value = null;
+const getJson = async (path) => {
   try {
-    const response = await fetch(API + collection, { headers: auth });
-    if (response.ok) {
-      const body = await response.json().catch(() => null);
-      const list = Array.isArray(body) ? body : (body?.items ?? body?.result ?? body?.files ?? []);
-      if (Array.isArray(list) && list.length && list[0][key] !== undefined) value = list[0][key];
-    }
+    const response = await fetch(API + path, { headers: auth });
+    return response.ok ? await response.json().catch(() => null) : null;
   } catch {
-    /* leave it null; the route is reported as unmeasured */
+    return null;
   }
-  collectionCache.set(cacheKey, value);
-  return value;
 };
 
-const fixed = { code: 'en', alias: 'genshin_impact', user_id: login.user?.id ?? 1 };
+// The first row of whatever a collection answers with. Most answer with a bare
+// list; the paged ones wrap it under a key of their own.
+const LIST_KEYS = ['items', 'result', 'files', 'groups', 'rows', 'data'];
+const rowCache = new Map();
+const firstRow = async (collection) => {
+  if (rowCache.has(collection)) return rowCache.get(collection);
+  const body = await getJson(collection);
+  const list = Array.isArray(body) ? body : LIST_KEYS.map((key) => body?.[key]).find(Array.isArray);
+  const row = list?.length ? list[0] : null;
+  rowCache.set(collection, row);
+  return row;
+};
 
-const resolve = async (route, arg) => {
-  if (fixed[arg.name] !== undefined) return fixed[arg.name];
-
-  // /api/artifacts/{id}/full -> ask /api/artifacts for its first id.
-  const collection = route.path.slice(0, route.path.indexOf('/{'));
-  if (arg.name === 'id') return await firstOf(collection, 'id');
-  if (arg.name === 'name') return await firstOf(collection, 'name');
-  if (arg.name === 'character_id') return await firstOf('/api/characters', 'id');
-  if (arg.name === 'quiz_id') return await firstOf('/api/quizzes', 'id');
+// An id that belongs to the resource being asked about, rather than one id used
+// everywhere - otherwise half the sample is a 404 being timed. The collection
+// is looked for by walking up the path, so /api/materials/by-name/{name} finds
+// its name in /api/materials once /api/materials/by-name has answered 404.
+const firstOf = async (collection, key) => {
+  for (let path = collection; path.split('/').length > 2; path = path.slice(0, path.lastIndexOf('/'))) {
+    const row = await firstRow(path);
+    if (row && row[key] !== undefined && row[key] !== null) return row[key];
+  }
   return null;
 };
 
+const fixed = { code: 'en', alias: 'genshin_impact', user_id: login.user?.id ?? 1 };
+const elsewhere = { character_id: '/api/characters', quiz_id: '/api/quizzes' };
+
+const resolve = async (route, arg) => {
+  if (fixed[arg.name] !== undefined) return fixed[arg.name];
+  if (elsewhere[arg.name]) return await firstOf(elsewhere[arg.name], 'id');
+
+  // /api/artifacts/{id}/full -> ask /api/artifacts for its first id. The arg's
+  // own name is the column, which covers {id}, {name} and {fingerprint} alike.
+  return await firstOf(route.path.slice(0, route.path.indexOf('/{')), arg.name);
+};
+
+// Routes that answer 404 or 422 until they are told what to look at. Without
+// these they were timed anyway, and the report counted a refusal as a reading.
+// Each names something real, so what is timed is the work and not the refusal.
+const QUERIES = {
+  '/api/files': async () => {
+    const folder = await firstOf('/api/files/folders', 'folder');
+    return folder === null ? null : { folder };
+  },
+  '/api/files/raw': async () => {
+    const folder = await firstOf('/api/files/folders', 'folder');
+    if (folder === null) return null;
+    const page = await getJson('/api/files?' + new URLSearchParams({ folder }));
+    const name = page?.files?.[0]?.name;
+    return name ? { folder, name } : null;
+  },
+  '/api/migrations/file': async () => {
+    const row = await firstRow('/api/migrations');
+    return row?.database && row?.filename ? { database: row.database, filename: row.filename } : null;
+  },
+};
+
+// The path to call, or the reason there is none.
 const fill = async (route) => {
   let path = route.path;
   for (const arg of route.args ?? []) {
     const value = await resolve(route, arg);
-    if (value === null || value === undefined) return null;
+    if (value === null || value === undefined) return { skipped: 'nothing to put in the path' };
     path = path.replace(`{${arg.name}}`, encodeURIComponent(String(value)));
   }
-  return path.includes('{') ? null : path;
+  if (path.includes('{')) return { skipped: 'nothing to put in the path' };
+
+  if (QUERIES[route.path]) {
+    const query = await QUERIES[route.path]();
+    if (query === null) return { skipped: 'nothing to put in the query' };
+    path += '?' + new URLSearchParams(query);
+  }
+  return { path };
 };
 
 const time = async (path) => {
@@ -102,21 +162,22 @@ const time = async (path) => {
 // What a request costs before any of its own work: the cheapest endpoint there
 // is, so the rest can be read as "this much, plus what it does".
 const floorSamples = [];
-for (let i = 0; i < 3; i++) await time('/api/elements');
-for (let i = 0; i < 15; i++) floorSamples.push((await time('/api/elements')).ms);
+for (let i = 0; i < 3; i++) await time(FLOOR_PATH);
+for (let i = 0; i < 15; i++) floorSamples.push((await time(FLOOR_PATH)).ms);
 floorSamples.sort((a, b) => a - b);
 const floor = floorSamples[Math.floor(floorSamples.length / 2)];
-console.log(`  floor (GET /api/elements, 7 rows): ${floor.toFixed(1)}ms`);
+console.log(`  floor (GET ${FLOOR_PATH}): ${floor.toFixed(1)}ms`);
 
 const results = [];
 let done = 0;
 
 for (const route of gets) {
-  const path = await fill(route);
-  if (path === null) {
-    results.push({ path: route.path, method: 'GET', file: route.file, skipped: 'nothing to put in the path' });
+  const filled = await fill(route);
+  if (filled.skipped) {
+    results.push({ path: route.path, method: 'GET', file: route.file, skipped: filled.skipped });
     continue;
   }
+  const path = filled.path;
 
   const heavy = HEAVY.some((re) => re.test(route.path));
   const samples = [];
@@ -160,6 +221,9 @@ for (const route of gets) {
   done++;
   if (done % 25 === 0) console.log(`  timed ${done}...`);
 }
+
+// The session this opened is an admin's, and nothing else would ever close it.
+await fetch(API + '/api/auth/logout', { method: 'POST', headers: auth }).catch(() => {});
 
 const measured = results.filter((r) => !r.skipped);
 mkdirSync(RUNS, { recursive: true });

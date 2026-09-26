@@ -2,7 +2,7 @@
 // backend, the frontend, and the database, cross-linked so you can follow a
 // thread from a screen to the endpoints it calls to the tables those touch.
 //
-//   node docs/reference/build-docs.mjs
+//   node docs/reference/build-docs.mjs [--out <file>]
 //
 // Almost nothing here is written by hand. The backend and the database models
 // come from angular/api-spec.json, which the API generates from its own route
@@ -13,10 +13,14 @@
 //
 // Regenerate whenever the API or the pages change (after `php
 // generate-api-spec.php && node generate-api.mjs`, which refreshes the spec).
-import { readFileSync, readdirSync, writeFileSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync, statSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const local = (rel) => new URL(rel, import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+// fileURLToPath rather than URL.pathname: pathname is percent-encoded, so a
+// checkout under a folder with a space in its name resolved to a path that
+// does not exist.
+const local = (rel) => fileURLToPath(new URL(rel, import.meta.url));
 const ROOT = local('../../');
 const spec = JSON.parse(readFileSync(join(ROOT, 'angular/api-spec.json'), 'utf8'));
 
@@ -116,7 +120,104 @@ for (const file of readdirSync(serviceDir).filter((f) => f.endsWith('.service.ts
 // folder layout under the two sites, which is where the routing points anyway:
 // sites/main/features/<section>/<page> and sites/admin/<section>/<page>.
 const KNOWN_METHODS = [...methodToEndpoint.keys()];
+if (!KNOWN_METHODS.length) {
+  // An empty alternation matches every call in every file, which would report
+  // nothing at all rather than fail - so a client that has not been generated
+  // is said out loud instead.
+  console.error('no API-service methods found under angular/src/app/api/services - run `npm run api` in angular/ first');
+  process.exit(1);
+}
 const methodCallRe = new RegExp('[.\\s](' + KNOWN_METHODS.join('|') + ')\\s*\\(', 'g');
+
+const SITES = join(ROOT, 'angular/src/app/sites');
+const sourceCache = new Map();
+const sourceOf = (full) => {
+  if (!sourceCache.has(full)) sourceCache.set(full, readFileSync(full, 'utf8'));
+  return sourceCache.get(full);
+};
+
+// What a page's own file leans on inside the sites tree: the base class it
+// extends and the site services it injects. A page that reaches the API through
+// one of those made no call the scan could see - every quiz draws its question
+// in CharacterQuizComponent and every admin form saves in AdminFormComponent -
+// so those pages were listed as calling nothing. Other components are not
+// followed: a child component is a card of its own, and shared/ is not followed
+// either, or every page would "call" the translations endpoint through the pipe.
+const localImports = (full) => {
+  const found = [];
+  const re = /from\s+['"](\.{1,2}\/[^'"]+)['"]/g;
+  let m;
+  while ((m = re.exec(sourceOf(full)))) {
+    const target = join(dirname(full), m[1]) + '.ts';
+    if (target.startsWith(SITES) && !target.endsWith('.component.ts') && existsSync(target)) found.push(target);
+  }
+  return found;
+};
+
+// Everything a file reaches, itself included, each file once.
+const closure = (full, seen = new Set()) => {
+  if (seen.has(full)) return seen;
+  seen.add(full);
+  for (const next of localImports(full)) closure(next, seen);
+  return seen;
+};
+
+// A method name on its own is a weak signal - `deleteArtifact(` is also what a
+// component calls its own click handler. It counts only where the service that
+// owns the method is named somewhere in what the page is built from.
+const callsIn = (full, mentioned) => {
+  const calls = new Set();
+  const src = sourceOf(full);
+  let m;
+  methodCallRe.lastIndex = 0;
+  while ((m = methodCallRe.exec(src))) {
+    const hit = methodToEndpoint.get(m[1]);
+    if (hit && mentioned.includes(hit.service)) calls.add(hit.method + ' ' + hit.path);
+  }
+  return calls;
+};
+
+
+// Calls made on an injected shared service. shared/ is not followed wholesale -
+// SecurityService alone would hang every auth endpoint on every page that reads
+// the current user from it. What counts is narrower: the page calls a method on
+// the member it injected the service into, and the service passes a method of
+// that same name through to the API. `this._security.resetPassword(...)` on the
+// reset-password page is the case in point. A method the page merely defines
+// under the same name as an API method is not a call on anything, and is left
+// out - the admin users page has its own changePassword(), and used to be
+// listed as calling the self-service password endpoint because of it.
+const SHARED = join(ROOT, 'angular/src/app/shared');
+const sharedServiceCalls = (full) => {
+  const src = sourceOf(full);
+  const calls = new Map(); // endpoint key -> shared service file
+  const importRe = /from\s+['"](\.{1,2}\/[^'"]+)['"]/g;
+  let imported;
+  while ((imported = importRe.exec(src))) {
+    const target = join(dirname(full), imported[1]) + '.ts';
+    if (!target.startsWith(SHARED) || !target.endsWith('.service.ts') || !existsSync(target)) continue;
+
+    const serviceSrc = sourceOf(target);
+    const className = (serviceSrc.match(/export class (\w+)/) || [])[1];
+    if (!className) continue;
+
+    // The members the page holds the service in: `x = inject(Service)` and the
+    // constructor-parameter form.
+    const members = [
+      ...src.matchAll(new RegExp('(\\w+)\\s*=\\s*inject\\(\\s*' + className + '\\s*\\)', 'g')),
+      ...src.matchAll(new RegExp('(\\w+)\\s*:\\s*' + className + '\\b', 'g')),
+    ].map((m) => m[1]);
+
+    for (const member of new Set(members)) {
+      for (const call of src.matchAll(new RegExp('\\b' + member + '\\.(\\w+)\\s*\\(', 'g'))) {
+        const hit = methodToEndpoint.get(call[1]);
+        const passedThrough = hit && serviceSrc.includes(hit.service) && new RegExp('\\.' + call[1] + '\\s*\\(').test(serviceSrc);
+        if (passedThrough) calls.set(hit.method + ' ' + hit.path, target.slice(SHARED.length + 1).replace(/\\/g, '/'));
+      }
+    }
+  }
+  return calls;
+};
 
 function pagesUnder(baseRel, site) {
   const base = join(ROOT, baseRel);
@@ -127,25 +228,34 @@ function pagesUnder(baseRel, site) {
       if (statSync(full).isDirectory()) {
         walk(full);
       } else if (name.endsWith('.component.ts') && !/modal|confirm/.test(name)) {
-        const src = readFileSync(full, 'utf8');
-        const calls = new Set();
-        let m;
-        methodCallRe.lastIndex = 0;
-        while ((m = methodCallRe.exec(src))) {
-          const hit = methodToEndpoint.get(m[1]);
-          if (hit) calls.add(hit.method + ' ' + hit.path);
+        const files = [...closure(full)];
+        const mentioned = files.map(sourceOf).join('\n');
+        const own = callsIn(full, mentioned);
+        // What arrives through a base class or a site service, and which one.
+        const inherited = new Map();
+        for (const other of files.filter((f) => f !== full)) {
+          for (const key of callsIn(other, mentioned)) {
+            if (!own.has(key) && !inherited.has(key)) inherited.set(key, other.slice(SITES.length + 1).replace(/\\/g, '/'));
+          }
         }
-        const rel = full.slice(join(ROOT, baseRel).length + 1).replace(/\\/g, '/');
+        for (const [key, service] of sharedServiceCalls(full)) {
+          if (!own.has(key) && !inherited.has(key)) inherited.set(key, service);
+        }
+
+        const rel = full.slice(base.length + 1).replace(/\\/g, '/');
         const parts = rel.split('/').slice(0, -1); // drop the filename
         const section = parts[0] ? titleCase(parts[0]) : 'Top level';
         const pageName = titleCase(name.replace('.component.ts', '').replace(/-list$/, '').replace(/-/g, ' '));
+        const resolve = (keys) => [...keys].map((k) => endpointByKey.get(k)).filter(Boolean);
         pages.push({
           site,
           section,
           name: pageName,
           file: rel,
           anchor: 'fe-' + slug(site + '-' + rel),
-          endpoints: [...calls].map((k) => endpointByKey.get(k)).filter(Boolean),
+          endpoints: resolve(own),
+          inherited: resolve(inherited.keys()),
+          through: [...new Set(inherited.values())].sort(),
         });
       }
     }
@@ -196,7 +306,14 @@ const renderFrontend = () => {
             .sort((a, b) => a.path.localeCompare(b.path))
             .map(endpointRef)
             .join('')}</div></div>`;
-        } else {
+        }
+        if (p.inherited.length) {
+          out += `<div class="fe-endpoints"><span class="fe-endpoints-label" title="${esc(p.through.join(', '))}">via ${esc(p.through.map((f) => f.split('/').pop()).join(', '))}</span><div class="ref-list">${p.inherited
+            .sort((a, b) => a.path.localeCompare(b.path))
+            .map(endpointRef)
+            .join('')}</div></div>`;
+        }
+        if (!p.endpoints.length && !p.inherited.length) {
           out += `<p class="fe-none">No API endpoints called directly — a presentational or container page.</p>`;
         }
         out += `</article>`;
@@ -281,18 +398,29 @@ const totals = {
   endpoints: endpoints.length,
   pages: fePages.length,
   tables: tables.length,
-  pagesWired: fePages.filter((p) => p.endpoints.length).length,
+  pagesWired: fePages.filter((p) => p.endpoints.length || p.inherited.length).length,
+  pagesIndirect: fePages.filter((p) => !p.endpoints.length && p.inherited.length).length,
 };
 
 const css = readFileSync(local('./reference.css'), 'utf8');
 const js = readFileSync(local('./reference.js'), 'utf8');
 
-const page = `<title>anotoki Reference — ${esc(stamp)}</title>
+// A whole document, not a fragment. Without the doctype a browser lays the
+// page out in quirks mode, and without the charset one opening it from disk has
+// to guess the encoding - which is how an em dash becomes three characters.
+const page = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anotoki Reference — ${esc(stamp)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 ${css}</style>
+</head>
+<body>
 
 <div class="wrap">
   <header class="masthead">
@@ -342,10 +470,18 @@ ${css}</style>
 
 <script>
 ${js}</script>
+</body>
+</html>
 `;
 
-const out = local(`./reference-${fileStamp}.html`);
+const outArg = process.argv.indexOf('--out');
+if (outArg !== -1 && !process.argv[outArg + 1]) {
+  console.error('--out needs a file name');
+  process.exit(1);
+}
+const out = outArg !== -1 ? resolve(process.argv[outArg + 1]) : local(`./reference-${fileStamp}.html`);
+mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, page);
 console.log(`reference written to ${out}`);
-console.log(`  ${totals.pages} pages (${totals.pagesWired} call the API), ${totals.endpoints} endpoints, ${totals.tables} tables`);
+console.log(`  ${totals.pages} pages (${totals.pagesWired} call the API, ${totals.pagesIndirect} of them only through a base class or site service), ${totals.endpoints} endpoints, ${totals.tables} tables`);
 console.log(`  service methods mapped: ${methodToEndpoint.size}`);

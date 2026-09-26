@@ -31,9 +31,14 @@ drifts from the code; this cannot.
   generates from its own route table, response shapes and migrations. Exact.
 - **Frontend** is read from the Angular sources: the page tree from the folder
   layout under `sites/main/features` and `sites/admin`, and the endpoints each
-  page uses from the API-service methods it calls. This part is heuristic — a
-  page that reaches the API an unusual way (through a shared service, say) may
-  under-report — so treat the frontend map as a strong guide, not a contract.
+  page uses from the API-service methods it calls. A call counts only where the
+  service that owns the method is named in what the page is built from, so a
+  component's own `changePassword()` is not mistaken for the endpoint of that
+  name. Calls that arrive through a base class or a service inside `sites/` are
+  followed and listed under **via**, as are methods a page calls on an injected
+  shared service that passes them straight through to the API. This part is
+  still heuristic — a page that reaches the API some other way may under-report
+  — so treat the frontend map as a strong guide, not a contract.
 
 ## Regenerating
 
@@ -47,7 +52,7 @@ node docs/reference/build-docs.mjs
 
 The output name carries the date and minute
 (`reference-YYYY-MM-DD-HH-MM.html`), so regenerating leaves a new file beside
-the old rather than overwriting it.
+the old rather than overwriting it. `--out <file>` writes somewhere else.
 
 ## Files
 

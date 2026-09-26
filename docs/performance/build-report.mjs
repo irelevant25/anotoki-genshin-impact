@@ -2,29 +2,41 @@
 //
 //   node docs/performance/build-report.mjs [--out <file>]
 //
-// The runs come from docs/runs/, written by bench-endpoints.mjs. The newest is
+// The runs come from docs/performance/runs/, written by bench-endpoints.mjs. The newest is
 // the report; the one before it is what the report compares against. That is
 // the whole reason runs are archived rather than overwritten - a number on its
 // own says very little, and "68 ms faster than last week" says a great deal.
 //
 // The page is self-contained: the CSS, the drawing code and the measurements
 // are all inlined into it, so it opens from disk with nothing running.
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const local = (relative) => new URL(relative, import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+// fileURLToPath rather than URL.pathname: pathname is percent-encoded, so a
+// checkout under a folder with a space in its name resolved to a path that
+// does not exist.
+const local = (relative) => fileURLToPath(new URL(relative, import.meta.url));
 const RUNS = local('./runs/');
 
 const outArg = process.argv.indexOf('--out');
-const runs = readdirSync(RUNS)
-  .filter((name) => name.endsWith('.json'))
-  .sort();
-
-if (!runs.length) {
-  console.error('no runs in docs/runs - run bench-endpoints.mjs first');
+if (outArg !== -1 && !process.argv[outArg + 1]) {
+  console.error('--out needs a file name');
   process.exit(1);
 }
 
-const read = (name) => JSON.parse(readFileSync(RUNS + name, 'utf8'));
+const runs = existsSync(RUNS)
+  ? readdirSync(RUNS)
+      .filter((name) => name.endsWith('.json'))
+      .sort()
+  : [];
+
+if (!runs.length) {
+  console.error('no runs in docs/performance/runs - run bench-endpoints.mjs first');
+  process.exit(1);
+}
+
+const read = (name) => JSON.parse(readFileSync(join(RUNS, name), 'utf8'));
 const current = read(runs[runs.length - 1]);
 const previous = runs.length > 1 ? read(runs[runs.length - 2]) : null;
 
@@ -73,8 +85,10 @@ if (previous) {
 // ── The parts of the prose that are facts ────────────────────────────────────
 const ordinary = data.endpoints.filter((e) => !e.h);
 const medians = ordinary.map((e) => e.m).sort((a, b) => a - b);
-const median = medians[Math.floor(medians.length / 2)];
-const slowest = [...ordinary].sort((a, b) => b.m - a.m)[0];
+const median = medians[Math.floor(medians.length / 2)] ?? 0;
+// A run with nothing ordinary in it should still build a page.
+const slowest = [...ordinary].sort((a, b) => b.m - a.m)[0] ?? { p: '—', m: 0 };
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const failing = data.endpoints.filter((e) => e.s >= 500);
 const bytes = data.endpoints.reduce((sum, e) => sum + e.b, 0);
 
@@ -92,10 +106,10 @@ const headline = floorMoved
 const standfirst = floorMoved
   ? `Every GET route timed against the running API. The number underneath them all is the one worth knowing, and it changed:
      nothing here answers in under ${ms(data.floor)}, against ${ms(data.previous.floor)} in the run before. The median endpoint
-     is ${ms(median)}, and the slowest that is not surveying the filesystem is <code>${slowest.p}</code> at ${ms(slowest.m)}.`
+     is ${ms(median)}, and the slowest that is not surveying the filesystem is <code>${esc(slowest.p)}</code> at ${ms(slowest.m)}.`
   : `Every GET route timed against the running API. Nothing here answers in under ${ms(data.floor)}, and most of that is spent
      before the endpoint does any work of its own. The median endpoint is ${ms(median)}, and the slowest that is not surveying
-     the filesystem is <code>${slowest.p}</code> at ${ms(slowest.m)}.`;
+     the filesystem is <code>${esc(slowest.p)}</code> at ${ms(slowest.m)}.`;
 
 const date = new Date(data.generated);
 const stamp = date.toISOString().slice(0, 10);
@@ -135,13 +149,23 @@ const comparison = data.previous
   </section>`
   : '';
 
-const page = `<title>API Latency Readout — ${stamp}</title>
+// A whole document, not a fragment. Without the doctype a browser lays the
+// page out in quirks mode, and without the charset one opening it from disk has
+// to guess the encoding - which is how an em dash becomes three characters.
+const page = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API Latency Readout — ${stamp}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 
 <style>
 ${css}</style>
+</head>
+<body>
 
 <div class="wrap">
   <header class="masthead">
@@ -262,13 +286,15 @@ ${comparison}
   </section>
 </div>
 
-<script id="data" type="application/json">${JSON.stringify(data)}</script>
+<script id="data" type="application/json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>
 <script>
 ${js}</script>
+</body>
+</html>
 `;
 
-const out = outArg !== -1 ? process.argv[outArg + 1] : local(`./api-latency-${fileStamp}.html`);
-mkdirSync(local('./'), { recursive: true });
+const out = outArg !== -1 ? resolve(process.argv[outArg + 1]) : local(`./api-latency-${fileStamp}.html`);
+mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, page);
 
 console.log(`report written to ${out}`);

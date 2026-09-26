@@ -67,7 +67,13 @@
     if (!link) return;
     const id = link.getAttribute('href').slice(1);
     const tab = id.startsWith('be') ? 'backend' : id.startsWith('db-') ? 'database' : id.startsWith('fe-') ? 'frontend' : null;
-    if (tab && tab !== current) {
+    // Hidden by the filter counts as not visible too. A link to something in
+    // this same tab used to be left to the browser, which cannot scroll to an
+    // element the filter has taken out of the page - so with "artifact" typed
+    // in, a link to an endpoint outside the matches did nothing at all.
+    const target = document.getElementById(id);
+    const filteredOut = !!target?.closest('.is-filtered-out');
+    if (tab && (tab !== current || filteredOut)) {
       // Clear the filter so the target is not hidden by it, then switch.
       filter.value = '';
       show(tab);

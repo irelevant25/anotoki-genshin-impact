@@ -1,4 +1,4 @@
-# docs
+# docs/performance
 
 Latency reports for the API. Each one is a single HTML file that carries its own
 measurements — open it in a browser, it needs nothing running.
@@ -17,7 +17,14 @@ node docs/performance/build-report.mjs
 ```
 
 Sign in as an account that can read the admin endpoints — roughly a third of the
-API is behind a role, and those routes are reported as 401s otherwise.
+API is behind a role, and those routes are reported as 401s otherwise. The
+session it opens is signed out again when the run ends.
+
+Path arguments are filled from the collection a route belongs to, and the few
+routes that answer 404 until they are told what to look at (`/api/files`,
+`/api/files/raw`, `/api/migrations/file`) are given a query naming something
+real, so what is timed is the work rather than the refusal. A route with nothing
+to fill it from is listed as skipped, with the reason.
 
 The first command times every GET route and writes the numbers to
 `docs/performance/runs/<timestamp>.json`. Nothing is overwritten: every run is kept, because

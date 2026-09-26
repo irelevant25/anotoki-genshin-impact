@@ -5,6 +5,10 @@
     const ordinary = all.filter((e) => !e.h);
 
     const ms = (n) => (n >= 1000 ? (n / 1000).toFixed(2) + ' s' : Math.round(n) + ' ms');
+    // Paths and file names reach the page through innerHTML. They come from the
+    // spec rather than from a stranger, but a route pattern is free to hold a
+    // `<` and the page should not care.
+    const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
     const size = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB' : b >= 1024 ? Math.round(b / 1024) + ' KB' : b + ' B');
 
     // ── Masthead figures ────────────────────────────────────────────────
@@ -22,7 +26,7 @@
     document.getElementById('run-count').textContent = data.totals.measured + ' of ' + data.totals.get_routes + ' GET routes';
     document.getElementById('run-samples').textContent = data.samples + ' samples each';
     document.getElementById('method-skipped').textContent =
-      data.skipped.length + ' routes could not be called at all, because nothing exists to put in their path.';
+      data.skipped.length + ' routes could not be called at all, because nothing exists to put in their path or their query.';
 
     // ── The run before this one ─────────────────────────────────────────
     // Everything below that says "since" comes from here. When there is no
@@ -112,7 +116,7 @@
               const better = d.ms < 0;
               return `
           <div class="mover">
-            <div class="mover-path">${e.p}${e.h ? ' <span class="pill pill-warn">fs</span>' : ''}</div>
+            <div class="mover-path">${esc(e.p)}${e.h ? ' <span class="pill pill-warn">fs</span>' : ''}</div>
             <div class="mover-bars">
               <div class="mover-row"><span class="mover-tag">was</span><div class="mover-track"><div class="mover-fill is-was" style="width:${(100 * d.was.m) / widest}%"></div></div><span class="mover-num">${ms(d.was.m)}</span></div>
               <div class="mover-row"><span class="mover-tag">now</span><div class="mover-track"><div class="mover-fill ${better ? 'is-good' : 'is-crit'}" style="width:${(100 * e.m) / widest}%"></div></div><span class="mover-num">${ms(e.m)}</span></div>
@@ -125,10 +129,10 @@
 
       // ── The ledger ────────────────────────────────────────────────────
       const ledger = [
-        ['Fixed', fixed.map((x) => `${x.e.p} — ${x.d.was.s} → ${x.e.s}`), 'is-good'],
-        ['Started failing', broke.map((x) => `${x.e.p} — ${x.d.was.s} → ${x.e.s}`), 'is-crit'],
-        ['Gone', gone.map((e) => `${e.p}${e.s >= 400 ? ` — was answering ${e.s}` : ''}`), 'is-good'],
-        ['New', added.map((e) => `${e.p} — ${ms(e.m)}`), 'is-flat'],
+        ['Fixed', fixed.map((x) => `${esc(x.e.p)} — ${x.d.was.s} → ${x.e.s}`), 'is-good'],
+        ['Started failing', broke.map((x) => `${esc(x.e.p)} — ${x.d.was.s} → ${x.e.s}`), 'is-crit'],
+        ['Gone', gone.map((e) => `${esc(e.p)}${e.s >= 400 ? ` — was answering ${e.s}` : ''}`), 'is-good'],
+        ['New', added.map((e) => `${esc(e.p)} — ${ms(e.m)}`), 'is-flat'],
       ].filter(([, items]) => items.length);
 
       document.getElementById('ledger').innerHTML = ledger.length
@@ -145,17 +149,20 @@
     }
 
     // ── Histogram ───────────────────────────────────────────────────────
-    const buckets = [
-      [0, 100, 'under 100 ms', ''],
-      [100, 125, '100 – 125 ms', ''],
-      [125, 150, '125 – 150 ms', ''],
-      [150, 200, '150 – 200 ms', ''],
-      [200, 400, '200 – 400 ms', 'is-warn'],
-      [400, 1000, '400 ms – 1 s', 'is-warn'],
-      [1000, Infinity, 'over 1 s', 'is-crit'],
-    ];
+    // Cut at multiples of the floor rather than at fixed milliseconds. The
+    // fixed cuts were drawn when the floor was 126 ms; once it fell to 52 ms
+    // nineteen endpoints in twenty landed in "under 100 ms" and the shape this
+    // chart exists to show was one bar. Twice the floor is a cut on purpose -
+    // it is the line the figures at the top draw between ordinary and slow.
+    const cuts = [1.25, 1.5, 2, 4, 10].map((times) => Math.round(floor * times));
+    const edges = [0, ...cuts, Infinity];
+    const buckets = edges.slice(0, -1).map((lo, i) => {
+      const hi = edges[i + 1];
+      const label = lo === 0 ? 'under ' + ms(hi) : hi === Infinity ? 'over ' + ms(lo) : ms(lo) + ' – ' + ms(hi);
+      return [lo, hi, label, lo >= cuts[4] ? 'is-crit' : lo >= cuts[2] ? 'is-warn' : ''];
+    });
     const counts = buckets.map(([lo, hi]) => ordinary.filter((e) => e.m >= lo && e.m < hi).length);
-    const peak = Math.max(...counts);
+    const peak = Math.max(1, ...counts);
     document.getElementById('hist').innerHTML = buckets
       .map(
         ([, , label, cls], i) => `
@@ -167,13 +174,13 @@
 
     // ── Ranked bars ─────────────────────────────────────────────────────
     const top = [...ordinary].sort((a, b) => b.m - a.m).slice(0, 10);
-    const worst = top[0].m;
+    const worst = top[0]?.m || 1;
     document.getElementById('ranked').innerHTML = top
       .map((e) => {
         const own = Math.max(0, e.m - floor);
         return `
         <div class="rank">
-          <div class="rank-path">${e.p}</div>
+          <div class="rank-path">${esc(e.p)}</div>
           <div class="rank-ms">${ms(e.m)}</div>
           <div class="rank-track">
             <div style="display:flex;height:100%">
@@ -211,20 +218,29 @@
       const plotW = w - pad.l - pad.r;
       const plotH = h - pad.t - pad.b;
 
-      // Log scales: both axes span four orders of magnitude.
-      const xMin = Math.log10(256);
-      const xMax = Math.log10(64 * 1048576);
-      const yMin = Math.log10(60);
-      const yMax = Math.log10(2500);
-      const X = (bytes) => pad.l + (plotW * (Math.log10(Math.max(256, bytes)) - xMin)) / (xMax - xMin);
-      const Y = (t) => pad.t + plotH - (plotH * (Math.log10(Math.max(60, t)) - yMin)) / (yMax - yMin);
+      // Log scales, with the ends taken from the run. They were fixed at 60 ms
+      // and 2.5 s, which suited a floor of 126 ms; at 52 ms three points in four
+      // sat below the axis and were drawn clamped onto it, floor line included.
+      const times = points.map((e) => e.m);
+      const sizes = points.map((e) => e.b);
+      const loT = Math.max(1, Math.min(floor, ...times) * 0.8);
+      const hiT = Math.max(loT * 10, ...times) * 1.3;
+      const loB = Math.max(64, Math.min(...sizes, 1024) * 0.8);
+      const hiB = Math.max(loB * 10, ...sizes) * 1.6;
+      const xMin = Math.log10(loB);
+      const xMax = Math.log10(hiB);
+      const yMin = Math.log10(loT);
+      const yMax = Math.log10(hiT);
+      const X = (bytes) => pad.l + (plotW * (Math.log10(Math.max(loB, bytes)) - xMin)) / (xMax - xMin);
+      const Y = (t) => pad.t + plotH - (plotH * (Math.log10(Math.max(loT, t)) - yMin)) / (yMax - yMin);
+      const within = (lo, hi) => (n) => n > lo && n < hi;
 
       c.font = '11px "IBM Plex Mono", monospace';
       c.strokeStyle = line;
       c.fillStyle = muted;
       c.lineWidth = 1;
 
-      for (const bytes of [1024, 32768, 1048576, 33554432]) {
+      for (const bytes of [1024, 32768, 1048576, 33554432, 1073741824].filter(within(loB, hiB))) {
         const x = X(bytes);
         c.globalAlpha = 0.5;
         c.beginPath();
@@ -235,7 +251,7 @@
         c.textAlign = 'center';
         c.fillText(size(bytes), x, h - 14);
       }
-      for (const t of [100, 250, 1000, 2000]) {
+      for (const t of [10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 30000].filter(within(loT * 1.15, hiT))) {
         const y = Y(t);
         c.globalAlpha = 0.5;
         c.beginPath();
@@ -269,17 +285,23 @@
       }
       c.globalAlpha = 1;
 
-      // Name the two that make the point.
+      // Name the two that make the point: the slowest, and the biggest answer
+      // that is not slow - one costs time without bytes, the other bytes
+      // without time. Found in the run rather than named here, so the labels
+      // follow the data when a fix moves either of them.
       c.fillStyle = ink;
       c.font = '11px "IBM Plex Sans", sans-serif';
-      const label = (path, dx, dy, align) => {
-        const e = points.find((p) => p.p === path);
+      const label = (e, dy) => {
         if (!e) return;
-        c.textAlign = align;
-        c.fillText(path, X(e.b) + dx, Y(e.m) + dy);
+        // Whichever side of the point has the room.
+        const left = X(e.b) > pad.l + plotW / 2;
+        c.textAlign = left ? 'right' : 'left';
+        c.fillText(e.p, X(e.b) + (left ? -10 : 10), Y(e.m) + dy);
       };
-      label('/api/enemies/full', -10, -10, 'right');
-      label('/api/characters-voice-overs', -10, 14, 'right');
+      const slowest = [...points].sort((a, b) => b.m - a.m)[0];
+      const biggest = [...points].filter((e) => e !== slowest && e.m <= floor * 2).sort((a, b) => b.b - a.b)[0];
+      label(slowest, -10);
+      label(biggest, 14);
     }
 
     draw();
@@ -341,14 +363,14 @@
             const own = Math.max(0, e.m - floor);
             const cls = e.m > floor * 3 ? 'pill-crit' : e.m > floor * 1.5 ? 'pill-warn' : 'pill-good';
             return `<tr>
-            <td class="path">${e.p}${e.h ? ' <span class="pill pill-warn">fs</span>' : ''}</td>
+            <td class="path">${esc(e.p)}${e.h ? ' <span class="pill pill-warn">fs</span>' : ''}</td>
             <td class="num">${ms(e.m)}</td>
             <td class="num"><span class="pill ${cls}">${own < 1 ? '—' : '+' + ms(own)}</span></td>
             <td class="num">${deltaCell(e)}</td>
             <td class="num">${ms(e.hi)}</td>
             <td class="num">${e.b ? size(e.b) : '—'}</td>
             <td>${statusPill(e.s) || '200'}</td>
-            <td>${e.f}</td>
+            <td>${esc(e.f)}</td>
           </tr>`;
           })
           .join('') || '<tr><td colspan="8" class="empty">Nothing matches that.</td></tr>';
