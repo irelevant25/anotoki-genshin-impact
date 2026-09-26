@@ -13934,7 +13934,71 @@
                     "optional": true
                 },
                 {
+                    "name": "demo_music_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "demo_music_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "demo_music",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "demo_video",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "constellation_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "constellation_file_id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "constellation",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "namecard_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
+                    "name": "arkhe",
                     "types": [
                         "string"
                     ],
@@ -14720,6 +14784,14 @@
                     "optional": false
                 },
                 {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": true
+                },
+                {
                     "name": "text_english",
                     "types": [
                         "string"
@@ -14737,14 +14809,6 @@
                 },
                 {
                     "name": "title_chinese",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "title_chinese_traditional",
                     "types": [
                         "string"
                     ],
@@ -14776,39 +14840,7 @@
                     "optional": true
                 },
                 {
-                    "name": "text_chinese_traditional",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
                     "name": "text_korean",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "text_japanese_reading",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "text_chinese_reading",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "text_korean_reading",
                     "types": [
                         "string"
                     ],
@@ -24831,7 +24863,7 @@
                     "enum": null
                 },
                 {
-                    "name": "demo_music",
+                    "name": "demo_music_name",
                     "sqlType": "VARCHAR(100)",
                     "nullable": true,
                     "enum": null
@@ -25075,6 +25107,58 @@
                     "sqlType": "INT",
                     "nullable": true,
                     "enum": null
+                },
+                {
+                    "name": "constellation_name",
+                    "sqlType": "VARCHAR(100)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "constellation_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "constellation",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "namecard_name",
+                    "sqlType": "VARCHAR(100)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "demo_video",
+                    "sqlType": "VARCHAR(255)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "demo_music_file_id",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "demo_music",
+                    "sqlType": "TEXT",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "arkhe",
+                    "sqlType": "VARCHAR(20)",
+                    "nullable": true,
+                    "enum": [
+                        "Pneuma",
+                        "Ousia",
+                        "Pneuma & Ousia"
+                    ]
                 }
             ]
         },
@@ -26303,12 +26387,6 @@
                     "enum": null
                 },
                 {
-                    "name": "title_chinese_traditional",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "title_korean",
                     "sqlType": "VARCHAR(100)",
                     "nullable": true,
@@ -26333,31 +26411,7 @@
                     "enum": null
                 },
                 {
-                    "name": "text_chinese_traditional",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "text_korean",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "text_japanese_reading",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "text_chinese_reading",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "text_korean_reading",
                     "sqlType": "TEXT",
                     "nullable": true,
                     "enum": null
@@ -26444,6 +26498,12 @@
                     "name": "voice_over_set_id",
                     "sqlType": "INT",
                     "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "name",
+                    "sqlType": "VARCHAR(100)",
+                    "nullable": true,
                     "enum": null
                 }
             ]

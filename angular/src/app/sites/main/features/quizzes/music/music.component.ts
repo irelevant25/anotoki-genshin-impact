@@ -20,19 +20,12 @@ import { QuizId } from '../shared/quiz.types';
 export class QuizzesMusicComponent extends CharacterQuizComponent {
   protected readonly quizId: QuizId = 'music';
 
-  /** 72 of the 111 non-traveller characters have a demo track. */
+  /** Only a character with a demo track to play: `demo_music` is the track's path. */
   protected override canAsk(character: any): boolean {
     return !!character?.demo_music;
   }
 
-  /**
-   * The track is filed under the same upper-cased name as the portrait, and
-   * `demo_music` holds the piece's title rather than a path.
-   */
-  readonly trackUrl = computed(() => {
-    const character = this.questionEntity();
-    return character ? `assets/character/demo_music/${character.icon_name ?? character.name}.mp3` : '';
-  });
+  readonly trackUrl = computed(() => this.questionEntity()?.demo_music ?? '');
 
   /** Seconds the player may reveal. Undefined once it is over: play it all. */
   readonly limit = computed(() => (this.isQuestionComplete() ? undefined : this.currentEffect()?.data));

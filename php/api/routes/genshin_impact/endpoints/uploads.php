@@ -45,7 +45,7 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
 
     // Voice over clips resolve their folder from the character, type and
     // language; everything else declares a fixed folder.
-    $isAudio = false;
+    $isAudio = !empty($fieldSpec['audio']);
     $folder = $fieldSpec['folder'] ?? null;
     $suggested = null;
     if (isset($spec['resolver'])) {
@@ -140,7 +140,7 @@ $app->post('/api/uploads/{entity}/{field}', function (Request $request, Response
         return respondJson($response, ['error' => 'A file name is required'], 422);
     }
 
-    $path = _saveAssetUpload($file, $folder, $baseName);
+    $path = _saveAssetUpload($file, $folder, $baseName, !empty($fieldSpec['audio']));
     if (!$path) {
         return respondJson($response, ['error' => 'Unsupported or unreadable file'], 415);
     }

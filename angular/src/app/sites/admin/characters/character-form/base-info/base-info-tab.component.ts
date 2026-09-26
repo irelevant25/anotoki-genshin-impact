@@ -80,6 +80,8 @@ export class BaseInfoTabComponent {
 
   readonly namecardImages = NAMECARD_IMAGES;
   readonly characterImages = CHARACTER_IMAGES;
+  /** The Arkhe a character is aligned with - a fixed list, as the database allows. */
+  readonly arkheOptions = ['Pneuma', 'Ousia', 'Pneuma & Ousia'];
 
   foodOptions = computed<DropdownOption[]>(() => this.foods().map((food) => ({ key: food.id, value: food.name })));
 

@@ -2,11 +2,9 @@
     <app-field-container [cols]="1">
         <app-text [label]="'Title'" [(value)]="entry().data[titleKey()]"></app-text>
     </app-field-container>
-    <app-field-container [cols]="hasReading() ? 2 : 1">
-        <app-textarea [label]="'Text'" [(value)]="entry().data[textKey()]" [rows]="3" [resize]="false"></app-textarea>
-        @if (hasReading()) {
-            <app-textarea [label]="'Text Reading'" [(value)]="entry().data[textReadingKey()]" [rows]="3" [resize]="false"></app-textarea>
-        }
+    <app-field-container [cols]="1">
+        <!-- Markup, not plain text: a dialogue keeps its speakers in <b>, which the site renders. -->
+        <app-html-editor [label]="'Text'" [value]="text()" (valueChange)="onTextChange($event)" [minHeight]="'120px'" [displayError]="false"></app-html-editor>
     </app-field-container>
     <div class="audio-row">
         <app-file
@@ -30,10 +28,4 @@
             </div>
         }
     </div>
-    @if (language() === 'chinese') {
-        <app-field-container [cols]="1">
-            <app-text [label]="'Title (Traditional Chinese)'" [(value)]="entry().data.title_chinese_traditional"></app-text>
-            <app-textarea [label]="'Text (Traditional Chinese)'" [(value)]="entry().data.text_chinese_traditional" [rows]="3" [resize]="false"></app-textarea>
-        </app-field-container>
-    }
 </app-field-container>

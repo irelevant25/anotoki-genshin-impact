@@ -36096,7 +36096,7 @@
               }
             ]
           },
-          "demo_music": {
+          "demo_music_name": {
             "anyOf": [
               {
                 "type": "null"
@@ -36463,6 +36463,88 @@
                 "type": "number"
               }
             ]
+          },
+          "constellation_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_video": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_music_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "demo_music": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "arkhe": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              null,
+              "Pneuma",
+              "Ousia",
+              "Pneuma & Ousia"
+            ]
           }
         },
         "required": [
@@ -36485,7 +36567,7 @@
           "release_date",
           "version",
           "introduced",
-          "demo_music",
+          "demo_music_name",
           "voice_actor_english",
           "voice_actor_japanese",
           "voice_actor_korean",
@@ -36525,7 +36607,15 @@
           "voice_over_set_id",
           "ascension_set_id",
           "talent_set_id",
-          "constellation_set_id"
+          "constellation_set_id",
+          "constellation_name",
+          "constellation_file_id",
+          "constellation",
+          "namecard_name",
+          "demo_video",
+          "demo_music_file_id",
+          "demo_music",
+          "arkhe"
         ],
         "additionalProperties": false
       },
@@ -40453,6 +40543,26 @@
               }
             ]
           },
+          "demo_music_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_music_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "demo_music": {
             "anyOf": [
               {
@@ -40461,6 +40571,68 @@
               {
                 "type": "string"
               }
+            ]
+          },
+          "demo_video": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "arkhe": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              null,
+              "Pneuma",
+              "Ousia",
+              "Pneuma & Ousia"
             ]
           },
           "id": {
@@ -40555,7 +40727,15 @@
           "namecard_sources",
           "release_date",
           "introduced",
+          "demo_music_name",
+          "demo_music_file_id",
           "demo_music",
+          "demo_video",
+          "constellation_name",
+          "constellation_file_id",
+          "constellation",
+          "namecard_name",
+          "arkhe",
           "id",
           "deleted",
           "created_at",
@@ -40918,7 +41098,67 @@
                   }
                 ]
               },
+              "demo_music_name": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
               "demo_music": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "demo_video": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "constellation_name": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "constellation": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "namecard_name": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "arkhe": {
                 "anyOf": [
                   {
                     "type": "null"
@@ -41058,6 +41298,26 @@
                   }
                 ]
               },
+              "demo_music_file_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "constellation_file_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
               "id": {
                 "type": "number"
               }
@@ -41082,6 +41342,16 @@
             "items": {
               "type": "object",
               "properties": {
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
                 "type": {
                   "type": "string"
                 },
@@ -41121,16 +41391,6 @@
                     }
                   ]
                 },
-                "title_chinese_traditional": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
                 "title_korean": {
                   "anyOf": [
                     {
@@ -41161,47 +41421,7 @@
                     }
                   ]
                 },
-                "text_chinese_traditional": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
                 "text_korean": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "text_japanese_reading": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "text_chinese_reading": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "text_korean_reading": {
                   "anyOf": [
                     {
                       "type": "null"
@@ -42109,7 +42329,87 @@
               }
             ]
           },
+          "demo_music_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_music_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "demo_music": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_video": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "arkhe": {
             "anyOf": [
               {
                 "type": "null"
@@ -42588,6 +42888,26 @@
               }
             ]
           },
+          "demo_music_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_music_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "demo_music": {
             "anyOf": [
               {
@@ -42596,6 +42916,68 @@
               {
                 "type": "string"
               }
+            ]
+          },
+          "demo_video": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "arkhe": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              null,
+              "Pneuma",
+              "Ousia",
+              "Pneuma & Ousia"
             ]
           },
           "id": {
@@ -42699,7 +43081,15 @@
           "namecard_sources",
           "release_date",
           "introduced",
+          "demo_music_name",
+          "demo_music_file_id",
           "demo_music",
+          "demo_video",
+          "constellation_name",
+          "constellation_file_id",
+          "constellation",
+          "namecard_name",
+          "arkhe",
           "id",
           "deleted",
           "created_at",
@@ -43965,16 +44355,6 @@
               }
             ]
           },
-          "title_chinese_traditional": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
           "title_korean": {
             "anyOf": [
               {
@@ -44015,47 +44395,7 @@
               }
             ]
           },
-          "text_chinese_traditional": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
           "text_korean": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_japanese_reading": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_chinese_reading": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_korean_reading": {
             "anyOf": [
               {
                 "type": "null"
@@ -44183,6 +44523,16 @@
           },
           "voice_over_set_id": {
             "type": "number"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         },
         "required": [
@@ -44192,16 +44542,11 @@
           "title_english",
           "title_japanese",
           "title_chinese",
-          "title_chinese_traditional",
           "title_korean",
           "text_english",
           "text_japanese",
           "text_chinese",
-          "text_chinese_traditional",
           "text_korean",
-          "text_japanese_reading",
-          "text_chinese_reading",
-          "text_korean_reading",
           "deleted",
           "created_at",
           "created_by",
@@ -44215,7 +44560,8 @@
           "audio_chinese",
           "audio_korean_file_id",
           "audio_korean",
-          "voice_over_set_id"
+          "voice_over_set_id",
+          "name"
         ],
         "additionalProperties": false
       },
@@ -44230,6 +44576,16 @@
               },
               {
                 "type": "number"
+              }
+            ]
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
               }
             ]
           },
@@ -44275,16 +44631,6 @@
               }
             ]
           },
-          "title_chinese_traditional": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
           "title_korean": {
             "anyOf": [
               {
@@ -44315,47 +44661,7 @@
               }
             ]
           },
-          "text_chinese_traditional": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
           "text_korean": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_japanese_reading": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_chinese_reading": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_korean_reading": {
             "anyOf": [
               {
                 "type": "null"
@@ -44484,6 +44790,7 @@
         },
         "required": [
           "updated_by",
+          "name",
           "type",
           "voice_over_set_id",
           "order",
@@ -44491,15 +44798,10 @@
           "text_english",
           "title_japanese",
           "title_chinese",
-          "title_chinese_traditional",
           "title_korean",
           "text_japanese",
           "text_chinese",
-          "text_chinese_traditional",
           "text_korean",
-          "text_japanese_reading",
-          "text_chinese_reading",
-          "text_korean_reading",
           "audio_english_file_id",
           "audio_english",
           "audio_japanese_file_id",
@@ -44563,6 +44865,16 @@
           "title_english": {
             "type": "string"
           },
+          "name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
           "text_english": {
             "anyOf": [
               {
@@ -44584,16 +44896,6 @@
             ]
           },
           "title_chinese": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "title_chinese_traditional": {
             "anyOf": [
               {
                 "type": "null"
@@ -44633,47 +44935,7 @@
               }
             ]
           },
-          "text_chinese_traditional": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
           "text_korean": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_japanese_reading": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_chinese_reading": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_korean_reading": {
             "anyOf": [
               {
                 "type": "null"
@@ -44776,6 +45038,16 @@
         "title": "CharacterVoiceOverRead",
         "type": "object",
         "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
           "type": {
             "type": "string"
           },
@@ -44818,16 +45090,6 @@
               }
             ]
           },
-          "title_chinese_traditional": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
           "title_korean": {
             "anyOf": [
               {
@@ -44858,47 +45120,7 @@
               }
             ]
           },
-          "text_chinese_traditional": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
           "text_korean": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_japanese_reading": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_chinese_reading": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "text_korean_reading": {
             "anyOf": [
               {
                 "type": "null"
@@ -45036,6 +45258,7 @@
           }
         },
         "required": [
+          "name",
           "type",
           "voice_over_set_id",
           "order",
@@ -45043,15 +45266,10 @@
           "text_english",
           "title_japanese",
           "title_chinese",
-          "title_chinese_traditional",
           "title_korean",
           "text_japanese",
           "text_chinese",
-          "text_chinese_traditional",
           "text_korean",
-          "text_japanese_reading",
-          "text_chinese_reading",
-          "text_korean_reading",
           "audio_english_file_id",
           "audio_english",
           "audio_japanese_file_id",

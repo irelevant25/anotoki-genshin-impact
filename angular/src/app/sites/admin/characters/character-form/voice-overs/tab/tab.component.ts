@@ -1,7 +1,7 @@
 import { Component, computed, input, model, OnDestroy } from '@angular/core';
 import { ButtonComponent } from '../../../../../../shared/local-lib/components/button/button.component';
 import { TextComponent } from '../../../../../../shared/local-lib/components/text/text.component';
-import { TextareaComponent } from '../../../../../../shared/local-lib/components/textarea/textarea.component';
+import { HtmlEditorComponent } from '../../../../../../shared/local-lib/components/html-editor/html-editor.component';
 import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';
 import { FieldContainerComponent } from '../../../../../../shared/local-lib/components/field-container/field-container.component';
 import { AUDIO_EXTENSIONS, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
@@ -11,7 +11,7 @@ import { VoiceOverFormData } from '../../../../../../sites/admin/shared/admin-fo
   selector: 'app-voice-overs-tab-item',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, TextareaComponent, FileComponent, FieldContainerComponent],
+  imports: [ButtonComponent, TextComponent, HtmlEditorComponent, FileComponent, FieldContainerComponent],
 })
 export class VoiceOversTabItemComponent implements OnDestroy {
   entry = input.required<VoiceOverWrapper>();
@@ -25,8 +25,13 @@ export class VoiceOversTabItemComponent implements OnDestroy {
 
   titleKey = computed(() => `title_${this.language()}` as keyof VoiceOverFormData);
   textKey = computed(() => `text_${this.language()}` as keyof VoiceOverFormData);
-  textReadingKey = computed(() => `text_${this.language()}_reading` as keyof VoiceOverFormData);
-  hasReading = computed(() => this.language() !== 'english');
+
+  /** The text as the HTML editor takes it - a string, where the form data's field union allows a number. */
+  text = computed(() => (this.entry().data[this.textKey()] as string | null | undefined) ?? '');
+
+  onTextChange(value: string | null | undefined): void {
+    (this.entry().data as unknown as Record<string, unknown>)[this.textKey()] = value || null;
+  }
 
   /** Unique across the form, so play/stop never targets the wrong clip. */
   playbackKey = computed(() => `${this.entry().uid}_${this.language()}`);

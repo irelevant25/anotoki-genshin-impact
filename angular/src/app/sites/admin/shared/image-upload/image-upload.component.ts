@@ -9,7 +9,7 @@ import { DropdownOption } from '../../../../shared/local-lib/services/options-he
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
 import { AssetFile, FileApiService } from '../../../../api';
 import { ConfigService } from '../../../../shared/local-lib/services/config.service';
-import { IMAGE_EXTENSIONS } from '../admin-full-resource.model';
+import { AUDIO_EXTENSIONS, IMAGE_EXTENSIONS } from '../admin-full-resource.model';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 
 /**
@@ -39,7 +39,8 @@ const BROWSE_PAGE_SIZE = 60;
 
 /**
  * Picks one image for a form slot — by uploading a new file, or by choosing one
- * already in the catalogue.
+ * already in the catalogue. A slot that holds a sound (a character's demo
+ * music) sets `kind` to 'audio', and the same two ways pick a sound instead.
  *
  * Upload names are not asked for: they are derived from the entity that owns the
  * picture and shown read-only, so the asset tree keeps its naming. Nothing is
@@ -62,6 +63,8 @@ export class ImageUploadComponent extends AbstractModalComponent {
   name = signal<string>('');
   /** The folder to open the "choose existing" browser on, if the form knows one. */
   folderHint = signal<string>('');
+  /** What the slot takes: a picture, or a sound. */
+  kind = signal<'image' | 'audio'>('image');
 
   /** Which half of the modal is showing. */
   mode = signal<'upload' | 'existing'>('upload');
@@ -69,7 +72,7 @@ export class ImageUploadComponent extends AbstractModalComponent {
   // ── Upload ──────────────────────────────────────────────────────────────────
   file = signal<File | undefined>(undefined);
   uploadPreview = signal<string | undefined>(undefined);
-  readonly imageExtensions = IMAGE_EXTENSIONS;
+  extensions = computed(() => (this.kind() === 'audio' ? AUDIO_EXTENSIONS : IMAGE_EXTENSIONS));
 
   // ── Choose existing ───────────────────────────────────────────────────────────
   private readonly _files = inject(FileApiService);
@@ -173,8 +176,8 @@ export class ImageUploadComponent extends AbstractModalComponent {
     this.selected.set(undefined);
     this._files.getAssetFiles({ folder: String(folder), search: String(this.search() ?? '').trim() || undefined, page: this.page() }).subscribe({
       next: (result) => {
-        // A form slot wants a picture, so non-images in the folder are hidden.
-        this.results.set(result.files.filter((f) => IMAGE_EXTENSIONS.includes('.' + f.extension.toLowerCase())));
+        // A form slot wants a picture (or a sound), so the folder's other files are hidden.
+        this.results.set(result.files.filter((f) => this.extensions().includes(`.${f.extension.toLowerCase()}`)));
         this.total.set(result.total);
         this.browsing.set(false);
       },

@@ -24,15 +24,12 @@ const LANGUAGE_BY_FOLDER: Record<string, VoiceOverLanguage> = {
   chinese: 'chinese',
 };
 
-/**
- * Titles a file name may carry, per language. Chinese folders hold both the
- * simplified and the traditional spelling of the same clip.
- */
+/** The title a file name carries, per language. */
 const TITLE_FIELDS: Record<VoiceOverLanguage, (keyof VoiceOverFormData)[]> = {
   english: ['title_english'],
   japanese: ['title_japanese'],
   korean: ['title_korean'],
-  chinese: ['title_chinese', 'title_chinese_traditional'],
+  chinese: ['title_chinese'],
 };
 
 /** Repeated lines are saved as `{Title} 01.ogg`, `{Title} 02.ogg`, … */
@@ -237,19 +234,15 @@ export function applyMatch(match: AudioMatch): void {
 
 /** Fields copied straight across when they appear in the source object. */
 const TEXT_FIELDS: (keyof VoiceOverFormData)[] = [
+  'name',
   'title_english',
   'title_japanese',
   'title_chinese',
-  'title_chinese_traditional',
   'title_korean',
   'text_english',
   'text_japanese',
   'text_chinese',
-  'text_chinese_traditional',
   'text_korean',
-  'text_japanese_reading',
-  'text_chinese_reading',
-  'text_korean_reading',
 ];
 
 export interface ParsedVoiceOvers {

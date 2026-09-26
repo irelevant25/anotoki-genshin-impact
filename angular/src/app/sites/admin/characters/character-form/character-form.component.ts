@@ -32,6 +32,7 @@ import {
   toOptionalNumber,
   revokePicked,
   toStringArray,
+  UNNAMED_CHARACTER_FILES,
   VOICE_OVER_LANGUAGES,
   VoiceOverWrapper,
 } from './character-form.model';
@@ -368,7 +369,9 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
         apply: (path: string, name: string, fileId: number | null) => {
           const data = character.data as unknown as Record<string, unknown>;
           data[field] = path;
-          data[`${field}_name`] = name;
+          if (!UNNAMED_CHARACTER_FILES.has(field)) {
+            data[`${field}_name`] = name;
+          }
           data[`${field}_file_id`] = fileId;
         },
       });
@@ -429,6 +432,21 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     this.character.update((wrapper) => ({ ...wrapper, data: { ...wrapper.data, constellation_set_id: setId } }));
   }
 
+  /**
+   * A voice over with its texts' bold written as <b>. The HTML editor writes <strong>, while the
+   * crawled texts keep a dialogue's speakers in <b> - without this, every edited line would drift
+   * to the other tag.
+   */
+  private _withBoldTags<T extends object>(data: T): T {
+    const copy = { ...data } as Record<string, unknown>;
+    for (const key of ['text_english', 'text_japanese', 'text_chinese', 'text_korean']) {
+      if (typeof copy[key] === 'string') {
+        copy[key] = (copy[key] as string).replace(/<(\/?)strong>/g, '<$1b>');
+      }
+    }
+    return copy as T;
+  }
+
   private _buildPayload(): CharacterFullPayload {
     const character = this.character().data;
 
@@ -442,7 +460,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
         affiliations: toStringArray(character.affiliations),
         namecard_sources: toStringArray(character.namecard_sources),
       },
-      voice_overs: this.voiceOvers().map((voiceOver) => ({ ...voiceOver.data, order: toNumber(voiceOver.data.order, 1) })),
+      voice_overs: this.voiceOvers().map((voiceOver) => ({ ...this._withBoldTags(voiceOver.data), order: toNumber(voiceOver.data.order, 1) })),
       constellations: this.constellations().map((constellation) => ({ ...constellation.data, level: toNumber(constellation.data.level, 1) })),
       // The API nests ascension costs under their ascension and assigns the ids itself.
       ascensions: this.ascensions().map((wrapper) => ({

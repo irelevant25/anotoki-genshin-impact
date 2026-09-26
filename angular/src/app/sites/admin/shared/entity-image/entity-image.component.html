@@ -6,12 +6,16 @@
         }
     </span>
 
-    <div class="entity-image-frame" [class.empty]="!src()" [class.pending]="!!pending()" [class.error]="hasError()">
+    <div class="entity-image-frame" [class.is-audio]="kind() === 'audio'" [class.empty]="!src()" [class.pending]="!!pending()" [class.error]="hasError()">
         @if (src(); as source) {
-            <img #img [src]="source" [alt]="label()" />
-            <app-tooltip [targetHTMLElement]="img" [standalone]="true">
-                <img class="w-100" [src]="source" [alt]="label()" />
-            </app-tooltip>
+            @if (kind() === 'audio') {
+                <audio controls preload="none" [src]="source"></audio>
+            } @else {
+                <img #img [src]="source" [alt]="label()" />
+                <app-tooltip [targetHTMLElement]="img" [standalone]="true">
+                    <img class="w-100" [src]="source" [alt]="label()" />
+                </app-tooltip>
+            }
         } @else {
             <span class="entity-image-empty">none</span>
         }

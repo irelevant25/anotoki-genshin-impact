@@ -1,5 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { TranslatePipe } from '../../../../../../../../shared/local-lib/i18n/translate.pipe';
+import { RichTextComponent } from '../../../../../../../../shared/local-lib/components/rich-text/rich-text.component';
 
 /** The four languages the voice-over columns are keyed by. */
 const VOICE_LANGUAGES = [
@@ -13,7 +14,7 @@ const VOICE_LANGUAGES = [
   selector: 'app-character-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, RichTextComponent],
 })
 export class CharacterVoiceOversTabComponent {
   voiceOvers = input<any[]>([]);

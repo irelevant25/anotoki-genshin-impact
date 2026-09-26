@@ -9,11 +9,11 @@
         <app-dropdown [label]="'Rarity'" [options]="rarities()" [(value)]="character().data.rarity" [suffix]="' ★'" [required]="true"></app-dropdown>
         <app-dropdown [label]="'Model'" [options]="models()" [(value)]="character().data.model" [required]="true"></app-dropdown>
         <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="character().data.region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+        <app-dropdown [label]="'Arkhe'" [options]="arkheOptions" [(value)]="character().data.arkhe" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
         <app-calendar [label]="'Birthday'" [(value)]="character().data.birthday" [hideYear]="true"></app-calendar>
         <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="character().data.version" [required]="true"></app-text>
         <app-calendar [label]="'Release Date'" [(value)]="character().data.release_date"></app-calendar>
         <app-text [label]="'Introduced'" [placeholder]="'e.g. 1.1'" [(value)]="character().data.introduced"></app-text>
-        <app-text [label]="'Demo Music'" [(value)]="character().data.demo_music"></app-text>
         <app-dropdown
             [label]="'Special Dish'"
             [options]="foodOptions()"
@@ -55,6 +55,7 @@
 <app-field-container [class]="'gap-2 mb-3'" [cols]="1">
     <h3 class="section-title mb-0">Namecard</h3>
     <app-field-container [cols]="1">
+        <app-text [label]="'Namecard Name'" [placeholder]="'e.g. Furina: Banquet'" [(value)]="character().data.namecard_name"></app-text>
         <app-textarea [label]="'Namecard Description'" [(value)]="character().data.namecard_description" [rows]="2" [required]="true"></app-textarea>
         <app-textarea
             [label]="'Namecard Sources'"
@@ -76,6 +77,22 @@
                 (cleared)="onCleared(image.field)"
             />
         }
+    </app-field-container>
+</app-field-container>
+
+<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
+    <h3 class="section-title mb-0">Constellation</h3>
+    <app-text [label]="'Constellation Name'" [placeholder]="'e.g. Animula Choragi'" [(value)]="character().data.constellation_name"></app-text>
+    <app-field-container [class]="'gap-5'" [cols]="5">
+        <app-entity-image
+            [label]="'Constellation'"
+            [required]="false"
+            [path]="imagePath('constellation')"
+            [name]="imageName('constellation')"
+            [pending]="pendingFor('constellation')"
+            (picked)="onPicked('constellation', $event)"
+            (cleared)="onCleared('constellation')"
+        />
     </app-field-container>
 </app-field-container>
 
@@ -115,6 +132,26 @@
                 (cleared)="onCleared('ingame_icon_2')"
             />
         </div>
+    </app-field-container>
+</app-field-container>
+
+<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
+    <h3 class="section-title mb-0">Demo</h3>
+    <app-field-container [cols]="2">
+        <app-text [label]="'Demo Video'" [placeholder]="'e.g. https://www.youtube.com/watch?v=EN79SfbcvIE'" [(value)]="character().data.demo_video"></app-text>
+        <app-text [label]="'Demo Music Name'" [placeholder]="'e.g. Se mettre sur son trente-et-un !'" [(value)]="character().data.demo_music_name"></app-text>
+    </app-field-container>
+    <app-field-container [class]="'gap-5'" [cols]="3">
+        <app-entity-image
+            [label]="'Demo Music'"
+            [kind]="'audio'"
+            [required]="false"
+            [path]="imagePath('demo_music')"
+            [name]="imageName('demo_music')"
+            [pending]="pendingFor('demo_music')"
+            (picked)="onPicked('demo_music', $event)"
+            (cleared)="onCleared('demo_music')"
+        />
     </app-field-container>
 </app-field-container>
 

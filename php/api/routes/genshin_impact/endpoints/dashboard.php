@@ -41,7 +41,7 @@ const DASHBOARD_GAPS = [
 
 /** Empty columns worth chasing. Not every blank is a gap, so this is a list, not a scan. */
 const DASHBOARD_BLANKS = [
-    ['label' => 'Characters with no demo music',  'table' => 'characters', 'column' => 'demo_music',   'route' => 'characters'],
+    ['label' => 'Characters with no demo music',  'table' => 'characters', 'column' => 'demo_music_file_id', 'route' => 'characters'],
     ['label' => 'Characters with no birthday',    'table' => 'characters', 'column' => 'birthday',     'route' => 'characters'],
     ['label' => 'Characters with no region',      'table' => 'characters', 'column' => 'region',       'route' => 'characters'],
     ['label' => 'Characters with no release date','table' => 'characters', 'column' => 'release_date', 'route' => 'characters'],

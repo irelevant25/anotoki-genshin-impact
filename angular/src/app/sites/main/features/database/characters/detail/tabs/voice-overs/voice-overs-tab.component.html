@@ -23,7 +23,8 @@
                     <div [class]="type() + '-badge'">{{ 'database.detail.' + type() | translate }}</div>
                 </div>
                 <div class="voiceline-content">
-                    <div class="voiceline-text">{{ line.text }}</div>
+                    <!-- A dialogue's text carries its speakers in <b>; rendered through the sanitising component. -->
+                    <app-rich-text class="voiceline-text" [html]="line.text"></app-rich-text>
                     @if (line.audio) {
                         <div class="audio-container">
                             <audio preload="none" controls [src]="line.audio"></audio>

@@ -7,7 +7,8 @@ import { ImageUploadComponent, PickedImage } from '../image-upload/image-upload.
 
 /**
  * One image slot on a form: the current picture, the name it is stored under,
- * and a button that opens the picker.
+ * and a button that opens the picker. With `kind` 'audio' it is a slot for a
+ * sound instead (a character's demo music), shown as a player.
  *
  * The name is derived by the form from whatever the entity is called, so it
  * tracks a rename while the form is open and is never typed by hand.
@@ -37,6 +38,8 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
   name = input<string | null | undefined>(undefined);
   /** Set once something is picked but not yet saved. */
   pending = input<PickedImage | undefined>(undefined);
+  /** What the slot holds: a picture, or a sound. */
+  kind = input<'image' | 'audio'>('image');
 
   picked = output<PickedImage>();
   cleared = output<void>();
@@ -59,6 +62,7 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
     const modal = this._modals.open<ImageUploadComponent, PickedImage | undefined>(ImageUploadComponent, { size: '5' });
     modal.componentInstance.label.set(this.label());
     modal.componentInstance.name.set(this.displayName());
+    modal.componentInstance.kind.set(this.kind());
     // Open the "choose existing" browser on this slot's own folder, worked out
     // from where the current picture lives, so the likely files are shown first.
     modal.componentInstance.folderHint.set(this._folderFromPath(this.path()));

@@ -69,11 +69,8 @@ export class DatabaseCharacterDetailComponent {
     ].filter((entry) => !!entry.actor);
   });
 
-  /** The demo track is filed under the character, not the song title. */
-  demoMusicUrl = computed(() => {
-    const character = this.character();
-    return character?.demo_music && character?.icon_name ? `assets/character/demo_music/${character.icon_name}.mp3` : null;
-  });
+  /** The demo track is a file of its own; `demo_music` is its path, `demo_music_name` its title. */
+  demoMusicUrl = computed(() => this.character()?.demo_music ?? null);
 
   constructor() {
     this._route.paramMap

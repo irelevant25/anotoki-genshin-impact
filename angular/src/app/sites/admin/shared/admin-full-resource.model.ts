@@ -11,6 +11,7 @@ import { parseJsonColumn } from '../../../api';
 import type { PickedImage } from './image-upload/image-upload.component';
 
 export const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.avif', '.webp'];
+export const AUDIO_EXTENSIONS = ['.mp3', '.ogg', '.wav', '.opus'];
 
 export function buildFullFormData(payload: unknown): FormData {
   const form = new FormData();

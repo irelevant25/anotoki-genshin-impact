@@ -24,7 +24,10 @@
  *   name column   the ordinary case - a path and a name beside it, both
  *                 rebuilt from one id: `icon` / `icon_name`.
  *   no name       voice-over audio has nowhere to put a name; the title
- *                 columns already carry it. Only the path comes back.
+ *                 columns already carry it. Only the path comes back. The
+ *                 same for a character's demo music (its title is
+ *                 `demo_music_name`) and constellation art (whose
+ *                 `constellation_name` is the constellation's name).
  *   audio         the prefix is bare (`assets/...`) rather than `../assets/`,
  *                 matching how `_saveAssetUpload()` has always told the two
  *                 apart.
@@ -63,6 +66,10 @@ function assetColumnMap(): array
             'namecard_icon' => $image('character.namecard_icon'),
             'namecard_background' => $image('character.namecard_background'),
             'namecard_banner' => $image('character.namecard_banner'),
+            // No `constellation_name` beside the path: that is the constellation's
+            // own name ("Animula Choragi"), a column of its own.
+            'constellation' => ['category' => 'character.constellation', 'name' => false, 'audio' => false],
+            'demo_music' => $audio('character.demo_music'),
         ],
         'characters_constellations' => ['icon' => $image('character.constellations')],
         'characters_talents' => ['icon' => $image('character.talents')],

@@ -9,16 +9,20 @@
             <div class="upload-body">
                 <app-file
                     [label]="'File'"
-                    [buttonText]="'Choose image'"
+                    [buttonText]="kind() === 'audio' ? 'Choose audio' : 'Choose image'"
                     [buttonOutline]="true"
-                    [acceptedExtensions]="imageExtensions"
+                    [acceptedExtensions]="extensions()"
                     [fileNamePosition]="'right'"
                     (inputChange)="onFileSelect($event)"
                 ></app-file>
 
                 @if (uploadPreview(); as src) {
                     <div class="upload-preview">
-                        <img [src]="src" [alt]="name()" />
+                        @if (kind() === 'audio') {
+                            <audio controls [src]="src"></audio>
+                        } @else {
+                            <img [src]="src" [alt]="name()" />
+                        }
                     </div>
                 }
 
@@ -60,7 +64,11 @@
                                     [title]="file.file_id === null ? file.name + ' — not in the catalogue yet, cannot be linked' : file.name"
                                     (click)="select(file)"
                                 >
-                                    <img [src]="thumbUrl(file)" [alt]="file.name" loading="lazy" />
+                                    @if (kind() === 'audio') {
+                                        <span class="browse-sound"><i class="icon icon-music icon-size-4"></i></span>
+                                    } @else {
+                                        <img [src]="thumbUrl(file)" [alt]="file.name" loading="lazy" />
+                                    }
                                     <span class="browse-name">{{ file.name }}</span>
                                     @if (file.file_id === null) {
                                         <span class="browse-flag">uncatalogued</span>
@@ -68,6 +76,11 @@
                                 </button>
                             }
                         </div>
+
+                        <!-- A sound has no thumbnail to tell it by, so the chosen one can be heard first. -->
+                        @if (kind() === 'audio' && selected(); as chosen) {
+                            <audio class="browse-player" controls [src]="thumbUrl(chosen)"></audio>
+                        }
 
                         @if (totalPages() > 1) {
                             <div class="browse-pager">
@@ -77,7 +90,7 @@
                             </div>
                         }
                     } @else {
-                        <p class="browse-empty">No images in this folder{{ search() ? ' match that search' : '' }}.</p>
+                        <p class="browse-empty">No {{ kind() === 'audio' ? 'audio files' : 'images' }} in this folder{{ search() ? ' match that search' : '' }}.</p>
                     }
                 }
             </div>
@@ -86,6 +99,10 @@
 
     <div modal-footer class="picker-footer">
         <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancel()"></app-button>
-        <app-button [text]="mode() === 'upload' ? 'Use this image' : 'Use selected file'" [disabled]="!canSubmit()" (buttonClick)="submit()"></app-button>
+        <app-button
+            [text]="mode() === 'upload' ? (kind() === 'audio' ? 'Use this file' : 'Use this image') : 'Use selected file'"
+            [disabled]="!canSubmit()"
+            (buttonClick)="submit()"
+        ></app-button>
     </div>
 </app-modal>

@@ -2,6 +2,7 @@ import { Component, computed, inject, input, model, output, QueryList, signal, V
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
+import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { AccordionComponent } from '../../../../../shared/local-lib/components/accordion/accordion.component';
 import { AccordionItemComponent } from '../../../../../shared/local-lib/components/accordion/item/item.component';
 import { TabsComponent } from '../../../../../shared/local-lib/components/tabs/tabs.component';
@@ -22,7 +23,7 @@ interface VoiceOverGroup {
   selector: 'app-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [ButtonComponent, NumberComponent, AccordionComponent, AccordionItemComponent, TabsComponent, TabComponent, VoiceOversTabItemComponent],
+  imports: [ButtonComponent, NumberComponent, TextComponent, AccordionComponent, AccordionItemComponent, TabsComponent, TabComponent, VoiceOversTabItemComponent],
 })
 export class VoiceOversTabComponent extends AbstractModalComponent {
   @ViewChildren(VoiceOversTabItemComponent) items?: QueryList<VoiceOversTabItemComponent>;

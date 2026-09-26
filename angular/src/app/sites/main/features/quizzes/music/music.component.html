@@ -17,7 +17,7 @@
             <app-quiz-audio-player [src]="trackUrl()" [limit]="limit()"></app-quiz-audio-player>
 
             @if (isQuestionComplete() && questionEntity(); as character) {
-                <p class="track-name">{{ character.demo_music }}</p>
+                <p class="track-name">{{ character.demo_music_name }}</p>
             }
         </app-quiz-frame>
     }

@@ -47,6 +47,17 @@
     object-fit: contain;
     cursor: zoom-in;
   }
+
+  // A sound has no shape to keep square: the frame fits the player.
+  &.is-audio {
+    aspect-ratio: auto;
+    min-height: 56px;
+    padding: var(--spacing-xs);
+  }
+
+  audio {
+    width: 100%;
+  }
 }
 
 .entity-image-empty {

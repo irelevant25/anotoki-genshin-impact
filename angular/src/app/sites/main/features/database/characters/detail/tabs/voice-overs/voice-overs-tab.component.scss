@@ -106,9 +106,17 @@
 }
 
 .voiceline-text {
+  display: block;
   margin-bottom: var(--spacing-md);
   line-height: var(--line-height-base);
   font-size: var(--font-size-base);
+  // A dialogue breaks its lines with <br>; any other text still uses plain newlines.
+  white-space: pre-line;
+
+  // app-rich-text is sized for guides; a voice line reads at the card's own size.
+  ::ng-deep .rich-text {
+    font-size: inherit;
+  }
 }
 
 .story-badge,

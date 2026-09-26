@@ -31,7 +31,7 @@ export interface Character {
   release_date: string | null;
   version: string;
   introduced: string | null;
-  demo_music: string | null;
+  demo_music_name: string | null;
   voice_actor_english: string;
   voice_actor_japanese: string;
   voice_actor_korean: string;
@@ -72,6 +72,14 @@ export interface Character {
   ascension_set_id: number | null;
   talent_set_id: number | null;
   constellation_set_id: number | null;
+  constellation_name: string | null;
+  constellation_file_id: number | null;
+  constellation: string | null;
+  namecard_name: string | null;
+  demo_video: string | null;
+  demo_music_file_id: number | null;
+  demo_music: string | null;
+  arkhe: 'Pneuma' | 'Ousia' | 'Pneuma & Ousia' | null;
 }
 
 /**
@@ -330,16 +338,11 @@ export interface CharacterVoiceOver {
   title_english: string;
   title_japanese: string | null;
   title_chinese: string | null;
-  title_chinese_traditional: string | null;
   title_korean: string | null;
   text_english: string | null;
   text_japanese: string | null;
   text_chinese: string | null;
-  text_chinese_traditional: string | null;
   text_korean: string | null;
-  text_japanese_reading: string | null;
-  text_chinese_reading: string | null;
-  text_korean_reading: string | null;
   deleted: boolean;
   created_at: string | null;
   created_by: number;
@@ -354,6 +357,7 @@ export interface CharacterVoiceOver {
   audio_korean_file_id: number | null;
   audio_korean: string | null;
   voice_over_set_id: number;
+  name: string | null;
 }
 
 /**
@@ -420,7 +424,15 @@ export interface CharacterPayload {
   namecard_sources?: string[] | string | null;
   release_date?: string | null;
   introduced?: string | null;
+  demo_music_name?: string | null;
+  demo_music_file_id?: number | null;
   demo_music?: string | null;
+  demo_video?: string | null;
+  constellation_name?: string | null;
+  constellation_file_id?: number | null;
+  constellation?: string | null;
+  namecard_name?: string | null;
+  arkhe?: string | null;
 }
 
 /**
@@ -671,18 +683,14 @@ export interface CharacterVoiceOverPayload {
   order: number;
   type: string;
   title_english: string;
+  name?: string | null;
   text_english?: string | null;
   title_japanese?: string | null;
   title_chinese?: string | null;
-  title_chinese_traditional?: string | null;
   title_korean?: string | null;
   text_japanese?: string | null;
   text_chinese?: string | null;
-  text_chinese_traditional?: string | null;
   text_korean?: string | null;
-  text_japanese_reading?: string | null;
-  text_chinese_reading?: string | null;
-  text_korean_reading?: string | null;
   audio_english_file_id?: number | null;
   audio_english?: string | null;
   audio_japanese_file_id?: number | null;

@@ -35,6 +35,7 @@
                                             ></app-number>
                                             <app-button variant="danger" [outline]="true" (buttonClick)="removeVoiceOver(entry.wrapper)">Delete</app-button>
                                         </div>
+                                        <app-text [label]="'Name'" [description]="'The same in every language, e.g. Elemental Skill: I'" [(value)]="entry.wrapper.data.name"></app-text>
                                         <app-tabs (activeTabChange)="stopAudio()">
                                             <app-tab [title]="'English'">
                                                 <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="'english'" [(audio)]="audio" [(playingKey)]="playingKey" />

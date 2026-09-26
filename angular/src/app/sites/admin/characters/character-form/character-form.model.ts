@@ -15,13 +15,22 @@ export type CharacterImageField =
   | 'ingame_icon_2'
   | 'namecard_icon'
   | 'namecard_background'
-  | 'namecard_banner';
+  | 'namecard_banner'
+  | 'constellation'
+  | 'demo_music';
 
 /** Fields holding a second take on the same picture; stored as `NAME2`. */
 const CHARACTER_IMAGE_VARIANTS: Partial<Record<CharacterImageField, string>> = {
   card_icon_2: '2',
   ingame_icon_2: '2',
 };
+
+/**
+ * Files whose `<field>_name` column is not the file's name: `constellation_name`
+ * is the constellation's own ("Animula Choragi"), `demo_music_name` the track's
+ * title. The API sends these back with the path alone.
+ */
+export const UNNAMED_CHARACTER_FILES: ReadonlySet<CharacterImageField> = new Set(['constellation', 'demo_music']);
 
 /**
  * What a character's picture is stored as: the character's own name, upper
@@ -39,7 +48,7 @@ export type VoiceOverLanguage = 'english' | 'japanese' | 'chinese' | 'korean';
 export const VOICE_OVER_LANGUAGES: VoiceOverLanguage[] = ['english', 'japanese', 'chinese', 'korean'];
 
 export const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.avif', '.webp'];
-export const AUDIO_EXTENSIONS = ['.mp3', '.ogg', '.wav', '.opus'];
+export { AUDIO_EXTENSIONS } from '../../shared/admin-full-resource.model';
 
 // ── Form wrappers ─────────────────────────────────────────────────────────────
 

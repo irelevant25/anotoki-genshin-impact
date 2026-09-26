@@ -83,7 +83,7 @@ function assetBaseName(string $name): string
  * Each entry resolves to the row that owns the column, the folder under
  * assets/, and how the file is named. `suffix` is appended as " - {suffix}",
  * `variant` directly ("HU_TAO2"), and `parent` names the row a child's file is
- * filed under.
+ * filed under. `audio` marks a field that takes sound rather than a picture.
  *
  * These are only the fallback names: the admin derives the same names on the
  * client and sends them with the upload. They matter when something posts
@@ -104,6 +104,9 @@ function _uploadTargets(): array
                 'namecard_icon' => ['folder' => 'character/namecard_icon'],
                 'namecard_background' => ['folder' => 'character/namecard_background'],
                 'namecard_banner' => ['folder' => 'character/namecard_banner'],
+                // Both come back without a name column - see asset_columns.php.
+                'constellation' => ['folder' => 'character/constellation', 'name_column' => null],
+                'demo_music' => ['folder' => 'character/demo_music', 'audio' => true, 'name_column' => null],
             ],
         ],
         'enemy' => [

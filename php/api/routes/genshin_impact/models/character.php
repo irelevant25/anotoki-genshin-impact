@@ -42,7 +42,16 @@ class Character extends DbModel
         public readonly ?array $namecard_sources = null,
         public readonly ?string $release_date = null,
         public readonly ?string $introduced = null,
-        public readonly ?string $demo_music = null,
+        /** The demo music's title; the file itself is demo_music_file_id, sent back as `demo_music`. */
+        public readonly ?string $demo_music_name = null,
+        public readonly ?int $demo_music_file_id = null,
+        /** A link to the character demo video. */
+        public readonly ?string $demo_video = null,
+        public readonly ?string $constellation_name = null,
+        public readonly ?int $constellation_file_id = null,
+        public readonly ?string $namecard_name = null,
+        /** Pneuma, Ousia, or Pneuma & Ousia. */
+        public readonly ?string $arkhe = null,
     ) {
     }
 

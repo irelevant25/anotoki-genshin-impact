@@ -29,7 +29,18 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
 
   readonly voiceOver = signal<any>(null);
 
-  readonly questionText = computed(() => this.voiceOver()?.text_english ?? '');
+  /**
+   * The line as a question, without any markup - and without what the markup wraps: a dialogue
+   * keeps its speakers as `<b>Ifa:</b>`, which would give the answer away. A `<br>` becomes a
+   * space so the words on either side of it stay apart.
+   */
+  readonly questionText = computed(() =>
+    ((this.voiceOver()?.text_english as string | null | undefined) ?? '')
+      .replace(/<([a-z][a-z0-9]*)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
   readonly audioUrl = computed(() => this.voiceOver()?.audio_english ?? '');
 
   /** Whether the player is on the page at all - it is not, for the first two tries. */
