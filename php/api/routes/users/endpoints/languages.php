@@ -65,7 +65,10 @@ $app->post('/api/languages', function (Request $request, Response $response) {
         $code,
         $body['name'],
         $body['native_name'],
-        $body['enabled'] ?? true,
+        // Spelled out, never bound as a bool: PDO sends a PHP false as '', which
+        // Postgres refuses for a BOOLEAN - see userBool() in users.php. Adding a
+        // language switched off answered 400 because of it.
+        userBool((bool) ($body['enabled'] ?? true)),
         // New languages sort to the end rather than fighting over first place.
         $body['sort_order'] ?? (int) $pdo->query('SELECT COALESCE(MAX(sort_order), 0) + 1 FROM languages')->fetchColumn(),
     ]);
@@ -85,7 +88,7 @@ $app->post('/api/languages', function (Request $request, Response $response) {
 $app->put('/api/languages/{code}', function (Request $request, Response $response, array $args) {
     $pdo  = usersDb();
     $code = strtolower($args['code']);
-    $body = $request->getParsedBody();
+    $body = $request->getParsedBody() ?? [];
 
     $existing = DbQuery::from($pdo, 'languages')->find(['code' => $code]);
     if (!$existing) {
@@ -101,7 +104,9 @@ $app->put('/api/languages/{code}', function (Request $request, Response $respons
     $stmt->execute([
         $body['name']        ?? $existing['name'],
         $body['native_name'] ?? $existing['native_name'],
-        $enabled,
+        // As above: a bound false is '' to Postgres, so hiding a language -
+        // the one thing this switch is for - was the case that always failed.
+        userBool($enabled),
         $body['sort_order']  ?? $existing['sort_order'],
         $code,
     ]);

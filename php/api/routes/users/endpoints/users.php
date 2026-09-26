@@ -470,11 +470,23 @@ $app->put('/api/users/{id:[0-9]+}/password', function (Request $request, Respons
     $pdo->prepare('UPDATE users SET password = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
         ->execute([password_hash($password, PASSWORD_DEFAULT), $args['id']]);
 
-    // Existing tokens keep working: they are signed, not looked up. Worth
-    // saying so rather than letting an admin believe this kicks somebody out.
+    // Everywhere they were signed in is signed out, and remembered devices are
+    // forgotten - what changing your own password already does. This is the
+    // reset an admin reaches for when an account is in somebody else's hands,
+    // and it used to leave that somebody signed in: the comment here said tokens
+    // "are signed, not looked up", which stopped being true when every request
+    // began checking its session row. An admin resetting their own password
+    // keeps the session they are doing it from.
+    $targetId = (int) $args['id'];
+    $caller = $request->getAttribute('user');
+    $session = $request->getAttribute('session');
+    $keep = $session && isset($caller['id']) && (int) $caller['id'] === $targetId ? (int) $session['id'] : null;
+    $ended = revokeSessionsFor($pdo, $targetId, SESSION_REVOKED_PASSWORD, $keep);
+    revokeTrustedDevices($pdo, $targetId);
+
     return respondJson($response, [
         'message' => 'Password changed',
-        'note' => 'Any session they already have stays signed in until its token expires.',
+        'note' => $ended === 1 ? '1 session was signed out.' : $ended . ' sessions were signed out.',
     ]);
 })->add(responds(ApiMessage::class))->add(requireRole(...ROLES_SYSTEM_WRITE))->add(requireAuth());
 

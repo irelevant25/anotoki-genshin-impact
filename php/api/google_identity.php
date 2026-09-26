@@ -42,8 +42,20 @@ function googleConfig(): array
     static $config = null;
 
     if ($config === null) {
-        $localFile = __DIR__ . '/../config/google.local.php';
-        $config = require file_exists($localFile) ? $localFile : __DIR__ . '/../config/google.php';
+        // Neither file is a fault. build-dist.php leaves google.php out of what
+        // is uploaded, and setup.php writes google.local.php only when a client
+        // id was entered - so a server installed with Google sign-in left blank
+        // has no file at all, and requiring one that is not there is a fatal
+        // error on /api/auth/providers, which the site asks for as it starts.
+        // No config reads the same as an empty client id: switched off.
+        $config = [];
+        foreach ([__DIR__ . '/../config/google.local.php', __DIR__ . '/../config/google.php'] as $file) {
+            if (is_file($file)) {
+                $loaded = require $file;
+                $config = is_array($loaded) ? $loaded : [];
+                break;
+            }
+        }
     }
 
     return $config;

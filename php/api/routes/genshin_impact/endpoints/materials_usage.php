@@ -32,11 +32,18 @@ $app->get('/api/materials/{id:[0-9]+}/usage', function (Request $request, Respon
 
     // A character can spend the same material in several phases, and a weapon in
     // several ascensions; the totals are summed so each one is listed once.
+    //
+    // A character is reached through its set. Ascensions and talent costs stopped
+    // carrying a character_id when they moved onto shared sets (migrations 018
+    // and 019), and joining on the column that went answered 500 for every
+    // material - which emptied the whole material page, since it asks for this
+    // alongside the material itself. Characters sharing a set are each listed,
+    // which is the point of sharing one.
     $charactersAscension = $query(
         'SELECT c.id, c.name, c.icon_file_id, c.rarity, c.element, SUM(cost.quantity) AS quantity
            FROM characters_ascensions_cost cost
            JOIN characters_ascensions a ON a.id = cost.character_ascension_id AND a.deleted = FALSE
-           JOIN characters c ON c.id = a.character_id AND c.deleted = FALSE
+           JOIN characters c ON c.ascension_set_id = a.ascension_set_id AND c.deleted = FALSE
           WHERE cost.material_id = ? AND cost.deleted = FALSE
           GROUP BY c.id, c.name, c.icon_file_id, c.rarity, c.element
           ORDER BY c.name'
@@ -45,7 +52,7 @@ $app->get('/api/materials/{id:[0-9]+}/usage', function (Request $request, Respon
     $charactersTalent = $query(
         'SELECT c.id, c.name, c.icon_file_id, c.rarity, c.element, SUM(cost.quantity) AS quantity
            FROM characters_talents_cost cost
-           JOIN characters c ON c.id = cost.character_id AND c.deleted = FALSE
+           JOIN characters c ON c.talent_set_id = cost.talent_set_id AND c.deleted = FALSE
           WHERE cost.material_id = ? AND cost.deleted = FALSE
           GROUP BY c.id, c.name, c.icon_file_id, c.rarity, c.element
           ORDER BY c.name'

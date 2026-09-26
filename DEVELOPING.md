@@ -67,8 +67,10 @@ php migration.php
 php -S localhost:8000 router.php
 ```
 
-A fresh `users` database is given a starter admin: **`admin@localhost` /
-`Admin1234!`**, flagged so the site asks for a new password at first sign-in.
+A fresh `users` database is given a starter admin, **`admin@localhost`**, with a
+randomly generated password that `php migration.php` prints once - copy it from
+the terminal. The account is flagged so the site asks for a new password at first
+sign-in. There is no fixed default password.
 
 The API is now at `http://localhost:8000/api/...`.
 

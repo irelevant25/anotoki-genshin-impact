@@ -11,4 +11,13 @@ RemoveType .php .phtml .php3 .php4 .php5 .php7 .phps
 #    origin. The API's own router applies the same rules for the dev server.
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
+
+    # The second half of that sentence. It was described here and only ever
+    # done in router.php, so production served a stored .html as a page. The
+    # raster formats an upload may be are named; everything else - audio, and
+    # whatever gets past the allowlist one day - is a download. SVG is left out
+    # of the list on purpose: it is an image that can carry script.
+    <FilesMatch "(?i)\.(?!(?:avif|png|jpe?g|webp|gif)$)[^./]*$">
+        Header set Content-Disposition "attachment"
+    </FilesMatch>
 </IfModule>

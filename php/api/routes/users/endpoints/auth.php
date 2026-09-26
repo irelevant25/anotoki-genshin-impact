@@ -896,8 +896,19 @@ $app->delete('/api/auth/google/link', function (Request $request, Response $resp
 $app->post('/api/auth/login/code', function (Request $request, Response $response) {
     $pdo = usersDb();
     $body = $request->getParsedBody() ?? [];
+    $email = trim((string) ($body['email'] ?? ''));
 
-    $user = authFindByEmail($pdo, trim((string) ($body['email'] ?? '')));
+    // Throttled like the two endpoints beside it that send mail. It was not, and
+    // the cap of five live codes did not stand in for it: five wrong guesses at
+    // /verify burn all five, so asking and guessing in turn mailed an address a
+    // code for as long as somebody cared to keep going - and none of it showed
+    // in the attempts log. The 429 is the same for every address.
+    if (loginAttemptsExceeded($pdo, $request, $email)) {
+        return respondJson($response, ['error' => 'Too many attempts. Wait a few minutes and try again.', 'code' => 'too_many_attempts'], 429);
+    }
+    recordLoginAttempt($pdo, $request, $email, null, SESSION_METHOD_LOGIN_CODE, 'sent');
+
+    $user = authFindByEmail($pdo, $email);
 
     // Not for accounts that have never confirmed. The code would confirm the
     // address as a side effect, and the confirmation link is the way that is
@@ -923,11 +934,19 @@ $app->post('/api/auth/login/code', function (Request $request, Response $respons
 $app->post('/api/auth/login/code/verify', function (Request $request, Response $response) {
     $pdo = usersDb();
     $body = $request->getParsedBody() ?? [];
+    $email = trim((string) ($body['email'] ?? ''));
 
-    $user = authFindByEmail($pdo, trim((string) ($body['email'] ?? '')));
+    // Checked before the account is looked up, as signing in with a password
+    // does, so the limiter says nothing about which addresses exist.
+    if (loginAttemptsExceeded($pdo, $request, $email)) {
+        return respondJson($response, ['error' => 'Too many attempts. Wait a few minutes and try again.', 'code' => 'too_many_attempts'], 429);
+    }
+
+    $user = authFindByEmail($pdo, $email);
     $code = preg_replace('/\D/', '', (string) ($body['code'] ?? ''));
 
     if (!$user || $code === '') {
+        recordLoginAttempt($pdo, $request, $email, $user ? (int) $user['id'] : null, SESSION_METHOD_LOGIN_CODE, 'bad_code');
         return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
     }
 
@@ -938,6 +957,8 @@ $app->post('/api/auth/login/code/verify', function (Request $request, Response $
     $token = findLoginCode($pdo, (int) $user['id'], $code);
 
     if (!$token || !consumeOneTimeToken($pdo, (int) $token['id'])) {
+        // Recorded, so a run of guesses shows on the account and trips the limit.
+        recordLoginAttempt($pdo, $request, $email, (int) $user['id'], SESSION_METHOD_LOGIN_CODE, 'bad_code');
         return respondJson($response, ['error' => 'That code is not valid', 'code' => 'invalid_code'], 400);
     }
 

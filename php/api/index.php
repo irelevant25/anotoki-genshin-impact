@@ -252,9 +252,18 @@ $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerReque
 
     error_log('[' . get_class($exception) . '] ' . $exception->getMessage() . ' in ' . $exception->getFile() . ':' . $exception->getLine());
 
+    // Built before anything below can return it. The early return for the log's
+    // own routes used to hand back a $response that did not exist yet, and a
+    // null out of an error handler is a TypeError nothing is left to catch - so
+    // `POST /api/errors`, a plain 405, answered with a PHP fatal instead.
+    $response = $app->getResponseFactory()->createResponse($statusCode);
+    $response->getBody()->write(json_encode(['error' => $message]));
+    $response = $response->withHeader('Content-Type', 'application/json');
+
     // And somewhere the admin panel can read it. A 404 for an unknown route is
     // a warning rather than an error: worth seeing when a client is calling
-    // something that does not exist, not worth waking anybody for.
+    // something that does not exist, not worth waking anybody for. A failure
+    // while reading the log is answered but not written to it.
     if (str_starts_with((string) $request->getUri()->getPath(), '/api/errors')) {
         return $response;
     }
@@ -277,9 +286,7 @@ $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerReque
         'trace' => $exception->getTraceAsString(),
     ]);
 
-    $response = $app->getResponseFactory()->createResponse($statusCode);
-    $response->getBody()->write(json_encode(['error' => $message]));
-    return $response->withHeader('Content-Type', 'application/json');
+    return $response;
 });
 
 // Most failures never reach the handler above, because a route answers 4xx by

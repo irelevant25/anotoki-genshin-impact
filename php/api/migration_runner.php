@@ -300,7 +300,11 @@ function createDefaultAdmin(PDO $pdo, ?string $email = null, ?string $password =
     $password = $password ?: bin2hex(random_bytes(12));
     $username = DEFAULT_ADMIN_USERNAME;
 
-    $pdo->prepare('INSERT INTO users (username, email, password, role, force_password_change) VALUES (?, ?, ?, ?, TRUE)')
+    // Confirmed from the start. The column defaults to FALSE and signing in
+    // refuses an unconfirmed address, so without this the credentials the CLI
+    // prints answered 403 - with the confirmation mail sent to admin@localhost,
+    // which nobody can open. setup.php's own insert already does the same.
+    $pdo->prepare('INSERT INTO users (username, email, password, role, email_confirmed, force_password_change) VALUES (?, ?, ?, ?, TRUE, TRUE)')
         ->execute([$username, $email, password_hash($password, PASSWORD_DEFAULT), 'ADMIN']);
 
     return ['username' => $username, 'email' => $email, 'password' => $password];
