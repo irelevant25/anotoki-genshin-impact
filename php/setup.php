@@ -26,6 +26,9 @@ declare(strict_types=1);
  *                             already exists, so it never invalidates sessions)
  *   config/mail.local.php     the sender address and how mail is sent
  *   config/google.local.php   the Google sign-in client id, only if you enter one
+ *   config/backup.local.php   the pg_dump / pg_restore paths for on-server
+ *                             backups, only if you give a home directory that has
+ *                             the PostgreSQL client tools unpacked under ~/pgclient
  *
  * WHAT IT NEEDS FROM YOU FIRST
  *
@@ -51,6 +54,7 @@ const DB_CONFIG_FILE = __DIR__ . '/config/database.local.php';
 const JWT_FILE = __DIR__ . '/config/jwt.local.php';
 const MAIL_FILE = __DIR__ . '/config/mail.local.php';
 const GOOGLE_FILE = __DIR__ . '/config/google.local.php';
+const BACKUP_FILE = __DIR__ . '/config/backup.local.php';
 
 /** The databases this project has migrations for; star_rail has none yet. */
 const SETUP_DATABASES = ['users', 'genshin_impact'];
@@ -101,6 +105,50 @@ function writeSecretFile(string $path, string $contents): bool
     }
 
     return $ok;
+}
+
+/**
+ * The pg_dump / pg_restore / library paths for a home-directory install of the
+ * PostgreSQL client tools (see PG-DUMP-INSTALL.md), or null if pg_dump is not
+ * there. On shared hosting they are unpacked under ~/pgclient rather than
+ * installed system-wide.
+ *
+ * The major version and the CPU-architecture folder names vary by host, so they
+ * are discovered from what is actually on disk rather than assumed - the operator
+ * only has to give the home directory (`echo $HOME` over SSH). backup.local.php
+ * also needs ld_library_path so the binary can find its own bundled libraries,
+ * which is the whole reason this cannot be left to PATH detection.
+ */
+function setupBackupPaths(string $home): ?array
+{
+    $home = rtrim(str_replace('\\', '/', trim($home)), '/');
+    if ($home === '') {
+        return null;
+    }
+
+    // Newest major version wins, the way config/backup.php's backupBinary() does.
+    $dumps = glob("{$home}/pgclient/usr/lib/postgresql/*/bin/pg_dump") ?: [];
+    usort($dumps, function (string $a, string $b) {
+        preg_match('~/postgresql/(\d+(?:\.\d+)?)/~', $a, $left);
+        preg_match('~/postgresql/(\d+(?:\.\d+)?)/~', $b, $right);
+        return (float) ($right[1] ?? 0) <=> (float) ($left[1] ?? 0);
+    });
+    $pgDump = $dumps[0] ?? null;
+    if ($pgDump === null) {
+        return null;
+    }
+
+    $bin = dirname($pgDump);
+
+    // The library folder is named for the architecture (x86_64-linux-gnu,
+    // aarch64-linux-gnu, …); take whichever one the unpack produced.
+    $libs = array_values(array_filter(glob("{$home}/pgclient/usr/lib/*-linux-gnu") ?: [], 'is_dir'));
+
+    return [
+        'pg_dump' => $pgDump,
+        'pg_restore' => $bin . '/pg_restore',
+        'ld_library_path' => $libs[0] ?? "{$home}/pgclient/usr/lib/x86_64-linux-gnu",
+    ];
 }
 
 function render(string $heading, string $bodyHtml, string $tone = 'plain'): never
@@ -260,6 +308,7 @@ $old = [
     'mail_noreply' => 'noreply@' . $reqHost, 'mail_support' => 'support@' . $reqHost,
     'mail_from_name' => 'Anotoki', 'mail_base_url' => $reqScheme . '://' . $reqHost,
     'google_client_id' => '',
+    'backup_home' => '',
 ];
 // Whether to actually send (PHP mail()) or write messages to storage/mail for
 // now. Ticked by default; a checkbox is absent from POST when unticked.
@@ -348,6 +397,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
+            // Backups are optional; written when a home directory was given and
+            // the client tools are actually installed under ~/pgclient there.
+            $backupNote = '';
+            if ($old['backup_home'] !== '') {
+                $backupPaths = setupBackupPaths($old['backup_home']);
+                if ($backupPaths) {
+                    if (writeSecretFile(BACKUP_FILE, "<?php\n\nreturn " . var_export($backupPaths, true) . ";\n")) {
+                        $written[] = 'config/backup.local.php';
+                    }
+                } else {
+                    $backupNote = '<div class="note">No <code>pg_dump</code> was found under <code>'
+                        . h(rtrim(str_replace('\\', '/', trim($old['backup_home'])), '/')) . '/pgclient</code>,'
+                        . ' so <code>config/backup.local.php</code> was not written. Install the PostgreSQL'
+                        . ' client tools there (see <code>PG-DUMP-INSTALL.md</code>) and create that file to enable backups.</div>';
+                }
+            }
+
             // The lock first, so a re-run is refused even if cleanup below fails.
             if (!is_dir(dirname(SETUP_LOCK))) {
                 @mkdir(dirname(SETUP_LOCK), 0700, true);
@@ -363,7 +429,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 : '<p class="err">Delete <code>setup.php</code> and <code>config/setup.local.php</code> by hand -'
                 . ' they could not be removed automatically. (It will refuse to run again regardless.)</p>';
 
-            render('Installed', $steps . $wrote . $cleanup . '<p>Sign in at <code>/admin</code> with the account you just made.</p>', 'good');
+            render('Installed', $steps . $wrote . $backupNote . $cleanup . '<p>Sign in at <code>/admin</code> with the account you just made.</p>', 'good');
         } catch (\Throwable $e) {
             $errors[] = $e->getMessage();
         }
@@ -419,6 +485,12 @@ render(
     . $field('google_client_id', 'Google OAuth client ID', 'text', 'placeholder="…apps.googleusercontent.com"')
     . '<p class="muted">Leave blank to turn Google sign-in off. From a Google Cloud OAuth client;'
     . ' the frontend reads it back from the API, so only this is needed.</p>'
+    . '<h2>Backups (optional)</h2>'
+    . $field('backup_home', 'Server home directory', 'text', 'placeholder="/home/you"')
+    . '<p class="muted">For on-server database backups. Run <code>echo $HOME</code> over SSH/console and paste it'
+    . ' here, after unpacking the PostgreSQL client tools under <code>~/pgclient</code> (see'
+    . ' <code>PG-DUMP-INSTALL.md</code>). The installer finds <code>pg_dump</code>, its version and its library'
+    . ' folder there and writes <code>config/backup.local.php</code>. Leave blank to skip - you can add that file later.</p>'
     . '<button type="submit">Run install</button>'
     . '</form>'
 );

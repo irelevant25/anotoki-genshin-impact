@@ -162,7 +162,7 @@ function backupRunDump(string $name, string $target): array
         $name,
     ];
 
-    $environment = getenv();
+    $environment = backupProcessEnv();
     $environment['PGPASSWORD'] = (string) ($config['password'] ?? '');
 
     $descriptors = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
@@ -556,7 +556,7 @@ function backupRunRestore(string $dbname, string $file): array
         $file,
     ];
 
-    $environment = getenv();
+    $environment = backupProcessEnv();
     $environment['PGPASSWORD'] = (string) ($config['password'] ?? '');
 
     $descriptors = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];

@@ -15,7 +15,19 @@
 //
 //   <?php return ['pg_dump' => 'C:/Program Files/PostgreSQL/18/bin/pg_dump.exe'];
 //
-// Recognised keys: pg_dump, pg_restore, directory.
+// Recognised keys: pg_dump, pg_restore, directory, ld_library_path.
+//
+// ld_library_path is for shared hosting where the client tools were unpacked
+// into a home directory rather than installed system-wide (see PG-DUMP-INSTALL.md
+// at the repo root). Such a pg_dump needs its own libraries on LD_LIBRARY_PATH,
+// and PHP does not read the shell profile that would set it - so it is handed to
+// every pg_dump / pg_restore call explicitly. Example for that setup:
+//
+//   <?php return [
+//       'pg_dump'         => '/home/you/pgclient/usr/lib/postgresql/14/bin/pg_dump',
+//       'pg_restore'      => '/home/you/pgclient/usr/lib/postgresql/14/bin/pg_restore',
+//       'ld_library_path' => '/home/you/pgclient/usr/lib/x86_64-linux-gnu',
+//   ];
 //
 // The backups themselves go under storage/, which is already gitignored - a
 // dump holds every row in the database, password hashes included.
@@ -31,6 +43,29 @@ function backupConfig(): array
     }
 
     return $config;
+}
+
+/**
+ * The environment for a pg_dump / pg_restore call: whatever PHP already has,
+ * plus an explicit LD_LIBRARY_PATH when one is configured.
+ *
+ * On shared hosting the client tools are often unpacked into a home directory
+ * whose libraries are not on the system loader path, and PHP does not read the
+ * shell profile that would add them - so the path is handed over directly rather
+ * than relied on from the ambient environment. See PG-DUMP-INSTALL.md. On a
+ * normal install no key is set and this is just getenv().
+ */
+function backupProcessEnv(): array
+{
+    $environment = getenv();
+
+    $ld = backupConfig()['ld_library_path'] ?? null;
+    if ($ld) {
+        $existing = $environment['LD_LIBRARY_PATH'] ?? '';
+        $environment['LD_LIBRARY_PATH'] = $existing === '' ? $ld : $ld . ':' . $existing;
+    }
+
+    return $environment;
 }
 
 /** Where the backup directories live. Created on first use. */
@@ -106,8 +141,22 @@ function backupBinaryVersion(string $name): ?string
         return null;
     }
 
-    $output = @shell_exec(escapeshellarg($path) . ' --version 2>&1');
-    return preg_match('/(\d+(?:\.\d+)+)/', (string) $output, $match) ? $match[1] : null;
+    // proc_open with an array, not shell_exec: the same reasons the dumps use it -
+    // a hardened PHP-FPM sandbox can block the intermediate shell even when the
+    // binary itself runs, and this carries the configured LD_LIBRARY_PATH so a
+    // home-directory install can find its own libraries.
+    $descriptors = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
+    $process = @proc_open([$path, '--version'], $descriptors, $pipes, null, backupProcessEnv());
+    if (!is_resource($process)) {
+        return null;
+    }
+
+    $output = stream_get_contents($pipes[1]) . stream_get_contents($pipes[2]);
+    fclose($pipes[1]);
+    fclose($pipes[2]);
+    proc_close($process);
+
+    return preg_match('/(\d+(?:\.\d+)+)/', $output, $match) ? $match[1] : null;
 }
 
 /**
