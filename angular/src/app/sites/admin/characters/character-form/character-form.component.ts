@@ -79,7 +79,6 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
   elements = signal<string[]>([]);
   weaponTypes = signal<string[]>([]);
   models = signal<string[]>([]);
-  voiceOverTypes = signal<string[]>([]);
   characterStates = signal<string[]>([]);
   rarities = signal<string[]>([]);
   foods = signal<IdNameEntry[]>([]);
@@ -135,7 +134,6 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
       elements: this._lookupApi.getElements(),
       weaponTypes: this._lookupApi.getWeaponTypes(),
       models: this._lookupApi.getCharacterModels(),
-      voiceOverTypes: this._lookupApi.getVoiceOverTypes(),
       characterStates: this._lookupApi.getCharacterStates(),
       rarities: this._lookupApi.getRarities(),
       foods: this._foodApi.getFoods(),
@@ -153,7 +151,6 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
         this.elements.set(names(result.elements));
         this.weaponTypes.set(names(result.weaponTypes));
         this.models.set(names(result.models));
-        this.voiceOverTypes.set(names(result.voiceOverTypes));
         this.characterStates.set(names(result.characterStates));
         this.rarities.set(names(result.rarities).sort().reverse());
         this.foods.set(result.foods);

@@ -43,7 +43,6 @@ export class LookupTableComponent implements OnInit {
     const map: Record<string, () => Observable<any[]>> = {
       elements: () => this._lookupApi.getElements(),
       'weapon-types': () => this._lookupApi.getWeaponTypes(),
-      'voice-over-types': () => this._lookupApi.getVoiceOverTypes(),
       'character-states': () => this._lookupApi.getCharacterStates(),
       rarities: () => this._lookupApi.getRarities(),
       'artifact-piece-types': () => this._lookupApi.getArtifactPieceTypes(),

@@ -22334,35 +22334,6 @@
         ]
       }
     },
-    "/api/voice-over-types": {
-      "get": {
-        "tags": [
-          "lookup"
-        ],
-        "operationId": "getVoiceOverTypes",
-        "summary": "Get voice over types",
-        "description": "Public. Reads `voice_over_types`.",
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/VoiceOverType"
-                  }
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": []
-      }
-    },
     "/api/weapon-types": {
       "get": {
         "tags": [
@@ -44390,7 +44361,11 @@
             "type": "number"
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "story",
+              "combat"
+            ]
           },
           "title_english": {
             "type": "string"
@@ -44650,7 +44625,11 @@
             ]
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "story",
+              "combat"
+            ]
           },
           "voice_over_set_id": {
             "type": "number"
@@ -45109,7 +45088,11 @@
             ]
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "story",
+              "combat"
+            ]
           },
           "voice_over_set_id": {
             "type": "number"
@@ -50087,20 +50070,6 @@
         },
         "required": [
           "id",
-          "name"
-        ],
-        "additionalProperties": false
-      },
-      "VoiceOverType": {
-        "title": "VoiceOverType",
-        "description": "A row of `voice_over_types` as the API reads it back.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
           "name"
         ],
         "additionalProperties": false

@@ -16,7 +16,6 @@ function makePage(cfg: LookupTableConfig) {
 
 export const ElementsPage          = makePage({ title: 'Elements',           apiKey: 'elements',           readOnly: true });
 export const WeaponTypesPage       = makePage({ title: 'Weapon Types',        apiKey: 'weapon-types',       readOnly: true });
-export const VoiceOverTypesPage    = makePage({ title: 'Voice Over Types',    apiKey: 'voice-over-types',   readOnly: true });
 export const CharacterStatesPage   = makePage({ title: 'Character States',    apiKey: 'character-states',   readOnly: true });
 export const RaritiesPage          = makePage({ title: 'Rarities',            apiKey: 'rarities',           readOnly: true, pkField: 'rarity' });
 export const ArtifactPieceTypesPage= makePage({ title: 'Artifact Piece Types',apiKey: 'artifact-piece-types', readOnly: true });

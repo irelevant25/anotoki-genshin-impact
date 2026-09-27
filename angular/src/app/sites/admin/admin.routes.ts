@@ -49,7 +49,6 @@ import {
   RolesPage,
   StatsPage,
   TalentTypesPage,
-  VoiceOverTypesPage,
   WeaponTypesPage,
 } from './pages/pages';
 
@@ -94,7 +93,6 @@ export const routes: Routes = [
       // Read-only lookup tables
       { path: 'elements', component: ElementsPage },
       { path: 'weapon-types', component: WeaponTypesPage },
-      { path: 'voice-over-types', component: VoiceOverTypesPage },
       { path: 'character-states', component: CharacterStatesPage },
       { path: 'rarities', component: RaritiesPage },
       { path: 'artifact-piece-types', component: ArtifactPieceTypesPage },

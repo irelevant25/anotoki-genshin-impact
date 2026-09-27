@@ -334,7 +334,7 @@ export interface CharacterTalentCost {
 export interface CharacterVoiceOver {
   id: number;
   order: number;
-  type: string;
+  type: 'story' | 'combat';
   title_english: string;
   title_japanese: string | null;
   title_chinese: string | null;

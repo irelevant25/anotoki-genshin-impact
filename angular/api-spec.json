@@ -12260,32 +12260,6 @@
         },
         {
             "method": "GET",
-            "path": "/api/voice-over-types",
-            "args": [],
-            "file": "voice_over_types.php",
-            "tables": [
-                "voice_over_types"
-            ],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "voice_over_types",
-                "list": true
-            },
-            "source": {
-                "file": "F:\\Repositories\\anotoki-genshin-impact\\php\\api\\routes\\genshin_impact\\endpoints\\voice_over_types.php",
-                "line": 9
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": false,
-            "roles": []
-        },
-        {
-            "method": "GET",
             "path": "/api/weapon-types",
             "args": [],
             "file": "weapon_types.php",
@@ -26368,7 +26342,10 @@
                     "name": "type",
                     "sqlType": "VARCHAR(50)",
                     "nullable": false,
-                    "enum": null
+                    "enum": [
+                        "story",
+                        "combat"
+                    ]
                 },
                 {
                     "name": "title_english",
@@ -28872,19 +28849,6 @@
                 {
                     "name": "id",
                     "sqlType": "SERIAL",
-                    "nullable": false,
-                    "enum": null
-                }
-            ]
-        },
-        {
-            "table": "voice_over_types",
-            "database": "genshin_impact",
-            "interface": "VoiceOverType",
-            "columns": [
-                {
-                    "name": "name",
-                    "sqlType": "VARCHAR(50)",
                     "nullable": false,
                     "enum": null
                 }

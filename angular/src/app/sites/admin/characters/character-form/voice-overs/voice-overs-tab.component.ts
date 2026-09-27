@@ -8,7 +8,7 @@ import { AccordionItemComponent } from '../../../../../shared/local-lib/componen
 import { TabsComponent } from '../../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../../shared/local-lib/components/tabs/tab/tab.component';
 import { takeUntil } from 'rxjs';
-import { createUid, emptyVoiceOver, reorder, resequence, VoiceOverWrapper } from '../character-form.model';
+import { createUid, emptyVoiceOver, reorder, resequence, VOICE_OVER_TYPES, VoiceOverWrapper } from '../character-form.model';
 import { VoiceOversTabItemComponent } from './tab/tab.component';
 import { VoiceOverImportResult, VoiceOversImportComponent } from './import/voice-overs-import.component';
 import { VoiceOverSetSelectorComponent } from './set-selector/set-selector.component';
@@ -29,7 +29,7 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
   @ViewChildren(VoiceOversTabItemComponent) items?: QueryList<VoiceOversTabItemComponent>;
 
   voiceOvers = model<VoiceOverWrapper[]>([]);
-  voiceOverTypes = input<string[]>([]);
+  readonly voiceOverTypes = VOICE_OVER_TYPES;
   characterName = input<string>('');
   /** The character's current voice-over set, marked in the picker. */
   voiceOverSetId = input<number | null | undefined>(undefined);
@@ -44,7 +44,7 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
 
   /** One accordion section per voice over type, ordered and labelled for display. */
   groups = computed<VoiceOverGroup[]>(() =>
-    this.voiceOverTypes().map((type) => {
+    this.voiceOverTypes.map((type) => {
       const entries = this.voiceOvers()
         .filter((voiceOver) => voiceOver.data.type === type)
         .sort((a, b) => a.data.order - b.data.order);
@@ -159,7 +159,6 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
       scrollable: true,
     });
     modal.componentInstance.characterName.set(this.characterName());
-    modal.componentInstance.voiceOverTypes.set(this.voiceOverTypes());
     modal.componentInstance.existingCount.set(this.voiceOvers().length);
 
     modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((result) => {

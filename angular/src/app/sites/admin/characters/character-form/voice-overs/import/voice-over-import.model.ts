@@ -255,7 +255,7 @@ export interface ParsedVoiceOvers {
  * Accepts a flat array, `{ voice_overs: [...] }`, or a map of
  * `{ story: [...], combat: [...] }`. `order` is optional and filled per type.
  */
-export function parseVoiceOverJson(raw: string, knownTypes: string[]): ParsedVoiceOvers {
+export function parseVoiceOverJson(raw: string, knownTypes: readonly string[]): ParsedVoiceOvers {
   const source = JSON.parse(raw);
   const items: Record<string, unknown>[] = [];
 

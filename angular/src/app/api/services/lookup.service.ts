@@ -36,7 +36,6 @@ import {
   RolePayload,
   TalentType,
   TalentTypePayload,
-  VoiceOverType,
   WeaponType,
 } from '../models';
 import { ErrorLogQuery } from '../types';
@@ -461,13 +460,6 @@ export class LookupApiService {
    */
   getTalentTypes(): Observable<TalentType[]> {
     return this._http.get<TalentType[]>('/api/talent-types');
-  }
-
-  /**
-   * `GET /api/voice-over-types`
-   */
-  getVoiceOverTypes(): Observable<VoiceOverType[]> {
-    return this._http.get<VoiceOverType[]>('/api/voice-over-types');
   }
 
   /**

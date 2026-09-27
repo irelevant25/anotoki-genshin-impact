@@ -7,7 +7,7 @@ import { CheckboxComponent } from '../../../../../../shared/local-lib/components
 import { DropdownComponent } from '../../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';
 import { DropdownOption } from '../../../../../../shared/local-lib/services/options-helper.service';
-import { VOICE_OVER_LANGUAGES, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
+import { VOICE_OVER_LANGUAGES, VOICE_OVER_TYPES, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
 import {
   applyMatch,
   AudioMatch,
@@ -33,7 +33,7 @@ export interface VoiceOverImportResult {
 export class VoiceOversImportComponent extends AbstractModalComponent {
   /** Set by the opener before the modal renders. */
   characterName = signal<string>('');
-  voiceOverTypes = signal<string[]>([]);
+  readonly voiceOverTypes = VOICE_OVER_TYPES;
   existingCount = signal<number>(0);
 
   json = signal<string>('');
@@ -147,7 +147,7 @@ export class VoiceOversImportComponent extends AbstractModalComponent {
     }
 
     try {
-      const { wrappers, unknownTypes } = parseVoiceOverJson(text, this.voiceOverTypes());
+      const { wrappers, unknownTypes } = parseVoiceOverJson(text, this.voiceOverTypes);
       this.parsed.set(wrappers);
       this.unknownTypes.set(unknownTypes);
       this.jsonError.set(undefined);

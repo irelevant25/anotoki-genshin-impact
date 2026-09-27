@@ -515,6 +515,7 @@ function parseMigrations(string $directory, string $database): array
         }
 
         applyAlters($sql, $tables);
+        applyDrops($sql, $tables);
     }
 
     addResolvedAssetColumns($tables);
@@ -588,6 +589,23 @@ function applyAlters(string $sql, array &$tables): void
         // splitting the inside of a CHECK.
         foreach (splitTopLevel($action) as $clause) {
             applyAlterClause(trim($clause), $tables[$table]['columns']);
+        }
+    }
+}
+
+/**
+ * Takes out every table a migration drops, so nothing after it - no shape, no
+ * interface - is generated for a table the database no longer has
+ * (voice_over_types, dropped in 025 for a CHECK on the column).
+ */
+function applyDrops(string $sql, array &$tables): void
+{
+    // Comments first, as for ALTER: they can name a table being dropped.
+    $sql = preg_replace('/--[^\n]*/', '', $sql);
+
+    if (preg_match_all('/^\s*DROP\s+TABLE\s+(?:IF\s+EXISTS\s+)?"?(\w+)"?/im', $sql, $matches)) {
+        foreach ($matches[1] as $table) {
+            unset($tables[$table]);
         }
     }
 }

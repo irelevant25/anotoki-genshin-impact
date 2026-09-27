@@ -26,7 +26,6 @@
         <app-tab [title]="'Voice Overs'" [icon]="'icon-microphone icon-size-4'">
             <app-voice-overs-tab
                 [(voiceOvers)]="voiceOvers"
-                [voiceOverTypes]="voiceOverTypes()"
                 [characterName]="character().data.name"
                 [voiceOverSetId]="character().data.voice_over_set_id"
                 (voiceOverSetChosen)="onVoiceOverSetChosen($event)" />

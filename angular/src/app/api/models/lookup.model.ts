@@ -123,13 +123,6 @@ export interface TalentType {
 }
 
 /**
- * A row of `voice_over_types` as the API reads it back.
- */
-export interface VoiceOverType {
-  name: string;
-}
-
-/**
  * A row of `weapon_types` as the API reads it back.
  */
 export interface WeaponType {

@@ -1,6 +1,7 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { TranslatePipe } from '../../../../../../../../shared/local-lib/i18n/translate.pipe';
 import { RichTextComponent } from '../../../../../../../../shared/local-lib/components/rich-text/rich-text.component';
+import { CharacterVoiceOver } from '../../../../../../../../api';
 
 /** The four languages the voice-over columns are keyed by. */
 const VOICE_LANGUAGES = [
@@ -21,7 +22,7 @@ export class CharacterVoiceOversTabComponent {
 
   readonly languages = VOICE_LANGUAGES;
   language = signal<string>('en');
-  type = signal<'story' | 'combat'>('story');
+  type = signal<CharacterVoiceOver['type']>('story');
 
   lines = computed(() => {
     const column = VOICE_LANGUAGES.find((entry) => entry.code === this.language())?.column ?? 'english';

@@ -56,7 +56,6 @@ export class AppComponent {
         { label: 'Stats', path: 'stats', icon: 'icon icon-chart' },
         { label: 'Elements', path: 'elements', icon: 'icon icon-wind', readOnly: true },
         { label: 'Weapon Types', path: 'weapon-types', icon: 'icon icon-shield', readOnly: true },
-        { label: 'Voice Over Types', path: 'voice-over-types', icon: 'icon icon-microphone', readOnly: true },
         { label: 'Character States', path: 'character-states', icon: 'icon icon-circle-dot', readOnly: true },
         { label: 'Rarities', path: 'rarities', icon: 'icon icon-gem', readOnly: true },
         { label: 'Artifact Piece Types', path: 'artifact-piece-types', icon: 'icon icon-puzzle', readOnly: true },

@@ -1,5 +1,6 @@
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { assetVariant, toAssetBaseName } from '../../shared/asset-name';
+import { CharacterVoiceOver } from '../../../../api';
 
 export { revokePicked } from '../../shared/admin-full-resource.model';
 import { AscensionCostFormData, AscensionFormData, CharacterFormData, ConstellationFormData, TalentFormData, VoiceOverFormData } from '../../../../sites/admin/shared/admin-form.model';
@@ -67,6 +68,13 @@ export interface VoiceOverWrapper {
   data: VoiceOverFormData;
   audio: Partial<Record<VoiceOverLanguage, File>>;
 }
+
+/**
+ * The kinds of voice-over line, in the order the tab shows them - the two the
+ * CHECK on characters_voice_overs.type allows (migration 025). A fixed list,
+ * like the Arkhe one in the base info tab, so nothing is fetched for it.
+ */
+export const VOICE_OVER_TYPES: readonly CharacterVoiceOver['type'][] = ['combat', 'story'];
 
 export interface ConstellationWrapper {
   uid: number;

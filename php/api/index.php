@@ -133,7 +133,6 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_full.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/roles.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/elements.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapon_types.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/voice_over_types.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/relationship_types.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_states.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_models.php';
