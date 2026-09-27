@@ -11,12 +11,12 @@ const ffmpegPath = require('ffmpeg-static'); // Add this line
 // audio: 27 593 (.mp3)
 
 // Configuration
-const ASSETS_FOLDER = '../../assets'; // Change to your folder path
+const ASSETS_FOLDER = '../assets'; // Change to your folder path
 // const ASSETS_FOLDER = '.';
 const OPUS_BITRATE = '48k'; // Adjust quality (64k, 96k, 128k, 192k)
 const DELETE_ORIGINAL = true; // Set to true to delete MP3 after conversion
 
-console.log('Searching for MP3 files...');
+console.log('Searching for MP3/OGG files...');
 const mp3Files = glob.sync(`${ASSETS_FOLDER}/**/*.mp3`, { nocase: true });
 const oggFiles = glob.sync(`${ASSETS_FOLDER}/**/*.ogg`, { nocase: true });
 const files = [...mp3Files, ...oggFiles];
@@ -27,16 +27,20 @@ let successCount = 0;
 let errorCount = 0;
 
 files.forEach((filePath, index) => {
-    const opusPath = filePath.replace(/\.mp3$/i, '.opus');
+    const opusPath = filePath.replace(/\.(mp3|ogg)$/i, '.opus');
 
-    console.log(`[${index + 1}/${mp3Files.length}] Converting: ${path.basename(filePath)}`);
+    console.log(`[${index + 1}/${files.length}] Converting: ${path.basename(filePath)}`);
 
     try {
-        // Use ffmpegPath instead of "ffmpeg"
-        execSync(`"${ffmpegPath}" -i "${filePath}" -c:a libopus -b:a ${OPUS_BITRATE} "${opusPath}" -y`, { stdio: 'pipe' });
+        if (fs.existsSync(opusPath)) {
+            console.log(`✓ Already exists: ${path.basename(opusPath)}`);
+        } else {
+            // Use ffmpegPath instead of "ffmpeg"
+            execSync(`"${ffmpegPath}" -i "${filePath}" -c:a libopus -b:a ${OPUS_BITRATE} "${opusPath}" -y`, { stdio: 'pipe' });
 
-        successCount++;
-        console.log(`✓ Created: ${path.basename(opusPath)}`);
+            successCount++;
+            console.log(`✓ Created: ${path.basename(opusPath)}`);
+        }
 
         if (DELETE_ORIGINAL) {
             fs.unlinkSync(filePath);

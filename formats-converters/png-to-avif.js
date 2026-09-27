@@ -3,18 +3,20 @@
 
 const helper = require('./0helper.js');
 const sharp = require('sharp');
+const path = require('path');
+const fs = require('fs');
 
 // compress all images in assets folder
-const rootDir = 'assets';
+const rootDir = '../assets'; // Change to your folder path
+const DELETE_ORIGINAL = true; // Set to true to delete MP3 after conversion
 try {
     const allFiles = helper.getAllFiles(rootDir);
     console.log(`Found ${allFiles.length} files in '${rootDir}'`);
     allFiles.forEach((file) => {
-        // console.log(file);
         const file_extension = path.extname(file);
         const file_without_extension = file.replace(file_extension, '');
         const file_avif = `${file_without_extension}.avif`;
-        if (file_extension !== '.png') return; // skip if not png
+        if (file_extension.toLocaleLowerCase() !== '.png') return; // skip if not png
         if (allFiles.includes(file_avif)) return; // skip if avif format already exists
         sharp(file)
             .avif({
@@ -26,6 +28,10 @@ try {
             })
             .toFile(file_avif, (err, info) => {
                 console.log('converted', file, 'to', file_avif);
+                // if (DELETE_ORIGINAL) {
+                //     fs.unlinkSync(file);
+                //     console.log(`✓ Deleted original file: ${path.basename(file)}`);
+                // }
             });
     });
 } catch (error) {
