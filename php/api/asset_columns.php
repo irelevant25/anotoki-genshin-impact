@@ -380,12 +380,22 @@ function resolveAssetBody(PDO $pdo, string $table, array &$data, ?int $by = null
             continue;
         }
 
+        // `{field}_name` is the file's name echoed back beside its path - but only
+        // where the column has one. Where it does not, a key of that name is a
+        // column of its own - `demo_music_name` is the track's title and
+        // `constellation_name` the constellation's - and dropping it with the
+        // path silently lost every save that sent both.
+        $alias = $spec['name'] ? $dbColumn . '_name' : null;
+
         // A form sends the row back whole, so the path it was given arrives
         // beside the id - and the path is the stale half the moment a new file
         // is picked. The id wins wherever both are there; the path is only
         // read when it is all there is.
         if (array_key_exists($dbColumn . '_file_id', $data)) {
-            unset($data[$dbColumn], $data[$dbColumn . '_name']);
+            unset($data[$dbColumn]);
+            if ($alias !== null) {
+                unset($data[$alias]);
+            }
             continue;
         }
 
@@ -409,7 +419,10 @@ function resolveAssetBody(PDO $pdo, string $table, array &$data, ?int $by = null
         }
 
         if ($resolved) {
-            unset($data[$dbColumn], $data[$dbColumn . '_name']);
+            unset($data[$dbColumn]);
+            if ($alias !== null) {
+                unset($data[$alias]);
+            }
             $data[$dbColumn . '_file_id'] = $fileId;
         }
     }
