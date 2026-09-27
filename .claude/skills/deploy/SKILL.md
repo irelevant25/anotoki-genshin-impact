@@ -1,0 +1,132 @@
+---
+name: deploy
+description: >
+  Build and ship the site to production. Use for "build for production", "deploy",
+  "release", "prepare the upload", "how do I put this live", "run the installer",
+  or applying a schema change on the live server. Covers the two builds, the
+  first-run installer, and applying migrations on an FTP-only host.
+---
+
+# Deploy to production
+
+Production is one web root (`public_html/`) served **same-origin**: the Angular
+app at the root, the API under `api/`, images under `assets/`. The frontend calls
+its own `/api`, so there is no second domain and no CORS. The host is
+**FTP/SFTP-only — no shell**, which is why `vendor/` is shipped, migrations apply
+over HTTP, and a first install runs from a web page.
+
+The authoritative, step-by-step version of all this lives in `php/README.md`
+(*Deploying to Hosting*) and `DEVELOPING.md`. This skill is the operating summary.
+
+## The two builds
+
+Neither build invents anything the running app would not have; they assemble and
+strip.
+
+```
+# Frontend  ->  angular/dist/angular/browser/
+cd angular && npm run build:deploy
+#   ng build --configuration production, then scripts/prepare-deploy.mjs writes,
+#   into the build only:
+#     config.json  { "url": "", "configuration": "prod" }   (same-origin API)
+#     .htaccess    SPA fallback, /api and /uploads passed through
+#   The 2.7 GB assets/ tree is NOT bundled (production drops the ../assets copy).
+
+# Backend   ->  php/dist/
+cd ../php && php build-dist.php
+#   Runtime-only allowlist: api/ (minus openapi.json, docs.html, the dev vhost),
+#   config/ (minus every *.local.php and google.php), vendor/, composer.*,
+#   migrations/, public/uploads/.htaccess, and an empty storage/. Deny-.htaccess
+#   guards go on config/, migrations/, storage/, vendor/. Dev tooling and
+#   secrets are left out.
+```
+
+## Upload map (all into `public_html/`)
+
+```
+angular/dist/angular/browser/*   →  public_html/          index.html, JS/CSS, config.json, .htaccess
+php/dist/*                        →  public_html/          api/, config/, vendor/, migrations/, public/, storage/, composer.*
+assets/*                          →  public_html/assets/   uploaded separately — large, changes rarely
+php/setup.php                     →  public_html/setup.php first install only, by hand (not in the dist)
+```
+
+When a migration renames files in the tree - `024` renamed the demo music to
+`HU_TAO.opus`-style names - upload the renamed files **and delete the old names
+on the server**. The host is Linux and case-sensitive: `Albedo.opus` and
+`ALBEDO.opus` are two files there, where Windows saw one. Upload new files before
+applying the migration that points the catalogue at them.
+
+## First install (empty database)
+
+The admin "apply migrations" button needs an admin to sign in, which needs the
+database the migrations build — a chicken-and-egg only `setup.php` can break.
+
+1. Create the databases in the hosting panel (the app user usually cannot) and
+   note their names.
+2. Upload the build (above) plus `php/setup.php`.
+3. Open `https://the-site/setup.php`. On first view it writes a random token to
+   `config/setup.local.php`; **read that token over SFTP** (proof of server
+   access — it is never shown in the browser).
+4. Fill the form: token, admin email + password, the DB host / port / username /
+   password / the two database names, email (the two sender mailboxes -
+   `noreply@` automated, `support@` the welcome - and the site URL), and
+   optionally a Google sign-in client ID. It runs every migration, creates the
+   admin, and writes `config/database.local.php`, `config/jwt.local.php`,
+   `config/mail.local.php`, and `config/google.local.php` if a client ID was
+   given.
+5. It writes `storage/installed.lock` (the durable "don't run twice" guard), then
+   deletes `config/setup.local.php` and itself. If the host blocks the
+   self-delete, remove `setup.php` by hand — the lock still protects it.
+
+`setup.php` writes every `*.local.php`; nothing config-related is placed by hand.
+
+## Later schema changes (no shell)
+
+FTP the new `migrations/{alias}/*.sql` up, then in the admin **Migrations** page
+press **Apply pending** (`POST /api/migrations/apply`, ADMIN). It runs every
+pending file in order, stopping a database at its first failure. The engine
+(`php/api/migration_runner.php`) is the same one the CLI and `setup.php` use.
+
+## Copying local data up to production
+
+Production has no shell, but the migration runs from the developer's machine
+against the remote database, so no shell is needed there either.
+
+- `php db-push.php` (from `php/`) is the one-command path: it asks for the target
+  connection, then for each database dumps local, wipes the target's schema and
+  restores into it. It works whether or not `setup.php` already built the target,
+  passes the password through the environment (no `PGPASSWORD` to set by hand),
+  and **erases** the target (typed host confirmation). The dumps carry schema,
+  data and the migrations table, so no migration run is needed after; the target
+  keeps its own `*.local.php` config and `assets/`.
+- `php db-dump.php` is the manual alternative: it dumps to files and prints the
+  `pg_restore` commands to run yourself (into databases created empty in the
+  panel, or add `--clean --if-exists` for ones setup.php has already built).
+- Reset the admin password locally first (`php reset-password.php <email>`) so
+  production inherits a password that is known, not the one that was lost.
+
+Both need the PostgreSQL client tools locally; if `pg_dump`/`pg_restore` are not
+on PATH, point `config/backup.local.php` at them (same file the Backups page
+uses). Production itself cannot run them - the admin **Backups** page therefore
+does not work on the live host; back production up with a local `pg_dump` against
+the remote database, or the host's own DB export.
+
+## Constraints to respect
+
+- **No shell / no `proc_open`** in production. The backup feature (`pg_dump` /
+  `pg_restore`) will not run there — a prod snapshot has to come from the host's
+  own DB export. Do not add production features that depend on a shell.
+- **`.local.php` = this deployment's real values** (dev and prod each have their
+  own); the committed `database.php` / `jwt.php` are the templates `getDb()` and
+  the JWT loader fall back to. Never ship or commit a `*.local.php`.
+- **Never overwrite the server's secrets on a redeploy.** The two builds exclude
+  `*.local.php`, and `setup.php` will not clobber an existing `jwt.local.php`.
+
+## Verify before handing it over
+
+- `php/dist/` has no `*.local.php`, no `openapi.json`/`docs.html`, and has the
+  deny `.htaccess` in config/, migrations/, storage/, vendor/.
+- `angular/dist/angular/browser/config.json` is `{ "url": "", ... "prod" }` and a
+  `.htaccess` sits beside `index.html`.
+- These are build outputs (gitignored) — do not commit `php/dist/` or
+  `angular/dist/`. Commit only source changes, and only when asked.

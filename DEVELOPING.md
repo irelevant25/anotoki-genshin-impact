@@ -16,8 +16,10 @@ origin. The **Angular API client is generated from the backend** — see
 thing to internalise before changing an endpoint.
 
 > Ignore these root folders — they are not part of the app: `formats-converters`
-> (a media-conversion helper with a vendored ffmpeg), `local` (one-off migration
-> scripts), `old` (the pre-rewrite Vue codebase).
+> (the local AVIF/Opus conversion scripts, with the ffmpeg the backend's upload
+> conversion also uses), `local` (gitignored: the wiki crawlers and the importer
+> that loads their output through the API — `local/crawling-old/import_scripts/README.md`),
+> `old` (the pre-rewrite Vue codebase).
 
 ---
 

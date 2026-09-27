@@ -10,8 +10,11 @@ that maintains its data. Three parts.
 | Docs | `docs/` | Generated HTML reports: `performance/`, `security/`, `reference/` |
 
 **Ignore these root folders** — they are not part of the app: `formats-converters`
-(a media-conversion helper with a vendored ffmpeg), `local` (one-off migration
-scripts), `old` (the pre-rewrite Vue codebase).
+(the local AVIF/Opus conversion scripts; on this machine the backend's upload
+conversion also borrows their ffmpeg), `local` (gitignored: the wiki crawlers in
+`local/crawling/` and the importer in `local/crawling-old/` that loads what they
+produce through the API — its `import_scripts/README.md` is the guide when a
+task is about importing data), `old` (the pre-rewrite Vue codebase).
 
 Read `docs/reference/reference-*.html` for a generated map of the whole app —
 every frontend page, backend endpoint, and database table, cross-linked.
@@ -37,8 +40,8 @@ cd angular && npm run api        # = api:spec (PHP) + api:client + api:docs
 Or the steps individually: `npm run api:spec`, `npm run api:client`,
 `npm run api:docs`. Method names, query types and response types that the
 generator gets wrong are corrected in `angular/api-config.mjs`
-(`QUERIES`, `NAMES`, `RESPONSES`, `BLOBS`, `GROUP_DOCS`), then `api:client` is
-re-run. The **sync-api-client** skill covers this.
+(`QUERIES`, `NAMES`, `BODIES`, `RESPONSES`, `BLOBS`, `GROUP_DOCS`), then
+`api:client` is re-run. The **sync-api-client** skill covers this.
 
 ## Commands
 
@@ -49,6 +52,8 @@ php migration.php                    # create missing + apply pending migrations
 php migration.php --status           # what has run and what is pending
 php migration.php --dry-run          # what would apply, applying nothing
 php migration.php --db=users         # one database only
+php db-dump.php                      # back both databases up (pg_dump) before risky data work
+php assets.php --status              # the asset tree against the catalogue and the rows naming it
 
 # Frontend (from angular/)
 npm start                            # ng serve on :4200 (checks node version first)
@@ -88,6 +93,12 @@ node docs/security/build-report.mjs                            # after re-runnin
   for a parent-with-children resource (weapons, artifacts, foods, enemies,
   materials, banners) — see the `*_full.php` endpoints. Response metadata for
   these comes from `fullResourceShapes()`.
+- **Characters are the exception**: `characters_full.php` is hand-written, and a
+  character's talents (with their costs), ascensions, constellations and
+  voice-overs belong to shared **sets** (`characters_*_sets`, migrations 016–020)
+  that the character points at, so the Traveler's variants share one copy. It
+  writes through the set, and leaves alone a set the character was just
+  repointed at.
 - **Migrations are the schema.** `php/migrations/{genshin_impact,users}/NNN_name.sql`,
   applied in order by `php migration.php`. There is no separate schema file;
   the database is what you get by replaying them. Migrations that change data
@@ -96,7 +107,12 @@ node docs/security/build-report.mjs                            # after re-runnin
   (`php/api/migration_runner.php`) is shared: the CLI, the admin **Migrations**
   page's *Apply pending* button (`POST /api/migrations/apply`, ADMIN — for hosts
   with no shell), and the first-run installer `php/setup.php` all build a
-  database the same way.
+  database the same way. A closed set of values is a `CHECK (col IN (...))` on
+  the column — `characters.arkhe` (022), `characters_voice_overs.type` (025) —
+  not a lookup table or a Postgres ENUM: the spec generator reads the CHECK into
+  a TypeScript union. Its replay understands CREATE TABLE, ALTER TABLE (add,
+  drop, rename or retype a column; add a CHECK) and DROP TABLE; anything else
+  changes the database without changing the generated client.
 - **Auth**: JWT (`config/jwt.php`, secret in gitignored `config/jwt.local.php`),
   session-backed and revocable; roles re-read from the DB each request. Role
   groups: `ROLES_CONTENT` (ADMIN/EDITOR, writing game content),
@@ -104,7 +120,12 @@ node docs/security/build-report.mjs                            # after re-runnin
   `refuseForeignUserId`.
 - **Assets**: files live under `assets/` (untracked), catalogued in the `files`
   table; every asset column across the entity tables is a foreign key into it.
-  `php/api/asset_columns.php` lists which columns are assets.
+  `php/api/asset_columns.php` lists which columns are assets. The tree holds the
+  converted formats only (AVIF, Opus): uploads are re-encoded by
+  `api/media_convert.php` and named by `api/asset_naming.php` (`assetBaseName()`:
+  "Hu Tao" → `HU_TAO`). A column's `{field}_name` is the file's name only where
+  `assetColumnMap()` says so — `constellation_name` and `demo_music_name` are
+  columns of their own.
 
 ## Frontend layout & conventions
 
@@ -125,8 +146,9 @@ node docs/security/build-report.mjs                            # after re-runnin
   DB-catalogued assets; **Files Explorer** (`sites/admin/files-explorer/`)
   browses the raw disk tree off a cached snapshot. Both preview through the
   shared `file-preview` modal.
-- **i18n**: user copy goes through the `translate` pipe; proper nouns use
-  `titleLiteral`. Dates go through `AppDatePipe`.
+- **i18n**: user copy goes through the `translate` pipe with a key; proper nouns
+  (character names, usernames, version numbers) are shown as they are, not
+  through the pipe. Dates go through `AppDatePipe`.
 - **Theming**: the site has light/dark; never hard-code a colour that only works
   in one theme.
 
@@ -181,6 +203,10 @@ them by default: backend work → **backend-engineer**, frontend work →
 **frontend-engineer**, before committing → **code-reviewer**, and the skills for
 their named workflows. They all read this file first, so keep it current when the
 project changes.
+
+The user-level Angular toolkit in `~/.claude` (`generate-api`, `fe-api-sync`, …)
+expects `openapi-generator-cli` and an `openapitools.json`; this repo has neither.
+Its client comes from `npm run api` — the **sync-api-client** skill.
 
 - **skill: sync-api-client** — regenerate the spec + client after backend changes.
 - **skill: scaffold-entity** — a new resource end-to-end (migration → API → admin page).
