@@ -65,6 +65,12 @@ if (PHP_SAPI === 'cli') {
     exit(1);
 }
 
+// As in api/index.php: the hosting would print PHP's warnings, server paths and
+// all, into this page. The development server keeps showing them.
+if (PHP_SAPI !== 'cli-server') {
+    ini_set('display_errors', '0');
+}
+
 require_once __DIR__ . '/config/local.php';
 require_once __DIR__ . '/api/migration_runner.php';
 

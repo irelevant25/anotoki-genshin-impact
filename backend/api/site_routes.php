@@ -32,7 +32,7 @@ const ROUTE_VISIBILITY = ['PUBLIC', 'USER', 'EDITOR', 'ADMIN'];
  * Checked in both directions: '/api/' is refused because it covers /api/me,
  * and '/api/me/theme' is refused because it is covered by it.
  */
-const ROUTE_ENDPOINT_RESERVED = ['/api/me', '/api/settings', '/api/routes', '/api/languages', '/api/translations'];
+const ROUTE_ENDPOINT_RESERVED = ['/api/me', '/api/settings', '/api/site-routes', '/api/languages', '/api/translations'];
 
 /**
  * Every route for this site, newest read cached, each with its endpoints.

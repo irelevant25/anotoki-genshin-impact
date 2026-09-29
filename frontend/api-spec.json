@@ -10195,125 +10195,6 @@
         },
         {
             "method": "GET",
-            "path": "/api/routes",
-            "args": [],
-            "file": "routes.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "SiteRouteList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/routes.php",
-                "line": 44
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ]
-        },
-        {
-            "method": "POST",
-            "path": "/api/routes",
-            "args": [],
-            "file": "routes.php",
-            "tables": [
-                "site_routes"
-            ],
-            "success": 201,
-            "statuses": [
-                201,
-                409,
-                422
-            ],
-            "responds": {
-                "shape": "SiteRouteList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/routes.php",
-                "line": 101
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ]
-        },
-        {
-            "method": "PUT",
-            "path": "/api/routes",
-            "args": [],
-            "file": "routes.php",
-            "tables": [
-                "site_route_endpoints"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                422
-            ],
-            "responds": {
-                "shape": "SiteRouteList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/routes.php",
-                "line": 257
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ]
-        },
-        {
-            "method": "DELETE",
-            "path": "/api/routes/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "routes.php",
-            "tables": [
-                "site_routes"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "SiteRouteList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/routes.php",
-                "line": 129
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ]
-        },
-        {
-            "method": "GET",
             "path": "/api/settings",
             "args": [],
             "file": "settings.php",
@@ -10388,6 +10269,125 @@
             "partial": false,
             "auth": false,
             "roles": []
+        },
+        {
+            "method": "GET",
+            "path": "/api/site-routes",
+            "args": [],
+            "file": "routes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "SiteRouteList",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/routes.php",
+                "line": 46
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/api/site-routes",
+            "args": [],
+            "file": "routes.php",
+            "tables": [
+                "site_routes"
+            ],
+            "success": 201,
+            "statuses": [
+                201,
+                409,
+                422
+            ],
+            "responds": {
+                "shape": "SiteRouteList",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/routes.php",
+                "line": 103
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "PUT",
+            "path": "/api/site-routes",
+            "args": [],
+            "file": "routes.php",
+            "tables": [
+                "site_route_endpoints"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                422
+            ],
+            "responds": {
+                "shape": "SiteRouteList",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/routes.php",
+                "line": 259
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/site-routes/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]+"
+                }
+            ],
+            "file": "routes.php",
+            "tables": [
+                "site_routes"
+            ],
+            "success": 200,
+            "statuses": [
+                200,
+                404
+            ],
+            "responds": {
+                "shape": "SiteRouteList",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/routes.php",
+                "line": 131
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN"
+            ]
         },
         {
             "method": "GET",

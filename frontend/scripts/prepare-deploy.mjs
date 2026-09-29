@@ -9,7 +9,9 @@
 //   .htaccess     the app is one page with client-side routes, so every path
 //                 that is not a real file has to fall back to index.html or a
 //                 refresh on /admin/... is a 404. The API and uploaded files
-//                 are handed through untouched to their own handlers.
+//                 are handed through untouched to their own handlers. It also
+//                 names the asset tree's two formats, which the hosting's
+//                 Apache does not know.
 //
 // Run by `npm run build:deploy` after `ng build`. Nothing here is used in dev.
 
@@ -44,10 +46,16 @@ RewriteRule ^uploads(/|$) - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [L]
+
+# The site's converted formats (api/media_convert.php), AVIF and Opus, are two
+# the hosting's Apache does not know: without these they go out with no
+# Content-Type at all. The same types as /api/files/raw sends.
+AddType image/avif .avif
+AddType audio/ogg .opus
 `;
 writeFileSync(join(dist, '.htaccess'), htaccess);
 
 const shown = dist.replace(process.cwd() + '\\', '').replace(process.cwd() + '/', '').replace(/\\/g, '/');
 console.log(`Prepared ${shown}/ for production (upload its contents to the web root):`);
 console.log('  config.json  -> { url: "", configuration: "prod" }  (same-origin API)');
-console.log('  .htaccess    -> SPA fallback, /api and /uploads passed through');
+console.log('  .htaccess    -> SPA fallback, /api and /uploads passed through, AVIF/Opus types');

@@ -29,7 +29,7 @@ cd frontend && npm run build:deploy
 #   ng build --configuration production, then scripts/prepare-deploy.mjs writes,
 #   into the build only:
 #     config.json  { "url": "", "configuration": "prod" }   (same-origin API)
-#     .htaccess    SPA fallback, /api and /uploads passed through
+#     .htaccess    SPA fallback, /api and /uploads passed through, AVIF/Opus types
 #   The 2.7 GB assets/ tree is NOT bundled (production drops the ../assets copy).
 
 # Backend   ->  backend/dist/

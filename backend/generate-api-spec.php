@@ -320,6 +320,21 @@ foreach ($app->getRouteCollector()->getRoutes() as $route) {
 
 usort($routes, fn($a, $b) => [$a['path'], $a['method']] <=> [$b['path'], $b['method']]);
 
+// A route named after a folder under api/ works everywhere but the hosting:
+// there Apache answers /api/<folder> with a redirect to the folder before
+// api/.htaccess can hand it to index.php, and nothing in development shows it,
+// since router.php sends every path to index.php. /api/routes met exactly that
+// and became /api/site-routes. So it stops here, before anything is written.
+$apiFolders = array_map('basename', glob(__DIR__ . '/api/*', GLOB_ONLYDIR) ?: []);
+foreach ($routes as $route) {
+    $first = explode('/', substr($route['path'], strlen('/api/')))[0];
+    if (str_starts_with($route['path'], '/api/') && in_array($first, $apiFolders, true)) {
+        fwrite(STDERR, "{$route['method']} {$route['path']} is named after the folder api/{$first}/, which Apache on the"
+            . " hosting answers with a redirect to the folder instead of the API. Give the route another name.\n");
+        exit(1);
+    }
+}
+
 // ── Payload shapes, from the model constructors ───────────────────────────────
 
 /** A PHP parameter type as the JSON that crosses the wire. */

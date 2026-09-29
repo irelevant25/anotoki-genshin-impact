@@ -16,38 +16,38 @@ export class RouteApiService {
   private readonly _http = inject(HttpClient);
 
   /**
-   * `POST /api/routes`
+   * `POST /api/site-routes`
    *
    * Requires the `ADMIN` role.
    */
   addRoute(body: SiteRouteCreateRequest): Observable<SiteRouteList> {
-    return this._http.post<SiteRouteList>('/api/routes', body);
+    return this._http.post<SiteRouteList>('/api/site-routes', body);
   }
 
   /**
-   * `DELETE /api/routes/{id}`
+   * `DELETE /api/site-routes/{id}`
    *
    * Requires the `ADMIN` role.
    */
   deleteRoute(id: number): Observable<SiteRouteList> {
-    return this._http.delete<SiteRouteList>(`/api/routes/${id}`);
+    return this._http.delete<SiteRouteList>(`/api/site-routes/${id}`);
   }
 
   /**
-   * `GET /api/routes`
+   * `GET /api/site-routes`
    *
    * Requires the `ADMIN` role.
    */
   getRoutes(): Observable<SiteRouteList> {
-    return this._http.get<SiteRouteList>('/api/routes');
+    return this._http.get<SiteRouteList>('/api/site-routes');
   }
 
   /**
-   * `PUT /api/routes`
+   * `PUT /api/site-routes`
    *
    * Requires the `ADMIN` role.
    */
   saveRoutes(body: SiteRoutesSaveRequest): Observable<SiteRouteList> {
-    return this._http.put<SiteRouteList>('/api/routes', body);
+    return this._http.put<SiteRouteList>('/api/site-routes', body);
   }
 }

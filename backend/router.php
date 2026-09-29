@@ -12,8 +12,8 @@
  * Almost every path is fine. Translation keys are not - they are all dots, so
  * `PUT /api/translation-keys/guide.banners.content` never arrived, and neither
  * did its CORS preflight, which is what the browser reported instead. Apache
- * has no such rule: api/.htaccess sends everything that is not a real file to
- * index.php, which is what this does.
+ * has no such rule: api/.htaccess sends everything under /api to index.php,
+ * which is what this does.
  *
  * It also serves uploads, which live under public/ where Apache's document
  * root points. One document root cannot cover both those and the API, so the

@@ -274,7 +274,7 @@ leaves its data being served - right for "that page is not finished", wrong for
 `api/meddleware/route_gate.php` then answers 423 to anybody the page is not drawn
 for. Paths are matched from the start, so `/api/quiz` covers `/api/quizzes` and
 `/api/quiz/stats` alike. Where two pages claim the same path the more open one
-wins, and a path covering `/api/me`, `/api/settings`, `/api/routes`,
+wins, and a path covering `/api/me`, `/api/settings`, `/api/site-routes`,
 `/api/languages` or `/api/translations` is refused on save.
 
 **Add a page** takes a path the migration did not seed. The **×** on a row stops
@@ -347,7 +347,8 @@ adds anything the running site would not have.
 cd frontend && npm run build:deploy
 #   ng build (production) + scripts/prepare-deploy.mjs, which writes into the build:
 #     config.json  { "url": "", "configuration": "prod" }   (same-origin API)
-#     .htaccess    SPA fallback, with /api and /uploads passed through
+#     .htaccess    SPA fallback, with /api and /uploads passed through, and the
+#                  AVIF/Opus types the hosting's Apache does not know
 #   The 2.7 GB assets/ tree is NOT bundled.
 
 # Backend   ->  backend/dist/

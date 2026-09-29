@@ -6,8 +6,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 /**
  * Which pages exist, and who they exist for.
  *
- *   GET /api/routes    the table, with what each page claims
- *   PUT /api/routes    save whatever changed
+ *   GET    /api/site-routes         the table, with what each page claims
+ *   PUT    /api/site-routes         save whatever changed
+ *   POST   /api/site-routes         govern a page the migration did not seed
+ *   DELETE /api/site-routes/{id}    stop governing one
  *
  * The site's own copy is not here: it arrives with everything else in
  * GET /api/settings/public, because the menu needs it at the same moment as
@@ -34,16 +36,16 @@ function adminRouteRows(): array
     ], siteRoutesAll());
 }
 
-// ── GET /api/routes ──────────────────────────────────────────────────────────
+// ── GET /api/site-routes ─────────────────────────────────────────────────────
 
-$app->get('/api/routes', function (Request $request, Response $response) {
+$app->get('/api/site-routes', function (Request $request, Response $response) {
     return respondJson($response, [
         'routes' => adminRouteRows(),
         'levels' => ROUTE_VISIBILITY,
     ]);
 })->add(responds(SiteRouteList::class))->add(requireRole('ADMIN'))->add(requireAuth());
 
-// ── POST /api/routes ─────────────────────────────────────────────────────────
+// ── POST /api/site-routes ────────────────────────────────────────────────────
 //
 // A page the migration did not seed. The seeded rows are every route the
 // router declares today, so this is for the one written since - or for a page
@@ -54,7 +56,7 @@ $app->get('/api/routes', function (Request $request, Response $response) {
 // what the front end declares, and a check it could only guess at would refuse
 // pages that exist and admit pages that do not.
 
-$app->post('/api/routes', function (Request $request, Response $response) {
+$app->post('/api/site-routes', function (Request $request, Response $response) {
     $body = $request->getParsedBody() ?? [];
     $path = rtrim(trim((string) ($body['path'] ?? '')), '/');
 
@@ -100,7 +102,7 @@ $app->post('/api/routes', function (Request $request, Response $response) {
     ], 201);
 })->add(responds(SiteRouteList::class))->add(requireRole('ADMIN'))->add(requireAuth());
 
-// ── DELETE /api/routes/{id} ──────────────────────────────────────────────────
+// ── DELETE /api/site-routes/{id} ─────────────────────────────────────────────
 //
 // Ungoverns a page rather than removing it from the site: a page with no row
 // is public and always drawn, which is the state everything was in before this
@@ -109,7 +111,7 @@ $app->post('/api/routes', function (Request $request, Response $response) {
 //
 // The endpoints go with it, by the foreign key.
 
-$app->delete('/api/routes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
+$app->delete('/api/site-routes/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = usersDb();
     $id = (int) $args['id'];
 
@@ -128,14 +130,14 @@ $app->delete('/api/routes/{id:[0-9]+}', function (Request $request, Response $re
     ]);
 })->add(responds(SiteRouteList::class))->add(requireRole('ADMIN'))->add(requireAuth());
 
-// ── PUT /api/routes ──────────────────────────────────────────────────────────
+// ── PUT /api/site-routes ─────────────────────────────────────────────────────
 //
 // Takes the rows that changed. A path that has no row is refused rather than
 // created: the pages that exist are the ones the router declares, seeded by a
 // migration, and inventing one here would put a row in the table that governs
 // nothing and looks like it does.
 
-$app->put('/api/routes', function (Request $request, Response $response) {
+$app->put('/api/site-routes', function (Request $request, Response $response) {
     $body = $request->getParsedBody() ?? [];
     $incoming = $body['routes'] ?? null;
 
