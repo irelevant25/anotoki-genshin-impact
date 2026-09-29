@@ -1,5 +1,24 @@
 [
   {
+    "version": "1.0",
+    "date": "2026-09-29",
+    "changes": {
+      "added": [
+        "One anotoki account for every anotoki site — sign in here with it, and look after your password, Google sign-in and two-step verification at iam.anotoki.eu",
+        "What's new — a short note like this one after each update, with the full changelog one click away",
+        "Character pages play the character's demo music"
+      ],
+      "fixed": [
+        "Tighter security checks across signing in, forms and file downloads"
+      ],
+      "updated": [
+        "The site has its own address: genshin.anotoki.eu",
+        "Voice-overs load when you open their tab, so character pages open faster",
+        "Voice-over lines keep their formatting"
+      ]
+    }
+  },
+  {
     "version": "0.9",
     "date": "2026-09-05",
     "changes": {
