@@ -354,8 +354,8 @@ cd frontend && npm run build:deploy
 # Backend   ->  backend/dist/
 cd ../backend && php build-dist.php
 #   The runtime-only slice: api/ (minus the generators and the API reference),
-#   config/ (minus every *.local.php), vendor/, composer.*, migrations/, and
-#   hardened public/uploads/ + storage/. Dev tooling and secrets stay behind.
+#   config/ (minus every *.local.php), vendor/, migrations/, and hardened
+#   public/uploads/ + storage/. Dev tooling, secrets and composer.* stay behind.
 ```
 
 ---
@@ -372,7 +372,7 @@ All into `public_html/`:
 
 ```
 frontend/dist/angular/browser/*   →  public_html/              index.html, JS/CSS, config.json, .htaccess
-backend/dist/*                    →  public_html/              api/, config/, vendor/, migrations/, public/, storage/, composer.*
+backend/dist/*                    →  public_html/              api/, config/, vendor/, migrations/, public/, storage/
 assets/*                          →  public_html/assets/       separately - it is large and changes rarely
 backend/setup.php                 →  public_html/setup.php     the first install only, by hand
 ```

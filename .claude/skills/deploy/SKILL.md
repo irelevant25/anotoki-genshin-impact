@@ -36,7 +36,8 @@ cd frontend && npm run build:deploy
 cd ../backend && php build-dist.php
 #   Runtime-only allowlist: api/ (minus openapi.json, docs.html, the dev vhost),
 #   config/ (minus every *.local.php and the unused google.php), vendor/,
-#   composer.*, migrations/, public/uploads/.htaccess, and an empty storage/.
+#   migrations/, public/uploads/.htaccess, and an empty storage/ - not composer.*,
+#   which would publish every dependency's version from the web root.
 #   Deny-.htaccess guards go on config/, migrations/, storage/, vendor/. Dev
 #   tooling and secrets are left out.
 ```

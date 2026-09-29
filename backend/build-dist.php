@@ -15,7 +15,6 @@
  *   api/            minus openapi.json, docs.html and the dev vhost file
  *   config/         minus every *.local.php (secrets, see below)
  *   vendor/         the composer dependencies (FTP hosts cannot run composer)
- *   composer.json, composer.lock
  *   migrations/     the schema, so the Migrations page can read it
  *   public/uploads/.htaccess, and empty storage/ - both hardened, both writable
  *
@@ -150,12 +149,10 @@ copyTree($root . '/config', $dist . '/config', function (string $rel, bool $isDi
     return $secret;
 });
 
-// vendor/ + the manifests, so an FTP-only host needs no composer.
+// vendor/, so an FTP-only host needs no composer. Not the manifests: vendor/
+// loads itself, and in the web root composer.json and composer.lock would hand
+// anybody the list of every dependency and its version.
 copyTree($root . '/vendor', $dist . '/vendor');
-copyFileCounted($root . '/composer.json', $dist . '/composer.json');
-if (is_file($root . '/composer.lock')) {
-    copyFileCounted($root . '/composer.lock', $dist . '/composer.lock');
-}
 
 // migrations/ - the Migrations page reads these; never served.
 copyTree($root . '/migrations', $dist . '/migrations');
