@@ -3,15 +3,6 @@
 // Regenerate: php ../backend/generate-api-spec.php && node generate-api.mjs
 
 /**
- * A row of `migrations` as the API reads it back.
- */
-export interface Migration {
-  id: number;
-  filename: string;
-  applied_at: string | null;
-}
-
-/**
  * One database's share of an apply run.
  */
 export interface MigrationApplied {

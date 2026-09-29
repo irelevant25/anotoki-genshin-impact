@@ -57,7 +57,7 @@ for any of them (`config/local.php` explains why):
 
 | File | Holds |
 | --- | --- |
-| `database.local.php` | the PostgreSQL connection and the databases' names |
+| `database.local.php` | the PostgreSQL connection and the database's name |
 | `secret.local.php` | the site secret (an old `jwt.local.php` is read in its place) |
 | `iam.local.php` | the IAM's `issuer` and this site's `client_id` there |
 | `app.local.php` | this site's own `url`, and any other `cors_origins` |
@@ -117,8 +117,9 @@ php -S localhost:8000 router.php     # dev server (mimics the production Apache;
 php migration.php                    # create missing + apply pending migrations
 php migration.php --status           # what has run and what is pending
 php migration.php --dry-run          # what would apply, applying nothing
-php migration.php --db=users         # one database only
-php db-dump.php                      # back both databases up (pg_dump) before risky data work
+php migration.php --folder=users     # one migrations folder only
+php db-dump.php                      # back the database up (pg_dump) before risky data work
+php merge-databases.php              # once, on a checkout still configured with two databases
 php assets.php --status              # the asset tree against the catalogue and the rows naming it
 
 # Frontend (from frontend/)
@@ -139,11 +140,17 @@ node docs/security/build-report.mjs                            # after re-runnin
 
 ## Backend layout & conventions
 
-- **Per database, per concern.** `backend/api/routes/genshin_impact/` and
-  `backend/api/routes/users/`, each with `endpoints/`, `models/`, `responses/`.
-  Two databases: `genshin_impact` (content) and `users` (translations, languages,
-  site settings and page switches, and this site's small record of each person -
-  name, address, preferences; the accounts themselves are the IAM's).
+- **One database, two halves.** Everything is in one PostgreSQL database, like
+  every anotoki project. Its two halves were separate databases once and keep
+  their own folders: `genshin_impact` (the game content) and `users`
+  (translations, languages, site settings and page switches, and this site's
+  small record of each person - name, address, preferences; the accounts
+  themselves are the IAM's). Routes live in `backend/api/routes/genshin_impact/`
+  and `backend/api/routes/users/`, each with `endpoints/`, `models/`,
+  `responses/`; `genshinDb()` and `usersDb()` say which half a query is about and
+  hand back the same connection. A checkout still configured with two databases
+  (`'databases'` in `database.local.php`) is refused until
+  `php merge-databases.php` has moved the second into the first.
 - **Endpoints** are `$app->get(...)` calls at the top of a file that is
   `require_once`'d in `backend/api/index.php`. They end with a middleware chain:
   `->add(responds(...))->add(requireRole(...ROLES_CONTENT))->add(requireAuth())`.
@@ -166,15 +173,22 @@ node docs/security/build-report.mjs                            # after re-runnin
   that the character points at, so the Traveler's variants share one copy. It
   writes through the set, and leaves alone a set the character was just
   repointed at.
-- **Migrations are the schema.** `backend/migrations/{genshin_impact,users}/NNN_name.sql`,
-  applied in order by `php migration.php`. There is no separate schema file;
-  the database is what you get by replaying them. Migrations that change data
+- **Migrations are the schema.** `backend/migrations/{users,genshin_impact}/NNN_name.sql`,
+  applied in order by `php migration.php` - `users/` first, then `genshin_impact/`,
+  into the one database, and recorded in its `migrations` table by folder and file
+  name. There is no separate schema file; the database is what you get by
+  replaying them. Both folders share one namespace: a new table, index or
+  function must not take a name the other folder uses. (The order matters for
+  history: `users/001` made an account table called `roles`, which `users/040`
+  dropped before `genshin_impact/` makes its own; running `users/` over a database
+  that already holds the content is refused - `migrationsOrderRefusal()` in the
+  engine.) Migrations that change data
   carry a `DO $$ … $$` verification gate that fails loudly if the result is
   wrong. Never edit an applied migration — add a new one (old ones still say
   `php/` and `angular/` in their comments; leave them). The engine
   (`backend/api/migration_runner.php`) is shared: the CLI, the admin **Migrations**
   page's *Apply pending* button (`POST /api/migrations/apply`, ADMIN — for hosts
-  with no shell), and the installer `backend/setup.php` all build a database the
+  with no shell), and the installer `backend/setup.php` all build the database the
   same way. A closed set of values is a `CHECK (col IN (...))` on the column —
   `characters.arkhe` (022), `characters_voice_overs.type` (025) — not a lookup
   table or a Postgres ENUM: the spec generator reads the CHECK into a TypeScript
@@ -265,7 +279,7 @@ is no admin to create here, the IAM holds the accounts and must be installed
 first); and **later schema changes** go through the admin Migrations page, since
 `php migration.php` cannot run there.
 
-Full steps — the upload map, the installer, moving the live site to the IAM, the
+Full steps — the upload map, the installer, a checkout that still has two databases, the
 constraints — are in `DEVELOPING.md` (*Deploying to the hosting*). The **deploy**
 skill covers this workflow.
 

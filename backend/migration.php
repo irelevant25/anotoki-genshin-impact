@@ -1,12 +1,16 @@
 <?php
 
 /**
- * migration.php - builds every database from its migrations, and nothing else
+ * migration.php - builds the database from its migrations, and nothing else
  *
- *   php migration.php              create what is missing, apply what is pending
- *   php migration.php --status     say what has run and what has not
- *   php migration.php --dry-run    say what would be applied, and apply nothing
- *   php migration.php --db=users   one database rather than all of them
+ *   php migration.php                  create it if missing, apply what is pending
+ *   php migration.php --status         say what has run and what has not
+ *   php migration.php --dry-run        say what would be applied, and apply nothing
+ *   php migration.php --folder=users   one migrations folder rather than both
+ *
+ * The one database is built from two folders, migrations/users/ (the site's
+ * half: translations, languages, settings, page switches, people) and
+ * migrations/genshin_impact/ (the game content) - they were two databases once.
  *
  * WHAT CHANGED, AND WHY
  *
@@ -72,12 +76,13 @@ function say(string $colour, string $text): void
     echo colour($colour, $text) . "\n";
 }
 
+
 // ─── Doing it ────────────────────────────────────────────────────────────────
 
-$options = getopt('', ['status', 'dry-run', 'apply-only', 'db::', 'help']);
+$options = getopt('', ['status', 'dry-run', 'apply-only', 'folder::', 'db::', 'help']);
 
 if (isset($options['help'])) {
-    echo file_get_contents(__FILE__, false, null, 0, 1200);
+    echo file_get_contents(__FILE__, false, null, 0, 1400);
     exit(0);
 }
 
@@ -85,9 +90,15 @@ $statusOnly = isset($options['status']);
 // --dry-run and the old --apply-only, which named what is now simply the
 // default. Kept so anything already written against it keeps working.
 $dryRun = isset($options['dry-run']);
-$only = isset($options['db']) ? (string) $options['db'] : null;
+// --db named a database when each folder had one; it names the folder now.
+$only = isset($options['folder']) ? (string) $options['folder'] : (isset($options['db']) ? (string) $options['db'] : null);
 
-// Written by setup.php, which is also what builds the databases the first time -
+if ($only !== null && !in_array($only, MIGRATION_FOLDERS, true)) {
+    say('red', "No migrations folder '{$only}'. There are: " . implode(', ', MIGRATION_FOLDERS));
+    exit(1);
+}
+
+// Written by setup.php, which is also what builds the database the first time -
 // this is for everything after that.
 try {
     $config = databaseConfig();
@@ -95,51 +106,57 @@ try {
     say('red', $e->getMessage());
     exit(1);
 }
-$databases = $config['databases'] ?? [];
 
-if (!$databases) {
-    say('red', 'No databases in config/database.local.php.');
+$name = $config['database'];
+say('cyan', "\n══ " . $name . ' ' . str_repeat('═', max(0, 44 - strlen($name))));
+
+try {
+    if (!$statusOnly && !$dryRun && ensureDatabase($config, $name)) {
+        say('green', '  Database created.');
+    }
+
+    $pdo = getDb();
+
+    // Read as the table is: looking changes nothing, and neither does a run
+    // that is refused below. Only applying brings the table up to the shape
+    // with a folder per row.
+    $recorded = recordedMigrations($pdo);
+} catch (\Throwable $e) {
+    say('red', '  Cannot reach it: ' . $e->getMessage());
     exit(1);
 }
 
-if ($only !== null && !isset($databases[$only])) {
-    say('red', "No database aliased '{$only}'. This config has: " . implode(', ', array_keys($databases)));
-    exit(1);
+// A database whose record says the folders would run out of order - the
+// content half of a site not yet merged, or genshin_impact/ asked for before
+// users/ has run - is refused; looking only warns.
+$refusal = migrationsOrderRefusal($recorded, $only);
+if ($refusal !== null) {
+    say($statusOnly || $dryRun ? 'yellow' : 'red', "\n  " . $refusal);
+    if (!$statusOnly && !$dryRun) {
+        exit(1);
+    }
+}
+
+// Applying holds the migrations lock, so the admin button or setup.php cannot
+// run the same file at the same moment. It goes with the connection at exit.
+if (!$statusOnly && !$dryRun) {
+    $pdo->query('SELECT pg_advisory_lock(' . MIGRATION_LOCK . ')');
+    ensureMigrationsTable($pdo);
+    $recorded = recordedMigrations($pdo);
 }
 
 $exitCode = 0;
 $appliedAnything = false;
 
-foreach ($databases as $alias => $name) {
-    if ($only !== null && $alias !== $only) {
+foreach (MIGRATION_FOLDERS as $folder) {
+    if ($only !== null && $folder !== $only) {
         continue;
     }
 
-    say('cyan', "\n══ " . $alias . ' (' . $name . ') ' . str_repeat('═', max(0, 40 - strlen($alias . $name))));
+    say('cyan', "\n  ── migrations/{$folder}/");
 
-    $files = migrationFiles($alias);
-
-    if (!$files) {
-        // Not an error. The config lists star_rail, which is a database this
-        // installation intends to have and has not written a line of yet.
-        say('grey', '  No migrations/' . $alias . '/ - nothing to build.');
-        continue;
-    }
-
-    try {
-        if (!$statusOnly && !$dryRun && ensureDatabase($config, $name)) {
-            say('green', "  Database created.");
-        }
-
-        $pdo = getDb($alias);
-        ensureMigrationsTable($pdo);
-        $applied = appliedMigrations($pdo);
-    } catch (\Throwable $e) {
-        say('red', '  Cannot reach it: ' . $e->getMessage());
-        $exitCode = 1;
-        continue;
-    }
-
+    $files = migrationFiles($folder);
+    $applied = $recorded[$folder];
     $pending = array_values(array_diff($files, $applied));
 
     // A file recorded as applied that is no longer on disk. Worth saying: it
@@ -156,14 +173,14 @@ foreach ($databases as $alias => $name) {
         printf("  %d applied, %d pending\n", count($files) - count($pending), count($pending));
 
         foreach ($missing as $file) {
-            say('red', "  ! {$file} is recorded as applied but is not in migrations/{$alias}/");
+            say('red', "  ! {$file} is recorded as applied but is not in migrations/{$folder}/");
         }
 
         continue;
     }
 
     foreach ($missing as $file) {
-        say('red', "  ! {$file} is recorded as applied but is not in migrations/{$alias}/");
+        say('red', "  ! {$file} is recorded as applied but is not in migrations/{$folder}/");
     }
 
     if (!$pending) {
@@ -179,7 +196,7 @@ foreach ($databases as $alias => $name) {
         echo '  ' . $file . ' ... ';
 
         try {
-            applyMigration($pdo, $alias, $file);
+            applyMigration($pdo, $folder, $file);
             say('green', 'done');
             $appliedAnything = true;
         } catch (\Throwable $e) {
@@ -187,15 +204,23 @@ foreach ($databases as $alias => $name) {
             say('red', '    ' . $e->getMessage());
             say('yellow', '    Nothing from this file was applied. The migrations before it stand.');
             $exitCode = 1;
-            // On to the next database: everything after this file in this one
-            // is written expecting it to have run.
-            continue 2;
+            $stoppedAt = $folder;
+            // Stop here, the other folder included: everything after this file
+            // is written expecting it to have run, and the two folders share
+            // one namespace in an order that matters (api/migration_runner.php,
+            // MIGRATION_FOLDERS).
+            break 2;
         }
     }
 }
 
 if ($dryRun) {
     say('grey', "\n--dry-run: nothing was written.");
+} elseif (isset($stoppedAt)) {
+    $notRun = array_slice(MIGRATION_FOLDERS, array_search($stoppedAt, MIGRATION_FOLDERS, true) + 1);
+    say('red', "\nStopped at migrations/{$stoppedAt}/." . ($notRun && $only === null
+        ? ' Not run: ' . implode(', ', array_map(fn($f) => "migrations/{$f}/", $notRun)) . '.'
+        : ''));
 } elseif ($appliedAnything) {
     say('cyan', "\nDone.");
 }

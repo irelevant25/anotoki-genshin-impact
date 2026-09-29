@@ -11,7 +11,7 @@ declare(strict_types=1);
  * points here, so this is the first thing to open on a fresh checkout as much
  * as on a fresh hosting account:
  *
- *   config/database.local.php  the PostgreSQL connection and the databases' names
+ *   config/database.local.php  the PostgreSQL connection and the database's name
  *   config/secret.local.php    a random site secret, made once and never replaced
  *                              (a jwt.local.php from before the IAM is carried
  *                              over instead, so the hashes made with it stay valid)
@@ -21,9 +21,11 @@ declare(strict_types=1);
  *   config/backup.local.php    pg_dump paths - on hosting only, when the client
  *                              tools are unpacked under ~/pgclient
  *
- * It builds both databases first - creates them where the database user may,
- * then applies every pending migration - and writes nothing until that has
- * worked, so a connection that does not work leaves no config behind.
+ * It builds the database first - creates it where the database user may, then
+ * applies every pending migration of both folders (migrations/users/, the
+ * site's half, and migrations/genshin_impact/, the game content) - and writes
+ * nothing until that has worked, so a connection that does not work leaves no
+ * config behind.
  *
  * TWO WAYS TO RUN
  *
@@ -70,9 +72,6 @@ const SETUP_LOCK = __DIR__ . '/storage/installed.lock';
 const SETUP_TOKEN_FILE = __DIR__ . '/config/setup.local.php';
 const SETUP_NONCE_COOKIE = 'genshin_setup_nonce';
 
-/** The databases this project has migrations for; star_rail has none yet. */
-const SETUP_DATABASES = ['users', 'genshin_impact'];
-
 /**
  * What the form starts from: the development values, the same on every
  * checkout (DEVELOPING.md has the port table - this site on 4200 and 8000, the
@@ -82,8 +81,7 @@ const SETUP_DEFAULTS = [
     'db_host' => '127.0.0.1',
     'db_port' => '5432',
     'db_user' => 'postgres',
-    'db_users' => 'users',
-    'db_genshin' => 'genshin_impact',
+    'db_name' => 'genshin_impact',
     'iam_issuer' => 'http://localhost:4300',
     'iam_client_id' => 'genshin',
     'site_url' => 'http://localhost:4200',
@@ -327,25 +325,41 @@ function setupPdoMessage(\Throwable $e): string
     return trim((string) preg_replace('/\s+/', ' ', (string) $message));
 }
 
-/** How far a reachable database is, for the test button. */
-function setupMigrationState(PDO $pdo, string $alias): string
+/**
+ * How far a reachable database is, for the test button - reading only, so the
+ * test changes nothing (recordedMigrations() understands the table from before
+ * the two folders shared it, too). Not ok when saving would be refused: the
+ * content half of a site that still has two databases.
+ *
+ * @return array{0: bool, 1: string}
+ */
+function setupMigrationState(PDO $pdo): array
 {
-    $files = migrationFiles($alias);
-    $hasTable = (int) $pdo->query("SELECT CASE WHEN to_regclass('public.migrations') IS NULL THEN 0 ELSE 1 END")->fetchColumn();
-
-    if (!$hasTable) {
-        return 'there, and empty - saving applies all ' . count($files) . ' migrations.';
+    $recorded = recordedMigrations($pdo);
+    $refusal = migrationsOrderRefusal($recorded);
+    if ($refusal !== null) {
+        return [false, $refusal];
     }
 
-    $pending = count(array_diff($files, appliedMigrations($pdo)));
+    $total = 0;
+    $pending = 0;
+    foreach (MIGRATION_FOLDERS as $folder) {
+        $files = migrationFiles($folder);
+        $total += count($files);
+        $pending += count(array_diff($files, $recorded[$folder]));
+    }
 
-    return $pending === 0
-        ? 'there and up to date (' . count($files) . ' migrations).'
-        : "there - saving applies the {$pending} migration" . ($pending === 1 ? '' : 's') . ' not run yet.';
+    if ($pending === $total) {
+        return [true, 'there, and empty - saving applies all ' . $total . ' migrations.'];
+    }
+
+    return [true, $pending === 0
+        ? 'there and up to date (' . $total . ' migrations).'
+        : "there - saving applies the {$pending} migration" . ($pending === 1 ? '' : 's') . ' not run yet.'];
 }
 
 /**
- * The connection, and how far each database is - the first line is the verdict
+ * The connection, and how far the database is - the first line is the verdict
  * the page colours.
  *
  * @return array{ok: bool, lines: string[]}
@@ -353,13 +367,14 @@ function setupMigrationState(PDO $pdo, string $alias): string
 function setupTestDatabase(array $db): array
 {
     $where = "{$db['host']}:{$db['port']} as {$db['username']}";
+    $name = $db['database'];
     $server = null;
     $serverError = '';
     $mayCreate = false;
 
     // The server first, through its maintenance database: it is what says
-    // which databases exist and whether this user may make the missing ones.
-    // Shared hosting often refuses it; the databases themselves are then the test.
+    // whether the database exists and whether this user may make it. Shared
+    // hosting often refuses it; the database itself is then the test.
     try {
         $server = setupConnect($db, 'postgres');
         $version = (string) $server->query('SHOW server_version')->fetchColumn();
@@ -370,53 +385,43 @@ function setupTestDatabase(array $db): array
         $serverError = setupPdoMessage($e);
     }
 
-    $lines = [];
-    $ok = true;
-    $reached = $server !== null;
+    try {
+        [$ready, $state] = setupMigrationState(setupConnect($db, $name));
 
-    foreach (SETUP_DATABASES as $alias) {
-        $name = $db['databases'][$alias];
-
-        try {
-            $lines[] = "{$alias} ({$name}): " . setupMigrationState(setupConnect($db, $name), $alias);
-            $reached = true;
-            continue;
-        } catch (\Throwable $e) {
-            $reason = setupPdoMessage($e);
-        }
-
-        $exists = null;
-        if ($server !== null) {
-            $query = $server->prepare('SELECT 1 FROM pg_catalog.pg_database WHERE datname = ?');
-            $query->execute([$name]);
-            $exists = (bool) $query->fetchColumn();
-        }
-
-        if ($exists === false && $mayCreate) {
-            $lines[] = "{$alias} ({$name}): not there yet - saving creates it and applies every migration.";
-        } elseif ($exists === false) {
-            $ok = false;
-            $lines[] = "{$alias} ({$name}): not there, and {$db['username']} may not create databases - create it in the hosting panel first.";
-        } else {
-            $ok = false;
-            $lines[] = "{$alias} ({$name}): could not connect - {$reason}";
-        }
+        return ['ok' => $ready, 'lines' => [
+            isset($version) ? "Connected to PostgreSQL {$version} at {$where}." : "Connected to {$where}.",
+            "{$name}: {$state}",
+        ]];
+    } catch (\Throwable $e) {
+        $reason = setupPdoMessage($e);
     }
 
-    if (!$reached) {
-        // Nothing answered at all: one reason, not the same one three times.
+    if ($server === null) {
+        // Nothing answered at all: one reason, not the same one twice.
         return ['ok' => false, 'lines' => ["Could not reach PostgreSQL at {$where}: {$serverError}"]];
     }
 
-    array_unshift($lines, $ok
-        ? (isset($version) ? "Connected to PostgreSQL {$version} at {$where}." : "Connected to {$where}.")
-        : "Connected to {$where}, but the databases are not ready yet:");
+    $query = $server->prepare('SELECT 1 FROM pg_catalog.pg_database WHERE datname = ?');
+    $query->execute([$name]);
+    $exists = (bool) $query->fetchColumn();
 
-    return ['ok' => $ok, 'lines' => $lines];
+    if (!$exists && $mayCreate) {
+        return ['ok' => true, 'lines' => [
+            isset($version) ? "Connected to PostgreSQL {$version} at {$where}." : "Connected to {$where}.",
+            "{$name}: not there yet - saving creates it and applies every migration.",
+        ]];
+    }
+
+    return ['ok' => false, 'lines' => [
+        "Connected to {$where}, but the database is not ready yet:",
+        $exists
+            ? "{$name}: could not connect - {$reason}"
+            : "{$name}: not there, and {$db['username']} may not create databases - create it in the hosting panel first.",
+    ]];
 }
 
 /**
- * Migrations for both databases, against connections made from the entered
+ * The migrations of both folders, against a connection made from the entered
  * details. Throws with a plain message on the first failure, having written no
  * config file yet.
  *
@@ -424,37 +429,32 @@ function setupTestDatabase(array $db): array
  */
 function runInstall(array $config): array
 {
+    $name = $config['database'];
+
+    // Best effort: on shared hosting the app user cannot CREATE DATABASE and
+    // the database was made in the panel, so only failing to connect is fatal.
+    try {
+        ensureDatabase($config, $name);
+    } catch (\Throwable $e) {
+        // Assume it exists already; the connect below is the real test.
+    }
+
+    try {
+        $pdo = setupConnect($config, $name);
+    } catch (\Throwable $e) {
+        throw new RuntimeException(
+            "Cannot connect to the database '{$name}': " . setupPdoMessage($e)
+            . ' - create it (in the hosting panel, on the hosting) and check the connection details.'
+        );
+    }
+
     $log = [];
-
-    foreach (SETUP_DATABASES as $alias) {
-        if (!migrationFiles($alias)) {
-            continue;
-        }
-        $name = $config['databases'][$alias];
-
-        // Best effort: on shared hosting the app user cannot CREATE DATABASE and
-        // the database was made in the panel, so only failing to connect is fatal.
-        try {
-            ensureDatabase($config, $name);
-        } catch (\Throwable $e) {
-            // Assume it exists already; the connect below is the real test.
-        }
-
-        try {
-            $pdo = setupConnect($config, $name);
-        } catch (\Throwable $e) {
-            throw new RuntimeException(
-                "Cannot connect to the '{$alias}' database ('{$name}'): " . setupPdoMessage($e)
-                . ' - create it (in the hosting panel, on the hosting) and check the connection details.'
-            );
-        }
-
-        $result = applyPendingMigrations($pdo, $alias);
+    foreach (applyAllPendingMigrations($pdo) as $folder => $result) {
         if ($result['failed'] !== null) {
-            throw new RuntimeException("Migration {$alias}/{$result['failed']} failed: {$result['error']}");
+            throw new RuntimeException("Migration {$folder}/{$result['failed']} failed: {$result['error']}");
         }
         $count = count($result['applied']);
-        $log[] = "{$alias} ({$name}): " . ($count === 0 ? 'up to date, nothing to apply.' : "applied {$count} migration" . ($count === 1 ? '' : 's') . '.');
+        $log[] = "{$name}, migrations/{$folder}/: " . ($count === 0 ? 'up to date, nothing to apply.' : "applied {$count} migration" . ($count === 1 ? '' : 's') . '.');
     }
 
     return $log;
@@ -721,9 +721,21 @@ if ($saved['database'] !== null) {
     $old['db_host'] = (string) ($saved['database']['host'] ?? $old['db_host']);
     $old['db_port'] = (string) ($saved['database']['port'] ?? $old['db_port']);
     $old['db_user'] = (string) ($saved['database']['username'] ?? $old['db_user']);
-    $old['db_users'] = (string) ($saved['database']['databases']['users'] ?? $old['db_users']);
-    $old['db_genshin'] = (string) ($saved['database']['databases']['genshin_impact'] ?? $old['db_genshin']);
+    $old['db_name'] = (string) ($saved['database']['database'] ?? $old['db_name']);
 }
+
+// An installation still on two databases - the site's half in a database of
+// its own. Saving here would point the site at the content database alone:
+// the site's half would be missing from it, and building it there would run
+// migrations/users/ over the content's tables (migrationsOrderRefusal() says
+// why that breaks). So the page stops at that and points at the tool that
+// moves the rows over. Checked on the hosting too, where nothing saved is ever
+// shown - only whether the file has that shape.
+$storedDatabase = localConfig('database');
+$twoDatabases = is_array($storedDatabase)
+    && (!is_string($storedDatabase['database'] ?? null) || trim((string) $storedDatabase['database']) === '')
+    && is_array($storedDatabase['databases'] ?? null);
+unset($storedDatabase);
 if ($saved['iam'] !== null) {
     $old['iam_issuer'] = (string) ($saved['iam']['issuer'] ?? $old['iam_issuer']);
     $old['iam_client_id'] = (string) ($saved['iam']['client_id'] ?? $old['iam_client_id']);
@@ -782,10 +794,8 @@ function setupReadForm(array &$old, bool $onThisComputer, ?string $savedPassword
     if ($old['db_user'] === '') {
         $errors['database'][] = 'Fill in the database username.';
     }
-    foreach (['db_users' => 'site', 'db_genshin' => 'content'] as $key => $which) {
-        if (!preg_match('/^[A-Za-z0-9_\-]{1,63}$/', $old[$key])) {
-            $errors['database'][] = "The {$which} database's name is letters, digits, _ and - only.";
-        }
+    if (!preg_match('/^[A-Za-z0-9_\-]{1,63}$/', $old['db_name'])) {
+        $errors['database'][] = "The database's name is letters, digits, _ and - only.";
     }
 
     $issuer = setupAddress($old['iam_issuer'], $onThisComputer);
@@ -825,7 +835,7 @@ function setupReadForm(array &$old, bool $onThisComputer, ?string $savedPassword
             'driver' => 'pgsql',
             'host' => $old['db_host'],
             'port' => $old['db_port'],
-            'databases' => ['users' => $old['db_users'], 'genshin_impact' => $old['db_genshin']],
+            'database' => $old['db_name'],
             'username' => $old['db_user'],
             'password' => $password,
         ],
@@ -858,16 +868,18 @@ if ($posted && $action === 'install') {
     if ($refusal !== null) {
         $errors[] = $refusal;
     }
+    if ($twoDatabases) {
+        $errors[] = databaseTwoDatabasesMessage() . ' Then open this page again.';
+    }
 
     [$settings, $formErrors] = setupReadForm($old, $onThisComputer, $savedPassword);
     $errors = [...$errors, ...$formErrors['database'], ...$formErrors['iam'], ...$formErrors['site']];
 
     if (!$errors) {
         // A file that is already there keeps any key the form does not manage:
-        // another database alias, the connection pool switch, where the IAM's
-        // keys are cached.
+        // the connection pool switch, where the IAM's keys are cached.
         $database = array_replace(['persistent' => true, 'charset' => 'utf8'], $saved['database'] ?? [], $settings['db']);
-        $database['databases'] = array_replace((array) ($saved['database']['databases'] ?? []), $settings['db']['databases']);
+        unset($database['databases']);
 
         try {
             $log = runInstall($database);
@@ -968,13 +980,13 @@ $testButton = fn(string $action) =>
 if ($onThisComputer) {
     $problems = localConfigProblems();
     $intro = '<p>Running on this computer: no setup token, and this page stays - open it again whenever a setting'
-        . ' changes. It saves the config and brings both databases up to date.</p>'
+        . ' changes. It saves the config and brings the database up to date.</p>'
         . ($problems
             ? '<div class="note">Not set up yet, so the API answers every request with <code>not_set_up</code>:<ul>'
                 . implode('', array_map(fn($p) => '<li>' . h($p) . '</li>', $problems)) . '</ul></div>'
             : '<div class="note">This installation is set up. Change anything below and save; a blank password keeps the saved one.</div>');
 } else {
-    $intro = '<p>This creates the config and runs every migration for both databases. Do it once, on the databases'
+    $intro = '<p>This creates the config and runs every migration. Do it once, on the database'
         . ' you have created in your hosting panel. Accounts are not made here: they live in the anotoki IAM, which'
         . ' is installed separately and should be running first.</p>'
         . '<div class="note">A token was written to <code>config/setup.local.php</code>. Open that file over FTP/SFTP,'
@@ -997,11 +1009,10 @@ render(
     . '</div><div>' . $field('db_port', 'Port', 'text', 'required inputmode="numeric"') . '</div></div>'
     . '<div class="row"><div>' . $field('db_user', 'Username', 'text', 'required')
     . '</div><div>' . $field('db_pass', 'Password', 'password', 'autocomplete="new-password" ' . $passwordNote) . '</div></div>'
-    . '<div class="row"><div>' . $field('db_users', 'Site database', 'text', 'required')
-    . '</div><div>' . $field('db_genshin', 'Content database', 'text', 'required') . '</div></div>'
-    . '<p class="muted">The site database holds the translations, settings and page switches, and a small record'
-    . ' of each person who signs in (their name and preferences here - never a password). Either database is created'
-    . ' if it is not there and the user may.</p>'
+    . $field('db_name', 'Database', 'text', 'required')
+    . '<p class="muted">One database holds everything: the game content, and the site\'s own half - the'
+    . ' translations, settings and page switches, and a small record of each person who signs in (their name and'
+    . ' preferences here - never a password). It is created if it is not there and the user may.</p>'
     . $testButton('test_db')
     . '<h2>Sign-in</h2>'
     . '<div class="row"><div>' . $field('iam_issuer', 'IAM address', 'text', 'required')

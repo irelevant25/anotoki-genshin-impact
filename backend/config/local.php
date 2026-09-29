@@ -7,7 +7,7 @@
 // lives in config/*.local.php: gitignored, left out of build-dist.php, and
 // written by setup.php - on a developer's machine as much as on the hosting.
 //
-//   database.local.php   the PostgreSQL connection and the two databases' names
+//   database.local.php   the PostgreSQL connection and the database's name
 //   secret.local.php     the site's own secret (a jwt.local.php from before the
 //                        IAM is read in its place, which keeps valid the hashes
 //                        already made with it)
@@ -150,11 +150,17 @@ function localConfigProblems(): array
     if (!is_array($database)) {
         $problems[] = 'config/database.local.php is missing: the database connection.';
     } elseif (
-        empty($database['host']) || empty($database['port']) || !isset($database['username'])
-        || !is_array($database['databases'] ?? null)
-        || empty($database['databases']['users']) || empty($database['databases']['genshin_impact'])
+        (!is_string($database['database'] ?? null) || trim($database['database']) === '')
+        && is_array($database['databases'] ?? null)
     ) {
-        $problems[] = 'config/database.local.php does not name the host, port, username and both databases.';
+        // The two-database layout: running on it would find half the tables
+        // missing, and setup.php saving over it would start that half empty.
+        $problems[] = databaseTwoDatabasesMessage();
+    } elseif (
+        empty($database['host']) || empty($database['port']) || !isset($database['username'])
+        || !is_string($database['database'] ?? null) || trim($database['database']) === ''
+    ) {
+        $problems[] = 'config/database.local.php does not name the host, port, username and database.';
     }
 
     if (localSecret() === null) {
@@ -176,6 +182,17 @@ function localConfigProblems(): array
     }
 
     return $problems;
+}
+
+/**
+ * What a checkout still set up with two databases is told, wherever it asks -
+ * the API's not_set_up answer, setup.php, the command-line scripts.
+ */
+function databaseTwoDatabasesMessage(): string
+{
+    return 'config/database.local.php still names two databases, from before the site kept everything in one. '
+        . 'Move the second into the first with `php merge-databases.php` in backend/ - it copies every row and then '
+        . 'rewrites that file.';
 }
 
 /** Throws, naming the file that setup.php would write. */

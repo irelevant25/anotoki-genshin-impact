@@ -85,7 +85,8 @@ function _listAssetFolders(string $base): array
     $counts = [];
     $rootLength = strlen($base) + 1;
 
-    $iterator = new RecursiveIteratorIterator(
+    // No asset tree (a checkout without it - it is not in git): no folders.
+    $iterator = !is_dir($base) ? [] : new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($base, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
         RecursiveIteratorIterator::SELF_FIRST
     );
@@ -621,6 +622,11 @@ $app->delete('/api/files/missing', function (Request $request, Response $respons
     $wanted = trim((string) ($request->getQueryParams()['id'] ?? ''));
 
     $compare = catalogueCompare($pdo);
+    if (!$compare['tree']) {
+        // Without the tree no file can be told missing - forgetting "all of
+        // them" would empty the catalogue.
+        return respondJson($response, ['error' => 'There is no asset tree on this server, so no file can be told missing'], 409);
+    }
     if (!$compare['vanished']) {
         return respondJson($response, ['forgotten' => 0, 'unlinked' => 0]);
     }

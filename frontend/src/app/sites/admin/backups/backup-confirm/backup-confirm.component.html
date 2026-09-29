@@ -1,6 +1,6 @@
 <app-modal [title]="'Create a backup'" (closeModal)="closeModal()">
     <div modal-body>
-        <p class="lead">Every database goes in. It takes a few seconds, and the site is unresponsive while it runs.</p>
+        <p class="lead">The whole database goes in. It takes a few seconds, and the site is unresponsive while it runs.</p>
 
         <div class="databases">
             @for (database of databases(); track database.alias) {

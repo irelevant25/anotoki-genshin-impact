@@ -251,6 +251,11 @@ function cleanupStep(PDO $pdo, int $limit, ?int $by): ?array
     @set_time_limit((int) CLEANUP_SECONDS * 6);
 
     $root = realpath(_assetsRoot());
+    // A queue left from when the tree was there, and no tree now: nothing to
+    // take away - and a path built on `false` would start at the disk's root.
+    if ($root === false) {
+        return null;
+    }
     $trashRoot = _trashRoot();
     $stamp = date('Ymd-His');
     $limit = max(1, min(2000, $limit));

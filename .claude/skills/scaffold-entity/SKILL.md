@@ -13,9 +13,9 @@ description: >
 This is a checklist, not a script — each step is real work in the house style.
 Read `CLAUDE.md` first. Before starting, decide two things:
 
-- **Which database?** `genshin_impact` (game content) or `users` (translations,
-  settings, page switches, this site's record of each person).
-  Most new resources are content.
+- **Which half?** `genshin_impact` (game content) or `users` (translations,
+  settings, page switches, this site's record of each person) - one database,
+  two migration and route folders. Most new resources are content.
 - **Shape?** A **plain entity** (one table, flat CRUD — like `artifacts`), a
   **parent-with-children** resource (a header row plus related rows edited
   together — like `weapons`/`materials`, served by `registerFullResource`), or a

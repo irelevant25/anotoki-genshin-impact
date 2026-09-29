@@ -76,15 +76,15 @@ tables and waits for the import's marker. This site's address must be registered
 for the client `genshin` in the IAM (migration 002 there registers
 `https://genshin.anotoki.eu`).
 
-1. Create the databases in the hosting panel (the app user usually cannot) and
-   note their names.
+1. Create the database in the hosting panel (the app user usually cannot) and
+   note its name.
 2. Upload the build (above) plus `backend/setup.php`.
 3. Open `https://the-site/setup.php`. Off localhost it first writes a random token
    to `config/setup.local.php`; **read that token over SFTP** (proof of server
    access — it is never shown in the browser). The form and its **Test
    connection** buttons both need it.
 4. Replace the development values the form starts from: the DB host / port /
-   username / password / the two database names; the IAM address
+   username / password / the database name; the IAM address
    (`https://iam.anotoki.eu`) and client id (`genshin`); this site's address
    (`https://genshin.anotoki.eu`, no other origins). Off localhost, addresses must
    be https and never localhost. Test the database and the IAM (the IAM test also
@@ -96,32 +96,21 @@ for the client `genshin` in the IAM (migration 002 there registers
    deletes `config/setup.local.php` and itself. If the host blocks the
    self-delete, remove `setup.php` by hand — the lock still protects it.
 
-## Moving the live site to the IAM (once)
+## One database
 
-The running site keeps its accounts until this build's migrations drop them, and
-`setup.php` never runs again on it - so this switch-over has its own order
-(`DEVELOPING.md`, *Moving the live site to the IAM*):
-
-1. Install the IAM and run its import of this site's `users` database (it leaves
-   the `iam_handover` marker migration 040 waits for).
-2. Place two files in `config/` by hand - the old build reads neither:
-   `iam.local.php`: `<?php return ['issuer' => 'https://iam.anotoki.eu', 'client_id' => 'genshin'];`
-   and `app.local.php`: `<?php return ['url' => 'https://genshin.anotoki.eu', 'cors_origins' => []];`.
-   The live `database.local.php` stays, and its `jwt.local.php` is read as the site
-   secret. Without the two new files the new build answers `503 not_set_up`.
-3. Maintenance on (admin Settings), still on the old build.
-4. Upload this build.
-5. Sign in at `/staff` through the IAM, as a `genshin` ADMIN.
-6. Migrations → Apply pending, before anything is edited: `genshin_impact` 026,
-   then `users` 040, 041 and 042. Until 026 has run, an IAM session id does not fit
-   the audit log's old integer column and every save that audits fails.
-7. Maintenance off.
+The site keeps everything in one database: the game content and its own half
+(translations, settings, page switches, people's records), built by
+`migrations/users/` then `migrations/genshin_impact/`. Production gets the one
+database `setup.php` asks for. A checkout still configured with two
+(`'databases'` in `database.local.php`) is merged once with
+`php merge-databases.php` before its data goes anywhere - see `DEVELOPING.md`,
+*A checkout with two databases*.
 
 ## Later schema changes (no shell)
 
-FTP the new `migrations/{alias}/*.sql` up, then in the admin **Migrations** page
+FTP the new `migrations/{folder}/*.sql` up, then in the admin **Migrations** page
 press **Apply pending** (`POST /api/migrations/apply`, ADMIN). It runs every
-pending file in order, stopping a database at its first failure. The engine
+pending file in order, `users/` then `genshin_impact/`, stopping at the first failure. The engine
 (`backend/api/migration_runner.php`) is the same one the CLI and `setup.php` use.
 
 ## Copying local data up to production
@@ -130,17 +119,18 @@ Production has no shell, but the copy runs from the developer's machine against
 the remote database, so no shell is needed there either.
 
 - `php db-push.php` (from `backend/`) is the one-command path: it asks for the target
-  connection, then for each database dumps local, wipes the target's schema and
+  connection, dumps local, clears the target (on a managed host, by dropping what
+  the site's user owns in `public` - it usually does not own the schema) and
   restores into it. It works whether or not `setup.php` already built the target,
   passes the password through the environment (no `PGPASSWORD` to set by hand),
-  and **erases** the target (typed host confirmation). The dumps carry schema,
+  and **erases** the target (typed host confirmation). The dump carries schema,
   data and the migrations table, so no migration run is needed after; the target
   keeps its own `config/*.local.php` and `assets/`.
-- `php db-dump.php` is the manual alternative: it dumps to files and prints the
-  `pg_restore` commands to run yourself (into databases created empty in the
-  panel, or add `--clean --if-exists` for ones setup.php has already built).
-- The dumps carry no passwords any more: accounts are the IAM's, and move
-  with the IAM (its installer imports them), not with this site's databases.
+- `php db-dump.php` is the manual alternative: it dumps to a file and prints the
+  `pg_restore` command to run yourself (into a database created empty in the
+  panel, or add `--clean --if-exists` for one setup.php has already built).
+- The dump carries no passwords any more: accounts are the IAM's, and move
+  with the IAM, not with this site's database.
 
 Both need the PostgreSQL client tools locally; if `pg_dump`/`pg_restore` are not
 on PATH, point `config/backup.local.php` at them (same file the Backups page

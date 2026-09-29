@@ -23,10 +23,10 @@
  *                        not satisfy that is a row that lies.
  */
 
-/** Where the asset tree is, from here. */
+/** Where the asset tree is: the one definition, in asset_naming.php. */
 function catalogueRoot(): string
 {
-    return dirname(__DIR__, 2) . '/assets';
+    return _assetsRoot();
 }
 
 /**
@@ -93,7 +93,12 @@ function catalogueCompare(PDO $pdo): array
     $strays = [];
     $resized = [];
 
-    $iterator = new RecursiveIteratorIterator(
+    // No asset tree at all - a checkout without the 2.5 GB of pictures, which
+    // is not in git, or a host whose upload of it has not finished. That says
+    // nothing about any one file, so none is called missing (`tree` false says
+    // why): "every file is missing" would put the whole catalogue one click
+    // from being forgotten.
+    $iterator = $root === false ? [] : new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
         RecursiveIteratorIterator::SELF_FIRST
     );
@@ -139,13 +144,14 @@ function catalogueCompare(PDO $pdo): array
     }
 
     $vanished = [];
-    foreach ($known as $relative => $row) {
+    foreach ($root === false ? [] : $known as $relative => $row) {
         if (!isset($seen[$relative])) {
             $vanished[] = $relative;
         }
     }
 
     return [
+        'tree' => $root !== false,
         'categories' => $categories,
         'on_disk' => count($seen),
         'catalogued' => count($known) - count($vanished),

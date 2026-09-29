@@ -108,6 +108,11 @@ function _categoryRows(PDO $pdo): array
 function _categoryMoveOneFile(PDO $pdo, array $file, string $fromPath, array $to): bool
 {
     $root = realpath(catalogueRoot());
+    // Without the asset tree there is nothing to move - and a path built on
+    // `false` would start at the root of the whole disk.
+    if ($root === false) {
+        return false;
+    }
     $suffix = $file['extension'] === '' ? '' : '.' . $file['extension'];
     $source = $root . '/' . $fromPath . '/' . $file['name'] . $suffix;
 
@@ -353,6 +358,11 @@ $app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $r
 
     $suffix = $file['extension'] === '' ? '' : '.' . $file['extension'];
     $root = realpath(catalogueRoot());
+    // Without the asset tree there is no file to rename - and a path built on
+    // `false` would start at the root of the whole disk.
+    if ($root === false) {
+        return respondJson($response, ['error' => 'There is no asset tree on this server'], 409);
+    }
     $source = $root . '/' . $file['category_path'] . '/' . $file['name'] . $suffix;
     $destination = $root . '/' . $file['category_path'] . '/' . $name . $suffix;
 

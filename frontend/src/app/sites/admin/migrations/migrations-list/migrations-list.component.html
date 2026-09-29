@@ -17,7 +17,8 @@
 </div>
 
 <p class="page-hint">
-    Applied migrations come from each database's <code>migrations</code> table; files on disk that are not recorded there show as pending. Apply them with
+    Two folders of migrations build the one database — <code>users/</code> for the site's own half, <code>genshin_impact/</code> for the game content. Applied
+    ones come from its <code>migrations</code> table; files on disk that are not recorded there show as pending. Apply them with
     <strong>Apply pending</strong>
     , or from a shell with
     <code>php migration.php</code>
@@ -31,7 +32,7 @@
         <p class="load-error">{{ message }}</p>
     } @else {
         @for (group of byDatabase(); track group.database) {
-            <h2 class="db-title">{{ group.database }}</h2>
+            <h2 class="db-title">migrations/{{ group.database }}/</h2>
             <div class="table-wrap">
                 <table class="admin-table">
                     <thead>

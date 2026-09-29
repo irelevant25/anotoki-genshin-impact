@@ -48,7 +48,7 @@ dependencies.
    ```
    Open `http://localhost:8000/setup.php`, fill in the database password, press
    **Test connection** under the database and under the IAM, then **Save**. It
-   creates the two databases, applies every migration, and writes the settings to
+   creates the database, applies every migration, and writes the settings to
    `backend/config/*.local.php`. Until then the API answers `503 not_set_up` and
    the site shows a "not set up yet" page.
 3. Start the frontend in a second terminal:
@@ -67,8 +67,10 @@ step, and the everyday commands: **[DEVELOPING.md](DEVELOPING.md)**.
 
 ## How it works
 
-- **The content** lives in PostgreSQL, in the `genshin_impact` database, and is
-  entered and changed in the admin panel. A character's talents, ascensions,
+- **One database** holds everything, in two halves with their own migration
+  folders: the game content (`genshin_impact`) and the site's own half (`users` -
+  translations, languages, settings, page switches, people's records).
+- **The content** is entered and changed in the admin panel. A character's talents, ascensions,
   constellations and voice-overs belong to shared sets, so the Traveler's forms
   share one copy.
 - **Pictures and sounds** are files under `assets/`, catalogued in a `files`
@@ -83,8 +85,8 @@ step, and the everyday commands: **[DEVELOPING.md](DEVELOPING.md)**.
   settings, migrations and backups. A role taken away stops working here within
   ten minutes.
 - **Languages**: the site's own words go through translation keys; names from
-  the game stay as they are. The English and Slovak strings live in the `users`
-  database and are edited in the admin panel.
+  the game stay as they are. The English and Slovak strings live in the site's
+  half of the database and are edited in the admin panel.
 - **Site switches**: an admin can close the site for maintenance, show an
   announcement, and decide per page who sees it (everyone, signed in, editors,
   admins) or switch it off. The site hides what is closed, and the API refuses
@@ -117,9 +119,10 @@ backend/
                         page gates, validation); the query builder, the asset code, the IAM's token
                         verifier (vendored)
   config/               one module per concern; *.local.php per installation (written by setup.php)
-  migrations/           genshin_impact/ and users/ - the schema, as SQL files applied in order
+  migrations/           users/ and genshin_impact/ - the one database's schema, as SQL files applied in order
   vendor/               committed: the hosting has no Composer
-  setup.php, router.php, migration.php, build-dist.php, db-dump.php, db-push.php, assets.php
+  setup.php, router.php, migration.php, build-dist.php, db-dump.php, db-push.php, assets.php,
+  merge-databases.php   (once, for a checkout from when the site had two databases)
 frontend/
   src/app/sites/main/   the public site: database, quizzes, daily, games, profile
   src/app/sites/admin/  the admin panel
@@ -159,7 +162,8 @@ not drift; [docs/README.md](docs/README.md) lists them.
 - Public database pages for characters, weapons, materials and banners. The admin
   panel also keeps artifacts, foods and enemies; they have no public pages yet.
 - Since 2026-09-27 signing in is the anotoki IAM's; since 2026-09-29 the code is
-  `backend/` + `frontend/`, and every installation is configured by `setup.php`.
+  `backend/` + `frontend/`, every installation is configured by `setup.php`, and
+  the site keeps one database where it used to keep two.
 
 ## More
 

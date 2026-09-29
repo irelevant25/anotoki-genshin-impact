@@ -10,6 +10,9 @@ import { Roles } from '../../../../shared/local-lib/services/options-helper.serv
 import { RestoreConfirmComponent } from '../restore-confirm/restore-confirm.component';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
+/** The one database's dump, as the backend names it (BACKUP_ALIAS in backups.php). */
+const BACKUP_ALIAS = 'genshin';
+
 /**
  * One backup in full: what went into each database's dump, and how to get the
  * files off the server.
@@ -107,9 +110,25 @@ export class BackupViewerComponent extends AbstractModalComponent {
     });
   }
 
-  /** The pg_restore line for this dump, so it can be copied rather than recalled. */
+  /**
+   * Whether this dump can be put back from here: the one-database dump only.
+   * Each half of a backup from when the site had two databases would leave the
+   * one database disagreeing with itself about which migrations ran.
+   */
+  restorable(database: BackupDatabase): boolean {
+    return database.alias === BACKUP_ALIAS;
+  }
+
+  /**
+   * The pg_restore line for this dump, so it can be copied rather than recalled.
+   * Half of an old two-database backup goes into a database of its own - into
+   * the live one, `--clean` would drop and recreate its record of migrations.
+   */
   restoreCommand(database: BackupDatabase): string {
-    return `pg_restore --clean --if-exists -d ${database.name} ${this.backup()?.id}-${database.alias}.dump`;
+    const file = `${this.backup()?.id}-${database.alias}.dump`;
+    return this.restorable(database)
+      ? `pg_restore --clean --if-exists -d ${database.name} ${file}`
+      : `pg_restore -d <a new, empty database> ${file}`;
   }
 
   copyRestoreCommand(database: BackupDatabase): void {

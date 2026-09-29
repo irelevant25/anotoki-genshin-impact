@@ -98,13 +98,10 @@
                     <li>A backup of the current state is taken first, automatically, and appears in the list — that is your way back.</li>
                     <li>It runs in one transaction: if anything fails, the database is left exactly as it is now.</li>
                     <li>It asks for a sign-in from the last ten minutes. If yours is older you will be asked to sign in again first, and then to press Restore once more.</li>
-                    @if (alias() === 'users') {
-                        <li class="is-loud">
-                            This is the site's users database. Its record of each person and their preferences, the site translations, settings and page switches all go
-                            back to how they were. Accounts, passwords and roles are the anotoki IAM's and are not touched - but a backup from before the move to the IAM
-                            brings the old account tables back until migration 040 is applied again.
-                        </li>
-                    }
+                    <li>
+                        The site's own half goes back with the game content: people's records and preferences, the translations, settings and page switches. Accounts,
+                        passwords and roles are the anotoki IAM's and are not touched.
+                    </li>
                 </ul>
             </div>
 
@@ -136,7 +133,7 @@
         } @else if (remaining() > 0) {
             <span class="countdown">Restore unlocks in {{ remaining() }}s</span>
         } @else if (!nameMatches()) {
-            <span class="countdown">Type the database name to continue</span>
+            <span class="countdown">Type {{ alias() }} to continue</span>
         }
         <span class="footer-spacer"></span>
         <app-button text="Cancel" variant="secondary" [outline]="true" [disabled]="running()" (buttonClick)="closeModal()"></app-button>

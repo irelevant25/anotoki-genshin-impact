@@ -19,6 +19,10 @@ an applied one, and never a manual `ALTER` outside this flow.
 
 `backend/migrations/genshin_impact/NNN_name.sql` for game content, or
 `backend/migrations/users/NNN_name.sql` for translations, settings, page switches and this site's record of each person (the accounts themselves are the anotoki IAM's).
+Both folders build the one database (`users/` first) and share its namespace: a
+new table, index, sequence or function must not take a name the other folder
+uses - check both. (History: `users/` once had an account table called `roles`,
+which 040 dropped; `genshin_impact/` has its own `roles`.)
 Use the next free number (zero-padded, matching the existing width) and a short
 snake_case name. Read the two or three most recent migrations in that folder
 first and match their structure exactly.
@@ -60,8 +64,8 @@ From `backend/`:
 ```
 php migration.php --status      # see what is pending first
 php migration.php --dry-run     # confirm what would apply
-php migration.php               # create missing + apply pending (all databases)
-php migration.php --db=users    # scope to one database
+php migration.php               # create missing + apply pending (both folders)
+php migration.php --folder=users  # scope to one folder
 ```
 
 The engine lives in `backend/api/migration_runner.php` and is shared: the same code
@@ -73,7 +77,7 @@ a migration reaches **production**, which is FTP-only with no shell — FTP the 
 ## Before touching data, back it up
 
 If the migration rewrites or deletes existing rows, take a backup first
-(`php db-dump.php` from `backend/` - it writes both databases to
+(`php db-dump.php` from `backend/` - it writes the database to
 `storage/backups/manual/<timestamp>/` - or the admin Backups page) so a bad gate
 is recoverable. The maintainer's real data lives in the dev database — treat it
 as production.

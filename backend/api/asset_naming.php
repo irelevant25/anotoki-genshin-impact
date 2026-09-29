@@ -14,10 +14,18 @@
  * say is still uploads.php's job.
  */
 
-/** Repo root, one level above backend/. */
+/**
+ * The asset tree, which sits beside the site's pages. In a checkout that is
+ * the repository root, one above backend/. In the upload build-dist.php makes,
+ * api/ goes into the web root itself, beside the built pages and assets/ - so
+ * there it is one level up from here, not two. build-dist.php is how the two
+ * are told apart: a checkout's backend/ has it, and the upload never does.
+ */
 function _assetsRoot(): string
 {
-    return dirname(__DIR__, 2) . '/assets';
+    $backend = dirname(__DIR__);
+
+    return (is_file($backend . '/build-dist.php') ? dirname($backend) : $backend) . '/assets';
 }
 
 /**

@@ -125,7 +125,9 @@ function assetSurvey(): array
     $totalFiles = 0;
     $totalBytes = 0;
 
-    $iterator = new RecursiveIteratorIterator(
+    // A checkout without the asset tree (it is not in git) has nothing to
+    // survey: every count is nought, rather than the walk failing.
+    $iterator = !is_dir($root) ? [] : new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
         RecursiveIteratorIterator::SELF_FIRST
     );
@@ -465,6 +467,11 @@ function assetConvertStep(int $limit): ?array
     @set_time_limit((int) ASSET_CONVERT_SECONDS * 6);
 
     $root = realpath(_assetsRoot());
+    // A queue left from when the tree was there, and no tree now: nothing to
+    // convert - and a path built on `false` would start at the disk's root.
+    if ($root === false) {
+        return null;
+    }
     $limit = max(1, min(ASSET_CONVERT_BATCH_MAX, $limit));
     $deadline = microtime(true) + ASSET_CONVERT_SECONDS;
     $attempted = 0;

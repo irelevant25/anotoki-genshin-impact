@@ -95,7 +95,7 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   (add / drop / rename / retype a column, add a CHECK) and DROP TABLE; a
   statement outside that changes the database but not the generated client.
 - Apply with `php migration.php` (from `backend/`); check with `--status` /
-  `--dry-run` first. Use `--db=users` to scope. Back up first
+  `--dry-run` first. Use `--folder=users` to scope to one folder. Back up first
   (`php db-dump.php`) when it rewrites or deletes rows.
 - The engine is `backend/api/migration_runner.php`, shared by the CLI, the
   installer `backend/setup.php`, and the admin apply endpoint

@@ -4,57 +4,55 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
- * Migrations live per database: the applied rows sit in each database's own
- * `migrations` table, and the SQL files under backend/migrations/{alias}/.
+ * The one database is built from two folders of migrations - users/ and
+ * genshin_impact/, which were two databases once. Its `migrations` table
+ * records each file by folder and name, and the SQL files are under
+ * backend/migrations/{folder}/. The answers still call the folder `database`,
+ * the name the admin page and the generated client know it by.
  */
 
-function _migrationDatabases(): array
+function _migrationDir(string $folder): string
 {
-    $config = require __DIR__ . '/../../../../config/database.local.php';
-    return array_keys($config['databases'] ?? []);
-}
-
-function _migrationDir(string $alias): string
-{
-    return __DIR__ . '/../../../../migrations/' . $alias;
+    return __DIR__ . '/../../../../migrations/' . $folder;
 }
 
 /** Guards against `..` and separators before touching the filesystem. */
-function _migrationFilePath(string $alias, string $filename): ?string
+function _migrationFilePath(string $folder, string $filename): ?string
 {
-    if (!in_array($alias, _migrationDatabases(), true)) {
+    if (!in_array($folder, MIGRATION_FOLDERS, true)) {
         return null;
     }
     if ($filename === '' || basename($filename) !== $filename || !str_ends_with($filename, '.sql')) {
         return null;
     }
-    $path = _migrationDir($alias) . '/' . $filename;
+    $path = _migrationDir($folder) . '/' . $filename;
     return is_file($path) ? $path : null;
 }
 
 // ── GET /api/migrations ───────────────────────────────────────────────────────
-// Every applied migration across every database, plus any file on disk that has
-// not been applied yet.
+// Every applied migration of both folders, plus any file on disk that has not
+// been applied yet.
 
 $app->get('/api/migrations', function (Request $request, Response $response) {
     $items = [];
 
-    foreach (_migrationDatabases() as $alias) {
-        try {
-            $pdo = getDb($alias);
-            $rows = $pdo->query('SELECT * FROM migrations ORDER BY applied_at ASC, id ASC')->fetchAll();
-        } catch (\Throwable $e) {
-            error_log("[migrations] cannot read '$alias': " . $e->getMessage());
-            continue;
-        }
+    // Read as it is - the table from before the folders shared it too - so
+    // looking at the page changes nothing.
+    try {
+        $recorded = recordedMigrationRows(getDb());
+    } catch (\Throwable $e) {
+        error_log('[migrations] cannot read the migrations table: ' . $e->getMessage());
+        return respondJson($response, []);
+    }
 
+    foreach (MIGRATION_FOLDERS as $folder) {
         $applied = [];
-        foreach ($rows as $row) {
-            $path = _migrationFilePath($alias, (string) $row['filename']);
+        foreach (array_filter($recorded, fn(array $row) => $row['folder'] === $folder) as $row) {
+            $path = _migrationFilePath($folder, (string) $row['filename']);
             $applied[$row['filename']] = true;
             $items[] = [
-                'id' => $alias . ':' . $row['filename'],
-                'database' => $alias,
+                'id' => $folder . ':' . $row['filename'],
+                'database' => $folder,
                 'filename' => $row['filename'],
                 'applied_at' => $row['applied_at'],
                 'status' => $path ? 'applied' : 'applied (file missing)',
@@ -62,12 +60,12 @@ $app->get('/api/migrations', function (Request $request, Response $response) {
             ];
         }
 
-        foreach (glob(_migrationDir($alias) . '/*.sql') ?: [] as $path) {
+        foreach (glob(_migrationDir($folder) . '/*.sql') ?: [] as $path) {
             $filename = basename($path);
             if (!isset($applied[$filename])) {
                 $items[] = [
-                    'id' => $alias . ':' . $filename,
-                    'database' => $alias,
+                    'id' => $folder . ':' . $filename,
+                    'database' => $folder,
                     'filename' => $filename,
                     'applied_at' => null,
                     'status' => 'pending',
@@ -115,9 +113,9 @@ $app->get('/api/migrations/file', function (Request $request, Response $response
 })->add(responds(MigrationFile::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── POST /api/migrations/apply ────────────────────────────────────────────────
-// Applies every pending migration across every database, in order, stopping a
-// database at its first failure. This is the FTP deployment's way to run a
-// schema change with no shell: upload the new .sql file, then apply it here.
+// Applies every pending migration of both folders, in order, stopping a folder
+// at its first failure. This is the FTP deployment's way to run a schema change
+// with no shell: upload the new .sql file, then apply it here.
 //
 // ADMIN only. The migrations themselves are trusted code from the deployment,
 // not request input - this endpoint chooses which to run, never what they say.
@@ -127,28 +125,29 @@ $app->post('/api/migrations/apply', function (Request $request, Response $respon
     $totalApplied = 0;
     $ok = true;
 
-    foreach (_migrationDatabases() as $alias) {
-        // An alias the config names but has written no migrations for yet
-        // (star_rail) - nothing to build, and its database need not even exist,
-        // so do not connect to it and do not count it as a failure.
-        if (!migrationFiles($alias)) {
-            continue;
-        }
+    try {
+        $results = applyAllPendingMigrations(getDb());
+    } catch (MigrationOrderException $e) {
+        return respondJson($response, [
+            'applied' => 0,
+            'ok' => false,
+            'databases' => [['database' => implode(', ', MIGRATION_FOLDERS), 'applied' => [], 'failed' => null, 'error' => $e->getMessage()]],
+        ]);
+    } catch (\Throwable $e) {
+        return respondJson($response, [
+            'applied' => 0,
+            'ok' => false,
+            'databases' => [['database' => implode(', ', MIGRATION_FOLDERS), 'applied' => [], 'failed' => null, 'error' => 'cannot reach the database: ' . $e->getMessage()]],
+        ]);
+    }
 
-        try {
-            $result = applyPendingMigrations(getDb($alias), $alias);
-        } catch (\Throwable $e) {
-            $databases[] = ['database' => $alias, 'applied' => [], 'failed' => null, 'error' => 'cannot reach database: ' . $e->getMessage()];
-            $ok = false;
-            continue;
-        }
-
+    foreach ($results as $folder => $result) {
         $totalApplied += count($result['applied']);
         if ($result['failed'] !== null) {
             $ok = false;
         }
         $databases[] = [
-            'database' => $alias,
+            'database' => $folder,
             'applied' => $result['applied'],
             'failed' => $result['failed'],
             'error' => $result['error'],

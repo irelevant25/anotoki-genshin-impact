@@ -141,7 +141,7 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
          FROM audit_logs ORDER BY changed_at DESC, id DESC LIMIT 12'
     )->fetchAll();
 
-    // Names come from the other database, so they are resolved in one go.
+    // The names are the site's half's (the users table), resolved in one go.
     $userIds = array_filter(array_unique(array_column($recent, 'changed_by')));
     $names = [];
     if ($userIds) {

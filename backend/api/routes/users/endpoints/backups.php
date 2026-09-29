@@ -15,14 +15,21 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  *   GET    /api/backups/{id}/preview/{alias}    what restoring it would cost
  *   POST   /api/backups/{id}/restore/{alias}    put one back
  *
- * A backup is a directory holding one dump per configured database plus a
- * backup.json manifest. Every database goes in, not just this site's: the
- * accounts, translations and game content are only useful together, and
- * restoring content from one afternoon against accounts from another is
- * exactly the mess a backup is meant to prevent.
+ * A backup is a directory holding one dump of the database plus a backup.json
+ * manifest. The whole database goes in - the translations, settings, people's
+ * records and the game content are only useful together, and restoring content
+ * from one afternoon against settings from another is exactly the mess a
+ * backup is meant to prevent.
  *
  * It lives under users/ rather than a game folder for the same reason - it is
  * the whole installation, not one site's data.
+ *
+ * Backups from when the site had two databases hold two dumps, users.dump and
+ * genshin_impact.dump. They can still be downloaded, but not restored from
+ * here: each holds half of what is now one database, including its own record
+ * of which migrations ran, and putting either back would leave the database
+ * disagreeing with itself about what has been applied. pg_restore by hand, into
+ * a database of their own, is the way back to one of those.
  */
 
 /** Directory name: sortable, readable, and unique within the same second. */
@@ -31,15 +38,48 @@ const BACKUP_ID_ROUTE = '{id:[0-9]{8}-[0-9]{6}-[a-z0-9]{6}}';
 const BACKUP_MANIFEST = 'backup.json';
 const BACKUP_DESCRIPTION_LIMIT = 200;
 
+/**
+ * What the one dump is called, in the manifest, the file name and the URLs -
+ * the same on every installation, so a backup made on one can be restored on
+ * another whose database has a different name.
+ */
+const BACKUP_ALIAS = 'genshin';
+
 /** pg_dump's own compression, so the file on disk is the size it needs to be. */
 const BACKUP_COMPRESSION = 6;
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-/** Alias => real database name, in the order the config lists them. */
+/** Alias => real database name: the one database, under BACKUP_ALIAS. */
 function backupDatabases(): array
 {
-    return (array) (backupDatabaseConfig()['databases'] ?? []);
+    return [BACKUP_ALIAS => backupDatabaseConfig()['database']];
+}
+
+/**
+ * Why a backup's dump cannot be put back here, or null when it can: only the
+ * one-database dump can, and only from a backup that finished.
+ */
+function backupRestoreRefusal(array $manifest, string $alias): ?string
+{
+    $entry = null;
+    foreach ($manifest['databases'] ?? [] as $candidate) {
+        if (($candidate['alias'] ?? null) === $alias) {
+            $entry = $candidate;
+        }
+    }
+
+    if ($entry === null) {
+        return 'This backup has no dump of that name';
+    }
+
+    if ($alias !== BACKUP_ALIAS) {
+        return "This backup is from when the site had two databases ({$alias} was one of them). Restoring half of"
+            . ' what is now one database would leave it disagreeing with itself about which migrations ran, so it'
+            . ' is not offered here - download the dump and restore it by hand into a database of its own.';
+    }
+
+    return empty($entry['error']) ? null : 'This backup has no usable dump for that database';
 }
 
 /** The directory for one backup, or null when the id is not one of ours. */
@@ -226,7 +266,7 @@ $app->get('/api/backups/status', function (Request $request, Response $response)
     foreach (backupDatabases() as $alias => $name) {
         $entry = ['alias' => $alias, 'name' => $name, 'size' => null, 'tables' => null, 'error' => null];
         try {
-            $pdo = getDb($alias);
+            $pdo = getDb();
             $entry['size'] = (int) $pdo->query('SELECT pg_database_size(current_database())')->fetchColumn();
             $entry['tables'] = (int) $pdo
                 ->query("SELECT count(*) FROM pg_tables WHERE schemaname = 'public'")
@@ -272,8 +312,8 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE, function (Request $request, Respons
 })->add(responds(BackupEntry::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
 
 // ── POST /api/backups ────────────────────────────────────────────────────────
-// Dumps every configured database, then writes the manifest. The manifest goes
-// last on purpose: its presence is what marks the backup finished.
+// Dumps the database, then writes the manifest. The manifest goes last on
+// purpose: its presence is what marks the backup finished.
 
 $app->post('/api/backups', function (Request $request, Response $response) {
     $refusal = backupRefusalReason();
@@ -318,7 +358,7 @@ function backupRefusalReason(): ?string
 }
 
 /**
- * Dumps every configured database into a new backup and returns its manifest.
+ * Dumps the database into a new backup and returns its manifest.
  *
  * Shared by the button and by the safety copy a restore takes first, so both
  * produce the same thing and both appear in the same list.
@@ -359,7 +399,7 @@ function backupCreate(?string $description, ?string $createdBy): array
 
         // Counted before the dump, so the numbers describe what went into it.
         try {
-            $entry['tables'] = backupTableCounts(getDb($alias));
+            $entry['tables'] = backupTableCounts(getDb());
             $entry['rows'] = array_sum(array_column($entry['tables'], 'rows'));
         } catch (\Throwable $e) {
             $entry['error'] = 'Cannot be reached: ' . $e->getMessage();
@@ -395,6 +435,10 @@ function backupCreate(?string $description, ?string $createdBy): array
         'description' => $description,
         'status' => $failed ? ($allFailed ? 'failed' : 'partial') : 'complete',
         'format' => 'pg_dump custom',
+        // For whoever reads the manifest: this backup holds the whole database.
+        // Restoring goes by the dump's alias (backupRestoreRefusal()), which the
+        // two-database backups do not share.
+        'layout' => 'one database',
         'pg_dump_version' => backupBinaryVersion('pg_dump'),
         'duration_ms' => (int) round((microtime(true) - $started) * 1000),
         'databases' => $results,
@@ -434,9 +478,12 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/download/{alias:[a-z0-9_]+}', fu
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
-    // The alias has to be one this installation actually knows, so the path
-    // cannot be talked into pointing somewhere else.
-    if (!array_key_exists($args['alias'], backupDatabases())) {
+    // The alias has to be one this backup's manifest names - the one database,
+    // or either half of a backup from when there were two - so the path cannot
+    // be talked into pointing anywhere else. The route already allows only
+    // [a-z0-9_] in it.
+    $inManifest = array_column(backupReadManifest($args['id'], $directory)['databases'] ?? [], 'alias');
+    if (!in_array($args['alias'], $inManifest, true)) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
@@ -461,18 +508,15 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/download/{alias:[a-z0-9_]+}', fu
 // Restoring
 // ═════════════════════════════════════════════════════════════════════════════
 //
-// Putting a dump back replaces everything in a database. Four things stand
+// Putting a dump back replaces everything in the database. Four things stand
 // between a click and that happening: the operator has signed in within the
 // last ten minutes (the IAM's sign-in, asked for again - this site has no
-// password of theirs to retype), they type the database's name, a countdown in
+// password of theirs to retype), they type the dump's name, a countdown in
 // the UI keeps the button unavailable for long enough to think, and the server
 // takes a fresh backup of what is about to be destroyed before it destroys it.
 //
-// A backup of `users` from before the accounts moved to the IAM still holds
-// the old account tables, password hashes included. Restoring one puts them
-// back until migration 040 runs again and removes them.
-//
-// The restore itself runs in a single transaction, so a failure halfway leaves
+// Only a one-database backup is put back here (backupRestoreRefusal()). The
+// restore itself runs in a single transaction, so a failure halfway leaves
 // the database exactly as it was rather than half-replaced.
 
 /**
@@ -500,30 +544,21 @@ function backupFreshPdo(string $dbname): PDO
 /**
  * Disconnects everything else from a database, so its objects can be dropped.
  *
- * Issued from a connection to a different database: a session cannot terminate
- * every connection to the database it is itself connected to. Anything the site
- * is doing at that moment ends with an error, which is the honest outcome - the
- * data underneath it is about to be replaced.
+ * Issued from the server's maintenance database, `postgres`: a session cannot
+ * terminate every connection to the database it is itself connected to. Anything
+ * the site is doing at that moment ends with an error, which is the honest
+ * outcome - the data underneath it is about to be replaced. A host that does
+ * not let the site's user into `postgres` gets no disconnecting; pg_restore
+ * still manages unless something else holds a lock.
  */
 function backupTerminateConnections(string $dbname): int
 {
-    $config = backupDatabaseConfig();
-
-    $elsewhere = null;
-    foreach ($config['databases'] ?? [] as $candidate) {
-        if ($candidate !== $dbname) {
-            $elsewhere = $candidate;
-            break;
-        }
-    }
-
-    // A single-database install has nowhere to stand; pg_restore will still
-    // manage unless something else holds a lock.
-    if ($elsewhere === null) {
+    try {
+        $pdo = backupFreshPdo('postgres');
+    } catch (\Throwable $e) {
         return 0;
     }
 
-    $pdo = backupFreshPdo($elsewhere);
     $statement = $pdo->prepare(
         'SELECT pg_terminate_backend(pid) FROM pg_stat_activity
          WHERE datname = ? AND pid <> pg_backend_pid()'
@@ -596,7 +631,7 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/preview/{alias:[a-z0-9_]+}', fun
     $directory = backupPath($args['id']);
     $databases = backupDatabases();
 
-    if (!$directory || !array_key_exists($args['alias'], $databases)) {
+    if (!$directory) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
@@ -608,12 +643,15 @@ $app->get('/api/backups/' . BACKUP_ID_ROUTE . '/preview/{alias:[a-z0-9_]+}', fun
         }
     }
 
-    if (!$inBackup || $inBackup['error'] || !is_file($directory . '/' . $args['alias'] . '.dump')) {
+    if ($refusal = backupRestoreRefusal($manifest, $args['alias'])) {
+        return respondJson($response, ['error' => $refusal], 422);
+    }
+    if (!$inBackup || !is_file($directory . '/' . $args['alias'] . '.dump')) {
         return respondJson($response, ['error' => 'This backup has no usable dump for that database'], 422);
     }
 
     try {
-        $live = backupTableCounts(getDb($args['alias']));
+        $live = backupTableCounts(getDb());
     } catch (\Throwable $e) {
         return respondJson($response, ['error' => 'That database cannot be reached'], 503);
     }
@@ -688,8 +726,12 @@ $app->post('/api/backups/' . BACKUP_ID_ROUTE . '/restore/{alias:[a-z0-9_]+}', fu
     $databases = backupDatabases();
     $alias = $args['alias'];
 
-    if (!$directory || !array_key_exists($alias, $databases)) {
+    if (!$directory) {
         return respondJson($response, ['error' => 'Not found'], 404);
+    }
+
+    if ($refusal = backupRestoreRefusal(backupReadManifest($args['id'], $directory), $alias)) {
+        return respondJson($response, ['error' => $refusal], 422);
     }
 
     $file = $directory . '/' . $alias . '.dump';

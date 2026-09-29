@@ -12953,6 +12953,16 @@
           "403": {
             "$ref": "#/components/responses/Forbidden"
           },
+          "409": {
+            "description": "That would collide with something that already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "default": {
             "$ref": "#/components/responses/Error"
           }
@@ -16393,7 +16403,7 @@
         ],
         "operationId": "getMigrations",
         "summary": "Get migrations",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `migrations`.",
+        "description": "Requires the `ADMIN` or `EDITOR` role.",
         "responses": {
           "200": {
             "description": "The request succeeded.",
