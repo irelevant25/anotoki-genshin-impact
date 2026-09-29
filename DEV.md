@@ -40,7 +40,7 @@ endpoint.
 | PostgreSQL   | 14+          | one database, `genshin_impact` (the installer creates it) |
 | Node.js      | **22.15.0**  | `npm start` checks this (via `nvm`) and refuses otherwise |
 | Composer     | any recent   | `backend/vendor/` is committed, so only needed to change PHP dependencies |
-| The anotoki IAM | -         | `../anotoki-iam`, set up by its own DEVELOPING.md |
+| The anotoki IAM | -         | `../anotoki-iam`, set up by its own DEV.md |
 
 Optional, for specific admin features:
 
@@ -57,7 +57,7 @@ Optional, for specific admin features:
 ### 1. The anotoki IAM
 
 Accounts, passwords, Google, two-factor and who is an ADMIN or EDITOR here all
-live in the IAM. Set it up first, by `../anotoki-iam/DEVELOPING.md`: its API on
+live in the IAM. Set it up first, by `../anotoki-iam/DEV.md`: its API on
 `:8100`, its pages on `:4300`. It registers this site's development address
 (`http://localhost:4200/auth/callback`) by default; `php clients.php --dev` in its
 `backend/` puts that back if it was changed. The accounts this site used to
@@ -68,7 +68,7 @@ hold were brought over by its `import-legacy.php`; sign in with one holding the
 
 ```bash
 cd backend
-php -S localhost:8000 router.php
+composer start          # php -S localhost:8000 router.php
 ```
 
 then open **<http://localhost:8000/setup.php>**. Until it has run, the API
@@ -121,7 +121,7 @@ Two servers of this site, plus the IAM's two when you need to sign in:
 
 | | Command (from its folder) | URL |
 | --- | --- | --- |
-| API | `php -S localhost:8000 router.php` (in `backend/`) | `http://localhost:8000` |
+| API | `composer start` (in `backend/`: `php -S localhost:8000 router.php`) | `http://localhost:8000` |
 | App | `npm start` (in `frontend/`) | `http://localhost:4200` |
 
 The router script matters. Without it `php -S` decides whether a request is for a
@@ -483,7 +483,7 @@ the PostgreSQL client tools locally.
 | `npm start` refuses to run | Node is not `22.15.0` - switch with `nvm use 22.15.0`. |
 | API cannot connect to the database | Postgres is not running, or the connection in `setup.php` is wrong - its **Test connection** says which. |
 | A new/changed endpoint isn't callable from the frontend | The client is stale - run `npm run api`. |
-| Translation-key routes 404 in dev, or CORS errors on them | The PHP server was started without `router.php`. Use `php -S localhost:8000 router.php`. |
+| Translation-key routes 404 in dev, or CORS errors on them | The PHP server was started without `router.php`. Start it with `composer start` in `backend/`, which runs `php -S localhost:8000 router.php`. |
 | CORS errors on every call | The site is not at the address in `app.local.php` (`http://localhost:4200`), or the API is not running. |
 | Admin pages redirect to sign-in | Not signed in at the IAM, or the account holds neither the `genshin` ADMIN nor EDITOR role (grant it in the IAM admin console). |
 | Sign-in bounces back with an error | The IAM is not running on 4300/8100, or does not know `http://localhost:4200/auth/callback` - run `php clients.php --dev` in the IAM's `backend/`. `setup.php`'s IAM test checks both. |

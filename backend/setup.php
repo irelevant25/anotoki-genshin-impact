@@ -60,7 +60,7 @@ declare(strict_types=1);
  */
 
 if (PHP_SAPI === 'cli') {
-    fwrite(STDERR, "setup.php is a web page. From backend/: php -S localhost:8000 router.php,\n"
+    fwrite(STDERR, "setup.php is a web page. From backend/: composer start,\n"
         . "then open http://localhost:8000/setup.php in a browser.\n");
     exit(1);
 }
@@ -80,7 +80,7 @@ const SETUP_NONCE_COOKIE = 'genshin_setup_nonce';
 
 /**
  * What the form starts from: the development values, the same on every
- * checkout (DEVELOPING.md has the port table - this site on 4200 and 8000, the
+ * checkout (DEV.md has the port table - this site on 4200 and 8000, the
  * IAM on 4300 and 8100). On the hosting every one of them is replaced.
  */
 const SETUP_DEFAULTS = [

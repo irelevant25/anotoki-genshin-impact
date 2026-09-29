@@ -19,7 +19,7 @@ task is about importing data), `old` (the pre-rewrite Vue codebase).
 Read `docs/reference/reference-*.html` for a generated map of the whole app —
 every frontend page, backend endpoint, and database table, cross-linked.
 
-`README.md` says what the site is; `DEVELOPING.md` is the human guide — setup
+`README.md` says what the site is; `DEV.md` is the human guide — setup
 (`setup.php`), running, checking, building and deploying.
 
 Development ports: this site's frontend `http://localhost:4200` and backend
@@ -70,7 +70,7 @@ at `/setup.php` (the gate at the top of `api/index.php`), and the frontend draws
 "not set up yet" page (`shared/not-set-up/`) instead of either site.
 
 **`backend/setup.php` writes all of them — in development too.** Run the backend
-(`php -S localhost:8000 router.php` in `backend/`) and open
+(`composer start` in `backend/`) and open
 `http://localhost:8000/setup.php`: on this computer (the built-in server, a
 loopback address, a localhost Host) it needs no token, starts from the
 development values, has **Test connection** buttons for the database and the IAM,
@@ -101,7 +101,7 @@ page and the admin pages for accounts all live there.
   and arrive in the token; revoking one reaches this site within one token
   lifetime (10 minutes).
 - **Locally**, sign-in needs the IAM running: its API on 8100 and its pages on
-  4300 (see the IAM's DEVELOPING.md). It registers `http://localhost:4200` for
+  4300 (see the IAM's DEV.md). It registers `http://localhost:4200` for
   `genshin` by default; `php clients.php --dev` in its `backend/` puts that back.
   setup.php's IAM test says whether it answers and knows this site.
 - **Scripts** (the importer in `local/`, the benchmark) use a personal token
@@ -112,7 +112,7 @@ page and the admin pages for accounts all live there.
 
 ```
 # Backend (from backend/)
-php -S localhost:8000 router.php     # dev server (mimics the production Apache; serves /setup.php too)
+composer start                       # dev server: php -S localhost:8000 router.php (mimics the production Apache; serves /setup.php too)
                                      # then http://localhost:8000/setup.php on a fresh checkout
 php migration.php                    # create missing + apply pending migrations
 php migration.php --status           # what has run and what is pending
@@ -280,7 +280,7 @@ first); and **later schema changes** go through the admin Migrations page, since
 `php migration.php` cannot run there.
 
 Full steps — the upload map, the installer, a checkout that still has two databases, the
-constraints — are in `DEVELOPING.md` (*Deploying to the hosting*). The **deploy**
+constraints — are in `DEV.md` (*Deploying to the hosting*). The **deploy**
 skill covers this workflow.
 
 ## Working conventions

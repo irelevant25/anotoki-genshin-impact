@@ -16,7 +16,7 @@
  * command line, and never printed.
  *
  * A maintenance script: CLI only, not shipped by build-dist.php. See the deploy
- * skill / DEVELOPING.md for how the dump then goes up (production has no shell,
+ * skill / DEV.md for how the dump then goes up (production has no shell,
  * so the restore runs from here against the remote database) - or db-push.php,
  * which does both in one command.
  */

@@ -15,7 +15,7 @@ its own `/api`, so there is no second domain and no CORS. The host is
 **FTP/SFTP-only — no shell**, which is why `vendor/` is shipped, migrations apply
 over HTTP, and a first install runs from a web page.
 
-The authoritative, step-by-step version lives in `DEVELOPING.md` (*Building for
+The authoritative, step-by-step version lives in `DEV.md` (*Building for
 production* and *Deploying to the hosting*). This skill is the operating summary.
 
 ## The two builds
@@ -104,7 +104,7 @@ The site keeps everything in one database: the game content and its own half
 `migrations/users/` then `migrations/genshin_impact/`. Production gets the one
 database `setup.php` asks for. A checkout still configured with two
 (`'databases'` in `database.local.php`) is merged once with
-`php merge-databases.php` before its data goes anywhere - see `DEVELOPING.md`,
+`php merge-databases.php` before its data goes anywhere - see `DEV.md`,
 *A checkout with two databases*.
 
 ## Later schema changes (no shell)

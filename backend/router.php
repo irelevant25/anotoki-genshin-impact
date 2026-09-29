@@ -3,7 +3,7 @@
 /**
  * The built-in server, made to behave like the Apache the site runs on.
  *
- *     php -S localhost:8000 router.php
+ *     composer start          (php -S localhost:8000 router.php)
  *
  * Without this, `php -S` decides whether a request is for a file by looking at
  * the last path segment: anything with a dot in it is treated as a static file

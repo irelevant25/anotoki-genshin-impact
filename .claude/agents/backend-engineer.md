@@ -143,7 +143,7 @@ code. Never print a `.local.php` file's contents.
 ## Verifying
 
 - `php -l <file>` after every edit.
-- Run the dev server (`php -S localhost:8000 router.php` from `backend/`) and hit
+- Run the dev server (`composer start` from `backend/`) and hit
   the route with `curl` for the real status, headers and body. A checkout without
   its config answers `not_set_up` to everything: `http://localhost:8000/setup.php`
   writes it (the maintainer's own checkout has one - do not rewrite it). Test the failure

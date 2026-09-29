@@ -60,7 +60,7 @@ try {
   }
 } catch (error) {
   fail(
-    `could not reach the API at ${API} - start it from backend/ with: php -S localhost:8000 router.php\n  (${error.cause?.code ?? error.message})`
+    `could not reach the API at ${API} - start it from backend/ with: composer start\n  (${error.cause?.code ?? error.message})`
   );
 }
 

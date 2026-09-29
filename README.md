@@ -39,12 +39,12 @@ You need **PHP 8.2 or newer** with `pdo_pgsql`, **PostgreSQL**, **Node.js
 `backend/vendor/` is committed, so Composer is only needed to change PHP
 dependencies.
 
-1. Set up and start the IAM by its own DEVELOPING.md: its pages on `:4300`, its
+1. Set up and start the IAM by its own DEV.md: its pages on `:4300`, its
    API on `:8100`.
 2. Start the backend and run the setup page:
    ```bash
    cd backend
-   php -S localhost:8000 router.php
+   composer start                   # php -S localhost:8000 router.php
    ```
    Open `http://localhost:8000/setup.php`, fill in the database password, press
    **Test connection** under the database and under the IAM, then **Save**. It
@@ -63,7 +63,7 @@ dependencies.
 On your own computer the setup page stays in place: open it again whenever a
 setting changes. The pictures and sounds (`assets/`, about 2.5 GB) are not in
 git; without a copy of that tree the pages work but draw no pictures. Every
-step, and the everyday commands: **[DEVELOPING.md](DEVELOPING.md)**.
+step, and the everyday commands: **[DEV.md](DEV.md)**.
 
 ## How it works
 
@@ -108,7 +108,7 @@ on its own. The first install runs through `setup.php` in the browser, proved by
 a token only FTP can read; it writes the settings, then locks and deletes
 itself. Later schema changes are applied from the admin panel's Migrations page.
 The IAM has to be installed first. The upload map and every step:
-[DEVELOPING.md](DEVELOPING.md) ("Deploying to the hosting").
+[DEV.md](DEV.md) ("Deploying to the hosting").
 
 ## Project layout
 
@@ -168,7 +168,7 @@ not drift; [docs/README.md](docs/README.md) lists them.
 ## More
 
 - Setting it up, running, checking, building and deploying:
-  [DEVELOPING.md](DEVELOPING.md).
+  [DEV.md](DEV.md).
 - The rules for changing the code: [CLAUDE.md](CLAUDE.md).
 - Signing in through the anotoki IAM: the IAM repository (`../anotoki-iam`), its
   `docs/integrating-an-app.md`.

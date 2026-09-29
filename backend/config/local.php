@@ -200,7 +200,7 @@ function notSetUp(string $file, string $what): never
 {
     throw new NotSetUpException(
         "This installation is not set up: config/{$file} ({$what}) is missing or incomplete. "
-        . 'Run setup.php - in development, `php -S localhost:8000 router.php` in backend/ and open '
+        . 'Run setup.php - in development, `composer start` in backend/ and open '
         . 'http://localhost:8000/setup.php.'
     );
 }

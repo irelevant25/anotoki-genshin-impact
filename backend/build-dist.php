@@ -30,7 +30,7 @@
  * config/local.php. setup.php itself is not part of the build either: it goes up
  * by hand for the first install and removes itself when done.
  *
- * See DEVELOPING.md, "Deploying to the hosting".
+ * See DEV.md, "Deploying to the hosting".
  */
 
 $root = __DIR__;
@@ -186,4 +186,4 @@ echo "\nNot part of any build - upload separately, once, when it changes:\n";
 echo "  assets/  ->  public_html/assets/   (the image tree the public site loads)\n";
 
 echo "\nNote: this host is FTP-only, so `php migration.php` cannot run on the server.\n";
-echo "New migrations go through the admin Migrations page - see DEVELOPING.md, \"Deploying to the hosting\".\n";
+echo "New migrations go through the admin Migrations page - see DEV.md, \"Deploying to the hosting\".\n";

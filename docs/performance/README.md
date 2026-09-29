@@ -11,7 +11,7 @@ measurements — open it in a browser, it needs nothing running.
 ## Making a new one
 
 ```
-php -S localhost:8000 router.php          # from backend/, if it is not already up
+composer start                            # from backend/, if it is not already up
 node docs/performance/bench-endpoints.mjs <personal-token>
 node docs/performance/build-report.mjs
 ```

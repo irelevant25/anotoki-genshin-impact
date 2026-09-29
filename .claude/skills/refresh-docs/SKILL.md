@@ -33,7 +33,7 @@ one before it, so keep the run archive (`docs/performance/runs/`) intact.
 ```
 # from backend/, if the dev server is not already up (it needs its config -
 # backend/config/*.local.php from setup.php - or it answers not_set_up):
-php -S localhost:8000 router.php
+composer start
 
 # from repo root — with a personal token (IAM account page → Tokens for scripts,
 # application genshin) of an account that can read admin endpoints. The IAM
