@@ -31,11 +31,11 @@ export class SiteVersionModalComponent extends AbstractModalComponent {
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Opening the changelog is what marks it read: the newest version shown is
-    // recorded in this browser, so the new-version popup does not fire again.
-    // Guarded because the modal can be opened programmatically the moment a new
-    // version is noticed, before any entries are attached.
+    // recorded in this browser, so "What's new" does not open for it again.
+    // Guarded because the footer's version button can be pressed before
+    // changelog.json has arrived, when there are no entries to hand over.
     if (!this.data?.length) {
       return;
     }

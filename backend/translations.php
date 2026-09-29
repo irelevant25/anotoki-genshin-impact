@@ -32,7 +32,7 @@ const SOURCE_ROOT = __DIR__ . '/../frontend/src/app';
  */
 const KEY_NAMESPACES = [
     'common', 'nav', 'footer', 'account', 'theme',
-    'login', 'feedback', 'backgrounds', 'changelog', 'notFound', 'quiz', 'database',
+    'login', 'feedback', 'backgrounds', 'changelog', 'whatsNew', 'notFound', 'quiz', 'database',
     'daily', 'game', 'profile', 'guide',
 ];
 

@@ -1,4 +1,4 @@
-import { Component, effect, signal, untracked, WritableSignal } from '@angular/core';
+import { Component, effect, inject, signal, untracked, WritableSignal } from '@angular/core';
 import { KeyValuePipe, NgTemplateOutlet } from '@angular/common';
 import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
 import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
@@ -13,6 +13,8 @@ import { StorageKeys } from '../../../../shared/state-manager.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { SiteAccountModalComponent } from './site-account-modal/site-account-modal.component';
+import { SiteWhatsNewModalComponent } from './site-whats-new-modal/site-whats-new-modal.component';
+import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
 
 export interface ButtomMenuItem {
   id: string;
@@ -93,11 +95,16 @@ export class FooterComponent extends AbstractModalComponent {
   };
   changelog: ChangelogEntry[] = [];
 
+  private readonly _i18n = inject(TranslationService);
+  /** "What's new" once a new version is noticed, until it opens. */
+  private readonly _whatsNew = signal<{ latest: ChangelogEntry; hasEarlier: boolean } | null>(null);
+
   constructor(private _http: HttpClient, private _storageService: LocalStorageService, private readonly _securityService: SecurityService, private readonly _notificationService: NotificationService) {
     super();
     this.loadVersion();
     this.initializeBackground();
     this.watchAccount();
+    this.watchWhatsNew();
   }
 
   /**
@@ -121,37 +128,70 @@ export class FooterComponent extends AbstractModalComponent {
     }
     const current = this.changelog[0].version;
     this.menuItems['versions'].update(item => ({ ...item, titleLiteral: `v${current}` }));
-    this.showChangelogIfNew(current);
+    this.noticeNewVersion(current);
   }
 
   /**
-   * Pops the changelog the first time somebody sees a new version.
+   * Queues "What's new" the first time somebody sees a new version.
    *
    * The last version a visitor saw is kept in this browser's localStorage. On a
-   * new version — or a first visit, where nothing is stored — the modal opens
-   * on just what has changed since, and opening it records the new version so
-   * it does not show again. Kept per browser rather than per account on
-   * purpose: a signed-in visitor on a second device is signed out there with an
-   * empty localStorage, so an account could not tell us they had already seen
-   * it — the browser is the thing that actually knows.
+   * new version — or a first visit, where nothing is stored — a short note on
+   * the newest version opens (watchWhatsNew), and opening it records that
+   * version so it does not show again. It is about the newest version only: a
+   * visitor who skipped releases is told there were earlier ones, and its "See
+   * all changes" opens the full changelog, the same one the footer's version
+   * button does. Kept per browser rather than per account on purpose: a
+   * signed-in visitor on a second device is signed out there with an empty
+   * localStorage, so an account could not tell us they had already seen it —
+   * the browser is the thing that actually knows.
    */
-  private showChangelogIfNew(current: string): void {
+  private noticeNewVersion(current: string): void {
     const lastSeen = this._storageService.read(StorageKeys.VERSION);
     if (lastSeen === current) {
       return;
     }
 
+    // The list runs newest first, so everything before the version last seen
+    // is unseen, and more than one of those means earlier releases were missed
+    // too. A first visit — nothing stored, so not found — has nothing earlier
+    // to catch up on: a newcomer is shown what is new, not the history.
     const seenIndex = this.changelog.findIndex((entry) => entry.version === lastSeen);
-    // Everything newer than the version last seen. For a first visit — nothing
-    // stored, so not found — just the latest, so a newcomer is shown what is
-    // new rather than the entire history.
-    const whatsNew = seenIndex === -1 ? this.changelog.slice(0, 1) : this.changelog.slice(0, seenIndex);
 
-    // The modal records `current` in localStorage as it opens, so this fires
-    // once per new version. Same component the footer's version button opens;
-    // the only difference is that this is handed just the new entries.
-    const modal = this.openModal<SiteVersionModalComponent>(SiteVersionModalComponent, { size: '3' });
-    modal.componentInstance.data = whatsNew;
+    this._whatsNew.set({ latest: this.changelog[0], hasEarlier: seenIndex > 1 });
+  }
+
+  /**
+   * Opens "What's new" once its own words are there. On the first visit after
+   * the release that brings them, the strings cached from the last visit lack
+   * them until the fresh ones arrive behind the page (TranslationService.init),
+   * and a note of raw keys is worse than a note a moment late. Should they
+   * never arrive - the release's migration not applied yet - there is no note,
+   * and the version stays unseen until there is one.
+   *
+   * The effect only notices the moment; the modal is made a microtask later,
+   * outside the effect's own run. It has to be: the note's constructor makes an
+   * effect of its own, and Angular refuses to create an effect inside another
+   * one's run (NG0602). By then the wait may have let the version be seen
+   * another way - the footer's version button, or the note in another tab -
+   * and a note on what was just read is only in the way.
+   */
+  private watchWhatsNew(): void {
+    effect(() => {
+      const note = this._whatsNew();
+      if (!note || !this._i18n.has('whatsNew.title')) {
+        return;
+      }
+      untracked(() => this._whatsNew.set(null));
+      queueMicrotask(() => {
+        if (this._storageService.read(StorageKeys.VERSION) === note.latest.version) {
+          return;
+        }
+        const modal = this.openModal<SiteWhatsNewModalComponent>(SiteWhatsNewModalComponent, { size: '3' });
+        modal.componentInstance.latest.set(note.latest);
+        modal.componentInstance.hasEarlier.set(note.hasEarlier);
+        modal.componentInstance.changelog.set(this.changelog);
+      });
+    });
   }
 
   initializeBackground(): void {
@@ -160,7 +200,7 @@ export class FooterComponent extends AbstractModalComponent {
     document.body.style.backgroundImage = `url("${savedBackground || defaultBackground}")`;
   }
 
-  preserveOrder = () => 0;
+  preserveOrder = (): number => 0;
 
   /**
    * Whether a menu link is safe to render as an anchor.
@@ -174,7 +214,7 @@ export class FooterComponent extends AbstractModalComponent {
     return !!url && /^https?:\/\//i.test(url.trim());
   }
 
-  onMenuItemClick(menuItem: ButtomMenuItem) {
+  onMenuItemClick(menuItem: ButtomMenuItem): void {
     if (!menuItem.modal) {
       return;
     }

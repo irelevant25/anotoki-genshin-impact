@@ -1,0 +1,139 @@
+// Lighter than the changelog on purpose - one version, so no cards, and no
+// "new" badges, because everything here is new. What ties the two together is
+// the version's purple and its stripe down the left, kept to the band along
+// the top.
+.whats-new-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-left: 3px solid var(--color-version);
+  border-radius: var(--border-radius-large);
+  // A wash of the version's own colour rather than a surface of its own:
+  // --color-version is already one shade per theme, so the band follows it.
+  background-color: color-mix(in srgb, var(--color-version) 10%, transparent);
+  font-size: var(--font-size-base);
+}
+
+.whats-new-mark {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-version);
+}
+
+// Against the far edge while there is room; under the number when there is not.
+.whats-new-date {
+  margin-left: auto;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.whats-new-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text-primary);
+}
+
+.whats-new-line {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+// The kind as a small disc in the palette's light pair for it - the same three
+// families the changelog colours its headings with, and pairs made to read in
+// either theme.
+.whats-new-kind {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  // One line high, so the disc sits level with the first line of a change
+  // that wraps.
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: var(--border-radius-pill);
+
+  .icon {
+    width: 0.8em;
+    height: 0.8em;
+  }
+}
+
+.kind-added .whats-new-kind {
+  background-color: var(--color-success-light);
+  color: var(--color-success-light-text);
+}
+
+.kind-updated .whats-new-kind {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-light-text);
+}
+
+.kind-fixed .whats-new-kind {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+}
+
+// Set apart from the list: it is about other versions, not this one.
+.whats-new-earlier {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-md) 0 0;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--border-color-subtle);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-base);
+  color: var(--text-secondary);
+
+  // Its usual size, in a box one line high: the mask centres it, so it sits
+  // level with the first line if the sentence wraps.
+  .icon {
+    flex: none;
+    width: 1.1em;
+    height: 1.5em;
+  }
+}
+
+// Read out but not drawn.
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.whats-new-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
+
+// On a phone the two buttons stack at full width rather than squeezing into a
+// row that a longer language would not fit. In reading order, which leaves
+// "Got it" at the bottom, nearest the thumb.
+@media (max-width: 576px) {
+  .whats-new-actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    // app-button draws its <button> in its own view, at its natural width.
+    ::ng-deep .btn {
+      width: 100%;
+    }
+  }
+}
